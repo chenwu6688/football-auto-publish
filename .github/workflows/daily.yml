@@ -67,18 +67,3 @@ jobs:
           path: output/
           retention-days: 7
 
-      - name: 发送失败通知
-        if: failure()
-        run: |
-          python -c "
-          import requests, os
-          t = os.environ.get('WXPUSHER_APPTOKEN','')
-          u = os.environ.get('WXPUSHER_UID','')
-          if t and u:
-              requests.post('https://wxpusher.zjiecode.com/api/send/message', json={
-                  'appToken': t, 'content': '足球自媒体 ❌\n\n今日发文流程失败，请检查 GitHub Actions 日志。',
-                  'contentType': 1, 'uids': [u]}, timeout=10)
-          "
-        env:
-          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
-          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
