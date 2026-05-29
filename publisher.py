@@ -12,7 +12,7 @@ Usage:
   python scripts/publisher.py 2026-05-26 --draft
 """
 
-import os, sys, time, json, re
+import os, sys, time, json, re, requests
 from pathlib import Path
 from urllib.parse import parse_qs, unquote
 from playwright.sync_api import sync_playwright
@@ -24,6 +24,24 @@ AUTH_FILE = Path(os.environ.get("TOUTIAO_AUTH_FILE", PROJECT_ROOT / "toutiao_aut
 # Toutiao URLs
 TOUTIAO_LOGIN = "https://mp.toutiao.com/auth/page/login/"
 TOUTIAO_PUBLISH = "https://mp.toutiao.com/profile_v4/graphic/publish"
+
+# WxPusher
+WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")
+WXPUSHER_UID = os.environ.get("WXPUSHER_UID", "")
+
+
+def send_wxpusher(title, content):
+    if not WXPUSHER_APPTOKEN or not WXPUSHER_UID:
+        return
+    try:
+        requests.post(
+            "https://wxpusher.zjiecode.com/api/send/message",
+            json={"appToken": WXPUSHER_APPTOKEN, "content": f"{title}\n\n{content}",
+                  "contentType": 1, "uids": [WXPUSHER_UID]},
+            timeout=10,
+        )
+    except Exception:
+        pass
 
 
 def login_and_save_auth():
@@ -874,6 +892,10 @@ def publish_all(date_str, draft_mode=False, headless=False):
     print(f"📰 加载 {len(articles)} 篇文章, headless={headless}")
     print(f"🚀 启动浏览器...")
 
+    publish_ok = 0
+    publish_fail = 0
+    publish_details = []
+
     with sync_playwright() as p:
         launch_args = []
         if headless:
@@ -909,6 +931,7 @@ def publish_all(date_str, draft_mode=False, headless=False):
             print(f"   当前URL: {page.url[:100]}")
             print("   运行: python scripts/publisher.py --login")
             browser.close()
+            send_wxpusher("足球自媒体 ⚠️", f"{date_str} 头条号登录已过期，发布中止")
             sys.exit(1)
 
         print(f"✅ 已登录头条号 (URL: {page.url[:80]})")
@@ -918,22 +941,39 @@ def publish_all(date_str, draft_mode=False, headless=False):
         for article in articles:
             try:
                 ok = publish_article(page, article, date_str, draft_mode)
+                title_short = article['title'][:35]
                 if ok:
-                    print(f"  ✅ [{article['index']}] {article['title'][:40]}")
+                    print(f"  ✅ [{article['index']}] {title_short}")
+                    publish_ok += 1
+                    publish_details.append(f"✅ {title_short}")
                 else:
-                    print(f"  ⚠️  [{article['index']}] 跳过: {article['title'][:40]}")
+                    print(f"  ⚠️  [{article['index']}] 跳过: {title_short}")
+                    publish_fail += 1
+                    publish_details.append(f"⚠️ {title_short}")
                 # Longer delay between articles to ensure clean state
                 print(f"  ⏳ 等待页面稳定...")
                 time.sleep(5)
             except Exception as e:
                 print(f"  ❌ 发布异常: {e}")
                 print(f"     跳过: {article['title'][:40]}")
+                publish_fail += 1
+                publish_details.append(f"❌ {article['title'][:35]}")
 
         browser.close()
 
+    summary = f"发布 {publish_ok}/{publish_ok + publish_fail} 篇\n" + "\n".join(publish_details)
+
     print(f"\n{'='*60}")
-    print(f"发布完成! 共处理 {len(articles)} 篇文章")
+    print(f"发布完成! {summary}")
     print(f"{'='*60}")
+
+    # Send WxPusher notification after publishing
+    if publish_fail == 0:
+        send_wxpusher("足球自媒体 ✅", f"{date_str} 发布完成\n\n{summary}")
+    elif publish_ok > 0:
+        send_wxpusher("足球自媒体 ⚠️", f"{date_str} 部分发布成功\n\n{summary}")
+    else:
+        send_wxpusher("足球自媒体 ❌", f"{date_str} 发布全部失败\n\n{summary}")
 
 
 if __name__ == "__main__":

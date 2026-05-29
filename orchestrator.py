@@ -996,15 +996,9 @@ def main():
         import traceback
         traceback.print_exc()
 
-    # Send WxPusher notification
-    if success and stats["valid"] == stats["generated"]:
-        send_wxpusher("足球自媒体 ✅", f"{date_str} 全部完成\n\n{result_msg}")
-    elif success and stats["valid"] < stats["generated"]:
-        send_wxpusher("足球自媒体 ⚠️", f"{date_str} 部分完成\n\n{result_msg}")
-    else:
-        send_wxpusher("足球自媒体 ❌", f"{date_str} 文章生成失败\n\n{result_msg}")
-
+    # Only send WxPusher on failure — success notification moved to publisher.py
     if not success:
+        send_wxpusher("足球自媒体 ❌", f"{date_str} 文章生成失败\n\n{result_msg}")
         sys.exit(1)
 
 
