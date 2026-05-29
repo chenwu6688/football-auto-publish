@@ -479,7 +479,7 @@ def select_topics(match_data, gzh_articles=None):
         {"role": "system", "content": "你是资深足球主编，严格按120分评分体系筛选。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=0.7, max_tokens=4096)
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
     topics = safe_json_loads(response)
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
@@ -517,7 +517,7 @@ def collect_real_gzh_topics(date_str):
         {"role": "system", "content": "你是足球主编。严格只基于提供的真实文章数据选题，绝不编造。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=0.6, max_tokens=4096)
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.6, max_tokens=4096)
     topics = safe_json_loads(response)
     print(f"   筛选出 {len(topics)} 个选题（全部来自真实爆款）:")
     for i, t in enumerate(topics):
