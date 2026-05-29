@@ -1,0 +1,74 @@
+# 足球自媒体内容自动化系统 - 主配置文件
+
+output:
+  base_dir: "./output"
+  date_format: "%Y-%m-%d"
+  article_prefix: "article"
+  image_dir: "images"
+
+llm:
+  topic_selector:
+    provider: "deepseek"
+    model: "deepseek-v4-pro"
+    temperature: 0.7
+    max_tokens: 4096
+  article_generator:
+    provider: "tongyi"
+    model: "qwen3-max"
+    temperature: 0.8
+    max_tokens: 8192
+
+data_sources:
+  match_api:
+    provider: "api-football-v1"
+    base_url: "https://api-football-v1.p.rapidapi.com/v3"
+    rate_limit: 100  # requests per day (free tier)
+    leagues:
+      - {id: 39, name: "英超"}
+      - {id: 140, name: "西甲"}
+      - {id: 135, name: "意甲"}
+      - {id: 78, name: "德甲"}
+      - {id: 61, name: "法甲"}
+      - {id: 2, name: "欧冠"}
+      # - {id: 3, name: "欧联"}  # excluded: free tier may not cover all competitions
+  football_data:
+    base_url: "https://api.football-data.org/v4"
+  news_sources:
+    - name: "懂球帝"
+      url: "https://www.dongqiudi.com"
+      type: "scraper"
+    - name: "直播吧"
+      url: "https://news.zhibo8.com"
+      type: "scraper"
+    - name: "虎扑足球"
+      url: "https://soccer.hupu.com"
+      type: "scraper"
+  trending:
+    - name: "微博热搜"
+      url: "https://weibo.com/ajax/side/hotSearch"
+      type: "api"
+
+images:
+  min_width: 800
+  min_height: 600
+  max_size_bytes: 5242880  # 5MB
+  min_size_bytes: 51200    # 50KB
+  preferred_orientation: "landscape"
+  max_per_article: 5       # download more, pick best 3
+  required_per_article: 3
+  sources:
+    - name: "unsplash"
+      priority: 1
+    - name: "bing"
+      priority: 2
+    - name: "duckduckgo"
+      priority: 3  # fallback
+
+schedule:
+  time: "07:00"
+  timezone: "Asia/Shanghai"
+  check_server_before: 5  # minutes before schedule
+
+flask:
+  host: "0.0.0.0"
+  port: 8899

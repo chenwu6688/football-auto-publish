@@ -1,0 +1,84 @@
+name: 足球自媒体每日发布
+
+on:
+  schedule:
+    # 北京时间每天 10:00 (UTC 2:00)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium --with-deps
+
+      - name: 解码头条号登录状态
+        run: |
+          if [ -n "$TOUTIAO_AUTH_B64" ]; then
+            echo "$TOUTIAO_AUTH_B64" | base64 -d > toutiao_auth.json
+            echo "头条号登录状态已恢复"
+          else
+            echo "⚠️ 未设置 TOUTIAO_AUTH_B64，将跳过发布步骤"
+          fi
+        env:
+          TOUTIAO_AUTH_B64: ${{ secrets.TOUTIAO_AUTH_B64 }}
+
+      - name: 生成文章
+        id: generate
+        run: python orchestrator.py
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+
+      - name: 发布到头条号
+        if: success()
+        run: |
+          if [ -f toutiao_auth.json ]; then
+            TODAY=$(date +%Y-%m-%d)
+            python publisher.py "$TODAY" --headless
+          else
+            echo "跳过发布：无头条号登录状态"
+          fi
+        env:
+          TOUTIAO_AUTH_FILE: toutiao_auth.json
+
+      - name: 上传文章存档
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: articles-${{ github.run_id }}
+          path: output/
+          retention-days: 7
+
+      - name: 发送失败通知
+        if: failure()
+        run: |
+          python -c "
+          import requests, os
+          t = os.environ.get('WXPUSHER_APPTOKEN','')
+          u = os.environ.get('WXPUSHER_UID','')
+          if t and u:
+              requests.post('https://wxpusher.zjiecode.com/api/send/message', json={
+                  'appToken': t, 'content': '足球自媒体 ❌\n\n今日发文流程失败，请检查 GitHub Actions 日志。',
+                  'contentType': 1, 'uids': [u]}, timeout=10)
+          "
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
