@@ -28,7 +28,7 @@ jobs:
       - name: 解码头条号登录状态
         run: |
           if [ -n "$TOUTIAO_AUTH_B64" ]; then
-            echo "$TOUTIAO_AUTH_B64" | base64 -d > toutiao_auth.json
+            echo "$TOUTIAO_AUTH_B64" | base64 -d | gunzip > toutiao_auth.json
             echo "头条号登录状态已恢复"
           else
             echo "⚠️ 未设置 TOUTIAO_AUTH_B64，将跳过发布步骤"
