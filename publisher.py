@@ -508,13 +508,22 @@ def publish_article(page, article, date_str, draft_mode=False):
     print(f"图片: {len(images)} 张")
     print(f"{'='*60}")
 
-    # Navigate to publish page
-    page.goto(TOUTIAO_PUBLISH, wait_until="domcontentloaded")
-    page.wait_for_timeout(5000)
+    # Navigate to publish page — use networkidle + reload for clean state
+    page.goto(TOUTIAO_PUBLISH, wait_until="networkidle")
+    page.wait_for_timeout(3000)
+    # Force reload to ensure clean editor state (avoids cached page issues)
+    page.reload(wait_until="networkidle")
+    page.wait_for_timeout(3000)
 
     # Close AI assistant drawer
     dismiss_overlays(page)
     page.wait_for_timeout(1000)
+
+    # Verify editor is actually ready before interacting
+    try:
+        page.locator('.ProseMirror').first.wait_for(state="visible", timeout=10000)
+    except Exception:
+        print(f"  ⚠️  ProseMirror 编辑器未就绪，尝试继续...")
 
     # === Fill Title (contenteditable div, not input) ===
     # Use execCommand('insertText') which triggers beforeinput events that
@@ -847,6 +856,10 @@ def publish_article(page, article, date_str, draft_mode=False):
                 page.unroute("**/article/publish**")
             except Exception:
                 pass
+            try:
+                page.remove_listener("response", on_publish_response)
+            except Exception:
+                pass
 
     return False
 
@@ -909,7 +922,9 @@ def publish_all(date_str, draft_mode=False, headless=False):
                     print(f"  ✅ [{article['index']}] {article['title'][:40]}")
                 else:
                     print(f"  ⚠️  [{article['index']}] 跳过: {article['title'][:40]}")
-                time.sleep(3)
+                # Longer delay between articles to ensure clean state
+                print(f"  ⏳ 等待页面稳定...")
+                time.sleep(5)
             except Exception as e:
                 print(f"  ❌ 发布异常: {e}")
                 print(f"     跳过: {article['title'][:40]}")
