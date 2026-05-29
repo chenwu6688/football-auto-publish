@@ -4,8 +4,7 @@
 Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
-import os, json, sys, subprocess, requests, time
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import os, json, sys, subprocess, requests, time, re
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
@@ -98,6 +97,14 @@ def safe_json_loads(text):
 COMPETITION_IDS = {
     "英超": 2021, "西甲": 2014, "意甲": 2019, "德甲": 2002, "法甲": 2015, "欧冠": 2001,
 }
+
+GZH_KEYWORD_GROUPS = [
+    "足球",
+    "英超,欧冠,转会",
+    "梅西,C罗,姆巴佩,哈兰德,内马尔,萨拉赫",
+    "足球,冲突,争议,红牌,绝杀,逆转",
+    "转会,签约,续约,离队,绯闻,花边,冲突,下课",
+]
 
 GZH_NOISE_PATTERNS = [
     "三角洲", "实况足球", "FIFA", "足球经理", "FM", "梦幻足球",
@@ -245,26 +252,62 @@ def get_previously_used_sources(current_date, lookback_days=3):
     return used
 
 
+def get_topic_history(current_date, lookback_days=7):
+    """Track previously covered topics — teams, players, keywords — to avoid repetition."""
+    history = {"titles": set(), "keywords": set(), "teams": set(), "players": set(), "content_types": []}
+    today = datetime.strptime(current_date, "%Y-%m-%d")
+    for i in range(1, lookback_days + 1):
+        dt = today - timedelta(days=i)
+        meta_path = OUTPUT_DIR / dt.strftime("%Y-%m-%d") / "metadata.json"
+        if not meta_path.exists():
+            continue
+        try:
+            meta = json.loads(meta_path.read_text())
+            for a in meta.get("articles", []):
+                title = a.get("title", "")
+                if title:
+                    history["titles"].add(title[:30])
+                for kw in a.get("keywords", []):
+                    history["keywords"].add(kw.lower())
+                for tag in a.get("tags", []):
+                    history["keywords"].add(tag.lower())
+                for team in WIKI_TEAMS:
+                    if team in title:
+                        history["teams"].add(team)
+                for player in WIKI_PLAYERS:
+                    if player in title:
+                        history["players"].add(player)
+                ct = a.get("content_type", "")
+                if ct:
+                    history["content_types"].append(ct)
+        except Exception:
+            pass
+    if history["titles"]:
+        print(f"   历史去重: 近{lookback_days}天 {len(history['titles'])} 篇, "
+              f"覆盖球队 {len(history['teams'])} 支, 球员 {len(history['players'])} 人")
+    return history
+
+
 def fetch_gzh_football_trends(date_str):
-    print(f"[1/5] 无比赛日，从公众号爆款库采集真实足球话题 ({date_str})...")
+    print(f"[数据] 从公众号爆款库采集足球话题 ({date_str})...")
     target_date = datetime.strptime(date_str, "%Y-%m-%d")
     start_date = (target_date - timedelta(days=7)).strftime("%Y-%m-%d")
-    keywords_list = ["足球", "英超,欧冠,转会,梅西,C罗"]
     all_raw = []
 
-    for kw in keywords_list:
+    for kw in GZH_KEYWORD_GROUPS:
         try:
+            safe_name = re.sub(r'[^a-zA-Z0-9_一-鿿]', '_', kw)[:30]
             cmd = [sys.executable, GZH_SCRIPT, "--keyword", kw, "--start-date", start_date,
-                   "--output-format", "json", "--output-file", f"/tmp/gzh_{kw.replace(',', '_')[:30]}.json"]
+                   "--output-format", "json", "--output-file", f"/tmp/gzh_{safe_name}.json"]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
             if result.returncode == 0:
-                output_file = f"/tmp/gzh_{kw.replace(',', '_')[:30]}.json"
+                output_file = f"/tmp/gzh_{safe_name}.json"
                 if os.path.exists(output_file):
                     for item in json.loads(Path(output_file).read_text()).get("items", []):
                         if _is_football_relevant(item):
                             all_raw.append(item)
         except Exception as e:
-            print(f"   搜索'{kw}'失败: {e}")
+            print(f"   搜索'{kw[:20]}'失败: {e}")
 
     if not all_raw:
         print("   公众号爆款库未找到足球相关文章")
@@ -444,7 +487,7 @@ def search_images(topic, count=5):
 # Topic Selection & Article Generation
 # ============================================================
 
-def select_topics(match_data, gzh_articles=None):
+def select_topics(match_data, gzh_articles=None, topic_history=None):
     print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
@@ -452,42 +495,58 @@ def select_topics(match_data, gzh_articles=None):
         for m in matches:
             hg, ag = m.get("home_score"), m.get("away_score")
             lines.append(f"  {m['home_team']} {hg}-{ag if hg is not None else 'vs'} {m['away_team']}")
-    for league, table in match_data.get("standings", {}).items():
-        lines.append(f"\n## {league} 积分榜前6:")
-        for row in table[:6]:
-            lines.append(f"  {row['position']}. {row['team']} {row['points']}分 (净胜球:{row['goal_diff']})")
 
     gzh_text = ""
     if gzh_articles:
         gzh_text = "\n## 当前公众号爆款文章（了解热点方向，不可照搬）\n"
-        for a in gzh_articles[:6]:
+        for a in gzh_articles[:8]:
             gzh_text += f"- [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]} — {a.get('accountName', '?')}\n"
 
-    prompt = f"""你是资深中文足球媒体主编。以下是 {match_data['date']} 的真实比赛结果和积分榜数据。请筛选3个最有爆款基因的话题。
+    history_text = ""
+    if topic_history and (topic_history.get("titles") or topic_history.get("teams") or topic_history.get("players")):
+        history_text = "\n## ⚠️ 过去7天已报道（必须避开，不可重复）\n"
+        if topic_history.get("titles"):
+            sampled = list(topic_history["titles"])[:6]
+            history_text += "已写标题: " + " | ".join(sampled) + "\n"
+        if topic_history.get("teams"):
+            history_text += "已覆盖球队: " + ", ".join(sorted(list(topic_history["teams"])[:10])) + "\n"
+        if topic_history.get("players"):
+            history_text += "已覆盖球员: " + ", ".join(sorted(list(topic_history["players"])[:10])) + "\n"
 
+    prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 3 个有爆款潜力的话题。
+
+比赛数据：
 {"".join(lines)}
 {gzh_text}
+{history_text}
 
-爆款评分体系（120分制，低于70分淘汰）：
-- 争议性（25分）、故事性（15分）、情绪共鸣（12分）、讨论价值（8分）、差异化（10分）
+硬性要求 — 3 个话题必须覆盖不同内容类型：
+1. 第1篇：比赛复盘型 — 从当日比赛中选最有话题性的一场
+2. 第2篇：转会八卦型/争议观点型 — 转会传闻、球员花边、冲突争议、场外话题
+3. 第3篇：人物故事型/趋势解读型 — 球员故事、战术趋势、数据洞察
+
+如果当日有绝杀、逆转、红牌、VAR争议、教练冲突等事件，优先选择。
+
+风格要求：像老球迷喝酒聊天一样自然，有明确立场和情绪，不骑墙、不套模板。
+避免：任何过去7天已报道过的球队/球员/话题。
 
 输出纯JSON数组：
-[{{"title": "标题(15-25字)", "formula": "A/B/C/D/E/F", "angle": "切入角度+明确观点立场", "keywords": ["soccer", "premier league"], "keywords_cn": ["中文关键词"], "content_type": "比赛复盘型/人物故事型/争议观点型/趋势解读型", "score": 95, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
+[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "比赛复盘型/转会八卦型/争议观点型/人物故事型/趋势解读型", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "why_pick": "为什么选这个角度(20字)"}}]
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是资深足球主编，严格按120分评分体系筛选。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度、有人味、不骑墙。严格按要求分配3种内容类型，避开历史话题。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
     topics = safe_json_loads(response)
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
-        print(f"   {i+1}. {t['title']} [{t.get('content_type', 'N/A')}] (评分:{t.get('score', 'N/A')})")
+        print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
     return topics
 
 
-def collect_real_gzh_topics(date_str):
+def collect_real_gzh_topics(date_str, topic_history=None):
     raw_articles = fetch_gzh_football_trends(date_str)
     if not raw_articles:
         print("   ERROR: 无真实数据源")
@@ -501,20 +560,32 @@ def collect_real_gzh_topics(date_str):
                        "data_score": a.get("dataScore", 0)}
                       for i, a in enumerate(raw_articles[:15])]
 
+    history_text = ""
+    if topic_history and (topic_history.get("titles") or topic_history.get("teams")):
+        history_text = "\n⚠️ 过去7天已报道（必须避开）:\n"
+        if topic_history.get("titles"):
+            history_text += "已写: " + " | ".join(list(topic_history["titles"])[:5]) + "\n"
+
     print("\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek)...")
-    prompt = f"""你是资深中文足球媒体主编。以下是公众号平台最近7天真实爆款足球文章数据。
+    prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近7天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
 
 真实爆款文章数据：
 {json.dumps(articles_text, ensure_ascii=False)}
+{history_text}
 
-请从这些真实爆款中选出3个最有二次创作价值的选题，套用爆款标题公式重新包装。
+硬性要求 — 3个选题必须覆盖不同内容类型：
+1. 第1篇：比赛复盘/赛后争议型
+2. 第2篇：转会八卦/球员花边/场外话题型
+3. 第3篇：人物故事/战术趋势/数据洞察型
+
+二次创作原则：借话题方向，不借标题和内容。用新角度、新观点、新表达重写。绝不可照搬原文标题或金句。
 
 输出纯JSON：
-[{{"title": "新标题(15-25字)", "source_article_ids": [引用文章id], "source_titles": ["原文标题"], "formula": "A/B/C/D/E/F", "angle": "切入角度+明确观点", "keywords": ["soccer", "football"], "keywords_cn": ["中文关键词"], "content_type": "比赛复盘型/人物故事型/争议观点型/趋势解读型/转会八卦型", "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
+[{{"title": "新标题(15-25字)", "source_article_ids": [引用文章id], "source_titles": ["原文标题"], "angle": "切入角度+新观点", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "比赛复盘型/转会八卦型/争议观点型/人物故事型/趋势解读型", "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是足球主编。严格只基于提供的真实文章数据选题，绝不编造。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按3种内容类型分配。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.6, max_tokens=4096)
@@ -522,7 +593,7 @@ def collect_real_gzh_topics(date_str):
     print(f"   筛选出 {len(topics)} 个选题（全部来自真实爆款）:")
     for i, t in enumerate(topics):
         srcs = t.get("source_titles", ["?"])
-        print(f"   {i+1}. {t['title']} [引用{len(srcs)}篇: {srcs[0][:30]}...]")
+        print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:45]} [引用: {srcs[0][:25]}...]")
 
     raw_map = {a.get("id"): a for a in articles_text}
     for t in topics:
@@ -534,48 +605,74 @@ def collect_real_gzh_topics(date_str):
 
 
 def generate_article(topic, match_context, index, gzh_articles=None):
-    print(f"\n[3.{index}] 生成文章: {topic['title'][:40]}...")
+    content_type = topic.get("content_type", "比赛复盘")
+    print(f"\n[3.{index}] [{content_type}] {topic['title'][:40]}...")
+
     fixtures = match_context.get("fixtures_by_league", {})
     standings = match_context.get("standings", {})
 
-    context_str = json.dumps({
-        "date": match_context["date"],
-        "matches": fixtures,
-        "standings": {k: v[:6] for k, v in standings.items()},
-    }, ensure_ascii=False)
+    # Only provide standings data for match analysis types
+    is_match_type = "比赛复盘" in content_type or "分析" in content_type
+    if is_match_type:
+        context_str = json.dumps({
+            "date": match_context["date"],
+            "matches": fixtures,
+            "standings": {k: v[:6] for k, v in standings.items()},
+        }, ensure_ascii=False)
+    else:
+        context_str = json.dumps({
+            "date": match_context["date"],
+            "matches": fixtures,
+        }, ensure_ascii=False)
 
     gzh_text = ""
     if gzh_articles:
-        gzh_text = "\n## 当前公众号爆款文章（跨源参考，不可改写）\n"
+        gzh_text = "\n## 当前公众号爆款文章（了解热点语境，不可照搬）\n"
         for a in gzh_articles[:6]:
-            gzh_text += f"- [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]} — {a.get('accountName', '?')}\n"
+            gzh_text += f"- [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]}\n"
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。创作一篇完全原创的足球爆款文章。
+    # Style guidance by content type
+    style_guide = {
+        "比赛复盘型": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
+        "转会八卦型": "像球迷群里的八卦消息：分析转会的「为什么」和「影响」，结合球队需求和球员处境。有趣味但不编造，有逻辑但不学术。",
+        "争议观点型": "像一个敢说真话的老球迷：开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。可以情绪化但不能无理取闹。",
+        "人物故事型": "像给朋友讲一个你佩服的球员：有细节、有情感、有画面感。不写流水账履历，聚焦一个侧面或瞬间。",
+        "趋势解读型": "像老球皮分析联赛走势：从现象中提炼规律，用一两组关键数据说话，但不过度堆数据。让读者看完有「原来如此」的感觉。",
+    }
+    style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。创作一篇完全原创的足球文章。
 
 今日话题：{topic['title']}
 切入角度：{topic['angle']}
-内容类型：{topic.get('content_type', '比赛分析')}
+内容类型：{content_type}
+目标情绪：{topic.get('target_emotion', '好奇')}
 
-真实比赛数据：{context_str[:4000]}
+真实数据（只能使用以下提供的，不可编造）：
+{context_str[:3000]}
 {gzh_text}
 
-真实性红线：
-✅ 比分、积分、球队名只能用提供的真实数据
-❌ 禁止编造"内部报告""内部调研""知情人士透露"等虚假信源
-❌ 禁止虚构任何比赛数据、球员数据
+写作要求：
+{style}
 
-文章结构：
-1. 开头钩子（A争议/B场景/C反常识，3选1）
-2. 事实铺陈 3. 老六观点展开 4. 高潮金句(≥2句，≤30字) 5. 互动引导
+结构：开篇钩子（制造悬念或情绪冲击）→ 2-3个小节展开 → 高潮观点/金句 → 收尾互动
 
-风格：口语化+专业深度，短句为主，有明确立场。禁用词：震惊、吓尿、哭惨、看傻了
+硬性规范：
+- 正文 800-1500 字
+- 必须包含 ≥3 个 ## 二级标题
+- 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
+- 真实性红线：只能使用提供的比赛数据和事实，禁止编造"内部消息""知情人士透露"
+- 如果内容类型是转会八卦/花边，必须注明基于已有公开报道的推测
+
+禁用词：震惊、吓尿、哭惨、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
+禁用模式：不要每段都以"老六认为"开头，不要像写论文一样列一二三四
 
 输出JSON:
-{{"title": "爆款标题(15-25字)", "content": "Markdown正文(1000-1800字，含##小标题，文末必须包含 ![配图1](images/article-{index}-img-001.jpg) 等3张配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "golden_lines": ["金句1", "金句2"], "hook_type": "A/B/C", "interaction_bait": "互动问题", "sources_used": ["来源文章标题"], "originality_note": "差异化说明(30字)"}}
+{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，10万粉丝。严格基于真实数据，不编造。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。风格：{style} 严格基于真实数据，不编造。用自然口语化中文写作，有态度有人味。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen3-max", messages, temperature=0.8, max_tokens=8192)
@@ -585,55 +682,131 @@ def generate_article(topic, match_context, index, gzh_articles=None):
 
 
 def generate_gossip_article(topic, index):
-    print(f"\n[3.{index}] 生成文章（跨源合成）: {topic['title'][:40]}...")
+    content_type = topic.get("content_type", "趋势解读")
+    print(f"\n[3.{index}] [跨源-{content_type}] {topic['title'][:40]}...")
+
     sources = topic.get("_source_articles", [])
     all_articles = topic.get("_all_articles", [])
-    standings = topic.get("_standings", {})
 
     sources_text = ""
     for i, s in enumerate(sources):
         sources_text += f"\n来源{i+1}：{s.get('title', '')[:60]}\n  账号：{s.get('account', '?')} | 阅读：{s.get('reads', '?')}\n"
 
-    bg_text = "".join(f"- [{a.get('reads', '?')}阅读] {a.get('title', '')[:60]} — {a.get('account', '?')}\n"
+    bg_text = "".join(f"- [{a.get('reads', '?')}阅读] {a.get('title', '')[:60]}\n"
                       for a in all_articles[:8])
 
-    standings_text = ""
-    if standings:
-        for league, table in list(standings.items())[:4]:
-            standings_text += f"\n{league} 积分榜前5:"
-            for row in table[:5]:
-                standings_text += f"\n  {row['position']}. {row['team']} {row['points']}分 (净胜球{row['goal_diff']})"
+    # Style guidance by content type
+    style_guide = {
+        "转会八卦型": "像球迷群里的八卦：分析转会为什么发生、对各方的影响。有趣的推测但不编造事实，有逻辑但不写学术论文。如有多个信源可交叉印证。",
+        "争议观点型": "像一个敢说真话的老球迷：开篇直接亮态度，有事实支撑。可以情绪化但不能无理取闹，可以从多角度呈现争议。",
+        "人物故事型": "像讲述一个你佩服（或不爽）的球员：聚焦一个侧面、一段经历、一个瞬间。有细节、有情感、有画面。不写流水账。",
+        "趋势解读型": "像老球皮分析足坛走向：从现象中提炼规律，用关键事实说话。让读者看完有「原来如此」的感觉。",
+    }
+    style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。创作一篇完全原创的足球爆款文章。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。基于真实爆款数据，二次创作一篇完全原创的足球文章。
 
-参考爆款文章（话题方向，不可改写）：
+话题方向（了解当前热点，不可照搬）：
 {sources_text}
 
-积分榜真实数据（事实锚点）：
-{standings_text if standings_text else "（无积分榜数据）"}
-
-同期其他热门话题（了解语境）：
+同期语境：
 {bg_text}
 
-创作约束：
-- 真实性红线：只使用提供的真实数据，不得虚构
-- 原创性：不可照抄参考文章的标题/段落/金句，必须有不同切入角度
-- 文章结构：开头钩子 → 事实铺陈 → 老六观点展开 → 高潮金句 → 互动引导
+内容类型：{content_type}
+切入角度：{topic.get('angle', '独特角度')}
 
-风格：口语化+专业深度，短句为主，有明确立场。
+二次创作约束：
+- 借话题方向，不借标题和内容。新角度、新观点、新表达。
+- 绝不可照搬参考文章的任何完整句子或金句
+- 只使用提供的公开事实，不可虚构"内部消息"
+
+写作风格：
+{style}
+
+硬性规范：
+- 正文 800-1500 字
+- 必须包含 ≥3 个 ## 二级标题
+- 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
+
+禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
+禁用模式：不要列一二三四，不要太强的论文感
 
 输出JSON:
-{{"title": "爆款标题(15-25字)", "content": "Markdown正文(800-1500字，含##小标题，文末必须包含 ![配图1](images/article-{index}-img-001.jpg) 等3张配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "golden_lines": ["金句1", "金句2"], "hook_type": "A/B/C", "interaction_bait": "互动问题", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文的说明(30字)"}}
+{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是'球评人老六'，头条号足球博主。绝不洗稿，跨源合成：多源事实+积分榜数据+自己观点=全新原创。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。跨源合成：多源事实+自己观点=全新原创，绝不洗稿。风格：{style} 用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen3-max", messages, temperature=0.8, max_tokens=8192)
     article = safe_json_loads(response)
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
+
+
+# ============================================================
+# Quality Validation & Retry
+# ============================================================
+
+def validate_article(article, index):
+    """Validate article quality. Returns (is_valid, issues_list)."""
+    issues = []
+    content = article.get("content", "")
+    title = article.get("title", "")
+
+    if not title or len(title) < 10:
+        issues.append(f"标题过短({len(title)}字,需≥10)")
+    elif len(title) > 32:
+        issues.append(f"标题过长({len(title)}字,需≤32)")
+
+    if not content or len(content) < 500:
+        issues.append(f"正文字数不足({len(content)}字,需≥500)")
+
+    h2_count = len(re.findall(r'^## ', content, re.MULTILINE))
+    if h2_count < 2:
+        issues.append(f"缺少小标题(仅{h2_count}个##,需≥2)")
+
+    img_count = len(re.findall(r'!\[.*?\]\(images/', content))
+    if img_count < 3:
+        issues.append(f"配图标记不足({img_count}个,需≥3)")
+
+    if content.strip() == "":
+        issues.append("正文为空")
+
+    return len(issues) == 0, issues
+
+
+def generate_article_with_retry(topic, match_context, index, gzh_articles=None, is_gossip=False, max_retries=2):
+    """Generate article with validation and automatic retry on failure."""
+    for attempt in range(max_retries + 1):
+        try:
+            if is_gossip:
+                art = generate_gossip_article(topic, index)
+            else:
+                art = generate_article(topic, match_context, index, gzh_articles)
+
+            is_valid, issues = validate_article(art, index)
+            if is_valid:
+                if attempt > 0:
+                    print(f"   ✅ 第{attempt+1}次尝试通过验证")
+                return art, None
+
+            print(f"   ⚠️  第{attempt+1}次验证失败: {'; '.join(issues)}")
+            if attempt < max_retries:
+                # Adjust temperature for variety on retry
+                print(f"   🔄 重试 (调整角度)...")
+            else:
+                return art, f"验证失败({max_retries+1}次): {'; '.join(issues)}"
+
+        except Exception as e:
+            print(f"   ❌ 第{attempt+1}次生成异常: {e}")
+            if attempt < max_retries:
+                print(f"   🔄 重试...")
+            else:
+                return {}, str(e)
+
+    return {}, "未知错误"
 
 
 # ============================================================
@@ -699,7 +872,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                        "slug": result["slug"], "tags": art.get("keywords", []),
                        "keywords": art.get("keywords", []), "images": result["image_paths"],
                        "sources_used": art.get("sources_used", []),
-                       "originality_note": art.get("originality_note", "")})
+                       "originality_note": art.get("originality_note", ""),
+                       "content_type": art.get("content_type", "")})
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
     if extra:
@@ -724,15 +898,19 @@ def main():
     start_time = time.time()
     success = False
     result_msg = ""
+    stats = {"generated": 0, "valid": 0, "failed": 0, "issues": []}
 
     try:
+        # Step 0: Load topic history for dedup
+        topic_history = get_topic_history(date_str)
+
         # Step 1: Collect match data
         match_data = collect_real_matches(date_str)
 
         if match_data["total_matches"] == 0:
-            # No matches — GZH gossip mode
+            # ============ GZH Gossip Mode (no matches) ============
             print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无比赛且无真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -743,56 +921,73 @@ def main():
             articles = []
             images_map = {}
 
-            def _worker_gossip(args):
-                i, topic = args
+            # Sequential generation with quality validation
+            for i, topic in enumerate(topics[:3]):
+                print(f"\n--- 第{i+1}/3篇 ---")
                 imgs = search_images(topic, count=5)
-                art = generate_gossip_article(topic, i + 1)
-                return i, imgs, art
+                images_map[i] = imgs
+                art, error = generate_article_with_retry(
+                    topic, match_data, i + 1, is_gossip=True, max_retries=2)
+                stats["generated"] += 1
+                if error:
+                    print(f"   ❌ 最终失败: {error}")
+                    stats["failed"] += 1
+                    stats["issues"].append(f"第{i+1}篇: {error}")
+                else:
+                    stats["valid"] += 1
+                articles.append((i, art))
 
-            with ThreadPoolExecutor(max_workers=3) as ex:
-                futures = [ex.submit(_worker_gossip, (i, t)) for i, t in enumerate(topics)]
-                for f in as_completed(futures):
-                    i, imgs, art = f.result()
-                    images_map[i] = imgs
-                    articles.append((i, art))
             articles = [a for _, a in sorted(articles, key=lambda x: x[0])]
-
             result = save_articles_local(date_str, articles, images_map, topics, match_data,
                                          extra={"type": "gzh_real_data"})
         else:
-            # Match mode
+            # ============ Match Mode ============
             print("\n   获取公众号爆款趋势作为跨源参考...")
             gzh_raw = fetch_gzh_football_trends(date_str)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context)
+            topics = select_topics(match_data, gzh_context, topic_history)
             articles = []
             images_map = {}
 
-            def _worker_match(args):
-                i, topic = args
+            # Sequential generation with quality validation
+            for i, topic in enumerate(topics[:3]):
+                print(f"\n--- 第{i+1}/3篇 [{topic.get('content_type', 'N/A')}] ---")
                 imgs = search_images(topic, count=5)
-                art = generate_article(topic, match_data, i + 1, gzh_context)
-                return i, imgs, art
+                images_map[i] = imgs
+                art, error = generate_article_with_retry(
+                    topic, match_data, i + 1, gzh_articles=gzh_context, max_retries=2)
+                stats["generated"] += 1
+                if error:
+                    print(f"   ❌ 最终失败: {error}")
+                    stats["failed"] += 1
+                    stats["issues"].append(f"第{i+1}篇({topic.get('content_type','?')}): {error}")
+                else:
+                    stats["valid"] += 1
+                articles.append((i, art))
 
-            with ThreadPoolExecutor(max_workers=3) as ex:
-                futures = [ex.submit(_worker_match, (i, t)) for i, t in enumerate(topics)]
-                for f in as_completed(futures):
-                    i, imgs, art = f.result()
-                    images_map[i] = imgs
-                    articles.append((i, art))
             articles = [a for _, a in sorted(articles, key=lambda x: x[0])]
-
             result = save_articles_local(date_str, articles, images_map, topics, match_data,
                                          extra={"type": "match_analysis"})
 
         elapsed = int(time.time() - start_time)
-        article_titles = [a.get("title", "?")[:40] for a in result.get("articles", [])]
-        result_msg = f"生成 {len(articles)} 篇文章 ({elapsed}s)\n" + "\n".join(f"- {t}" for t in article_titles)
-        print(f"\n[5/5] 完成! ({elapsed}s)")
+        article_titles = []
+        for a in result.get("articles", []):
+            ct = a.get("content_type", "")
+            title = a.get("title", "?")[:40]
+            article_titles.append(f"[{ct}] {title}")
+
+        result_msg = (
+            f"生成 {stats['valid']}/{stats['generated']} 篇 ({elapsed}s)\n"
+            + "\n".join(f"- {t}" for t in article_titles)
+        )
+        if stats["failed"] > 0:
+            result_msg += f"\n\n⚠️ 失败 {stats['failed']} 篇:\n" + "\n".join(f"- {i}" for i in stats["issues"])
+
+        print(f"\n完成! ({elapsed}s) | 成功 {stats['valid']}/{stats['generated']} 篇")
         print(f"   输出: {result.get('output_dir', 'N/A')}")
         for a in result.get("articles", []):
-            print(f"   - {a.get('title', 'N/A')[:50]} ({len(a.get('images', []))}张图片)")
+            print(f"   - [{a.get('content_type', 'N/A')}] {a.get('title', 'N/A')[:50]} ({len(a.get('images', []))}张图)")
         success = True
 
     except Exception as e:
@@ -802,8 +997,10 @@ def main():
         traceback.print_exc()
 
     # Send WxPusher notification
-    if success:
-        send_wxpusher("足球自媒体 ✅", f"{date_str} 文章生成完毕\n\n{result_msg}")
+    if success and stats["valid"] == stats["generated"]:
+        send_wxpusher("足球自媒体 ✅", f"{date_str} 全部完成\n\n{result_msg}")
+    elif success and stats["valid"] < stats["generated"]:
+        send_wxpusher("足球自媒体 ⚠️", f"{date_str} 部分完成\n\n{result_msg}")
     else:
         send_wxpusher("足球自媒体 ❌", f"{date_str} 文章生成失败\n\n{result_msg}")
 
