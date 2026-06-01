@@ -2,8 +2,8 @@ name: 足球自媒体每日发布
 
 on:
   schedule:
-    # 北京时间每天 10:00 (UTC 18:00 前一天，补偿调度延迟)
-    - cron: '0 18 * * *'
+    # 北京时间每天 11:40 (UTC 03:40)，约15分钟后12:00前发布完成
+    - cron: '40 3 * * *'
   workflow_dispatch:
     inputs:
       topic:
