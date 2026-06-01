@@ -396,12 +396,11 @@ def _find_editor_view_js(var_name="view"):
     """
 
 
-def fill_prosemirror(page, text_content, selector='.ProseMirror'):
+def fill_prosemirror(page, text_content, selector='.ProseMirror', max_retries=3):
     """Fill ProseMirror editor via direct EditorView transaction.
 
-    Finds the ProseMirror EditorView through React fiber walk, then uses
-    view.dispatch(tr) to replace the document content with properly
-    built ProseMirror nodes. This syncs internal state with the DOM.
+    Retries up to max_retries times because the EditorView may not be
+    fully initialized when the page first renders (SPA hydration delay).
     """
     # Split into paragraphs and escape HTML entities
     paragraphs = []
@@ -409,64 +408,69 @@ def fill_prosemirror(page, text_content, selector='.ProseMirror'):
         para = para.strip()
         if not para:
             continue
-        # HTML-escape the paragraph text
         para_escaped = para.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
         paragraphs.append(para_escaped)
 
     # Also build HTML for innerHTML fallback
     html = "".join(f"<p>{p}</p>" for p in paragraphs)
 
-    result = page.evaluate(
-        """
-        ([selector, html, paragraphs]) => {
-            const el = document.querySelector(selector);
-            if (!el) return {ok: false, error: 'editor not found'};
+    last_error = None
+    for attempt in range(max_retries):
+        if attempt > 0:
+            wait_ms = 2000 * attempt
+            print(f"     EditorView 未就绪，等待 {wait_ms}ms 重试 ({attempt+1}/{max_retries})...")
+            page.wait_for_timeout(wait_ms)
 
-            // Find EditorView via React fiber
+        result = page.evaluate(
             """
-        + _find_editor_view_js()
-        + """
-            if (!view) return {ok: false, error: 'EditorView not found'};
+            ([selector, html, paragraphs]) => {
+                const el = document.querySelector(selector);
+                if (!el) return {ok: false, error: 'editor not found'};
+                """
+            + _find_editor_view_js()
+            + """
+                if (!view) return {ok: false, error: 'EditorView not found'};
 
-            try {
-                const {state} = view;
-                const {schema} = state;
+                try {
+                    const {state} = view;
+                    const {schema} = state;
 
-                // Build paragraph nodes
-                const paraNodes = [];
-                for (const p of paragraphs) {
-                    if (p) {
-                        paraNodes.push(schema.nodes.paragraph.create(null, schema.text(p)));
+                    const paraNodes = [];
+                    for (const p of paragraphs) {
+                        if (p) {
+                            paraNodes.push(schema.nodes.paragraph.create(null, schema.text(p)));
+                        }
                     }
+                    if (paraNodes.length === 0) {
+                        paraNodes.push(schema.nodes.paragraph.create(null));
+                    }
+
+                    const docNode = schema.nodes.doc.create(null, paraNodes);
+                    const tr = state.tr.replaceWith(0, state.doc.content.size, docNode.content);
+                    view.dispatch(tr);
+
+                    return {
+                        ok: true,
+                        textLen: view.state.doc.textContent.length,
+                        innerHTML_len: el.innerHTML.length,
+                        hasPTags: el.querySelectorAll('p').length,
+                        pmSynced: true,
+                        pmDocSize: view.state.doc.content.size,
+                        pmTextLen: view.state.doc.textContent.length,
+                    };
+                } catch(e) {
+                    return {ok: false, error: 'dispatch failed: ' + e.message + ' stack: ' + (e.stack || '')};
                 }
-                if (paraNodes.length === 0) {
-                    paraNodes.push(schema.nodes.paragraph.create(null));
-                }
-
-                // Create doc node
-                const docNode = schema.nodes.doc.create(null, paraNodes);
-
-                // Replace entire document content
-                const tr = state.tr.replaceWith(0, state.doc.content.size, docNode.content);
-                view.dispatch(tr);
-
-                return {
-                    ok: true,
-                    textLen: view.state.doc.textContent.length,
-                    innerHTML_len: el.innerHTML.length,
-                    hasPTags: el.querySelectorAll('p').length,
-                    pmSynced: true,
-                    pmDocSize: view.state.doc.content.size,
-                    pmTextLen: view.state.doc.textContent.length,
-                };
-            } catch(e) {
-                return {ok: false, error: 'dispatch failed: ' + e.message + ' stack: ' + (e.stack || '')};
             }
-        }
-    """,
-        [selector, html, paragraphs],
-    )
-    return result
+        """,
+            [selector, html, paragraphs],
+        )
+
+        if result.get("ok") and result.get("textLen", 0) > 0:
+            return result
+        last_error = result.get("error", "unknown")
+
+    return {"ok": False, "error": f"after {max_retries} retries: {last_error}"}
 
 
 def fill_title(page, title, selector=".publish-editor-title textarea"):
@@ -528,21 +532,38 @@ def publish_article(page, article, date_str, draft_mode=False):
     print(f"图片: {len(images)} 张")
     print(f"{'='*60}")
 
-    # Navigate to publish page — use networkidle + reload for clean state
-    page.goto(TOUTIAO_PUBLISH, wait_until="networkidle")
-    page.wait_for_timeout(3000)
+    # Navigate to publish page — use domcontentloaded (networkidle can hang on SPA)
+    page.goto(TOUTIAO_PUBLISH, wait_until="domcontentloaded")
+    page.wait_for_timeout(5000)
     # Force reload to ensure clean editor state (avoids cached page issues)
-    page.reload(wait_until="networkidle")
-    page.wait_for_timeout(3000)
+    page.reload(wait_until="domcontentloaded")
+    page.wait_for_timeout(5000)
 
     # Close AI assistant drawer
     dismiss_overlays(page)
     page.wait_for_timeout(1000)
 
-    # Verify editor is actually ready before interacting
-    try:
-        page.locator('.ProseMirror').first.wait_for(state="visible", timeout=10000)
-    except Exception:
+    # Wait for editor to be fully ready (SPA hydration can be slow)
+    editor_ready = False
+    for attempt in range(5):
+        try:
+            pm = page.locator('.ProseMirror').first
+            if pm.is_visible(timeout=3000):
+                # Verify editor has contenteditable working (not just visible DOM)
+                has_content = page.evaluate("""() => {
+                    const pm = document.querySelector('.ProseMirror');
+                    if (!pm) return false;
+                    return pm.getAttribute('contenteditable') === 'true' || pm.textContent !== undefined;
+                }""")
+                if has_content:
+                    editor_ready = True
+                    break
+        except Exception:
+            pass
+        page.wait_for_timeout(2000)
+        print(f"  ⏳ 等待编辑器就绪 ({attempt+1}/5)...")
+
+    if not editor_ready:
         print(f"  ⚠️  ProseMirror 编辑器未就绪，尝试继续...")
 
     # === Fill Title (contenteditable div, not input) ===
