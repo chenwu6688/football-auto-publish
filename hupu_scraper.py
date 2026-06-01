@@ -169,6 +169,9 @@ class HupuScraper:
                 for img in main_el.find_all("img"):
                     src = img.get("src") or img.get("data-src") or ""
                     if src and any(domain in src for domain in ["hoopchina", "hupu"]):
+                        # Exclude default/placeholder images
+                        if any(skip in src for skip in ["def_man", "def_woman", "default", "avatar", "nopic"]):
+                            continue
                         result["images"].append(src)
 
             # Extract replies - they are in the HTML as text blocks

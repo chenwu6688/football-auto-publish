@@ -215,56 +215,111 @@ class ImageService:
         except Exception:
             return None
 
+    def download_and_crop_image(self, url: str, target_dir: Path, prefix: str, index: int,
+                                 crop_bottom_ratio: float = 0.10) -> Optional[dict]:
+        """Download an image and crop the bottom portion to remove watermarks.
+
+        Hupu images have a watermark at the bottom ~8-12%. This crops the
+        bottom portion then saves as JPEG. Returns same dict as download_image.
+        """
+        try:
+            resp = self.session.get(url, timeout=15, stream=True)
+            resp.raise_for_status()
+
+            content_length = int(resp.headers.get("content-length", 0))
+            if content_length > self.max_size or (0 < content_length < self.min_size):
+                return None
+
+            chunks = []
+            total = 0
+            for chunk in resp.iter_content(chunk_size=8192):
+                total += len(chunk)
+                if total > self.max_size:
+                    return None
+                chunks.append(chunk)
+
+            image_data = b"".join(chunks)
+            if len(image_data) < self.min_size:
+                return None
+
+            md5_hash = self._compute_hash(image_data)
+
+            try:
+                img = Image.open(io.BytesIO(image_data))
+                img.verify()
+                img = Image.open(io.BytesIO(image_data))
+            except (UnidentifiedImageError, Exception):
+                return None
+
+            width, height = img.size
+            if width < self.min_width or height < self.min_height:
+                return None
+
+            # Convert to RGB if needed
+            if img.mode in ("RGBA", "P", "LA"):
+                img = img.convert("RGB")
+
+            # Crop bottom portion to remove Hupu watermark
+            crop_px = max(int(height * crop_bottom_ratio), 25)
+            crop_bottom = height - crop_px
+            if crop_bottom > 0:
+                img = img.crop((0, 0, width, crop_bottom))
+
+            # Resize if too wide
+            new_width, new_height = img.size
+            if new_width > 1200:
+                ratio = 1200 / new_width
+                img = img.resize((1200, int(new_height * ratio)), Image.LANCZOS)
+
+            filename = f"{prefix}-{index:03d}.jpg"
+            filepath = target_dir / filename
+            img.save(filepath, "JPEG", quality=85)
+
+            phash = self._compute_phash(img)
+
+            return {
+                "local_path": str(filepath),
+                "filename": filename,
+                "url": url,
+                "md5": md5_hash,
+                "phash": phash,
+                "width": img.width,
+                "height": img.height,
+                "source": "hupu",
+                "description": "",
+            }
+
+        except Exception:
+            return None
+
     def download_article_images(self, query: str, article_index: int,
                                 date_str: str, base_dir: str = "/home/chenwu/每日自媒体文案") -> list:
-        """
-        为一篇文章下载并保存图片的完整流程
-
-        Args:
-            query: 搜索关键词
-            article_index: 文章序号
-            date_str: 日期字符串
-            base_dir: 基础输出目录
-
-        Returns:
-            [{local_path, filename, url, width, height}, ...] (最多3张)
-        """
+        """为一篇文章下载并保存图片的完整流程"""
         images_dir = Path(base_dir) / date_str / "images"
         images_dir.mkdir(parents=True, exist_ok=True)
 
         prefix = f"article-{article_index}-img"
 
-        # 1. 搜索图片
         search_results = self.search_images(query, count=self.max_per_article)
 
-        # 2. 下载并验证
         downloaded = []
         existing_hashes = set()
 
         for img_result in search_results:
             if len(downloaded) >= self.required:
                 break
-
             url = img_result.get("url", "")
             if not url:
                 continue
-
             result = self.download_image(
-                url=url,
-                target_dir=images_dir,
-                prefix=prefix,
-                index=len(downloaded) + 1,
-                existing_hashes=existing_hashes,
-            )
-
+                url=url, target_dir=images_dir, prefix=prefix,
+                index=len(downloaded) + 1, existing_hashes=existing_hashes)
             if result:
                 result["source"] = img_result.get("source", "unknown")
                 result["description"] = img_result.get("description", "")
                 result["author"] = img_result.get("author", "")
                 downloaded.append(result)
                 existing_hashes.add(result["md5"])
-
-            # 短暂延迟，避免频率过高
             time.sleep(0.5)
 
         return downloaded

@@ -278,6 +278,10 @@ def get_topic_history(current_date, lookback_days=7):
                 title = a.get("title", "")
                 if title:
                     history["titles"].add(title[:30])
+                # Also track Hupu source post titles for dedup
+                source_post = a.get("source_post", "")
+                if source_post:
+                    history["titles"].add(source_post[:50])
                 for kw in a.get("keywords", []):
                     history["keywords"].add(kw.lower())
                 for tag in a.get("tags", []):
@@ -1050,8 +1054,14 @@ def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=
 # Save Articles (Local, no Flask)
 # ============================================================
 
-def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None):
-    """Save articles directly to filesystem (no Flask dependency)."""
+def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
+                        pre_downloaded_images=None):
+    """Save articles directly to filesystem (no Flask dependency).
+
+    pre_downloaded_images: dict mapping article index (0-based in articles list)
+                           to list of already-downloaded image info dicts.
+                           When present, skips URL download for that article.
+    """
     print(f"\n[4/5] 保存文章...")
     image_service = ImageService(config={
         "images": {"min_width": 800, "min_height": 600, "max_size_bytes": 5242880,
@@ -1065,25 +1075,35 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
     saved = []
     all_hashes = set()
+    pre_downloaded = pre_downloaded_images or {}
 
     for i, art in enumerate(articles):
         idx = i + 1
         prefix = f"article-{idx}-img"
 
-        # Download images from URLs
-        img_urls = [img["url"] for img in images_map.get(i, [])[:5]]
         downloaded = []
-        for j, url in enumerate(img_urls):
-            if len(downloaded) >= 3:
-                break
-            if not url or not url.startswith("http"):
-                continue
-            result = image_service.download_image(url=url, target_dir=images_dir,
-                                                  prefix=prefix, index=len(downloaded)+1,
-                                                  existing_hashes=all_hashes)
-            if result:
-                all_hashes.add(result["md5"])
-                downloaded.append(result)
+        if i in pre_downloaded:
+            # Use pre-downloaded (already cropped) images
+            for img_info in pre_downloaded[i]:
+                if len(downloaded) >= 3:
+                    break
+                if img_info.get("md5"):
+                    all_hashes.add(img_info["md5"])
+                downloaded.append(img_info)
+        else:
+            # Download images from URLs
+            img_urls = [img["url"] for img in images_map.get(i, [])[:5]]
+            for j, url in enumerate(img_urls):
+                if len(downloaded) >= 3:
+                    break
+                if not url or not url.startswith("http"):
+                    continue
+                result = image_service.download_image(url=url, target_dir=images_dir,
+                                                      prefix=prefix, index=len(downloaded)+1,
+                                                      existing_hashes=all_hashes)
+                if result:
+                    all_hashes.add(result["md5"])
+                    downloaded.append(result)
 
         content = art.get("content", "")
         if "![配图" not in content and "![" not in content:
@@ -1109,6 +1129,7 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                        "slug": result["slug"], "tags": art.get("keywords", []),
                        "keywords": art.get("keywords", []), "images": result["image_paths"],
                        "sources_used": art.get("sources_used", []),
+                       "source_post": art.get("source_post", ""),
                        "originality_note": art.get("originality_note", ""),
                        "content_type": art.get("content_type", "")})
 
@@ -1243,23 +1264,81 @@ def main():
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
         # ============================================================
+        pre_downloaded = {}
         try:
             print("\n--- 虎扑球迷讨论数据源 ---")
             tieba_data = collect_tieba_data(date_str)
             if tieba_data and tieba_data.get("raw_posts"):
-                # Take top 3 hottest posts directly (already sorted by reply_num)
-                top3_posts = tieba_data["raw_posts"][:3]
+                # Dedup: skip posts previously used as Hupu article source
+                raw_posts = tieba_data["raw_posts"]
+                hupu_history_titles = topic_history.get("titles", set())
+                hupu_history_keywords = topic_history.get("keywords", set())
+                filtered_posts = []
+                for p in raw_posts:
+                    title = p.get("title", "")
+                    # Check if this post's title or core keywords overlap with history
+                    if any(len(ht) >= 8 and ht[:15] in title for ht in hupu_history_titles):
+                        print(f"   ⏭️  跳过(历史重复): {title[:40]}")
+                        continue
+                    filtered_posts.append(p)
+                if len(filtered_posts) < 3:
+                    print(f"   去重后仅剩 {len(filtered_posts)} 帖，保留原始排序补充")
+                    # Supplement from raw_posts while keeping the filtered ones
+                    existing_titles = {p['title'] for p in filtered_posts}
+                    for p in raw_posts:
+                        if len(filtered_posts) >= max(3, len(raw_posts[:10])):
+                            break
+                        if p['title'] not in existing_titles:
+                            filtered_posts.append(p)
+                            existing_titles.add(p['title'])
+
+                top3_posts = filtered_posts[:3]
                 extra_meta["hupu"] = True
                 extra_meta["hupu_posts"] = [
                     {"team": p["team"], "title": p["title"], "reply_num": p["reply_num"]}
                     for p in top3_posts
                 ]
 
+                # Pre-download & crop Hupu post images
+                hupu_images_dir = OUTPUT_DIR / date_str / "images"
+                hupu_images_dir.mkdir(parents=True, exist_ok=True)
+                img_service = ImageService(config={
+                    "images": {"min_width": 600, "min_height": 400, "max_size_bytes": 5242880,
+                               "min_size_bytes": 20480, "max_per_article": 5, "required_per_article": 2}})
+                pre_downloaded = {}
+
                 for ti, post in enumerate(top3_posts):
                     t_idx = len(articles) + ti + 1
                     print(f"\n--- 第{t_idx}/6篇 [虎扑热帖 #{ti+1}] {post['team']}: {post['title'][:40]} ({post['reply_num']}回复) ---")
-                    imgs = search_images({"title": post['title'], "keywords_cn": [post['team']]}, count=5)
-                    images_map[len(articles) + ti] = imgs
+
+                    # Attempt to download + crop images from the Hupu post
+                    post_images = post.get("images", [])
+                    hupu_imgs = []
+                    if post_images:
+                        print(f"   帖子含 {len(post_images)} 张图片，下载并裁剪水印...")
+                        for j, img_url in enumerate(post_images[:3]):
+                            result = img_service.download_and_crop_image(
+                                url=img_url, target_dir=hupu_images_dir,
+                                prefix=f"article-{t_idx}-img", index=j + 1)
+                            if result:
+                                hupu_imgs.append(result)
+                                print(f"   ✅ 图片{j+1}: {result['filename']} ({result['width']}x{result['height']})")
+                            else:
+                                print(f"   ⚠️  图片{j+1}下载/裁剪失败")
+                            time.sleep(0.5)
+
+                    if hupu_imgs:
+                        pre_downloaded[len(articles) + ti] = hupu_imgs
+                        # Still store something in images_map for compatibility
+                        images_map[len(articles) + ti] = [
+                            {"url": img["url"], "source": "hupu"} for img in hupu_imgs
+                        ]
+                    else:
+                        # Fallback to image search
+                        print(f"   无可用帖子图片，使用通用图片搜索")
+                        imgs = search_images({"title": post['title'], "keywords_cn": [post['team']]}, count=5)
+                        images_map[len(articles) + ti] = imgs
+
                     art, error = generate_article_with_retry(
                         {"title": post['title'], "team": post['team']},
                         match_data, t_idx,
@@ -1289,7 +1368,7 @@ def main():
 
         articles_sorted = [a for _, a in sorted(articles, key=lambda x: x[0])]
         result = save_articles_local(date_str, articles_sorted, images_map, topics, match_data,
-                                     extra=extra_meta)
+                                     extra=extra_meta, pre_downloaded_images=pre_downloaded)
 
         elapsed = int(time.time() - start_time)
         article_titles = []
