@@ -683,7 +683,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。风格：{style} 严格基于真实数据，不编造。用自然口语化中文写作，有态度有人味。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4", messages, temperature=temperature, max_tokens=8192)
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
@@ -755,7 +755,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。跨源合成：多源事实+自己观点=全新原创，绝不洗稿。风格：{style} 用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4", messages, temperature=temperature, max_tokens=8192)
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
