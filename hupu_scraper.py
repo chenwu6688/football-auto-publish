@@ -147,9 +147,9 @@ class HupuScraper:
         return posts
 
     def scrape_post_detail(self, thread_id: str) -> dict:
-        """Scrape main post content and top replies via HTTP."""
+        """Scrape main post content, top replies, and images via HTTP."""
         url = f"{self.BASE_URL}/{thread_id}.html"
-        result = {"thread_id": thread_id, "main_content": "", "replies": []}
+        result = {"thread_id": thread_id, "main_content": "", "replies": [], "images": []}
 
         try:
             html = self._http_get(url, referer=f"{self.BASE_URL}/manutd")
@@ -164,6 +164,12 @@ class HupuScraper:
                 # Remove metadata prefix (author, level, time, location)
                 parts = re.split(r"发布[在於].+?\s", raw, maxsplit=1)
                 result["main_content"] = parts[1][:500] if len(parts) > 1 else raw[:500]
+
+                # Extract images from main post
+                for img in main_el.find_all("img"):
+                    src = img.get("src") or img.get("data-src") or ""
+                    if src and any(domain in src for domain in ["hoopchina", "hupu"]):
+                        result["images"].append(src)
 
             # Extract replies - they are in the HTML as text blocks
             # Look for reply containers and extract user, content, likes

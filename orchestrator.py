@@ -689,28 +689,33 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 ⚠️ 上次生成失败！问题：{retry_hint}
 这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。创作一篇完全原创的足球文章。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实数据写一篇有观点的足球文章——不是编造，是用数据说话。
 
 今日话题：{topic['title']}
 切入角度：{topic['angle']}
 内容类型：{content_type}
 目标情绪：{topic.get('target_emotion', '好奇')}
 
-真实数据（只能使用以下提供的，不可编造）：
+你的素材（只能使用以下数据中的事实）：
 {context_str[:3000]}
 {gzh_text}
 {retry_block}
 
+写作规则：
+1. **事实来自素材**：文章中的数据、比分、排名、球队名称必须来自上面的数据。素材里没有的球员名字、比赛细节、转会金额，不要写。
+2. **观点来自你**：在事实基础上，你可以分析、质疑、对比、预测。但要区分"数据说X"和"老六认为Y"。
+3. **有多少写多少**：如果数据只够写500字，就写500字紧凑的内容，不要注水。
+
 写作要求：
 {style}
 
-结构：开篇钩子（制造悬念或情绪冲击）→ 2-3个小节展开 → 高潮观点/金句 → 收尾互动
+结构：开篇钩子（用数据中一个有意思的点切入）→ 2个小节展开分析 → 收尾观点+互动
 
 硬性规范：
 - 正文 500-800 字（硬性要求，紧凑有力，有多少事实写多少字，不要水字数）
 - 必须包含 ≥2 个 ## 二级标题
 - 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
-- 事实红线：只能使用上面提供的真实数据。有几分数据说几分话，不可编造比赛细节。如果数据不足以支撑深度分析，就聚焦已有数据能说清的点
+- 事实红线：素材里没有的数据/事件/引语，一律不写。有几分数据说几分话
 
 禁用词：震惊、吓尿、哭惨、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 禁用模式：不要每段都以"老六认为"开头，不要像写论文一样列一二三四
@@ -720,7 +725,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。风格：{style} 严格基于提供的真实数据写作，有几分数据说几分话，不编造。用自然口语化中文写作，有态度有人味。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。核心原则：事实来自素材，观点来自你。素材里没有的绝不编造。风格：{style} 用自然口语化中文写作，有态度有人味。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -760,23 +765,24 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 ⚠️ 上次生成失败！问题：{retry_hint}
 这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。基于真实爆款数据，二次创作一篇完全原创的足球文章。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务不是凭空创作，而是**基于真实热点文章转写改编**。
 
-话题方向（了解当前热点，不可照搬）：
+你的素材 — 公众号平台真实爆款文章（这些是真实存在的文章，写的是真实发生的事件）：
 {sources_text}
 
-同期语境：
+同期其他热点（了解语境）：
 {bg_text}
 
 内容类型：{content_type}
 切入角度：{topic.get('angle', '独特角度')}
 {retry_block}
 
-二次创作约束：
-- 借话题方向，不借标题和内容。新角度、新观点、新表达。
-- 绝不可照搬参考文章的任何完整句子或金句
-- 只使用提供的公开事实，不可虚构"内部消息"
-- 时效性红线：只能写最近1-2天发生的事件。如果素材中有旧闻，必须找到最新的关联角度切入，不可写成"回顾历史"类文章
+转写改编规则（非常重要）：
+1. **事实继承**：源文章里写了什么事件、什么数据，你才能写什么。源文章没提到的人物、比分、细节，一律不写。
+2. **角度变换**：用不同的切入角度和叙事顺序重新组织，但不能改事实。比如源文章写"A转会B队"，你可以从B队战术需求、A的职业生涯选择、转会费是否合理等不同角度切入。
+3. **语言重写**：用你自己的话、自己的节奏、自己的金句。绝不可照搬源文章的任何完整句子。
+4. **观点升级**：在源文章事实基础上，加上你作为老球迷的分析和态度。但分析要标注清楚是"推测"还是"事实"。
+5. **时效性**：只写最近1-2天的事件。如有旧闻，必须找最新关联角度。
 
 写作风格：
 {style}
@@ -795,7 +801,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。跨源合成：基于提供的来源摘要中的事实+自己观点=全新原创，绝不洗稿，不编造。风格：{style} 用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。你的工作是转写改编真实热点文章：用新角度新语言重新组织事实，加自己的分析态度。事实来自素材，观点来自你。绝不编造素材里没有的事实。风格：{style} 用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -968,70 +974,70 @@ def select_tieba_topics(tieba_data, topic_history=None):
     return topics
 
 
-def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_hint=""):
-    content_type = topic.get("content_type", "争议讨论")
-    print(f"\n[Hupu-{index}] [{content_type}] {topic['title'][:40]}...")
+def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=""):
+    """Generate article from a single real Hupu post + its replies. No fabrication."""
+    team = post_data.get("team", "")
+    post_title = post_data.get("title", "")
+    main_content = post_data.get("main_content", "")
+    replies = post_data.get("top_replies", [])
+    reply_num = post_data.get("reply_num", 0)
 
-    style_guide = {
-        "争议讨论型": "像虎扑老哥发帖一样：开篇就抛出争议点，直接亮明你的态度（站某一方），然后有理有据地掰扯。引用球迷讨论中的典型观点，然后给出你自己的见解。接地气，有人味，不做和事佬。",
-        "情绪共鸣型": "像在球场看台上和一个老朋友聊天：从球迷的真实情绪出发，讲述为什么大家会这样想/这样感受。有温度有细节，让读者觉得'对对对，就是这么回事'。引用几句球迷的原话，然后展开你的共鸣或不同视角。",
-        "深度洞察型": "像一个懂球的老球迷从虎扑讨论中发现了有趣的东西：你看到球迷们在讨论某个现象，你从中总结出规律或趋势。视角要比普通球迷高一点，但语言要保持接地气。用球迷讨论作为引子，展开你的分析。",
-    }
-    style = style_guide.get(content_type, style_guide["争议讨论型"])
+    print(f"\n[Hupu-{index}] {team}: {post_title[:40]} ({reply_num}回复)...")
 
-    posts_context = ""
-    for p in tieba_context.get("raw_posts", [])[:20]:
-        posts_context += f"\n【{p['team']}专区】{p['title']}（{p['reply_num']}回复）\n"
-        if p.get("main_content"):
-            posts_context += f"  主帖: {p['main_content'][:300]}\n"
-        for j, r in enumerate(p.get("top_replies", [])[:3]):
-            posts_context += f"  高赞回复{j+1}({r['agree_count']}赞): {r['content'][:200]}\n"
+    # Build the single-post context
+    context = f"【{team}专区】原帖标题：{post_title}\n"
+    context += f"回复数：{reply_num}\n\n"
+    if main_content:
+        context += f"原帖内容：\n{main_content[:500]}\n\n"
+
+    if replies:
+        context += "网友热门回复（按点赞数排序）：\n"
+        for j, r in enumerate(replies):
+            author = r.get("author", "匿名")
+            agree = r.get("agree_count", 0)
+            content = r.get("content", "")
+            context += f"\n--- 回复{j+1}：{author}（{agree}赞）---\n"
+            context += f"{content[:300]}\n"
+    else:
+        context += "（暂无高赞回复）\n"
 
     retry_block = ""
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
+这次必须修正。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的文章素材来自虎扑球迷的真实讨论。你需要综合这些讨论，写一篇完全原创的足球文章。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。下面是虎扑上一个真实帖子和网友回复。你的任务不是凭空创作，而是**基于这个帖子的内容进行二次创作**。
 
-今日话题：{topic['title']}
-切入角度：{topic['angle']}
-内容类型：{content_type}
+=== 真实帖子数据（唯一素材来源） ===
+{context[:6000]}
 
-虎扑球迷真实讨论（综合多个帖子）：
-{posts_context[:6000]}
+=== 二次创作规则（必须遵守） ===
+1. **事实来自帖子**：文章中出现的球迷观点、言论、情绪，必须能从上面找到出处。帖子里没说的，不要写。
+2. **引用真实回复**：直接引用网友回复中的原话（用引号标注），然后展开你的分析。这是文章的灵魂。
+3. **分析可以延伸**：在球迷讨论的基础上，你可以分析为什么会有这些观点、背后反映了什么。但要标注"老六分析""推测"等，和球迷原话区分开。
+4. **不编造不注水**：有多少素材写多少字。如果素材只够500字，就写500字干货。不要为了凑字数添加虚假细节。
+{retry_block}
 
-写作要求：
-{style}
-
-结构：
-- 开篇：直接抛出争议/情绪/发现（引用一句球迷讨论作为引子，但用自己的话说）
-  → 如果是争议型：开篇就站队，别骑墙
-  → 如果是情绪型：从具体的球迷感受切入，建立共鸣
-  → 如果是洞察型：从球迷讨论中的某个有意思的点展开
-- 中间2-3小节：展开你的分析/观点，每节融合球迷讨论中的典型声音
-- 高潮：最犀利的观点
-- 收尾：金句+互动
+结构建议：
+- 开篇：直接引用帖子里最精彩的1-2条回复作为引子，让读者感觉"这帖子真有意思"
+- 中间：围绕帖子主题和网友讨论，展开2-3层分析。每层都引用真实回复作为论据
+- 收尾：总结你的观点 + 抛出一个问题让读者参与讨论
 
 硬性规范：
-- 正文 500-800 字（硬性要求，紧凑有力，水字数视为不合格）
+- 正文 500-800 字
 - 必须包含 ≥2 个 ## 二级标题
-- 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
-- 真实性红线：引用球迷讨论必须忠于原意，不得编造球迷没说过的话
-- 50%以上的观点和引用必须来自上面提供的真实讨论数据
-- 原创性红线：综合多个帖子/回复的观点后用自己的话写，不可照搬原文
-- 风格红线：接地气，有人味，像真人在聊球。不用套话，不用模板
+- 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) ![配图2](images/article-{index}-img-002.jpg)
+- **事实底线**：每条球迷观点必须有出处，找不到出处的不要写
 
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
-禁用模式：不要列一二三四，不强用"首先其次最后"
 
 输出JSON:
-{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["引用的虎扑帖子标题"]}}
+{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(500-800字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。今天的风格：{style} 从虎扑球迷真实讨论出发，基于提供的讨论数据综合多源观点+自己的分析=全新原创。50%以上内容必须源自数据。用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度有人味。核心原则：素材即边界。文章所有球迷观点必须来自提供的帖子数据，分析可以延伸但需标注。不编造，不注水。用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -1235,22 +1241,29 @@ def main():
                 articles.append((i, art))
 
         # ============================================================
-        # Hupu Pipeline (articles 4-6, independent of main pipeline)
+        # Hupu Pipeline (articles 4-6, top 3 hottest posts)
         # ============================================================
         try:
             print("\n--- 虎扑球迷讨论数据源 ---")
             tieba_data = collect_tieba_data(date_str)
             if tieba_data and tieba_data.get("raw_posts"):
-                tieba_topics = select_tieba_topics(tieba_data, topic_history)
+                # Take top 3 hottest posts directly (already sorted by reply_num)
+                top3_posts = tieba_data["raw_posts"][:3]
+                extra_meta["hupu"] = True
+                extra_meta["hupu_posts"] = [
+                    {"team": p["team"], "title": p["title"], "reply_num": p["reply_num"]}
+                    for p in top3_posts
+                ]
 
-                for ti, t_topic in enumerate(tieba_topics[:3]):
+                for ti, post in enumerate(top3_posts):
                     t_idx = len(articles) + ti + 1
-                    print(f"\n--- 第{t_idx}/6篇 [Hupu-{t_topic.get('content_type', 'N/A')}] ---")
-                    imgs = search_images(t_topic, count=5)
+                    print(f"\n--- 第{t_idx}/6篇 [虎扑热帖 #{ti+1}] {post['team']}: {post['title'][:40]} ({post['reply_num']}回复) ---")
+                    imgs = search_images({"title": post['title'], "keywords_cn": [post['team']]}, count=5)
                     images_map[len(articles) + ti] = imgs
                     art, error = generate_article_with_retry(
-                        t_topic, match_data, t_idx,
-                        is_tieba=True, tieba_context=tieba_data, max_retries=2)
+                        {"title": post['title'], "team": post['team']},
+                        match_data, t_idx,
+                        is_tieba=True, tieba_context=post, max_retries=2)
                     stats["generated"] += 1
                     if error:
                         print(f"   ❌ 最终失败: {error}")
@@ -1259,9 +1272,7 @@ def main():
                     else:
                         stats["valid"] += 1
                     articles.append((len(articles), art))
-                    topics.append(t_topic)
-
-                extra_meta["hupu"] = True
+                    topics.append({"title": post['title'], "content_type": f"球迷讨论-{post['team']}"})
             else:
                 print("   虎扑无有效数据，跳过球迷讨论文章（不影响主文章）")
         except Exception as e:
