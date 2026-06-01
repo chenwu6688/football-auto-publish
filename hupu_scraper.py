@@ -88,8 +88,8 @@ class HupuScraper:
         posts = []
 
         try:
-            page.goto(url, wait_until="networkidle", timeout=30000)
-            page.wait_for_timeout(3000)
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(4000)
 
             if team_name == list(self.SUB_FORUMS.keys())[0]:
                 print(f"   [DEBUG] 页面标题: {page.title()} | URL: {page.url[:100]}")
@@ -154,8 +154,8 @@ class HupuScraper:
         result = {"thread_id": thread_id, "main_content": "", "replies": []}
 
         try:
-            page.goto(url, wait_until="networkidle", timeout=30000)
-            page.wait_for_timeout(3000)
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(4000)
 
             # Extract main post content
             try:
