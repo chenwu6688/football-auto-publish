@@ -301,7 +301,7 @@ def get_topic_history(current_date, lookback_days=7):
 def fetch_gzh_football_trends(date_str, keyword_groups=None):
     print(f"[数据] 从公众号爆款库采集足球话题 ({date_str})...")
     target_date = datetime.strptime(date_str, "%Y-%m-%d")
-    start_date = (target_date - timedelta(days=7)).strftime("%Y-%m-%d")
+    start_date = (target_date - timedelta(days=2)).strftime("%Y-%m-%d")
     all_raw = []
     kw_groups = keyword_groups if keyword_groups is not None else GZH_KEYWORD_GROUPS
 
@@ -571,8 +571,24 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
                        "summary": (a.get("summary", "") or "")[:120],
                        "account": a.get("accountName", "?"),
                        "reads": a.get("clicksCount", "?"), "likes": a.get("likeCount", 0),
-                       "data_score": a.get("dataScore", 0)}
+                       "data_score": a.get("dataScore", 0),
+                       "pub_time": (a.get("publicTime") or "")[:10]}
                       for i, a in enumerate(raw_articles[:15])]
+
+    # Sort by recency: prefer articles from last 24h, then by data score
+    today_str = date_str
+    yesterday_str = (datetime.strptime(date_str, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
+    for a in articles_text:
+        pt = a.get("pub_time", "")
+        if pt == today_str:
+            a["_recency_score"] = 100
+        elif pt == yesterday_str:
+            a["_recency_score"] = 80
+        elif pt and pt >= (datetime.strptime(date_str, "%Y-%m-%d") - timedelta(days=3)).strftime("%Y-%m-%d"):
+            a["_recency_score"] = 40
+        else:
+            a["_recency_score"] = 0
+    articles_text.sort(key=lambda x: (x["_recency_score"], x.get("data_score", 0)), reverse=True)
 
     history_text = ""
     if topic_history and (topic_history.get("titles") or topic_history.get("teams")):
@@ -592,11 +608,13 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
         system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按3种内容类型分配。只输出JSON。"
 
     print(f"\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek, mode={topic_preference})...")
-    prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近7天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
+    prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近2天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
 
-真实爆款文章数据：
+真实爆款文章数据（已按时效性+热度排序，pub_time为发布日期）：
 {json.dumps(articles_text, ensure_ascii=False)}
 {history_text}
+
+⚠️ 时效性硬性要求：只能选择 pub_time 为 {yesterday_str} 或 {today_str} 的话题。超过2天的旧闻一律不用。
 
 {type_requirement}
 
@@ -757,6 +775,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 - 借话题方向，不借标题和内容。新角度、新观点、新表达。
 - 绝不可照搬参考文章的任何完整句子或金句
 - 只使用提供的公开事实，不可虚构"内部消息"
+- 时效性红线：只能写最近1-2天发生的事件。如果素材中有旧闻，必须找到最新的关联角度切入，不可写成"回顾历史"类文章
 
 写作风格：
 {style}

@@ -841,6 +841,9 @@ def publish_article(page, article, date_str, draft_mode=False):
                     if publish_results:
                         break
 
+                # Extra wait for publish dialog to fully render
+                page.wait_for_timeout(2000)
+
                 # Record how many responses we already have (auto-saves from preview).
                 # Only NEW responses after clicking the confirmation button count as
                 # real publish results.
@@ -880,6 +883,16 @@ def publish_article(page, article, date_str, draft_mode=False):
                                     break
                             except Exception:
                                 continue
+                    except Exception:
+                        pass
+
+                # Last resort: try pressing Enter (some dialogs accept Enter as confirm)
+                if not confirmed:
+                    try:
+                        page.keyboard.press("Enter")
+                        page.wait_for_timeout(1500)
+                        print(f"  🔄 尝试 Enter 键确认...")
+                        confirmed = True  # Assume it worked, let poll determine
                     except Exception:
                         pass
 
