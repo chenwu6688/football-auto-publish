@@ -604,7 +604,7 @@ def collect_real_gzh_topics(date_str, topic_history=None):
     return topics, raw_articles
 
 
-def generate_article(topic, match_context, index, gzh_articles=None):
+def generate_article(topic, match_context, index, gzh_articles=None, temperature=0.8, retry_hint=""):
     content_type = topic.get("content_type", "比赛复盘")
     print(f"\n[3.{index}] [{content_type}] {topic['title'][:40]}...")
 
@@ -641,6 +641,13 @@ def generate_article(topic, match_context, index, gzh_articles=None):
     }
     style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
 
+    # Retry hint: inject failure feedback to force improvement
+    retry_block = ""
+    if retry_hint:
+        retry_block = f"""
+⚠️ 上次生成失败！问题：{retry_hint}
+这次必须修正上述所有问题。正文至少800字，至少3个##小标题，文末至少3个配图标记。"""
+
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。创作一篇完全原创的足球文章。
 
 今日话题：{topic['title']}
@@ -651,6 +658,7 @@ def generate_article(topic, match_context, index, gzh_articles=None):
 真实数据（只能使用以下提供的，不可编造）：
 {context_str[:3000]}
 {gzh_text}
+{retry_block}
 
 写作要求：
 {style}
@@ -658,7 +666,7 @@ def generate_article(topic, match_context, index, gzh_articles=None):
 结构：开篇钩子（制造悬念或情绪冲击）→ 2-3个小节展开 → 高潮观点/金句 → 收尾互动
 
 硬性规范：
-- 正文 800-1500 字
+- 正文 800-1500 字（这是硬性要求，不是建议！低于800字视为不合格）
 - 必须包含 ≥3 个 ## 二级标题
 - 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
 - 真实性红线：只能使用提供的比赛数据和事实，禁止编造"内部消息""知情人士透露"
@@ -675,13 +683,13 @@ def generate_article(topic, match_context, index, gzh_articles=None):
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。风格：{style} 严格基于真实数据，不编造。用自然口语化中文写作，有态度有人味。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen3-max", messages, temperature=0.8, max_tokens=8192)
+    response = call_llm(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen3-max", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
 
 
-def generate_gossip_article(topic, index):
+def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
     content_type = topic.get("content_type", "趋势解读")
     print(f"\n[3.{index}] [跨源-{content_type}] {topic['title'][:40]}...")
 
@@ -704,6 +712,13 @@ def generate_gossip_article(topic, index):
     }
     style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
 
+    # Retry hint: inject failure feedback
+    retry_block = ""
+    if retry_hint:
+        retry_block = f"""
+⚠️ 上次生成失败！问题：{retry_hint}
+这次必须修正上述所有问题。正文至少800字，至少3个##小标题，文末至少3个配图标记。"""
+
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。基于真实爆款数据，二次创作一篇完全原创的足球文章。
 
 话题方向（了解当前热点，不可照搬）：
@@ -714,6 +729,7 @@ def generate_gossip_article(topic, index):
 
 内容类型：{content_type}
 切入角度：{topic.get('angle', '独特角度')}
+{retry_block}
 
 二次创作约束：
 - 借话题方向，不借标题和内容。新角度、新观点、新表达。
@@ -724,7 +740,7 @@ def generate_gossip_article(topic, index):
 {style}
 
 硬性规范：
-- 正文 800-1500 字
+- 正文 800-1500 字（这是硬性要求，不是建议！低于800字视为不合格）
 - 必须包含 ≥3 个 ## 二级标题
 - 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
 
@@ -739,7 +755,7 @@ def generate_gossip_article(topic, index):
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。跨源合成：多源事实+自己观点=全新原创，绝不洗稿。风格：{style} 用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen3-max", messages, temperature=0.8, max_tokens=8192)
+    response = call_llm(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen3-max", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
@@ -778,13 +794,29 @@ def validate_article(article, index):
 
 
 def generate_article_with_retry(topic, match_context, index, gzh_articles=None, is_gossip=False, max_retries=2):
-    """Generate article with validation and automatic retry on failure."""
+    """Generate article with validation and automatic retry on failure.
+
+    On retry, progressively lowers temperature and strengthens the prompt
+    to force longer, more structured output. Also detects short raw responses
+    before JSON parsing to fail fast.
+    """
+    last_issues = ""
     for attempt in range(max_retries + 1):
+        temp = max(0.3, 0.8 - attempt * 0.2)  # 0.8 → 0.6 → 0.4
         try:
             if is_gossip:
-                art = generate_gossip_article(topic, index)
+                art = generate_gossip_article(topic, index, temperature=temp,
+                                              retry_hint=last_issues)
             else:
-                art = generate_article(topic, match_context, index, gzh_articles)
+                art = generate_article(topic, match_context, index, gzh_articles,
+                                       temperature=temp, retry_hint=last_issues)
+
+            # Check raw content sanity before full validation
+            content = art.get("content", "")
+            if len(content) < 200 and attempt < max_retries:
+                print(f"   ⚠️  正文过短({len(content)}字)，直接重试")
+                last_issues = f"上次正文仅{len(content)}字，远低于800字最低要求。请大幅扩展内容。"
+                continue
 
             is_valid, issues = validate_article(art, index)
             if is_valid:
@@ -793,9 +825,9 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None, 
                 return art, None
 
             print(f"   ⚠️  第{attempt+1}次验证失败: {'; '.join(issues)}")
+            last_issues = "; ".join(issues)
             if attempt < max_retries:
-                # Adjust temperature for variety on retry
-                print(f"   🔄 重试 (调整角度)...")
+                print(f"   🔄 重试 (temperature={temp}, 加强约束)...")
             else:
                 return art, f"验证失败({max_retries+1}次): {'; '.join(issues)}"
 

@@ -2,8 +2,8 @@ name: 足球自媒体每日发布
 
 on:
   schedule:
-    # 北京时间每天 10:00 (UTC 2:00)
-    - cron: '0 2 * * *'
+    # 北京时间每天 10:00 (UTC 18:00 前一天，补偿调度延迟)
+    - cron: '0 18 * * *'
   workflow_dispatch:
 
 jobs:
@@ -51,7 +51,7 @@ jobs:
         if: success()
         run: |
           if [ -f toutiao_auth.json ]; then
-            TODAY=$(date +%Y-%m-%d)
+            TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
             python publisher.py "$TODAY" --headless
           else
             echo "跳过发布：无头条号登录状态"

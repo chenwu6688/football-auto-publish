@@ -551,7 +551,8 @@ def publish_article(page, article, date_str, draft_mode=False):
         print(f"  ✅ 标题已填入 ({title_result['textLen']} 字)")
     else:
         print(f"  ❌ 无法填入标题: {title_result}")
-        return False
+        debug_dump_page(page, f"title_fail_{article['index']}")
+        return {"ok": False, "error": f"标题填入失败: {title_result}"}
 
     # === Fill Content (ProseMirror editor) ===
     pm_result = fill_prosemirror(page, text_body)
@@ -559,7 +560,8 @@ def publish_article(page, article, date_str, draft_mode=False):
         print(f"  ✅ 正文已填入 ({pm_result['textLen']} 字, {pm_result.get('hasPTags', 0)} 段)")
     else:
         print(f"  ❌ 无法填入正文: {pm_result}")
-        return False
+        debug_dump_page(page, f"content_fail_{article['index']}")
+        return {"ok": False, "error": f"正文填入失败: {pm_result}"}
 
     # === Upload Images via toolbar ===
     if images:
@@ -771,7 +773,7 @@ def publish_article(page, article, date_str, draft_mode=False):
         else:
             print(f"  ⚠️  自动保存状态不明，尝试直接发布...")
 
-        return True
+        return {"ok": True}
     else:
         print("\n  🚀 公开发布...")
 
@@ -852,20 +854,23 @@ def publish_article(page, article, date_str, draft_mode=False):
 
                 if not confirmed:
                     print(f"  ⚠️  未找到确认按钮")
-                    return False
+                    debug_dump_page(page, f"no_confirm_btn_{article['index']}")
+                    return {"ok": False, "error": "未找到发布确认按钮"}
 
                 # Poll for publish result (up to 30s)
                 for _ in range(30):
                     page.wait_for_timeout(1000)
                     if any(r["code"] == 0 for r in publish_results):
-                        return True
+                        return {"ok": True}
 
                 # Timed out — check if any request succeeded
                 success = any(r["code"] == 0 for r in publish_results)
                 if not success:
                     codes = [r["code"] for r in publish_results]
-                    print(f"  ❌ 发布未确认成功, 收到的响应码: {codes}")
-                return success
+                    msg = f"发布超时, 响应码: {codes}"
+                    print(f"  ❌ {msg}")
+                    return {"ok": False, "error": msg}
+                return {"ok": True}
 
         except Exception as e:
             print(f"  ❌ 发布失败: {e}")
@@ -879,7 +884,7 @@ def publish_article(page, article, date_str, draft_mode=False):
             except Exception:
                 pass
 
-    return False
+    return {"ok": False, "error": "发布流程异常终止"}
 
 
 def publish_all(date_str, draft_mode=False, headless=False):
@@ -940,16 +945,17 @@ def publish_all(date_str, draft_mode=False, headless=False):
 
         for article in articles:
             try:
-                ok = publish_article(page, article, date_str, draft_mode)
+                result = publish_article(page, article, date_str, draft_mode)
                 title_short = article['title'][:35]
-                if ok:
+                if result.get("ok"):
                     print(f"  ✅ [{article['index']}] {title_short}")
                     publish_ok += 1
                     publish_details.append(f"✅ {title_short}")
                 else:
-                    print(f"  ⚠️  [{article['index']}] 跳过: {title_short}")
+                    err = result.get("error", "未知错误")
+                    print(f"  ⚠️  [{article['index']}] 跳过: {title_short} — {err}")
                     publish_fail += 1
-                    publish_details.append(f"⚠️ {title_short}")
+                    publish_details.append(f"⚠️ {title_short}: {err}")
                 # Longer delay between articles to ensure clean state
                 print(f"  ⏳ 等待页面稳定...")
                 time.sleep(5)
@@ -957,7 +963,7 @@ def publish_all(date_str, draft_mode=False, headless=False):
                 print(f"  ❌ 发布异常: {e}")
                 print(f"     跳过: {article['title'][:40]}")
                 publish_fail += 1
-                publish_details.append(f"❌ {article['title'][:35]}")
+                publish_details.append(f"❌ {article['title'][:35]}: {e}")
 
         browser.close()
 
