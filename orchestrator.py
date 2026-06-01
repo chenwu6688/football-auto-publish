@@ -11,7 +11,7 @@ from collections import defaultdict
 
 from file_writer import FileWriter
 from image_service import ImageService
-from tieba_scraper import TiebaScraper
+from hupu_scraper import HupuScraper
 
 # --- Config ---
 PROJECT_ROOT = Path(__file__).parent
@@ -889,27 +889,27 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
 
 
 # ============================================================
-# Tieba Data Collection & Article Generation
+# Hupu Data Collection & Article Generation
 # ============================================================
 
 def collect_tieba_data(date_str):
-    print(f"\n[数据] 采集贴吧球迷讨论 ({date_str})...")
+    print(f"\n[数据] 采集虎扑球迷讨论 ({date_str})...")
     try:
-        scraper = TiebaScraper(headless=True)
+        scraper = HupuScraper(headless=True)
         data = scraper.collect_all(date_str)
         if data and data.get("raw_posts"):
             print(f"   采集到 {len(data['raw_posts'])} 条有效讨论帖")
             return data
         else:
-            print("   贴吧未采集到有效讨论数据")
+            print("   虎扑未采集到有效讨论数据")
             return None
     except Exception as e:
-        print(f"   贴吧采集异常: {e}")
+        print(f"   虎扑采集异常: {e}")
         return None
 
 
 def select_tieba_topics(tieba_data, topic_history=None):
-    print("\n[2.6] LLM 从贴吧讨论中筛选话题 (DeepSeek)...")
+    print("\n[2.6] LLM 从虎扑讨论中筛选话题 (DeepSeek)...")
 
     posts_text = []
     for p in tieba_data.get("raw_posts", [])[:20]:
@@ -927,9 +927,9 @@ def select_tieba_topics(tieba_data, topic_history=None):
         if topic_history.get("titles"):
             history_text += "已写: " + " | ".join(list(topic_history["titles"])[:5]) + "\n"
 
-    prompt = f"""你是头条号足球博主"球评人老六"。以下是百度贴吧8大足球球队吧最近2天的真实球迷讨论。请从中筛选3个最有二次创作价值的话题。
+    prompt = f"""你是头条号足球博主"球评人老六"。以下是虎扑8大足球球队专区最近2天的真实球迷讨论。请从中筛选3个最有二次创作价值的话题。
 
-贴吧热门讨论（按回复数排序）：
+虎扑热门讨论（按回复数排序）：
 {json.dumps(posts_text, ensure_ascii=False)}
 {history_text}
 
@@ -938,21 +938,21 @@ def select_tieba_topics(tieba_data, topic_history=None):
 2. 第2篇：情绪共鸣型 — 引发集体情感的话题（怀念、愤怒、感动、骄傲）
 3. 第3篇：深度洞察型 — 球迷讨论中出现了有价值的战术/管理/行业分析
 
-风格要求：标题和角度要"接地气，有人味"，就像是贴吧老哥在发帖。保留球迷语言的生动和直接。
+风格要求：标题和角度要"接地气，有人味"，就像是虎扑老哥在发帖。保留球迷语言的生动和直接。
 
 二次创作原则：借讨论方向，不借原文。综合多个帖子/回复的观点，加上你自己的分析和态度。绝不可照搬任何原帖句子。
 
 输出纯JSON数组：
-[{{"title": "标题(15-25字，有网感，像贴吧标题)", "angle": "切入角度+你的态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "争议讨论型/情绪共鸣型/深度洞察型", "controversy_level": "high/medium/low", "source_threads": ["引用的贴吧帖子标题"], "why_pick": "为什么选这个角度"}}]
+[{{"title": "标题(15-25字，有网感，像虎扑标题)", "angle": "切入角度+你的态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "争议讨论型/情绪共鸣型/深度洞察型", "controversy_level": "high/medium/low", "source_threads": ["引用的虎扑帖子标题"], "why_pick": "为什么选这个角度"}}]
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度有人味，能像贴吧老哥一样聊球。从球迷真实讨论中提炼话题，综合多源观点+自己态度=全新原创。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度有人味，能像虎扑老哥一样聊球。从球迷真实讨论中提炼话题，综合多源观点+自己态度=全新原创。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
     topics = safe_json_loads(response)
-    print(f"   筛选出 {len(topics)} 个贴吧话题:")
+    print(f"   筛选出 {len(topics)} 个虎扑话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
     return topics
@@ -960,18 +960,18 @@ def select_tieba_topics(tieba_data, topic_history=None):
 
 def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_hint=""):
     content_type = topic.get("content_type", "争议讨论")
-    print(f"\n[贴吧-{index}] [{content_type}] {topic['title'][:40]}...")
+    print(f"\n[Hupu-{index}] [{content_type}] {topic['title'][:40]}...")
 
     style_guide = {
-        "争议讨论型": "像贴吧老哥发帖一样：开篇就抛出争议点，直接亮明你的态度（站某一方），然后有理有据地掰扯。引用球迷讨论中的典型观点，然后给出你自己的见解。接地气，有人味，不做和事佬。",
+        "争议讨论型": "像虎扑老哥发帖一样：开篇就抛出争议点，直接亮明你的态度（站某一方），然后有理有据地掰扯。引用球迷讨论中的典型观点，然后给出你自己的见解。接地气，有人味，不做和事佬。",
         "情绪共鸣型": "像在球场看台上和一个老朋友聊天：从球迷的真实情绪出发，讲述为什么大家会这样想/这样感受。有温度有细节，让读者觉得'对对对，就是这么回事'。引用几句球迷的原话，然后展开你的共鸣或不同视角。",
-        "深度洞察型": "像一个懂球的老球迷从贴吧讨论中发现了有趣的东西：你看到球迷们在讨论某个现象，你从中总结出规律或趋势。视角要比普通球迷高一点，但语言要保持接地气。用球迷讨论作为引子，展开你的分析。",
+        "深度洞察型": "像一个懂球的老球迷从虎扑讨论中发现了有趣的东西：你看到球迷们在讨论某个现象，你从中总结出规律或趋势。视角要比普通球迷高一点，但语言要保持接地气。用球迷讨论作为引子，展开你的分析。",
     }
     style = style_guide.get(content_type, style_guide["争议讨论型"])
 
     posts_context = ""
     for p in tieba_context.get("raw_posts", [])[:15]:
-        posts_context += f"\n【{p['team']}吧】{p['title']}（{p['reply_num']}回复）\n"
+        posts_context += f"\n【{p['team']}专区】{p['title']}（{p['reply_num']}回复）\n"
         if p.get("main_content"):
             posts_context += f"  主帖: {p['main_content'][:150]}\n"
         for j, r in enumerate(p.get("top_replies", [])[:2]):
@@ -983,13 +983,13 @@ def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_h
 ⚠️ 上次生成失败！问题：{retry_hint}
 这次必须修正上述所有问题。正文至少800字，至少3个##小标题，文末至少3个配图标记。"""
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的文章素材来自百度贴吧球迷的真实讨论。你需要综合这些讨论，写一篇完全原创的足球文章。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的文章素材来自虎扑球迷的真实讨论。你需要综合这些讨论，写一篇完全原创的足球文章。
 
 今日话题：{topic['title']}
 切入角度：{topic['angle']}
 内容类型：{content_type}
 
-贴吧球迷真实讨论（综合多个帖子）：
+虎扑球迷真实讨论（综合多个帖子）：
 {posts_context[:3500]}
 
 写作要求：
@@ -1016,11 +1016,11 @@ def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_h
 禁用模式：不要列一二三四，不强用"首先其次最后"
 
 输出JSON:
-{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["引用的贴吧帖子标题"]}}
+{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["引用的虎扑帖子标题"]}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。今天的风格：{style} 从贴吧球迷真实讨论出发，综合多源观点+自己的分析=全新原创。用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。今天的风格：{style} 从虎扑球迷真实讨论出发，综合多源观点+自己的分析=全新原创。用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -1224,17 +1224,17 @@ def main():
                 articles.append((i, art))
 
         # ============================================================
-        # Tieba Pipeline (articles 4-6, independent of main pipeline)
+        # Hupu Pipeline (articles 4-6, independent of main pipeline)
         # ============================================================
         try:
-            print("\n--- 贴吧球迷讨论数据源 ---")
+            print("\n--- 虎扑球迷讨论数据源 ---")
             tieba_data = collect_tieba_data(date_str)
             if tieba_data and tieba_data.get("raw_posts"):
                 tieba_topics = select_tieba_topics(tieba_data, topic_history)
 
                 for ti, t_topic in enumerate(tieba_topics[:3]):
                     t_idx = len(articles) + ti + 1
-                    print(f"\n--- 第{t_idx}/6篇 [贴吧-{t_topic.get('content_type', 'N/A')}] ---")
+                    print(f"\n--- 第{t_idx}/6篇 [Hupu-{t_topic.get('content_type', 'N/A')}] ---")
                     imgs = search_images(t_topic, count=5)
                     images_map[len(articles) + ti] = imgs
                     art, error = generate_article_with_retry(
@@ -1244,17 +1244,17 @@ def main():
                     if error:
                         print(f"   ❌ 最终失败: {error}")
                         stats["failed"] += 1
-                        stats["issues"].append(f"第{t_idx}篇(贴吧): {error}")
+                        stats["issues"].append(f"第{t_idx}篇(虎扑): {error}")
                     else:
                         stats["valid"] += 1
                     articles.append((len(articles), art))
                     topics.append(t_topic)
 
-                extra_meta["tieba"] = True
+                extra_meta["hupu"] = True
             else:
-                print("   贴吧无有效数据，跳过贴吧文章（不影响主文章）")
+                print("   虎扑无有效数据，跳过球迷讨论文章（不影响主文章）")
         except Exception as e:
-            print(f"   ⚠️  贴吧数据采集/生成失败（不影响主文章）: {e}")
+            print(f"   ⚠️  虎扑数据采集/生成失败（不影响主文章）: {e}")
 
         # ============================================================
         # Save all articles
