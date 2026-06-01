@@ -81,11 +81,33 @@ class TiebaScraper:
 
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=20000)
-            page.wait_for_timeout(2000)
+            page.wait_for_timeout(3000)
 
-            # Extract post data from data-field attributes
+            # Debug: log page state on first sub-forum
+            if team_name == list(self.SUB_FORUMS.keys())[0]:
+                page_title = page.title()
+                page_url = page.url
+                print(f"   [DEBUG] 页面标题: {page_title} | URL: {page_url[:100]}")
+
+            # Try multiple selector strategies
             thread_items = page.locator("li.j_thread_list[data-field]")
             count = thread_items.count()
+
+            # Fallback: try alternative selectors
+            if count == 0:
+                thread_items = page.locator("li[data-field]")
+                count = thread_items.count()
+            if count == 0:
+                thread_items = page.locator("[data-field]")
+                count = thread_items.count()
+
+            # Debug on first sub-forum: dump some HTML if no items found
+            if count == 0 and team_name == list(self.SUB_FORUMS.keys())[0]:
+                try:
+                    body_html = page.locator("body").inner_html()
+                    print(f"   [DEBUG] Body HTML 前 800 字符: {body_html[:800]}")
+                except Exception:
+                    pass
 
             for i in range(min(count, 20)):
                 try:
@@ -95,10 +117,10 @@ class TiebaScraper:
                     if not data.get("id"):
                         continue
 
-                    title_el = el.locator(".j_th_tit, a.j_th_tit").first
+                    title_el = el.locator(".j_th_tit, a.j_th_tit, a[class*='tit']").first
                     title = ""
                     try:
-                        title = (title_el.get_attribute("title") or "").strip()
+                        title = (title_el.get_attribute("title") or title_el.text_content() or "").strip()
                     except Exception:
                         pass
 
