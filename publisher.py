@@ -131,8 +131,10 @@ def load_articles(date_str):
         print(f"❌ 文章目录不存在: {date_dir}")
         sys.exit(1)
 
+    all_md_files = sorted(date_dir.glob("article-*.md"))
+    print(f"在 {date_dir} 中找到 {len(all_md_files)} 个 article-*.md 文件: {[f.name for f in all_md_files]}")
     articles = []
-    for md_file in sorted(date_dir.glob("article-*.md")):
+    for md_file in all_md_files:
         content = md_file.read_text(encoding="utf-8")
         # Parse frontmatter
         meta = {}
@@ -839,9 +841,14 @@ def publish_article(page, article, date_str, draft_mode=False):
                     if publish_results:
                         break
 
+                # Record how many responses we already have (auto-saves from preview).
+                # Only NEW responses after clicking the confirmation button count as
+                # real publish results.
+                results_before_confirm = len(publish_results)
+
                 # Click confirmation button in the dialog
                 confirmed = False
-                for btn_text in ["发布", "确认发布", "确定"]:
+                for btn_text in ["发布", "确认发布", "确定", "确认并发布", "提交"]:
                     try:
                         btn = page.locator(f'button:has-text("{btn_text}")').last
                         if btn.is_visible(timeout=2000):
@@ -852,22 +859,55 @@ def publish_article(page, article, date_str, draft_mode=False):
                     except Exception:
                         continue
 
+                # Fallback: try clicking any button in the dialog footer
+                if not confirmed:
+                    try:
+                        # Try to find the dialog and click its primary button
+                        for selector in [
+                            '.byte-modal button.byte-btn-primary',
+                            '.byte-dialog button.byte-btn-primary',
+                            '[class*="modal"] button[class*="primary"]',
+                            '[class*="dialog"] button[class*="primary"]',
+                            '.publish-dialog button:last-child',
+                            'button:has-text("发布")',
+                        ]:
+                            try:
+                                btn = page.locator(selector).last
+                                if btn.is_visible(timeout=1000):
+                                    btn.click(force=True)
+                                    print(f"  ✅ 已通过选择器确认: {selector}")
+                                    confirmed = True
+                                    break
+                            except Exception:
+                                continue
+                    except Exception:
+                        pass
+
                 if not confirmed:
                     print(f"  ⚠️  未找到确认按钮")
                     debug_dump_page(page, f"no_confirm_btn_{article['index']}")
                     return {"ok": False, "error": "未找到发布确认按钮"}
 
-                # Poll for publish result (up to 30s)
+                # Poll for NEW publish result after confirmation (up to 30s).
+                # We only count responses that arrived AFTER the confirmation click,
+                # because the first response is always an auto-save from "预览并发布".
                 for _ in range(30):
                     page.wait_for_timeout(1000)
-                    if any(r["code"] == 0 for r in publish_results):
+                    new_results = publish_results[results_before_confirm:]
+                    if any(r["code"] == 0 for r in new_results):
                         return {"ok": True}
 
-                # Timed out — check if any request succeeded
-                success = any(r["code"] == 0 for r in publish_results)
+                # Timed out — check new results specifically
+                new_results = publish_results[results_before_confirm:]
+                if not new_results:
+                    msg = "发布超时: 确认点击后无响应"
+                    print(f"  ❌ {msg}")
+                    debug_dump_page(page, f"publish_timeout_{article['index']}")
+                    return {"ok": False, "error": msg}
+                success = any(r["code"] == 0 for r in new_results)
                 if not success:
-                    codes = [r["code"] for r in publish_results]
-                    msg = f"发布超时, 响应码: {codes}"
+                    codes = [(r["code"], r.get("message", "")[:30]) for r in new_results]
+                    msg = f"发布失败, 响应: {codes}"
                     print(f"  ❌ {msg}")
                     return {"ok": False, "error": msg}
                 return {"ok": True}

@@ -67,6 +67,8 @@ jobs:
           fi
         env:
           TOUTIAO_AUTH_FILE: toutiao_auth.json
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
 
       - name: 上传文章存档
         if: always()

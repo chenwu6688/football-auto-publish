@@ -1028,8 +1028,10 @@ def main():
         import traceback
         traceback.print_exc()
 
-    # Only send WxPusher on failure — success notification moved to publisher.py
-    if not success:
+    # Notify on generation result
+    if success and stats["valid"] > 0:
+        send_wxpusher("足球自媒体 📝", f"{date_str} 文章生成完成\n\n{result_msg}")
+    elif not success or stats["valid"] == 0:
         send_wxpusher("足球自媒体 ❌", f"{date_str} 文章生成失败\n\n{result_msg}")
         sys.exit(1)
 
