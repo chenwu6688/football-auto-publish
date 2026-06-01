@@ -687,7 +687,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正上述所有问题。正文至少800字，至少3个##小标题，文末至少3个配图标记。"""
+这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。创作一篇完全原创的足球文章。
 
@@ -707,21 +707,20 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 结构：开篇钩子（制造悬念或情绪冲击）→ 2-3个小节展开 → 高潮观点/金句 → 收尾互动
 
 硬性规范：
-- 正文 800-1500 字（这是硬性要求，不是建议！低于800字视为不合格）
-- 必须包含 ≥3 个 ## 二级标题
-- 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
-- 真实性红线：只能使用提供的比赛数据和事实，禁止编造"内部消息""知情人士透露"
-- 如果内容类型是转会八卦/花边，必须注明基于已有公开报道的推测
+- 正文 500-800 字（硬性要求，紧凑有力，有多少事实写多少字，不要水字数）
+- 必须包含 ≥2 个 ## 二级标题
+- 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
+- 事实红线：只能使用上面提供的真实数据。有几分数据说几分话，不可编造比赛细节。如果数据不足以支撑深度分析，就聚焦已有数据能说清的点
 
 禁用词：震惊、吓尿、哭惨、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 禁用模式：不要每段都以"老六认为"开头，不要像写论文一样列一二三四
 
 输出JSON:
-{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。风格：{style} 严格基于真实数据，不编造。用自然口语化中文写作，有态度有人味。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。风格：{style} 严格基于提供的真实数据写作，有几分数据说几分话，不编造。用自然口语化中文写作，有态度有人味。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -739,9 +738,10 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 
     sources_text = ""
     for i, s in enumerate(sources):
-        sources_text += f"\n来源{i+1}：{s.get('title', '')[:60]}\n  账号：{s.get('account', '?')} | 阅读：{s.get('reads', '?')}\n"
+        summary = (s.get("summary", "") or "")[:150]
+        sources_text += f"\n来源{i+1}：{s.get('title', '')[:80]}\n  账号：{s.get('account', '?')} | 阅读：{s.get('reads', '?')}\n  摘要：{summary}\n"
 
-    bg_text = "".join(f"- [{a.get('reads', '?')}阅读] {a.get('title', '')[:60]}\n"
+    bg_text = "".join(f"- [{a.get('reads', '?')}阅读] {a.get('title', '')[:80]} | {a.get('account', '?')}\n"
                       for a in all_articles[:8])
 
     # Style guidance by content type
@@ -758,7 +758,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正上述所有问题。正文至少800字，至少3个##小标题，文末至少3个配图标记。"""
+这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。基于真实爆款数据，二次创作一篇完全原创的足球文章。
 
@@ -782,19 +782,20 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 {style}
 
 硬性规范：
-- 正文 800-1500 字（这是硬性要求，不是建议！低于800字视为不合格）
-- 必须包含 ≥3 个 ## 二级标题
-- 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
+- 正文 500-800 字（硬性要求，紧凑有力，不要水字数）
+- 必须包含 ≥2 个 ## 二级标题
+- 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
+- 事实红线：文章主体必须基于上面提供的来源摘要，有几分事实说几分话，不可凭空编造细节
 
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 禁用模式：不要列一二三四，不要太强的论文感
 
 输出JSON:
-{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
+{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。跨源合成：多源事实+自己观点=全新原创，绝不洗稿。风格：{style} 用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。跨源合成：基于提供的来源摘要中的事实+自己观点=全新原创，绝不洗稿，不编造。风格：{style} 用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -826,8 +827,8 @@ def validate_article(article, index):
         issues.append(f"缺少小标题(仅{h2_count}个##,需≥2)")
 
     img_count = len(re.findall(r'!\[.*?\]\(images/', content))
-    if img_count < 3:
-        issues.append(f"配图标记不足({img_count}个,需≥3)")
+    if img_count < 2:
+        issues.append(f"配图标记不足({img_count}个,需≥2)")
 
     if content.strip() == "":
         issues.append("正文为空")
@@ -862,7 +863,7 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
             content = art.get("content", "")
             if len(content) < 200 and attempt < max_retries:
                 print(f"   ⚠️  正文过短({len(content)}字)，直接重试")
-                last_issues = f"上次正文仅{len(content)}字，远低于800字最低要求。请大幅扩展内容。"
+                last_issues = f"上次正文仅{len(content)}字，远低于500字最低要求。请基于提供的事实数据充实内容。"
                 continue
 
             is_valid, issues = validate_article(art, index)
@@ -979,18 +980,18 @@ def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_h
     style = style_guide.get(content_type, style_guide["争议讨论型"])
 
     posts_context = ""
-    for p in tieba_context.get("raw_posts", [])[:15]:
+    for p in tieba_context.get("raw_posts", [])[:20]:
         posts_context += f"\n【{p['team']}专区】{p['title']}（{p['reply_num']}回复）\n"
         if p.get("main_content"):
-            posts_context += f"  主帖: {p['main_content'][:150]}\n"
-        for j, r in enumerate(p.get("top_replies", [])[:2]):
-            posts_context += f"  高赞回复{j+1}({r['agree_count']}赞): {r['content'][:120]}\n"
+            posts_context += f"  主帖: {p['main_content'][:300]}\n"
+        for j, r in enumerate(p.get("top_replies", [])[:3]):
+            posts_context += f"  高赞回复{j+1}({r['agree_count']}赞): {r['content'][:200]}\n"
 
     retry_block = ""
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正上述所有问题。正文至少800字，至少3个##小标题，文末至少3个配图标记。"""
+这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的文章素材来自虎扑球迷的真实讨论。你需要综合这些讨论，写一篇完全原创的足球文章。
 
@@ -999,7 +1000,7 @@ def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_h
 内容类型：{content_type}
 
 虎扑球迷真实讨论（综合多个帖子）：
-{posts_context[:3500]}
+{posts_context[:6000]}
 
 写作要求：
 {style}
@@ -1014,10 +1015,11 @@ def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_h
 - 收尾：金句+互动
 
 硬性规范：
-- 正文 800-1500 字（硬性要求，低于800字视为不合格）
-- 必须包含 ≥3 个 ## 二级标题
-- 文末必须包含3张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
-- 真实性红线：不得编造球迷没说过的话，引用讨论要忠于原意
+- 正文 500-800 字（硬性要求，紧凑有力，水字数视为不合格）
+- 必须包含 ≥2 个 ## 二级标题
+- 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
+- 真实性红线：引用球迷讨论必须忠于原意，不得编造球迷没说过的话
+- 50%以上的观点和引用必须来自上面提供的真实讨论数据
 - 原创性红线：综合多个帖子/回复的观点后用自己的话写，不可照搬原文
 - 风格红线：接地气，有人味，像真人在聊球。不用套话，不用模板
 
@@ -1025,11 +1027,11 @@ def generate_tieba_article(topic, index, tieba_context, temperature=0.8, retry_h
 禁用模式：不要列一二三四，不强用"首先其次最后"
 
 输出JSON:
-{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(800-1500字，含≥3个##小标题，文末含3个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["引用的虎扑帖子标题"]}}
+{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["引用的虎扑帖子标题"]}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。今天的风格：{style} 从虎扑球迷真实讨论出发，综合多源观点+自己的分析=全新原创。用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。今天的风格：{style} 从虎扑球迷真实讨论出发，基于提供的讨论数据综合多源观点+自己的分析=全新原创。50%以上内容必须源自数据。用自然口语化中文写作。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
