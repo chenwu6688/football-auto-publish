@@ -4,7 +4,7 @@
 Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
-import os, json, sys, subprocess, requests, time, re
+import os, json, sys, subprocess, requests, time, re, signal
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
@@ -893,18 +893,27 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
 # ============================================================
 
 def collect_tieba_data(date_str):
-    print(f"\n[数据] 采集虎扑球迷讨论 ({date_str})...")
+    print(f"\n[数据] 采集虎扑球迷讨论 ({date_str})...", flush=True)
     try:
         scraper = HupuScraper(headless=True)
-        data = scraper.collect_all(date_str)
+        # Set 5-minute timeout via signal to prevent CI hang
+        signal.signal(signal.SIGALRM, lambda s, f: (_ for _ in ()).throw(TimeoutError("Hupu scraping timed out after 5min")))
+        signal.alarm(300)
+        try:
+            data = scraper.collect_all(date_str)
+        finally:
+            signal.alarm(0)
         if data and data.get("raw_posts"):
-            print(f"   采集到 {len(data['raw_posts'])} 条有效讨论帖")
+            print(f"   采集到 {len(data['raw_posts'])} 条有效讨论帖", flush=True)
             return data
         else:
-            print("   虎扑未采集到有效讨论数据")
+            print("   虎扑未采集到有效讨论数据", flush=True)
             return None
+    except TimeoutError as e:
+        print(f"   虎扑采集超时: {e}", flush=True)
+        return None
     except Exception as e:
-        print(f"   虎扑采集异常: {e}")
+        print(f"   虎扑采集异常: {e}", flush=True)
         return None
 
 
