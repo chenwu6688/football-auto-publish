@@ -19,6 +19,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: 'pip'
+
+      - name: 缓存 Playwright 浏览器
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
       - name: 安装依赖
         run: |
@@ -66,4 +75,3 @@ jobs:
           name: articles-${{ github.run_id }}
           path: output/
           retention-days: 7
-
