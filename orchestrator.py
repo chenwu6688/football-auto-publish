@@ -106,6 +106,16 @@ GZH_KEYWORD_GROUPS = [
     "转会,签约,续约,离队,绯闻,花边,冲突,下课",
 ]
 
+# Transfer/Gossip-focused keywords — used when user wants only transfer/rumor content
+GZH_TRANSFER_KEYWORDS = [
+    "足球转会,重磅签约,天价转会",
+    "梅西,C罗,姆巴佩,哈兰德,内马尔,转会绯闻",
+    "足球,下课,换帅,新任主帅",
+    "续约,离队,解约金,免签",
+    "球员花边,场外新闻,女友,冲突",
+    "足球八卦,转会流言,传闻",
+]
+
 GZH_NOISE_PATTERNS = [
     "三角洲", "实况足球", "FIFA", "足球经理", "FM", "梦幻足球",
     "乒乓球", "樊振东", "孙颖莎", "王楚钦", "马龙", "国乒",
@@ -288,13 +298,14 @@ def get_topic_history(current_date, lookback_days=7):
     return history
 
 
-def fetch_gzh_football_trends(date_str):
+def fetch_gzh_football_trends(date_str, keyword_groups=None):
     print(f"[数据] 从公众号爆款库采集足球话题 ({date_str})...")
     target_date = datetime.strptime(date_str, "%Y-%m-%d")
     start_date = (target_date - timedelta(days=7)).strftime("%Y-%m-%d")
     all_raw = []
+    kw_groups = keyword_groups if keyword_groups is not None else GZH_KEYWORD_GROUPS
 
-    for kw in GZH_KEYWORD_GROUPS:
+    for kw in kw_groups:
         try:
             safe_name = re.sub(r'[^a-zA-Z0-9_一-鿿]', '_', kw)[:30]
             cmd = [sys.executable, GZH_SCRIPT, "--keyword", kw, "--start-date", start_date,
@@ -546,8 +557,11 @@ def select_topics(match_data, gzh_articles=None, topic_history=None):
     return topics
 
 
-def collect_real_gzh_topics(date_str, topic_history=None):
-    raw_articles = fetch_gzh_football_trends(date_str)
+def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto"):
+    raw_articles = fetch_gzh_football_trends(
+        date_str,
+        keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None
+    )
     if not raw_articles:
         print("   ERROR: 无真实数据源")
         return [], []
@@ -566,26 +580,34 @@ def collect_real_gzh_topics(date_str, topic_history=None):
         if topic_history.get("titles"):
             history_text += "已写: " + " | ".join(list(topic_history["titles"])[:5]) + "\n"
 
-    print("\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek)...")
+    # Build prompt based on preference
+    if topic_preference == "transfer":
+        type_requirement = "3个选题必须全部是转会/签约/续约/离队/绯闻/花边/下课类型。优先选择热度最高、最有话题性的。"
+        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。全部选题聚焦转会八卦/球员花边/场外话题。只输出JSON。"
+    else:
+        type_requirement = """硬性要求 — 3个选题必须覆盖不同内容类型：
+1. 第1篇：比赛复盘/赛后争议型
+2. 第2篇：转会八卦/球员花边/场外话题型
+3. 第3篇：人物故事/战术趋势/数据洞察型"""
+        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按3种内容类型分配。只输出JSON。"
+
+    print(f"\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek, mode={topic_preference})...")
     prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近7天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
 
 真实爆款文章数据：
 {json.dumps(articles_text, ensure_ascii=False)}
 {history_text}
 
-硬性要求 — 3个选题必须覆盖不同内容类型：
-1. 第1篇：比赛复盘/赛后争议型
-2. 第2篇：转会八卦/球员花边/场外话题型
-3. 第3篇：人物故事/战术趋势/数据洞察型
+{type_requirement}
 
 二次创作原则：借话题方向，不借标题和内容。用新角度、新观点、新表达重写。绝不可照搬原文标题或金句。
 
 输出纯JSON：
-[{{"title": "新标题(15-25字)", "source_article_ids": [引用文章id], "source_titles": ["原文标题"], "angle": "切入角度+新观点", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "比赛复盘型/转会八卦型/争议观点型/人物故事型/趋势解读型", "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
+[{{"title": "新标题(15-25字)", "source_article_ids": [引用文章id], "source_titles": ["原文标题"], "angle": "切入角度+新观点", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "转会八卦型/争议观点型/人物故事型/趋势解读型", "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按3种内容类型分配。只输出JSON。"},
+        {"role": "system", "content": system_msg},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.6, max_tokens=4096)
@@ -924,8 +946,17 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 # ============================================================
 
 def main():
-    date_str = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime("%Y-%m-%d")
-    print(f"足球自媒体内容自动化 - {date_str}\n")
+    # Parse args: python orchestrator.py [YYYY-MM-DD] [--topic=auto|transfer|match]
+    date_str = None
+    topic_preference = "auto"
+    for arg in sys.argv[1:]:
+        if arg.startswith("--topic="):
+            topic_preference = arg.split("=", 1)[1]
+        elif not arg.startswith("--"):
+            date_str = arg
+    if date_str is None:
+        date_str = datetime.now().strftime("%Y-%m-%d")
+    print(f"足球自媒体内容自动化 - {date_str} (topic={topic_preference})\n")
 
     start_time = time.time()
     success = False
@@ -936,10 +967,45 @@ def main():
         # Step 0: Load topic history for dedup
         topic_history = get_topic_history(date_str)
 
-        # Step 1: Collect match data
+        # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
 
-        if match_data["total_matches"] == 0:
+        # When user specifies a topic preference, always use GZH pipeline.
+        # Match data is still available as context but doesn't drive topic selection.
+        if topic_preference != "auto":
+            print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
+            topics_and_raw = collect_real_gzh_topics(
+                date_str, topic_history, topic_preference=topic_preference)
+            if not topics_and_raw or not topics_and_raw[0]:
+                result_msg = f"无{topic_preference}相关真实爆款数据可用"
+                print(f"ERROR: {result_msg}")
+                send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
+                return
+
+            topics, raw_articles = topics_and_raw
+            articles = []
+            images_map = {}
+
+            for i, topic in enumerate(topics[:3]):
+                print(f"\n--- 第{i+1}/3篇 ---")
+                imgs = search_images(topic, count=5)
+                images_map[i] = imgs
+                art, error = generate_article_with_retry(
+                    topic, match_data, i + 1, is_gossip=True, max_retries=2)
+                stats["generated"] += 1
+                if error:
+                    print(f"   ❌ 最终失败: {error}")
+                    stats["failed"] += 1
+                    stats["issues"].append(f"第{i+1}篇: {error}")
+                else:
+                    stats["valid"] += 1
+                articles.append((i, art))
+
+            articles = [a for _, a in sorted(articles, key=lambda x: x[0])]
+            result = save_articles_local(date_str, articles, images_map, topics, match_data,
+                                         extra={"type": f"gzh_{topic_preference}"})
+
+        elif match_data["total_matches"] == 0:
             # ============ GZH Gossip Mode (no matches) ============
             print("   今日无比赛，切换为公众号爆款数据模式\n")
             topics_and_raw = collect_real_gzh_topics(date_str, topic_history)
@@ -953,7 +1019,6 @@ def main():
             articles = []
             images_map = {}
 
-            # Sequential generation with quality validation
             for i, topic in enumerate(topics[:3]):
                 print(f"\n--- 第{i+1}/3篇 ---")
                 imgs = search_images(topic, count=5)
@@ -982,7 +1047,6 @@ def main():
             articles = []
             images_map = {}
 
-            # Sequential generation with quality validation
             for i, topic in enumerate(topics[:3]):
                 print(f"\n--- 第{i+1}/3篇 [{topic.get('content_type', 'N/A')}] ---")
                 imgs = search_images(topic, count=5)

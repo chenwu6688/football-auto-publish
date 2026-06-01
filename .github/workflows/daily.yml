@@ -5,6 +5,16 @@ on:
     # 北京时间每天 10:00 (UTC 18:00 前一天，补偿调度延迟)
     - cron: '0 18 * * *'
   workflow_dispatch:
+    inputs:
+      topic:
+        description: '选题偏好'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - transfer
+          - match
 
 jobs:
   generate-and-publish:
@@ -47,7 +57,7 @@ jobs:
 
       - name: 生成文章
         id: generate
-        run: python orchestrator.py
+        run: python orchestrator.py --topic=${{ inputs.topic || 'auto' }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
