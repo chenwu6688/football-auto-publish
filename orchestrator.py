@@ -818,27 +818,30 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 # Quality Validation & Retry
 # ============================================================
 
-def validate_article(article, index):
+def validate_article(article, index, is_tieba=False):
     """Validate article quality. Returns (is_valid, issues_list)."""
     issues = []
     content = article.get("content", "")
     title = article.get("title", "")
+    min_words = 300 if is_tieba else 500
+    min_images = 3 if is_tieba else 2
+    min_h2 = 3 if is_tieba else 2
 
     if not title or len(title) < 10:
         issues.append(f"标题过短({len(title)}字,需≥10)")
     elif len(title) > 32:
         issues.append(f"标题过长({len(title)}字,需≤32)")
 
-    if not content or len(content) < 500:
-        issues.append(f"正文字数不足({len(content)}字,需≥500)")
+    if not content or len(content) < min_words:
+        issues.append(f"正文字数不足({len(content)}字,需≥{min_words})")
 
     h2_count = len(re.findall(r'^## ', content, re.MULTILINE))
-    if h2_count < 2:
-        issues.append(f"缺少小标题(仅{h2_count}个##,需≥2)")
+    if h2_count < min_h2:
+        issues.append(f"缺少小标题(仅{h2_count}个##,需≥{min_h2})")
 
     img_count = len(re.findall(r'!\[.*?\]\(images/', content))
-    if img_count < 2:
-        issues.append(f"配图标记不足({img_count}个,需≥2)")
+    if img_count < min_images:
+        issues.append(f"配图标记不足({img_count}个,需≥{min_images})")
 
     if content.strip() == "":
         issues.append("正文为空")
@@ -876,7 +879,7 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                 last_issues = f"上次正文仅{len(content)}字，远低于500字最低要求。请基于提供的事实数据充实内容。"
                 continue
 
-            is_valid, issues = validate_article(art, index)
+            is_valid, issues = validate_article(art, index, is_tieba=is_tieba)
             if is_valid:
                 if attempt > 0:
                     print(f"   ✅ 第{attempt+1}次尝试通过验证")
@@ -1009,7 +1012,7 @@ def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
+这次必须修正。正文300-500字，3个##小标题，每个小标题后紧跟一张配图标记。"""
 
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。下面是虎扑上一个真实帖子和网友回复。你的任务不是凭空创作，而是**基于这个帖子的内容进行二次创作**。
 
@@ -1020,24 +1023,27 @@ def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=
 1. **事实来自帖子**：文章中出现的球迷观点、言论、情绪，必须能从上面找到出处。帖子里没说的，不要写。
 2. **引用真实回复**：直接引用网友回复中的原话（用引号标注），然后展开你的分析。这是文章的灵魂。
 3. **分析可以延伸**：在球迷讨论的基础上，你可以分析为什么会有这些观点、背后反映了什么。但要标注"老六分析""推测"等，和球迷原话区分开。
-4. **不编造不注水**：有多少素材写多少字。如果素材只够500字，就写500字干货。不要为了凑字数添加虚假细节。
+4. **不编造不注水**：有多少素材写多少字。如果素材只够300字，就写300字干货。不要为了凑字数添加虚假细节。
 {retry_block}
 
-结构建议：
-- 开篇：直接引用帖子里最精彩的1-2条回复作为引子，让读者感觉"这帖子真有意思"
-- 中间：围绕帖子主题和网友讨论，展开2-3层分析。每层都引用真实回复作为论据
-- 收尾：总结你的观点 + 抛出一个问题让读者参与讨论
+结构要求（3段+3图，紧凑编排）：
+- 第1段（开篇引子）：直接引用帖子里最精彩的回复作为引子 → 紧跟配图1
+- 第2段（展开分析）：围绕球迷讨论展开1-2层分析，引用真实回复为论据 → 紧跟配图2
+- 第3段（收尾观点）：总结你的观点 + 抛出一个问题让读者互动 → 紧跟配图3
 
 硬性规范：
-- 正文 500-800 字
-- 必须包含 ≥2 个 ## 二级标题
-- 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) ![配图2](images/article-{index}-img-002.jpg)
+- 正文 300-500 字（精炼有力，不要水字数）
+- 必须包含 3 个 ## 二级标题（每段一个）
+- 每个 ## 小标题段落后紧跟一张配图标记，共3张：
+  ![配图1](images/article-{index}-img-001.jpg)
+  ![配图2](images/article-{index}-img-002.jpg)
+  ![配图3](images/article-{index}-img-003.jpg)
 - **事实底线**：每条球迷观点必须有出处，找不到出处的不要写
 
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
 输出JSON:
-{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(500-800字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
+{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(300-500字，含3个##小标题+3张配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
 只输出JSON。"""
 
     messages = [
@@ -1107,18 +1113,33 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
         content = art.get("content", "")
         if "![配图" not in content and "![" not in content:
-            for j, img in enumerate(downloaded):
-                img_ref = f"\n![{img.get('description', f'配图{j+1}')}](images/{img['filename']})\n"
-                parts = content.split("\n## ", 1)
-                if len(parts) == 2:
-                    rest = "## " + parts[1]
-                    insert_pos = rest.find("\n\n", len(rest) // (j + 2) + len(rest) // 3)
-                    if insert_pos > 0:
-                        content = parts[0] + "\n" + rest[:insert_pos] + img_ref + rest[insert_pos:]
+            # Inject downloaded images into content as fallback
+            # For articles with ## sections, place one image after each section
+            sections = content.split("\n## ")
+            if len(sections) > 1 and len(downloaded) >= 2:
+                new_parts = [sections[0]]
+                for si, sec in enumerate(sections[1:]):
+                    sec_text = ("## " + sec) if si == 0 else ("## " + sec)
+                    new_parts.append(sec_text)
+                    if si < len(downloaded):
+                        img = downloaded[si]
+                        new_parts.append(
+                            f"\n![{img.get('description', f'配图{si+1}')}](images/{img['filename']})\n")
+                content = "\n".join(new_parts)
+            else:
+                # Old logic: proportional insertion
+                for j, img in enumerate(downloaded):
+                    img_ref = f"\n![{img.get('description', f'配图{j+1}')}](images/{img['filename']})\n"
+                    parts = content.split("\n## ", 1)
+                    if len(parts) == 2:
+                        rest = "## " + parts[1]
+                        insert_pos = rest.find("\n\n", len(rest) // (j + 2) + len(rest) // 3)
+                        if insert_pos > 0:
+                            content = parts[0] + "\n" + rest[:insert_pos] + img_ref + rest[insert_pos:]
+                        else:
+                            content = parts[0] + "\n" + rest + img_ref
                     else:
-                        content = parts[0] + "\n" + rest + img_ref
-                else:
-                    content = content + img_ref
+                        content = content + img_ref
         art["content"] = content
 
         # Save article
@@ -1328,10 +1349,31 @@ def main():
                             time.sleep(0.5)
 
                     if hupu_imgs:
+                        # Supplement with search images if fewer than 3
+                        if len(hupu_imgs) < 3:
+                            print(f"   仅 {len(hupu_imgs)} 张帖子图片，搜索补充...")
+                            fallback = search_images(
+                                {"title": post['title'], "keywords_cn": [post['team']]},
+                                count=3 - len(hupu_imgs))
+                            for fb in fallback:
+                                if len(hupu_imgs) >= 3:
+                                    break
+                                result = img_service.download_image(
+                                    url=fb["url"], target_dir=hupu_images_dir,
+                                    prefix=f"article-{t_idx}-img",
+                                    index=len(hupu_imgs) + 1,
+                                    existing_hashes=set())
+                                if result:
+                                    result["source"] = fb.get("source", "search")
+                                    hupu_imgs.append(result)
+                                    print(f"   ✅ 补充图片{len(hupu_imgs)}: {result['filename']}")
+                            time.sleep(0.5)
+
                         pre_downloaded[len(articles) + ti] = hupu_imgs
                         # Still store something in images_map for compatibility
                         images_map[len(articles) + ti] = [
-                            {"url": img["url"], "source": "hupu"} for img in hupu_imgs
+                            {"url": img["url"], "source": img.get("source", "hupu")}
+                            for img in hupu_imgs
                         ]
                     else:
                         # Fallback to image search
