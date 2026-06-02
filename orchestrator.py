@@ -264,6 +264,43 @@ def get_performance_boost(performance_data):
 
     return boosts
 
+def _check_intra_batch_dedup(topics):
+    """Check that no two topics share core subjects (teams/players/keywords).
+
+    Returns (clean_topics, warnings). If two topics share >40% of their
+    keyword sets, the lower-scored one is flagged as potentially duplicate.
+    """
+    if len(topics) <= 1:
+        return topics, []
+
+    warnings = []
+    for i in range(len(topics)):
+        for j in range(i + 1, len(topics)):
+            ki = set(k.lower() for k in (topics[i].get("keywords", []) or []))
+            kj = set(k.lower() for k in (topics[j].get("keywords", []) or []))
+            if not ki or not kj:
+                continue
+            overlap = ki & kj
+            if len(overlap) == 0:
+                continue
+            overlap_ratio = len(overlap) / min(len(ki), len(kj))
+            if overlap_ratio > 0.4:
+                # Also check Chinese keyword overlap
+                kci = set(k for k in (topics[i].get("keywords_cn", []) or []))
+                kcj = set(k for k in (topics[j].get("keywords_cn", []) or []))
+                cn_overlap = kci & kcj
+                ti = topics[i].get("title", "")[:30]
+                tj = topics[j].get("title", "")[:30]
+                msg = (f"⚠️ 批内重复: #{i+1}「{ti}」与 #{j+1}「{tj}」"
+                       f" 共享关键词 {overlap}{' + CN:' + str(cn_overlap) if cn_overlap else ''}")
+                warnings.append(msg)
+
+    if warnings:
+        for w in warnings:
+            print(f"   {w}")
+    return topics, warnings
+
+
 def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None):
     print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
     lines = []
@@ -310,10 +347,16 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 {history_text}
 {weight_hint}
 
-硬性要求 — 3 个话题必须覆盖不同内容类型：
+硬性要求 — 3 个话题必须覆盖不同内容类型 + 不同核心主题：
 1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
 2. 第2篇：转会资讯/八卦趣事 — 转会传闻、球员花边、冲突争议、场外话题
 3. 第3篇：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势
+
+⚠️ 去重铁律：
+- 禁止2个话题围绕同一核心事件/同一核心球员/同一转会故事展开（即便内容类型不同也不行）
+- 举例：如果第1篇写"姆巴佩离队后巴黎夺冠"，第3篇就 不能 再写"姆巴佩的欧冠诅咒"
+- 3个话题的核心关键词集合交集必须为空（如都含Mbappe/PSG/Champions League即违规）
+- 如果当日素材不够3个完全不同的主题，宁可减少话题数也不要凑近似话题
 
 如果当日有绝杀、逆转、红牌、VAR争议、教练冲突等事件，优先选择。
 
@@ -338,6 +381,24 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
         topics = [topics]  # LLM returned single object instead of array
     if not isinstance(topics, list):
         topics = []
+    topics, dup_warnings = _check_intra_batch_dedup(topics)
+    # Drop topics with >60% keyword overlap (keep higher-scored one)
+    if dup_warnings:
+        to_drop = set()
+        for i in range(len(topics)):
+            for j in range(i + 1, len(topics)):
+                ki = set(k.lower() for k in (topics[i].get("keywords", []) or []))
+                kj = set(k.lower() for k in (topics[j].get("keywords", []) or []))
+                if not ki or not kj:
+                    continue
+                overlap_ratio = len(ki & kj) / min(len(ki), len(kj))
+                if overlap_ratio >= 0.5:
+                    # Drop the lower-scored one
+                    drop = i if topics[i].get("score", 0) < topics[j].get("score", 0) else j
+                    to_drop.add(drop)
+        if to_drop:
+            topics = [t for idx, t in enumerate(topics) if idx not in to_drop]
+            print(f"   🗑️ 自动去重: 移除 {len(to_drop)} 个重复话题，保留 {len(topics)} 个")
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
@@ -644,9 +705,9 @@ def validate_article(article, index, is_tieba=False):
     score = 100  # Start from 100, deduct for each issue
     content = article.get("content", "")
     title = article.get("title", "")
-    min_words = 300 if is_tieba else 500
-    min_images = 3 if is_tieba else 2
-    min_h2 = 3 if is_tieba else 2
+    min_words = 500
+    min_images = 2
+    min_h2 = 2
 
     if not title or len(title) < 10:
         issues.append(f"标题过短({len(title)}字,需≥10)")
@@ -716,6 +777,7 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
         try:
             if is_tieba:
                 art = generate_tieba_article(topic, index, tieba_context,
+                                             match_context=match_context,
                                              temperature=temp, retry_hint=last_issues)
             elif is_gossip:
                 art = generate_gossip_article(topic, index, temperature=temp,
@@ -836,8 +898,13 @@ def select_tieba_topics(tieba_data, topic_history=None):
     return topics
 
 
-def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=""):
-    """Generate article from a single real Hupu post + its replies. No fabrication."""
+def generate_tieba_article(topic, index, post_data, match_context=None, temperature=0.8, retry_hint=""):
+    """Generate a real football article inspired by a Hupu hot post.
+
+    The Hupu post provides the angle and fan sentiment — it's a starting point,
+    not the article itself. The article should be a proper football piece that
+    happens to use fan discussion as its hook, not a forum-thread summary.
+    """
     team = post_data.get("team", "")
     post_title = post_data.get("title", "")
     main_content = post_data.get("main_content", "")
@@ -846,63 +913,112 @@ def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=
 
     print(f"\n[Hupu-{index}] {team}: {post_title[:40]} ({reply_num}回复)...")
 
-    # Build the single-post context
-    context = f"【{team}专区】原帖标题：{post_title}\n"
-    context += f"回复数：{reply_num}\n\n"
+    # Build Hupu context — the "hook", not the "script"
+    context = f"【{team}专区】原帖标题：{post_title}\n回复数：{reply_num}\n"
     if main_content:
-        context += f"原帖内容：\n{main_content[:500]}\n\n"
+        context += f"\n楼主观点：{main_content[:400]}\n"
 
     if replies:
-        context += "网友热门回复（按点赞数排序）：\n"
-        for j, r in enumerate(replies):
+        context += "\n热门评论（反映球迷情绪和观点，⚠️ 注意：评论中的数字是球迷个人说法，非官方统计数据，引用时需标注来源）：\n"
+        for j, r in enumerate(replies[:6]):
             author = r.get("author", "匿名")
             agree = r.get("agree_count", 0)
             content = r.get("content", "")
-            context += f"\n--- 回复{j+1}：{author}（{agree}赞）---\n"
-            context += f"{content[:300]}\n"
-    else:
-        context += "（暂无高赞回复）\n"
+            context += f"\n球迷{j+1}（{agree}赞）：{content[:250]}\n"
+
+    # Build match context for football knowledge
+    match_text = ""
+    if match_context:
+        fixtures = match_context.get("fixtures_by_league", {})
+        standings = match_context.get("standings", {})
+        if fixtures:
+            match_text = "\n近期比赛数据（可作为文章背景和论据）：\n"
+            for league, matches in sorted(fixtures.items()):
+                match_text += f"\n## {league}\n"
+                for m in matches[:4]:
+                    hg, ag = m.get("home_score"), m.get("away_score")
+                    score = f"{hg}-{ag}" if hg is not None else "vs"
+                    match_text += f"  {m['home_team']} {score} {m['away_team']}\n"
+        if standings:
+            match_text += "\n联赛积分榜前列：\n"
+            for league, table in list(standings.items())[:3]:
+                match_text += f"\n{league}:\n"
+                for r in table[:5]:
+                    match_text += f"  {r.get('position','?')}. {r.get('team','?')} {r.get('points','?')}分\n"
 
     retry_block = ""
     if retry_hint:
-        retry_block = f"""
-⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正。正文300-500字，3个##小标题，每个小标题后紧跟一张配图标记。"""
+        retry_block = f"\n⚠️ 上次问题：{retry_hint}\n这次必须修正。正文至少500字，至少2个##小标题，文末至少2张配图。\n"
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。下面是虎扑上一个真实帖子和网友回复。你的任务不是凭空创作，而是**基于这个帖子的内容进行二次创作**。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。下面有一个虎扑热帖，它反映了球迷圈当下最真实的情绪和关注点。你的任务：**把这个帖子当成选题线索，写一篇真正有干货的足球文章。**
 
-=== 真实帖子数据（唯一素材来源） ===
-{context[:6000]}
+=== 选题线索：虎扑热帖 ===
+{context[:5000]}
+{match_text}
 
-=== 二次创作规则（必须遵守） ===
-1. **事实来自帖子**：文章中出现的球迷观点、言论、情绪，必须能从上面找到出处。帖子里没说的，不要写。
-2. **引用真实回复**：直接引用网友回复中的原话（用引号标注），然后展开你的分析。这是文章的灵魂。
-3. **分析可以延伸**：在球迷讨论的基础上，你可以分析为什么会有这些观点、背后反映了什么。但要标注"老六分析""推测"等，和球迷原话区分开。
-4. **不编造不注水**：有多少素材写多少字。如果素材只够300字，就写300字干货。不要为了凑字数添加虚假细节。
-{retry_block}
+=== 写作核心原则 ===
 
-结构要求（3段+3图，紧凑编排）：
-- 第1段（开篇引子）：直接引用帖子里最精彩的回复作为引子 → 紧跟配图1
-- 第2段（展开分析）：围绕球迷讨论展开1-2层分析，引用真实回复为论据 → 紧跟配图2
-- 第3段（收尾观点）：总结你的观点 + 抛出一个问题让读者互动 → 紧跟配图3
+1. **帖子是钩子，不是正文**
+   - 帖子里球迷在吵什么 → 这是选题方向，不是你文章的全部内容
+   - 开篇可以用帖子里最精彩的一个观点作为引子，然后立刻转向你自己的分析
+   - 整篇文章中，引用/转述虎扑网友观点的比例不要超过40%
+
+2. **你有60%的内容要靠自己的足球知识来写**
+   - 从帖子情绪中提炼一个具体的足球命题，正面回答它
+   - 比如球迷吵"阿森纳进球暴跌"→ 你回答：为什么会跌？是战术选择还是能力退化？
+   - 可以用历史类比（"这让我想起当年的XX队..."）、战术逻辑推演、联赛横向对比
+
+3. **不要写"论坛吵架实录"**
+   - 不要：张三说X，李四回Y，老六觉得都有道理
+   - 要：提炼球迷争论的核心命题，你自己正面回答，球迷观点一句话带过即可
+
+4. **写作风格**
+   - 赛后和朋友聊球的语气：直接、有观点、不骑墙
+   - 用"说白了就是""仔细想想""如果是我看"这类自然口语，不要"老六分析""老六认为"标签
+   - 不要列一二三四，不要学术论文腔
+   {retry_block}
+
+=== ⚠️ 数据真实性铁律（违反即失败） ===
+
+你只能使用下面两类数据作为「事实」来写作：
+
+✅ 可信事实来源（只有这两类）：
+  A. 上面「比赛数据」板块里的比分、联赛名、球队名、积分榜排名
+  B. 虎扑帖子中「楼主观点」陈述的客观事件（如"XX转会费8000万"）
+  C. 虎扑帖子中「热门评论」里的观点和情绪（标明是"有球迷觉得""虎扑上有人提到"）
+
+🚫 禁止编造（常见错误）：
+  - 积分榜只有前5名排名和积分，禁止写"只输了X场""净胜球XX"等不在素材里的统计
+  - 比赛数据只有比分和球队名，禁止编造进球球员、进球时间、红黄牌等细节
+  - 禁止编造不在素材里的球员姓名（如"加纳乔如何如何""萨卡怎么怎么样"——除非素材里明确提到了他们）
+  - 禁止编造百分比、转化率等精确数字（素材里没有的统计，用"似乎""看起来"软化表达）
+  - 禁止把训练知识当事实：你知道某队的球员名单，但今天素材里没提到的球员就不能写
+
+🟡 允许的推测（必须标注为推测）：
+  - "从战术逻辑上看，这可能是..."
+  - "结合积分榜位置推测，球队的策略应该是..."
+  - "虽然没看到具体数据，但这个趋势似乎说明..."
+
+结构（自由组织）：
+- 开篇：从帖子里最抓人的一个点切入，快速抛出核心问题
+- 主体：用「可信事实」支撑你的分析，允许推测但要标注
+- 收尾：给出你的明确判断 + 互动钩子
 
 硬性规范：
-- 正文 300-500 字（精炼有力，不要水字数）
-- 必须包含 3 个 ## 二级标题（每段一个）
-- 每个 ## 小标题段落后紧跟一张配图标记，共3张：
-  ![配图1](images/article-{index}-img-001.jpg)
-  ![配图2](images/article-{index}-img-002.jpg)
-  ![配图3](images/article-{index}-img-003.jpg)
-- **事实底线**：每条球迷观点必须有出处，找不到出处的不要写
+- 正文 500-800 字
+- ≥2 个 ## 二级标题（标题也必须来自素材中的真实话题，不能凭空拟题）
+- ≥2 张配图标记：![配图1](images/article-{index}-img-001.jpg)
+- 球迷观点归纳即可，一句引用不超过15字
 
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
+禁用模式：不要每段以"老六"开头，不要"一部分球迷认为...另一部分球迷认为..."来回拉锯
 
 输出JSON:
-{{"title": "优选标题(15-25字，有网感有态度)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(300-500字，含3个##小标题+3张配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
+{{"title": "优选标题(15-25字，有网感有态度)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度有人味。核心原则：素材即边界。文章所有球迷观点必须来自提供的帖子数据，分析可以延伸但需标注。不编造，不注水。用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，10万粉丝。你有丰富的足球知识、战术分析能力和鲜明的个人观点。虎扑帖子只是选题线索——真正的文章内容来自你的足球知识储备和对比赛的理解。写作风格：口语化、有态度、像赛后和球友聊天。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
