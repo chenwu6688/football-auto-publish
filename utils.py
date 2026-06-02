@@ -1,10 +1,35 @@
 #!/usr/bin/env python3
 """足球自媒体 — 共享工具函数
 
-retry, call_llm, safe_json_loads — 被所有模块使用。
+retry, call_llm, safe_json_loads, load_prompt_template — 被所有模块使用。
 """
 
 import json, time, requests
+from pathlib import Path
+
+PROMPT_DIR = Path(__file__).parent / "prompts"
+
+
+def load_prompt_template(name):
+    """Load a prompt template from prompts/{name}, stripping header comments.
+
+    Header lines (starting with #) contain version metadata and are stripped.
+    The body is returned as the prompt content.
+    """
+    path = PROMPT_DIR / name
+    if not path.exists():
+        return ""
+    lines = path.read_text(encoding="utf-8").split("\n")
+    body = []
+    in_header = True
+    for line in lines:
+        if in_header and (line.startswith("#") or line.strip() == ""):
+            if line.strip() == "" and body:
+                in_header = False
+            continue
+        in_header = False
+        body.append(line)
+    return "\n".join(body).strip()
 
 
 def retry(func, *args, max_retries=3, base_delay=2, desc="API", **kwargs):

@@ -50,7 +50,7 @@ def collect_real_matches(date_str):
             if matches:
                 print(f"   {league_name}: {len(matches)} 场")
             all_matches.extend(matches)
-            time.sleep(0.3)
+            time.sleep(0.6)
         except Exception as e:
             print(f"   {league_name}: error - {e}")
 
@@ -182,11 +182,26 @@ def fetch_gzh_football_trends(date_str, keyword_groups=None):
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
             if result.returncode == 0:
                 if os.path.exists(output_file):
-                    for item in json.loads(Path(output_file).read_text()).get("items", []):
+                    data = json.loads(Path(output_file).read_text())
+                    for item in data.get("items", []):
                         if _is_football_relevant(item):
                             all_raw.append(item)
+                    # Clean up temp file after reading
+                    try:
+                        Path(output_file).unlink()
+                    except OSError:
+                        pass
         except Exception as e:
             print(f"   搜索'{kw[:20]}'失败: {e}")
+
+    # Clean up stale cache files (>1 day old)
+    try:
+        cutoff = time.time() - 86400
+        for f in gzh_cache.glob("gzh_*.json"):
+            if f.stat().st_mtime < cutoff:
+                f.unlink()
+    except Exception:
+        pass
 
     if not all_raw:
         print("   公众号爆款库未找到足球相关文章")
@@ -221,8 +236,8 @@ def fetch_gzh_football_trends(date_str, keyword_groups=None):
 
 def fetch_recent_standings():
     headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
-    sid_map = {"Premier League": 2021, "Primera Division": 2014, "Serie A": 2019,
-               "Bundesliga": 2002, "Ligue 1": 2015}
+    # Reuse COMPETITION_IDS for league→ID mapping (domestic leagues only)
+    sid_map = {k: v for k, v in COMPETITION_IDS.items() if v != 2001}  # exclude UCL
     standings = {}
     for comp_name, comp_id in sid_map.items():
         try:
@@ -235,18 +250,18 @@ def fetch_recent_standings():
                             "team": r.get("team", {}).get("name", ""), "points": r.get("points"),
                             "played": r.get("playedGames"), "goal_diff": r.get("goalDifference")}
                             for r in s.get("table", [])]
-            time.sleep(0.3)
-        except Exception:
-            pass
+            time.sleep(0.6)
+        except Exception as e:
+            print(f"   积分榜({comp_name}): error - {e}")
     return standings
 
 
 def fetch_scorers():
     """Fetch top scorers from major leagues for 排行榜 content type."""
     headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
-    comp_map = {"英超": 2021, "西甲": 2014, "意甲": 2019, "德甲": 2002, "法甲": 2015, "欧冠": 2001}
+    # Reuse COMPETITION_IDS for league→ID mapping
     scorers = {}
-    for league_name, comp_id in comp_map.items():
+    for league_name, comp_id in COMPETITION_IDS.items():
         try:
             resp = requests.get(f"{FOOTBALL_DATA_BASE}/competitions/{comp_id}/scorers",
                               headers=headers, params={"limit": 10}, timeout=15)
@@ -259,9 +274,9 @@ def fetch_scorers():
                      "played": s.get("playedMatches")}
                     for s in data[:15]
                 ]
-            time.sleep(0.3)
-        except Exception:
-            pass
+            time.sleep(0.6)
+        except Exception as e:
+            print(f"   射手榜({league_name}): error - {e}")
     return scorers
 
 

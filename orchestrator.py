@@ -19,7 +19,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        COMPETITION_IDS, GZH_KEYWORD_GROUPS, GZH_TRANSFER_KEYWORDS,
                        GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
                        BATCH_TYPES, FALLBACK_MAP, ALL_CONTENT_TYPES)
-from utils import retry, call_llm, safe_json_loads
+from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
 from data_collector import (collect_real_matches, fetch_gzh_football_trends,
                              fetch_recent_standings, fetch_scorers, fetch_rankings_data,
@@ -324,12 +324,20 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 [{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "why_pick": "为什么选这个角度(20字)"}}]
 只输出JSON。"""
 
+    topic_selector_prompt = load_prompt_template("topic_selector.txt")
+    if not topic_selector_prompt:
+        topic_selector_prompt = "你是头条号足球博主'球评人老六'，有态度、有人味、不骑墙。严格按要求分配内容类型，避开历史话题。只输出JSON。"
+
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度、有人味、不骑墙。严格按要求分配内容类型，避开历史话题。只输出JSON。"},
+        {"role": "system", "content": topic_selector_prompt},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
     topics = safe_json_loads(response)
+    if topics and isinstance(topics, dict) and "title" in topics:
+        topics = [topics]  # LLM returned single object instead of array
+    if not isinstance(topics, list):
+        topics = []
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
@@ -526,8 +534,12 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 {{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
+    base_prompt = load_prompt_template("article_generator.txt")
+    if not base_prompt:
+        base_prompt = f"你是头条号足球博主'球评人老六'，10万粉丝。核心原则：事实来自素材，观点来自你。素材里没有的绝不编造。风格：{style} 用自然口语化中文写作，有态度有人味。"
+
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，10万粉丝。核心原则：事实来自素材，观点来自你。素材里没有的绝不编造。风格：{style} 用自然口语化中文写作，有态度有人味。只输出JSON。"},
+        {"role": "system", "content": f"{base_prompt}\n\n本次写作风格要求：{style}"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
@@ -608,8 +620,12 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 {{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
 只输出JSON。"""
 
+    base_prompt = load_prompt_template("article_generator.txt")
+    if not base_prompt:
+        base_prompt = f"你是头条号足球博主'球评人老六'，有态度有人味。你的工作是转写改编真实热点文章：用新角度新语言重新组织事实，加自己的分析态度。事实来自素材，观点来自你。绝不编造素材里没有的事实。风格：{style} 用自然口语化中文写作。"
+
     messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，有态度有人味。你的工作是转写改编真实热点文章：用新角度新语言重新组织事实，加自己的分析态度。事实来自素材，观点来自你。绝不编造素材里没有的事实。风格：{style} 用自然口语化中文写作。只输出JSON。"},
+        {"role": "system", "content": f"{base_prompt}\n\n本次写作风格要求：{style}"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
