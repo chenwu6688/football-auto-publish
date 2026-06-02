@@ -154,6 +154,29 @@ def test_send_wxpusher_noop():
     print("  PASS test_send_wxpusher_noop")
 
 
+def test_publisher_no_dead_code_in_else():
+    """#6 bugfix: else branch in login flow should not have dead save code.
+
+    The else branch (AUTH_FILE doesn't exist) had unreachable calls to
+    context.storage_state() and browser.close() after the login flow
+    already handled those operations. Only the error print should remain.
+    """
+    import publisher as pub
+    with open(pub.__file__) as f:
+        src = f.read()
+    # Verify the error print is still there
+    assert '保存失败，请重试' in src, "else branch should still print error"
+    # Verify the dead calls AFTER the error print are gone
+    # The pattern was: print("\\n❌ 保存失败") followed by context.storage_state
+    err_idx = src.find('保存失败，请重试')
+    after_err = src[err_idx:err_idx + 200]
+    assert 'context.storage_state' not in after_err, \
+        "Dead context.storage_state after else branch — should have been removed"
+    assert '.close()' not in after_err, \
+        "Dead browser.close() after else branch — should have been removed"
+    print("  PASS test_publisher_no_dead_code_in_else")
+
+
 # ============================================================
 # Main
 # ============================================================
@@ -172,6 +195,7 @@ if __name__ == "__main__":
         ("extract_images: empty for no images", test_extract_images_none),
         ("import: all key functions importable", test_publisher_importable),
         ("send_wxpusher: no-op without credentials", test_send_wxpusher_noop),
+        ("#6 bugfix: no dead code in login else-branch", test_publisher_no_dead_code_in_else),
     ]
 
     passed = 0

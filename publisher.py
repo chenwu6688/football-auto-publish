@@ -119,10 +119,6 @@ def login_and_save_auth():
     else:
         print("\n❌ 保存失败，请重试")
 
-        context.storage_state(path=str(AUTH_FILE))
-        print(f"\n✅ 登录状态已保存至: {AUTH_FILE}")
-        browser.close()
-
 
 def load_articles(date_str):
     """Load generated articles from output directory."""

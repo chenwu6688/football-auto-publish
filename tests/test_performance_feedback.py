@@ -193,6 +193,42 @@ def test_analyze_performance_keyword_tracking():
     print("  PASS test_analyze_performance_keyword_tracking")
 
 
+def test_performance_boost_initialized_before_batch_mode():
+    """#1 bugfix: performance_boost must be initialized before the batch-mode block.
+
+    In the prior code, performance_boost was referenced at ~L1211 but assigned
+    later at ~L1245 inside the try block. When season_weights was truthy and
+    batch_mode was a named batch, this caused NameError. The fix initializes
+    performance_boost = {} before the BATCH_TYPES check, so the name always
+    resolves regardless of which code path runs.
+    """
+    import orchestrator as orch
+    # Verify the fix exists: performance_boost dict is defaulted before it's checked
+    src = orch.__file__
+    with open(src) as f:
+        content = f.read()
+
+    # The initialization of performance_boost must appear before the
+    # "if season_weights:" block that references it inside BATCH_TYPES check
+    # We verify by checking that performance_boost = {} is near the top of main()
+    init_pos = content.find("performance_boost = {}")
+    assert init_pos > 0, "performance_boost = {} initialization missing"
+
+    # The usage of performance_boost inside batch-mode block
+    usage_pos = content.find("if performance_boost:")
+    assert usage_pos > 0, "performance_boost usage maintained"
+
+    # The init must come before the batch-mode usage
+    assert init_pos < usage_pos, \
+        f"performance_boost init ({init_pos}) must precede usage ({usage_pos})"
+
+    # Both must appear before the try block where it was previously assigned
+    try_pos = content.find("\n    try:\n", usage_pos)
+    assert try_pos > usage_pos, "try block should come after usage"
+
+    print("  PASS test_performance_boost_initialized_before_batch_mode")
+
+
 def test_import_functions():
     """All performance functions should be importable."""
     from orchestrator import analyze_content_performance, get_performance_boost
@@ -253,6 +289,7 @@ if __name__ == "__main__":
         ("boost: uneven performance → reflects ratios", test_get_performance_boost_uneven),
         ("boost: empty data → empty dict", test_get_performance_boost_empty),
         ("merge: performance + season weights combined", test_performance_season_weights_merge),
+        ("#1 bugfix: performance_boost init before batch-mode", test_performance_boost_initialized_before_batch_mode),
         ("import: functions importable", test_import_functions),
     ]
 

@@ -951,7 +951,9 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                     downloaded.append(result)
 
         content = art.get("content", "")
-        if "![配图" not in content and "![" not in content:
+        # Strip auto-generated markers first to sync with actual downloaded count
+        content = re.sub(r'!\[配图\d+\]\(images/article-\d+-img-\d+\.jpg\)\n?', '', content)
+        if downloaded:
             # Inject downloaded images into content as fallback
             # For articles with ## sections, place one image after each section
             sections = content.split("\n## ")
@@ -1175,6 +1177,144 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 # Main
 # ============================================================
 
+def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
+                                    articles_out, is_gossip=False, gzh_articles=None):
+    """Shared article generation loop — used by all three data-source branches."""
+    for i, topic in enumerate(topics[:count]):
+        ct = topic.get("content_type", "N/A")
+        print(f"\n--- 第{i+1}/{count}篇 [{ct}] ---")
+        imgs = search_images(topic, count=5)
+        images_map[i] = imgs
+        kwargs = {"max_retries": 2}
+        if is_gossip:
+            kwargs["is_gossip"] = True
+        if gzh_articles is not None:
+            kwargs["gzh_articles"] = gzh_articles
+        art, error = generate_article_with_retry(topic, match_data, i + 1, **kwargs)
+        stats["generated"] += 1
+        if error:
+            print(f"   ❌ 最终失败: {error}")
+            stats["failed"] += 1
+            stats["issues"].append(f"第{i+1}篇({ct}): {error}")
+        else:
+            stats["valid"] += 1
+        articles_out.append((i, art))
+
+
+def _run_hupu_pipeline(date_str, batch_mode, topic_history, match_data,
+                        articles, topics, images_map, stats, extra_meta):
+    """Hupu fan discussion pipeline — generates articles 4-6 from top 3 hot posts."""
+    pre_downloaded = {}
+    try:
+        if batch_mode != "auto":
+            print("   [批次模式] 跳过虎扑数据采集")
+            return pre_downloaded
+
+        print("\n--- 虎扑球迷讨论数据源 ---")
+        tieba_data = collect_tieba_data(date_str)
+        if not tieba_data or not tieba_data.get("raw_posts"):
+            print("   虎扑无有效数据，跳过球迷讨论文章（不影响主文章）")
+            return pre_downloaded
+
+        raw_posts = tieba_data["raw_posts"]
+        hupu_history_titles = topic_history.get("titles", set())
+        filtered_posts = []
+        for p in raw_posts:
+            title = p.get("title", "")
+            if any(len(ht) >= 8 and ht[:15] in title for ht in hupu_history_titles):
+                print(f"   ⏭️  跳过(历史重复): {title[:40]}")
+                continue
+            filtered_posts.append(p)
+        if len(filtered_posts) < 3:
+            print(f"   去重后仅剩 {len(filtered_posts)} 帖，保留原始排序补充")
+            existing_titles = {p['title'] for p in filtered_posts}
+            for p in raw_posts:
+                if len(filtered_posts) >= max(3, len(raw_posts[:10])):
+                    break
+                if p['title'] not in existing_titles:
+                    filtered_posts.append(p)
+                    existing_titles.add(p['title'])
+
+        top3_posts = filtered_posts[:3]
+        extra_meta["hupu"] = True
+        extra_meta["hupu_posts"] = [
+            {"team": p["team"], "title": p["title"], "reply_num": p["reply_num"]}
+            for p in top3_posts
+        ]
+
+        hupu_images_dir = OUTPUT_DIR / date_str / "images"
+        hupu_images_dir.mkdir(parents=True, exist_ok=True)
+        img_service = ImageService(config={
+            "images": {"min_width": 600, "min_height": 400, "max_size_bytes": 5242880,
+                       "min_size_bytes": 20480, "max_per_article": 5, "required_per_article": 2}})
+
+        for ti, post in enumerate(top3_posts):
+            t_idx = len(articles) + ti + 1
+            print(f"\n--- 第{t_idx}/6篇 [虎扑热帖 #{ti+1}] {post['team']}: {post['title'][:40]} ({post['reply_num']}回复) ---")
+
+            post_images = post.get("images", [])
+            hupu_imgs = []
+            if post_images:
+                print(f"   帖子含 {len(post_images)} 张图片，下载并裁剪水印...")
+                for j, img_url in enumerate(post_images[:3]):
+                    result = img_service.download_and_crop_image(
+                        url=img_url, target_dir=hupu_images_dir,
+                        prefix=f"article-{t_idx}-img", index=j + 1)
+                    if result:
+                        hupu_imgs.append(result)
+                        print(f"   ✅ 图片{j+1}: {result['filename']} ({result['width']}x{result['height']})")
+                    else:
+                        print(f"   ⚠️  图片{j+1}下载/裁剪失败")
+                    time.sleep(0.5)
+
+            if hupu_imgs:
+                if len(hupu_imgs) < 3:
+                    print(f"   仅 {len(hupu_imgs)} 张帖子图片，搜索补充...")
+                    fallback = search_images(
+                        {"title": post['title'], "keywords_cn": [post['team']]},
+                        count=3 - len(hupu_imgs))
+                    for fb in fallback:
+                        if len(hupu_imgs) >= 3:
+                            break
+                        result = img_service.download_image(
+                            url=fb["url"], target_dir=hupu_images_dir,
+                            prefix=f"article-{t_idx}-img",
+                            index=len(hupu_imgs) + 1,
+                            existing_hashes=set())
+                        if result:
+                            result["source"] = fb.get("source", "search")
+                            hupu_imgs.append(result)
+                            print(f"   ✅ 补充图片{len(hupu_imgs)}: {result['filename']}")
+                    time.sleep(0.5)
+
+                pre_downloaded[len(articles) + ti] = hupu_imgs
+                images_map[len(articles) + ti] = [
+                    {"url": img["url"], "source": img.get("source", "hupu")}
+                    for img in hupu_imgs
+                ]
+            else:
+                print(f"   无可用帖子图片，使用通用图片搜索")
+                imgs = search_images({"title": post['title'], "keywords_cn": [post['team']]}, count=5)
+                images_map[len(articles) + ti] = imgs
+
+            art, error = generate_article_with_retry(
+                {"title": post['title'], "team": post['team']},
+                match_data, t_idx,
+                is_tieba=True, tieba_context=post, max_retries=2)
+            stats["generated"] += 1
+            if error:
+                print(f"   ❌ 最终失败: {error}")
+                stats["failed"] += 1
+                stats["issues"].append(f"第{t_idx}篇(虎扑): {error}")
+            else:
+                stats["valid"] += 1
+            articles.append((len(articles), art))
+            topics.append({"title": post['title'], "content_type": f"球迷讨论-{post['team']}"})
+    except Exception as e:
+        print(f"   ⚠️  虎扑数据采集/生成失败（不影响主文章）: {e}")
+    return pre_downloaded
+
+
 def main():
     # Parse args: python orchestrator.py [YYYY-MM-DD] [--topic=auto|transfer|match] [--batch=auto|morning|noon|evening]
     date_str = None
@@ -1190,15 +1330,9 @@ def main():
     if date_str is None:
         date_str = datetime.now().strftime("%Y-%m-%d")
 
-    # Batch content type assignments (2 articles per batch)
-    BATCH_TYPES = {
-        "morning": ["热点球评", "八卦趣事"],
-        "noon": ["转会资讯", "排行榜"],
-        "evening": ["战术解析", "八卦趣事"],
-    }
-
     # Load season weights for content type optimization
     season_weights = load_season_weights(date_str)
+    performance_boost = {}
 
     if batch_mode in BATCH_TYPES:
         target_types = list(BATCH_TYPES[batch_mode])
@@ -1248,10 +1382,6 @@ def main():
         match_data = collect_real_matches(date_str)
 
         # Data availability check: adjust target types if no supporting data
-        FALLBACK_MAP = {
-            "热点球评": "战术解析",   # no match data → tactical analysis
-            "排行榜": "八卦趣事",     # no rankings data → gossip
-        }
         if target_types:
             original_types = list(target_types)
             # Check 热点球评 feasibility
@@ -1336,20 +1466,7 @@ def main():
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": f"gzh_{topic_preference}"}
 
-            for i, topic in enumerate(topics[:article_count]):
-                print(f"\n--- 第{i+1}/{article_count}篇 ---")
-                imgs = search_images(topic, count=5)
-                images_map[i] = imgs
-                art, error = generate_article_with_retry(
-                    topic, match_data, i + 1, is_gossip=True, max_retries=2)
-                stats["generated"] += 1
-                if error:
-                    print(f"   ❌ 最终失败: {error}")
-                    stats["failed"] += 1
-                    stats["issues"].append(f"第{i+1}篇: {error}")
-                else:
-                    stats["valid"] += 1
-                articles.append((i, art))
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
@@ -1363,20 +1480,7 @@ def main():
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": "gzh_real_data"}
 
-            for i, topic in enumerate(topics[:article_count]):
-                print(f"\n--- 第{i+1}/{article_count}篇 ---")
-                imgs = search_images(topic, count=5)
-                images_map[i] = imgs
-                art, error = generate_article_with_retry(
-                    topic, match_data, i + 1, is_gossip=True, max_retries=2)
-                stats["generated"] += 1
-                if error:
-                    print(f"   ❌ 最终失败: {error}")
-                    stats["failed"] += 1
-                    stats["issues"].append(f"第{i+1}篇: {error}")
-                else:
-                    stats["valid"] += 1
-                articles.append((i, art))
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
 
         else:
             print("\n   获取公众号爆款趋势作为跨源参考...")
@@ -1386,141 +1490,14 @@ def main():
             topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights)
             extra_meta = {"type": "match_analysis"}
 
-            for i, topic in enumerate(topics[:3]):
-                print(f"\n--- 第{i+1}/3篇 [{topic.get('content_type', 'N/A')}] ---")
-                imgs = search_images(topic, count=5)
-                images_map[i] = imgs
-                art, error = generate_article_with_retry(
-                    topic, match_data, i + 1, gzh_articles=gzh_context, max_retries=2)
-                stats["generated"] += 1
-                if error:
-                    print(f"   ❌ 最终失败: {error}")
-                    stats["failed"] += 1
-                    stats["issues"].append(f"第{i+1}篇({topic.get('content_type','?')}): {error}")
-                else:
-                    stats["valid"] += 1
-                articles.append((i, art))
+            _generate_articles_from_topics(topics, 3, match_data, images_map, stats, articles, gzh_articles=gzh_context)
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
         # ============================================================
-        pre_downloaded = {}
-        try:
-            if batch_mode != "auto":
-                print("   [批次模式] 跳过虎扑数据采集")
-                tieba_data = None
-            else:
-                print("\n--- 虎扑球迷讨论数据源 ---")
-                tieba_data = collect_tieba_data(date_str)
-            if tieba_data and tieba_data.get("raw_posts"):
-                # Dedup: skip posts previously used as Hupu article source
-                raw_posts = tieba_data["raw_posts"]
-                hupu_history_titles = topic_history.get("titles", set())
-                hupu_history_keywords = topic_history.get("keywords", set())
-                filtered_posts = []
-                for p in raw_posts:
-                    title = p.get("title", "")
-                    # Check if this post's title or core keywords overlap with history
-                    if any(len(ht) >= 8 and ht[:15] in title for ht in hupu_history_titles):
-                        print(f"   ⏭️  跳过(历史重复): {title[:40]}")
-                        continue
-                    filtered_posts.append(p)
-                if len(filtered_posts) < 3:
-                    print(f"   去重后仅剩 {len(filtered_posts)} 帖，保留原始排序补充")
-                    # Supplement from raw_posts while keeping the filtered ones
-                    existing_titles = {p['title'] for p in filtered_posts}
-                    for p in raw_posts:
-                        if len(filtered_posts) >= max(3, len(raw_posts[:10])):
-                            break
-                        if p['title'] not in existing_titles:
-                            filtered_posts.append(p)
-                            existing_titles.add(p['title'])
-
-                top3_posts = filtered_posts[:3]
-                extra_meta["hupu"] = True
-                extra_meta["hupu_posts"] = [
-                    {"team": p["team"], "title": p["title"], "reply_num": p["reply_num"]}
-                    for p in top3_posts
-                ]
-
-                # Pre-download & crop Hupu post images
-                hupu_images_dir = OUTPUT_DIR / date_str / "images"
-                hupu_images_dir.mkdir(parents=True, exist_ok=True)
-                img_service = ImageService(config={
-                    "images": {"min_width": 600, "min_height": 400, "max_size_bytes": 5242880,
-                               "min_size_bytes": 20480, "max_per_article": 5, "required_per_article": 2}})
-                pre_downloaded = {}
-
-                for ti, post in enumerate(top3_posts):
-                    t_idx = len(articles) + ti + 1
-                    print(f"\n--- 第{t_idx}/6篇 [虎扑热帖 #{ti+1}] {post['team']}: {post['title'][:40]} ({post['reply_num']}回复) ---")
-
-                    # Attempt to download + crop images from the Hupu post
-                    post_images = post.get("images", [])
-                    hupu_imgs = []
-                    if post_images:
-                        print(f"   帖子含 {len(post_images)} 张图片，下载并裁剪水印...")
-                        for j, img_url in enumerate(post_images[:3]):
-                            result = img_service.download_and_crop_image(
-                                url=img_url, target_dir=hupu_images_dir,
-                                prefix=f"article-{t_idx}-img", index=j + 1)
-                            if result:
-                                hupu_imgs.append(result)
-                                print(f"   ✅ 图片{j+1}: {result['filename']} ({result['width']}x{result['height']})")
-                            else:
-                                print(f"   ⚠️  图片{j+1}下载/裁剪失败")
-                            time.sleep(0.5)
-
-                    if hupu_imgs:
-                        # Supplement with search images if fewer than 3
-                        if len(hupu_imgs) < 3:
-                            print(f"   仅 {len(hupu_imgs)} 张帖子图片，搜索补充...")
-                            fallback = search_images(
-                                {"title": post['title'], "keywords_cn": [post['team']]},
-                                count=3 - len(hupu_imgs))
-                            for fb in fallback:
-                                if len(hupu_imgs) >= 3:
-                                    break
-                                result = img_service.download_image(
-                                    url=fb["url"], target_dir=hupu_images_dir,
-                                    prefix=f"article-{t_idx}-img",
-                                    index=len(hupu_imgs) + 1,
-                                    existing_hashes=set())
-                                if result:
-                                    result["source"] = fb.get("source", "search")
-                                    hupu_imgs.append(result)
-                                    print(f"   ✅ 补充图片{len(hupu_imgs)}: {result['filename']}")
-                            time.sleep(0.5)
-
-                        pre_downloaded[len(articles) + ti] = hupu_imgs
-                        # Still store something in images_map for compatibility
-                        images_map[len(articles) + ti] = [
-                            {"url": img["url"], "source": img.get("source", "hupu")}
-                            for img in hupu_imgs
-                        ]
-                    else:
-                        # Fallback to image search
-                        print(f"   无可用帖子图片，使用通用图片搜索")
-                        imgs = search_images({"title": post['title'], "keywords_cn": [post['team']]}, count=5)
-                        images_map[len(articles) + ti] = imgs
-
-                    art, error = generate_article_with_retry(
-                        {"title": post['title'], "team": post['team']},
-                        match_data, t_idx,
-                        is_tieba=True, tieba_context=post, max_retries=2)
-                    stats["generated"] += 1
-                    if error:
-                        print(f"   ❌ 最终失败: {error}")
-                        stats["failed"] += 1
-                        stats["issues"].append(f"第{t_idx}篇(虎扑): {error}")
-                    else:
-                        stats["valid"] += 1
-                    articles.append((len(articles), art))
-                    topics.append({"title": post['title'], "content_type": f"球迷讨论-{post['team']}"})
-            else:
-                print("   虎扑无有效数据，跳过球迷讨论文章（不影响主文章）")
-        except Exception as e:
-            print(f"   ⚠️  虎扑数据采集/生成失败（不影响主文章）: {e}")
+        pre_downloaded = _run_hupu_pipeline(
+            date_str, batch_mode, topic_history, match_data,
+            articles, topics, images_map, stats, extra_meta)
 
         # ============================================================
         # Major Event Detection: generate emergency article if high-urgency event found

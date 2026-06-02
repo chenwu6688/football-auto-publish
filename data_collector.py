@@ -170,14 +170,17 @@ def fetch_gzh_football_trends(date_str, keyword_groups=None):
     all_raw = []
     kw_groups = keyword_groups if keyword_groups is not None else GZH_KEYWORD_GROUPS
 
+    gzh_cache = OUTPUT_DIR / "gzh_cache"
+    gzh_cache.mkdir(parents=True, exist_ok=True)
+
     for kw in kw_groups:
         try:
             safe_name = re.sub(r'[^a-zA-Z0-9_一-鿿]', '_', kw)[:30]
+            output_file = str(gzh_cache / f"gzh_{safe_name}.json")
             cmd = [sys.executable, GZH_SCRIPT, "--keyword", kw, "--start-date", start_date,
-                   "--output-format", "json", "--output-file", f"/tmp/gzh_{safe_name}.json"]
+                   "--output-format", "json", "--output-file", output_file]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
             if result.returncode == 0:
-                output_file = f"/tmp/gzh_{safe_name}.json"
                 if os.path.exists(output_file):
                     for item in json.loads(Path(output_file).read_text()).get("items", []):
                         if _is_football_relevant(item):
