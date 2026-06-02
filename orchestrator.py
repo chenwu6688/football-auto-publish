@@ -18,7 +18,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        WXPUSHER_APPTOKEN, WXPUSHER_UID,
                        COMPETITION_IDS, GZH_KEYWORD_GROUPS, GZH_TRANSFER_KEYWORDS,
                        GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
-                       BATCH_TYPES, FALLBACK_MAP, ALL_CONTENT_TYPES)
+                       BATCH_TYPES, FALLBACK_MAP, ALL_CONTENT_TYPES, WEEKLY_COLUMNS)
 from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
 from data_collector import (collect_real_matches, fetch_gzh_football_trends,
@@ -263,6 +263,52 @@ def get_performance_boost(performance_data):
             print(f"   反馈调整: {boost_str}")
 
     return boosts
+
+def get_column_for_date(date_str, content_type=None):
+    """Get the weekly column for a given date.
+
+    Returns (column_dict, is_match) where column_dict is the column config
+    and is_match indicates whether the column suits the given content_type.
+    """
+    dt = datetime.strptime(date_str, "%Y-%m-%d")
+    weekday = dt.weekday()  # 0=Mon, 6=Sun
+    column = WEEKLY_COLUMNS.get(weekday)
+    if not column:
+        return None, False
+    if content_type:
+        is_match = content_type in column.get("best_with", [])
+        return column, is_match
+    return column, True
+
+
+def _assign_column_to_topics(topics, date_str):
+    """Assign today's weekly column to the best-matching topic.
+
+    Modifies the topic dict in-place with column info. Only one topic per
+    batch gets the column tag — the one whose content_type best matches.
+    """
+    if not topics:
+        return
+    today_column, _ = get_column_for_date(date_str)
+    if not today_column:
+        return
+
+    # Find the topic whose content_type best matches the column
+    best_idx = None
+    for i, t in enumerate(topics):
+        ct = t.get("content_type", "")
+        if ct in today_column.get("best_with", []):
+            best_idx = i
+            break
+    # Fallback: assign to first topic if no perfect match
+    if best_idx is None:
+        best_idx = 0
+
+    topics[best_idx]["_column"] = today_column["name"]
+    topics[best_idx]["_column_slug"] = today_column["slug"]
+    topics[best_idx]["_column_style"] = today_column["style"]
+    print(f"   📰 今日栏目: {today_column['icon']} {today_column['name']} → 第{best_idx + 1}篇")
+
 
 def _check_intra_batch_dedup(topics):
     """Check that no two topics share core subjects (teams/players/keywords).
@@ -539,17 +585,17 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 
     # Style guidance by content type (5 categories)
     style_guide = {
-        "热点球评": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
-        "转会资讯": "像球迷群里的八卦消息：分析转会的「为什么」和「影响」，结合球队需求和球员处境。有趣味但不编造，有逻辑但不学术。",
-        "排行榜": "用对比制造冲突，把数据融入叙事而非堆表格。每个上榜人物都要有槽点或亮点，不能让读者觉得是干巴巴的列表。",
-        "八卦趣事": "像给朋友讲一个你佩服（或不爽）的球员：聚焦一个侧面、一个瞬间，有画面感。带点吃瓜的调侃味，不写流水账。",
-        "战术解析": "把复杂的战术概念用大白话讲清楚，让普通球迷也能看懂。数据辅助观点，不反客为主。让读者看完有「原来如此」的感觉。",
+        "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。用「说白了」「仔细想想」这类自然口语推进，不要「老六分析」标签。",
+        "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣味但不编造，有逻辑但不学术。不确定的地方就说「据说」「按这个趋势」，不要假装什么都知道。",
+        "排行榜": "数字是药引子，对比是主菜。每个上榜人物都要有槽点或亮点，每个关键数字后面必须跟一句「这意味着...」。让读者感觉在翻一本有态度的排名，不是在看Excel。",
+        "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。可以调侃但不能刻薄。节奏轻快，不要写成流水账履历。",
+        "战术解析": "你的任务是翻译——把专业术语翻译成让普通球迷听了能跟朋友吹牛的大白话。数据必须配人话解读。每篇至少1处历史/行业跨界类比。",
         # Legacy compatibility
-        "比赛复盘型": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
-        "转会八卦型": "像球迷群里的八卦消息：分析转会的「为什么」和「影响」，结合球队需求和球员处境。有趣味但不编造，有逻辑但不学术。",
-        "争议观点型": "像一个敢说真话的老球迷：开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。可以情绪化但不能无理取闹。",
-        "人物故事型": "像给朋友讲一个你佩服的球员：有细节、有情感、有画面感。不写流水账履历，聚焦一个侧面或瞬间。",
-        "趋势解读型": "像老球皮分析联赛走势：从现象中提炼规律，用一两组关键数据说话，但不过度堆数据。让读者看完有「原来如此」的感觉。",
+        "比赛复盘型": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
+        "转会八卦型": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
+        "争议观点型": "像一个敢说真话的老球迷——开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。",
+        "人物故事型": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。不写流水账。",
+        "趋势解读型": "从现象中提炼规律，用一两组关键数据说话，每个数字配人话解读。让读者看完有「原来如此」的感觉。",
     }
     style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
 
@@ -560,8 +606,19 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 ⚠️ 上次生成失败！问题：{retry_hint}
 这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实数据写一篇有观点的足球文章——不是编造，是用数据说话。
+    # Column injection
+    column_block = ""
+    column_meta = {}
+    if topic.get("_column"):
+        column_block = f"""
+📰 今日栏目：{topic['_column']}
+栏目写作风格：{topic.get('_column_style', '')}
+请在标题后标注栏目名（如「{topic['_column']}」），并在正文中体现栏目的独特调性。
+"""
+        column_meta = {"column": topic["_column"], "column_slug": topic.get("_column_slug", "")}
 
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实数据写一篇有观点的足球文章。
+{column_block}
 今日话题：{topic['title']}
 切入角度：{topic['angle']}
 内容类型：{content_type}
@@ -573,23 +630,26 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 {retry_block}
 
 写作规则：
-1. **事实来自素材**：文章中的数据、比分、排名、球队名称必须来自上面的数据。素材里没有的球员名字、比赛细节、转会金额，不要写。
-2. **观点来自你**：在事实基础上，你可以分析、质疑、对比、预测。但要区分"数据说X"和"老六认为Y"。
-3. **有多少写多少**：如果数据只够写500字，就写500字紧凑的内容，不要注水。
+1. **事实来自素材**：数据、比分、排名、球队名称必须来自上面的数据。素材里没有的不要写。
+2. **观点来自你**：在事实基础上分析、质疑、对比、预测。区分"数据说X"和"我觉得Y"。
+3. **每个关键数字配人话翻译**：不能裸奔数据。71球→"每3个球就有1个是定位球砸进去的"。69球→"差2球，差了17分"。
+4. **开篇必须反套路**：禁止"昨晚XX队以X-X战胜XX队""近日XX传闻引发热议"。用一个具体场景、一句狠话、一个数据反差、或者坦诚表态作为开头。
+5. **跨界视角**：至少1处历史类比/行业类比/生活类比。
+6. **评论区引擎**：正文中预埋≥2个评论触发点（留白挑衅/回忆召唤/身份站队/梗的钩子），文末互动钩子必须具体、低门槛、自己先答。
 
 写作要求：
 {style}
 
-结构：开篇钩子（用数据中一个有意思的点切入）→ 2个小节展开分析 → 收尾观点+互动
+结构：反套路开篇 → 2个小节展开分析 → 收尾观点+互动
 
 硬性规范：
-- 正文 500-800 字（硬性要求，紧凑有力，有多少事实写多少字，不要水字数）
+- 正文 500-800 字（紧凑有力，有多少事实写多少字，不要水字数）
 - 必须包含 ≥2 个 ## 二级标题
 - 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
 - 事实红线：素材里没有的数据/事件/引语，一律不写。有几分数据说几分话
 
 禁用词：震惊、吓尿、哭惨、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
-禁用模式：不要每段都以"老六认为"开头，不要像写论文一样列一二三四
+禁用模式：不要每段以"老六"开头，不要列一二三四，不要"一部分球迷认为...另一部分球迷认为..."
 
 输出JSON:
 {{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
@@ -605,6 +665,9 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
+    # Inject column metadata if present
+    if column_meta:
+        article["_column"] = column_meta
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
 
@@ -626,16 +689,16 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 
     # Style guidance by content type
     style_guide = {
-        "热点球评": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
-        "转会资讯": "像球迷群里的八卦：分析转会为什么发生、对各方的影响。有趣的推测但不编造事实，有逻辑但不写学术论文。如有多个信源可交叉印证。",
-        "排行榜": "用对比制造冲突，把数据融入叙事而非堆表格。每个上榜人物都要有槽点或亮点，不能让读者觉得是干巴巴的列表。",
-        "八卦趣事": "像讲述一个你佩服（或不爽）的球员：聚焦一个侧面、一段经历、一个瞬间。有细节、有情感、有画面。不写流水账。",
-        "战术解析": "像老球皮分析足坛走向：从现象中提炼规律，用关键事实说话。让读者看完有「原来如此」的感觉。",
+        "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
+        "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。不确定就说「据说」。",
+        "排行榜": "数字是药引子，对比是主菜。每个关键数字后面跟一句「这意味着...」。让读者感觉在看有态度的排名，不是Excel。",
+        "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。可以调侃但不刻薄。",
+        "战术解析": "把专业术语翻译成让普通球迷能跟朋友吹牛的大白话。数据配人话解读，至少1处跨界类比。",
         # Legacy compatibility
-        "转会八卦型": "像球迷群里的八卦：分析转会为什么发生、对各方的影响。有趣的推测但不编造事实，有逻辑但不写学术论文。",
-        "争议观点型": "像一个敢说真话的老球迷：开篇直接亮态度，有事实支撑。可以情绪化但不能无理取闹，可以从多角度呈现争议。",
-        "人物故事型": "像讲述一个你佩服（或不爽）的球员：聚焦一个侧面、一段经历、一个瞬间。有细节、有情感、有画面。不写流水账。",
-        "趋势解读型": "像老球皮分析足坛走向：从现象中提炼规律，用关键事实说话。让读者看完有「原来如此」的感觉。",
+        "转会八卦型": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
+        "争议观点型": "开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。",
+        "人物故事型": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。",
+        "趋势解读型": "从现象中提炼规律，每个数字配人话解读。让读者看完有「原来如此」的感觉。",
     }
     style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
 
@@ -646,9 +709,9 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 ⚠️ 上次生成失败！问题：{retry_hint}
 这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务不是凭空创作，而是**基于真实热点文章转写改编**。
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实热点文章转写改编。
 
-你的素材 — 公众号平台真实爆款文章（这些是真实存在的文章，写的是真实发生的事件）：
+你的素材 — 公众号平台真实爆款文章：
 {sources_text}
 
 同期其他热点（了解语境）：
@@ -658,24 +721,26 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 切入角度：{topic.get('angle', '独特角度')}
 {retry_block}
 
-转写改编规则（非常重要）：
-1. **事实继承**：源文章里写了什么事件、什么数据，你才能写什么。源文章没提到的人物、比分、细节，一律不写。
-2. **角度变换**：用不同的切入角度和叙事顺序重新组织，但不能改事实。比如源文章写"A转会B队"，你可以从B队战术需求、A的职业生涯选择、转会费是否合理等不同角度切入。
-3. **语言重写**：用你自己的话、自己的节奏、自己的金句。绝不可照搬源文章的任何完整句子。
-4. **观点升级**：在源文章事实基础上，加上你作为老球迷的分析和态度。但分析要标注清楚是"推测"还是"事实"。
-5. **时效性**：只写最近1-2天的事件。如有旧闻，必须找最新关联角度。
+转写改编规则：
+1. **事实继承**：源文章写了什么事件、数据，你才能写。没提到的不要编。
+2. **角度变换**：用不同切入角度和叙事顺序重组——比如源文章写"A转会B队"，你从B队战术需求、A的生涯选择、转会费是否合理切入。
+3. **语言100%重写**：用自己的话、自己的节奏。绝不可照搬源文章完整句子。
+4. **观点升级**：在事实基础上加你的分析和态度。推测就说是推测，不要包装成事实。
+5. **每个关键数字配人话翻译**：不能裸奔数据。转会费→"比市场价溢价了30%，这是恐慌性引援"。阅读量→"说明球迷对这事有多饥渴"。
+6. **开篇必须反套路**：禁止"近日XX引发热议""据XX报道"。用一个场景、一个反问、一个数据反差开头。
+7. **至少1处跨界类比**：行业类比、历史类比、生活类比。
 
 写作风格：
 {style}
 
 硬性规范：
-- 正文 500-800 字（硬性要求，紧凑有力，不要水字数）
+- 正文 500-800 字（紧凑有力，不要水字数）
 - 必须包含 ≥2 个 ## 二级标题
 - 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
-- 事实红线：文章主体必须基于上面提供的来源摘要，有几分事实说几分话，不可凭空编造细节
+- 事实红线：主体基于来源摘要，有几分事实说几分话
 
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
-禁用模式：不要列一二三四，不要太强的论文感
+禁用模式：不要列一二三四，不要学术论文腔，不要"老六认为""老六分析"标签
 
 输出JSON:
 {{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
@@ -960,13 +1025,14 @@ def generate_tieba_article(topic, index, post_data, match_context=None, temperat
 
 1. **帖子是钩子，不是正文**
    - 帖子里球迷在吵什么 → 这是选题方向，不是你文章的全部内容
-   - 开篇可以用帖子里最精彩的一个观点作为引子，然后立刻转向你自己的分析
+   - 开篇必须反套路——禁止"虎扑上有个帖子""近日球迷热议"。用场景、反差、或者直接亮观点开头
    - 整篇文章中，引用/转述虎扑网友观点的比例不要超过40%
 
 2. **你有60%的内容要靠自己的足球知识来写**
    - 从帖子情绪中提炼一个具体的足球命题，正面回答它
-   - 比如球迷吵"阿森纳进球暴跌"→ 你回答：为什么会跌？是战术选择还是能力退化？
-   - 可以用历史类比（"这让我想起当年的XX队..."）、战术逻辑推演、联赛横向对比
+   - 可以用历史类比、战术逻辑推演、联赛横向对比
+   - **至少1处跨界视角**：行业类比、生活类比、文化类比
+   - **每个关键数字配人话翻译**：不能裸奔数据，必须解读"这意味着什么"
 
 3. **不要写"论坛吵架实录"**
    - 不要：张三说X，李四回Y，老六觉得都有道理
@@ -975,6 +1041,7 @@ def generate_tieba_article(topic, index, post_data, match_context=None, temperat
 4. **写作风格**
    - 赛后和朋友聊球的语气：直接、有观点、不骑墙
    - 用"说白了就是""仔细想想""如果是我看"这类自然口语，不要"老六分析""老六认为"标签
+   - 暴露思考过程：可以说"说实话我也没想到""我查了数据才发现"
    - 不要列一二三四，不要学术论文腔
    {retry_block}
 
@@ -1597,6 +1664,7 @@ def main():
 
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": f"gzh_{topic_preference}"}
+            _assign_column_to_topics(topics, date_str)
 
             _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
 
@@ -1611,6 +1679,7 @@ def main():
 
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": "gzh_real_data"}
+            _assign_column_to_topics(topics, date_str)
 
             _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
 
@@ -1621,6 +1690,7 @@ def main():
 
             topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights)
             extra_meta = {"type": "match_analysis"}
+            _assign_column_to_topics(topics, date_str)
 
             _generate_articles_from_topics(topics, 3, match_data, images_map, stats, articles, gzh_articles=gzh_context)
 

@@ -96,3 +96,36 @@ FALLBACK_MAP = {
 
 # --- All content types ---
 ALL_CONTENT_TYPES = ["八卦趣事", "转会资讯", "战术解析", "热点球评", "排行榜"]
+
+# --- Weekly Column Rotation (周一=0, 周日=6) ---
+# Each day has a column theme that layers on top of one article in the batch
+WEEKLY_COLUMNS = {
+    0: {"slug": "du-she-bang", "name": "毒舌榜", "icon": "🔪",
+        "description": "带排名的犀利点评，不是Excel是态度",
+        "best_with": ["排行榜", "热点球评"],
+        "style": "排名体：每个条目3-5句话，毒舌但不刻薄，用对比制造笑点，最后一句必须是让人忍不住截图的吐槽"},
+    1: {"slug": "zhan-shu-hei-ban", "name": "战术黑板", "icon": "📋",
+        "description": "把复杂战术翻译成球迷能吹牛的大白话",
+        "best_with": ["战术解析"],
+        "style": "教书体：先抛一个反常识的战术发现，然后用生活类比解释（'就像打游戏选错装备一样'），最后给一个能记住的结论"},
+    2: {"slug": "zhuan-hui-cha-shui-jian", "name": "转会茶水间", "icon": "☕",
+        "description": "转会传闻的八卦解读，不只说发生了什么，要说这意味着什么",
+        "best_with": ["转会资讯", "八卦趣事"],
+        "style": "吃瓜体：像和同事在茶水间聊八卦，有消息来源但不说教，用'据说''按这趋势''老六推测'区分消息级别，结尾必带一句损人的调侃"},
+    3: {"slug": "hui-yi-sha", "name": "老六回忆杀", "icon": "📼",
+        "description": "勾起球迷共同记忆的怀旧故事",
+        "best_with": ["八卦趣事", "热点球评"],
+        "style": "故事体：从一个具体的画面或瞬间切入（'我还记得那天穿着谁的球衣'），用细节勾回忆，以怀旧但不煽情的语气收尾，让读者在评论区晒自己的记忆"},
+    4: {"slug": "zhou-mo-yu-re", "name": "周末预热", "icon": "🔥",
+        "description": "本周末最值得关注的比赛，制造期待感",
+        "best_with": ["热点球评", "战术解析"],
+        "style": "预告体：像在群里约球友看球，列出'为什么这场必看'的3个理由（必须有一个跟数据无关、跟情绪有关的理由），结尾号召评论区晒看球计划"},
+    5: {"slug": "sai-hou-kuai-dao", "name": "赛后快刀", "icon": "⚡",
+        "description": "比赛结束后的第一时间犀利点评",
+        "best_with": ["热点球评", "八卦趣事"],
+        "style": "快刀体：开头直击最刺激的30秒画面，不铺垫不废话，观点锋利不留余地，像刚看完球从沙发上跳起来说的第一句话"},
+    6: {"slug": "zhou-mo-fu-pan", "name": "周末复盘", "icon": "🔍",
+        "description": "周末比赛的整体回顾和趋势洞察",
+        "best_with": ["战术解析", "排行榜"],
+        "style": "复盘体：从一个被大多数人忽略的数据或画面切入，串联周末多场比赛提炼一个共同趋势，让读者感觉'这个角度我怎么没想到'"},
+}
