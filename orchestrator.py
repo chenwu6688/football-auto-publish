@@ -4,7 +4,7 @@
 Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
-import os, json, sys, subprocess, requests, time, re, signal
+import os, json, sys, subprocess, requests, time, re, signal, yaml
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
@@ -12,25 +12,78 @@ from collections import defaultdict
 from file_writer import FileWriter
 from image_service import ImageService
 from hupu_scraper import HupuScraper
+from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
+                       DEEPSEEK_KEY, DASHSCOPE_KEY, UNSPLASH_KEY, FOOTBALL_DATA_KEY,
+                       DEEPSEEK_URL, DASHSCOPE_URL, FOOTBALL_DATA_BASE,
+                       WXPUSHER_APPTOKEN, WXPUSHER_UID,
+                       COMPETITION_IDS, GZH_KEYWORD_GROUPS, GZH_TRANSFER_KEYWORDS,
+                       GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
+                       BATCH_TYPES, FALLBACK_MAP, ALL_CONTENT_TYPES)
+from utils import retry, call_llm, safe_json_loads
+from logger import log
+from data_collector import (collect_real_matches, fetch_gzh_football_trends,
+                             fetch_recent_standings, fetch_scorers, fetch_rankings_data,
+                             search_images, search_wikipedia, search_footyrenders,
+                             extract_search_entities, get_topic_history, get_previously_used_sources)
 
-# --- Config ---
-PROJECT_ROOT = Path(__file__).parent
-OUTPUT_DIR = Path(os.environ.get("OUTPUT_DIR", PROJECT_ROOT / "output"))
-GZH_SCRIPT = str(PROJECT_ROOT / "skills" / "gzh-explosive-content-detector" / "scripts" / "fetch_gzh_trends.py")
 
-# API keys from env (GitHub Secrets)
-DEEPSEEK_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
-DASHSCOPE_KEY = os.environ.get("DASHSCOPE_API_KEY", "")
-UNSPLASH_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
-FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
+def print_daily_summary(date_str, batch_mode):
+    """Print a daily summary of all batches completed so far."""
+    meta_path = OUTPUT_DIR / date_str / "metadata.json"
+    if not meta_path.exists():
+        print(f"\n{'='*60}\n  今日摘要: {date_str} — 尚无批次完成\n{'='*60}")
+        return
 
-DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
-DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
-FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
+    try:
+        meta = json.loads(meta_path.read_text())
+        batches = meta.get("batches_completed", [])
+        articles = meta.get("articles", [])
 
-# WxPusher
-WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")
-WXPUSHER_UID = os.environ.get("WXPUSHER_UID", "")
+        print(f"\n{'='*60}")
+        print(f"  今日摘要: {date_str}")
+        print(f"  批次: {', '.join(batches) if batches else '无'}")
+        print(f"  文章数: {len(articles)}")
+        for a in articles:
+            ct = a.get("content_type", "?")
+            title = a.get("title", "?")[:45]
+            perf = a.get("performance", {})
+            reads = perf.get("reads", "?") if isinstance(perf, dict) else "?"
+            print(f"    [{ct}] {title}")
+            if reads and reads != "?":
+                print(f"        阅读:{reads}")
+        print(f"{'='*60}")
+    except Exception as e:
+        print(f"   ⚠️  摘要生成失败: {e}")
+
+
+def load_season_weights(date_str=None):
+    """Load season weights from config.yaml for the current month.
+    Returns {content_type: weight} dict. Weight > 1.0 = preferred, < 1.0 = deprioritized."""
+    config_path = PROJECT_ROOT / "config" / "config.yaml"
+    if not config_path.exists():
+        return None
+
+    try:
+        cfg = yaml.safe_load(config_path.read_text())
+        season_weights = cfg.get("season_weights", [])
+        if not season_weights:
+            return None
+
+        dt = datetime.strptime(date_str, "%Y-%m-%d") if date_str else datetime.now()
+        month = dt.month
+
+        for period in season_weights:
+            if month in period.get("months", []):
+                weights = period.get("weights", {})
+                label = period.get("label", "未知")
+                print(f"   📅 赛季节奏: {label} (月份{month}, 权重: {weights})")
+                return weights
+
+        # Default: balanced
+        return {"热点球评": 1.0, "转会资讯": 1.0, "排行榜": 1.0, "八卦趣事": 1.0, "战术解析": 1.0}
+    except Exception as e:
+        print(f"   ⚠️  加载赛季权重失败: {e}")
+        return None
 
 
 def send_wxpusher(title, content):
@@ -47,506 +100,171 @@ def send_wxpusher(title, content):
         pass
 
 
-def retry(func, *args, max_retries=3, base_delay=2, desc="API", **kwargs):
-    last_err = None
-    for attempt in range(max_retries):
-        try:
-            return func(*args, **kwargs)
-        except Exception as e:
-            last_err = e
-            if isinstance(e, requests.exceptions.HTTPError):
-                status = e.response.status_code if hasattr(e, 'response') and e.response is not None else None
-                if status in (403, 404):
-                    raise
-            if attempt < max_retries - 1:
-                delay = base_delay * (2 ** attempt)
-                print(f"   [{desc}] 重试 {attempt+1}/{max_retries} (等待{delay}s): {e}")
-                time.sleep(delay)
-    raise last_err
 
+def get_cross_batch_covered(date_str):
+    """Check what earlier batches today have already published.
 
-def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, timeout=120):
-    def _call():
-        resp = requests.post(url, json={
-            "model": model, "messages": messages, "temperature": temperature,
-            "max_tokens": max_tokens, "stream": False
-        }, headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}, timeout=timeout)
-        resp.raise_for_status()
-        return resp.json()["choices"][0]["message"]["content"]
-    return retry(_call, desc=f"LLM({model})")
-
-
-def safe_json_loads(text):
-    import re
-    text = text.strip()
-    if text.startswith("```"):
-        text = text.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+    Returns dict with covered content_types, teams, players, keywords, and titles
+    so the current batch can avoid duplication.
+    """
+    covered = {"content_types": set(), "teams": set(), "players": set(),
+               "keywords": set(), "titles": set(), "batch_count": 0}
+    meta_path = OUTPUT_DIR / date_str / "metadata.json"
+    if not meta_path.exists():
+        return covered
     try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        try:
-            return json.loads(text, strict=False)
-        except json.JSONDecodeError:
-            fixed = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', lambda m: f'\\u{ord(m.group(0)):04x}', text)
-            return json.loads(fixed)
-
-
-# ============================================================
-# Data Collection
-# ============================================================
-
-COMPETITION_IDS = {
-    "英超": 2021, "西甲": 2014, "意甲": 2019, "德甲": 2002, "法甲": 2015, "欧冠": 2001,
-}
-
-GZH_KEYWORD_GROUPS = [
-    "足球",
-    "英超,欧冠,转会",
-    "梅西,C罗,姆巴佩,哈兰德,内马尔,萨拉赫",
-    "足球,冲突,争议,红牌,绝杀,逆转",
-    "转会,签约,续约,离队,绯闻,花边,冲突,下课",
-]
-
-# Transfer/Gossip-focused keywords — used when user wants only transfer/rumor content
-GZH_TRANSFER_KEYWORDS = [
-    "足球转会,重磅签约,天价转会",
-    "梅西,C罗,姆巴佩,哈兰德,内马尔,转会绯闻",
-    "足球,下课,换帅,新任主帅",
-    "续约,离队,解约金,免签",
-    "球员花边,场外新闻,女友,冲突",
-    "足球八卦,转会流言,传闻",
-]
-
-GZH_NOISE_PATTERNS = [
-    "三角洲", "实况足球", "FIFA", "足球经理", "FM", "梦幻足球",
-    "乒乓球", "樊振东", "孙颖莎", "王楚钦", "马龙", "国乒",
-    "和平精英", "王者荣耀", "英雄联盟", "LPL",
-]
-
-WIKI_PLAYERS = {
-    "姆巴佩": "Kylian_Mbappé", "梅西": "Lionel_Messi", "C罗": "Cristiano_Ronaldo",
-    "c罗": "Cristiano_Ronaldo", "哈兰德": "Erling_Haaland", "内马尔": "Neymar",
-    "萨拉赫": "Mohamed_Salah", "德布劳内": "Kevin_De_Bruyne",
-    "贝林厄姆": "Jude_Bellingham", "维尼修斯": "Vinícius_Júnior",
-    "孙兴慜": "Son_Heung-min", "凯恩": "Harry_Kane",
-    "莱万": "Robert_Lewandowski", "莫德里奇": "Luka_Modrić",
-    "帕尔默": "Cole_Palmer", "福登": "Phil_Foden", "亚马尔": "Lamine_Yamal", "穆夏拉": "Jamal_Musiala",
-}
-WIKI_TEAMS = {
-    "阿森纳": "Arsenal_F.C.", "曼城": "Manchester_City_F.C.", "利物浦": "Liverpool_F.C.",
-    "曼联": "Manchester_United_F.C.", "切尔西": "Chelsea_F.C.", "热刺": "Tottenham_Hotspur_F.C.",
-    "巴萨": "FC_Barcelona", "皇马": "Real_Madrid_CF", "马竞": "Atlético_Madrid",
-    "拜仁": "FC_Bayern_Munich", "多特": "Borussia_Dortmund", "国米": "Inter_Milan",
-    "AC米兰": "AC_Milan", "尤文": "Juventus_FC", "巴黎": "Paris_Saint-Germain_F.C.",
-}
-FOOTYRENDERS_PLAYERS = {
-    "messi": "lionel-messi", "ronaldo": "cristiano-ronaldo", "mbappe": "kylian-mbappe",
-    "haaland": "erling-braut-haaland", "neymar": "neymar-jr", "salah": "mohamed-salah",
-    "debruyne": "kevin-de-bruyne", "bellingham": "jude-bellingham",
-    "vinicius": "vinicius-junior", "vini": "vinicius-junior",
-}
-
-
-def collect_real_matches(date_str):
-    print(f"[1/5] 采集真实比赛数据 ({date_str})...")
-    headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
-    target_date = datetime.strptime(date_str, "%Y-%m-%d")
-    weekday = target_date.weekday()
-    if weekday == 6:
-        from_date = (target_date - timedelta(days=1)).strftime("%Y-%m-%d")
-    elif weekday == 0:
-        from_date = (target_date - timedelta(days=2)).strftime("%Y-%m-%d")
-    else:
-        from_date = date_str
-    to_date = date_str
-    print(f"   查询范围: {from_date} ~ {to_date}")
-
-    all_matches = []
-    for league_name, comp_id in COMPETITION_IDS.items():
-        try:
-            def _fetch():
-                resp = requests.get(f"{FOOTBALL_DATA_BASE}/competitions/{comp_id}/matches",
-                                   params={"dateFrom": from_date, "dateTo": to_date},
-                                   headers=headers, timeout=15)
-                resp.raise_for_status()
-                return resp.json().get("matches", [])
-            matches = retry(_fetch, max_retries=2, base_delay=1, desc=f"football-data({league_name})")
-            if matches:
-                print(f"   {league_name}: {len(matches)} 场")
-            all_matches.extend(matches)
-            time.sleep(0.3)
-        except Exception as e:
-            print(f"   {league_name}: error - {e}")
-
-    seen_ids = set()
-    unique = []
-    for m in all_matches:
-        if m.get("id") not in seen_ids:
-            seen_ids.add(m.get("id"))
-            unique.append(m)
-
-    relevant = []
-    fixture_details = []
-    valid_comps = {"Premier League", "Primera Division", "Serie A", "Bundesliga",
-                   "Ligue 1", "UEFA Champions League", "Campeonato Brasileiro Série A"}
-    for m in unique:
-        comp = m.get("competition", {}).get("name", "")
-        if comp in valid_comps:
-            relevant.append(m)
-            score = m.get("score", {}).get("fullTime", {})
-            fixture_details.append({
-                "league": comp, "home_team": m.get("homeTeam", {}).get("name", ""),
-                "away_team": m.get("awayTeam", {}).get("name", ""),
-                "home_score": score.get("home"), "away_score": score.get("away"),
-                "status": m.get("status"), "matchday": m.get("matchday"),
-                "utc_date": m.get("utcDate", ""),
-            })
-
-    by_league = defaultdict(list)
-    for f in fixture_details:
-        by_league[f["league"]].append(f)
-    print(f"   {len(relevant)} 场比赛 ({len(by_league)} 个联赛)")
-
-    standings = {}
-    sid_map = {"Premier League": 2021, "Primera Division": 2014, "Serie A": 2019,
-               "Bundesliga": 2002, "Ligue 1": 2015, "Campeonato Brasileiro Série A": 2013}
-    for comp_name, comp_id in sid_map.items():
-        if comp_name in by_league:
-            try:
-                resp = requests.get(f"{FOOTBALL_DATA_BASE}/competitions/{comp_id}/standings",
-                                   headers=headers, timeout=10)
-                if resp.status_code == 200:
-                    for s in resp.json().get("standings", []):
-                        if s.get("type") == "TOTAL":
-                            standings[comp_name] = [{"position": r.get("position"),
-                                "team": r.get("team", {}).get("name", ""), "points": r.get("points"),
-                                "played": r.get("playedGames"), "goal_diff": r.get("goalDifference")}
-                                for r in s.get("table", [])]
-            except Exception:
-                pass
-
-    return {"date": date_str, "total_matches": len(relevant),
-            "fixtures_by_league": dict(by_league), "all_fixtures": fixture_details, "standings": standings}
-
-
-# ============================================================
-# GZH Trending
-# ============================================================
-
-def _is_football_relevant(article):
-    title = (article.get("title", "") or "") + (article.get("summary", "") or "")
-    for pattern in GZH_NOISE_PATTERNS:
-        if pattern in title:
-            return False
-    return True
-
-
-def get_previously_used_sources(current_date, lookback_days=3):
-    used = set()
-    today = datetime.strptime(current_date, "%Y-%m-%d")
-    for i in range(1, lookback_days + 1):
-        dt = today - timedelta(days=i)
-        meta_path = OUTPUT_DIR / dt.strftime("%Y-%m-%d") / "metadata.json"
-        if not meta_path.exists():
-            continue
-        try:
-            meta = json.loads(meta_path.read_text())
-            for a in meta.get("articles", []):
-                for src in a.get("sources_used", []):
-                    used.add(src[:40])
-                if a.get("title"):
-                    used.add(a["title"][:40])
-        except Exception:
-            pass
-    if used:
-        print(f"   跨天去重: 已加载 {len(used)} 条历史素材/标题")
-    return used
-
-
-def get_topic_history(current_date, lookback_days=7):
-    """Track previously covered topics — teams, players, keywords — to avoid repetition."""
-    history = {"titles": set(), "keywords": set(), "teams": set(), "players": set(), "content_types": []}
-    today = datetime.strptime(current_date, "%Y-%m-%d")
-    for i in range(1, lookback_days + 1):
-        dt = today - timedelta(days=i)
-        meta_path = OUTPUT_DIR / dt.strftime("%Y-%m-%d") / "metadata.json"
-        if not meta_path.exists():
-            continue
-        try:
-            meta = json.loads(meta_path.read_text())
-            for a in meta.get("articles", []):
-                title = a.get("title", "")
-                if title:
-                    history["titles"].add(title[:30])
-                # Also track Hupu source post titles for dedup
-                source_post = a.get("source_post", "")
-                if source_post:
-                    history["titles"].add(source_post[:50])
-                for kw in a.get("keywords", []):
-                    history["keywords"].add(kw.lower())
-                for tag in a.get("tags", []):
-                    history["keywords"].add(tag.lower())
-                for team in WIKI_TEAMS:
-                    if team in title:
-                        history["teams"].add(team)
-                for player in WIKI_PLAYERS:
-                    if player in title:
-                        history["players"].add(player)
-                ct = a.get("content_type", "")
-                if ct:
-                    history["content_types"].append(ct)
-        except Exception:
-            pass
-    if history["titles"]:
-        print(f"   历史去重: 近{lookback_days}天 {len(history['titles'])} 篇, "
-              f"覆盖球队 {len(history['teams'])} 支, 球员 {len(history['players'])} 人")
-    return history
-
-
-def fetch_gzh_football_trends(date_str, keyword_groups=None):
-    print(f"[数据] 从公众号爆款库采集足球话题 ({date_str})...")
-    target_date = datetime.strptime(date_str, "%Y-%m-%d")
-    start_date = (target_date - timedelta(days=2)).strftime("%Y-%m-%d")
-    all_raw = []
-    kw_groups = keyword_groups if keyword_groups is not None else GZH_KEYWORD_GROUPS
-
-    for kw in kw_groups:
-        try:
-            safe_name = re.sub(r'[^a-zA-Z0-9_一-鿿]', '_', kw)[:30]
-            cmd = [sys.executable, GZH_SCRIPT, "--keyword", kw, "--start-date", start_date,
-                   "--output-format", "json", "--output-file", f"/tmp/gzh_{safe_name}.json"]
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
-            if result.returncode == 0:
-                output_file = f"/tmp/gzh_{safe_name}.json"
-                if os.path.exists(output_file):
-                    for item in json.loads(Path(output_file).read_text()).get("items", []):
-                        if _is_football_relevant(item):
-                            all_raw.append(item)
-        except Exception as e:
-            print(f"   搜索'{kw[:20]}'失败: {e}")
-
-    if not all_raw:
-        print("   公众号爆款库未找到足球相关文章")
-        return []
-
-    seen = set()
-    unique = []
-    for a in all_raw:
-        t = a.get("title", "")[:40]
-        if t and t not in seen:
-            seen.add(t)
-            unique.append(a)
-    unique.sort(key=lambda x: x.get("dataScore", 0), reverse=True)
-
-    used_sources = get_previously_used_sources(date_str)
-    if used_sources:
-        filtered = []
-        for a in unique:
-            title = a.get("title", "")[:40]
-            if title in used_sources:
-                continue
-            is_dup = any(len(u) >= 10 and (u[:20] in title or title[:20] in u) for u in used_sources)
-            if not is_dup:
-                filtered.append(a)
-        unique = filtered
-
-    print(f"   采集到 {len(unique)} 篇真实足球爆款文章")
-    for i, a in enumerate(unique[:10]):
-        print(f"   {i+1}. [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]} — {a.get('accountName', '?')}")
-    return unique
-
-
-def fetch_recent_standings():
-    headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
-    sid_map = {"Premier League": 2021, "Primera Division": 2014, "Serie A": 2019,
-               "Bundesliga": 2002, "Ligue 1": 2015}
-    standings = {}
-    for comp_name, comp_id in sid_map.items():
-        try:
-            resp = requests.get(f"{FOOTBALL_DATA_BASE}/competitions/{comp_id}/standings",
-                              headers=headers, timeout=15)
-            if resp.status_code == 200:
-                for s in resp.json().get("standings", []):
-                    if s.get("type") == "TOTAL":
-                        standings[comp_name] = [{"position": r.get("position"),
-                            "team": r.get("team", {}).get("name", ""), "points": r.get("points"),
-                            "played": r.get("playedGames"), "goal_diff": r.get("goalDifference")}
-                            for r in s.get("table", [])]
-            time.sleep(0.3)
-        except Exception:
-            pass
-    return standings
-
-
-def fetch_scorers():
-    """Fetch top scorers from major leagues for 排行榜 content type."""
-    headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
-    comp_map = {"英超": 2021, "西甲": 2014, "意甲": 2019, "德甲": 2002, "法甲": 2015, "欧冠": 2001}
-    scorers = {}
-    for league_name, comp_id in comp_map.items():
-        try:
-            resp = requests.get(f"{FOOTBALL_DATA_BASE}/competitions/{comp_id}/scorers",
-                              headers=headers, params={"limit": 10}, timeout=15)
-            if resp.status_code == 200:
-                data = resp.json().get("scorers", [])
-                scorers[league_name] = [
-                    {"player": s.get("player", {}).get("name", ""),
-                     "team": s.get("team", {}).get("name", ""),
-                     "goals": s.get("goals"), "assists": s.get("assists"),
-                     "played": s.get("playedMatches")}
-                    for s in data[:15]
-                ]
-            time.sleep(0.3)
-        except Exception:
-            pass
-    return scorers
-
-
-def fetch_rankings_data():
-    """Aggregate standings + scorers for 排行榜 content generation."""
-    print("[数据] 采集排行榜数据 (standings + scorers)...")
-    standings = fetch_recent_standings()
-    scorers = fetch_scorers()
-
-    # Build combined rankings context
-    rankings = {"standings": {}, "scorers": {}}
-    for league, table in standings.items():
-        rankings["standings"][league] = table[:10]  # top 10
-    for league, top_scorers in scorers.items():
-        rankings["scorers"][league] = top_scorers[:10]
-
-    standings_count = len(rankings["standings"])
-    scorers_count = len(rankings["scorers"])
-    print(f"   积分榜: {standings_count} 联赛 | 射手榜: {scorers_count} 联赛")
-    return rankings
-
-
-# ============================================================
-# Image Search
-# ============================================================
-
-def search_wikipedia(entity_name, lang="en"):
-    images = []
-    try:
-        resp = requests.get(
-            f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{requests.utils.quote(entity_name)}",
-            headers={"User-Agent": "WusongShuru/1.0"}, timeout=10)
-        if resp.status_code == 200:
-            data = resp.json()
-            if "originalimage" in data:
-                images.append({"url": data["originalimage"]["source"], "source": "wikipedia",
-                               "alt": data.get("title", entity_name)})
-            elif "thumbnail" in data:
-                images.append({"url": data["thumbnail"]["source"], "source": "wikipedia",
-                               "alt": data.get("title", entity_name)})
+        meta = json.loads(meta_path.read_text())
+        for a in meta.get("articles", []):
+            ct = a.get("content_type", "")
+            if ct:
+                covered["content_types"].add(ct)
+            title = a.get("title", "")
+            if title:
+                covered["titles"].add(title[:30])
+            for kw in a.get("keywords", []):
+                covered["keywords"].add(kw.lower())
+            for tag in a.get("tags", []):
+                covered["keywords"].add(tag.lower())
+            for team in WIKI_TEAMS:
+                if team in title:
+                    covered["teams"].add(team)
+            for player in WIKI_PLAYERS:
+                if player in title:
+                    covered["players"].add(player)
+        covered["batch_count"] = len(meta.get("batches_completed", []))
     except Exception:
         pass
-    return images
+    if covered["content_types"]:
+        print(f"   跨批次去重: 今日已有 {len(meta.get('articles', []))} 篇, "
+              f"覆盖品类: {', '.join(covered['content_types'])}")
+    return covered
 
 
-def search_footyrenders(keywords, count=5):
-    images = []
-    search_terms = set()
-    for kw in keywords:
-        kw_lower = kw.lower()
-        for name_key, slug in FOOTYRENDERS_PLAYERS.items():
-            if name_key in kw_lower:
-                search_terms.add(slug)
-    if not search_terms:
-        return images
-    for term in list(search_terms)[:2]:
+def save_batch_state(date_str, batch_name, articles_saved):
+    """Update daily metadata with batch completion info for cross-batch dedup."""
+    meta_path = OUTPUT_DIR / date_str / "metadata.json"
+    existing = {}
+    if meta_path.exists():
         try:
-            resp = requests.get(f"https://www.footyrenders.com/?s={requests.utils.quote(term)}",
-                              headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
-            if resp.status_code == 200:
-                import re
-                pngs = re.findall(r'src="(/cdn/players/[^"]+\.png)"', resp.text)
-                for png in pngs:
-                    if "1x1-pixel" in png:
-                        continue
-                    url = f"https://www.footyrenders.com{png}"
-                    if url not in [img["url"] for img in images]:
-                        images.append({"url": url, "source": "footyrenders", "alt": term.replace("-", " ").title()})
+            existing = json.loads(meta_path.read_text())
         except Exception:
             pass
-    return images[:count]
+    batches = existing.get("batches_completed", [])
+    if batch_name not in batches:
+        batches.append(batch_name)
+    existing["batches_completed"] = batches
+    existing["last_batch"] = batch_name
+    existing["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        meta_path.parent.mkdir(parents=True, exist_ok=True)
+        meta_path.write_text(json.dumps(existing, ensure_ascii=False, indent=2))
+        print(f"   批次状态已更新: {', '.join(batches)}")
+    except Exception as e:
+        print(f"   ⚠️  批次状态保存失败: {e}")
 
 
-def extract_search_entities(topic):
-    title = topic.get("title", "")
-    keywords_cn = topic.get("keywords_cn", [])
-    search_text = title + " " + " ".join(keywords_cn)
-    players = []
-    teams = []
-    for cn_name, wiki_page in WIKI_PLAYERS.items():
-        if cn_name in search_text:
-            players.append({"cn": cn_name, "wiki": wiki_page})
-            name_key = cn_name.lower()
-            if name_key in FOOTYRENDERS_PLAYERS:
-                players[-1]["fr_slug"] = FOOTYRENDERS_PLAYERS[name_key]
-    for cn_name, wiki_page in WIKI_TEAMS.items():
-        if cn_name in search_text:
-            teams.append({"cn": cn_name, "wiki": wiki_page})
-    filler = ["的", "了", "是", "在", "和", "也", "都", "就", "要", "会", "能", "不", "这", "那"]
-    query_terms = [t.strip() for t in title.replace("？", " ").replace("！", " ").replace("：", " ").split()
-                   if len(t.strip()) >= 2 and t.strip() not in filler]
-    specific_query = " ".join(query_terms[:5]) if query_terms else title
-    return players, teams, specific_query
+def analyze_content_performance(date_str=None, lookback_days=30):
+    """Analyze past article performance from metadata to guide topic selection.
 
+    Scans metadata.json files from past N days, aggregates content_type frequency
+    and available performance signals. Returns {content_type: performance_score} dict.
+    Higher score = better performing content type.
+    """
+    if date_str is None:
+        date_str = datetime.now().strftime("%Y-%m-%d")
+    today = datetime.strptime(date_str, "%Y-%m-%d")
 
-def search_images(topic, count=5):
-    images = []
-    keywords = list(topic.get("keywords", [])) if isinstance(topic, dict) else ["football"]
-    en_keywords = [k for k in keywords if isinstance(k, str) and not any('一' <= c <= '鿿' for c in k)]
-    players, teams, _ = extract_search_entities(topic) if isinstance(topic, dict) else ([], [], "")
+    type_stats = {}
+    keyword_freq = {}
+    team_freq = {}
+    player_freq = {}
 
-    for p in players[:2]:
-        for img in search_wikipedia(p["wiki"]):
-            if img["url"] not in [i["url"] for i in images]:
-                images.append(img)
-    for t in teams[:2]:
-        for img in search_wikipedia(t["wiki"]):
-            if img["url"] not in [i["url"] for i in images]:
-                images.append(img)
-    if players:
-        for img in search_footyrenders(keywords, count=3):
-            if img["url"] not in [i["url"] for i in images]:
-                images.append(img)
-
-    if len(images) < count and UNSPLASH_KEY:
-        core = " ".join(en_keywords[:3]) if en_keywords else "football"
-        for q in [f"{core} football match action", f"{core} soccer", "football match stadium"]:
-            if len(images) >= count:
-                break
-            try:
-                resp = requests.get("https://api.unsplash.com/search/photos", params={
-                    "query": q, "per_page": count - len(images), "orientation": "landscape",
-                    "client_id": UNSPLASH_KEY}, timeout=10)
-                if resp.status_code == 200:
-                    for r in resp.json().get("results", []):
-                        images.append({"url": r["urls"]["regular"], "source": "unsplash",
-                                       "alt": r.get("description") or q})
-            except Exception:
-                pass
-
-    if len(images) == 0 and UNSPLASH_KEY:
+    for i in range(1, lookback_days + 1):
+        dt = today - timedelta(days=i)
+        meta_path = OUTPUT_DIR / dt.strftime("%Y-%m-%d") / "metadata.json"
+        if not meta_path.exists():
+            continue
         try:
-            resp = requests.get("https://api.unsplash.com/search/photos", params={
-                "query": "football", "per_page": count, "orientation": "landscape",
-                "client_id": UNSPLASH_KEY}, timeout=10)
-            if resp.status_code == 200:
-                for r in resp.json().get("results", []):
-                    images.append({"url": r["urls"]["regular"], "source": "unsplash", "alt": "football"})
+            meta = json.loads(meta_path.read_text())
+            for a in meta.get("articles", []):
+                ct = a.get("content_type", "")
+                if not ct:
+                    continue
+                if ct not in type_stats:
+                    type_stats[ct] = {"count": 0, "total_score": 0}
+                perf = a.get("performance", {})
+                reads = perf.get("reads", 0) if isinstance(perf, dict) else 0
+                comments = perf.get("comments", 0) if isinstance(perf, dict) else 0
+                article_score = 1.0 + (reads / 1000.0) + (comments / 10.0)
+                type_stats[ct]["count"] += 1
+                type_stats[ct]["total_score"] += article_score
+
+                for kw in a.get("keywords", []):
+                    kw_lower = kw.lower()
+                    keyword_freq[kw_lower] = keyword_freq.get(kw_lower, 0) + 1
+                for tag in a.get("tags", []):
+                    tag_lower = tag.lower()
+                    keyword_freq[tag_lower] = keyword_freq.get(tag_lower, 0) + 1
+                title = a.get("title", "")
+                for team in WIKI_TEAMS:
+                    if team in title:
+                        team_freq[team] = team_freq.get(team, 0) + 1
+                for player in WIKI_PLAYERS:
+                    if player in title:
+                        player_freq[player] = player_freq.get(player, 0) + 1
         except Exception:
             pass
-    return images[:count]
+
+    performance = {}
+    for ct, stats in type_stats.items():
+        if stats["count"] > 0:
+            performance[ct] = round(stats["total_score"] / stats["count"], 2)
+
+    if performance:
+        ranked = sorted(performance.items(), key=lambda x: -x[1])
+        print(f"   内容表现分析(近{lookback_days}天):")
+        for ct, score in ranked:
+            count = type_stats[ct]["count"]
+            print(f"     {ct}: {score}分 ({count}篇)")
+
+    return {
+        "performance": performance,
+        "type_stats": type_stats,
+        "top_keywords": sorted(keyword_freq.items(), key=lambda x: -x[1])[:15],
+        "top_teams": sorted(team_freq.items(), key=lambda x: -x[1])[:10],
+        "top_players": sorted(player_freq.items(), key=lambda x: -x[1])[:10],
+    }
 
 
-# ============================================================
-# Topic Selection & Article Generation
-# ============================================================
+def get_performance_boost(performance_data):
+    """Convert performance analysis into content type boost multipliers.
 
-def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None):
+    Returns {content_type: boost_multiplier} where >1.0 means prefer, <1.0 means avoid.
+    Combines with season weights for balanced optimization.
+    """
+    perf = performance_data.get("performance", {})
+    if not perf:
+        return {}
+
+    scores = list(perf.values())
+    avg_score = sum(scores) / len(scores) if scores else 1.0
+    if avg_score == 0:
+        return {}
+
+    boosts = {}
+    for ct, score in perf.items():
+        ratio = score / avg_score
+        boosts[ct] = round(max(0.5, min(1.5, ratio)), 2)
+
+    if boosts:
+        ranked = sorted(boosts.items(), key=lambda x: -x[1])
+        boost_str = ", ".join(f"{ct}:{b:.1f}x" for ct, b in ranked if abs(b - 1.0) > 0.05)
+        if boost_str:
+            print(f"   反馈调整: {boost_str}")
+
+    return boosts
+
+def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None):
     print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
@@ -572,12 +290,25 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
         if topic_history.get("players"):
             history_text += "已覆盖球员: " + ", ".join(sorted(list(topic_history["players"])[:10])) + "\n"
 
+    # Season weights hint
+    weight_hint = ""
+    if season_weights:
+        high_types = [f"{ct}({w:.1f})" for ct, w in sorted(season_weights.items(), key=lambda x: -x[1]) if w >= 1.2]
+        low_types = [f"{ct}({w:.1f})" for ct, w in sorted(season_weights.items(), key=lambda x: x[1]) if w < 0.8]
+        if high_types or low_types:
+            weight_hint = "\n## 赛季权重指引\n"
+            if high_types:
+                weight_hint += f"优先选择: {', '.join(high_types)}\n"
+            if low_types:
+                weight_hint += f"降低频率: {', '.join(low_types)}\n"
+
     prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 3 个有爆款潜力的话题。
 
 比赛数据：
 {"".join(lines)}
 {gzh_text}
 {history_text}
+{weight_hint}
 
 硬性要求 — 3 个话题必须覆盖不同内容类型：
 1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
@@ -605,7 +336,7 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
     return topics
 
 
-def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None):
+def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None):
     raw_articles = fetch_gzh_football_trends(
         date_str,
         keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None
@@ -659,8 +390,22 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
 3. 第3篇：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势"""
         system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按对应内容类型分配。只输出JSON。"
 
+    # Season weights hint for topic selection
+    weight_hint = ""
+    if season_weights:
+        high_types = [f"{ct}({w:.1f})" for ct, w in sorted(season_weights.items(), key=lambda x: -x[1]) if w >= 1.2]
+        low_types = [f"{ct}({w:.1f})" for ct, w in sorted(season_weights.items(), key=lambda x: x[1]) if w < 0.8]
+        if high_types or low_types:
+            weight_hint = "\n## 赛季权重指引\n"
+            if high_types:
+                weight_hint += f"优先选择: {', '.join(high_types)}\n"
+            if low_types:
+                weight_hint += f"降低频率: {', '.join(low_types)}\n"
+
     print(f"\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek, mode={topic_preference})...")
     prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近2天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
+
+{weight_hint}
 
 真实爆款文章数据（已按时效性+热度排序，pub_time为发布日期）：
 {json.dumps(articles_text, ensure_ascii=False)}
@@ -1261,6 +1006,172 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
 
 # ============================================================
+# Major Event Detection & Emergency Article Trigger
+# ============================================================
+
+def detect_major_events(match_data, gzh_articles=None):
+    """Detect significant football events that warrant immediate coverage.
+
+    Scans match data for comebacks, red cards, high-scoring games, upsets,
+    and checks GZH trends for breaking news with viral potential.
+
+    Returns list of events sorted by urgency (highest first).
+    """
+    events = []
+
+    # 1. Scan match data for significant events
+    for league, fixtures in match_data.get("fixtures_by_league", {}).items():
+        for m in fixtures:
+            home = m.get("home_team", "")
+            away = m.get("away_team", "")
+            hg = m.get("home_score")
+            ag = m.get("away_score")
+
+            if hg is None or ag is None:
+                continue
+
+            total_goals = hg + ag
+
+            # High-scoring thriller (5+ goals)
+            if total_goals >= 5:
+                events.append({
+                    "type": "进球大战",
+                    "title_hint": f"{home} {hg}-{ag} {away}，{total_goals}球对攻大战",
+                    "urgency": min(90, 60 + total_goals * 5),
+                    "league": league,
+                    "detail": f"{league}: {home} {hg}-{ag} {away} (共{total_goals}球)",
+                })
+
+            # One-sided blowout (4+ goal difference)
+            if abs(hg - ag) >= 4:
+                winner = home if hg > ag else away
+                events.append({
+                    "type": "惨案",
+                    "title_hint": f"{winner}血洗对手，{abs(hg-ag)}球大胜震惊{league}",
+                    "urgency": min(85, 55 + abs(hg - ag) * 7),
+                    "league": league,
+                    "detail": f"{league}: {home} {hg}-{ag} {away} ({abs(hg-ag)}球差距)",
+                })
+
+            # Major upset: use standings to detect (low-ranked beating high-ranked)
+            # Simplified: flag any match where both teams scored 3+
+            if hg >= 3 and ag >= 3:
+                events.append({
+                    "type": "神仙打架",
+                    "title_hint": f"{home}和{away}互捅刀子，{total_goals}球神仙打架",
+                    "urgency": 75,
+                    "league": league,
+                    "detail": f"{league}: {home} {hg}-{ag} {away}",
+                })
+
+            # Clean sheet blowout by underdog (simplified heuristic)
+            if (hg >= 3 and ag == 0) or (ag >= 3 and hg == 0):
+                big_team = home if hg >= 3 else away
+                shutout_team = away if hg >= 3 else home
+                events.append({
+                    "type": "碾压局",
+                    "title_hint": f"{big_team}{'主场' if hg >= 3 else '客场'}碾压{shutout_team}",
+                    "urgency": 65,
+                    "league": league,
+                    "detail": f"{league}: {home} {hg}-{ag} {away}",
+                })
+
+    # 2. Scan GZH trends for breaking news
+    if gzh_articles:
+        breaking_keywords = ["重磅", "官宣", "下课", "突发", "绝杀", "逆转", "冲突", "红牌",
+                            "解雇", "签约", "宣布", "确诊", "重伤", "退役", "告别"]
+        for a in gzh_articles:
+            title = a.get("title", "")
+            summary = a.get("summary", "") or ""
+            text = title + summary
+            matched_kws = [kw for kw in breaking_keywords if kw in text]
+            if matched_kws:
+                reads = a.get("clicksCount", 0)
+                # Viral potential: high reads + breaking keywords
+                viral_score = min(95, 60 + len(matched_kws) * 5 + (reads // 10000) * 2)
+                events.append({
+                    "type": "突发新闻",
+                    "title_hint": title[:60],
+                    "urgency": min(95, viral_score),
+                    "source": "GZH trending",
+                    "detail": f"公众号爆款: {title[:60]} (阅读:{reads})",
+                    "gzh_article": a,
+                })
+
+    # Deduplicate by title_hint
+    seen = set()
+    unique = []
+    for e in sorted(events, key=lambda x: -x["urgency"]):
+        hint = e.get("title_hint", "")[:40]
+        if hint not in seen:
+            seen.add(hint)
+            unique.append(e)
+
+    if unique:
+        top = unique[:3]
+        print(f"   ⚡ 检测到 {len(unique)} 个重大事件，前{len(top)}个:")
+        for i, e in enumerate(top):
+            print(f"   {i+1}. [{e['type']}][urg={e['urgency']}] {e['detail'][:60]}")
+
+    return unique
+
+
+def generate_emergency_article(event, match_data, index, temperature=0.8):
+    """Generate a focused emergency article for a major event."""
+    event_type = event.get("type", "突发新闻")
+    title_hint = event.get("title_hint", "")
+    detail = event.get("detail", "")
+
+    print(f"\n[紧急] [{event_type}] 快速生成突发球评: {title_hint[:40]}...")
+
+    fixtures = match_data.get("fixtures_by_league", {})
+    context_str = json.dumps({
+        "event_type": event_type,
+        "event_detail": detail,
+        "matches": fixtures,
+        "urgency_level": event.get("urgency", 70),
+    }, ensure_ascii=False)
+
+    # Style for emergency articles: urgent, punchy
+    style = "突发新闻快评风格：开篇直接冲事件核心，节奏快，短句多，像第一条推送。300-400字即可，有冲击力，有明确态度。"
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。刚刚发生了一件大事，需要你立刻写一篇快评！
+
+⚠️ 重大事件：{title_hint}
+事件详情：{detail}
+事件类型：{event_type}
+
+背景数据：
+{context_str[:2000]}
+
+写作要求：
+{style}
+
+结构：开篇事件核心（一句话出态度）→ 快速分析为什么重要 → 收尾观点（抛给读者讨论）
+
+硬性规范：
+- 正文 300-500 字（快评，不要求长文，但要够犀利）
+- 必须包含 ≥2 个 ## 二级标题
+- 文末至少1张配图标记：![配图1](images/article-{index}-img-001.jpg)
+- 态度要鲜明，不要骑墙
+
+禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
+
+输出JSON:
+{{"title": "标题(15-25字，有冲击力)", "backup_title": "备选标题", "content": "Markdown正文(300-500字，含≥2个##小标题，文末配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "紧急球评", "event_type": "{event_type}"}}
+只输出JSON。"""
+
+    messages = [
+        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，擅长突发事件快评。{style} 只输出JSON。"},
+        {"role": "user", "content": prompt}
+    ]
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=4096)
+    article = safe_json_loads(response)
+    print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
+    return article
+
+
+# ============================================================
 # Main
 # ============================================================
 
@@ -1286,9 +1197,31 @@ def main():
         "evening": ["战术解析", "八卦趣事"],
     }
 
+    # Load season weights for content type optimization
+    season_weights = load_season_weights(date_str)
+
     if batch_mode in BATCH_TYPES:
-        target_types = BATCH_TYPES[batch_mode]
+        target_types = list(BATCH_TYPES[batch_mode])
         article_count = 2
+
+        # Apply season weights + performance boost: swap low-weight types for high-weight alternatives
+        if season_weights:
+            # Merge performance boost into effective weights
+            effective_weights = dict(season_weights)
+            if performance_boost:
+                for ct, boost in performance_boost.items():
+                    if ct in effective_weights:
+                        effective_weights[ct] = round(effective_weights[ct] * boost, 2)
+            for i, ct in enumerate(target_types):
+                w = effective_weights.get(ct, 1.0)
+                if w < 0.7:
+                    candidates = sorted(effective_weights.items(), key=lambda x: -x[1])
+                    for alt_type, alt_w in candidates:
+                        if alt_w > 1.3 and alt_type not in target_types:
+                            print(f"   🔄 赛季权重调整: {ct}(权重{w}) → {alt_type}(权重{alt_w})")
+                            target_types[i] = alt_type
+                            break
+
         print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, types={target_types})\n")
     else:
         target_types = None
@@ -1296,6 +1229,7 @@ def main():
         print(f"足球自媒体内容自动化 - {date_str} (topic={topic_preference})\n")
 
     start_time = time.time()
+    log.info(f"开始执行 — 日期:{date_str} 批次:{batch_mode} 偏好:{topic_preference}")
     success = False
     result_msg = ""
     stats = {"generated": 0, "valid": 0, "failed": 0, "issues": []}
@@ -1304,6 +1238,11 @@ def main():
     try:
         # Step 0: Load topic history for dedup
         topic_history = get_topic_history(date_str)
+        # Cross-batch dedup: check what earlier batches already published today
+        cross_batch_covered = get_cross_batch_covered(date_str)
+        # Performance feedback: analyze past content performance for topic optimization
+        performance_data = analyze_content_performance(date_str, lookback_days=30)
+        performance_boost = get_performance_boost(performance_data)
 
         # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
@@ -1357,6 +1296,29 @@ def main():
         images_map = {}
         topics = []
 
+        # Cross-batch content type dedup: avoid repeating types already covered today
+        if batch_mode in BATCH_TYPES and cross_batch_covered.get("content_types"):
+            already_covered_types = cross_batch_covered["content_types"]
+            for i, ct in enumerate(target_types):
+                if ct in already_covered_types:
+                    # Find unused alternative with highest season weight
+                    candidates = sorted(season_weights.items(), key=lambda x: -x[1]) if season_weights else []
+                    all_types = ["八卦趣事", "转会资讯", "战术解析", "热点球评", "排行榜"]
+                    for alt_type, _ in candidates:
+                        if alt_type not in already_covered_types and alt_type not in target_types:
+                            print(f"   🔄 跨批次去重: {ct}(已在今日覆盖) → {alt_type}")
+                            target_types[i] = alt_type
+                            already_covered_types.add(alt_type)
+                            break
+                    else:
+                        # Fallback: try any unused type
+                        for alt_type in all_types:
+                            if alt_type not in already_covered_types and alt_type not in target_types:
+                                print(f"   🔄 跨批次去重(fallback): {ct}(已覆盖) → {alt_type}")
+                                target_types[i] = alt_type
+                                already_covered_types.add(alt_type)
+                                break
+
         # ============================================================
         # Main Article Pipeline (articles 1-3)
         # ============================================================
@@ -1364,7 +1326,7 @@ def main():
         if topic_preference != "auto":
             print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
             topics_and_raw = collect_real_gzh_topics(
-                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types)
+                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = f"无{topic_preference}相关真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1391,7 +1353,7 @@ def main():
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无比赛且无真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1421,7 +1383,7 @@ def main():
             gzh_raw = fetch_gzh_football_trends(date_str)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types)
+            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights)
             extra_meta = {"type": "match_analysis"}
 
             for i, topic in enumerate(topics[:3]):
@@ -1561,6 +1523,36 @@ def main():
             print(f"   ⚠️  虎扑数据采集/生成失败（不影响主文章）: {e}")
 
         # ============================================================
+        # Major Event Detection: generate emergency article if high-urgency event found
+        # ============================================================
+        if match_data["total_matches"] > 0:
+            major_events = detect_major_events(match_data)
+            urgent_events = [e for e in major_events if e["urgency"] >= 70]
+            # Only trigger emergency in non-batch mode or morning batch (avoid duplicates)
+            if urgent_events and batch_mode in ("auto", "morning"):
+                top_event = urgent_events[0]
+                e_idx = len(articles) + 1
+                e_imgs = search_images({"title": top_event.get("title_hint", ""),
+                                        "keywords_cn": [top_event.get("league", "足球")]}, count=3)
+                images_map[len(articles)] = e_imgs
+                e_art, e_err = generate_article_with_retry(
+                    {"title": top_event.get("title_hint", ""),
+                     "angle": top_event.get("detail", ""),
+                     "content_type": "紧急球评",
+                     "target_emotion": "震惊"},
+                    match_data, e_idx, max_retries=1)
+                stats["generated"] += 1
+                if e_err:
+                    print(f"   ⚠️  紧急球评生成失败: {e_err}")
+                    stats["failed"] += 1
+                else:
+                    stats["valid"] += 1
+                    articles.append((len(articles), e_art))
+                    topics.append({"title": top_event.get("title_hint", ""),
+                                   "content_type": f"紧急球评-{top_event.get('type', '')}"})
+                    print(f"   🚨 紧急球评已生成: [{top_event['type']}] urgency={top_event['urgency']}")
+
+        # ============================================================
         # Save all articles
         # ============================================================
         if not articles:
@@ -1572,6 +1564,9 @@ def main():
         articles_sorted = [a for _, a in sorted(articles, key=lambda x: x[0])]
         result = save_articles_local(date_str, articles_sorted, images_map, topics, match_data,
                                      extra=extra_meta, pre_downloaded_images=pre_downloaded)
+
+        # Save batch state for cross-batch dedup
+        save_batch_state(date_str, batch_mode if batch_mode != "auto" else "full", result.get("articles", []))
 
         elapsed = int(time.time() - start_time)
         article_titles = []
@@ -1588,6 +1583,8 @@ def main():
             result_msg += f"\n\n⚠️ 失败 {stats['failed']} 篇:\n" + "\n".join(f"- {i}" for i in stats["issues"])
 
         print(f"\n完成! ({elapsed}s) | 成功 {stats['valid']}/{stats['generated']} 篇")
+        log.info(f"执行完成 — {stats['valid']}/{stats['generated']}篇成功, 耗时{elapsed}s")
+        print_daily_summary(date_str, batch_mode)
         print(f"   输出: {result.get('output_dir', 'N/A')}")
         for a in result.get("articles", []):
             print(f"   - [{a.get('content_type', 'N/A')}] {a.get('title', 'N/A')[:50]} ({len(a.get('images', []))}张图)")
@@ -1596,6 +1593,7 @@ def main():
     except Exception as e:
         result_msg = f"异常: {e}"
         print(f"ERROR: {e}")
+        log.error(f"执行异常: {e}", exc_info=True)
         import traceback
         traceback.print_exc()
 
