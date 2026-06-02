@@ -378,6 +378,49 @@ def fetch_recent_standings():
     return standings
 
 
+def fetch_scorers():
+    """Fetch top scorers from major leagues for 排行榜 content type."""
+    headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
+    comp_map = {"英超": 2021, "西甲": 2014, "意甲": 2019, "德甲": 2002, "法甲": 2015, "欧冠": 2001}
+    scorers = {}
+    for league_name, comp_id in comp_map.items():
+        try:
+            resp = requests.get(f"{FOOTBALL_DATA_BASE}/competitions/{comp_id}/scorers",
+                              headers=headers, params={"limit": 10}, timeout=15)
+            if resp.status_code == 200:
+                data = resp.json().get("scorers", [])
+                scorers[league_name] = [
+                    {"player": s.get("player", {}).get("name", ""),
+                     "team": s.get("team", {}).get("name", ""),
+                     "goals": s.get("goals"), "assists": s.get("assists"),
+                     "played": s.get("playedMatches")}
+                    for s in data[:15]
+                ]
+            time.sleep(0.3)
+        except Exception:
+            pass
+    return scorers
+
+
+def fetch_rankings_data():
+    """Aggregate standings + scorers for 排行榜 content generation."""
+    print("[数据] 采集排行榜数据 (standings + scorers)...")
+    standings = fetch_recent_standings()
+    scorers = fetch_scorers()
+
+    # Build combined rankings context
+    rankings = {"standings": {}, "scorers": {}}
+    for league, table in standings.items():
+        rankings["standings"][league] = table[:10]  # top 10
+    for league, top_scorers in scorers.items():
+        rankings["scorers"][league] = top_scorers[:10]
+
+    standings_count = len(rankings["standings"])
+    scorers_count = len(rankings["scorers"])
+    print(f"   积分榜: {standings_count} 联赛 | 射手榜: {scorers_count} 联赛")
+    return rankings
+
+
 # ============================================================
 # Image Search
 # ============================================================
@@ -503,7 +546,7 @@ def search_images(topic, count=5):
 # Topic Selection & Article Generation
 # ============================================================
 
-def select_topics(match_data, gzh_articles=None, topic_history=None):
+def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None):
     print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
@@ -537,9 +580,9 @@ def select_topics(match_data, gzh_articles=None, topic_history=None):
 {history_text}
 
 硬性要求 — 3 个话题必须覆盖不同内容类型：
-1. 第1篇：比赛复盘型 — 从当日比赛中选最有话题性的一场
-2. 第2篇：转会八卦型/争议观点型 — 转会传闻、球员花边、冲突争议、场外话题
-3. 第3篇：人物故事型/趋势解读型 — 球员故事、战术趋势、数据洞察
+1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
+2. 第2篇：转会资讯/八卦趣事 — 转会传闻、球员花边、冲突争议、场外话题
+3. 第3篇：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势
 
 如果当日有绝杀、逆转、红牌、VAR争议、教练冲突等事件，优先选择。
 
@@ -547,11 +590,11 @@ def select_topics(match_data, gzh_articles=None, topic_history=None):
 避免：任何过去7天已报道过的球队/球员/话题。
 
 输出纯JSON数组：
-[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "比赛复盘型/转会八卦型/争议观点型/人物故事型/趋势解读型", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "why_pick": "为什么选这个角度(20字)"}}]
+[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "why_pick": "为什么选这个角度(20字)"}}]
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度、有人味、不骑墙。严格按要求分配3种内容类型，避开历史话题。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，有态度、有人味、不骑墙。严格按要求分配内容类型，避开历史话题。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
@@ -562,7 +605,7 @@ def select_topics(match_data, gzh_articles=None, topic_history=None):
     return topics
 
 
-def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto"):
+def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None):
     raw_articles = fetch_gzh_football_trends(
         date_str,
         keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None
@@ -602,15 +645,19 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
             history_text += "已写: " + " | ".join(list(topic_history["titles"])[:5]) + "\n"
 
     # Build prompt based on preference
-    if topic_preference == "transfer":
+    if preferred_types:
+        n = len(preferred_types)
+        type_requirement = f"{n}个选题全部按指定类型：{' 和 '.join(preferred_types)}。优先选择热度最高、最有话题性的。"
+        system_msg = f"你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。本次仅出{preferred_types}类选题。只输出JSON。"
+    elif topic_preference == "transfer":
         type_requirement = "3个选题必须全部是转会/签约/续约/离队/绯闻/花边/下课类型。优先选择热度最高、最有话题性的。"
-        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。全部选题聚焦转会八卦/球员花边/场外话题。只输出JSON。"
+        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。全部选题聚焦转会资讯/八卦趣事/场外话题。只输出JSON。"
     else:
         type_requirement = """硬性要求 — 3个选题必须覆盖不同内容类型：
-1. 第1篇：比赛复盘/赛后争议型
-2. 第2篇：转会八卦/球员花边/场外话题型
-3. 第3篇：人物故事/战术趋势/数据洞察型"""
-        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按3种内容类型分配。只输出JSON。"
+1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
+2. 第2篇：转会资讯/八卦趣事 — 转会传闻、球员花边、场外话题
+3. 第3篇：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势"""
+        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按对应内容类型分配。只输出JSON。"
 
     print(f"\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek, mode={topic_preference})...")
     prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近2天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
@@ -626,7 +673,7 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
 二次创作原则：借话题方向，不借标题和内容。用新角度、新观点、新表达重写。绝不可照搬原文标题或金句。
 
 输出纯JSON：
-[{{"title": "新标题(15-25字)", "source_article_ids": [引用文章id], "source_titles": ["原文标题"], "angle": "切入角度+新观点", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "转会八卦型/争议观点型/人物故事型/趋势解读型", "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
+[{{"title": "新标题(15-25字)", "source_article_ids": [引用文章id], "source_titles": ["原文标题"], "angle": "切入角度+新观点", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇"}}]
 只输出JSON。"""
 
     messages = [
@@ -676,8 +723,14 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
         for a in gzh_articles[:6]:
             gzh_text += f"- [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]}\n"
 
-    # Style guidance by content type
+    # Style guidance by content type (5 categories)
     style_guide = {
+        "热点球评": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
+        "转会资讯": "像球迷群里的八卦消息：分析转会的「为什么」和「影响」，结合球队需求和球员处境。有趣味但不编造，有逻辑但不学术。",
+        "排行榜": "用对比制造冲突，把数据融入叙事而非堆表格。每个上榜人物都要有槽点或亮点，不能让读者觉得是干巴巴的列表。",
+        "八卦趣事": "像给朋友讲一个你佩服（或不爽）的球员：聚焦一个侧面、一个瞬间，有画面感。带点吃瓜的调侃味，不写流水账。",
+        "战术解析": "把复杂的战术概念用大白话讲清楚，让普通球迷也能看懂。数据辅助观点，不反客为主。让读者看完有「原来如此」的感觉。",
+        # Legacy compatibility
         "比赛复盘型": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
         "转会八卦型": "像球迷群里的八卦消息：分析转会的「为什么」和「影响」，结合球队需求和球员处境。有趣味但不编造，有逻辑但不学术。",
         "争议观点型": "像一个敢说真话的老球迷：开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。可以情绪化但不能无理取闹。",
@@ -725,7 +778,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 禁用模式：不要每段都以"老六认为"开头，不要像写论文一样列一二三四
 
 输出JSON:
-{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -755,7 +808,13 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 
     # Style guidance by content type
     style_guide = {
-        "转会八卦型": "像球迷群里的八卦：分析转会为什么发生、对各方的影响。有趣的推测但不编造事实，有逻辑但不写学术论文。如有多个信源可交叉印证。",
+        "热点球评": "像赛后和球友喝酒复盘：先讲最刺激的瞬间，再拆关键战术细节，最后给个痛快结论。少列数据，多讲故事和感受。",
+        "转会资讯": "像球迷群里的八卦：分析转会为什么发生、对各方的影响。有趣的推测但不编造事实，有逻辑但不写学术论文。如有多个信源可交叉印证。",
+        "排行榜": "用对比制造冲突，把数据融入叙事而非堆表格。每个上榜人物都要有槽点或亮点，不能让读者觉得是干巴巴的列表。",
+        "八卦趣事": "像讲述一个你佩服（或不爽）的球员：聚焦一个侧面、一段经历、一个瞬间。有细节、有情感、有画面。不写流水账。",
+        "战术解析": "像老球皮分析足坛走向：从现象中提炼规律，用关键事实说话。让读者看完有「原来如此」的感觉。",
+        # Legacy compatibility
+        "转会八卦型": "像球迷群里的八卦：分析转会为什么发生、对各方的影响。有趣的推测但不编造事实，有逻辑但不写学术论文。",
         "争议观点型": "像一个敢说真话的老球迷：开篇直接亮态度，有事实支撑。可以情绪化但不能无理取闹，可以从多角度呈现争议。",
         "人物故事型": "像讲述一个你佩服（或不爽）的球员：聚焦一个侧面、一段经历、一个瞬间。有细节、有情感、有画面。不写流水账。",
         "趋势解读型": "像老球皮分析足坛走向：从现象中提炼规律，用关键事实说话。让读者看完有「原来如此」的感觉。",
@@ -801,7 +860,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 禁用模式：不要列一二三四，不要太强的论文感
 
 输出JSON:
-{{"title": "标题(15-25字，有话题性，不标题党)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
+{{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
 只输出JSON。"""
 
     messages = [
@@ -819,8 +878,9 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 # ============================================================
 
 def validate_article(article, index, is_tieba=False):
-    """Validate article quality. Returns (is_valid, issues_list)."""
+    """Validate article quality. Returns (is_valid, issues_list, originality_score)."""
     issues = []
+    score = 100  # Start from 100, deduct for each issue
     content = article.get("content", "")
     title = article.get("title", "")
     min_words = 300 if is_tieba else 500
@@ -829,24 +889,55 @@ def validate_article(article, index, is_tieba=False):
 
     if not title or len(title) < 10:
         issues.append(f"标题过短({len(title)}字,需≥10)")
+        score -= 15
     elif len(title) > 32:
         issues.append(f"标题过长({len(title)}字,需≤32)")
+        score -= 10
 
     if not content or len(content) < min_words:
         issues.append(f"正文字数不足({len(content)}字,需≥{min_words})")
+        score -= 20
 
     h2_count = len(re.findall(r'^## ', content, re.MULTILINE))
     if h2_count < min_h2:
         issues.append(f"缺少小标题(仅{h2_count}个##,需≥{min_h2})")
+        score -= 10
 
     img_count = len(re.findall(r'!\[.*?\]\(images/', content))
     if img_count < min_images:
         issues.append(f"配图标记不足({img_count}个,需≥{min_images})")
+        score -= 10
 
     if content.strip() == "":
         issues.append("正文为空")
+        score = 0
+        return False, issues, 0
 
-    return len(issues) == 0, issues
+    # Originality check: banned words
+    banned_words = ["震惊", "吓尿", "哭惨", "看傻了"]
+    for bw in banned_words:
+        if bw in content:
+            issues.append(f"禁用词: {bw}")
+            score -= 20
+
+    # Originality check: AI cliche patterns
+    ai_cliches = ["众所周知", "值得一提的是", "从某种意义上说", "不得不说", "不可否认",
+                  "总而言之", "首先其次最后", "让我们来看看", "接下来我们分析"]
+    for cliche in ai_cliches:
+        if cliche in content:
+            issues.append(f"AI套话: {cliche}")
+            score -= 10
+
+    # Originality check: source article overlap (if available)
+    sources = article.get("sources_used", [])
+    if sources:
+        for src in sources:
+            src_short = src[:30] if len(src) > 30 else src
+            if len(src_short) >= 8 and src_short in content:
+                issues.append(f"疑似照搬来源: {src[:30]}")
+                score -= 30
+
+    return len(issues) == 0, issues, max(score, 0)
 
 
 def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
@@ -879,18 +970,21 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                 last_issues = f"上次正文仅{len(content)}字，远低于500字最低要求。请基于提供的事实数据充实内容。"
                 continue
 
-            is_valid, issues = validate_article(art, index, is_tieba=is_tieba)
-            if is_valid:
+            is_valid, issues, score = validate_article(art, index, is_tieba=is_tieba)
+            if is_valid and score >= 85:
                 if attempt > 0:
-                    print(f"   ✅ 第{attempt+1}次尝试通过验证")
+                    print(f"   ✅ 第{attempt+1}次尝试通过 (原创度: {score})")
                 return art, None
 
-            print(f"   ⚠️  第{attempt+1}次验证失败: {'; '.join(issues)}")
+            if not is_valid:
+                print(f"   ⚠️  验证失败: {'; '.join(issues)}")
+            elif score < 85:
+                print(f"   ⚠️  原创度不足 ({score}/100，需≥85): {'; '.join(issues)}")
             last_issues = "; ".join(issues)
             if attempt < max_retries:
                 print(f"   🔄 重试 (temperature={temp}, 加强约束)...")
             else:
-                return art, f"验证失败({max_retries+1}次): {'; '.join(issues)}"
+                return art, f"验证失败({max_retries+1}次, 原创度{score}): {'; '.join(issues)}"
 
         except Exception as e:
             print(f"   ❌ 第{attempt+1}次生成异常: {e}")
@@ -1043,7 +1137,7 @@ def generate_tieba_article(topic, index, post_data, temperature=0.8, retry_hint=
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
 输出JSON:
-{{"title": "标题(15-25字，有网感有态度)", "content": "Markdown正文(300-500字，含3个##小标题+3张配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
+{{"title": "优选标题(15-25字，有网感有态度)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(300-500字，含3个##小标题+3张配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "球迷讨论", "source_post": "{post_title[:50]}"}}
 只输出JSON。"""
 
     messages = [
@@ -1171,17 +1265,35 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 # ============================================================
 
 def main():
-    # Parse args: python orchestrator.py [YYYY-MM-DD] [--topic=auto|transfer|match]
+    # Parse args: python orchestrator.py [YYYY-MM-DD] [--topic=auto|transfer|match] [--batch=auto|morning|noon|evening]
     date_str = None
     topic_preference = "auto"
+    batch_mode = "auto"
     for arg in sys.argv[1:]:
         if arg.startswith("--topic="):
             topic_preference = arg.split("=", 1)[1]
+        elif arg.startswith("--batch="):
+            batch_mode = arg.split("=", 1)[1]
         elif not arg.startswith("--"):
             date_str = arg
     if date_str is None:
         date_str = datetime.now().strftime("%Y-%m-%d")
-    print(f"足球自媒体内容自动化 - {date_str} (topic={topic_preference})\n")
+
+    # Batch content type assignments (2 articles per batch)
+    BATCH_TYPES = {
+        "morning": ["热点球评", "八卦趣事"],
+        "noon": ["转会资讯", "排行榜"],
+        "evening": ["战术解析", "八卦趣事"],
+    }
+
+    if batch_mode in BATCH_TYPES:
+        target_types = BATCH_TYPES[batch_mode]
+        article_count = 2
+        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, types={target_types})\n")
+    else:
+        target_types = None
+        article_count = 3
+        print(f"足球自媒体内容自动化 - {date_str} (topic={topic_preference})\n")
 
     start_time = time.time()
     success = False
@@ -1196,6 +1308,51 @@ def main():
         # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
 
+        # Data availability check: adjust target types if no supporting data
+        FALLBACK_MAP = {
+            "热点球评": "战术解析",   # no match data → tactical analysis
+            "排行榜": "八卦趣事",     # no rankings data → gossip
+        }
+        if target_types:
+            original_types = list(target_types)
+            # Check 热点球评 feasibility
+            if "热点球评" in target_types and match_data["total_matches"] == 0:
+                fb = FALLBACK_MAP["热点球评"]
+                target_types = [fb if t == "热点球评" else t for t in target_types]
+                print(f"   ⚠️  无比赛数据，热点球评 → {fb}")
+
+            # Check 排行榜 feasibility
+            if "排行榜" in target_types:
+                rankings_data = fetch_rankings_data()
+                has_rankings = bool(rankings_data.get("scorers") or rankings_data.get("standings"))
+                if not has_rankings:
+                    fb = FALLBACK_MAP["排行榜"]
+                    target_types = [fb if t == "排行榜" else t for t in target_types]
+                    print(f"   ⚠️  无排行榜数据，排行榜 → {fb}")
+                else:
+                    print(f"   ✅ 排行榜数据可用：{len(rankings_data.get('scorers', {}))}个联赛射手榜, {len(rankings_data.get('standings', {}))}个积分榜")
+
+            if target_types != original_types:
+                print(f"   调整后品类: {target_types}")
+                # Deduplicate if fallback created duplicates
+                seen = set()
+                deduped = []
+                for t in target_types:
+                    if t not in seen:
+                        seen.add(t)
+                        deduped.append(t)
+                if len(deduped) < len(target_types):
+                    # Fill in missing slots with types not already selected
+                    all_types = ["八卦趣事", "转会资讯", "战术解析", "热点球评", "排行榜"]
+                    for at in all_types:
+                        if len(deduped) >= article_count:
+                            break
+                        if at not in seen:
+                            deduped.append(at)
+                            seen.add(at)
+                    target_types = deduped[:article_count]
+                    print(f"   去重后品类: {target_types}")
+
         articles = []
         images_map = {}
         topics = []
@@ -1207,7 +1364,7 @@ def main():
         if topic_preference != "auto":
             print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
             topics_and_raw = collect_real_gzh_topics(
-                date_str, topic_history, topic_preference=topic_preference)
+                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = f"无{topic_preference}相关真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1217,8 +1374,8 @@ def main():
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": f"gzh_{topic_preference}"}
 
-            for i, topic in enumerate(topics[:3]):
-                print(f"\n--- 第{i+1}/3篇 ---")
+            for i, topic in enumerate(topics[:article_count]):
+                print(f"\n--- 第{i+1}/{article_count}篇 ---")
                 imgs = search_images(topic, count=5)
                 images_map[i] = imgs
                 art, error = generate_article_with_retry(
@@ -1234,7 +1391,7 @@ def main():
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无比赛且无真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1244,8 +1401,8 @@ def main():
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": "gzh_real_data"}
 
-            for i, topic in enumerate(topics[:3]):
-                print(f"\n--- 第{i+1}/3篇 ---")
+            for i, topic in enumerate(topics[:article_count]):
+                print(f"\n--- 第{i+1}/{article_count}篇 ---")
                 imgs = search_images(topic, count=5)
                 images_map[i] = imgs
                 art, error = generate_article_with_retry(
@@ -1264,7 +1421,7 @@ def main():
             gzh_raw = fetch_gzh_football_trends(date_str)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context, topic_history)
+            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types)
             extra_meta = {"type": "match_analysis"}
 
             for i, topic in enumerate(topics[:3]):
@@ -1287,8 +1444,12 @@ def main():
         # ============================================================
         pre_downloaded = {}
         try:
-            print("\n--- 虎扑球迷讨论数据源 ---")
-            tieba_data = collect_tieba_data(date_str)
+            if batch_mode != "auto":
+                print("   [批次模式] 跳过虎扑数据采集")
+                tieba_data = None
+            else:
+                print("\n--- 虎扑球迷讨论数据源 ---")
+                tieba_data = collect_tieba_data(date_str)
             if tieba_data and tieba_data.get("raw_posts"):
                 # Dedup: skip posts previously used as Hupu article source
                 raw_posts = tieba_data["raw_posts"]

@@ -68,6 +68,69 @@ schedule:
   time: "07:00"
   timezone: "Asia/Shanghai"
   check_server_before: 5  # minutes before schedule
+  # 三批次发布策略 (GitHub Actions cron 控制)
+  batches:
+    morning:  # 北京时间 8:00 — 赛后热点 + 八卦
+      cron: "0 0 * * *"
+      content_types: ["热点球评", "八卦趣事"]
+      article_count: 2
+    noon:  # 北京时间 14:00 — 转会 + 排行榜
+      cron: "0 6 * * *"
+      content_types: ["转会资讯", "排行榜"]
+      article_count: 2
+    evening:  # 北京时间 20:00 — 战术 + 八卦
+      cron: "0 12 * * *"
+      content_types: ["战术解析", "八卦趣事"]
+      article_count: 2
+
+# 赛季节奏适配：按月份自动调整品类权重
+# 权重越高，选题时越倾向选择该品类
+season_weights:
+  # 8-9月 夏季转会窗 — 转会内容权重加大
+  - months: [8, 9]
+    weights:
+      热点球评: 1.0
+      转会资讯: 2.0
+      排行榜: 1.0
+      八卦趣事: 1.2
+      战术解析: 0.8
+    label: "夏季转会窗"
+  # 3-5月 争冠/冲刺期 — 球评+战术权重加大
+  - months: [3, 4, 5]
+    weights:
+      热点球评: 2.0
+      转会资讯: 0.8
+      排行榜: 1.2
+      八卦趣事: 0.8
+      战术解析: 1.5
+    label: "赛季争冠冲刺期"
+  # 6-7月 休赛期 — 八卦+榜单为主
+  - months: [6, 7]
+    weights:
+      热点球评: 0.5
+      转会资讯: 1.5
+      排行榜: 1.5
+      八卦趣事: 2.0
+      战术解析: 0.5
+    label: "休赛期"
+  # 1月 冬窗 — 转会权重加大
+  - months: [1]
+    weights:
+      热点球评: 1.0
+      转会资讯: 2.0
+      排行榜: 1.0
+      八卦趣事: 1.2
+      战术解析: 0.8
+    label: "冬季转会窗"
+  # 默认: 均衡
+  - months: [2, 10, 11, 12]
+    weights:
+      热点球评: 1.0
+      转会资讯: 1.0
+      排行榜: 1.0
+      八卦趣事: 1.0
+      战术解析: 1.0
+    label: "常规赛季"
 
 flask:
   host: "0.0.0.0"
