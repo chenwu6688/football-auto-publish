@@ -63,7 +63,10 @@ jobs:
 
       - name: 生成文章
         id: generate
-        run: python orchestrator.py --batch=${{ inputs.batch || 'auto' }}
+        run: |
+          TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
+          echo "today=$TODAY" >> $GITHUB_OUTPUT
+          python orchestrator.py "$TODAY" --batch=${{ inputs.batch || 'auto' }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
@@ -76,7 +79,7 @@ jobs:
         if: success()
         run: |
           if [ -f toutiao_auth.json ]; then
-            TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
+            TODAY="${{ steps.generate.outputs.today }}"
             python publisher.py "$TODAY" --headless
           else
             echo "跳过发布：无头条号登录状态"

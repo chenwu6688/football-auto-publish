@@ -5,7 +5,8 @@ Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
 import os, json, sys, subprocess, requests, time, re, signal, yaml
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from collections import defaultdict
 
@@ -69,7 +70,7 @@ def load_season_weights(date_str=None):
         if not season_weights:
             return None
 
-        dt = datetime.strptime(date_str, "%Y-%m-%d") if date_str else datetime.now()
+        dt = datetime.strptime(date_str, "%Y-%m-%d") if date_str else datetime.now(ZoneInfo("Asia/Shanghai"))
         month = dt.month
 
         for period in season_weights:
@@ -154,7 +155,7 @@ def save_batch_state(date_str, batch_name, articles_saved):
         batches.append(batch_name)
     existing["batches_completed"] = batches
     existing["last_batch"] = batch_name
-    existing["last_updated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    existing["last_updated"] = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
     try:
         meta_path.parent.mkdir(parents=True, exist_ok=True)
         meta_path.write_text(json.dumps(existing, ensure_ascii=False, indent=2))
@@ -171,7 +172,7 @@ def analyze_content_performance(date_str=None, lookback_days=30):
     Higher score = better performing content type.
     """
     if date_str is None:
-        date_str = datetime.now().strftime("%Y-%m-%d")
+        date_str = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
     today = datetime.strptime(date_str, "%Y-%m-%d")
 
     type_stats = {}
@@ -1527,7 +1528,7 @@ def main():
         elif not arg.startswith("--"):
             date_str = arg
     if date_str is None:
-        date_str = datetime.now().strftime("%Y-%m-%d")
+        date_str = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
 
     # Load season weights for content type optimization
     season_weights = load_season_weights(date_str)

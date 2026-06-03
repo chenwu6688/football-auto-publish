@@ -12,7 +12,8 @@
 
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 # Determine log directory
@@ -33,7 +34,7 @@ console_handler.setFormatter(console_fmt)
 log.addHandler(console_handler)
 
 # File handler — DEBUG and above, daily rotating (new file per day)
-today = datetime.now().strftime("%Y-%m-%d")
+today = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
 file_handler = logging.FileHandler(LOG_DIR / f"orchestrator_{today}.log", encoding="utf-8")
 file_handler.setLevel(logging.DEBUG)
 file_fmt = logging.Formatter("%(asctime)s [%(levelname)-5s] %(name)s:%(lineno)d — %(message)s")

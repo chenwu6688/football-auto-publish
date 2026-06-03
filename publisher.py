@@ -124,8 +124,23 @@ def load_articles(date_str):
     """Load generated articles from output directory."""
     date_dir = OUTPUT_BASE / date_str
     if not date_dir.exists():
-        print(f"❌ 文章目录不存在: {date_dir}")
-        sys.exit(1)
+        # Fallback: try previous day (scheduler delay may have shifted Beijing date)
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            print(f"❌ 文章目录不存在: {date_dir}")
+            sys.exit(1)
+        from datetime import timedelta
+        prev_date = (dt - timedelta(days=1)).strftime("%Y-%m-%d")
+        prev_dir = OUTPUT_BASE / prev_date
+        if prev_dir.exists():
+            print(f"⚠️  今日目录不存在，回退到昨日: {prev_dir}")
+            date_dir = prev_dir
+        else:
+            print(f"❌ 文章目录不存在: {date_dir} (也尝试了 {prev_dir})")
+            sys.exit(1)
 
     all_md_files = sorted(date_dir.glob("article-*.md"))
     print(f"在 {date_dir} 中找到 {len(all_md_files)} 个 article-*.md 文件: {[f.name for f in all_md_files]}")
