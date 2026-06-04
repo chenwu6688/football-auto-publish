@@ -64,20 +64,30 @@ images:
 
 schedule:
   timezone: "Asia/Shanghai"
-  # 三批次发布策略 (GitHub Actions cron 控制)
+  # 三批次发布策略 — v2.0 栏目系统
+  # 每个批次有2个独有栏目，6个栏目全天零重叠
   batches:
-    morning:  # 北京时间 8:00 — 赛后热点 + 八卦
-      cron: "0 0 * * *"
-      content_types: ["热点球评", "八卦趣事"]
+    morning:
+      name: "晨读"
+      cron: "0 0 * * *"           # 08:00 CST = 00:00 UTC
       article_count: 2
-    noon:  # 北京时间 14:00 — 转会 + 排行榜
-      cron: "0 6 * * *"
-      content_types: ["转会资讯", "排行榜"]
+      columns:
+        - "晨读快讯"   # slot 0: 群聊播报体
+        - "话题擂台"   # slot 1: 烧烤摊辩论体
+    noon:
+      name: "午间"
+      cron: "0 4 * * *"           # 12:00 CST = 04:00 UTC
       article_count: 2
-    evening:  # 北京时间 20:00 — 战术 + 八卦
-      cron: "0 12 * * *"
-      content_types: ["战术解析", "八卦趣事"]
+      columns:
+        - "数据盘点"   # slot 0: 毒舌点评体
+        - "深水区"     # slot 1: 内行看门道体
+    evening:
+      name: "晚间"
+      cron: "30 9 * * *"          # 17:30 CST = 09:30 UTC
       article_count: 2
+      columns:
+        - "人物志"     # slot 0: 人物杂志体
+        - "时光机"     # slot 1: 回忆杀体
 
 # 赛季节奏适配：按月份自动调整品类权重
 # 权重越高，选题时越倾向选择该品类

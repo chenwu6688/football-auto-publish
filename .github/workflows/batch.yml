@@ -1,0 +1,98 @@
+name: 足球自媒体批次发布
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: '批次 (morning/noon/evening)'
+        required: true
+        type: choice
+        options:
+          - morning
+          - noon
+          - evening
+      date:
+        description: '日期 (YYYY-MM-DD，默认今天北京时间)'
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: 写入头条号登录状态
+        run: |
+          mkdir -p /tmp/auth
+          echo "${{ secrets.TOUTIAO_AUTH_JSON }}" > /tmp/auth/toutiao_auth.json
+
+      - name: 计算日期
+        id: date
+        run: |
+          if [ -z "${{ inputs.date }}" ]; then
+            TODAY=$(TZ=Asia/Shanghai date +%Y-%m-%d)
+          else
+            TODAY="${{ inputs.date }}"
+          fi
+          echo "today=$TODAY" >> $GITHUB_OUTPUT
+
+      - name: 生成文章
+        id: generate
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+          OUTPUT_DIR: ${{ runner.temp }}/output
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          python orchestrator.py "${{ steps.date.outputs.today }}" --batch="${{ inputs.batch }}"
+
+      - name: 发布到头条号
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+          OUTPUT_DIR: ${{ runner.temp }}/output
+        run: |
+          python publisher.py "${{ steps.date.outputs.today }}" --headless
+
+      - name: 上传产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: articles-${{ inputs.batch }}-${{ steps.date.outputs.today }}
+          path: ${{ runner.temp }}/output/${{ steps.date.outputs.today }}/
+
+      - name: 失败通知
+        if: failure()
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          python -c "
+          import requests, json
+          requests.post('https://wxpusher.zjiecode.com/api/send/message',
+            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ ${{ inputs.batch }} 批次发布失败\n日期: ${{ steps.date.outputs.today }}\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
+          "

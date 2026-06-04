@@ -19,7 +19,8 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        WXPUSHER_APPTOKEN, WXPUSHER_UID,
                        COMPETITION_IDS, GZH_KEYWORD_GROUPS, GZH_TRANSFER_KEYWORDS,
                        GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
-                       BATCH_TYPES, FALLBACK_MAP, ALL_CONTENT_TYPES, WEEKLY_COLUMNS)
+                       BATCH_TYPES, BATCH_CONFIG, CONTENT_TYPE_TO_COLUMN,
+                       FALLBACK_MAP, ALL_CONTENT_TYPES, WEEKLY_COLUMNS)
 from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
 from data_collector import (collect_real_matches, fetch_gzh_football_trends,
@@ -99,6 +100,18 @@ def send_wxpusher(title, content):
         )
     except Exception:
         pass
+
+
+def get_batch_columns(batch_mode):
+    """Get column configs for a given batch from BATCH_CONFIG.
+
+    Returns list of column dicts (one per article slot), each containing
+    full column metadata: column_id, column_name, writing_style, word_count, etc.
+    Returns None if batch_mode is not a valid batch name.
+    """
+    if batch_mode not in BATCH_CONFIG:
+        return None
+    return BATCH_CONFIG[batch_mode]
 
 
 
@@ -282,33 +295,46 @@ def get_column_for_date(date_str, content_type=None):
     return column, True
 
 
-def _assign_column_to_topics(topics, date_str):
-    """Assign today's weekly column to the best-matching topic.
+def _assign_columns_to_topics(topics, batch_mode):
+    """Assign each topic its corresponding column based on slot position.
 
-    Modifies the topic dict in-place with column info. Only one topic per
-    batch gets the column tag — the one whose content_type best matches.
+    Each topic gets its column metadata (column_id, column_name, writing_style,
+    style_detail, word_count, interaction_type, etc.) injected directly into
+    the topic dict. This replaces the old single-column assignment — now ALL
+    topics get their batch-specific column.
+
+    When batch_mode is 'auto' or not in BATCH_CONFIG, this is a no-op.
     """
-    if not topics:
-        return
-    today_column, _ = get_column_for_date(date_str)
-    if not today_column:
+    if not topics or batch_mode not in BATCH_CONFIG:
         return
 
-    # Find the topic whose content_type best matches the column
-    best_idx = None
-    for i, t in enumerate(topics):
-        ct = t.get("content_type", "")
-        if ct in today_column.get("best_with", []):
-            best_idx = i
+    batch_cfg = BATCH_CONFIG[batch_mode]
+    slots = batch_cfg["slots"]
+
+    for i, topic in enumerate(topics):
+        if i >= len(slots):
             break
-    # Fallback: assign to first topic if no perfect match
-    if best_idx is None:
-        best_idx = 0
+        slot = slots[i]
+        topic["_column_id"] = slot["column_id"]
+        topic["_column_name"] = slot["column_name"]
+        topic["_column_icon"] = slot["icon"]
+        topic["_writing_style"] = slot["writing_style"]
+        topic["_style_detail"] = slot["style_detail"]
+        topic["_word_count_range"] = slot["word_count"]
+        topic["_interaction_type"] = slot["interaction_type"]
+        topic["_interaction_guidance"] = slot["interaction_guidance"]
+        topic["_topic_domain"] = slot["topic_domain"]
+        topic["_topic_guidance"] = slot["topic_guidance"]
+        topic["_data_source_hint"] = slot["data_source_hint"]
+        topic["_batch_name"] = batch_cfg["name"]
+        topic["_batch_time"] = batch_cfg["time"]
+        topic["_reader_scenario"] = batch_cfg["reader_scenario"]
+        topic["_overall_tone"] = batch_cfg["overall_tone"]
+        # Map column to legacy content_type for metadata compatibility
+        topic["content_type"] = CONTENT_TYPE_TO_COLUMN.get(slot["column_name"], topic.get("content_type", "八卦趣事"))
 
-    topics[best_idx]["_column"] = today_column["name"]
-    topics[best_idx]["_column_slug"] = today_column["slug"]
-    topics[best_idx]["_column_style"] = today_column["style"]
-    print(f"   📰 今日栏目: {today_column['icon']} {today_column['name']} → 第{best_idx + 1}篇")
+    column_names = [t.get("_column_name", "?") for t in topics[:len(slots)]]
+    print(f"   📰 栏目分配: {', '.join(column_names)} ({batch_cfg['name']}·{batch_cfg['time']})")
 
 
 def _check_intra_batch_dedup(topics):
@@ -348,7 +374,7 @@ def _check_intra_batch_dedup(topics):
     return topics, warnings
 
 
-def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None):
+def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None):
     print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
@@ -374,6 +400,18 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
         if topic_history.get("players"):
             history_text += "已覆盖球员: " + ", ".join(sorted(list(topic_history["players"])[:10])) + "\n"
 
+    # Cross-batch dedup: tell LLM what today's earlier batches already published
+    cross_batch_text = ""
+    if cross_batch_covered and (cross_batch_covered.get("titles") or cross_batch_covered.get("keywords")):
+        cross_batch_text = "\n## 🚫 今日已发布（严禁任何重复或变体）\n"
+        if cross_batch_covered.get("titles"):
+            today_titles = list(cross_batch_covered["titles"])[:5]
+            cross_batch_text += "今日已发标题: " + " | ".join(today_titles) + "\n"
+        if cross_batch_covered.get("keywords"):
+            today_kw = list(cross_batch_covered["keywords"])[:15]
+            cross_batch_text += "今日覆盖关键词: " + ", ".join(today_kw) + "\n"
+        cross_batch_text += "禁止选择与上述标题或关键词重叠的新选题。\n"
+
     # Season weights hint
     weight_hint = ""
     if season_weights:
@@ -392,6 +430,7 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 {"".join(lines)}
 {gzh_text}
 {history_text}
+{cross_batch_text}
 {weight_hint}
 
 硬性要求 — 3 个话题必须覆盖不同内容类型 + 不同核心主题：
@@ -446,13 +485,32 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
         if to_drop:
             topics = [t for idx, t in enumerate(topics) if idx not in to_drop]
             print(f"   🗑️ 自动去重: 移除 {len(to_drop)} 个重复话题，保留 {len(topics)} 个")
+
+    # Cross-batch keyword overlap check
+    if cross_batch_covered and topics:
+        cross_kw = cross_batch_covered.get("keywords", set())
+        cross_titles = cross_batch_covered.get("titles", set())
+        filtered = []
+        for t in topics:
+            t_title = t.get("title", "")[:30]
+            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
+            title_overlap = t_title in cross_titles
+            kw_overlap = len(t_kws & cross_kw) / max(len(t_kws), 1) if t_kws else 0
+            if title_overlap or kw_overlap >= 0.4:
+                print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(关键词重叠率 {kw_overlap:.0%})")
+            else:
+                filtered.append(t)
+        if len(filtered) < len(topics):
+            print(f"   跨批次去重: {len(topics)} → {len(filtered)} 个话题")
+        topics = filtered
+
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
     return topics
 
 
-def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None):
+def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None, cross_batch_covered=None):
     raw_articles = fetch_gzh_football_trends(
         date_str,
         keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None
@@ -491,6 +549,18 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
         if topic_history.get("titles"):
             history_text += "已写: " + " | ".join(list(topic_history["titles"])[:5]) + "\n"
 
+    # Cross-batch dedup: tell LLM what today's earlier batches already published
+    cross_batch_text = ""
+    if cross_batch_covered and (cross_batch_covered.get("titles") or cross_batch_covered.get("keywords")):
+        cross_batch_text = "\n🚫 今日已发布（严禁任何重复或变体）:\n"
+        if cross_batch_covered.get("titles"):
+            today_titles = list(cross_batch_covered["titles"])[:5]
+            cross_batch_text += "今日已发标题: " + " | ".join(today_titles) + "\n"
+        if cross_batch_covered.get("keywords"):
+            today_kw = list(cross_batch_covered["keywords"])[:15]
+            cross_batch_text += "今日覆盖关键词: " + ", ".join(today_kw) + "\n"
+        cross_batch_text += "禁止选择与上述标题或关键词重叠的新选题。\n"
+
     # Build prompt based on preference
     if preferred_types:
         n = len(preferred_types)
@@ -526,6 +596,7 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
 真实爆款文章数据（已按时效性+热度排序，pub_time为发布日期）：
 {json.dumps(articles_text, ensure_ascii=False)}
 {history_text}
+{cross_batch_text}
 
 ⚠️ 时效性硬性要求：只能选择 pub_time 为 {yesterday_str} 或 {today_str} 的话题。超过2天的旧闻一律不用。
 
@@ -543,6 +614,25 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.6, max_tokens=4096)
     topics = safe_json_loads(response)
+
+    # Cross-batch keyword overlap check: drop topics that overlap with today's earlier batches
+    if cross_batch_covered and topics:
+        cross_kw = cross_batch_covered.get("keywords", set())
+        cross_titles = cross_batch_covered.get("titles", set())
+        filtered = []
+        for t in topics:
+            t_title = t.get("title", "")[:30]
+            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
+            title_overlap = t_title in cross_titles
+            kw_overlap = len(t_kws & cross_kw) / max(len(t_kws), 1) if t_kws else 0
+            if title_overlap or kw_overlap >= 0.4:
+                print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(关键词重叠率 {kw_overlap:.0%})")
+            else:
+                filtered.append(t)
+        if len(filtered) < len(topics):
+            print(f"   跨批次去重: {len(topics)} → {len(filtered)} 个选题")
+        topics = filtered
+
     print(f"   筛选出 {len(topics)} 个选题（全部来自真实爆款）:")
     for i, t in enumerate(topics):
         srcs = t.get("source_titles", ["?"])
@@ -584,39 +674,56 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
         for a in gzh_articles[:6]:
             gzh_text += f"- [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]}\n"
 
-    # Style guidance by content type (5 categories)
+    # Style guidance by content type (5 categories) — fallback for non-column mode
     style_guide = {
         "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。用「说白了」「仔细想想」这类自然口语推进，不要「老六分析」标签。",
         "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣味但不编造，有逻辑但不学术。不确定的地方就说「据说」「按这个趋势」，不要假装什么都知道。",
         "排行榜": "数字是药引子，对比是主菜。每个上榜人物都要有槽点或亮点，每个关键数字后面必须跟一句「这意味着...」。让读者感觉在翻一本有态度的排名，不是在看Excel。",
         "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。可以调侃但不能刻薄。节奏轻快，不要写成流水账履历。",
         "战术解析": "你的任务是翻译——把专业术语翻译成让普通球迷听了能跟朋友吹牛的大白话。数据必须配人话解读。每篇至少1处历史/行业跨界类比。",
-        # Legacy compatibility
         "比赛复盘型": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
         "转会八卦型": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
         "争议观点型": "像一个敢说真话的老球迷——开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。",
         "人物故事型": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。不写流水账。",
         "趋势解读型": "从现象中提炼规律，用一两组关键数据说话，每个数字配人话解读。让读者看完有「原来如此」的感觉。",
     }
-    style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
+
+    # Column-driven style (v2): use column metadata when available
+    column_name = topic.get("_column_name", "")
+    if column_name:
+        style = topic.get("_style_detail", "用自然口语化中文写作，有态度有人味。")
+        word_min, word_max = topic.get("_word_count_range", [500, 800])
+        column_block = f"""
+📰 今日专栏：{column_name}
+专栏领域：{topic.get('_topic_domain', '')}
+选题指引：{topic.get('_topic_guidance', '')}
+读者场景：{topic.get('_reader_scenario', '')}
+写作体例：{topic.get('_writing_style', '')}
+体例说明：{style}
+
+结构要求：按照{column_name}栏目的固定结构写作。
+字数要求：{word_min}-{word_max}字。
+互动类型：{topic.get('_interaction_type', '')}
+互动指引：{topic.get('_interaction_guidance', '')}
+"""
+        column_meta = {"column_id": topic.get("_column_id", ""),
+                       "column_name": column_name,
+                       "batch_name": topic.get("_batch_name", ""),
+                       "batch_time": topic.get("_batch_time", "")}
+        word_count_rule = f"正文 {word_min}-{word_max} 字（严格控制，{column_name}栏目规范）"
+    else:
+        style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
+        word_min, word_max = 500, 800
+        column_block = ""
+        column_meta = {}
+        word_count_rule = "正文 500-800 字（紧凑有力，有多少事实写多少字，不要水字数）"
 
     # Retry hint: inject failure feedback to force improvement
     retry_block = ""
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
-
-    # Column injection
-    column_block = ""
-    column_meta = {}
-    if topic.get("_column"):
-        column_block = f"""
-📰 今日栏目：{topic['_column']}
-栏目写作风格：{topic.get('_column_style', '')}
-请在标题后标注栏目名（如「{topic['_column']}」），并在正文中体现栏目的独特调性。
-"""
-        column_meta = {"column": topic["_column"], "column_slug": topic.get("_column_slug", "")}
+这次必须修正上述所有问题。正文至少{word_min}字，至少2个##小标题，文末至少2个配图标记。"""
 
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实数据写一篇有观点的足球文章。
 {column_block}
@@ -644,7 +751,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 结构：反套路开篇 → 2个小节展开分析 → 收尾观点+互动
 
 硬性规范：
-- 正文 500-800 字（紧凑有力，有多少事实写多少字，不要水字数）
+- {word_count_rule}
 - 必须包含 ≥2 个 ## 二级标题
 - 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
 - 事实红线：素材里没有的数据/事件/引语，一律不写。有几分数据说几分话
@@ -653,7 +760,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 禁用模式：不要每段以"老六"开头，不要列一二三四，不要"一部分球迷认为...另一部分球迷认为..."
 
 输出JSON:
-{{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文({word_min}-{word_max}字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     base_prompt = load_prompt_template("article_generator.txt")
@@ -666,9 +773,12 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
-    # Inject column metadata if present
+    # Inject column metadata if present (flatten into article)
     if column_meta:
-        article["_column"] = column_meta
+        article["_column_id"] = column_meta.get("column_id", "")
+        article["_column_name"] = column_meta.get("column_name", "")
+        article["_batch_name"] = column_meta.get("batch_name", "")
+        article["_batch_time"] = column_meta.get("batch_time", "")
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
 
@@ -688,30 +798,58 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
     bg_text = "".join(f"- [{a.get('reads', '?')}阅读] {a.get('title', '')[:80]} | {a.get('account', '?')}\n"
                       for a in all_articles[:8])
 
-    # Style guidance by content type
+    # Style guidance by content type — fallback for non-column mode
     style_guide = {
         "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
         "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。不确定就说「据说」。",
         "排行榜": "数字是药引子，对比是主菜。每个关键数字后面跟一句「这意味着...」。让读者感觉在看有态度的排名，不是Excel。",
         "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。可以调侃但不刻薄。",
         "战术解析": "把专业术语翻译成让普通球迷能跟朋友吹牛的大白话。数据配人话解读，至少1处跨界类比。",
-        # Legacy compatibility
         "转会八卦型": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
         "争议观点型": "开篇就亮态度，不怕得罪人，但每条观点都有事实支撑。",
         "人物故事型": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。",
         "趋势解读型": "从现象中提炼规律，每个数字配人话解读。让读者看完有「原来如此」的感觉。",
     }
-    style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
+
+    # Column-driven style (v2): use column metadata when available
+    column_name = topic.get("_column_name", "")
+    if column_name:
+        style = topic.get("_style_detail", "用自然口语化中文写作，有态度有人味。")
+        word_min, word_max = topic.get("_word_count_range", [500, 800])
+        column_block = f"""
+📰 今日专栏：{column_name}
+专栏领域：{topic.get('_topic_domain', '')}
+选题指引：{topic.get('_topic_guidance', '')}
+读者场景：{topic.get('_reader_scenario', '')}
+写作体例：{topic.get('_writing_style', '')}
+体例说明：{style}
+
+结构要求：按照{column_name}栏目的固定结构写作。
+字数要求：{word_min}-{word_max}字。
+互动类型：{topic.get('_interaction_type', '')}
+互动指引：{topic.get('_interaction_guidance', '')}
+"""
+        word_count_rule = f"正文 {word_min}-{word_max} 字（严格控制，{column_name}栏目规范）"
+        column_meta = {"column_id": topic.get("_column_id", ""),
+                       "column_name": column_name,
+                       "batch_name": topic.get("_batch_name", ""),
+                       "batch_time": topic.get("_batch_time", "")}
+    else:
+        style = style_guide.get(content_type, "口语化+专业深度，短句为主，有明确立场。像朋友聊天一样自然。")
+        word_min, word_max = 500, 800
+        column_block = ""
+        column_meta = {}
+        word_count_rule = "正文 500-800 字（紧凑有力，不要水字数）"
 
     # Retry hint: inject failure feedback
     retry_block = ""
     if retry_hint:
         retry_block = f"""
 ⚠️ 上次生成失败！问题：{retry_hint}
-这次必须修正上述所有问题。正文至少500字，至少2个##小标题，文末至少2个配图标记。"""
+这次必须修正上述所有问题。正文至少{word_min}字，至少2个##小标题，文末至少2个配图标记。"""
 
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实热点文章转写改编。
-
+{column_block}
 你的素材 — 公众号平台真实爆款文章：
 {sources_text}
 
@@ -735,7 +873,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 {style}
 
 硬性规范：
-- 正文 500-800 字（紧凑有力，不要水字数）
+- {word_count_rule}
 - 必须包含 ≥2 个 ## 二级标题
 - 文末必须包含2张配图标记：![配图1](images/article-{index}-img-001.jpg) 等
 - 事实红线：主体基于来源摘要，有几分事实说几分话
@@ -744,7 +882,7 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 禁用模式：不要列一二三四，不要学术论文腔，不要"老六认为""老六分析"标签
 
 输出JSON:
-{{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文(500-800字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
+{{"title": "优选标题(15-25字)", "backup_title": "备选标题(不同角度，15-25字)", "content": "Markdown正文({word_min}-{word_max}字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "{content_type}", "sources_used": ["来源文章标题"], "originality_note": "如何区别于原文(20字)"}}
 只输出JSON。"""
 
     base_prompt = load_prompt_template("article_generator.txt")
@@ -757,6 +895,12 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
     ]
     response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=8192)
     article = safe_json_loads(response)
+    # Inject column metadata if present (flatten into article)
+    if column_meta:
+        article["_column_id"] = column_meta.get("column_id", "")
+        article["_column_name"] = column_meta.get("column_name", "")
+        article["_batch_name"] = column_meta.get("batch_name", "")
+        article["_batch_time"] = column_meta.get("batch_time", "")
     print(f"   标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
 
@@ -765,13 +909,12 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 # Quality Validation & Retry
 # ============================================================
 
-def validate_article(article, index, is_tieba=False):
+def validate_article(article, index, is_tieba=False, min_words=500):
     """Validate article quality. Returns (is_valid, issues_list, originality_score)."""
     issues = []
     score = 100  # Start from 100, deduct for each issue
     content = article.get("content", "")
     title = article.get("title", "")
-    min_words = 500
     min_images = 2
     min_h2 = 2
 
@@ -838,6 +981,9 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
     before JSON parsing to fail fast.
     """
     last_issues = ""
+    # Column-aware word count: use topic's _word_count_range if available
+    word_range = topic.get("_word_count_range", [500, 800])
+    topic_min_words = word_range[0] if isinstance(word_range, (list, tuple)) and len(word_range) >= 1 else 500
     for attempt in range(max_retries + 1):
         temp = max(0.3, 0.8 - attempt * 0.2)  # 0.8 → 0.6 → 0.4
         try:
@@ -854,12 +1000,13 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
 
             # Check raw content sanity before full validation
             content = art.get("content", "")
-            if len(content) < 200 and attempt < max_retries:
+            content_min = max(200, int(topic_min_words * 0.6))
+            if len(content) < content_min and attempt < max_retries:
                 print(f"   ⚠️  正文过短({len(content)}字)，直接重试")
-                last_issues = f"上次正文仅{len(content)}字，远低于500字最低要求。请基于提供的事实数据充实内容。"
+                last_issues = f"上次正文仅{len(content)}字，远低于{topic_min_words}字最低要求。请基于提供的事实数据充实内容。"
                 continue
 
-            is_valid, issues, score = validate_article(art, index, is_tieba=is_tieba)
+            is_valid, issues, score = validate_article(art, index, is_tieba=is_tieba, min_words=topic_min_words)
             if is_valid and score >= 85:
                 if attempt > 0:
                     print(f"   ✅ 第{attempt+1}次尝试通过 (原创度: {score})")
@@ -1185,7 +1332,11 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
         # Save article
         art_data = {**art, "downloaded_images": downloaded,
-                     "tags": art.get("keywords", []), "category": "足球"}
+                     "tags": art.get("keywords", []), "category": "足球",
+                     "column_id": art.get("_column_id", ""),
+                     "column_name": art.get("_column_name", ""),
+                     "batch_name": art.get("_batch_name", ""),
+                     "batch_time": art.get("_batch_time", "")}
         result = file_writer.save_article(date_str=date_str, index=idx, article_data=art_data)
         saved.append({"index": idx, "title": art.get("title", ""), "path": result["article_path"],
                        "slug": result["slug"], "tags": art.get("keywords", []),
@@ -1193,7 +1344,10 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                        "sources_used": art.get("sources_used", []),
                        "source_post": art.get("source_post", ""),
                        "originality_note": art.get("originality_note", ""),
-                       "content_type": art.get("content_type", "")})
+                       "content_type": art.get("content_type", ""),
+                       "column_id": art.get("_column_id", ""),
+                       "column_name": art.get("_column_name", ""),
+                       "batch_name": art.get("_batch_name", "")})
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
     if extra:
@@ -1534,29 +1688,20 @@ def main():
     season_weights = load_season_weights(date_str)
     performance_boost = {}
 
-    if batch_mode in BATCH_TYPES:
+    if batch_mode in BATCH_CONFIG:
+        batch_cfg = BATCH_CONFIG[batch_mode]
+        slots = batch_cfg["slots"]
+        article_count = len(slots)
+        # Columns are fixed per batch — no season weight type swapping
+        # Season weights only affect topic selection framing, not column identity
+        column_names = [s["column_name"] for s in slots]
+        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, 栏目={', '.join(column_names)}, {batch_cfg['name']}·{batch_cfg['time']})\n")
+        target_types = None  # Column-driven, not type-driven
+    elif batch_mode in BATCH_TYPES:
+        # Legacy: old content-type-based batch mode (kept for backward compat)
         target_types = list(BATCH_TYPES[batch_mode])
         article_count = 2
-
-        # Apply season weights + performance boost: swap low-weight types for high-weight alternatives
-        if season_weights:
-            # Merge performance boost into effective weights
-            effective_weights = dict(season_weights)
-            if performance_boost:
-                for ct, boost in performance_boost.items():
-                    if ct in effective_weights:
-                        effective_weights[ct] = round(effective_weights[ct] * boost, 2)
-            for i, ct in enumerate(target_types):
-                w = effective_weights.get(ct, 1.0)
-                if w < 0.7:
-                    candidates = sorted(effective_weights.items(), key=lambda x: -x[1])
-                    for alt_type, alt_w in candidates:
-                        if alt_w > 1.3 and alt_type not in target_types:
-                            print(f"   🔄 赛季权重调整: {ct}(权重{w}) → {alt_type}(权重{alt_w})")
-                            target_types[i] = alt_type
-                            break
-
-        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, types={target_types})\n")
+        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, types={target_types}, legacy)\n")
     else:
         target_types = None
         article_count = 3
@@ -1626,37 +1771,43 @@ def main():
         images_map = {}
         topics = []
 
-        # Cross-batch content type dedup: avoid repeating types already covered today
-        if batch_mode in BATCH_TYPES and cross_batch_covered.get("content_types"):
+        # Cross-batch dedup: for legacy BATCH_TYPES mode, avoid repeating content types.
+        # In BATCH_CONFIG mode, columns are unique by design — skip type-based dedup.
+        if batch_mode in BATCH_TYPES and batch_mode not in BATCH_CONFIG and cross_batch_covered.get("content_types"):
             already_covered_types = cross_batch_covered["content_types"]
-            for i, ct in enumerate(target_types):
+            for i, ct in enumerate(target_types or []):
                 if ct in already_covered_types:
-                    # Find unused alternative with highest season weight
                     candidates = sorted(season_weights.items(), key=lambda x: -x[1]) if season_weights else []
                     all_types = ["八卦趣事", "转会资讯", "战术解析", "热点球评", "排行榜"]
                     for alt_type, _ in candidates:
-                        if alt_type not in already_covered_types and alt_type not in target_types:
+                        if alt_type not in already_covered_types and alt_type not in (target_types or []):
                             print(f"   🔄 跨批次去重: {ct}(已在今日覆盖) → {alt_type}")
                             target_types[i] = alt_type
                             already_covered_types.add(alt_type)
                             break
                     else:
-                        # Fallback: try any unused type
                         for alt_type in all_types:
-                            if alt_type not in already_covered_types and alt_type not in target_types:
+                            if alt_type not in already_covered_types and alt_type not in (target_types or []):
                                 print(f"   🔄 跨批次去重(fallback): {ct}(已覆盖) → {alt_type}")
                                 target_types[i] = alt_type
                                 already_covered_types.add(alt_type)
                                 break
 
         # ============================================================
-        # Main Article Pipeline (articles 1-3)
+        # Main Article Pipeline
         # ============================================================
+
+        # Build column-aware type guidance for topic selection
+        # In BATCH_CONFIG mode, inject column domain guidance into the prompt
+        column_type_hint = None
+        if batch_mode in BATCH_CONFIG and not target_types:
+            slots = BATCH_CONFIG[batch_mode]["slots"]
+            column_type_hint = [s["topic_domain"] for s in slots]
 
         if topic_preference != "auto":
             print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
             topics_and_raw = collect_real_gzh_topics(
-                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights)
+                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = f"无{topic_preference}相关真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1665,13 +1816,13 @@ def main():
 
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": f"gzh_{topic_preference}"}
-            _assign_column_to_topics(topics, date_str)
+            _assign_columns_to_topics(topics, batch_mode)
 
             _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无比赛且无真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1680,7 +1831,7 @@ def main():
 
             topics, raw_articles = topics_and_raw
             extra_meta = {"type": "gzh_real_data"}
-            _assign_column_to_topics(topics, date_str)
+            _assign_columns_to_topics(topics, batch_mode)
 
             _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
 
@@ -1689,9 +1840,9 @@ def main():
             gzh_raw = fetch_gzh_football_trends(date_str)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights)
+            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered)
             extra_meta = {"type": "match_analysis"}
-            _assign_column_to_topics(topics, date_str)
+            _assign_columns_to_topics(topics, batch_mode)
 
             _generate_articles_from_topics(topics, 3, match_data, images_map, stats, articles, gzh_articles=gzh_context)
 
