@@ -1,11 +1,18 @@
 name: 足球自媒体批次发布
 
 on:
+  schedule:
+    # 08:00 CST = 00:00 UTC — 晨读 (晨读快讯+话题擂台)
+    - cron: '7 0 * * *'
+    # 12:00 CST = 04:00 UTC — 午间 (数据盘点+深水区)
+    - cron: '7 4 * * *'
+    # 17:30 CST = 09:30 UTC — 晚间 (人物志+时光机)
+    - cron: '37 9 * * *'
   workflow_dispatch:
     inputs:
       batch:
-        description: '批次 (morning/noon/evening)'
-        required: true
+        description: '批次 (morning/noon/evening，留空自动判断)'
+        required: false
         type: choice
         options:
           - morning
@@ -43,15 +50,32 @@ jobs:
           mkdir -p /tmp/auth
           echo "${{ secrets.TOUTIAO_AUTH_GZ }}" | base64 -d | python3 -c "import sys,gzip; sys.stdout.buffer.write(gzip.decompress(sys.stdin.buffer.read()))" > /tmp/auth/toutiao_auth.json
 
-      - name: 计算日期
-        id: date
+      - name: 确定批次和日期
+        id: params
         run: |
+          # Date
           if [ -z "${{ inputs.date }}" ]; then
             TODAY=$(TZ=Asia/Shanghai date +%Y-%m-%d)
           else
             TODAY="${{ inputs.date }}"
           fi
           echo "today=$TODAY" >> $GITHUB_OUTPUT
+
+          # Batch: use input if provided, otherwise auto-detect from CST hour
+          if [ -n "${{ inputs.batch }}" ]; then
+            BATCH="${{ inputs.batch }}"
+          else
+            HOUR=$(TZ=Asia/Shanghai date +%H)
+            if [ "$HOUR" -lt 10 ]; then
+              BATCH="morning"
+            elif [ "$HOUR" -lt 15 ]; then
+              BATCH="noon"
+            else
+              BATCH="evening"
+            fi
+          fi
+          echo "batch=$BATCH" >> $GITHUB_OUTPUT
+          echo "运行: $TODAY $BATCH 批次"
 
       - name: 生成文章
         id: generate
@@ -65,7 +89,7 @@ jobs:
           WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
           WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
         run: |
-          python orchestrator.py "${{ steps.date.outputs.today }}" --batch="${{ inputs.batch }}"
+          python orchestrator.py "${{ steps.params.outputs.today }}" --batch="${{ steps.params.outputs.batch }}"
 
       - name: 发布到头条号
         env:
@@ -76,14 +100,14 @@ jobs:
           TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
           OUTPUT_DIR: ${{ runner.temp }}/output
         run: |
-          python publisher.py "${{ steps.date.outputs.today }}" --headless
+          python publisher.py "${{ steps.params.outputs.today }}" --headless
 
       - name: 上传产物
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: articles-${{ inputs.batch }}-${{ steps.date.outputs.today }}
-          path: ${{ runner.temp }}/output/${{ steps.date.outputs.today }}/
+          name: articles-${{ steps.params.outputs.batch }}-${{ steps.params.outputs.today }}
+          path: ${{ runner.temp }}/output/${{ steps.params.outputs.today }}/
 
       - name: 失败通知
         if: failure()
@@ -92,7 +116,7 @@ jobs:
           WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
         run: |
           python -c "
-          import requests, json
+          import requests
           requests.post('https://wxpusher.zjiecode.com/api/send/message',
-            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ ${{ inputs.batch }} 批次发布失败\n日期: ${{ steps.date.outputs.today }}\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
+            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ ${{ steps.params.outputs.batch }} 批次发布失败\n日期: ${{ steps.params.outputs.today }}\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
           "
