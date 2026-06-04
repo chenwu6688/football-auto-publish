@@ -41,7 +41,7 @@ jobs:
       - name: 写入头条号登录状态
         run: |
           mkdir -p /tmp/auth
-          echo "${{ secrets.TOUTIAO_AUTH_JSON }}" > /tmp/auth/toutiao_auth.json
+          echo "${{ secrets.TOUTIAO_AUTH_GZ }}" | base64 -d | python3 -c "import sys,gzip; sys.stdout.buffer.write(gzip.decompress(sys.stdin.buffer.read()))" > /tmp/auth/toutiao_auth.json
 
       - name: 计算日期
         id: date
