@@ -1,13 +1,9 @@
 name: 足球自媒体每日发布
 
+# ⚠️ cron 已迁移到 cron-job.org 精确调度（避免 GitHub Actions 延迟/60天停用问题）
+# 本地可运行: bash scripts/setup-cronjob.sh show 查看配置
+# 仅保留 workflow_dispatch 供手动触发和外部调度使用
 on:
-  schedule:
-    # 早班：北京时间 8:00 (UTC 00:00) — 球评+八卦 (2篇)
-    - cron: '0 0 * * *'
-    # 午班：北京时间 14:00 (UTC 06:00) — 转会+榜单 (2篇)
-    - cron: '0 6 * * *'
-    # 晚班：北京时间 20:00 (UTC 12:00) — 战术+八卦 (2篇)
-    - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
       batch:
