@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# cron-job.org 配置工具 — 精确调度 GitHub Actions workflow_dispatch
+# ⚠️ 已弃用 — 调度已切回 GitHub 原生 cron (batch.yml)
+# 保留此脚本供参考，如需恢复 cron-job.org 可重新配置
 #
 # 用法:
 #   bash scripts/setup-cronjob.sh test   # 测试 API 调用

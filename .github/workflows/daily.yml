@@ -1,8 +1,7 @@
-name: 足球自媒体每日发布
+name: 足球自媒体每日发布（手动/外部触发）
 
-# ⚠️ cron 已迁移到 cron-job.org 精确调度（避免 GitHub Actions 延迟/60天停用问题）
-# 本地可运行: bash scripts/setup-cronjob.sh show 查看配置
-# 仅保留 workflow_dispatch 供手动触发和外部调度使用
+# cron-job.org 已弃用，日常调度由 batch.yml 原生 GitHub cron 负责
+# 此 workflow 仅保留 workflow_dispatch 供手动触发和紧急补发
 on:
   workflow_dispatch:
     inputs:

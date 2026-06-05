@@ -57,10 +57,10 @@ jobs:
 
           if [ "$STATUS" = "all_missing" ]; then
             TITLE="🚨 调度告警"
-            BODY="${TODAY} 今日三个批次全部缺失！请检查 cron-job.org 和 GitHub Actions 状态。"
+            BODY="${TODAY} 今日三个批次全部缺失！请检查 GitHub Actions 状态。"
           else
             TITLE="⚠️ 调度告警"
-            BODY="${TODAY} 缺失批次: ${MISSING}，已完成批次不受影响，请检查 cron-job.org。"
+            BODY="${TODAY} 缺失批次: ${MISSING}，已完成批次不受影响，请检查 GitHub Actions。"
           fi
 
           python3 scripts/send_wxpusher.py "$WXPUSHER_APPTOKEN" "$WXPUSHER_UID" "$TITLE" "$BODY"
