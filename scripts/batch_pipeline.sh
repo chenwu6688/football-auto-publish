@@ -1,6 +1,7 @@
 #!/bin/bash
 # 足球自媒体 - 批次发布脚本 (morning/noon/evening)
-# 由 systemd timer 在 10:00 / 14:00 / 20:00 触发
+# 由 systemd timer 在 08:00 / 12:00 / 17:30 触发（均为北京时间）
+# 如需配置 systemd timer，确保服务器时区为 Asia/Shanghai 或换算对应的 UTC 时间
 #
 # Usage: bash batch_pipeline.sh --batch=noon
 

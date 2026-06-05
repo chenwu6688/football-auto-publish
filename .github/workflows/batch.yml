@@ -1,13 +1,17 @@
-name: 足球自媒体批次发布
+name: 足球自媒体批次发布（含 fallback）
 
+# 调度策略：
+#   主调度: cron-job.org → daily.yml (精确，不延迟)
+#   备调度: GitHub 原生 cron (延后 30 分钟，仅在主调度失败时兜底)
+# 每条 cron 比主调度晚 30 分钟，且带幂等保护：如果 daily.yml 已完成，自动跳过。
 on:
   schedule:
-    # 08:00 CST = 00:00 UTC — 晨读 (晨读快讯+话题擂台)
-    - cron: '7 0 * * *'
-    # 12:00 CST = 04:00 UTC — 午间 (数据盘点+深水区)
-    - cron: '7 4 * * *'
-    # 17:30 CST = 09:30 UTC — 晚间 (人物志+时光机)
-    - cron: '37 9 * * *'
+    # 08:30 CST = 00:30 UTC — 晨读 fallback
+    - cron: '37 0 * * *'
+    # 12:30 CST = 04:30 UTC — 午间 fallback
+    - cron: '37 4 * * *'
+    # 18:00 CST = 10:00 UTC — 晚间 fallback
+    - cron: '7 10 * * *'
   workflow_dispatch:
     inputs:
       batch:
@@ -76,6 +80,41 @@ jobs:
           fi
           echo "batch=$BATCH" >> $GITHUB_OUTPUT
           echo "运行: $TODAY $BATCH 批次"
+
+          # 时区校验
+          HOUR=$(TZ=Asia/Shanghai date +%H)
+          valid=true
+          case "$BATCH" in
+            morning)
+              if [ "$HOUR" -lt 6 ] || [ "$HOUR" -gt 10 ]; then
+                echo "❌ 时区错误！morning 批次期望北京时间 06:00-10:00，当前 ${HOUR}:00"
+                valid=false
+              fi ;;
+            noon)
+              if [ "$HOUR" -lt 10 ] || [ "$HOUR" -gt 15 ]; then
+                echo "❌ 时区错误！noon 批次期望北京时间 10:00-15:00，当前 ${HOUR}:00"
+                valid=false
+              fi ;;
+            evening)
+              if [ "$HOUR" -lt 15 ] || [ "$HOUR" -gt 22 ]; then
+                echo "❌ 时区错误！evening 批次期望北京时间 15:00-22:00，当前 ${HOUR}:00"
+                valid=false
+              fi ;;
+          esac
+          if [ "$valid" = false ]; then
+            echo "🔧 请检查 cron-job.org 时区是否为 UTC，或手动指定正确的 batch"
+            exit 1
+          fi
+          echo "✅ 时区校验通过"
+
+          # 幂等保护：检查 daily.yml (cron-job.org) 是否已写入 output/
+          echo "   检查主调度是否已完成..."
+          SKIP=$(TODAY="$TODAY" BATCH="$BATCH" python3 scripts/check_batch_completed.py)
+          if [ "$SKIP" = "true" ]; then
+            echo "⏭️  批次 ${BATCH} 已被主调度完成，fallback 跳过"
+            exit 0
+          fi
+          echo "   主调度未完成，fallback 接管"
 
       - name: 生成文章
         id: generate

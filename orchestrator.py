@@ -971,9 +971,57 @@ def validate_article(article, index, is_tieba=False, min_words=500):
     return len(issues) == 0, issues, max(score, 0)
 
 
+def check_cross_day_duplicate(title, content, date_str):
+    """Check if the generated article is too similar to any article in the past 7 days.
+
+    Returns (is_duplicate, matched_title, similarity_score).
+    Uses title substring overlap and longest-common-subsequence ratio.
+    """
+    from difflib import SequenceMatcher
+
+    today = datetime.strptime(date_str, "%Y-%m-%d")
+    for i in range(1, 8):
+        dt = today - timedelta(days=i)
+        meta_path = OUTPUT_DIR / dt.strftime("%Y-%m-%d") / "metadata.json"
+        if not meta_path.exists():
+            continue
+        try:
+            meta = json.loads(meta_path.read_text())
+            for a in meta.get("articles", []):
+                hist_title = a.get("title", "")
+                if not hist_title or len(hist_title) < 8:
+                    continue
+
+                # Check 1: long common substring (15+ chars) = likely duplicate
+                shorter = title if len(title) <= len(hist_title) else hist_title
+                longer = hist_title if len(title) <= len(hist_title) else title
+                for start in range(len(shorter) - 14):
+                    sub = shorter[start:start + 15]
+                    if sub in longer:
+                        return True, hist_title, 100
+
+                # Check 2: title similarity via SequenceMatcher
+                title_ratio = SequenceMatcher(None, title[:40], hist_title[:40]).ratio()
+                if title_ratio > 0.65:
+                    return True, hist_title, round(title_ratio * 100)
+
+                # Check 3: content overlap — first 100 chars of new vs old content
+                hist_content = a.get("content", "")
+                if hist_content and len(content) > 50 and len(hist_content) > 50:
+                    content_ratio = SequenceMatcher(
+                        None, content[:100], hist_content[:100]).ratio()
+                    if content_ratio > 0.7:
+                        return True, hist_title, round(content_ratio * 100)
+
+        except Exception:
+            pass
+
+    return False, "", 0
+
+
 def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                                 is_gossip=False, is_tieba=False, tieba_context=None,
-                                max_retries=2):
+                                max_retries=2, date_str=None):
     """Generate article with validation and automatic retry on failure.
 
     On retry, progressively lowers temperature and strengthens the prompt
@@ -1008,6 +1056,23 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
 
             is_valid, issues, score = validate_article(art, index, is_tieba=is_tieba, min_words=topic_min_words)
             if is_valid and score >= 85:
+                # Cross-day dedup check
+                if date_str:
+                    title = art.get("title", "")
+                    content = art.get("content", "")
+                    is_dup, dup_title, dup_score = check_cross_day_duplicate(title, content, date_str)
+                    if is_dup:
+                        dup_issue = f"与历史文章雷同(相似度{dup_score}%，匹配: {dup_title[:30]})"
+                        print(f"   ⚠️  跨天去重失败: {dup_issue}")
+                        issues.append(dup_issue)
+                        score -= 40
+                        last_issues = "; ".join(issues)
+                        if attempt < max_retries:
+                            print(f"   🔄 重试 (加强去重约束)...")
+                            continue
+                        else:
+                            return art, f"跨天去重失败: {dup_issue}"
+
                 if attempt > 0:
                     print(f"   ✅ 第{attempt+1}次尝试通过 (原创度: {score})")
                 return art, None
@@ -1532,14 +1597,15 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 # ============================================================
 
 def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
-                                    articles_out, is_gossip=False, gzh_articles=None):
+                                    articles_out, is_gossip=False, gzh_articles=None,
+                                    date_str=None):
     """Shared article generation loop — used by all three data-source branches."""
     for i, topic in enumerate(topics[:count]):
         ct = topic.get("content_type", "N/A")
         print(f"\n--- 第{i+1}/{count}篇 [{ct}] ---")
         imgs = search_images(topic, count=5)
         images_map[i] = imgs
-        kwargs = {"max_retries": 2}
+        kwargs = {"max_retries": 2, "date_str": date_str}
         if is_gossip:
             kwargs["is_gossip"] = True
         if gzh_articles is not None:
@@ -1654,7 +1720,7 @@ def _run_hupu_pipeline(date_str, batch_mode, topic_history, match_data,
             art, error = generate_article_with_retry(
                 {"title": post['title'], "team": post['team']},
                 match_data, t_idx,
-                is_tieba=True, tieba_context=post, max_retries=2)
+                is_tieba=True, tieba_context=post, max_retries=2, date_str=date_str)
             stats["generated"] += 1
             if error:
                 print(f"   ❌ 最终失败: {error}")
@@ -1818,7 +1884,7 @@ def main():
             extra_meta = {"type": f"gzh_{topic_preference}"}
             _assign_columns_to_topics(topics, batch_mode)
 
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
@@ -1833,7 +1899,7 @@ def main():
             extra_meta = {"type": "gzh_real_data"}
             _assign_columns_to_topics(topics, batch_mode)
 
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True)
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
 
         else:
             print("\n   获取公众号爆款趋势作为跨源参考...")
@@ -1844,7 +1910,7 @@ def main():
             extra_meta = {"type": "match_analysis"}
             _assign_columns_to_topics(topics, batch_mode)
 
-            _generate_articles_from_topics(topics, 3, match_data, images_map, stats, articles, gzh_articles=gzh_context)
+            _generate_articles_from_topics(topics, 3, match_data, images_map, stats, articles, gzh_articles=gzh_context, date_str=date_str)
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
@@ -1871,7 +1937,7 @@ def main():
                      "angle": top_event.get("detail", ""),
                      "content_type": "紧急球评",
                      "target_emotion": "震惊"},
-                    match_data, e_idx, max_retries=1)
+                    match_data, e_idx, max_retries=1, date_str=date_str)
                 stats["generated"] += 1
                 if e_err:
                     print(f"   ⚠️  紧急球评生成失败: {e_err}")

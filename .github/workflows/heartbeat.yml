@@ -1,0 +1,66 @@
+name: 调度健康检查
+
+# 每天 22:00 CST (14:00 UTC) 检查三个批次是否全部完成
+# 如有遗漏，通过 WxPusher 发送告警
+on:
+  schedule:
+    - cron: '17 14 * * *'  # 22:17 CST, offset to avoid stampede
+  workflow_dispatch:
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 检查今日批次完成情况
+        id: check
+        run: |
+          TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
+          META="output/${TODAY}/metadata.json"
+          echo "today=$TODAY" >> $GITHUB_OUTPUT
+
+          echo "📋 调度健康检查 — ${TODAY}"
+          echo ""
+
+          if [ ! -f "$META" ]; then
+            echo "❌ 今日无任何批次记录"
+            echo "status=all_missing" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          MISSING=$(TODAY="$TODAY" python3 scripts/check_missing_batches.py)
+          echo "missing=$MISSING" >> $GITHUB_OUTPUT
+
+          if [ -z "$MISSING" ]; then
+            echo "✅ 全部完成: morning noon evening"
+            echo "status=all_ok" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️  缺失批次: $MISSING"
+            echo "status=partial" >> $GITHUB_OUTPUT
+          fi
+
+          # Show what was published today
+          echo ""
+          echo "今日已发文章:"
+          python3 scripts/list_today_articles.py "$TODAY" 2>/dev/null || true
+
+      - name: 发送告警
+        if: steps.check.outputs.status != 'all_ok'
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          TODAY="${{ steps.check.outputs.today }}"
+          STATUS="${{ steps.check.outputs.status }}"
+          MISSING="${{ steps.check.outputs.missing }}"
+
+          if [ "$STATUS" = "all_missing" ]; then
+            TITLE="🚨 调度告警"
+            BODY="${TODAY} 今日三个批次全部缺失！请检查 cron-job.org 和 GitHub Actions 状态。"
+          else
+            TITLE="⚠️ 调度告警"
+            BODY="${TODAY} 缺失批次: ${MISSING}，已完成批次不受影响，请检查 cron-job.org。"
+          fi
+
+          python3 scripts/send_wxpusher.py "$WXPUSHER_APPTOKEN" "$WXPUSHER_UID" "$TITLE" "$BODY"

@@ -57,6 +57,76 @@ jobs:
         env:
           TOUTIAO_AUTH_B64: ${{ secrets.TOUTIAO_AUTH_B64 }}
 
+      - name: 幂等保护 — 跳过已完成的批次
+        id: dedup
+        run: |
+          TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
+          BATCH="${{ inputs.batch || 'auto' }}"
+          echo "today=$TODAY" >> $GITHUB_OUTPUT
+          echo "batch=$BATCH" >> $GITHUB_OUTPUT
+
+          # BATCH_CONFIG uses morning/noon/evening; orchestrator saves 'auto' as 'full'
+          CHECK_BATCH="$BATCH"
+          if [ "$CHECK_BATCH" = "auto" ]; then
+            CHECK_BATCH="full"
+          fi
+
+          SKIP=$(TODAY="$TODAY" BATCH="$CHECK_BATCH" python3 scripts/check_batch_completed.py 2>/dev/null)
+
+          if [ "$SKIP" = "true" ]; then
+            echo "⏭️  批次 ${CHECK_BATCH} 今日已完成，跳过"
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "   批次 ${CHECK_BATCH} 尚未完成，继续执行"
+          echo "skip=false" >> $GITHUB_OUTPUT
+
+      - name: 时区校验
+        if: steps.dedup.outputs.skip != 'true'
+        id: tzcheck
+        run: |
+          HOUR=$(TZ='Asia/Shanghai' date +%H)
+          BATCH="${{ inputs.batch || 'auto' }}"
+          echo "cst_hour=$HOUR" >> $GITHUB_OUTPUT
+          echo "batch=$BATCH" >> $GITHUB_OUTPUT
+
+          # 校验：批次必须在对应的北京时间范围内
+          # cron-job.org 时区设错（如设为 Asia/Shanghai 而非 UTC）会导致触发时间偏移
+          valid=true
+          case "$BATCH" in
+            morning)
+              if [ "$HOUR" -lt 6 ] || [ "$HOUR" -gt 10 ]; then
+                echo "❌ 时区错误！${BATCH} 批次期望北京时间 06:00-10:00，当前 ${HOUR}:00"
+                valid=false
+              fi ;;
+            noon)
+              if [ "$HOUR" -lt 10 ] || [ "$HOUR" -gt 15 ]; then
+                echo "❌ 时区错误！${BATCH} 批次期望北京时间 10:00-15:00，当前 ${HOUR}:00"
+                valid=false
+              fi ;;
+            evening)
+              if [ "$HOUR" -lt 15 ] || [ "$HOUR" -gt 22 ]; then
+                echo "❌ 时区错误！${BATCH} 批次期望北京时间 15:00-22:00，当前 ${HOUR}:00"
+                valid=false
+              fi ;;
+            auto)
+              # auto 模式：根据 CST 小时自动判断，校验是否在合理范围
+              if [ "$HOUR" -lt 6 ] || [ "$HOUR" -gt 22 ]; then
+                echo "❌ 时区错误！当前北京时间 ${HOUR}:00，不在发文时段(06:00-22:00)"
+                valid=false
+              fi ;;
+          esac
+
+          if [ "$valid" = false ]; then
+            echo ""
+            echo "🔧 修复方法："
+            echo "   1. 登录 cron-job.org → 右上角齿轮 → Timezone → 选择 (UTC) UTC"
+            echo "   2. 确认不是 Asia/Shanghai 或其他时区"
+            echo "   3. 如果使用 GitHub 原生 cron，确认 cron 表达式是 UTC 时间"
+            exit 1
+          fi
+          echo "✅ 时区校验通过：${BATCH} 批次，北京时间 ${HOUR}:00"
+
       - name: 生成文章
         id: generate
         run: |
