@@ -1,7 +1,7 @@
 name: 足球自媒体批次发布
 
-# 全部使用 GitHub 原生 cron（UTC 时间）
-# GitHub Actions cron 可能有 5-15 分钟延迟，属正常现象
+# GitHub 原生 cron 调度（UTC 时间）。
+# 重要：GitHub Actions cron 延迟可达数小时，批次由 cron 表达式中的 UTC 小时决定，绝不依赖执行时刻的北京时间自动判断。
 on:
   schedule:
     # 08:00 CST = 00:00 UTC — 晨读
@@ -63,9 +63,26 @@ jobs:
           fi
           echo "today=$TODAY" >> $GITHUB_OUTPUT
 
-          # Batch: use input if provided, otherwise auto-detect from CST hour
-          if [ -n "${{ inputs.batch }}" ]; then
+          # Batch determination
+          # For schedule events: extract intended batch from the cron expression's UTC hour.
+          # This is essential because GitHub Actions cron jobs can be delayed by hours;
+          # we must NOT auto-detect batch from current CST time when delayed.
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            CRON="${{ github.event.schedule }}"
+            UTC_HOUR=$(echo "$CRON" | awk '{print $2}')
+            case "$UTC_HOUR" in
+              0) BATCH="morning" ;;
+              4) BATCH="noon" ;;
+              9) BATCH="evening" ;;
+              *) BATCH="auto" ;;
+            esac
+            echo "batch=$BATCH" >> $GITHUB_OUTPUT
+            echo "运行: $TODAY $BATCH 批次 (cron: $CRON → UTC hour=$UTC_HOUR)"
+            echo "✅ Cron 指定批次，跳过时区校验（延迟不影响批次正确性）"
+          elif [ -n "${{ inputs.batch }}" ]; then
             BATCH="${{ inputs.batch }}"
+            echo "batch=$BATCH" >> $GITHUB_OUTPUT
+            echo "运行: $TODAY $BATCH 批次 (手动指定)"
           else
             HOUR=$(TZ=Asia/Shanghai date +%H)
             if [ "$HOUR" -lt 10 ]; then
@@ -75,37 +92,39 @@ jobs:
             else
               BATCH="evening"
             fi
+            echo "batch=$BATCH" >> $GITHUB_OUTPUT
+            echo "运行: $TODAY $BATCH 批次 (auto-detected, CST=$HOUR:00)"
           fi
-          echo "batch=$BATCH" >> $GITHUB_OUTPUT
-          echo "运行: $TODAY $BATCH 批次"
 
-          # 时区校验
-          HOUR=$(TZ=Asia/Shanghai date +%H)
-          valid=true
-          case "$BATCH" in
-            morning)
-              if [ "$HOUR" -lt 6 ] || [ "$HOUR" -gt 10 ]; then
-                echo "❌ 时区错误！morning 批次期望北京时间 06:00-10:00，当前 ${HOUR}:00"
-                valid=false
-              fi ;;
-            noon)
-              if [ "$HOUR" -lt 10 ] || [ "$HOUR" -gt 15 ]; then
-                echo "❌ 时区错误！noon 批次期望北京时间 10:00-15:00，当前 ${HOUR}:00"
-                valid=false
-              fi ;;
-            evening)
-              if [ "$HOUR" -lt 15 ] || [ "$HOUR" -gt 22 ]; then
-                echo "❌ 时区错误！evening 批次期望北京时间 15:00-22:00，当前 ${HOUR}:00"
-                valid=false
-              fi ;;
-          esac
-          if [ "$valid" = false ]; then
-            echo "🔧 请检查 cron-job.org 时区是否为 UTC，或手动指定正确的 batch"
-            exit 1
+          # 时区校验 — 仅对手动触发（非 cron）执行
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            HOUR=$(TZ=Asia/Shanghai date +%H)
+            valid=true
+            case "$BATCH" in
+              morning)
+                if [ "$HOUR" -lt 6 ] || [ "$HOUR" -gt 10 ]; then
+                  echo "❌ 时区错误！morning 批次期望北京时间 06:00-10:00，当前 ${HOUR}:00"
+                  valid=false
+                fi ;;
+              noon)
+                if [ "$HOUR" -lt 10 ] || [ "$HOUR" -gt 15 ]; then
+                  echo "❌ 时区错误！noon 批次期望北京时间 10:00-15:00，当前 ${HOUR}:00"
+                  valid=false
+                fi ;;
+              evening)
+                if [ "$HOUR" -lt 15 ] || [ "$HOUR" -gt 22 ]; then
+                  echo "❌ 时区错误！evening 批次期望北京时间 15:00-22:00，当前 ${HOUR}:00"
+                  valid=false
+                fi ;;
+            esac
+            if [ "$valid" = false ]; then
+              echo "🔧 如果是手动触发，请指定正确的 batch 参数"
+              exit 1
+            fi
+            echo "✅ 时区校验通过"
           fi
-          echo "✅ 时区校验通过"
 
-          # 幂等保护：防止重复触发
+          # 幂等保护：防止同批次重复生成
           echo "   检查批次是否已执行..."
           SKIP=$(TODAY="$TODAY" BATCH="$BATCH" python3 scripts/check_batch_completed.py)
           if [ "$SKIP" = "true" ]; then
