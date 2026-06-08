@@ -96,8 +96,8 @@ jobs:
             echo "运行: $TODAY $BATCH 批次 (auto-detected, CST=$HOUR:00)"
           fi
 
-          # 时区校验 — 仅对手动触发（非 cron）执行
-          if [ "${{ github.event_name }}" != "schedule" ]; then
+          # 时区校验 — 仅对 auto-detect（无手动指定批次）执行
+          if [ "${{ github.event_name }}" != "schedule" ] && [ -z "${{ inputs.batch }}" ]; then
             HOUR=$(TZ=Asia/Shanghai date +%H)
             valid=true
             case "$BATCH" in
