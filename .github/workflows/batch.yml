@@ -30,6 +30,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    permissions:
+      contents: write
 
     steps:
       - name: 检出代码
@@ -157,6 +159,58 @@ jobs:
           OUTPUT_DIR: ${{ runner.temp }}/output
         run: |
           python publisher.py "${{ steps.params.outputs.today }}" --headless
+
+      - name: 回写批次状态（幂等保护）
+        if: success()
+        env:
+          TODAY: ${{ steps.params.outputs.today }}
+          BATCH: ${{ steps.params.outputs.batch }}
+        run: |
+          SRC="${{ runner.temp }}/output/${TODAY}/metadata.json"
+
+          if [ ! -f "$SRC" ]; then
+            echo "⚠️ metadata.json 不存在，跳过回写"
+            exit 0
+          fi
+
+          # 先拉取其他批次可能已回写的状态
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+
+          DST="output/${TODAY}/metadata.json"
+          mkdir -p "output/${TODAY}"
+
+          # 合并 batches_completed，避免覆盖之前批次的状态
+          python3 -c "
+          import json
+          from pathlib import Path
+
+          src = Path('${SRC}')
+          dst = Path('${DST}')
+          new_meta = json.loads(src.read_text())
+
+          if dst.exists():
+              old_meta = json.loads(dst.read_text())
+              old_batches = set(old_meta.get('batches_completed', []))
+              new_batches = set(new_meta.get('batches_completed', []))
+              new_meta['batches_completed'] = sorted(old_batches | new_batches)
+
+          dst.parent.mkdir(parents=True, exist_ok=True)
+          dst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))
+          print(f'merged batches: {new_meta[\"batches_completed\"]}')
+          "
+
+          git add "output/${TODAY}/metadata.json"
+
+          if git diff --cached --quiet; then
+            echo "📝 无变化，跳过提交"
+            exit 0
+          fi
+
+          git commit -m "chore: ${TODAY} ${BATCH} 批次完成"
+          git push origin main
+          echo "✅ 批次状态已回写仓库"
 
       - name: 上传产物
         if: always()

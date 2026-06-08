@@ -1,7 +1,11 @@
 output/
+!output/**/metadata.json
 toutiao_auth.json
 __pycache__/
 *.pyc
 /tmp/
 logs/
 .env
+
+# OpenWolf memory system
+.wolf/
