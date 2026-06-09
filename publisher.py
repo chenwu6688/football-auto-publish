@@ -544,7 +544,7 @@ def publish_article(page, article, date_str, draft_mode=False):
     print(f"{'='*60}")
 
     # Navigate to publish page — use domcontentloaded (networkidle can hang on SPA)
-    page.goto(TOUTIAO_PUBLISH, wait_until="domcontentloaded")
+    page.goto(TOUTIAO_PUBLISH, wait_until="domcontentloaded", timeout=60000)
     page.wait_for_timeout(5000)
     # Force reload to ensure clean editor state (avoids cached page issues)
     page.reload(wait_until="domcontentloaded")
@@ -1011,7 +1011,7 @@ def publish_all(date_str, draft_mode=False, headless=False):
         page.on("dialog", lambda dialog: dialog.accept())
 
         # Check if auth is still valid by navigating to publish page
-        page.goto(TOUTIAO_PUBLISH, wait_until="domcontentloaded")
+        page.goto(TOUTIAO_PUBLISH, wait_until="domcontentloaded", timeout=60000)
         page.wait_for_timeout(5000)
 
         # If redirected to login, auth expired
