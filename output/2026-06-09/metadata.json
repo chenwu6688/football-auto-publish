@@ -1,26 +1,26 @@
 {
   "date": "2026-06-09",
-  "generated_at": "2026-06-09T02:24:39.091952",
+  "generated_at": "2026-06-09T02:54:00.391867",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "国足“七战全胜”炸裂欧洲？这份“冠军”毒舌榜你敢看完吗",
-      "path": "/home/runner/work/_temp/output/2026-06-09/article-1-国足七战全胜炸裂-0d07a9.md",
-      "slug": "国足七战全胜炸裂-0d07a9",
+      "title": "董路带娃夺冠，孙继海评论区炸了：青训之争，嘴炮没用看比赛",
+      "path": "/home/runner/work/_temp/output/2026-06-09/article-1-董路带娃夺冠孙继-7cd08a.md",
+      "slug": "董路带娃夺冠孙继-7cd08a",
       "tags": [
-        "Chinese football",
-        "satire",
-        "ranking",
-        "reality check",
-        "fan mentality"
+        "donglu",
+        "football kids",
+        "sun jihai",
+        "youth training",
+        "chinese football"
       ],
       "keywords": [
-        "Chinese football",
-        "satire",
-        "ranking",
-        "reality check",
-        "fan mentality"
+        "donglu",
+        "football kids",
+        "sun jihai",
+        "youth training",
+        "chinese football"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-09/images/article-1-img-001.jpg",
@@ -28,33 +28,34 @@
         "/home/runner/work/_temp/output/2026-06-09/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "中国男足七战全胜杀穿欧洲，决赛夺冠"
+        "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
+        "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费"
       ],
       "source_post": "",
-      "originality_note": "不照搬原文，从数据盘点角度质疑比赛含金量，用毒舌口吻解构热点，引发球迷情感共鸣而非单纯叙事。",
-      "content_type": "排行榜",
-      "column_id": "shu-ju-pan-dian",
-      "column_name": "数据盘点",
-      "batch_name": "午间"
+      "originality_note": "从夺冠争议切入，用晨读快讯的轻快节奏对比两种青训模式，点评更直接，并设置了站队式预测互动",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     },
     {
       "index": 2,
-      "title": "董路夺冠孙继海挨骂：中国足球青训的“精英”和“普及”都走偏了",
-      "path": "/home/runner/work/_temp/output/2026-06-09/article-2-董路夺冠孙继海挨-d4a62d.md",
-      "slug": "董路夺冠孙继海挨-d4a62d",
+      "title": "曼联犹犹豫豫想啥呢？托纳利这笔买卖，再拖黄花菜都凉了！",
+      "path": "/home/runner/work/_temp/output/2026-06-09/article-2-曼联犹犹豫豫想啥-1cc5ff.md",
+      "slug": "曼联犹犹豫豫想啥-1cc5ff",
       "tags": [
-        "Chinese youth football",
-        "Dong Lu",
-        "Sun Jihai",
-        "football academy",
-        "grassroots football"
+        "Sandro Tonali",
+        "Manchester United",
+        "Newcastle United",
+        "transfer",
+        "Premier League"
       ],
       "keywords": [
-        "Chinese youth football",
-        "Dong Lu",
-        "Sun Jihai",
-        "football academy",
-        "grassroots football"
+        "Sandro Tonali",
+        "Manchester United",
+        "Newcastle United",
+        "transfer",
+        "Premier League"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-09/images/article-2-img-001.jpg",
@@ -62,51 +63,62 @@
         "/home/runner/work/_temp/output/2026-06-09/images/article-2-img-003.jpg"
       ],
       "sources_used": [
-        "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧",
-        "董路带娃意大利夺冠，孙继海评论区沦陷"
+        "纽卡要求曼联马上决定是否签托纳利"
       ],
       "source_post": "",
-      "originality_note": "从论战切入升级为青训路线之争，类比互联网创业与社区食堂，剖析舆论双标病灶和深层功利心态。",
-      "content_type": "战术解析",
-      "column_id": "shen-shui-qu",
-      "column_name": "深水区",
-      "batch_name": "午间"
+      "originality_note": "从转会新闻升级为决策逻辑辩论，用相亲、买房等生活类比降低理解门槛，以球迷立场给出痛快结论。",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "国足七战全胜夺冠？先别高兴太早，看看对手是谁再说",
+      "title": "董路孙继海论战：青训路线之争谁更靠谱？",
       "source_article_ids": [
-        2
+        3,
+        7
       ],
       "source_titles": [
-        "中国男足七战全胜杀穿欧洲，决赛夺冠"
+        "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
+        "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费"
       ],
-      "angle": "分析国足夺冠消息背后的真实性，质疑对手实力和比赛含金量，引出球迷对国足的真实期望与失望博弈",
+      "angle": "从足球小将夺冠引发的网络骂战切入，分析董路的实战派青训与孙继海的精英化选材模式，讨论两种路线对中国足球未来的利弊。观点：吵架没意义，关键是孩子能踢上比赛。",
       "keywords": [
-        "China national football team",
-        "European tour",
-        "victory",
-        "skepticism"
+        "Dong Lu",
+        "Sun Jihai",
+        "youth training",
+        "football debate"
       ],
       "keywords_cn": [
-        "中国男足",
-        "欧洲拉练",
-        "夺冠",
-        "质疑",
-        "含金量"
+        "董路",
+        "孙继海",
+        "青训",
+        "路线之争"
       ],
-      "content_type": "排行榜",
+      "content_type": "热点球评",
       "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "target_emotion": "骄傲",
       "_source_articles": [
         {
-          "id": 2,
-          "title": "中国男足七战全胜杀穿欧洲，决赛夺冠",
-          "summary": "打不赢的人，连输几十年的人，建议闭嘴。",
-          "account": "远方青木",
-          "reads": "10w+",
-          "likes": 7853,
+          "id": 3,
+          "title": "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
+          "summary": "最近这几天，一场远在意大利的青少年足球邀请赛，意外在国内足球圈掀起了一阵风暴。董路带着他的“足球小将”在欧洲大放异彩，最终捧起冠军奖杯。",
+          "account": "谢女士的",
+          "reads": "1w+",
+          "likes": 107,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "summary": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "account": "乘以弦",
+          "reads": "5w+",
+          "likes": 161,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
@@ -115,707 +127,6 @@
       "_all_articles": [
         {
           "id": 1,
-          "title": "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人",
-          "summary": "纽卡斯尔不希望转会拖到最后变闹剧。",
-          "account": "罗米曼联博客",
-          "reads": "1w+",
-          "likes": 44,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "中国男足七战全胜杀穿欧洲，决赛夺冠",
-          "summary": "打不赢的人，连输几十年的人，建议闭嘴。",
-          "account": "远方青木",
-          "reads": "10w+",
-          "likes": 7853,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "震撼！1亿！英超最强19岁神锋!",
-          "summary": "19岁，每121分钟进1个！",
-          "account": "天下足球",
-          "reads": "1w+",
-          "likes": 123,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "summary": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "account": "虎扑",
-          "reads": "3w+",
-          "likes": 128,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
-          "title": "聊聊切尔西的转会新闻应该怎么看",
-          "summary": "哈萨克斯坦健身博主和模特 、自媒体博主阿纳斯塔西娅·马克舍耶娃 （Anastasiya Makshaeva）​​​来吧，赛季结束观察半个月了，今天聊点关于切尔西的转会：1）无论多少钱，当你想卖掉队内有铁血气质，有激情，有斗志的球员的时候 ，",
-          "account": "CC切尔西球童",
-          "reads": "1w+",
-          "likes": 32,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 6,
-          "title": "40正是闯世界杯的年纪？",
-          "summary": "2014年，当全世界的目光聚焦巴西时，多位曼城球员满怀激情地踏上了世界杯的赛场。彼时，佩莱格里尼执教的曼城刚刚在三个赛季中第二次问鼎英超冠军。队中有10名球员带着对荣誉的渴望，奔赴这个足球圣地之一——巴西，追逐他们的梦想。接下来，让我们回顾",
-          "account": "曼城足球俱乐部",
-          "reads": "2w+",
-          "likes": 277,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "21世纪欧冠冠军教练编年史",
-          "summary": "(2000-2002：豪门底蕴与玄学开端)世纪之交，欧冠属于“南大王”与“银河战舰”。(2006-2009：意甲余晖与英超入侵)(2010-2014：瓜穆相争与安氏皇马)(2015-2018：齐祖封神与红军崛起)(2019-2023：克洛普",
-          "account": "红颜赛场资本论",
-          "reads": "8051",
-          "likes": 25,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "总价6000万欧！曼联坐收分成",
-          "summary": "知名记者罗马诺在个人 youtube 频道谈到曼联旧将梅森-格林伍德的转会情况，球员东家马赛对其出售总价为6000万欧元。\n罗马诺确认：“费内巴切主席候选人哈坎-萨菲高调宣布，他们已经与格林伍德达成协议，合同为期四年。费内巴切完全有能力支付",
-          "account": "我爱曼联",
-          "reads": "1w+",
-          "likes": 55,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
-          "title": "曼联被警告切勿5000万签莱奥！其曾背刺主帅，堪比已失业的马夏尔",
-          "summary": "莱奥是更衣室刺头。",
-          "account": "罗米曼联博客",
-          "reads": "7086",
-          "likes": 28,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
-          "id": 10,
-          "title": "维京战吼！挪威时隔28年重返世界杯，哈兰德厄德高拍出征大片",
-          "summary": "哈兰德化身维京战士",
-          "account": "马尼亚Mag",
-          "reads": "3w+",
-          "likes": 155,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        }
-      ],
-      "_standings": {
-        "英超": [
-          {
-            "position": 1,
-            "team": "Arsenal FC",
-            "points": 85,
-            "played": 38,
-            "goal_diff": 44
-          },
-          {
-            "position": 2,
-            "team": "Manchester City FC",
-            "points": 78,
-            "played": 38,
-            "goal_diff": 42
-          },
-          {
-            "position": 3,
-            "team": "Manchester United FC",
-            "points": 71,
-            "played": 38,
-            "goal_diff": 19
-          },
-          {
-            "position": 4,
-            "team": "Aston Villa FC",
-            "points": 65,
-            "played": 38,
-            "goal_diff": 7
-          },
-          {
-            "position": 5,
-            "team": "Liverpool FC",
-            "points": 60,
-            "played": 38,
-            "goal_diff": 10
-          },
-          {
-            "position": 6,
-            "team": "AFC Bournemouth",
-            "points": 57,
-            "played": 38,
-            "goal_diff": 4
-          },
-          {
-            "position": 7,
-            "team": "Sunderland AFC",
-            "points": 54,
-            "played": 38,
-            "goal_diff": -6
-          },
-          {
-            "position": 8,
-            "team": "Brighton & Hove Albion FC",
-            "points": 53,
-            "played": 38,
-            "goal_diff": 6
-          },
-          {
-            "position": 9,
-            "team": "Brentford FC",
-            "points": 53,
-            "played": 38,
-            "goal_diff": 3
-          },
-          {
-            "position": 10,
-            "team": "Chelsea FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": 6
-          },
-          {
-            "position": 11,
-            "team": "Fulham FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": -4
-          },
-          {
-            "position": 12,
-            "team": "Newcastle United FC",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -2
-          },
-          {
-            "position": 13,
-            "team": "Everton FC",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 14,
-            "team": "Leeds United FC",
-            "points": 47,
-            "played": 38,
-            "goal_diff": -7
-          },
-          {
-            "position": 15,
-            "team": "Crystal Palace FC",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "Nottingham Forest FC",
-            "points": 44,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 17,
-            "team": "Tottenham Hotspur FC",
-            "points": 41,
-            "played": 38,
-            "goal_diff": -9
-          },
-          {
-            "position": 18,
-            "team": "West Ham United FC",
-            "points": 39,
-            "played": 38,
-            "goal_diff": -19
-          },
-          {
-            "position": 19,
-            "team": "Burnley FC",
-            "points": 22,
-            "played": 38,
-            "goal_diff": -37
-          },
-          {
-            "position": 20,
-            "team": "Wolverhampton Wanderers FC",
-            "points": 20,
-            "played": 38,
-            "goal_diff": -41
-          }
-        ],
-        "西甲": [
-          {
-            "position": 1,
-            "team": "FC Barcelona",
-            "points": 94,
-            "played": 38,
-            "goal_diff": 59
-          },
-          {
-            "position": 2,
-            "team": "Real Madrid CF",
-            "points": 86,
-            "played": 38,
-            "goal_diff": 42
-          },
-          {
-            "position": 3,
-            "team": "Villarreal CF",
-            "points": 72,
-            "played": 38,
-            "goal_diff": 26
-          },
-          {
-            "position": 4,
-            "team": "Club Atlético de Madrid",
-            "points": 69,
-            "played": 38,
-            "goal_diff": 18
-          },
-          {
-            "position": 5,
-            "team": "Real Betis Balompié",
-            "points": 60,
-            "played": 38,
-            "goal_diff": 11
-          },
-          {
-            "position": 6,
-            "team": "RC Celta de Vigo",
-            "points": 54,
-            "played": 38,
-            "goal_diff": 5
-          },
-          {
-            "position": 7,
-            "team": "Getafe CF",
-            "points": 51,
-            "played": 38,
-            "goal_diff": -6
-          },
-          {
-            "position": 8,
-            "team": "Rayo Vallecano de Madrid",
-            "points": 50,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 9,
-            "team": "Valencia CF",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -9
-          },
-          {
-            "position": 10,
-            "team": "Real Sociedad de Fútbol",
-            "points": 46,
-            "played": 38,
-            "goal_diff": -2
-          },
-          {
-            "position": 11,
-            "team": "RCD Espanyol de Barcelona",
-            "points": 46,
-            "played": 38,
-            "goal_diff": -12
-          },
-          {
-            "position": 12,
-            "team": "Athletic Club",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -15
-          },
-          {
-            "position": 13,
-            "team": "Sevilla FC",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -14
-          },
-          {
-            "position": 14,
-            "team": "Deportivo Alavés",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -12
-          },
-          {
-            "position": 15,
-            "team": "Elche CF",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -8
-          },
-          {
-            "position": 16,
-            "team": "Levante UD",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -14
-          },
-          {
-            "position": 17,
-            "team": "CA Osasuna",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -6
-          },
-          {
-            "position": 18,
-            "team": "RCD Mallorca",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -10
-          },
-          {
-            "position": 19,
-            "team": "Girona FC",
-            "points": 41,
-            "played": 38,
-            "goal_diff": -16
-          },
-          {
-            "position": 20,
-            "team": "Real Oviedo",
-            "points": 29,
-            "played": 38,
-            "goal_diff": -34
-          }
-        ],
-        "德甲": [
-          {
-            "position": 1,
-            "team": "FC Bayern München",
-            "points": 89,
-            "played": 34,
-            "goal_diff": 86
-          },
-          {
-            "position": 2,
-            "team": "Borussia Dortmund",
-            "points": 73,
-            "played": 34,
-            "goal_diff": 36
-          },
-          {
-            "position": 3,
-            "team": "RB Leipzig",
-            "points": 65,
-            "played": 34,
-            "goal_diff": 19
-          },
-          {
-            "position": 4,
-            "team": "VfB Stuttgart",
-            "points": 62,
-            "played": 34,
-            "goal_diff": 22
-          },
-          {
-            "position": 5,
-            "team": "TSG 1899 Hoffenheim",
-            "points": 61,
-            "played": 34,
-            "goal_diff": 13
-          },
-          {
-            "position": 6,
-            "team": "Bayer 04 Leverkusen",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 21
-          },
-          {
-            "position": 7,
-            "team": "SC Freiburg",
-            "points": 47,
-            "played": 34,
-            "goal_diff": -6
-          },
-          {
-            "position": 8,
-            "team": "Eintracht Frankfurt",
-            "points": 44,
-            "played": 34,
-            "goal_diff": -4
-          },
-          {
-            "position": 9,
-            "team": "FC Augsburg",
-            "points": 43,
-            "played": 34,
-            "goal_diff": -16
-          },
-          {
-            "position": 10,
-            "team": "1. FSV Mainz 05",
-            "points": 40,
-            "played": 34,
-            "goal_diff": -9
-          },
-          {
-            "position": 11,
-            "team": "1. FC Union Berlin",
-            "points": 39,
-            "played": 34,
-            "goal_diff": -14
-          },
-          {
-            "position": 12,
-            "team": "Borussia Mönchengladbach",
-            "points": 38,
-            "played": 34,
-            "goal_diff": -11
-          },
-          {
-            "position": 13,
-            "team": "Hamburger SV",
-            "points": 38,
-            "played": 34,
-            "goal_diff": -14
-          },
-          {
-            "position": 14,
-            "team": "1. FC Köln",
-            "points": 32,
-            "played": 34,
-            "goal_diff": -14
-          },
-          {
-            "position": 15,
-            "team": "SV Werder Bremen",
-            "points": 32,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 16,
-            "team": "VfL Wolfsburg",
-            "points": 29,
-            "played": 34,
-            "goal_diff": -24
-          },
-          {
-            "position": 17,
-            "team": "1. FC Heidenheim 1846",
-            "points": 26,
-            "played": 34,
-            "goal_diff": -31
-          },
-          {
-            "position": 18,
-            "team": "FC St. Pauli 1910",
-            "points": 26,
-            "played": 34,
-            "goal_diff": -31
-          }
-        ],
-        "法甲": [
-          {
-            "position": 1,
-            "team": "Paris Saint-Germain FC",
-            "points": 76,
-            "played": 34,
-            "goal_diff": 45
-          },
-          {
-            "position": 2,
-            "team": "Racing Club de Lens",
-            "points": 70,
-            "played": 34,
-            "goal_diff": 31
-          },
-          {
-            "position": 3,
-            "team": "Lille OSC",
-            "points": 61,
-            "played": 34,
-            "goal_diff": 15
-          },
-          {
-            "position": 4,
-            "team": "Olympique Lyonnais",
-            "points": 60,
-            "played": 34,
-            "goal_diff": 13
-          },
-          {
-            "position": 5,
-            "team": "Olympique de Marseille",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 18
-          },
-          {
-            "position": 6,
-            "team": "Stade Rennais FC 1901",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 9
-          },
-          {
-            "position": 7,
-            "team": "AS Monaco FC",
-            "points": 54,
-            "played": 34,
-            "goal_diff": 6
-          },
-          {
-            "position": 8,
-            "team": "RC Strasbourg Alsace",
-            "points": 53,
-            "played": 34,
-            "goal_diff": 11
-          },
-          {
-            "position": 9,
-            "team": "Toulouse FC",
-            "points": 45,
-            "played": 34,
-            "goal_diff": 1
-          },
-          {
-            "position": 10,
-            "team": "FC Lorient",
-            "points": 45,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 11,
-            "team": "Paris FC",
-            "points": 44,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 12,
-            "team": "Stade Brestois 29",
-            "points": 39,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 13,
-            "team": "Angers SCO",
-            "points": 36,
-            "played": 34,
-            "goal_diff": -19
-          },
-          {
-            "position": 14,
-            "team": "Le Havre AC",
-            "points": 35,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 15,
-            "team": "AJ Auxerre",
-            "points": 34,
-            "played": 34,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "OGC Nice",
-            "points": 32,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 17,
-            "team": "FC Nantes",
-            "points": 24,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 18,
-            "team": "FC Metz",
-            "points": 17,
-            "played": 34,
-            "goal_diff": -44
-          }
-        ]
-      },
-      "_column_id": "shu-ju-pan-dian",
-      "_column_name": "数据盘点",
-      "_column_icon": "📊",
-      "_writing_style": "毒舌点评体",
-      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "challenge_dare",
-      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
-      "_topic_domain": "足球数据排名",
-      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
-      "_overall_tone": "有干货、有观点、适合社交分享"
-    },
-    {
-      "title": "董路和孙继海隔空互怼，足球小将夺冠到底打了谁的脸？",
-      "source_article_ids": [
-        11,
-        12
-      ],
-      "source_titles": [
-        "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别…",
-        "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸"
-      ],
-      "angle": "从董路和孙继海的论战切入，讨论中国青训的路线之争——精英模式vs草根普及，以及舆论对成绩的双标",
-      "keywords": [
-        "Dong Lu",
-        "Sun Jihai",
-        "football kids",
-        "youth training",
-        "controversy"
-      ],
-      "keywords_cn": [
-        "董路",
-        "孙继海",
-        "足球小将",
-        "青训",
-        "路线之争"
-      ],
-      "content_type": "战术解析",
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "_source_articles": [
-        {
-          "id": 11,
           "title": "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别…",
           "summary": "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别让孩子们沾了霉气#少年足球夺冠",
           "account": "高处涨知识",
@@ -826,30 +137,6 @@
           "_recency_score": 40
         },
         {
-          "id": 12,
-          "title": "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
-          "summary": "最近这几天，一场远在意大利的青少年足球邀请赛，意外在国内足球圈掀起了一阵风暴。董路带着他的“足球小将”在欧洲大放异彩，最终捧起冠军奖杯。",
-          "account": "谢女士的",
-          "reads": "1w+",
-          "likes": 107,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人",
-          "summary": "纽卡斯尔不希望转会拖到最后变闹剧。",
-          "account": "罗米曼联博客",
-          "reads": "1w+",
-          "likes": 44,
-          "data_score": 100,
-          "pub_time": "2026-06-07",
-          "_recency_score": 40
-        },
-        {
           "id": 2,
           "title": "中国男足七战全胜杀穿欧洲，决赛夺冠",
           "summary": "打不赢的人，连输几十年的人，建议闭嘴。",
@@ -862,88 +149,88 @@
         },
         {
           "id": 3,
-          "title": "震撼！1亿！英超最强19岁神锋!",
-          "summary": "19岁，每121分钟进1个！",
-          "account": "天下足球",
+          "title": "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
+          "summary": "最近这几天，一场远在意大利的青少年足球邀请赛，意外在国内足球圈掀起了一阵风暴。董路带着他的“足球小将”在欧洲大放异彩，最终捧起冠军奖杯。",
+          "account": "谢女士的",
           "reads": "1w+",
-          "likes": 123,
+          "likes": 107,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 4,
-          "title": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "summary": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "account": "虎扑",
-          "reads": "3w+",
-          "likes": 128,
+          "title": "更新抢先看③ | 射门、门将和赛场体验再升级！",
+          "summary": "势大力沉的世界波、极限反应的神级扑救    绝对是比赛中最热血的组成部分！    在实况全新足球盛典版本中    我们不仅带来了射门、门将的调整    还针对赛场体验进行了优化    本期阿况继续搭档实况官方解说苗锟    和大家抢先看看这",
+          "account": "实况足球",
+          "reads": "6w+",
+          "likes": 140,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 5,
-          "title": "聊聊切尔西的转会新闻应该怎么看",
-          "summary": "哈萨克斯坦健身博主和模特 、自媒体博主阿纳斯塔西娅·马克舍耶娃 （Anastasiya Makshaeva）​​​来吧，赛季结束观察半个月了，今天聊点关于切尔西的转会：1）无论多少钱，当你想卖掉队内有铁血气质，有激情，有斗志的球员的时候 ，",
-          "account": "CC切尔西球童",
-          "reads": "1w+",
-          "likes": 32,
+          "title": "中国足球小将",
+          "summary": "刷到这张照片，又去找了原视频，这才是男孩子该有的血气与野性，这个还击，大赞。从小就教孩子，不惹事，但也不能怕事，遇见别人先动手就去干，干不干的过再说，先干了#中国足球小将#足球  #男娃的养育#养育孩子",
+          "account": "壹贰叁 三生万物",
+          "reads": "5w+",
+          "likes": 612,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 6,
-          "title": "40正是闯世界杯的年纪？",
-          "summary": "2014年，当全世界的目光聚焦巴西时，多位曼城球员满怀激情地踏上了世界杯的赛场。彼时，佩莱格里尼执教的曼城刚刚在三个赛季中第二次问鼎英超冠军。队中有10名球员带着对荣誉的渴望，奔赴这个足球圣地之一——巴西，追逐他们的梦想。接下来，让我们回顾",
-          "account": "曼城足球俱乐部",
-          "reads": "2w+",
-          "likes": 277,
+          "title": "足球小将：年度最佳照片",
+          "summary": "少年强则国强",
+          "account": "股市的逻辑",
+          "reads": "1w+",
+          "likes": 549,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 7,
-          "title": "21世纪欧冠冠军教练编年史",
-          "summary": "(2000-2002：豪门底蕴与玄学开端)世纪之交，欧冠属于“南大王”与“银河战舰”。(2006-2009：意甲余晖与英超入侵)(2010-2014：瓜穆相争与安氏皇马)(2015-2018：齐祖封神与红军崛起)(2019-2023：克洛普",
-          "account": "红颜赛场资本论",
-          "reads": "8051",
-          "likes": 25,
+          "title": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "summary": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "account": "乘以弦",
+          "reads": "5w+",
+          "likes": 161,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 8,
-          "title": "总价6000万欧！曼联坐收分成",
-          "summary": "知名记者罗马诺在个人 youtube 频道谈到曼联旧将梅森-格林伍德的转会情况，球员东家马赛对其出售总价为6000万欧元。\n罗马诺确认：“费内巴切主席候选人哈坎-萨菲高调宣布，他们已经与格林伍德达成协议，合同为期四年。费内巴切完全有能力支付",
-          "account": "我爱曼联",
-          "reads": "1w+",
-          "likes": 55,
+          "title": "丹麦球员用F开头辱骂中国人！董路指着对方鼻子怒斥：我们不惹事 但绝不怕事！",
+          "summary": "6月6日，董路率领足球小将出战荷兰杯，小组赛取得3胜2平0失球的成绩，晋级6强。6月7日，董路在社媒更新了动态，表示小组赛第三场同丹麦奥尔堡的比赛中，出现了令人愤怒的一幕。                董路说道：“第三场比赛，我们0-0同",
+          "account": "鱼羊话体育",
+          "reads": "2w+",
+          "likes": 347,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 9,
-          "title": "曼联被警告切勿5000万签莱奥！其曾背刺主帅，堪比已失业的马夏尔",
-          "summary": "莱奥是更衣室刺头。",
-          "account": "罗米曼联博客",
-          "reads": "7086",
-          "likes": 28,
+          "title": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刷到这条消息的时候，我第一反应是——完了，董路那帮孩子怕是要被卡脖子了。事情是这样的。",
+          "account": "Luo.9983",
+          "reads": "1w+",
+          "likes": 57,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 10,
-          "title": "维京战吼！挪威时隔28年重返世界杯，哈兰德厄德高拍出征大片",
-          "summary": "哈兰德化身维京战士",
-          "account": "马尼亚Mag",
-          "reads": "3w+",
-          "likes": 155,
+          "title": "重拳出击！刚刚刷到的中国足协：发文擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？欧洲赛场登顶却遇合规难题！赢了豪门的足球小将，真要被规则困住脚步？",
+          "account": "白那恰",
+          "reads": "4w+",
+          "likes": 163,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
@@ -1090,148 +377,6 @@
             "points": 20,
             "played": 38,
             "goal_diff": -41
-          }
-        ],
-        "西甲": [
-          {
-            "position": 1,
-            "team": "FC Barcelona",
-            "points": 94,
-            "played": 38,
-            "goal_diff": 59
-          },
-          {
-            "position": 2,
-            "team": "Real Madrid CF",
-            "points": 86,
-            "played": 38,
-            "goal_diff": 42
-          },
-          {
-            "position": 3,
-            "team": "Villarreal CF",
-            "points": 72,
-            "played": 38,
-            "goal_diff": 26
-          },
-          {
-            "position": 4,
-            "team": "Club Atlético de Madrid",
-            "points": 69,
-            "played": 38,
-            "goal_diff": 18
-          },
-          {
-            "position": 5,
-            "team": "Real Betis Balompié",
-            "points": 60,
-            "played": 38,
-            "goal_diff": 11
-          },
-          {
-            "position": 6,
-            "team": "RC Celta de Vigo",
-            "points": 54,
-            "played": 38,
-            "goal_diff": 5
-          },
-          {
-            "position": 7,
-            "team": "Getafe CF",
-            "points": 51,
-            "played": 38,
-            "goal_diff": -6
-          },
-          {
-            "position": 8,
-            "team": "Rayo Vallecano de Madrid",
-            "points": 50,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 9,
-            "team": "Valencia CF",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -9
-          },
-          {
-            "position": 10,
-            "team": "Real Sociedad de Fútbol",
-            "points": 46,
-            "played": 38,
-            "goal_diff": -2
-          },
-          {
-            "position": 11,
-            "team": "RCD Espanyol de Barcelona",
-            "points": 46,
-            "played": 38,
-            "goal_diff": -12
-          },
-          {
-            "position": 12,
-            "team": "Athletic Club",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -15
-          },
-          {
-            "position": 13,
-            "team": "Sevilla FC",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -14
-          },
-          {
-            "position": 14,
-            "team": "Deportivo Alavés",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -12
-          },
-          {
-            "position": 15,
-            "team": "Elche CF",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -8
-          },
-          {
-            "position": 16,
-            "team": "Levante UD",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -14
-          },
-          {
-            "position": 17,
-            "team": "CA Osasuna",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -6
-          },
-          {
-            "position": 18,
-            "team": "RCD Mallorca",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -10
-          },
-          {
-            "position": 19,
-            "team": "Girona FC",
-            "points": 41,
-            "played": 38,
-            "goal_diff": -16
-          },
-          {
-            "position": 20,
-            "team": "Real Oviedo",
-            "points": 29,
-            "played": 38,
-            "goal_diff": -34
           }
         ],
         "德甲": [
@@ -1491,59 +636,57 @@
           }
         ]
       },
-      "_column_id": "shen-shui-qu",
-      "_column_name": "深水区",
-      "_column_icon": "🌊",
-      "_writing_style": "内行看门道体",
-      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        500,
-        700
+        300,
+        500
       ],
-      "_interaction_type": "opinion_poll",
-      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
-      "_topic_domain": "足球深度分析",
-      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
-      "_overall_tone": "有干货、有观点、适合社交分享"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "世界杯身价榜前十里，有五个队你根本猜不到是谁",
+      "title": "纽卡给曼联下最后通牒：托纳利到底值不值？",
       "source_article_ids": [
-        4
+        11
       ],
       "source_titles": [
-        "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭"
+        "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人"
       ],
-      "angle": "重新解读世界杯身价榜，聚焦哪些非传统强队凭借球员溢价上榜，分析泡沫背后是炒作还是真金白银",
+      "angle": "从转会谈判的紧迫性出发，分析托纳利的技术特点与曼联中场的适配度，并指出纽卡强硬态度的背后是英超中上游球队转会策略的升级。观点：曼联别再犹豫，错过托纳利就是错过重建核心。",
       "keywords": [
-        "World Cup",
-        "player value",
-        "ranking",
-        "inflation",
-        "underdogs"
+        "Tonali",
+        "Manchester United",
+        "Newcastle",
+        "transfer"
       ],
       "keywords_cn": [
-        "世界杯",
-        "身价榜",
-        "球员价值",
-        "泡沫",
-        "黑马"
+        "托纳利",
+        "曼联",
+        "纽卡斯尔",
+        "转会"
       ],
-      "content_type": "排行榜",
+      "content_type": "八卦趣事",
       "controversy_level": "medium",
       "target_emotion": "好奇",
       "_source_articles": [
         {
-          "id": 4,
-          "title": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "summary": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "account": "虎扑",
-          "reads": "3w+",
-          "likes": 128,
+          "id": 11,
+          "title": "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人",
+          "summary": "纽卡斯尔不希望转会拖到最后变闹剧。",
+          "account": "罗米曼联博客",
+          "reads": "1w+",
+          "likes": 44,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
@@ -1552,11 +695,11 @@
       "_all_articles": [
         {
           "id": 1,
-          "title": "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人",
-          "summary": "纽卡斯尔不希望转会拖到最后变闹剧。",
-          "account": "罗米曼联博客",
-          "reads": "1w+",
-          "likes": 44,
+          "title": "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别…",
+          "summary": "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别让孩子们沾了霉气#少年足球夺冠",
+          "account": "高处涨知识",
+          "reads": "6w+",
+          "likes": 503,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
@@ -1574,88 +717,88 @@
         },
         {
           "id": 3,
-          "title": "震撼！1亿！英超最强19岁神锋!",
-          "summary": "19岁，每121分钟进1个！",
-          "account": "天下足球",
+          "title": "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
+          "summary": "最近这几天，一场远在意大利的青少年足球邀请赛，意外在国内足球圈掀起了一阵风暴。董路带着他的“足球小将”在欧洲大放异彩，最终捧起冠军奖杯。",
+          "account": "谢女士的",
           "reads": "1w+",
-          "likes": 123,
+          "likes": 107,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 4,
-          "title": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "summary": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
-          "account": "虎扑",
-          "reads": "3w+",
-          "likes": 128,
+          "title": "更新抢先看③ | 射门、门将和赛场体验再升级！",
+          "summary": "势大力沉的世界波、极限反应的神级扑救    绝对是比赛中最热血的组成部分！    在实况全新足球盛典版本中    我们不仅带来了射门、门将的调整    还针对赛场体验进行了优化    本期阿况继续搭档实况官方解说苗锟    和大家抢先看看这",
+          "account": "实况足球",
+          "reads": "6w+",
+          "likes": 140,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 5,
-          "title": "聊聊切尔西的转会新闻应该怎么看",
-          "summary": "哈萨克斯坦健身博主和模特 、自媒体博主阿纳斯塔西娅·马克舍耶娃 （Anastasiya Makshaeva）​​​来吧，赛季结束观察半个月了，今天聊点关于切尔西的转会：1）无论多少钱，当你想卖掉队内有铁血气质，有激情，有斗志的球员的时候 ，",
-          "account": "CC切尔西球童",
-          "reads": "1w+",
-          "likes": 32,
+          "title": "中国足球小将",
+          "summary": "刷到这张照片，又去找了原视频，这才是男孩子该有的血气与野性，这个还击，大赞。从小就教孩子，不惹事，但也不能怕事，遇见别人先动手就去干，干不干的过再说，先干了#中国足球小将#足球  #男娃的养育#养育孩子",
+          "account": "壹贰叁 三生万物",
+          "reads": "5w+",
+          "likes": 612,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 6,
-          "title": "40正是闯世界杯的年纪？",
-          "summary": "2014年，当全世界的目光聚焦巴西时，多位曼城球员满怀激情地踏上了世界杯的赛场。彼时，佩莱格里尼执教的曼城刚刚在三个赛季中第二次问鼎英超冠军。队中有10名球员带着对荣誉的渴望，奔赴这个足球圣地之一——巴西，追逐他们的梦想。接下来，让我们回顾",
-          "account": "曼城足球俱乐部",
-          "reads": "2w+",
-          "likes": 277,
+          "title": "足球小将：年度最佳照片",
+          "summary": "少年强则国强",
+          "account": "股市的逻辑",
+          "reads": "1w+",
+          "likes": 549,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 7,
-          "title": "21世纪欧冠冠军教练编年史",
-          "summary": "(2000-2002：豪门底蕴与玄学开端)世纪之交，欧冠属于“南大王”与“银河战舰”。(2006-2009：意甲余晖与英超入侵)(2010-2014：瓜穆相争与安氏皇马)(2015-2018：齐祖封神与红军崛起)(2019-2023：克洛普",
-          "account": "红颜赛场资本论",
-          "reads": "8051",
-          "likes": 25,
+          "title": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "summary": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "account": "乘以弦",
+          "reads": "5w+",
+          "likes": 161,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 8,
-          "title": "总价6000万欧！曼联坐收分成",
-          "summary": "知名记者罗马诺在个人 youtube 频道谈到曼联旧将梅森-格林伍德的转会情况，球员东家马赛对其出售总价为6000万欧元。\n罗马诺确认：“费内巴切主席候选人哈坎-萨菲高调宣布，他们已经与格林伍德达成协议，合同为期四年。费内巴切完全有能力支付",
-          "account": "我爱曼联",
-          "reads": "1w+",
-          "likes": 55,
+          "title": "丹麦球员用F开头辱骂中国人！董路指着对方鼻子怒斥：我们不惹事 但绝不怕事！",
+          "summary": "6月6日，董路率领足球小将出战荷兰杯，小组赛取得3胜2平0失球的成绩，晋级6强。6月7日，董路在社媒更新了动态，表示小组赛第三场同丹麦奥尔堡的比赛中，出现了令人愤怒的一幕。                董路说道：“第三场比赛，我们0-0同",
+          "account": "鱼羊话体育",
+          "reads": "2w+",
+          "likes": 347,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 9,
-          "title": "曼联被警告切勿5000万签莱奥！其曾背刺主帅，堪比已失业的马夏尔",
-          "summary": "莱奥是更衣室刺头。",
-          "account": "罗米曼联博客",
-          "reads": "7086",
-          "likes": 28,
+          "title": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刷到这条消息的时候，我第一反应是——完了，董路那帮孩子怕是要被卡脖子了。事情是这样的。",
+          "account": "Luo.9983",
+          "reads": "1w+",
+          "likes": 57,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
         },
         {
           "id": 10,
-          "title": "维京战吼！挪威时隔28年重返世界杯，哈兰德厄德高拍出征大片",
-          "summary": "哈兰德化身维京战士",
-          "account": "马尼亚Mag",
-          "reads": "3w+",
-          "likes": 155,
+          "title": "重拳出击！刚刚刷到的中国足协：发文擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？欧洲赛场登顶却遇合规难题！赢了豪门的足球小将，真要被规则困住脚步？",
+          "account": "白那恰",
+          "reads": "4w+",
+          "likes": 163,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
@@ -1804,146 +947,572 @@
             "goal_diff": -41
           }
         ],
-        "西甲": [
+        "德甲": [
           {
             "position": 1,
-            "team": "FC Barcelona",
-            "points": 94,
-            "played": 38,
-            "goal_diff": 59
+            "team": "FC Bayern München",
+            "points": 89,
+            "played": 34,
+            "goal_diff": 86
           },
           {
             "position": 2,
-            "team": "Real Madrid CF",
-            "points": 86,
+            "team": "Borussia Dortmund",
+            "points": 73,
+            "played": 34,
+            "goal_diff": 36
+          },
+          {
+            "position": 3,
+            "team": "RB Leipzig",
+            "points": 65,
+            "played": 34,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "VfB Stuttgart",
+            "points": 62,
+            "played": 34,
+            "goal_diff": 22
+          },
+          {
+            "position": 5,
+            "team": "TSG 1899 Hoffenheim",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 6,
+            "team": "Bayer 04 Leverkusen",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 21
+          },
+          {
+            "position": 7,
+            "team": "SC Freiburg",
+            "points": 47,
+            "played": 34,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Eintracht Frankfurt",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -4
+          },
+          {
+            "position": 9,
+            "team": "FC Augsburg",
+            "points": 43,
+            "played": 34,
+            "goal_diff": -16
+          },
+          {
+            "position": 10,
+            "team": "1. FSV Mainz 05",
+            "points": 40,
+            "played": 34,
+            "goal_diff": -9
+          },
+          {
+            "position": 11,
+            "team": "1. FC Union Berlin",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 12,
+            "team": "Borussia Mönchengladbach",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -11
+          },
+          {
+            "position": 13,
+            "team": "Hamburger SV",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "1. FC Köln",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 15,
+            "team": "SV Werder Bremen",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 16,
+            "team": "VfL Wolfsburg",
+            "points": 29,
+            "played": 34,
+            "goal_diff": -24
+          },
+          {
+            "position": 17,
+            "team": "1. FC Heidenheim 1846",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          },
+          {
+            "position": 18,
+            "team": "FC St. Pauli 1910",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          }
+        ],
+        "法甲": [
+          {
+            "position": 1,
+            "team": "Paris Saint-Germain FC",
+            "points": 76,
+            "played": 34,
+            "goal_diff": 45
+          },
+          {
+            "position": 2,
+            "team": "Racing Club de Lens",
+            "points": 70,
+            "played": 34,
+            "goal_diff": 31
+          },
+          {
+            "position": 3,
+            "team": "Lille OSC",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 15
+          },
+          {
+            "position": 4,
+            "team": "Olympique Lyonnais",
+            "points": 60,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 5,
+            "team": "Olympique de Marseille",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Stade Rennais FC 1901",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 9
+          },
+          {
+            "position": 7,
+            "team": "AS Monaco FC",
+            "points": 54,
+            "played": 34,
+            "goal_diff": 6
+          },
+          {
+            "position": 8,
+            "team": "RC Strasbourg Alsace",
+            "points": 53,
+            "played": 34,
+            "goal_diff": 11
+          },
+          {
+            "position": 9,
+            "team": "Toulouse FC",
+            "points": 45,
+            "played": 34,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "FC Lorient",
+            "points": 45,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "Paris FC",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 12,
+            "team": "Stade Brestois 29",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 13,
+            "team": "Angers SCO",
+            "points": 36,
+            "played": 34,
+            "goal_diff": -19
+          },
+          {
+            "position": 14,
+            "team": "Le Havre AC",
+            "points": 35,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "AJ Auxerre",
+            "points": 34,
+            "played": 34,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "OGC Nice",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 17,
+            "team": "FC Nantes",
+            "points": 24,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 18,
+            "team": "FC Metz",
+            "points": 17,
+            "played": 34,
+            "goal_diff": -44
+          }
+        ]
+      },
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "世界杯身价榜前十：谁是被高估的泡沫？",
+      "source_article_ids": [
+        13
+      ],
+      "source_titles": [
+        "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭"
+      ],
+      "angle": "结合最新身价榜单，对比球员实际表现，指出个别球星身价虚高以及哪些年轻球员被低估。观点：身价不能当饭吃，世界杯才是试金石。",
+      "keywords": [
+        "World Cup",
+        "player value",
+        "ranking",
+        "overrated"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "身价榜",
+        "泡沫",
+        "高估"
+      ],
+      "content_type": "排行榜",
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 13,
+          "title": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
+          "summary": "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭",
+          "account": "虎扑",
+          "reads": "3w+",
+          "likes": 128,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别…",
+          "summary": "都称呼这些宝贝“中国足球小将”，还是把前面四个字换一下吧，别让孩子们沾了霉气#少年足球夺冠",
+          "account": "高处涨知识",
+          "reads": "6w+",
+          "likes": 503,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "中国男足七战全胜杀穿欧洲，决赛夺冠",
+          "summary": "打不赢的人，连输几十年的人，建议闭嘴。",
+          "account": "远方青木",
+          "reads": "10w+",
+          "likes": 7853,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
+          "summary": "最近这几天，一场远在意大利的青少年足球邀请赛，意外在国内足球圈掀起了一阵风暴。董路带着他的“足球小将”在欧洲大放异彩，最终捧起冠军奖杯。",
+          "account": "谢女士的",
+          "reads": "1w+",
+          "likes": 107,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "更新抢先看③ | 射门、门将和赛场体验再升级！",
+          "summary": "势大力沉的世界波、极限反应的神级扑救    绝对是比赛中最热血的组成部分！    在实况全新足球盛典版本中    我们不仅带来了射门、门将的调整    还针对赛场体验进行了优化    本期阿况继续搭档实况官方解说苗锟    和大家抢先看看这",
+          "account": "实况足球",
+          "reads": "6w+",
+          "likes": 140,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "中国足球小将",
+          "summary": "刷到这张照片，又去找了原视频，这才是男孩子该有的血气与野性，这个还击，大赞。从小就教孩子，不惹事，但也不能怕事，遇见别人先动手就去干，干不干的过再说，先干了#中国足球小将#足球  #男娃的养育#养育孩子",
+          "account": "壹贰叁 三生万物",
+          "reads": "5w+",
+          "likes": 612,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "足球小将：年度最佳照片",
+          "summary": "少年强则国强",
+          "account": "股市的逻辑",
+          "reads": "1w+",
+          "likes": 549,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "summary": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
+          "account": "乘以弦",
+          "reads": "5w+",
+          "likes": 161,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "丹麦球员用F开头辱骂中国人！董路指着对方鼻子怒斥：我们不惹事 但绝不怕事！",
+          "summary": "6月6日，董路率领足球小将出战荷兰杯，小组赛取得3胜2平0失球的成绩，晋级6强。6月7日，董路在社媒更新了动态，表示小组赛第三场同丹麦奥尔堡的比赛中，出现了令人愤怒的一幕。                董路说道：“第三场比赛，我们0-0同",
+          "account": "鱼羊话体育",
+          "reads": "2w+",
+          "likes": 347,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刷到这条消息的时候，我第一反应是——完了，董路那帮孩子怕是要被卡脖子了。事情是这样的。",
+          "account": "Luo.9983",
+          "reads": "1w+",
+          "likes": 57,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "重拳出击！刚刚刷到的中国足协：发文擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？欧洲赛场登顶却遇合规难题！赢了豪门的足球小将，真要被规则困住脚步？",
+          "account": "白那恰",
+          "reads": "4w+",
+          "likes": 163,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {
+        "英超": [
+          {
+            "position": 1,
+            "team": "Arsenal FC",
+            "points": 85,
+            "played": 38,
+            "goal_diff": 44
+          },
+          {
+            "position": 2,
+            "team": "Manchester City FC",
+            "points": 78,
             "played": 38,
             "goal_diff": 42
           },
           {
             "position": 3,
-            "team": "Villarreal CF",
-            "points": 72,
+            "team": "Manchester United FC",
+            "points": 71,
             "played": 38,
-            "goal_diff": 26
+            "goal_diff": 19
           },
           {
             "position": 4,
-            "team": "Club Atlético de Madrid",
-            "points": 69,
+            "team": "Aston Villa FC",
+            "points": 65,
             "played": 38,
-            "goal_diff": 18
+            "goal_diff": 7
           },
           {
             "position": 5,
-            "team": "Real Betis Balompié",
+            "team": "Liverpool FC",
             "points": 60,
             "played": 38,
-            "goal_diff": 11
+            "goal_diff": 10
           },
           {
             "position": 6,
-            "team": "RC Celta de Vigo",
-            "points": 54,
+            "team": "AFC Bournemouth",
+            "points": 57,
             "played": 38,
-            "goal_diff": 5
+            "goal_diff": 4
           },
           {
             "position": 7,
-            "team": "Getafe CF",
-            "points": 51,
+            "team": "Sunderland AFC",
+            "points": 54,
             "played": 38,
             "goal_diff": -6
           },
           {
             "position": 8,
-            "team": "Rayo Vallecano de Madrid",
-            "points": 50,
+            "team": "Brighton & Hove Albion FC",
+            "points": 53,
             "played": 38,
-            "goal_diff": -3
+            "goal_diff": 6
           },
           {
             "position": 9,
-            "team": "Valencia CF",
-            "points": 49,
+            "team": "Brentford FC",
+            "points": 53,
             "played": 38,
-            "goal_diff": -9
+            "goal_diff": 3
           },
           {
             "position": 10,
-            "team": "Real Sociedad de Fútbol",
-            "points": 46,
+            "team": "Chelsea FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 11,
+            "team": "Fulham FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Newcastle United FC",
+            "points": 49,
             "played": 38,
             "goal_diff": -2
           },
           {
-            "position": 11,
-            "team": "RCD Espanyol de Barcelona",
-            "points": 46,
-            "played": 38,
-            "goal_diff": -12
-          },
-          {
-            "position": 12,
-            "team": "Athletic Club",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -15
-          },
-          {
             "position": 13,
-            "team": "Sevilla FC",
-            "points": 43,
+            "team": "Everton FC",
+            "points": 49,
             "played": 38,
-            "goal_diff": -14
+            "goal_diff": -3
           },
           {
             "position": 14,
-            "team": "Deportivo Alavés",
-            "points": 43,
+            "team": "Leeds United FC",
+            "points": 47,
             "played": 38,
-            "goal_diff": -12
+            "goal_diff": -7
           },
           {
             "position": 15,
-            "team": "Elche CF",
-            "points": 43,
-            "played": 38,
-            "goal_diff": -8
-          },
-          {
-            "position": 16,
-            "team": "Levante UD",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -14
-          },
-          {
-            "position": 17,
-            "team": "CA Osasuna",
-            "points": 42,
-            "played": 38,
-            "goal_diff": -6
-          },
-          {
-            "position": 18,
-            "team": "RCD Mallorca",
-            "points": 42,
+            "team": "Crystal Palace FC",
+            "points": 45,
             "played": 38,
             "goal_diff": -10
           },
           {
-            "position": 19,
-            "team": "Girona FC",
+            "position": 16,
+            "team": "Nottingham Forest FC",
+            "points": 44,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 17,
+            "team": "Tottenham Hotspur FC",
             "points": 41,
             "played": 38,
-            "goal_diff": -16
+            "goal_diff": -9
+          },
+          {
+            "position": 18,
+            "team": "West Ham United FC",
+            "points": 39,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 19,
+            "team": "Burnley FC",
+            "points": 22,
+            "played": 38,
+            "goal_diff": -37
           },
           {
             "position": 20,
-            "team": "Real Oviedo",
-            "points": 29,
+            "team": "Wolverhampton Wanderers FC",
+            "points": 20,
             "played": 38,
-            "goal_diff": -34
+            "goal_diff": -41
           }
         ],
         "德甲": [
@@ -2207,8 +1776,9 @@
   ],
   "data_sources": {},
   "batches_completed": [
+    "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-09 10:24:39"
+  "last_batch": "morning",
+  "last_updated": "2026-06-09 10:54:00"
 }
