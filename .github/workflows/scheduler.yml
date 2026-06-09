@@ -13,14 +13,14 @@ jobs:
       actions: write
       contents: read
     steps:
-      - name: 轮询检查并触发到点批次
+      - name: 轮询检查
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           GH_REPO: ${{ github.repository }}
         run: |
           CST_HOUR=$(TZ=Asia/Shanghai date +%H)
           CST_MIN=$(TZ=Asia/Shanghai date +%M)
-          TODAY=$(TZ=Asia/Shanghai date +%Y-%m-%d)
+          echo "Current: ${CST_HOUR}:${CST_MIN} CST"
 
           BATCH=""
           if [ "$CST_HOUR" = "08" ] && [ "$CST_MIN" -ge "0" ] && [ "$CST_MIN" -lt "10" ]; then
@@ -32,37 +32,10 @@ jobs:
           fi
 
           if [ -z "$BATCH" ]; then
-            echo "🕐 ${CST_HOUR}:${CST_MIN} - not a batch window"
+            echo "Not a batch window, exiting"
             exit 0
           fi
 
-          echo "🎯 ${CST_HOUR}:${CST_MIN} - ${BATCH} batch window"
-
-          META_URL="https://api.github.com/repos/${{ github.repository }}/contents/output/${TODAY}/metadata.json?ref=main"
-          HTTP=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "$META_URL")
-
-          if [ "$HTTP" = "200" ]; then
-            echo "Checking metadata..."
-            CONTENT=$(curl -s \
-              -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "$META_URL" | python3 -c "
-import json,sys,base64
-data = json.load(sys.stdin)
-content = base64.b64decode(data['content']).decode()
-batches = json.loads(content).get('batches_completed', [])
-print(','.join(batches))
-" 2>/dev/null)
-
-            if echo "$CONTENT" | grep -q "$BATCH"; then
-              echo "⏭️  ${BATCH} batch already completed today"
-              exit 0
-            fi
-          fi
-
-          echo "🚀 Triggering batch.yml for ${BATCH}..."
+          echo "Batch window: ${BATCH}"
           gh workflow run batch.yml --ref main -f batch="$BATCH"
-          echo "✅ batch.yml triggered for ${BATCH}"
+          echo "Triggered batch.yml for ${BATCH}"
