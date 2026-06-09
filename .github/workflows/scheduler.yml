@@ -1,0 +1,87 @@
+name: 精准调度轮询
+
+# 每 10 分钟在 CST 白天时段 (06:00-20:59) 检查是否到达发文时刻。
+# UTC 22:00-12:59 = CST 06:00-20:59。无需 checkout，纯 API 操作，单次 <3 秒。
+# 精度：目标时刻后 0~10 分钟内触发。batch.yml 自身有幂等保护。
+#
+# 用量：~84 runs/天 × ~0.05 min = ~4 min/天 ≈ 120 min/月（远低于 2000 min 限制）
+on:
+  schedule:
+    - cron: '*/10 22-23,0-12 * * *'
+  workflow_dispatch:
+
+jobs:
+  scheduler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    permissions:
+      actions: write
+      contents: read
+
+    steps:
+      - name: 轮询检查并触发到点批次
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CST_HOUR=$(TZ=Asia/Shanghai date +%H)
+          CST_MIN=$(TZ=Asia/Shanghai date +%M)
+          TODAY=$(TZ=Asia/Shanghai date +%Y-%m-%d)
+          API_BASE="https://api.github.com/repos/${{ github.repository }}"
+
+          # 精确 10 分钟时间窗口
+          BATCH=""
+          if [ "$CST_HOUR" = "08" ] && [ "$CST_MIN" -ge "0" ] && [ "$CST_MIN" -lt "10" ]; then
+            BATCH="morning"
+          elif [ "$CST_HOUR" = "12" ] && [ "$CST_MIN" -ge "0" ] && [ "$CST_MIN" -lt "10" ]; then
+            BATCH="noon"
+          elif [ "$CST_HOUR" = "17" ] && [ "$CST_MIN" -ge "30" ] && [ "$CST_MIN" -lt "40" ]; then
+            BATCH="evening"
+          fi
+
+          if [ -z "$BATCH" ]; then
+            echo "🕐 ${CST_HOUR}:${CST_MIN} — 非批次窗口"
+            exit 0
+          fi
+
+          echo "🎯 ${CST_HOUR}:${CST_MIN} — 命中 $BATCH 窗口"
+
+          # 幂等检查：通过 GitHub API 读取 metadata.json
+          META_PATH="output/${TODAY}/metadata.json"
+          HTTP=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "${API_BASE}/contents/${META_PATH}?ref=main")
+
+          if [ "$HTTP" = "200" ]; then
+            CONTENT=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "${API_BASE}/contents/${META_PATH}?ref=main" | python3 -c "
+import json,sys,base64
+data=json.load(sys.stdin)
+print(base64.b64decode(data['content']).decode())
+" 2>/dev/null)
+
+            if echo "$CONTENT" | python3 -c "import json,sys; d=json.load(sys.stdin); exit(0 if '${BATCH}' in d.get('batches_completed',[]) else 1)" 2>/dev/null; then
+              echo "⏭️  批次 $BATCH 今日已完成"
+              exit 0
+            fi
+          else
+            echo "   metadata.json 不存在 (HTTP $HTTP)，继续触发"
+          fi
+
+          echo "🚀 触发 batch.yml (${BATCH})..."
+          TRIGGER=$(curl -s -w "\n%{http_code}" -X POST \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Content-Type: application/json" \
+            -d "{\"ref\":\"main\",\"inputs\":{\"batch\":\"$BATCH\"}}" \
+            "${API_BASE}/actions/workflows/batch.yml/dispatches")
+
+          HTTP_CODE=$(echo "$TRIGGER" | tail -1)
+          if [ "$HTTP_CODE" = "204" ]; then
+            echo "✅ batch.yml 已触发 — $BATCH 批次开始执行"
+          else
+            echo "❌ 触发失败 HTTP $HTTP_CODE"
+            echo "$TRIGGER" | head -5
+            exit 1
+          fi
