@@ -29,8 +29,6 @@ jobs:
             BATCH="noon"
           elif [ "$CST_HOUR" = "17" ] && [ "$CST_MIN" -ge "30" ] && [ "$CST_MIN" -lt "40" ]; then
             BATCH="evening"
-          elif [ "$CST_HOUR" = "11" ] && [ "$CST_MIN" -ge "0" ] && [ "$CST_MIN" -lt "20" ]; then
-            BATCH="evening"  # TEST WINDOW: verify cron→trigger→publish E2E
           fi
 
           if [ -z "$BATCH" ]; then
