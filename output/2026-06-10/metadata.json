@@ -1,0 +1,586 @@
+{
+  "date": "2026-06-10",
+  "generated_at": "2026-06-09T17:38:34.743358",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "他们赢了冠军，然后被罚了",
+      "path": "/home/runner/work/_temp/output/2026-06-10/article-1-他们赢了冠军然后-88838d.md",
+      "slug": "他们赢了冠军然后-88838d",
+      "tags": [
+        "football",
+        "youth",
+        "chinese",
+        "champion",
+        "penalty"
+      ],
+      "keywords": [
+        "football",
+        "youth",
+        "chinese",
+        "champion",
+        "penalty"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-10/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "无了个大语？？？！！！",
+        "这一指，在网络上刷疯了"
+      ],
+      "source_post": "",
+      "originality_note": "从夺冠事件切入，引出被罚的反差，用跨界类比和情感共鸣重写人物群体侧写。",
+      "content_type": "八卦趣事",
+      "column_id": "ren-wu-zhi",
+      "column_name": "人物志",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "那年暑假的煤渣操场，藏着孙继海没说完的真相",
+      "path": "/home/runner/work/_temp/output/2026-06-10/article-2-那年暑假的煤渣操-968b8e.md",
+      "slug": "那年暑假的煤渣操-968b8e",
+      "tags": [
+        "Sun Jihai",
+        "youth training",
+        "Chinese football",
+        "grassroots"
+      ],
+      "keywords": [
+        "Sun Jihai",
+        "youth training",
+        "Chinese football",
+        "grassroots"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门"
+      ],
+      "source_post": "",
+      "originality_note": "从个人回忆切入，将论战升级为文化矛盾剖析，而非简单复述双方观点。",
+      "content_type": "八卦趣事",
+      "column_id": "shi-guang-ji",
+      "column_name": "时光机",
+      "batch_name": "晚间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "中国足球小将夺冠反遭罚？背后谁在耍大牌",
+      "source_article_ids": [
+        2,
+        12
+      ],
+      "source_titles": [
+        "无了个大语？？？！！！",
+        "这一指，在网络上刷疯了"
+      ],
+      "angle": "对比官方与民间青训成果：足球小将欧洲夺冠却被罚，暴露体制内官僚思维对草根足球的打压。新观点：这种‘罚’恰恰证明民间力量刺痛了某些人的面子，中国足球希望不在体系里，在田野间。",
+      "keywords": [
+        "Chinese football youth",
+        "grassroots soccer",
+        "U12 championship",
+        "punishment controversy"
+      ],
+      "keywords_cn": [
+        "中国足球小将",
+        "民间青训",
+        "欧洲夺冠",
+        "处罚争议"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_source_articles": [
+        {
+          "id": 2,
+          "title": "无了个大语？？？！！！",
+          "summary": "近日，意大利罗马，SIGISMONDI国际青少年杯（U12“小世界杯”），中国足球小将2014队点球5:4绝杀英超埃弗顿U12梯队，七战全胜，捧起冠军奖杯！民间组织得了冠军，非常非常优秀！最后，被罚？？？真的假的？？？",
+          "account": "沐杨MY",
+          "reads": "3w+",
+          "likes": 185,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 12,
+          "title": "这一指，在网络上刷疯了",
+          "summary": "最近，足球小将欧洲赛场夺冠的视频，在网络上扑面而来，我虽不懂足球，也不是球迷，甚至连足球爱好者都算不上，但看到五星红旗在欧洲赛场冉冉升起的时候，也忍不住热泪盈眶，我知道，那是国家荣誉的自豪感。足球小将的这一指，是硬气，也是霸气，好像在对世界",
+          "account": "马场疗愈局",
+          "reads": "10w+",
+          "likes": 1158,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "徐杰顶薪悬了！3000万天价合同难倒朱芳雨！",
+          "summary": "今年的CBA休赛期，广东宏远看着是在按部就班调整阵容的，但实际上的他们，是碰到了两道很难解决的难题，整体的处境已经变得很被动，也让球队新赛季的冲冠之路多出了很多不确定的因素；球队现在的处境真的很纠结，需要被迫去接受偏高的引援支出，同时又在核",
+          "account": "体育球视界",
+          "reads": "1w+",
+          "likes": 47,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "无了个大语？？？！！！",
+          "summary": "近日，意大利罗马，SIGISMONDI国际青少年杯（U12“小世界杯”），中国足球小将2014队点球5:4绝杀英超埃弗顿U12梯队，七战全胜，捧起冠军奖杯！民间组织得了冠军，非常非常优秀！最后，被罚？？？真的假的？？？",
+          "account": "沐杨MY",
+          "reads": "3w+",
+          "likes": 185,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "【官宣】狼队25/26赛季留队名单",
+          "summary": "在2025/26赛季结束后，狼队正式公布球队留队名单。马特·多尔蒂和德克斯特·兰比基萨将在今夏离开俱乐部。\n此前租借加盟球队半个赛季的安杰尔·戈麦斯已结束效力，将返回母队马赛足球俱乐部。而上赛季从西甲赫罗纳足球俱乐部租借而来的拉吉斯拉夫·克",
+          "account": "英格兰狼队足球俱乐部",
+          "reads": "1w+",
+          "likes": 79,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，",
+          "summary": "**【摘要】** 孙继海被骂上热搜的背后，是中国青训最撕裂的一场路线之争  【正文】  一边是踢过英超、入选英格兰足球名人堂的前国脚说 \"8 岁前练射门都是瞎耽误功夫\"，一边是带着 14 岁孩子在欧洲拿冠军的青训教练回怼 \"输习惯了才说成绩",
+          "account": "春容5029",
+          "reads": "3w+",
+          "likes": 90,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
+          "summary": "努涅斯回归的可能性是有的",
+          "account": "看球日记",
+          "reads": "9612",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "炸裂！弗洛伦蒂诺获胜！要挖1.5亿意中人！",
+          "summary": "挖拜仁的基石？太难了！",
+          "account": "天下足球",
+          "reads": "2w+",
+          "likes": 177,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员",
+          "summary": "北京时间6月8日，德国转会市场网站更新了中超球员的最新身价。外援方面，克雷桑的身价从350万欧上涨到了400万欧，位居中超所有球员第一位。",
+          "account": "泰山是冠军",
+          "reads": "5785",
+          "likes": 11,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "免费？你希望利物浦签回努涅斯吗",
+          "summary": "并不靠谱的西班牙《世界体育报》称，努涅斯与沙特利雅得新月同意提前终止合同，努涅斯可以自由转会，努涅斯有意重返利物浦，而利物浦、切尔西和纽卡等队也对他感兴趣。努涅斯去年夏天以5300万欧元从利物浦转会沙特，今年冬窗为了给本泽马空出注册名额，努",
+          "account": "利物浦不只是冠军",
+          "reads": "4489",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "全网最全！美加墨世界杯48队大名单整合版，观赛必备！",
+          "summary": "🌍世界杯史上最大派对！48支球队大名单集结！    史上规模最大的足坛盛宴，一篇全掌握。\n（收藏+转发，开赛不迷茫）\n💡 本届四大必看理由\n▪️ 传奇谢幕：梅西、C罗、莫德里奇……一众老将迎来世界杯最终章，是封神还是遗憾？\n▪️ 新王加冕：",
+          "account": "YEAHH PARK",
+          "reads": "7188",
+          "likes": 87,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "C罗力荐！0涂层守护饮食健康！追觅空气炸锅PT60劲燃登场，全球热销！",
+          "summary": "",
+          "account": "追觅科技",
+          "reads": "2w+",
+          "likes": 199,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "ren-wu-zhi",
+      "_column_name": "人物志",
+      "_column_icon": "👤",
+      "_writing_style": "人物杂志体",
+      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
+      "_word_count_range": [
+        500,
+        800
+      ],
+      "_interaction_type": "resonance_sharing",
+      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
+      "_topic_domain": "足球人物故事",
+      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+    },
+    {
+      "title": "孙继海炮轰8岁前别练射门，青训教练回怼：输惯了才说成绩扯淡",
+      "source_article_ids": [
+        4
+      ],
+      "source_titles": [
+        "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，"
+      ],
+      "angle": "剖析孙继海与实战派青训教练的论战深层逻辑：一个持欧洲长期培养理念，一个持实战出成绩逻辑。新观点：这场撕逼其实是‘精英路线’与‘体校路线’的古老矛盾，真正的答案是中国孩子既缺8岁前的快乐，也缺8岁后的竞争，两头不靠。",
+      "keywords": [
+        "Sun Jihai",
+        "youth training debate",
+        "shooting practice",
+        "Chinese football philosophy"
+      ],
+      "keywords_cn": [
+        "孙继海",
+        "青训理念",
+        "射门训练",
+        "成绩争议"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 4,
+          "title": "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，",
+          "summary": "**【摘要】** 孙继海被骂上热搜的背后，是中国青训最撕裂的一场路线之争  【正文】  一边是踢过英超、入选英格兰足球名人堂的前国脚说 \"8 岁前练射门都是瞎耽误功夫\"，一边是带着 14 岁孩子在欧洲拿冠军的青训教练回怼 \"输习惯了才说成绩",
+          "account": "春容5029",
+          "reads": "3w+",
+          "likes": 90,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "徐杰顶薪悬了！3000万天价合同难倒朱芳雨！",
+          "summary": "今年的CBA休赛期，广东宏远看着是在按部就班调整阵容的，但实际上的他们，是碰到了两道很难解决的难题，整体的处境已经变得很被动，也让球队新赛季的冲冠之路多出了很多不确定的因素；球队现在的处境真的很纠结，需要被迫去接受偏高的引援支出，同时又在核",
+          "account": "体育球视界",
+          "reads": "1w+",
+          "likes": 47,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "无了个大语？？？！！！",
+          "summary": "近日，意大利罗马，SIGISMONDI国际青少年杯（U12“小世界杯”），中国足球小将2014队点球5:4绝杀英超埃弗顿U12梯队，七战全胜，捧起冠军奖杯！民间组织得了冠军，非常非常优秀！最后，被罚？？？真的假的？？？",
+          "account": "沐杨MY",
+          "reads": "3w+",
+          "likes": 185,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "【官宣】狼队25/26赛季留队名单",
+          "summary": "在2025/26赛季结束后，狼队正式公布球队留队名单。马特·多尔蒂和德克斯特·兰比基萨将在今夏离开俱乐部。\n此前租借加盟球队半个赛季的安杰尔·戈麦斯已结束效力，将返回母队马赛足球俱乐部。而上赛季从西甲赫罗纳足球俱乐部租借而来的拉吉斯拉夫·克",
+          "account": "英格兰狼队足球俱乐部",
+          "reads": "1w+",
+          "likes": 79,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，",
+          "summary": "**【摘要】** 孙继海被骂上热搜的背后，是中国青训最撕裂的一场路线之争  【正文】  一边是踢过英超、入选英格兰足球名人堂的前国脚说 \"8 岁前练射门都是瞎耽误功夫\"，一边是带着 14 岁孩子在欧洲拿冠军的青训教练回怼 \"输习惯了才说成绩",
+          "account": "春容5029",
+          "reads": "3w+",
+          "likes": 90,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
+          "summary": "努涅斯回归的可能性是有的",
+          "account": "看球日记",
+          "reads": "9612",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "炸裂！弗洛伦蒂诺获胜！要挖1.5亿意中人！",
+          "summary": "挖拜仁的基石？太难了！",
+          "account": "天下足球",
+          "reads": "2w+",
+          "likes": 177,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员",
+          "summary": "北京时间6月8日，德国转会市场网站更新了中超球员的最新身价。外援方面，克雷桑的身价从350万欧上涨到了400万欧，位居中超所有球员第一位。",
+          "account": "泰山是冠军",
+          "reads": "5785",
+          "likes": 11,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "免费？你希望利物浦签回努涅斯吗",
+          "summary": "并不靠谱的西班牙《世界体育报》称，努涅斯与沙特利雅得新月同意提前终止合同，努涅斯可以自由转会，努涅斯有意重返利物浦，而利物浦、切尔西和纽卡等队也对他感兴趣。努涅斯去年夏天以5300万欧元从利物浦转会沙特，今年冬窗为了给本泽马空出注册名额，努",
+          "account": "利物浦不只是冠军",
+          "reads": "4489",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "全网最全！美加墨世界杯48队大名单整合版，观赛必备！",
+          "summary": "🌍世界杯史上最大派对！48支球队大名单集结！    史上规模最大的足坛盛宴，一篇全掌握。\n（收藏+转发，开赛不迷茫）\n💡 本届四大必看理由\n▪️ 传奇谢幕：梅西、C罗、莫德里奇……一众老将迎来世界杯最终章，是封神还是遗憾？\n▪️ 新王加冕：",
+          "account": "YEAHH PARK",
+          "reads": "7188",
+          "likes": 87,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "C罗力荐！0涂层守护饮食健康！追觅空气炸锅PT60劲燃登场，全球热销！",
+          "summary": "",
+          "account": "追觅科技",
+          "reads": "2w+",
+          "likes": 199,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "shi-guang-ji",
+      "_column_name": "时光机",
+      "_column_icon": "⏰",
+      "_writing_style": "回忆杀体",
+      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
+      "_word_count_range": [
+        500,
+        700
+      ],
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
+      "_topic_domain": "足球历史/记忆/球迷文化",
+      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+    },
+    {
+      "title": "中超身价榜洗牌：克雷桑400万第一，谢文能本土领跑",
+      "source_article_ids": [
+        7
+      ],
+      "source_titles": [
+        "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员"
+      ],
+      "angle": "从德转身价榜单看中超外援依赖症与本土球员稀缺性：克雷桑400万欧在五大联赛只是替补身价，却在中超称王。新观点：榜单是一面镜子，折射出中超泡沫破裂后的真实水平——外援降级、本土垫底，但谢文能的崛起至少证明年轻人还有路。",
+      "keywords": [
+        "Chinese Super League",
+        "transfermarkt",
+        "Crescent",
+        "Xie Wenneng",
+        "player value"
+      ],
+      "keywords_cn": [
+        "中超身价",
+        "克雷桑",
+        "谢文能",
+        "德转",
+        "本土球员"
+      ],
+      "content_type": "排行榜",
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "_source_articles": [
+        {
+          "id": 7,
+          "title": "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员",
+          "summary": "北京时间6月8日，德国转会市场网站更新了中超球员的最新身价。外援方面，克雷桑的身价从350万欧上涨到了400万欧，位居中超所有球员第一位。",
+          "account": "泰山是冠军",
+          "reads": "5785",
+          "likes": 11,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "徐杰顶薪悬了！3000万天价合同难倒朱芳雨！",
+          "summary": "今年的CBA休赛期，广东宏远看着是在按部就班调整阵容的，但实际上的他们，是碰到了两道很难解决的难题，整体的处境已经变得很被动，也让球队新赛季的冲冠之路多出了很多不确定的因素；球队现在的处境真的很纠结，需要被迫去接受偏高的引援支出，同时又在核",
+          "account": "体育球视界",
+          "reads": "1w+",
+          "likes": 47,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "无了个大语？？？！！！",
+          "summary": "近日，意大利罗马，SIGISMONDI国际青少年杯（U12“小世界杯”），中国足球小将2014队点球5:4绝杀英超埃弗顿U12梯队，七战全胜，捧起冠军奖杯！民间组织得了冠军，非常非常优秀！最后，被罚？？？真的假的？？？",
+          "account": "沐杨MY",
+          "reads": "3w+",
+          "likes": 185,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "【官宣】狼队25/26赛季留队名单",
+          "summary": "在2025/26赛季结束后，狼队正式公布球队留队名单。马特·多尔蒂和德克斯特·兰比基萨将在今夏离开俱乐部。\n此前租借加盟球队半个赛季的安杰尔·戈麦斯已结束效力，将返回母队马赛足球俱乐部。而上赛季从西甲赫罗纳足球俱乐部租借而来的拉吉斯拉夫·克",
+          "account": "英格兰狼队足球俱乐部",
+          "reads": "1w+",
+          "likes": 79,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，",
+          "summary": "**【摘要】** 孙继海被骂上热搜的背后，是中国青训最撕裂的一场路线之争  【正文】  一边是踢过英超、入选英格兰足球名人堂的前国脚说 \"8 岁前练射门都是瞎耽误功夫\"，一边是带着 14 岁孩子在欧洲拿冠军的青训教练回怼 \"输习惯了才说成绩",
+          "account": "春容5029",
+          "reads": "3w+",
+          "likes": 90,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
+          "summary": "努涅斯回归的可能性是有的",
+          "account": "看球日记",
+          "reads": "9612",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "炸裂！弗洛伦蒂诺获胜！要挖1.5亿意中人！",
+          "summary": "挖拜仁的基石？太难了！",
+          "account": "天下足球",
+          "reads": "2w+",
+          "likes": 177,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员",
+          "summary": "北京时间6月8日，德国转会市场网站更新了中超球员的最新身价。外援方面，克雷桑的身价从350万欧上涨到了400万欧，位居中超所有球员第一位。",
+          "account": "泰山是冠军",
+          "reads": "5785",
+          "likes": 11,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "免费？你希望利物浦签回努涅斯吗",
+          "summary": "并不靠谱的西班牙《世界体育报》称，努涅斯与沙特利雅得新月同意提前终止合同，努涅斯可以自由转会，努涅斯有意重返利物浦，而利物浦、切尔西和纽卡等队也对他感兴趣。努涅斯去年夏天以5300万欧元从利物浦转会沙特，今年冬窗为了给本泽马空出注册名额，努",
+          "account": "利物浦不只是冠军",
+          "reads": "4489",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "全网最全！美加墨世界杯48队大名单整合版，观赛必备！",
+          "summary": "🌍世界杯史上最大派对！48支球队大名单集结！    史上规模最大的足坛盛宴，一篇全掌握。\n（收藏+转发，开赛不迷茫）\n💡 本届四大必看理由\n▪️ 传奇谢幕：梅西、C罗、莫德里奇……一众老将迎来世界杯最终章，是封神还是遗憾？\n▪️ 新王加冕：",
+          "account": "YEAHH PARK",
+          "reads": "7188",
+          "likes": 87,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "C罗力荐！0涂层守护饮食健康！追觅空气炸锅PT60劲燃登场，全球热销！",
+          "summary": "",
+          "account": "追觅科技",
+          "reads": "2w+",
+          "likes": 199,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {}
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-06-10 01:38:34"
+}
