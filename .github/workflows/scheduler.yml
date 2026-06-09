@@ -1,0 +1,10 @@
+name: Scheduler
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello"
