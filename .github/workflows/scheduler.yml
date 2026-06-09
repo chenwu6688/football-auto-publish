@@ -16,6 +16,7 @@ jobs:
       - name: 轮询检查并触发到点批次
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_REPO: ${{ github.repository }}
         run: |
           CST_HOUR=$(TZ=Asia/Shanghai date +%H)
           CST_MIN=$(TZ=Asia/Shanghai date +%M)
