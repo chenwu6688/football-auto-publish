@@ -175,10 +175,8 @@ jobs:
             exit 0
           fi
 
-          # 先拉取其他批次可能已回写的状态
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
 
           DST="output/${TODAY}/metadata.json"
           mkdir -p "output/${TODAY}"
@@ -211,8 +209,21 @@ jobs:
           fi
 
           git commit -m "chore: ${TODAY} ${BATCH} 批次完成"
-          git push origin main
-          echo "✅ 批次状态已回写仓库"
+
+          # 重试推送：处理多批次并发写入时的 push 冲突
+          for attempt in 1 2 3; do
+            if git push origin main; then
+              echo "✅ 批次状态已回写仓库"
+              break
+            fi
+            echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+            git pull --rebase origin main
+            if [ $attempt -eq 3 ]; then
+              echo "❌ 推送失败，但不影响文章发布（metadata 可通过 artifact 恢复）"
+              exit 0
+            fi
+            /usr/bin/sleep $((attempt * 2))
+          done
 
       - name: 上传产物
         if: always()
