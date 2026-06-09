@@ -1,15 +1,17 @@
 name: 足球自媒体批次发布
 
-# GitHub 原生 cron 调度（UTC 时间）。
+# 双保险调度策略：
+#   主调度: cron-job.org → workflow_dispatch API（精确到秒，UTC 时区）
+#   备调度: 以下 GitHub 原生 cron（比主调度晚 30 分钟，幂等保护自动跳过已完成批次）
 # 重要：GitHub Actions cron 延迟可达数小时，批次由 cron 表达式中的 UTC 小时决定，绝不依赖执行时刻的北京时间自动判断。
 on:
   schedule:
-    # 08:00 CST = 00:00 UTC — 晨读
-    - cron: '7 0 * * *'
-    # 12:00 CST = 04:00 UTC — 午间
-    - cron: '7 4 * * *'
-    # 17:30 CST = 09:30 UTC — 晚间
-    - cron: '37 9 * * *'
+    # 08:30 CST = 00:30 UTC — 晨读 backup（主调度: cron-job.org 08:00 CST）
+    - cron: '37 0 * * *'
+    # 12:30 CST = 04:30 UTC — 午间 backup（主调度: cron-job.org 12:00 CST）
+    - cron: '37 4 * * *'
+    # 18:00 CST = 10:00 UTC — 晚间 backup（主调度: cron-job.org 17:30 CST）
+    - cron: '7 10 * * *'
   workflow_dispatch:
     inputs:
       batch:
@@ -75,7 +77,7 @@ jobs:
             case "$UTC_HOUR" in
               0) BATCH="morning" ;;
               4) BATCH="noon" ;;
-              9) BATCH="evening" ;;
+              9|10) BATCH="evening" ;;
               *) BATCH="auto" ;;
             esac
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
