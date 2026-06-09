@@ -1,26 +1,24 @@
 {
   "date": "2026-06-09",
-  "generated_at": "2026-06-09T02:54:00.391867",
+  "generated_at": "2026-06-09T03:05:55.130671",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "董路带娃夺冠，孙继海评论区炸了：青训之争，嘴炮没用看比赛",
-      "path": "/home/runner/work/_temp/output/2026-06-09/article-1-董路带娃夺冠孙继-7cd08a.md",
-      "slug": "董路带娃夺冠孙继-7cd08a",
+      "title": "意大利夺冠那一夜，董路一句话没说",
+      "path": "/home/runner/work/_temp/output/2026-06-09/article-1-意大利夺冠那一夜-aab935.md",
+      "slug": "意大利夺冠那一夜-aab935",
       "tags": [
-        "donglu",
-        "football kids",
-        "sun jihai",
-        "youth training",
-        "chinese football"
+        "youth football",
+        "Dong Lu",
+        "Chinese football",
+        "youth training"
       ],
       "keywords": [
-        "donglu",
-        "football kids",
-        "sun jihai",
-        "youth training",
-        "chinese football"
+        "youth football",
+        "Dong Lu",
+        "Chinese football",
+        "youth training"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-09/images/article-1-img-001.jpg",
@@ -28,79 +26,96 @@
         "/home/runner/work/_temp/output/2026-06-09/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
-        "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费"
+        "董路带娃意大利夺冠，孙继海评论区沦陷",
+        "丹麦球员用F开头辱骂中国人！董路指着对方鼻子怒斥",
+        "中国足协发文：擅自组织、参加国际足球赛事，将受处罚"
       ],
       "source_post": "",
-      "originality_note": "从夺冠争议切入，用晨读快讯的轻快节奏对比两种青训模式，点评更直接，并设置了站队式预测互动",
-      "content_type": "热点球评",
-      "column_id": "chen-du-kuai-xun",
-      "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "originality_note": "不站队任何一方，从夺冠后的沉默切入，聚焦'容错空间'这个核心矛盾，用行业类比重构叙事逻辑",
+      "content_type": "八卦趣事",
+      "column_id": "ren-wu-zhi",
+      "column_name": "人物志",
+      "batch_name": "晚间"
     },
     {
       "index": 2,
-      "title": "曼联犹犹豫豫想啥呢？托纳利这笔买卖，再拖黄花菜都凉了！",
-      "path": "/home/runner/work/_temp/output/2026-06-09/article-2-曼联犹犹豫豫想啥-1cc5ff.md",
-      "slug": "曼联犹犹豫豫想啥-1cc5ff",
+      "title": "曼联又开始了：纽卡催着做决定，红魔还在算账",
+      "path": "/home/runner/work/_temp/output/2026-06-09/article-2-曼联又开始了纽卡-8d151e.md",
+      "slug": "曼联又开始了纽卡-8d151e",
       "tags": [
-        "Sandro Tonali",
         "Manchester United",
+        "Sandro Tonali",
+        "transfer window",
         "Newcastle United",
-        "transfer",
-        "Premier League"
+        "wonderkid"
       ],
       "keywords": [
-        "Sandro Tonali",
         "Manchester United",
+        "Sandro Tonali",
+        "transfer window",
         "Newcastle United",
-        "transfer",
-        "Premier League"
+        "wonderkid"
       ],
-      "images": [
-        "/home/runner/work/_temp/output/2026-06-09/images/article-2-img-001.jpg",
-        "/home/runner/work/_temp/output/2026-06-09/images/article-2-img-002.jpg",
-        "/home/runner/work/_temp/output/2026-06-09/images/article-2-img-003.jpg"
-      ],
+      "images": [],
       "sources_used": [
-        "纽卡要求曼联马上决定是否签托纳利"
+        "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人",
+        "震撼！1亿！英超最强19岁神锋!"
       ],
       "source_post": "",
-      "originality_note": "从转会新闻升级为决策逻辑辩论，用相亲、买房等生活类比降低理解门槛，以球迷立场给出痛快结论。",
+      "originality_note": "从球迷记忆视角重组转会新闻，用个人回忆锚定曼联引援效率问题，对比年轻球员身价制造张力",
       "content_type": "八卦趣事",
-      "column_id": "hua-ti-lei-tai",
-      "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "column_id": "shi-guang-ji",
+      "column_name": "时光机",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "董路孙继海论战：青训路线之争谁更靠谱？",
+      "title": "足球小将夺冠背后：民间青训打脸足协，谁在拖后腿？",
       "source_article_ids": [
+        2,
         3,
-        7
+        8,
+        9,
+        10
       ],
       "source_titles": [
+        "中国男足七战全胜杀穿欧洲，决赛夺冠",
         "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
-        "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费"
+        "丹麦球员用F开头辱骂中国人！董路指着对方鼻子怒斥：我们不惹事 但绝不怕事！",
+        "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+        "重拳出击！刚刚刷到的中国足协：发文擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？"
       ],
-      "angle": "从足球小将夺冠引发的网络骂战切入，分析董路的实战派青训与孙继海的精英化选材模式，讨论两种路线对中国足球未来的利弊。观点：吵架没意义，关键是孩子能踢上比赛。",
+      "angle": "从足球小将欧洲夺冠切入，剖析民间青训与足协管理的矛盾，对比董路与孙继海的路线之争，指出中国足球真正缺的不是天赋而是容错空间。",
       "keywords": [
+        "youth football",
+        "Chinese football",
         "Dong Lu",
         "Sun Jihai",
-        "youth training",
-        "football debate"
+        "grassroots training"
       ],
       "keywords_cn": [
+        "足球小将",
+        "民间青训",
         "董路",
         "孙继海",
-        "青训",
-        "路线之争"
+        "足协处罚"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "controversy_level": "high",
       "target_emotion": "骄傲",
       "_source_articles": [
+        {
+          "id": 2,
+          "title": "中国男足七战全胜杀穿欧洲，决赛夺冠",
+          "summary": "打不赢的人，连输几十年的人，建议闭嘴。",
+          "account": "远方青木",
+          "reads": "10w+",
+          "likes": 7853,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
         {
           "id": 3,
           "title": "董路带娃意大利夺冠，孙继海评论区沦陷：你讽人家马戏团，人家拿冠军打脸",
@@ -113,12 +128,34 @@
           "_recency_score": 40
         },
         {
-          "id": 7,
-          "title": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
-          "summary": "孙教练瞧不上董路，暗讽比亚迪赞助的足球小将是马戏团。孙老板大手笔大投入，花900万用两年选了80人，孩子要想退场，还要给天价的违约费",
-          "account": "乘以弦",
-          "reads": "5w+",
-          "likes": 161,
+          "id": 8,
+          "title": "丹麦球员用F开头辱骂中国人！董路指着对方鼻子怒斥：我们不惹事 但绝不怕事！",
+          "summary": "6月6日，董路率领足球小将出战荷兰杯，小组赛取得3胜2平0失球的成绩，晋级6强。6月7日，董路在社媒更新了动态，表示小组赛第三场同丹麦奥尔堡的比赛中，出现了令人愤怒的一幕。                董路说道：“第三场比赛，我们0-0同",
+          "account": "鱼羊话体育",
+          "reads": "2w+",
+          "likes": 347,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刷到这条消息的时候，我第一反应是——完了，董路那帮孩子怕是要被卡脖子了。事情是这样的。",
+          "account": "Luo.9983",
+          "reads": "1w+",
+          "likes": 57,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "重拳出击！刚刚刷到的中国足协：发文擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？",
+          "summary": "刚刚刷到的，中国足协发文：擅自组织、参加国际足球赛事，将受处罚，禁止备案国际足球赛事至少两年。会不会影响足球小将的未来？欧洲赛场登顶却遇合规难题！赢了豪门的足球小将，真要被规则困住脚步？",
+          "account": "白那恰",
+          "reads": "4w+",
+          "likes": 163,
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
@@ -237,146 +274,146 @@
         }
       ],
       "_standings": {
-        "英超": [
+        "西甲": [
           {
             "position": 1,
-            "team": "Arsenal FC",
-            "points": 85,
+            "team": "FC Barcelona",
+            "points": 94,
             "played": 38,
-            "goal_diff": 44
+            "goal_diff": 59
           },
           {
             "position": 2,
-            "team": "Manchester City FC",
-            "points": 78,
+            "team": "Real Madrid CF",
+            "points": 86,
             "played": 38,
             "goal_diff": 42
           },
           {
             "position": 3,
-            "team": "Manchester United FC",
-            "points": 71,
+            "team": "Villarreal CF",
+            "points": 72,
             "played": 38,
-            "goal_diff": 19
+            "goal_diff": 26
           },
           {
             "position": 4,
-            "team": "Aston Villa FC",
-            "points": 65,
+            "team": "Club Atlético de Madrid",
+            "points": 69,
             "played": 38,
-            "goal_diff": 7
+            "goal_diff": 18
           },
           {
             "position": 5,
-            "team": "Liverpool FC",
+            "team": "Real Betis Balompié",
             "points": 60,
             "played": 38,
-            "goal_diff": 10
+            "goal_diff": 11
           },
           {
             "position": 6,
-            "team": "AFC Bournemouth",
-            "points": 57,
+            "team": "RC Celta de Vigo",
+            "points": 54,
             "played": 38,
-            "goal_diff": 4
+            "goal_diff": 5
           },
           {
             "position": 7,
-            "team": "Sunderland AFC",
-            "points": 54,
+            "team": "Getafe CF",
+            "points": 51,
             "played": 38,
             "goal_diff": -6
           },
           {
             "position": 8,
-            "team": "Brighton & Hove Albion FC",
-            "points": 53,
+            "team": "Rayo Vallecano de Madrid",
+            "points": 50,
             "played": 38,
-            "goal_diff": 6
+            "goal_diff": -3
           },
           {
             "position": 9,
-            "team": "Brentford FC",
-            "points": 53,
-            "played": 38,
-            "goal_diff": 3
-          },
-          {
-            "position": 10,
-            "team": "Chelsea FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": 6
-          },
-          {
-            "position": 11,
-            "team": "Fulham FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": -4
-          },
-          {
-            "position": 12,
-            "team": "Newcastle United FC",
+            "team": "Valencia CF",
             "points": 49,
-            "played": 38,
-            "goal_diff": -2
-          },
-          {
-            "position": 13,
-            "team": "Everton FC",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 14,
-            "team": "Leeds United FC",
-            "points": 47,
-            "played": 38,
-            "goal_diff": -7
-          },
-          {
-            "position": 15,
-            "team": "Crystal Palace FC",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "Nottingham Forest FC",
-            "points": 44,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 17,
-            "team": "Tottenham Hotspur FC",
-            "points": 41,
             "played": 38,
             "goal_diff": -9
           },
           {
-            "position": 18,
-            "team": "West Ham United FC",
-            "points": 39,
+            "position": 10,
+            "team": "Real Sociedad de Fútbol",
+            "points": 46,
             "played": 38,
-            "goal_diff": -19
+            "goal_diff": -2
+          },
+          {
+            "position": 11,
+            "team": "RCD Espanyol de Barcelona",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 12,
+            "team": "Athletic Club",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -15
+          },
+          {
+            "position": 13,
+            "team": "Sevilla FC",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "Deportivo Alavés",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "Elche CF",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -8
+          },
+          {
+            "position": 16,
+            "team": "Levante UD",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 17,
+            "team": "CA Osasuna",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 18,
+            "team": "RCD Mallorca",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -10
           },
           {
             "position": 19,
-            "team": "Burnley FC",
-            "points": 22,
+            "team": "Girona FC",
+            "points": 41,
             "played": 38,
-            "goal_diff": -37
+            "goal_diff": -16
           },
           {
             "position": 20,
-            "team": "Wolverhampton Wanderers FC",
-            "points": 20,
+            "team": "Real Oviedo",
+            "points": 29,
             "played": 38,
-            "goal_diff": -41
+            "goal_diff": -34
           }
         ],
         "德甲": [
@@ -506,175 +543,51 @@
             "played": 34,
             "goal_diff": -31
           }
-        ],
-        "法甲": [
-          {
-            "position": 1,
-            "team": "Paris Saint-Germain FC",
-            "points": 76,
-            "played": 34,
-            "goal_diff": 45
-          },
-          {
-            "position": 2,
-            "team": "Racing Club de Lens",
-            "points": 70,
-            "played": 34,
-            "goal_diff": 31
-          },
-          {
-            "position": 3,
-            "team": "Lille OSC",
-            "points": 61,
-            "played": 34,
-            "goal_diff": 15
-          },
-          {
-            "position": 4,
-            "team": "Olympique Lyonnais",
-            "points": 60,
-            "played": 34,
-            "goal_diff": 13
-          },
-          {
-            "position": 5,
-            "team": "Olympique de Marseille",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 18
-          },
-          {
-            "position": 6,
-            "team": "Stade Rennais FC 1901",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 9
-          },
-          {
-            "position": 7,
-            "team": "AS Monaco FC",
-            "points": 54,
-            "played": 34,
-            "goal_diff": 6
-          },
-          {
-            "position": 8,
-            "team": "RC Strasbourg Alsace",
-            "points": 53,
-            "played": 34,
-            "goal_diff": 11
-          },
-          {
-            "position": 9,
-            "team": "Toulouse FC",
-            "points": 45,
-            "played": 34,
-            "goal_diff": 1
-          },
-          {
-            "position": 10,
-            "team": "FC Lorient",
-            "points": 45,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 11,
-            "team": "Paris FC",
-            "points": 44,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 12,
-            "team": "Stade Brestois 29",
-            "points": 39,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 13,
-            "team": "Angers SCO",
-            "points": 36,
-            "played": 34,
-            "goal_diff": -19
-          },
-          {
-            "position": 14,
-            "team": "Le Havre AC",
-            "points": 35,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 15,
-            "team": "AJ Auxerre",
-            "points": 34,
-            "played": 34,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "OGC Nice",
-            "points": 32,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 17,
-            "team": "FC Nantes",
-            "points": 24,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 18,
-            "team": "FC Metz",
-            "points": 17,
-            "played": 34,
-            "goal_diff": -44
-          }
         ]
       },
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_column_id": "ren-wu-zhi",
+      "_column_name": "人物志",
+      "_column_icon": "👤",
+      "_writing_style": "人物杂志体",
+      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
       "_word_count_range": [
-        300,
-        500
+        500,
+        800
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "resonance_sharing",
+      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
+      "_topic_domain": "足球人物故事",
+      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "纽卡给曼联下最后通牒：托纳利到底值不值？",
+      "title": "曼联拖拖拉拉惹怒纽卡，托纳利这笔买卖要黄？",
       "source_article_ids": [
-        11
+        11,
+        12
       ],
       "source_titles": [
-        "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人"
+        "纽卡要求曼联马上决定是否签托纳利，太拖拉就不卖！红魔或改签喜鹊另一人",
+        "震撼！1亿！英超最强19岁神锋!"
       ],
-      "angle": "从转会谈判的紧迫性出发，分析托纳利的技术特点与曼联中场的适配度，并指出纽卡强硬态度的背后是英超中上游球队转会策略的升级。观点：曼联别再犹豫，错过托纳利就是错过重建核心。",
+      "angle": "从纽卡催曼联决定托纳利转会切入，探讨曼联夏窗引援效率低下的老毛病，对比年轻神锋身价暴涨，分析红魔在转会市场的犹豫可能错失良机。",
       "keywords": [
         "Tonali",
         "Manchester United",
         "Newcastle",
-        "transfer"
+        "transfer",
+        "young striker"
       ],
       "keywords_cn": [
         "托纳利",
         "曼联",
         "纽卡斯尔",
-        "转会"
+        "转会拖沓",
+        "神锋"
       ],
       "content_type": "八卦趣事",
       "controversy_level": "medium",
@@ -690,6 +603,17 @@
           "data_score": 100,
           "pub_time": "2026-06-07",
           "_recency_score": 40
+        },
+        {
+          "id": 12,
+          "title": "震撼！1亿！英超最强19岁神锋!",
+          "summary": "19岁，每121分钟进1个！",
+          "account": "天下足球",
+          "reads": "1w+",
+          "likes": 123,
+          "data_score": 100,
+          "pub_time": "2026-06-07",
+          "_recency_score": 40
         }
       ],
       "_all_articles": [
@@ -805,146 +729,146 @@
         }
       ],
       "_standings": {
-        "英超": [
+        "西甲": [
           {
             "position": 1,
-            "team": "Arsenal FC",
-            "points": 85,
+            "team": "FC Barcelona",
+            "points": 94,
             "played": 38,
-            "goal_diff": 44
+            "goal_diff": 59
           },
           {
             "position": 2,
-            "team": "Manchester City FC",
-            "points": 78,
+            "team": "Real Madrid CF",
+            "points": 86,
             "played": 38,
             "goal_diff": 42
           },
           {
             "position": 3,
-            "team": "Manchester United FC",
-            "points": 71,
+            "team": "Villarreal CF",
+            "points": 72,
             "played": 38,
-            "goal_diff": 19
+            "goal_diff": 26
           },
           {
             "position": 4,
-            "team": "Aston Villa FC",
-            "points": 65,
+            "team": "Club Atlético de Madrid",
+            "points": 69,
             "played": 38,
-            "goal_diff": 7
+            "goal_diff": 18
           },
           {
             "position": 5,
-            "team": "Liverpool FC",
+            "team": "Real Betis Balompié",
             "points": 60,
             "played": 38,
-            "goal_diff": 10
+            "goal_diff": 11
           },
           {
             "position": 6,
-            "team": "AFC Bournemouth",
-            "points": 57,
+            "team": "RC Celta de Vigo",
+            "points": 54,
             "played": 38,
-            "goal_diff": 4
+            "goal_diff": 5
           },
           {
             "position": 7,
-            "team": "Sunderland AFC",
-            "points": 54,
+            "team": "Getafe CF",
+            "points": 51,
             "played": 38,
             "goal_diff": -6
           },
           {
             "position": 8,
-            "team": "Brighton & Hove Albion FC",
-            "points": 53,
+            "team": "Rayo Vallecano de Madrid",
+            "points": 50,
             "played": 38,
-            "goal_diff": 6
+            "goal_diff": -3
           },
           {
             "position": 9,
-            "team": "Brentford FC",
-            "points": 53,
-            "played": 38,
-            "goal_diff": 3
-          },
-          {
-            "position": 10,
-            "team": "Chelsea FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": 6
-          },
-          {
-            "position": 11,
-            "team": "Fulham FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": -4
-          },
-          {
-            "position": 12,
-            "team": "Newcastle United FC",
+            "team": "Valencia CF",
             "points": 49,
-            "played": 38,
-            "goal_diff": -2
-          },
-          {
-            "position": 13,
-            "team": "Everton FC",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 14,
-            "team": "Leeds United FC",
-            "points": 47,
-            "played": 38,
-            "goal_diff": -7
-          },
-          {
-            "position": 15,
-            "team": "Crystal Palace FC",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "Nottingham Forest FC",
-            "points": 44,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 17,
-            "team": "Tottenham Hotspur FC",
-            "points": 41,
             "played": 38,
             "goal_diff": -9
           },
           {
-            "position": 18,
-            "team": "West Ham United FC",
-            "points": 39,
+            "position": 10,
+            "team": "Real Sociedad de Fútbol",
+            "points": 46,
             "played": 38,
-            "goal_diff": -19
+            "goal_diff": -2
+          },
+          {
+            "position": 11,
+            "team": "RCD Espanyol de Barcelona",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 12,
+            "team": "Athletic Club",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -15
+          },
+          {
+            "position": 13,
+            "team": "Sevilla FC",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "Deportivo Alavés",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "Elche CF",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -8
+          },
+          {
+            "position": 16,
+            "team": "Levante UD",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 17,
+            "team": "CA Osasuna",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 18,
+            "team": "RCD Mallorca",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -10
           },
           {
             "position": 19,
-            "team": "Burnley FC",
-            "points": 22,
+            "team": "Girona FC",
+            "points": 41,
             "played": 38,
-            "goal_diff": -37
+            "goal_diff": -16
           },
           {
             "position": 20,
-            "team": "Wolverhampton Wanderers FC",
-            "points": 20,
+            "team": "Real Oviedo",
+            "points": 29,
             "played": 38,
-            "goal_diff": -41
+            "goal_diff": -34
           }
         ],
         "德甲": [
@@ -1074,178 +998,52 @@
             "played": 34,
             "goal_diff": -31
           }
-        ],
-        "法甲": [
-          {
-            "position": 1,
-            "team": "Paris Saint-Germain FC",
-            "points": 76,
-            "played": 34,
-            "goal_diff": 45
-          },
-          {
-            "position": 2,
-            "team": "Racing Club de Lens",
-            "points": 70,
-            "played": 34,
-            "goal_diff": 31
-          },
-          {
-            "position": 3,
-            "team": "Lille OSC",
-            "points": 61,
-            "played": 34,
-            "goal_diff": 15
-          },
-          {
-            "position": 4,
-            "team": "Olympique Lyonnais",
-            "points": 60,
-            "played": 34,
-            "goal_diff": 13
-          },
-          {
-            "position": 5,
-            "team": "Olympique de Marseille",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 18
-          },
-          {
-            "position": 6,
-            "team": "Stade Rennais FC 1901",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 9
-          },
-          {
-            "position": 7,
-            "team": "AS Monaco FC",
-            "points": 54,
-            "played": 34,
-            "goal_diff": 6
-          },
-          {
-            "position": 8,
-            "team": "RC Strasbourg Alsace",
-            "points": 53,
-            "played": 34,
-            "goal_diff": 11
-          },
-          {
-            "position": 9,
-            "team": "Toulouse FC",
-            "points": 45,
-            "played": 34,
-            "goal_diff": 1
-          },
-          {
-            "position": 10,
-            "team": "FC Lorient",
-            "points": 45,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 11,
-            "team": "Paris FC",
-            "points": 44,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 12,
-            "team": "Stade Brestois 29",
-            "points": 39,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 13,
-            "team": "Angers SCO",
-            "points": 36,
-            "played": 34,
-            "goal_diff": -19
-          },
-          {
-            "position": 14,
-            "team": "Le Havre AC",
-            "points": 35,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 15,
-            "team": "AJ Auxerre",
-            "points": 34,
-            "played": 34,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "OGC Nice",
-            "points": 32,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 17,
-            "team": "FC Nantes",
-            "points": 24,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 18,
-            "team": "FC Metz",
-            "points": 17,
-            "played": 34,
-            "goal_diff": -44
-          }
         ]
       },
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "shi-guang-ji",
+      "_column_name": "时光机",
+      "_column_icon": "⏰",
+      "_writing_style": "回忆杀体",
+      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
       "_word_count_range": [
-        400,
-        600
+        500,
+        700
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
+      "_topic_domain": "足球历史/记忆/球迷文化",
+      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "世界杯身价榜前十：谁是被高估的泡沫？",
+      "title": "美加墨世界杯身价前十榜：1亿只是门槛？足球经济新怪象",
       "source_article_ids": [
         13
       ],
       "source_titles": [
         "球员身价够买一整支球队？美加墨世界杯前十身价榜单来袭"
       ],
-      "angle": "结合最新身价榜单，对比球员实际表现，指出个别球星身价虚高以及哪些年轻球员被低估。观点：身价不能当饭吃，世界杯才是试金石。",
+      "angle": "解读美加墨世界杯前十身价榜单，分析球员身价膨胀背后的资本推手，对比十年前的榜单，指出足球市场泡沫化对中小球会的挤压。",
       "keywords": [
         "World Cup",
         "player value",
-        "ranking",
-        "overrated"
+        "football economy",
+        "bubble",
+        "ranking"
       ],
       "keywords_cn": [
-        "世界杯",
-        "身价榜",
+        "世界杯身价榜",
+        "球员身价",
+        "足球经济",
         "泡沫",
-        "高估"
+        "1亿欧元"
       ],
       "content_type": "排行榜",
-      "controversy_level": "medium",
+      "controversy_level": "low",
       "target_emotion": "震惊",
       "_source_articles": [
         {
@@ -1373,146 +1171,146 @@
         }
       ],
       "_standings": {
-        "英超": [
+        "西甲": [
           {
             "position": 1,
-            "team": "Arsenal FC",
-            "points": 85,
+            "team": "FC Barcelona",
+            "points": 94,
             "played": 38,
-            "goal_diff": 44
+            "goal_diff": 59
           },
           {
             "position": 2,
-            "team": "Manchester City FC",
-            "points": 78,
+            "team": "Real Madrid CF",
+            "points": 86,
             "played": 38,
             "goal_diff": 42
           },
           {
             "position": 3,
-            "team": "Manchester United FC",
-            "points": 71,
+            "team": "Villarreal CF",
+            "points": 72,
             "played": 38,
-            "goal_diff": 19
+            "goal_diff": 26
           },
           {
             "position": 4,
-            "team": "Aston Villa FC",
-            "points": 65,
+            "team": "Club Atlético de Madrid",
+            "points": 69,
             "played": 38,
-            "goal_diff": 7
+            "goal_diff": 18
           },
           {
             "position": 5,
-            "team": "Liverpool FC",
+            "team": "Real Betis Balompié",
             "points": 60,
             "played": 38,
-            "goal_diff": 10
+            "goal_diff": 11
           },
           {
             "position": 6,
-            "team": "AFC Bournemouth",
-            "points": 57,
+            "team": "RC Celta de Vigo",
+            "points": 54,
             "played": 38,
-            "goal_diff": 4
+            "goal_diff": 5
           },
           {
             "position": 7,
-            "team": "Sunderland AFC",
-            "points": 54,
+            "team": "Getafe CF",
+            "points": 51,
             "played": 38,
             "goal_diff": -6
           },
           {
             "position": 8,
-            "team": "Brighton & Hove Albion FC",
-            "points": 53,
+            "team": "Rayo Vallecano de Madrid",
+            "points": 50,
             "played": 38,
-            "goal_diff": 6
+            "goal_diff": -3
           },
           {
             "position": 9,
-            "team": "Brentford FC",
-            "points": 53,
-            "played": 38,
-            "goal_diff": 3
-          },
-          {
-            "position": 10,
-            "team": "Chelsea FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": 6
-          },
-          {
-            "position": 11,
-            "team": "Fulham FC",
-            "points": 52,
-            "played": 38,
-            "goal_diff": -4
-          },
-          {
-            "position": 12,
-            "team": "Newcastle United FC",
+            "team": "Valencia CF",
             "points": 49,
-            "played": 38,
-            "goal_diff": -2
-          },
-          {
-            "position": 13,
-            "team": "Everton FC",
-            "points": 49,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 14,
-            "team": "Leeds United FC",
-            "points": 47,
-            "played": 38,
-            "goal_diff": -7
-          },
-          {
-            "position": 15,
-            "team": "Crystal Palace FC",
-            "points": 45,
-            "played": 38,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "Nottingham Forest FC",
-            "points": 44,
-            "played": 38,
-            "goal_diff": -3
-          },
-          {
-            "position": 17,
-            "team": "Tottenham Hotspur FC",
-            "points": 41,
             "played": 38,
             "goal_diff": -9
           },
           {
-            "position": 18,
-            "team": "West Ham United FC",
-            "points": 39,
+            "position": 10,
+            "team": "Real Sociedad de Fútbol",
+            "points": 46,
             "played": 38,
-            "goal_diff": -19
+            "goal_diff": -2
+          },
+          {
+            "position": 11,
+            "team": "RCD Espanyol de Barcelona",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 12,
+            "team": "Athletic Club",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -15
+          },
+          {
+            "position": 13,
+            "team": "Sevilla FC",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "Deportivo Alavés",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "Elche CF",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -8
+          },
+          {
+            "position": 16,
+            "team": "Levante UD",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 17,
+            "team": "CA Osasuna",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 18,
+            "team": "RCD Mallorca",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -10
           },
           {
             "position": 19,
-            "team": "Burnley FC",
-            "points": 22,
+            "team": "Girona FC",
+            "points": 41,
             "played": 38,
-            "goal_diff": -37
+            "goal_diff": -16
           },
           {
             "position": 20,
-            "team": "Wolverhampton Wanderers FC",
-            "points": 20,
+            "team": "Real Oviedo",
+            "points": 29,
             "played": 38,
-            "goal_diff": -41
+            "goal_diff": -34
           }
         ],
         "德甲": [
@@ -1642,143 +1440,16 @@
             "played": 34,
             "goal_diff": -31
           }
-        ],
-        "法甲": [
-          {
-            "position": 1,
-            "team": "Paris Saint-Germain FC",
-            "points": 76,
-            "played": 34,
-            "goal_diff": 45
-          },
-          {
-            "position": 2,
-            "team": "Racing Club de Lens",
-            "points": 70,
-            "played": 34,
-            "goal_diff": 31
-          },
-          {
-            "position": 3,
-            "team": "Lille OSC",
-            "points": 61,
-            "played": 34,
-            "goal_diff": 15
-          },
-          {
-            "position": 4,
-            "team": "Olympique Lyonnais",
-            "points": 60,
-            "played": 34,
-            "goal_diff": 13
-          },
-          {
-            "position": 5,
-            "team": "Olympique de Marseille",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 18
-          },
-          {
-            "position": 6,
-            "team": "Stade Rennais FC 1901",
-            "points": 59,
-            "played": 34,
-            "goal_diff": 9
-          },
-          {
-            "position": 7,
-            "team": "AS Monaco FC",
-            "points": 54,
-            "played": 34,
-            "goal_diff": 6
-          },
-          {
-            "position": 8,
-            "team": "RC Strasbourg Alsace",
-            "points": 53,
-            "played": 34,
-            "goal_diff": 11
-          },
-          {
-            "position": 9,
-            "team": "Toulouse FC",
-            "points": 45,
-            "played": 34,
-            "goal_diff": 1
-          },
-          {
-            "position": 10,
-            "team": "FC Lorient",
-            "points": 45,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 11,
-            "team": "Paris FC",
-            "points": 44,
-            "played": 34,
-            "goal_diff": -3
-          },
-          {
-            "position": 12,
-            "team": "Stade Brestois 29",
-            "points": 39,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 13,
-            "team": "Angers SCO",
-            "points": 36,
-            "played": 34,
-            "goal_diff": -19
-          },
-          {
-            "position": 14,
-            "team": "Le Havre AC",
-            "points": 35,
-            "played": 34,
-            "goal_diff": -12
-          },
-          {
-            "position": 15,
-            "team": "AJ Auxerre",
-            "points": 34,
-            "played": 34,
-            "goal_diff": -10
-          },
-          {
-            "position": 16,
-            "team": "OGC Nice",
-            "points": 32,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 17,
-            "team": "FC Nantes",
-            "points": 24,
-            "played": 34,
-            "goal_diff": -23
-          },
-          {
-            "position": 18,
-            "team": "FC Metz",
-            "points": 17,
-            "played": 34,
-            "goal_diff": -44
-          }
         ]
       }
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-09 10:54:00"
+  "last_batch": "evening",
+  "last_updated": "2026-06-09 11:05:55"
 }
