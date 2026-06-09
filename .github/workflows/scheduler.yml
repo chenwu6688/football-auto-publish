@@ -1,9 +1,9 @@
 name: 精准调度轮询
 
 on:
-  schedule:
-    - cron: '*/10 22-23,0-12 * * *'
   workflow_dispatch:
+  schedule:
+    - cron: '*/10 0-12,22,23 * * *'
 
 jobs:
   scheduler:
