@@ -1,26 +1,26 @@
 {
   "date": "2026-06-10",
-  "generated_at": "2026-06-09T17:38:34.743358",
+  "generated_at": "2026-06-10T03:11:02.506819",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "他们赢了冠军，然后被罚了",
-      "path": "/home/runner/work/_temp/output/2026-06-10/article-1-他们赢了冠军然后-88838d.md",
-      "slug": "他们赢了冠军然后-88838d",
+      "title": "晨读｜中国足球小将欧洲夺冠，然后被罚了？！",
+      "path": "/home/runner/work/_temp/output/2026-06-10/article-1-晨读中国足球小将-4bd7e3.md",
+      "slug": "晨读中国足球小将-4bd7e3",
       "tags": [
-        "football",
-        "youth",
-        "chinese",
-        "champion",
-        "penalty"
+        "Chinese youth football",
+        "U12 championship",
+        "SIGISMONDI Cup",
+        "football penalty",
+        "Everton U12"
       ],
       "keywords": [
-        "football",
-        "youth",
-        "chinese",
-        "champion",
-        "penalty"
+        "Chinese youth football",
+        "U12 championship",
+        "SIGISMONDI Cup",
+        "football penalty",
+        "Everton U12"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-10/images/article-1-img-001.jpg",
@@ -32,28 +32,30 @@
         "这一指，在网络上刷疯了"
       ],
       "source_post": "",
-      "originality_note": "从夺冠事件切入，引出被罚的反差，用跨界类比和情感共鸣重写人物群体侧写。",
-      "content_type": "八卦趣事",
-      "column_id": "ren-wu-zhi",
-      "column_name": "人物志",
-      "batch_name": "晚间"
+      "originality_note": "从夺冠处罚切入，用互联网大厂病类比体制壁垒，犀利质疑而非单纯感动。",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     },
     {
       "index": 2,
-      "title": "那年暑假的煤渣操场，藏着孙继海没说完的真相",
-      "path": "/home/runner/work/_temp/output/2026-06-10/article-2-那年暑假的煤渣操-968b8e.md",
-      "slug": "那年暑假的煤渣操-968b8e",
+      "title": "努涅斯重返利物浦，是白捡还是捡垃圾？",
+      "path": "/home/runner/work/_temp/output/2026-06-10/article-2-努涅斯重返利物浦-e1884e.md",
+      "slug": "努涅斯重返利物浦-e1884e",
       "tags": [
-        "Sun Jihai",
-        "youth training",
-        "Chinese football",
-        "grassroots"
+        "Darwin Nunez",
+        "Liverpool transfer",
+        "free transfer",
+        "Saudi Pro League",
+        "tactical analysis"
       ],
       "keywords": [
-        "Sun Jihai",
-        "youth training",
-        "Chinese football",
-        "grassroots"
+        "Darwin Nunez",
+        "Liverpool transfer",
+        "free transfer",
+        "Saudi Pro League",
+        "tactical analysis"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-001.jpg",
@@ -61,19 +63,20 @@
         "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-003.jpg"
       ],
       "sources_used": [
-        "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门"
+        "免费？你希望利物浦签回努涅斯吗",
+        "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？"
       ],
       "source_post": "",
-      "originality_note": "从个人回忆切入，将论战升级为文化矛盾剖析，而非简单复述双方观点。",
+      "originality_note": "从战术风险角度解读传闻，用辩论形式替代原文的简单问答",
       "content_type": "八卦趣事",
-      "column_id": "shi-guang-ji",
-      "column_name": "时光机",
-      "batch_name": "晚间"
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "中国足球小将夺冠反遭罚？背后谁在耍大牌",
+      "title": "中国足球小将夺冠反遭罚，谁在拆台？",
       "source_article_ids": [
         2,
         12
@@ -82,20 +85,18 @@
         "无了个大语？？？！！！",
         "这一指，在网络上刷疯了"
       ],
-      "angle": "对比官方与民间青训成果：足球小将欧洲夺冠却被罚，暴露体制内官僚思维对草根足球的打压。新观点：这种‘罚’恰恰证明民间力量刺痛了某些人的面子，中国足球希望不在体系里，在田野间。",
+      "angle": "从中国足球小将U12在意大利夺冠后反遭处罚切入，探讨民间青训成果与体制壁垒的碰撞，质疑青少年足球发展的真正阻碍。",
       "keywords": [
-        "Chinese football youth",
-        "grassroots soccer",
-        "U12 championship",
-        "punishment controversy"
+        "Chinese youth football",
+        "private training",
+        "system vs. grassroots"
       ],
       "keywords_cn": [
         "中国足球小将",
-        "民间青训",
-        "欧洲夺冠",
-        "处罚争议"
+        "青训",
+        "体制矛盾"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "controversy_level": "high",
       "target_emotion": "愤怒",
       "_source_articles": [
@@ -235,57 +236,70 @@
         }
       ],
       "_standings": {},
-      "_column_id": "ren-wu-zhi",
-      "_column_name": "人物志",
-      "_column_icon": "👤",
-      "_writing_style": "人物杂志体",
-      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        500,
-        800
+        300,
+        500
       ],
-      "_interaction_type": "resonance_sharing",
-      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
-      "_topic_domain": "足球人物故事",
-      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
-      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "孙继海炮轰8岁前别练射门，青训教练回怼：输惯了才说成绩扯淡",
+      "title": "努涅斯免费回利物浦？克洛普的救赎还是陷阱",
       "source_article_ids": [
-        4
+        5,
+        8
       ],
       "source_titles": [
-        "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，"
+        "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
+        "免费？你希望利物浦签回努涅斯吗"
       ],
-      "angle": "剖析孙继海与实战派青训教练的论战深层逻辑：一个持欧洲长期培养理念，一个持实战出成绩逻辑。新观点：这场撕逼其实是‘精英路线’与‘体校路线’的古老矛盾，真正的答案是中国孩子既缺8岁前的快乐，也缺8岁后的竞争，两头不靠。",
+      "angle": "借努涅斯可能与沙特解约免费重返利物浦的传闻，分析红军锋线重建逻辑，指出情怀背后隐藏的战术风险与薪资陷阱。",
       "keywords": [
-        "Sun Jihai",
-        "youth training debate",
-        "shooting practice",
-        "Chinese football philosophy"
+        "Liverpool",
+        "Nunez",
+        "free transfer",
+        "rebuild"
       ],
       "keywords_cn": [
-        "孙继海",
-        "青训理念",
-        "射门训练",
-        "成绩争议"
+        "利物浦",
+        "努涅斯",
+        "免费转会",
+        "重建"
       ],
       "content_type": "八卦趣事",
       "controversy_level": "medium",
-      "target_emotion": "震惊",
+      "target_emotion": "好奇",
       "_source_articles": [
         {
-          "id": 4,
-          "title": "孙继海:比赛来的成绩都是瞎扯！8岁之前不需要练习射门，",
-          "summary": "**【摘要】** 孙继海被骂上热搜的背后，是中国青训最撕裂的一场路线之争  【正文】  一边是踢过英超、入选英格兰足球名人堂的前国脚说 \"8 岁前练射门都是瞎耽误功夫\"，一边是带着 14 岁孩子在欧洲拿冠军的青训教练回怼 \"输习惯了才说成绩",
-          "account": "春容5029",
-          "reads": "3w+",
-          "likes": 90,
+          "id": 5,
+          "title": "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
+          "summary": "努涅斯回归的可能性是有的",
+          "account": "看球日记",
+          "reads": "9612",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-08",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "免费？你希望利物浦签回努涅斯吗",
+          "summary": "并不靠谱的西班牙《世界体育报》称，努涅斯与沙特利雅得新月同意提前终止合同，努涅斯可以自由转会，努涅斯有意重返利物浦，而利物浦、切尔西和纽卡等队也对他感兴趣。努涅斯去年夏天以5300万欧元从利物浦转会沙特，今年冬窗为了给本泽马空出注册名额，努",
+          "account": "利物浦不只是冠军",
+          "reads": "4489",
+          "likes": 71,
           "data_score": 100,
           "pub_time": "2026-06-08",
           "_recency_score": 40
@@ -404,51 +418,50 @@
         }
       ],
       "_standings": {},
-      "_column_id": "shi-guang-ji",
-      "_column_name": "时光机",
-      "_column_icon": "⏰",
-      "_writing_style": "回忆杀体",
-      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
-        500,
-        700
+        400,
+        600
       ],
-      "_interaction_type": "share_your_story",
-      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
-      "_topic_domain": "足球历史/记忆/球迷文化",
-      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
-      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "中超身价榜洗牌：克雷桑400万第一，谢文能本土领跑",
+      "title": "克雷桑400万欧称霸中超身价榜，金元时代彻底凉了",
       "source_article_ids": [
         7
       ],
       "source_titles": [
         "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员"
       ],
-      "angle": "从德转身价榜单看中超外援依赖症与本土球员稀缺性：克雷桑400万欧在五大联赛只是替补身价，却在中超称王。新观点：榜单是一面镜子，折射出中超泡沫破裂后的真实水平——外援降级、本土垫底，但谢文能的崛起至少证明年轻人还有路。",
+      "angle": "以克雷桑400万欧成为中超新一哥为引，对比当年奥斯卡、胡尔克的天价身价，揭示中超外援市场的理性回归与资本退潮。",
       "keywords": [
-        "Chinese Super League",
+        "CSL",
         "transfermarkt",
-        "Crescent",
-        "Xie Wenneng",
-        "player value"
+        "Cresan",
+        "market value",
+        "decline"
       ],
       "keywords_cn": [
-        "中超身价",
+        "中超",
+        "德转身价",
         "克雷桑",
-        "谢文能",
-        "德转",
-        "本土球员"
+        "身价缩水"
       ],
       "content_type": "排行榜",
       "controversy_level": "low",
-      "target_emotion": "怀旧",
+      "target_emotion": "震惊",
       "_source_articles": [
         {
           "id": 7,
@@ -579,8 +592,9 @@
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-06-10 01:38:34"
+  "last_batch": "morning",
+  "last_updated": "2026-06-10 11:11:02"
 }
