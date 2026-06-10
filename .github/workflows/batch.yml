@@ -3,7 +3,7 @@ name: 足球自媒体批次发布
 # 双保险调度策略：
 #   主调度: cron-job.org → workflow_dispatch API（精确到秒，UTC 时区）
 #   备调度: 以下 GitHub 原生 cron（比主调度晚 30 分钟，幂等保护自动跳过已完成批次）
-# 重要：GitHub Actions cron 延迟可达数小时，批次由 cron 表达式中的 UTC 小时决定，绝不依赖执行时刻的北京时间自动判断。
+# 批次判断: 用当前 UTC 小时 ±2h 匹配已知 backup cron 时间，超出窗口则用 CST 自动检测。
 on:
   schedule:
     # 08:30 CST = 00:30 UTC — 晨读 backup（主调度: cron-job.org 08:00 CST）
@@ -68,21 +68,26 @@ jobs:
           echo "today=$TODAY" >> $GITHUB_OUTPUT
 
           # Batch determination
-          # For schedule events: extract intended batch from the cron expression's UTC hour.
-          # This is essential because GitHub Actions cron jobs can be delayed by hours;
-          # we must NOT auto-detect batch from current CST time when delayed.
+          # For schedule events: use UTC hour (backup crons at UTC 0,4,10) with ±2h tolerance.
+          # Falls back to CST auto-detect if delayed beyond all windows.
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            CRON="${{ github.event.schedule }}"
-            UTC_HOUR=$(echo "$CRON" | awk '{print $2}')
-            case "$UTC_HOUR" in
-              0) BATCH="morning" ;;
-              4) BATCH="noon" ;;
-              9|10) BATCH="evening" ;;
-              *) BATCH="auto" ;;
-            esac
+            UTC_HOUR=$(date -u +%H)
+            CST_HOUR=$(TZ=Asia/Shanghai date +%H)
+            if [ "$UTC_HOUR" -ge 0 ] && [ "$UTC_HOUR" -le 2 ]; then
+              BATCH="morning"
+            elif [ "$UTC_HOUR" -ge 4 ] && [ "$UTC_HOUR" -le 6 ]; then
+              BATCH="noon"
+            elif [ "$UTC_HOUR" -ge 9 ] && [ "$UTC_HOUR" -le 12 ]; then
+              BATCH="evening"
+            else
+              # Delayed beyond backup windows — auto-detect from CST
+              if [ "$CST_HOUR" -lt 10 ]; then BATCH="morning"
+              elif [ "$CST_HOUR" -lt 15 ]; then BATCH="noon"
+              else BATCH="evening"
+              fi
+            fi
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
-            echo "运行: $TODAY $BATCH 批次 (cron: $CRON → UTC hour=$UTC_HOUR)"
-            echo "✅ Cron 指定批次，跳过时区校验（延迟不影响批次正确性）"
+            echo "运行: $TODAY $BATCH 批次 (schedule backup, UTC=$UTC_HOUR, CST=$CST_HOUR)"
           elif [ -n "${{ inputs.batch }}" ]; then
             BATCH="${{ inputs.batch }}"
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
@@ -136,6 +141,19 @@ jobs:
             exit 0
           fi
           echo "   批次 ${BATCH} 尚未执行，继续"
+
+      - name: 时区诊断
+        if: always()
+        run: |
+          echo "╔══════════════════════════════════════╗"
+          echo "║  🕐 时区诊断                         ║"
+          echo "╠══════════════════════════════════════╣"
+          printf "║  %-20s %s ║\n" "UTC:" "$(date -u '+%Y-%m-%d %H:%M:%S')"
+          printf "║  %-20s %s ║\n" "CST (Asia/Shanghai):" "$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"
+          printf "║  %-20s %s ║\n" "GitHub event:" "${{ github.event_name }}"
+          printf "║  %-20s %s ║\n" "Detected batch:" "${{ steps.params.outputs.batch }}"
+          printf "║  %-20s %s ║\n" "Target date:" "${{ steps.params.outputs.today }}"
+          echo "╚══════════════════════════════════════╝"
 
       - name: 生成文章
         id: generate
