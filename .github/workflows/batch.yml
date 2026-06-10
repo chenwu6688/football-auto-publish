@@ -58,6 +58,8 @@ jobs:
 
       - name: 确定批次和日期
         id: params
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Date
           if [ -z "${{ inputs.date }}" ]; then
@@ -133,10 +135,11 @@ jobs:
             echo "✅ 时区校验通过"
           fi
 
-          # 幂等保护：防止同批次重复生成
+          # 幂等保护：通过 GitHub API 读取最新 metadata（比本地文件更可靠）
           echo "   检查批次是否已执行..."
-          SKIP=$(TODAY="$TODAY" BATCH="$BATCH" python3 scripts/check_batch_completed.py)
-          if [ "$SKIP" = "true" ]; then
+          META_API="repos/${{ github.repository }}/contents/output/${TODAY}/metadata.json?ref=main"
+          COMPLETED=$(gh api "$META_API" --jq '.content | @base64d | fromjson | .batches_completed | join(",")' 2>/dev/null) || true
+          if echo "$COMPLETED" | grep -q "$BATCH"; then
             echo "⏭️  批次 ${BATCH} 今日已完成，跳过"
             exit 0
           fi
