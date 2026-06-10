@@ -1,0 +1,575 @@
+{
+  "date": "2026-06-11",
+  "generated_at": "2026-06-10T16:51:23.541849",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "两场国足撞车了，你看哪场？足协这安排绝了",
+      "path": "/home/runner/work/_temp/output/2026-06-11/article-1-两场国足撞车了你-24f905.md",
+      "slug": "两场国足撞车了你-24f905",
+      "tags": [
+        "chinese_football",
+        "wulei",
+        "u23",
+        "cctv",
+        "friendly"
+      ],
+      "keywords": [
+        "chinese_football",
+        "wulei",
+        "u23",
+        "cctv",
+        "friendly"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-11/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-11/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-11/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式"
+      ],
+      "source_post": "",
+      "originality_note": "从球迷选择困难切入，用互联网公司类比青训问题，吐槽赛程统筹而非单纯报道比赛结果",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "14个孩子拿冠军回来，足协的脸往哪搁？",
+      "path": "/home/runner/work/_temp/output/2026-06-11/article-2-14个孩子拿冠军-cbd281.md",
+      "slug": "14个孩子拿冠军-cbd281",
+      "tags": [
+        "youth football",
+        "Chinese football",
+        "academy system"
+      ],
+      "keywords": [
+        "youth football",
+        "Chinese football",
+        "academy system"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-11/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [
+        "14名足球小将们回国了！没想到欢迎仪式会是这样",
+        "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！",
+        "足协主席宋凯针对此次私自带队出国参赛事件公开表态"
+      ],
+      "source_post": "",
+      "originality_note": "原报道聚焦感动细节，我转为辩论场，对比官方规则与民间生命力，并给出站队理由。",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "国足双赛撞车，球迷该看哪场？武磊百场仪式成焦点",
+      "source_article_ids": [
+        5
+      ],
+      "source_titles": [
+        "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式"
+      ],
+      "angle": "从球迷选择困难切入，对比成年队与U23的表现和意义，吐槽足协赛程安排背后缺乏统筹，凸显青训与成年队割裂的尴尬。",
+      "keywords": [
+        "China national team",
+        "Wu Lei",
+        "double header"
+      ],
+      "keywords_cn": [
+        "国足",
+        "武磊",
+        "赛程冲突"
+      ],
+      "content_type": "热点球评",
+      "controversy_level": "medium",
+      "target_emotion": "无奈",
+      "_source_articles": [
+        {
+          "id": 5,
+          "title": "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式",
+          "summary": "晚上有两场中国国足的比赛。一场是成年国家队，一场是U23国家队。两场都是国际足球邀请赛，而且都是第二场热身赛。在上一场热身赛中，成年国足客场2比1击败了新加坡队。U23国足则在遵义主场1比0绝杀了塔吉克斯坦U23队。",
+          "account": "体育飓风",
+          "reads": "1w+",
+          "likes": 27,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "卡里克两年合同任务曝光！曼联要求英超夺冠庆祝150周年，否则就换帅",
+          "summary": "你看好卡里克带领曼联英超夺冠吗？",
+          "account": "罗米曼联博客",
+          "reads": "1w+",
+          "likes": 44,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "足球盛典福利炸了！绝代双骄登录就送！国家队套免费开玩！",
+          "summary": "快戳↑ 速览实况新版本福利",
+          "account": "实况足球",
+          "reads": "10w+",
+          "likes": 883,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "草台三杰，正在引爆中国社会底层裂变",
+          "summary": "张雪，蓝鸿春，董路",
+          "account": "波波夫同学",
+          "reads": "2w+",
+          "likes": 361,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "14名足球小将们回国了！没想到欢迎仪式会是这样",
+          "summary": "他们回来了。没有接机直播，没有媒体长枪短炮，没有足协领导握手合影。",
+          "account": "好运连连1972",
+          "reads": "7w+",
+          "likes": 863,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式",
+          "summary": "晚上有两场中国国足的比赛。一场是成年国家队，一场是U23国家队。两场都是国际足球邀请赛，而且都是第二场热身赛。在上一场热身赛中，成年国足客场2比1击败了新加坡队。U23国足则在遵义主场1比0绝杀了塔吉克斯坦U23队。",
+          "account": "体育飓风",
+          "reads": "1w+",
+          "likes": 27,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "300亿美金，300个Agent，Kimi公开预测世界杯：不怕打脸",
+          "summary": "“AI技术应当更透明。”",
+          "account": "36氪",
+          "reads": "10w+",
+          "likes": 551,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "足协主席宋凯针对此次私自带队出国参赛事件公开表态，董路就率队出国参赛争议作出澄清",
+          "summary": "宋凯划红线，董路摊流程：中国青训最大的悲哀，是连孩子出国踢球的路都没打通摘要：足协主席宋凯一句\"青少年出国参赛",
+          "account": "半岛半杯咖啡",
+          "reads": "5w+",
+          "likes": 429,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "三年两冠，意大利U17再次获得欧洲冠军",
+          "summary": "在6月7日晚进行的2026欧洲U17足球锦标赛决赛中，意大利U17队在点球大战中击败比利时U17，捧起冠军奖杯。              本届欧洲U17足球锦标赛决赛阶段共有8支球队参赛，意大利在小组赛前两轮分别1-0击败法国，3-0击败",
+          "account": "全意甲",
+          "reads": "8430",
+          "likes": 43,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！",
+          "summary": "最近刷屏足坛的 14 名中国足球小将，带着欧洲赛事的冠军荣誉顺利回国。",
+          "account": "深圳天精8690",
+          "reads": "10w+",
+          "likes": 902,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "9800万欧！太疯狂了",
+          "summary": "在敲定首签埃德森-席尔瓦的转会后，曼联攻坚潜在第二签马特乌斯-费尔南德斯却被狮子大开口……         知名记者罗马诺、英国《卫报》、西班牙《阿斯报》接连更新消息，21岁葡萄牙中场马特乌斯-费尔南德斯成为各大豪门补强猎物，曼联、皇马、利",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 65,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "14名足球小将回国无人接机，家长面孔暴露中国青训最大痛点",
+      "source_article_ids": [
+        4,
+        9
+      ],
+      "source_titles": [
+        "14名足球小将们回国了！没想到欢迎仪式会是这样",
+        "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！"
+      ],
+      "angle": "对比官方冷遇与家长自发接机，揭露青训资源依赖家庭投入的现实，质疑足协“红线”背后是否真为孩子好。",
+      "keywords": [
+        "youth football",
+        "Dong Lu",
+        "Chinese football academy"
+      ],
+      "keywords_cn": [
+        "足球小将",
+        "董路",
+        "青训困境"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_source_articles": [
+        {
+          "id": 4,
+          "title": "14名足球小将们回国了！没想到欢迎仪式会是这样",
+          "summary": "他们回来了。没有接机直播，没有媒体长枪短炮，没有足协领导握手合影。",
+          "account": "好运连连1972",
+          "reads": "7w+",
+          "likes": 863,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！",
+          "summary": "最近刷屏足坛的 14 名中国足球小将，带着欧洲赛事的冠军荣誉顺利回国。",
+          "account": "深圳天精8690",
+          "reads": "10w+",
+          "likes": 902,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "卡里克两年合同任务曝光！曼联要求英超夺冠庆祝150周年，否则就换帅",
+          "summary": "你看好卡里克带领曼联英超夺冠吗？",
+          "account": "罗米曼联博客",
+          "reads": "1w+",
+          "likes": 44,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "足球盛典福利炸了！绝代双骄登录就送！国家队套免费开玩！",
+          "summary": "快戳↑ 速览实况新版本福利",
+          "account": "实况足球",
+          "reads": "10w+",
+          "likes": 883,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "草台三杰，正在引爆中国社会底层裂变",
+          "summary": "张雪，蓝鸿春，董路",
+          "account": "波波夫同学",
+          "reads": "2w+",
+          "likes": 361,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "14名足球小将们回国了！没想到欢迎仪式会是这样",
+          "summary": "他们回来了。没有接机直播，没有媒体长枪短炮，没有足协领导握手合影。",
+          "account": "好运连连1972",
+          "reads": "7w+",
+          "likes": 863,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式",
+          "summary": "晚上有两场中国国足的比赛。一场是成年国家队，一场是U23国家队。两场都是国际足球邀请赛，而且都是第二场热身赛。在上一场热身赛中，成年国足客场2比1击败了新加坡队。U23国足则在遵义主场1比0绝杀了塔吉克斯坦U23队。",
+          "account": "体育飓风",
+          "reads": "1w+",
+          "likes": 27,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "300亿美金，300个Agent，Kimi公开预测世界杯：不怕打脸",
+          "summary": "“AI技术应当更透明。”",
+          "account": "36氪",
+          "reads": "10w+",
+          "likes": 551,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "足协主席宋凯针对此次私自带队出国参赛事件公开表态，董路就率队出国参赛争议作出澄清",
+          "summary": "宋凯划红线，董路摊流程：中国青训最大的悲哀，是连孩子出国踢球的路都没打通摘要：足协主席宋凯一句\"青少年出国参赛",
+          "account": "半岛半杯咖啡",
+          "reads": "5w+",
+          "likes": 429,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "三年两冠，意大利U17再次获得欧洲冠军",
+          "summary": "在6月7日晚进行的2026欧洲U17足球锦标赛决赛中，意大利U17队在点球大战中击败比利时U17，捧起冠军奖杯。              本届欧洲U17足球锦标赛决赛阶段共有8支球队参赛，意大利在小组赛前两轮分别1-0击败法国，3-0击败",
+          "account": "全意甲",
+          "reads": "8430",
+          "likes": 43,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！",
+          "summary": "最近刷屏足坛的 14 名中国足球小将，带着欧洲赛事的冠军荣誉顺利回国。",
+          "account": "深圳天精8690",
+          "reads": "10w+",
+          "likes": 902,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "9800万欧！太疯狂了",
+          "summary": "在敲定首签埃德森-席尔瓦的转会后，曼联攻坚潜在第二签马特乌斯-费尔南德斯却被狮子大开口……         知名记者罗马诺、英国《卫报》、西班牙《阿斯报》接连更新消息，21岁葡萄牙中场马特乌斯-费尔南德斯成为各大豪门补强猎物，曼联、皇马、利",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 65,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "11场决赛不败！足坛‘决赛之王’的秘诀是玄学还是实力？",
+      "source_article_ids": [
+        13
+      ],
+      "source_titles": [
+        "吓人！11场决赛不败！"
+      ],
+      "angle": "梳理近五年决赛不败的球员/球队数据，分析心理素质、战术准备和运气成分，联系到中国球员缺乏关键战能力的对比。",
+      "keywords": [
+        "final record",
+        "undefeated",
+        "big game player"
+      ],
+      "keywords_cn": [
+        "决赛不败",
+        "关键战",
+        "心理素质"
+      ],
+      "content_type": "排行榜",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 13,
+          "title": "吓人！11场决赛不败！",
+          "summary": "世一左！五年14冠！身价8000万！",
+          "account": "天下足球",
+          "reads": "3w+",
+          "likes": 288,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "卡里克两年合同任务曝光！曼联要求英超夺冠庆祝150周年，否则就换帅",
+          "summary": "你看好卡里克带领曼联英超夺冠吗？",
+          "account": "罗米曼联博客",
+          "reads": "1w+",
+          "likes": 44,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "足球盛典福利炸了！绝代双骄登录就送！国家队套免费开玩！",
+          "summary": "快戳↑ 速览实况新版本福利",
+          "account": "实况足球",
+          "reads": "10w+",
+          "likes": 883,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "草台三杰，正在引爆中国社会底层裂变",
+          "summary": "张雪，蓝鸿春，董路",
+          "account": "波波夫同学",
+          "reads": "2w+",
+          "likes": 361,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "14名足球小将们回国了！没想到欢迎仪式会是这样",
+          "summary": "他们回来了。没有接机直播，没有媒体长枪短炮，没有足协领导握手合影。",
+          "account": "好运连连1972",
+          "reads": "7w+",
+          "likes": 863,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式",
+          "summary": "晚上有两场中国国足的比赛。一场是成年国家队，一场是U23国家队。两场都是国际足球邀请赛，而且都是第二场热身赛。在上一场热身赛中，成年国足客场2比1击败了新加坡队。U23国足则在遵义主场1比0绝杀了塔吉克斯坦U23队。",
+          "account": "体育飓风",
+          "reads": "1w+",
+          "likes": 27,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "300亿美金，300个Agent，Kimi公开预测世界杯：不怕打脸",
+          "summary": "“AI技术应当更透明。”",
+          "account": "36氪",
+          "reads": "10w+",
+          "likes": 551,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "足协主席宋凯针对此次私自带队出国参赛事件公开表态，董路就率队出国参赛争议作出澄清",
+          "summary": "宋凯划红线，董路摊流程：中国青训最大的悲哀，是连孩子出国踢球的路都没打通摘要：足协主席宋凯一句\"青少年出国参赛",
+          "account": "半岛半杯咖啡",
+          "reads": "5w+",
+          "likes": 429,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "三年两冠，意大利U17再次获得欧洲冠军",
+          "summary": "在6月7日晚进行的2026欧洲U17足球锦标赛决赛中，意大利U17队在点球大战中击败比利时U17，捧起冠军奖杯。              本届欧洲U17足球锦标赛决赛阶段共有8支球队参赛，意大利在小组赛前两轮分别1-0击败法国，3-0击败",
+          "account": "全意甲",
+          "reads": "8430",
+          "likes": 43,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！",
+          "summary": "最近刷屏足坛的 14 名中国足球小将，带着欧洲赛事的冠军荣誉顺利回国。",
+          "account": "深圳天精8690",
+          "reads": "10w+",
+          "likes": 902,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "9800万欧！太疯狂了",
+          "summary": "在敲定首签埃德森-席尔瓦的转会后，曼联攻坚潜在第二签马特乌斯-费尔南德斯却被狮子大开口……         知名记者罗马诺、英国《卫报》、西班牙《阿斯报》接连更新消息，21岁葡萄牙中场马特乌斯-费尔南德斯成为各大豪门补强猎物，曼联、皇马、利",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 65,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {}
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-11 00:51:23"
+}
