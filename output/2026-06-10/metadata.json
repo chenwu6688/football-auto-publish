@@ -1,26 +1,26 @@
 {
   "date": "2026-06-10",
-  "generated_at": "2026-06-10T03:11:02.506819",
+  "generated_at": "2026-06-10T03:46:57.980665",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "晨读｜中国足球小将欧洲夺冠，然后被罚了？！",
-      "path": "/home/runner/work/_temp/output/2026-06-10/article-1-晨读中国足球小将-4bd7e3.md",
-      "slug": "晨读中国足球小将-4bd7e3",
+      "title": "国足的未来在民间？这份青训打脸榜我劝足协别看",
+      "path": "/home/runner/work/_temp/output/2026-06-10/article-1-国足的未来在民间-78d95b.md",
+      "slug": "国足的未来在民间-78d95b",
       "tags": [
-        "Chinese youth football",
-        "U12 championship",
-        "SIGISMONDI Cup",
-        "football penalty",
-        "Everton U12"
+        "youth football",
+        "Chinese football",
+        "grassroots",
+        "academy system",
+        "毒舌点评"
       ],
       "keywords": [
-        "Chinese youth football",
-        "U12 championship",
-        "SIGISMONDI Cup",
-        "football penalty",
-        "Everton U12"
+        "youth football",
+        "Chinese football",
+        "grassroots",
+        "academy system",
+        "毒舌点评"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-10/images/article-1-img-001.jpg",
@@ -28,34 +28,31 @@
         "/home/runner/work/_temp/output/2026-06-10/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "无了个大语？？？！！！",
         "这一指，在网络上刷疯了"
       ],
       "source_post": "",
-      "originality_note": "从夺冠处罚切入，用互联网大厂病类比体制壁垒，犀利质疑而非单纯感动。",
-      "content_type": "热点球评",
-      "column_id": "chen-du-kuai-xun",
-      "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "originality_note": "从夺冠事件切入，用反差盘点替代直述，将情绪转化为结构性毒舌对比。",
+      "content_type": "排行榜",
+      "column_id": "shu-ju-pan-dian",
+      "column_name": "数据盘点",
+      "batch_name": "午间"
     },
     {
       "index": 2,
-      "title": "努涅斯重返利物浦，是白捡还是捡垃圾？",
-      "path": "/home/runner/work/_temp/output/2026-06-10/article-2-努涅斯重返利物浦-e1884e.md",
-      "slug": "努涅斯重返利物浦-e1884e",
+      "title": "皇马真正想要的那个拜仁球员，根本买不到",
+      "path": "/home/runner/work/_temp/output/2026-06-10/article-2-皇马真正想要的那-330a17.md",
+      "slug": "皇马真正想要的那-330a17",
       "tags": [
-        "Darwin Nunez",
-        "Liverpool transfer",
-        "free transfer",
-        "Saudi Pro League",
-        "tactical analysis"
+        "Real Madrid",
+        "Bayern Munich",
+        "transfer strategy",
+        "Florentino Perez"
       ],
       "keywords": [
-        "Darwin Nunez",
-        "Liverpool transfer",
-        "free transfer",
-        "Saudi Pro League",
-        "tactical analysis"
+        "Real Madrid",
+        "Bayern Munich",
+        "transfer strategy",
+        "Florentino Perez"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-001.jpg",
@@ -63,54 +60,40 @@
         "/home/runner/work/_temp/output/2026-06-10/images/article-2-img-003.jpg"
       ],
       "sources_used": [
-        "免费？你希望利物浦签回努涅斯吗",
-        "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？"
+        "炸裂！弗洛伦蒂诺获胜！要挖1.5亿意中人！"
       ],
       "source_post": "",
-      "originality_note": "从战术风险角度解读传闻，用辩论形式替代原文的简单问答",
-      "content_type": "八卦趣事",
-      "column_id": "hua-ti-lei-tai",
-      "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "originality_note": "从单纯转会传闻升级为两种建队模式的博弈分析，指出皇马的报价是意在动摇对手军心的阳谋。",
+      "content_type": "战术解析",
+      "column_id": "shen-shui-qu",
+      "column_name": "深水区",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "中国足球小将夺冠反遭罚，谁在拆台？",
+      "title": "中国足球小将夺冠一指封神！民间青训打脸国足？",
       "source_article_ids": [
-        2,
         12
       ],
       "source_titles": [
-        "无了个大语？？？！！！",
         "这一指，在网络上刷疯了"
       ],
-      "angle": "从中国足球小将U12在意大利夺冠后反遭处罚切入，探讨民间青训成果与体制壁垒的碰撞，质疑青少年足球发展的真正阻碍。",
+      "angle": "以足球小将夺冠后霸气一指为切入点，对比民间青训与体制内青训的成效，探讨中国足球未来之路，强调民间力量的潜力与国足选材机制之痛。",
       "keywords": [
-        "Chinese youth football",
-        "private training",
-        "system vs. grassroots"
+        "Football Kids",
+        "Chinese youth training",
+        "national team"
       ],
       "keywords_cn": [
-        "中国足球小将",
+        "足球小将",
         "青训",
-        "体制矛盾"
+        "国足"
       ],
-      "content_type": "热点球评",
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "content_type": "排行榜",
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
       "_source_articles": [
-        {
-          "id": 2,
-          "title": "无了个大语？？？！！！",
-          "summary": "近日，意大利罗马，SIGISMONDI国际青少年杯（U12“小世界杯”），中国足球小将2014队点球5:4绝杀英超埃弗顿U12梯队，七战全胜，捧起冠军奖杯！民间组织得了冠军，非常非常优秀！最后，被罚？？？真的假的？？？",
-          "account": "沐杨MY",
-          "reads": "3w+",
-          "likes": 185,
-          "data_score": 100,
-          "pub_time": "2026-06-08",
-          "_recency_score": 40
-        },
         {
           "id": 12,
           "title": "这一指，在网络上刷疯了",
@@ -236,70 +219,55 @@
         }
       ],
       "_standings": {},
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_column_id": "shu-ju-pan-dian",
+      "_column_name": "数据盘点",
+      "_column_icon": "📊",
+      "_writing_style": "毒舌点评体",
+      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_interaction_type": "challenge_dare",
+      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
+      "_topic_domain": "足球数据排名",
+      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
     },
     {
-      "title": "努涅斯免费回利物浦？克洛普的救赎还是陷阱",
+      "title": "皇马主席再出手！1.5亿挖角拜仁基石能否成真？",
       "source_article_ids": [
-        5,
-        8
+        6
       ],
       "source_titles": [
-        "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
-        "免费？你希望利物浦签回努涅斯吗"
+        "炸裂！弗洛伦蒂诺获胜！要挖1.5亿意中人！"
       ],
-      "angle": "借努涅斯可能与沙特解约免费重返利物浦的传闻，分析红军锋线重建逻辑，指出情怀背后隐藏的战术风险与薪资陷阱。",
+      "angle": "从弗洛伦蒂诺获胜后的转会野心切入，分析拜仁基石的战术价值与皇马签下他的可能性，以及这笔交易对欧洲足坛格局的潜在冲击。",
       "keywords": [
-        "Liverpool",
-        "Nunez",
-        "free transfer",
-        "rebuild"
+        "Florentino Perez",
+        "transfer",
+        "Bayern Munich"
       ],
       "keywords_cn": [
-        "利物浦",
-        "努涅斯",
-        "免费转会",
-        "重建"
+        "弗洛伦蒂诺",
+        "转会",
+        "拜仁"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "战术解析",
       "controversy_level": "medium",
       "target_emotion": "好奇",
       "_source_articles": [
         {
-          "id": 5,
-          "title": "休斯夏窗后离开利物浦 免签努涅斯 准备签麦卡替代者？",
-          "summary": "努涅斯回归的可能性是有的",
-          "account": "看球日记",
-          "reads": "9612",
-          "likes": 36,
-          "data_score": 100,
-          "pub_time": "2026-06-08",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "免费？你希望利物浦签回努涅斯吗",
-          "summary": "并不靠谱的西班牙《世界体育报》称，努涅斯与沙特利雅得新月同意提前终止合同，努涅斯可以自由转会，努涅斯有意重返利物浦，而利物浦、切尔西和纽卡等队也对他感兴趣。努涅斯去年夏天以5300万欧元从利物浦转会沙特，今年冬窗为了给本泽马空出注册名额，努",
-          "account": "利物浦不只是冠军",
-          "reads": "4489",
-          "likes": 71,
+          "id": 6,
+          "title": "炸裂！弗洛伦蒂诺获胜！要挖1.5亿意中人！",
+          "summary": "挖拜仁的基石？太难了！",
+          "account": "天下足球",
+          "reads": "2w+",
+          "likes": 177,
           "data_score": 100,
           "pub_time": "2026-06-08",
           "_recency_score": 40
@@ -418,50 +386,47 @@
         }
       ],
       "_standings": {},
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "shen-shui-qu",
+      "_column_name": "深水区",
+      "_column_icon": "🌊",
+      "_writing_style": "内行看门道体",
+      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
       "_word_count_range": [
-        400,
-        600
+        500,
+        700
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_interaction_type": "opinion_poll",
+      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
+      "_topic_domain": "足球深度分析",
+      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
       "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
     },
     {
-      "title": "克雷桑400万欧称霸中超身价榜，金元时代彻底凉了",
+      "title": "中超身价榜揭晓！克雷桑登顶但折射本土球员尴尬",
       "source_article_ids": [
         7
       ],
       "source_titles": [
         "德转更新身价：克雷桑400万欧升至中超第一，谢文能领跑队内本土球员"
       ],
-      "angle": "以克雷桑400万欧成为中超新一哥为引，对比当年奥斯卡、胡尔克的天价身价，揭示中超外援市场的理性回归与资本退潮。",
+      "angle": "以德转最新身价榜单为引，聚焦中超外援与本土球员身价悬殊的现象，反思中国足球人才断层与联赛过度依赖外援的长期隐患。",
       "keywords": [
-        "CSL",
-        "transfermarkt",
-        "Cresan",
+        "Chinese Super League",
         "market value",
-        "decline"
+        "Kressan"
       ],
       "keywords_cn": [
         "中超",
-        "德转身价",
-        "克雷桑",
-        "身价缩水"
+        "身价",
+        "克雷桑"
       ],
       "content_type": "排行榜",
       "controversy_level": "low",
-      "target_emotion": "震惊",
+      "target_emotion": "怀旧",
       "_source_articles": [
         {
           "id": 7,
@@ -593,8 +558,9 @@
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-10 11:11:02"
+  "last_batch": "noon",
+  "last_updated": "2026-06-10 11:46:57"
 }
