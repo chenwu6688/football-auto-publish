@@ -1,17 +1,23 @@
 name: 足球自媒体批次发布
 
-# 双保险调度策略：
-#   主调度: cron-job.org → workflow_dispatch API（精确到秒，UTC 时区）
-#   备调度: 以下 GitHub 原生 cron（比主调度晚 30 分钟，幂等保护自动跳过已完成批次）
+# 纯 GitHub Actions 调度（无需外部服务）：
+#   每批次 3 个 cron 备份，错开 ~1 小时，幂等保护自动跳过已完成批次
+#   ⚠️ 避免频繁推送！每次 push 会重置 GitHub cron 激活计时器。
 # 批次判断: 用当前 UTC 小时 ±2h 匹配已知 backup cron 时间，超出窗口则用 CST 自动检测。
 on:
   schedule:
-    # 08:30 CST = 00:30 UTC — 晨读 backup（主调度: cron-job.org 08:00 CST）
-    - cron: '37 0 * * *'
-    # 12:30 CST = 04:30 UTC — 午间 backup（主调度: cron-job.org 12:00 CST）
-    - cron: '37 4 * * *'
-    # 18:00 CST = 10:00 UTC — 晚间 backup（主调度: cron-job.org 17:30 CST）
-    - cron: '7 10 * * *'
+    # morning 晨读 08:00 CST → 3 个 backup:
+    - cron: '37 0 * * *'   # UTC 00:37 = CST 08:37
+    - cron: '37 1 * * *'   # UTC 01:37 = CST 09:37
+    - cron: '7 2 * * *'    # UTC 02:07 = CST 10:07
+    # noon 午间 12:00 CST → 3 个 backup:
+    - cron: '37 4 * * *'   # UTC 04:37 = CST 12:37
+    - cron: '37 5 * * *'   # UTC 05:37 = CST 13:37
+    - cron: '7 6 * * *'    # UTC 06:07 = CST 14:07
+    # evening 晚间 17:30 CST → 3 个 backup:
+    - cron: '7 10 * * *'   # UTC 10:07 = CST 18:07
+    - cron: '7 11 * * *'   # UTC 11:07 = CST 19:07
+    - cron: '37 12 * * *'  # UTC 12:37 = CST 20:37
   workflow_dispatch:
     inputs:
       batch:
