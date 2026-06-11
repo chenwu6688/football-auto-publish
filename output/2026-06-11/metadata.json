@@ -1,26 +1,24 @@
 {
   "date": "2026-06-11",
-  "generated_at": "2026-06-11T07:39:27.780429",
+  "generated_at": "2026-06-11T07:56:58.082679",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "国足十级选择困难症排行：成年队和U23，你看谁谁挨骂？",
-      "path": "/home/runner/work/_temp/output/2026-06-11/article-1-国足十级选择困难-fba537.md",
-      "slug": "国足十级选择困难-fba537",
+      "title": "一个百场，两个遥控器：武磊的体面和足协的傲慢",
+      "path": "/home/runner/work/_temp/output/2026-06-11/article-1-一个百场两个遥控-0d5ba0.md",
+      "slug": "一个百场两个遥控-0d5ba0",
       "tags": [
-        "China football",
-        "ranking",
-        "fan dilemma",
-        "U23",
-        "Asian Cup qualifier"
+        "Wu Lei",
+        "China national football team",
+        "100th cap",
+        "CCTV broadcast"
       ],
       "keywords": [
-        "China football",
-        "ranking",
-        "fan dilemma",
-        "U23",
-        "Asian Cup qualifier"
+        "Wu Lei",
+        "China national football team",
+        "100th cap",
+        "CCTV broadcast"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-11/images/article-1-img-001.jpg",
@@ -28,33 +26,35 @@
         "/home/runner/work/_temp/output/2026-06-11/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "选择困难！两场国足同时开打，CCTV直播节目单出炉"
+        "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式"
       ],
       "source_post": "",
-      "originality_note": "从资讯事件转为球迷视角的毒舌选择困境榜单，用生活类比重构赛程尴尬。",
-      "content_type": "排行榜",
-      "column_id": "shu-ju-pan-dian",
-      "column_name": "数据盘点",
-      "batch_name": "午间"
+      "originality_note": "将\"排片冲突\"转写为\"人物处境\"，从武磊百场的个人视角重新理解足协的操作，用细节和共情替代原文的信息罗列",
+      "content_type": "八卦趣事",
+      "column_id": "ren-wu-zhi",
+      "column_name": "人物志",
+      "batch_name": "晚间"
     },
     {
       "index": 2,
-      "title": "姆巴佩的困局，解法可能不在足球场上",
-      "path": "/home/runner/work/_temp/output/2026-06-11/article-2-姆巴佩的困局解法-0d5b0a.md",
-      "slug": "姆巴佩的困局解法-0d5b0a",
+      "title": "曼联，永远被宰的冤大头",
+      "path": "/home/runner/work/_temp/output/2026-06-11/article-2-曼联永远被宰的冤-93f9a4.md",
+      "slug": "曼联永远被宰的冤-93f9a4",
       "tags": [
-        "Mbappe",
-        "AI football",
-        "real-time decision",
-        "tactical analysis",
-        "football technology"
+        "Man United",
+        "transfer",
+        "Matheus Fernandes",
+        "West Ham",
+        "overspending",
+        "negotiation"
       ],
       "keywords": [
-        "Mbappe",
-        "AI football",
-        "real-time decision",
-        "tactical analysis",
-        "football technology"
+        "Man United",
+        "transfer",
+        "Matheus Fernandes",
+        "West Ham",
+        "overspending",
+        "negotiation"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-11/images/article-2-img-001.jpg",
@@ -62,41 +62,41 @@
         "/home/runner/work/_temp/output/2026-06-11/images/article-2-img-003.jpg"
       ],
       "sources_used": [
-        "感觉姆巴佩非常需要中国AI - 六神磊磊读金庸"
+        "9800万欧！太疯狂了",
+        "曼联已正式接洽M费，球员渴望加盟并且周薪合理！西汉姆要价升至8500万"
       ],
       "source_post": "",
-      "originality_note": "从调侃式引入转向严肃的战术科技探讨，用“算法”“决策系统”等IT类比降维解释足球难题。",
-      "content_type": "战术解析",
-      "column_id": "shen-shui-qu",
-      "column_name": "深水区",
-      "batch_name": "午间"
+      "originality_note": "从转会挨宰切入曼联历史溢价引援模式，以球迷记忆视角串联多个转会案例，区别于原文的新闻快讯写法",
+      "content_type": "八卦趣事",
+      "column_id": "shi-guang-ji",
+      "column_name": "时光机",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "国足双线同日开战，幸福烦恼还是资源错配？",
+      "title": "国足两场同时开打，球迷该看哪场？背后暴露管理混乱",
       "source_article_ids": [
         5
       ],
       "source_titles": [
         "选择困难！两场国足同时开打，CCTV直播节目单出炉，中泰之战前有武磊百场仪式"
       ],
-      "angle": "从球迷选择困境切入，对比成年队和U23队的战术风格与未来潜力，质疑双线作战对球员体能和关注度的分配是否合理，引出青训与国家队衔接的深层问题。",
+      "angle": "从CCTV直播节目单入手，分析足协安排成年国家队和U23国家队同一时间开赛的尴尬，指出这反映出赛事统筹缺乏用户思维，浪费球迷注意力，新观点是足协应更尊重球迷观赛体验而非自嗨式排片。",
       "keywords": [
-        "China national team",
-        "double matches",
-        "U23",
-        "tactical comparison"
+        "Chinese national team",
+        "match scheduling",
+        "CCTV broadcast"
       ],
       "keywords_cn": [
-        "中国男足",
-        "双线作战",
-        "U23国家队",
-        "战术分配"
+        "国足",
+        "赛程安排",
+        "球迷选择",
+        "管理混乱"
       ],
-      "content_type": "排行榜",
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
       "_source_articles": [
         {
           "id": 5,
@@ -222,58 +222,754 @@
           "_recency_score": 40
         }
       ],
-      "_standings": {},
-      "_column_id": "shu-ju-pan-dian",
-      "_column_name": "数据盘点",
-      "_column_icon": "📊",
-      "_writing_style": "毒舌点评体",
-      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
+      "_standings": {
+        "英超": [
+          {
+            "position": 1,
+            "team": "Arsenal FC",
+            "points": 85,
+            "played": 38,
+            "goal_diff": 44
+          },
+          {
+            "position": 2,
+            "team": "Manchester City FC",
+            "points": 78,
+            "played": 38,
+            "goal_diff": 42
+          },
+          {
+            "position": 3,
+            "team": "Manchester United FC",
+            "points": 71,
+            "played": 38,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "Aston Villa FC",
+            "points": 65,
+            "played": 38,
+            "goal_diff": 7
+          },
+          {
+            "position": 5,
+            "team": "Liverpool FC",
+            "points": 60,
+            "played": 38,
+            "goal_diff": 10
+          },
+          {
+            "position": 6,
+            "team": "AFC Bournemouth",
+            "points": 57,
+            "played": 38,
+            "goal_diff": 4
+          },
+          {
+            "position": 7,
+            "team": "Sunderland AFC",
+            "points": 54,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Brighton & Hove Albion FC",
+            "points": 53,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 9,
+            "team": "Brentford FC",
+            "points": 53,
+            "played": 38,
+            "goal_diff": 3
+          },
+          {
+            "position": 10,
+            "team": "Chelsea FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 11,
+            "team": "Fulham FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Newcastle United FC",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -2
+          },
+          {
+            "position": 13,
+            "team": "Everton FC",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 14,
+            "team": "Leeds United FC",
+            "points": 47,
+            "played": 38,
+            "goal_diff": -7
+          },
+          {
+            "position": 15,
+            "team": "Crystal Palace FC",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "Nottingham Forest FC",
+            "points": 44,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 17,
+            "team": "Tottenham Hotspur FC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 18,
+            "team": "West Ham United FC",
+            "points": 39,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 19,
+            "team": "Burnley FC",
+            "points": 22,
+            "played": 38,
+            "goal_diff": -37
+          },
+          {
+            "position": 20,
+            "team": "Wolverhampton Wanderers FC",
+            "points": 20,
+            "played": 38,
+            "goal_diff": -41
+          }
+        ],
+        "西甲": [
+          {
+            "position": 1,
+            "team": "FC Barcelona",
+            "points": 94,
+            "played": 38,
+            "goal_diff": 59
+          },
+          {
+            "position": 2,
+            "team": "Real Madrid CF",
+            "points": 86,
+            "played": 38,
+            "goal_diff": 42
+          },
+          {
+            "position": 3,
+            "team": "Villarreal CF",
+            "points": 72,
+            "played": 38,
+            "goal_diff": 26
+          },
+          {
+            "position": 4,
+            "team": "Club Atlético de Madrid",
+            "points": 69,
+            "played": 38,
+            "goal_diff": 18
+          },
+          {
+            "position": 5,
+            "team": "Real Betis Balompié",
+            "points": 60,
+            "played": 38,
+            "goal_diff": 11
+          },
+          {
+            "position": 6,
+            "team": "RC Celta de Vigo",
+            "points": 54,
+            "played": 38,
+            "goal_diff": 5
+          },
+          {
+            "position": 7,
+            "team": "Getafe CF",
+            "points": 51,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Rayo Vallecano de Madrid",
+            "points": 50,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 9,
+            "team": "Valencia CF",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 10,
+            "team": "Real Sociedad de Fútbol",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -2
+          },
+          {
+            "position": 11,
+            "team": "RCD Espanyol de Barcelona",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 12,
+            "team": "Athletic Club",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -15
+          },
+          {
+            "position": 13,
+            "team": "Sevilla FC",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "Deportivo Alavés",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "Elche CF",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -8
+          },
+          {
+            "position": 16,
+            "team": "Levante UD",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 17,
+            "team": "CA Osasuna",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 18,
+            "team": "RCD Mallorca",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 19,
+            "team": "Girona FC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -16
+          },
+          {
+            "position": 20,
+            "team": "Real Oviedo",
+            "points": 29,
+            "played": 38,
+            "goal_diff": -34
+          }
+        ],
+        "意甲": [
+          {
+            "position": 1,
+            "team": "FC Internazionale Milano",
+            "points": 87,
+            "played": 38,
+            "goal_diff": 54
+          },
+          {
+            "position": 2,
+            "team": "SSC Napoli",
+            "points": 76,
+            "played": 38,
+            "goal_diff": 22
+          },
+          {
+            "position": 3,
+            "team": "AS Roma",
+            "points": 73,
+            "played": 38,
+            "goal_diff": 28
+          },
+          {
+            "position": 4,
+            "team": "Como 1907",
+            "points": 71,
+            "played": 38,
+            "goal_diff": 36
+          },
+          {
+            "position": 5,
+            "team": "AC Milan",
+            "points": 70,
+            "played": 38,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Juventus FC",
+            "points": 69,
+            "played": 38,
+            "goal_diff": 27
+          },
+          {
+            "position": 7,
+            "team": "Atalanta BC",
+            "points": 59,
+            "played": 38,
+            "goal_diff": 15
+          },
+          {
+            "position": 8,
+            "team": "Bologna FC 1909",
+            "points": 56,
+            "played": 38,
+            "goal_diff": 3
+          },
+          {
+            "position": 9,
+            "team": "SS Lazio",
+            "points": 54,
+            "played": 38,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "Udinese Calcio",
+            "points": 50,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "US Sassuolo Calcio",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Torino FC",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 13,
+            "team": "Parma Calcio 1913",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -18
+          },
+          {
+            "position": 14,
+            "team": "Cagliari Calcio",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -13
+          },
+          {
+            "position": 15,
+            "team": "ACF Fiorentina",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 16,
+            "team": "Genoa CFC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 17,
+            "team": "US Lecce",
+            "points": 38,
+            "played": 38,
+            "goal_diff": -22
+          },
+          {
+            "position": 18,
+            "team": "US Cremonese",
+            "points": 34,
+            "played": 38,
+            "goal_diff": -25
+          },
+          {
+            "position": 19,
+            "team": "Hellas Verona FC",
+            "points": 21,
+            "played": 38,
+            "goal_diff": -36
+          },
+          {
+            "position": 20,
+            "team": "AC Pisa 1909",
+            "points": 18,
+            "played": 38,
+            "goal_diff": -45
+          }
+        ],
+        "德甲": [
+          {
+            "position": 1,
+            "team": "FC Bayern München",
+            "points": 89,
+            "played": 34,
+            "goal_diff": 86
+          },
+          {
+            "position": 2,
+            "team": "Borussia Dortmund",
+            "points": 73,
+            "played": 34,
+            "goal_diff": 36
+          },
+          {
+            "position": 3,
+            "team": "RB Leipzig",
+            "points": 65,
+            "played": 34,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "VfB Stuttgart",
+            "points": 62,
+            "played": 34,
+            "goal_diff": 22
+          },
+          {
+            "position": 5,
+            "team": "TSG 1899 Hoffenheim",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 6,
+            "team": "Bayer 04 Leverkusen",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 21
+          },
+          {
+            "position": 7,
+            "team": "SC Freiburg",
+            "points": 47,
+            "played": 34,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Eintracht Frankfurt",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -4
+          },
+          {
+            "position": 9,
+            "team": "FC Augsburg",
+            "points": 43,
+            "played": 34,
+            "goal_diff": -16
+          },
+          {
+            "position": 10,
+            "team": "1. FSV Mainz 05",
+            "points": 40,
+            "played": 34,
+            "goal_diff": -9
+          },
+          {
+            "position": 11,
+            "team": "1. FC Union Berlin",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 12,
+            "team": "Borussia Mönchengladbach",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -11
+          },
+          {
+            "position": 13,
+            "team": "Hamburger SV",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "1. FC Köln",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 15,
+            "team": "SV Werder Bremen",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 16,
+            "team": "VfL Wolfsburg",
+            "points": 29,
+            "played": 34,
+            "goal_diff": -24
+          },
+          {
+            "position": 17,
+            "team": "1. FC Heidenheim 1846",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          },
+          {
+            "position": 18,
+            "team": "FC St. Pauli 1910",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          }
+        ],
+        "法甲": [
+          {
+            "position": 1,
+            "team": "Paris Saint-Germain FC",
+            "points": 76,
+            "played": 34,
+            "goal_diff": 45
+          },
+          {
+            "position": 2,
+            "team": "Racing Club de Lens",
+            "points": 70,
+            "played": 34,
+            "goal_diff": 31
+          },
+          {
+            "position": 3,
+            "team": "Lille OSC",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 15
+          },
+          {
+            "position": 4,
+            "team": "Olympique Lyonnais",
+            "points": 60,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 5,
+            "team": "Olympique de Marseille",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Stade Rennais FC 1901",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 9
+          },
+          {
+            "position": 7,
+            "team": "AS Monaco FC",
+            "points": 54,
+            "played": 34,
+            "goal_diff": 6
+          },
+          {
+            "position": 8,
+            "team": "RC Strasbourg Alsace",
+            "points": 53,
+            "played": 34,
+            "goal_diff": 11
+          },
+          {
+            "position": 9,
+            "team": "Toulouse FC",
+            "points": 45,
+            "played": 34,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "FC Lorient",
+            "points": 45,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "Paris FC",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 12,
+            "team": "Stade Brestois 29",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 13,
+            "team": "Angers SCO",
+            "points": 36,
+            "played": 34,
+            "goal_diff": -19
+          },
+          {
+            "position": 14,
+            "team": "Le Havre AC",
+            "points": 35,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "AJ Auxerre",
+            "points": 34,
+            "played": 34,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "OGC Nice",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 17,
+            "team": "FC Nantes",
+            "points": 24,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 18,
+            "team": "FC Metz",
+            "points": 17,
+            "played": 34,
+            "goal_diff": -44
+          }
+        ]
+      },
+      "_column_id": "ren-wu-zhi",
+      "_column_name": "人物志",
+      "_column_icon": "👤",
+      "_writing_style": "人物杂志体",
+      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
       "_word_count_range": [
-        400,
-        600
+        500,
+        800
       ],
-      "_interaction_type": "challenge_dare",
-      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
-      "_topic_domain": "足球数据排名",
-      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
-      "_overall_tone": "有干货、有观点、适合社交分享"
+      "_interaction_type": "resonance_sharing",
+      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
+      "_topic_domain": "足球人物故事",
+      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "姆巴佩需要中国AI？科技足球的另类脑洞",
+      "title": "曼联又被抬价！8500万买21岁小将，溢价成常态",
       "source_article_ids": [
-        11
+        10,
+        12
       ],
       "source_titles": [
-        "感觉姆巴佩非常需要中国AI"
+        "9800万欧！太疯狂了",
+        "曼联已正式接洽M费，球员渴望加盟并且周薪合理！西汉姆要价升至8500万"
       ],
-      "angle": "以姆巴佩近期表现起伏为引，探讨AI技术如何辅助球员提升射门选择、跑位效率，并调侃中国AI企业若跨界足球会带来哪些奇葩功能，兼具科技与趣味。",
+      "angle": "以曼联追逐马特乌斯-费尔南德斯被西汉姆索要8500万为切入点，对比曼联近年溢价引援案例，指出红魔已成为转会市场冤大头，新观点是曼联引援团队缺乏谈判能力，管理层内耗导致每一笔交易都被宰。",
       "keywords": [
-        "Mbappe",
-        "AI",
-        "football technology",
-        "funny"
+        "Manchester United",
+        "transfer",
+        "overpay",
+        "Matheus Fernandes"
       ],
       "keywords_cn": [
-        "姆巴佩",
-        "人工智能",
-        "足球科技",
-        "脑洞"
+        "曼联",
+        "转会溢价",
+        "马特乌斯-费尔南德斯",
+        "西汉姆"
       ],
-      "content_type": "战术解析",
-      "controversy_level": "low",
-      "target_emotion": "好奇",
+      "content_type": "八卦趣事",
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
       "_source_articles": [
         {
-          "id": 11,
-          "title": "感觉姆巴佩非常需要中国AI",
-          "summary": "帮我转给姆总",
-          "account": "六神磊磊读金庸",
-          "reads": "7w+",
-          "likes": 485,
+          "id": 10,
+          "title": "9800万欧！太疯狂了",
+          "summary": "在敲定首签埃德森-席尔瓦的转会后，曼联攻坚潜在第二签马特乌斯-费尔南德斯却被狮子大开口……         知名记者罗马诺、英国《卫报》、西班牙《阿斯报》接连更新消息，21岁葡萄牙中场马特乌斯-费尔南德斯成为各大豪门补强猎物，曼联、皇马、利",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 65,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 12,
+          "title": "曼联已正式接洽M费，球员渴望加盟并且周薪合理！西汉姆要价升至8500万",
+          "summary": "M费的转会不可能一帆风顺。",
+          "account": "罗米曼联博客",
+          "reads": "4053",
+          "likes": 35,
           "data_score": 100,
           "pub_time": "2026-06-09",
           "_recency_score": 40
@@ -391,58 +1087,755 @@
           "_recency_score": 40
         }
       ],
-      "_standings": {},
-      "_column_id": "shen-shui-qu",
-      "_column_name": "深水区",
-      "_column_icon": "🌊",
-      "_writing_style": "内行看门道体",
-      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
+      "_standings": {
+        "英超": [
+          {
+            "position": 1,
+            "team": "Arsenal FC",
+            "points": 85,
+            "played": 38,
+            "goal_diff": 44
+          },
+          {
+            "position": 2,
+            "team": "Manchester City FC",
+            "points": 78,
+            "played": 38,
+            "goal_diff": 42
+          },
+          {
+            "position": 3,
+            "team": "Manchester United FC",
+            "points": 71,
+            "played": 38,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "Aston Villa FC",
+            "points": 65,
+            "played": 38,
+            "goal_diff": 7
+          },
+          {
+            "position": 5,
+            "team": "Liverpool FC",
+            "points": 60,
+            "played": 38,
+            "goal_diff": 10
+          },
+          {
+            "position": 6,
+            "team": "AFC Bournemouth",
+            "points": 57,
+            "played": 38,
+            "goal_diff": 4
+          },
+          {
+            "position": 7,
+            "team": "Sunderland AFC",
+            "points": 54,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Brighton & Hove Albion FC",
+            "points": 53,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 9,
+            "team": "Brentford FC",
+            "points": 53,
+            "played": 38,
+            "goal_diff": 3
+          },
+          {
+            "position": 10,
+            "team": "Chelsea FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 11,
+            "team": "Fulham FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Newcastle United FC",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -2
+          },
+          {
+            "position": 13,
+            "team": "Everton FC",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 14,
+            "team": "Leeds United FC",
+            "points": 47,
+            "played": 38,
+            "goal_diff": -7
+          },
+          {
+            "position": 15,
+            "team": "Crystal Palace FC",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "Nottingham Forest FC",
+            "points": 44,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 17,
+            "team": "Tottenham Hotspur FC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 18,
+            "team": "West Ham United FC",
+            "points": 39,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 19,
+            "team": "Burnley FC",
+            "points": 22,
+            "played": 38,
+            "goal_diff": -37
+          },
+          {
+            "position": 20,
+            "team": "Wolverhampton Wanderers FC",
+            "points": 20,
+            "played": 38,
+            "goal_diff": -41
+          }
+        ],
+        "西甲": [
+          {
+            "position": 1,
+            "team": "FC Barcelona",
+            "points": 94,
+            "played": 38,
+            "goal_diff": 59
+          },
+          {
+            "position": 2,
+            "team": "Real Madrid CF",
+            "points": 86,
+            "played": 38,
+            "goal_diff": 42
+          },
+          {
+            "position": 3,
+            "team": "Villarreal CF",
+            "points": 72,
+            "played": 38,
+            "goal_diff": 26
+          },
+          {
+            "position": 4,
+            "team": "Club Atlético de Madrid",
+            "points": 69,
+            "played": 38,
+            "goal_diff": 18
+          },
+          {
+            "position": 5,
+            "team": "Real Betis Balompié",
+            "points": 60,
+            "played": 38,
+            "goal_diff": 11
+          },
+          {
+            "position": 6,
+            "team": "RC Celta de Vigo",
+            "points": 54,
+            "played": 38,
+            "goal_diff": 5
+          },
+          {
+            "position": 7,
+            "team": "Getafe CF",
+            "points": 51,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Rayo Vallecano de Madrid",
+            "points": 50,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 9,
+            "team": "Valencia CF",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 10,
+            "team": "Real Sociedad de Fútbol",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -2
+          },
+          {
+            "position": 11,
+            "team": "RCD Espanyol de Barcelona",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 12,
+            "team": "Athletic Club",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -15
+          },
+          {
+            "position": 13,
+            "team": "Sevilla FC",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "Deportivo Alavés",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "Elche CF",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -8
+          },
+          {
+            "position": 16,
+            "team": "Levante UD",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 17,
+            "team": "CA Osasuna",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 18,
+            "team": "RCD Mallorca",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 19,
+            "team": "Girona FC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -16
+          },
+          {
+            "position": 20,
+            "team": "Real Oviedo",
+            "points": 29,
+            "played": 38,
+            "goal_diff": -34
+          }
+        ],
+        "意甲": [
+          {
+            "position": 1,
+            "team": "FC Internazionale Milano",
+            "points": 87,
+            "played": 38,
+            "goal_diff": 54
+          },
+          {
+            "position": 2,
+            "team": "SSC Napoli",
+            "points": 76,
+            "played": 38,
+            "goal_diff": 22
+          },
+          {
+            "position": 3,
+            "team": "AS Roma",
+            "points": 73,
+            "played": 38,
+            "goal_diff": 28
+          },
+          {
+            "position": 4,
+            "team": "Como 1907",
+            "points": 71,
+            "played": 38,
+            "goal_diff": 36
+          },
+          {
+            "position": 5,
+            "team": "AC Milan",
+            "points": 70,
+            "played": 38,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Juventus FC",
+            "points": 69,
+            "played": 38,
+            "goal_diff": 27
+          },
+          {
+            "position": 7,
+            "team": "Atalanta BC",
+            "points": 59,
+            "played": 38,
+            "goal_diff": 15
+          },
+          {
+            "position": 8,
+            "team": "Bologna FC 1909",
+            "points": 56,
+            "played": 38,
+            "goal_diff": 3
+          },
+          {
+            "position": 9,
+            "team": "SS Lazio",
+            "points": 54,
+            "played": 38,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "Udinese Calcio",
+            "points": 50,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "US Sassuolo Calcio",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Torino FC",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 13,
+            "team": "Parma Calcio 1913",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -18
+          },
+          {
+            "position": 14,
+            "team": "Cagliari Calcio",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -13
+          },
+          {
+            "position": 15,
+            "team": "ACF Fiorentina",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 16,
+            "team": "Genoa CFC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 17,
+            "team": "US Lecce",
+            "points": 38,
+            "played": 38,
+            "goal_diff": -22
+          },
+          {
+            "position": 18,
+            "team": "US Cremonese",
+            "points": 34,
+            "played": 38,
+            "goal_diff": -25
+          },
+          {
+            "position": 19,
+            "team": "Hellas Verona FC",
+            "points": 21,
+            "played": 38,
+            "goal_diff": -36
+          },
+          {
+            "position": 20,
+            "team": "AC Pisa 1909",
+            "points": 18,
+            "played": 38,
+            "goal_diff": -45
+          }
+        ],
+        "德甲": [
+          {
+            "position": 1,
+            "team": "FC Bayern München",
+            "points": 89,
+            "played": 34,
+            "goal_diff": 86
+          },
+          {
+            "position": 2,
+            "team": "Borussia Dortmund",
+            "points": 73,
+            "played": 34,
+            "goal_diff": 36
+          },
+          {
+            "position": 3,
+            "team": "RB Leipzig",
+            "points": 65,
+            "played": 34,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "VfB Stuttgart",
+            "points": 62,
+            "played": 34,
+            "goal_diff": 22
+          },
+          {
+            "position": 5,
+            "team": "TSG 1899 Hoffenheim",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 6,
+            "team": "Bayer 04 Leverkusen",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 21
+          },
+          {
+            "position": 7,
+            "team": "SC Freiburg",
+            "points": 47,
+            "played": 34,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Eintracht Frankfurt",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -4
+          },
+          {
+            "position": 9,
+            "team": "FC Augsburg",
+            "points": 43,
+            "played": 34,
+            "goal_diff": -16
+          },
+          {
+            "position": 10,
+            "team": "1. FSV Mainz 05",
+            "points": 40,
+            "played": 34,
+            "goal_diff": -9
+          },
+          {
+            "position": 11,
+            "team": "1. FC Union Berlin",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 12,
+            "team": "Borussia Mönchengladbach",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -11
+          },
+          {
+            "position": 13,
+            "team": "Hamburger SV",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "1. FC Köln",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 15,
+            "team": "SV Werder Bremen",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 16,
+            "team": "VfL Wolfsburg",
+            "points": 29,
+            "played": 34,
+            "goal_diff": -24
+          },
+          {
+            "position": 17,
+            "team": "1. FC Heidenheim 1846",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          },
+          {
+            "position": 18,
+            "team": "FC St. Pauli 1910",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          }
+        ],
+        "法甲": [
+          {
+            "position": 1,
+            "team": "Paris Saint-Germain FC",
+            "points": 76,
+            "played": 34,
+            "goal_diff": 45
+          },
+          {
+            "position": 2,
+            "team": "Racing Club de Lens",
+            "points": 70,
+            "played": 34,
+            "goal_diff": 31
+          },
+          {
+            "position": 3,
+            "team": "Lille OSC",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 15
+          },
+          {
+            "position": 4,
+            "team": "Olympique Lyonnais",
+            "points": 60,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 5,
+            "team": "Olympique de Marseille",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Stade Rennais FC 1901",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 9
+          },
+          {
+            "position": 7,
+            "team": "AS Monaco FC",
+            "points": 54,
+            "played": 34,
+            "goal_diff": 6
+          },
+          {
+            "position": 8,
+            "team": "RC Strasbourg Alsace",
+            "points": 53,
+            "played": 34,
+            "goal_diff": 11
+          },
+          {
+            "position": 9,
+            "team": "Toulouse FC",
+            "points": 45,
+            "played": 34,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "FC Lorient",
+            "points": 45,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "Paris FC",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 12,
+            "team": "Stade Brestois 29",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 13,
+            "team": "Angers SCO",
+            "points": 36,
+            "played": 34,
+            "goal_diff": -19
+          },
+          {
+            "position": 14,
+            "team": "Le Havre AC",
+            "points": 35,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "AJ Auxerre",
+            "points": 34,
+            "played": 34,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "OGC Nice",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 17,
+            "team": "FC Nantes",
+            "points": 24,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 18,
+            "team": "FC Metz",
+            "points": 17,
+            "played": 34,
+            "goal_diff": -44
+          }
+        ]
+      },
+      "_column_id": "shi-guang-ji",
+      "_column_name": "时光机",
+      "_column_icon": "⏰",
+      "_writing_style": "回忆杀体",
+      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
       "_word_count_range": [
         500,
         700
       ],
-      "_interaction_type": "opinion_poll",
-      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
-      "_topic_domain": "足球深度分析",
-      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
-      "_overall_tone": "有干货、有观点、适合社交分享"
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
+      "_topic_domain": "足球历史/记忆/球迷文化",
+      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "11场决赛不败！这位左后卫是足坛玄学还是真大腿？",
+      "title": "14名足球小将回国无人问津，这才是中国足球最该被重视的声音",
       "source_article_ids": [
-        13
+        4,
+        9
       ],
       "source_titles": [
-        "吓人！11场决赛不败！"
+        "14名足球小将们回国了！没想到欢迎仪式会是这样",
+        "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！"
       ],
-      "angle": "从数据分析该左后卫（如坎塞洛/卡瓦哈尔）决赛不败纪录背后的战术贡献，对比历史决赛之王（如马尔蒂尼、卡福），探讨现代边后卫在关键战中的角色进化，并用玄学梗提升趣味。",
+      "angle": "聚焦足球小将回国后无足协官员接机、全靠家长自发的场景，对比足协对成年国家队的铺张排场，指出青训实干者被冷落、官僚主义盛行才是中国足球症结，新观点是真正的希望不在大牌球员而在这些默默踢球的孩子。",
       "keywords": [
-        "final unbeaten",
-        "left-back",
-        "tactical analysis",
-        "record"
+        "youth football",
+        "Chinese football",
+        "grassroots",
+        "FA neglect"
       ],
       "keywords_cn": [
-        "决赛不败",
-        "左后卫",
-        "战术解析",
-        "数据纪录"
+        "足球小将",
+        "青训",
+        "足协",
+        "官僚主义",
+        "草根"
       ],
-      "content_type": "排行榜/战术解析",
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "感动",
       "_source_articles": [
         {
-          "id": 13,
-          "title": "吓人！11场决赛不败！",
-          "summary": "世一左！五年14冠！身价8000万！",
-          "account": "天下足球",
-          "reads": "3w+",
-          "likes": 288,
+          "id": 4,
+          "title": "14名足球小将们回国了！没想到欢迎仪式会是这样",
+          "summary": "他们回来了。没有接机直播，没有媒体长枪短炮，没有足协领导握手合影。",
+          "account": "好运连连1972",
+          "reads": "7w+",
+          "likes": 863,
+          "data_score": 100,
+          "pub_time": "2026-06-09",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "14名足球小将回国！他们的家长去接机，发现一个很有趣的事情，那就是他们家长的面孔！",
+          "summary": "最近刷屏足坛的 14 名中国足球小将，带着欧洲赛事的冠军荣誉顺利回国。",
+          "account": "深圳天精8690",
+          "reads": "10w+",
+          "likes": 902,
           "data_score": 100,
           "pub_time": "2026-06-09",
           "_recency_score": 40
@@ -560,14 +1953,698 @@
           "_recency_score": 40
         }
       ],
-      "_standings": {}
+      "_standings": {
+        "英超": [
+          {
+            "position": 1,
+            "team": "Arsenal FC",
+            "points": 85,
+            "played": 38,
+            "goal_diff": 44
+          },
+          {
+            "position": 2,
+            "team": "Manchester City FC",
+            "points": 78,
+            "played": 38,
+            "goal_diff": 42
+          },
+          {
+            "position": 3,
+            "team": "Manchester United FC",
+            "points": 71,
+            "played": 38,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "Aston Villa FC",
+            "points": 65,
+            "played": 38,
+            "goal_diff": 7
+          },
+          {
+            "position": 5,
+            "team": "Liverpool FC",
+            "points": 60,
+            "played": 38,
+            "goal_diff": 10
+          },
+          {
+            "position": 6,
+            "team": "AFC Bournemouth",
+            "points": 57,
+            "played": 38,
+            "goal_diff": 4
+          },
+          {
+            "position": 7,
+            "team": "Sunderland AFC",
+            "points": 54,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Brighton & Hove Albion FC",
+            "points": 53,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 9,
+            "team": "Brentford FC",
+            "points": 53,
+            "played": 38,
+            "goal_diff": 3
+          },
+          {
+            "position": 10,
+            "team": "Chelsea FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": 6
+          },
+          {
+            "position": 11,
+            "team": "Fulham FC",
+            "points": 52,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Newcastle United FC",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -2
+          },
+          {
+            "position": 13,
+            "team": "Everton FC",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 14,
+            "team": "Leeds United FC",
+            "points": 47,
+            "played": 38,
+            "goal_diff": -7
+          },
+          {
+            "position": 15,
+            "team": "Crystal Palace FC",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "Nottingham Forest FC",
+            "points": 44,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 17,
+            "team": "Tottenham Hotspur FC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 18,
+            "team": "West Ham United FC",
+            "points": 39,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 19,
+            "team": "Burnley FC",
+            "points": 22,
+            "played": 38,
+            "goal_diff": -37
+          },
+          {
+            "position": 20,
+            "team": "Wolverhampton Wanderers FC",
+            "points": 20,
+            "played": 38,
+            "goal_diff": -41
+          }
+        ],
+        "西甲": [
+          {
+            "position": 1,
+            "team": "FC Barcelona",
+            "points": 94,
+            "played": 38,
+            "goal_diff": 59
+          },
+          {
+            "position": 2,
+            "team": "Real Madrid CF",
+            "points": 86,
+            "played": 38,
+            "goal_diff": 42
+          },
+          {
+            "position": 3,
+            "team": "Villarreal CF",
+            "points": 72,
+            "played": 38,
+            "goal_diff": 26
+          },
+          {
+            "position": 4,
+            "team": "Club Atlético de Madrid",
+            "points": 69,
+            "played": 38,
+            "goal_diff": 18
+          },
+          {
+            "position": 5,
+            "team": "Real Betis Balompié",
+            "points": 60,
+            "played": 38,
+            "goal_diff": 11
+          },
+          {
+            "position": 6,
+            "team": "RC Celta de Vigo",
+            "points": 54,
+            "played": 38,
+            "goal_diff": 5
+          },
+          {
+            "position": 7,
+            "team": "Getafe CF",
+            "points": 51,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Rayo Vallecano de Madrid",
+            "points": 50,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 9,
+            "team": "Valencia CF",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 10,
+            "team": "Real Sociedad de Fútbol",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -2
+          },
+          {
+            "position": 11,
+            "team": "RCD Espanyol de Barcelona",
+            "points": 46,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 12,
+            "team": "Athletic Club",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -15
+          },
+          {
+            "position": 13,
+            "team": "Sevilla FC",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "Deportivo Alavés",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "Elche CF",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -8
+          },
+          {
+            "position": 16,
+            "team": "Levante UD",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -14
+          },
+          {
+            "position": 17,
+            "team": "CA Osasuna",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -6
+          },
+          {
+            "position": 18,
+            "team": "RCD Mallorca",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 19,
+            "team": "Girona FC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -16
+          },
+          {
+            "position": 20,
+            "team": "Real Oviedo",
+            "points": 29,
+            "played": 38,
+            "goal_diff": -34
+          }
+        ],
+        "意甲": [
+          {
+            "position": 1,
+            "team": "FC Internazionale Milano",
+            "points": 87,
+            "played": 38,
+            "goal_diff": 54
+          },
+          {
+            "position": 2,
+            "team": "SSC Napoli",
+            "points": 76,
+            "played": 38,
+            "goal_diff": 22
+          },
+          {
+            "position": 3,
+            "team": "AS Roma",
+            "points": 73,
+            "played": 38,
+            "goal_diff": 28
+          },
+          {
+            "position": 4,
+            "team": "Como 1907",
+            "points": 71,
+            "played": 38,
+            "goal_diff": 36
+          },
+          {
+            "position": 5,
+            "team": "AC Milan",
+            "points": 70,
+            "played": 38,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Juventus FC",
+            "points": 69,
+            "played": 38,
+            "goal_diff": 27
+          },
+          {
+            "position": 7,
+            "team": "Atalanta BC",
+            "points": 59,
+            "played": 38,
+            "goal_diff": 15
+          },
+          {
+            "position": 8,
+            "team": "Bologna FC 1909",
+            "points": 56,
+            "played": 38,
+            "goal_diff": 3
+          },
+          {
+            "position": 9,
+            "team": "SS Lazio",
+            "points": 54,
+            "played": 38,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "Udinese Calcio",
+            "points": 50,
+            "played": 38,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "US Sassuolo Calcio",
+            "points": 49,
+            "played": 38,
+            "goal_diff": -4
+          },
+          {
+            "position": 12,
+            "team": "Torino FC",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -19
+          },
+          {
+            "position": 13,
+            "team": "Parma Calcio 1913",
+            "points": 45,
+            "played": 38,
+            "goal_diff": -18
+          },
+          {
+            "position": 14,
+            "team": "Cagliari Calcio",
+            "points": 43,
+            "played": 38,
+            "goal_diff": -13
+          },
+          {
+            "position": 15,
+            "team": "ACF Fiorentina",
+            "points": 42,
+            "played": 38,
+            "goal_diff": -9
+          },
+          {
+            "position": 16,
+            "team": "Genoa CFC",
+            "points": 41,
+            "played": 38,
+            "goal_diff": -10
+          },
+          {
+            "position": 17,
+            "team": "US Lecce",
+            "points": 38,
+            "played": 38,
+            "goal_diff": -22
+          },
+          {
+            "position": 18,
+            "team": "US Cremonese",
+            "points": 34,
+            "played": 38,
+            "goal_diff": -25
+          },
+          {
+            "position": 19,
+            "team": "Hellas Verona FC",
+            "points": 21,
+            "played": 38,
+            "goal_diff": -36
+          },
+          {
+            "position": 20,
+            "team": "AC Pisa 1909",
+            "points": 18,
+            "played": 38,
+            "goal_diff": -45
+          }
+        ],
+        "德甲": [
+          {
+            "position": 1,
+            "team": "FC Bayern München",
+            "points": 89,
+            "played": 34,
+            "goal_diff": 86
+          },
+          {
+            "position": 2,
+            "team": "Borussia Dortmund",
+            "points": 73,
+            "played": 34,
+            "goal_diff": 36
+          },
+          {
+            "position": 3,
+            "team": "RB Leipzig",
+            "points": 65,
+            "played": 34,
+            "goal_diff": 19
+          },
+          {
+            "position": 4,
+            "team": "VfB Stuttgart",
+            "points": 62,
+            "played": 34,
+            "goal_diff": 22
+          },
+          {
+            "position": 5,
+            "team": "TSG 1899 Hoffenheim",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 6,
+            "team": "Bayer 04 Leverkusen",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 21
+          },
+          {
+            "position": 7,
+            "team": "SC Freiburg",
+            "points": 47,
+            "played": 34,
+            "goal_diff": -6
+          },
+          {
+            "position": 8,
+            "team": "Eintracht Frankfurt",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -4
+          },
+          {
+            "position": 9,
+            "team": "FC Augsburg",
+            "points": 43,
+            "played": 34,
+            "goal_diff": -16
+          },
+          {
+            "position": 10,
+            "team": "1. FSV Mainz 05",
+            "points": 40,
+            "played": 34,
+            "goal_diff": -9
+          },
+          {
+            "position": 11,
+            "team": "1. FC Union Berlin",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 12,
+            "team": "Borussia Mönchengladbach",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -11
+          },
+          {
+            "position": 13,
+            "team": "Hamburger SV",
+            "points": 38,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 14,
+            "team": "1. FC Köln",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -14
+          },
+          {
+            "position": 15,
+            "team": "SV Werder Bremen",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 16,
+            "team": "VfL Wolfsburg",
+            "points": 29,
+            "played": 34,
+            "goal_diff": -24
+          },
+          {
+            "position": 17,
+            "team": "1. FC Heidenheim 1846",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          },
+          {
+            "position": 18,
+            "team": "FC St. Pauli 1910",
+            "points": 26,
+            "played": 34,
+            "goal_diff": -31
+          }
+        ],
+        "法甲": [
+          {
+            "position": 1,
+            "team": "Paris Saint-Germain FC",
+            "points": 76,
+            "played": 34,
+            "goal_diff": 45
+          },
+          {
+            "position": 2,
+            "team": "Racing Club de Lens",
+            "points": 70,
+            "played": 34,
+            "goal_diff": 31
+          },
+          {
+            "position": 3,
+            "team": "Lille OSC",
+            "points": 61,
+            "played": 34,
+            "goal_diff": 15
+          },
+          {
+            "position": 4,
+            "team": "Olympique Lyonnais",
+            "points": 60,
+            "played": 34,
+            "goal_diff": 13
+          },
+          {
+            "position": 5,
+            "team": "Olympique de Marseille",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 18
+          },
+          {
+            "position": 6,
+            "team": "Stade Rennais FC 1901",
+            "points": 59,
+            "played": 34,
+            "goal_diff": 9
+          },
+          {
+            "position": 7,
+            "team": "AS Monaco FC",
+            "points": 54,
+            "played": 34,
+            "goal_diff": 6
+          },
+          {
+            "position": 8,
+            "team": "RC Strasbourg Alsace",
+            "points": 53,
+            "played": 34,
+            "goal_diff": 11
+          },
+          {
+            "position": 9,
+            "team": "Toulouse FC",
+            "points": 45,
+            "played": 34,
+            "goal_diff": 1
+          },
+          {
+            "position": 10,
+            "team": "FC Lorient",
+            "points": 45,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 11,
+            "team": "Paris FC",
+            "points": 44,
+            "played": 34,
+            "goal_diff": -3
+          },
+          {
+            "position": 12,
+            "team": "Stade Brestois 29",
+            "points": 39,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 13,
+            "team": "Angers SCO",
+            "points": 36,
+            "played": 34,
+            "goal_diff": -19
+          },
+          {
+            "position": 14,
+            "team": "Le Havre AC",
+            "points": 35,
+            "played": 34,
+            "goal_diff": -12
+          },
+          {
+            "position": 15,
+            "team": "AJ Auxerre",
+            "points": 34,
+            "played": 34,
+            "goal_diff": -10
+          },
+          {
+            "position": 16,
+            "team": "OGC Nice",
+            "points": 32,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 17,
+            "team": "FC Nantes",
+            "points": 24,
+            "played": 34,
+            "goal_diff": -23
+          },
+          {
+            "position": 18,
+            "team": "FC Metz",
+            "points": 17,
+            "played": 34,
+            "goal_diff": -44
+          }
+        ]
+      }
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-11 15:39:27"
+  "last_batch": "evening",
+  "last_updated": "2026-06-11 15:56:58"
 }
