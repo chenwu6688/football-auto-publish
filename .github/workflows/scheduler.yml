@@ -1,4 +1,5 @@
 name: Scheduler
+# repo is public — Actions minutes are unlimited, cron triggers are active
 
 on:
   workflow_dispatch:
