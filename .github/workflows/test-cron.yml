@@ -1,0 +1,11 @@
+name: CronTest
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "cron alive at $(date -u)"
