@@ -1,4 +1,5 @@
 name: 调度健康检查
+# cron reactivation after repo went public 2026-06-11
 
 # 每天 22:00 CST (14:00 UTC) 检查三个批次是否全部完成
 # 如有遗漏，通过 WxPusher 发送告警

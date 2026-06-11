@@ -1,4 +1,5 @@
 name: 足球自媒体批次发布
+# cron reactivation after repo went public 2026-06-11
 
 # 双保险调度策略：
 #   主调度: cron-job.org → workflow_dispatch API（精确到秒，UTC 时区）
