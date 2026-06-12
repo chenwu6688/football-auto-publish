@@ -66,11 +66,44 @@ def safe_json_loads(text):
     text = text.strip()
     if text.startswith("```"):
         text = text.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        try:
-            return json.loads(text, strict=False)
-        except json.JSONDecodeError:
-            fixed = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', lambda m: f'\\u{ord(m.group(0)):04x}', text)
-            return json.loads(fixed)
+
+    def _try_all(s):
+        strategies = [
+            ("strict", lambda t: json.loads(t)),
+            ("non-strict", lambda t: json.loads(t, strict=False)),
+            ("fix-control-chars", lambda t: json.loads(re.sub(
+                r'[\x00-\x08\x0b\x0c\x0e-\x1f]', lambda m: f'\\u{ord(m.group(0)):04x}', t))),
+        ]
+        for name, fn in strategies:
+            try:
+                return fn(s)
+            except json.JSONDecodeError:
+                continue
+        return None
+
+    result = _try_all(text)
+    if result is not None:
+        return result
+
+    # Extract JSON block: find outermost [ ] or { }
+    m = re.search(r'\[[\s\S]*\]|\{[\s\S]*\}', text)
+    if m:
+        block = m.group(0)
+        result = _try_all(block)
+        if result is not None:
+            return result
+
+    # Remove trailing commas and try again
+    fixed = re.sub(r',\s*([]}])', r'\1', text)
+    result = _try_all(fixed)
+    if result is not None:
+        return result
+
+    # Extract block + remove trailing commas
+    if m:
+        block = re.sub(r',\s*([]}])', r'\1', m.group(0))
+        result = _try_all(block)
+        if result is not None:
+            return result
+
+    raise ValueError(f"Unable to parse JSON after all fixes. Raw (first 300 chars): {text[:300]}")
