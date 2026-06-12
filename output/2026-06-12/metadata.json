@@ -1,26 +1,26 @@
 {
   "date": "2026-06-12",
-  "generated_at": "2026-06-11T17:51:34.354380",
+  "generated_at": "2026-06-12T02:52:22.105194",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "晨读｜12岁孩子一句回怼，撕开了成人足球的遮羞布",
-      "path": "/home/runner/work/_temp/output/2026-06-12/article-1-晨读12岁孩子一-703054.md",
-      "slug": "晨读12岁孩子一-703054",
+      "title": "中国足球少年海外打脸实录：12岁的嘴，比国足的脚还硬",
+      "path": "/home/runner/work/_temp/output/2026-06-12/article-1-中国足球少年海外-32817b.md",
+      "slug": "中国足球少年海外-32817b",
       "tags": [
-        "Chinese football",
         "youth football",
-        "Meng Xinyi",
-        "Real Madrid transfer",
-        "Mbappe"
+        "Chinese football",
+        "SIGISMONDI Cup",
+        "academy",
+        "Meng Xinyi"
       ],
       "keywords": [
-        "Chinese football",
         "youth football",
-        "Meng Xinyi",
-        "Real Madrid transfer",
-        "Mbappe"
+        "Chinese football",
+        "SIGISMONDI Cup",
+        "academy",
+        "Meng Xinyi"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-12/images/article-1-img-001.jpg",
@@ -28,35 +28,36 @@
         "/home/runner/work/_temp/output/2026-06-12/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "赛后采访孟新艺",
-        "皇马官方报价阿尔瓦雷斯",
-        "法国队备战世界杯"
+        "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾",
+        "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上"
       ],
       "source_post": "",
-      "originality_note": "从孟新艺事件切入，对比成人足球软、转会市场乱，用群聊播报体重新组织，强调青训精神传承而非简单赛事描述。",
-      "content_type": "热点球评",
-      "column_id": "chen-du-kuai-xun",
-      "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "originality_note": "从12岁球员高光切入，借排行榜形式警示青训系统短板，反捧杀叙事。",
+      "content_type": "排行榜",
+      "column_id": "shu-ju-pan-dian",
+      "column_name": "数据盘点",
+      "batch_name": "午间"
     },
     {
       "index": 2,
-      "title": "1.5亿砸阿尔瓦雷斯？这彩票刮得值不值",
-      "path": "/home/runner/work/_temp/output/2026-06-12/article-2-15亿砸阿尔瓦雷-dec546.md",
-      "slug": "15亿砸阿尔瓦雷-dec546",
+      "title": "皇马这1.5亿，是豪赌还是求救？",
+      "path": "/home/runner/work/_temp/output/2026-06-12/article-2-皇马这15亿是豪-8728c1.md",
+      "slug": "皇马这15亿是豪-8728c1",
       "tags": [
-        "Alvarez",
         "Real Madrid",
+        "Julian Alvarez",
         "transfer",
+        "tactics",
         "Mbappe",
-        "150 million"
+        "Benzema"
       ],
       "keywords": [
-        "Alvarez",
         "Real Madrid",
+        "Julian Alvarez",
         "transfer",
+        "tactics",
         "Mbappe",
-        "150 million"
+        "Benzema"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-12/images/article-2-img-001.jpg",
@@ -67,41 +68,43 @@
         "皇马官方：1.5亿欧报价阿尔瓦雷斯！"
       ],
       "source_post": "",
-      "originality_note": "从建队策略和转会心理切入，加入姆巴佩肥皂剧背景和球迷两难立场，完全重写叙事结构。",
-      "content_type": "八卦趣事",
-      "column_id": "hua-ti-lei-tai",
-      "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "originality_note": "将转会新闻重构为皇马转会策略与球队结构危机的深度解读，从交易表象挖掘被迫引援的逻辑崩塌。",
+      "content_type": "战术解析",
+      "column_id": "shen-shui-qu",
+      "column_name": "深水区",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "12岁小将怒怼外援，中国足球的骨气该从娃娃抓起",
+      "title": "12岁小将一句狠话，比国足赢球更提气？",
       "source_article_ids": [
-        1,
-        9
+        10,
+        2
       ],
       "source_titles": [
         "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
         "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上"
       ],
-      "angle": "从中国足球小将夺冠并霸气回应外援挑衅切入，反思成人足球的软骨病，强调青训不仅是技术更是精神传承，孩子的一句话比任何战术都更打动人心。",
+      "angle": "从中国足球小将孟新艺在意大利杯决赛怒怼外援切入，揭示中国青训在海外赛事中的突破，但警惕过度捧杀——个别天才不等于体系成功，基层青训仍有大量空白。",
       "keywords": [
         "Chinese youth football",
-        "pride",
+        "SIGISMONDI Cup",
+        "football prodigy",
         "foreign provocation"
       ],
       "keywords_cn": [
-        "中国足球青训",
-        "骨气",
-        "外援挑衅"
+        "中国足球小将",
+        "青训突破",
+        "外援挑衅",
+        "民族自信"
       ],
-      "content_type": "热点球评",
+      "content_type": "排行榜",
       "controversy_level": "medium",
       "target_emotion": "骄傲",
       "_source_articles": [
         {
-          "id": 1,
+          "id": 10,
           "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
           "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
           "account": "摊上好柿ye",
@@ -112,7 +115,7 @@
           "_recency_score": 40
         },
         {
-          "id": 9,
+          "id": 2,
           "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
           "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
           "account": "宽窄之道",
@@ -126,50 +129,6 @@
       "_all_articles": [
         {
           "id": 1,
-          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
-          "account": "摊上好柿ye",
-          "reads": "2w+",
-          "likes": 271,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "世界杯倒计时1天｜一登未平、一奥又起，法国队怕是要提前进入「后姆巴佩时代」",
-          "summary": "姆巴佩的苦恼第二期",
-          "account": "怪咖的脑洞",
-          "reads": "4w+",
-          "likes": 58,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "这个618，与C罗一起把家变成主场｜冠军级舒适，尽在追觅空调",
-          "summary": "",
-          "account": "追觅科技",
-          "reads": "2w+",
-          "likes": 44,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "皇马官方：1.5亿欧报价阿尔瓦雷斯！",
-          "summary": "神奇反转！",
-          "account": "天下足球",
-          "reads": "2w+",
-          "likes": 278,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
           "title": "成为潮水本身",
           "summary": "空气中一直蒸腾着橡胶、腐殖土，和防锈油的混合气息。  在泰国春武里府的丘陵深处，热带暴雨总是毫无征兆地砸下来。  在一片占地面积相当于45个标准足球场的工厂入口处，巨大的红色立牌显得格外扎眼。上面用中泰双语写着一句话：           ",
           "account": "兽楼处",
@@ -180,40 +139,7 @@
           "_recency_score": 40
         },
         {
-          "id": 6,
-          "title": "一句“只是圆梦”，谢娜把多少观众又骗进了演唱会？",
-          "summary": "本文基于\"谢娜开启全国巡演\"撰写\n谢娜又被骂了。\n6月6日，谢娜在《乘风2026》直播中宣布开启全国巡回演唱会。    消息公布后，她的小红书和微博瞬间被网友”攻陷“，一时成为舆论众矢之的。争议点不只是她能不能唱，大家更想问“此前还在强调开",
-          "account": "虎扑",
-          "reads": "2w+",
-          "likes": 86,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "预测世界杯，300个AI不如一条鱼？",
-          "summary": "我想做那条鱼",
-          "account": "beebee星球",
-          "reads": "9w+",
-          "likes": 521,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "伊朗还没打完，美国后院突然起火！中东重要盟友背刺，五角大楼已拉响最高级别警报，特朗普明告内塔尼亚胡别打伊朗",
-          "summary": "美伊谈判进入关键窗口期、霍尔木兹海峡摩擦频发之际，美国中东核心盟友以色列突破博弈底线，高强度监视美高层、窃取决",
-          "account": "东方在线视野",
-          "reads": "10w+",
-          "likes": 348,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
+          "id": 2,
           "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
           "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
           "account": "宽窄之道",
@@ -224,75 +150,84 @@
           "_recency_score": 40
         },
         {
-          "id": 10,
-          "title": "未来5个月，全球局势将逆转，特朗普开启新模式",
-          "summary": "特朗普居然开始装孙子了",
-          "account": "一个坏土豆",
-          "reads": "8w+",
-          "likes": 3751,
+          "id": 3,
+          "title": "预测世界杯，300个AI不如一条鱼？",
+          "summary": "我想做那条鱼",
+          "account": "beebee星球",
+          "reads": "9w+",
+          "likes": 521,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
-        }
-      ],
-      "_standings": {},
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "皇马砸1.5亿抢阿尔瓦雷斯？这笔买卖背后藏着两大野心",
-      "source_article_ids": [
-        4
-      ],
-      "source_titles": [
-        "皇马官方：1.5亿欧报价阿尔瓦雷斯！"
-      ],
-      "angle": "表面是转会传闻，实则分析皇马在姆巴佩离队传闻下的建队策略，以及阿尔瓦雷斯作为全能前锋如何补强皇马锋线，同时对比曼城是否愿意放人。",
-      "keywords": [
-        "Real Madrid",
-        "Alvarez transfer",
-        "1.5 billion euros"
-      ],
-      "keywords_cn": [
-        "皇马",
-        "阿尔瓦雷斯转会",
-        "1.5亿欧元"
-      ],
-      "content_type": "八卦趣事",
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "_source_articles": [
+        },
         {
           "id": 4,
-          "title": "皇马官方：1.5亿欧报价阿尔瓦雷斯！",
-          "summary": "神奇反转！",
-          "account": "天下足球",
-          "reads": "2w+",
-          "likes": 278,
+          "title": "河南省淮阳中学2026年高一招生简章",
+          "summary": " 学校简介       \n河南省淮阳中学创办于1903年，是首届全国文明校园、河南省首批省级示范性高中、普通高中新课程新教材实施省级示范校、多样化办学省级示范校、全国农村中学科技馆优秀学校、全国青少年校园篮球特色学校、校园足球特色学校、河南",
+          "account": "河南省淮阳中学",
+          "reads": "1w+",
+          "likes": 142,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
-        }
-      ],
-      "_all_articles": [
+        },
         {
-          "id": 1,
+          "id": 5,
+          "title": "更新爆料丨FC足球世界-杯赛更新，世界之巅，即刻上场！",
+          "summary": "世界之巅球员携海量福利来袭！145免费领！",
+          "account": "FC足球世界",
+          "reads": "7w+",
+          "likes": 1586,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "陈剑：“两个凡是”才是社会主义真谛                   ——三起民间出圈事点评",
+          "summary": "【作者简介】陈剑，经济学人，科学社会主义理论探索者，中国经济体制改革研究会高级资深专家，中国县域经济50",
+          "account": "常态发展",
+          "reads": "1w+",
+          "likes": 364,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "特仑苏把牛奶礼盒做成了足球？这波操作给到一个夯！",
+          "summary": "特仑苏「好球」礼盒，把世界杯变成了一场属于普通人的日常仪式！",
+          "account": "环球广告",
+          "reads": "5w+",
+          "likes": 175,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "官方公告：阿韦洛亚",
+          "summary": "皇家马德里足球俱乐部与阿尔瓦罗·阿韦洛亚达成协议，他将结束在皇马一线队的执教工作。\n皇家马德里谨向阿尔瓦罗·阿韦洛亚表达诚挚的感谢与深厚的敬意。自加盟俱乐部青训体系以来，他始终展现出忠诚、责任感与职业精神，是皇家马德里价值观的杰出代表。\n皇",
+          "account": "皇家马德里足球俱乐部",
+          "reads": "5w+",
+          "likes": 428,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度",
+          "summary": "【摘要】董路因小将关键时刻不听回防指令，取消其巴西参赛资格。真正可怕的不是一次离位，而是临场调度失灵。",
+          "account": "汐华1909",
+          "reads": "5w+",
+          "likes": 161,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
           "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
           "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
           "account": "摊上好柿ye",
@@ -301,152 +236,224 @@
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "世界杯倒计时1天｜一登未平、一奥又起，法国队怕是要提前进入「后姆巴佩时代」",
-          "summary": "姆巴佩的苦恼第二期",
-          "account": "怪咖的脑洞",
-          "reads": "4w+",
-          "likes": 58,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "这个618，与C罗一起把家变成主场｜冠军级舒适，尽在追觅空调",
-          "summary": "",
-          "account": "追觅科技",
-          "reads": "2w+",
-          "likes": 44,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "皇马官方：1.5亿欧报价阿尔瓦雷斯！",
-          "summary": "神奇反转！",
-          "account": "天下足球",
-          "reads": "2w+",
-          "likes": 278,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
-          "title": "成为潮水本身",
-          "summary": "空气中一直蒸腾着橡胶、腐殖土，和防锈油的混合气息。  在泰国春武里府的丘陵深处，热带暴雨总是毫无征兆地砸下来。  在一片占地面积相当于45个标准足球场的工厂入口处，巨大的红色立牌显得格外扎眼。上面用中泰双语写着一句话：           ",
-          "account": "兽楼处",
-          "reads": "10w+",
-          "likes": 1346,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 6,
-          "title": "一句“只是圆梦”，谢娜把多少观众又骗进了演唱会？",
-          "summary": "本文基于\"谢娜开启全国巡演\"撰写\n谢娜又被骂了。\n6月6日，谢娜在《乘风2026》直播中宣布开启全国巡回演唱会。    消息公布后，她的小红书和微博瞬间被网友”攻陷“，一时成为舆论众矢之的。争议点不只是她能不能唱，大家更想问“此前还在强调开",
-          "account": "虎扑",
-          "reads": "2w+",
-          "likes": 86,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "预测世界杯，300个AI不如一条鱼？",
-          "summary": "我想做那条鱼",
-          "account": "beebee星球",
-          "reads": "9w+",
-          "likes": 521,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "伊朗还没打完，美国后院突然起火！中东重要盟友背刺，五角大楼已拉响最高级别警报，特朗普明告内塔尼亚胡别打伊朗",
-          "summary": "美伊谈判进入关键窗口期、霍尔木兹海峡摩擦频发之际，美国中东核心盟友以色列突破博弈底线，高强度监视美高层、窃取决",
-          "account": "东方在线视野",
-          "reads": "10w+",
-          "likes": 348,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
-          "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
-          "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
-          "account": "宽窄之道",
-          "reads": "2w+",
-          "likes": 633,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 10,
-          "title": "未来5个月，全球局势将逆转，特朗普开启新模式",
-          "summary": "特朗普居然开始装孙子了",
-          "account": "一个坏土豆",
-          "reads": "8w+",
-          "likes": 3751,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
         }
       ],
       "_standings": {},
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "shu-ju-pan-dian",
+      "_column_name": "数据盘点",
+      "_column_icon": "📊",
+      "_writing_style": "毒舌点评体",
+      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "challenge_dare",
+      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
+      "_topic_domain": "足球数据排名",
+      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
     },
     {
-      "title": "300个AI猜世界杯，还不如一条章鱼？玄学才是真王道",
+      "title": "皇马1.5亿报价阿尔瓦雷斯？别急，这钱花得值不值得另说",
       "source_article_ids": [
-        7
+        13
+      ],
+      "source_titles": [
+        "皇马官方：1.5亿欧报价阿尔瓦雷斯！"
+      ],
+      "angle": "皇马报价曼城前锋阿尔瓦雷斯，看似豪购实则无奈——姆巴佩续约悬而未决、本泽马老化，但小蜘蛛在曼城并非绝对主力，高价赌未来风险极大。结合皇马近年转会策略，分析这笔交易背后的逻辑与隐患。",
+      "keywords": [
+        "Real Madrid",
+        "Julian Alvarez",
+        "€150 million bid",
+        "transfer gamble"
+      ],
+      "keywords_cn": [
+        "皇马报价",
+        "阿尔瓦雷斯",
+        "转会费",
+        "风险分析"
+      ],
+      "content_type": "战术解析",
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 13,
+          "title": "皇马官方：1.5亿欧报价阿尔瓦雷斯！",
+          "summary": "神奇反转！",
+          "account": "天下足球",
+          "reads": "2w+",
+          "likes": 278,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "成为潮水本身",
+          "summary": "空气中一直蒸腾着橡胶、腐殖土，和防锈油的混合气息。  在泰国春武里府的丘陵深处，热带暴雨总是毫无征兆地砸下来。  在一片占地面积相当于45个标准足球场的工厂入口处，巨大的红色立牌显得格外扎眼。上面用中泰双语写着一句话：           ",
+          "account": "兽楼处",
+          "reads": "10w+",
+          "likes": 1346,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
+          "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
+          "account": "宽窄之道",
+          "reads": "2w+",
+          "likes": 633,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "预测世界杯，300个AI不如一条鱼？",
+          "summary": "我想做那条鱼",
+          "account": "beebee星球",
+          "reads": "9w+",
+          "likes": 521,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "河南省淮阳中学2026年高一招生简章",
+          "summary": " 学校简介       \n河南省淮阳中学创办于1903年，是首届全国文明校园、河南省首批省级示范性高中、普通高中新课程新教材实施省级示范校、多样化办学省级示范校、全国农村中学科技馆优秀学校、全国青少年校园篮球特色学校、校园足球特色学校、河南",
+          "account": "河南省淮阳中学",
+          "reads": "1w+",
+          "likes": 142,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "更新爆料丨FC足球世界-杯赛更新，世界之巅，即刻上场！",
+          "summary": "世界之巅球员携海量福利来袭！145免费领！",
+          "account": "FC足球世界",
+          "reads": "7w+",
+          "likes": 1586,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "陈剑：“两个凡是”才是社会主义真谛                   ——三起民间出圈事点评",
+          "summary": "【作者简介】陈剑，经济学人，科学社会主义理论探索者，中国经济体制改革研究会高级资深专家，中国县域经济50",
+          "account": "常态发展",
+          "reads": "1w+",
+          "likes": 364,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "特仑苏把牛奶礼盒做成了足球？这波操作给到一个夯！",
+          "summary": "特仑苏「好球」礼盒，把世界杯变成了一场属于普通人的日常仪式！",
+          "account": "环球广告",
+          "reads": "5w+",
+          "likes": 175,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "官方公告：阿韦洛亚",
+          "summary": "皇家马德里足球俱乐部与阿尔瓦罗·阿韦洛亚达成协议，他将结束在皇马一线队的执教工作。\n皇家马德里谨向阿尔瓦罗·阿韦洛亚表达诚挚的感谢与深厚的敬意。自加盟俱乐部青训体系以来，他始终展现出忠诚、责任感与职业精神，是皇家马德里价值观的杰出代表。\n皇",
+          "account": "皇家马德里足球俱乐部",
+          "reads": "5w+",
+          "likes": 428,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度",
+          "summary": "【摘要】董路因小将关键时刻不听回防指令，取消其巴西参赛资格。真正可怕的不是一次离位，而是临场调度失灵。",
+          "account": "汐华1909",
+          "reads": "5w+",
+          "likes": 161,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
+          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
+          "account": "摊上好柿ye",
+          "reads": "2w+",
+          "likes": 271,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "shen-shui-qu",
+      "_column_name": "深水区",
+      "_column_icon": "🌊",
+      "_writing_style": "内行看门道体",
+      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
+      "_word_count_range": [
+        500,
+        700
+      ],
+      "_interaction_type": "opinion_poll",
+      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
+      "_topic_domain": "足球深度分析",
+      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
+    },
+    {
+      "title": "300个AI大战一条章鱼？世界杯预测的玄学比科学更靠谱",
+      "source_article_ids": [
+        3
       ],
       "source_titles": [
         "预测世界杯，300个AI不如一条鱼？"
       ],
-      "angle": "以AI预测世界杯的失败案例为引子，调侃足球预测的玄学属性，回顾章鱼保罗等经典案例，引导读者思考足球不可预测的魅力，风格轻松有趣。",
+      "angle": "盘点世界杯历史上的“预言帝”：章鱼保罗、神兽、AI模型，用搞笑对比揭示预测的荒诞本质——足球的魅力恰恰在于不可预测。最后给球迷建议：别信AI，信自己熬夜看球的直觉。",
       "keywords": [
         "World Cup prediction",
-        "AI failure",
-        "octopus oracle"
+        "AI vs octopus",
+        "Paul the Octopus",
+        "sports betting"
       ],
       "keywords_cn": [
         "世界杯预测",
-        "AI翻车",
-        "章鱼保罗"
+        "章鱼保罗",
+        "AI预测",
+        "足球玄学"
       ],
       "content_type": "八卦趣事",
       "controversy_level": "low",
       "target_emotion": "好奇",
       "_source_articles": [
         {
-          "id": 7,
+          "id": 3,
           "title": "预测世界杯，300个AI不如一条鱼？",
           "summary": "我想做那条鱼",
           "account": "beebee星球",
@@ -460,50 +467,6 @@
       "_all_articles": [
         {
           "id": 1,
-          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
-          "account": "摊上好柿ye",
-          "reads": "2w+",
-          "likes": 271,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "世界杯倒计时1天｜一登未平、一奥又起，法国队怕是要提前进入「后姆巴佩时代」",
-          "summary": "姆巴佩的苦恼第二期",
-          "account": "怪咖的脑洞",
-          "reads": "4w+",
-          "likes": 58,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "这个618，与C罗一起把家变成主场｜冠军级舒适，尽在追觅空调",
-          "summary": "",
-          "account": "追觅科技",
-          "reads": "2w+",
-          "likes": 44,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "皇马官方：1.5亿欧报价阿尔瓦雷斯！",
-          "summary": "神奇反转！",
-          "account": "天下足球",
-          "reads": "2w+",
-          "likes": 278,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
           "title": "成为潮水本身",
           "summary": "空气中一直蒸腾着橡胶、腐殖土，和防锈油的混合气息。  在泰国春武里府的丘陵深处，热带暴雨总是毫无征兆地砸下来。  在一片占地面积相当于45个标准足球场的工厂入口处，巨大的红色立牌显得格外扎眼。上面用中泰双语写着一句话：           ",
           "account": "兽楼处",
@@ -514,40 +477,7 @@
           "_recency_score": 40
         },
         {
-          "id": 6,
-          "title": "一句“只是圆梦”，谢娜把多少观众又骗进了演唱会？",
-          "summary": "本文基于\"谢娜开启全国巡演\"撰写\n谢娜又被骂了。\n6月6日，谢娜在《乘风2026》直播中宣布开启全国巡回演唱会。    消息公布后，她的小红书和微博瞬间被网友”攻陷“，一时成为舆论众矢之的。争议点不只是她能不能唱，大家更想问“此前还在强调开",
-          "account": "虎扑",
-          "reads": "2w+",
-          "likes": 86,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "预测世界杯，300个AI不如一条鱼？",
-          "summary": "我想做那条鱼",
-          "account": "beebee星球",
-          "reads": "9w+",
-          "likes": 521,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "伊朗还没打完，美国后院突然起火！中东重要盟友背刺，五角大楼已拉响最高级别警报，特朗普明告内塔尼亚胡别打伊朗",
-          "summary": "美伊谈判进入关键窗口期、霍尔木兹海峡摩擦频发之际，美国中东核心盟友以色列突破博弈底线，高强度监视美高层、窃取决",
-          "account": "东方在线视野",
-          "reads": "10w+",
-          "likes": 348,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
+          "id": 2,
           "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
           "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
           "account": "宽窄之道",
@@ -558,12 +488,89 @@
           "_recency_score": 40
         },
         {
+          "id": 3,
+          "title": "预测世界杯，300个AI不如一条鱼？",
+          "summary": "我想做那条鱼",
+          "account": "beebee星球",
+          "reads": "9w+",
+          "likes": 521,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "河南省淮阳中学2026年高一招生简章",
+          "summary": " 学校简介       \n河南省淮阳中学创办于1903年，是首届全国文明校园、河南省首批省级示范性高中、普通高中新课程新教材实施省级示范校、多样化办学省级示范校、全国农村中学科技馆优秀学校、全国青少年校园篮球特色学校、校园足球特色学校、河南",
+          "account": "河南省淮阳中学",
+          "reads": "1w+",
+          "likes": 142,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "更新爆料丨FC足球世界-杯赛更新，世界之巅，即刻上场！",
+          "summary": "世界之巅球员携海量福利来袭！145免费领！",
+          "account": "FC足球世界",
+          "reads": "7w+",
+          "likes": 1586,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "陈剑：“两个凡是”才是社会主义真谛                   ——三起民间出圈事点评",
+          "summary": "【作者简介】陈剑，经济学人，科学社会主义理论探索者，中国经济体制改革研究会高级资深专家，中国县域经济50",
+          "account": "常态发展",
+          "reads": "1w+",
+          "likes": 364,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "特仑苏把牛奶礼盒做成了足球？这波操作给到一个夯！",
+          "summary": "特仑苏「好球」礼盒，把世界杯变成了一场属于普通人的日常仪式！",
+          "account": "环球广告",
+          "reads": "5w+",
+          "likes": 175,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "官方公告：阿韦洛亚",
+          "summary": "皇家马德里足球俱乐部与阿尔瓦罗·阿韦洛亚达成协议，他将结束在皇马一线队的执教工作。\n皇家马德里谨向阿尔瓦罗·阿韦洛亚表达诚挚的感谢与深厚的敬意。自加盟俱乐部青训体系以来，他始终展现出忠诚、责任感与职业精神，是皇家马德里价值观的杰出代表。\n皇",
+          "account": "皇家马德里足球俱乐部",
+          "reads": "5w+",
+          "likes": 428,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度",
+          "summary": "【摘要】董路因小将关键时刻不听回防指令，取消其巴西参赛资格。真正可怕的不是一次离位，而是临场调度失灵。",
+          "account": "汐华1909",
+          "reads": "5w+",
+          "likes": 161,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
           "id": 10,
-          "title": "未来5个月，全球局势将逆转，特朗普开启新模式",
-          "summary": "特朗普居然开始装孙子了",
-          "account": "一个坏土豆",
-          "reads": "8w+",
-          "likes": 3751,
+          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
+          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
+          "account": "摊上好柿ye",
+          "reads": "2w+",
+          "likes": 271,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
@@ -574,8 +581,9 @@
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-12 01:51:34"
+  "last_batch": "noon",
+  "last_updated": "2026-06-12 10:52:22"
 }
