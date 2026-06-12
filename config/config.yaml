@@ -1,139 +1,144 @@
-# 足球自媒体内容自动化系统 - 主配置文件
-# Last updated: 2026-06-02
-
 output:
-  base_dir: "./output"
-  date_format: "%Y-%m-%d"
-  article_prefix: "article"
-  image_dir: "images"
-
+  base_dir: ./output
+  date_format: '%Y-%m-%d'
+  article_prefix: article
+  image_dir: images
 llm:
   topic_selector:
-    provider: "deepseek"
-    model: "deepseek-v4-flash"
+    provider: deepseek
+    model: deepseek-v4-flash
     temperature: 0.7
     max_tokens: 4096
   article_generator:
-    provider: "deepseek"
-    model: "deepseek-v4-pro"
+    provider: deepseek
+    model: deepseek-v4-pro
     temperature: 0.8
     max_tokens: 8192
-
 data_sources:
   match_api:
-    provider: "football-data.org"
-    base_url: "https://api.football-data.org/v4"
-    rate_limit: 10  # requests per minute (free tier)
+    provider: football-data.org
+    base_url: https://api.football-data.org/v4
+    rate_limit: 10
     leagues:
-      - {id: 2021, name: "英超"}
-      - {id: 2014, name: "西甲"}
-      - {id: 2019, name: "意甲"}
-      - {id: 2002, name: "德甲"}
-      - {id: 2015, name: "法甲"}
-      - {id: 2001, name: "欧冠"}
+    - id: 2021
+      name: 英超
+    - id: 2014
+      name: 西甲
+    - id: 2019
+      name: 意甲
+    - id: 2002
+      name: 德甲
+    - id: 2015
+      name: 法甲
+    - id: 2001
+      name: 欧冠
+    - id: 2000
+      name: 世界杯
   gzh_trending:
-    provider: "wechat_public_account"
-    script: "skills/gzh-explosive-content-detector/scripts/fetch_gzh_trends.py"
+    provider: wechat_public_account
+    script: skills/gzh-explosive-content-detector/scripts/fetch_gzh_trends.py
     keyword_groups:
-      - "足球"
-      - "英超,欧冠,转会"
-      - "梅西,C罗,姆巴佩,哈兰德,内马尔,萨拉赫"
-      - "足球,冲突,争议,红牌,绝杀,逆转"
-      - "转会,签约,续约,离队,绯闻,花边,冲突,下课"
+    - 足球
+    - 英超,欧冠,转会
+    - 梅西,C罗,姆巴佩,哈兰德,内马尔,萨拉赫
+    - 足球,冲突,争议,红牌,绝杀,逆转
+    - 转会,签约,续约,离队,绯闻,花边,冲突,下课
+    - 世界杯,2026世界杯,世界杯揭幕战,世界杯小组赛
+    - 世界杯,冷门,黑马,淘汰,出线
   hupu:
-    provider: "hupu_scraper"
-    script: "hupu_scraper.py"
+    provider: hupu_scraper
+    script: hupu_scraper.py
     enabled: true
     timeout_seconds: 300
-
 images:
   min_width: 800
   min_height: 600
-  max_size_bytes: 5242880  # 5MB
-  min_size_bytes: 51200    # 50KB
-  preferred_orientation: "landscape"
+  max_size_bytes: 5242880
+  min_size_bytes: 51200
+  preferred_orientation: landscape
   max_per_article: 5
   required_per_article: 3
   sources:
-    - name: "wikipedia"
-      priority: 1
-    - name: "footyrenders"
-      priority: 2
-    - name: "unsplash"
-      priority: 3
-
+  - name: wikipedia
+    priority: 1
+  - name: footyrenders
+    priority: 2
+  - name: unsplash
+    priority: 3
 schedule:
-  timezone: "Asia/Shanghai"
-  # 三批次发布策略 — v2.0 栏目系统
-  # 每个批次有2个独有栏目，6个栏目全天零重叠
+  timezone: Asia/Shanghai
   batches:
     morning:
-      name: "晨读"
-      cron: "0 0 * * *"           # 08:00 CST = 00:00 UTC
+      name: 晨读
+      cron: 0 0 * * *
       article_count: 2
       columns:
-        - "晨读快讯"   # slot 0: 群聊播报体
-        - "话题擂台"   # slot 1: 烧烤摊辩论体
+      - 晨读快讯
+      - 话题擂台
     noon:
-      name: "午间"
-      cron: "0 4 * * *"           # 12:00 CST = 04:00 UTC
+      name: 午间
+      cron: 0 4 * * *
       article_count: 2
       columns:
-        - "数据盘点"   # slot 0: 毒舌点评体
-        - "深水区"     # slot 1: 内行看门道体
+      - 数据盘点
+      - 深水区
     evening:
-      name: "晚间"
-      cron: "30 9 * * *"          # 17:30 CST = 09:30 UTC
+      name: 晚间
+      cron: 30 9 * * *
       article_count: 2
       columns:
-        - "人物志"     # slot 0: 人物杂志体
-        - "时光机"     # slot 1: 回忆杀体
-
-# 赛季节奏适配：按月份自动调整品类权重
-# 权重越高，选题时越倾向选择该品类
+      - 人物志
+      - 时光机
 season_weights:
-  # 8-9月 夏季转会窗 — 转会内容权重加大
-  - months: [8, 9]
-    weights:
-      热点球评: 1.0
-      转会资讯: 2.0
-      排行榜: 1.0
-      八卦趣事: 1.2
-      战术解析: 0.8
-    label: "夏季转会窗"
-  # 3-5月 争冠/冲刺期 — 球评+战术权重加大
-  - months: [3, 4, 5]
-    weights:
-      热点球评: 2.0
-      转会资讯: 0.8
-      排行榜: 1.2
-      八卦趣事: 0.8
-      战术解析: 1.5
-    label: "赛季争冠冲刺期"
-  # 6-7月 休赛期 — 八卦+榜单为主
-  - months: [6, 7]
-    weights:
-      热点球评: 0.5
-      转会资讯: 1.5
-      排行榜: 1.5
-      八卦趣事: 2.0
-      战术解析: 0.5
-    label: "休赛期"
-  # 1月 冬窗 — 转会权重加大
-  - months: [1]
-    weights:
-      热点球评: 1.0
-      转会资讯: 2.0
-      排行榜: 1.0
-      八卦趣事: 1.2
-      战术解析: 0.8
-    label: "冬季转会窗"
-  # 默认: 均衡
-  - months: [2, 10, 11, 12]
-    weights:
-      热点球评: 1.0
-      转会资讯: 1.0
-      排行榜: 1.0
-      八卦趣事: 1.0
-      战术解析: 1.0
-    label: "常规赛季"
+- months:
+  - 8
+  - 9
+  weights:
+    热点球评: 1.0
+    转会资讯: 2.0
+    排行榜: 1.0
+    八卦趣事: 1.2
+    战术解析: 0.8
+  label: 夏季转会窗
+- months:
+  - 3
+  - 4
+  - 5
+  weights:
+    热点球评: 2.0
+    转会资讯: 0.8
+    排行榜: 1.2
+    八卦趣事: 0.8
+    战术解析: 1.5
+  label: 赛季争冠冲刺期
+- months:
+  - 6
+  - 7
+  weights:
+    热点球评: 2.5
+    转会资讯: 0.8
+    排行榜: 1.0
+    八卦趣事: 1.0
+    战术解析: 2.0
+  label: 世界杯月
+- months:
+  - 1
+  weights:
+    热点球评: 1.0
+    转会资讯: 2.0
+    排行榜: 1.0
+    八卦趣事: 1.2
+    战术解析: 0.8
+  label: 冬季转会窗
+- months:
+  - 2
+  - 10
+  - 11
+  - 12
+  weights:
+    热点球评: 1.0
+    转会资讯: 1.0
+    排行榜: 1.0
+    八卦趣事: 1.0
+    战术解析: 1.0
+  label: 常规赛季

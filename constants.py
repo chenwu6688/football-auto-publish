@@ -29,15 +29,18 @@ WXPUSHER_UID = os.environ.get("WXPUSHER_UID", "")
 # --- Competition IDs (football-data.org v4) ---
 COMPETITION_IDS = {
     "英超": 2021, "西甲": 2014, "意甲": 2019, "德甲": 2002, "法甲": 2015, "欧冠": 2001,
+    "世界杯": 2000,
 }
 
 # --- GZH (公众号) keyword groups for trending detection ---
 GZH_KEYWORD_GROUPS = [
     "足球",
+    "世界杯,2026世界杯,世界杯揭幕战,世界杯小组赛",
     "英超,欧冠,转会",
     "梅西,C罗,姆巴佩,哈兰德,内马尔,萨拉赫",
     "足球,冲突,争议,红牌,绝杀,逆转",
     "转会,签约,续约,离队,绯闻,花边,冲突,下课",
+    "世界杯,冷门,黑马,淘汰,出线",
 ]
 
 GZH_TRANSFER_KEYWORDS = [
