@@ -1,26 +1,24 @@
 {
   "date": "2026-06-12",
-  "generated_at": "2026-06-12T02:52:22.105194",
+  "generated_at": "2026-06-12T03:07:53.746230",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "中国足球少年海外打脸实录：12岁的嘴，比国足的脚还硬",
-      "path": "/home/runner/work/_temp/output/2026-06-12/article-1-中国足球少年海外-32817b.md",
-      "slug": "中国足球少年海外-32817b",
+      "title": "世界杯前夜，那个不再刷屏的球迷老张",
+      "path": "/home/runner/work/_temp/output/2026-06-12/article-1-世界杯前夜那个不-a90585.md",
+      "slug": "世界杯前夜那个不-a90585",
       "tags": [
-        "youth football",
-        "Chinese football",
-        "SIGISMONDI Cup",
-        "academy",
-        "Meng Xinyi"
+        "World Cup",
+        "fan culture",
+        "narrative shift",
+        "social media"
       ],
       "keywords": [
-        "youth football",
-        "Chinese football",
-        "SIGISMONDI Cup",
-        "academy",
-        "Meng Xinyi"
+        "World Cup",
+        "fan culture",
+        "narrative shift",
+        "social media"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-12/images/article-1-img-001.jpg",
@@ -28,36 +26,29 @@
         "/home/runner/work/_temp/output/2026-06-12/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾",
-        "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上"
+        "后天世界杯就开幕，怎么还没啥热度？"
       ],
       "source_post": "",
-      "originality_note": "从12岁球员高光切入，借排行榜形式警示青训系统短板，反捧杀叙事。",
-      "content_type": "排行榜",
-      "column_id": "shu-ju-pan-dian",
-      "column_name": "数据盘点",
-      "batch_name": "午间"
+      "originality_note": "将抽象的热度现象具象为球迷老张的落寞群聊，从公共记忆稀释的角度切入，而非单纯讨论赛事本身。",
+      "content_type": "八卦趣事",
+      "column_id": "ren-wu-zhi",
+      "column_name": "人物志",
+      "batch_name": "晚间"
     },
     {
       "index": 2,
-      "title": "皇马这1.5亿，是豪赌还是求救？",
-      "path": "/home/runner/work/_temp/output/2026-06-12/article-2-皇马这15亿是豪-8728c1.md",
-      "slug": "皇马这15亿是豪-8728c1",
+      "title": "当拉法布里卡的灯熄灭：属于皇马DNA教练的梦，醒了",
+      "path": "/home/runner/work/_temp/output/2026-06-12/article-2-当拉法布里卡的灯-4135d5.md",
+      "slug": "当拉法布里卡的灯-4135d5",
       "tags": [
-        "Real Madrid",
-        "Julian Alvarez",
-        "transfer",
-        "tactics",
-        "Mbappe",
-        "Benzema"
+        "Arbeloa",
+        "Real Madrid academy",
+        "La Fabrica"
       ],
       "keywords": [
-        "Real Madrid",
-        "Julian Alvarez",
-        "transfer",
-        "tactics",
-        "Mbappe",
-        "Benzema"
+        "Arbeloa",
+        "Real Madrid academy",
+        "La Fabrica"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-12/images/article-2-img-001.jpg",
@@ -65,231 +56,47 @@
         "/home/runner/work/_temp/output/2026-06-12/images/article-2-img-003.jpg"
       ],
       "sources_used": [
-        "皇马官方：1.5亿欧报价阿尔瓦雷斯！"
+        "官方公告：阿韦洛亚"
       ],
       "source_post": "",
-      "originality_note": "将转会新闻重构为皇马转会策略与球队结构危机的深度解读，从交易表象挖掘被迫引援的逻辑崩塌。",
-      "content_type": "战术解析",
-      "column_id": "shen-shui-qu",
-      "column_name": "深水区",
-      "batch_name": "午间"
+      "originality_note": "从官方公告转向青训断档的深层分析，加入个人回忆视角，揭示DNA路线终结的时代必然。",
+      "content_type": "八卦趣事",
+      "column_id": "shi-guang-ji",
+      "column_name": "时光机",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "12岁小将一句狠话，比国足赢球更提气？",
-      "source_article_ids": [
-        10,
-        2
-      ],
-      "source_titles": [
-        "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-        "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上"
-      ],
-      "angle": "从中国足球小将孟新艺在意大利杯决赛怒怼外援切入，揭示中国青训在海外赛事中的突破，但警惕过度捧杀——个别天才不等于体系成功，基层青训仍有大量空白。",
-      "keywords": [
-        "Chinese youth football",
-        "SIGISMONDI Cup",
-        "football prodigy",
-        "foreign provocation"
-      ],
-      "keywords_cn": [
-        "中国足球小将",
-        "青训突破",
-        "外援挑衅",
-        "民族自信"
-      ],
-      "content_type": "排行榜",
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "_source_articles": [
-        {
-          "id": 10,
-          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
-          "account": "摊上好柿ye",
-          "reads": "2w+",
-          "likes": 271,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
-          "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
-          "account": "宽窄之道",
-          "reads": "2w+",
-          "likes": 633,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "成为潮水本身",
-          "summary": "空气中一直蒸腾着橡胶、腐殖土，和防锈油的混合气息。  在泰国春武里府的丘陵深处，热带暴雨总是毫无征兆地砸下来。  在一片占地面积相当于45个标准足球场的工厂入口处，巨大的红色立牌显得格外扎眼。上面用中泰双语写着一句话：           ",
-          "account": "兽楼处",
-          "reads": "10w+",
-          "likes": 1346,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
-          "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
-          "account": "宽窄之道",
-          "reads": "2w+",
-          "likes": 633,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "预测世界杯，300个AI不如一条鱼？",
-          "summary": "我想做那条鱼",
-          "account": "beebee星球",
-          "reads": "9w+",
-          "likes": 521,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "河南省淮阳中学2026年高一招生简章",
-          "summary": " 学校简介       \n河南省淮阳中学创办于1903年，是首届全国文明校园、河南省首批省级示范性高中、普通高中新课程新教材实施省级示范校、多样化办学省级示范校、全国农村中学科技馆优秀学校、全国青少年校园篮球特色学校、校园足球特色学校、河南",
-          "account": "河南省淮阳中学",
-          "reads": "1w+",
-          "likes": 142,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
-          "title": "更新爆料丨FC足球世界-杯赛更新，世界之巅，即刻上场！",
-          "summary": "世界之巅球员携海量福利来袭！145免费领！",
-          "account": "FC足球世界",
-          "reads": "7w+",
-          "likes": 1586,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 6,
-          "title": "陈剑：“两个凡是”才是社会主义真谛                   ——三起民间出圈事点评",
-          "summary": "【作者简介】陈剑，经济学人，科学社会主义理论探索者，中国经济体制改革研究会高级资深专家，中国县域经济50",
-          "account": "常态发展",
-          "reads": "1w+",
-          "likes": 364,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "特仑苏把牛奶礼盒做成了足球？这波操作给到一个夯！",
-          "summary": "特仑苏「好球」礼盒，把世界杯变成了一场属于普通人的日常仪式！",
-          "account": "环球广告",
-          "reads": "5w+",
-          "likes": 175,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "官方公告：阿韦洛亚",
-          "summary": "皇家马德里足球俱乐部与阿尔瓦罗·阿韦洛亚达成协议，他将结束在皇马一线队的执教工作。\n皇家马德里谨向阿尔瓦罗·阿韦洛亚表达诚挚的感谢与深厚的敬意。自加盟俱乐部青训体系以来，他始终展现出忠诚、责任感与职业精神，是皇家马德里价值观的杰出代表。\n皇",
-          "account": "皇家马德里足球俱乐部",
-          "reads": "5w+",
-          "likes": 428,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
-          "title": "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度",
-          "summary": "【摘要】董路因小将关键时刻不听回防指令，取消其巴西参赛资格。真正可怕的不是一次离位，而是临场调度失灵。",
-          "account": "汐华1909",
-          "reads": "5w+",
-          "likes": 161,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        },
-        {
-          "id": 10,
-          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
-          "account": "摊上好柿ye",
-          "reads": "2w+",
-          "likes": 271,
-          "data_score": 100,
-          "pub_time": "2026-06-10",
-          "_recency_score": 40
-        }
-      ],
-      "_standings": {},
-      "_column_id": "shu-ju-pan-dian",
-      "_column_name": "数据盘点",
-      "_column_icon": "📊",
-      "_writing_style": "毒舌点评体",
-      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "challenge_dare",
-      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
-      "_topic_domain": "足球数据排名",
-      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
-      "_overall_tone": "有干货、有观点、适合社交分享"
-    },
-    {
-      "title": "皇马1.5亿报价阿尔瓦雷斯？别急，这钱花得值不值得另说",
+      "title": "世界杯没人看？热度断崖背后的三个真相",
       "source_article_ids": [
         13
       ],
       "source_titles": [
-        "皇马官方：1.5亿欧报价阿尔瓦雷斯！"
+        "后天世界杯就开幕，怎么还没啥热度？"
       ],
-      "angle": "皇马报价曼城前锋阿尔瓦雷斯，看似豪购实则无奈——姆巴佩续约悬而未决、本泽马老化，但小蜘蛛在曼城并非绝对主力，高价赌未来风险极大。结合皇马近年转会策略，分析这笔交易背后的逻辑与隐患。",
+      "angle": "从世界杯临近却热度不足切入，结合球迷心态变化、赛事审美疲劳和社交媒体分流三个层面，提出新观点：不是世界杯不行了，而是足球叙事的权力正在从官方媒体向民间个体转移。",
       "keywords": [
-        "Real Madrid",
-        "Julian Alvarez",
-        "€150 million bid",
-        "transfer gamble"
+        "World Cup",
+        "popularity decline",
+        "football culture"
       ],
       "keywords_cn": [
-        "皇马报价",
-        "阿尔瓦雷斯",
-        "转会费",
-        "风险分析"
+        "世界杯",
+        "热度下降",
+        "足球文化"
       ],
-      "content_type": "战术解析",
-      "controversy_level": "high",
-      "target_emotion": "震惊",
+      "content_type": "八卦趣事",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
       "_source_articles": [
         {
           "id": 13,
-          "title": "皇马官方：1.5亿欧报价阿尔瓦雷斯！",
-          "summary": "神奇反转！",
-          "account": "天下足球",
-          "reads": "2w+",
-          "likes": 278,
+          "title": "后天世界杯就开幕，怎么还没啥热度？",
+          "summary": "如题。",
+          "account": "杨毅侃球",
+          "reads": "8w+",
+          "likes": 311,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
@@ -397,68 +204,66 @@
         },
         {
           "id": 10,
-          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
-          "account": "摊上好柿ye",
-          "reads": "2w+",
-          "likes": 271,
+          "title": "世界杯来到麦当劳！新牛堡！球星杯！",
+          "summary": "欢迎来到你的麦当劳世界杯主场！",
+          "account": "麦当劳",
+          "reads": "10w+",
+          "likes": 1191,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
         }
       ],
       "_standings": {},
-      "_column_id": "shen-shui-qu",
-      "_column_name": "深水区",
-      "_column_icon": "🌊",
-      "_writing_style": "内行看门道体",
-      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
+      "_column_id": "ren-wu-zhi",
+      "_column_name": "人物志",
+      "_column_icon": "👤",
+      "_writing_style": "人物杂志体",
+      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
       "_word_count_range": [
         500,
-        700
+        800
       ],
-      "_interaction_type": "opinion_poll",
-      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
-      "_topic_domain": "足球深度分析",
-      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
-      "_overall_tone": "有干货、有观点、适合社交分享"
+      "_interaction_type": "resonance_sharing",
+      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
+      "_topic_domain": "足球人物故事",
+      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "300个AI大战一条章鱼？世界杯预测的玄学比科学更靠谱",
+      "title": "阿韦洛亚下课：皇马青训的警钟还是换血信号？",
       "source_article_ids": [
-        3
+        8
       ],
       "source_titles": [
-        "预测世界杯，300个AI不如一条鱼？"
+        "官方公告：阿韦洛亚"
       ],
-      "angle": "盘点世界杯历史上的“预言帝”：章鱼保罗、神兽、AI模型，用搞笑对比揭示预测的荒诞本质——足球的魅力恰恰在于不可预测。最后给球迷建议：别信AI，信自己熬夜看球的直觉。",
+      "angle": "不纠结阿韦洛亚个人去留，而是深挖皇马青训近年人才断档的症结，提出观点：放弃阿韦洛亚意味着皇马要彻底告别‘DNA教练’路线，转向更务实的外聘体系。",
       "keywords": [
-        "World Cup prediction",
-        "AI vs octopus",
-        "Paul the Octopus",
-        "sports betting"
+        "Arbeloa",
+        "Real Madrid",
+        "youth academy"
       ],
       "keywords_cn": [
-        "世界杯预测",
-        "章鱼保罗",
-        "AI预测",
-        "足球玄学"
+        "阿韦洛亚",
+        "皇马",
+        "青训"
       ],
       "content_type": "八卦趣事",
-      "controversy_level": "low",
-      "target_emotion": "好奇",
+      "controversy_level": "high",
+      "target_emotion": "震惊",
       "_source_articles": [
         {
-          "id": 3,
-          "title": "预测世界杯，300个AI不如一条鱼？",
-          "summary": "我想做那条鱼",
-          "account": "beebee星球",
-          "reads": "9w+",
-          "likes": 521,
+          "id": 8,
+          "title": "官方公告：阿韦洛亚",
+          "summary": "皇家马德里足球俱乐部与阿尔瓦罗·阿韦洛亚达成协议，他将结束在皇马一线队的执教工作。\n皇家马德里谨向阿尔瓦罗·阿韦洛亚表达诚挚的感谢与深厚的敬意。自加盟俱乐部青训体系以来，他始终展现出忠诚、责任感与职业精神，是皇家马德里价值观的杰出代表。\n皇",
+          "account": "皇家马德里足球俱乐部",
+          "reads": "5w+",
+          "likes": 428,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
@@ -566,11 +371,178 @@
         },
         {
           "id": 10,
-          "title": "赛后采访孟新艺，问他指着外国球员说了什么，他的回答让全场沸腾。",
-          "summary": "【摘要】12 岁足球小将怒怼挑衅外援，一句话点燃全网热血  【正文】中国足球被骂了几十年，没想到今天最解气的一句话，出自一个 12 岁孩子的嘴。  北京时间 6 月 2 日，意大利 SIGISMONDI 杯决赛的雨夜，中国足球小将 2014",
-          "account": "摊上好柿ye",
+          "title": "世界杯来到麦当劳！新牛堡！球星杯！",
+          "summary": "欢迎来到你的麦当劳世界杯主场！",
+          "account": "麦当劳",
+          "reads": "10w+",
+          "likes": 1191,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "shi-guang-ji",
+      "_column_name": "时光机",
+      "_column_icon": "⏰",
+      "_writing_style": "回忆杀体",
+      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
+      "_word_count_range": [
+        500,
+        700
+      ],
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
+      "_topic_domain": "足球历史/记忆/球迷文化",
+      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+    },
+    {
+      "title": "董路取消参赛资格：个人主义还是纪律红线？",
+      "source_article_ids": [
+        9
+      ],
+      "source_titles": [
+        "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度"
+      ],
+      "angle": "跳出董路个人争议，讨论中国青少年足球培养中‘绝对服从’与‘球星个性’的冲突，提出新观点：我们需要的是有脑子的执行者，不是盲从的机器。",
+      "keywords": [
+        "Dong Lu",
+        "youth football",
+        "discipline"
+      ],
+      "keywords_cn": [
+        "董路",
+        "青少年足球",
+        "纪律"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_source_articles": [
+        {
+          "id": 9,
+          "title": "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度",
+          "summary": "【摘要】董路因小将关键时刻不听回防指令，取消其巴西参赛资格。真正可怕的不是一次离位，而是临场调度失灵。",
+          "account": "汐华1909",
+          "reads": "5w+",
+          "likes": 161,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "成为潮水本身",
+          "summary": "空气中一直蒸腾着橡胶、腐殖土，和防锈油的混合气息。  在泰国春武里府的丘陵深处，热带暴雨总是毫无征兆地砸下来。  在一片占地面积相当于45个标准足球场的工厂入口处，巨大的红色立牌显得格外扎眼。上面用中泰双语写着一句话：           ",
+          "account": "兽楼处",
+          "reads": "10w+",
+          "likes": 1346,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 2,
+          "title": "国宝对话| 亚平宁的十二岁风暴：当五星红旗第一次升起在“小世界杯”之上",
+          "summary": "窄，是直面赛场的深情；\r宽，是拥抱世界的豪情。\r战，是纵横捭阖的激情；\r胜，是筚路蓝缕的尽情。",
+          "account": "宽窄之道",
           "reads": "2w+",
-          "likes": 271,
+          "likes": 633,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "预测世界杯，300个AI不如一条鱼？",
+          "summary": "我想做那条鱼",
+          "account": "beebee星球",
+          "reads": "9w+",
+          "likes": 521,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 4,
+          "title": "河南省淮阳中学2026年高一招生简章",
+          "summary": " 学校简介       \n河南省淮阳中学创办于1903年，是首届全国文明校园、河南省首批省级示范性高中、普通高中新课程新教材实施省级示范校、多样化办学省级示范校、全国农村中学科技馆优秀学校、全国青少年校园篮球特色学校、校园足球特色学校、河南",
+          "account": "河南省淮阳中学",
+          "reads": "1w+",
+          "likes": 142,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 5,
+          "title": "更新爆料丨FC足球世界-杯赛更新，世界之巅，即刻上场！",
+          "summary": "世界之巅球员携海量福利来袭！145免费领！",
+          "account": "FC足球世界",
+          "reads": "7w+",
+          "likes": 1586,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 6,
+          "title": "陈剑：“两个凡是”才是社会主义真谛                   ——三起民间出圈事点评",
+          "summary": "【作者简介】陈剑，经济学人，科学社会主义理论探索者，中国经济体制改革研究会高级资深专家，中国县域经济50",
+          "account": "常态发展",
+          "reads": "1w+",
+          "likes": 364,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 7,
+          "title": "特仑苏把牛奶礼盒做成了足球？这波操作给到一个夯！",
+          "summary": "特仑苏「好球」礼盒，把世界杯变成了一场属于普通人的日常仪式！",
+          "account": "环球广告",
+          "reads": "5w+",
+          "likes": 175,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 8,
+          "title": "官方公告：阿韦洛亚",
+          "summary": "皇家马德里足球俱乐部与阿尔瓦罗·阿韦洛亚达成协议，他将结束在皇马一线队的执教工作。\n皇家马德里谨向阿尔瓦罗·阿韦洛亚表达诚挚的感谢与深厚的敬意。自加盟俱乐部青训体系以来，他始终展现出忠诚、责任感与职业精神，是皇家马德里价值观的杰出代表。\n皇",
+          "account": "皇家马德里足球俱乐部",
+          "reads": "5w+",
+          "likes": 428,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 9,
+          "title": "刚刚刷到，零容忍！董路紧急取消一小将去巴西参赛资格。就因为比赛最后关头，教练和董路喊他回防他都不听，敬畏赛场听从调度",
+          "summary": "【摘要】董路因小将关键时刻不听回防指令，取消其巴西参赛资格。真正可怕的不是一次离位，而是临场调度失灵。",
+          "account": "汐华1909",
+          "reads": "5w+",
+          "likes": 161,
+          "data_score": 100,
+          "pub_time": "2026-06-10",
+          "_recency_score": 40
+        },
+        {
+          "id": 10,
+          "title": "世界杯来到麦当劳！新牛堡！球星杯！",
+          "summary": "欢迎来到你的麦当劳世界杯主场！",
+          "account": "麦当劳",
+          "reads": "10w+",
+          "likes": 1191,
           "data_score": 100,
           "pub_time": "2026-06-10",
           "_recency_score": 40
@@ -581,9 +553,10 @@
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-12 10:52:22"
+  "last_batch": "evening",
+  "last_updated": "2026-06-12 11:07:53"
 }
