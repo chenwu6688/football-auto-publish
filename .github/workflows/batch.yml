@@ -1,17 +1,30 @@
 name: 足球自媒体批次发布
-# cron reactivation after repo went public 2026-06-11
 
-# 双保险调度策略：
-#   主调度: cron-job.org → workflow_dispatch API（精确到秒，UTC 时区）
-#   备调度: 以下 GitHub 原生 cron（比主调度晚 30 分钟，幂等保护自动跳过已完成批次）
-# 批次判断: 用当前 UTC 小时 ±2h 匹配已知 backup cron 时间，超出窗口则用 CST 自动检测。
+# 纯 GitHub Actions 调度（无外部依赖）：
+#   每个批次 3 个 cron，从目标时间开始每隔 ~10-20 分钟触发一次
+#   第一批成功执行后，后续通过幂等保护自动跳过
+#
+#   晨读 (目标 08:00 CST, UTC 00:00):
+#     08:07 / 08:17 / 08:37 CST
+#   午间 (目标 12:00 CST, UTC 04:00):
+#     12:07 / 12:17 / 12:37 CST
+#   晚间 (目标 17:30 CST, UTC 09:30):
+#     17:37 / 17:47 / 18:07 CST
+#
+#   批次检测: schedule 事件按 UTC 小时判定，workflow_dispatch 按 CST 自动检测
 on:
   schedule:
-    # 08:30 CST = 00:30 UTC — 晨读 backup（主调度: cron-job.org 08:00 CST）
+    # --- 晨读 (UTC 0 = CST 8) ---
+    - cron: '7 0 * * *'
+    - cron: '17 0 * * *'
     - cron: '37 0 * * *'
-    # 12:30 CST = 04:30 UTC — 午间 backup（主调度: cron-job.org 12:00 CST）
+    # --- 午间 (UTC 4 = CST 12) ---
+    - cron: '7 4 * * *'
+    - cron: '17 4 * * *'
     - cron: '37 4 * * *'
-    # 18:00 CST = 10:00 UTC — 晚间 backup（主调度: cron-job.org 17:30 CST）
+    # --- 晚间 (UTC 9 = CST 17) ---
+    - cron: '37 9 * * *'
+    - cron: '47 9 * * *'
     - cron: '7 10 * * *'
   workflow_dispatch:
     inputs:
@@ -90,7 +103,7 @@ jobs:
               fi
             fi
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
-            echo "运行: $TODAY $BATCH 批次 (schedule backup, UTC=$UTC_HOUR, CST=$CST_HOUR)"
+            echo "运行: $TODAY $BATCH 批次 (schedule trigger, UTC=$UTC_HOUR, CST=$CST_HOUR)"
           elif [ -n "${{ inputs.batch }}" ]; then
             BATCH="${{ inputs.batch }}"
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
