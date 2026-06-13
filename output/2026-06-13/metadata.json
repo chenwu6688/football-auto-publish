@@ -1,22 +1,26 @@
 {
   "date": "2026-06-13",
-  "generated_at": "2026-06-12T17:54:56.765344",
+  "generated_at": "2026-06-13T10:18:20.012378",
   "total_articles": 2,
   "articles": [
     {
       "index": 1,
-      "title": "世界杯今晚炸场！48队真水？但国足也许就指望这了",
-      "path": "/home/runner/work/_temp/output/2026-06-13/article-1-世界杯今晚炸场4-35f964.md",
-      "slug": "世界杯今晚炸场4-35f964",
+      "title": "世界杯真正的“冠军”，藏在义乌的深夜订单里",
+      "path": "/home/runner/work/_temp/output/2026-06-13/article-1-世界杯真正的冠军-cacc31.md",
+      "slug": "世界杯真正的冠军-cacc31",
       "tags": [
-        "World Cup 2026",
-        "China football",
-        "tournament expansion"
+        "World Cup",
+        "Yiwu",
+        "manufacturing",
+        "supply chain",
+        "merchandise"
       ],
       "keywords": [
-        "World Cup 2026",
-        "China football",
-        "tournament expansion"
+        "World Cup",
+        "Yiwu",
+        "manufacturing",
+        "supply chain",
+        "merchandise"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-13/images/article-1-img-001.jpg",
@@ -24,32 +28,31 @@
         "/home/runner/work/_temp/output/2026-06-13/images/article-1-img-003.jpg"
       ],
       "sources_used": [
-        "燕梳楼-国足逆袭",
-        "中国石化-就在今晚加油"
+        "世界杯开战：中国义乌队，提前夺冠"
       ],
       "source_post": "",
-      "originality_note": "从扩军争议切入，关联国足出线希望，用生活类比解构严肃话题，而非单纯复述开幕和怀旧。",
-      "content_type": "热点球评",
-      "column_id": "chen-du-kuai-xun",
-      "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "originality_note": "将数据报告转化为深夜故事会，用拟人化的“义乌队”视角，重新解构中国制造在世界杯中的角色，强调烟火气与苦涩的幽默感。",
+      "content_type": "八卦趣事",
+      "column_id": "ren-wu-zhi",
+      "column_name": "人物志",
+      "batch_name": "晚间"
     },
     {
       "index": 2,
-      "title": "卡塞米罗终于走了！但曼联这个吸球星血的烂摊子，换谁都没用",
-      "path": "/home/runner/work/_temp/output/2026-06-13/article-2-卡塞米罗终于走了-41d545.md",
-      "slug": "卡塞米罗终于走了-41d545",
+      "title": "卡塞米罗官宣离队那天，我想起了曼联这些年的“亿元废柴”们",
+      "path": "/home/runner/work/_temp/output/2026-06-13/article-2-卡塞米罗官宣离队-8de0cf.md",
+      "slug": "卡塞米罗官宣离队-8de0cf",
       "tags": [
-        "Manchester United",
         "Casemiro",
-        "Rashford",
-        "Premier League transfers"
+        "Manchester United",
+        "transfer flop",
+        "Premier League"
       ],
       "keywords": [
-        "Manchester United",
         "Casemiro",
-        "Rashford",
-        "Premier League transfers"
+        "Manchester United",
+        "transfer flop",
+        "Premier League"
       ],
       "images": [
         "/home/runner/work/_temp/output/2026-06-13/images/article-2-img-001.jpg",
@@ -57,67 +60,77 @@
         "/home/runner/work/_temp/output/2026-06-13/images/article-2-img-003.jpg"
       ],
       "sources_used": [
-        "官宣离队！曼联最失败引援滚了",
-        "罗马诺爆料：巴萨敲定最终决定，拉什福德将重返曼联..."
+        "官宣离队！曼联最失败引援滚了"
       ],
       "source_post": "",
-      "originality_note": "从单纯官宣资讯转为管理层决策辩论，以正反方对打形式剖析引援本质失败，加入历史王朝类比的跨维度视角。",
+      "originality_note": "从卡塞米罗个人命运切入，反思曼联引援体系，而非简单盘点失败案例",
       "content_type": "八卦趣事",
-      "column_id": "hua-ti-lei-tai",
-      "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "column_id": "shi-guang-ji",
+      "column_name": "时光机",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "48队世界杯今晚开幕，扩军是盛宴还是鸡肋？国足这次真有机会？",
+      "title": "世界杯还没开打，义乌已经提前夺冠了",
       "source_article_ids": [
-        10,
-        2
+        3
       ],
       "source_titles": [
-        "就在今晚！准备加油！",
-        "国足逆袭？"
+        "世界杯开战：中国义乌队，提前夺冠"
       ],
-      "angle": "结合今晚开幕和国足话题，提出扩军降低比赛质量但增加奇迹可能，国足并非没戏，重点分析新赛制下的黑马机会。",
+      "angle": "从义乌出口数据切入，探讨中国制造在世界杯产业链中的隐形冠军地位，对比赛场上的国家队，调侃“义乌队”才是真正的冠军，同时反思品牌与赛事营销的深度绑定",
       "keywords": [
-        "World Cup 2026",
-        "expanded format",
-        "China national team"
+        "Yiwu",
+        "World Cup",
+        "Made in China",
+        "football economy"
       ],
       "keywords_cn": [
-        "2026世界杯",
-        "扩军",
-        "国足"
+        "义乌",
+        "世界杯",
+        "中国制造",
+        "足球经济"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "controversy_level": "medium",
-      "target_emotion": "好奇",
+      "target_emotion": "骄傲",
       "_source_articles": [
         {
-          "id": 10,
-          "title": "就在今晚！准备加油！",
-          "summary": "就在今晚    （6月12日3:00）    四年一度的世界杯即将开幕！    48支球队同台竞技    较量战术、比拼韧劲    为球迷们献上一场场精彩比赛\n足球赛场从不是孤军奋战             后卫、中场、前锋分工明确    ",
-          "account": "中国石化",
+          "id": 3,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
           "reads": "10w+",
-          "likes": 703,
+          "likes": 1250,
           "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "国足逆袭？",
-          "summary": "中国队重回世界杯的那一天，希望不会太远",
-          "account": "燕梳楼",
-          "reads": "10w+",
-          "likes": 1657,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
         }
       ],
       "_all_articles": [
+        {
+          "id": 3,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
+          "reads": "10w+",
+          "likes": 1250,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "韩国人爽翻了...",
+          "summary": "这两天有很多读者留言提醒我，他们看到一个全a中位数指数，880009，今年跌幅已经接近30%了，远超我昨天说的-13%。              这个是通达信软件自己编的指数，它的规则是把a股每天的中位数表现累加起来，形成一个指数k线。假",
+          "account": "猫笔刀",
+          "reads": "10w+",
+          "likes": 3680,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
+        },
         {
           "id": 1,
           "title": "2026美加墨世界杯来啦......",
@@ -136,17 +149,6 @@
           "account": "燕梳楼",
           "reads": "10w+",
           "likes": 1657,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "蒙牛用一场世界杯「开幕」为球迷做好情绪热身",
-          "summary": "开心才是看球的正确方式",
-          "account": "第一食品资讯",
-          "reads": "2w+",
-          "likes": 60,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
@@ -180,17 +182,6 @@
           "account": "36氪",
           "reads": "10w+",
           "likes": 225,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "世界杯马上开始！「造型最适配」足球鞋居然这么好搭？",
-          "summary": "Nike 与小众单位 Kids of Immigrants 的合作同样值得留意",
-          "account": "NOWRE",
-          "reads": "2w+",
-          "likes": 160,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
@@ -230,49 +221,49 @@
         }
       ],
       "_standings": {},
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_column_id": "ren-wu-zhi",
+      "_column_name": "人物志",
+      "_column_icon": "👤",
+      "_writing_style": "人物杂志体",
+      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
       "_word_count_range": [
-        300,
-        500
+        500,
+        800
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "resonance_sharing",
+      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
+      "_topic_domain": "足球人物故事",
+      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "曼联官宣清洗卡塞米罗，拉什福德回归！滕哈格重建到底靠不靠谱？",
+      "title": "曼联送走卡塞米罗：1.2亿买来四年牢，最亏引援没有之一",
       "source_article_ids": [
-        12,
-        14
+        12
       ],
       "source_titles": [
-        "官宣离队！曼联最失败引援滚了",
-        "罗马诺爆料：巴萨敲定最终决定，拉什福德将重返曼联，红魔同时官宣六名球员离队"
+        "官宣离队！曼联最失败引援滚了"
       ],
-      "angle": "从卡塞米罗高薪低能离队和拉什福德租借回归切入，质疑曼联管理层引援眼光，同时提出拉什福德回归能否激活球队的争议点。",
+      "angle": "以卡塞米罗离队为引，复盘曼联近些年高价引援失败案例，指出问题本质不在球员老化而在管理层混乱转会策略，新观点：曼联该停止甩锅，正视引援体系崩盘",
       "keywords": [
         "Manchester United",
         "Casemiro",
-        "Rashford"
+        "transfer failure",
+        "Premier League"
       ],
       "keywords_cn": [
         "曼联",
         "卡塞米罗",
-        "拉什福德"
+        "转会失败",
+        "英超"
       ],
       "content_type": "八卦趣事",
       "controversy_level": "high",
-      "target_emotion": "震惊",
+      "target_emotion": "愤怒",
       "_source_articles": [
         {
           "id": 12,
@@ -284,20 +275,31 @@
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
-        },
-        {
-          "id": 14,
-          "title": "罗马诺爆料：巴萨敲定最终决定，拉什福德将重返曼联，红魔同时官宣六名球员离队",
-          "summary": "由于巴塞罗那放弃了买断选项，马库斯・拉什福德预计将重返曼联。与此同时，红魔也正式确认另有六名球员离队。",
-          "account": "魔迷的天与地",
-          "reads": "6200",
-          "likes": 10,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
         }
       ],
       "_all_articles": [
+        {
+          "id": 3,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
+          "reads": "10w+",
+          "likes": 1250,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "韩国人爽翻了...",
+          "summary": "这两天有很多读者留言提醒我，他们看到一个全a中位数指数，880009，今年跌幅已经接近30%了，远超我昨天说的-13%。              这个是通达信软件自己编的指数，它的规则是把a股每天的中位数表现累加起来，形成一个指数k线。假",
+          "account": "猫笔刀",
+          "reads": "10w+",
+          "likes": 3680,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
+        },
         {
           "id": 1,
           "title": "2026美加墨世界杯来啦......",
@@ -316,17 +318,6 @@
           "account": "燕梳楼",
           "reads": "10w+",
           "likes": 1657,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "蒙牛用一场世界杯「开幕」为球迷做好情绪热身",
-          "summary": "开心才是看球的正确方式",
-          "account": "第一食品资讯",
-          "reads": "2w+",
-          "likes": 60,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
@@ -360,17 +351,6 @@
           "account": "36氪",
           "reads": "10w+",
           "likes": 225,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "世界杯马上开始！「造型最适配」足球鞋居然这么好搭？",
-          "summary": "Nike 与小众单位 Kids of Immigrants 的合作同样值得留意",
-          "account": "NOWRE",
-          "reads": "2w+",
-          "likes": 160,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
@@ -410,61 +390,85 @@
         }
       ],
       "_standings": {},
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "shi-guang-ji",
+      "_column_name": "时光机",
+      "_column_icon": "⏰",
+      "_writing_style": "回忆杀体",
+      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
       "_word_count_range": [
-        400,
-        600
+        500,
+        700
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
+      "_topic_domain": "足球历史/记忆/球迷文化",
+      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
     },
     {
-      "title": "熬了8年！从世界杯罪人到全民英雄，这哥们的逆袭比电影还燃",
+      "title": "巴萨申办2029欧冠决赛：诺坎普重建背后的战术野心",
       "source_article_ids": [
-        15
+        13
       ],
       "source_titles": [
-        "熬了8年！从罪人到功勋！"
+        "巴萨官方公告"
       ],
-      "angle": "以“天下足球”讲述的逆袭故事为线索，挖掘具体球员（如2018世界杯失误门将或点球踢飞前锋）如何通过8年努力成为本届世界杯希望，传递励志情绪。",
+      "angle": "从巴萨申办欧冠决赛的官方公告入手，分析新诺坎普球场容量、草皮尺寸、气候控制等硬件的战术适配性，再延伸到巴萨未来建队方向是否契合决赛场地优势，新观点：申办不只是面子工程，更是战术暗棋",
       "keywords": [
-        "redemption",
-        "world cup",
-        "player story"
+        "Barcelona",
+        "Champions League final",
+        "Camp Nou",
+        "tactical analysis"
       ],
       "keywords_cn": [
-        "逆袭",
-        "世界杯",
-        "球员故事"
+        "巴萨",
+        "欧冠决赛",
+        "诺坎普",
+        "战术解析"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "战术解析",
       "controversy_level": "low",
-      "target_emotion": "感动",
+      "target_emotion": "好奇",
       "_source_articles": [
         {
-          "id": 15,
-          "title": "熬了8年！从罪人到功勋！",
-          "summary": "噩梦醒了，天亮了！",
-          "account": "天下足球",
-          "reads": "2w+",
-          "likes": 385,
+          "id": 13,
+          "title": "巴萨官方公告",
+          "summary": "巴塞罗那足球俱乐部联合巴塞罗那市政府、加泰罗尼亚自治区政府，并在西班牙皇家足协（RFEF）作为东道主和联合组织方的支持下，正式向欧足联提交了申办2029年欧冠决赛的候选申请及完整申办文件。  此次提交的材料涵盖了欧足联要求的全部技术、合同及",
+          "account": "巴塞罗那足球俱乐部",
+          "reads": "3w+",
+          "likes": 468,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
         }
       ],
       "_all_articles": [
+        {
+          "id": 3,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
+          "reads": "10w+",
+          "likes": 1250,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "韩国人爽翻了...",
+          "summary": "这两天有很多读者留言提醒我，他们看到一个全a中位数指数，880009，今年跌幅已经接近30%了，远超我昨天说的-13%。              这个是通达信软件自己编的指数，它的规则是把a股每天的中位数表现累加起来，形成一个指数k线。假",
+          "account": "猫笔刀",
+          "reads": "10w+",
+          "likes": 3680,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 80
+        },
         {
           "id": 1,
           "title": "2026美加墨世界杯来啦......",
@@ -483,17 +487,6 @@
           "account": "燕梳楼",
           "reads": "10w+",
           "likes": 1657,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "蒙牛用一场世界杯「开幕」为球迷做好情绪热身",
-          "summary": "开心才是看球的正确方式",
-          "account": "第一食品资讯",
-          "reads": "2w+",
-          "likes": 60,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
@@ -527,17 +520,6 @@
           "account": "36氪",
           "reads": "10w+",
           "likes": 225,
-          "data_score": 100,
-          "pub_time": "2026-06-11",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "世界杯马上开始！「造型最适配」足球鞋居然这么好搭？",
-          "summary": "Nike 与小众单位 Kids of Immigrants 的合作同样值得留意",
-          "account": "NOWRE",
-          "reads": "2w+",
-          "likes": 160,
           "data_score": 100,
           "pub_time": "2026-06-11",
           "_recency_score": 40
@@ -581,8 +563,9 @@
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-13 01:54:56"
+  "last_batch": "evening",
+  "last_updated": "2026-06-13 18:18:20"
 }
