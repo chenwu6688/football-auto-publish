@@ -1,0 +1,578 @@
+{
+  "date": "2026-06-14",
+  "generated_at": "2026-06-14T11:12:06.332904",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "22秒，一个时代的终场哨",
+      "path": "/home/runner/work/_temp/output/2026-06-14/article-1-22秒一个时代的-be7295.md",
+      "slug": "22秒一个时代的-be7295",
+      "tags": [
+        "World Cup",
+        "nostalgia",
+        "media",
+        "football culture",
+        "viewership"
+      ],
+      "keywords": [
+        "World Cup",
+        "nostalgia",
+        "media",
+        "football culture",
+        "viewership"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-14/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-14/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-14/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "新闻联播末尾仅用22秒报道世界杯开幕"
+      ],
+      "source_post": "",
+      "originality_note": "不写比赛写时代，将报道时长锐减与球迷记忆怀旧结合，类比春节年味变淡，把新闻事件转写成人物（球迷群体）侧写。",
+      "content_type": "八卦趣事",
+      "column_id": "ren-wu-zhi",
+      "column_name": "人物志",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "朗尼克拒了米兰，不是因为钱",
+      "path": "/home/runner/work/_temp/output/2026-06-14/article-2-朗尼克拒了米兰不-8195fa.md",
+      "slug": "朗尼克拒了米兰不-8195fa",
+      "tags": [
+        "Rangnick",
+        "AC Milan",
+        "coach power struggle",
+        "transfer control",
+        "Manchester United debt"
+      ],
+      "keywords": [
+        "Rangnick",
+        "AC Milan",
+        "coach power struggle",
+        "transfer control",
+        "Manchester United debt"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-14/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-14/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-14/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "突发！朗尼克拒绝米兰"
+      ],
+      "source_post": "",
+      "originality_note": "从记忆触发（07欧冠）切入，将转会新闻升华为教练尊严与权力博弈的讨论，用跨界类比（互联网高管vs部门总监）解释转会话语权争议",
+      "content_type": "八卦趣事",
+      "column_id": "shi-guang-ji",
+      "column_name": "时光机",
+      "batch_name": "晚间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "央视22秒冷处理世界杯，足球在中国真凉了？",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "新闻联播末尾仅用22秒报道世界杯开幕"
+      ],
+      "angle": "以央视报道时长为切入点，探讨世界杯在中国的热度变迁，对比过去全民狂欢与现在的理性观看，结合义乌订单等数据，提出新观点：不是足球凉了，而是观众审美疲劳与内容分流。",
+      "keywords": [
+        "World Cup",
+        "China",
+        "CCTV",
+        "cold reception",
+        "football culture"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "中国",
+        "央视",
+        "冷处理",
+        "足球文化"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "新闻联播末尾仅用22秒报道世界杯开幕",
+          "summary": "美加墨世界杯，北京时间今天（6月12日）凌晨1：30正式开幕。这个四年一度的的盛大赛事，亿万球迷翘首期待，因为时差关系，有的并没有收看现场直播。而当晚的央视新闻联播，在最末尾结束前（国际简讯），仅用了22秒进行了报道。明显感到这届世界杯受冷",
+          "account": "有温度的海风",
+          "reads": "2w+",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "新闻联播末尾仅用22秒报道世界杯开幕",
+          "summary": "美加墨世界杯，北京时间今天（6月12日）凌晨1：30正式开幕。这个四年一度的的盛大赛事，亿万球迷翘首期待，因为时差关系，有的并没有收看现场直播。而当晚的央视新闻联播，在最末尾结束前（国际简讯），仅用了22秒进行了报道。明显感到这届世界杯受冷",
+          "account": "有温度的海风",
+          "reads": "2w+",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "突发！朗尼克拒绝米兰",
+          "summary": "完犊子了",
+          "account": "侃侃米兰",
+          "reads": "8916",
+          "likes": 20,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "实测GLM-5.2，国产Coding模型的又一座新高峰。",
+          "summary": "智能属于所有人",
+          "account": "数字生命卡兹克",
+          "reads": "8w+",
+          "likes": 2204,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "纳斯达克重磅更新！即将纳入史诗级IPO！利率定风格！",
+          "summary": "周末发生的巨大事件，宝子们应该都或多或少听说了，昨晚哈基米都没看世界杯，直接去看Space X实时交易现场，开盘交易的时候，多空大战，看spacex交易比看足球还有精神。开盘就两万亿市值，未来好久都没有公司能够超越，太疯狂。\n6月12日，马",
+          "account": "哈基米的日记6",
+          "reads": "8240",
+          "likes": 88,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 11,
+          "title": "辽篮速递！郭艾伦有意重返辽宁，上海想要挖走赵继伟，广东18岁新星转会辽宁，新赛季主教练基本确定",
+          "summary": "休赛期辽宁男篮的夏训已经全面展开了，今年辽宁男篮放假的时间比较早，所以集合的时间也比较早，球队上上下下也都是非常重视今年的夏训，对于辽篮来说肯定不会轻易放弃好的成绩，辽宁男篮肯定会在下个赛季有所改变，让自己重新回到强队之列，不会再去创造更差",
+          "account": "凯丰侃球",
+          "reads": "4w+",
+          "likes": 85,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 13,
+          "title": "5.5亿！曼联达成协议",
+          "summary": "BBC跟队记者西蒙-斯通报道，曼联已完成大额债务重新谈判，敲定一项5.5亿美元全新融资协议。同时调整多笔贷款期限，可短期内化解偿债兑付危机，但更高借贷利率加重了俱乐部长期财务负担。    曼联原有一笔4.25亿美元（折合3.17亿英镑）债券",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 59,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 14,
+          "title": "曼联要被卖了",
+          "summary": "唏嘘一幕。\n作者/余梦莹          报道/投资界PEdaily \n史上最盛大世界杯正在上演。\n48支球队、39天、104场比赛，总奖金飙升至8.71亿美元。梅西、C罗、莫德里奇“最后一舞”，哈兰德、姆巴佩、亚马尔崛起，诸神之战拉开帷",
+          "account": "投资界",
+          "reads": "2w+",
+          "likes": 132,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 15,
+          "title": "偷鸡不成！本以为能毁掉董路，没想到自己先被扒个底朝天",
+          "summary": "6月2日晚上，意大利罗马，SIGISMONDI杯U12决赛。 门将陈思源连续扑出两个点球，12岁的孟新艺罚入制胜一球，中国足球小将5比4击败英超埃弗顿梯队。",
+          "account": "赛场拾光者",
+          "reads": "5536",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
+          "reads": "10w+",
+          "likes": 1330,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "世界杯就这么开幕了",
+          "summary": "不用问，这类进攻配合国足极大概率是打不出来的。",
+          "account": "狂言Doggy",
+          "reads": "2w+",
+          "likes": 209,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "ren-wu-zhi",
+      "_column_name": "人物志",
+      "_column_icon": "👤",
+      "_writing_style": "人物杂志体",
+      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
+      "_word_count_range": [
+        500,
+        800
+      ],
+      "_interaction_type": "resonance_sharing",
+      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
+      "_topic_domain": "足球人物故事",
+      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+    },
+    {
+      "title": "朗尼克说不干就不干，AC米兰的帅位成了烫手山芋？",
+      "source_article_ids": [
+        5
+      ],
+      "source_titles": [
+        "突发！朗尼克拒绝米兰"
+      ],
+      "angle": "解析朗尼克拒绝米兰背后的原因——可能是对转会话语权不满、薪资分歧或对米兰重建计划的疑虑，同时串联曼联财务危机（id13），预测米兰下一个目标人选，强调当前豪门对教练权威的博弈。",
+      "keywords": [
+        "Ralf Rangnick",
+        "AC Milan",
+        "manager rejection",
+        "transfer power",
+        "coach market"
+      ],
+      "keywords_cn": [
+        "朗尼克",
+        "AC米兰",
+        "拒绝执教",
+        "转会话语权",
+        "教练市场"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "low",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 5,
+          "title": "突发！朗尼克拒绝米兰",
+          "summary": "完犊子了",
+          "account": "侃侃米兰",
+          "reads": "8916",
+          "likes": 20,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "新闻联播末尾仅用22秒报道世界杯开幕",
+          "summary": "美加墨世界杯，北京时间今天（6月12日）凌晨1：30正式开幕。这个四年一度的的盛大赛事，亿万球迷翘首期待，因为时差关系，有的并没有收看现场直播。而当晚的央视新闻联播，在最末尾结束前（国际简讯），仅用了22秒进行了报道。明显感到这届世界杯受冷",
+          "account": "有温度的海风",
+          "reads": "2w+",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "突发！朗尼克拒绝米兰",
+          "summary": "完犊子了",
+          "account": "侃侃米兰",
+          "reads": "8916",
+          "likes": 20,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "实测GLM-5.2，国产Coding模型的又一座新高峰。",
+          "summary": "智能属于所有人",
+          "account": "数字生命卡兹克",
+          "reads": "8w+",
+          "likes": 2204,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "纳斯达克重磅更新！即将纳入史诗级IPO！利率定风格！",
+          "summary": "周末发生的巨大事件，宝子们应该都或多或少听说了，昨晚哈基米都没看世界杯，直接去看Space X实时交易现场，开盘交易的时候，多空大战，看spacex交易比看足球还有精神。开盘就两万亿市值，未来好久都没有公司能够超越，太疯狂。\n6月12日，马",
+          "account": "哈基米的日记6",
+          "reads": "8240",
+          "likes": 88,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 11,
+          "title": "辽篮速递！郭艾伦有意重返辽宁，上海想要挖走赵继伟，广东18岁新星转会辽宁，新赛季主教练基本确定",
+          "summary": "休赛期辽宁男篮的夏训已经全面展开了，今年辽宁男篮放假的时间比较早，所以集合的时间也比较早，球队上上下下也都是非常重视今年的夏训，对于辽篮来说肯定不会轻易放弃好的成绩，辽宁男篮肯定会在下个赛季有所改变，让自己重新回到强队之列，不会再去创造更差",
+          "account": "凯丰侃球",
+          "reads": "4w+",
+          "likes": 85,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 13,
+          "title": "5.5亿！曼联达成协议",
+          "summary": "BBC跟队记者西蒙-斯通报道，曼联已完成大额债务重新谈判，敲定一项5.5亿美元全新融资协议。同时调整多笔贷款期限，可短期内化解偿债兑付危机，但更高借贷利率加重了俱乐部长期财务负担。    曼联原有一笔4.25亿美元（折合3.17亿英镑）债券",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 59,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 14,
+          "title": "曼联要被卖了",
+          "summary": "唏嘘一幕。\n作者/余梦莹          报道/投资界PEdaily \n史上最盛大世界杯正在上演。\n48支球队、39天、104场比赛，总奖金飙升至8.71亿美元。梅西、C罗、莫德里奇“最后一舞”，哈兰德、姆巴佩、亚马尔崛起，诸神之战拉开帷",
+          "account": "投资界",
+          "reads": "2w+",
+          "likes": 132,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 15,
+          "title": "偷鸡不成！本以为能毁掉董路，没想到自己先被扒个底朝天",
+          "summary": "6月2日晚上，意大利罗马，SIGISMONDI杯U12决赛。 门将陈思源连续扑出两个点球，12岁的孟新艺罚入制胜一球，中国足球小将5比4击败英超埃弗顿梯队。",
+          "account": "赛场拾光者",
+          "reads": "5536",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
+          "reads": "10w+",
+          "likes": 1330,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "世界杯就这么开幕了",
+          "summary": "不用问，这类进攻配合国足极大概率是打不出来的。",
+          "account": "狂言Doggy",
+          "reads": "2w+",
+          "likes": 209,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {},
+      "_column_id": "shi-guang-ji",
+      "_column_name": "时光机",
+      "_column_icon": "⏰",
+      "_writing_style": "回忆杀体",
+      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
+      "_word_count_range": [
+        500,
+        700
+      ],
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
+      "_topic_domain": "足球历史/记忆/球迷文化",
+      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
+      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+    },
+    {
+      "title": "中国足球小将点球干翻埃弗顿梯队，董路模式终于翻身了？",
+      "source_article_ids": [
+        15
+      ],
+      "source_titles": [
+        "偷鸡不成！本以为能毁掉董路，没想到自己先被扒个底朝天"
+      ],
+      "angle": "从中国足球小将U12击败英超梯队的事件出发，讨论董路青训模式的争议与成效，对比成年国足表现，提出新观点：与其争论模式对错，不如关注这些孩子能否真正进入职业体系。",
+      "keywords": [
+        "Chinese football",
+        "youth training",
+        "Dong Lu",
+        "Everton U12",
+        "penalty shootout"
+      ],
+      "keywords_cn": [
+        "中国足球",
+        "青训",
+        "董路",
+        "埃弗顿梯队",
+        "点球大战"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "骄傲",
+      "_source_articles": [
+        {
+          "id": 15,
+          "title": "偷鸡不成！本以为能毁掉董路，没想到自己先被扒个底朝天",
+          "summary": "6月2日晚上，意大利罗马，SIGISMONDI杯U12决赛。 门将陈思源连续扑出两个点球，12岁的孟新艺罚入制胜一球，中国足球小将5比4击败英超埃弗顿梯队。",
+          "account": "赛场拾光者",
+          "reads": "5536",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "新闻联播末尾仅用22秒报道世界杯开幕",
+          "summary": "美加墨世界杯，北京时间今天（6月12日）凌晨1：30正式开幕。这个四年一度的的盛大赛事，亿万球迷翘首期待，因为时差关系，有的并没有收看现场直播。而当晚的央视新闻联播，在最末尾结束前（国际简讯），仅用了22秒进行了报道。明显感到这届世界杯受冷",
+          "account": "有温度的海风",
+          "reads": "2w+",
+          "likes": 71,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "突发！朗尼克拒绝米兰",
+          "summary": "完犊子了",
+          "account": "侃侃米兰",
+          "reads": "8916",
+          "likes": 20,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "实测GLM-5.2，国产Coding模型的又一座新高峰。",
+          "summary": "智能属于所有人",
+          "account": "数字生命卡兹克",
+          "reads": "8w+",
+          "likes": 2204,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "纳斯达克重磅更新！即将纳入史诗级IPO！利率定风格！",
+          "summary": "周末发生的巨大事件，宝子们应该都或多或少听说了，昨晚哈基米都没看世界杯，直接去看Space X实时交易现场，开盘交易的时候，多空大战，看spacex交易比看足球还有精神。开盘就两万亿市值，未来好久都没有公司能够超越，太疯狂。\n6月12日，马",
+          "account": "哈基米的日记6",
+          "reads": "8240",
+          "likes": 88,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 11,
+          "title": "辽篮速递！郭艾伦有意重返辽宁，上海想要挖走赵继伟，广东18岁新星转会辽宁，新赛季主教练基本确定",
+          "summary": "休赛期辽宁男篮的夏训已经全面展开了，今年辽宁男篮放假的时间比较早，所以集合的时间也比较早，球队上上下下也都是非常重视今年的夏训，对于辽篮来说肯定不会轻易放弃好的成绩，辽宁男篮肯定会在下个赛季有所改变，让自己重新回到强队之列，不会再去创造更差",
+          "account": "凯丰侃球",
+          "reads": "4w+",
+          "likes": 85,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 13,
+          "title": "5.5亿！曼联达成协议",
+          "summary": "BBC跟队记者西蒙-斯通报道，曼联已完成大额债务重新谈判，敲定一项5.5亿美元全新融资协议。同时调整多笔贷款期限，可短期内化解偿债兑付危机，但更高借贷利率加重了俱乐部长期财务负担。    曼联原有一笔4.25亿美元（折合3.17亿英镑）债券",
+          "account": "我爱曼联",
+          "reads": "1w+",
+          "likes": 59,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 14,
+          "title": "曼联要被卖了",
+          "summary": "唏嘘一幕。\n作者/余梦莹          报道/投资界PEdaily \n史上最盛大世界杯正在上演。\n48支球队、39天、104场比赛，总奖金飙升至8.71亿美元。梅西、C罗、莫德里奇“最后一舞”，哈兰德、姆巴佩、亚马尔崛起，诸神之战拉开帷",
+          "account": "投资界",
+          "reads": "2w+",
+          "likes": 132,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 15,
+          "title": "偷鸡不成！本以为能毁掉董路，没想到自己先被扒个底朝天",
+          "summary": "6月2日晚上，意大利罗马，SIGISMONDI杯U12决赛。 门将陈思源连续扑出两个点球，12岁的孟新艺罚入制胜一球，中国足球小将5比4击败英超埃弗顿梯队。",
+          "account": "赛场拾光者",
+          "reads": "5536",
+          "likes": 36,
+          "data_score": 100,
+          "pub_time": "2026-06-13",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "世界杯开战：中国义乌队，提前夺冠",
+          "summary": "隐形冠军，日进斗金",
+          "account": "视觉志",
+          "reads": "10w+",
+          "likes": 1330,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 40
+        },
+        {
+          "id": 3,
+          "title": "世界杯就这么开幕了",
+          "summary": "不用问，这类进攻配合国足极大概率是打不出来的。",
+          "account": "狂言Doggy",
+          "reads": "2w+",
+          "likes": 209,
+          "data_score": 100,
+          "pub_time": "2026-06-12",
+          "_recency_score": 40
+        }
+      ],
+      "_standings": {}
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-06-14 19:12:06"
+}
