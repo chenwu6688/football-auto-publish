@@ -1,7 +1,7 @@
 {
   "date": "2026-06-15",
-  "generated_at": "2026-06-15T02:54:51.545842",
-  "total_articles": 2,
+  "generated_at": "2026-06-15T03:24:39.905717",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -68,504 +68,221 @@
       "column_id": "shi-guang-ji",
       "column_name": "时光机",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "世界杯首轮冷门榜：德国7-1在列，日本平荷兰第二",
+      "path": "/home/runner/work/_temp/output/2026-06-15/article-1-世界杯首轮冷门榜-d15aaf.md",
+      "slug": "世界杯首轮冷门榜-d15aaf",
+      "tags": [
+        "World Cup",
+        "upset",
+        "Japan",
+        "Netherlands",
+        "Brazil",
+        "Germany"
+      ],
+      "keywords": [
+        "World Cup",
+        "upset",
+        "Japan",
+        "Netherlands",
+        "Brazil",
+        "Germany"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-15/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-15/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "shu-ju-pan-dian",
+      "column_name": "数据盘点",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "4-1大胜背后，美国青训的“隐形金矿”才刚开挖",
+      "path": "/home/runner/work/_temp/output/2026-06-15/article-2-41大胜背后美国-c40fab.md",
+      "slug": "41大胜背后美国-c40fab",
+      "tags": [
+        "USA",
+        "World Cup 2026",
+        "youth development",
+        "scouting",
+        "Premier League"
+      ],
+      "keywords": [
+        "USA",
+        "World Cup 2026",
+        "youth development",
+        "scouting",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-15/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-15/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-15/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "shen-shui-qu",
+      "column_name": "深水区",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "巴西1-1摩洛哥：世界第一进攻，竟被非洲铁桶闷死",
+      "path": "/home/runner/work/_temp/output/2026-06-15/article-3-巴西11摩洛哥世-efa4fa.md",
+      "slug": "巴西11摩洛哥世-efa4fa",
+      "tags": [
+        "Brazil",
+        "Morocco",
+        "World Cup",
+        "defensive tactics"
+      ],
+      "keywords": [
+        "Brazil",
+        "Morocco",
+        "World Cup",
+        "defensive tactics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-15/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "等了40年，这支世界杯新军终于拿到历史第1分，咱们能学点啥",
-      "source_article_ids": [
-        12
-      ],
-      "source_titles": [
-        "40年等待，7场比赛，他们终于在世界杯“拿一分”"
-      ],
-      "angle": "从一支世界杯新军40年首分的角度切入，结合比赛过程分析其战术纪律和心态，延伸为中国足球青训与大赛经验的借鉴，而非简单讲情怀。",
+      "title": "2-2！日本逼平荷兰，亚洲足球的又一记响亮耳光",
+      "formula": "A",
+      "angle": "荷兰队阵容豪华却被日本逼平，暴露了欧洲强队对亚洲足球的轻视。日本队用技术流和纪律性证明他们不再是陪衬，应当赢得尊重。",
       "keywords": [
-        "World Cup debut",
-        "first point",
-        "tactical discipline",
-        "China football lesson"
+        "Japan",
+        "Netherlands",
+        "World Cup",
+        "draw",
+        "Asian football"
       ],
       "keywords_cn": [
-        "世界杯首分",
-        "新军",
-        "战术纪律",
-        "中国足球借鉴"
+        "日本",
+        "荷兰",
+        "世界杯",
+        "平局",
+        "亚洲足球"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "排行榜",
+      "score": 95,
+      "expected_heat": "S",
+      "rationale": "荷兰是传统强队，日本队近年崛起，逼平强强对话极具戏剧性和争议性，亚洲球迷情绪共鸣强，引发激烈讨论。",
       "controversy_level": "medium",
-      "target_emotion": "感动",
-      "_source_articles": [
-        {
-          "id": 12,
-          "title": "40年等待，7场比赛，他们终于在世界杯“拿一分”",
-          "summary": "看世界杯上咪咕！",
-          "account": "咪咕体育",
-          "reads": "2w+",
-          "likes": 141,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "周星驰十年磨剑《少林女足》暑期上映!!!",
-          "summary": "✅《少林女足》\n- 导演：周星驰（《少林足球》25年后精神续作）\n- 剧情：峨眉队融功夫入足球，队长双双（张小斐）获大师兄徐风（张艺兴）助力后势如破竹；徐风因争执反戈击败峨眉队，最终球队团结逆袭，拿下亚冠杯冠军 。\n- 主演：\n- 张小斐（",
-          "account": "文心一言S123",
-          "reads": "2w+",
-          "likes": 24,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "昨天竞猜的结果出来了。\n\n说两句：\n\n\n比赛结果，大家都看到…",
-          "summary": "昨天竞猜的结果出来了。 说两句： 比赛结果，大家都看到了： 加拿大1比1波黑，美国3比0巴拉圭。 千问胜负错了一场，比分都没对。 我觉得这个结果，应该没出绝大多数人意料。 这充分说明： 1、足球是圆的。 2、AI只能测算出大致的概率（千问在",
-          "account": "馒头说",
-          "reads": "10w+",
-          "likes": 471,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "这届球迷的情绪，青岛啤酒都接住了",
-          "summary": "青岛啤酒已成为连接亿万球迷情绪的超级场景与情感符号。",
-          "account": "云酒头条",
-          "reads": "2w+",
-          "likes": 192,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "伊朗方面发了张海报，引发轰动",
-          "summary": "据俄罗斯《莫斯科共青团员报》网站6月11日报道，2026年世界杯开幕前夕，伊朗驻印度尼西亚大使馆在社交平台X上发布了一张具有讽刺意味的海报。画面上是一座由人类头骨堆成的山，山巅放置着足球奖杯。奖杯中央原本的地球图案也被头骨取代，英文配文为“",
-          "account": "牛弹琴",
-          "reads": "8w+",
-          "likes": 1111,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
-          "title": "纳斯达克重磅更新！即将纳入史诗级IPO！利率定风格！",
-          "summary": "周末发生的巨大事件，宝子们应该都或多或少听说了，昨晚哈基米都没看世界杯，直接去看Space X实时交易现场，开盘交易的时候，多空大战，看spacex交易比看足球还有精神。开盘就两万亿市值，未来好久都没有公司能够超越，太疯狂。\n6月12日，马",
-          "account": "哈基米的日记6",
-          "reads": "8240",
-          "likes": 88,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 6,
-          "title": "今晚，彻夜难眠！",
-          "summary": "大家周末愉快！       最近世界杯开始，有家人问我会看球吗？       我对足球的关注其实很少，但世界杯还是会凑凑热闹。       足球这项运动真的很神奇，记得去年卡塔尔世界杯，决赛法国对阿根廷。              所有球员",
-          "account": "情绪流老钱",
-          "reads": "1w+",
-          "likes": 669,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "男孩把珠子塞进这里隐瞒6年才取 ，评论区咋全是这么干的？！",
-          "summary": "什么？  原来中国足球是可以赢的？  6月2日，意大利国际青少年杯赛决赛落幕。  由前体育解说员董路带领的中国足球小将2014队（U12年龄段）通过点球大战战胜对手，捧起冠军奖杯。         据说，这场意大利国际青少年杯赛有“U12小",
-          "account": "暴走大事件",
-          "reads": "6w+",
-          "likes": 561,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "2026年世界杯最大赢家曝光：中国血赚千亿，只花了0元。",
-          "summary": "作为一名20多年的生意人，三句话不离本行，今天我们从做生意的角度谈谈世界杯，依我看，2026年世界杯，真正的赢家不是阿根廷，不是法国，是中国。\n别急着反驳，先看一组\"恐怖\"的数据。\n场上的足球，义乌造的；球员大巴，宇通牌的；场馆LED大屏，",
-          "account": "好福气好运姐",
-          "reads": "7401",
-          "likes": 41,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
-          "title": "都说\"美中不足\"，美国足球什么时候这么强了？",
-          "summary": "说实话，美国足球跟中国足球，根本不在一个维度。近8届世界杯，美国只缺席了1届——同一时间段，中国只进了1届。",
-          "account": "叶飞的编辑部",
-          "reads": "1w+",
-          "likes": 39,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 10,
-          "title": "关于2026江苏省城市足球联赛第十周比赛预约购票的公告",
-          "summary": "公   告                                                                                                                   ",
-          "account": "江苏省城市足球联赛",
-          "reads": "4w+",
-          "likes": 101,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        }
-      ],
-      "_standings": {},
-      "_column_id": "ren-wu-zhi",
-      "_column_name": "人物志",
-      "_column_icon": "👤",
-      "_writing_style": "人物杂志体",
-      "_style_detail": "像《人物》杂志的特稿，但更短更有网感。开篇必须是一个具体画面或瞬间。用故事和细节勾画人物，而非数据和荣誉列表。可以有情感但不能煽情。结尾让人回味，不是口号。",
+      "target_emotion": "骄傲",
+      "_column_id": "shu-ju-pan-dian",
+      "_column_name": "数据盘点",
+      "_column_icon": "📊",
+      "_writing_style": "毒舌点评体",
+      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
       "_word_count_range": [
-        500,
-        800
+        400,
+        600
       ],
-      "_interaction_type": "resonance_sharing",
-      "_interaction_guidance": "文末引发共鸣：'你印象里关于XX最难忘的一个画面是什么？评论区分享，我先来——[一个具体画面]'。让读者想分享自己的记忆。",
-      "_topic_domain": "足球人物故事",
-      "_topic_guidance": "一个球员或教练的人物侧写。聚焦一个侧面、一个瞬间、一个选择——不是履历流水账。写他的高光、低谷、争议、选择。让读者看完后对这个人物产生新的理解或共情。适合写：老将的最后一舞、新星的崛起、争议人物的另一面、被遗忘的天才。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
-      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+      "_interaction_type": "challenge_dare",
+      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
+      "_topic_domain": "足球数据排名",
+      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
     },
     {
-      "title": "朗尼克拒绝米兰内幕曝光！不光是钱的问题，这三点才是真因",
-      "source_article_ids": [
-        14
-      ],
-      "source_titles": [
-        "突发！朗尼克拒绝米兰"
-      ],
-      "angle": "从朗尼克拒绝米兰的传闻出发，深挖其背后的战术理念冲突、建队话语权争夺以及个人职业规划，不止是转会八卦，更是现代足球管理模式的缩影。",
+      "title": "4-1大胜后，欧洲豪门盯上美国新星，下一个普利西奇在哪？",
+      "formula": "B",
+      "angle": "美国队世界杯首秀4-1大胜巴拉圭，年轻球员身价飙升，英超等豪门已经开始询价。东道主的青训红利和球员流通将引爆转会市场。",
       "keywords": [
-        "Ralf Rangnick",
-        "AC Milan",
-        "transfer rejection",
-        "sporting director"
+        "USA",
+        "World Cup",
+        "transfer",
+        "young star",
+        "Pulisic"
       ],
       "keywords_cn": [
-        "朗尼克",
-        "AC米兰",
-        "转会拒绝",
-        "建队理念"
+        "美国",
+        "世界杯",
+        "转会",
+        "新星",
+        "普利西奇"
       ],
-      "content_type": "八卦趣事",
-      "controversy_level": "high",
+      "content_type": "战术解析",
+      "score": 88,
+      "expected_heat": "A",
+      "rationale": "美国队大胜本身就有关注度，结合转会传闻满足球迷对动态的好奇心，且能引发美国球迷和欧洲俱乐部粉丝的讨论。",
+      "controversy_level": "low",
       "target_emotion": "好奇",
-      "_source_articles": [
-        {
-          "id": 14,
-          "title": "突发！朗尼克拒绝米兰",
-          "summary": "完犊子了",
-          "account": "侃侃米兰",
-          "reads": "8916",
-          "likes": 20,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "周星驰十年磨剑《少林女足》暑期上映!!!",
-          "summary": "✅《少林女足》\n- 导演：周星驰（《少林足球》25年后精神续作）\n- 剧情：峨眉队融功夫入足球，队长双双（张小斐）获大师兄徐风（张艺兴）助力后势如破竹；徐风因争执反戈击败峨眉队，最终球队团结逆袭，拿下亚冠杯冠军 。\n- 主演：\n- 张小斐（",
-          "account": "文心一言S123",
-          "reads": "2w+",
-          "likes": 24,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "昨天竞猜的结果出来了。\n\n说两句：\n\n\n比赛结果，大家都看到…",
-          "summary": "昨天竞猜的结果出来了。 说两句： 比赛结果，大家都看到了： 加拿大1比1波黑，美国3比0巴拉圭。 千问胜负错了一场，比分都没对。 我觉得这个结果，应该没出绝大多数人意料。 这充分说明： 1、足球是圆的。 2、AI只能测算出大致的概率（千问在",
-          "account": "馒头说",
-          "reads": "10w+",
-          "likes": 471,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "这届球迷的情绪，青岛啤酒都接住了",
-          "summary": "青岛啤酒已成为连接亿万球迷情绪的超级场景与情感符号。",
-          "account": "云酒头条",
-          "reads": "2w+",
-          "likes": 192,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "伊朗方面发了张海报，引发轰动",
-          "summary": "据俄罗斯《莫斯科共青团员报》网站6月11日报道，2026年世界杯开幕前夕，伊朗驻印度尼西亚大使馆在社交平台X上发布了一张具有讽刺意味的海报。画面上是一座由人类头骨堆成的山，山巅放置着足球奖杯。奖杯中央原本的地球图案也被头骨取代，英文配文为“",
-          "account": "牛弹琴",
-          "reads": "8w+",
-          "likes": 1111,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
-          "title": "纳斯达克重磅更新！即将纳入史诗级IPO！利率定风格！",
-          "summary": "周末发生的巨大事件，宝子们应该都或多或少听说了，昨晚哈基米都没看世界杯，直接去看Space X实时交易现场，开盘交易的时候，多空大战，看spacex交易比看足球还有精神。开盘就两万亿市值，未来好久都没有公司能够超越，太疯狂。\n6月12日，马",
-          "account": "哈基米的日记6",
-          "reads": "8240",
-          "likes": 88,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 6,
-          "title": "今晚，彻夜难眠！",
-          "summary": "大家周末愉快！       最近世界杯开始，有家人问我会看球吗？       我对足球的关注其实很少，但世界杯还是会凑凑热闹。       足球这项运动真的很神奇，记得去年卡塔尔世界杯，决赛法国对阿根廷。              所有球员",
-          "account": "情绪流老钱",
-          "reads": "1w+",
-          "likes": 669,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "男孩把珠子塞进这里隐瞒6年才取 ，评论区咋全是这么干的？！",
-          "summary": "什么？  原来中国足球是可以赢的？  6月2日，意大利国际青少年杯赛决赛落幕。  由前体育解说员董路带领的中国足球小将2014队（U12年龄段）通过点球大战战胜对手，捧起冠军奖杯。         据说，这场意大利国际青少年杯赛有“U12小",
-          "account": "暴走大事件",
-          "reads": "6w+",
-          "likes": 561,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "2026年世界杯最大赢家曝光：中国血赚千亿，只花了0元。",
-          "summary": "作为一名20多年的生意人，三句话不离本行，今天我们从做生意的角度谈谈世界杯，依我看，2026年世界杯，真正的赢家不是阿根廷，不是法国，是中国。\n别急着反驳，先看一组\"恐怖\"的数据。\n场上的足球，义乌造的；球员大巴，宇通牌的；场馆LED大屏，",
-          "account": "好福气好运姐",
-          "reads": "7401",
-          "likes": 41,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
-          "title": "都说\"美中不足\"，美国足球什么时候这么强了？",
-          "summary": "说实话，美国足球跟中国足球，根本不在一个维度。近8届世界杯，美国只缺席了1届——同一时间段，中国只进了1届。",
-          "account": "叶飞的编辑部",
-          "reads": "1w+",
-          "likes": 39,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 10,
-          "title": "关于2026江苏省城市足球联赛第十周比赛预约购票的公告",
-          "summary": "公   告                                                                                                                   ",
-          "account": "江苏省城市足球联赛",
-          "reads": "4w+",
-          "likes": 101,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        }
-      ],
-      "_standings": {},
-      "_column_id": "shi-guang-ji",
-      "_column_name": "时光机",
-      "_column_icon": "⏰",
-      "_writing_style": "回忆杀体",
-      "_style_detail": "从一个具体的记忆触发点切入。用细节营造时代感，不煽情但有温度。可以穿插个人回忆视角。结尾让读者也想分享自己的故事。",
+      "_column_id": "shen-shui-qu",
+      "_column_name": "深水区",
+      "_column_icon": "🌊",
+      "_writing_style": "内行看门道体",
+      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
       "_word_count_range": [
         500,
         700
       ],
-      "_interaction_type": "share_your_story",
-      "_interaction_guidance": "文末邀请读者分享：'你和足球最难忘的第一次是什么？第一次看球、第一次穿球衣、第一次为足球哭——评论区说说，看看有没有同一年入坑的。'",
-      "_topic_domain": "足球历史/记忆/球迷文化",
-      "_topic_guidance": "一段足球历史、经典时刻回顾、或球迷文化现象。可以是'XX年前的今天发生了什么'、一段让人怀念的足球时代、一个已经消失的足球传统。要有细节和画面感，让老球迷有共鸣，让新球迷觉得有趣。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后，需要情感共鸣",
-      "_overall_tone": "有温度、有故事、适合沉浸式阅读"
+      "_interaction_type": "opinion_poll",
+      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
+      "_topic_domain": "足球深度分析",
+      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
     },
     {
-      "title": "美国足球凭啥这么强？对比中国青训数据，差距比想象中更大",
-      "source_article_ids": [
-        9
-      ],
-      "source_titles": [
-        "都说\"美中不足\"，美国足球什么时候这么强了？"
-      ],
-      "angle": "从美国队近8届世界杯仅缺席1次与中国队仅进1次的对比出发，用青训人口、留洋路径、职业联赛体系等多维度数据榜单，剖析美国足球崛起的底层逻辑，而非简单感叹。",
+      "title": "巴西1-1摩洛哥：世界第一进攻，竟被非洲铁桶闷死",
+      "formula": "E",
+      "angle": "巴西豪华攻击线在摩洛哥的防守体系前寸步难行，摩洛哥的战术纪律性值得学习，巴西暴露了破密集防守的老问题。",
       "keywords": [
-        "US soccer",
-        "China football",
-        "youth development",
-        "data comparison"
+        "Brazil",
+        "Morocco",
+        "World Cup",
+        "tactics",
+        "defense"
       ],
       "keywords_cn": [
-        "美国足球",
-        "中国足球",
-        "青训数据",
-        "联赛体系"
+        "巴西",
+        "摩洛哥",
+        "世界杯",
+        "战术",
+        "防守"
       ],
-      "content_type": "排行榜",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_source_articles": [
-        {
-          "id": 9,
-          "title": "都说\"美中不足\"，美国足球什么时候这么强了？",
-          "summary": "说实话，美国足球跟中国足球，根本不在一个维度。近8届世界杯，美国只缺席了1届——同一时间段，中国只进了1届。",
-          "account": "叶飞的编辑部",
-          "reads": "1w+",
-          "likes": 39,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "周星驰十年磨剑《少林女足》暑期上映!!!",
-          "summary": "✅《少林女足》\n- 导演：周星驰（《少林足球》25年后精神续作）\n- 剧情：峨眉队融功夫入足球，队长双双（张小斐）获大师兄徐风（张艺兴）助力后势如破竹；徐风因争执反戈击败峨眉队，最终球队团结逆袭，拿下亚冠杯冠军 。\n- 主演：\n- 张小斐（",
-          "account": "文心一言S123",
-          "reads": "2w+",
-          "likes": 24,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 2,
-          "title": "昨天竞猜的结果出来了。\n\n说两句：\n\n\n比赛结果，大家都看到…",
-          "summary": "昨天竞猜的结果出来了。 说两句： 比赛结果，大家都看到了： 加拿大1比1波黑，美国3比0巴拉圭。 千问胜负错了一场，比分都没对。 我觉得这个结果，应该没出绝大多数人意料。 这充分说明： 1、足球是圆的。 2、AI只能测算出大致的概率（千问在",
-          "account": "馒头说",
-          "reads": "10w+",
-          "likes": 471,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 3,
-          "title": "这届球迷的情绪，青岛啤酒都接住了",
-          "summary": "青岛啤酒已成为连接亿万球迷情绪的超级场景与情感符号。",
-          "account": "云酒头条",
-          "reads": "2w+",
-          "likes": 192,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 4,
-          "title": "伊朗方面发了张海报，引发轰动",
-          "summary": "据俄罗斯《莫斯科共青团员报》网站6月11日报道，2026年世界杯开幕前夕，伊朗驻印度尼西亚大使馆在社交平台X上发布了一张具有讽刺意味的海报。画面上是一座由人类头骨堆成的山，山巅放置着足球奖杯。奖杯中央原本的地球图案也被头骨取代，英文配文为“",
-          "account": "牛弹琴",
-          "reads": "8w+",
-          "likes": 1111,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 5,
-          "title": "纳斯达克重磅更新！即将纳入史诗级IPO！利率定风格！",
-          "summary": "周末发生的巨大事件，宝子们应该都或多或少听说了，昨晚哈基米都没看世界杯，直接去看Space X实时交易现场，开盘交易的时候，多空大战，看spacex交易比看足球还有精神。开盘就两万亿市值，未来好久都没有公司能够超越，太疯狂。\n6月12日，马",
-          "account": "哈基米的日记6",
-          "reads": "8240",
-          "likes": 88,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 6,
-          "title": "今晚，彻夜难眠！",
-          "summary": "大家周末愉快！       最近世界杯开始，有家人问我会看球吗？       我对足球的关注其实很少，但世界杯还是会凑凑热闹。       足球这项运动真的很神奇，记得去年卡塔尔世界杯，决赛法国对阿根廷。              所有球员",
-          "account": "情绪流老钱",
-          "reads": "1w+",
-          "likes": 669,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 7,
-          "title": "男孩把珠子塞进这里隐瞒6年才取 ，评论区咋全是这么干的？！",
-          "summary": "什么？  原来中国足球是可以赢的？  6月2日，意大利国际青少年杯赛决赛落幕。  由前体育解说员董路带领的中国足球小将2014队（U12年龄段）通过点球大战战胜对手，捧起冠军奖杯。         据说，这场意大利国际青少年杯赛有“U12小",
-          "account": "暴走大事件",
-          "reads": "6w+",
-          "likes": 561,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 8,
-          "title": "2026年世界杯最大赢家曝光：中国血赚千亿，只花了0元。",
-          "summary": "作为一名20多年的生意人，三句话不离本行，今天我们从做生意的角度谈谈世界杯，依我看，2026年世界杯，真正的赢家不是阿根廷，不是法国，是中国。\n别急着反驳，先看一组\"恐怖\"的数据。\n场上的足球，义乌造的；球员大巴，宇通牌的；场馆LED大屏，",
-          "account": "好福气好运姐",
-          "reads": "7401",
-          "likes": 41,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 9,
-          "title": "都说\"美中不足\"，美国足球什么时候这么强了？",
-          "summary": "说实话，美国足球跟中国足球，根本不在一个维度。近8届世界杯，美国只缺席了1届——同一时间段，中国只进了1届。",
-          "account": "叶飞的编辑部",
-          "reads": "1w+",
-          "likes": 39,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        },
-        {
-          "id": 10,
-          "title": "关于2026江苏省城市足球联赛第十周比赛预约购票的公告",
-          "summary": "公   告                                                                                                                   ",
-          "account": "江苏省城市足球联赛",
-          "reads": "4w+",
-          "likes": 101,
-          "data_score": 100,
-          "pub_time": "2026-06-13",
-          "_recency_score": 40
-        }
-      ],
-      "_standings": {}
+      "content_type": "战术解析",
+      "score": 90,
+      "expected_heat": "A",
+      "rationale": "巴西是流量担当，摩洛哥黑马属性强，反常识叙事吸引眼球，战术深度分析能引发球迷对桑巴足球的反思。",
+      "controversy_level": "low",
+      "target_emotion": "震惊"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-06-15 10:54:51"
+  "last_batch": "noon",
+  "last_updated": "2026-06-15 11:24:39"
 }
