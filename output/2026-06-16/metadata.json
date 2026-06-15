@@ -1,0 +1,210 @@
+{
+  "date": "2026-06-16",
+  "generated_at": "2026-06-15T18:15:24.031568",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "晨读｜0-1，法国队被塞内加尔闷死了！德尚还活在2018",
+      "path": "/home/runner/work/_temp/output/2026-06-16/article-1-晨读01法国队被-b2e182.md",
+      "slug": "晨读01法国队被-b2e182",
+      "tags": [
+        "France",
+        "Senegal",
+        "World Cup 2026",
+        "upset",
+        "Didier Deschamps"
+      ],
+      "keywords": [
+        "France",
+        "Senegal",
+        "World Cup 2026",
+        "upset",
+        "Didier Deschamps"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-16/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-16/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-16/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "跪地痛哭的老将：足球的“动人”，到底值几个钱？",
+      "path": "/home/runner/work/_temp/output/2026-06-16/article-2-跪地痛哭的老将足-ac927e.md",
+      "slug": "跪地痛哭的老将足-ac927e",
+      "tags": [
+        "Alireza Beiranvand",
+        "World Cup",
+        "goalkeeper",
+        "football story"
+      ],
+      "keywords": [
+        "Alireza Beiranvand",
+        "World Cup",
+        "goalkeeper",
+        "football story"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-16/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-16/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-16/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "射正52%！这三支亚洲队，不跟你玩陪跑了",
+      "path": "/home/runner/work/_temp/output/2026-06-16/article-3-射正52这三支亚-054b12.md",
+      "slug": "射正52这三支亚-054b12",
+      "tags": [
+        "亚洲足球",
+        "射正率",
+        "世界杯2026",
+        "伊朗",
+        "伊拉克"
+      ],
+      "keywords": [
+        "亚洲足球",
+        "射正率",
+        "世界杯2026",
+        "伊朗",
+        "伊拉克"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-16/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "0-1，法国队输了！世界杯首轮最大冷门诞生",
+      "angle": "法国队全场围攻却输在最后时刻，塞内加尔的铁桶阵和犀利反击证明了非洲足球的崛起，也暴露了德尚战术的僵化。我是老六，这球得骂法国队太傲慢。",
+      "keywords": [
+        "France",
+        "Senegal",
+        "WorldCup",
+        "upset",
+        "Deschamps"
+      ],
+      "keywords_cn": [
+        "法国",
+        "塞内加尔",
+        "冷门",
+        "世界杯"
+      ],
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "世界杯卫冕冠军首战爆冷，话题性极强，能引发球迷对法国队前景的激烈争论。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "38岁伊朗老将跪地痛哭：世界杯首秀即谢幕",
+      "angle": "伊朗门将贝兰万德伤愈后首次在世界杯出场，扑出关键点球后赛后哽咽致谢家人，一个从中超被弃用却一直坚持的硬汉故事。老六看得鼻子一酸。",
+      "keywords": [
+        "Iran",
+        "Beiranvand",
+        "WorldCup",
+        "emotional",
+        "veteran"
+      ],
+      "keywords_cn": [
+        "伊朗",
+        "贝兰万德",
+        "老将",
+        "感动"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "老将圆梦世界杯的催泪故事，能激发中国球迷对坚守和梦想的共鸣，远离争议更易传播。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "射正率52%！亚洲三队用数据证明不再陪跑",
+      "angle": "今天三支亚洲球队（伊朗、伊拉克）面对欧美强敌，射正率远超对手，场面不落下风。数据背后是亚洲足球青训和战术的质变，别再拿老眼光看亚洲了。",
+      "keywords": [
+        "AsianFootball",
+        "shooting",
+        "WorldCup",
+        "stats",
+        "Iran",
+        "Iraq"
+      ],
+      "keywords_cn": [
+        "亚洲足球",
+        "射正率",
+        "世界杯",
+        "进步"
+      ],
+      "content_type": "排行榜",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "用数据打破偏见，契合国足话题延伸，能引发读者对亚洲足球崛起的讨论和自豪感。"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-16 02:15:24"
+}
