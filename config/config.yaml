@@ -86,9 +86,13 @@ schedule:
       name: 晚间
       cron: 30 9 * * *
       article_count: 2
-      columns:
-      - 人物志
-      - 时光机
+      columns: dynamic
+      column_pool:
+      - 世界杯日报
+      - 老六辣评
+      - 争议裁判室
+      - 转会雷达
+      - 球迷众生相
 season_weights:
 - months:
   - 8

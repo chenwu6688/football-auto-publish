@@ -20,7 +20,8 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        COMPETITION_IDS, GZH_KEYWORD_GROUPS, GZH_TRANSFER_KEYWORDS,
                        GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
                        BATCH_TYPES, BATCH_CONFIG, CONTENT_TYPE_TO_COLUMN,
-                       FALLBACK_MAP, ALL_CONTENT_TYPES, WEEKLY_COLUMNS)
+                       FALLBACK_MAP, ALL_CONTENT_TYPES, WEEKLY_COLUMNS,
+                       EVENING_COLUMN_POOL)
 from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
 from data_collector import (collect_real_matches, fetch_gzh_football_trends,
@@ -525,6 +526,136 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
     return topics
 
 
+def select_evening_columns(gzh_articles, match_data, season_label=""):
+    """从 EVENING_COLUMN_POOL 中根据当日热点选择 2 个最适合的晚间栏目。
+
+    Uses LLM to score each column against today's GZH trending topics and
+    match context, then returns the top 2. Falls back to random selection
+    if LLM call fails.
+    """
+    if not gzh_articles:
+        import random
+        selected = random.sample(EVENING_COLUMN_POOL, 2)
+        print(f"   🌙 无GZH数据，随机选择晚间栏目: {selected[0]['column_name']} + {selected[1]['column_name']}")
+        return selected
+
+    # Build trending summary
+    trending_lines = []
+    for a in gzh_articles[:15]:
+        title = a.get("title", "")[:80]
+        reads = a.get("clicksCount", "?")
+        trending_lines.append(f"- [{reads}阅读] {title}")
+    trending_text = "\n".join(trending_lines)
+
+    # Build match summary
+    match_lines = []
+    if match_data and match_data.get("all_fixtures"):
+        for m in match_data["all_fixtures"][:12]:
+            hg = m.get("home_score")
+            ag = m.get("away_score")
+            score = f"{hg}-{ag}" if hg is not None else "vs"
+            match_lines.append(f"- {m['home_team']} {score} {m['away_team']} ({m.get('league', '?')})")
+    match_text = "\n".join(match_lines) if match_lines else "（今日无比赛数据）"
+
+    world_cup_hint = ""
+    if season_label == "世界杯月":
+        wc_count = sum(1 for m in (match_data.get("all_fixtures") or [])
+                      if m.get("league") == "FIFA World Cup")
+        if wc_count > 0:
+            world_cup_hint = f"\n🌍 世界杯期间（今日{wc_count}场世界杯比赛），优先选择与世界杯直接相关的栏目。\n"
+
+    # Build column options
+    columns_desc = ""
+    for i, col in enumerate(EVENING_COLUMN_POOL):
+        columns_desc += (
+            f"\n{i}. {col['icon']} **{col['column_name']}** — {col['topic_domain']}\n"
+            f"   适合场景: {col['topic_guidance'][:120]}\n"
+        )
+
+    prompt = f"""你是头条号足球博主"球评人老六"。今晚需要从以下5个栏目中选出2个最适合今天发布的栏目。
+
+{world_cup_hint}
+今日公众号足球热点：
+{trending_text[:3000]}
+
+今日比赛：
+{match_text[:1000]}
+
+可选栏目：
+{columns_desc}
+
+选择标准（按优先级）：
+1. 今天有充足素材的栏目优先（热点话题多、讨论度高）
+2. 两个栏目内容要有明显差异化（不要两个都讲类似的领域）
+3. 世界杯期间优先选与世界杯比赛、球员、转会直接相关的栏目
+4. 避免两个栏目都是"分析型"或都是"八卦型"，最好一硬一软搭配
+
+输出纯JSON：
+{{"selected": [0, 3], "reason": "简要说明为什么选这两个栏目(40字内)"}}
+
+selected 是栏目序号(0-4)，必须选恰好2个。只输出JSON。"""
+
+    try:
+        messages = [
+            {"role": "system", "content": "你是头条号足球博主'球评人老六'。根据当天热点选择最合适的晚间栏目。只输出JSON。"},
+            {"role": "user", "content": prompt}
+        ]
+        response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.5, max_tokens=512)
+        result = safe_json_loads(response)
+
+        if result and isinstance(result, dict) and "selected" in result:
+            indices = result["selected"][:2]
+            selected = []
+            for i in indices:
+                if isinstance(i, int) and 0 <= i < len(EVENING_COLUMN_POOL):
+                    selected.append(dict(EVENING_COLUMN_POOL[i]))  # copy to avoid mutating pool
+            if len(selected) >= 2:
+                print(f"   🌙 晚间栏目(LLM选择): {selected[0]['column_name']} + {selected[1]['column_name']}")
+                print(f"      理由: {result.get('reason', 'N/A')[:100]}")
+                return selected
+    except Exception as e:
+        print(f"   ⚠️  晚间栏目LLM选择失败: {e}")
+
+    # Fallback: weighted random — prefer columns matching trending keywords
+    import random
+    trending_all = " ".join(a.get("title", "") for a in gzh_articles[:20])
+    column_scores = []
+    for col in EVENING_COLUMN_POOL:
+        score = 1.0
+        domain = col.get("topic_domain", "")
+        # Boost if domain-related keywords appear in trending
+        boost_keywords = {
+            "世界杯": ["世界杯", "World Cup", "小组赛", "淘汰赛", "出线"],
+            "辣评": ["争议", "冲突", "红牌", "绝杀", "逆转", "下课"],
+            "裁判": ["VAR", "裁判", "点球", "红牌", "黄牌", "判罚"],
+            "转会": ["转会", "签约", "续约", "离队", "身价", "绯闻", "官宣"],
+            "球迷": ["球迷", "看台", "花边", "场外", "女友", "趣事"],
+        }
+        for key, kws in boost_keywords.items():
+            if key in domain or key in col.get("column_name", ""):
+                matches = sum(1 for kw in kws if kw.lower() in trending_all.lower())
+                score += matches * 0.4
+        column_scores.append((col, score))
+
+    column_scores.sort(key=lambda x: -x[1])
+    # Weighted random: pick from top 3, avoid always same pair
+    top3 = column_scores[:3]
+    weights = [cs[1] for cs in top3]
+    total_w = sum(weights)
+    if total_w > 0:
+        picked = random.choices(top3, weights=weights, k=2)
+        # If same column picked twice, replace second with next best
+        if picked[0][0]["column_id"] == picked[1][0]["column_id"]:
+            for cs in column_scores:
+                if cs[0]["column_id"] not in [p[0]["column_id"] for p in picked]:
+                    picked[1] = cs
+                    break
+        selected = [dict(p[0]) for p in picked[:2]]
+
+    print(f"   🌙 晚间栏目(加权随机): {selected[0]['column_name']} + {selected[1]['column_name']}")
+    return selected
+
+
 def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None, cross_batch_covered=None, column_type_hint=None, season_label=""):
     raw_articles = fetch_gzh_football_trends(
         date_str,
@@ -578,7 +709,7 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
 
     # Build prompt based on preference
     if column_type_hint:
-        # Column-driven topic selection (e.g., evening batch with 人物志/时光机)
+        # Column-driven topic selection (e.g., evening batch with dynamic column pool)
         n = len(column_type_hint)
         domain_requirements = []
         for i, hint in enumerate(column_type_hint):
@@ -1827,6 +1958,23 @@ def main():
         # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
 
+        # 🌙 Evening batch: dynamically select 2 columns from EVENING_COLUMN_POOL
+        # based on today's GZH trending data, then override the evening slots.
+        if batch_mode == "evening":
+            print("\n🌙 晚间栏目动态选择...")
+            gzh_trends = fetch_gzh_football_trends(date_str)
+            selected_cols = select_evening_columns(gzh_trends, match_data, season_label)
+            # Assign slot indices and update BATCH_CONFIG in-place
+            for i, col in enumerate(selected_cols):
+                col["slot"] = i
+            BATCH_CONFIG["evening"]["slots"] = selected_cols
+            # Recompute dependent variables
+            batch_cfg = BATCH_CONFIG[batch_mode]
+            slots = batch_cfg["slots"]
+            article_count = len(slots)
+            column_names = [s["column_name"] for s in slots]
+            print(f"   晚间栏目: {', '.join(column_names)} ({batch_cfg['name']}·{batch_cfg['time']})\n")
+
         # Data availability check: adjust target types if no supporting data
         if target_types:
             original_types = list(target_types)
@@ -1905,7 +2053,7 @@ def main():
         if batch_mode in BATCH_CONFIG and not target_types:
             slots = BATCH_CONFIG[batch_mode]["slots"]
             column_type_hint = [s["topic_domain"] for s in slots]
-            # Evening batch columns (人物志, 时光机) both use gzh_only data source.
+            # Evening batch columns use gzh_only data source — route to GZH path.
             # Always route to GZH path so column domain matches topic selection.
             all_gzh_only = all(s.get("data_source_hint") == "gzh_only" for s in slots)
             if all_gzh_only:
