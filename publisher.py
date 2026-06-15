@@ -120,8 +120,14 @@ def login_and_save_auth():
         print("\n❌ 保存失败，请重试")
 
 
-def load_articles(date_str):
-    """Load generated articles from output directory."""
+def load_articles(date_str, batch_filter=None):
+    """Load generated articles from output directory. Optionally filter by batch.
+
+    Args:
+        date_str: Date string YYYY-MM-DD
+        batch_filter: If set, only load articles whose batch_name matches (e.g. 'morning').
+                      If None or empty, load all articles (backward compatible).
+    """
     date_dir = OUTPUT_BASE / date_str
     if not date_dir.exists():
         # Fallback: try previous day (scheduler delay may have shifted Beijing date)
@@ -176,7 +182,20 @@ def load_articles(date_str):
             "meta": meta,
             "body": body,
             "index": meta.get("article_index", "0"),
+            "batch_name": meta.get("batch_name", ""),
         })
+
+    # Apply batch filter if specified
+    if batch_filter:
+        before = len(articles)
+        articles = [a for a in articles if a["batch_name"] == batch_filter]
+        skipped = before - len(articles)
+        if skipped > 0:
+            print(f"🔍 批次筛选 '{batch_filter}': {before} → {len(articles)} 篇 (跳过 {skipped} 篇其他批次)")
+        if not articles:
+            print(f"⚠️  没有找到 {batch_filter} 批次的文章，回退到加载全部")
+            # Re-load without filter to avoid publishing nothing
+            return load_articles(date_str, batch_filter=None)
 
     if not articles:
         print(f"❌ {date_dir} 中没有找到文章")
@@ -972,13 +991,17 @@ def publish_article(page, article, date_str, draft_mode=False):
     return {"ok": False, "error": "发布流程异常终止"}
 
 
-def publish_all(date_str, draft_mode=False, headless=False):
-    """Main publish flow."""
+def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
+    """Main publish flow.
+
+    Args:
+        batch_filter: If set, only publish articles from this batch (morning/noon/evening).
+    """
     if not AUTH_FILE.exists():
         print("❌ 未找到登录状态，请先运行: python scripts/publisher.py --login")
         sys.exit(1)
 
-    articles = load_articles(date_str)
+    articles = load_articles(date_str, batch_filter=batch_filter)
     print(f"📰 加载 {len(articles)} 篇文章, headless={headless}")
     print(f"🚀 启动浏览器...")
 
@@ -1078,4 +1101,8 @@ if __name__ == "__main__":
         date_str = sys.argv[1]
         draft_mode = "--draft" in sys.argv
         headless = "--headless" in sys.argv
-        publish_all(date_str, draft_mode, headless=headless)
+        batch_filter = None
+        for arg in sys.argv:
+            if arg.startswith("--batch="):
+                batch_filter = arg.split("=", 1)[1]
+        publish_all(date_str, draft_mode, headless=headless, batch_filter=batch_filter)

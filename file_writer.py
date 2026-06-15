@@ -64,6 +64,9 @@ class FileWriter:
         sources_str = ", ".join(sources_used) if sources_used else ""
         originality_note = article_data.get("originality_note", "")
 
+        batch_name = article_data.get("batch_name", "")
+        batch_time = article_data.get("batch_time", "")
+
         md_content = f"""---
 title: "{title}"
 date: {date_str}
@@ -71,6 +74,8 @@ category: {category}
 tags: [{tag_str}]
 keywords: [{kw_str}]
 article_index: {index}
+batch_name: {batch_name}
+batch_time: {batch_time}
 sources_used: [{sources_str}]
 originality_note: "{originality_note}"
 ---

@@ -11,7 +11,9 @@ name: 足球自媒体批次发布
 #   晚间 (目标 17:30 CST, UTC 09:30):
 #     17:37 / 17:47 / 18:07 CST
 #
-#   批次检测: schedule 事件按 UTC 小时判定，workflow_dispatch 按 CST 自动检测
+#   批次检测: schedule 事件从 github.event.schedule 解析 cron 表达式的 UTC hour
+#   (0→morning, 4→noon, 9/10→evening)，不依赖当前时间，彻底解决 cron 延迟导致的批次误判。
+#   workflow_dispatch 时直接使用 inputs.batch 参数。
 on:
   schedule:
     # --- 晨读 (UTC 0 = CST 8) ---
@@ -84,24 +86,32 @@ jobs:
           echo "today=$TODAY" >> $GITHUB_OUTPUT
 
           # Batch determination
-          # For schedule events: use UTC hour (backup crons at UTC 0,4,10) with ±2h tolerance.
-          # Falls back to CST auto-detect if delayed beyond all windows.
+          # For schedule events: parse github.event.schedule to get the INTENDED
+          # batch, not the current execution time. This is critical because GitHub
+          # cron delays of 5+ hours will cause UTC-hour-window detection to misidentify
+          # the batch (e.g., morning cron delayed to UTC 4 → detected as noon).
+          # Falls back to UTC window detection if schedule parsing fails.
           if [ "${{ github.event_name }}" = "schedule" ]; then
+            SCHEDULE_HOUR=$(echo "${{ github.event.schedule }}" | awk '{print $2}')
             UTC_HOUR=$(date -u +%H)
             CST_HOUR=$(TZ=Asia/Shanghai date +%H)
-            if [ "$UTC_HOUR" -ge 0 ] && [ "$UTC_HOUR" -le 2 ]; then
-              BATCH="morning"
-            elif [ "$UTC_HOUR" -ge 4 ] && [ "$UTC_HOUR" -le 6 ]; then
-              BATCH="noon"
-            elif [ "$UTC_HOUR" -ge 9 ] && [ "$UTC_HOUR" -le 12 ]; then
-              BATCH="evening"
-            else
-              # Delayed beyond backup windows — auto-detect from CST
-              if [ "$CST_HOUR" -lt 10 ]; then BATCH="morning"
-              elif [ "$CST_HOUR" -lt 15 ]; then BATCH="noon"
-              else BATCH="evening"
-              fi
-            fi
+            case "$SCHEDULE_HOUR" in
+              0)  BATCH="morning" ;;
+              4)  BATCH="noon" ;;
+              9|10) BATCH="evening" ;;
+              *)
+                # Fallback: UTC hour window (±2h tolerance)
+                if [ "$UTC_HOUR" -ge 0 ] && [ "$UTC_HOUR" -le 2 ]; then BATCH="morning"
+                elif [ "$UTC_HOUR" -ge 4 ] && [ "$UTC_HOUR" -le 6 ]; then BATCH="noon"
+                elif [ "$UTC_HOUR" -ge 9 ] && [ "$UTC_HOUR" -le 12 ]; then BATCH="evening"
+                else
+                  if [ "$CST_HOUR" -lt 10 ]; then BATCH="morning"
+                  elif [ "$CST_HOUR" -lt 15 ]; then BATCH="noon"
+                  else BATCH="evening"
+                  fi
+                fi
+                ;;
+            esac
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
             echo "运行: $TODAY $BATCH 批次 (schedule trigger, UTC=$UTC_HOUR, CST=$CST_HOUR)"
           elif [ -n "${{ inputs.batch }}" ]; then
@@ -174,6 +184,17 @@ jobs:
           printf "║  %-20s %s ║\n" "Target date:" "${{ steps.params.outputs.today }}"
           echo "╚══════════════════════════════════════╝"
 
+      - name: 同步已有批次元数据（跨批次去重）
+        if: steps.params.outputs.skip != 'true'
+        run: |
+          # Copy previously pushed metadata from repo to orchestrator's data dir
+          # so get_cross_batch_covered() can see earlier batches' articles
+          if [ -d "output" ]; then
+            mkdir -p "${{ runner.temp }}/output"
+            cp -r output/* "${{ runner.temp }}/output/" 2>/dev/null || true
+            echo "✅ 已同步历史批次元数据到 OUTPUT_DIR"
+          fi
+
       - name: 生成文章
         id: generate
         if: steps.params.outputs.skip != 'true'
@@ -189,6 +210,61 @@ jobs:
         run: |
           python orchestrator.py "${{ steps.params.outputs.today }}" --batch="${{ steps.params.outputs.batch }}"
 
+      - name: 回写生成结果（跨批次去重）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        env:
+          TODAY: ${{ steps.params.outputs.today }}
+          BATCH: ${{ steps.params.outputs.batch }}
+        run: |
+          # Push generated article metadata immediately so later batches
+          # (or delayed crons) can see today's already-published topics.
+          SRC="${{ runner.temp }}/output/${TODAY}/metadata.json"
+          if [ ! -f "$SRC" ]; then
+            echo "⚠️ metadata.json 不存在，跳过回写"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          DST="output/${TODAY}/metadata.json"
+          mkdir -p "output/${TODAY}"
+          python3 -c "
+          import json
+          from pathlib import Path
+          src = Path('${SRC}')
+          dst = Path('${DST}')
+          new_meta = json.loads(src.read_text())
+          if dst.exists():
+              old_meta = json.loads(dst.read_text())
+              old_batches = set(old_meta.get('batches_completed', []))
+              new_batches = set(new_meta.get('batches_completed', []))
+              old_articles = {(a.get('title',''), a.get('content_type','')) for a in old_meta.get('articles', [])}
+              merged_articles = list(old_meta.get('articles', []))
+              for a in new_meta.get('articles', []):
+                  key = (a.get('title',''), a.get('content_type',''))
+                  if key not in old_articles:
+                      merged_articles.append(a)
+                      old_articles.add(key)
+              new_meta['articles'] = merged_articles
+              new_meta['batches_completed'] = sorted(old_batches | new_batches)
+          dst.parent.mkdir(parents=True, exist_ok=True)
+          dst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))
+          " || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }
+          git add -f "output/${TODAY}/metadata.json" 2>/dev/null || true
+          if git diff --cached --quiet 2>/dev/null; then
+            echo "📝 无变化，跳过提交"
+            exit 0
+          fi
+          git commit -m "chore: ${TODAY} ${BATCH} 生成完成元数据回写"
+          for attempt in 1 2 3; do
+            if git push origin main 2>/dev/null; then
+              echo "✅ 生成结果已回写仓库"
+              break
+            fi
+            echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+            git pull --rebase origin main 2>/dev/null || true
+            /usr/bin/sleep $((attempt * 2))
+          done
+
       - name: 发布到头条号
         if: steps.params.outputs.skip != 'true'
         env:
@@ -199,7 +275,7 @@ jobs:
           TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
           OUTPUT_DIR: ${{ runner.temp }}/output
         run: |
-          python publisher.py "${{ steps.params.outputs.today }}" --headless
+          python publisher.py "${{ steps.params.outputs.today }}" --headless --batch="${{ steps.params.outputs.batch }}"
 
       - name: 回写批次状态（幂等保护）
         if: success() && steps.params.outputs.skip != 'true'

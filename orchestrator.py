@@ -60,16 +60,16 @@ def print_daily_summary(date_str, batch_mode):
 
 def load_season_weights(date_str=None):
     """Load season weights from config.yaml for the current month.
-    Returns {content_type: weight} dict. Weight > 1.0 = preferred, < 1.0 = deprioritized."""
+    Returns (weights_dict, label) tuple. Weight > 1.0 = preferred, < 1.0 = deprioritized."""
     config_path = PROJECT_ROOT / "config" / "config.yaml"
     if not config_path.exists():
-        return None
+        return None, ""
 
     try:
         cfg = yaml.safe_load(config_path.read_text())
         season_weights = cfg.get("season_weights", [])
         if not season_weights:
-            return None
+            return None, ""
 
         dt = datetime.strptime(date_str, "%Y-%m-%d") if date_str else datetime.now(ZoneInfo("Asia/Shanghai"))
         month = dt.month
@@ -79,13 +79,13 @@ def load_season_weights(date_str=None):
                 weights = period.get("weights", {})
                 label = period.get("label", "未知")
                 print(f"   📅 赛季节奏: {label} (月份{month}, 权重: {weights})")
-                return weights
+                return weights, label
 
         # Default: balanced
-        return {"热点球评": 1.0, "转会资讯": 1.0, "排行榜": 1.0, "八卦趣事": 1.0, "战术解析": 1.0}
+        return {"热点球评": 1.0, "转会资讯": 1.0, "排行榜": 1.0, "八卦趣事": 1.0, "战术解析": 1.0}, "常规赛季"
     except Exception as e:
         print(f"   ⚠️  加载赛季权重失败: {e}")
-        return None
+        return None, ""
 
 
 def send_wxpusher(title, content):
@@ -374,7 +374,7 @@ def _check_intra_batch_dedup(topics):
     return topics, warnings
 
 
-def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None):
+def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label=""):
     print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
@@ -424,6 +424,21 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
             if low_types:
                 weight_hint += f"降低频率: {', '.join(low_types)}\n"
 
+    # World Cup priority: during World Cup month, strongly push tournament content
+    world_cup_priority = ""
+    if season_label == "世界杯月":
+        world_cup_matches = sum(1 for m in match_data.get("all_fixtures", [])
+                                if m.get("league") == "FIFA World Cup")
+        if world_cup_matches > 0:
+            world_cup_priority = f"""
+🌍 世界杯优先模式 — 今天是2026世界杯比赛日（{world_cup_matches}场比赛）：
+⚠️ 铁律：必须围绕世界杯比赛选材！这是读者最关心的事。
+- 第1篇(热点球评)：必须从今日世界杯比赛中选一场最有话题性的。分析场上表现、战术、关键球员。
+- 第2篇(转会资讯/八卦趣事)：优先选择世界杯球员的转会动态、场外花边、世界杯相关的争议冲突。
+- 第3篇(排行榜/战术解析/八卦趣事)：优先从世界杯比赛中提炼数据榜单或战术趋势。
+- 只有当今日无世界杯比赛或世界杯比赛确实无话题性时，才允许选择其他赛事/非赛事话题。
+"""
+
     prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 3 个有爆款潜力的话题。
 
 比赛数据：
@@ -432,7 +447,7 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 {history_text}
 {cross_batch_text}
 {weight_hint}
-
+{world_cup_priority}
 硬性要求 — 3 个话题必须覆盖不同内容类型 + 不同核心主题：
 1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
 2. 第2篇：转会资讯/八卦趣事 — 转会传闻、球员花边、冲突争议、场外话题
@@ -510,7 +525,7 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
     return topics
 
 
-def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None, cross_batch_covered=None):
+def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None, cross_batch_covered=None, column_type_hint=None, season_label=""):
     raw_articles = fetch_gzh_football_trends(
         date_str,
         keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None
@@ -562,7 +577,15 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
         cross_batch_text += "禁止选择与上述标题或关键词重叠的新选题。\n"
 
     # Build prompt based on preference
-    if preferred_types:
+    if column_type_hint:
+        # Column-driven topic selection (e.g., evening batch with 人物志/时光机)
+        n = len(column_type_hint)
+        domain_requirements = []
+        for i, hint in enumerate(column_type_hint):
+            domain_requirements.append(f"第{i+1}篇：{hint} — 从GZH爆款库中选择适合{hint}领域的话题")
+        type_requirement = f"{n}个选题分别对应以下栏目领域：\n" + "\n".join(domain_requirements)
+        system_msg = "你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。严格按栏目领域选择对应话题。只输出JSON。"
+    elif preferred_types:
         n = len(preferred_types)
         type_requirement = f"{n}个选题全部按指定类型：{' 和 '.join(preferred_types)}。优先选择热度最高、最有话题性的。"
         system_msg = f"你是头条号足球博主'球评人老六'，有态度有人味。绝不洗稿，跨源合成+新观点=全新原创。本次仅出{preferred_types}类选题。只输出JSON。"
@@ -588,11 +611,23 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
             if low_types:
                 weight_hint += f"降低频率: {', '.join(low_types)}\n"
 
+    # World Cup priority for GZH-based topic selection
+    world_cup_hint = ""
+    if season_label == "世界杯月":
+        world_cup_hint = """
+🌍 世界杯优先模式 — 2026世界杯正在进行中：
+⚠️ 选题铁律：优先从世界杯相关话题中选材！
+- 场上：世界杯比赛结果、球员表现、战术分析、冷门黑马
+- 场下：世界杯球员转会传闻、场外花边、球迷故事
+- 趋势：小组出线形势、金靴竞争、历史对比
+- 只有当GZH数据中确实无世界杯相关话题时，才允许选择其他足球话题。
+"""
+
     print(f"\n[2/5] 基于真实爆款数据筛选选题 (DeepSeek, mode={topic_preference})...")
     prompt = f"""你是头条号足球博主"球评人老六"。以下是公众号平台最近2天真实爆款足球文章数据，请从中选出3个最有二次创作价值的选题。
 
 {weight_hint}
-
+{world_cup_hint}
 真实爆款文章数据（已按时效性+热度排序，pub_time为发布日期）：
 {json.dumps(articles_text, ensure_ascii=False)}
 {history_text}
@@ -1751,7 +1786,7 @@ def main():
         date_str = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
 
     # Load season weights for content type optimization
-    season_weights = load_season_weights(date_str)
+    season_weights, season_label = load_season_weights(date_str)
     performance_boost = {}
 
     if batch_mode in BATCH_CONFIG:
@@ -1866,14 +1901,34 @@ def main():
         # Build column-aware type guidance for topic selection
         # In BATCH_CONFIG mode, inject column domain guidance into the prompt
         column_type_hint = None
+        all_gzh_only = False
         if batch_mode in BATCH_CONFIG and not target_types:
             slots = BATCH_CONFIG[batch_mode]["slots"]
             column_type_hint = [s["topic_domain"] for s in slots]
+            # Evening batch columns (人物志, 时光机) both use gzh_only data source.
+            # Always route to GZH path so column domain matches topic selection.
+            all_gzh_only = all(s.get("data_source_hint") == "gzh_only" for s in slots)
+            if all_gzh_only:
+                print(f"   栏目全部为 gzh_only，切换为公众号爆款数据模式\n")
 
-        if topic_preference != "auto":
+        if all_gzh_only:
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, column_type_hint=column_type_hint, season_label=season_label)
+            if not topics_and_raw or not topics_and_raw[0]:
+                result_msg = "无真实爆款数据可用(gzh_only batch)"
+                print(f"ERROR: {result_msg}")
+                send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
+                return
+
+            topics, raw_articles = topics_and_raw
+            extra_meta = {"type": "gzh_only_batch"}
+            _assign_columns_to_topics(topics, batch_mode)
+
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
+
+        elif topic_preference != "auto":
             print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
             topics_and_raw = collect_real_gzh_topics(
-                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered)
+                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = f"无{topic_preference}相关真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1888,7 +1943,7 @@ def main():
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无比赛且无真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -1906,7 +1961,7 @@ def main():
             gzh_raw = fetch_gzh_football_trends(date_str)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered)
+            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label)
             extra_meta = {"type": "match_analysis"}
             _assign_columns_to_topics(topics, batch_mode)
 

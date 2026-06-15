@@ -64,7 +64,8 @@ def collect_real_matches(date_str):
     relevant = []
     fixture_details = []
     valid_comps = {"Premier League", "Primera Division", "Serie A", "Bundesliga",
-                   "Ligue 1", "UEFA Champions League", "Campeonato Brasileiro Série A"}
+                   "Ligue 1", "UEFA Champions League", "Campeonato Brasileiro Série A",
+                   "FIFA World Cup"}
     for m in unique:
         comp = m.get("competition", {}).get("name", "")
         if comp in valid_comps:

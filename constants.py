@@ -53,9 +53,21 @@ GZH_TRANSFER_KEYWORDS = [
 ]
 
 GZH_NOISE_PATTERNS = [
+    # Game/virtual football (not real matches)
     "三角洲", "实况足球", "FIFA", "足球经理", "FM", "梦幻足球",
+    # Non-football sports
     "乒乓球", "樊振东", "孙颖莎", "王楚钦", "马龙", "国乒",
+    "辽篮", "郭艾伦", "赵继伟", "CBA", "男篮", "广东宏远", "华南虎",
     "和平精英", "王者荣耀", "英雄联盟", "LPL",
+    # Non-sports
+    "纳斯达克", "IPO", "股票", "基金", "利率",
+    "GLM-", "AI模型", "大模型",
+    # Chinese football drama (not match/tournament analysis)
+    "董路", "宋凯",
+    # Geopolitics/news (not football)
+    "伊朗方面", "伊朗宣布",
+    # Marketing/PR analysis (not football content)
+    "品牌营销", "营销妙手", "营销格局",
 ]
 
 # --- Wikipedia / Footyrenders entity mappings ---
