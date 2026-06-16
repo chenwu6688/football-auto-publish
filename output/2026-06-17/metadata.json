@@ -1,6 +1,6 @@
 {
   "date": "2026-06-17",
-  "generated_at": "2026-06-16T18:24:18.066781",
+  "generated_at": "2026-06-16T19:01:11.519356",
   "total_articles": 3,
   "articles": [
     {
@@ -92,110 +92,212 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "加纳4-0血洗巴拿马：非洲雄狮觉醒，欧洲老爷们慌不慌？",
+      "path": "/home/runner/work/_temp/output/2026-06-17/article-1-加纳40血洗巴拿-327b27.md",
+      "slug": "加纳40血洗巴拿-327b27",
+      "tags": [
+        "Ghana",
+        "Panama",
+        "World Cup 2026",
+        "African football",
+        "youth storm"
+      ],
+      "keywords": [
+        "Ghana",
+        "Panama",
+        "World Cup 2026",
+        "African football",
+        "youth storm"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-17/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-17/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "shu-ju-pan-dian",
+      "column_name": "数据盘点",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "本纳赛尔值8000万？非洲铁腰的定价游戏，巴萨利物浦都在装傻",
+      "path": "/home/runner/work/_temp/output/2026-06-17/article-2-本纳赛尔值800-f0be01.md",
+      "slug": "本纳赛尔值800-f0be01",
+      "tags": [
+        "Ismael Bennacer",
+        "transfer analysis",
+        "African footballers",
+        "World Cup 2026"
+      ],
+      "keywords": [
+        "Ismael Bennacer",
+        "transfer analysis",
+        "African footballers",
+        "World Cup 2026"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "shen-shui-qu",
+      "column_name": "深水区",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "传控已死，暴力当立！你的倒脚在高压面前一文不值",
+      "path": "/home/runner/work/_temp/output/2026-06-17/article-3-传控已死暴力当立-a23bc9.md",
+      "slug": "传控已死暴力当立-a23bc9",
+      "tags": [
+        "World Cup",
+        "gegenpressing",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "World Cup",
+        "gegenpressing",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-17/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-17/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-17/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "3-0复仇？英格兰黑掉克罗地亚，裁判又成主角",
-      "angle": "英格兰3-0大胜克罗地亚，但第2个进球有越位争议，VAR介入后依然判进，引发克罗地亚全队抗议。老六想说：赢了比赛输了人心，裁判水平配不上世界杯。",
+      "title": "4-0！加纳血洗巴拿马，非洲足球的青春风暴真敢想",
+      "formula": "A",
+      "angle": "从加纳大胜切入，强调非洲球队新生代崛起，对比欧洲豪门疲软，调侃巴拿马毫无还手之力，态度鲜明站非洲足球。",
       "keywords": [
-        "England",
-        "Croatia",
+        "Ghana",
+        "Panama",
         "World Cup",
-        "referee controversy"
+        "4-0",
+        "African football"
       ],
       "keywords_cn": [
-        "英格兰",
-        "克罗地亚",
-        "裁判争议"
+        "加纳",
+        "巴拿马",
+        "世界杯",
+        "4-0",
+        "非洲足球"
       ],
-      "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "英克恩怨+裁判争议，双话题引爆评论区",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "38岁C罗两球难找下家：英雄迟暮还是从未被尊重？",
-      "angle": "葡萄牙4-1大胜刚果，C罗梅开二度总进球超110球，但欧洲豪门无一家报价。老六觉得：不是C罗老了，是足球商业变得人走茶凉。",
-      "keywords": [
-        "Cristiano Ronaldo",
-        "Portugal",
-        "transfer",
-        "Saudi Arabia"
-      ],
-      "keywords_cn": [
-        "C罗",
-        "葡萄牙",
-        "转会"
-      ],
-      "content_type": "八卦趣事",
-      "score": 90,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "why_pick": "C罗的每一次世界杯进球都可能是告别，转会悬念催生情感共鸣",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "排行榜",
+      "score": 88,
+      "expected_heat": "A",
+      "rationale": "大比分屠杀+世界杯正赛+非洲题材符合球迷情怀，数字公式有冲击力，情绪激昂易引发评论区狂欢。",
+      "controversy_level": "low",
+      "target_emotion": "震惊",
+      "_column_id": "shu-ju-pan-dian",
+      "_column_name": "数据盘点",
+      "_column_icon": "📊",
+      "_writing_style": "毒舌点评体",
+      "_style_detail": "排名是有态度的，不是Excel。每个条目3-5句话：排名+核心数据→人话翻译→毒舌点评。点评可以损但不能恶毒，用对比制造笑点。最后一句必须是让人忍不住截图的吐槽。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "challenge_dare",
+      "_interaction_guidance": "文末挑战读者：'觉得我排的不对？评论区带数据来辩，说不出来的默认你同意我。'或者'你觉得还有谁该上榜？评论区提名，下期安排。'",
+      "_topic_domain": "足球数据排名",
+      "_topic_guidance": "一个足球相关的排行榜或数据盘点（射手榜、助攻榜、身价榜、跑动距离榜、犯规榜...任何有意思的排名）。每个上榜条目：数据+人话翻译+一句毒舌点评。榜单要有反差感或争议性，不是无聊的数据罗列。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
     },
     {
-      "title": "5球！梅西一战封王：世界杯历史射手榜大洗牌",
-      "angle": "阿根廷6-1狂胜阿尔及利亚，梅西上演帽子戏法，世界杯总进球数达到15球，超越方丹独享历史第一。老六感叹：我们正在见证足球之神的最后神迹。",
+      "title": "本纳赛尔值8000万？阿尔及利亚铁腰让欧洲豪门抢破头",
+      "formula": "B",
+      "angle": "借世界杯高光表现质疑转会定价，引出AC米兰、巴萨、利物浦争抢内幕，强调非洲球员被低估，煽动性价比话题。",
       "keywords": [
-        "Lionel Messi",
-        "Argentina",
-        "World Cup",
-        "goal record"
+        "Bennacer",
+        "Algeria",
+        "transfer",
+        "AC Milan",
+        "Barcelona"
       ],
       "keywords_cn": [
-        "梅西",
-        "阿根廷",
-        "进球纪录"
+        "本纳赛尔",
+        "阿尔及利亚",
+        "转会",
+        "AC米兰",
+        "巴萨"
       ],
-      "content_type": "排行榜",
-      "score": 93,
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "why_pick": "历史第一的纪录时刻，球迷自豪感爆棚，自带传播力"
+      "content_type": "战术解析",
+      "score": 82,
+      "expected_heat": "B",
+      "rationale": "反问式标题制造悬念，世界杯期间转会传闻自带流量，非洲核心中场溢价话题能引爆球迷争论。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "shen-shui-qu",
+      "_column_name": "深水区",
+      "_column_icon": "🌊",
+      "_writing_style": "内行看门道体",
+      "_style_detail": "像行业内人士在给你讲门道。开篇抛一个反常识或深层的洞察。然后用2-3个层次展开分析，每个层次用通俗语言解释专业概念。必须有一个'只说给你听'的独家感。禁止教科书腔，禁止'首先其次最后'。",
+      "_word_count_range": [
+        500,
+        700
+      ],
+      "_interaction_type": "opinion_poll",
+      "_interaction_guidance": "文末抛出一个开放性问题，邀请读者发表看法。问题要有讨论空间（不是非黑即白），比如'你觉得XX这笔操作，三年后回头看，是神操作还是败笔？'",
+      "_topic_domain": "足球深度分析",
+      "_topic_guidance": "一个值得深入挖掘的足球话题：交易背后的博弈、战术趋势分析、俱乐部管理内幕、联赛格局变化等。要有信息量和洞察力，让读者看完觉得'学到了'。可以是一件转会背后的多方博弈，一个战术趋势的详细解读，或者一个俱乐部管理决策的深层分析。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要可以聊的谈资",
+      "_overall_tone": "有干货、有观点、适合社交分享"
+    },
+    {
+      "title": "世界杯传控已死？高位压迫正在杀死美丽足球",
+      "formula": "E",
+      "angle": "从今日数场比赛低控球率高比分现象切入，论证高位压迫取代tiki-taka成为新主流，嘲讽传控球队吃老本，呼吁球迷接受暴力美学。",
+      "keywords": [
+        "high press",
+        "possession",
+        "World Cup",
+        "tactics",
+        "modern football"
+      ],
+      "keywords_cn": [
+        "高位压迫",
+        "传控",
+        "世界杯",
+        "战术",
+        "现代足球"
+      ],
+      "content_type": "战术解析",
+      "score": 76,
+      "expected_heat": "B",
+      "rationale": "反常识标题引发球迷站队，战术趋势贴合专业球迷兴趣，对比强烈有讨论空间。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-17 02:24:18"
+  "last_batch": "noon",
+  "last_updated": "2026-06-17 03:01:11"
 }
