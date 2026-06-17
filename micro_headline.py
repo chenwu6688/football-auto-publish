@@ -78,7 +78,7 @@ def generate_micro_headlines(match_data, count=2):
 微头条要求：
 - 短平快：像比赛结束后跟球友说的第一句话，一句点出最精彩/争议的瞬间
 - 有态度：可以激动、可以吐槽、可以有立场
-- 禁止编造：只写素材里有的比分和事实
+- ⚠️ 绝对禁止编造：只写素材里明确有的比分、赛事、球队名。不能写"凌晨X点""半夜"等虚构时间，不能编造球员言论/更衣室故事/具体进球过程。不确定的一律不写。
 - 接地气：让读者感觉"说到了我心坎上"
 - 每条末尾加 1-2 个相关话题标签（如 #世界杯 #阿根廷）
 
@@ -173,6 +173,37 @@ def publish_micro_headline(page, headline, date_str=None):
         if not text_input:
             debug_dump_page(page, "micro_no_editor")
             return {"ok": False, "error": "微头条编辑器未找到"}
+
+        # === Upload image if available ===
+        match_name = headline.get("match", "")
+        uploaded_image = False
+        if match_name:
+            try:
+                # Try to capture match screenshot
+                from image_service import ImageService
+                svc = ImageService()
+                parts = match_name.split(" vs ")
+                if len(parts) == 2:
+                    home, away = parts
+                    img_result = svc.capture_match_screenshot(home.strip(), away.strip())
+                    if img_result and img_result.get("local_path"):
+                        img_path = img_result["local_path"]
+                        # Click image upload button in micro-headline editor
+                        upload_btn = page.locator('[class*="upload"], [class*="image"], [class*="picture"]').first
+                        if not upload_btn.is_visible(timeout=1000):
+                            upload_btn = page.locator('svg[class*="image"], svg[class*="picture"], div[class*="image-btn"]').first
+                        if upload_btn.is_visible(timeout=1000):
+                            upload_btn.click()
+                            page.wait_for_timeout(1000)
+                            # File input dialog
+                            file_input = page.locator('input[type="file"]').first
+                            if file_input.is_visible(timeout=2000):
+                                file_input.set_input_files(img_path)
+                                page.wait_for_timeout(3000)  # Wait for upload
+                                uploaded_image = True
+                                print(f"   📸 微头条配图已上传")
+            except Exception as e:
+                print(f"   ⚠️ 微头条配图上传失败: {e}")
 
         # Fill content
         text_input.click()
