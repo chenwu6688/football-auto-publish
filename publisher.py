@@ -538,26 +538,22 @@ def fill_title(page, title, selector=".publish-editor-title textarea"):
 
 
 def dismiss_overlays(page):
-    """Close any AI assistant drawers or popups that block the editor."""
+    """Close any AI assistant drawers or popups that block the editor. Use JS for reliability."""
     try:
-        # Close AI assistant drawer if present
-        close_btns = page.locator('.byte-drawer-wrapper .byte-icon-close, .byte-drawer .byte-icon-close')
-        if close_btns.count() > 0:
-            for i in range(min(close_btns.count(), 3)):
-                try:
-                    close_btns.nth(i).click(timeout=2000)
-                    page.wait_for_timeout(500)
-                except Exception:
-                    pass
-
-        # Click mask to dismiss
-        mask = page.locator('.byte-drawer-mask')
-        if mask.is_visible(timeout=1000):
-            try:
-                mask.click(timeout=2000)
-                page.wait_for_timeout(500)
-            except Exception:
-                pass
+        # Force-remove AI assistant drawer via JS (most reliable for SPA)
+        page.evaluate("""() => {
+            const remove = (sel) => document.querySelectorAll(sel).forEach(el => el.remove());
+            remove('.byte-drawer-mask, .byte-modal-mask');
+            remove('.byte-drawer-wrapper, .byte-drawer, .ai-assistant-drawer');
+            remove('.byte-modal, .byted-modal');
+            // Remove any absolutely positioned overlays
+            document.querySelectorAll('div[style*="fixed"], div[class*="overlay"]').forEach(el => {
+                if (getComputedStyle(el).position === 'fixed') el.remove();
+            });
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }""")
+        page.wait_for_timeout(300)
     except Exception:
         pass
 
@@ -859,6 +855,10 @@ def publish_article(page, article, date_str, draft_mode=False):
                                 print(f"    {k}=[{len(v_str)} chars] {v_str[:150]}...")
                             else:
                                 print(f"    {k}={v_str}")
+                        # Extract pgc_id from request for fallback publish
+                        if "pgc_id" in parsed:
+                            pgc_id_val = parsed["pgc_id"][0]
+                            publish_results.append({"code": -1, "message": "from_request", "pgc_id": pgc_id_val})
                     except Exception:
                         pass
                     print(f"  === END REQUEST ===\n")
@@ -872,11 +872,14 @@ def publish_article(page, article, date_str, draft_mode=False):
                     body = response.json()
                     code = body.get("code", body.get("err_code"))
                     msg = body.get("message", body.get("msg", ""))
+                    pgc_id = body.get("data", {}).get("pgc_id") or body.get("pgc_id", "")
                     print(f"\n  📡 === PUBLISH RESPONSE ===")
                     print(f"  Status: {response.status}")
                     print(f"  Code: {code}")
                     print(f"  Message: {msg}")
-                    result = {"code": code, "message": msg}
+                    if pgc_id:
+                        print(f"  pgc_id: {pgc_id}")
+                    result = {"code": code, "message": msg, "pgc_id": pgc_id}
                     publish_results.append(result)
                     if code == 0:
                         print(f"  ✅ 发布成功!")
@@ -973,9 +976,56 @@ def publish_article(page, article, date_str, draft_mode=False):
                     if any(r["code"] == 0 for r in publish_results):
                         return {"ok": True}
 
-                # Timed out — check all results one more time
-                if any(r["code"] == 0 for r in publish_results):
-                    return {"ok": True}
+                # Timed out — try direct API call as fallback
+                # First API response already saved the draft; extract pgc_id and submit
+                pgc_id = None
+                for req_data in [r.get("pgc_id") for r in publish_results if r.get("pgc_id")]:
+                    if req_data:
+                        pgc_id = req_data
+                        break
+                if not pgc_id:
+                    # Try to parse pgc_id from request URLs
+                    import re as _re
+                    for r in publish_results:
+                        if r.get("pgc_id"):
+                            pgc_id = r["pgc_id"]
+                            break
+                if pgc_id:
+                    try:
+                        print(f"  🔄 尝试API直调发布 (pgc_id={pgc_id})...")
+                        import requests as _req
+                        cookies = page.context.cookies()
+                        s = _req.Session()
+                        for c in cookies:
+                            if c.get('name'):
+                                s.cookies.set(c['name'], c['value'])
+                        api_headers = {
+                            'User-Agent': 'Mozilla/5.0',
+                            'Referer': 'https://mp.toutiao.com/',
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                        payload = {
+                            'pgc_id': str(pgc_id),
+                            'source': '29',
+                            'save': '0',
+                            'timer_status': '0',
+                            'entrance': 'main',
+                        }
+                        r = s.post(
+                            'https://mp.toutiao.com/mp/agw/article/publish',
+                            data=payload, headers=api_headers, timeout=15)
+                        if r.status_code == 200:
+                            result = r.json()
+                            if result.get('code') == 0:
+                                print(f"  ✅ API直调发布成功!")
+                                return {"ok": True}
+                            else:
+                                print(f"  ⚠️ API返回: {result.get('message', 'unknown')}")
+                        else:
+                            print(f"  ⚠️ API HTTP {r.status_code}")
+                    except Exception as api_err:
+                        print(f"  ⚠️ API直调失败: {api_err}")
+
                 if not publish_results:
                     msg = "发布超时: 无API响应"
                     print(f"  ❌ {msg}")
