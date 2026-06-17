@@ -2157,7 +2157,7 @@ def main():
                 print(f"   栏目全部为 gzh_only，切换为公众号爆款数据模式\n")
 
         if all_gzh_only:
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, column_type_hint=column_type_hint, season_label=season_label)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, column_type_hint=column_type_hint, season_label=season_label, match_data=match_data)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无真实爆款数据可用(gzh_only batch)"
                 print(f"ERROR: {result_msg}")
@@ -2173,7 +2173,7 @@ def main():
         elif topic_preference != "auto":
             print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
             topics_and_raw = collect_real_gzh_topics(
-                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label)
+                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, match_data=match_data)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = f"无{topic_preference}相关真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
@@ -2188,7 +2188,7 @@ def main():
 
         elif match_data["total_matches"] == 0:
             print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label)
+            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, match_data=match_data)
             if not topics_and_raw or not topics_and_raw[0]:
                 result_msg = "无比赛且无真实爆款数据可用"
                 print(f"ERROR: {result_msg}")
