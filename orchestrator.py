@@ -13,6 +13,8 @@ from collections import defaultdict
 from file_writer import FileWriter
 from image_service import ImageService
 from hupu_scraper import HupuScraper
+from micro_headline import generate_micro_headlines
+import micro_headline as mh
 from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        DEEPSEEK_KEY, DASHSCOPE_KEY, UNSPLASH_KEY, FOOTBALL_DATA_KEY,
                        DEEPSEEK_URL, DASHSCOPE_URL, FOOTBALL_DATA_BASE,
@@ -2262,6 +2264,18 @@ def main():
 
         # Save batch state for cross-batch dedup
         save_batch_state(date_str, batch_mode if batch_mode != "auto" else "full", result.get("articles", []))
+
+        # ============================================================
+        # Micro-headline: generate short-form content from match data
+        # ============================================================
+        if match_data and match_data.get("all_fixtures"):
+            try:
+                headlines = generate_micro_headlines(match_data, count=2)
+                if headlines:
+                    result["micro_headlines"] = headlines
+                    print(f"\n   📢 已生成 {len(headlines)} 条微头条")
+            except Exception as e:
+                print(f"   ⚠️ 微头条生成失败: {e}")
 
         elapsed = int(time.time() - start_time)
         article_titles = []

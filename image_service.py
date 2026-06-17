@@ -1,6 +1,6 @@
 """图片服务模块 - 搜索、下载、验证、去重"""
 
-import os
+import os, re
 import io
 import hashlib
 import time
@@ -312,3 +312,83 @@ class ImageService:
             time.sleep(0.5)
 
         return downloaded
+
+    def capture_match_screenshot(self, home_team: str, away_team: str, league: str = "",
+                                  save_dir: Optional[Path] = None) -> Optional[dict]:
+        """Use Playwright to screenshot a match score page from a football stats site.
+
+        Tries Dongqiudi (懂球帝) first, then falls back to flashscore.
+        Returns dict with {local_path, filename, source, url} or None.
+
+        This guarantees at least 1 real match image per article, unlike
+        external image APIs which often return empty results.
+        """
+        import subprocess
+        from playwright.sync_api import sync_playwright
+
+        save_path = Path(save_dir) if save_dir else Path("/tmp/match_screenshots")
+        save_path.mkdir(parents=True, exist_ok=True)
+
+        # Build search query for Dongqiudi
+        query = f"{home_team} {away_team}".strip()
+        safe_name = re.sub(r'[^a-zA-Z0-9_一-鿿]', '_', query)[:30]
+        filename = f"match_{safe_name}_{int(time.time())}.jpg"
+        filepath = save_path / filename
+
+        urls_to_try = [
+            f"https://www.dongqiudi.com/search?q={query.replace(' ', '+')}",
+            f"https://www.flashscore.com/search/?q={query.replace(' ', '+')}",
+        ]
+
+        for url in urls_to_try:
+            try:
+                with sync_playwright() as pw:
+                    browser = pw.chromium.launch(headless=True)
+                    page = browser.new_page(viewport={"width": 1280, "height": 720})
+                    page.goto(url, wait_until="domcontentloaded", timeout=20000)
+                    page.wait_for_timeout(3000)
+
+                    # Try to find a match result card/score element
+                    score_selectors = [
+                        '.match-result',
+                        '.score',
+                        '.result-content',
+                        '.match-item',
+                        '[class*="score"]',
+                        '[class*="match"]',
+                        '.search-result-item',
+                        'table',
+                        '.live-item',
+                    ]
+
+                    screenshot_taken = False
+                    for sel in score_selectors:
+                        try:
+                            el = page.locator(sel).first
+                            if el.is_visible(timeout=2000):
+                                el.screenshot(path=str(filepath))
+                                screenshot_taken = True
+                                break
+                        except Exception:
+                            continue
+
+                    if not screenshot_taken:
+                        # Full page screenshot as fallback
+                        page.screenshot(path=str(filepath), full_page=True)
+
+                    browser.close()
+
+                    if filepath.exists() and filepath.stat().st_size > 10000:
+                        print(f"   📸 截图成功: {filename} ({filepath.stat().st_size // 1024}KB)")
+                        return {
+                            "local_path": str(filepath),
+                            "filename": filename,
+                            "source": "screenshot",
+                            "url": url,
+                        }
+            except Exception as e:
+                print(f"   ⚠️ 截图失败 ({url[:30]}...): {e}")
+                continue
+
+        print(f"   ❌ 截图失败: {home_team} vs {away_team} (所有源都不可用)")
+        return None
