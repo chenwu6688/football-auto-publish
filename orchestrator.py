@@ -2273,6 +2273,15 @@ def main():
                 headlines = generate_micro_headlines(match_data, count=2)
                 if headlines:
                     result["micro_headlines"] = headlines
+                    # Also persist to metadata.json so publisher can find them
+                    try:
+                        meta_path = OUTPUT_DIR / date_str / "metadata.json"
+                        if meta_path.exists():
+                            meta = json.loads(meta_path.read_text())
+                            meta["micro_headlines"] = headlines
+                            meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2))
+                    except Exception:
+                        pass
                     print(f"\n   📢 已生成 {len(headlines)} 条微头条")
             except Exception as e:
                 print(f"   ⚠️ 微头条生成失败: {e}")
