@@ -1,6 +1,6 @@
 {
   "date": "2026-06-18",
-  "generated_at": "2026-06-17T16:48:30.649938",
+  "generated_at": "2026-06-17T18:08:47.997540",
   "total_articles": 2,
   "articles": [
     {
@@ -62,110 +62,235 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "世界杯日记：死亡之组有人先慌了",
+      "path": "/home/runner/work/_temp/output/2026-06-18/article-1-世界杯日记死亡之-b62466.md",
+      "slug": "世界杯日记死亡之-b62466",
+      "tags": [
+        "WorldCup",
+        "GroupStage",
+        "Egroup_death_group",
+        "Japan_football",
+        "Germany_crisis"
+      ],
+      "keywords": [
+        "WorldCup",
+        "GroupStage",
+        "Egroup_death_group",
+        "Japan_football",
+        "Germany_crisis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日4场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从纯战报转为死亡之组心态博弈分析，加入跨界类比和人性视角",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "单场轰5球也叫比赛？那是防守在裸奔",
+      "path": "/home/runner/work/_temp/output/2026-06-18/article-2-单场轰5球也叫比-be6f9c.md",
+      "slug": "单场轰5球也叫比-be6f9c",
+      "tags": [
+        "World Cup",
+        "defensive crisis",
+        "modern football",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "World Cup",
+        "defensive crisis",
+        "modern football",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-18/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日4场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从防守崩塌角度切入，将进球盛宴重新定义为战术倒退，而非简单报道赛事。",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "0-1到2-1，乌兹别克斯坦惊天逆转！哥伦比亚梦碎早场",
-      "angle": "哥伦比亚作为南美劲旅，竟被亚洲二流乌兹别克斯坦逆转，暴露出球队防守松散和心态问题，而乌兹别克斯坦展现了亚洲足球的韧性与进步，值得中国足球反思。",
+      "title": "世界杯日报：四场战罢，谁能从死亡之组突围？",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日4场激战，出线形势日渐明朗"
+      ],
+      "angle": "以今日四场激战为切入点，聚焦死亡之组的出线悬念，提出战术变革才是决定命运的关键，而非单纯结果。",
       "keywords": [
-        "Uzbekistan",
-        "Colombia",
-        "World Cup upset",
-        "comeback victory"
+        "world cup",
+        "group standings",
+        "knockout race"
       ],
       "keywords_cn": [
-        "乌兹别克斯坦",
-        "哥伦比亚",
-        "世界杯冷门",
-        "逆转"
+        "世界杯",
+        "小组赛",
+        "出线形势"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "早场比赛时间不友好但冷门话题感极强，亚洲球队逆袭南美强队天然具备争议和讨论度。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 100000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 100000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "卡塔尔球员挑衅东道主？这火气不该带到世界杯赛场",
-      "angle": "加拿大与卡塔尔比赛中，卡塔尔球员在进球后朝加拿大替补席做出不雅手势，引发双方冲突，暴露了卡塔尔球员的情绪管理问题，也让人质疑世界杯的公平竞赛精神。",
+      "title": "4场17球！世界杯进球盛宴背后，防守为何形同虚设？",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日4场激战，出线形势日渐明朗"
+      ],
+      "angle": "从今日比赛进球井喷现象入手，抨击现代足球防守体系的崩塌，质疑华丽进攻掩盖了战术倒退。",
       "keywords": [
-        "Canada vs Qatar",
-        "player conflict",
-        "World Cup controversy",
-        "unsportsmanlike behavior"
+        "world cup",
+        "goals",
+        "defensive issues"
       ],
       "keywords_cn": [
-        "加拿大vs卡塔尔",
-        "球员冲突",
-        "世界杯争议",
-        "不雅手势"
+        "世界杯",
+        "进球",
+        "防守漏洞"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "场外冲突+东道主元素，容易引爆评论区两派骂战，且与首篇冷门话题完全不重复。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 100000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 100000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-18 00:48:30",
+  "last_batch": "evening",
+  "last_updated": "2026-06-18 02:08:47",
   "micro_headlines": [
     {
-      "content": "乌兹别克斯坦踢哥伦比亚，这场比赛还没开打，我已经搬好小板凳了！中亚狼碰上南美劲旅，光听名字就够刺激。别跟我说什么实力差距，世界杯舞台没有怂队，谁怂谁出局。等会儿看他们怎么干，兄弟们评论区押一手？",
+      "content": "乌兹别克斯坦打哥伦比亚？说实话，这签抽出来我就觉得有意思！中亚狼打南美劲旅，纸面实力差一档，但足球是圆的。哥伦比亚J罗老了，乌兹别克这几年青训搞得好，说不定真能搞个冷门。别跟我扯什么历史战绩，世界杯舞台谁怕谁？开球时间10点，正好是咱们午饭前，边啃鸡腿边看，美滋滋！就看乌兹别克的防守能不能扛住哥伦比亚的冲击了，兄弟们，你们猜比分怎么开？",
       "tags": [
         "#世界杯",
-        "#乌兹别克斯坦VS哥伦比亚"
+        "#乌兹别克斯坦vs哥伦比亚"
       ],
       "match": "Uzbekistan vs Colombia"
     },
     {
-      "content": "瑞士对波黑，这场欧洲内战我重点关注。瑞士稳如老狗，波黑有哲科这种硬茬子，但年龄摆在那。看看是瑞士继续苟着赢，还是波黑老将回光返照。比赛还没开始，我已经闻到火药味了，赶紧开球吧别磨叽！",
+      "content": "加拿大踢卡塔尔？东道主卡塔尔这次主场作战，但加拿大也不是吃素的，戴维斯、戴维这帮人速度贼快。06:00开球，早起福利啊！我劝卡塔尔别光想着靠主场哨，得真刀真枪干。加拿大这队疯起来连自己都怕，上届世界杯就差点掀翻比利时。反正我赌加拿大赢，你们敢不敢跟？",
       "tags": [
         "#世界杯",
-        "#瑞士VS波黑"
+        "#加拿大vs卡塔尔"
       ],
-      "match": "Switzerland vs Bosnia-Herzegovina"
+      "match": "Canada vs Qatar"
     }
   ]
 }
