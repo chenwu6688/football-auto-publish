@@ -1,0 +1,171 @@
+{
+  "date": "2026-06-18",
+  "generated_at": "2026-06-17T16:48:30.649938",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "午间快讯｜哥伦比亚被乌兹别克斯坦翻盘？这上午太魔幻了",
+      "path": "/home/runner/work/_temp/output/2026-06-18/article-1-午间快讯哥伦比亚-cf9329.md",
+      "slug": "午间快讯哥伦比亚-cf9329",
+      "tags": [
+        "World Cup",
+        "Uzbekistan",
+        "Colombia",
+        "comeback",
+        "Asian football"
+      ],
+      "keywords": [
+        "World Cup",
+        "Uzbekistan",
+        "Colombia",
+        "comeback",
+        "Asian football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "卡塔尔球员挑衅替补席？这不叫激情，叫欠揍",
+      "path": "/home/runner/work/_temp/output/2026-06-18/article-2-卡塔尔球员挑衅替-55a5e8.md",
+      "slug": "卡塔尔球员挑衅替-55a5e8",
+      "tags": [
+        "World Cup",
+        "Qatar",
+        "Canada",
+        "unsportsmanlike"
+      ],
+      "keywords": [
+        "World Cup",
+        "Qatar",
+        "Canada",
+        "unsportsmanlike"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-18/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "0-1到2-1，乌兹别克斯坦惊天逆转！哥伦比亚梦碎早场",
+      "angle": "哥伦比亚作为南美劲旅，竟被亚洲二流乌兹别克斯坦逆转，暴露出球队防守松散和心态问题，而乌兹别克斯坦展现了亚洲足球的韧性与进步，值得中国足球反思。",
+      "keywords": [
+        "Uzbekistan",
+        "Colombia",
+        "World Cup upset",
+        "comeback victory"
+      ],
+      "keywords_cn": [
+        "乌兹别克斯坦",
+        "哥伦比亚",
+        "世界杯冷门",
+        "逆转"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "早场比赛时间不友好但冷门话题感极强，亚洲球队逆袭南美强队天然具备争议和讨论度。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "卡塔尔球员挑衅东道主？这火气不该带到世界杯赛场",
+      "angle": "加拿大与卡塔尔比赛中，卡塔尔球员在进球后朝加拿大替补席做出不雅手势，引发双方冲突，暴露了卡塔尔球员的情绪管理问题，也让人质疑世界杯的公平竞赛精神。",
+      "keywords": [
+        "Canada vs Qatar",
+        "player conflict",
+        "World Cup controversy",
+        "unsportsmanlike behavior"
+      ],
+      "keywords_cn": [
+        "加拿大vs卡塔尔",
+        "球员冲突",
+        "世界杯争议",
+        "不雅手势"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "场外冲突+东道主元素，容易引爆评论区两派骂战，且与首篇冷门话题完全不重复。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-06-18 00:48:30",
+  "micro_headlines": [
+    {
+      "content": "乌兹别克斯坦踢哥伦比亚，这场比赛还没开打，我已经搬好小板凳了！中亚狼碰上南美劲旅，光听名字就够刺激。别跟我说什么实力差距，世界杯舞台没有怂队，谁怂谁出局。等会儿看他们怎么干，兄弟们评论区押一手？",
+      "tags": [
+        "#世界杯",
+        "#乌兹别克斯坦VS哥伦比亚"
+      ],
+      "match": "Uzbekistan vs Colombia"
+    },
+    {
+      "content": "瑞士对波黑，这场欧洲内战我重点关注。瑞士稳如老狗，波黑有哲科这种硬茬子，但年龄摆在那。看看是瑞士继续苟着赢，还是波黑老将回光返照。比赛还没开始，我已经闻到火药味了，赶紧开球吧别磨叽！",
+      "tags": [
+        "#世界杯",
+        "#瑞士VS波黑"
+      ],
+      "match": "Switzerland vs Bosnia-Herzegovina"
+    }
+  ]
+}
