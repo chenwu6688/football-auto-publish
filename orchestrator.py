@@ -375,14 +375,25 @@ def _check_intra_batch_dedup(topics):
     return topics, warnings
 
 
-def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label=""):
-    print("\n[2/5] LLM 话题筛选 (DeepSeek)...")
+def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label="", topic_count=3):
+    print(f"\n[2/5] LLM 话题筛选 (DeepSeek, target={topic_count}篇)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
         lines.append(f"\n## {league}")
         for m in matches:
             hg, ag = m.get("home_score"), m.get("away_score")
-            lines.append(f"  {m['home_team']} {hg}-{ag if hg is not None else 'vs'} {m['away_team']}")
+            # Convert UTC match time to Beijing time for the prompt
+            utc_date = m.get("utc_date", "")
+            cst_time = ""
+            if utc_date:
+                try:
+                    from datetime import datetime, timezone, timedelta
+                    dt_utc = datetime.fromisoformat(utc_date.replace("Z", "+00:00"))
+                    dt_cst = dt_utc + timedelta(hours=8)
+                    cst_time = dt_cst.strftime("(%m-%d %H:%M 开球)")
+                except Exception:
+                    pass
+            lines.append(f"  {m['home_team']} {hg}-{ag if hg is not None else 'vs'} {m['away_team']} {cst_time}")
 
     gzh_text = ""
     if gzh_articles:
@@ -440,7 +451,7 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 - 只有当今日无世界杯比赛或世界杯比赛确实无话题性时，才允许选择其他赛事/非赛事话题。
 """
 
-    prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 3 个有爆款潜力的话题。
+    prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 {topic_count} 个有爆款潜力的话题。
 
 比赛数据：
 {"".join(lines)}
@@ -449,16 +460,18 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 {cross_batch_text}
 {weight_hint}
 {world_cup_priority}
-硬性要求 — 3 个话题必须覆盖不同内容类型 + 不同核心主题：
+硬性要求 — {topic_count} 个话题必须覆盖不同内容类型 + 不同核心主题：
 1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
 2. 第2篇：转会资讯/八卦趣事 — 转会传闻、球员花边、冲突争议、场外话题
-3. 第3篇：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势
+3. 第3篇及以后：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势
+
+⚠️ 绝对禁止编造时间：每场比赛括号里的时间是真实开球时间(北京时间)，写文章时只能用这个时间，不许编造"凌晨X点""深夜X点"等虚构场景。如果比赛是上午9点开的就写"上午"或"早场"，不确定时间的就说"这场比赛"。
 
 ⚠️ 去重铁律：
 - 禁止2个话题围绕同一核心事件/同一核心球员/同一转会故事展开（即便内容类型不同也不行）
 - 举例：如果第1篇写"姆巴佩离队后巴黎夺冠"，第3篇就 不能 再写"姆巴佩的欧冠诅咒"
-- 3个话题的核心关键词集合交集必须为空（如都含Mbappe/PSG/Champions League即违规）
-- 如果当日素材不够3个完全不同的主题，宁可减少话题数也不要凑近似话题
+- {topic_count}个话题的核心关键词集合交集必须为空（如都含Mbappe/PSG/Champions League即违规）
+- 如果当日素材不够{topic_count}个完全不同的主题，宁可减少话题数也不要凑近似话题
 
 如果当日有绝杀、逆转、红牌、VAR争议、教练冲突等事件，优先选择。
 
@@ -656,10 +669,11 @@ selected 是栏目序号(0-4)，必须选恰好2个。只输出JSON。"""
     return selected
 
 
-def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None, cross_batch_covered=None, column_type_hint=None, season_label=""):
+def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto", preferred_types=None, season_weights=None, cross_batch_covered=None, column_type_hint=None, season_label="", match_data=None):
     raw_articles = fetch_gzh_football_trends(
         date_str,
-        keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None
+        keyword_groups=GZH_TRANSFER_KEYWORDS if topic_preference == "transfer" else None,
+        fallback_match_data=match_data,
     )
     if not raw_articles:
         print("   ERROR: 无真实数据源")
@@ -910,6 +924,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 4. **开篇必须反套路**：禁止"昨晚XX队以X-X战胜XX队""近日XX传闻引发热议"。用一个具体场景、一句狠话、一个数据反差、或者坦诚表态作为开头。
 5. **跨界视角**：至少1处历史类比/行业类比/生活类比。
 6. **评论区引擎**：正文中预埋≥2个评论触发点（留白挑衅/回忆召唤/身份站队/梗的钩子），文末互动钩子必须具体、低门槛、自己先答。
+7. **⚠️ 绝对禁止编造时间/场景**：比赛开球时间已在素材中标注，只能写"上午""下午""晚场"等笼统描述，或直接用"这场比赛"。禁止写"凌晨X点""深夜X点""半夜爬起来看"等虚构的时间场景。素材里没有的细节一律不写。
 
 写作要求：
 {style}
@@ -1137,6 +1152,71 @@ def validate_article(article, index, is_tieba=False, min_words=500):
     return len(issues) == 0, issues, max(score, 0)
 
 
+def check_content_references_data(article, match_data, gzh_articles=None):
+    """Sanity check: verify article content references at least one real data source.
+
+    Extracts known team and player names from the article body, then checks
+    if any appear in today's match data or GZH source articles.
+    Returns (passes_check, matched_names, warning).
+    """
+    content = article.get("content", "") + article.get("title", "")
+    if not content:
+        return False, [], "内容为空"
+
+    # Collect all known entities from today's data
+    today_entities = set()
+
+    # From match data: teams
+    if match_data and match_data.get("all_fixtures"):
+        for m in match_data["all_fixtures"]:
+            home = m.get("home_team", "")
+            away = m.get("away_team", "")
+            if home:
+                today_entities.add(home.lower())
+            if away:
+                today_entities.add(away.lower())
+
+    # From match data: leagues
+    if match_data and match_data.get("fixtures_by_league"):
+        for league in match_data["fixtures_by_league"]:
+            today_entities.add(league.lower())
+
+    # From GZH source articles: title entities
+    if gzh_articles:
+        for a in gzh_articles[:8]:
+            title = a.get("title", "")
+            if title:
+                today_entities.add(title.lower()[:60])
+
+    # From topic source_article_ids (for GZH-based articles)
+    sources = article.get("sources_used", [])
+    for s in sources:
+        if s:
+            today_entities.add(s.lower()[:60])
+
+    # Check content against WIKI_TEAMS (known real teams)
+    from constants import WIKI_TEAMS, WIKI_PLAYERS
+    matched = []
+    content_lower = content.lower()
+    for team_cn in WIKI_TEAMS:
+        if team_cn.lower() in content_lower:
+            matched.append(team_cn)
+    for player_cn in WIKI_PLAYERS:
+        if player_cn.lower() in content_lower:
+            matched.append(player_cn)
+
+    if matched:
+        return True, matched, ""
+
+    # No known entities found — could still be valid (e.g., fun gossip)
+    # Check if content references any non-empty entity from matches
+    for entity in today_entities:
+        if len(entity) >= 3 and entity in content_lower:
+            return True, [entity[:30]], ""
+
+    return False, [], "文章中未检测到比赛球队/球员或今日数据源实体"
+
+
 def check_cross_day_duplicate(title, content, date_str):
     """Check if the generated article is too similar to any article in the past 7 days.
 
@@ -1222,6 +1302,21 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
 
             is_valid, issues, score = validate_article(art, index, is_tieba=is_tieba, min_words=topic_min_words)
             if is_valid and score >= 85:
+                # Data source reference check: verify article references real data
+                if match_context:
+                    passes, matched, ref_warning = check_content_references_data(art, match_context, gzh_articles)
+                    if not passes and matched is not None:
+                        print(f"   ⚠️  数据源引用警告: {ref_warning}")
+                        issues.append(ref_warning)
+                        score -= 15
+                        if score < 85:
+                            last_issues = "; ".join(issues)
+                            if attempt < max_retries:
+                                print(f"   🔄 重试 (需引用真实数据源)...")
+                                continue
+                            else:
+                                pass  # Allow through with low score rather than total failure
+
                 # Cross-day dedup check
                 if date_str:
                     title = art.get("title", "")
@@ -1962,7 +2057,7 @@ def main():
         # based on today's GZH trending data, then override the evening slots.
         if batch_mode == "evening":
             print("\n🌙 晚间栏目动态选择...")
-            gzh_trends = fetch_gzh_football_trends(date_str)
+            gzh_trends = fetch_gzh_football_trends(date_str, fallback_match_data=match_data)
             selected_cols = select_evening_columns(gzh_trends, match_data, season_label)
             # Assign slot indices and update BATCH_CONFIG in-place
             for i, col in enumerate(selected_cols):
@@ -2106,14 +2201,14 @@ def main():
 
         else:
             print("\n   获取公众号爆款趋势作为跨源参考...")
-            gzh_raw = fetch_gzh_football_trends(date_str)
+            gzh_raw = fetch_gzh_football_trends(date_str, fallback_match_data=match_data)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label)
+            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, topic_count=article_count)
             extra_meta = {"type": "match_analysis"}
             _assign_columns_to_topics(topics, batch_mode)
 
-            _generate_articles_from_topics(topics, 3, match_data, images_map, stats, articles, gzh_articles=gzh_context, date_str=date_str)
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, gzh_articles=gzh_context, date_str=date_str)
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)

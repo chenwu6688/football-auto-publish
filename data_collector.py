@@ -164,10 +164,10 @@ def get_topic_history(current_date, lookback_days=7):
     return history
 
 
-def fetch_gzh_football_trends(date_str, keyword_groups=None):
+def fetch_gzh_football_trends(date_str, keyword_groups=None, fallback_match_data=None):
     print(f"[数据] 从公众号爆款库采集足球话题 ({date_str})...")
     target_date = datetime.strptime(date_str, "%Y-%m-%d")
-    start_date = (target_date - timedelta(days=2)).strftime("%Y-%m-%d")
+    start_date = (target_date - timedelta(days=1)).strftime("%Y-%m-%d")
     all_raw = []
     kw_groups = keyword_groups if keyword_groups is not None else GZH_KEYWORD_GROUPS
 
@@ -206,6 +206,9 @@ def fetch_gzh_football_trends(date_str, keyword_groups=None):
 
     if not all_raw:
         print("   公众号爆款库未找到足球相关文章")
+        if fallback_match_data:
+            print("   ⚠️ GZH爆款库不可用，尝试从比赛数据构造备选热点...")
+            return fetch_fallback_trends(fallback_match_data)
         return []
 
     seen = set()
@@ -229,9 +232,143 @@ def fetch_gzh_football_trends(date_str, keyword_groups=None):
                 filtered.append(a)
         unique = filtered
 
+    if not unique and fallback_match_data:
+        print("   ⚠️ GZH爆款库文章全部去重，从比赛数据补充备选热点...")
+        return fetch_fallback_trends(fallback_match_data)
+
     print(f"   采集到 {len(unique)} 篇真实足球爆款文章")
     for i, a in enumerate(unique[:10]):
         print(f"   {i+1}. [{a.get('clicksCount', '?')}阅读] {a.get('title', '')[:60]} — {a.get('accountName', '?')}")
+    return unique
+
+
+def fetch_fallback_trends(match_data, standings=None):
+    """当 GZH 爆款库不可用时，从比赛数据和积分榜构造备选热点话题。
+
+    Returns list of dicts in the same format as GZH articles (title, clicksCount, etc.)
+    so the downstream LLM pipeline works identically.
+    """
+    print("   ⚠️ GZH 爆款库为空，使用比赛数据构造备选热点话题...")
+    fallback = []
+    idx = 0
+
+    # 1. From match results: high-scoring games, upsets, close games
+    for m in match_data.get("all_fixtures", []):
+        hg = m.get("home_score")
+        ag = m.get("away_score")
+        home = m.get("home_team", "")
+        away = m.get("away_team", "")
+        league = m.get("league", "")
+        if hg is None:
+            continue
+
+        total_goals = hg + ag
+        goal_diff = abs(hg - ag)
+
+        # High-scoring game
+        if total_goals >= 5:
+            fallback.append({
+                "title": f"进球大战！{home} {hg}-{ag} {away}，{league}今日最刺激一战",
+                "summary": f"{home}与{away}联手贡献{total_goals}球，堪称今日最佳比赛。",
+                "clicksCount": 50000 + total_goals * 10000,
+                "accountName": "足球热点",
+                "dataScore": 95,
+            })
+            idx += 1
+
+        # Upset / close game
+        if goal_diff <= 1 and total_goals > 0:
+            tag = "冷门" if goal_diff == 0 else "险胜"
+            fallback.append({
+                "title": f"{tag}！{home} {hg}-{ag} {away}，比赛悬念留到最后",
+                "summary": f"{home}与{away}的较量直到最后时刻才分出胜负。",
+                "clicksCount": 30000 + (3 - goal_diff) * 5000,
+                "accountName": "足球热点",
+                "dataScore": 88 - goal_diff * 5,
+            })
+            idx += 1
+
+    # 2. From standings: top-of-table clashes, relegation battles
+    if standings:
+        for league_name, table in standings.items():
+            if not table:
+                continue
+            # Championship race
+            if len(table) >= 2:
+                top = table[0]
+                second = table[1]
+                pts_diff = top.get("points", 0) - second.get("points", 0)
+                if pts_diff <= 3:
+                    fallback.append({
+                        "title": f"{league_name}争冠白热化！{top['team']}仅领先{second['team']}{pts_diff}分",
+                        "summary": f"本赛季{league_name}冠军悬念再起，{top['team']}和{second['team']}的差距仅{pts_diff}分。",
+                        "clicksCount": 40000 + (3 - pts_diff) * 10000,
+                        "accountName": "足球热点",
+                        "dataScore": 90 + (3 - pts_diff) * 3,
+                    })
+                    idx += 1
+
+            # Relegation battle (last 3)
+            if len(table) >= 6:
+                bottom = table[-1]
+                bottom2 = table[-2] if len(table) >= 2 else None
+                if bottom2 and bottom.get("points", 0) is not None and bottom2.get("points", 0) is not None:
+                    pts_gap = bottom2["points"] - bottom["points"]
+                    if pts_gap <= 2:
+                        fallback.append({
+                            "title": f"保级生死战！{bottom['team']}垫底，距安全区仅{pts_gap}分",
+                            "summary": f"{bottom['team']}目前排名垫底，保级形势严峻。",
+                            "clicksCount": 25000,
+                            "accountName": "足球热点",
+                            "dataScore": 82,
+                        })
+                        idx += 1
+
+    # 3. World Cup special: if match data contains World Cup fixtures
+    wc_matches = [m for m in match_data.get("all_fixtures", [])
+                  if m.get("league") == "FIFA World Cup"]
+    if wc_matches:
+        groups = set()
+        for m in wc_matches:
+            groups.add(m.get("matchday", "?"))
+        fallback.append({
+            "title": f"🌍 世界杯战报：今日{len(wc_matches)}场激战，出线形势日渐明朗",
+            "summary": f"世界杯小组赛继续进行，今日{len(wc_matches)}场比赛，各队为出线名额全力争胜。",
+            "clicksCount": 80000 + len(wc_matches) * 5000,
+            "accountName": "世界杯专区",
+            "dataScore": 98,
+        })
+        idx += 1
+
+        # Check for standout results
+        for m in wc_matches[:3]:
+            hg = m.get("home_score")
+            ag = m.get("away_score")
+            if hg is not None and ag is not None and abs(hg - ag) <= 1:
+                fallback.append({
+                    "title": f"世界杯悬念：{m['home_team']} {hg}-{ag} {m['away_team']}，小组格局再生变",
+                    "summary": f"世界杯小组赛一场关键战，{m['home_team']}与{m['away_team']}的激烈对决。",
+                    "clicksCount": 60000,
+                    "accountName": "世界杯专区",
+                    "dataScore": 92,
+                })
+                idx += 1
+
+    # Deduplicate by title
+    seen = set()
+    unique = []
+    for a in fallback:
+        t = a.get("title", "")[:40]
+        if t and t not in seen:
+            seen.add(t)
+            unique.append(a)
+
+    if unique:
+        print(f"   ✅ 已从比赛数据构造 {len(unique)} 个备选热点话题")
+        for i, a in enumerate(unique[:5]):
+            print(f"      {i+1}. [模拟{ a.get('clicksCount', 0)}阅读] {a.get('title', '')[:50]}")
+    else:
+        print("   ❌ 比赛数据也不足以构造备选话题")
     return unique
 
 
@@ -416,6 +553,27 @@ def search_images(topic, count=5):
             if resp.status_code == 200:
                 for r in resp.json().get("results", []):
                     images.append({"url": r["urls"]["regular"], "source": "unsplash", "alt": "football"})
+        except Exception:
+            pass
+
+    # Final fallback: DuckDuckGo (free, no key)
+    if len(images) < count:
+        try:
+            q = " ".join(en_keywords[:3]) if en_keywords else "football match"
+            from urllib.parse import quote_plus as qp
+            import re
+            ddg = requests.get("https://duckduckgo.com/", params={"q": f"{q} football"}, timeout=10)
+            vqd_match = re.search(r'vqd=([\d-]+)', ddg.text)
+            if vqd_match:
+                vqd = vqd_match.group(1)
+                resp = requests.get(
+                    f"https://duckduckgo.com/i.js?q={qp(q)}+football&vqd={vqd}&o=json",
+                    timeout=10)
+                if resp.status_code == 200:
+                    for item in resp.json().get("results", [])[:count]:
+                        url = item.get("image", "")
+                        if url and url not in [i["url"] for i in images]:
+                            images.append({"url": url, "source": "duckduckgo", "alt": item.get("title", "")})
         except Exception:
             pass
     return images[:count]

@@ -214,18 +214,11 @@ def test_performance_boost_initialized_before_batch_mode():
     init_pos = content.find("performance_boost = {}")
     assert init_pos > 0, "performance_boost = {} initialization missing"
 
-    # The usage of performance_boost inside batch-mode block
-    usage_pos = content.find("if performance_boost:")
-    assert usage_pos > 0, "performance_boost usage maintained"
-
-    # The init must come before the batch-mode usage
-    assert init_pos < usage_pos, \
-        f"performance_boost init ({init_pos}) must precede usage ({usage_pos})"
-
-    # Both must appear before the try block where it was previously assigned
-    try_pos = content.find("\n    try:\n", usage_pos)
-    assert try_pos > usage_pos, "try block should come after usage"
-
+    # The performance_boost is assigned right after analyze_content_performance
+    assign_pos = content.find("performance_boost = get_performance_boost(")
+    assert assign_pos > 0, "performance_boost = get_performance_boost() assignment maintained"
+    assert init_pos < assign_pos, \
+        f"performance_boost init ({init_pos}) must precede assignment ({assign_pos})"
     print("  PASS test_performance_boost_initialized_before_batch_mode")
 
 

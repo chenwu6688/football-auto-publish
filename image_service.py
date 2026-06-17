@@ -36,16 +36,10 @@ class ImageService:
         搜索图片，返回URL列表。
         优先级：Unsplash → DuckDuckGo（免费方案）
         """
-        # Quick skip if no API keys available at all
-        has_unsplash = bool(os.environ.get("UNSPLASH_ACCESS_KEY", ""))
-        has_bing = bool(os.environ.get("BING_SEARCH_KEY", ""))
-        if not has_unsplash and not has_bing:
-            return []
-
         results = []
         query_encoded = quote_plus(query)
 
-        # Source 1: Unsplash (CC0 license, no API key needed for basic use)
+        # Source 1: Unsplash (CC0 license)
         try:
             unsplash_key = os.environ.get("UNSPLASH_ACCESS_KEY", "")
             if unsplash_key:
@@ -65,20 +59,15 @@ class ImageService:
         except Exception:
             pass
 
-        # Source 2: DuckDuckGo Images (free, no key)
+        # Source 2: DuckDuckGo Images (free, no key, always tried as fallback)
         if len(results) < count:
             try:
-                ddg_url = f"https://duckduckgo.com/?q={query_encoded}+football+soccer&iax=images&ia=images"
-                # Use the vqd endpoint for more reliable results
                 vqd_url = "https://duckduckgo.com/"
                 resp = self.session.get(vqd_url, params={"q": f"{query} football soccer"}, timeout=10)
-                vqd = None
                 import re
                 match = re.search(r'vqd=([\d-]+)', resp.text)
                 if match:
                     vqd = match.group(1)
-
-                if vqd:
                     img_url = f"https://duckduckgo.com/i.js?q={query_encoded}+football+soccer&vqd={vqd}&o=json"
                     resp = self.session.get(img_url, timeout=10)
                     if resp.status_code == 200:

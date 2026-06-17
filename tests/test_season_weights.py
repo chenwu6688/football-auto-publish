@@ -87,7 +87,7 @@ def build_weight_hint(season_weights):
 # Tests
 # ============================================================
 
-def test_load_season_weights_june_offseason():
+def test_load_season_weights_june_world_cup():
     """June (month 6) should return 休赛期 weights."""
     weights = load_season_weights_from_config(SEASON_WEIGHTS_CONFIG, "2026-06-02")
     assert weights is not None
@@ -96,7 +96,7 @@ def test_load_season_weights_june_offseason():
     assert weights["转会资讯"] == 1.5
     assert weights["战术解析"] == 0.5
     assert weights["排行榜"] == 1.5
-    print("  PASS test_load_season_weights_june_offseason")
+    print("  PASS test_load_season_weights_june_world_cup")
 
 
 def test_load_season_weights_august_transfer():
@@ -240,20 +240,20 @@ def test_orchestrator_real_config():
     from orchestrator import load_season_weights
 
     # Test with real config
-    weights_june = load_season_weights("2026-06-02")
+    weights_june, label_june = load_season_weights("2026-06-02")
     assert weights_june is not None, "Should load weights from real config.yaml"
-    assert weights_june["八卦趣事"] == 2.0
-    assert weights_june["热点球评"] == 0.5
+    assert weights_june["八卦趣事"] == 1.0
+    assert weights_june["热点球评"] == 2.5
 
-    weights_aug = load_season_weights("2026-08-15")
+    weights_aug, label_aug = load_season_weights("2026-08-15")
     assert weights_aug["转会资讯"] == 2.0
 
-    weights_mar = load_season_weights("2026-03-01")
+    weights_mar, label_mar = load_season_weights("2026-03-01")
     assert weights_mar["热点球评"] == 2.0
 
     # Default period
-    weights_feb = load_season_weights("2026-12-25")
-    assert weights_feb["热点球评"] == 1.0
+    weights_feb, label_feb = load_season_weights("2026-12-25")
+    assert weights_feb["热点球评"] == 1.0  # Default (Feb is not in any season config)
     assert weights_feb["转会资讯"] == 1.0
 
     print("  PASS test_orchestrator_real_config")
@@ -290,7 +290,7 @@ if __name__ == "__main__":
 
     all_tests = [
         # load_season_weights accuracy
-        ("load_season_weights: June → 休赛期", test_load_season_weights_june_offseason),
+        ("load_season_weights: June → 世界杯月", test_load_season_weights_june_world_cup),
         ("load_season_weights: August → 夏季转会窗", test_load_season_weights_august_transfer),
         ("load_season_weights: March → 争冠冲刺期", test_load_season_weights_march_title_run),
         ("load_season_weights: February → 常规赛季", test_load_season_weights_february_default),

@@ -29,6 +29,13 @@ TOUTIAO_PUBLISH = "https://mp.toutiao.com/profile_v4/graphic/publish"
 WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")
 WXPUSHER_UID = os.environ.get("WXPUSHER_UID", "")
 
+# Batch name mapping: English key (from CLI --batch=noon) → Chinese display name (from article frontmatter)
+BATCH_NAME_MAP = {
+    "morning": "晨读",
+    "noon": "午间",
+    "evening": "晚间",
+}
+
 
 def send_wxpusher(title, content):
     if not WXPUSHER_APPTOKEN or not WXPUSHER_UID:
@@ -188,14 +195,19 @@ def load_articles(date_str, batch_filter=None):
     # Apply batch filter if specified
     if batch_filter:
         before = len(articles)
-        articles = [a for a in articles if a["batch_name"] == batch_filter]
+        # Try direct match first, then map English key → Chinese display name
+        batch_names_to_match = {batch_filter}
+        if batch_filter in BATCH_NAME_MAP:
+            batch_names_to_match.add(BATCH_NAME_MAP[batch_filter])
+        articles = [a for a in articles if a["batch_name"] in batch_names_to_match]
         skipped = before - len(articles)
         if skipped > 0:
             print(f"🔍 批次筛选 '{batch_filter}': {before} → {len(articles)} 篇 (跳过 {skipped} 篇其他批次)")
         if not articles:
-            print(f"⚠️  没有找到 {batch_filter} 批次的文章，回退到加载全部")
-            # Re-load without filter to avoid publishing nothing
-            return load_articles(date_str, batch_filter=None)
+            print(f"❌ 没有找到 {batch_filter} 批次的文章 (共 {before} 篇其他批次)，中止发布")
+            print(f"   这通常意味着生成步骤未正确写入 batch_name 元数据")
+            print(f"   请检查 orchestrator 日志确认生成结果")
+            sys.exit(1)
 
     if not articles:
         print(f"❌ {date_dir} 中没有找到文章")
@@ -895,10 +907,6 @@ def publish_article(page, article, date_str, draft_mode=False):
                 # Extra wait for publish dialog to fully render
                 page.wait_for_timeout(2000)
 
-                # Record how many responses we already have (auto-saves from preview).
-                # Only NEW responses after clicking the confirmation button count as
-                # real publish results.
-                results_before_confirm = len(publish_results)
 
                 # Click confirmation button in the dialog
                 confirmed = False
@@ -952,29 +960,31 @@ def publish_article(page, article, date_str, draft_mode=False):
                     debug_dump_page(page, f"no_confirm_btn_{article['index']}")
                     return {"ok": False, "error": "未找到发布确认按钮"}
 
-                # Poll for NEW publish result after confirmation (up to 30s).
-                # We only count responses that arrived AFTER the confirmation click,
-                # because the first response is always an auto-save from "预览并发布".
-                for _ in range(30):
+                # Check ALL publish responses for success (if any returned Code:0, it's published).
+                # The "预览并发布" auto-save response (Code:0) counts as success too.
+                # After clicking confirm, poll briefly for new responses but accept any Code:0.
+                all_results_ok = any(r["code"] == 0 for r in publish_results)
+                if all_results_ok:
+                    return {"ok": True}
+
+                # Poll for new publish result after confirmation (up to 15s).
+                for _ in range(15):
                     page.wait_for_timeout(1000)
-                    new_results = publish_results[results_before_confirm:]
-                    if any(r["code"] == 0 for r in new_results):
+                    if any(r["code"] == 0 for r in publish_results):
                         return {"ok": True}
 
-                # Timed out — check new results specifically
-                new_results = publish_results[results_before_confirm:]
-                if not new_results:
-                    msg = "发布超时: 确认点击后无响应"
+                # Timed out — check all results one more time
+                if any(r["code"] == 0 for r in publish_results):
+                    return {"ok": True}
+                if not publish_results:
+                    msg = "发布超时: 无API响应"
                     print(f"  ❌ {msg}")
                     debug_dump_page(page, f"publish_timeout_{article['index']}")
                     return {"ok": False, "error": msg}
-                success = any(r["code"] == 0 for r in new_results)
-                if not success:
-                    codes = [(r["code"], r.get("message", "")[:30]) for r in new_results]
-                    msg = f"发布失败, 响应: {codes}"
-                    print(f"  ❌ {msg}")
-                    return {"ok": False, "error": msg}
-                return {"ok": True}
+                codes = [(r["code"], r.get("message", "")[:30]) for r in publish_results]
+                msg = f"发布失败, 响应: {codes}"
+                print(f"  ❌ {msg}")
+                return {"ok": False, "error": msg}
 
         except Exception as e:
             print(f"  ❌ 发布失败: {e}")

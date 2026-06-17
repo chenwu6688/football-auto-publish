@@ -60,7 +60,7 @@ def test_competition_ids_consistent():
     from constants import COMPETITION_IDS
     assert "英超" in COMPETITION_IDS
     assert "欧冠" in COMPETITION_IDS
-    assert len(COMPETITION_IDS) == 6  # 5 domestic + UCL
+    assert len(COMPETITION_IDS) == 7  # 5 domestic + UCL + FIFA World Cup
     print("  PASS test_competition_ids_consistent")
 
 

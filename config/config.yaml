@@ -80,8 +80,8 @@ schedule:
       cron: 0 4 * * *
       article_count: 2
       columns:
-      - 数据盘点
-      - 深水区
+      - 午间快讯
+      - 热点速评
     evening:
       name: 晚间
       cron: 30 9 * * *
