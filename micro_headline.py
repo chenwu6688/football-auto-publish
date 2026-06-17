@@ -175,33 +175,39 @@ def publish_micro_headline(page, headline, date_str=None):
             return {"ok": False, "error": "微头条编辑器未找到"}
 
         # === Upload image if available ===
+        # Use data_collector.search_images (DuckDuckGo fallback, no nested Playwright)
         match_name = headline.get("match", "")
-        uploaded_image = False
         if match_name:
             try:
-                # Try to capture match screenshot
-                from image_service import ImageService
-                svc = ImageService()
-                parts = match_name.split(" vs ")
-                if len(parts) == 2:
-                    home, away = parts
-                    img_result = svc.capture_match_screenshot(home.strip(), away.strip())
-                    if img_result and img_result.get("local_path"):
-                        img_path = img_result["local_path"]
-                        # Click image upload button in micro-headline editor
-                        upload_btn = page.locator('[class*="upload"], [class*="image"], [class*="picture"]').first
-                        if not upload_btn.is_visible(timeout=1000):
-                            upload_btn = page.locator('svg[class*="image"], svg[class*="picture"], div[class*="image-btn"]').first
-                        if upload_btn.is_visible(timeout=1000):
-                            upload_btn.click()
-                            page.wait_for_timeout(1000)
-                            # File input dialog
+                from data_collector import search_images
+                imgs = search_images({"title": match_name, "keywords": [match_name]}, count=1)
+                if imgs:
+                    import requests as _req
+                    img_resp = _req.get(imgs[0]["url"], timeout=10)
+                    if img_resp.status_code == 200:
+                        import tempfile
+                        tmp_img = Path(tempfile.mkdtemp()) / "micro_img.jpg"
+                        tmp_img.write_bytes(img_resp.content)
+                        if tmp_img.stat().st_size > 5000:
+                            # Upload via file input
                             file_input = page.locator('input[type="file"]').first
-                            if file_input.is_visible(timeout=2000):
-                                file_input.set_input_files(img_path)
-                                page.wait_for_timeout(3000)  # Wait for upload
-                                uploaded_image = True
+                            if file_input.is_visible(timeout=3000):
+                                file_input.set_input_files(str(tmp_img))
+                                page.wait_for_timeout(3000)
                                 print(f"   📸 微头条配图已上传")
+                            else:
+                                # Click upload button first
+                                for sel in ['[class*="upload"]', 'svg[class*="image"]', '[class*="picture"]', 'button[class*="img"]']:
+                                    btn = page.locator(sel).first
+                                    if btn.is_visible(timeout=500):
+                                        btn.click()
+                                        page.wait_for_timeout(1000)
+                                        break
+                                file_input = page.locator('input[type="file"]').first
+                                if file_input.is_visible(timeout=3000):
+                                    file_input.set_input_files(str(tmp_img))
+                                    page.wait_for_timeout(3000)
+                                    print(f"   📸 微头条配图已上传")
             except Exception as e:
                 print(f"   ⚠️ 微头条配图上传失败: {e}")
 
