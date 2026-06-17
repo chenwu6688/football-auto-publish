@@ -17,8 +17,10 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from constants import DEEPSEEK_KEY, DEEPSEEK_URL
 from utils import retry, call_llm
 
-# Toutiao micro-headline publish URL (SPA route)
-TOUTIAO_MICRO_URL = "https://mp.toutiao.com/profile_v4/graphic/micro"
+# Toutiao micro-headline publish page (accessed via tab on article list)
+TOUTIAO_MICRO_URL = "https://mp.toutiao.com/profile_v4/weitoutiao/publish"
+# Article list page (for navigating to 微头条 tab)
+TOUTIAO_ARTICLE_LIST = "https://mp.toutiao.com/profile_v4/graphic"
 # Article publish URL (for short article fallback)
 TOUTIAO_PUBLISH = "https://mp.toutiao.com/profile_v4/graphic/publish"
 
@@ -148,85 +150,64 @@ def publish_micro_headline(page, headline, date_str=None):
     try:
         print(f"   📢 微头条: {content[:50]}...")
 
-        # Navigate to micro-headline page
+        # Navigate to micro-headline page directly (SPA route)
         page.goto(TOUTIAO_MICRO_URL, wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(5000)
 
-        # Dismiss overlays
+        # Dismiss overlays that may block interaction
         dismiss_overlays(page)
         page.wait_for_timeout(1000)
 
-        # Wait for the SPA editor to hydrate
+        # Find the ProseMirror editor (微头条 uses the same editor component)
         text_input = None
-        for wait_sec in range(10):
-            for sel in ['textarea', '.ProseMirror', '[contenteditable="true"]', '.micro-editor']:
-                try:
-                    el = page.locator(sel).first
-                    if el.is_visible(timeout=1000):
-                        text_input = el
-                        break
-                except Exception:
-                    continue
-            if text_input:
-                break
+        for _ in range(15):  # Wait up to 15s for editor to hydrate
+            try:
+                el = page.locator('.ProseMirror').first
+                if el.is_visible(timeout=1000):
+                    text_input = el
+                    break
+            except Exception:
+                pass
             page.wait_for_timeout(1000)
 
         if not text_input:
-            # Fallback: navigate to article editor and publish as short article
-            print("   ⚠️ 微头条编辑器未找到，发为短文章...")
-            page.goto(TOUTIAO_PUBLISH, wait_until="networkidle", timeout=30000)
-            page.wait_for_timeout(5000)
-            dismiss_overlays(page)
+            debug_dump_page(page, "micro_no_editor")
+            return {"ok": False, "error": "微头条编辑器未找到"}
 
-            # Use the article publish functions
-            from publisher import fill_title, fill_prosemirror
-            title = content[:25] + ("..." if len(content) > 25 else "")
-            fill_title(page, title)
-            page.wait_for_timeout(500)
-            text_body = content.replace("\n", "<br>")
-            fill_prosemirror(page, text_body)
-            page.wait_for_timeout(500)
-
-            # Click publish
-            for btn_text in ['发布', '发表']:
-                try:
-                    btn = page.locator(f'button:has-text("{btn_text}")').first
-                    if btn.is_visible(timeout=2000):
-                        btn.click()
-                        page.wait_for_timeout(3000)
-                        print(f"   ✅ 微头条(短文章)已发布")
-                        return {"ok": True}
-                except Exception:
-                    continue
-            return {"ok": False, "error": "未找到发布按钮(文章模式)"}
-
-        # Fill the micro-headline editor
+        # Fill content
         text_input.click()
-        text_input.fill(content)
-        page.wait_for_timeout(1000)
+        page.wait_for_timeout(300)
+        page.evaluate(f"document.querySelector('.ProseMirror').innerText = {json.dumps(content)}")
+        page.wait_for_timeout(500)
 
-        # Click publish
-        for btn_text in ['发布', '发表']:
+        # Click publish button
+        pub_btn = page.locator('button:has-text("发布")').first
+        if pub_btn.is_visible(timeout=3000):
+            pub_btn.click()
+            page.wait_for_timeout(3000)
+
+            # Check for success message or dialog
             try:
-                btn = page.locator(f'button:has-text("{btn_text}")').first
-                if btn.is_visible(timeout=2000):
-                    btn.click()
-                    page.wait_for_timeout(3000)
-
-                    # Check success
-                    try:
-                        ok = page.locator('text=发布成功').first
-                        if ok.is_visible(timeout=3000):
-                            print(f"   ✅ 微头条发布成功")
-                            return {"ok": True}
-                    except Exception:
-                        pass
-
-                    print(f"   ✅ 微头条已提交")
+                success = page.locator('text=发布成功').first
+                if success.is_visible(timeout=3000):
+                    print(f"   ✅ 微头条发布成功!")
                     return {"ok": True}
             except Exception:
-                continue
+                pass
 
+            # Check if dialog appeared and confirm
+            try:
+                confirm_btn = page.locator('button:has-text("确认")').first
+                if confirm_btn.is_visible(timeout=2000):
+                    confirm_btn.click()
+                    page.wait_for_timeout(2000)
+            except Exception:
+                pass
+
+            print(f"   ✅ 微头条已提交")
+            return {"ok": True}
+
+        debug_dump_page(page, "micro_no_publish_btn")
         return {"ok": False, "error": "未找到发布按钮"}
 
     except Exception as e:
