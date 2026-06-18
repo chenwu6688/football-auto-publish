@@ -1,6 +1,6 @@
 {
   "date": "2026-06-18",
-  "generated_at": "2026-06-17T18:08:47.997540",
+  "generated_at": "2026-06-18T01:58:28.045861",
   "total_articles": 2,
   "articles": [
     {
@@ -68,169 +68,172 @@
       "column_id": "laoliu-hot-take",
       "column_name": "老六辣评",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "1-0到1-0, 加拿大等了40年",
+      "path": "/home/runner/work/_temp/output/2026-06-18/article-1-10到10加拿大-6c0d5d.md",
+      "slug": "10到10加拿大-6c0d5d",
+      "tags": [
+        "Canada",
+        "World Cup 2026",
+        "host nation",
+        "stoppage time winner"
+      ],
+      "keywords": [
+        "Canada",
+        "World Cup 2026",
+        "host nation",
+        "stoppage time winner"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "进球后扭屁股，世界杯变夜店了？",
+      "path": "/home/runner/work/_temp/output/2026-06-18/article-2-进球后扭屁股世界-270051.md",
+      "slug": "进球后扭屁股世界-270051",
+      "tags": [
+        "World Cup celebration",
+        "South Africa",
+        "dance controversy",
+        "football culture"
+      ],
+      "keywords": [
+        "World Cup celebration",
+        "South Africa",
+        "dance controversy",
+        "football culture"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-18/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "世界杯日报：四场战罢，谁能从死亡之组突围？",
-      "source_article_ids": [
-        1
-      ],
-      "source_titles": [
-        "🌍 世界杯战报：今日4场激战，出线形势日渐明朗"
-      ],
-      "angle": "以今日四场激战为切入点，聚焦死亡之组的出线悬念，提出战术变革才是决定命运的关键，而非单纯结果。",
+      "title": "1-0，第95分钟绝杀！加拿大东道主首秀，这次真不一样了",
+      "angle": "加拿大在小组赛首轮补时绝杀卡塔尔，取得历史性世界杯首胜。老六认为这支北美新军不再是陪跑者，东道主的气质正在觉醒。",
       "keywords": [
-        "world cup",
-        "group standings",
-        "knockout race"
+        "Canada",
+        "Qatar",
+        "last-minute winner",
+        "host nation",
+        "World Cup 2026"
       ],
       "keywords_cn": [
-        "世界杯",
-        "小组赛",
-        "出线形势"
+        "加拿大",
+        "卡塔尔",
+        "绝杀",
+        "东道主",
+        "世界杯首胜"
       ],
       "content_type": "热点球评",
+      "score": 95,
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "_source_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 100000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 100000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_standings": {},
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "target_emotion": "感动",
+      "why_pick": "东道主补时绝杀自带戏剧性，世界杯首胜能引发球迷民族自豪感，时效性与话题度完美结合。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "4场17球！世界杯进球盛宴背后，防守为何形同虚设？",
-      "source_article_ids": [
-        1
-      ],
-      "source_titles": [
-        "🌍 世界杯战报：今日4场激战，出线形势日渐明朗"
-      ],
-      "angle": "从今日比赛进球井喷现象入手，抨击现代足球防守体系的崩塌，质疑华丽进攻掩盖了战术倒退。",
+      "title": "世界杯变嘻哈现场？南非球员魔性庆祝引全网对喷",
+      "angle": "南非球员在与捷克的比赛中进球后跳起电臀舞，被对手和部分球迷批评不尊重。老六觉得世界杯需要个性，但分寸感才是真本事。",
       "keywords": [
-        "world cup",
-        "goals",
-        "defensive issues"
+        "South Africa",
+        "celebration controversy",
+        "Czech Republic",
+        "World Cup"
       ],
       "keywords_cn": [
-        "世界杯",
-        "进球",
-        "防守漏洞"
+        "南非",
+        "魔性庆祝",
+        "捷克",
+        "争议"
       ],
       "content_type": "八卦趣事",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_source_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 100000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日4场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日4场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 100000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_standings": {},
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "why_pick": "奇葩庆祝行为天然具有社交传播属性，正反观点激烈，能引爆评论区情绪。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
+    "morning",
     "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-06-18 02:08:47",
+  "last_batch": "morning",
+  "last_updated": "2026-06-18 09:58:28",
   "micro_headlines": [
     {
-      "content": "乌兹别克斯坦打哥伦比亚？说实话，这签抽出来我就觉得有意思！中亚狼打南美劲旅，纸面实力差一档，但足球是圆的。哥伦比亚J罗老了，乌兹别克这几年青训搞得好，说不定真能搞个冷门。别跟我扯什么历史战绩，世界杯舞台谁怕谁？开球时间10点，正好是咱们午饭前，边啃鸡腿边看，美滋滋！就看乌兹别克的防守能不能扛住哥伦比亚的冲击了，兄弟们，你们猜比分怎么开？",
+      "content": "乌兹别克斯坦打哥伦比亚，看着就不是一个级别啊！但足球是圆的，中亚狼疯起来也能咬人，就是不知道中场能不能顶住J罗的调度。这才10点开球，熬夜的兄弟们得扛住，别睡着了！（#世界杯 #乌兹别克斯坦）",
       "tags": [
         "#世界杯",
-        "#乌兹别克斯坦vs哥伦比亚"
+        "#乌兹别克斯坦"
       ],
       "match": "Uzbekistan vs Colombia"
     },
     {
-      "content": "加拿大踢卡塔尔？东道主卡塔尔这次主场作战，但加拿大也不是吃素的，戴维斯、戴维这帮人速度贼快。06:00开球，早起福利啊！我劝卡塔尔别光想着靠主场哨，得真刀真枪干。加拿大这队疯起来连自己都怕，上届世界杯就差点掀翻比利时。反正我赌加拿大赢，你们敢不敢跟？",
+      "content": "瑞士踢波黑，典型的欧洲力量派对决。瑞士防线硬，波黑有哲科这老炮，但中场创造力差点意思。这场估计就是拼身体、拼犯规，谁先红牌谁下课！喜欢肉搏战的别错过。（#瑞士 #波黑）",
       "tags": [
-        "#世界杯",
-        "#加拿大vs卡塔尔"
+        "#瑞士",
+        "#波黑"
       ],
-      "match": "Canada vs Qatar"
+      "match": "Switzerland vs Bosnia-Herzegovina"
     }
   ]
 }
