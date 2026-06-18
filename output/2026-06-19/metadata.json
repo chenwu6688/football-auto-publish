@@ -1,6 +1,6 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-18T16:51:08.179877",
+  "generated_at": "2026-06-18T18:39:54.683189",
   "total_articles": 2,
   "articles": [
     {
@@ -62,118 +62,239 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "世界杯日报：死亡之组变“等死之组”？三场战罢，有人露冠军相了",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-1-世界杯日报死亡之-d44e9f.md",
+      "slug": "世界杯日报死亡之-d44e9f",
+      "tags": [
+        "World Cup",
+        "group stage",
+        "comeback team",
+        "goal of the day"
+      ],
+      "keywords": [
+        "World Cup",
+        "group stage",
+        "comeback team",
+        "goal of the day"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "世界杯战报：今日3场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从表面赛果切入深层数据对比，点出一支被低估的潜力球队，用类比解读统治力。",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "世界杯还在踢，球探们已经在抢人了",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-2-世界杯还在踢球探-110de2.md",
+      "slug": "世界杯还在踢球探-110de2",
+      "tags": [
+        "World Cup",
+        "transfer rumors",
+        "player valuation"
+      ],
+      "keywords": [
+        "World Cup",
+        "transfer rumors",
+        "player valuation"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "世界杯专区战报"
+      ],
+      "source_post": "",
+      "originality_note": "将比赛战报视角转换为转会市场观察，用球队经理思维评估球员潜在交易价值，而非单纯复述比赛结果。",
+      "content_type": "转会资讯",
+      "column_id": "transfer-radar",
+      "column_name": "转会雷达",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "1-1！韩国队绝平墨西哥，亚洲足球的硬气写在脸上",
-      "formula": "A",
-      "angle": "韩国队在先丢一球的情况下，第87分钟由替补奇兵扳平，全场拼抢凶狠，让技术流的墨西哥无从下手。这场比赛证明了亚洲球队不再是陪练，而是有血性的搅局者。",
+      "title": "世界杯出线形势：看似明朗，实则这队最可能搅局",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日3场激战，出线形势日渐明朗"
+      ],
+      "angle": "表面局势已定，但深入分析数据发现某支低调球队攻守平衡、赛程有利，有望爆冷出线，颠覆小组格局。",
       "keywords": [
-        "Korea Republic",
-        "Mexico",
-        "FIFA World Cup",
-        "comeback",
-        "draw"
+        "world cup",
+        "group stage",
+        "upset",
+        "qualification",
+        "dark horse"
       ],
       "keywords_cn": [
-        "韩国队",
-        "墨西哥",
         "世界杯",
-        "绝平",
-        "亚洲足球"
+        "小组赛",
+        "爆冷",
+        "出线",
+        "黑马"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "expected_heat": "A",
-      "rationale": "亚洲球队在世界杯爆冷逼平传统强队，戏剧性十足，能激发中国球迷的民族情绪和讨论热情。1-1绝平画面感强，符合数字+冲突公式。",
       "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 95000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "普利西奇又伤了？美国天才的玻璃人属性，欧洲豪门还敢赌吗",
-      "formula": "D",
-      "angle": "美国vs澳大利亚比赛中，普利西奇上半场因肌肉拉伤被换下，这已经不是他第一次世界杯期间受伤。他的转会市场价值暴跌，切尔西和AC米兰都可能后悔当初的投入。中国球迷最关心顶级联赛的转会，这个话题直击痛点。",
-      "keywords": [
-        "Christian Pulisic",
-        "USA",
-        "injury",
-        "transfer",
-        "Chelsea"
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 95000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
       ],
-      "keywords_cn": [
-        "普利西奇",
-        "美国队",
-        "伤病",
-        "转会",
-        "玻璃人"
-      ],
-      "content_type": "转会资讯",
-      "score": 85,
-      "expected_heat": "A",
-      "rationale": "普利西奇是知名球星，伤病话题自带争议性和情绪共鸣。转会市场讨论度高，且和第一场韩国绝平完全不同主题，核心词不重叠。",
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "世界杯战报背后：这3位球员身价至少涨2000万",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日3场激战，出线形势日渐明朗"
+      ],
+      "angle": "从今日比赛关键进球、防守核心等表现切入，结合转会市场分析，指出三位原本被低估的球员因世界杯发挥成为豪门猎物，身价有望飙升。",
+      "keywords": [
+        "transfer",
+        "player value",
+        "world cup",
+        "breakout",
+        "scouting"
+      ],
+      "keywords_cn": [
+        "转会",
+        "球员身价",
+        "世界杯",
+        "崛起",
+        "球探"
+      ],
+      "content_type": "转会资讯",
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 95000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 95000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "transfer-radar",
+      "_column_name": "转会雷达",
+      "_column_icon": "📡",
+      "_writing_style": "内幕分析体",
+      "_style_detail": "像球队经理在评估一笔交易。每条转会传闻按'消息来源 → 球员分析 → 球队需求 → 转会可能性 → 影响评估'的结构展开。用'据[来源]''按这个逻辑''如果成了的话'区分消息级别。不确定的就说不知道，不硬装大明白。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测：'你觉得XX这笔转会能成吗？能扣1，不能扣2，评论区说说你的理由。'",
+      "_topic_domain": "转会传闻与球员身价",
+      "_topic_guidance": "近期最热的转会绯闻、球员身价变动、豪门引援目标。不只说'谁要转会'，更要分析转会背后的逻辑：球队为什么需要他、他能带来什么、转会费是否合理、对各方的影响。区分消息级别：官宣 > 权威记者 > 传闻。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-19 00:51:08",
+  "last_batch": "evening",
+  "last_updated": "2026-06-19 02:39:54",
   "micro_headlines": [
     {
-      "content": "墨西哥打韩国，这场绝对要熬夜看！墨西哥的边路快马对上韩国队的铁血防守，想想就刺激。韩国上次世界杯的韧性让人印象深刻，但墨西哥的小快灵打法专克这种硬桥硬马。就看谁能先把节奏带起来，谁先犯错谁先完蛋！火鸡面配塔可，今晚这搭配绝了。#世界杯 #墨韩大战",
+      "content": "墨西哥和韩国这场还没开打，但我已经闻到了火药味！墨西哥的小快灵碰上韩国的跑不死，绝对是一场硬仗。别跟我说什么技术流，世界杯上谁更拼谁就有戏！老六看好墨西哥能啃下这块硬骨头，毕竟中北美老大的底蕴在那儿摆着。坐等开场！",
       "tags": [
         "#世界杯",
-        "#墨韩大战"
+        "#墨西哥vs韩国"
       ],
       "match": "Mexico vs South Korea"
     },
     {
-      "content": "美国对澳大利亚，看着名字就觉得是田径比赛！美国队年轻体能好，澳洲袋鼠军团就是能跑能扛。这场球不用猜战术，就是拼身体、拼对抗，谁先怂谁输。袋鼠防守高空球占优，但美国队前场那几个爆点真不是吃素的。保守估计至少3张黄牌起步，火药味肯定浓！#世界杯 #美澳对决",
+      "content": "苏格兰打摩洛哥，这组对决看着不起眼，但绝对有戏！苏格兰的硬朗碰上摩洛哥的细腻，谁占便宜还不好说。我就问一句：摩洛哥的防守能顶住苏格兰那帮糙汉的高空轰炸吗？老六赌一包辣条，苏格兰这场至少能进一个！",
       "tags": [
         "#世界杯",
-        "#美澳对决"
+        "#苏格兰vs摩洛哥"
       ],
-      "match": "United States vs Australia"
+      "match": "Scotland vs Morocco"
     }
   ]
 }
