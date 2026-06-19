@@ -1,6 +1,6 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-18T18:39:54.683189",
+  "generated_at": "2026-06-19T03:05:40.839904",
   "total_articles": 2,
   "articles": [
     {
@@ -64,177 +64,180 @@
       "column_id": "transfer-radar",
       "column_name": "转会雷达",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "1-0，韩国又被VAR阴了？这手球不判，世界杯还看个什么劲儿！",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-1-10韩国又被VA-0b12fc.md",
+      "slug": "10韩国又被VA-0b12fc",
+      "tags": [
+        "VAR controversy",
+        "Mexico",
+        "South Korea",
+        "World Cup 2026"
+      ],
+      "keywords": [
+        "VAR controversy",
+        "Mexico",
+        "South Korea",
+        "World Cup 2026"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "40岁零封韩国算个啥？奥乔亚的“神”，恰恰是足球的“病”",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-2-40岁零封韩国算-2422c2.md",
+      "slug": "40岁零封韩国算-2422c2",
+      "tags": [
+        "Ochoa",
+        "Mexico",
+        "World Cup",
+        "clean sheet",
+        "veteran"
+      ],
+      "keywords": [
+        "Ochoa",
+        "Mexico",
+        "World Cup",
+        "clean sheet",
+        "veteran"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "世界杯出线形势：看似明朗，实则这队最可能搅局",
-      "source_article_ids": [
-        1
-      ],
-      "source_titles": [
-        "🌍 世界杯战报：今日3场激战，出线形势日渐明朗"
-      ],
-      "angle": "表面局势已定，但深入分析数据发现某支低调球队攻守平衡、赛程有利，有望爆冷出线，颠覆小组格局。",
+      "title": "1-0，韩国队再遭VAR暴击？这争议判罚让世界杯变味！",
+      "formula": "B",
+      "angle": "批评VAR介入尺度不一致，质疑墨西哥疑似手球未判，为韩国队鸣不平，引发对裁判公正性的讨论",
       "keywords": [
-        "world cup",
-        "group stage",
-        "upset",
-        "qualification",
-        "dark horse"
+        "South Korea",
+        "VAR",
+        "Mexico",
+        "World Cup",
+        "penalty controversy"
       ],
       "keywords_cn": [
-        "世界杯",
-        "小组赛",
-        "爆冷",
-        "出线",
-        "黑马"
+        "韩国",
+        "VAR",
+        "墨西哥",
+        "争议判罚"
       ],
       "content_type": "热点球评",
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "_source_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 95000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 95000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_standings": {},
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "score": 92,
+      "expected_heat": "S",
+      "rationale": "世界杯焦点战，争议判罚激发愤怒情绪，韩国队输球引中国球迷站队讨论，符合球迷盼韩国输又同情弱者的矛盾心理。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "世界杯战报背后：这3位球员身价至少涨2000万",
-      "source_article_ids": [
-        1
-      ],
-      "source_titles": [
-        "🌍 世界杯战报：今日3场激战，出线形势日渐明朗"
-      ],
-      "angle": "从今日比赛关键进球、防守核心等表现切入，结合转会市场分析，指出三位原本被低估的球员因世界杯发挥成为豪门猎物，身价有望飙升。",
+      "title": "40岁再封神！奥乔亚创世界杯零封纪录，墨西哥老门将简直逆天",
+      "formula": "C",
+      "angle": "盛赞老将奥乔亚宝刀不老，用零封纪录证明自己，对比现代足球忽视经验，引发怀旧与敬佩",
       "keywords": [
-        "transfer",
-        "player value",
-        "world cup",
-        "breakout",
-        "scouting"
+        "Ochoa",
+        "clean sheet",
+        "record",
+        "Mexico",
+        "World Cup"
       ],
       "keywords_cn": [
-        "转会",
-        "球员身价",
-        "世界杯",
-        "崛起",
-        "球探"
+        "奥乔亚",
+        "零封纪录",
+        "墨西哥",
+        "老将传奇"
       ],
-      "content_type": "转会资讯",
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "_source_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 95000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日3场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日3场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 95000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_standings": {},
-      "_column_id": "transfer-radar",
-      "_column_name": "转会雷达",
-      "_column_icon": "📡",
-      "_writing_style": "内幕分析体",
-      "_style_detail": "像球队经理在评估一笔交易。每条转会传闻按'消息来源 → 球员分析 → 球队需求 → 转会可能性 → 影响评估'的结构展开。用'据[来源]''按这个逻辑''如果成了的话'区分消息级别。不确定的就说不知道，不硬装大明白。",
+      "content_type": "八卦趣事",
+      "score": 88,
+      "expected_heat": "A",
+      "rationale": "纪录型话题自带传播力，40岁老将逆袭打动人心，球迷愿转发分享励志故事，形成单点破圈。",
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测：'你觉得XX这笔转会能成吗？能扣1，不能扣2，评论区说说你的理由。'",
-      "_topic_domain": "转会传闻与球员身价",
-      "_topic_guidance": "近期最热的转会绯闻、球员身价变动、豪门引援目标。不只说'谁要转会'，更要分析转会背后的逻辑：球队为什么需要他、他能带来什么、转会费是否合理、对各方的影响。区分消息级别：官宣 > 权威记者 > 传闻。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
+    "morning",
     "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-06-19 02:39:54",
+  "last_batch": "morning",
+  "last_updated": "2026-06-19 11:05:40",
   "micro_headlines": [
     {
-      "content": "墨西哥和韩国这场还没开打，但我已经闻到了火药味！墨西哥的小快灵碰上韩国的跑不死，绝对是一场硬仗。别跟我说什么技术流，世界杯上谁更拼谁就有戏！老六看好墨西哥能啃下这块硬骨头，毕竟中北美老大的底蕴在那儿摆着。坐等开场！",
+      "content": "墨西哥1-0拿下韩国，虽然没有大比分，但三分到手！韩国队拼到最后，可惜差了点运气。世界杯首战，拿到3分比什么都重要，墨西哥这防守真稳，韩国得赶紧调整了。",
       "tags": [
         "#世界杯",
-        "#墨西哥vs韩国"
+        "#墨西哥VS韩国"
       ],
       "match": "Mexico vs South Korea"
     },
     {
-      "content": "苏格兰打摩洛哥，这组对决看着不起眼，但绝对有戏！苏格兰的硬朗碰上摩洛哥的细腻，谁占便宜还不好说。我就问一句：摩洛哥的防守能顶住苏格兰那帮糙汉的高空轰炸吗？老六赌一包辣条，苏格兰这场至少能进一个！",
+      "content": "美国对阵澳大利亚的比赛还没开打，但已经火药味十足！两支新生代球队碰撞，速度与身体的对抗绝对精彩。我看好美国队的冲击力，不过袋鼠军团可不是软柿子。今晚见分晓！",
       "tags": [
         "#世界杯",
-        "#苏格兰vs摩洛哥"
+        "#美国VS澳大利亚"
       ],
-      "match": "Scotland vs Morocco"
+      "match": "United States vs Australia"
     }
   ]
 }
