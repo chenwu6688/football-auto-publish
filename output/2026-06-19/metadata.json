@@ -1,6 +1,6 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-19T04:44:59.585727",
+  "generated_at": "2026-06-19T05:53:40.644411",
   "total_articles": 2,
   "articles": [
     {
@@ -126,31 +126,92 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "午间快讯｜苏格兰要玩命了！0进球0胜的绝境，摩洛哥你顶得住？",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-1-午间快讯苏格兰要-90a276.md",
+      "slug": "午间快讯苏格兰要-90a276",
+      "tags": [
+        "Scotland",
+        "Morocco",
+        "World Cup 2026",
+        "do or die",
+        "group stage"
+      ],
+      "keywords": [
+        "Scotland",
+        "Morocco",
+        "World Cup 2026",
+        "do or die",
+        "group stage"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "苏格兰球迷街头一开嗓，世界杯的魂回来了",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-2-苏格兰球迷街头一-3325c5.md",
+      "slug": "苏格兰球迷街头一-3325c5",
+      "tags": [
+        "Scotland",
+        "World Cup",
+        "fans",
+        "music"
+      ],
+      "keywords": [
+        "Scotland",
+        "World Cup",
+        "fans",
+        "music"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "0-0？美国队首秀遇澳洲袋鼠，一场闷战或成东道主噩梦",
+      "title": "0胜0进球，苏格兰要和摩洛哥拼命了？",
       "formula": "A",
-      "angle": "东道主美国队首战澳大利亚，看似实力占优但澳大利亚防守硬朗，美国队进攻乏力可能遭遇闷平，引发球迷对东道主出线前景的担忧。",
+      "angle": "苏格兰前两场零进球零胜，摩洛哥也不是软柿子，这场谁都输不起。老六看好苏格兰硬汉在绝境中爆发，别小看欧洲二流球队的求胜欲。",
       "keywords": [
-        "USA",
-        "Australia",
+        "Scotland",
+        "Morocco",
         "World Cup",
-        "host",
-        "preview"
+        "must-win",
+        "group stage"
       ],
       "keywords_cn": [
-        "美国队",
-        "澳大利亚",
+        "苏格兰",
+        "摩洛哥",
         "世界杯",
-        "东道主",
-        "前瞻"
+        "生死战"
       ],
       "content_type": "热点球评",
-      "score": 82,
+      "score": 86,
       "expected_heat": "A",
-      "rationale": "东道主首秀自带流量，且澳大利亚作为亚洲球队有中国球迷关注，闷战假设制造悬念，引发正反争论。",
+      "rationale": "世界杯生死战自带流量，苏格兰0胜0进球的惨淡数据制造强烈悬念，反常识叙事（弱队逆袭）引发球迷争论，符合B级大赛前热点。",
       "controversy_level": "medium",
       "target_emotion": "好奇",
       "_column_id": "wu-jian-kuai-xun",
@@ -173,29 +234,27 @@
       "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "世界杯上，澳大利亚门将瑞安真的配得上英超吗？",
-      "formula": "B",
-      "angle": "澳大利亚门将马修·瑞安曾效力英超并吸引多家俱乐部关注，但其世界杯表现起伏大，质疑其真实实力，引发关于亚洲球员是否被高估的讨论。",
+      "title": "从世界杯赛场到街头弹唱，苏格兰球迷的另一种狂欢",
+      "formula": "C",
+      "angle": "苏格兰队战绩不佳，但球迷却在卡塔尔街头弹起吉他高唱《Flower of Scotland》，用足球文化取暖。老六觉得这才是世界杯最动人的底色。",
       "keywords": [
-        "Mathew Ryan",
-        "Australia",
-        "transfer",
-        "Premier League",
-        "goalkeeper"
+        "Scottish fans",
+        "street performance",
+        "World Cup culture",
+        "football passion"
       ],
       "keywords_cn": [
-        "马修·瑞安",
-        "澳大利亚",
-        "转会",
-        "英超",
-        "门将"
+        "苏格兰球迷",
+        "街头弹唱",
+        "世界杯文化",
+        "球迷故事"
       ],
-      "content_type": "转会资讯",
+      "content_type": "八卦趣事",
       "score": 78,
-      "expected_heat": "A",
-      "rationale": "转会话题结合世界杯表现，有争议性，亚洲门将话题容易引发中国球迷共鸣，评论区两极分化。",
-      "controversy_level": "high",
-      "target_emotion": "好奇",
+      "expected_heat": "B",
+      "rationale": "身份反差（赛场失意vs场外热情）制造戏剧张力，球迷文化故事容易引发情感共鸣，且完全避开已发话题，无内容重复风险。",
+      "controversy_level": "low",
+      "target_emotion": "感动",
       "_column_id": "re-dian-su-ping",
       "_column_name": "热点速评",
       "_column_icon": "🔥",
@@ -217,25 +276,19 @@
     }
   ],
   "data_sources": {},
-  "batches_completed": [],
+  "batches_completed": [
+    "noon"
+  ],
   "last_batch": "noon",
-  "last_updated": "2026-06-19 12:44:59",
+  "last_updated": "2026-06-19 13:53:40",
   "micro_headlines": [
     {
-      "content": "哎哟我去，墨西哥这1-0赢得也太省心了！韩国队全场压着打，结果人家一脚反击就搞定。世界杯就是这样的舞台，你控球再多没用，临门一脚才是硬道理。韩国球迷估计得郁闷好几天，墨西哥老铁们今晚可以加餐了！",
+      "content": "墨西哥1-0韩国！这球看得我血压飙升——韩国队全场压着打，射门数翻倍，结果墨西哥一个反击就带走了比赛。孙兴慜最后那个头球中柱，差一点啊兄弟们！世界杯就是这样，机会把握不住就得认。墨西哥老铁这防守真是铁桶，洪明甫赛后得反思为啥光打雷不下雨。",
       "tags": [
         "#世界杯",
-        "#墨西哥"
+        "#墨西哥1-0韩国"
       ],
       "match": "Mexico vs South Korea"
-    },
-    {
-      "content": "美国队今晚打袋鼠，大伙儿觉得谁能赢？我反正押美国，毕竟主场作战啊！澳大利亚也不是善茬，身体对抗一点不虚。这场球估计得拼到最后一刻，期待两队别怂，对攻起来才过瘾！#世界杯 #美国队",
-      "tags": [
-        "#世界杯",
-        "#美国队"
-      ],
-      "match": "United States vs Australia"
     }
   ]
 }
