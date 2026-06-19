@@ -339,6 +339,27 @@ jobs:
             fi
             /usr/bin/sleep $((attempt * 2))
           done
+      - name: 导出小程序静态数据
+        if: success() && steps.params.outputs.skip != 'true'
+        env:
+          OUTPUT_DIR: ${{ runner.temp }}/output
+        run: |
+          python scripts/export_static_data.py "${{ steps.params.outputs.today }}"
+          git add -f static_data/
+          if ! git diff --cached --quiet; then
+            git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -m "chore: update mini-program static data"
+            for attempt in 1 2 3; do
+              if git push origin main 2>/dev/null; then
+                echo "✅ 小程序静态数据已推送"
+                break
+              fi
+              git pull --rebase origin main 2>/dev/null || true
+              sleep $((attempt * 2))
+            done
+          else
+            echo "静态数据无变化，跳过"
+          fi
+
 
       - name: 上传产物
         if: always()
