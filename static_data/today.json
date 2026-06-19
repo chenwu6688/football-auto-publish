@@ -1,0 +1,112 @@
+{
+  "date": "2026-06-17",
+  "batches_completed": [
+    "evening",
+    "morning",
+    "noon"
+  ],
+  "batches": [
+    {
+      "batch_name": "晚间",
+      "batch_key": "evening",
+      "column_name": "世界杯日报",
+      "articles": [
+        {
+          "id": "2026-06-17_1",
+          "title": "世界杯日报：日本两度落后两度扳平，这不是精神，是战术的胜利",
+          "summary": "用教育体系类比国家队实力梯次，把原文的比喻延伸为亚洲足球整体升级的叙事",
+          "date": "2026-06-17",
+          "tags": [
+            "Japan",
+            "Netherlands",
+            "World Cup",
+            "Asian football",
+            "youth academy"
+          ],
+          "keywords": [
+            "Japan",
+            "Netherlands",
+            "World Cup",
+            "Asian football",
+            "youth academy"
+          ],
+          "golden_lines": [],
+          "cover_image": "",
+          "html_content": "<p>用教育体系类比国家队实力梯次，把原文的比喻延伸为亚洲足球整体升级的叙事</p>",
+          "batch_name": "晚间"
+        },
+        {
+          "id": "2026-06-17_2",
+          "title": "世界杯围挡成精了！俩中国品牌在卡塔尔互飙情话",
+          "summary": "以现场球迷视角切入，将商业互动拟人化为球场里的第三种语言，突出人情味和画面感。",
+          "date": "2026-06-17",
+          "tags": [
+            "World Cup",
+            "advertising",
+            "Chinese brands",
+            "social media"
+          ],
+          "keywords": [
+            "World Cup",
+            "advertising",
+            "Chinese brands",
+            "social media"
+          ],
+          "golden_lines": [],
+          "cover_image": "",
+          "html_content": "<p>以现场球迷视角切入，将商业互动拟人化为球场里的第三种语言，突出人情味和画面感。</p>",
+          "batch_name": "晚间"
+        }
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": "2026-06-17_1",
+      "title": "世界杯日报：日本两度落后两度扳平，这不是精神，是战术的胜利",
+      "summary": "用教育体系类比国家队实力梯次，把原文的比喻延伸为亚洲足球整体升级的叙事",
+      "date": "2026-06-17",
+      "tags": [
+        "Japan",
+        "Netherlands",
+        "World Cup",
+        "Asian football",
+        "youth academy"
+      ],
+      "keywords": [
+        "Japan",
+        "Netherlands",
+        "World Cup",
+        "Asian football",
+        "youth academy"
+      ],
+      "golden_lines": [],
+      "cover_image": "",
+      "html_content": "<p>用教育体系类比国家队实力梯次，把原文的比喻延伸为亚洲足球整体升级的叙事</p>",
+      "batch_name": "晚间"
+    },
+    {
+      "id": "2026-06-17_2",
+      "title": "世界杯围挡成精了！俩中国品牌在卡塔尔互飙情话",
+      "summary": "以现场球迷视角切入，将商业互动拟人化为球场里的第三种语言，突出人情味和画面感。",
+      "date": "2026-06-17",
+      "tags": [
+        "World Cup",
+        "advertising",
+        "Chinese brands",
+        "social media"
+      ],
+      "keywords": [
+        "World Cup",
+        "advertising",
+        "Chinese brands",
+        "social media"
+      ],
+      "golden_lines": [],
+      "cover_image": "",
+      "html_content": "<p>以现场球迷视角切入，将商业互动拟人化为球场里的第三种语言，突出人情味和画面感。</p>",
+      "batch_name": "晚间"
+    }
+  ],
+  "generated_at": "2026-06-19T12:16:15.518807"
+}
