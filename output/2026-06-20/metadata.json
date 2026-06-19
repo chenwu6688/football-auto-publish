@@ -1,0 +1,181 @@
+{
+  "date": "2026-06-20",
+  "generated_at": "2026-06-19T16:17:10.392718",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "午间快讯｜荷兰2-1瑞典，赢了面子输光底裤",
+      "path": "/home/runner/work/_temp/output/2026-06-20/article-1-午间快讯荷兰21-4ed475.md",
+      "slug": "午间快讯荷兰21-4ed475",
+      "tags": [
+        "Netherlands",
+        "Sweden",
+        "World Cup",
+        "defense",
+        "Van Dijk"
+      ],
+      "keywords": [
+        "Netherlands",
+        "Sweden",
+        "World Cup",
+        "defense",
+        "Van Dijk"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "有的庆祝动作，本身就是为打架准备的",
+      "path": "/home/runner/work/_temp/output/2026-06-20/article-2-有的庆祝动作本身-57f18a.md",
+      "slug": "有的庆祝动作本身-57f18a",
+      "tags": [
+        "Turkey",
+        "Paraguay",
+        "World Cup",
+        "celebration",
+        "provocation",
+        "ostrich"
+      ],
+      "keywords": [
+        "Turkey",
+        "Paraguay",
+        "World Cup",
+        "celebration",
+        "provocation",
+        "ostrich"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-20/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "2-1！荷兰赢了瑞典，但后防天团让人绝望",
+      "formula": "A",
+      "angle": "荷兰队虽2-1拿下瑞典，但后防线多次低级失误险些葬送好局，这种防守强度根本撑不到淘汰赛。老六直接开喷：别被比分骗了，荷兰还是那个扶不起的阿斗。",
+      "keywords": [
+        "Netherlands",
+        "Sweden",
+        "World Cup",
+        "defense",
+        "crisis"
+      ],
+      "keywords_cn": [
+        "荷兰",
+        "瑞典",
+        "世界杯",
+        "后防线",
+        "防守问题"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "why_pick": "荷兰首轮平日本已拉满争议，次轮赢球却暴露防守顽疾，球迷爱恨交织，评论区必然分裂成挺荷派和黑荷派。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "土耳其前锋学鸵鸟跑庆祝，对手怒斥不尊重",
+      "formula": "B",
+      "angle": "土耳其1-0巴拉圭，进球功臣赛后模仿鸵鸟跑庆祝，巴拉圭球员认为这是侮辱性动作险些引发冲突。老六盘道：世界杯上最沙雕庆祝背后，其实是足球场上的挑衅心理学。",
+      "keywords": [
+        "Turkey",
+        "Paraguay",
+        "celebration",
+        "ostrich run",
+        "controversy"
+      ],
+      "keywords_cn": [
+        "土耳其",
+        "巴拉圭",
+        "庆祝动作",
+        "鸵鸟跑",
+        "冲突"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "世界杯花边自带传播属性，模仿动物+冲突元素让读者忍不住点进来，评论区会分成“幽默无伤大雅”和“必须重罚”两派。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-06-20 00:17:10",
+  "micro_headlines": [
+    {
+      "content": "巴西打海地，这还用看？实力差距摆在那，悬念大概只有赢几个球。不过足球是圆的，万一海地爆冷呢？想想就刺激！",
+      "tags": [
+        "#世界杯",
+        "#巴西"
+      ],
+      "match": "Brazil vs Haiti"
+    },
+    {
+      "content": "德国战车对上非洲大象，纸面实力德国占优，但科特迪瓦可不是软柿子。这比赛要是真打起来，德国队得打起十二分精神，不然阴沟翻船就搞笑了。",
+      "tags": [
+        "#世界杯",
+        "#德国队"
+      ],
+      "match": "Germany vs Ivory Coast"
+    }
+  ]
+}
