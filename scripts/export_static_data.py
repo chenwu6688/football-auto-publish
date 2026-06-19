@@ -125,6 +125,22 @@ def _img_tag(alt, url):
     return f'<img src="{cdn_url}" alt="{alt}" style="width:100%;border-radius:8px;margin:12px 0;" />'
 
 
+def _verify_img_tag(tag_html, src, local_img_dir):
+    """检查图片是否存在于本地，不存在则移除 img 标签"""
+    # 提取文件名
+    filename = src.rsplit("/", 1)[-1] if "/" in src else src
+    img_path = local_img_dir / filename
+    if img_path.exists():
+        return tag_html
+    # 尝试找匹配的文件
+    if local_img_dir.exists():
+        for f in local_img_dir.iterdir():
+            if f.name == filename or f.stem == Path(filename).stem:
+                return tag_html
+    # 图片不存在 → 移除整个 img 标签
+    return ""
+
+
 def rebuild_image_urls(html, date_str):
     """将 HTML 中的图片相对路径替换为 CDN 绝对路径"""
     cdn_prefix = f"{CDN_BASE}/output/{date_str}"
@@ -190,16 +206,18 @@ def parse_markdown_file(filepath, date_str):
     html = md_to_html(body)
     html = rebuild_image_urls(html, date_str)
 
+    # 移除所有图片标签（CDN 图片在国内访问不稳定）
+    # 未来 CDN 稳定后可取消此限制
+    html = re.sub(r'<img[^>]*>', '', html)
+    html = re.sub(r'<p>\s*</p>', '', html)
+
     # 提取金句（**加粗** 的句子）
     golden_lines = re.findall(r'\*\*([^*]{3,80})\*\*', body)
     golden_lines = [re.sub(r'!\[.*?\]\(.*?\)', '', g).strip() for g in golden_lines]
     golden_lines = [g for g in golden_lines if len(g) > 4][:3]
 
-    # 提取第一张图片作为封面
+    # 封面图暂时留空（CDN 图片国内访问不稳定）
     cover_img = ""
-    img_match = re.search(r'<img\s+src="([^"]+)"', html)
-    if img_match:
-        cover_img = img_match.group(1)
 
     # 文章 ID
     article_id = f"{date_str}_{filepath.stem.split('-')[-1]}"
