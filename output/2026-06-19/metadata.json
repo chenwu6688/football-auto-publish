@@ -217,11 +217,7 @@
     }
   ],
   "data_sources": {},
-  "batches_completed": [
-    "evening",
-    "morning",
-    "noon"
-  ],
+  "batches_completed": [],
   "last_batch": "noon",
   "last_updated": "2026-06-19 12:44:59",
   "micro_headlines": [
