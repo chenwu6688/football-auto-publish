@@ -1,6 +1,6 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-19T04:42:26.521509",
+  "generated_at": "2026-06-19T04:44:59.585727",
   "total_articles": 2,
   "articles": [
     {
@@ -126,31 +126,95 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "午间快讯｜美国队首秀恐翻车？袋鼠可不是来给你当陪练的",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-1-午间快讯美国队首-b33a05.md",
+      "slug": "午间快讯美国队首-b33a05",
+      "tags": [
+        "World Cup",
+        "USA vs Australia",
+        "Mexico win",
+        "match preview"
+      ],
+      "keywords": [
+        "World Cup",
+        "USA vs Australia",
+        "Mexico win",
+        "match preview"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "瑞安踢英超？先问美国队答不答应",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-2-瑞安踢英超先问美-aac437.md",
+      "slug": "瑞安踢英超先问美-aac437",
+      "tags": [
+        "Mathew Ryan",
+        "Premier League",
+        "World Cup",
+        "Goalkeeper",
+        "Australia"
+      ],
+      "keywords": [
+        "Mathew Ryan",
+        "Premier League",
+        "World Cup",
+        "Goalkeeper",
+        "Australia"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "1-0，韩国队输掉亚洲足球最后的遮羞布？",
+      "title": "0-0？美国队首秀遇澳洲袋鼠，一场闷战或成东道主噩梦",
       "formula": "A",
-      "angle": "从韩国队全场被动、孙兴慜被锁死的表现切入，直指亚洲足球与世界二流的技术鸿沟，并非运气或裁判问题。态度：亚洲足球若不彻底改革，世界杯永远只是陪跑。",
+      "angle": "东道主美国队首战澳大利亚，看似实力占优但澳大利亚防守硬朗，美国队进攻乏力可能遭遇闷平，引发球迷对东道主出线前景的担忧。",
       "keywords": [
-        "South Korea",
+        "USA",
+        "Australia",
         "World Cup",
-        "Asian football",
-        "Son Heung-min"
+        "host",
+        "preview"
       ],
       "keywords_cn": [
-        "韩国队",
+        "美国队",
+        "澳大利亚",
         "世界杯",
-        "亚洲足球",
-        "孙兴慜"
+        "东道主",
+        "前瞻"
       ],
       "content_type": "热点球评",
-      "score": 85,
+      "score": 82,
       "expected_heat": "A",
-      "rationale": "今日唯一世界杯比赛，韩国队输球自带讨论度；避开已发的VAR和奥乔亚视角，聚焦技术落差和亚洲足球困境，能引发球迷对‘亚洲足球出路’的激烈辩论。",
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "rationale": "东道主首秀自带流量，且澳大利亚作为亚洲球队有中国球迷关注，闷战假设制造悬念，引发正反争论。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
       "_column_id": "wu-jian-kuai-xun",
       "_column_name": "午间快讯",
       "_column_icon": "⚡",
@@ -171,28 +235,28 @@
       "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "世界杯首轮控球率超60%却输球，效率才是王道？",
-      "formula": "F",
-      "angle": "结合墨西哥1-0韩国（墨西哥控球率不到40%即取胜）以及其他首轮数据，揭示世界杯新趋势：控球不再是赢球密码，反击效率成为胜负手。态度：数据不会说谎，传控足球正在被现实打脸。",
+      "title": "世界杯上，澳大利亚门将瑞安真的配得上英超吗？",
+      "formula": "B",
+      "angle": "澳大利亚门将马修·瑞安曾效力英超并吸引多家俱乐部关注，但其世界杯表现起伏大，质疑其真实实力，引发关于亚洲球员是否被高估的讨论。",
       "keywords": [
-        "World Cup",
-        "possession",
-        "efficiency",
-        "counter-attack",
-        "tactics"
+        "Mathew Ryan",
+        "Australia",
+        "transfer",
+        "Premier League",
+        "goalkeeper"
       ],
       "keywords_cn": [
-        "世界杯",
-        "控球率",
-        "效率",
-        "反击",
-        "战术趋势"
+        "马修·瑞安",
+        "澳大利亚",
+        "转会",
+        "英超",
+        "门将"
       ],
-      "content_type": "排行榜",
+      "content_type": "转会资讯",
       "score": 78,
-      "expected_heat": "B",
-      "rationale": "避开与第1篇相同的核心事件（韩国队），转向世界杯首轮宏观数据，数据对比有视觉冲击力；控球与赢球的反直觉关系能激发好奇和争论。",
-      "controversy_level": "medium",
+      "expected_heat": "A",
+      "rationale": "转会话题结合世界杯表现，有争议性，亚洲门将话题容易引发中国球迷共鸣，评论区两极分化。",
+      "controversy_level": "high",
       "target_emotion": "好奇",
       "_column_id": "re-dian-su-ping",
       "_column_name": "热点速评",
@@ -217,24 +281,25 @@
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
   "last_batch": "noon",
-  "last_updated": "2026-06-19 12:42:26",
+  "last_updated": "2026-06-19 12:44:59",
   "micro_headlines": [
     {
-      "content": "韩国队这场真憋屈！墨西哥一球小胜，但场面完全被碾压。亚洲球队面对美洲劲旅还是差一口气，孙兴慜独木难支啊。不过墨西哥这防守真硬，韩国一点办法没有。世界杯就是这么残酷，一个细节就决定胜负。你们觉得韩国能出线吗？#世界杯 #墨西哥VS韩国",
+      "content": "哎哟我去，墨西哥这1-0赢得也太省心了！韩国队全场压着打，结果人家一脚反击就搞定。世界杯就是这样的舞台，你控球再多没用，临门一脚才是硬道理。韩国球迷估计得郁闷好几天，墨西哥老铁们今晚可以加餐了！",
       "tags": [
         "#世界杯",
-        "#墨西哥VS韩国"
+        "#墨西哥"
       ],
       "match": "Mexico vs South Korea"
     },
     {
-      "content": "美国队打澳大利亚？别看袋鼠排名低，可千万别小看！世界杯上啥都可能发生，墨西哥刚干掉韩国就是活例子。美国队年轻有冲劲，但澳洲老油条也不白给。我赌这场有冷门，至少澳大利亚不会被打花。坐等开球！老铁们，你们看好谁？#美国队 #澳大利亚",
+      "content": "美国队今晚打袋鼠，大伙儿觉得谁能赢？我反正押美国，毕竟主场作战啊！澳大利亚也不是善茬，身体对抗一点不虚。这场球估计得拼到最后一刻，期待两队别怂，对攻起来才过瘾！#世界杯 #美国队",
       "tags": [
-        "#美国队",
-        "#澳大利亚"
+        "#世界杯",
+        "#美国队"
       ],
       "match": "United States vs Australia"
     }
