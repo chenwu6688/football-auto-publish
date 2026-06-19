@@ -278,7 +278,7 @@ jobs:
           python publisher.py "${{ steps.params.outputs.today }}" --headless --batch="${{ steps.params.outputs.batch }}"
 
       - name: 回写批次状态（幂等保护）
-        if: success() && steps.params.outputs.skip != 'true'
+        if: always() && steps.params.outputs.skip != 'true'
         env:
           TODAY: ${{ steps.params.outputs.today }}
           BATCH: ${{ steps.params.outputs.batch }}
@@ -340,7 +340,7 @@ jobs:
             /usr/bin/sleep $((attempt * 2))
           done
       - name: 导出小程序静态数据
-        if: success() && steps.params.outputs.skip != 'true'
+        if: always() && steps.params.outputs.skip != 'true'
         env:
           OUTPUT_DIR: ${{ runner.temp }}/output
         run: |
