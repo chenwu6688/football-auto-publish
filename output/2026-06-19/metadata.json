@@ -1,6 +1,6 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-19T03:05:40.839904",
+  "generated_at": "2026-06-19T04:42:26.521509",
   "total_articles": 2,
   "articles": [
     {
@@ -64,92 +64,154 @@
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "韩国队全场0射正？这场1-0扯掉了亚洲足球最后的遮羞布",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-1-韩国队全场0射正-771b15.md",
+      "slug": "韩国队全场0射正-771b15",
+      "tags": [
+        "World Cup",
+        "South Korea",
+        "Son Heung-min",
+        "technical gap"
+      ],
+      "keywords": [
+        "World Cup",
+        "South Korea",
+        "Son Heung-min",
+        "technical gap"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "控球率不到40%却赢球了？传控的棺材板该钉上了",
+      "path": "/home/runner/work/_temp/output/2026-06-19/article-2-控球率不到40却-af6dae.md",
+      "slug": "控球率不到40却-af6dae",
+      "tags": [
+        "World Cup",
+        "possession",
+        "counter-attack",
+        "Mexico",
+        "South Korea"
+      ],
+      "keywords": [
+        "World Cup",
+        "possession",
+        "counter-attack",
+        "Mexico",
+        "South Korea"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "1-0，韩国队再遭VAR暴击？这争议判罚让世界杯变味！",
-      "formula": "B",
-      "angle": "批评VAR介入尺度不一致，质疑墨西哥疑似手球未判，为韩国队鸣不平，引发对裁判公正性的讨论",
+      "title": "1-0，韩国队输掉亚洲足球最后的遮羞布？",
+      "formula": "A",
+      "angle": "从韩国队全场被动、孙兴慜被锁死的表现切入，直指亚洲足球与世界二流的技术鸿沟，并非运气或裁判问题。态度：亚洲足球若不彻底改革，世界杯永远只是陪跑。",
       "keywords": [
         "South Korea",
-        "VAR",
-        "Mexico",
         "World Cup",
-        "penalty controversy"
+        "Asian football",
+        "Son Heung-min"
       ],
       "keywords_cn": [
-        "韩国",
-        "VAR",
-        "墨西哥",
-        "争议判罚"
+        "韩国队",
+        "世界杯",
+        "亚洲足球",
+        "孙兴慜"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "expected_heat": "S",
-      "rationale": "世界杯焦点战，争议判罚激发愤怒情绪，韩国队输球引中国球迷站队讨论，符合球迷盼韩国输又同情弱者的矛盾心理。",
+      "score": 85,
+      "expected_heat": "A",
+      "rationale": "今日唯一世界杯比赛，韩国队输球自带讨论度；避开已发的VAR和奥乔亚视角，聚焦技术落差和亚洲足球困境，能引发球迷对‘亚洲足球出路’的激烈辩论。",
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "40岁再封神！奥乔亚创世界杯零封纪录，墨西哥老门将简直逆天",
-      "formula": "C",
-      "angle": "盛赞老将奥乔亚宝刀不老，用零封纪录证明自己，对比现代足球忽视经验，引发怀旧与敬佩",
+      "title": "世界杯首轮控球率超60%却输球，效率才是王道？",
+      "formula": "F",
+      "angle": "结合墨西哥1-0韩国（墨西哥控球率不到40%即取胜）以及其他首轮数据，揭示世界杯新趋势：控球不再是赢球密码，反击效率成为胜负手。态度：数据不会说谎，传控足球正在被现实打脸。",
       "keywords": [
-        "Ochoa",
-        "clean sheet",
-        "record",
-        "Mexico",
-        "World Cup"
+        "World Cup",
+        "possession",
+        "efficiency",
+        "counter-attack",
+        "tactics"
       ],
       "keywords_cn": [
-        "奥乔亚",
-        "零封纪录",
-        "墨西哥",
-        "老将传奇"
+        "世界杯",
+        "控球率",
+        "效率",
+        "反击",
+        "战术趋势"
       ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "expected_heat": "A",
-      "rationale": "纪录型话题自带传播力，40岁老将逆袭打动人心，球迷愿转发分享励志故事，形成单点破圈。",
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "排行榜",
+      "score": 78,
+      "expected_heat": "B",
+      "rationale": "避开与第1篇相同的核心事件（韩国队），转向世界杯首轮宏观数据，数据对比有视觉冲击力；控球与赢球的反直觉关系能激发好奇和争论。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
@@ -157,11 +219,11 @@
     "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-19 11:05:40",
+  "last_batch": "noon",
+  "last_updated": "2026-06-19 12:42:26",
   "micro_headlines": [
     {
-      "content": "墨西哥1-0拿下韩国，虽然没有大比分，但三分到手！韩国队拼到最后，可惜差了点运气。世界杯首战，拿到3分比什么都重要，墨西哥这防守真稳，韩国得赶紧调整了。",
+      "content": "韩国队这场真憋屈！墨西哥一球小胜，但场面完全被碾压。亚洲球队面对美洲劲旅还是差一口气，孙兴慜独木难支啊。不过墨西哥这防守真硬，韩国一点办法没有。世界杯就是这么残酷，一个细节就决定胜负。你们觉得韩国能出线吗？#世界杯 #墨西哥VS韩国",
       "tags": [
         "#世界杯",
         "#墨西哥VS韩国"
@@ -169,10 +231,10 @@
       "match": "Mexico vs South Korea"
     },
     {
-      "content": "美国对阵澳大利亚的比赛还没开打，但已经火药味十足！两支新生代球队碰撞，速度与身体的对抗绝对精彩。我看好美国队的冲击力，不过袋鼠军团可不是软柿子。今晚见分晓！",
+      "content": "美国队打澳大利亚？别看袋鼠排名低，可千万别小看！世界杯上啥都可能发生，墨西哥刚干掉韩国就是活例子。美国队年轻有冲劲，但澳洲老油条也不白给。我赌这场有冷门，至少澳大利亚不会被打花。坐等开球！老铁们，你们看好谁？#美国队 #澳大利亚",
       "tags": [
-        "#世界杯",
-        "#美国VS澳大利亚"
+        "#美国队",
+        "#澳大利亚"
       ],
       "match": "United States vs Australia"
     }
