@@ -1,6 +1,6 @@
 {
   "date": "2026-06-20",
-  "generated_at": "2026-06-19T16:17:10.392718",
+  "generated_at": "2026-06-19T17:31:15.559453",
   "total_articles": 2,
   "articles": [
     {
@@ -66,116 +66,219 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "今天这5场球，踢出了几个“假出线”的？",
+      "path": "/home/runner/work/_temp/output/2026-06-20/article-1-今天这5场球踢出-4b0491.md",
+      "slug": "今天这5场球踢出-4b0491",
+      "tags": [
+        "World Cup",
+        "group stage",
+        "false qualifiers",
+        "defensive analysis",
+        "fixture challenges"
+      ],
+      "keywords": [
+        "World Cup",
+        "group stage",
+        "false qualifiers",
+        "defensive analysis",
+        "fixture challenges"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从源文章的平铺直叙战报，转变为揭露“假出线”风险的犀利分析，用防守与赛程困局逆向解读出线形势。",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "今日世界杯现场球迷图鉴：5场比赛，5种人间真实",
+      "path": "/home/runner/work/_temp/output/2026-06-20/article-2-今日世界杯现场球-605439.md",
+      "slug": "今日世界杯现场球-605439",
+      "tags": [
+        "World Cup",
+        "fans",
+        "human interest",
+        "viral moments",
+        "stadium atmosphere"
+      ],
+      "keywords": [
+        "World Cup",
+        "fans",
+        "human interest",
+        "viral moments",
+        "stadium atmosphere"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-20/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从比赛战报转为看台人物特写，用球迷微观瞬间替代宏观赛事总结，呈现人情温度而非竞技结果。",
+      "content_type": "八卦趣事",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "2-1！荷兰赢了瑞典，但后防天团让人绝望",
-      "formula": "A",
-      "angle": "荷兰队虽2-1拿下瑞典，但后防线多次低级失误险些葬送好局，这种防守强度根本撑不到淘汰赛。老六直接开喷：别被比分骗了，荷兰还是那个扶不起的阿斗。",
+      "title": "5场激战暗藏玄机：这些球队的出线是假象？",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "angle": "从小组赛积分表象切入，揭露几支看似稳出线球队的防守漏洞或赛程隐患，用数据反推“假出线”风险。",
       "keywords": [
-        "Netherlands",
-        "Sweden",
         "World Cup",
-        "defense",
-        "crisis"
+        "group stage",
+        "dark horse"
       ],
       "keywords_cn": [
-        "荷兰",
-        "瑞典",
         "世界杯",
-        "后防线",
-        "防守问题"
+        "小组出线",
+        "暗流"
       ],
       "content_type": "热点球评",
-      "score": 92,
       "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "why_pick": "荷兰首轮平日本已拉满争议，次轮赢球却暴露防守顽疾，球迷爱恨交织，评论区必然分裂成挺荷派和黑荷派。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "土耳其前锋学鸵鸟跑庆祝，对手怒斥不尊重",
-      "formula": "B",
-      "angle": "土耳其1-0巴拉圭，进球功臣赛后模仿鸵鸟跑庆祝，巴拉圭球员认为这是侮辱性动作险些引发冲突。老六盘道：世界杯上最沙雕庆祝背后，其实是足球场上的挑衅心理学。",
-      "keywords": [
-        "Turkey",
-        "Paraguay",
-        "celebration",
-        "ostrich run",
-        "controversy"
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
       ],
-      "keywords_cn": [
-        "土耳其",
-        "巴拉圭",
-        "庆祝动作",
-        "鸵鸟跑",
-        "冲突"
-      ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "世界杯花边自带传播属性，模仿动物+冲突元素让读者忍不住点进来，评论区会分成“幽默无伤大雅”和“必须重罚”两派。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "从狂欢到泪崩：世界杯看台上那些“表情包”名场面",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "angle": "收集今日5场比赛中球迷最戏剧性的反应瞬间，解读不同文化背景下对胜负的独特表达方式。",
+      "keywords": [
+        "World Cup",
+        "fans",
+        "stadium culture"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "球迷文化",
+        "看台趣事"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "fan-life",
+      "_column_name": "球迷众生相",
+      "_column_icon": "🎭",
+      "_writing_style": "人间观察体",
+      "_style_detail": "像在球场边观察人间百态。用细节和画面说话，少评论多展示。可以有幽默感但不能嘲笑球迷的真情实感。每个故事要有画面感，让读者觉得'我也在现场就好了'。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请分享：'你在现场看过最难忘的一场比赛是什么？评论区说说，看看谁的回忆最绝。'",
+      "_topic_domain": "球迷文化与场外趣事",
+      "_topic_guidance": "世界杯期间的球迷反应、社交媒体神评论、看台趣事、球员场外生活。选题要有'人味'——让人笑、让人感动、让人有共鸣。适合：球迷的神回复合集、看台上的感人瞬间、球员和球迷的互动、世界杯带来的趣事。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-20 00:17:10",
-  "micro_headlines": [
-    {
-      "content": "巴西打海地，这还用看？实力差距摆在那，悬念大概只有赢几个球。不过足球是圆的，万一海地爆冷呢？想想就刺激！",
-      "tags": [
-        "#世界杯",
-        "#巴西"
-      ],
-      "match": "Brazil vs Haiti"
-    },
-    {
-      "content": "德国战车对上非洲大象，纸面实力德国占优，但科特迪瓦可不是软柿子。这比赛要是真打起来，德国队得打起十二分精神，不然阴沟翻船就搞笑了。",
-      "tags": [
-        "#世界杯",
-        "#德国队"
-      ],
-      "match": "Germany vs Ivory Coast"
-    }
-  ]
+  "last_batch": "evening",
+  "last_updated": "2026-06-20 01:31:15"
 }
