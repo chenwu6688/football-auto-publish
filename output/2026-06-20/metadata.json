@@ -1,6 +1,6 @@
 {
   "date": "2026-06-20",
-  "generated_at": "2026-06-19T17:31:15.559453",
+  "generated_at": "2026-06-20T10:23:08.955331",
   "total_articles": 2,
   "articles": [
     {
@@ -70,151 +70,178 @@
       "column_id": "fan-life",
       "column_name": "球迷众生相",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "72%控球0进球，土耳其又被自己玩死了",
+      "path": "/home/runner/work/_temp/output/2026-06-20/article-1-72控球0进球土-82abb7.md",
+      "slug": "72控球0进球土-82abb7",
+      "tags": [
+        "Turkey",
+        "Paraguay",
+        "WorldCup2026",
+        "upset",
+        "pseudo-strong-team"
+      ],
+      "keywords": [
+        "Turkey",
+        "Paraguay",
+        "WorldCup2026",
+        "upset",
+        "pseudo-strong-team"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-20/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "0-3惨败却逼得巴西球星换球衣，这算不算赢了尊严？",
+      "path": "/home/runner/work/_temp/output/2026-06-20/article-2-03惨败却逼得巴-16be25.md",
+      "slug": "03惨败却逼得巴-16be25",
+      "tags": [
+        "Haiti goalkeeper",
+        "Brazil vs Haiti",
+        "World Cup 2026"
+      ],
+      "keywords": [
+        "Haiti goalkeeper",
+        "Brazil vs Haiti",
+        "World Cup 2026"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-20/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "5场激战暗藏玄机：这些球队的出线是假象？",
-      "source_article_ids": [
-        1
-      ],
-      "source_titles": [
-        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
-      ],
-      "angle": "从小组赛积分表象切入，揭露几支看似稳出线球队的防守漏洞或赛程隐患，用数据反推“假出线”风险。",
+      "title": "1-0，第83分钟绝杀！巴拉圭送土耳其回家？",
+      "formula": "A",
+      "angle": "土耳其0-1不敌巴拉圭，全场围攻却被反击绝杀，暴露星月军团伪强队本质，巴拉圭则展现南美硬骨头本色",
       "keywords": [
+        "Turkey",
+        "Paraguay",
         "World Cup",
-        "group stage",
-        "dark horse"
+        "upset",
+        "last-minute goal"
       ],
       "keywords_cn": [
+        "土耳其",
+        "巴拉圭",
         "世界杯",
-        "小组出线",
-        "暗流"
+        "爆冷",
+        "绝杀"
       ],
       "content_type": "热点球评",
-      "controversy_level": "medium",
+      "score": 92,
+      "expected_heat": "S",
+      "rationale": "世界杯冷门+绝杀双重爆点，土耳其是强队形象，被巴拉圭按着打却输球，争议性和故事性极强，适合老六式犀利吐槽",
+      "controversy_level": "high",
       "target_emotion": "震惊",
-      "_source_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 105000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 105000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_standings": {},
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "从狂欢到泪崩：世界杯看台上那些“表情包”名场面",
-      "source_article_ids": [
-        1
-      ],
-      "source_titles": [
-        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
-      ],
-      "angle": "收集今日5场比赛中球迷最戏剧性的反应瞬间，解读不同文化背景下对胜负的独特表达方式。",
+      "title": "3-0背后：海地门将9次扑救，让巴西巨星赛后主动换球衣",
+      "formula": "C",
+      "angle": "海地虽0-3惨败巴西，但门将一战封神，9次神扑赢得对手尊重，用小人物的尊严对抗强权，让人动容",
       "keywords": [
-        "World Cup",
-        "fans",
-        "stadium culture"
+        "Haiti",
+        "Brazil",
+        "goalkeeper",
+        "heroic performance",
+        "World Cup"
       ],
       "keywords_cn": [
-        "世界杯",
-        "球迷文化",
-        "看台趣事"
+        "海地",
+        "巴西",
+        "门将",
+        "英雄",
+        "世界杯"
       ],
       "content_type": "八卦趣事",
+      "score": 86,
+      "expected_heat": "A",
+      "rationale": "身份反差（海地最穷球队vs巴西豪华阵容）制造人文关怀，门将名字虽未普及但故事性强，能引发球迷对弱队拼搏精神的共情",
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "_source_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 105000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_all_articles": [
-        {
-          "id": 1,
-          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
-          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
-          "account": "世界杯专区",
-          "reads": 105000,
-          "likes": 0,
-          "data_score": 98,
-          "pub_time": "",
-          "_recency_score": 0
-        }
-      ],
-      "_standings": {},
-      "_column_id": "fan-life",
-      "_column_name": "球迷众生相",
-      "_column_icon": "🎭",
-      "_writing_style": "人间观察体",
-      "_style_detail": "像在球场边观察人间百态。用细节和画面说话，少评论多展示。可以有幽默感但不能嘲笑球迷的真情实感。每个故事要有画面感，让读者觉得'我也在现场就好了'。",
+      "target_emotion": "感动",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "share_your_story",
-      "_interaction_guidance": "文末邀请分享：'你在现场看过最难忘的一场比赛是什么？评论区说说，看看谁的回忆最绝。'",
-      "_topic_domain": "球迷文化与场外趣事",
-      "_topic_guidance": "世界杯期间的球迷反应、社交媒体神评论、看台趣事、球员场外生活。选题要有'人味'——让人笑、让人感动、让人有共鸣。适合：球迷的神回复合集、看台上的感人瞬间、球员和球迷的互动、世界杯带来的趣事。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
+    "morning",
     "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-06-20 01:31:15"
+  "last_batch": "morning",
+  "last_updated": "2026-06-20 18:23:08",
+  "micro_headlines": [
+    {
+      "content": "巴西3-0海地，这比分看着像大人打小孩，但我要给海地点个赞！全场被压着打，愣是没崩盘，门将扑出好几个必进球。内马尔踢了半场就下去休息了，巴西这板凳深度太吓人。海地虽然输了，但站着死的，不丢人！",
+      "tags": [
+        "#世界杯",
+        "#巴西"
+      ],
+      "match": "Brazil vs Haiti"
+    },
+    {
+      "content": "土耳其0-1输给巴拉圭？我赛前还觉得土耳其稳赢，结果被打脸了！巴拉圭那脚远射直接爆杆世界波，门将一点反应都没有。土耳其全场控球率六成多，雷声大雨点小，锋线一堆人愣是破不了门。这届世界杯真是什么剧本都可能发生，巴拉圭要成黑马？",
+      "tags": [
+        "#世界杯",
+        "#冷门"
+      ],
+      "match": "Turkey vs Paraguay"
+    }
+  ]
 }
