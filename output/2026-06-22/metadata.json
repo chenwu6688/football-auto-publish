@@ -1,0 +1,421 @@
+{
+  "date": "2026-06-22",
+  "generated_at": "2026-06-21T16:18:06.795272",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "5-1、2-1、0-1，三场比赛算出世界杯16强数学题",
+      "path": "/home/runner/work/_temp/output/2026-06-22/article-1-512101三场-e56e65.md",
+      "slug": "512101三场-e56e65",
+      "tags": [
+        "World Cup",
+        "group stage",
+        "goal difference",
+        "Netherlands",
+        "Germany"
+      ],
+      "keywords": [
+        "World Cup",
+        "group stage",
+        "goal difference",
+        "Netherlands",
+        "Germany"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-22/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-22/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-22/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "世界杯战报：今日13场激战，出线形势日渐明朗",
+        "Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战",
+        "Germany 2-1 Ivory Coast，比赛悬念留到最后"
+      ],
+      "source_post": "",
+      "originality_note": "原文罗列赛果，本文聚焦出线算分逻辑和净胜球数学题，用生活类比解读比赛意义。",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "荷兰5-1大胜，你们全在吹加克波？真正的导演在幕后",
+      "path": "/home/runner/work/_temp/output/2026-06-22/article-2-荷兰51大胜你们-200a00.md",
+      "slug": "荷兰51大胜你们-200a00",
+      "tags": [
+        "Netherlands",
+        "Cody Gakpo",
+        "midfield system",
+        "total football",
+        "assist"
+      ],
+      "keywords": [
+        "Netherlands",
+        "Cody Gakpo",
+        "midfield system",
+        "total football",
+        "assist"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-22/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-22/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-22/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "进球大战！Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战"
+      ],
+      "source_post": "",
+      "originality_note": "角度从射手转向中场体系，用西蒙斯数据作支撑，类比外卖小哥和传销组织，把进球战解读成体系胜利。",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "世界杯日报：13场战罢，这四队已提前上岸",
+      "source_article_ids": [
+        4
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日13场激战，出线形势日渐明朗"
+      ],
+      "angle": "避开简单复述比分，聚焦小组出线数学题：哪些队已锁定16强，哪些队只剩理论可能？结合净胜球、相互战绩，用数据算账，而非罗列赛果。",
+      "keywords": [
+        "World Cup",
+        "group stage",
+        "qualification"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "小组赛",
+        "出线形势"
+      ],
+      "content_type": "热点球评",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 4,
+          "title": "🌍 世界杯战报：今日13场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日13场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 145000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 4,
+          "title": "🌍 世界杯战报：今日13场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日13场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 145000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 2,
+          "title": "进球大战！Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战",
+          "summary": "Netherlands与Sweden联手贡献6球，堪称今日最佳比赛。",
+          "account": "足球热点",
+          "reads": 110000,
+          "likes": 0,
+          "data_score": 95,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 5,
+          "title": "世界杯悬念：Turkey 0-1 Paraguay，小组格局再生变",
+          "summary": "世界杯小组赛一场关键战，Turkey与Paraguay的激烈对决。",
+          "account": "世界杯专区",
+          "reads": 60000,
+          "likes": 0,
+          "data_score": 92,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 1,
+          "title": "险胜！Turkey 0-1 Paraguay，比赛悬念留到最后",
+          "summary": "Turkey与Paraguay的较量直到最后时刻才分出胜负。",
+          "account": "足球热点",
+          "reads": 40000,
+          "likes": 0,
+          "data_score": 83,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 3,
+          "title": "险胜！Germany 2-1 Ivory Coast，比赛悬念留到最后",
+          "summary": "Germany与Ivory Coast的较量直到最后时刻才分出胜负。",
+          "account": "足球热点",
+          "reads": 40000,
+          "likes": 0,
+          "data_score": 83,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "荷兰5-1大胜瑞典：别只吹加克波，他才是幕后导演",
+      "source_article_ids": [
+        2
+      ],
+      "source_titles": [
+        "进球大战！Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战"
+      ],
+      "angle": "加克波2球1助确实亮眼，但中场核心（如德容）的调度和边路套上才是进攻流畅的根源。借此提醒球迷不要只盯着射手，哈维·西蒙斯的穿针引线同样关键。新观点：荷兰的恐怖在于‘人人都能传球’的体系。",
+      "keywords": [
+        "Netherlands",
+        "Sweden",
+        "tactical analysis"
+      ],
+      "keywords_cn": [
+        "荷兰",
+        "瑞典",
+        "战术分析"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 2,
+          "title": "进球大战！Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战",
+          "summary": "Netherlands与Sweden联手贡献6球，堪称今日最佳比赛。",
+          "account": "足球热点",
+          "reads": 110000,
+          "likes": 0,
+          "data_score": 95,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 4,
+          "title": "🌍 世界杯战报：今日13场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日13场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 145000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 2,
+          "title": "进球大战！Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战",
+          "summary": "Netherlands与Sweden联手贡献6球，堪称今日最佳比赛。",
+          "account": "足球热点",
+          "reads": 110000,
+          "likes": 0,
+          "data_score": 95,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 5,
+          "title": "世界杯悬念：Turkey 0-1 Paraguay，小组格局再生变",
+          "summary": "世界杯小组赛一场关键战，Turkey与Paraguay的激烈对决。",
+          "account": "世界杯专区",
+          "reads": 60000,
+          "likes": 0,
+          "data_score": 92,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 1,
+          "title": "险胜！Turkey 0-1 Paraguay，比赛悬念留到最后",
+          "summary": "Turkey与Paraguay的较量直到最后时刻才分出胜负。",
+          "account": "足球热点",
+          "reads": 40000,
+          "likes": 0,
+          "data_score": 83,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 3,
+          "title": "险胜！Germany 2-1 Ivory Coast，比赛悬念留到最后",
+          "summary": "Germany与Ivory Coast的较量直到最后时刻才分出胜负。",
+          "account": "足球热点",
+          "reads": 40000,
+          "likes": 0,
+          "data_score": 83,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "土耳其0-1巴拉圭：谁说南美无黑马？这队专克豪门",
+      "source_article_ids": [
+        5
+      ],
+      "source_titles": [
+        "世界杯悬念：Turkey 0-1 Paraguay，小组格局再生变"
+      ],
+      "angle": "巴拉圭靠铁血防守和反击绝杀土耳其，延续南美黑马传统。对比2010年巴拉圭闯入八强，分析其战术传承：442阵型、强硬拼抢、定位球杀招。新观点：这支巴拉圭比04年更狡猾，或复制奇迹。",
+      "keywords": [
+        "Paraguay",
+        "Turkey",
+        "upset"
+      ],
+      "keywords_cn": [
+        "巴拉圭",
+        "土耳其",
+        "冷门"
+      ],
+      "content_type": "战术解析",
+      "controversy_level": "high",
+      "target_emotion": "感动",
+      "_source_articles": [
+        {
+          "id": 5,
+          "title": "世界杯悬念：Turkey 0-1 Paraguay，小组格局再生变",
+          "summary": "世界杯小组赛一场关键战，Turkey与Paraguay的激烈对决。",
+          "account": "世界杯专区",
+          "reads": 60000,
+          "likes": 0,
+          "data_score": 92,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 4,
+          "title": "🌍 世界杯战报：今日13场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日13场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 145000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 2,
+          "title": "进球大战！Netherlands 5-1 Sweden，FIFA World Cup今日最刺激一战",
+          "summary": "Netherlands与Sweden联手贡献6球，堪称今日最佳比赛。",
+          "account": "足球热点",
+          "reads": 110000,
+          "likes": 0,
+          "data_score": 95,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 5,
+          "title": "世界杯悬念：Turkey 0-1 Paraguay，小组格局再生变",
+          "summary": "世界杯小组赛一场关键战，Turkey与Paraguay的激烈对决。",
+          "account": "世界杯专区",
+          "reads": 60000,
+          "likes": 0,
+          "data_score": 92,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 1,
+          "title": "险胜！Turkey 0-1 Paraguay，比赛悬念留到最后",
+          "summary": "Turkey与Paraguay的较量直到最后时刻才分出胜负。",
+          "account": "足球热点",
+          "reads": 40000,
+          "likes": 0,
+          "data_score": 83,
+          "pub_time": "",
+          "_recency_score": 0
+        },
+        {
+          "id": 3,
+          "title": "险胜！Germany 2-1 Ivory Coast，比赛悬念留到最后",
+          "summary": "Germany与Ivory Coast的较量直到最后时刻才分出胜负。",
+          "account": "足球热点",
+          "reads": 40000,
+          "likes": 0,
+          "data_score": 83,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {}
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-06-22 00:18:06",
+  "micro_headlines": [
+    {
+      "content": "巴西这3-0赢海地，简直像大人打小孩！内马尔还没出汗呢，海地门将都快哭了。对手全场零射正，这世界杯小组赛悬念在哪？巴西这套阵容，踢弱队就跟玩似的，但淘汰赛碰硬骨头才见真章。别高兴太早，看看昨天荷兰那5-1，那才叫真本事！#世界杯 #巴西队",
+      "tags": [
+        "#世界杯",
+        "#巴西队"
+      ],
+      "match": "Brazil vs Haiti"
+    },
+    {
+      "content": "荷兰5-1血洗瑞典！这才是橙衣军团该有的样子！进攻如水银泻地，把北欧防线撕得稀碎。瑞典那个进球也就是挽回点颜面，全场被压制得喘不过气。德容、加克波这帮人，状态火热得吓人。今年荷兰有戏，至少比上届强多了！不吹不黑，荷兰这火力，冲冠有望！#荷兰队 #世界杯",
+      "tags": [
+        "#荷兰队",
+        "#世界杯"
+      ],
+      "match": "Netherlands vs Sweden"
+    }
+  ]
+}
