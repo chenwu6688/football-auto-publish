@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-22T18:41:33.500425",
+  "generated_at": "2026-06-22T20:23:06.194856",
   "total_articles": 2,
   "articles": [
     {
@@ -62,119 +62,239 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "荷兰人把球传进了16强——别再说他们只会绣花了",
+      "path": "/home/runner/work/_temp/output/2026-06-23/article-1-荷兰人把球传进了-ced298.md",
+      "slug": "荷兰人把球传进了-ced298",
+      "tags": [
+        "World Cup",
+        "Netherlands",
+        "group stage",
+        "possession",
+        "efficiency"
+      ],
+      "keywords": [
+        "World Cup",
+        "Netherlands",
+        "group stage",
+        "possession",
+        "efficiency"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "将控球率数据转化为威胁效率分析，对比传统荷兰印象，用极简产品经理类比新打法。",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "别光盯着比分！这届世界杯，豪门球探的购物车快藏不住了",
+      "path": "/home/runner/work/_temp/output/2026-06-23/article-2-别光盯着比分这届-f62835.md",
+      "slug": "别光盯着比分这届-f62835",
+      "tags": [
+        "World Cup",
+        "transfer rumor",
+        "player valuation"
+      ],
+      "keywords": [
+        "World Cup",
+        "transfer rumor",
+        "player valuation"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-23/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "世界杯专区战报",
+        "德国转会市场估值逻辑推测"
+      ],
+      "source_post": "",
+      "originality_note": "从战报中提取球员表现，转为球队经理视角的转会逻辑分析，用商业思维重构了世界杯观察角度。",
+      "content_type": "转会资讯",
+      "column_id": "transfer-radar",
+      "column_name": "转会雷达",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "11打10还差点被翻盘？葡萄牙踢得比国足还让人窒息",
-      "formula": "B",
-      "angle": "葡萄牙对阵乌兹别克斯坦虽然赢了，但红牌加身还踢得乱七八糟，C罗全场隐身，这样的葡萄牙走不远。",
+      "title": "世界杯日报｜荷兰三战全胜出线，这数据暗藏技术流复兴信号",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "angle": "从荷兰队小组赛全胜的控球率和传球成功率切入，分析其技术流打法并非简单控球，而是高效转化威胁进攻的数据密码，对比传统印象中的荷兰足球进化",
       "keywords": [
-        "Portugal",
-        "Uzbekistan",
-        "CR7",
-        "World Cup",
-        "red card"
+        "netherlands",
+        "worldcup2026",
+        "groupstage",
+        "technicalfootball"
       ],
       "keywords_cn": [
-        "葡萄牙",
-        "乌兹别克斯坦",
-        "C罗",
+        "荷兰",
         "世界杯",
-        "红牌"
+        "小组赛",
+        "技术足球"
       ],
       "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "葡萄牙多打一人却踢得狼狈，暴露战术短板，C罗状态低迷引争议，球迷必然炸锅。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "马赫雷斯真要走了？沙特1亿欧砸向阿尔及利亚球王",
-      "formula": "D",
-      "angle": "沙特联赛继续挖角世界杯球星，马赫雷斯可能接受天价合同，但这对阿尔及利亚世界杯前景是致命打击。",
-      "keywords": [
-        "Mahrez",
-        "Algeria",
-        "Saudi Arabia",
-        "transfer",
-        "World Cup"
-      ],
-      "keywords_cn": [
-        "马赫雷斯",
-        "阿尔及利亚",
-        "沙特联赛",
-        "转会",
-        "世界杯"
-      ],
-      "content_type": "转会资讯",
-      "score": 82,
       "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "why_pick": "世界杯期间爆出核心球员离队传闻，球迷既关心转会费又担心国家队实力，讨论度极高。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "世界杯战火催生新贵：这5名球员身价暴涨，豪门已递上合同",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "angle": "通过今日出线形势分析中的关键球员表现，盘点可能因世界杯表现而身价飙升的年轻球员，结合转会传闻和市场估值，提出'世界杯溢价期'的投资逻辑",
+      "keywords": [
+        "worldcup",
+        "transfer",
+        "playervalue",
+        "breakoutstars"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "转会",
+        "身价",
+        "新星"
+      ],
+      "content_type": "转会资讯",
+      "controversy_level": "low",
+      "target_emotion": "震惊",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "transfer-radar",
+      "_column_name": "转会雷达",
+      "_column_icon": "📡",
+      "_writing_style": "内幕分析体",
+      "_style_detail": "像球队经理在评估一笔交易。每条转会传闻按'消息来源 → 球员分析 → 球队需求 → 转会可能性 → 影响评估'的结构展开。用'据[来源]''按这个逻辑''如果成了的话'区分消息级别。不确定的就说不知道，不硬装大明白。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测：'你觉得XX这笔转会能成吗？能扣1，不能扣2，评论区说说你的理由。'",
+      "_topic_domain": "转会传闻与球员身价",
+      "_topic_guidance": "近期最热的转会绯闻、球员身价变动、豪门引援目标。不只说'谁要转会'，更要分析转会背后的逻辑：球队为什么需要他、他能带来什么、转会费是否合理、对各方的影响。区分消息级别：官宣 > 权威记者 > 传闻。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-23 02:41:33",
+  "last_batch": "evening",
+  "last_updated": "2026-06-23 04:23:06",
   "micro_headlines": [
     {
-      "content": "兄弟们，葡萄牙这场踢乌兹别克斯坦，说实话有点悬！别以为人家亚洲球队好欺负，葡萄牙后防那几块料，碰上乌兹别克斯坦的快速反击，真够呛。C罗这场比赛能不能扛起进攻大旗？我看悬，关键还得看中场能不能送出致命直塞。这场球，葡萄牙要是敢浪，绝对翻车！",
+      "content": "挪威打塞内加尔这场，说实话我有点纠结。哈兰德对塞内加尔那条非洲防线，按理说该锤爆，可非洲杯冠军的韧劲真不是盖的。库利巴利带几个老兄弟，怕是要跟新科金靴拼刺刀。不过挪威中场创造力差点意思，万一球传不到位，大魔王也得干瞪眼。这场绝对有惊喜，别错过！#世界杯 #挪威vs塞内加尔",
       "tags": [
         "#世界杯",
-        "#葡萄牙",
-        "#乌兹别克斯坦"
+        "#挪威vs塞内加尔"
       ],
-      "match": "Portugal vs Uzbekistan"
+      "match": "Norway vs Senegal"
     },
     {
-      "content": "英格兰这场打加纳，简直就是送温暖！三狮军团对付非洲球队向来有一手，但加纳那股子野性劲儿，凯恩这大中锋遇上非洲黑又硬，能扛得住吗？我赌一包辣条，英格兰开场肯定猛攻，但加纳要是偷一个，比赛就有意思了。兄弟们，准备看热闹吧！",
+      "content": "葡萄牙踢乌兹别克斯坦，别以为稳了！中亚狼最近几年进步不小，40强赛差点掀翻伊朗。C罗这届最后一舞，肯定想刷数据，但乌兹别克那几个后卫人高马大，摆起大巴来够葡萄牙喝一壶。B费不在状态的话，真有可能被偷一个。不过我还是敢押葡萄牙大胜，不信等着瞧！#葡萄牙 #世界杯",
       "tags": [
-        "#世界杯",
-        "#英格兰",
-        "#加纳"
+        "#葡萄牙",
+        "#世界杯"
       ],
-      "match": "England vs Ghana"
+      "match": "Portugal vs Uzbekistan"
     }
   ]
 }
