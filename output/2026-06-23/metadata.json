@@ -1,0 +1,179 @@
+{
+  "date": "2026-06-23",
+  "generated_at": "2026-06-22T18:05:43.980941",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "1-0绝杀！挪威黄金一代又被上课，马内用膝盖告诉你们什么叫硬仗",
+      "path": "/home/runner/work/_temp/output/2026-06-23/article-1-10绝杀挪威黄金-b5c8e9.md",
+      "slug": "10绝杀挪威黄金-b5c8e9",
+      "tags": [
+        "Norway",
+        "Senegal",
+        "World Cup",
+        "Mane",
+        "Haaland"
+      ],
+      "keywords": [
+        "Norway",
+        "Senegal",
+        "World Cup",
+        "Mane",
+        "Haaland"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "库杜斯值1亿镑？看完加纳这场，谁再犹豫就是傻子",
+      "path": "/home/runner/work/_temp/output/2026-06-23/article-2-库杜斯值1亿镑看-7667bb.md",
+      "slug": "库杜斯值1亿镑看-7667bb",
+      "tags": [
+        "World Cup",
+        "Kudus",
+        "Ghana",
+        "transfer",
+        "Premier League"
+      ],
+      "keywords": [
+        "World Cup",
+        "Kudus",
+        "Ghana",
+        "transfer",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-23/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "1-0，马内第80分钟绝杀！挪威黄金一代又交学费了",
+      "formula": "A",
+      "angle": "非洲雄狮塞内加尔再次展现韧性，马内老当益壮绝杀挪威，挪威空有纸面实力却难破铁桶阵，裁判争议判罚也成了胜负手。老六就说一句：挪威别整天吹新星，打硬仗还差得远。",
+      "keywords": [
+        "Senegal",
+        "Mane",
+        "Norway",
+        "World Cup",
+        "upset"
+      ],
+      "keywords_cn": [
+        "塞内加尔",
+        "马内",
+        "挪威",
+        "世界杯冷门"
+      ],
+      "content_type": "热点球评",
+      "score": 95,
+      "expected_heat": "S",
+      "rationale": "世界杯比赛日刚结束，绝杀+非洲黑马+球星表现+裁判争议，四大爆点叠加，老球迷对挪威失望情绪极易共鸣，评论区肯定吵翻。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "加纳0-0逼平英格兰？库杜斯值1亿镑，别让豪门再犹豫了",
+      "formula": "B",
+      "angle": "加纳小将库杜斯全场暴打英格兰后防线，一个人扛着球队抢到1分。老六要说：这水平还不赶紧买？利物浦切尔西别光盯着贝林厄姆了，库杜斯才是世界杯真正的妖星。",
+      "keywords": [
+        "Ghana",
+        "Kudus",
+        "England",
+        "transfer",
+        "Premier League"
+      ],
+      "keywords_cn": [
+        "加纳",
+        "库杜斯",
+        "英格兰",
+        "转会传闻"
+      ],
+      "content_type": "八卦趣事",
+      "score": 90,
+      "expected_heat": "S",
+      "rationale": "世界杯舞台上的妖星爆发+豪门转会悬念，中国球迷最爱看英超挖人，加纳逼平英格兰本身就有话题，用反问句式激发好奇心。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-23 02:05:43",
+  "micro_headlines": [
+    {
+      "content": "英格兰踢加纳？这不得往死里干！当年世界杯被加纳淘汰的仇还记得吧？三狮军团今天要是不进三个球都算输！斯特林和凯恩这俩老伙计，再掉链子可说不过去了。加纳那帮黑又硬也不是善茬，但咱们英超后卫天天跟这种硬茬练，怕你？#英格兰 #世界杯复仇记",
+      "tags": [
+        "#英格兰",
+        "#世界杯"
+      ],
+      "match": "England vs Ghana"
+    },
+    {
+      "content": "C罗带葡萄牙踢乌兹别克？这剧本我熟！又是一场“总裁一人扛全队”的苦战。乌兹别克那防守硬度，铁桶阵摆起来，葡萄牙中场要是传不出穿透球，就看罗总硬凿了。别跟我说什么出线无忧，葡萄牙球迷心脏受不了，跪求一脚远射打破僵局！#葡萄牙 #C罗",
+      "tags": [
+        "#葡萄牙",
+        "#C罗"
+      ],
+      "match": "Portugal vs Uzbekistan"
+    }
+  ]
+}
