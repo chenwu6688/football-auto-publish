@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-22T18:05:43.980941",
+  "generated_at": "2026-06-22T18:41:33.500425",
   "total_articles": 2,
   "articles": [
     {
@@ -64,116 +64,179 @@
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "午间快讯｜葡萄牙啃着乌鸡还嫌骨头硬？这样的C罗军团走不远",
+      "path": "/home/runner/work/_temp/output/2026-06-23/article-1-午间快讯葡萄牙啃-27bb8c.md",
+      "slug": "午间快讯葡萄牙啃-27bb8c",
+      "tags": [
+        "Portugal",
+        "WorldCup2026",
+        "CristianoRonaldo",
+        "Uzbekistan"
+      ],
+      "keywords": [
+        "Portugal",
+        "WorldCup2026",
+        "CristianoRonaldo",
+        "Uzbekistan"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-23/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "马赫雷斯真要走？沙特1亿欧不只是挖人，是挖阿尔及利亚的魂",
+      "path": "/home/runner/work/_temp/output/2026-06-23/article-2-马赫雷斯真要走沙-fd7dd7.md",
+      "slug": "马赫雷斯真要走沙-fd7dd7",
+      "tags": [
+        "Mahrez",
+        "Saudi Arabia",
+        "Algeria",
+        "World Cup",
+        "transfer"
+      ],
+      "keywords": [
+        "Mahrez",
+        "Saudi Arabia",
+        "Algeria",
+        "World Cup",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-23/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "1-0，马内第80分钟绝杀！挪威黄金一代又交学费了",
-      "formula": "A",
-      "angle": "非洲雄狮塞内加尔再次展现韧性，马内老当益壮绝杀挪威，挪威空有纸面实力却难破铁桶阵，裁判争议判罚也成了胜负手。老六就说一句：挪威别整天吹新星，打硬仗还差得远。",
+      "title": "11打10还差点被翻盘？葡萄牙踢得比国足还让人窒息",
+      "formula": "B",
+      "angle": "葡萄牙对阵乌兹别克斯坦虽然赢了，但红牌加身还踢得乱七八糟，C罗全场隐身，这样的葡萄牙走不远。",
       "keywords": [
-        "Senegal",
-        "Mane",
-        "Norway",
+        "Portugal",
+        "Uzbekistan",
+        "CR7",
         "World Cup",
-        "upset"
+        "red card"
       ],
       "keywords_cn": [
-        "塞内加尔",
-        "马内",
-        "挪威",
-        "世界杯冷门"
+        "葡萄牙",
+        "乌兹别克斯坦",
+        "C罗",
+        "世界杯",
+        "红牌"
       ],
       "content_type": "热点球评",
-      "score": 95,
-      "expected_heat": "S",
-      "rationale": "世界杯比赛日刚结束，绝杀+非洲黑马+球星表现+裁判争议，四大爆点叠加，老球迷对挪威失望情绪极易共鸣，评论区肯定吵翻。",
+      "score": 88,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "葡萄牙多打一人却踢得狼狈，暴露战术短板，C罗状态低迷引争议，球迷必然炸锅。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "加纳0-0逼平英格兰？库杜斯值1亿镑，别让豪门再犹豫了",
-      "formula": "B",
-      "angle": "加纳小将库杜斯全场暴打英格兰后防线，一个人扛着球队抢到1分。老六要说：这水平还不赶紧买？利物浦切尔西别光盯着贝林厄姆了，库杜斯才是世界杯真正的妖星。",
+      "title": "马赫雷斯真要走了？沙特1亿欧砸向阿尔及利亚球王",
+      "formula": "D",
+      "angle": "沙特联赛继续挖角世界杯球星，马赫雷斯可能接受天价合同，但这对阿尔及利亚世界杯前景是致命打击。",
       "keywords": [
-        "Ghana",
-        "Kudus",
-        "England",
+        "Mahrez",
+        "Algeria",
+        "Saudi Arabia",
         "transfer",
-        "Premier League"
+        "World Cup"
       ],
       "keywords_cn": [
-        "加纳",
-        "库杜斯",
-        "英格兰",
-        "转会传闻"
+        "马赫雷斯",
+        "阿尔及利亚",
+        "沙特联赛",
+        "转会",
+        "世界杯"
       ],
-      "content_type": "八卦趣事",
-      "score": 90,
-      "expected_heat": "S",
-      "rationale": "世界杯舞台上的妖星爆发+豪门转会悬念，中国球迷最爱看英超挖人，加纳逼平英格兰本身就有话题，用反问句式激发好奇心。",
+      "content_type": "转会资讯",
+      "score": 82,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "震惊",
+      "why_pick": "世界杯期间爆出核心球员离队传闻，球迷既关心转会费又担心国家队实力，讨论度极高。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-23 02:05:43",
+  "last_batch": "noon",
+  "last_updated": "2026-06-23 02:41:33",
   "micro_headlines": [
     {
-      "content": "英格兰踢加纳？这不得往死里干！当年世界杯被加纳淘汰的仇还记得吧？三狮军团今天要是不进三个球都算输！斯特林和凯恩这俩老伙计，再掉链子可说不过去了。加纳那帮黑又硬也不是善茬，但咱们英超后卫天天跟这种硬茬练，怕你？#英格兰 #世界杯复仇记",
+      "content": "兄弟们，葡萄牙这场踢乌兹别克斯坦，说实话有点悬！别以为人家亚洲球队好欺负，葡萄牙后防那几块料，碰上乌兹别克斯坦的快速反击，真够呛。C罗这场比赛能不能扛起进攻大旗？我看悬，关键还得看中场能不能送出致命直塞。这场球，葡萄牙要是敢浪，绝对翻车！",
       "tags": [
-        "#英格兰",
-        "#世界杯"
-      ],
-      "match": "England vs Ghana"
-    },
-    {
-      "content": "C罗带葡萄牙踢乌兹别克？这剧本我熟！又是一场“总裁一人扛全队”的苦战。乌兹别克那防守硬度，铁桶阵摆起来，葡萄牙中场要是传不出穿透球，就看罗总硬凿了。别跟我说什么出线无忧，葡萄牙球迷心脏受不了，跪求一脚远射打破僵局！#葡萄牙 #C罗",
-      "tags": [
+        "#世界杯",
         "#葡萄牙",
-        "#C罗"
+        "#乌兹别克斯坦"
       ],
       "match": "Portugal vs Uzbekistan"
+    },
+    {
+      "content": "英格兰这场打加纳，简直就是送温暖！三狮军团对付非洲球队向来有一手，但加纳那股子野性劲儿，凯恩这大中锋遇上非洲黑又硬，能扛得住吗？我赌一包辣条，英格兰开场肯定猛攻，但加纳要是偷一个，比赛就有意思了。兄弟们，准备看热闹吧！",
+      "tags": [
+        "#世界杯",
+        "#英格兰",
+        "#加纳"
+      ],
+      "match": "England vs Ghana"
     }
   ]
 }
