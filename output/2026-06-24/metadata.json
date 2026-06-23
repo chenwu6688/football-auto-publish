@@ -1,0 +1,241 @@
+{
+  "date": "2026-06-24",
+  "generated_at": "2026-06-23T17:25:17.150952",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "5场战罢,强队狂刷数据,但我看出一身冷汗",
+      "path": "/home/runner/work/_temp/output/2026-06-24/article-1-5场战罢强队狂刷-d4fcf6.md",
+      "slug": "5场战罢强队狂刷-d4fcf6",
+      "tags": [
+        "World Cup",
+        "Brazil defense",
+        "Messi dependency",
+        "Germany tactics"
+      ],
+      "keywords": [
+        "World Cup",
+        "Brazil defense",
+        "Messi dependency",
+        "Germany tactics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-24/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-24/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-24/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从赛果盘点转为战术批判,指出强队连胜背后的隐患",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "5场比赛，6万球迷——那个穿对手球衣的哥们儿，全场都在找他",
+      "path": "/home/runner/work/_temp/output/2026-06-24/article-2-5场比赛6万球迷-295e22.md",
+      "slug": "5场比赛6万球迷-295e22",
+      "tags": [
+        "World Cup",
+        "fans",
+        "tribune",
+        "humanity"
+      ],
+      "keywords": [
+        "World Cup",
+        "fans",
+        "tribune",
+        "humanity"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-24/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-24/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-24/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "source_post": "",
+      "originality_note": "从战报的赛场内转向看台球迷互动，用画面叙事替代比分记录，聚焦人文瞬间而非竞技结果。",
+      "content_type": "八卦趣事",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "晚间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "小组赛暗流涌动：出线热门背后的隐患",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "angle": "聚焦强队连胜背后的战术短板，指出依赖个人能力的风险，呼吁警惕冷门",
+      "keywords": [
+        "World Cup",
+        "group stage",
+        "tactics",
+        "over-reliance",
+        "upset"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "小组赛",
+        "战术",
+        "依赖",
+        "冷门"
+      ],
+      "content_type": "热点球评",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "世界杯最暖心一幕：输球后对手球迷的掌声",
+      "source_article_ids": [
+        1
+      ],
+      "source_titles": [
+        "🌍 世界杯战报：今日5场激战，出线形势日渐明朗"
+      ],
+      "angle": "挖掘赛场内球迷互动故事，展现超越胜负的体育精神与人文温度",
+      "keywords": [
+        "World Cup",
+        "sportsmanship",
+        "fans",
+        "applause",
+        "respect"
+      ],
+      "keywords_cn": [
+        "世界杯",
+        "体育精神",
+        "球迷",
+        "掌声",
+        "尊重"
+      ],
+      "content_type": "八卦趣事",
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "_source_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "🌍 世界杯战报：今日5场激战，出线形势日渐明朗",
+          "summary": "世界杯小组赛继续进行，今日5场比赛，各队为出线名额全力争胜。",
+          "account": "世界杯专区",
+          "reads": 105000,
+          "likes": 0,
+          "data_score": 98,
+          "pub_time": "",
+          "_recency_score": 0
+        }
+      ],
+      "_standings": {},
+      "_column_id": "fan-life",
+      "_column_name": "球迷众生相",
+      "_column_icon": "🎭",
+      "_writing_style": "人间观察体",
+      "_style_detail": "像在球场边观察人间百态。用细节和画面说话，少评论多展示。可以有幽默感但不能嘲笑球迷的真情实感。每个故事要有画面感，让读者觉得'我也在现场就好了'。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "share_your_story",
+      "_interaction_guidance": "文末邀请分享：'你在现场看过最难忘的一场比赛是什么？评论区说说，看看谁的回忆最绝。'",
+      "_topic_domain": "球迷文化与场外趣事",
+      "_topic_guidance": "世界杯期间的球迷反应、社交媒体神评论、看台趣事、球员场外生活。选题要有'人味'——让人笑、让人感动、让人有共鸣。适合：球迷的神回复合集、看台上的感人瞬间、球员和球迷的互动、世界杯带来的趣事。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-06-24 01:25:17",
+  "micro_headlines": [
+    {
+      "content": "瑞士这队啊，就是世界杯的老油条，稳得一批。加拿大年轻有冲劲但经验差太远，想爆冷？门儿都没有！看好瑞士稳稳拿下开门红，欧洲球队的纪律性不是盖的。",
+      "tags": [
+        "#世界杯",
+        "#瑞士队"
+      ],
+      "match": "Switzerland vs Canada"
+    },
+    {
+      "content": "苏格兰踢巴西？这不就是送分题吗？但别急，苏格兰硬朗的身体对抗说不定能给巴西制造点麻烦。内马尔们别大意，小心阴沟翻船！我看好巴西小胜，但过程肯定不轻松。",
+      "tags": [
+        "#世界杯",
+        "#巴西队"
+      ],
+      "match": "Scotland vs Brazil"
+    }
+  ]
+}
