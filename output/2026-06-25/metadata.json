@@ -1,0 +1,177 @@
+{
+  "date": "2026-06-25",
+  "generated_at": "2026-06-25T04:22:35.825304",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "3-0屠杀！墨西哥把捷克打回原形，欧洲二流还有救吗？",
+      "path": "/home/runner/work/_temp/output/2026-06-25/article-1-30屠杀墨西哥把-3a582e.md",
+      "slug": "30屠杀墨西哥把-3a582e",
+      "tags": [
+        "Mexico",
+        "Czechia",
+        "World Cup 2026",
+        "South Africa",
+        "South Korea"
+      ],
+      "keywords": [
+        "Mexico",
+        "Czechia",
+        "World Cup 2026",
+        "South Africa",
+        "South Korea"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-25/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-25/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-25/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "输球后瘫坐+更衣室吵架，韩国队丢的是南非的脸还是自己的人？",
+      "path": "/home/runner/work/_temp/output/2026-06-25/article-2-输球后瘫坐更衣室-3ade65.md",
+      "slug": "输球后瘫坐更衣室-3ade65",
+      "tags": [
+        "Son Heung-min",
+        "South Korea",
+        "World Cup",
+        "captaincy",
+        "controversy"
+      ],
+      "keywords": [
+        "Son Heung-min",
+        "South Korea",
+        "World Cup",
+        "captaincy",
+        "controversy"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-25/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "3-0！墨西哥碾碎捷克，昔日豪门为何沦为人见人欺？",
+      "angle": "墨西哥3-0大胜捷克，进攻端多点开花；捷克防线漏洞百出，彻底暴露欧洲二流本质。老六直言：捷克足球的衰落不是一天两天，这场被打回原形了。",
+      "keywords": [
+        "Mexico",
+        "Czech Republic",
+        "FIFA World Cup",
+        "3-0",
+        "upset"
+      ],
+      "keywords_cn": [
+        "墨西哥",
+        "捷克",
+        "世界杯",
+        "3-0",
+        "溃败"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "墨西哥爆冷大胜捷克，反差强烈，情绪带动球迷质疑捷克实力，话题性高。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "孙兴慜赛后瘫坐草皮，韩国队输南非后更衣室炸了？",
+      "angle": "南非1-0爆冷击败韩国，孙兴慜赛后久久不愿离场；据悉更衣室内爆发激烈争吵，韩国队恐面临内讧危机。老六：世界杯还没结束，韩国足球的脸先丢光了。",
+      "keywords": [
+        "South Korea",
+        "South Africa",
+        "Son Heung-min",
+        "1-0",
+        "locker room conflict"
+      ],
+      "keywords_cn": [
+        "韩国",
+        "南非",
+        "孙兴慜",
+        "1-0",
+        "内讧"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "韩国队爆冷输球+孙兴慜失落+更衣室传闻，集中了争议、情绪和故事性。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-25 12:22:35",
+  "micro_headlines": [
+    {
+      "content": "墨西哥3-0捷克，这球看得真解气！捷克全场梦游，墨西哥反击一打一个准，三个进球个个漂亮。谁说墨西哥只会小组赛出线？这场踢出了冠军相！老铁们是不是跟我一样，开始期待墨西哥走更远了？",
+      "tags": [
+        "#世界杯",
+        "#墨西哥"
+      ],
+      "match": "Czechia vs Mexico"
+    },
+    {
+      "content": "南非1-0韩国，韩国队这表现是真拉胯！全场控球占优却踢得毫无章法，最后还被南非偷了一个。亚洲一哥就这？孙兴慜一个人带不动全队啊。这场输了，韩国想出线可悬了。",
+      "tags": [
+        "#世界杯",
+        "#韩国队"
+      ],
+      "match": "South Africa vs South Korea"
+    }
+  ]
+}
