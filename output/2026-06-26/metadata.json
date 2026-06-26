@@ -1,6 +1,6 @@
 {
   "date": "2026-06-26",
-  "generated_at": "2026-06-26T08:03:03.072551",
+  "generated_at": "2026-06-26T12:02:08.928109",
   "total_articles": 2,
   "articles": [
     {
@@ -66,110 +66,442 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "日本盘外招？踢个瑞典还tm算计巴西",
+      "path": "/home/runner/work/_temp/output/2026-06-26/article-1-日本盘外招踢个瑞-1d2a91.md",
+      "slug": "日本盘外招踢个瑞-1d2a91",
+      "tags": [
+        "Japan",
+        "World Cup",
+        "tactical loss",
+        "Brazil",
+        "Moriyasu"
+      ],
+      "keywords": [
+        "Japan",
+        "World Cup",
+        "tactical loss",
+        "Brazil",
+        "Moriyasu"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-26/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "美加墨世界杯前瞻：日本会不会战术输球避巴西开盲盒？"
+      ],
+      "source_post": "",
+      "originality_note": "从原文的客观分析转为犀利批判，提出'战术输球毁气质'新观点，并以球迷情绪化语言重构。",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "一个伤愈的西班牙人，撑不起津门虎的保级大计？",
+      "path": "/home/runner/work/_temp/output/2026-06-26/article-2-一个伤愈的西班牙-08346f.md",
+      "slug": "一个伤愈的西班牙-08346f",
+      "tags": [
+        "Tianjin Jinmen Tiger",
+        "Spanish midfielder",
+        "relegation battle",
+        "transfer gamble"
+      ],
+      "keywords": [
+        "Tianjin Jinmen Tiger",
+        "Spanish midfielder",
+        "relegation battle",
+        "transfer gamble"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-26/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "天津津门虎足球俱乐部公告"
+      ],
+      "source_post": "",
+      "originality_note": "将公告转化为深度转会评估，用创业公司类比解释风险引援，突出伤病赌博与保级逻辑。",
+      "content_type": "转会资讯",
+      "column_id": "transfer-radar",
+      "column_name": "转会雷达",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "0-0闷平，澳大利亚锋线烂到骨子里？亚洲足球的希望还在吗？",
-      "formula": "B",
-      "angle": "澳大利亚全场0进球，锋无力让亚洲球迷失望——这支袋鼠军团想走更远，必须解决射手问题。",
+      "title": "日本若故意输球避巴西，这招真的高明吗？",
+      "source_article_ids": [
+        8
+      ],
+      "source_titles": [
+        "美加墨世界杯前瞻：日本会不会战术输球避巴西开盲盒？"
+      ],
+      "angle": "从日本可能战术输球的角度，分析这种策略的道德风险、FIFA默契球处罚可能性，以及日本真正的实力自信——新观点：战术输球看似聪明，实则可能毁掉球队气质，日本应迎难而上。",
       "keywords": [
-        "australia",
-        "world cup 2026",
-        "goalless draw"
+        "world cup",
+        "japan",
+        "tactical loss",
+        "brazil",
+        "fair play",
+        "controversy"
       ],
       "keywords_cn": [
-        "澳大利亚",
         "世界杯",
-        "锋无力"
+        "日本",
+        "战术输球",
+        "巴西",
+        "公平竞赛",
+        "争议"
       ],
       "content_type": "热点球评",
-      "score": 82,
-      "expected_heat": "A",
-      "rationale": "世界杯亚洲球队表现牵动国内球迷情绪，0-0闷平比赛有争议性和共情点，避开今日已发热点，角度新颖。",
-      "controversy_level": "medium",
-      "target_emotion": "失望",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "9次交手5胜，乌拉圭专克西班牙？今夜请看历史能否重演",
-      "formula": "A",
-      "angle": "历史数据显示乌拉圭面对西班牙占优，但西班牙已非昔日传控王朝——反常识叙事引发对决期待。",
-      "keywords": [
-        "uruguay",
-        "spain",
-        "world cup 2026",
-        "group stage"
-      ],
-      "keywords_cn": [
-        "乌拉圭",
-        "西班牙",
-        "生死战"
-      ],
-      "content_type": "战术解析",
-      "score": 88,
-      "expected_heat": "S",
-      "rationale": "世界杯死亡之组对决自带流量，历史交锋数据制造悬念，反常识观点激发讨论，避开今日已发关键词。",
-      "controversy_level": "medium",
+      "controversy_level": "high",
       "target_emotion": "好奇",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_source_articles": [
+        {
+          "id": 8,
+          "title": "美加墨世界杯前瞻：日本会不会战术输球避巴西开盲盒？",
+          "summary": "盲盒",
+          "account": "足球小能手俱乐部",
+          "reads": "2w+",
+          "likes": 372,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "看球夜囤货指南｜我们在七鲜超市挑出了这几样“必买”",
+          "summary": "七鲜超市推出“足球专区”，现场太好逛了！",
+          "account": "新零售参考",
+          "reads": "2w+",
+          "likes": 152,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "【世界杯足球品鉴】小组赛  日本VS瑞典  据日媒报道，森保一正在酝酿对首发阵容进行大面积洗牌，最多可能更换8人左右。",
+          "summary": "来的朋友 先点直播预约 不迷路                                                                                                         ",
+          "account": "爱晚足球课代表",
+          "reads": "3w+",
+          "likes": 44,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 3,
+          "title": "1-3出局！亚洲冠军卡塔尔队告别世界杯，还遭国际足联重罚",
+          "summary": "“3战狂丢10球，亚洲冠军卡塔尔队成为第二支出局的亚洲球队。更让他们雪上加霜的是，球队赛后还遭到国际足联的重罚。真是出局了，还给亚洲足球抹黑！”\n在今日凌晨结束的B组的一场生死战，亚洲冠军卡塔尔队在2人因红牌停赛的情况下，1-3惨败波黑队。",
+          "account": "运育而生",
+          "reads": "3w+",
+          "likes": 21,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 4,
+          "title": "梅西C罗双双翻车，中国设计师赢麻这届世界杯！",
+          "summary": "梅西和 C 罗争了这么多年，没想到先在设计翻车这件事上达成了世纪和解。",
+          "account": "大作BIGBIGWORK",
+          "reads": "2w+",
+          "likes": 59,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "注意！长期这样睡，大脑加速衰老！",
+          "summary": "⚽️⚽️⚽️  近期美加墨世界杯火热开赛  你看球了吗？\n许多球迷熬夜观赛，作息混乱  每天都深陷睡眠不足的困境  不少人睡前看球、睡中易醒、  醒后难复原，常有同感：  “睡了一夜总感觉睡眠断断续续”  “明明睡着了，但又感觉像没睡着” ",
+          "account": "中国联通",
+          "reads": "9w+",
+          "likes": 333,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 6,
+          "title": "“偶像”回来了，巴西的世界杯真正开始了",
+          "summary": "巴西队的争冠信心还在继续上升",
+          "account": "足球报",
+          "reads": "2w+",
+          "likes": 344,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "一次世界杯，看清美国真正的家底",
+          "summary": "几年前，我在一篇文章里说，美国的基础设施依然是世界一流。\n结果，一堆人在下面留言，说美国基础设施那么差，怎么称得上世界一流？\n这次看世界杯，估计不少人已经明白我当时为何这么说。\n那么多带顶棚的超级球场，能轻松容纳七八万人。配套设施先进，不少",
+          "account": "美加双城记",
+          "reads": "8w+",
+          "likes": 543,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "美加墨世界杯前瞻：日本会不会战术输球避巴西开盲盒？",
+          "summary": "盲盒",
+          "account": "足球小能手俱乐部",
+          "reads": "2w+",
+          "likes": 372,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "随着巴西3-0，摩洛哥4-2，世界杯死亡半区浮现：5大豪门或将扎堆，阿根廷队运气爆棚",
+          "summary": "“世界杯死亡半区基本上浮出水面！随着今早巴西队锁定头名出线，摩洛哥队以第二名进入上半区，美加墨世界杯的上半区，预计将会扎堆出现5大豪门+上届世界杯黑马！而梅西领衔的阿根廷队则比较幸运，与巴西队落位下半区，且2大豪门至少要到1/4决赛才会相遇",
+          "account": "运育而生",
+          "reads": "7w+",
+          "likes": 96,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 10,
+          "title": "尼泊尔足协惨遭全球禁赛，背后原因令国人心疼",
+          "summary": "这世界杯，不去也罢！",
+          "account": "建设性意见",
+          "reads": "1w+",
+          "likes": 751,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "津门虎官宣西班牙中场，保级路上关键拼图？",
+      "source_article_ids": [
+        14
+      ],
+      "source_titles": [
+        "公告"
+      ],
+      "angle": "解读天津津门虎引进西班牙外援萨尔瓦多的战术意义，分析伤病背景与他能否带来中场创造力，新观点：这笔引援看似普通，实则是俱乐部为保级赌上的一枚关键棋子。",
+      "keywords": [
+        "chinese super league",
+        "transfer",
+        "tianjin jinmen tiger",
+        "salvador",
+        "relegation battle"
+      ],
+      "keywords_cn": [
+        "中超",
+        "转会",
+        "天津津门虎",
+        "萨尔瓦多",
+        "保级"
+      ],
+      "content_type": "转会资讯",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 14,
+          "title": "公告",
+          "summary": "根据中超联赛外援注册相关规定及俱乐部现阶段阵容调整需要，经研究决定，我俱乐部将在2026赛季夏季转会窗口期完成以下人员报名变更：  一、补充报名球员  西班牙籍球员克里斯蒂安·萨尔瓦多正式补充报名进入中超联赛参赛名单。萨尔瓦多此前因伤病恢复",
+          "account": "天津津门虎足球俱乐部",
+          "reads": "3w+",
+          "likes": 347,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "看球夜囤货指南｜我们在七鲜超市挑出了这几样“必买”",
+          "summary": "七鲜超市推出“足球专区”，现场太好逛了！",
+          "account": "新零售参考",
+          "reads": "2w+",
+          "likes": 152,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "【世界杯足球品鉴】小组赛  日本VS瑞典  据日媒报道，森保一正在酝酿对首发阵容进行大面积洗牌，最多可能更换8人左右。",
+          "summary": "来的朋友 先点直播预约 不迷路                                                                                                         ",
+          "account": "爱晚足球课代表",
+          "reads": "3w+",
+          "likes": 44,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 3,
+          "title": "1-3出局！亚洲冠军卡塔尔队告别世界杯，还遭国际足联重罚",
+          "summary": "“3战狂丢10球，亚洲冠军卡塔尔队成为第二支出局的亚洲球队。更让他们雪上加霜的是，球队赛后还遭到国际足联的重罚。真是出局了，还给亚洲足球抹黑！”\n在今日凌晨结束的B组的一场生死战，亚洲冠军卡塔尔队在2人因红牌停赛的情况下，1-3惨败波黑队。",
+          "account": "运育而生",
+          "reads": "3w+",
+          "likes": 21,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 4,
+          "title": "梅西C罗双双翻车，中国设计师赢麻这届世界杯！",
+          "summary": "梅西和 C 罗争了这么多年，没想到先在设计翻车这件事上达成了世纪和解。",
+          "account": "大作BIGBIGWORK",
+          "reads": "2w+",
+          "likes": 59,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "注意！长期这样睡，大脑加速衰老！",
+          "summary": "⚽️⚽️⚽️  近期美加墨世界杯火热开赛  你看球了吗？\n许多球迷熬夜观赛，作息混乱  每天都深陷睡眠不足的困境  不少人睡前看球、睡中易醒、  醒后难复原，常有同感：  “睡了一夜总感觉睡眠断断续续”  “明明睡着了，但又感觉像没睡着” ",
+          "account": "中国联通",
+          "reads": "9w+",
+          "likes": 333,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 6,
+          "title": "“偶像”回来了，巴西的世界杯真正开始了",
+          "summary": "巴西队的争冠信心还在继续上升",
+          "account": "足球报",
+          "reads": "2w+",
+          "likes": 344,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "一次世界杯，看清美国真正的家底",
+          "summary": "几年前，我在一篇文章里说，美国的基础设施依然是世界一流。\n结果，一堆人在下面留言，说美国基础设施那么差，怎么称得上世界一流？\n这次看世界杯，估计不少人已经明白我当时为何这么说。\n那么多带顶棚的超级球场，能轻松容纳七八万人。配套设施先进，不少",
+          "account": "美加双城记",
+          "reads": "8w+",
+          "likes": 543,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "美加墨世界杯前瞻：日本会不会战术输球避巴西开盲盒？",
+          "summary": "盲盒",
+          "account": "足球小能手俱乐部",
+          "reads": "2w+",
+          "likes": 372,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "随着巴西3-0，摩洛哥4-2，世界杯死亡半区浮现：5大豪门或将扎堆，阿根廷队运气爆棚",
+          "summary": "“世界杯死亡半区基本上浮出水面！随着今早巴西队锁定头名出线，摩洛哥队以第二名进入上半区，美加墨世界杯的上半区，预计将会扎堆出现5大豪门+上届世界杯黑马！而梅西领衔的阿根廷队则比较幸运，与巴西队落位下半区，且2大豪门至少要到1/4决赛才会相遇",
+          "account": "运育而生",
+          "reads": "7w+",
+          "likes": 96,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        },
+        {
+          "id": 10,
+          "title": "尼泊尔足协惨遭全球禁赛，背后原因令国人心疼",
+          "summary": "这世界杯，不去也罢！",
+          "account": "建设性意见",
+          "reads": "1w+",
+          "likes": 751,
+          "data_score": 100,
+          "pub_time": "2026-06-25",
+          "_recency_score": 80
+        }
+      ],
+      "_standings": {},
+      "_column_id": "transfer-radar",
+      "_column_name": "转会雷达",
+      "_column_icon": "📡",
+      "_writing_style": "内幕分析体",
+      "_style_detail": "像球队经理在评估一笔交易。每条转会传闻按'消息来源 → 球员分析 → 球队需求 → 转会可能性 → 影响评估'的结构展开。用'据[来源]''按这个逻辑''如果成了的话'区分消息级别。不确定的就说不知道，不硬装大明白。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测：'你觉得XX这笔转会能成吗？能扣1，不能扣2，评论区说说你的理由。'",
+      "_topic_domain": "转会传闻与球员身价",
+      "_topic_guidance": "近期最热的转会绯闻、球员身价变动、豪门引援目标。不只说'谁要转会'，更要分析转会背后的逻辑：球队为什么需要他、他能带来什么、转会费是否合理、对各方的影响。区分消息级别：官宣 > 权威记者 > 传闻。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-26 16:03:03",
+  "last_batch": "evening",
+  "last_updated": "2026-06-26 20:02:08",
   "micro_headlines": [
     {
-      "content": "星月军团硬刚山姆大叔！3-2，土鸡这届世界杯硬仗能力拉满啊！美国队拼到最后一刻也没扳平，虽败犹荣但防守漏洞是真的坑。这场比赛火星撞地球，谁没看谁亏大了！#世界杯 #土耳其",
+      "content": "兄弟们，土耳其这3-2给我看湿了！美国队开场猛如虎，结果被土耳其连灌三个，最后追回两个也是白搭。这哪是世界杯，这是过山车啊！星条旗这回真成了星条落，土耳其人主场作战的气势，谁顶得住？",
       "tags": [
         "#世界杯",
-        "#土耳其"
+        "#土耳其vs美国"
       ],
       "match": "Turkey vs United States"
     },
     {
-      "content": "0-0！说好的南美对澳洲的激情碰撞呢？全程哈欠连天，两队加起来射正数一只手数得过来。巴拉圭这锋线是没睡醒还是咋的？澳洲袋鼠也只会龟缩防守。这90分钟踢得比白天上班还无聊，退票！#世界杯 #无聊比赛",
+      "content": "0-0！这场面比白开水还淡，巴拉圭和澳大利亚踢得跟商量好了似的，谁都不肯先出招。说好的南美攻势足球呢？袋鼠军团也跟没睡醒一样。这90分钟，我看了个寂寞，票价值得退一半！",
       "tags": [
         "#世界杯",
-        "#无聊比赛"
+        "#巴拉圭vs澳大利亚"
       ],
       "match": "Paraguay vs Australia"
     }
