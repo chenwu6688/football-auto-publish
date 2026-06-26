@@ -1,6 +1,6 @@
 {
   "date": "2026-06-26",
-  "generated_at": "2026-06-26T04:39:36.117910",
+  "generated_at": "2026-06-26T08:03:03.072551",
   "total_articles": 2,
   "articles": [
     {
@@ -66,111 +66,174 @@
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "午间快讯｜0-0闷平，袋鼠军团把亚洲锋线脸丢光了？",
+      "path": "/home/runner/work/_temp/output/2026-06-26/article-1-午间快讯00闷平-7697bc.md",
+      "slug": "午间快讯00闷平-7697bc",
+      "tags": [
+        "World Cup 2026",
+        "Australia",
+        "Paraguay",
+        "Asian football",
+        "goal drought"
+      ],
+      "keywords": [
+        "World Cup 2026",
+        "Australia",
+        "Paraguay",
+        "Asian football",
+        "goal drought"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-26/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "西班牙再强有卵用？乌拉圭见一次灭一次",
+      "path": "/home/runner/work/_temp/output/2026-06-26/article-2-西班牙再强有卵用-f344c1.md",
+      "slug": "西班牙再强有卵用-f344c1",
+      "tags": [
+        "Uruguay",
+        "Spain",
+        "World Cup",
+        "historical record",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "Uruguay",
+        "Spain",
+        "World Cup",
+        "historical record",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-26/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-26/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "土耳其3-2美国，世界杯最大冷门？别闹，美国队本来就不行",
-      "angle": "美国队后防形同虚设，土耳其抓住机会绝杀，根本不是爆冷而是实力体现。老六我就烦那些吹美国足球崛起的，先拿下土耳其再说。",
+      "title": "0-0闷平，澳大利亚锋线烂到骨子里？亚洲足球的希望还在吗？",
+      "formula": "B",
+      "angle": "澳大利亚全场0进球，锋无力让亚洲球迷失望——这支袋鼠军团想走更远，必须解决射手问题。",
       "keywords": [
-        "Turkey",
-        "USA",
-        "3-2",
-        "World Cup",
-        "upset"
+        "australia",
+        "world cup 2026",
+        "goalless draw"
       ],
       "keywords_cn": [
-        "土耳其",
-        "美国",
-        "冷门",
-        "防守漏洞"
+        "澳大利亚",
+        "世界杯",
+        "锋无力"
       ],
       "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "焦点比赛+强烈态度+打脸吹美派，评论区必炸。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "score": 82,
+      "expected_heat": "A",
+      "rationale": "世界杯亚洲球队表现牵动国内球迷情绪，0-0闷平比赛有争议性和共情点，避开今日已发热点，角度新颖。",
+      "controversy_level": "medium",
+      "target_emotion": "失望",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "1.8亿vs1.6亿！哈兰德姆巴佩今夜正面对决，谁的身价更水？",
-      "angle": "挪威vs法国，哈兰德和姆巴佩直接碰撞。两人都传闻要转会，用一场比赛验货，看谁配得上1.8亿身价，谁只是营销产物。",
+      "title": "9次交手5胜，乌拉圭专克西班牙？今夜请看历史能否重演",
+      "formula": "A",
+      "angle": "历史数据显示乌拉圭面对西班牙占优，但西班牙已非昔日传控王朝——反常识叙事引发对决期待。",
       "keywords": [
-        "Haaland",
-        "Mbappe",
-        "Norway",
-        "France",
-        "transfer"
+        "uruguay",
+        "spain",
+        "world cup 2026",
+        "group stage"
       ],
       "keywords_cn": [
-        "哈兰德",
-        "姆巴佩",
-        "转会",
-        "身价",
-        "挪威vs法国"
+        "乌拉圭",
+        "西班牙",
+        "生死战"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "战术解析",
       "score": 88,
+      "expected_heat": "S",
+      "rationale": "世界杯死亡之组对决自带流量，历史交锋数据制造悬念，反常识观点激发讨论，避开今日已发关键词。",
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "巨星对决+转会悬念+身价争议，话题性拉满。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-06-26 12:39:36",
+  "last_batch": "noon",
+  "last_updated": "2026-06-26 16:03:03",
   "micro_headlines": [
     {
-      "content": "太刺激了！土耳其3-2干翻美国队！星条旗被土耳其人揍得找不到北，这比分谁猜得到？美利坚后防跟纸糊的一样，土耳其这一脚一脚踢得真是解气！世界杯就得这么玩，冷门越多越好！",
+      "content": "星月军团硬刚山姆大叔！3-2，土鸡这届世界杯硬仗能力拉满啊！美国队拼到最后一刻也没扳平，虽败犹荣但防守漏洞是真的坑。这场比赛火星撞地球，谁没看谁亏大了！#世界杯 #土耳其",
       "tags": [
         "#世界杯",
-        "#土耳其爆冷"
+        "#土耳其"
       ],
       "match": "Turkey vs United States"
     },
     {
-      "content": "0-0，这场球看得我快睡着了。巴拉圭和澳大利亚踢得比老太太过马路还磨叽，全场唯一的亮点就是裁判没掏红牌。说实话，这种养生局真该放到凌晨三点去踢，省得浪费大家时间。",
+      "content": "0-0！说好的南美对澳洲的激情碰撞呢？全程哈欠连天，两队加起来射正数一只手数得过来。巴拉圭这锋线是没睡醒还是咋的？澳洲袋鼠也只会龟缩防守。这90分钟踢得比白天上班还无聊，退票！#世界杯 #无聊比赛",
       "tags": [
         "#世界杯",
-        "#闷平吐槽"
+        "#无聊比赛"
       ],
       "match": "Paraguay vs Australia"
     }
