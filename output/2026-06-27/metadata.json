@@ -1,6 +1,6 @@
 {
   "date": "2026-06-27",
-  "generated_at": "2026-06-27T07:26:19.238162",
+  "generated_at": "2026-06-27T11:14:30.687391",
   "total_articles": 2,
   "articles": [
     {
@@ -66,117 +66,440 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "日本真抽到巴西了，但这次不是漫画",
+      "path": "/home/runner/work/_temp/output/2026-06-27/article-1-日本真抽到巴西了-2e6951.md",
+      "slug": "日本真抽到巴西了-2e6951",
+      "tags": [
+        "Japan",
+        "Brazil",
+        "WorldCup",
+        "CaptainTsubasa",
+        "youth development"
+      ],
+      "keywords": [
+        "Japan",
+        "Brazil",
+        "WorldCup",
+        "CaptainTsubasa",
+        "youth development"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "大空翼的剧本成真了，日本真碰巴西了"
+      ],
+      "source_post": "",
+      "originality_note": "从漫画情怀切入日本足球体系改革，用创业类比（PPT vs 产品），强调青训而非热血，区别于原文的情怀叙事",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "德国战车变德国三崩子，控球率能当饭吃？",
+      "path": "/home/runner/work/_temp/output/2026-06-27/article-2-德国战车变德国三-419f20.md",
+      "slug": "德国战车变德国三-419f20",
+      "tags": [
+        "Germany",
+        "World Cup",
+        "possession",
+        "tactical failure"
+      ],
+      "keywords": [
+        "Germany",
+        "World Cup",
+        "possession",
+        "tactical failure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-27/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-27/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-27/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "随着德国1-2爆冷，科特迪瓦2-0！世界杯积分榜：德国第1，韩国空欢喜一场"
+      ],
+      "source_post": "",
+      "originality_note": "用脱口秀风格重写，从战术伪转型和意志力丧失两个角度狠批，加入生活化类比和犀利吐槽",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "5-1血洗！比利时用一场大胜宣告王者归来",
-      "formula": "F",
-      "angle": "新西兰惨败并非意外，比利时强攻体系彻底复活，但大比分背后是欧洲红魔虐菜无情，真正的考验还在后头。",
+      "title": "日本碰巴西！《足球小将》的预言在世界杯淘汰赛成真了",
+      "source_article_ids": [
+        3
+      ],
+      "source_titles": [
+        "大空翼的剧本成真了，日本真碰巴西了"
+      ],
+      "angle": "从日本1-1瑞典到抽中巴西，结合《足球小将》的怀旧情怀，分析日本足球数十年青训和留洋的厚积薄发，指出漫画预言只是精神外衣，真正支撑梦想的是系统性的足球改革。",
       "keywords": [
-        "Belgium",
-        "New Zealand",
-        "5-1",
+        "Japan",
+        "Brazil",
         "World Cup 2026",
-        "Romelu Lukaku"
+        "Captain Tsubasa",
+        "round of 16"
       ],
       "keywords_cn": [
-        "比利时",
-        "新西兰",
-        "世界杯",
-        "大胜",
-        "卢卡库"
+        "日本",
+        "巴西",
+        "2026世界杯",
+        "足球小将",
+        "16强"
       ],
       "content_type": "热点球评",
-      "score": 95,
-      "expected_heat": "S",
-      "rationale": "大比分极具视觉冲击，新西兰并非绝对鱼腩，比利时状态回升话题性强，能引发球迷对强队回归的讨论。",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "_source_articles": [
+        {
+          "id": 3,
+          "title": "大空翼的剧本成真了，日本真碰巴西了",
+          "summary": "昨晚日本1比1平瑞典，小组第二出线。淘汰赛对手抽出来的那一刻——巴西。看《足球小将》长大的那批人，脑子里大概一下就弹出了那张图：大空翼穿着10号，站在球场中圈，对面是一排巴西黄衫。这个画面，高桥阳一从1981年开始画，画了四十多年。漫画里，",
+          "account": "亲爱的Shawn",
+          "reads": "9w+",
+          "likes": 579,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "2026高考，分数，成绩。",
+          "summary": "前天晚上高考出分，昨天的热点当然是高考成绩。手机刷到江苏省理科状元是镇江一中的，706分（裸分），镇江我的第二故乡，镇江足球垫底，但镇江的高考一直在全省是排在前列的。（据说第2名无锡天一中学的那个同学，家也是镇江扬中的）淮安状元卢同学696",
+          "account": "行天下品淮扬",
+          "reads": "10w+",
+          "likes": 60,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "哈兰德撞脸乙游男主、C罗演技封神，这届世界杯正在“去足球化”",
+          "summary": "超级KOL正在成为体育赛事的流量破圈关键因素",
+          "account": "新榜",
+          "reads": "2w+",
+          "likes": 98,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 3,
+          "title": "大空翼的剧本成真了，日本真碰巴西了",
+          "summary": "昨晚日本1比1平瑞典，小组第二出线。淘汰赛对手抽出来的那一刻——巴西。看《足球小将》长大的那批人，脑子里大概一下就弹出了那张图：大空翼穿着10号，站在球场中圈，对面是一排巴西黄衫。这个画面，高桥阳一从1981年开始画，画了四十多年。漫画里，",
+          "account": "亲爱的Shawn",
+          "reads": "9w+",
+          "likes": 579,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 4,
+          "title": "日本足球队队徽为啥是一只“乌鸦”",
+          "summary": "这两天，世界杯足球赛是茶间话题。每当日本国家足球队出场，球衣胸前那只黑色三足乌鸦总会出现在亿万观众的视野里。",
+          "account": "静说日本",
+          "reads": "2w+",
+          "likes": 557,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "傻 人 傻 事 【世界杯特刊】",
+          "summary": "第619次推送 | 长度658厘米 | 看完大概需要8分钟\n       今年美加墨世界杯开始了，然而局部气候调查组竟有 0 人懂足球。 右：美加墨是哪？咋没听过…… 左：是美国 +       墨西哥啊，笨蛋！ 热知识：美加墨 = 美国 ",
+          "account": "局部气候调查组",
+          "reads": "7w+",
+          "likes": 1359,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 6,
+          "title": "借力足球经济：康师傅轻量化情绪营销，解锁品牌年轻化新路径",
+          "summary": "打赢一场以小博大的品牌年轻化战役。",
+          "account": "华商韬略",
+          "reads": "6w+",
+          "likes": 568,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "国际足联的脸被亚洲足球抽肿了，给了史无前例八个半名额，九队踢完两轮三胜五平十负，乌兹别克斯坦被灌五个球，就日本队还能看",
+          "summary": "2026年美加墨世界杯，国际足联大手一挥，扩军到48队。亚洲名额从4.5个翻倍到8.5个，史无前例。",
+          "account": "雨涵1917",
+          "reads": "5w+",
+          "likes": 41,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "足球运动员的屁股，为啥这么翘？",
+          "summary": "一场球没看，\r一个屁股没落下🤣",
+          "account": "混知健康",
+          "reads": "4w+",
+          "likes": 351,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "伤害性不大羞辱感拉满！佛得角总统公开坦言：是中国助力我们实现了我们期待了数十年的足球梦",
+          "summary": "在世界足坛，最扎心的从来不是输球的遗憾，而是拼尽全力追梦数十年，却始终被硬件和资源困住手脚。",
+          "account": "沧海一粟吁",
+          "reads": "3w+",
+          "likes": 58,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 10,
+          "title": "世界杯淘汰赛对阵更新，C罗梅西或能会师决赛，法国可选巴西或德国",
+          "summary": "16强，相信会有精彩的强强对话",
+          "account": "大话英超",
+          "reads": "2w+",
+          "likes": 96,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "C罗和B费到底有没有矛盾？葡萄牙更衣室危机一触即发",
-      "formula": "B",
-      "angle": "葡萄牙对阵哥伦比亚赛前训练传出不和谐画面，C罗与B费互动冷淡，暗示领袖之争，更衣室暗流或成球队隐患。",
+      "title": "德国1-2爆冷再翻车！日耳曼战车的血性去哪了",
+      "source_article_ids": [
+        11
+      ],
+      "source_titles": [
+        "随着德国1-2爆冷，科特迪瓦2-0！世界杯积分榜：德国第1，韩国空欢喜一场"
+      ],
+      "angle": "德国在小组赛末轮意外输球，暴露传控战术失灵和意志力缺失，对比过往铁血传统，提出德国足球需要回归身体对抗和纪律性，而非一味追求控球率。",
       "keywords": [
-        "Portugal",
-        "Cristiano Ronaldo",
-        "Bruno Fernandes",
-        "Colombia",
-        "dressing room conflict"
+        "Germany",
+        "upset",
+        "World Cup 2026",
+        "tactical collapse",
+        "mentality"
       ],
       "keywords_cn": [
-        "葡萄牙",
-        "C罗",
-        "B费",
-        "更衣室",
-        "内讧"
+        "德国",
+        "爆冷",
+        "2026世界杯",
+        "战术崩溃",
+        "血性"
       ],
       "content_type": "八卦趣事",
-      "score": 90,
-      "expected_heat": "S",
-      "rationale": "C罗自带流量，B费是曼联核心，两人不合传闻久已有之，世界杯关键战前爆料更易引发球迷站队和激烈争论。",
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "_source_articles": [
+        {
+          "id": 11,
+          "title": "随着德国1-2爆冷，科特迪瓦2-0！世界杯积分榜：德国第1，韩国空欢喜一场",
+          "summary": "德国1-2爆大冷，韩国白高兴了",
+          "account": "就你秀",
+          "reads": "9w+",
+          "likes": 89,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "2026高考，分数，成绩。",
+          "summary": "前天晚上高考出分，昨天的热点当然是高考成绩。手机刷到江苏省理科状元是镇江一中的，706分（裸分），镇江我的第二故乡，镇江足球垫底，但镇江的高考一直在全省是排在前列的。（据说第2名无锡天一中学的那个同学，家也是镇江扬中的）淮安状元卢同学696",
+          "account": "行天下品淮扬",
+          "reads": "10w+",
+          "likes": 60,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "哈兰德撞脸乙游男主、C罗演技封神，这届世界杯正在“去足球化”",
+          "summary": "超级KOL正在成为体育赛事的流量破圈关键因素",
+          "account": "新榜",
+          "reads": "2w+",
+          "likes": 98,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 3,
+          "title": "大空翼的剧本成真了，日本真碰巴西了",
+          "summary": "昨晚日本1比1平瑞典，小组第二出线。淘汰赛对手抽出来的那一刻——巴西。看《足球小将》长大的那批人，脑子里大概一下就弹出了那张图：大空翼穿着10号，站在球场中圈，对面是一排巴西黄衫。这个画面，高桥阳一从1981年开始画，画了四十多年。漫画里，",
+          "account": "亲爱的Shawn",
+          "reads": "9w+",
+          "likes": 579,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 4,
+          "title": "日本足球队队徽为啥是一只“乌鸦”",
+          "summary": "这两天，世界杯足球赛是茶间话题。每当日本国家足球队出场，球衣胸前那只黑色三足乌鸦总会出现在亿万观众的视野里。",
+          "account": "静说日本",
+          "reads": "2w+",
+          "likes": 557,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "傻 人 傻 事 【世界杯特刊】",
+          "summary": "第619次推送 | 长度658厘米 | 看完大概需要8分钟\n       今年美加墨世界杯开始了，然而局部气候调查组竟有 0 人懂足球。 右：美加墨是哪？咋没听过…… 左：是美国 +       墨西哥啊，笨蛋！ 热知识：美加墨 = 美国 ",
+          "account": "局部气候调查组",
+          "reads": "7w+",
+          "likes": 1359,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 6,
+          "title": "借力足球经济：康师傅轻量化情绪营销，解锁品牌年轻化新路径",
+          "summary": "打赢一场以小博大的品牌年轻化战役。",
+          "account": "华商韬略",
+          "reads": "6w+",
+          "likes": 568,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "国际足联的脸被亚洲足球抽肿了，给了史无前例八个半名额，九队踢完两轮三胜五平十负，乌兹别克斯坦被灌五个球，就日本队还能看",
+          "summary": "2026年美加墨世界杯，国际足联大手一挥，扩军到48队。亚洲名额从4.5个翻倍到8.5个，史无前例。",
+          "account": "雨涵1917",
+          "reads": "5w+",
+          "likes": 41,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "足球运动员的屁股，为啥这么翘？",
+          "summary": "一场球没看，\r一个屁股没落下🤣",
+          "account": "混知健康",
+          "reads": "4w+",
+          "likes": 351,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "伤害性不大羞辱感拉满！佛得角总统公开坦言：是中国助力我们实现了我们期待了数十年的足球梦",
+          "summary": "在世界足坛，最扎心的从来不是输球的遗憾，而是拼尽全力追梦数十年，却始终被硬件和资源困住手脚。",
+          "account": "沧海一粟吁",
+          "reads": "3w+",
+          "likes": 58,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        },
+        {
+          "id": 10,
+          "title": "世界杯淘汰赛对阵更新，C罗梅西或能会师决赛，法国可选巴西或德国",
+          "summary": "16强，相信会有精彩的强强对话",
+          "account": "大话英超",
+          "reads": "2w+",
+          "likes": 96,
+          "data_score": 100,
+          "pub_time": "2026-06-26",
+          "_recency_score": 80
+        }
+      ],
+      "_standings": {},
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-27 15:26:19",
+  "last_batch": "evening",
+  "last_updated": "2026-06-27 19:14:30",
   "micro_headlines": [
     {
-      "content": "新西兰被比利时打成了筛子！1-5啊兄弟们，这踢得跟闹着玩似的。比利时这帮家伙进攻火力全开，新西兰后防线简直形同虚设。不是我说，这种比赛看的就是热血和实力碾压，比利时今天给我出了口恶气！#世界杯 #比利时火力",
+      "content": "比利时这是要把世界杯当友谊赛踢啊？5-1血洗新西兰！库尔图瓦估计都闲得发慌了，全场就他玩的时间最少。新西兰小伙子们别灰心，能跟欧洲红魔过招本身就是进步，但咱这防守真得练练，不然下一场还得被打成筛子。",
       "tags": [
-        "#世界杯",
-        "#比利时火力"
+        "#比利时",
+        "#世界杯"
       ],
       "match": "New Zealand vs Belgium"
     },
     {
-      "content": "西班牙1-0小胜乌拉圭，看着稳其实差点翻车！乌拉圭防守多硬啊，最后还不是被西班牙抓住机会破门。这比赛节奏慢得让人着急，但西班牙的传控还是有一套，乌拉圭虽败犹荣。老六觉得，这才是强队该有的韧性！#西班牙 #世界杯",
+      "content": "乌拉圭真是拼到最后一刻，就差那么一口气！西班牙靠着一次灵光乍现偷了个1-0，说实话这比赛沉闷得我差点睡着。苏亚雷斯老了，努涅兹独木难支，南美硬汉遇上欧洲技术流还是有点吃瘪。不过这场能看出西班牙的控球确实稳，但效率嘛……自己品。",
       "tags": [
         "#西班牙",
-        "#世界杯"
+        "#乌拉圭"
       ],
       "match": "Uruguay vs Spain"
     }
