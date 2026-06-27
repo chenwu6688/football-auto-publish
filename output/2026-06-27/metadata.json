@@ -1,0 +1,179 @@
+{
+  "date": "2026-06-27",
+  "generated_at": "2026-06-27T04:15:26.815496",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "西班牙这1-0，看得我想关电视",
+      "path": "/home/runner/work/_temp/output/2026-06-27/article-1-西班牙这10看得-0f861c.md",
+      "slug": "西班牙这10看得-0f861c",
+      "tags": [
+        "Spain vs Uruguay",
+        "World Cup 2026",
+        "possession football",
+        "Enrique tactics"
+      ],
+      "keywords": [
+        "Spain vs Uruguay",
+        "World Cup 2026",
+        "possession football",
+        "Enrique tactics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "伊朗绞肉机逼平埃及：亚洲之光还是足球倒退？",
+      "path": "/home/runner/work/_temp/output/2026-06-27/article-2-伊朗绞肉机逼平埃-965582.md",
+      "slug": "伊朗绞肉机逼平埃-965582",
+      "tags": [
+        "Iran",
+        "Egypt",
+        "World Cup",
+        "defensive tactics",
+        "Salah"
+      ],
+      "keywords": [
+        "Iran",
+        "Egypt",
+        "World Cup",
+        "defensive tactics",
+        "Salah"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "西班牙1-0赢球却像便秘？老六：这种传控，看了就窝火",
+      "formula": "E",
+      "angle": "西班牙1-0小胜乌拉圭，表面是胜利，实际控球率占优却迟迟无法杀死比赛，老六毒舌批评恩里克的传控已变成‘无效倒脚’，乌拉圭虽败犹荣。",
+      "keywords": [
+        "Spain",
+        "Uruguay",
+        "World Cup",
+        "possession football"
+      ],
+      "keywords_cn": [
+        "西班牙",
+        "乌拉圭",
+        "无效传控",
+        "恩里克"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "expected_heat": "S",
+      "rationale": "世界杯焦点战+对豪门传控的批判能引发球迷激烈争论，乌拉圭老将悲情加持，情绪共鸣强。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "西班牙赢了但场面难看，正好制造‘反常识’争议，球迷最爱撕传控无用论。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "伊朗1-1逼平埃及：全队跑了12万米，萨拉赫被活活累死",
+      "formula": "F",
+      "angle": "用跑动距离和拦截数据展示伊朗的绞杀战术，揭示埃及为何空有球权却赢不了，突出亚洲球队的意志力和战术执行力。",
+      "keywords": [
+        "Iran",
+        "Egypt",
+        "Salah",
+        "tactical analysis",
+        "Asia"
+      ],
+      "keywords_cn": [
+        "伊朗",
+        "埃及",
+        "萨拉赫",
+        "跑动数据",
+        "战术解析"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "expected_heat": "A",
+      "rationale": "数据震撼+亚洲足球崛起话题，国足球迷会高频对比，评论区易形成正反两方争论。",
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "why_pick": "伊朗的顽强防守是亚洲足球的代表，用数据说话既有专业度又接地气，符合老六‘老球迷’视角。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-27 12:15:26",
+  "micro_headlines": [
+    {
+      "content": "真没想到！乌拉圭全场猛攻，愣是敲不开西班牙的大门，反被斗牛士一记反击偷家。苏牙老矣，卡瓦尼替补也没制造威胁。西班牙这防守，铁板一块啊！现在谁还敢说西班牙只会控球？",
+      "tags": [
+        "#世界杯",
+        "#西班牙",
+        "#乌拉圭"
+      ],
+      "match": "Uruguay vs Spain"
+    },
+    {
+      "content": "亚洲雄风！伊朗硬刚埃及，1-1平局拿得硬气！萨拉赫点球先拔头筹，伊朗人下半场疯狂反扑终扳平。世界杯上亚洲球队真就不怵非洲强队，这届伊朗够硬！埃及可惜了，最后时刻险些绝杀。",
+      "tags": [
+        "#世界杯",
+        "#伊朗",
+        "#埃及"
+      ],
+      "match": "Egypt vs Iran"
+    }
+  ]
+}
