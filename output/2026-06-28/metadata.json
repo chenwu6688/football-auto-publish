@@ -1,0 +1,211 @@
+{
+  "date": "2026-06-28",
+  "generated_at": "2026-06-28T04:49:09.405201",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "3-1暴揍中亚狼！非洲黑马刚果，踢得乌兹别克找不着北",
+      "path": "/home/runner/work/_temp/output/2026-06-28/article-1-31暴揍中亚狼非-3a9c6a.md",
+      "slug": "31暴揍中亚狼非-3a9c6a",
+      "tags": [
+        "Congo DR",
+        "Uzbekistan",
+        "World Cup",
+        "African football",
+        "upset"
+      ],
+      "keywords": [
+        "Congo DR",
+        "Uzbekistan",
+        "World Cup",
+        "African football",
+        "upset"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "3-3进6球还互喷？这球到底爽不爽",
+      "path": "/home/runner/work/_temp/output/2026-06-28/article-2-33进6球还互喷-48a9b5.md",
+      "slug": "33进6球还互喷-48a9b5",
+      "tags": [
+        "World Cup",
+        "Algeria",
+        "Austria",
+        "controversy",
+        "3-3"
+      ],
+      "keywords": [
+        "World Cup",
+        "Algeria",
+        "Austria",
+        "controversy",
+        "3-3"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-28/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "新西兰1-5比利时，这特么不是对攻，是单方面解剖",
+      "path": "/home/runner/work/_temp/output/2026-06-28/article-3-新西兰15比利时-b02d24.md",
+      "slug": "新西兰15比利时-b02d24",
+      "tags": [
+        "New Zealand",
+        "Belgium",
+        "World Cup",
+        "5-1",
+        "analysis"
+      ],
+      "keywords": [
+        "New Zealand",
+        "Belgium",
+        "World Cup",
+        "5-1",
+        "analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-28/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "3-1！非洲黑马暴揍中亚狼，刚果的足球梦不止于此",
+      "angle": "挖掘刚果民主共和国3-1乌兹别克斯坦的冷门胜利，突出非洲足球的韧性和黑马成色，不吹不黑，直指乌兹别克战术失误",
+      "keywords": [
+        "DR Congo",
+        "Uzbekistan",
+        "World Cup upset",
+        "African football"
+      ],
+      "keywords_cn": [
+        "刚果民主共和国",
+        "乌兹别克斯坦",
+        "世界杯冷门",
+        "非洲黑马"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "冷门比赛未被爆款覆盖，非洲黑马故事性强，符合球迷猎奇心理",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "进球大战却互喷垃圾话？阿尔及利亚3-3奥地利场外更刺激",
+      "angle": "聚焦阿尔及利亚与奥地利3-3平局后的球员冲突和更衣室传闻，用八卦细节引爆争议，拒绝平庸复盘",
+      "keywords": [
+        "Algeria",
+        "Austria",
+        "brawl",
+        "trash talk",
+        "World Cup drama"
+      ],
+      "keywords_cn": [
+        "阿尔及利亚",
+        "奥地利",
+        "冲突",
+        "垃圾话",
+        "更衣室"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "进球大战已有爆款，但场外冲突是全新角度，争议性高，能激发评论区站队",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "New Zealand 1-5 Belgium，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-28 12:49:09",
+  "micro_headlines": [
+    {
+      "content": "比利时这真的是在踢世界杯？5-1把新西兰打成了筛子！红魔终于硬气了一回，前场攻击群火力全开，新西兰后防直接被打懵。但说实话，这场新西兰也够拼，还进了一个挽回颜面球，没让零封。比利时这状态要是保持下去，谁碰谁头疼！",
+      "tags": [
+        "#世界杯",
+        "#比利时"
+      ],
+      "match": "New Zealand vs Belgium"
+    },
+    {
+      "content": "3-1！阿根廷又赢了！约旦可不是软柿子，上半场还跟潘帕斯雄鹰有来有回，但下半场阿根廷一发力就直接带走比赛。这统治力，稳得一批！世界杯卫冕冠军真不是吹的，小组赛两连胜提前出线，这状态太吓人了。",
+      "tags": [
+        "#世界杯",
+        "#阿根廷"
+      ],
+      "match": "Argentina vs Jordan"
+    }
+  ]
+}
