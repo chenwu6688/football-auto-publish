@@ -1,6 +1,6 @@
 {
   "date": "2026-06-28",
-  "generated_at": "2026-06-28T07:59:11.097043",
+  "generated_at": "2026-06-28T11:24:17.619263",
   "total_articles": 2,
   "articles": [
     {
@@ -65,117 +65,468 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "48队世界杯，韩国队被数学题逼疯了",
+      "path": "/home/runner/work/_temp/output/2026-06-28/article-1-48队世界杯韩国-7a5944.md",
+      "slug": "48队世界杯韩国-7a5944",
+      "tags": [
+        "World Cup",
+        "South Korea",
+        "qualifying",
+        "FIFA",
+        "group stage"
+      ],
+      "keywords": [
+        "World Cup",
+        "South Korea",
+        "qualifying",
+        "FIFA",
+        "group stage"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "世界杯出线形势：32强已定28席！韩国\"小组第3排名\"跌至第8",
+        "已28队晋级！世界杯32强最后4席解读：奥地利形势乐观，韩国要晋级需至少2队犯错"
+      ],
+      "source_post": "",
+      "originality_note": "从扩军规则荒诞性切入，用佛得角奇迹作对比引出韩国困境，语言风格和叙事角度与源文章完全不同",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "把乌拉圭出局的锅全扣贝尔萨头上，你们是没看过足协怎么折腾的？",
+      "path": "/home/runner/work/_temp/output/2026-06-28/article-2-把乌拉圭出局的锅-4a60f1.md",
+      "slug": "把乌拉圭出局的锅-4a60f1",
+      "tags": [
+        "Uruguay World Cup exit",
+        "Bielsa criticism",
+        "football federation reform"
+      ],
+      "keywords": [
+        "Uruguay World Cup exit",
+        "Bielsa criticism",
+        "football federation reform"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-28/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "乌拉圭耻辱出局，贝尔萨是最大罪魁？",
+        "佛德脚哭了，乌拉圭也哭了，韩国乐了……"
+      ],
+      "source_post": "",
+      "originality_note": "反向切入：原文追责贝尔萨，本文揭示青训断层与足协失职为深层根源，为老帅辩护。",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "0-0！葡萄牙被哥伦比亚闷平，C罗真的老了吗？",
-      "angle": "C罗全场0射正，葡萄牙进攻乏力，质疑其首发价值与战术定位",
+      "title": "世界杯新赛制下，韩国成小组第三最大悬念？",
+      "source_article_ids": [
+        11,
+        14
+      ],
+      "source_titles": [
+        "世界杯出线形势：32强已定28席！韩国“小组第3排名”跌至第8",
+        "已28队晋级！世界杯32强最后4席解读：奥地利形势乐观，韩国要晋级需至少2队犯错"
+      ],
+      "angle": "从48队扩军后小组第三晋级规则入手，分析韩国命悬一线的数学题，并对比其他大洲名额分配合理性的争议。",
       "keywords": [
-        "Portugal",
-        "Colombia",
-        "World Cup",
-        "Ronaldo",
-        "goalless"
+        "world cup",
+        "group stage",
+        "South Korea",
+        "qualification",
+        "48 teams"
       ],
       "keywords_cn": [
-        "葡萄牙",
-        "C罗",
-        "哥伦比亚",
         "世界杯",
-        "闷平"
+        "小组赛",
+        "韩国",
+        "出线",
+        "48队扩军"
       ],
       "content_type": "热点球评",
-      "score": 91,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "C罗世界杯最后一届热度极高，0-0爆冷结果引发球迷对进攻效率和老将状态的激烈争论",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_source_articles": [
+        {
+          "id": 11,
+          "title": "世界杯出线形势：32强已定28席！韩国“小组第3排名”跌至第8",
+          "summary": "北京时间6月27日凌晨3点起，世界杯G、H、I组迎来收官。法国4-1大胜挪威，小组第1出线；西班牙1-0击败乌拉圭，夺得H组头名；佛得角0-0沙特，3连平小组第2出线，创造世界杯奇迹；比利时5-1大胜新西兰，伊朗1-1埃及。局势对韩国不利，",
+          "account": "腾讯体育",
+          "reads": "7w+",
+          "likes": 333,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 14,
+          "title": "已28队晋级！世界杯32强最后4席解读：奥地利形势乐观，韩国要晋级需至少2队犯错",
+          "summary": "经过长达2周的小组赛冲杀，美加墨世界杯进入了小组收尾阶段。  由于本届世界杯扩军48队而导致晋级赛制修改，这使得过往“本该出局”的小组第三仍具备待定晋级的可能。而这，也让本届世界杯晋级形势变得更为复杂。         截至目前，世界杯只剩",
+          "account": "速球体育资讯-城市捷报",
+          "reads": "7w+",
+          "likes": 222,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "佛德脚哭了，乌拉圭也哭了，韩国乐了……",
+          "summary": "2026年6月27日星期六上午八点，世界杯比赛，西班牙对战乌拉圭，都是曾经的世界冠军，谁会出线？\n在上半场44分时，乌拉圭丢球又伤人，士气大损，不知道乌拉特守门员是想接球还是想往外扑，结果足球擦着他的手套颠进了球门，乌拉圭球迷垂首顿足，简直",
+          "account": "龙中心理健康工作室",
+          "reads": "4w+",
+          "likes": 42,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "【活动介绍】「足球盛宴」热血上线！训练师请就位，绿茵场等你开踢！",
+          "summary": "美加墨足球盛事热火朝天     绿源星球的足球狂欢也即刻吹响！\n快跟上小莲的脚步     一起解锁「足球盛宴」活动吧~     训练师，你的脚下功夫准备好了吗？\n2026年6月28日——7月21日\n活动期间        领取每日活跃宝箱得",
+          "account": "保卫向日葵官方",
+          "reads": "1w+",
+          "likes": 42,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 3,
+          "title": "活动抢先看丨足球精灵舞动热情桑巴，荷兰球圣刮起橙色风暴！",
+          "summary": "他们拥有无与伦比的想象力与创造力    也都用各自的方式重新定义了足球的魅力！    一位是独一无二的足球精灵\n灵动华丽的桑巴舞步，永远灿烂的爽朗笑容\n让足球在他脚下回归最纯粹的快乐与自由！    另一位是推动足球战术革新的荷兰飞人\n将“全",
+          "account": "实况足球",
+          "reads": "9w+",
+          "likes": 264,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 4,
+          "title": "原来哈兰德长得像他爷爷",
+          "summary": "很少看足球比赛的我，最近被这个搞笑的铁憨憨哈兰德给深深吸引住了，不仅有他在球场上的各种搞笑画面，还有他那憨憨的表情给吸引住了，所以我特意去查看了他兄弟姐妹的相片，他们个个都是帅哥美女，除了他以外哈哈，直到我看见他爷爷的照片后，才知道是隔代遗",
+          "account": "多肉看客",
+          "reads": "3w+",
+          "likes": 50,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "关于2026江苏省城市足球联赛第十二周比赛预约购票的公告",
+          "summary": "公   告                                                                                                                   ",
+          "account": "江苏省城市足球联赛",
+          "reads": "4w+",
+          "likes": 82,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 6,
+          "title": "乌拉圭耻辱出局，贝尔萨是最大罪魁？",
+          "summary": "70岁高龄的贝尔萨转身离开，留给乌拉圭足球的是一片废墟。",
+          "account": "足球报",
+          "reads": "1w+",
+          "likes": 123,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "备战世界杯！中国U-17国家男子足球队2026年第四期集训名单公布",
+          "summary": "中国U-17男足定于2026年6月30日至7月12日组织集训并参加银川国际青年足球锦标赛。",
+          "account": "足球中国",
+          "reads": "4w+",
+          "likes": 388,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "龙珠全员集结世界杯！鸟山明亲临现场，这届球赛谁敢吹黑哨？",
+          "summary": "“龙珠世界杯”特别报道：比元气弹还刺激的场边大戏！各位观众朋友，欢迎收看第9999届“全王杯”宇宙超级足球赛！",
+          "account": "夜阑卧听枫吹语",
+          "reads": "1w+",
+          "likes": 16,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "韩国苦等2天，终于有人拉了他们一把！",
+          "summary": "韩国苦等2天，终于有人拉了他们一把！随着世界杯H组乌拉圭0:1不敌西班牙，佛得角0:0沙特，韩国队首次盼到出现小组第三成绩比自己差的情况。",
+          "account": "将我",
+          "reads": "7w+",
+          "likes": 32,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 10,
+          "title": "美加墨世界杯16强最新确定对阵",
+          "summary": "牵动人心的美加墨世界杯",
+          "account": "生活感悟之东拉西扯",
+          "reads": "1w+",
+          "likes": 39,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        }
+      ],
+      "_standings": {},
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "1-1，伊朗靠血肉长城逼平埃及，亚洲足球的骄傲",
-      "angle": "伊朗用7次封堵+3次门线解围守住平局，展现亚洲球队防守韧性与集体意志",
+      "title": "贝尔萨毁了乌拉圭？70岁老帅的固执该背锅吗？",
+      "source_article_ids": [
+        6,
+        1
+      ],
+      "source_titles": [
+        "乌拉圭耻辱出局，贝尔萨是最大罪魁？",
+        "佛德脚哭了，乌拉圭也哭了，韩国乐了……"
+      ],
+      "angle": "反读原文观点，从乌拉圭阵容青黄不接和战术革新滞后出发，为贝尔萨辩护，指出足协乱象才是根源。",
       "keywords": [
-        "Iran",
-        "Egypt",
-        "World Cup",
-        "defensive tactics",
-        "upset"
+        "Uruguay",
+        "Bielsa",
+        "World Cup exit",
+        "tactics",
+        "coach blame"
       ],
       "keywords_cn": [
-        "伊朗",
-        "埃及",
-        "世界杯",
-        "防守战术",
-        "冷门"
+        "乌拉圭",
+        "贝尔萨",
+        "世界杯出局",
+        "战术",
+        "教练背锅"
       ],
-      "content_type": "战术解析",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "why_pick": "亚洲球队在世界杯上以小博大，防守表现引发中国球迷共鸣，战术细节具有深度解读空间",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "content_type": "八卦趣事",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_source_articles": [
+        {
+          "id": 6,
+          "title": "乌拉圭耻辱出局，贝尔萨是最大罪魁？",
+          "summary": "70岁高龄的贝尔萨转身离开，留给乌拉圭足球的是一片废墟。",
+          "account": "足球报",
+          "reads": "1w+",
+          "likes": 123,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 1,
+          "title": "佛德脚哭了，乌拉圭也哭了，韩国乐了……",
+          "summary": "2026年6月27日星期六上午八点，世界杯比赛，西班牙对战乌拉圭，都是曾经的世界冠军，谁会出线？\n在上半场44分时，乌拉圭丢球又伤人，士气大损，不知道乌拉特守门员是想接球还是想往外扑，结果足球擦着他的手套颠进了球门，乌拉圭球迷垂首顿足，简直",
+          "account": "龙中心理健康工作室",
+          "reads": "4w+",
+          "likes": 42,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        }
+      ],
+      "_all_articles": [
+        {
+          "id": 1,
+          "title": "佛德脚哭了，乌拉圭也哭了，韩国乐了……",
+          "summary": "2026年6月27日星期六上午八点，世界杯比赛，西班牙对战乌拉圭，都是曾经的世界冠军，谁会出线？\n在上半场44分时，乌拉圭丢球又伤人，士气大损，不知道乌拉特守门员是想接球还是想往外扑，结果足球擦着他的手套颠进了球门，乌拉圭球迷垂首顿足，简直",
+          "account": "龙中心理健康工作室",
+          "reads": "4w+",
+          "likes": 42,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 2,
+          "title": "【活动介绍】「足球盛宴」热血上线！训练师请就位，绿茵场等你开踢！",
+          "summary": "美加墨足球盛事热火朝天     绿源星球的足球狂欢也即刻吹响！\n快跟上小莲的脚步     一起解锁「足球盛宴」活动吧~     训练师，你的脚下功夫准备好了吗？\n2026年6月28日——7月21日\n活动期间        领取每日活跃宝箱得",
+          "account": "保卫向日葵官方",
+          "reads": "1w+",
+          "likes": 42,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 3,
+          "title": "活动抢先看丨足球精灵舞动热情桑巴，荷兰球圣刮起橙色风暴！",
+          "summary": "他们拥有无与伦比的想象力与创造力    也都用各自的方式重新定义了足球的魅力！    一位是独一无二的足球精灵\n灵动华丽的桑巴舞步，永远灿烂的爽朗笑容\n让足球在他脚下回归最纯粹的快乐与自由！    另一位是推动足球战术革新的荷兰飞人\n将“全",
+          "account": "实况足球",
+          "reads": "9w+",
+          "likes": 264,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 4,
+          "title": "原来哈兰德长得像他爷爷",
+          "summary": "很少看足球比赛的我，最近被这个搞笑的铁憨憨哈兰德给深深吸引住了，不仅有他在球场上的各种搞笑画面，还有他那憨憨的表情给吸引住了，所以我特意去查看了他兄弟姐妹的相片，他们个个都是帅哥美女，除了他以外哈哈，直到我看见他爷爷的照片后，才知道是隔代遗",
+          "account": "多肉看客",
+          "reads": "3w+",
+          "likes": 50,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 5,
+          "title": "关于2026江苏省城市足球联赛第十二周比赛预约购票的公告",
+          "summary": "公   告                                                                                                                   ",
+          "account": "江苏省城市足球联赛",
+          "reads": "4w+",
+          "likes": 82,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 6,
+          "title": "乌拉圭耻辱出局，贝尔萨是最大罪魁？",
+          "summary": "70岁高龄的贝尔萨转身离开，留给乌拉圭足球的是一片废墟。",
+          "account": "足球报",
+          "reads": "1w+",
+          "likes": 123,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 7,
+          "title": "备战世界杯！中国U-17国家男子足球队2026年第四期集训名单公布",
+          "summary": "中国U-17男足定于2026年6月30日至7月12日组织集训并参加银川国际青年足球锦标赛。",
+          "account": "足球中国",
+          "reads": "4w+",
+          "likes": 388,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 8,
+          "title": "龙珠全员集结世界杯！鸟山明亲临现场，这届球赛谁敢吹黑哨？",
+          "summary": "“龙珠世界杯”特别报道：比元气弹还刺激的场边大戏！各位观众朋友，欢迎收看第9999届“全王杯”宇宙超级足球赛！",
+          "account": "夜阑卧听枫吹语",
+          "reads": "1w+",
+          "likes": 16,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 9,
+          "title": "韩国苦等2天，终于有人拉了他们一把！",
+          "summary": "韩国苦等2天，终于有人拉了他们一把！随着世界杯H组乌拉圭0:1不敌西班牙，佛得角0:0沙特，韩国队首次盼到出现小组第三成绩比自己差的情况。",
+          "account": "将我",
+          "reads": "7w+",
+          "likes": 32,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        },
+        {
+          "id": 10,
+          "title": "美加墨世界杯16强最新确定对阵",
+          "summary": "牵动人心的美加墨世界杯",
+          "account": "生活感悟之东拉西扯",
+          "reads": "1w+",
+          "likes": 39,
+          "data_score": 100,
+          "pub_time": "2026-06-27",
+          "_recency_score": 80
+        }
+      ],
+      "_standings": {},
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-06-28 15:59:11",
+  "last_batch": "evening",
+  "last_updated": "2026-06-28 19:24:17",
   "micro_headlines": [
     {
-      "content": "格子军团又硬起来了！加纳可不是软柿子，克罗地亚这2-1拿得漂亮，中场控制力还是在线。加纳也拼到最后一刻，一个球的差距真就是世界杯的残酷。莫德里奇老当益壮，但年轻人也站出来了！",
+      "content": "比利时这是把新西兰当成了热身赛靶子啊！5-1，简直是一场惨案。新西兰后防线被丁丁和卢卡库轮番爆锤，毫无还手之力。世界杯新军交学费可以理解，但这学费也太贵了。比利时状态火热，夺冠热门实至名归！ #世界杯 #比利时狂胜",
       "tags": [
         "#世界杯",
-        "#克罗地亚",
-        "#加纳"
+        "#比利时狂胜"
       ],
-      "match": "Croatia 2-1 Ghana"
+      "match": "New Zealand vs Belgium"
     },
     {
-      "content": "刺激！阿尔及利亚和奥地利这3-3真是过山车，谁防守谁孙子！6个进球，你来我往不带停的。阿尔及利亚最后扳平有点运气，但奥地利三度领先都没守住，这后防得好好反思啊。世界杯踢成这样才叫值回票价！",
+      "content": "3-3！阿尔及利亚和奥地利联手奉献了一场进球大战，看得我血压飙升！双方你追我赶，最后时刻还在拼刺刀，这才是世界杯该有的激情！虽然没分出胜负，但过程绝对过瘾。非洲雄狮和奥地利硬汉都值得掌声！ #世界杯 #进球大战",
       "tags": [
         "#世界杯",
-        "#阿尔及利亚",
-        "#奥地利"
+        "#进球大战"
       ],
-      "match": "Algeria 3-3 Austria"
+      "match": "Algeria vs Austria"
     }
   ]
 }
