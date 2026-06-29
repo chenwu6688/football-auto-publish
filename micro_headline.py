@@ -26,6 +26,55 @@ TOUTIAO_PUBLISH = "https://mp.toutiao.com/profile_v4/graphic/publish"
 
 # --- Content Generation ---
 
+# 微头条幻觉检测模式（与 orchestrator.py check_data_hallucination 保持一致）
+_MICRO_HALLUCINATION_PATTERNS = [
+    # Technical stats — NEVER in match_data
+    (r'\d+脚射门', '射门数'), (r'\d+次射门', '射门次数'),
+    (r'\d+射正', '射正数'), (r'\d+%控球', '控球率'),
+    (r'\d+传球', '传球数'), (r'\d+角球', '角球数'),
+    (r'\d+犯规', '犯规数'), (r'\d+张[黄红]牌', '牌数'),
+    (r'\d+次扑救', '扑救数'), (r'\d+越位', '越位数'),
+    # Player performance — NEVER in match_data (unless goals field populated)
+    (r'帽子戏法', '帽子戏法'), (r'梅开二度', '梅开二度'),
+    (r'独造\d+球', '独造进球'), (r'大四喜', '大四喜'),
+    (r'连过\d+人', '连过人数'),
+    # Time fabrications — NEVER in match_data
+    (r'第\d+分钟', '进球时间'),
+    (r'补时第\d+分钟', '补时时间'),
+    (r'加时赛第\d+分钟', '加时时间'),
+    # Event fabrications — NEVER in match_data
+    (r'点球[破得打罚命中进]', '点球事件'),
+    (r'[绝]杀', '绝杀'),
+    (r'红牌', '红牌事件'),
+]
+
+
+def _check_micro_headline_safe(content, match_data):
+    """Check micro-headline for fabricated data. Returns (safe, reason)."""
+    if not content:
+        return False, "内容为空"
+
+    for pattern, desc in _MICRO_HALLUCINATION_PATTERNS:
+        try:
+            if re.search(pattern, content):
+                return False, f"检测到编造: {desc}"
+        except re.error:
+            continue
+
+    # data_confidence conflict check: verify no conflict-score matches mentioned
+    all_fixtures = match_data.get("all_fixtures", []) if isinstance(match_data, dict) else []
+    for m in all_fixtures:
+        if m.get("data_confidence") == "conflict":
+            home = m.get("home_team", "")
+            away = m.get("away_team", "")
+            for score_sep in [r'\s+\d+[:\-]\d+\s+', r'\s+\d+比\d+\s+']:
+                sp = re.escape(home) + score_sep + re.escape(away)
+                if re.search(sp, content):
+                    return False, f"使用了冲突比分: {home} vs {away}"
+
+    return True, ""
+
+
 def generate_micro_headlines(match_data, count=2):
     """从比赛数据生成微头条短内容。
 
@@ -146,6 +195,11 @@ def generate_micro_headlines(match_data, count=2):
             for item in result[:count]:
                 content = item.get("content", "").strip()
                 if 50 <= len(content) <= 500:
+                    # 🔴 Safety check: reject fabricated data
+                    safe, reason = _check_micro_headline_safe(content, match_data)
+                    if not safe:
+                        print(f"   ⛔ 微头条因{reason}被拒绝: {content[:60]}...")
+                        continue
                     validated.append({
                         "content": content,
                         "tags": item.get("tags", []),
