@@ -70,15 +70,42 @@ def generate_micro_headlines(match_data, count=2):
 
     matches_text = "\n".join(match_lines)
 
+    # Check for data_confidence conflicts (unreliable API scores)
+    confidence_warnings = ""
+    conflict_matches = []
+    for m in match_data["all_fixtures"]:
+        if m.get("data_confidence") == "conflict":
+            home = m.get("home_team", "")
+            away = m.get("away_team", "")
+            conflict_matches.append(f"{home} vs {away}")
+    if conflict_matches:
+        confidence_warnings = f"""
+⚠️ ⚠️ ⚠️ 数据可信度警告：
+以下比赛比分存在冲突（API与Wikipedia不一致），比分不可靠：
+{', '.join(conflict_matches[:3])}
+🔴 严禁在微头条中使用这些比赛的具体比分！只能写"XX队与XX队进行了比赛"等笼统描述。"""
+
     prompt = f"""你是头条足球博主"球评人老六"。今天是 {now.strftime('%Y-%m-%d')}，以下是今日比赛结果。
 
 {matches_text}
+{confidence_warnings}
+⚠️ 数据局限性声明（必读）：
+- 素材只包含: 球队名、比分、联赛名、开球时间
+- 不包含: 射门数、射正数、控球率、传球数、进球球员、助攻球员、进球时间、红黄牌等任何技术统计和球员数据
+- 你可以写: 素材中明确给出的比分、球队名、联赛名，以及你的观点
+- 严禁编造: 素材中没有的数据一律不写，宁可写得平淡
+
+⚠️ 来源标注（必读）：
+- 比分必须来自素材数据，素材里没有的比分不能写
+- 提及球员表现（如"帽子戏法""绝杀"）必须有数据支撑，否则禁止写
+- 推测性内容必须写"老六觉得""看起来"而非断言
 
 请从中选 2 场比赛，每场比赛写 1 条微头条（100-200 字）。
 微头条要求：
 - 短平快：像比赛结束后跟球友说的第一句话，一句点出最精彩/争议的瞬间
 - 有态度：可以激动、可以吐槽、可以有立场
 - ⚠️ 绝对禁止编造：只写素材里明确有的比分、赛事、球队名。不能写"凌晨X点""半夜"等虚构时间，不能编造球员言论/更衣室故事/具体进球过程。不确定的一律不写。
+- 🔴 球员断言铁律：素材里没有进球球员/助攻球员数据，绝对不能写"XXX梅开二度""XXX绝杀""XXX独造X球"等涉及具体球员表现的断言
 - 接地气：让读者感觉"说到了我心坎上"
 - 每条末尾加 1-2 个相关话题标签（如 #世界杯 #阿根廷）
 
