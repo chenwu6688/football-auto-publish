@@ -455,8 +455,11 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 
     prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 {topic_count} 个有爆款潜力的话题。
 
-比赛数据：
+比赛数据（只显示已结束的比赛FT/AET/PEN，进行中的比赛显示为"vs"）：
 {"".join(lines)}
+
+⚠️ 注意：只显示了已结束的比赛(FT/AET/PEN)。进行中的比赛显示为"vs"，不要选作选题。
+
 {gzh_text}
 {history_text}
 {cross_batch_text}
@@ -538,7 +541,107 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
+
+    # Check topic material sufficiency — reject topics that match_data can't support
+    topics = _check_topic_material_sufficiency(topics, match_data)
+
     return topics
+
+
+def _check_topic_material_sufficiency(topics, match_data):
+    """Filter out topics that match_data cannot support with enough facts.
+
+    match_data only contains: team names, scores, league name, status, utc_date.
+    If a topic requires details beyond these (e.g., goalscorer names, possession stats),
+    it will inevitably lead to hallucination.
+
+    Strategy: extract team names from topic title/keywords, check if those teams
+    appear in match_data with a FINISHED score. If a topic references teams not
+    in match_data, or references match_data teams but the topic angle requires
+    details beyond basic scores, mark it for review.
+
+    Returns filtered list of topics.
+    """
+    if not topics:
+        return topics
+
+    # Collect all teams in today's match_data that have FINISHED scores
+    finished_teams = set()
+    finished_matches = {}  # (home, away) -> fixture dict
+    all_fixtures = match_data.get("all_fixtures", [])
+    for m in all_fixtures:
+        status = m.get("status", "")
+        if status in ("FT", "AET", "PEN"):
+            home = m.get("home_team", "").lower()
+            away = m.get("away_team", "").lower()
+            if home:
+                finished_teams.add(home)
+            if away:
+                finished_teams.add(away)
+            finished_matches[(m.get("home_team", "").lower(), m.get("away_team", "").lower())] = m
+            finished_matches[(away, home)] = m  # reverse lookup
+
+    # Collect all known team names (CN + EN) from constants
+    from constants import WIKI_TEAMS
+    all_known_teams = set()
+    for team in WIKI_TEAMS:
+        all_known_teams.add(team.lower())
+        # Also add common English names
+        eng_names = {
+            "阿森纳": "arsenal", "曼城": "manchester city", "利物浦": "liverpool",
+            "曼联": "manchester united", "切尔西": "chelsea", "热刺": "tottenham",
+            "巴萨": "barcelona", "皇马": "real madrid", "马竞": "atletico madrid",
+            "拜仁": "bayern munich", "多特": "borussia dortmund", "国米": "inter milan",
+            "AC米兰": "ac milan", "尤文": "juventus", "巴黎": "psg",
+        }
+        if team in eng_names:
+            all_known_teams.add(eng_names[team])
+
+    filtered = []
+    dropped = []
+    for t in topics:
+        title = t.get("title", "")
+        angle = t.get("angle", "")
+        text = (title + " " + angle).lower()
+
+        # Check: does this topic reference teams we have finished data for?
+        has_finished_team = any(team in text for team in finished_teams)
+        has_known_team = any(team in text for team in all_known_teams)
+
+        if has_finished_team:
+            # Good — this topic has finished match data to support it
+            filtered.append(t)
+        elif has_known_team:
+            # Has a known team but no finished match data for it
+            # This is risky — the LLM will have to hallucinate match details
+            # Check if the topic is about transfer/gossip (no match data needed)
+            non_match_types = ["转会资讯", "八卦趣事"]
+            ct = t.get("content_type", "")
+            if ct in non_match_types:
+                # OK — transfer/gossip doesn't need match data
+                filtered.append(t)
+            else:
+                # Match analysis topic without match data → drop
+                dropped.append(t)
+                print(f"   🗑️ 素材不足: 丢弃「{title[:40]}」— 素材中无该球队已结束比赛数据")
+        else:
+            # No known teams referenced — could be a general topic
+            # Check if it mentions specific match details (scores, goalscorers, etc.)
+            has_match_details = any(kw in text for kw in ["点球", "绝杀", "帽子戏法", "进球", "射门", "控球", "红牌", "黄牌"])
+            if has_match_details:
+                # Topic mentions match details but no teams in data → likely hallucination
+                dropped.append(t)
+                print(f"   🗑️ 素材不足: 丢弃「{title[:40]}」— 提及比赛细节但无对应数据")
+            else:
+                # General topic without match details — can keep
+                filtered.append(t)
+
+    if dropped:
+        print(f"   📉 素材充足性检查: {len(topics)} → {len(filtered)} 个话题 (丢弃 {len(dropped)} 个)")
+    else:
+        print(f"   ✅ 素材充足性检查: 全部 {len(topics)} 个话题素材充足")
+
+    return filtered
 
 
 def select_evening_columns(gzh_articles, match_data, season_label=""):
@@ -829,7 +932,50 @@ def collect_real_gzh_topics(date_str, topic_history=None, topic_preference="auto
     return topics, raw_articles
 
 
-def generate_article(topic, match_context, index, gzh_articles=None, temperature=0.8, retry_hint=""):
+
+def _build_data_confidence_block(match_context):
+    """Build a prompt block about data reliability for matches.
+
+    Scans fixture data for data_confidence fields set by Wikipedia cross-validation.
+    Returns a string that tells the LLM which match scores are reliable and which aren't.
+    Returns empty string if no match_context or no confidence issues.
+    """
+    if not match_context:
+        return ""
+
+    all_fixtures = match_context.get("all_fixtures", [])
+    if not all_fixtures:
+        return ""
+
+    conflicts = []
+    mediums = []
+    for f in all_fixtures:
+        conf = f.get("data_confidence", "")
+        home = f.get("home_team", "")
+        away = f.get("away_team", "")
+        if conf == "conflict":
+            conflicts.append(f"{home} vs {away}")
+        elif conf == "medium":
+            mediums.append(f"{home} vs {away}")
+
+    blocks = []
+    if conflicts:
+        conflicts_str = "、".join(conflicts[:5])
+        blocks.append(f"""⚠️ ⚠️ ⚠️ 数据可信度警告（必读）：
+以下比赛的数据来源存在比分冲突：{conflicts_str}
+这些比赛的比分通过Wikipedia交叉验证后发现与API数据不符。
+🔴 严禁在文章中使用这些比赛的具体比分。如果必须提及这些比赛，只能写「XX队与XX队进行了比赛」这样的笼统描述，不能说「X-X战胜/击败」。
+🔴 严禁将API中的比分当作事实写入文章——这些比分已被证明不准确。""")
+
+    if mediums and not conflicts:
+        blocks.append("""📊 数据来源说明：部分比赛比分未经第三方验证，使用时建议避免过度强调具体比分数字的精确性。""")
+
+    if blocks:
+        return "\n".join(blocks) + "\n\n"
+    return ""
+
+
+def generate_article(topic, match_context, index, gzh_articles=None, temperature=0.5, retry_hint=""):
     content_type = topic.get("content_type", "比赛复盘")
     print(f"\n[3.{index}] [{content_type}] {topic['title'][:40]}...")
 
@@ -907,6 +1053,9 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 ⚠️ 上次生成失败！问题：{retry_hint}
 这次必须修正上述所有问题。正文至少{word_min}字，至少2个##小标题，文末至少2个配图标记。"""
 
+    # Data confidence block: warn LLM about unreliable match scores
+    confidence_block = _build_data_confidence_block(match_context)
+
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。今天的任务是基于真实数据写一篇有观点的足球文章。
 {column_block}
 今日话题：{topic['title']}
@@ -914,7 +1063,28 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
 内容类型：{content_type}
 目标情绪：{topic.get('target_emotion', '好奇')}
 
-你的素材（只能使用以下数据中的事实）：
+⚠️ 数据局限性声明（必读，违反即作废）：
+今天的 match_data 只包含以下字段：
+- 比赛日期(date)
+- 联赛名(league)
+- 主队名(home_team) / 客队名(away_team)
+- 最终比分(home_score / away_score) — 仅当比赛结束时才有值
+- 比赛状态(status): FT=已结束, AET=加时赛结束, PEN=点球大战结束, IN_PLAY=进行中, HT=半场, PRE=未开始
+- 开球时间(utc_date)
+
+❌ match_data 不包含以下数据（严禁编造，违者作废）：
+- 射门数、射正数、控球率、传球成功率、角球数、犯规数等任何技术统计
+- 进球球员、进球时间、助攻球员、红黄牌
+- 球员上场/没上场信息、球员个人表现
+- 任何不在上述字段中的细节
+
+✅ 你可以写的内容：
+- 素材中明确给出的比分、球队名、联赛名、比赛状态
+- 你的观点、分析、类比、预测（必须标注为推测，如"从战术逻辑上看"）
+
+🚫 如果素材中没有某个数据，不要写。宁可写得平淡，不能胡编。
+
+{confidence_block}你的素材（只能使用以下数据中的事实）：
 {context_str[:3000]}
 {gzh_text}
 {retry_block}
@@ -966,7 +1136,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
     return article
 
 
-def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
+def generate_gossip_article(topic, index, temperature=0.5, retry_hint=""):
     content_type = topic.get("content_type", "趋势解读")
     print(f"\n[3.{index}] [跨源-{content_type}] {topic['title'][:40]}...")
 
@@ -1039,6 +1209,12 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 同期其他热点（了解语境）：
 {bg_text}
 
+⚠️ 数据局限性声明（必读）：
+match_data 只包含比赛的基本信息（球队名、比分、联赛名、状态）。
+❌ 不包含射门数、射正数、控球率、传球数、进球球员、进球时间等任何技术统计。
+✅ 你可以写的内容：素材中明确给出的比分、球队名、联赛名，以及你的观点和分析。
+🚫 如果素材中没有某个数据，不要写。宁可写得平淡，不能胡编。
+
 内容类型：{content_type}
 切入角度：{topic.get('angle', '独特角度')}
 {retry_block}
@@ -1051,6 +1227,28 @@ def generate_gossip_article(topic, index, temperature=0.8, retry_hint=""):
 5. **每个关键数字配人话翻译**：不能裸奔数据。转会费→"比市场价溢价了30%，这是恐慌性引援"。阅读量→"说明球迷对这事有多饥渴"。
 6. **开篇必须反套路**：禁止"近日XX引发热议""据XX报道"。用一个场景、一个反问、一个数据反差开头。
 7. **至少1处跨界类比**：行业类比、历史类比、生活类比。
+
+⚠️ ⚠️ ⚠️ 来源标注铁律（违反即违规）：
+所有非比赛数据类的信息，必须标注可靠程度：
+
+🔴 球员具体表现（"独造三球""帽子戏法"等）：
+- 如果来自公众号报道，必须写"据XX报道""据文章称"
+- 禁止直接写"姆巴佩独造三球"这种确信断言
+- 正确示例："据媒体报道，姆巴佩本场比赛表现极为出色"
+
+🔴 转会传闻、合同金额、球员纠纷：
+- 必须标注来源："据XX记者报道""据外媒透露""传闻称"
+- 禁止写成确认事实："据ESPN报道，姆巴佩转会费或达1.8亿"
+
+🔴 比分和比赛结果（非官方数据源）：
+- 必须写"据媒体报道""据公众号文章引用"
+- 不能直接写"法国0-1塞内加尔"这种确信表述
+
+🔴 球员关系、更衣室矛盾、情绪解读：
+- 必须写"有球迷解读""据传闻"或标注"老六推测"
+- 禁止包装成确凿事实
+
+📌 简单规则：数据来源的事实→直接写。公众号来源→标注"据媒体报道"。推测→标注"老六觉得"。
 
 写作风格：
 {style}
@@ -1154,6 +1352,81 @@ def validate_article(article, index, is_tieba=False, min_words=500):
     return len(issues) == 0, issues, max(score, 0)
 
 
+def _fact_check_article(article, match_data, gzh_articles=None):
+    """Use a lightweight LLM call to fact-check the article against match_data.
+
+    Sends the article content + match_data to a fast LLM model and asks it to
+    verify each factual claim. Returns {"passed": bool, "issue": str}.
+
+    This is a second line of defense after the regex-based check_data_hallucination().
+    The regex check catches obvious hallucinations (射门数, 控球率, etc.) but the
+    LLM can catch subtler issues like wrong scores, fictional events, etc.
+    """
+    try:
+        content = article.get("content", "")
+        title = article.get("title", "")
+        match_text = json.dumps(match_data, ensure_ascii=False, indent=2)[:2000]
+
+        # Scan for data_confidence conflicts
+        conflict_matches = []
+        all_fixtures = match_data.get("all_fixtures", []) if isinstance(match_data, dict) else []
+        for f in all_fixtures:
+            if f.get("data_confidence") == "conflict":
+                home = f.get("home_team", "")
+                away = f.get("away_team", "")
+                conflict_matches.append(f"{home} vs {away}")
+
+        confidence_warning = ""
+        if conflict_matches:
+            confidence_warning = f"""
+⚠️ 重要：以下比赛的数据来源存在比分冲突（API与Wikipedia数据不一致），这些比赛的比分不可靠：
+{', '.join(conflict_matches[:5])}
+如文章使用了上述比赛的比分，必须标记为"比分错误": 使用了不可靠的数据来源。"""
+
+        prompt = f"""你是一个严格的事实核查员。请检查下面这篇文章中的每个事实陈述是否能在比赛数据中找到依据。
+
+比赛数据：
+{match_text}
+{confidence_warning}
+文章内容：
+标题：{title}
+正文：{content[:2000]}
+
+核查规则（逐条执行）：
+1. 比赛数据只包含：球队名、比分、联赛名、比赛状态、开球时间
+2. 如果文章提到了比赛数据中不存在的信息（如射门数、射正数、控球率、进球球员、进球时间、红黄牌等），标记为"数据幻觉"
+3. 如果文章的比分与比赛数据不一致，标记为"比分错误"
+4. 如果文章提到了不存在的比赛（数据中没有的球队对），标记为"虚构比赛"
+5. ⚠️ 如果文章使用了 data_confidence=conflict 的比赛的具体比分（例如写了"A队X-B队Y战胜"），标记为"使用了不可靠数据"
+6. ⚠️ 如果文章出现了"独造X球""帽子戏法""梅开二度""绝杀"等球员表现断言，且未标注来源（"据媒体报道""据公众号称"等），标记为"球员断言未标注来源"
+7. ⚠️ 如果文章将推测/传闻/解读性内容包装成事实（如"眼神骗不了人""这事没得洗"等），标记为"推测包装成事实"
+8. 如果文章的所有事实都能在数据中找到依据，且推测性内容已标注，标记为"通过"
+
+只输出JSON：
+{{"passed": true/false, "issue": "具体问题描述，如果没有问题则为空字符串"}}"""
+
+        messages = [
+            {"role": "system", "content": "你是一个严格的事实核查员。只输出JSON。"},
+            {"role": "user", "content": prompt}
+        ]
+
+        response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash",
+                           messages, temperature=0.1, max_tokens=512)
+        result = safe_json_loads(response)
+
+        if result and isinstance(result, dict):
+            passed = result.get("passed", True)
+            issue = result.get("issue", "")
+            if not passed and issue:
+                print(f"   🔍 事实核查: {issue}")
+            return {"passed": passed, "issue": issue}
+    except Exception as e:
+        print(f"   ⚠️  事实核查异常: {e}")
+
+    # 🔴 CRITICAL: fact-check failure or error → fail-closed (assume not passed)
+    return {"passed": False, "issue": "事实核查异常"}
+
+
 def check_content_references_data(article, match_data, gzh_articles=None):
     """Sanity check: verify article content references at least one real data source.
 
@@ -1217,6 +1490,110 @@ def check_content_references_data(article, match_data, gzh_articles=None):
             return True, [entity[:30]], ""
 
     return False, [], "文章中未检测到比赛球队/球员或今日数据源实体"
+
+
+def check_data_hallucination(article, match_data):
+    """Detect if article contains data NOT present in match_data.
+
+    match_data only contains: team names, scores, league name, status, utc_date.
+    Any other numbers (shots, possession, passes, goalscorers, etc.) are hallucinations.
+
+    Returns (passes_check, hallucinated_items, warning).
+    """
+    content = article.get("content", "") + article.get("title", "")
+    if not content:
+        return True, [], ""
+
+    # Collect all known numeric data from match_data
+    known_numbers = set()
+    if match_data and match_data.get("all_fixtures"):
+        for m in match_data["all_fixtures"]:
+            hg = m.get("home_score")
+            ag = m.get("away_score")
+            if hg is not None:
+                known_numbers.add(str(hg))
+            if ag is not None:
+                known_numbers.add(str(ag))
+
+    # Known non-numeric entities from match_data
+    known_entities = set()
+    if match_data and match_data.get("all_fixtures"):
+        for m in match_data["all_fixtures"]:
+            home = m.get("home_team", "").lower()
+            away = m.get("away_team", "").lower()
+            if home:
+                known_entities.add(home)
+            if away:
+                known_entities.add(away)
+
+    # Patterns that indicate hallucinated data (NOT in match_data)
+    # match_data ONLY contains: team names, scores (X-Y format), league name, status, utc_date
+    # ALL of the following patterns indicate fabricated data because match_data never has these.
+    hallucination_patterns = [
+        # Technical stats — NEVER in match_data
+        (r'(\d+)脚射门', '射门数'),
+        (r'(\d+)次射门', '射门次数'),
+        (r'(\d+)射正', '射正数'),
+        (r'(\d+)次射正', '射正次数'),
+        (r'(\d+)%控球', '控球率'),
+        (r'控球率达(\d+)', '控球率'),
+        (r'(\d+)%的控球', '控球率'),
+        (r'(\d+)传球', '传球数'),
+        (r'(\d+)次传球', '传球次数'),
+        (r'(\d+)%传球成功率', '传球成功率'),
+        (r'(\d+)角球', '角球数'),
+        (r'(\d+)个角球', '角球个数'),
+        (r'(\d+)犯规', '犯规数'),
+        (r'(\d+)次犯规', '犯规次数'),
+        (r'(\d+)张[黄红]牌', '牌数'),
+        (r'(\d+)次扑救', '扑救数'),
+        (r'(\d+)越位', '越位数'),
+        (r'(\d+)次越位', '越位次数'),
+        (r'(\d+)次抢断', '抢断数'),
+        (r'(\d+)次拦截', '拦截数'),
+        (r'(\d+)次解围', '解围数'),
+        (r'(\d+)次威胁传球', '威胁传球'),
+        (r'(\d+)次关键传球', '关键传球'),
+        (r'(\d+)次射门', '射门次数2'),
+        (r'(\d+)次进攻', '进攻次数'),
+        (r'(\d+)次危险进攻', '危险进攻'),
+        # Player performance claims — NEVER in match_data
+        (r'帽子戏法', '帽子戏法'),
+        (r'梅开二度', '梅开二度'),
+        (r'独造(\d+)球', '独造进球'),
+        (r'独中(\d+)元', '独中多元'),
+        (r'上演帽子戏法', '上演帽子戏法'),
+        (r'大四喜', '大四喜'),
+        (r'助攻\w+(?:破门|得分)', '助攻描述'),
+        (r'连过(\d+)人', '连过人数'),
+        # Time and event fabrications — NEVER in match_data
+        (r'第(\d+)分钟', '进球时间'),
+        (r'\d+分钟[时时]', '比赛时间描述'),
+        (r'补时第(\d+)分钟', '补时时间'),
+        (r'上半场补时', '上半场补时'),
+        (r'下半场补时', '下半场补时'),
+        (r'加时赛第(\d+)分钟', '加时时间'),
+        # Player-specific claims — NEVER in match_data
+        (r'(?:被)?[一-鿿]{2,4}(?:换下|替下)', '球员替换描述'),
+        (r'(?:被)?[一-鿿]{2,4}(?:受伤|倒地|痛苦)', '球员受伤描述'),
+        # Event claims that need match_data (which doesn't have them)
+        (r'点球[破得打罚命中进]', '点球事件'),
+        (r'红牌', '红牌事件'),
+        (r'绝杀', '绝杀'),
+    ]
+
+    hallucinated = []
+    for pattern, desc in hallucination_patterns:
+        try:
+            if re.search(pattern, content):
+                hallucinated.append(desc)
+        except re.error:
+            continue  # Skip invalid patterns silently
+
+    if hallucinated:
+        return False, hallucinated, f"检测到数据幻觉: {', '.join(hallucinated)} — match_data不包含这些数据"
+
+    return True, [], ""
 
 
 def check_cross_day_duplicate(title, content, date_str):
@@ -1318,6 +1695,39 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                                 continue
                             else:
                                 pass  # Allow through with low score rather than total failure
+
+                # Data hallucination check: verify article doesn't contain fabricated data
+                if match_context:
+                    hallucination_pass, hallucinated, hallucination_warning = check_data_hallucination(art, match_context)
+                    if not hallucination_pass:
+                        print(f"   ❌ 数据幻觉检测失败: {hallucination_warning}")
+                        issues.append(hallucination_warning)
+                        score -= 30  # Heavy penalty for hallucination
+                        if score < 85:
+                            last_issues = "; ".join(issues)
+                            if attempt < max_retries:
+                                print(f"   🔄 重试 (检测到数据幻觉，禁止编造)...")
+                                continue
+                            else:
+                                # 🔴 CRITICAL: hallucinated data → must NOT publish
+                                return {}, f"数据幻觉: {hallucination_warning}"
+
+                # LLM fact-check: use a second LLM call to verify article facts against match_data
+                if match_context and score >= 85:
+                    fact_check_result = _fact_check_article(art, match_context, gzh_articles)
+                    if not fact_check_result.get("passed", True):
+                        fact_issue = f"事实核查失败: {fact_check_result.get('issue', '')}"
+                        print(f"   ❌ {fact_issue}")
+                        issues.append(fact_issue)
+                        score -= 25
+                        if score < 85:
+                            last_issues = "; ".join(issues)
+                            if attempt < max_retries:
+                                print(f"   🔄 重试 (事实核查未通过)...")
+                                continue
+                            else:
+                                # 🔴 CRITICAL: fact-check failed → must NOT publish
+                                return {}, f"事实核查: {fact_check_result.get('issue', 'unknown')}"
 
                 # Cross-day dedup check
                 if date_str:
@@ -1439,7 +1849,7 @@ def select_tieba_topics(tieba_data, topic_history=None):
     return topics
 
 
-def generate_tieba_article(topic, index, post_data, match_context=None, temperature=0.8, retry_hint=""):
+def generate_tieba_article(topic, index, post_data, match_context=None, temperature=0.5, retry_hint=""):
     """Generate a real football article inspired by a Hupu hot post.
 
     The Hupu post provides the angle and fan sentiment — it's a starting point,
@@ -1710,6 +2120,11 @@ def detect_major_events(match_data, gzh_articles=None):
             away = m.get("away_team", "")
             hg = m.get("home_score")
             ag = m.get("away_score")
+            status = m.get("status", "")
+
+            # Skip unfinished matches — don't treat in-progress data as final results
+            if status not in ("FT", "AET", "PEN"):
+                continue
 
             if hg is None or ag is None:
                 continue
@@ -1879,9 +2294,10 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
             print(f"   ❌ 最终失败: {error}")
             stats["failed"] += 1
             stats["issues"].append(f"第{i+1}篇({ct}): {error}")
+            # Don't append failed articles — they contain fabricated data
         else:
             stats["valid"] += 1
-        articles_out.append((i, art))
+            articles_out.append((i, art))
 
 
 def _run_hupu_pipeline(date_str, batch_mode, topic_history, match_data,
@@ -1989,10 +2405,11 @@ def _run_hupu_pipeline(date_str, batch_mode, topic_history, match_data,
                 print(f"   ❌ 最终失败: {error}")
                 stats["failed"] += 1
                 stats["issues"].append(f"第{t_idx}篇(虎扑): {error}")
+                # Don't append failed articles — skip this slot
             else:
                 stats["valid"] += 1
-            articles.append((len(articles), art))
-            topics.append({"title": post['title'], "content_type": f"球迷讨论-{post['team']}"})
+                articles.append((len(articles), art))
+                topics.append({"title": post['title'], "content_type": f"球迷讨论-{post['team']}"})
     except Exception as e:
         print(f"   ⚠️  虎扑数据采集/生成失败（不影响主文章）: {e}")
     return pre_downloaded
