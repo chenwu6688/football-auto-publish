@@ -1,0 +1,207 @@
+{
+  "date": "2026-06-29",
+  "generated_at": "2026-06-29T04:58:53.916559",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "克罗地亚赢了，但VAR瞎了？",
+      "path": "/home/runner/work/_temp/output/2026-06-29/article-1-克罗地亚赢了但V-ebf926.md",
+      "slug": "克罗地亚赢了但V-ebf926",
+      "tags": [
+        "VAR controversy",
+        "Croatia penalty",
+        "Modric",
+        "World Cup 2026"
+      ],
+      "keywords": [
+        "VAR controversy",
+        "Croatia penalty",
+        "Modric",
+        "World Cup 2026"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-29/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-29/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-29/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "5-1血洗新西兰！卢卡库的下一站，回豪门还是接着躺？",
+      "path": "/home/runner/work/_temp/output/2026-06-29/article-2-51血洗新西兰卢-0072aa.md",
+      "slug": "51血洗新西兰卢-0072aa",
+      "tags": [
+        "Lukaku",
+        "World Cup",
+        "Belgium",
+        "transfer",
+        "Chelsea"
+      ],
+      "keywords": [
+        "Lukaku",
+        "World Cup",
+        "Belgium",
+        "transfer",
+        "Chelsea"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-29/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "比利时5-1狂胜，新西兰被当菜切了",
+      "path": "/home/runner/work/_temp/output/2026-06-29/article-3-比利时51狂胜新-7437e2.md",
+      "slug": "比利时51狂胜新-7437e2",
+      "tags": [
+        "New Zealand",
+        "Belgium",
+        "FIFA World Cup",
+        "1-5",
+        "rout"
+      ],
+      "keywords": [
+        "New Zealand",
+        "Belgium",
+        "FIFA World Cup",
+        "1-5",
+        "rout"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-29/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-29/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-29/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "2-1！克罗地亚点球绝杀加纳，是经验还是裁判帮忙？",
+      "formula": "B",
+      "angle": "聚焦克罗地亚对加纳比赛最后阶段的点球判罚，质疑VAR使用尺度，莫德里奇老将价值与争议并存，引发球迷对裁判公正性的争论。",
+      "keywords": [
+        "Croatia",
+        "Ghana",
+        "Modric",
+        "penalty",
+        "VAR controversy"
+      ],
+      "keywords_cn": [
+        "克罗地亚",
+        "加纳",
+        "莫德里奇",
+        "点球绝杀"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "expected_heat": "S",
+      "rationale": "点球争议+老将莫德里奇+世界杯关键战，冲突感和情绪共鸣强，评论区必然两极分化，符合老六犀利人设。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "5-1！比利时刷出本届最大分差，卢卡库的下一站是哪里？",
+      "formula": "A",
+      "angle": "比利时大胜新西兰，卢卡库状态火热，但其在切尔西尴尬处境与世界杯表现形成反差，趁机分析转会可能性，制造悬念。",
+      "keywords": [
+        "Belgium",
+        "Lukaku",
+        "transfer",
+        "Chelsea",
+        "New Zealand"
+      ],
+      "keywords_cn": [
+        "比利时",
+        "卢卡库",
+        "转会",
+        "世界杯"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "expected_heat": "A",
+      "rationale": "卢卡库话题度高，大比分比赛结果有冲击力，转会猜测引发球迷讨论，时效性强且与热点比赛相关。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "New Zealand 1-5 Belgium，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-29 12:58:53",
+  "micro_headlines": [
+    {
+      "content": "比利时这是把新西兰当成了训练场？5-1的比分看着就疼！欧洲红魔进攻火力全开，新西兰后防简直筛子一样，全场被压着打。世界杯上这么悬殊的比分不多见，比利时这是给淘汰赛对手亮肌肉呢！#世界杯 #比利时",
+      "tags": [],
+      "match": "New Zealand vs Belgium"
+    },
+    {
+      "content": "3-3！这场进球大战看得我心跳加速！阿尔及利亚和奥地利你来我往，谁都不服谁。最后时刻还在互捅刀子，平局谁都不解渴，但球迷绝对过瘾！这就是世界杯的魅力，没有剧本全是意外！#世界杯 #阿尔及利亚VS奥地利",
+      "tags": [],
+      "match": "Algeria vs Austria"
+    }
+  ]
+}
