@@ -46,6 +46,7 @@ def generate_micro_headlines(match_data, count=2):
         away = m.get("away_team", "")
         league = m.get("league", "")
         utc_date = m.get("utc_date", "")
+        goals = m.get("goals", [])
 
         # Parse match time
         match_cst = ""
@@ -62,9 +63,24 @@ def generate_micro_headlines(match_data, count=2):
             score = f"{hg}-{ag}"
             total_goals = hg + ag
             tag = "⚽" * min(total_goals, 3) if total_goals >= 3 else "⚽"
-            match_lines.append(
-                f"- {match_cst}{tag} {league}: {home} {score} {away}"
-            )
+            line = f"- {match_cst}{tag} {league}: {home} {score} {away}"
+            # Add goal scorers if available (from football-data.org match detail API)
+            if goals:
+                home_goals = [g for g in goals if g.get("scorer_team") == "home"]
+                away_goals = [g for g in goals if g.get("scorer_team") == "away"]
+                if home_goals:
+                    line += "\n    " + home + "进球: " + ", ".join(f"{g['scorer_name']}({g['minute']}')" for g in home_goals[:4])
+                if away_goals:
+                    line += "\n    " + away + "进球: " + ", ".join(f"{g['scorer_name']}({g['minute']}')" for g in away_goals[:4])
+            # Data confidence marker
+            dc = m.get("data_confidence", "")
+            if dc == "high":
+                line += " [双源验证]"
+            elif dc == "conflict":
+                line += " [⚠️比分可能不准确]"
+            elif dc == "low":
+                line += " [单源数据]"
+            match_lines.append(line)
         else:
             match_lines.append(f"- {match_cst}⏳ {league}: {home} vs {away} (未开始)")
 
@@ -105,7 +121,7 @@ def generate_micro_headlines(match_data, count=2):
 - 短平快：像比赛结束后跟球友说的第一句话，一句点出最精彩/争议的瞬间
 - 有态度：可以激动、可以吐槽、可以有立场
 - ⚠️ 绝对禁止编造：只写素材里明确有的比分、赛事、球队名。不能写"凌晨X点""半夜"等虚构时间，不能编造球员言论/更衣室故事/具体进球过程。不确定的一律不写。
-- 🔴 球员断言铁律：素材里没有进球球员/助攻球员数据，绝对不能写"XXX梅开二度""XXX绝杀""XXX独造X球"等涉及具体球员表现的断言
+- 🔴 球员断言铁律：如果比赛行下方有"进球:"行（列出了进球球员），则球员进球是可信的可写。如果没有"进球:"行，说明数据中没有球员级信息，绝对不能对任何球员断言"上场/没上场/进球/没进球/梅开二度/绝杀/独造X球"
 - 接地气：让读者感觉"说到了我心坎上"
 - 每条末尾加 1-2 个相关话题标签（如 #世界杯 #阿根廷）
 
