@@ -71,13 +71,97 @@ def collect_real_matches(date_str):
         if comp in valid_comps:
             relevant.append(m)
             score = m.get("score", {}).get("fullTime", {})
-            fixture_details.append({
+            hg = score.get("home")
+            ag = score.get("away")
+            fixture = {
+                "id": m.get("id"),
                 "league": comp, "home_team": m.get("homeTeam", {}).get("name", ""),
                 "away_team": m.get("awayTeam", {}).get("name", ""),
-                "home_score": score.get("home"), "away_score": score.get("away"),
+                "home_score": hg, "away_score": ag,
                 "status": m.get("status"), "matchday": m.get("matchday"),
                 "utc_date": m.get("utcDate", ""),
-            })
+                "goals": [],  # will be filled below if available
+            }
+            fixture_details.append(fixture)
+
+    # Step 1b: Nullify scores for non-finished matches
+    # Football-data.org score.fullTime may contain placeholder or stale data
+    # for IN_PLAY/PRE matches. Only FT/AET/PEN status scores are reliable.
+    FINISHED_STATUSES = {"FT", "AET", "PEN"}
+    non_finished = 0
+    for f in fixture_details:
+        if f.get("status") not in FINISHED_STATUSES:
+            if f["home_score"] is not None or f["away_score"] is not None:
+                non_finished += 1
+            f["home_score"] = None
+            f["away_score"] = None
+    if non_finished:
+        print(f"   ⚠️ 已清除 {non_finished} 场未结束比赛的比分（状态非FT/AET/PEN）")
+
+    # Step 2: Enrich with goal scorers from match detail API (if result exists)
+    finished_matches = [f for f in fixture_details
+                        if f["home_score"] is not None or f["away_score"] is not None]
+    if finished_matches:
+        print(f"   补充进球数据 ({len(finished_matches)} 场有比分)...")
+    for f in finished_matches:
+        mid = f.get("id")
+        if not mid:
+            continue
+        try:
+            def _fetch_detail():
+                resp = requests.get(f"{FOOTBALL_DATA_BASE}/matches/{mid}",
+                                   headers=headers, timeout=15)
+                resp.raise_for_status()
+                return resp.json()
+            detail = retry(_fetch_detail, max_retries=1, base_delay=1, desc=f"match-detail({mid})")
+            raw_goals = detail.get("match", {}).get("goals", []) or detail.get("goals", [])
+            goals = []
+            for g in raw_goals:
+                scorer = g.get("scorer", {}) or {}
+                assist = g.get("assist", {}) or {}
+                goals.append({
+                    "minute": g.get("minute"),
+                    "scorer_name": scorer.get("name", ""),
+                    "scorer_team": "home" if g.get("team", {}).get("type", "") == "home" else "away",
+                    "assist_name": assist.get("name", ""),
+                    "type": g.get("type", "GOAL"),
+                })
+            if goals:
+                f["goals"] = goals
+                print(f"   ⚽ {f['home_team']} vs {f['away_team']}: {len(goals)} 粒进球")
+            time.sleep(0.6)
+        except Exception as e:
+            print(f"   ⚠️ match-detail({mid}): {e}")
+            time.sleep(0.6)
+
+    # Step 3: Cross-validate World Cup scores against Wikipedia (free, reliable)
+    wc_finished = [f for f in fixture_details
+                   if f.get("league") == "FIFA World Cup"
+                   and (f["home_score"] is not None or f["away_score"] is not None)]
+    if wc_finished:
+        print(f"   🌐 交叉验证世界比赛分 (Wikipedia)...")
+        wiki_scores = _fetch_wikipedia_wc_scores()
+        if wiki_scores:
+            for f in wc_finished:
+                key = (f["home_team"].lower(), f["away_team"].lower())
+                wiki_score = wiki_scores.get(key) or wiki_scores.get((key[1], key[0]))
+                if wiki_score:
+                    wk_h, wk_a = wiki_score
+                    if wk_h == f["home_score"] and wk_a == f["away_score"]:
+                        f["data_confidence"] = "high"  # 双源一致
+                        print(f"   ✅ {f['home_team']} vs {f['away_team']}: {f['home_score']}-{f['away_score']} (Wikipedia一致)")
+                    elif wk_h == f["away_score"] and wk_a == f["home_score"]:
+                        # 比分一致但主客队对调
+                        f["data_confidence"] = "high"
+                        print(f"   ✅ {f['home_team']} vs {f['away_team']}: {f['home_score']}-{f['away_score']} (Wikipedia一致, 主客对调)")
+                    else:
+                        f["data_confidence"] = "conflict"
+                        print(f"   ⚠️ {f['home_team']} vs {f['away_team']}: football-data={f['home_score']}-{f['away_score']} vs Wikipedia={wk_h}-{wk_a}")
+                else:
+                    f["data_confidence"] = "low"  # 单一来源
+        else:
+            for f in wc_finished:
+                f["data_confidence"] = "low"
 
     by_league = defaultdict(list)
     for f in fixture_details:
@@ -86,8 +170,83 @@ def collect_real_matches(date_str):
 
     standings = fetch_recent_standings()
 
-    return {"date": date_str, "total_matches": len(relevant),
-            "fixtures_by_league": dict(by_league), "all_fixtures": fixture_details, "standings": standings}
+    result = {"date": date_str, "total_matches": len(relevant),
+              "fixtures_by_league": dict(by_league), "all_fixtures": fixture_details, "standings": standings}
+
+    # Log source count
+    enriched = sum(1 for f in fixture_details if f.get("goals"))
+    high_conf = sum(1 for f in fixture_details if f.get("data_confidence") == "high")
+    conflicts = sum(1 for f in fixture_details if f.get("data_confidence") == "conflict")
+    if enriched:
+        print(f"   📊 数据源: football-data.org (比分{len(finished_matches)}场 + 进球{enriched}场)")
+    if high_conf:
+        print(f"   📊 双源验证通过: {high_conf}场")
+    if conflicts:
+        print(f"   ⚠️ 比分冲突(需人工核查): {conflicts}场")
+    return result
+
+
+def _fetch_wikipedia_wc_scores():
+    """Fetch 2026 World Cup match results from Wikipedia as cross-validation source.
+
+    Returns dict: {(home_team, away_team): (home_score, away_score)}
+    Team names are lowercased for matching. Handles common name variants.
+    """
+    try:
+        resp = requests.get(
+            "https://en.wikipedia.org/w/api.php",
+            params={
+                "action": "query",
+                "titles": "2026_FIFA_World_Cup",
+                "prop": "extracts",
+                "explaintext": 1,
+                "format": "json",
+            },
+            timeout=20,
+        )
+        data = resp.json()
+        pages = data.get("query", {}).get("pages", {})
+        content = ""
+        for pid, pdata in pages.items():
+            if pid != "-1":
+                content = pdata.get("extract", "")
+        if not content:
+            return None
+
+        # Normalize team name variants for matching
+        NAME_MAP = {
+            "usa": "united states", "us": "united states",
+            "korea republic": "south korea", "south korea": "korea republic",
+            "iran": "iran", "côte d'ivoire": "ivory coast",
+            "china": "china pr", "saint kitts": "st kitts",
+            "saint lucia": "st lucia", "saint vincent": "st vincent",
+        }
+
+        def norm(name):
+            n = name.lower().strip()
+            return NAME_MAP.get(n, n)
+
+        # Find score patterns in Wikipedia text: "Team A 1–2 Team B"
+        # Wikipedia uses en-dash (–) for scores
+        pattern = r"([A-Za-zÀ-ÿ' ]+?)\s*(\d+)[–-](\d+)\s*([A-Za-zÀ-ÿ' ,]+?)(?:\n|\.|;|\))"
+        results = {}
+        for m in re.finditer(pattern, content):
+            t1_raw = m.group(1).strip()
+            s1 = int(m.group(2))
+            s2 = int(m.group(3))
+            t2_raw = m.group(4).strip()
+            t1 = norm(t1_raw)
+            t2 = norm(t2_raw.rstrip(".,;)"))
+            if s1 >= 0 and s2 >= 0:
+                results[(t1, t2)] = (s1, s2)
+
+        if results:
+            print(f"   🌐 Wikipedia 解析到 {len(results)} 场比分")
+            return results
+        return None
+    except Exception as e:
+        print(f"   ⚠️ Wikipedia API error: {e}")
+        return None
 
 
 # ============================================================

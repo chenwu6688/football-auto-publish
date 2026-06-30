@@ -483,6 +483,13 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
 风格要求：像老球迷喝酒聊天一样自然，有明确立场和情绪，不骑墙、不套模板。
 避免：任何过去7天已报道过的球队/球员/话题。
 
+⚠️ 选题时效性（必读）：
+当前日期：{match_data['date']}
+- 如果选题是关于"转会传闻""某球员可能离开某队""某球队有意收购"等，必须判断该事件是否已经过时。
+- 例如：如果某球员2-3年前就被传转会且很可能已经完成了转会，不应再炒冷饭写"传闻该球员将转会"——这是过时信息。
+- ✅ 可以从"事后复盘"角度写已完成的转会（如"XX当初加盟XX后改变了什么"），但不能写"即将转会/有望加盟"等正在进行时。
+- ✅ 如果不确定该事件是否最新，写"此前有报道称"并用过去时表述。
+
 输出纯JSON数组：
 [{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "why_pick": "为什么选这个角度(20字)"}}]
 只输出JSON。"""
@@ -1136,7 +1143,7 @@ def generate_article(topic, match_context, index, gzh_articles=None, temperature
     return article
 
 
-def generate_gossip_article(topic, index, temperature=0.5, retry_hint=""):
+def generate_gossip_article(topic, index, temperature=0.5, retry_hint="", date_str=""):
     content_type = topic.get("content_type", "趋势解读")
     print(f"\n[3.{index}] [跨源-{content_type}] {topic['title'][:40]}...")
 
@@ -1214,6 +1221,13 @@ match_data 只包含比赛的基本信息（球队名、比分、联赛名、状
 ❌ 不包含射门数、射正数、控球率、传球数、进球球员、进球时间等任何技术统计。
 ✅ 你可以写的内容：素材中明确给出的比分、球队名、联赛名，以及你的观点和分析。
 🚫 如果素材中没有某个数据，不要写。宁可写得平淡，不能胡编。
+
+📅 时效性检查（必读）：
+当前日期：{date_str or "未知"}
+- 公众号素材可能是过时的历史文章。特别是转会传闻、球员去向类内容，务必判断是否已经过时。
+- ❌ 如果素材说"某球员有望转会/即将加盟/可能离队"，但该球员很可能已经完成转会（或数年前就已转会），不能将其当作新鲜话题来写。
+- ✅ 如果该事件已经尘埃落定，可以从"事后复盘"角度来写，但不能写"即将/可能/传闻"等正在进行时的表述。
+- ✅ 如果不确定该事件是否最新，在表述中加注"此前曾有传闻称"、并用过去时描述。
 
 内容类型：{content_type}
 切入角度：{topic.get('angle', '独特角度')}
@@ -1666,7 +1680,7 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                                              temperature=temp, retry_hint=last_issues)
             elif is_gossip:
                 art = generate_gossip_article(topic, index, temperature=temp,
-                                              retry_hint=last_issues)
+                                              retry_hint=last_issues, date_str=date_str)
             else:
                 art = generate_article(topic, match_context, index, gzh_articles,
                                        temperature=temp, retry_hint=last_issues)

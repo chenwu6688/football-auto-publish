@@ -61,8 +61,9 @@ def _check_micro_headline_safe(content, match_data):
         except re.error:
             continue
 
-    # data_confidence conflict check: verify no conflict-score matches mentioned
     all_fixtures = match_data.get("all_fixtures", []) if isinstance(match_data, dict) else []
+
+    # data_confidence conflict check: verify no conflict-score matches mentioned
     for m in all_fixtures:
         if m.get("data_confidence") == "conflict":
             home = m.get("home_team", "")
@@ -71,6 +72,23 @@ def _check_micro_headline_safe(content, match_data):
                 sp = re.escape(home) + score_sep + re.escape(away)
                 if re.search(sp, content):
                     return False, f"使用了冲突比分: {home} vs {away}"
+
+    # In-progress match score check: do not use scores from non-finished matches
+    FINISHED_STATUSES = {"FT", "AET", "PEN"}
+    for m in all_fixtures:
+        if m.get("status") not in FINISHED_STATUSES:
+            home = m.get("home_team", "")
+            away = m.get("away_team", "")
+            if not home or not away:
+                continue
+            # Check: does content mention BOTH team names AND a score anywhere?
+            # (The score may appear before, between, or after the team names,
+            # e.g. "荷兰跟摩洛哥踢了个0-0" or "荷兰0-0摩洛哥")
+            has_home = home.lower() in content.lower()
+            has_away = away.lower() in content.lower()
+            has_score = bool(re.search(r'\d+[:\-]\d+', content))
+            if has_home and has_away and has_score:
+                return False, f"使用了进行中比赛比分: {home} vs {away}（status={m.get('status')}）"
 
     return True, ""
 
