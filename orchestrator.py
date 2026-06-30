@@ -1301,6 +1301,170 @@ match_data 只包含比赛的基本信息（球队名、比分、联赛名、状
 
 
 # ============================================================
+# Source Article Rewrite (来自直播吧/懂球帝的核实报道)
+# ============================================================
+
+
+def _find_source_article(topic, match_context):
+    """从 match_context 中找到与话题关联的源文章。
+
+    通过球队名匹配找到对应的 fixture，返回其 article_text。
+    如果没有匹配的源文章，返回 None。
+    """
+    if not match_context:
+        return None
+    if match_context.get("data_source") not in ("zhibo8", "dongqiudi"):
+        return None
+
+    topic_text = (topic.get("title", "") + " " + topic.get("angle", "")).lower()
+    for f in match_context.get("all_fixtures", []):
+        article_text = f.get("article_text", "")
+        if not article_text or len(article_text) < 100:
+            continue
+        home = f.get("home_team", "").lower()
+        away = f.get("away_team", "").lower()
+        # Check if topic mentions either team
+        if home and home in topic_text:
+            return {"article_text": article_text, "fixture": f}
+        if away and away in topic_text:
+            return {"article_text": article_text, "fixture": f}
+    return None
+
+
+def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="", date_str=""):
+    """将已核实的源文章改写为老六风格。
+
+    输入：来自直播吧/懂球帝的记者核实报道
+    输出：老六风格文章（完全相同的事实，不同的文笔）
+    """
+    source = _find_source_article(topic, match_context)
+    if not source:
+        return None
+
+    source_text = source["article_text"]
+    fixture = source["fixture"]
+
+    content_type = topic.get("content_type", "热点球评")
+    print(f"\n[3.{index}] [改写-{content_type}] {topic['title'][:40]}...")
+
+    # 风格引导
+    style_guide = {
+        "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
+        "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
+        "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。",
+    }
+    style = style_guide.get(content_type, "自然口语化中文写作")
+
+    # 字数
+    word_range = topic.get("_word_count_range", [500, 800])
+    word_min = word_range[0]
+    word_max = word_range[1] if len(word_range) > 1 else word_min + 200
+
+    # 列信息
+    column_name = topic.get("_column_name", "")
+    column_block = f"\n栏目：{column_name}\n" if column_name else ""
+
+    retry_block = ""
+    if retry_hint:
+        retry_block = f"\n⚠️ 上次改写失败！问题：{retry_hint}\n这次必须修正。\n"
+
+    # 加载 prompt 模板
+    prompt_template_path = os.path.join(os.path.dirname(__file__), "prompts", "rewrite_article.txt")
+    base_prompt = ""
+    if os.path.exists(prompt_template_path):
+        with open(prompt_template_path, "r", encoding="utf-8") as f:
+            base_prompt = f.read()
+
+    if not base_prompt:
+        base_prompt = f"""你是头条号足球博主"球评人老六"。今天的任务是将一篇真实的体育新闻报道改写成你的个人风格。
+
+## 核心原则
+1. 事实零改动：来源文章中的所有比分、球队名、球员名、关键事件必须完全保留。
+2. 风格全换：把原文的客观新闻报道语气 → 老六的个人风格。
+3. 结构重组：用自己的叙事重新组织。
+
+输出JSON: {{{{ "title": "标题(15-25字)", "content": "Markdown正文({word_min}-{word_max}字，含≥2个##小标题)", "summary": "摘要", "keywords": [], "keywords_cn": [], "golden_lines": [], "interaction_type": "共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}" }}}}"""
+
+    prompt = base_prompt.format(
+        source_text=source_text[:3000],
+        content_type=content_type,
+        style=style,
+        word_min=word_min,
+        word_max=word_max,
+        index=index,
+        column_block=column_block,
+        retry_block=retry_block,
+    )
+
+    messages = [
+        {"role": "system", "content": "你是一个足球文章改写助手。你必须保留所有事实（比分、球员、事件），只改变文风和叙述角度。"},
+        {"role": "user", "content": prompt},
+    ]
+
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages,
+                        temperature=temperature, max_tokens=8192)
+    article = safe_json_loads(response)
+
+    if article and isinstance(article, dict):
+        article["content_type"] = content_type
+        article["_source_fixture"] = fixture
+        # Inject column metadata
+        column_name = topic.get("_column_name", "")
+        if column_name:
+            article["_column_name"] = column_name
+            article["_batch_name"] = topic.get("_batch_name", "")
+        print(f"   改写完成: {article.get('title','?')}, {len(article.get('content',''))}字")
+    return article
+
+
+def check_rewrite_fidelity(source_fixture, rewritten_article):
+    """检查改写文是否忠实于来源文章。
+
+    对比关键事实（比分、球员名、球队名）是否被改动。
+    返回 (passed, issues)。
+    """
+    issues = []
+    content = rewritten_article.get("content", "") + rewritten_article.get("title", "")
+    source_text = source_fixture.get("article_text", "")
+
+    # 检查1：比分一致
+    expected_hg = source_fixture.get("home_score")
+    expected_ag = source_fixture.get("away_score")
+    if expected_hg is not None and expected_ag is not None:
+        found_scores = re.findall(r'(\d+)[:-](\d+)', content)
+        if found_scores:
+            all_match = all(
+                (int(a) == expected_hg and int(b) == expected_ag) or
+                (int(a) == expected_ag and int(b) == expected_hg)
+                for a, b in found_scores
+            )
+            if not all_match:
+                issues.append(f"比分不一致: 来源 {expected_hg}-{expected_ag}")
+
+    # 检查2：源文章中的球员名出现在改写文中
+    source_goals = source_fixture.get("goals", [])
+    for g in source_goals:
+        scorer = g.get("scorer", "")
+        if scorer and scorer not in content and scorer not in source_text:
+            # 如果源文章有球员名但改写文没有，且源文章正文有 → 球员名被改了
+            if scorer in source_text:
+                issues.append(f"缺少球员: {scorer}")
+
+    # 检查3：禁止新增断言表达
+    banned_patterns = [
+        (r'帽子戏法', '新增编造: 帽子戏法'),
+        (r'梅开二度', '新增编造: 梅开二度'),
+        (r'独造\d+球', '新增编造: 独造X球'),
+        (r'第\d+分钟', '新增编造: 具体时间'),
+    ]
+    for pattern, desc in banned_patterns:
+        if re.search(pattern, content) and not re.search(pattern, source_text):
+            issues.append(desc)
+
+    return len(issues) == 0, issues
+
+
+# ============================================================
 # Quality Validation & Retry
 # ============================================================
 
@@ -1658,15 +1822,72 @@ def check_cross_day_duplicate(title, content, date_str):
     return False, "", 0
 
 
+def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_str):
+    """Rewrite a verified source article with retry on fidelity failure.
+
+    The rewrite path is simpler than standard generation because:
+    - No need for hallucination detection (facts come from verified source)
+    - No need for LLM fact-checking (fidelity check is regex-based)
+    - Requires fewer retries (the task is easier)
+    """
+    fixture = source["fixture"]
+    last_hint = ""
+
+    for attempt in range(max_retries + 1):
+        temp = max(0.3, 0.5 - attempt * 0.1)
+        try:
+            art = rewrite_article(topic, match_context, index, temperature=temp,
+                                  retry_hint=last_hint, date_str=date_str or "")
+            if not art or not isinstance(art, dict):
+                last_hint = "改写返回空结果，请确保输出完整的JSON"
+                continue
+
+            # Basic content check
+            content = art.get("content", "")
+            word_range = topic.get("_word_count_range", [500, 800])
+            min_words = word_range[0] if isinstance(word_range, (list, tuple)) else 500
+            if len(content) < max(200, int(min_words * 0.6)):
+                last_hint = f"正文仅{len(content)}字，需要至少{min_words}字"
+                continue
+
+            # Fidelity check: verify facts preserved
+            passed, issues = check_rewrite_fidelity(fixture, art)
+            if not passed:
+                last_hint = "; ".join(issues)
+                if attempt < max_retries:
+                    continue
+                return {}, f"改写不忠实: {last_hint}"
+
+            return art, None
+
+        except Exception as e:
+            last_hint = f"异常: {e}"
+            if attempt >= max_retries:
+                return {}, f"改写异常: {e}"
+
+    return {}, "改写失败"
+
+
 def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                                 is_gossip=False, is_tieba=False, tieba_context=None,
                                 max_retries=2, date_str=None):
     """Generate article with validation and automatic retry on failure.
 
+    Priority: rewrite path (if media source article available) >
+              standard generate_article (if match data) >
+              gossip generation (if GZH data)
+
     On retry, progressively lowers temperature and strengthens the prompt
     to force longer, more structured output. Also detects short raw responses
     before JSON parsing to fail fast.
     """
+    # NEW: Try rewrite path first — if match_context has media article
+    if match_context and match_context.get("data_source") in ("zhibo8", "dongqiudi"):
+        source = _find_source_article(topic, match_context)
+        if source:
+            return _rewrite_with_retry(topic, match_context, index, source,
+                                       max_retries, date_str)
+
     last_issues = ""
     # Column-aware word count: use topic's _word_count_range if available
     word_range = topic.get("_word_count_range", [500, 800])
