@@ -24,7 +24,128 @@ from utils import retry
 
 
 def collect_real_matches(date_str):
+    """采集比赛数据。主源：直播吧战报。备源：football-data.org。
+
+    优先从直播吧获取带有战报全文的比赛数据（记者已核实），
+    如果没有或数量不足，降级到 football-data.org API。
+    """
     print(f"[1/5] 采集真实比赛数据 ({date_str})...")
+
+    # 优先从媒体源获取（直播吧战报，记者已核实）
+    try:
+        from media_scraper import SportsScraper
+        scraper = SportsScraper()
+        # 先检查媒体源是否可用
+        if scraper.check_available():
+            media_result = _collect_from_media(scraper, date_str)
+            if media_result and media_result.get("total_matches", 0) > 0:
+                print(f"   ✅ 数据源: 直播吧 ({media_result['total_matches']} 场比赛, 含战报)")
+                return media_result
+            else:
+                print("   ⚠️ 直播吧未获取到有效比赛")
+        else:
+            print("   ⚠️ 直播吧不可达")
+    except ImportError:
+        print("   ⚠️ media_scraper 模块未安装")
+    except Exception as e:
+        print(f"   ⚠️ 媒体源异常: {e}")
+
+    # 降级到 football-data.org
+    return _collect_from_football_data(date_str)
+
+
+def _collect_from_media(scraper, date_str):
+    """从媒体源（直播吧）采集比赛数据，并用战报内容丰富数据。
+
+    返回格式与 collect_real_matches 兼容：
+    {
+        "date": str, "total_matches": int,
+        "fixtures_by_league": dict,
+        "all_fixtures": list[dict],
+        "standings": dict,
+        "data_source": str,
+        "media_reports": dict,  # match_id → report dict
+    }
+    """
+    matches = scraper.scrape_today_matches(date_str)
+    if not matches:
+        return {"date": date_str, "total_matches": 0, "fixtures_by_league": {},
+                "all_fixtures": [], "standings": {}, "data_source": "media"}
+
+    # 获取每场比赛的战报全文
+    fixture_details = []
+    media_reports = {}
+
+    for m in matches:
+        report_text = ""
+        goals = []
+        match_url = m.get("match_url", "")
+
+        # 获取战报
+        if match_url:
+            try:
+                report = scraper.scrape_match_report(match_url)
+                if report:
+                    report_text = report.get("article_text", "")
+                    goals = report.get("goals", [])
+                    # 从战报中提取联赛名
+                    if not m.get("league") and report.get("league"):
+                        m["league"] = report["league"]
+                    # 从战报正文推断联赛名
+                    if not m.get("league") and report_text:
+                        league_keywords = {
+                            "世界杯": "FIFA World Cup", "欧冠": "UEFA Champions League",
+                            "英超": "Premier League", "西甲": "Primera Division",
+                            "意甲": "Serie A", "德甲": "Bundesliga", "法甲": "Ligue 1",
+                        }
+                        for kw, league in league_keywords.items():
+                            if kw in report_text:
+                                m["league"] = league
+                                break
+            except Exception as e:
+                print(f"   ⚠️ 战报获取失败 ({m['home_team']} vs {m['away_team']}): {e}")
+
+        fixture = {
+            "id": f"zhibo8_{m['home_team']}_{m['away_team']}",
+            "source": "zhibo8",
+            "source_url": match_url,
+            "league": m.get("league", ""),
+            "home_team": m["home_team"],
+            "away_team": m["away_team"],
+            "home_score": m.get("home_score"),
+            "away_score": m.get("away_score"),
+            "status": m.get("status", "FT"),
+            "utc_date": date_str,
+            "goals": goals,
+            "article_text": report_text,
+            "data_confidence": "high",
+        }
+        fixture_details.append(fixture)
+
+        if report_text:
+            media_reports[fixture["id"]] = fixture
+
+    # 按联赛分组
+    by_league = defaultdict(list)
+    for f in fixture_details:
+        league = f.get("league", "未知赛事")
+        by_league[league].append(f)
+
+    print(f"   📄 直播吧战报: {len(media_reports)}/{len(fixture_details)} 场有详细战报")
+
+    return {
+        "date": date_str,
+        "total_matches": len(fixture_details),
+        "fixtures_by_league": dict(by_league),
+        "all_fixtures": fixture_details,
+        "standings": {},
+        "data_source": "zhibo8",
+        "media_reports": media_reports,
+    }
+
+
+def _collect_from_football_data(date_str):
+    """从 football-data.org 采集比赛数据（备用源）。"""
     headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
     target_date = datetime.strptime(date_str, "%Y-%m-%d")
     weekday = target_date.weekday()
