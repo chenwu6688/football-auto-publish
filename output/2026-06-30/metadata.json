@@ -1,0 +1,147 @@
+{
+  "date": "2026-06-30",
+  "generated_at": "2026-06-30T02:22:23.566309",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "姆巴佩去皇马？这回皇马开的价，可不像上回那么舔了",
+      "path": "/home/runner/work/_temp/output/2026-06-30/article-1-姆巴佩去皇马这回-e06d19.md",
+      "slug": "姆巴佩去皇马这回-e06d19",
+      "tags": [
+        "Mbappe",
+        "Real Madrid",
+        "transfer",
+        "PSG"
+      ],
+      "keywords": [
+        "Mbappe",
+        "Real Madrid",
+        "transfer",
+        "PSG"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-06-30/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-06-30/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-06-30/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "0-0！荷兰锋线集体隐身，德佩该给新人让位了？",
+      "formula": "A",
+      "angle": "荷兰0-0战平摩洛哥，暴露了进攻端严重问题，德佩状态下滑、缺少突破点，作者认为范加尔该果断启用加克波等年轻球员，否则淘汰赛走不远。",
+      "keywords": [
+        "Netherlands",
+        "Morocco",
+        "0-0",
+        "Memphis Depay",
+        "World Cup 2026"
+      ],
+      "keywords_cn": [
+        "荷兰",
+        "摩洛哥",
+        "闷平",
+        "德佩",
+        "世界杯"
+      ],
+      "content_type": "热点球评",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "why_pick": "荷兰作为传统强队0-0被摩洛哥逼平，锋线无力引发球迷失望，容易激起讨论和情绪共鸣。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "姆巴佩离开巴黎倒计时？皇马最新报价藏着什么小心思",
+      "formula": "B",
+      "angle": "姆巴佩转会传闻再起波澜，皇马提出新报价但条件苛刻，背后是俱乐部对姆巴佩伤病史的担忧，也反映出巴黎的谈判困境。",
+      "keywords": [
+        "Kylian Mbappe",
+        "Real Madrid",
+        "PSG",
+        "transfer rumors",
+        "World Cup"
+      ],
+      "keywords_cn": [
+        "姆巴佩",
+        "皇马",
+        "巴黎",
+        "转会",
+        "报价"
+      ],
+      "content_type": "八卦趣事",
+      "score": 90,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "why_pick": "姆巴佩是足坛顶流，转会谈判充满反转和利益博弈，能持续吸引球迷关注和争论。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-06-30 10:22:23",
+  "micro_headlines": [
+    {
+      "content": "荷兰跟摩洛哥踢了个0-0！老六看了整场，这比赛真是催眠神作，两队加起来就俩字：沉闷。荷兰控球半天没威胁，摩洛哥反击也稀碎，全场最好的机会？抱歉，真没看到。这结果对双方都不解渴，出线形势越来越乱了。 #世界杯 #荷兰vs摩洛哥",
+      "tags": [
+        "#世界杯",
+        "#荷兰vs摩洛哥"
+      ],
+      "match": "Netherlands vs Morocco"
+    },
+    {
+      "content": "法国跟瑞典这场还没开打，老六觉得好戏在后头。法国纸面实力强，但瑞典大赛硬骨头，别以为稳赢。今晚五点的比赛，球迷们准备好熬夜就对了，弄不好就是冷门温床。 #法国 #瑞典",
+      "tags": [
+        "#世界杯",
+        "#法国vs瑞典"
+      ],
+      "match": "France vs Sweden"
+    }
+  ]
+}
