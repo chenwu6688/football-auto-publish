@@ -1,7 +1,7 @@
 {
   "date": "2026-07-01",
-  "generated_at": "2026-07-01T01:53:31.160124",
-  "total_articles": 1,
+  "generated_at": "2026-07-01T04:12:27.840053",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -36,109 +36,176 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "姆巴佩双响+德尚膜拜，奥利塞两传，这支法国队真没对手？",
+      "path": "/home/runner/work/_temp/output/2026-07-01/article-1-姆巴佩双响德尚膜-4ea5fd.md",
+      "slug": "姆巴佩双响德尚膜-4ea5fd",
+      "tags": [
+        "Mbappe",
+        "Olise",
+        "France",
+        "Sweden",
+        "World Cup 2026"
+      ],
+      "keywords": [
+        "Mbappe",
+        "Olise",
+        "France",
+        "Sweden",
+        "World Cup 2026"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-01/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-01/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-01/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "墨西哥这场2-0，藏着一种你惹不起的混不吝",
+      "path": "/home/runner/work/_temp/output/2026-07-01/article-2-墨西哥这场20藏-0c53ad.md",
+      "slug": "墨西哥这场20藏-0c53ad",
+      "tags": [
+        "Mexico",
+        "Ecuador",
+        "World Cup",
+        "red card",
+        "Quinones"
+      ],
+      "keywords": [
+        "Mexico",
+        "Ecuador",
+        "World Cup",
+        "red card",
+        "Quinones"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-01/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "3-0！法国轻松碾过瑞典，但姆巴佩这个数据让人细思极恐",
-      "formula": "E",
-      "angle": "法国3-0大胜瑞典看似碾压，但姆巴佩全场0射正暴露了法国进攻对边锋依赖的隐患，瑞典战术失败但并非毫无机会。",
+      "title": "法国3-0瑞典，但这次我反而担心高卢雄鸡",
+      "formula": "B",
+      "angle": "法国队3-0大胜看似轻松，但比赛过程暴露了中场控制力不足和防守反击的隐患，瑞典制造了多次威胁，这样的法国队能在淘汰赛走远吗？",
       "keywords": [
         "France",
         "Sweden",
-        "Mbappe",
-        "World Cup 2026"
+        "World Cup 2026",
+        "Les Bleus"
       ],
       "keywords_cn": [
         "法国",
         "瑞典",
-        "姆巴佩",
         "世界杯"
       ],
       "content_type": "热点球评",
       "score": 88,
-      "expected_heat": "A",
-      "rationale": "世界杯淘汰赛阶段大比分，姆巴佩数据反差有争议性，法国夺冠热门引发球迷讨论，时效性满分。",
+      "expected_heat": "S",
+      "rationale": "大比分胜利但过程有争议，符合反常识叙事，能引发球迷对法国真实实力的讨论，时效性强，情绪好奇+争议",
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "2-1！挪威一球险胜，哈兰德这个支点价值远不止进球",
-      "formula": "A",
-      "angle": "挪威2-1险胜科特迪瓦，哈兰德虽未梅开二度但支点作用撕开防线，挪威战术执行力碾压非洲劲旅，科特迪瓦防反策略被完全克制。",
+      "title": "从喝倒彩到英雄，墨西哥老门将用零封撕碎质疑",
+      "formula": "C",
+      "angle": "37岁的奥乔亚在面对厄瓜多尔时高接抵挡完成零封，这位曾被视为‘黄油手’的老将用世界杯舞台证明自己仍是墨西哥守护神，背后是十年的坚守与低谷。",
       "keywords": [
-        "Norway",
-        "Ivory Coast",
-        "Haaland",
-        "tactics",
-        "World Cup 2026"
+        "mexico",
+        "ecuador",
+        "guillermo ochoa",
+        "world cup"
       ],
       "keywords_cn": [
-        "挪威",
-        "科特迪瓦",
-        "哈兰德",
-        "战术解析"
+        "墨西哥",
+        "厄瓜多尔",
+        "奥乔亚",
+        "世界杯"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
+      "score": 82,
       "expected_heat": "A",
-      "rationale": "挪威爆冷险胜非洲强队，哈兰德战术价值是球迷热议点，深度分析弥补普通战报的浅层报道，观点犀利引发讨论。",
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "rationale": "老将逆袭故事有人文关怀，能激发球迷的感动和敬佩，话题性强且与已发无重叠",
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-01 09:53:31",
+  "last_batch": "noon",
+  "last_updated": "2026-07-01 12:12:27",
   "micro_headlines": [
     {
-      "content": "法国3-0干净利落拿下瑞典！高卢雄鸡这状态，世界杯冠军相又回来了！三球零封，攻防两端都没给瑞典一点机会。老六觉得这支法国队踢得越来越稳，接下来战巴拉那绝对有戏。瑞典这边真没啥办法，整场被压着打，回家好好总结吧。#世界杯 #法国队",
-      "tags": [],
+      "content": "法国队3-0干净利落拿下瑞典！这统治力，老六觉得冠军相已经藏不住了。欧洲杯后遗症？不存在的！高卢雄鸡全场压制，瑞典连像样的反击都打不出来。要这么踢下去，决赛门票稳了！",
+      "tags": [
+        "#世界杯",
+        "#法国"
+      ],
       "match": "法国 vs 瑞典"
     },
     {
-      "content": "挪威2-1险胜科特迪瓦！这比赛看得老六心跳加速，挪威最后时刻顶住了非洲大象的反扑。虽然科特迪瓦拼尽全力扳回一球，但整体实力还是差了点。挪威这次世界杯真让人刮目相看，年轻有冲劲，未来可期！#世界杯 #挪威足球",
-      "tags": [],
-      "match": "挪威 vs 科特迪瓦"
+      "content": "墨西哥2-0厄瓜多尔，稳如老狗！老六早就说过，墨西哥的中北美霸主地位不是吹的。厄瓜多尔全场被遛，根本摸不到球。这踢法，世界杯黑马？我看够呛。墨西哥才是真正的硬骨头！",
+      "tags": [
+        "#世界杯",
+        "#墨西哥"
+      ],
+      "match": "墨西哥 vs 厄瓜多尔"
     }
   ]
 }
