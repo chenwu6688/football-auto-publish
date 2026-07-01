@@ -88,6 +88,7 @@ def _collect_from_media(scraper, date_str):
                 if report:
                     report_text = report.get("article_text", "")
                     goals = report.get("goals", [])
+                    source_images = report.get("images", [])
                     # 从战报中提取联赛名
                     if not m.get("league") and report.get("league"):
                         m["league"] = report["league"]
@@ -118,6 +119,7 @@ def _collect_from_media(scraper, date_str):
             "utc_date": date_str,
             "goals": goals,
             "article_text": report_text,
+            "source_images": source_images,
             "data_confidence": "high",
         }
         fixture_details.append(fixture)

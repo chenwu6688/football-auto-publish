@@ -438,6 +438,20 @@ class SportsScraper:
         # 从正文中提取进球信息
         goals = self._extract_goals_from_text(content, home_team, away_team)
 
+        # 从战报中提取配图
+        images = []
+        if content_el:
+            seen_urls = set()
+            for img in content_el.find_all("img"):
+                src = img.get("src", "")
+                if src and src.startswith("http") and src not in seen_urls:
+                    # 过滤掉头像、icon等小图
+                    w = img.get("width", "0")
+                    if w.isdigit() and int(w) < 100:
+                        continue
+                    seen_urls.add(src)
+                    images.append({"url": src, "source": "zhibo8"})
+
         # 从 URL/内容推断联赛
         league = self._infer_league(title + url, url)
 
@@ -453,6 +467,7 @@ class SportsScraper:
             "league": league,
             "goals": goals,
             "data_confidence": "high",
+            "images": images,
         }
 
     @staticmethod

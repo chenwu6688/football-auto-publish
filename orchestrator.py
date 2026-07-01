@@ -1158,11 +1158,27 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 
 def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
                                     articles_out, date_str=None):
-    """Pipeline A：对每个话题从直播吧/懂球帝源文章改写为老六风格。"""
+    """Pipeline A：对每个话题从直播吧/懂球帝源文章改写为老六风格。
+
+    配图优先级：① 源文章战报图片 → ② Unsplash/Wikipedia 搜索。
+    """
     for i, topic in enumerate(topics[:count]):
         ct = topic.get("content_type", "N/A")
         print(f"\n--- 第{i+1}/{count}篇 [{ct}] ---")
-        imgs = search_images(topic, count=5)
+
+        # 优先用源文章的配图（比赛相关，不重复）
+        source_imgs = []
+        if match_data and match_data.get("data_source") in ("zhibo8", "dongqiudi"):
+            source = _find_source_article(topic, match_data)
+            if source and source.get("fixture", {}).get("source_images"):
+                source_imgs = source["fixture"]["source_images"][:3]
+                print(f"   📷 使用源文章配图: {len(source_imgs)} 张")
+
+        if source_imgs:
+            imgs = source_imgs
+        else:
+            imgs = search_images(topic, count=5)
+
         images_map[i] = imgs
         art, error = generate_article_with_retry(topic, match_data, i + 1,
                                                   max_retries=2, date_str=date_str)
