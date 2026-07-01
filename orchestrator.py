@@ -502,8 +502,21 @@ def select_topics(match_data, gzh_articles=None, topic_history=None, preferred_t
         {"role": "system", "content": topic_selector_prompt},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
-    topics = safe_json_loads(response)
+    # Retry on JSON parse failure: DeepSeek occasionally returns malformed JSON
+    topics = None
+    for attempt in range(3):
+        response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
+        try:
+            topics = safe_json_loads(response)
+            break  # success
+        except ValueError:
+            if attempt < 2:
+                print(f"   ⚠️ JSON 解析失败 (attempt {attempt+1}/3)，重试...")
+                continue
+            print(f"   ❌ JSON 解析失败 (3次均失败)，跳过LLM选题")
+            topics = None
+    if topics is None:
+        return [], []
     if topics and isinstance(topics, dict) and "title" in topics:
         topics = [topics]  # LLM returned single object instead of array
     if not isinstance(topics, list):
