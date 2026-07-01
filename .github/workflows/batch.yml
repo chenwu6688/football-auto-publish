@@ -3,19 +3,23 @@ name: 足球自媒体批次发布
 # 纯 GitHub Actions 调度（无外部依赖）：
 #   每个批次 3 个 cron，从目标时间开始每隔 ~10-20 分钟触发一次
 #   第一批成功执行后，后续通过幂等保护自动跳过
+#   += 晨读增加额外预触发窗口 (UTC 23:55 = CST 07:55)，与 00:xx 不同时间窗，
+#      规避 GH cron 某时段集体延迟导致所有触发点同时错过的问题。
 #
 #   晨读 (目标 08:00 CST, UTC 00:00):
-#     08:07 / 08:17 / 08:37 CST
+#     07:55 (预触发, UTC 23:55) / 08:07 / 08:17 / 08:37 CST
 #   午间 (目标 12:00 CST, UTC 04:00):
 #     12:07 / 12:17 / 12:37 CST
 #   晚间 (目标 17:30 CST, UTC 09:30):
 #     17:37 / 17:47 / 18:07 CST
 #
 #   批次检测: schedule 事件从 github.event.schedule 解析 cron 表达式的 UTC hour
-#   (0→morning, 4→noon, 9/10→evening)，不依赖当前时间，彻底解决 cron 延迟导致的批次误判。
+#   (0/23→morning, 4→noon, 9/10→evening)，不依赖当前时间，彻底解决 cron 延迟导致的批次误判。
 #   workflow_dispatch 时直接使用 inputs.batch 参数。
 on:
   schedule:
+    # --- 晨读预触发 (UTC 23:55 = CST 07:55，独立时间窗降低集体延迟风险) ---
+    - cron: '55 23 * * *'
     # --- 晨读 (UTC 0 = CST 8) ---
     - cron: '7 0 * * *'
     - cron: '17 0 * * *'
@@ -96,12 +100,13 @@ jobs:
             UTC_HOUR=$(date -u +%H)
             CST_HOUR=$(TZ=Asia/Shanghai date +%H)
             case "$SCHEDULE_HOUR" in
-              0)  BATCH="morning" ;;
-              4)  BATCH="noon" ;;
+              0|23) BATCH="morning" ;;
+              4)    BATCH="noon" ;;
               9|10) BATCH="evening" ;;
               *)
                 # Fallback: UTC hour window (±2h tolerance)
                 if [ "$UTC_HOUR" -ge 0 ] && [ "$UTC_HOUR" -le 2 ]; then BATCH="morning"
+                elif [ "$UTC_HOUR" -ge 22 ] && [ "$UTC_HOUR" -le 23 ]; then BATCH="morning"
                 elif [ "$UTC_HOUR" -ge 4 ] && [ "$UTC_HOUR" -le 6 ]; then BATCH="noon"
                 elif [ "$UTC_HOUR" -ge 9 ] && [ "$UTC_HOUR" -le 12 ]; then BATCH="evening"
                 else
@@ -361,6 +366,29 @@ jobs:
             echo "静态数据无变化，跳过"
           fi
 
+
+      - name: 导出小程序静态数据
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        env:
+          OUTPUT_DIR: ${{ runner.temp }}/output
+        run: |
+          python scripts/export_static_data.py "${{ steps.params.outputs.today }}"
+          # 提交 static_data/ 到仓库
+          git add -f static_data/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: ${{ steps.params.outputs.today }} ${{ steps.params.outputs.batch }} 更新小程序静态数据"
+            for attempt in 1 2 3; do
+              if git push origin main 2>/dev/null; then
+                echo "✅ 小程序静态数据已推送 (jsDelivr CDN 约 2-5 分钟生效)"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)"
+              git pull --rebase origin main 2>/dev/null || true
+              /usr/bin/sleep $((attempt * 2))
+            done
+          else
+            echo "📝 static_data/ 无变化，跳过提交"
+          fi
 
       - name: 上传产物
         if: always()
