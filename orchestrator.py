@@ -1886,27 +1886,28 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                                 max_retries=2, date_str=None):
     """Generate article with validation and automatic retry on failure.
 
-    Priority: rewrite path (if media source article available) >
-              standard generate_article (if match data) >
-              gossip generation (if GZH data)
+    Pipeline A (rewrite):  直播吧/懂球帝战报 → 改写（记者已核实的源文章）
+    Pipeline GZH (gossip): 公众号爆款 → 生成
+    Pipeline Hupu (tieba): 虎扑热帖 → 生成
 
-    On retry, progressively lowers temperature and strengthens the prompt
-    to force longer, more structured output. Also detects short raw responses
-    before JSON parsing to fail fast.
+    Pipeline B (standard LLM from match_data) 已禁用 — 没有源文章不写。
     """
-    # NEW: Try rewrite path first — if match_context has media article
+    # Pipeline A: Try rewrite path first — if match_context has media article
     if match_context and match_context.get("data_source") in ("zhibo8", "dongqiudi"):
         source = _find_source_article(topic, match_context)
         if source:
             return _rewrite_with_retry(topic, match_context, index, source,
                                        max_retries, date_str)
 
+    # Pipeline GZH / Pipeline Hupu: gossip/tieba paths still allowed
+    if not is_tieba and not is_gossip:
+        return {}, f"Pipeline B 已禁用：无直播吧/懂球帝源文章可改写"
+
     last_issues = ""
-    # Column-aware word count: use topic's _word_count_range if available
     word_range = topic.get("_word_count_range", [500, 800])
     topic_min_words = word_range[0] if isinstance(word_range, (list, tuple)) and len(word_range) >= 1 else 500
     for attempt in range(max_retries + 1):
-        temp = max(0.3, 0.8 - attempt * 0.2)  # 0.8 → 0.6 → 0.4
+        temp = max(0.3, 0.8 - attempt * 0.2)
         try:
             if is_tieba:
                 art = generate_tieba_article(topic, index, tieba_context,
@@ -1915,11 +1916,7 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
             elif is_gossip:
                 art = generate_gossip_article(topic, index, temperature=temp,
                                               retry_hint=last_issues, date_str=date_str)
-            else:
-                art = generate_article(topic, match_context, index, gzh_articles,
-                                       temperature=temp, retry_hint=last_issues)
 
-            # Check raw content sanity before full validation
             content = art.get("content", "")
             content_min = max(200, int(topic_min_words * 0.6))
             if len(content) < content_min and attempt < max_retries:
@@ -1929,7 +1926,6 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
 
             is_valid, issues, score = validate_article(art, index, is_tieba=is_tieba, min_words=topic_min_words)
             if is_valid and score >= 85:
-                # Data source reference check: verify article references real data
                 if match_context:
                     passes, matched, ref_warning = check_content_references_data(art, match_context, gzh_articles)
                     if not passes and matched is not None:
@@ -1942,7 +1938,7 @@ def generate_article_with_retry(topic, match_context, index, gzh_articles=None,
                                 print(f"   🔄 重试 (需引用真实数据源)...")
                                 continue
                             else:
-                                pass  # Allow through with low score rather than total failure
+                                return art, f"数据源引用失败({max_retries+1}次): {ref_warning}"
 
                 # Data hallucination check: verify article doesn't contain fabricated data
                 if match_context:
@@ -2866,8 +2862,8 @@ def main():
 
             _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
 
-        else:
-            print("\n   获取公众号爆款趋势作为跨源参考...")
+        elif match_data.get("data_source") in ("zhibo8", "dongqiudi"):
+            print(f"\n   获取公众号爆款趋势作为跨源参考...")
             gzh_raw = fetch_gzh_football_trends(date_str, fallback_match_data=match_data)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
@@ -2876,6 +2872,13 @@ def main():
             _assign_columns_to_topics(topics, batch_mode)
 
             _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, gzh_articles=gzh_context, date_str=date_str)
+
+        else:
+            # 无直播吧/懂球帝源文章，Pipeline B 已禁用
+            print(f"   ❌ 无直播吧/懂球帝源文章，Pipeline B (LLM生成) 已禁用")
+            result_msg = "无媒体数据源，Pipeline B已禁用"
+            send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
+            return
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
