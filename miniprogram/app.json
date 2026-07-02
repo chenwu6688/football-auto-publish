@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/article/article"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "球评人老六",
+    "navigationBarBackgroundColor": "#0D1B2A",
+    "backgroundColor": "#F5F5F5",
+    "enablePullDownRefresh": true
+  },
+  "lazyCodeLoading": "requiredComponents"
+}

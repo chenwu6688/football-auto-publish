@@ -1,0 +1,17 @@
+{
+  "name": "laoliu-football",
+  "version": "1.0.0",
+  "description": "球评人老六 - 微信小程序",
+  "private": true,
+  "scripts": {
+    "preview": "miniprogram-ci preview --pp . --appid wx8ae0659f2c822e4b --private-key-path private.wx8ae0659f2c822e4b.key --upload-mode trial",
+    "preview:qr": "sh -c 'NODE_OPTIONS=\"--experimental-require-module\" miniprogram-ci preview --pp . --appid wx8ae0659f2c822e4b --private-key-path private.wx8ae0659f2c822e4b.key --upload-mode trial --uv 1.0.0 --enable-qrcode --qrcode-format terminal'",
+    "upload": "miniprogram-ci upload --pp . --appid wx8ae0659f2c822e4b --private-key-path private.wx8ae0659f2c822e4b.key --uv 1.0.0 --desc \"每日足球辣评上线\"",
+    "upload:patch": "miniprogram-ci upload --pp . --appid wx8ae0659f2c822e4b --private-key-path private.wx8ae0659f2c822e4b.key --uv 1.0.1 --desc \"bug修复/优化\"",
+    "upload:prod": "miniprogram-ci upload --pp . --appid wx8ae0659f2c822e4b --private-key-path private.wx8ae0659f2c822e4b.key --uv 1.0.0 --desc \"正式发布\" --upload-mode release"
+  },
+  "devDependencies": {
+    "less": "^3.13.1",
+    "miniprogram-ci": "^1.9.12"
+  }
+}

@@ -1,0 +1,108 @@
+<!-- 首页 Feed -->
+<view class="page">
+
+  <!-- 加载中 -->
+  <view wx:if="{{status === 'loading'}}" class="loading-screen">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">正在加载今日文章...</text>
+  </view>
+
+  <!-- 错误状态 -->
+  <view wx:elif="{{status === 'error'}}" class="error-screen">
+    <text class="error-icon">😵</text>
+    <text class="error-text">{{errorMsg}}</text>
+    <button class="retry-btn" bindtap="loadData">重新加载</button>
+  </view>
+
+  <!-- 空状态（今日尚未生成） -->
+  <view wx:elif="{{status === 'empty'}}" class="empty-screen">
+    <text class="empty-icon">⏳</text>
+    <text class="empty-title">今日内容正在路上</text>
+    <text class="empty-desc">老六还在写今天的辣评\n稍后再来看看～</text>
+  </view>
+
+  <!-- 内容就绪 -->
+  <view wx:elif="{{status === 'ready'}}" class="content">
+
+    <!-- 调试信息（首发版后删除） -->
+    <view class="debug-bar">
+      <text class="debug-text">{{debugInfo}}</text>
+    </view>
+
+    <!-- 批次 Tab -->
+    <view wx:if="{{tabNames.length > 1}}" class="tabs">
+      <scroll-view scroll-x class="tabs-scroll" enhanced show-scrollbar="{{false}}">
+        <view
+          wx:for="{{tabNames}}"
+          wx:key="index"
+          class="tab-item {{activeTab === index ? 'active' : ''}}"
+          bindtap="switchTab"
+          data-index="{{index}}"
+        >
+          <text>{{item}}</text>
+          <view wx:if="{{activeTab === index}}" class="tab-indicator"></view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 批次说明（仅选中非"全部"标签时显示） -->
+    <view wx:if="{{activeTab !== 0 && currentBatchInfo.name}}" class="batch-info">
+      <text class="batch-info-icon">{{currentBatchInfo.icon}}</text>
+      <text class="batch-info-text">{{currentBatchInfo.name}}</text>
+      <text class="batch-info-sub">{{currentBatchInfo.count}} 篇文章</text>
+    </view>
+
+    <!-- 文章卡片列表 -->
+    <view class="article-list">
+      <view
+        wx:for="{{articles}}"
+        wx:key="id"
+        class="article-card"
+        bindtap="openArticle"
+        data-id="{{item.id}}"
+      >
+        <!-- 封面图（加载失败时隐藏） -->
+        <image
+          wx:if="{{item.cover_image}}"
+          class="card-cover"
+          src="{{item.cover_image}}"
+          mode="aspectFill"
+          lazy-load
+          binderror="onCoverError"
+          data-index="{{index}}"
+        ></image>
+
+        <!-- 文字区 -->
+        <view class="card-body">
+          <view class="card-header">
+            <!-- 用两个独立的text来替代逻辑运算 -->
+            <text wx:if="{{item.column_name}}" class="card-column">{{item.column_name}}</text>
+            <text wx:elif="{{item.batch_name}}" class="card-column">{{item.batch_name}}</text>
+            <text wx:else class="card-column">辣评</text>
+            <text wx:if="{{item.batch_name}}" class="card-batch">{{item.batch_name}}</text>
+          </view>
+          <text class="card-title">{{item.title}}</text>
+          <text wx:if="{{item.summary}}" class="card-summary">{{item.summary}}</text>
+
+          <!-- 金句预览 -->
+          <view wx:if="{{item.golden_lines && item.golden_lines.length > 0}}" class="card-golden">
+            <text class="golden-icon">💬</text>
+            <text class="golden-text">{{item.golden_lines[0]}}</text>
+          </view>
+
+          <!-- 标签 -->
+          <view wx:if="{{item.tags && item.tags.length > 0}}" class="card-tags">
+            <text wx:for="{{item.tags.slice(0, 3)}}" wx:key="index" class="tag">{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部 -->
+    <view class="footer">
+      <text class="footer-text">球评人老六 · 每日足球辣评</text>
+      <text class="footer-sub">关注我，每天带你看不一样的足球</text>
+    </view>
+
+  </view>
+</view>

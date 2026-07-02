@@ -20,7 +20,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
                        BATCH_CONFIG)
 from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
-from data_collector import (collect_real_matches,
+from data_collector import (collect_real_matches, fetch_gzh_football_trends,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history)
 

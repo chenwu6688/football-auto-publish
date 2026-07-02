@@ -1,0 +1,219 @@
+/* 首页样式 */
+.page {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* ── 调试信息 ── */
+.debug-bar {
+  background: #FFF3E0;
+  padding: 8rpx 32rpx;
+  text-align: center;
+}
+
+.debug-text {
+  font-size: 22rpx;
+  color: #E65100;
+}
+
+/* ── 批次 Tab ── */
+.tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.tabs-scroll {
+  display: flex;
+  white-space: nowrap;
+  padding: 0 20rpx;
+}
+
+.tab-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 28rpx;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.tab-item.active {
+  color: #07C160;
+  font-weight: 600;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  width: 40rpx;
+  height: 6rpx;
+  background: #07C160;
+  border-radius: 3rpx;
+}
+
+/* ── 批次说明 ── */
+.batch-info {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx 10rpx;
+  gap: 12rpx;
+}
+
+.batch-info-icon {
+  font-size: 36rpx;
+}
+
+.batch-info-text {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.batch-info-sub {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: auto;
+}
+
+/* ── 文章卡片 ── */
+.article-list {
+  padding: 16rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.article-card {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s;
+}
+
+.article-card:active {
+  transform: scale(0.98);
+}
+
+.card-cover {
+  width: 100%;
+  height: 340rpx;
+  display: block;
+  background: #f0f0f0;
+}
+
+.card-body {
+  padding: 24rpx 28rpx 28rpx;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.card-column {
+  display: inline-block;
+  background: #E8F5E9;
+  color: #07C160;
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+
+.card-batch {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.card-title {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+  word-break: break-word;
+}
+
+.card-summary {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ── 金句预览 ── */
+.card-golden {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+  background: #FFF8E1;
+  padding: 16rpx 18rpx;
+  border-radius: 10rpx;
+  margin-bottom: 16rpx;
+}
+
+.golden-icon {
+  font-size: 26rpx;
+  flex-shrink: 0;
+}
+
+.golden-text {
+  font-size: 24rpx;
+  color: #8D6E00;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ── 标签 ── */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.tag {
+  font-size: 22rpx;
+  color: #999;
+  background: #f5f5f5;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* ── 底部 ── */
+.footer {
+  text-align: center;
+  padding: 60rpx 40rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.footer-text {
+  font-size: 26rpx;
+  color: #999;
+  font-weight: 500;
+}
+
+.footer-sub {
+  font-size: 22rpx;
+  color: #ccc;
+}

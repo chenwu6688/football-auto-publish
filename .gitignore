@@ -9,3 +9,8 @@ logs/
 
 # OpenWolf memory system
 .wolf/
+
+# WeChat miniprogram
+miniprogram/private.*.key
+miniprogram/node_modules/
+static_data/

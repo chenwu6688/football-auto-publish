@@ -1,6 +1,9 @@
 name: 足球自媒体每日发布（手动/外部触发）
 
-# cron-job.org 已弃用，日常调度由 batch.yml 原生 GitHub cron 负责
+# ⚠️ 重要：日常精确调度方案
+#   - 主调度：cron-job.org（精度 <1 分钟），每天 08:00/12:00/17:30 CST 准时触发
+#   - 备份：batch.yml 原生 GitHub cron（延迟 5-10 小时常见，仅作兜底）
+#   - 本地：系统 systemd timer 直接运行 batch_pipeline.sh（最可靠，无需外部依赖）
 # 此 workflow 仅保留 workflow_dispatch 供手动触发和紧急补发
 on:
   workflow_dispatch:
@@ -145,7 +148,12 @@ jobs:
         run: |
           if [ -f toutiao_auth.json ]; then
             TODAY="${{ steps.generate.outputs.today }}"
-            python publisher.py "$TODAY" --headless
+            BATCH="${{ inputs.batch || 'auto' }}"
+            if [ "$BATCH" != "auto" ]; then
+              python publisher.py "$TODAY" --headless --batch="$BATCH"
+            else
+              python publisher.py "$TODAY" --headless
+            fi
           else
             echo "跳过发布：无头条号登录状态"
           fi
@@ -153,6 +161,11 @@ jobs:
           TOUTIAO_AUTH_FILE: toutiao_auth.json
           WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
           WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+
+      - name: 配置 git 身份（用于小程序静态数据提交）
+        run: |
+          git config user.email "vecly@outlook.com"
+          git config user.name "chenwu6688"
 
       - name: 上传文章存档
         if: always()

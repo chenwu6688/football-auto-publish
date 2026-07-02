@@ -103,7 +103,7 @@ fi
 echo ""
 echo "[2/2] 发布到头条号... (最多等待 ${PUBLISHER_TIMEOUT}s)"
 
-if timeout $PUBLISHER_TIMEOUT "$VENV_PYTHON" publisher.py "$TODAY" --headless; then
+if timeout $PUBLISHER_TIMEOUT "$VENV_PYTHON" publisher.py "$TODAY" --headless --batch="$BATCH"; then
     PUB_RESULT=0
     echo "✅ 发布完成"
 else

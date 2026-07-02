@@ -1,0 +1,81 @@
+<!-- 文章详情 -->
+<view class="page">
+
+  <!-- 加载中 -->
+  <view wx:if="{{status === 'loading'}}" class="loading-screen">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载文章...</text>
+  </view>
+
+  <!-- 错误 -->
+  <view wx:elif="{{status === 'error'}}" class="error-screen">
+    <text class="error-icon">😵</text>
+    <text class="error-text">{{errorMsg}}</text>
+    <button class="retry-btn" bindtap="loadArticle">重新加载</button>
+  </view>
+
+  <!-- 空 -->
+  <view wx:elif="{{status === 'empty'}}" class="empty-screen">
+    <text class="empty-icon">📭</text>
+    <text class="empty-title">暂无内容</text>
+  </view>
+
+  <!-- 文章正文 -->
+  <view wx:elif="{{status === 'ready' && article}}" class="article-container">
+
+    <!-- 头部区 -->
+    <view class="article-header">
+      <!-- 封面大图（加载失败时隐藏） -->
+      <image
+        wx:if="{{article.cover_image}}"
+        class="article-cover"
+        src="{{article.cover_image}}"
+        mode="aspectFill"
+        binderror="onCoverError"
+      ></image>
+
+      <view class="article-meta">
+        <text class="article-badge">{{article.column_name || article.batch_name || '辣评'}}</text>
+        <text class="article-date">{{article.date}}</text>
+      </view>
+      <text class="article-title">{{article.title}}</text>
+    </view>
+
+    <!-- 正文（rich-text 渲染） -->
+    <view class="article-body">
+      <rich-text nodes="{{article.html_content}}" space="{{false}}"></rich-text>
+    </view>
+
+    <!-- 金句 -->
+    <view wx:if="{{article.golden_lines && article.golden_lines.length > 0}}" class="article-golden-box">
+      <text class="golden-box-title">✍️ 老六金句</text>
+      <view wx:for="{{article.golden_lines}}" wx:key="index" class="golden-line">
+        <text class="golden-quote">「</text>
+        <text class="golden-body">{{item}}</text>
+        <text class="golden-quote">」</text>
+      </view>
+    </view>
+
+    <!-- 标签 -->
+    <view wx:if="{{article.tags && article.tags.length > 0}}" class="article-tags">
+      <text wx:for="{{article.tags}}" wx:key="index" class="tag">{{item}}</text>
+    </view>
+
+    <!-- 底部区域 -->
+    <view class="article-footer">
+      <view class="footer-divider"></view>
+      <text class="footer-big-text">球评人老六</text>
+      <text class="footer-small-text">每天 6 篇足球辣评 · 晨读午间晚间</text>
+      <view class="footer-actions">
+        <button class="share-btn" open-type="share">
+          <text>📤 分享给球友</text>
+        </button>
+        <button class="rewards-btn" bindtap="showReward">
+          <text>☕ 请老六喝咖啡</text>
+        </button>
+      </view>
+      <view class="footer-thanks">感谢阅读，评论区见真章 👊</view>
+    </view>
+
+  </view>
+</view>
