@@ -1326,7 +1326,7 @@ def main():
             extra_meta = {"type": "match_analysis"}
             _assign_columns_to_topics(topics, batch_mode)
 
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, gzh_articles=gzh_context, date_str=date_str)
+            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, date_str=date_str)
 
         else:
             # 无直播吧/懂球帝源文章，Pipeline B 已禁用
