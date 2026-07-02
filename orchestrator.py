@@ -1378,7 +1378,7 @@ def main():
 
         articles_sorted = [a for _, a in sorted(articles, key=lambda x: x[0])]
         result = save_articles_local(date_str, articles_sorted, images_map, topics, match_data,
-                                     extra=extra_meta, pre_downloaded_images=pre_downloaded)
+                                     extra=extra_meta)
 
         # Save batch state for cross-batch dedup
         save_batch_state(date_str, batch_mode if batch_mode != "auto" else "full", result.get("articles", []))
