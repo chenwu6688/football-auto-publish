@@ -346,7 +346,6 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 
 ⚠️ 注意：只显示了已结束的比赛(FT/AET/PEN)。进行中的比赛显示为"vs"，不要选作选题。
 
-{gzh_text}
 {history_text}
 {cross_batch_text}
 {weight_hint}
