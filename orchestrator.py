@@ -1323,7 +1323,7 @@ def main():
             gzh_raw = fetch_gzh_football_trends(date_str, fallback_match_data=match_data)
             gzh_context = gzh_raw[:8] if gzh_raw else []
 
-            topics = select_topics(match_data, gzh_context, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, topic_count=article_count)
+            topics = select_topics(match_data, topic_history=topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, topic_count=article_count)
             extra_meta = {"type": "match_analysis"}
             _assign_columns_to_topics(topics, batch_mode)
 
