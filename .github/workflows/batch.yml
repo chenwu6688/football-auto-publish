@@ -71,6 +71,10 @@ jobs:
           playwright install chromium
           playwright install-deps chromium
 
+      - name: 静态分析 — 检查无未定义的函数引用
+        run: |
+          python3 tests/test_no_dead_references.py
+
       - name: 写入头条号登录状态
         run: |
           mkdir -p /tmp/auth

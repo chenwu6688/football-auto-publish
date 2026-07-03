@@ -48,6 +48,10 @@ jobs:
           pip install -r requirements.txt
           playwright install chromium --with-deps
 
+      - name: 静态分析 — 检查无未定义的函数引用
+        run: |
+          python3 tests/test_no_dead_references.py
+
       - name: 解码头条号登录状态
         run: |
           if [ -n "$TOUTIAO_AUTH_B64" ]; then

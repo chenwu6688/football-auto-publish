@@ -20,7 +20,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
                        BATCH_CONFIG)
 from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
-from data_collector import (collect_real_matches, fetch_gzh_football_trends,
+from data_collector import (collect_real_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history)
 
@@ -1192,14 +1192,11 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
 
 
 def main():
-    # Parse args: python orchestrator.py [YYYY-MM-DD] [--topic=auto|transfer|match] [--batch=auto|morning|noon|evening]
+    # Parse args: python orchestrator.py [YYYY-MM-DD] [--batch=morning|noon|evening]
     date_str = None
-    topic_preference = "auto"
     batch_mode = "auto"
     for arg in sys.argv[1:]:
-        if arg.startswith("--topic="):
-            topic_preference = arg.split("=", 1)[1]
-        elif arg.startswith("--batch="):
+        if arg.startswith("--batch="):
             batch_mode = arg.split("=", 1)[1]
         elif not arg.startswith("--"):
             date_str = arg
@@ -1234,106 +1231,34 @@ def main():
         # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
 
-        # 🌙 Evening batch: dynamically select 2 columns from EVENING_COLUMN_POOL
-        # based on today's GZH trending data, then override the evening slots.
-        if batch_mode == "evening":
-            print("\n🌙 晚间栏目动态选择...")
-            gzh_trends = fetch_gzh_football_trends(date_str, fallback_match_data=match_data)
-            selected_cols = select_evening_columns(gzh_trends, match_data, season_label)
-            # Assign slot indices and update BATCH_CONFIG in-place
-            for i, col in enumerate(selected_cols):
-                col["slot"] = i
-            BATCH_CONFIG["evening"]["slots"] = selected_cols
-            # Recompute dependent variables
-            batch_cfg = BATCH_CONFIG[batch_mode]
-            slots = batch_cfg["slots"]
-            article_count = len(slots)
-            column_names = [s["column_name"] for s in slots]
-            print(f"   晚间栏目: {', '.join(column_names)} ({batch_cfg['name']}·{batch_cfg['time']})\n")
-
         articles = []
         images_map = {}
         topics = []
 
         # ============================================================
-        # Main Article Pipeline
+        # Main Article Pipeline — Pipeline A only (source article rewrite)
         # ============================================================
 
-        # Build column-aware type guidance for topic selection
-        # In BATCH_CONFIG mode, inject column domain guidance into the prompt
-        column_type_hint = None
-        all_gzh_only = False
-        if batch_mode in BATCH_CONFIG and not target_types:
-            slots = BATCH_CONFIG[batch_mode]["slots"]
-            column_type_hint = [s["topic_domain"] for s in slots]
-            # Evening batch columns use gzh_only data source — route to GZH path.
-            # Always route to GZH path so column domain matches topic selection.
-            all_gzh_only = all(s.get("data_source_hint") == "gzh_only" for s in slots)
-            if all_gzh_only:
-                print(f"   栏目全部为 gzh_only，切换为公众号爆款数据模式\n")
-
-        if all_gzh_only:
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, column_type_hint=column_type_hint, season_label=season_label, match_data=match_data)
-            if not topics_and_raw or not topics_and_raw[0]:
-                result_msg = "无真实爆款数据可用(gzh_only batch)"
-                print(f"ERROR: {result_msg}")
-                send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
-                return
-
-            topics, raw_articles = topics_and_raw
-            extra_meta = {"type": "gzh_only_batch"}
-            _assign_columns_to_topics(topics, batch_mode)
-
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
-
-        elif topic_preference != "auto":
-            print(f"   用户偏好: {topic_preference}，使用公众号爆款数据为主\n")
-            topics_and_raw = collect_real_gzh_topics(
-                date_str, topic_history, topic_preference=topic_preference, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, match_data=match_data)
-            if not topics_and_raw or not topics_and_raw[0]:
-                result_msg = f"无{topic_preference}相关真实爆款数据可用"
-                print(f"ERROR: {result_msg}")
-                send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
-                return
-
-            topics, raw_articles = topics_and_raw
-            extra_meta = {"type": f"gzh_{topic_preference}"}
-            _assign_columns_to_topics(topics, batch_mode)
-
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
-
-        elif match_data["total_matches"] == 0:
-            print("   今日无比赛，切换为公众号爆款数据模式\n")
-            topics_and_raw = collect_real_gzh_topics(date_str, topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, match_data=match_data)
-            if not topics_and_raw or not topics_and_raw[0]:
-                result_msg = "无比赛且无真实爆款数据可用"
-                print(f"ERROR: {result_msg}")
-                send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
-                return
-
-            topics, raw_articles = topics_and_raw
-            extra_meta = {"type": "gzh_real_data"}
-            _assign_columns_to_topics(topics, batch_mode)
-
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, is_gossip=True, date_str=date_str)
-
-        elif match_data.get("data_source") in ("zhibo8", "dongqiudi"):
-            print(f"\n   获取公众号爆款趋势作为跨源参考...")
-            gzh_raw = fetch_gzh_football_trends(date_str, fallback_match_data=match_data)
-            gzh_context = gzh_raw[:8] if gzh_raw else []
-
-            topics = select_topics(match_data, topic_history=topic_history, preferred_types=target_types, season_weights=season_weights, cross_batch_covered=cross_batch_covered, season_label=season_label, topic_count=article_count)
-            extra_meta = {"type": "match_analysis"}
-            _assign_columns_to_topics(topics, batch_mode)
-
-            _generate_articles_from_topics(topics, article_count, match_data, images_map, stats, articles, date_str=date_str)
-
-        else:
-            # 无直播吧/懂球帝源文章，Pipeline B 已禁用
-            print(f"   ❌ 无直播吧/懂球帝源文章，Pipeline B (LLM生成) 已禁用")
-            result_msg = "无媒体数据源，Pipeline B已禁用"
+        # Validate we have media source articles for rewriting
+        if match_data.get("data_source") not in ("zhibo8", "dongqiudi"):
+            result_msg = f"无直播吧/懂球帝源文章，Pipeline B已禁用 (data_source={match_data.get('data_source')})"
+            print(f"   ❌ {result_msg}")
             send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
             return
+
+        # Topic selection via LLM (based on match data + column domain guidance)
+        topics = select_topics(match_data, topic_history=topic_history,
+                               preferred_types=target_types,
+                               season_weights=season_weights,
+                               cross_batch_covered=cross_batch_covered,
+                               season_label=season_label,
+                               topic_count=article_count)
+        extra_meta = {"type": "match_analysis"}
+        _assign_columns_to_topics(topics, batch_mode)
+
+        # Generate articles: find source article for each topic, rewrite to 老六 style
+        _generate_articles_from_topics(topics, article_count, match_data,
+                                       images_map, stats, articles, date_str=date_str)
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
