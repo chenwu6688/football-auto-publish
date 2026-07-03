@@ -714,29 +714,40 @@ def check_rewrite_fidelity(source_fixture, rewritten_article):
     source_text = source_fixture.get("article_text", "")
 
     # 检查1：比分一致
+    # 注意：用 any() 而非 all()，因为内容中可能包含日期"2026-07-03"等
+    # 会被 (\d+)[:-](\d+) 误匹配为假比分。只要正确比分出现一次即通过。
     expected_hg = source_fixture.get("home_score")
     expected_ag = source_fixture.get("away_score")
     if expected_hg is not None and expected_ag is not None:
         found_scores = re.findall(r'(\d+)[:-](\d+)', content)
         if found_scores:
-            all_match = all(
+            score_ok = any(
                 (int(a) == expected_hg and int(b) == expected_ag) or
                 (int(a) == expected_ag and int(b) == expected_hg)
                 for a, b in found_scores
             )
-            if not all_match:
+            if not score_ok:
                 issues.append(f"比分不一致: 来源 {expected_hg}-{expected_ag}")
 
     # 检查2：源文章中的球员名出现在改写文中
     source_goals = source_fixture.get("goals", [])
     for g in source_goals:
-        scorer = g.get("scorer", "")
+        scorer = g.get("scorer_name", g.get("scorer", ""))
         if scorer and scorer not in content and scorer not in source_text:
-            # 如果源文章有球员名但改写文没有，且源文章正文有 → 球员名被改了
             if scorer in source_text:
                 issues.append(f"缺少球员: {scorer}")
 
-    # 检查3：禁止新增断言表达
+    # 检查3：禁止新增断言表达，但需对照结构化进球数据做语义判断
+    # 先用 goals[] 数据统计每个球员的进球数，用于验证"梅开二度""帽子戏法"
+    from collections import defaultdict
+    goals_by_scorer = defaultdict(int)
+    for g in source_goals:
+        name = g.get("scorer_name", g.get("scorer", ""))
+        if name:
+            goals_by_scorer[name] += 1
+    has_double = any(c == 2 for c in goals_by_scorer.values())
+    has_hattrick = any(c >= 3 for c in goals_by_scorer.values())
+
     banned_patterns = [
         (r'帽子戏法', '新增编造: 帽子戏法'),
         (r'梅开二度', '新增编造: 梅开二度'),
@@ -744,8 +755,17 @@ def check_rewrite_fidelity(source_fixture, rewritten_article):
         (r'第\d+分钟', '新增编造: 具体时间'),
     ]
     for pattern, desc in banned_patterns:
-        if re.search(pattern, content) and not re.search(pattern, source_text):
-            issues.append(desc)
+        if not re.search(pattern, content):
+            continue
+        # 通过结构化进球数据验证语义正确性，而非死板比对文章字面
+        if pattern == r'梅开二度' and has_double:
+            continue  # 球员确实进了2球，语义正确
+        if pattern == r'帽子戏法' and has_hattrick:
+            continue  # 球员确实进了3+球，语义正确
+        # 退回到字面比对：仅当 source_text 也没有时才判定为编造
+        if re.search(pattern, source_text):
+            continue  # 源文章本身用了这个词，没问题
+        issues.append(desc)
 
     return len(issues) == 0, issues
 
