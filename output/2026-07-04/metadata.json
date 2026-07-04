@@ -1,7 +1,7 @@
 {
   "date": "2026-07-04",
-  "generated_at": "2026-07-04T01:49:13.625434",
-  "total_articles": 1,
+  "generated_at": "2026-07-04T04:04:48.764584",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -38,56 +38,168 @@
       "column_id": "",
       "column_name": "世界杯日报",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "梅西进球、门将开挂、乌龙绝杀，这剧本好莱坞都不敢写",
+      "path": "/home/runner/work/_temp/output/2026-07-04/article-1-梅西进球门将开挂-4038a9.md",
+      "slug": "梅西进球门将开挂-4038a9",
+      "tags": [
+        "Argentina",
+        "Cape Verde",
+        "Messi",
+        "World Cup",
+        "own goal",
+        "Vozinha"
+      ],
+      "keywords": [
+        "Argentina",
+        "Cape Verde",
+        "Messi",
+        "World Cup",
+        "own goal",
+        "Vozinha"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-04/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "佛得角门将把梅西逼成配角？这场3-2藏着太多反直觉剧本",
+      "path": "/home/runner/work/_temp/output/2026-07-04/article-2-佛得角门将把梅西-162a30.md",
+      "slug": "佛得角门将把梅西-162a30",
+      "tags": [
+        "Argentina",
+        "Cape Verde",
+        "World Cup",
+        "Messi",
+        "Vozinha",
+        "extra time",
+        "own goal"
+      ],
+      "keywords": [
+        "Argentina",
+        "Cape Verde",
+        "World Cup",
+        "Messi",
+        "Vozinha",
+        "extra time",
+        "own goal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-04/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "点球踢飞、换门将也没用——澳大利亚这波操作到底坑了谁？",
-      "formula": "D",
-      "angle": "澳大利亚点球大战两次踢飞，换门将也未能挽救，批评教练组决策失误",
+      "title": "3-2险胜，阿根廷差点被佛得角掀翻！梅西救主也难掩卫冕冠军的危机",
+      "angle": "阿根廷3-2惊险战胜佛得角，比分远比想象中焦灼。佛得角两度领先，梅西最后时刻点球救主。这场比赛暴露出阿根廷防守的致命漏洞，以及梅球王依然是大腿但整体状态下滑的隐患。作为老球迷，我想说：阿根廷要卫冕，这状态可不行。",
       "keywords": [
-        "Australia",
-        "penalty shootout",
-        "world cup",
-        "socceroos"
+        "Argentina",
+        "Cape Verde",
+        "Messi",
+        "comeback",
+        "World Cup upset"
       ],
       "keywords_cn": [
-        "澳大利亚",
-        "点球大战",
-        "世界杯",
-        "换门将"
+        "阿根廷",
+        "佛得角",
+        "梅西",
+        "惊险逆转",
+        "世界杯冷门"
       ],
       "content_type": "热点球评",
-      "score": 85,
-      "expected_heat": "A",
-      "rationale": "点球大战戏剧性十足，换门将决策引发巨大争议，球迷情绪容易愤怒和讨论",
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "强队险些翻车+梅西绝杀，戏剧冲突强，球迷有讨论欲望",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "控球率70%却赢得如此狼狈？佛得角用数据给阿根廷上了一堂防守课",
+      "angle": "阿根廷全场控球率高达71%，射门22次，却一度1-2落后，最后靠点球险胜。佛得角的密集防守和快速反击战术让阿根廷进攻线陷入泥潭。深度分析：为什么梅西被限制、阿根廷边路传中无效、佛得角的高位逼抢如何奏效。这是本届世界杯最值得复盘的一场以小博大战术案例。",
+      "keywords": [
+        "tactical analysis",
+        "possession",
+        "defensive counter",
+        "Argentina weakness",
+        "Cape Verde strategy"
+      ],
+      "keywords_cn": [
+        "战术解析",
+        "控球率",
+        "防守反击",
+        "阿根廷漏洞",
+        "佛得角策略"
+      ],
+      "content_type": "战术解析",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "数据反差强烈，战术复盘有深度，满足老球迷求知欲",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-07-04 09:49:13"
+  "last_batch": "noon",
+  "last_updated": "2026-07-04 12:04:48"
 }
