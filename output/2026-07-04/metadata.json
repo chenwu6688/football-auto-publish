@@ -1,0 +1,200 @@
+{
+  "date": "2026-07-04",
+  "generated_at": "2026-07-04T01:23:09.379444",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "阿根廷3-2死里逃生，佛得角差点让梅西的纪录变笑话",
+      "path": "/home/runner/work/_temp/output/2026-07-04/article-1-阿根廷32死里逃-43967f.md",
+      "slug": "阿根廷32死里逃-43967f",
+      "tags": [
+        "Argentina",
+        "Cape Verde",
+        "World Cup",
+        "Messi",
+        "own goal",
+        "extra time"
+      ],
+      "keywords": [
+        "Argentina",
+        "Cape Verde",
+        "World Cup",
+        "Messi",
+        "own goal",
+        "extra time"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-04/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "点球踢飞，换门将也没用——澳大利亚这波操作到底坑了谁？",
+      "path": "/home/runner/work/_temp/output/2026-07-04/article-2-点球踢飞换门将也-46b262.md",
+      "slug": "点球踢飞换门将也-46b262",
+      "tags": [
+        "Australia",
+        "Egypt",
+        "World Cup",
+        "penalty shootout",
+        "Hani own goal"
+      ],
+      "keywords": [
+        "Australia",
+        "Egypt",
+        "World Cup",
+        "penalty shootout",
+        "Hani own goal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-04/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "点球踢飞俩，澳大利亚这波操作真是给自己挖坑",
+      "path": "/home/runner/work/_temp/output/2026-07-04/article-3-点球踢飞俩澳大利-179e53.md",
+      "slug": "点球踢飞俩澳大利-179e53",
+      "tags": [
+        "Australia",
+        "Egypt",
+        "World Cup",
+        "penalty shootout",
+        "own goal",
+        "Souttar",
+        "Herrington"
+      ],
+      "keywords": [
+        "Australia",
+        "Egypt",
+        "World Cup",
+        "penalty shootout",
+        "own goal",
+        "Souttar",
+        "Herrington"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-04/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-04/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "3-2！梅西93分钟点杀，阿根廷差点被鱼腩掀翻",
+      "angle": "阿根廷3-2险胜佛得角，过程远比比分惊险。梅西虽点球绝杀，但阿根廷防线漏洞百出，世界杯卫冕之路隐患重重。",
+      "keywords": [
+        "Argentina",
+        "Cape Verde",
+        "Messi",
+        "World Cup"
+      ],
+      "keywords_cn": [
+        "阿根廷",
+        "佛得角",
+        "梅西",
+        "世界杯"
+      ],
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "卫冕冠军险些被世界排名百名开外的球队逼平，戏剧性拉满，球迷必吵防守与球星依赖症。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "8球狂轰！埃及5-3澳大利亚，萨拉赫造世界杯最快帽子戏法？",
+      "angle": "埃及5-3澳大利亚，单场8球创下本届世界杯进球最多纪录。萨拉赫若戴帽，将改写非洲球员纪录，但澳大利亚防守为何如此拉胯？",
+      "keywords": [
+        "Egypt",
+        "Australia",
+        "Salah",
+        "hat-trick",
+        "World Cup"
+      ],
+      "keywords_cn": [
+        "埃及",
+        "澳大利亚",
+        "萨拉赫",
+        "世界杯"
+      ],
+      "content_type": "战术解析",
+      "score": 91,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "超大比分狂潮，数据震撼；萨拉赫纪录话题性强，适合深度拆解攻防战术。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "埃及 5-3 澳大利亚，8球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-04 09:23:09"
+}
