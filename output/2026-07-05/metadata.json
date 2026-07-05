@@ -1,6 +1,6 @@
 {
   "date": "2026-07-05",
-  "generated_at": "2026-07-05T01:29:36.821917",
+  "generated_at": "2026-07-05T03:27:58.662173",
   "total_articles": 2,
   "articles": [
     {
@@ -66,96 +66,163 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "小动作0黄牌？裁判真把姆巴佩当铁人了",
+      "path": "/home/runner/work/_temp/output/2026-07-05/article-1-小动作0黄牌裁判-bab54d.md",
+      "slug": "小动作0黄牌裁判-bab54d",
+      "tags": [
+        "Mbappe",
+        "World Cup",
+        "France",
+        "Paraguay",
+        "penalty",
+        "controversial referee"
+      ],
+      "keywords": [
+        "Mbappe",
+        "World Cup",
+        "France",
+        "Paraguay",
+        "penalty",
+        "controversial referee"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-05/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "摩洛哥3-0加拿大进八强，这黑马成色太足了",
+      "path": "/home/runner/work/_temp/output/2026-07-05/article-2-摩洛哥30加拿大-fef24f.md",
+      "slug": "摩洛哥30加拿大-fef24f",
+      "tags": [
+        "Morocco",
+        "Canada",
+        "World Cup",
+        "round of 16",
+        "Younes"
+      ],
+      "keywords": [
+        "Morocco",
+        "Canada",
+        "World Cup",
+        "round of 16",
+        "Younes"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "1-0！法国狂轰20脚仅进1球，德尚的命硬该谢罪吗？",
-      "formula": "A",
-      "angle": "法国队身价最高却踢得极其丑陋，全场控球但效率低下，只靠一次反击取胜，德尚的保守战术让球迷愤怒，他应该为进攻乏术负责。",
+      "title": "1-0！法国赢了，但巴拉圭用拼命赢得了谁的心？",
+      "formula": "B",
+      "angle": "巴拉圭全场死磕法国，门将多次神扑，逼得姆巴佩毫无办法。虽然输了比分，但赢得了尊重，这种硬骨头精神才是世界杯最动人的故事。老六觉得，巴拉圭虽败犹荣。",
       "keywords": [
-        "France",
-        "Deschamps",
         "Paraguay",
-        "World Cup 2026"
+        "France",
+        "World Cup",
+        "underdog",
+        "fighting spirit"
       ],
       "keywords_cn": [
-        "法国队",
-        "德尚",
         "巴拉圭",
-        "进攻乏力"
+        "法国",
+        "世界盃",
+        "虽败犹荣"
       ],
       "content_type": "热点球评",
-      "score": 88,
+      "score": 95,
       "expected_heat": "S",
-      "rationale": "卫冕冠军表现与身价反差巨大，法国球迷和路人粉都容易愤怒，争议性高，评论区必然分裂。",
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "rationale": "世界杯热点+逆袭故事+情绪共鸣(感动/敬佩), 与已发姆巴佩角度错开, 争议性中, 适合老球迷发声。",
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "why_pick": "今日仅有两场世界杯, 巴拉圭拼搏精神是未被深入挖掘的亮点, 易引发共鸣。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "3-0！摩洛哥大胜真相：巴萨弃将阿布德才是一战成名的真英雄",
-      "formula": "E",
-      "angle": "摩洛哥3-0大胜加拿大，本该是阿什拉夫等球星高光，但巴萨弃将阿布德替补上场表现惊艳，证明巴萨放走他是错误，也体现了摩洛哥足球的人才厚度。",
+      "title": "摩洛哥3-0幕后：阿什拉夫两助攻，皇马真要后悔了？",
+      "formula": "A",
+      "angle": "阿什拉夫在世界杯大放异彩，助攻梅开二度，身价暴涨。当年皇马放走他，如今看他carry，老六想说：皇马这波血亏。结合转会传闻，制造争议性话题。",
       "keywords": [
+        "Achraf Hakimi",
         "Morocco",
-        "Abde",
-        "Canada",
-        "Barcelona"
+        "Real Madrid",
+        "transfer",
+        "World Cup"
       ],
       "keywords_cn": [
+        "阿什拉夫",
         "摩洛哥",
-        "阿布德",
-        "加拿大",
-        "巴萨弃将"
+        "皇马",
+        "转会后悔"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
+      "content_type": "转会资讯",
+      "score": 90,
       "expected_heat": "A",
-      "rationale": "挖掘世界杯背后的球员故事，从豪门弃将到国家队英雄的身份反差容易引发共鸣和讨论，具有故事性。",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "rationale": "世界杯球员+豪门往事+转会争议, 与已发乌纳希角度错开, 引发皇马球迷和黑粉讨论。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "今日摩洛哥赢球, 阿什拉夫表现亮眼, 用转会话题挑动球迷情绪, 符合爆款公式。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-05 09:29:36"
+  "last_batch": "evening",
+  "last_updated": "2026-07-05 11:27:58"
 }
