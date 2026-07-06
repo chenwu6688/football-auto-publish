@@ -254,6 +254,7 @@ jobs:
                       merged_articles.append(a)
                       old_articles.add(key)
               new_meta['articles'] = merged_articles
+              new_meta['total_articles'] = len(merged_articles)
               new_meta['batches_completed'] = sorted(old_batches | new_batches)
           dst.parent.mkdir(parents=True, exist_ok=True)
           dst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))
@@ -306,19 +307,27 @@ jobs:
           mkdir -p "output/${TODAY}"
 
           # 合并 batches_completed，避免覆盖之前批次的状态
+          # BUGFIX: 从 dst（step 11 已合并后的元数据）读取，而非 src（仅当前批次）
+          # 否则会覆盖 step 11 合并好的跨批次文章列表
           python3 -c "
           import json
           from pathlib import Path
 
           src = Path('${SRC}')
           dst = Path('${DST}')
-          new_meta = json.loads(src.read_text())
 
           if dst.exists():
-              old_meta = json.loads(dst.read_text())
-              old_batches = set(old_meta.get('batches_completed', []))
-              new_batches = set(new_meta.get('batches_completed', []))
-              new_meta['batches_completed'] = sorted(old_batches | new_batches)
+              # 使用 step 11 已合并的元数据（包含所有批次文章）
+              new_meta = json.loads(dst.read_text())
+              # 仅从 src 合并当前批次的完成状态
+              if src.exists():
+                  src_meta = json.loads(src.read_text())
+                  old_batches = set(new_meta.get('batches_completed', []))
+                  new_batches = set(src_meta.get('batches_completed', []))
+                  new_meta['batches_completed'] = sorted(old_batches | new_batches)
+          else:
+              # step 11 可能未执行（如 metadata.json 不存在），直接用 src
+              new_meta = json.loads(src.read_text())
 
           dst.parent.mkdir(parents=True, exist_ok=True)
           dst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))
