@@ -1,0 +1,132 @@
+{
+  "date": "2026-07-06",
+  "generated_at": "2026-07-06T01:29:28.437909",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "五星巴西倒在哈兰德脚下，内马尔点射遮不住一身毛病",
+      "path": "/home/runner/work/_temp/output/2026-07-06/article-1-五星巴西倒在哈兰-dddec5.md",
+      "slug": "五星巴西倒在哈兰-dddec5",
+      "tags": [
+        "Brazil",
+        "Norway",
+        "Haaland",
+        "Neymar",
+        "World Cup 2026",
+        "penalty",
+        "upset"
+      ],
+      "keywords": [
+        "Brazil",
+        "Norway",
+        "Haaland",
+        "Neymar",
+        "World Cup 2026",
+        "penalty",
+        "upset"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-06/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "2-1！挪威掀翻五星巴西，这北欧神话背后藏着狠招",
+      "formula": "A",
+      "angle": "巴西输球不是偶然，挪威用北欧的纪律和反击撕碎了桑巴足球的华丽外衣。老六认为巴西该醒醒了，光靠个人能力打不了硬仗。",
+      "keywords": [
+        "Norway",
+        "Brazil",
+        "World Cup upset",
+        "tactical breakdown"
+      ],
+      "keywords_cn": [
+        "挪威",
+        "巴西",
+        "世界杯冷门",
+        "战术分析"
+      ],
+      "content_type": "热点球评",
+      "score": 95,
+      "expected_heat": "S",
+      "rationale": "世界杯比赛日唯一强强对话，巴西爆冷输给挪威极具争议性和故事性，能引发球迷对巴西战术和挪威黑马的激烈讨论。",
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "“内马尔替身”浮出水面？巴西惨败后足协连夜开会换血",
+      "formula": "B",
+      "angle": "巴西足协赛后紧急会议，换帅传闻愈演愈烈。老六觉得巴西这次不换血不行，但谁来接这个烫手山芋？",
+      "keywords": [
+        "Brazil coach",
+        "sack",
+        "Neymar replacement",
+        "transfer turmoil"
+      ],
+      "keywords_cn": [
+        "巴西主帅下课",
+        "内马尔替身",
+        "换血风波"
+      ],
+      "content_type": "转会资讯",
+      "score": 90,
+      "expected_heat": "A",
+      "rationale": "巴西惨败后教练和球员去留是球迷最关心的话题，有持续发酵空间，场外八卦配上国家队危机情绪拉满。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-06 09:29:28"
+}
