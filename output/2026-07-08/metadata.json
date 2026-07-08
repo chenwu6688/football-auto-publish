@@ -1,0 +1,203 @@
+{
+  "date": "2026-07-08",
+  "generated_at": "2026-07-08T01:16:42.639239",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "门神对决120分钟交白卷，点球大战瑞士站着晋级",
+      "path": "/home/runner/work/_temp/output/2026-07-08/article-1-门神对决120分-5d415c.md",
+      "slug": "门神对决120分-5d415c",
+      "tags": [
+        "Switzerland",
+        "Colombia",
+        "World Cup",
+        "penalty shootout",
+        "quarter-finals"
+      ],
+      "keywords": [
+        "Switzerland",
+        "Colombia",
+        "World Cup",
+        "penalty shootout",
+        "quarter-finals"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-08/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "梅西失点又救赎，阿根廷让二追三绝杀埃及！",
+      "path": "/home/runner/work/_temp/output/2026-07-08/article-2-梅西失点又救赎阿-532df8.md",
+      "slug": "梅西失点又救赎阿-532df8",
+      "tags": [
+        "Argentina",
+        "Egypt",
+        "Messi",
+        "Enzo",
+        "World Cup",
+        "comeback"
+      ],
+      "keywords": [
+        "Argentina",
+        "Egypt",
+        "Messi",
+        "Enzo",
+        "World Cup",
+        "comeback"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "瑞士门神扑点，120分钟0射正也能赢？这剧本编剧都不敢写",
+      "path": "/home/runner/work/_temp/output/2026-07-08/article-3-瑞士门神扑点12-847a88.md",
+      "slug": "瑞士门神扑点12-847a88",
+      "tags": [
+        "Switzerland",
+        "Colombia",
+        "World Cup",
+        "penalty shootout",
+        "Kobel",
+        "Vargas"
+      ],
+      "keywords": [
+        "Switzerland",
+        "Colombia",
+        "World Cup",
+        "penalty shootout",
+        "Kobel",
+        "Vargas"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-08/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-08/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-08/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "4-3，92分钟绝杀！瑞士踢出世界杯最疯狂剧本",
+      "formula": "A",
+      "angle": "瑞士4-3哥伦比亚，这场进球大战跌宕起伏，92分钟绝杀让哥伦比亚功亏一篑。我要吹瑞士的韧性，更要骂哥伦比亚后防最后时刻的愚蠢失误——这绝对是本届世界杯最刺激的一场比赛，没有之一。",
+      "keywords": [
+        "Switzerland",
+        "Colombia",
+        "4-3",
+        "last-minute goal",
+        "World Cup upset"
+      ],
+      "keywords_cn": [
+        "瑞士",
+        "哥伦比亚",
+        "绝杀",
+        "大比分",
+        "世界杯"
+      ],
+      "content_type": "热点球评",
+      "score": 103,
+      "expected_heat": "S",
+      "rationale": "4-3大比分+最后时刻绝杀，符合爆款公式A，戏剧性强。瑞士爆冷赢哥伦比亚，争议点在于哥伦比亚最后时刻的防守选择，容易引发球迷站队讨论。情绪上能调动震惊与愤怒。",
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "世界杯关键战，逆转+绝杀+大比分，话题性爆棚，且未涉及过去7天已报道球星。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "阿根廷3-2险胜，这支埃及让梅西看到了自己的影子",
+      "formula": "E",
+      "angle": "阿根廷3-2赢埃及，看似轻松其实狼狈。埃及的萨拉赫几乎一人扛着球队，而阿根廷后防漏洞百出。我要说这不是王者之师该有的样子，但得承认埃及的顽强值得尊重——萨拉赫虽败犹荣，梅西该庆幸对手没把握住机会。",
+      "keywords": [
+        "Argentina",
+        "Egypt",
+        "Salah",
+        "comeback",
+        "World Cup group stage"
+      ],
+      "keywords_cn": [
+        "阿根廷",
+        "埃及",
+        "萨拉赫",
+        "逆转",
+        "世界杯"
+      ],
+      "content_type": "战术解析",
+      "score": 91,
+      "expected_heat": "A",
+      "rationale": "反常识叙事：强队险胜弱旅，埃及表现出色反而引发对阿根廷的质疑。情绪上既有对意大利的赞美也有对阿根廷的批评，容易引发正反双方辩论。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "从埃及角度看比赛，萨拉赫是未覆盖的球星，且战术层面分析两队攻防漏洞，与第一场瑞士话题完全不同。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "瑞士 4-3 哥伦比亚，7球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-08 09:16:42"
+}
