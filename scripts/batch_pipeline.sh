@@ -73,9 +73,25 @@ if [ ! -f "$VENV_PYTHON" ]; then
     exit 1
 fi
 
+# --- 1.5 爬虫健康检查 ---
+echo ""
+echo "[1.5] 爬虫健康检查..."
+HEALTH_FILE="/tmp/football_${BATCH}_health.json"
+if timeout 60 "$VENV_PYTHON" scripts/health_check_scraper.py --format json --output "$HEALTH_FILE"; then
+    echo "✅ 爬虫健康"
+elif [ $? -eq 1 ]; then
+    echo "⚠️ 爬虫降级（部分源不可用），继续运行"
+else
+    echo "❌ 爬虫不可用，终止任务"
+    HEALTH_JSON=$(cat "$HEALTH_FILE" 2>/dev/null || echo '{}')
+    ERROR_MSG=$(echo "$HEALTH_JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); e=d.get('sources',{}).get('zhibo8',{}).get('errors',[]); print('; '.join(e[:3]) if e else '未知')" 2>/dev/null || echo "未知错误")
+    send_wxpush "足球自媒体 🚨" "${TODAY} ${BATCH} 爬虫不可用：${ERROR_MSG}"
+    exit 1
+fi
+
 # --- 2. 生成文章 ---
 echo ""
-echo "[1/2] 生成文章 ($BATCH 批次)... (最多等待 ${ORCHESTRATOR_TIMEOUT}s)"
+echo "[2/2] 生成文章 ($BATCH 批次)... (最多等待 ${ORCHESTRATOR_TIMEOUT}s)"
 cd "$PROJECT_DIR"
 
 export OUTPUT_DIR="$OUTPUT_DIR"

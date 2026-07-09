@@ -24,33 +24,83 @@ from utils import retry
 
 
 def collect_real_matches(date_str):
-    """采集比赛数据。主源：直播吧战报。备源：football-data.org。
+    """采集比赛数据。平行采集直播吧和懂球帝，保证即使一个源改版另一个仍正常工作。
 
-    优先从直播吧获取带有战报全文的比赛数据（记者已核实），
-    如果没有或数量不足，降级到 football-data.org API。
+    - 直播吧：比赛战报（含比分、队名、战报全文）+ 新闻文章兜底
+    - 懂球帝：新闻文章（独立采集，不依赖直播吧状态）
+    - 两个源的结果合并返回，其中一个失败不影响另一个
+    - 两源都失败时降级到 football-data.org
     """
     print(f"[1/5] 采集真实比赛数据 ({date_str})...")
 
-    # 优先从媒体源获取（直播吧战报，记者已核实）
+    from media_scraper import SportsScraper
+
+    # ── 直播吧采集 ──
+    zhibo8_result = None
+    zhibo8_error = None
     try:
-        from media_scraper import SportsScraper
         scraper = SportsScraper()
-        # 先检查媒体源是否可用
         if scraper.check_available():
-            media_result = _collect_from_media(scraper, date_str)
-            if media_result and media_result.get("total_matches", 0) > 0:
-                print(f"   ✅ 数据源: 直播吧 ({media_result['total_matches']} 场比赛, 含战报)")
-                return media_result
+            zhibo8_result = _collect_from_media(scraper, date_str)
+            if zhibo8_result and zhibo8_result.get("total_matches", 0) > 0:
+                print(f"   ✅ 直播吧: {zhibo8_result['total_matches']} 场比赛, 含战报")
             else:
                 print("   ⚠️ 直播吧未获取到有效比赛")
+                zhibo8_error = "empty"
         else:
             print("   ⚠️ 直播吧不可达")
-    except ImportError:
-        print("   ⚠️ media_scraper 模块未安装")
+            zhibo8_error = "unreachable"
     except Exception as e:
-        print(f"   ⚠️ 媒体源异常: {e}")
+        print(f"   ⚠️ 直播吧异常: {e}")
+        zhibo8_error = str(e)
 
-    # 降级到 football-data.org
+    # ── 懂球帝采集（平行，不依赖直播吧） ──
+    dongqiudi_result = None
+    dq_error = None
+    try:
+        dq_scraper = SportsScraper()
+        dongqiudi_result = _collect_from_dongqiudi(dq_scraper, date_str)
+        if dongqiudi_result and dongqiudi_result.get("total_matches", 0) > 0:
+            print(f"   ✅ 懂球帝: {dongqiudi_result['total_matches']} 篇文章")
+        else:
+            print("   ⚠️ 懂球帝未获取到有效文章")
+            dq_error = "empty"
+    except Exception as e:
+        print(f"   ⚠️ 懂球帝异常: {e}")
+        dq_error = str(e)
+
+    # ── 合并结果 ──
+    if zhibo8_result or dongqiudi_result:
+        merged = {
+            "date": date_str,
+            "total_matches": 0,
+            "fixtures_by_league": {},
+            "all_fixtures": [],
+            "standings": {},
+            "data_source": "zhibo8",  # 默认直播吧，只有懂球帝时才变
+            "media_reports": {},
+            "news_articles": [],
+        }
+
+        # 合并直播吧数据
+        if zhibo8_result:
+            merged["all_fixtures"].extend(zhibo8_result.get("all_fixtures", []))
+            merged["fixtures_by_league"] = zhibo8_result.get("fixtures_by_league", {})
+            merged["media_reports"] = zhibo8_result.get("media_reports", {})
+            merged["news_articles"] = zhibo8_result.get("news_articles", [])
+
+        # 合并懂球帝数据
+        if dongqiudi_result:
+            # 如果直播吧完全没数据，data_source 切为懂球帝
+            if not zhibo8_result or not zhibo8_result.get("all_fixtures"):
+                merged["data_source"] = "dongqiudi"
+            merged["all_fixtures"].extend(dongqiudi_result.get("all_fixtures", []))
+
+        merged["total_matches"] = len(merged["all_fixtures"])
+        return merged
+
+    # ── 两源都失败 → football-data.org ──
+    print("   ⚠️ 直播吧和懂球帝均不可用，降级到 football-data.org")
     return _collect_from_football_data(date_str)
 
 
@@ -79,6 +129,7 @@ def _collect_from_media(scraper, date_str):
     for m in matches:
         report_text = ""
         goals = []
+        source_images = []
         match_url = m.get("match_url", "")
 
         # 获取战报
@@ -135,7 +186,7 @@ def _collect_from_media(scraper, date_str):
 
     print(f"   📄 直播吧战报: {len(media_reports)}/{len(fixture_details)} 场有详细战报")
 
-    return {
+    result = {
         "date": date_str,
         "total_matches": len(fixture_details),
         "fixtures_by_league": dict(by_league),
@@ -143,6 +194,72 @@ def _collect_from_media(scraper, date_str):
         "standings": {},
         "data_source": "zhibo8",
         "media_reports": media_reports,
+        "news_articles": [],  # 新闻文章兜底
+    }
+
+    # 平行采集直播吧新闻文章（作为补充素材，不依赖战报数量）
+    try:
+        news_articles = scraper.scrape_football_news(date_str, max_articles=15)
+        result["news_articles"] = news_articles
+        if news_articles:
+            print(f"   📰 直播吧新闻: {len(news_articles)} 篇")
+    except Exception as e:
+        print(f"   ⚠️ 新闻采集异常: {e}")
+
+    return result
+
+
+def _collect_from_dongqiudi(scraper, date_str):
+    """从懂球帝采集新闻文章。
+
+    与直播吧平行采集，返回格式与 collect_real_matches 兼容，
+    data_source = "dongqiudi"。
+    """
+    headlines = scraper.scrape_dongqiudi_headlines(max_articles=15)
+    if not headlines:
+        return {"date": date_str, "total_matches": 0, "fixtures_by_league": {},
+                "all_fixtures": [], "standings": {}, "data_source": "media"}
+
+    # 取每篇文章正文
+    fixture_details = []
+    for art in headlines:
+        url = art.get("url", "")
+        title = art.get("title", "")
+        try:
+            result = scraper.scrape_dongqiudi_article(url)
+            article_text = result.get("article_text", "") if result else ""
+        except Exception:
+            article_text = ""
+
+        fixture = {
+            "id": f"dongqiudi_{hash(url) % 1000000:06d}",
+            "source": "dongqiudi",
+            "source_url": url,
+            "league": "",
+            "home_team": "", "away_team": "",
+            "home_score": None, "away_score": None,
+            "status": "NEWS",
+            "utc_date": date_str,
+            "goals": [],
+            "article_text": article_text,
+            "article_title": title,
+            "source_images": [],
+            "data_confidence": "high",
+        }
+        fixture_details.append(fixture)
+
+    print(f"   ✅ 懂球帝文章: {len(fixture_details)} 篇, "
+          f"{sum(1 for f in fixture_details if f.get('article_text'))} 篇有正文")
+
+    return {
+        "date": date_str,
+        "total_matches": len(fixture_details),
+        "fixtures_by_league": {},
+        "all_fixtures": fixture_details,
+        "standings": {},
+        "data_source": "dongqiudi",
+        "media_reports": {},
+        "news_articles": [],
     }
 
 

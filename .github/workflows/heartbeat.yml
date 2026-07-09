@@ -14,6 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: 爬虫健康检查
+        id: scraper_health
+        continue-on-error: true
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          echo "🔍 爬虫健康检测..."
+          python3 scripts/health_check_scraper.py --alert
+          echo "status=$?" >> $GITHUB_OUTPUT
+
       - name: 检查今日批次完成情况
         id: check
         run: |

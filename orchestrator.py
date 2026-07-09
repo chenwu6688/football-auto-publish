@@ -289,6 +289,23 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                     pass
             lines.append(f"  {m['home_team']} {hg}-{ag if hg is not None else 'vs'} {m['away_team']} {cst_time}")
 
+    # 如果比赛数据很少（无比赛日），用新闻文章标题作为选题素材
+    news_lines = []
+    news_articles = match_data.get("news_articles", [])
+    if len(lines) < 2 and (news_articles or match_data.get("data_source") == "dongqiudi"):
+        news_lines.append("\n## 📰 今日足球新闻（可用作选题素材）")
+        if news_articles:
+            for art in news_articles[:15]:
+                title = art.get("title", "")
+                if title:
+                    news_lines.append(f"  - {title}")
+        else:
+            # 懂球帝降级路径：文章在 all_fixtures 中
+            for f in match_data.get("all_fixtures", [])[:15]:
+                title = f.get("article_title", "")
+                if title:
+                    news_lines.append(f"  - {title}")
+
     history_text = ""
     if topic_history and (topic_history.get("titles") or topic_history.get("teams") or topic_history.get("players")):
         history_text = "\n## ⚠️ 过去7天已报道（必须避开，不可重复）\n"
@@ -343,6 +360,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 
 比赛数据（只显示已结束的比赛FT/AET/PEN，进行中的比赛显示为"vs"）：
 {"".join(lines)}
+{"".join(news_lines)}
 
 ⚠️ 注意：只显示了已结束的比赛(FT/AET/PEN)。进行中的比赛显示为"vs"，不要选作选题。
 
@@ -594,7 +612,8 @@ def _build_data_confidence_block(match_context):
 def _find_source_article(topic, match_context):
     """从 match_context 中找到与话题关联的源文章。
 
-    通过球队名匹配找到对应的 fixture，返回其 article_text。
+    优先通过球队名匹配找到对应的 fixture（战报类），
+    如果无匹配，再尝试从 news_articles（新闻类）中通过关键词匹配。
     如果没有匹配的源文章，返回 None。
     """
     if not match_context:
@@ -603,17 +622,53 @@ def _find_source_article(topic, match_context):
         return None
 
     topic_text = (topic.get("title", "") + " " + topic.get("angle", "")).lower()
+    # 先匹配比赛战报（按球队名）
     for f in match_context.get("all_fixtures", []):
         article_text = f.get("article_text", "")
         if not article_text or len(article_text) < 100:
             continue
         home = f.get("home_team", "").lower()
         away = f.get("away_team", "").lower()
-        # Check if topic mentions either team
         if home and home in topic_text:
             return {"article_text": article_text, "fixture": f}
         if away and away in topic_text:
             return {"article_text": article_text, "fixture": f}
+
+    # 再匹配新闻文章（按关键词，适用于无比赛日）
+    for art in match_context.get("news_articles", []):
+        article_text = art.get("article_text", "") or art.get("_content", "")
+        if not article_text or len(article_text) < 100:
+            continue
+        art_title = art.get("title", "").lower()
+        topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
+        if not topic_kw:
+            continue
+        kw_match = any(kw in art_title for kw in topic_kw if len(kw) >= 2)
+        topic_title_words = set(topic.get("title", "").lower().split())
+        art_title_words = set(art_title.split())
+        title_overlap = topic_title_words & art_title_words
+        if kw_match or len(title_overlap) >= 1:
+            return {"article_text": article_text, "fixture": {"source": "zhibo8",
+                "home_team": "", "away_team": "", "league": topic.get("content_type", ""),
+                "article_text": article_text}}
+
+    # 再匹配懂球帝 NEWS 状态文章（按标题关键词，懂球帝降级路径）
+    for f in match_context.get("all_fixtures", []):
+        if f.get("status") != "NEWS":
+            continue
+        article_text = f.get("article_text", "")
+        if not article_text or len(article_text) < 100:
+            continue
+        art_title = f.get("article_title", "").lower()
+        topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
+        if not topic_kw:
+            continue
+        kw_match = any(kw in art_title for kw in topic_kw if len(kw) >= 2)
+        topic_title_words = set(topic.get("title", "").lower().split())
+        art_title_words = set(art_title.split())
+        if kw_match or len(topic_title_words & art_title_words) >= 1:
+            return {"article_text": article_text, "fixture": f}
+
     return None
 
 
@@ -874,6 +929,34 @@ def generate_article_with_retry(topic, match_context, index, max_retries=2, date
         return {}, "Pipeline A 不可用：数据源非直播吧/懂球帝"
 
     source = _find_source_article(topic, match_context)
+    if not source:
+        # 如果没匹配到战报，尝试去 news_articles 中懒加载正文
+        news_articles = match_context.get("news_articles", [])
+        if news_articles:
+            topic_text = (topic.get("title", "") + " " + topic.get("angle", "")).lower()
+            topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
+            for art in news_articles:
+                art_title = art.get("title", "").lower()
+                # 检查标题是否包含话题关键词
+                kw_match = any(kw in art_title for kw in topic_kw) if topic_kw else False
+                title_word_match = any(word in topic_text for word in art_title.split())
+                if kw_match or title_word_match or len(topic_kw) == 0:
+                    # 懒加载正文
+                    article_text = art.get("article_text", "")
+                    if not article_text or len(article_text) < 100:
+                        from media_scraper import SportsScraper
+                        try:
+                            scraper = SportsScraper()
+                            article_text = scraper.scrape_zhibo8_article_content(art.get("url", ""))
+                        except Exception:
+                            article_text = ""
+                    if article_text and len(article_text) >= 100:
+                        source = {"article_text": article_text, "fixture": {
+                            "source": "zhibo8", "home_team": "", "away_team": "",
+                            "league": topic.get("content_type", ""),
+                            "article_text": article_text, "source_images": []}}
+                        break
+
     if not source:
         return {}, f"Pipeline A：未找到与话题「{topic.get('title','')[:20]}」匹配的源文章"
 
@@ -1260,6 +1343,8 @@ def main():
         # ============================================================
 
         # Validate we have media source articles for rewriting
+        has_matches = match_data.get("total_matches", 0) > 0
+        has_news_articles = bool(match_data.get("news_articles"))
         if match_data.get("data_source") not in ("zhibo8", "dongqiudi"):
             result_msg = f"无直播吧/懂球帝源文章，Pipeline B已禁用 (data_source={match_data.get('data_source')})"
             print(f"   ❌ {result_msg}")

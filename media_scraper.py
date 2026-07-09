@@ -38,7 +38,7 @@
     }
 """
 
-import re, json, time, random
+import re, json, time, random, sys
 from datetime import datetime, timedelta
 from typing import Optional
 import requests
@@ -68,14 +68,26 @@ class SportsScraper:
     ZHIBO8_BASE = "https://www.zhibo8.cc"
     ZHIBO8_NEWS = "https://news.zhibo8.com"
 
-    # 赛程页选择器
-    ZHIBO8_MATCH_LINK_SEL = "a[href*='match']"  # 所有比赛链接
-    ZHIBO8_SCHEDULE_SEL = ".schedule"  # 赛程容器
-    ZHIBO8_CONTENT_SEL = ".content"  # 战报正文容器
+    # 赛程页选择器 (支持降级链，选第一个有效的)
+    ZHIBO8_SCHEDULE_SELS = [".schedule", ".match-list", "#schedule",
+                             "[class*='schedule']", "[id*='schedule']"]
+    ZHIBO8_FOOTBALL_ITEM_SELS = ["li[data-type='football']",
+                                   "li[class*='football']",
+                                   "[class*='match-item']",
+                                   "[class*='game-item']"]
+    ZHIBO8_TEAMS_SELS = ["._teams", "[class*='teams']", "[class*='team-name']",
+                          "[class*='team_name']"]
+    ZHIBO8_LEAGUE_SELS = ["._league", "[class*='league']", "[class*='league-name']"]
+    ZHIBO8_CONTENT_SELS = [".content", ".article-content", ".detail",
+                            ".news-content", "#content", "article"]
+    ZHIBO8_NEWS_LINK_SELS = [r"zuqiu/\d{4}-\d{2}-\d{2}/\w+native\.htm",
+                               r"zuqiu/\d{4}-\d{2}-\d{2}/\w+\.htm",
+                               r"news.*match"]
 
     # ==================== 懂球帝 ====================
     DQ_BASE = "https://www.dongqiudi.com"
-    DQ_ARTICLE_SEL = ".detail, .article-content, .content"
+    DQ_ARTICLE_SELS = [".detail", ".article-content", ".content",
+                        ".news-content", "article", ".rich-content"]
 
     # ==================== 反爬配置 ====================
     REQUEST_DELAY = 1.0
@@ -107,6 +119,111 @@ class SportsScraper:
     def __init__(self):
         self.session = requests.Session()
         self._rotate_ua()
+
+    # ------------------------------------------------------------------
+    #  Selector 降级工具 — 当网站HTML改版时自动尝试备用选择器
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _select_one_fallback(soup, selectors, default=None):
+        """遍历选择器列表，返回第一个匹配的元素。
+
+        当网站改版、CSS类名变化时，降级链可自动适配。
+        """
+        if not selectors:
+            return default
+        if isinstance(selectors, str):
+            return soup.select_one(selectors) or default
+        for sel in selectors:
+            el = soup.select_one(sel)
+            if el is not None:
+                return el
+        return default
+
+    @staticmethod
+    def _find_all_fallback(soup, selectors, default=None):
+        """遍历选择器列表，返回第一个非空的结果集。"""
+        if not selectors:
+            return default or []
+        if isinstance(selectors, str):
+            return soup.select(selectors) or default or []
+        for sel in selectors:
+            results = soup.select(sel)
+            if results:
+                return results
+        return default or []
+
+    @staticmethod
+    def _find_all_fallback_regex(soup, patterns, attr="href"):
+        """遍历所有正则模式，合并去重返回全部匹配元素。
+
+        注意：与 _select_one_fallback / _find_all_fallback 不同，
+        此方法会尝试所有模式并合并结果（而非第一个有结果就返回），
+        因为不同模式匹配不同类型的链接，需要全部收集。
+        """
+        if isinstance(patterns, str):
+            patterns = [patterns]
+        seen = set()
+        all_results = []
+        for pat in patterns:
+            results = soup.find_all("a", href=re.compile(pat, re.I))
+            for r in results:
+                key = r.get("href", "")
+                if key and key not in seen:
+                    seen.add(key)
+                    all_results.append(r)
+        return all_results
+
+    def _auto_detect_selectors(self, soup):
+        """当所有降级链失效时，尝试自动发现新的选择器。
+
+        通过寻找"中文队名+数字比分"文本模式来推断容器。
+        适用于网站完全重构后，CSS类名全部变更的场景。
+
+        返回 dict: {"schedule_sel": str, "football_sel": str,
+                     "teams_sel": str, "league_sel": str}
+                元素为空表示未找到
+        """
+        result = {"schedule_sel": "", "football_sel": "",
+                  "teams_sel": "", "league_sel": ""}
+
+        # 尝试找到包含比分模式(中文+数字+横线+数字)的容器
+        score_pattern = re.compile(r"([一-鿿]{2,6})\s*\d+\s*[-–:]\s*\d+\s*([一-鿿]{2,6})")
+        candidates = []
+
+        for el in soup.find_all(["li", "div", "tr"]):
+            text = el.get_text(strip=True)
+            if score_pattern.search(text):
+                # 检查是否包含链接
+                if el.find("a", href=re.compile(r"match", re.I)):
+                    candidates.append(el)
+                    if len(candidates) >= 3:
+                        break
+
+        if candidates:
+            # 用第一个候选元素推断选择器
+            first = candidates[0]
+            # 找共同父容器
+            parent = first.parent
+            if parent and parent.name in ("div", "ul", "tbody"):
+                class_names = " ".join(parent.get("class", []))
+                if class_names:
+                    result["schedule_sel"] = f"{parent.name}.{class_names.replace(' ', '.')}"
+
+            # 推断足球条目选择器
+            tag = first.name
+            cls = " ".join(first.get("class", []))
+            if cls:
+                result["football_sel"] = f"{tag}.{cls.replace(' ', '.')}"
+
+            # 推断队名选择器: 找比分前后的中文元素
+            teams_el = first.find("span", string=re.compile(r"[一-鿿]{2,6}"))
+            if teams_el:
+                cls = " ".join(teams_el.get("class", []))
+                if cls:
+                    result["teams_sel"] = f"span.{cls.replace(' ', '.')}"
+
+        return result
 
     # ------------------------------------------------------------------
     #  公开接口
@@ -170,6 +287,64 @@ class SportsScraper:
             print(f"   ⚠️ 新闻解析异常: {e}")
             return []
 
+    def scrape_dongqiudi_headlines(self, max_articles: int = 20) -> list[dict]:
+        """从懂球帝首页获取文章列表（备源）。
+
+        懂球帝结构稳定，文章链接形如 /articles/6016509.html。
+        返回文章标题和URL，正文通过 scrape_dongqiudi_article 懒加载。
+        """
+        try:
+            html = self._http_get(f"{self.DQ_BASE}/", referer=self.DQ_BASE)
+            soup = BeautifulSoup(html, "html.parser")
+            articles = []
+            seen_urls = set()
+
+            for a in soup.find_all("a", href=re.compile(r"/articles/\d+\.html", re.I)):
+                href = a.get("href", "")
+                text = a.get_text(strip=True)
+
+                if not href or not text or len(text) < 20:
+                    continue
+                if href in seen_urls:
+                    continue
+                seen_urls.add(href)
+
+                # 拼完整 URL
+                if href.startswith("//"):
+                    href = "https:" + href
+                elif href.startswith("/"):
+                    href = self.DQ_BASE + href
+                elif not href.startswith("http"):
+                    href = self.DQ_BASE + "/" + href.lstrip("/")
+
+                # 清理标题：去掉前导分类和后缀时间/评论数
+                # 懂球帝格式: "足球纽约市长：xxx五洲世界杯07-09 11:15" 或 "01Tyc：xxx22 评论"
+                clean_title = re.sub(
+                    r'^(?:\d{2})?(?:足球|篮球|电竞|综合|英超|西甲|意甲|德甲|法甲|中超|欧冠|世界杯|五洲|德甲中超|意甲德甲|法甲五洲|英超世界杯|英超意甲|英超德甲|英超五洲)\s*',
+                    '', text)
+                clean_title = re.sub(
+                    r'\s*(?:\d{2}[-:]\d{2}\s*\d+[评评论]*|评论|\d+评论).*$',
+                    '', clean_title).strip()
+                # 如果清理后太短，用原始文本的前60字
+                if len(clean_title) < 8:
+                    clean_title = text[:60]
+
+                articles.append({
+                    "source": "dongqiudi",
+                    "title": clean_title[:80],
+                    "url": href,
+                    "article_text": "",
+                })
+
+                if len(articles) >= max_articles:
+                    break
+
+            print(f"   📰 懂球帝文章: {len(articles)} 篇")
+            return articles
+        except Exception as e:
+            print(f"   ⚠️ 懂球帝首页解析异常: {e}")
+            return []
+
     def scrape_dongqiudi_article(self, article_url: str) -> Optional[dict]:
         """从懂球帝获取文章内容（备源）。
 
@@ -185,13 +360,25 @@ class SportsScraper:
             html = self._http_get(article_url, referer="https://www.dongqiudi.com/")
             soup = BeautifulSoup(html, "html.parser")
             title_el = soup.find("h1") or soup.find(class_=re.compile(r"title", re.I))
-            content_el = soup.select_one(self.DQ_ARTICLE_SEL) if self.DQ_ARTICLE_SEL else None
+            content_el = self._select_one_fallback(soup, self.DQ_ARTICLE_SELS)
             title = title_el.get_text(strip=True) if title_el else ""
             content = ""
             if content_el:
                 for tag in content_el.find_all(["script", "style"]):
                     tag.decompose()
+                # 去掉导航栏等非正文区域
+                for nav in content_el.find_all(["nav", "header", "footer"]):
+                    nav.decompose()
                 content = content_el.get_text("\n", strip=True)
+                # 去掉首尾的导航文本（懂球帝文章常有"懂球帝首页/动态/..."前缀）
+                lines = [l.strip() for l in content.split("\n") if l.strip()]
+                # 跳过前几条导航/元数据行
+                skip_prefixes = ("懂球帝首页", "动态", "七零", "发布于")
+                body_start = 0
+                for i, line in enumerate(lines[:8]):
+                    if any(line.startswith(p) for p in skip_prefixes):
+                        body_start = i + 1
+                content = "\n".join(lines[body_start:])
             if title and content:
                 return {"source": "dongqiudi", "title": title, "article_text": content}
         except Exception as e:
@@ -206,6 +393,81 @@ class SportsScraper:
         except Exception:
             return False
 
+    def scrape_football_news(self, date_str: str = None, max_articles: int = 20) -> list[dict]:
+        """获取直播吧足球新闻/文章列表（非比赛战报）。
+
+        从 news.zhibo8.com/zuqiu/ 获取今日足球新闻文章，
+        每篇包含标题、URL、正文内容。
+
+        Args:
+            date_str: 日期字符串 YYYY-MM-DD，默认今天
+            max_articles: 最多获取的文章数
+
+        Returns:
+            list[dict]: 每个 dict 含 title, url, article_text, source
+        """
+        if date_str is None:
+            date_str = datetime.now().strftime("%Y-%m-%d")
+
+        try:
+            html = self._http_get(f"{self.ZHIBO8_NEWS}/zuqiu/")
+            soup = BeautifulSoup(html, "html.parser")
+
+            articles = []
+            seen_urls = set()
+
+            # news 页的文章链接形如: /zuqiu/2026-07-09/6a4e200503b0fnative.htm（降级链适配改版）
+            for a in self._find_all_fallback_regex(soup, self.ZHIBO8_NEWS_LINK_SELS):
+                href = a.get("href", "")
+                title = a.get_text(strip=True)
+
+                if not href or not title or len(title) < 15:
+                    continue
+                if href in seen_urls:
+                    continue
+                seen_urls.add(href)
+
+                # 拼完整 URL
+                if href.startswith("//"):
+                    href = "https:" + href
+                elif href.startswith("/"):
+                    href = self.ZHIBO8_NEWS + href
+                elif not href.startswith("http"):
+                    href = self.ZHIBO8_NEWS + "/" + href.lstrip("/")
+
+                # 只取当天文章
+                if date_str not in href:
+                    continue
+
+                articles.append({
+                    "source": "zhibo8",
+                    "title": title[:80],
+                    "url": href,
+                    "article_text": "",  # 需要单独抓取
+                })
+
+                if len(articles) >= max_articles:
+                    break
+
+            # 懒加载正文：先返回标题/URL，爬取时按需取正文
+            if len(articles) > 0:
+                print(f"   📰 直播吧足球新闻: {len(articles)} 篇", file=sys.stderr)
+            return articles
+
+        except Exception as e:
+            print(f"   ⚠️ 直播吧新闻解析异常: {e}")
+            return []
+
+    def scrape_zhibo8_article_content(self, url: str) -> Optional[str]:
+        """获取直播吧文章/战报正文内容。
+
+        复用 scrape_match_report 的解析逻辑(.content 容器)。
+        """
+        report = self.scrape_match_report(url)
+        if report:
+            return report.get("article_text", "")
+        return None
+
     # ------------------------------------------------------------------
     #  直播吧 — 赛程页解析
     # ------------------------------------------------------------------
@@ -218,22 +480,125 @@ class SportsScraper:
         2. 战报链接 (news.zhibo8.com/.../matchXXX.htm) — 有比分和标题
 
         我们两种都取，优先取战报链接。
+        选择器通过降级链配置，网站HTML改版时自动适配。
         """
         soup = BeautifulSoup(html, "html.parser")
         matches = []
         seen_urls = set()
 
-        # 方法1：从 .schedule 取所有直播/比赛链接
-        schedule = soup.select_one(self.ZHIBO8_SCHEDULE_SEL) or soup.find(class_=re.compile(r"schedule", re.I))
+        # 方法1：从 schedule 容器找比赛链接（降级链适配改版）
+        schedule = self._select_one_fallback(soup, self.ZHIBO8_SCHEDULE_SELS)
+        # fallback: 也尝试通过 class 名正则匹配
+        if not schedule:
+            schedule = soup.find(class_=re.compile(r"schedule|match|contest", re.I))
         if schedule:
+            # 1a: 从 <a> 标签的文本解析（旧版结构，链接文本直接含队名和比分）
             for a in schedule.find_all("a", href=re.compile(r"match", re.I)):
                 self._process_match_link(a, date_str, matches, seen_urls)
+            # 1b: 从 <li data-type="football"> 结构解析队名和链接（新版结构）
+            for li in self._find_all_fallback(schedule, self.ZHIBO8_FOOTBALL_ITEM_SELS):
+                self._parse_football_li(li, date_str, matches, seen_urls)
 
-        # 方法2：从全页找战报链接（news.zhibo8.com 的 match 页面）
-        for a in soup.find_all("a", href=re.compile(r"news\.zhibo8.*match", re.I)):
+        # 方法2：从全页找战报链接（news.zhibo8.com，降级链 regex 模式）
+        report_links = self._find_all_fallback_regex(soup, self.ZHIBO8_NEWS_LINK_SELS)
+        for a in report_links:
             self._process_match_link(a, date_str, matches, seen_urls)
 
+        # 过滤：只保留国际足球，剔除中国足球和非足球项目
+        # 已完成比赛(FT)保留——它们是今日最新素材，跨批次去重由 orchestrator 处理
+        cn_team_kw = ("中国", "男足", "女足", " U17", " U20", " U19",
+                      "北京", "上海", "山东", "浙江", "广东", "天津",
+                      "深圳", "武汉", "成都", "重庆", "河南")
+        matches[:] = [m for m in matches if (
+            not any(nf in m.get("match_url", "").lower()  # 剔除非足球
+                    for nf in ("nba", "game", "esport", "basketball",
+                              "volleyball", "baseball", "other", "dota")) and
+            not any(cn in (m.get("home_team", "") + m.get("away_team", ""))
+                    for cn in cn_team_kw)  # 剔除中国球队
+        )]
+
         return matches
+
+    def _parse_football_li(self, li, date_str: str, matches: list, seen_urls: set):
+        """从 <li data-type="football"> 结构解析比赛信息。
+
+        新版直播吧首页使用此结构渲染比赛列表：
+        <li data-type="football" data-time="2026-07-10 04:00" label="世界杯,法国,摩洛哥,...">
+          <time>04:00</time>
+          <b><span class="_league">世界杯1/4决赛</span>
+             <span class="_teams">法国<img/>-<img/>摩洛哥</span></b>
+          <a href="/zhibo/zuqiu/2026/match1867449v.htm">小红书 咪咕 CCTV5</a>
+          <a href="https://www.zhibo8.com/zhibo/zuqiu/2026/match1867449v.htm">文字</a>
+        </li>
+        """
+        # 取联赛原始中文名（用于过滤中国联赛）
+        league_el = self._select_one_fallback(li, self.ZHIBO8_LEAGUE_SELS)
+        league_cn = league_el.get_text(strip=True) if league_el else ""
+        # 跳过中国联赛（中超/中甲/中冠/中乙/足协杯等）
+        cn_league_keywords = ("中超", "中甲", "中冠", "中乙", "中国", "足协杯", "苏超")
+        if league_cn and any(kw in league_cn for kw in cn_league_keywords):
+            return
+        league = league_cn
+
+        # 取队名（按分隔符拆分）
+        teams_el = self._select_one_fallback(li, self.ZHIBO8_TEAMS_SELS)
+        home_team = away_team = ""
+        if teams_el:
+            # _teams 的文本格式: "法国 - 摩洛哥" 或 "法国-摩洛哥"
+            teams_text = teams_el.get_text(strip=True)
+            # 移掉 img 标签之间的减号噪音
+            # 文本可能含 "法国-摩洛哥" 或 "法国 - 摩洛哥" 或 "法国 vs 摩洛哥"
+            sep = re.search(r'\s*(?:-|–|vs|VS|vs\.)\s*', teams_text)
+            if sep:
+                home_team = teams_text[:sep.start()].strip()
+                away_team = teams_text[sep.end():].strip()
+                # 去除非中文前缀/后缀
+                home_team = re.sub(r'^[^一-鿿]+|[^一-鿿]+$', '', home_team)
+                away_team = re.sub(r'^[^一-鿿]+|[^一-鿿]+$', '', away_team)
+
+        # 取比赛链接（取第一个含 "match" 的 href）
+        match_url = ""
+        for a in li.find_all("a", href=re.compile(r"match", re.I)):
+            href = a.get("href", "")
+            if not href:
+                continue
+            if href.startswith("//"):
+                href = "https:" + href
+            elif href.startswith("/"):
+                if "news" in href:
+                    href = self.ZHIBO8_NEWS + href
+                else:
+                    href = self.ZHIBO8_BASE + href
+            elif not href.startswith("http"):
+                href = self.ZHIBO8_NEWS + "/" + href.lstrip("/")
+            match_url = href
+            break
+
+        if not home_team or not away_team or not match_url:
+            return
+        if match_url in seen_urls:
+            return
+        seen_urls.add(match_url)
+
+        # 推断联赛（中文→标准名）
+        league_en = self._infer_league(league + " " + home_team + " " + away_team, match_url)
+
+        match = {
+            "source": "zhibo8",
+            "match_url": match_url,
+            "home_team": home_team,
+            "away_team": away_team,
+            "home_score": None,
+            "away_score": None,
+            "status": "PRE",
+            "league": league_en,
+            "match_date": date_str,
+        }
+
+        # 去重：避免与 _process_match_link 已提取的重复
+        key = (home_team, away_team)
+        if not any(m["home_team"] == home_team and m["away_team"] == away_team for m in matches):
+            matches.append(match)
 
     def _process_match_link(self, a, date_str: str, matches: list, seen_urls: set):
         """处理单个比赛链接，尝试解析为 match dict。"""
@@ -271,6 +636,11 @@ class SportsScraper:
         """
         if not text:
             return None
+
+        # 规范化比分周围空格：新版zhibo8首页<a>标签内用子div渲染队名和比分，
+        # get_text(strip=True) 会保留元素间的空格，得到 "阿根廷3 - 2埃及"(空格导致正则失败)
+        text = re.sub(r'\s*([-–:—])\s*', r'\1', text)
+        # 也处理 "3 - 2" 中 dash 前后都有空格的情况(上一步已覆盖此case)
 
         # 尝试提取比分 (X-Y 格式)
         score_m = re.search(r"(\d+)[-–:](\d+)", text)
@@ -320,7 +690,10 @@ class SportsScraper:
                              "横扫", "完胜", "击退", "斩杀", "淘汰",
                              "淘汰出局", "拒", "止步"]
             after_clean = after
-            # 去掉比分和队名之间的描述词
+            # 去掉比分和队名之间的描述词，以及管道符分隔的额外比分信息
+            first_pipe = after.find("|")
+            if first_pipe > 0:
+                after = after[:first_pipe]
             for mid in ["点球大战", "点球", "加时赛", "加时"]:
                 if after_clean.startswith(mid):
                     after_clean = after_clean[len(mid):]
@@ -333,10 +706,12 @@ class SportsScraper:
             if away_match:
                 away_team = away_match.group(1)
                 # 去掉队名后的非队名后缀
-                for suffix in ["淘汰", "淘汰出局", "绝杀", "出局", "噩梦"]:
+                for suffix in ["淘汰", "淘汰出局", "绝杀", "出局", "噩梦", "点球", "加时"]:
                     if away_team.endswith(suffix):
                         away_team = away_team[:-len(suffix)]
                         break
+                # 也去掉多余的管道分隔符(compact score format中的冲突字符)
+                away_team = away_team.split("|")[0].strip()
         else:
             # 无比分，找 "vs" 或 "VS"
             vs_m = re.search(r"(.{2,6})\s*v[ssVS]\s*(.{2,6})", text)
@@ -407,8 +782,8 @@ class SportsScraper:
                 if suffix in title:
                     title = title.split(suffix)[0].strip()
 
-        # 正文
-        content_el = soup.select_one(self.ZHIBO8_CONTENT_SEL) or soup.find(class_=re.compile(r"content|article|detail|news", re.I))
+        # 正文（降级链适配改版）
+        content_el = self._select_one_fallback(soup, self.ZHIBO8_CONTENT_SELS) or soup.find(class_=re.compile(r"content|article|detail|news", re.I))
         content = ""
         if content_el:
             for tag in content_el.find_all(["script", "style", "iframe"]):
