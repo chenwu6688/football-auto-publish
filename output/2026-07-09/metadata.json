@@ -1,0 +1,199 @@
+{
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T04:13:44.460598",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "两度失点+读秒绝杀！阿根廷让二追三的剧本，比电影还疯",
+      "path": "/home/runner/work/_temp/output/2026-07-09/article-1-两度失点读秒绝杀-bce54d.md",
+      "slug": "两度失点读秒绝杀-bce54d",
+      "tags": [
+        "Argentina",
+        "Messi",
+        "World Cup",
+        "comeback",
+        "Egypt",
+        "Enzo Fernandez",
+        "penalty miss"
+      ],
+      "keywords": [
+        "Argentina",
+        "Messi",
+        "World Cup",
+        "comeback",
+        "Egypt",
+        "Enzo Fernandez",
+        "penalty miss"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-09/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-09/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-09/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "三次失点、两度中框，这夜温哥华只认科贝尔的大手套",
+      "path": "/home/runner/work/_temp/output/2026-07-09/article-2-三次失点两度中框-cd98cc.md",
+      "slug": "三次失点两度中框-cd98cc",
+      "tags": [
+        "Switzerland",
+        "Colombia",
+        "penalty shootout",
+        "Yann Sommer",
+        "woodwork"
+      ],
+      "keywords": [
+        "Switzerland",
+        "Colombia",
+        "penalty shootout",
+        "Yann Sommer",
+        "woodwork"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-09/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "梅西失点+绝平助攻，阿根廷3-2埃及！这剧本谁敢信？",
+      "path": "/home/runner/work/_temp/output/2026-07-09/article-3-梅西失点绝平助攻-e66d85.md",
+      "slug": "梅西失点绝平助攻-e66d85",
+      "tags": [
+        "Argentina",
+        "Egypt",
+        "Messi",
+        "comeback",
+        "World Cup",
+        "penalty miss"
+      ],
+      "keywords": [
+        "Argentina",
+        "Egypt",
+        "Messi",
+        "comeback",
+        "World Cup",
+        "penalty miss"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-09/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-09/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-09/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "3-2险胜埃及，阿根廷这后防是来度假的？",
+      "formula": "A",
+      "angle": "阿根廷虽然3-2赢球，但被埃及两度洞穿，暴露了奥塔门迪老化、边卫插上不回防的致命缺陷。老六直言：靠这防线，八强都悬。",
+      "keywords": [
+        "Argentina",
+        "Egypt",
+        "Salah",
+        "defense"
+      ],
+      "keywords_cn": [
+        "阿根廷防守",
+        "萨拉赫",
+        "世界杯"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "expected_heat": "S",
+      "rationale": "阿根廷是流量担当，萨拉赫两球有巨星表现，防线千疮百孔引发球迷愤怒和讨论，符合争议性强、情绪共鸣高的爆款特征。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "0-0闷平哥伦比亚，世界杯最无聊比赛诞生？",
+      "formula": "B",
+      "angle": "瑞士和哥伦比亚打出本届世界杯首场0-0，全场零射正，老六开喷：这哪里是世界杯，分明是催眠大师表演赛。倒脚、回传、蹲坑，现代足球的悲哀。",
+      "keywords": [
+        "Switzerland",
+        "Colombia",
+        "boring",
+        "tactics"
+      ],
+      "keywords_cn": [
+        "瑞士哥伦比亚",
+        "无聊比赛",
+        "防守足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "expected_heat": "B",
+      "rationale": "虽话题性不如巨星对决，但0-0闷战能引发球迷共鸣和吐槽，结合对现代足球防守战术的反思，有讨论价值。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "阿根廷 3-2 埃及，5球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-09 12:13:44"
+}
