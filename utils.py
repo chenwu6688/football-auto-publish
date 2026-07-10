@@ -41,7 +41,8 @@ def retry(func, *args, max_retries=3, base_delay=2, desc="API", **kwargs):
             last_err = e
             if isinstance(e, requests.exceptions.HTTPError):
                 status = e.response.status_code if hasattr(e, 'response') and e.response is not None else None
-                if status in (403, 404):
+                # 402 余额不足 / 401 认证失败 / 403 权限拒绝 — 重试无效，立即退出
+                if status in (401, 402, 403, 404):
                     raise
             if attempt < max_retries - 1:
                 delay = base_delay * (2 ** attempt)
