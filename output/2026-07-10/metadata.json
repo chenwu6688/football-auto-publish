@@ -1,7 +1,7 @@
 {
   "date": "2026-07-10",
-  "generated_at": "2026-07-10T03:25:55.867709",
-  "total_articles": 3,
+  "generated_at": "2026-07-10T12:17:01.643212",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -109,55 +109,166 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "丢点后传射，姆巴佩这剧本谁敢写？法国2:0摩洛哥进四强",
+      "path": "/home/runner/work/_temp/output/2026-07-10/article-1-丢点后传射姆巴佩-7d1181.md",
+      "slug": "丢点后传射姆巴佩-7d1181",
+      "tags": [
+        "Mbappe",
+        "France",
+        "Morocco",
+        "World Cup",
+        "quarterfinal",
+        "Bounou",
+        "Dembele"
+      ],
+      "keywords": [
+        "Mbappe",
+        "France",
+        "Morocco",
+        "World Cup",
+        "quarterfinal",
+        "Bounou",
+        "Dembele"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-10/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "姆巴佩失点又救赎，摩洛哥门神终究扛不住巴黎双星",
+      "path": "/home/runner/work/_temp/output/2026-07-10/article-2-姆巴佩失点又救赎-cc9dfd.md",
+      "slug": "姆巴佩失点又救赎-cc9dfd",
+      "tags": [
+        "Mbappe",
+        "France",
+        "Morocco",
+        "World Cup",
+        "penalty miss",
+        "Bounou"
+      ],
+      "keywords": [
+        "Mbappe",
+        "France",
+        "Morocco",
+        "World Cup",
+        "penalty miss",
+        "Bounou"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-10/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-10/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "阿什拉夫迷失，摩洛哥黑马之路止步：谁来背这口锅？",
-      "angle": "摩洛哥0-2不敌法国，核心右后卫阿什拉夫攻防两端被姆巴佩打爆，但真正的锅在白头巾主帅雷格拉吉的激进战术。从击败比利时到被法国碾压，摩洛哥输在没有说明书。",
+      "title": "摩洛哥只丢两球却被淘汰，非洲足球的防守真的进步了吗？",
+      "angle": "反常识叙事：看似严密的防守下暴露进攻乏力，非洲球队与欧洲顶级强队的真实差距不在防守而在终结能力。",
       "keywords": [
-        "morocco",
-        "achraf",
-        "regragui",
-        "worldcup",
-        "quarterfinal"
+        "Morocco",
+        "defense",
+        "World Cup",
+        "tactics",
+        "France"
       ],
       "keywords_cn": [
         "摩洛哥",
-        "阿什拉夫",
-        "雷格拉吉",
-        "战术失误"
+        "防守",
+        "世界杯",
+        "战术分析"
       ],
       "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "摩洛哥虽败但自带话题，阿什拉夫被姆巴佩完爆+主帅保守换人，国内球迷想骂又心疼，评论区能吵翻天。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "score": 87,
+      "controversy_level": "medium",
+      "target_emotion": "震撼",
+      "why_pick": "世界杯仅剩一场已结束比赛，避开姆巴佩个人表现，从整体层面引发对非洲足球的讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "世界杯四强产生后，豪门瞄准摩洛哥防线：谁能抢下阿什拉夫？",
+      "angle": "转会资讯：摩洛哥右后卫阿什拉夫·哈基米在世界杯表现抢眼，多家欧洲豪门已有接触，聚焦其未来去向。",
+      "keywords": [
+        "Hakimi",
+        "transfer",
+        "Real Madrid",
+        "PSG",
+        "World Cup"
+      ],
+      "keywords_cn": [
+        "阿什拉夫",
+        "转会",
+        "皇马",
+        "巴黎"
+      ],
+      "content_type": "转会资讯",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "阿什拉夫未在过去7天报道中，且世界杯后转会窗口是球迷关注焦点。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-10 11:25:55"
+  "last_batch": "evening",
+  "last_updated": "2026-07-10 20:17:01"
 }
