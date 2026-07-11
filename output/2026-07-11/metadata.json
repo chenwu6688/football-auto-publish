@@ -1,7 +1,7 @@
 {
   "date": "2026-07-11",
-  "generated_at": "2026-07-11T01:15:06.038374",
-  "total_articles": 2,
+  "generated_at": "2026-07-11T10:47:43.957114",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -72,101 +72,139 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "库尔图瓦跪了，比利时也跟着跪了，梅里诺这脚补射把西班牙送进四强",
+      "path": "/home/runner/work/_temp/output/2026-07-11/article-1-库尔图瓦跪了比利-e2d4d1.md",
+      "slug": "库尔图瓦跪了比利-e2d4d1",
+      "tags": [
+        "Spain",
+        "Belgium",
+        "World Cup",
+        "quarterfinal",
+        "Courtois injury",
+        "Merino winner",
+        "goalkeeper blunder"
+      ],
+      "keywords": [
+        "Spain",
+        "Belgium",
+        "World Cup",
+        "quarterfinal",
+        "Courtois injury",
+        "Merino winner",
+        "goalkeeper blunder"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-11/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-11/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-11/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "2-0！法国再克摩洛哥，卫冕冠军的团队足球让黑马绝望",
+      "title": "10分钟两球！西班牙神奇逆转，恩里克换人如神",
       "formula": "A",
-      "angle": "法国虽然姆巴佩哑火，但全队防线稳固、中场控制力强，摩洛哥狂攻无果暴露与顶级强队差距，卫冕冠军用不依赖个人的团队篮球（足球）晋级四强。",
+      "angle": "复盘西班牙2-1逆转比利时，重点在恩里克换上奥亚萨瓦尔和莫拉塔后10分钟连进两球的战术博弈，否定比利时门将失误是主因的观点，强调换人调整的精妙。",
       "keywords": [
-        "France",
-        "Morocco",
-        "World Cup 2026",
-        "team defense",
-        "Mbappe silent"
-      ],
-      "keywords_cn": [
-        "法国",
-        "摩洛哥",
-        "世界杯",
-        "团队足球",
-        "姆巴佩哑火"
-      ],
-      "content_type": "热点球评",
-      "score": 92,
-      "expected_heat": "S",
-      "rationale": "法国vs摩洛哥是上届半决赛重演，结果2-0再次碾压，话题自带宿命感；姆巴佩被限制+摩洛哥的绝望反扑有情绪张力，符合世界杯热点球评首选要求。",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "17岁亚马尔一球成名！西班牙新金童把比利时黄金一代踩在脚下",
-      "formula": "C",
-      "angle": "西班牙2-1比利时，17岁亚马尔替补上场打入制胜球，赛后比利时黄金一代落寞退场，新老更替的戏剧感拉满，结合西甲新星转会传闻制造八卦热度。",
-      "keywords": [
-        "Yamal",
         "Spain",
         "Belgium",
-        "golden generation",
-        "young talent",
-        "upset"
+        "comeback",
+        "Enrique",
+        "substitution"
       ],
       "keywords_cn": [
-        "亚马尔",
         "西班牙",
         "比利时",
-        "黄金一代",
-        "新星"
+        "逆转",
+        "恩里克",
+        "替补奇兵"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 88,
       "expected_heat": "A",
-      "rationale": "亚马尔17岁在世界杯淘汰赛绝杀比利时，身份反差（少年 vs 黄金一代）极强；比利时黄金一代再次折戟引发怀旧与愤怒，评论区必炸。",
+      "rationale": "世界杯淘汰赛逆转+教练换人话题争议性高，与今日已发门将失误角度错开，情绪上激起对恩里克战术的讨论和对比利时遗憾的共情。",
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "避开库尔图瓦伤退角度，挖掘恩里克玄学换人，揭秘更衣室博弈，符合老六犀利拆战术人设。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "德布劳内怒斥队友：比利时黄金一代为何总是内耗？",
+      "formula": "B",
+      "angle": "爆料德布劳内在更衣室赛后怒斥队友缺乏斗志，结合比利时两次世界杯内讧史，质疑黄金一代真正短板是精神属性，而非战术。",
+      "keywords": [
+        "Belgium",
+        "De Bruyne",
+        "internal conflict",
+        "golden generation",
+        "World Cup exit"
+      ],
+      "keywords_cn": [
+        "比利时",
+        "德布劳内",
+        "内讧",
+        "黄金一代",
+        "世界杯出局"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "expected_heat": "A",
+      "rationale": "世界杯出局后更衣室内幕自带流量，情绪愤怒/好奇，球迷爱看撕逼，与第1篇西班牙逆转无核心球员重叠。",
       "controversy_level": "high",
-      "target_emotion": "感动",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "愤怒",
+      "why_pick": "比利时内讧是每次大赛保留节目，德布劳内角色天然有争议性，老六用接地气方式吐槽，易引发评论区站队。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-11 09:15:06"
+  "last_batch": "evening",
+  "last_updated": "2026-07-11 18:47:43"
 }
