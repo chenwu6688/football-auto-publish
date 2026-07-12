@@ -1,7 +1,7 @@
 {
   "date": "2026-07-12",
-  "generated_at": "2026-07-12T06:44:54.445060",
-  "total_articles": 4,
+  "generated_at": "2026-07-12T10:59:09.982211",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -142,55 +142,179 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
-    }
-  ],
-  "topics": [
+    },
     {
-      "title": "3-1！阿根廷轻松过关？不，这四大隐患不除恐难夺冠",
-      "formula": "A",
-      "angle": "阿根廷3-1瑞士看似轻松，但防守漏洞、中场失控、锋线浪费机会、梅西依赖症四大问题暴露无遗，谈冠军为时过早。以老六毒舌视角撕开阿根廷华丽假象。",
+      "index": 1,
+      "title": "阿根廷3-1瑞士：梅西挂彩换不来速胜，一张红牌掀翻天平",
+      "path": "/home/runner/work/_temp/output/2026-07-12/article-1-阿根廷31瑞士梅-171c9b.md",
+      "slug": "阿根廷31瑞士梅-171c9b",
+      "tags": [
+        "Argentina",
+        "Switzerland",
+        "World Cup",
+        "quarterfinal",
+        "Messi",
+        "red card",
+        "extra time",
+        "Embolo",
+        "Alvarez",
+        "Lautaro"
+      ],
       "keywords": [
         "Argentina",
         "Switzerland",
         "World Cup",
+        "quarterfinal",
+        "Messi",
+        "red card",
+        "extra time",
+        "Embolo",
+        "Alvarez",
+        "Lautaro"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-12/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "库尔图瓦一瘸一拐离场，替补门将送礼，西班牙绝杀比利时",
+      "path": "/home/runner/work/_temp/output/2026-07-12/article-2-库尔图瓦一瘸一拐-6b3c75.md",
+      "slug": "库尔图瓦一瘸一拐-6b3c75",
+      "tags": [
+        "Spain",
+        "Belgium",
+        "Courtois",
+        "Lamens",
+        "Merino",
+        "World Cup",
         "quarterfinal"
       ],
+      "keywords": [
+        "Spain",
+        "Belgium",
+        "Courtois",
+        "Lamens",
+        "Merino",
+        "World Cup",
+        "quarterfinal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-12/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "英阿大战重现世界杯半决赛，这次谁为梅西复仇？",
+      "formula": "B",
+      "angle": "从英阿历史恩怨切入，聚焦本届世界杯半决赛的戏剧性，质疑英格兰能否阻挡阿根廷的梅西时代。",
+      "keywords": [
+        "England",
+        "Argentina",
+        "World Cup semifinal",
+        "Messi",
+        "revenge"
+      ],
       "keywords_cn": [
+        "英格兰",
         "阿根廷",
-        "瑞士",
-        "世界杯"
+        "世界杯半决赛",
+        "梅西",
+        "复仇"
       ],
       "content_type": "热点球评",
-      "score": 91,
-      "expected_heat": "S",
-      "rationale": "阿根廷是世界杯流量担当，3-1比分有迷惑性，挑刺角度能引发梅迷和反梅派大战，争议性高，时效性强。",
+      "score": 95,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "target_emotion": "好奇",
+      "why_pick": "英阿对决自带流量，历史恩怨和梅西最后一届的悬念引爆情绪，时效性和争议性极强。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "19岁加维撞上24岁姆巴佩，西法半决赛青春对决谁更狂？",
+      "formula": "E",
+      "angle": "反常识点：法国和西班牙都是本届最年轻球队之一，但姆巴佩和加维两代天才的正面对决将成为历史转折。",
+      "keywords": [
+        "France",
+        "Spain",
+        "Mbappe",
+        "Gavi",
+        "youth",
+        "World Cup semifinal"
+      ],
+      "keywords_cn": [
+        "法国",
+        "西班牙",
+        "姆巴佩",
+        "加维",
+        "青春风暴",
+        "世界杯半决赛"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "聚焦球星年龄反差和天赋对决，符合八卦趣事调性，数据震撼（19岁vs24岁），能引发球迷站队热议。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-12 14:44:54"
+  "last_batch": "evening",
+  "last_updated": "2026-07-12 18:59:09"
 }
