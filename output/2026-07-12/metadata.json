@@ -1,0 +1,201 @@
+{
+  "date": "2026-07-12",
+  "generated_at": "2026-07-12T01:17:21.610825",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "贝林厄姆两球救主，英格兰加时逆转挪威！VAR又来搅局",
+      "path": "/home/runner/work/_temp/output/2026-07-12/article-1-贝林厄姆两球救主-a12332.md",
+      "slug": "贝林厄姆两球救主-a12332",
+      "tags": [
+        "England",
+        "Norway",
+        "Bellingham",
+        "WorldCup",
+        "VAR",
+        "quarterfinal"
+      ],
+      "keywords": [
+        "England",
+        "Norway",
+        "Bellingham",
+        "WorldCup",
+        "VAR",
+        "quarterfinal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-12/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "裤袜一退场，比利时这门将玄学就破了",
+      "path": "/home/runner/work/_temp/output/2026-07-12/article-2-裤袜一退场比利时-312220.md",
+      "slug": "裤袜一退场比利时-312220",
+      "tags": [
+        "Spain",
+        "Belgium",
+        "World Cup",
+        "Courtois",
+        "Merino",
+        "last-minute goal"
+      ],
+      "keywords": [
+        "Spain",
+        "Belgium",
+        "World Cup",
+        "Courtois",
+        "Merino",
+        "last-minute goal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-12/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "4-0血洗梅州，陕西联合这道爆炒客家菜够味",
+      "path": "/home/runner/work/_temp/output/2026-07-12/article-3-40血洗梅州陕西-c9f8f0.md",
+      "slug": "40血洗梅州陕西-c9f8f0",
+      "tags": [
+        "Shaanxi Union",
+        "Meizhou Hakka",
+        "Wang Shijie",
+        "China League One",
+        "Wang Shijie brace",
+        "Serbian penalty",
+        "4-0 victory"
+      ],
+      "keywords": [
+        "Shaanxi Union",
+        "Meizhou Hakka",
+        "Wang Shijie",
+        "China League One",
+        "Wang Shijie brace",
+        "Serbian penalty",
+        "4-0 victory"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-12/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-12/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "英格兰2-1挪威：又是险胜，索斯盖特的玄学还能撑多久？",
+      "formula": "B",
+      "angle": "英格兰1球险胜挪威挺进决赛，场面并不占优，索斯盖特的保守战术再次引发球迷不满，但结果就是赢了。从数据看，英格兰控球率不高却凭借两次反击制胜，这种命硬是实力还是运气？作为老球迷，我觉得索斯盖特早晚会翻车，但这次又被他蒙混过关。",
+      "keywords": [
+        "England",
+        "Norway",
+        "Southgate",
+        "World Cup"
+      ],
+      "keywords_cn": [
+        "英格兰",
+        "挪威",
+        "索斯盖特",
+        "世界杯"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "英格兰决赛门槛话题自带流量，保守战术争议能激起球迷正反两派激烈争论。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "德布劳内怒砸水瓶！比利时黄金一代倒在最后两分钟",
+      "formula": "F",
+      "angle": "比利时1-2被西班牙逆转，德布劳内赛后情绪失控怒砸水瓶，暗示队友配不上国家队。从库尔图瓦失误到最后一刻丢球，比利时足球的体系崩溃暴露无遗。作为老球迷，看到这一幕真替丁丁心疼，但也想说：光靠个人能力真赢不了整体足球。",
+      "keywords": [
+        "De Bruyne",
+        "Belgium",
+        "Spain",
+        "dressing room"
+      ],
+      "keywords_cn": [
+        "德布劳内",
+        "比利时",
+        "西班牙",
+        "更衣室"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "球星失控+更衣室内幕是爆款密码，比利时黄金一代的落寞引发怀旧和情绪共鸣。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "陕西联合血洗对手，4球大胜震惊",
+      "content_type": "紧急球评-惨案"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-12 09:17:21"
+}
