@@ -301,6 +301,21 @@ EVENING_COLUMN_POOL = [
         "interaction_guidance": "文末邀请分享：'你在现场看过最难忘的一场比赛是什么？评论区说说，看看谁的回忆最绝。'",
         "data_source_hint": "gzh_only",
     },
+    # 转会密探：转会窗期间的转会流言、谈判进展、球员去向
+    {
+        "slot": -1,
+        "column_id": "transfer-scout",
+        "column_name": "转会密探",
+        "icon": "🔍",
+        "topic_domain": "转会传闻与流言",
+        "topic_guidance": "最新转会动态、球员续约谈判、转会窗流言汇总。每个转会消息用短快方式呈现：①谁想买谁 ②报价多少 ③成行概率 ④老六点评。重点突出：金额、球员态度、竞争俱乐部。",
+        "writing_style": "流言快报体",
+        "style_detail": "像足球转会窗的实时流言板。每条转会消息2-4句话：球员名+俱乐部→报价/条件→进展→老六一针见血的点评。快节奏、信息密、适合碎片阅读。",
+        "word_count": [400, 600],
+        "interaction_type": "voting",
+        "interaction_guidance": "文末投票：'这交易你打几分？1-5分，评论区告诉我，我先来——'",
+        "data_source_hint": "transfer_preferred",
+    },
 ]
 
 # Map new column names to legacy content types for metadata compatibility
@@ -314,6 +329,7 @@ CONTENT_TYPE_TO_COLUMN = {
     "老六辣评": "八卦趣事",
     "争议裁判室": "八卦趣事",
     "转会雷达": "转会资讯",
+    "转会密探": "转会资讯",
     "球迷众生相": "八卦趣事",
 }
 
