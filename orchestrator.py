@@ -150,6 +150,32 @@ def get_cross_batch_covered(date_str):
     return covered
 
 
+def get_yesterday_keywords(date_str):
+    """Get yesterday's article keywords for cross-day dedup.
+
+    Returns set of lowercase keywords/tags from the previous day's metadata.
+    Used by select_topics() as a hard filter to prevent same-match repeat across days.
+    """
+    yesterday_kw = set()
+    try:
+        from datetime import timedelta
+        dt = datetime.strptime(date_str, "%Y-%m-%d") - timedelta(days=1)
+        meta_path = OUTPUT_DIR / dt.strftime("%Y-%m-%d") / "metadata.json"
+        if meta_path.exists():
+            meta = json.loads(meta_path.read_text())
+            for a in meta.get("articles", []):
+                for kw in a.get("keywords", []):
+                    yesterday_kw.add(kw.lower())
+                for tag in a.get("tags", []):
+                    yesterday_kw.add(tag.lower())
+            if yesterday_kw:
+                print(f"   跨天去重: 昨日的 {len(meta.get('articles', []))} 篇覆盖 "
+                      f"{len(yesterday_kw)} 个关键词，将过滤今日同类选题")
+    except Exception:
+        pass
+    return yesterday_kw
+
+
 def save_batch_state(date_str, batch_name, articles_saved):
     """Update daily metadata with batch completion info for cross-batch dedup."""
     meta_path = OUTPUT_DIR / date_str / "metadata.json"
@@ -269,7 +295,7 @@ def _check_intra_batch_dedup(topics):
     return topics, warnings
 
 
-def select_topics(match_data, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label="", topic_count=3):
+def select_topics(match_data, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label="", topic_count=3, yesterday_keywords=None):
     print(f"\n[2/5] LLM 话题筛选 (DeepSeek, target={topic_count}篇)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
@@ -316,6 +342,13 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
             history_text += "已覆盖球队: " + ", ".join(sorted(list(topic_history["teams"])[:10])) + "\n"
         if topic_history.get("players"):
             history_text += "已覆盖球员: " + ", ".join(sorted(list(topic_history["players"])[:10])) + "\n"
+
+    # Cross-day dedup: emphasize yesterday's content so LLM avoids suggesting the same match
+    if yesterday_keywords:
+        yesterday_sample = list(yesterday_keywords)[:20]
+        history_text += "\n## 🚫 昨日已报道的赛事（严禁今日再次选择相同比赛）\n"
+        history_text += "昨日关键词: " + ", ".join(sorted(yesterday_sample)) + "\n"
+        history_text += "如果今日的比赛数据中包含昨日已报道的同一场比赛，必须选择其他比赛。同一场比赛连续两天报道是绝对禁止的。\n"
 
     # Cross-batch dedup: tell LLM what today's earlier batches already published
     cross_batch_text = ""
@@ -459,6 +492,21 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                 filtered.append(t)
         if len(filtered) < len(topics):
             print(f"   跨批次去重: {len(topics)} → {len(filtered)} 个话题")
+        topics = filtered
+
+    # Cross-day dedup: hard filter against yesterday's keywords (overlap >= 40% → drop)
+    if yesterday_keywords and topics:
+        filtered = []
+        for t in topics:
+            t_title = t.get("title", "")[:30]
+            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
+            kw_overlap = len(t_kws & yesterday_keywords) / max(len(t_kws), 1) if t_kws else 0
+            if kw_overlap >= 0.4:
+                print(f"   🗑️ 跨天去重: 丢弃「{t_title}」(昨日关键词重叠率 {kw_overlap:.0%})")
+            else:
+                filtered.append(t)
+        if len(filtered) < len(topics):
+            print(f"   跨天去重: {len(topics)} → {len(filtered)} 个话题")
         topics = filtered
 
     print(f"   筛选出 {len(topics)} 个话题:")
@@ -1330,6 +1378,8 @@ def main():
         topic_history = get_topic_history(date_str)
         # Cross-batch dedup: check what earlier batches already published today
         cross_batch_covered = get_cross_batch_covered(date_str)
+        # Cross-day dedup: get yesterday's keywords for hard filter
+        yesterday_keywords = get_yesterday_keywords(date_str)
 
         # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
@@ -1357,7 +1407,8 @@ def main():
                                season_weights=season_weights,
                                cross_batch_covered=cross_batch_covered,
                                season_label=season_label,
-                               topic_count=article_count)
+                               topic_count=article_count,
+                               yesterday_keywords=yesterday_keywords)
         extra_meta = {"type": "match_analysis"}
         _assign_columns_to_topics(topics, batch_mode)
 
