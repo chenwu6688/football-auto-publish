@@ -80,6 +80,7 @@ def collect_real_matches(date_str):
             "data_source": "zhibo8",  # 默认直播吧，只有懂球帝时才变
             "media_reports": {},
             "news_articles": [],
+            "transfer_news": [],
         }
 
         # 合并直播吧数据
@@ -97,11 +98,127 @@ def collect_real_matches(date_str):
             merged["all_fixtures"].extend(dongqiudi_result.get("all_fixtures", []))
 
         merged["total_matches"] = len(merged["all_fixtures"])
+
+        # 采集转会快讯（使用独立抓取，确保转会类文章被标记）
+        try:
+            merged["transfer_news"] = collect_transfer_news(date_str)
+        except Exception as e:
+            print(f"   ⚠️ 转会快讯采集异常: {e}")
+
         return merged
 
     # ── 两源都失败 → football-data.org ──
     print("   ⚠️ 直播吧和懂球帝均不可用，降级到 football-data.org")
     return _collect_from_football_data(date_str)
+
+
+def collect_transfer_news(date_str):
+    """独立采集转会/流言类新闻文章。
+
+    从直播吧和懂球帝的新闻文章中过滤出转会相关的内容，
+    供"转会密探"等栏目使用。与原 match_data 管线并行。
+
+    Returns:
+        list[dict]: 转会新闻列表，每条含 title, url, article_text, source, _content_type_hint
+    """
+    print(f"[数据] 采集转会新闻 ({date_str})...")
+    from media_scraper import SportsScraper
+    transfer_keywords = ("转会", "签约", "续约", "离队", "租借", "加盟",
+                         "买断", "标价", "引进", "转会费", "解约", "免签",
+                         "换帅", "下课", "新任主帅", "新帅")
+    articles = []
+    seen_titles = set()
+
+    # 从直播吧采集新闻文章
+    try:
+        scraper = SportsScraper()
+        news = scraper.scrape_football_news(date_str, max_articles=30)
+        for art in news or []:
+            title = (art.get("title", "") or "").strip()
+            if not title or title in seen_titles:
+                continue
+            # 检查标题是否包含转会关键词
+            if any(kw in title for kw in transfer_keywords):
+                seen_titles.add(title)
+                article_text = art.get("article_text", "") or art.get("_content", "") or ""
+                articles.append({
+                    "title": title,
+                    "url": art.get("url", ""),
+                    "article_text": article_text,
+                    "source": "zhibo8",
+                    "_content_type_hint": "转会资讯",
+                })
+    except Exception as e:
+        print(f"   ⚠️ 直播吧转会新闻采集异常: {e}")
+
+    # 从懂球帝采集
+    try:
+        scraper2 = SportsScraper()
+        dq_news = scraper2.scrape_dongqiudi_headlines(max_articles=30)
+        for art in dq_news or []:
+            title = (art.get("title", "") or "").strip()
+            if not title or title in seen_titles:
+                continue
+            if any(kw in title for kw in transfer_keywords):
+                seen_titles.add(title)
+                article_text = ""
+                try:
+                    result = scraper2.scrape_dongqiudi_article(art.get("url", ""))
+                    if result:
+                        article_text = result.get("content", "") or result.get("article_text", "") or ""
+                except Exception:
+                    pass
+                articles.append({
+                    "title": title,
+                    "url": art.get("url", ""),
+                    "article_text": article_text,
+                    "source": "dongqiudi",
+                    "_content_type_hint": "转会资讯",
+                })
+    except Exception as e:
+        print(f"   ⚠️ 懂球帝转会新闻采集异常: {e}")
+
+    if articles:
+        print(f"   🔍 转会新闻: {len(articles)} 篇")
+        for a in articles[:5]:
+            print(f"      - {a['title'][:45]}")
+    else:
+        print(f"   ℹ️ 暂未发现转会新闻")
+    return articles
+
+
+def collect_future_matches(date_str, days_ahead=1):
+    """采集未来比赛数据用于赛前预测。
+
+    使用 media_scraper.SportsScraper 的 scrape_zhibo8_schedule() 方法
+    从直播吧首页获取未来赛程，返回未开始的比赛列表。
+
+    Args:
+        date_str: 当前日期 YYYY-MM-DD
+        days_ahead: 预测哪一天的比赛，默认1（明日）
+
+    Returns:
+        list[dict]: 未来比赛列表，每条含 home_team, away_team, league, status, utc_date
+    """
+    target_date = datetime.strptime(date_str, "%Y-%m-%d") + timedelta(days=days_ahead)
+    target_str = target_date.strftime("%Y-%m-%d")
+
+    from media_scraper import SportsScraper
+    try:
+        scraper = SportsScraper()
+        if not scraper.check_available():
+            print("   ⚠️ 直播吧不可达，无法获取赛程")
+            return []
+
+        future_matches = scraper.scrape_zhibo8_schedule(target_str)
+        if future_matches:
+            print(f"   ✅ 赛前预测素材: {len(future_matches)} 场未来比赛 ({target_str})")
+        else:
+            print(f"   ℹ️ 明日 ({target_str}) 无赛程，跳过赛前预测")
+        return future_matches
+    except Exception as e:
+        print(f"   ⚠️ 获取未来赛程异常: {e}")
+        return []
 
 
 def _collect_from_media(scraper, date_str):

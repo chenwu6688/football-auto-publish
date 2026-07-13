@@ -468,6 +468,37 @@ class SportsScraper:
             return report.get("article_text", "")
         return None
 
+    def scrape_zhibo8_schedule(self, date_str: str) -> list[dict]:
+        """获取指定日期的赛程列表（未来未开始的比赛）。
+
+        从直播吧首页解析比赛列表，返回所有未开始（PRE 状态）的比赛。
+        用于赛前预测场景，在晚间批次采集次日赛程。
+
+        Args:
+            date_str: 日期字符串 YYYY-MM-DD（目标日期，通常为明日）
+
+        Returns:
+            list[dict]: 未开始的比赛列表，每条含 league, home_team, away_team,
+                       status, utc_date 等字段
+        """
+        try:
+            html = self._http_get(f"{self.ZHIBO8_BASE}/")
+            matches = self._parse_zhibo8_homepage(html, date_str)
+            future = [m for m in matches if m.get("status") == "PRE"]
+            if future:
+                self._consecutive_blocks = 0
+                print(f"   📅 未来赛程: {len(future)} 场未开始的比赛")
+                for m in future:
+                    utc = m.get("utc_date", "")
+                    print(f"      [{m.get('league', '?')}] {m['home_team']} vs {m['away_team']} ({utc})")
+            return future
+        except ScraperBlockedError:
+            self._consecutive_blocks += 1
+            raise
+        except Exception as e:
+            print(f"   ⚠️ 获取赛程异常: {e}")
+            return []
+
     # ------------------------------------------------------------------
     #  直播吧 — 赛程页解析
     # ------------------------------------------------------------------
@@ -583,6 +614,9 @@ class SportsScraper:
         # 推断联赛（中文→标准名）
         league_en = self._infer_league(league + " " + home_team + " " + away_team, match_url)
 
+        # 提取 data-time 属性（如 "2026-07-14 04:00"），用于赛程预测
+        utc_date = li.get("data-time", "")
+
         match = {
             "source": "zhibo8",
             "match_url": match_url,
@@ -593,6 +627,7 @@ class SportsScraper:
             "status": "PRE",
             "league": league_en,
             "match_date": date_str,
+            "utc_date": utc_date,
         }
 
         # 去重：避免与 _process_match_link 已提取的重复

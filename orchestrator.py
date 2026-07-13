@@ -20,7 +20,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
                        BATCH_CONFIG)
 from utils import retry, call_llm, safe_json_loads, load_prompt_template
 from logger import log
-from data_collector import (collect_real_matches,
+from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history)
 
@@ -74,6 +74,14 @@ def load_season_weights(date_str=None):
             if month in period.get("months", []):
                 weights = period.get("weights", {})
                 label = period.get("label", "未知")
+                # 叠加历史效果反馈：如果 performance_log.json 有数据，自动调整权重
+                perf_adjusted = _apply_performance_boost(weights.copy())
+                if perf_adjusted != weights:
+                    diffs = {k: f"{v:.1f}→{perf_adjusted.get(k, v):.1f}" for k, v in weights.items()
+                             if perf_adjusted.get(k, v) != v}
+                    if diffs:
+                        print(f"   📊 效果反馈调权: {diffs}")
+                    weights = perf_adjusted
                 print(f"   📅 赛季节奏: {label} (月份{month}, 权重: {weights})")
                 return weights, label
 
@@ -82,6 +90,69 @@ def load_season_weights(date_str=None):
     except Exception as e:
         print(f"   ⚠️  加载赛季权重失败: {e}")
         return None, ""
+
+
+def _apply_performance_boost(weights):
+    """根据 performance_log.json 的历史阅读数据，自动微调选题权重。
+
+    规则：
+    - 读取最近7天的效果数据
+    - 计算每篇 content_type 的平均阅读量
+    - 如果某 content_type 平均阅读 > 全局均值 20%，权重 +0.3
+    - 如果某 content_type 平均阅读 < 全局均值 20%，权重 -0.2
+    - 权重范围限制在 [0.3, 3.0] 之间
+    """
+    perf_path = OUTPUT_DIR / "performance_log.json"
+    if not perf_path.exists():
+        return weights
+
+    try:
+        perf = json.loads(perf_path.read_text())
+        articles_data = perf.get("articles", {})
+        if not articles_data:
+            return weights
+
+        # Group by content_type: need to read metadata to map article index -> content_type
+        type_stats = {}  # content_type -> [reads]
+        for key, p in articles_data.items():
+            reads = p.get("reads", 0)
+            if reads <= 0:
+                continue
+            date_str = p.get("date", "")
+            idx = p.get("index", 0)
+            # Read metadata to get content_type
+            meta_path = OUTPUT_DIR / date_str / "metadata.json"
+            if meta_path.exists():
+                try:
+                    meta = json.loads(meta_path.read_text())
+                    for a in meta.get("articles", []):
+                        if a.get("index") == idx:
+                            ct = a.get("content_type", "")
+                            if ct:
+                                type_stats.setdefault(ct, []).append(reads)
+                            break
+                except Exception:
+                    pass
+
+        if not type_stats:
+            return weights
+
+        # Calculate per-type average
+        type_avg = {ct: sum(vs)/len(vs) for ct, vs in type_stats.items()}
+        global_avg = sum(type_avg.values()) / len(type_avg)
+
+        # Apply boost/reduction
+        for ct, avg_reads in type_avg.items():
+            if ct in weights:
+                ratio = avg_reads / global_avg if global_avg > 0 else 1.0
+                if ratio > 1.2:
+                    weights[ct] = min(3.0, weights[ct] + 0.3)
+                elif ratio < 0.8:
+                    weights[ct] = max(0.3, weights[ct] - 0.2)
+
+        return weights
+    except Exception:
+        return weights
 
 
 def send_wxpusher(title, content):
@@ -663,20 +734,86 @@ def _build_data_confidence_block(match_context):
     return ""
 
 
+def _extract_chinese_words(text):
+    """从文本中提取有意义的2+字中文词序列用于匹配。"""
+    return re.findall(r'[一-鿿]{2,}', text)
+
+
+def _calculate_topic_article_match(topic, art_title, article_text=""):
+    """计算 topic 与 article 的匹配度。
+
+    从 topic title/angle 中提取每个中文词，与 article title 做部分匹配。
+    返回 > 0 表示有匹配，值越大匹配越强；返回 0 表示不匹配。
+    """
+    topic_title = topic.get("title", "") or ""
+    topic_angle = topic.get("angle", "") or ""
+    topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
+    cn_words = set(_extract_chinese_words(topic_title + " " + topic_angle))
+    all_match_words = topic_kw | cn_words
+    if not all_match_words:
+        return 0
+
+    art_title_lower = art_title.lower()
+    title_matches = sum(1 for w in all_match_words if len(w) >= 2 and w.lower() in art_title_lower)
+
+    if title_matches >= 2:
+        return title_matches
+    if title_matches >= 1 and any(len(w) >= 4 and w.lower() in art_title_lower for w in all_match_words):
+        return 1
+
+    if article_text:
+        text_lower = article_text.lower()[:500]
+        text_matches = sum(1 for w in all_match_words if len(w) >= 2 and w.lower() in text_lower)
+        if text_matches >= 2:
+            return text_matches
+    return 0
+
+
 def _find_source_article(topic, match_context):
     """从 match_context 中找到与话题关联的源文章。
 
-    优先通过球队名匹配找到对应的 fixture（战报类），
-    如果无匹配，再尝试从 news_articles（新闻类）中通过关键词匹配。
-    如果没有匹配的源文章，返回 None。
+    按 content_type 路由：
+    - "转会资讯"/"八卦趣事"：优先在 news_articles/transfer_news 中搜索，跳过比赛战报
+    - 其他：先匹配比赛战报（按球队名），再匹配新闻文章
+
+    关键词匹配使用 _calculate_topic_article_match() 提取中文词做部分匹配。
     """
     if not match_context:
         return None
     if match_context.get("data_source") not in ("zhibo8", "dongqiudi"):
         return None
 
+    content_type = topic.get("content_type", "")
+    is_news_content = content_type in ("转会资讯", "八卦趣事")
+
+    # ── 转会资讯/八卦趣事 → 优先在新闻文章中搜索（跳过比赛战报） ──
+    if is_news_content:
+        # 1. 在 transfer_news 中搜索（已标记的转会文章）
+        for art in match_context.get("transfer_news", []):
+            article_text = art.get("article_text", "") or art.get("_content", "")
+            if not article_text or len(article_text) < 100:
+                continue
+            art_title = art.get("title", "").lower()
+            if _calculate_topic_article_match(topic, art_title, article_text) > 0:
+                return {"article_text": article_text, "fixture": {
+                    "source": "zhibo8", "home_team": "", "away_team": "",
+                    "league": content_type, "article_text": article_text,
+                    "source_images": art.get("source_images", [])}}
+
+        # 2. 在 news_articles 中搜索
+        for art in match_context.get("news_articles", []):
+            article_text = art.get("article_text", "") or art.get("_content", "")
+            if not article_text or len(article_text) < 100:
+                continue
+            art_title = art.get("title", "").lower()
+            if _calculate_topic_article_match(topic, art_title, article_text) > 0:
+                return {"article_text": article_text, "fixture": {
+                    "source": "zhibo8", "home_team": "", "away_team": "",
+                    "league": content_type, "article_text": article_text,
+                    "source_images": art.get("source_images", [])}}
+
+    # ── 先匹配比赛战报（按球队名） ──
     topic_text = (topic.get("title", "") + " " + topic.get("angle", "")).lower()
-    # 先匹配比赛战报（按球队名）
     for f in match_context.get("all_fixtures", []):
         article_text = f.get("article_text", "")
         if not article_text or len(article_text) < 100:
@@ -688,20 +825,13 @@ def _find_source_article(topic, match_context):
         if away and away in topic_text:
             return {"article_text": article_text, "fixture": f}
 
-    # 再匹配新闻文章（按关键词，适用于无比赛日）
+    # ── 再匹配新闻文章（按关键词，适用于无比赛日/转会/八卦类无战报匹配时） ──
     for art in match_context.get("news_articles", []):
         article_text = art.get("article_text", "") or art.get("_content", "")
         if not article_text or len(article_text) < 100:
             continue
         art_title = art.get("title", "").lower()
-        topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
-        if not topic_kw:
-            continue
-        kw_match = any(kw in art_title for kw in topic_kw if len(kw) >= 2)
-        topic_title_words = set(topic.get("title", "").lower().split())
-        art_title_words = set(art_title.split())
-        title_overlap = topic_title_words & art_title_words
-        if kw_match or len(title_overlap) >= 1:
+        if _calculate_topic_article_match(topic, art_title, article_text) > 0:
             return {"article_text": article_text, "fixture": {"source": "zhibo8",
                 "home_team": "", "away_team": "", "league": topic.get("content_type", ""),
                 "article_text": article_text}}
@@ -984,12 +1114,13 @@ def generate_article_with_retry(topic, match_context, index, max_retries=2, date
 
     source = _find_source_article(topic, match_context)
     if not source:
-        # 如果没匹配到战报，尝试去 news_articles 中懒加载正文
-        news_articles = match_context.get("news_articles", [])
-        if news_articles:
+        # 如果没匹配到战报，尝试去 news_articles / transfer_news 中懒加载正文
+        all_news = list(match_context.get("news_articles", [])) + \
+                   list(match_context.get("transfer_news", []))
+        if all_news:
             topic_text = (topic.get("title", "") + " " + topic.get("angle", "")).lower()
             topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
-            for art in news_articles:
+            for art in all_news:
                 art_title = art.get("title", "").lower()
                 # 检查标题是否包含话题关键词
                 kw_match = any(kw in art_title for kw in topic_kw) if topic_kw else False
@@ -1414,6 +1545,100 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
             articles_out.append((i, art))
 
 
+# ============================================================
+# Prediction Article — 赛前预测
+# ============================================================
+
+def generate_prediction_article(future_matches, date_str=None):
+    """根据未来比赛数据生成一篇赛前预测文章。
+
+    用 LLM 对每场明日比赛做 2-3 句分析 + 预测结果，
+    文末带互动引导："评论区下注，明天赛后回来打我脸！"
+
+    Args:
+        future_matches: list[dict]，由 collect_future_matches 返回
+        date_str: 当前日期 YYYY-MM-DD（用于配图搜索）
+
+    Returns:
+        dict or None: 文章 dict（含 title, content, content_type 等），
+                     或 None（失败时）
+    """
+    if not future_matches:
+        return None
+
+    print(f"\n[预测] 生成赛前预测文章 ({len(future_matches)} 场)...")
+
+    match_lines = []
+    for i, m in enumerate(future_matches, 1):
+        league = m.get("league", "未知赛事")
+        home = m.get("home_team", "?")
+        away = m.get("away_team", "?")
+        utc = m.get("utc_date", "")
+        match_lines.append(f"{i}. [{league}] {home} vs {away} {'(' + utc + ')' if utc else ''}")
+
+    matches_text = "\n".join(match_lines)
+    max_matches = min(len(future_matches), 8)
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝，以犀利预测和毒舌分析著称。
+
+你的任务是写一篇"明日赛程预测"——分析明天的足球比赛，给出你的预测结果。
+今天是 {date_str or '今日'}。
+
+以下是明天的赛程（{len(future_matches)} 场），请选择最有话题性的 {max_matches} 场进行分析：
+
+{matches_text}
+
+写作要求：
+1. 标题如"老六精准预测：明天XX对XX，我看好..."
+2. 为每场选中的比赛写 2-3 句话分析，给出明确预测结果（XX胜/平局/谁赢面大）
+3. 语气要自信但不狂妄，像老球迷在群里吹水
+4. 文末带互动引导：🔥 评论区下注，明天赛后回来打我脸！
+
+风格：自信、犀利、有数据感但不堆砌。不编造球员具体数据。
+没有确切数据就说"老六觉得""从近期表现来看"。
+
+输出纯JSON:
+{{"title": "标题(18-30字)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评"}}
+只输出JSON。"""
+
+    messages = [
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，以犀利预测和毒舌分析著称。风格自信、有数据感。不编造球员级别数据。只输出JSON。"},
+        {"role": "user", "content": prompt}
+    ]
+
+    for attempt in range(3):
+        try:
+            response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash",
+                                messages, temperature=0.7, max_tokens=4096)
+            article = safe_json_loads(response)
+            if not isinstance(article, dict) or not article.get("title"):
+                if attempt < 2:
+                    print(f"   ⚠️ 预测文章解析失败 (attempt {attempt+1}/3)，重试...")
+                    continue
+                print(f"   ❌ 预测文章解析失败 (3次均失败)")
+                return None
+
+            content = article.get("content", "")
+            if len(content) < 200:
+                if attempt < 2:
+                    print(f"   ⚠️ 预测文章正文仅{len(content)}字 (attempt {attempt+1}/3)")
+                    continue
+                return None
+
+            article["content_type"] = "热点球评"
+            article["interaction_type"] = article.get("interaction_type", "预测式")
+            article["_is_prediction"] = True
+            print(f"   ✅ 预测文章生成成功: {article['title'][:50]} ({len(content)}字)")
+            return article
+
+        except Exception as e:
+            if attempt < 2:
+                print(f"   ⚠️ 预测文章生成异常 (attempt {attempt+1}/3): {e}")
+                continue
+            print(f"   ❌ 预测文章生成失败: {e}")
+            return None
+
+
 def main():
     # Parse args: python orchestrator.py [YYYY-MM-DD] [--batch=morning|noon|evening]
     date_str = None
@@ -1456,6 +1681,22 @@ def main():
         # Step 1: Collect match data (always, for context)
         match_data = collect_real_matches(date_str)
 
+        # Step 1b: Collect transfer/gossip news for content diversity
+        try:
+            transfer_news = collect_transfer_news(date_str)
+            if transfer_news:
+                existing_news = match_data.get("news_articles", [])
+                # Merge, dedup by title
+                existing_titles = {a.get("title", "") for a in existing_news}
+                for tn in transfer_news:
+                    if tn.get("title", "") not in existing_titles:
+                        existing_news.append(tn)
+                        existing_titles.add(tn.get("title", ""))
+                if "news_articles" not in match_data:
+                    match_data["news_articles"] = existing_news
+        except Exception as e:
+            print(f"   ⚠️ 转会新闻采集异常 (不影响主流程): {e}")
+
         articles = []
         images_map = {}
         topics = []
@@ -1487,6 +1728,39 @@ def main():
         # Generate articles: find source article for each topic, rewrite to 老六 style
         _generate_articles_from_topics(topics, article_count, match_data,
                                        images_map, stats, articles, date_str=date_str)
+
+        # ============================================================
+        # Prediction Article — 晚间批次生成明日赛前预测
+        # ============================================================
+        if batch_mode == "evening":
+            print("\n[预测] 晚间批次：采集明日赛程，生成赛前预测...")
+            future_matches = collect_future_matches(date_str, days_ahead=1)
+            if future_matches:
+                pred_art = generate_prediction_article(future_matches, date_str=date_str)
+                if pred_art:
+                    p_idx = len(articles) + 1
+                    # 为预测文章搜索配图
+                    league_names = list(set(m.get("league", "足球") for m in future_matches if m.get("league")))
+                    team_names = []
+                    for m in future_matches[:6]:
+                        team_names.append(m.get("home_team", ""))
+                        team_names.append(m.get("away_team", ""))
+                    img_topic = {"title": pred_art.get("title", "明日足球预测"),
+                                 "keywords_cn": league_names[:3] + team_names[:4],
+                                 "keywords": ["football", "prediction"] + [t for t in team_names[:4] if t]}
+                    p_imgs = search_images(img_topic, count=3)
+                    images_map[len(articles)] = p_imgs
+                    stats["generated"] += 1
+                    stats["valid"] += 1
+                    articles.append((len(articles), pred_art))
+                    topics.append({"title": pred_art.get("title", ""),
+                                   "content_type": "热点球评",
+                                   "_is_prediction": True})
+                    print(f"   🎯 赛前预测已追加: {pred_art['title'][:50]}")
+                else:
+                    print("   ℹ️ 赛前预测生成跳过（无有效素材或生成失败）")
+            else:
+                print("   ℹ️ 明日无赛程，跳过赛前预测")
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
