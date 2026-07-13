@@ -315,22 +315,22 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                     pass
             lines.append(f"  {m['home_team']} {hg}-{ag if hg is not None else 'vs'} {m['away_team']} {cst_time}")
 
-    # 如果比赛数据很少（无比赛日），用新闻文章标题作为选题素材
+    # 新闻/转会/花边文章标题：始终展示，作为非比赛话题的选题素材
     news_lines = []
     news_articles = match_data.get("news_articles", [])
-    if len(lines) < 2 and (news_articles or match_data.get("data_source") == "dongqiudi"):
-        news_lines.append("\n## 📰 今日足球新闻（可用作选题素材）")
-        if news_articles:
-            for art in news_articles[:15]:
-                title = art.get("title", "")
-                if title:
-                    news_lines.append(f"  - {title}")
-        else:
-            # 懂球帝降级路径：文章在 all_fixtures 中
-            for f in match_data.get("all_fixtures", [])[:15]:
-                title = f.get("article_title", "")
-                if title:
-                    news_lines.append(f"  - {title}")
+    if news_articles:
+        news_lines.append("\n## 📰 今日足球新闻（含转会/花边/战报，选材重要来源）")
+        for art in news_articles[:20]:
+            title = art.get("title", "")
+            if title:
+                news_lines.append(f"  - {title}")
+    elif match_data.get("data_source") == "dongqiudi":
+        # 懂球帝降级路径：文章在 all_fixtures 中
+        news_lines.append("\n## 📰 今日懂球帝文章（选材来源）")
+        for f in match_data.get("all_fixtures", [])[:20]:
+            title = f.get("article_title", "")
+            if title:
+                news_lines.append(f"  - {title}")
 
     history_text = ""
     if topic_history and (topic_history.get("titles") or topic_history.get("teams") or topic_history.get("players")):
@@ -401,10 +401,16 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 {cross_batch_text}
 {weight_hint}
 {world_cup_priority}
-硬性要求 — {topic_count} 个话题必须覆盖不同内容类型 + 不同核心主题：
-1. 第1篇：热点球评 — 从当日比赛中选最有话题性的一场
-2. 第2篇：转会资讯/八卦趣事 — 转会传闻、球员花边、冲突争议、场外话题
-3. 第3篇及以后：排行榜/战术解析/八卦趣事 — 数据榜单或战术趋势
+硬性要求 — {topic_count} 个话题必须覆盖不同比赛 + 不同内容类型：
+1. 第1篇（热点球评）：从当日比赛中选最有话题性的一场
+2. 第2篇（转会资讯/八卦趣事）：从新闻文章或场外话题中选材——**不是写另一场比赛！**
+3. 第3篇及以后（排行榜/战术解析/八卦趣事）：可以写比赛数据趋势，也可以写非比赛话题
+
+📌 **内容多样性铁律（最重要规则）**：
+- {topic_count} 个话题必须是 {topic_count} 场不同的比赛或新闻事件——不能都是同一天的比赛
+- 同一场比赛最多选1次！不允许"第1篇写巴西爆冷、第3篇写哈兰德两球"这种同一场比赛的不同角度
+- 非比赛话题（转会传闻、球员排名、战术趋势、花边趣事）优先选择——这能让账号内容更加丰富
+- 如果当日素材中有转会新闻或场外话题，第2篇和第3篇优先选择非比赛内容
 
 ⚠️ 绝对禁止编造时间：每场比赛括号里的时间是真实开球时间(北京时间)，写文章时只能用这个时间，不许编造"凌晨X点""深夜X点"等虚构场景。如果比赛是上午9点开的就写"上午"或"早场"，不确定时间的就说"这场比赛"。
 
@@ -1099,6 +1105,72 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                     else:
                         content = content + img_ref
         art["content"] = content
+
+        # ————————————————————————————————————————————
+        # 内容互动增强（不改动事实，只优化表达）
+        # ————————————————————————————————————————————
+
+        # 1. 标题优选：从 title + backup_title 中选点击率更高的
+        title = art.get("title", "")
+        backup = art.get("backup_title", "")
+        if title and backup and backup != title:
+            def _title_score(t):
+                s = 0
+                if re.search(r'\d', t): s += 3           # 含数字 → 具体
+                for team in ("巴西", "阿根廷", "葡萄牙", "西班牙", "英格兰", "法国", "德国",
+                             "荷兰", "意大利", "比利时", "梅西", "C罗", "姆巴佩", "哈兰德",
+                             "内马尔", "贝林厄姆", "凯恩", "萨拉赫"):
+                    if team in t: s += 2                  # 含巨星/豪门
+                if any(w in t for w in ("?", "！", "…")): s += 2   # 情绪符号
+                if ":" in t or "：" in t: s += 1           # 解释结构
+                if len(t) < 12: s -= 2                    # 太短 → 信息不足
+                if any(w in t for w in ("老六", "小编", "我们")): s -= 1  # 自指 → 弱
+                return s
+            score_t, score_b = _title_score(title), _title_score(backup)
+            if score_b > score_t:
+                art["title"] = backup
+                art["original_title"] = title
+                print(f"   📝 标题优选: 「{title}」({score_t}分) → 「{backup}」({score_b}分)")
+            elif title != backup:
+                print(f"   📝 标题优选: 「{title}」({score_t}分) 保持 (备选「{backup}」{score_b}分)")
+
+        # 2. 金句高亮：在正文中标记 golden_lines
+        golden = art.get("golden_lines", [])
+        if golden and isinstance(golden, list):
+            content = art.get("content", "")
+            # 只在正文中确实出现了的金句才做高亮
+            for g in golden:
+                g_clean = g.strip().strip('"').strip('"').strip("'")
+                if g_clean and len(g_clean) > 8 and g_clean in content:
+                    # 加粗+引号包裹，让它更显眼
+                    content = content.replace(g_clean, f"**「{g_clean}」**", 1)
+            # 如果有2+金句，文末加一个金句回顾框（类似"🎙️ 老六金句"）
+            valid_golden = [g for g in golden if len(g.strip().strip('"')) > 8]
+            if len(valid_golden) >= 2 and "老六金句" not in content:
+                golden_block = "\n\n---\n🎙️ **老六金句**\n"
+                for g in valid_golden[:3]:
+                    golden_block += f"> *{g.strip().strip('"')}*\n\n"
+                content += golden_block
+            art["content"] = content
+
+        # 3. 互动钩子注入：在文末追加 interaction_bait
+        bait = art.get("interaction_bait", "")
+        if bait and len(bait) > 5 and bait not in art.get("content", ""):
+            bait_clean = bait.strip().strip('"').strip('"')
+            # 根据 interaction_type 添加不同的前缀表情
+            i_type = art.get("interaction_type", "")
+            prefix_map = {
+                "站队式": "🗣️ 说说你的看法",
+                "投票式": "📊 来投个票",
+                "预测式": "🔮 你的预测是",
+                "共鸣式": "💬 有没有同感的",
+                "挑战式": "🤔 不服来辩",
+                "调侃式": "😏 你们说呢",
+                "": "💬 各位老铁",
+            }
+            prefix = prefix_map.get(i_type, "💬")
+            art["content"] = f"{art.get('content', '')}\n\n---\n**{prefix}：{bait_clean}**\n👇 评论区见分晓！"
+            print(f"   🎣 互动钩子: [{i_type}] {bait_clean[:40]}")
 
         # Save article
         art_data = {**art, "downloaded_images": downloaded,
