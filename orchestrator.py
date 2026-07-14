@@ -972,7 +972,7 @@ def check_rewrite_fidelity(source_fixture, rewritten_article):
     source_goals = source_fixture.get("goals", [])
     for g in source_goals:
         scorer = g.get("scorer_name", g.get("scorer", ""))
-        if scorer and scorer not in content and scorer not in source_text:
+        if scorer and scorer not in content:
             if scorer in source_text:
                 issues.append(f"缺少球员: {scorer}")
 
@@ -1005,6 +1005,73 @@ def check_rewrite_fidelity(source_fixture, rewritten_article):
         if re.search(pattern, source_text):
             continue  # 源文章本身用了这个词，没问题
         issues.append(desc)
+
+    return len(issues) == 0, issues
+
+
+def validate_article_vs_match_data(source_fixture, rewritten_article):
+    """验证改写文中的关键比赛信息是否与结构化比赛数据一致。
+
+    与 check_rewrite_fidelity 不同，此函数直接对比比赛数据（而非源文章），
+    可检测 LLM 编造的、源文章中也不存在的虚假细节。
+    返回 (passed, issues)。
+    """
+    issues = []
+    content = rewritten_article.get("content", "") + rewritten_article.get("title", "")
+
+    ht = source_fixture.get("home_team", "")
+    at = source_fixture.get("away_team", "")
+    hg = source_fixture.get("home_score")
+    ag = source_fixture.get("away_score")
+
+    # 检查1：主客队名出现在文中
+    if ht and ht not in content:
+        issues.append(f"缺少主队名: {ht}")
+    if at and at not in content:
+        issues.append(f"缺少客队名: {at}")
+
+    # 检查2：比分一致性（加强版 regex，排除假匹配）
+    if hg is not None and ag is not None:
+        score_found = False
+        for m in re.finditer(r'(\d+)\s*[-–:]\s*(\d+)', content):
+            a, b = int(m.group(1)), int(m.group(2))
+            if (a == hg and b == ag) or (a == ag and b == hg):
+                score_found = True
+                break
+        if not score_found:
+            # 宽松检查：检查是否有单数字比分表示
+            if f"{hg}-{ag}" not in content.replace(" ", "").replace(" ", ""):
+                issues.append(f"比分不一致: 比赛数据 {ht} {hg}-{ag} {at}，但文中未出现该比分")
+
+    # 检查3：结构化进球数据的球员断言验证
+    from collections import defaultdict
+    goals = source_fixture.get("goals", [])
+    goals_by_scorer = defaultdict(int)
+    for g in goals:
+        name = g.get("scorer_name", g.get("scorer", ""))
+        if name:
+            goals_by_scorer[name] += 1
+
+    # 3a: 如果进球数据明确，检查禁区断言
+    if goals_by_scorer:
+        # LLM 常用但易编造的球员表现断言模式
+        # 验证策略：断言级别短语必须在 goals 数据中有对应依据
+        for player, goal_count in goals_by_scorer.items():
+            # 检查"梅开二度"：需要进2球
+            if re.search(rf'{re.escape(player)}.*?梅开二度', content):
+                if goal_count < 2:
+                    issues.append(f"编造数据: {player} 实际进{goal_count}球，但文中称'梅开二度'")
+            # 检查"帽子戏法"：需要进3+球
+            if re.search(rf'{re.escape(player)}.*?帽子戏法', content):
+                if goal_count < 3:
+                    issues.append(f"编造数据: {player} 实际进{goal_count}球，但文中称'帽子戏法'")
+            # 检查"独造X球"：通常指进球+助攻≥X
+            dm = re.search(rf'{re.escape(player)}.*?独造(\d+)球', content)
+            if dm:
+                claimed = int(dm.group(1))
+                # 保守估计：如果没有助攻数据，只算进球
+                if goal_count < claimed:
+                    issues.append(f"编造数据: {player} 实际进{goal_count}球，但文中称'独造{claimed}球'")
 
     return len(issues) == 0, issues
 
@@ -1096,6 +1163,14 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 if attempt < max_retries:
                     continue
                 return {}, f"改写不忠实: {last_hint}"
+
+            # 第二层验证：防止改写文编造比赛数据中不存在的事件
+            match_passed, match_issues = validate_article_vs_match_data(fixture, art)
+            if not match_passed:
+                last_hint = "; ".join(match_issues)
+                if attempt < max_retries:
+                    continue
+                return {}, f"事实验证失败: {last_hint}"
 
             return art, None
 
@@ -1280,7 +1355,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
             if len(valid_golden) >= 2 and "老六金句" not in content:
                 golden_block = "\n\n---\n🎙️ **老六金句**\n"
                 for g in valid_golden[:3]:
-                    golden_block += f"> *{g.strip().strip('"')}*\n\n"
+                    gd = g.strip().strip('"')
+                    golden_block += f"> *{gd}*\n\n"
                 content += golden_block
             art["content"] = content
 
