@@ -1,7 +1,7 @@
 {
   "date": "2026-07-14",
-  "generated_at": "2026-07-14T03:30:58.133276",
-  "total_articles": 2,
+  "generated_at": "2026-07-14T04:04:25.660258",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -68,100 +68,166 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "贵州猛龙的招募令：七个理由让老詹放下塔可来嗦粉",
+      "path": "/home/runner/work/_temp/output/2026-07-14/article-1-贵州猛龙的招募令-013597.md",
+      "slug": "贵州猛龙的招募令-013597",
+      "tags": [
+        "Guizhou Dragons",
+        "LeBron James",
+        "NBL",
+        "invitation letter",
+        "mutton rice noodle"
+      ],
+      "keywords": [
+        "Guizhou Dragons",
+        "LeBron James",
+        "NBL",
+        "invitation letter",
+        "mutton rice noodle"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-14/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-14/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-14/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "32岁迪涅回巴黎，这哪是养老，这是恩里克钦点的拼图",
+      "path": "/home/runner/work/_temp/output/2026-07-14/article-2-32岁迪涅回巴黎-deffc7.md",
+      "slug": "32岁迪涅回巴黎-deffc7",
+      "tags": [
+        "digne",
+        "psg",
+        "transfer",
+        "luis enrique",
+        "nuno mendes",
+        "aston villa"
+      ],
+      "keywords": [
+        "digne",
+        "psg",
+        "transfer",
+        "luis enrique",
+        "nuno mendes",
+        "aston villa"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-14/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-14/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-14/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "1-0，第89分钟绝杀！宁波队把中甲踢出了世界杯的味道",
-      "formula": "A",
-      "angle": "世界杯日全民狂欢，宁波队却用一场绝杀抢了风头——中甲小球队的坚持，比大牌球星更戳人泪点",
+      "title": "官方整活？贵州猛龙“官宣”詹姆斯加盟，羊肉粉竟成签约筹码",
+      "formula": "D",
+      "angle": "从贵州猛龙玩梗邀请詹姆斯切入，调侃中国足球俱乐部的营销创意，同时讽刺中国足球流量至上的现状",
       "keywords": [
-        "Ningbo",
-        "Foshan Nanshi",
-        "China League One",
-        "last-minute winner",
-        "underdog"
+        "Guizhou",
+        "LeBron James",
+        "football club",
+        "social media",
+        "China League"
       ],
       "keywords_cn": [
-        "宁波",
-        "佛山南狮",
-        "中甲",
-        "绝杀",
-        "平民球队"
+        "贵州猛龙",
+        "詹姆斯",
+        "羊肉粉",
+        "花边"
       ],
-      "content_type": "热点球评",
-      "score": 83,
+      "content_type": "八卦趣事",
+      "score": 78,
       "expected_heat": "B",
-      "rationale": "中甲绝杀虽不如世界杯吸睛，但世界杯日无已结束比赛时，小球队逆袭能引发本土球迷情感共鸣，争议性低但故事性强。",
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "rationale": "詹姆斯在中国人气爆棚，足球俱乐部跨界玩梗能引发球迷围观和吐槽，争议在于是否过度蹭热度",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "巴黎签回迪涅是情怀还是无奈？老大哥能否镇住更衣室",
+      "title": "法国vs西班牙：没有姆巴佩，高卢雄鸡的中场反而更硬了？",
       "formula": "B",
-      "angle": "迪涅世界杯后回归巴黎，表面是左后卫补强，实则是更衣室平衡术——姆巴佩走后，巴黎需要老臣子压阵",
+      "angle": "以姆巴佩缺阵为引子，分析法国队中场控制和西班牙传控体系的碰撞，指出法国实际更强调整体防守而非依赖个人",
       "keywords": [
-        "Digne",
-        "PSG",
-        "Mendes",
-        "Ligue 1",
-        "transfer window"
+        "France",
+        "Spain",
+        "World Cup",
+        "midfield battle",
+        "tactical analysis"
       ],
       "keywords_cn": [
-        "迪涅",
-        "巴黎圣日耳曼",
-        "门德斯",
-        "法甲",
-        "转会"
+        "法国",
+        "西班牙",
+        "世界杯",
+        "中场",
+        "战术"
       ],
-      "content_type": "转会资讯",
-      "score": 91,
+      "content_type": "战术解析",
+      "score": 85,
       "expected_heat": "S",
-      "rationale": "世界杯期间巴黎转会动态天然高热度，迪涅回归有“青训旧将”故事性，与门德斯竞争引发争议，能激发正反讨论。",
+      "rationale": "世界杯焦点战，球迷急需赛后深度复盘，中场博弈话题性极强，且避开姆巴佩的重复报道，视角新颖",
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-14 11:30:58"
+  "last_batch": "noon",
+  "last_updated": "2026-07-14 12:04:25"
 }
