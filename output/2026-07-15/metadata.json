@@ -1,7 +1,7 @@
 {
   "date": "2026-07-15",
-  "generated_at": "2026-07-15T02:12:52.757919",
-  "total_articles": 4,
+  "generated_at": "2026-07-15T04:03:46.945073",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -142,106 +142,136 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "西班牙2-0送法国回家：迪涅挖坑萨利巴伤退，这半决赛法国踢得真窝囊",
+      "path": "/home/runner/work/_temp/output/2026-07-15/article-1-西班牙20送法国-70553d.md",
+      "slug": "西班牙20送法国-70553d",
+      "tags": [
+        "Spain",
+        "France",
+        "World Cup",
+        "semifinal",
+        "Yamal",
+        "Mbappe",
+        "penalty",
+        "red card"
+      ],
+      "keywords": [
+        "Spain",
+        "France",
+        "World Cup",
+        "semifinal",
+        "Yamal",
+        "Mbappe",
+        "penalty",
+        "red card"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-15/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-15/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "2-0！法国被西班牙打懵了，亚马尔把姆巴佩的皇冠踩在脚下",
+      "title": "2-0掀翻卫冕冠军！西班牙靠什么把法国踢出决赛",
       "formula": "A",
-      "angle": "西班牙2-0完胜法国，亚马尔数据碾压姆巴佩，证明新王当立。法国豪华阵容哑火，德尚战术被彻底破解。",
+      "angle": "西班牙凭借整体战术和年轻球员的冲击力，让法国豪华锋线哑火，德尚的保守战术再次被钉在耻辱柱上。从裁判尺度到换人时机，法国输得不冤。",
       "keywords": [
-        "Spain",
-        "France",
-        "Yamal",
-        "Mbappe",
-        "World Cup semi-final"
+        "Spain vs France",
+        "World Cup semifinal",
+        "young Spain",
+        "Deschamps failure"
       ],
       "keywords_cn": [
-        "西班牙",
-        "法国",
-        "亚马尔",
-        "姆巴佩",
-        "世界杯半决赛"
+        "西班牙2-0法国",
+        "世界杯半决赛",
+        "青春风暴",
+        "德尚下课"
       ],
       "content_type": "热点球评",
-      "score": 95,
+      "score": 108,
       "expected_heat": "S",
-      "rationale": "世界杯半决赛焦点战，亚马尔vs姆巴佩新老对决话题性极强，数字+戏剧冲突标题能瞬间抓眼球，球迷对姆巴佩低迷和西班牙崛起充满讨论欲。",
+      "rationale": "卫冕冠军法国出局是世界杯最大冷门之一，西班牙青年军崛起有强烈故事性和情绪反差，评论区必然有法西球迷互怼，争议性极高。",
       "controversy_level": "high",
       "target_emotion": "震惊",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "半决赛前不训练打桌游？贝林厄姆这心态，英格兰球迷悬着的心放下了",
-      "formula": "B",
-      "angle": "半决赛前贝林厄姆带头玩桌游放松，队友上瘾，这种松弛感到底是自信还是玩火？从心理层面分析英格兰年轻人的抗压能力。",
+      "title": "阿根廷刚输球？官博却给中国孩子送足球，这格局谁比得了",
+      "formula": "E",
+      "angle": "在英阿大战前夕，阿根廷官博低调给广西学校寄足球物资，与某些足协只会画大饼形成鲜明对比，中国足球缺的不是钱而是真正的付出。",
       "keywords": [
-        "Bellingham",
-        "England",
-        "board game",
-        "World Cup semi-final",
-        "relaxation"
+        "Argentina official",
+        "donate football",
+        "Guangxi school",
+        "FIFA World Cup"
       ],
       "keywords_cn": [
-        "贝林厄姆",
-        "英格兰",
-        "桌游",
-        "世界杯半决赛",
-        "放松"
+        "阿根廷官博",
+        "捐赠足球",
+        "广西学校",
+        "足协对比"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
+      "score": 92,
       "expected_heat": "A",
-      "rationale": "世界杯半决赛当日花边，贝林厄姆心态话题自带争议，反问式标题激发读者好奇，评论区大概率分成‘松弛感好’和‘不务正业’两派。",
+      "rationale": "利用阿根廷队的高关注度结合中国公益，拉踩足协能激发球迷愤怒和自豪双重情绪，评论区容易吵成两派。",
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
+      "target_emotion": "感动",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
       "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "老六精准预测：英阿世纪大战，我看好阿根廷点球胜！",
-      "content_type": "热点球评",
-      "_is_prediction": true
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-07-15 10:12:52"
+  "last_batch": "noon",
+  "last_updated": "2026-07-15 12:03:46"
 }
