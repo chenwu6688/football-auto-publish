@@ -1,7 +1,7 @@
 {
   "date": "2026-07-16",
-  "generated_at": "2026-07-16T01:13:37.385555",
-  "total_articles": 2,
+  "generated_at": "2026-07-16T03:18:29.770948",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -72,100 +72,134 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "老六精准预测：明天四场焦点战，我看好多特血洗、曼联小胜",
+      "path": "/home/runner/work/_temp/output/2026-07-16/article-1-老六精准预测明天-ec6f1b.md",
+      "slug": "老六精准预测明天-ec6f1b",
+      "tags": [
+        "Basel vs Juventus",
+        "Oberhausen vs Dortmund",
+        "Man Utd vs Wrexham",
+        "Europe vs America",
+        "football prediction"
+      ],
+      "keywords": [
+        "Basel vs Juventus",
+        "Oberhausen vs Dortmund",
+        "Man Utd vs Wrexham",
+        "Europe vs America",
+        "football prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-16/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-16/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "0-2！卫冕冠军法国出局，西班牙用传控杀了回来",
-      "formula": "E",
-      "angle": "法国0-2输给西班牙，不是姆巴佩不努力，而是西班牙的传控足球重新找回统治力，质疑者可以闭嘴了。从比赛数据看，西班牙控球率高达62%，射正5次，法国仅1次射正，这是一场战术完胜。",
+      "title": "1-0到1-2，英格兰62分钟领先遭逆转，图赫尔又成罪人？",
+      "formula": "B",
+      "angle": "图赫尔在领先后收缩防守、换下凯恩等进攻球员，导致阿根廷反扑并最终由恩佐绝杀。这暴露出他大赛保守的老毛病，英格兰球员赛后庆幸锅由教练背，让人不禁感叹：换帅如换刀？",
       "keywords": [
-        "France",
-        "Spain",
-        "World Cup 2026",
-        "Mbappé",
-        "Lamine Yamal"
+        "Argentina",
+        "England",
+        "World Cup",
+        "Tuchel",
+        "Enzo"
       ],
       "keywords_cn": [
-        "法国",
-        "西班牙",
-        "世界杯",
-        "姆巴佩",
-        "亚马尔"
+        "阿根廷",
+        "英格兰",
+        "图赫尔",
+        "恩佐"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 95,
       "expected_heat": "S",
-      "rationale": "世界杯淘汰赛焦点战，卫冕冠军出局自带情绪，西班牙复兴故事有逆袭感，姆巴佩和亚马尔对决有话题，能引发双方球迷争论。",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "rationale": "世界杯半决赛级对决，领先被逆转+教练战术争议+球员赛后甩锅，三重冲突叠加，中国球迷对图赫尔和英格兰队关注度高，评论区必然两极分化。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "身价腰斩？科内仅需4000万欧，曼联这次真要捡漏了",
+      "title": "64万！6场放球，门将董某某被判1年半，中国足球的脸丢尽了",
       "formula": "A",
-      "angle": "罗马诺最新消息：科内实际标价远低于8000万欧，曼联和经纪人关系良好，这桩转会几乎板上钉钉。对比同类型中场，这个价格简直是白菜价，曼联中场补强终于有戏。",
+      "angle": "职业门将为收64万公然放水6场比赛，被判有期徒刑1年6个月。这是中国足球假球黑幕的冰山一角，也是对基层足球生态的沉重打击，球迷愤怒之余更觉心寒。",
       "keywords": [
-        "Kone",
-        "Manchester United",
-        "Transfer",
-        "Romano",
-        "Discount"
+        "Dong Moumou",
+        "match-fixing",
+        "bribery",
+        "Chinese football"
       ],
       "keywords_cn": [
-        "科内",
-        "曼联",
-        "转会",
-        "罗马诺",
-        "捡漏"
+        "董某某",
+        "假球",
+        "受贿",
+        "中国足球"
       ],
-      "content_type": "转会资讯",
-      "score": 86,
+      "content_type": "八卦趣事",
+      "score": 88,
       "expected_heat": "A",
-      "rationale": "曼联球迷基数大，转会流言自带讨论度，标价腰斩有戏剧冲突，数字直观冲击力强，容易引发评论区对球员身价的争论。",
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "rationale": "假球受贿是永恒的负面热点，数字64万和6场放球制造冲击，能瞬间点燃中国球迷的愤怒情绪，评论区骂声与反思并存。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天四场焦点战，我看好多特血洗、曼联小胜",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-16 09:13:37"
+  "last_batch": "evening",
+  "last_updated": "2026-07-16 11:18:29"
 }
