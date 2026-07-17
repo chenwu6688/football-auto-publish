@@ -1,7 +1,7 @@
 {
   "date": "2026-07-17",
-  "generated_at": "2026-07-17T04:05:23.378858",
-  "total_articles": 2,
+  "generated_at": "2026-07-17T11:02:55.729905",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -66,97 +66,165 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "全队拉横幅，大马丁却往后缩，阿根廷球迷炸了",
+      "path": "/home/runner/work/_temp/output/2026-07-17/article-1-全队拉横幅大马丁-4f5060.md",
+      "slug": "全队拉横幅大马丁-4f5060",
+      "tags": [
+        "Argentina",
+        "England",
+        "Falkland Islands",
+        "Emiliano Martinez",
+        "football politics"
+      ],
+      "keywords": [
+        "Argentina",
+        "England",
+        "Falkland Islands",
+        "Emiliano Martinez",
+        "football politics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-17/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-17/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：明天六场硬仗，我看好尤文曼联赢，英法大战平局",
+      "path": "/home/runner/work/_temp/output/2026-07-17/article-2-老六精准预测明天-c6f78c.md",
+      "slug": "老六精准预测明天-c6f78c",
+      "tags": [
+        "football prediction",
+        "Basel vs Juventus",
+        "France vs England",
+        "Manchester United vs Wrexham",
+        "World Cup prediction"
+      ],
+      "keywords": [
+        "football prediction",
+        "Basel vs Juventus",
+        "France vs England",
+        "Manchester United vs Wrexham",
+        "World Cup prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-17/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-17/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "1-2，第89分钟绝杀，梅西一脚传球撕碎英格兰防线",
-      "angle": "阿根廷凭借梅西的致命助攻完成绝杀，英格兰从天堂到地狱，这场比赛暴露了索斯盖特战术的保守与贝林厄姆经验不足。",
+      "title": "1-6！世界杯卫冕冠军西班牙遭遇惨案，斗牛士怎么了？",
+      "formula": "F",
+      "angle": "从西班牙1-6惨败切入，分析恩里克的战术失败和球员心态崩盘，质疑西班牙的传控神话是否已经终结。",
       "keywords": [
-        "Argentina",
-        "England",
+        "Spain",
         "World Cup",
-        "Messi",
-        "Southgate"
+        "6-1 defeat",
+        "shock"
       ],
       "keywords_cn": [
-        "阿根廷",
-        "英格兰",
-        "梅西",
+        "西班牙",
         "世界杯",
-        "索斯盖特"
+        "惨败"
       ],
       "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "medium",
+      "score": 115,
+      "expected_heat": "S",
+      "rationale": "西班牙作为传统强队在世界杯上1-6惨败极具争议性和冲击力，数据震撼，能引爆球迷震惊和愤怒情绪，符合世界杯热点优先。",
+      "controversy_level": "high",
       "target_emotion": "震惊",
-      "why_pick": "世界杯半决赛绝杀逆转，梅西封神之战，戏剧性拉满，球迷情绪高涨。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "7美元一个，哈兰德发圈在美国卖到脱销",
-      "angle": "世界杯场外趣闻，哈兰德佩戴的发圈意外成为爆款，折射球星商业价值与球迷文化，轻松有趣吸引流量。",
+      "title": "中国裁判傅明世界杯执法归来，这块奖牌比任何金靴都沉",
+      "formula": "C",
+      "angle": "从傅明展示世界杯裁判纪念奖牌切入，对比国足缺席世界杯的现实，表达对中国足球从业者的尊重和复杂情绪。",
       "keywords": [
-        "Haaland",
-        "headband",
+        "Fu Ming",
         "World Cup",
-        "fashion",
-        "viral"
+        "referee",
+        "China"
       ],
       "keywords_cn": [
-        "哈兰德",
-        "发圈",
+        "傅明",
         "世界杯",
-        "时尚",
-        "热销"
+        "裁判",
+        "中国足球"
       ],
       "content_type": "八卦趣事",
-      "score": 82,
+      "score": 90,
+      "expected_heat": "A",
+      "rationale": "中国裁判执法世界杯是稀缺事件，能引发球迷骄傲和怀旧情绪，同时关联国足尴尬现状，形成反差讨论。",
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "世界杯期间轻松话题，与比赛互补，满足球迷对球星生活的好奇心。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "骄傲",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天六场硬仗，我看好尤文曼联赢，英法大战平局",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-17 12:05:23"
+  "last_batch": "evening",
+  "last_updated": "2026-07-17 19:02:55"
 }
