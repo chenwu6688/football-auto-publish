@@ -1,0 +1,133 @@
+{
+  "date": "2026-07-17",
+  "generated_at": "2026-07-17T01:19:57.949676",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "从维拉到本菲卡：22岁杜兰的流浪地图，为什么总在租借中重启？",
+      "path": "/home/runner/work/_temp/output/2026-07-17/article-1-从维拉到本菲卡2-87fc66.md",
+      "slug": "从维拉到本菲卡2-87fc66",
+      "tags": [
+        "Duran",
+        "Benfica",
+        "loan",
+        "Al Nassr",
+        "Colombia"
+      ],
+      "keywords": [
+        "Duran",
+        "Benfica",
+        "loan",
+        "Al Nassr",
+        "Colombia"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-17/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-17/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "2-1！英格兰被阿根廷绝杀？这次索斯盖特真该背锅了",
+      "formula": "B",
+      "angle": "从英格兰1-2阿根廷的比赛中，分析索斯盖特的战术失误和临场调整迟缓，指出英格兰在领先情况下被逆转，主帅责任最大。",
+      "keywords": [
+        "England",
+        "Argentina",
+        "World Cup",
+        "Southgate",
+        "comeback"
+      ],
+      "keywords_cn": [
+        "英格兰",
+        "阿根廷",
+        "世界杯",
+        "索斯盖特",
+        "逆转"
+      ],
+      "content_type": "热点球评",
+      "score": 95,
+      "expected_heat": "S",
+      "rationale": "世界杯半决赛焦点战，英格兰被逆转具备强烈争议性和情绪共鸣，索斯盖特是球迷长期吐槽对象，能引发大量讨论。",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "4000万欧！阿森纳官宣措利斯，这波操作是神是鬼？",
+      "formula": "A",
+      "angle": "阿森纳4000万欧签下24岁边锋措利斯，结合球员数据、位置竞争和转会市场行情，分析这笔引援是否溢价，能否解决球队边路问题。",
+      "keywords": [
+        "Arsenal",
+        "Tsolis",
+        "transfer",
+        "€40m",
+        "analysis"
+      ],
+      "keywords_cn": [
+        "阿森纳",
+        "措利斯",
+        "转会",
+        "4000万",
+        "性价比"
+      ],
+      "content_type": "转会资讯",
+      "score": 82,
+      "expected_heat": "A",
+      "rationale": "阿森纳官宣重磅引援，价格敏感，球迷对俱乐部引援策略褒贬不一，适合引发正反双方争论。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-17 09:19:57"
+}
