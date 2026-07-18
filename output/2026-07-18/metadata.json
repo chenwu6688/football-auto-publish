@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
-  "generated_at": "2026-07-18T06:15:42.627629",
-  "total_articles": 2,
+  "generated_at": "2026-07-18T10:46:06.119487",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -68,103 +68,173 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "亚泰主场1-5惨败，无锡吴钩狂轰5球血洗奥林匹克公园",
+      "path": "/home/runner/work/_temp/output/2026-07-18/article-1-亚泰主场15惨败-06c28c.md",
+      "slug": "亚泰主场15惨败-06c28c",
+      "tags": [
+        "Changchun Yatai",
+        "Wuxi Wugou",
+        "Jia League",
+        "1-5",
+        "own goal",
+        "Yi Xianlong brace"
+      ],
+      "keywords": [
+        "Changchun Yatai",
+        "Wuxi Wugou",
+        "Jia League",
+        "1-5",
+        "own goal",
+        "Yi Xianlong brace"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：明天8场大战，法国英格兰火星撞地球",
+      "path": "/home/runner/work/_temp/output/2026-07-18/article-2-老六精准预测明天-a3f692.md",
+      "slug": "老六精准预测明天-a3f692",
+      "tags": [
+        "football prediction",
+        "World Cup",
+        "France vs England",
+        "Manchester United",
+        "Liverpool",
+        "underdog analysis"
+      ],
+      "keywords": [
+        "football prediction",
+        "World Cup",
+        "France vs England",
+        "Manchester United",
+        "Liverpool",
+        "underdog analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-18/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "95分钟绝杀！西班牙2-1阿根廷夺世界杯，梅西的最后一舞碎了",
-      "formula": "A",
-      "angle": "从西班牙绝杀夺冠切入，点出梅西时代终结的悲壮，强调世界杯决赛的戏剧性和历史意义，既有新王加冕的激情，又有英雄谢幕的泪点。",
+      "title": "1-5惨案！长春亚泰被中甲鱼腩打爆，谁该谢罪？",
+      "formula": "F",
+      "angle": "长春亚泰主场1-5惨败中甲无锡吴钩，这不仅是比分上的耻辱，更暴露了球队战术崩盘和更衣室问题。老六直指：主教练必须第一个走人！",
       "keywords": [
-        "Spain",
-        "Argentina",
-        "World Cup Final",
-        "Messi",
-        "last dance"
+        "Changchun Yatai",
+        "Wuxi Wugou",
+        "Chinese Super League",
+        "shock defeat",
+        "relegation battle"
       ],
       "keywords_cn": [
-        "西班牙",
-        "阿根廷",
-        "世界杯决赛",
-        "梅西",
-        "最后一舞"
+        "长春亚泰",
+        "无锡吴钩",
+        "中甲",
+        "惨案",
+        "保级"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 95,
       "expected_heat": "S",
-      "rationale": "世界杯决赛自带顶级流量，绝杀+梅西谢幕双重催泪弹，情绪共鸣强，评论区必为梅西地位和西班牙新核吵翻。",
-      "controversy_level": "medium",
-      "target_emotion": "感动",
-      "why_pick": "世界杯决赛+绝杀+梅西告别，天然爆款元素，中国球迷最关注的场景。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "rationale": "中甲球队客场5球血洗中超队，极具视觉冲击和争议性，能引发球迷对中超内幕和教练责任的激烈讨论，符合老六犀利观点定位。",
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "终身禁足还能掌掴孩子？申思，足协的脸都被你丢尽了",
+      "title": "申思打人再上热搜：终身禁足的人凭什么还在足坛？",
       "formula": "D",
-      "angle": "以申思掌掴小球员事件为核心，质疑足协终身禁足令形同虚设，揭露中国足球底层乱象，引发球迷对监管缺失的愤怒。",
+      "angle": "前国脚申思在幸运星俱乐部涉嫌打人，家长报警后足协只罚了2万。老六怒斥：终身禁足人员还能当顾问？中国足协的处罚就是过家家！",
       "keywords": [
         "Shen Si",
-        "lifetime ban",
-        "child abuse",
-        "Chinese football",
-        "regulatory failure"
+        "assault",
+        "Lucky Star Club",
+        "Chinese Football Association",
+        "lifetime ban"
       ],
       "keywords_cn": [
         "申思",
-        "终身禁足",
-        "掌掴",
-        "中国足球",
-        "监管缺失"
+        "打人",
+        "幸运星",
+        "中国足协",
+        "终身禁足"
       ],
       "content_type": "八卦趣事",
       "score": 88,
       "expected_heat": "S",
-      "rationale": "暴力事件叠加足协公信力危机，争议性强，评论区必两极分化：有人骂申思，有人骂足协，情绪引爆点明确。",
+      "rationale": "申思是前国脚+假球案主角，打人事件极具戏剧冲突，能激发球迷对足协腐败和监管不力的愤怒情绪，评论区必定两派互撕。",
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "why_pick": "涉及前国脚+终身禁足+体罚丑闻，与世界杯热点形成反差，能拉回国内球迷注意力。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天8场大战，法国英格兰火星撞地球",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-18 14:15:42"
+  "last_batch": "evening",
+  "last_updated": "2026-07-18 18:46:06"
 }
