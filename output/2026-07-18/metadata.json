@@ -1,7 +1,7 @@
 {
   "date": "2026-07-18",
-  "generated_at": "2026-07-18T01:13:06.037962",
-  "total_articles": 1,
+  "generated_at": "2026-07-18T06:15:42.627629",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -36,96 +36,135 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "决赛前瞻：西班牙传控碾压阿根廷？梅西：你们是不是忘了我？",
+      "path": "/home/runner/work/_temp/output/2026-07-18/article-1-决赛前瞻西班牙传-7536b5.md",
+      "slug": "决赛前瞻西班牙传-7536b5",
+      "tags": [
+        "World Cup final",
+        "Spain vs Argentina",
+        "Messi",
+        "Rodri",
+        "possession football"
+      ],
+      "keywords": [
+        "World Cup final",
+        "Spain vs Argentina",
+        "Messi",
+        "Rodri",
+        "possession football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "1-5！前中超冠军长春亚泰中甲惨案，脸都不要了？",
-      "formula": "F",
-      "angle": "长春亚泰作为前中超冠军，如今在中甲被无锡吴钩5-1屠杀，这不只是输球，更是中国足球职业化以来最触目惊心的坠落案例。老六想问问：亚泰到底怎么了？是无锡吴钩太强，还是亚泰自己先垮了？",
+      "title": "95分钟绝杀！西班牙2-1阿根廷夺世界杯，梅西的最后一舞碎了",
+      "formula": "A",
+      "angle": "从西班牙绝杀夺冠切入，点出梅西时代终结的悲壮，强调世界杯决赛的戏剧性和历史意义，既有新王加冕的激情，又有英雄谢幕的泪点。",
       "keywords": [
-        "Changchun Yatai",
-        "China League One",
-        "5-1 defeat",
-        "Wuxi Wugou"
+        "Spain",
+        "Argentina",
+        "World Cup Final",
+        "Messi",
+        "last dance"
       ],
       "keywords_cn": [
-        "长春亚泰",
-        "中甲",
-        "1-5惨败",
-        "无锡吴钩"
+        "西班牙",
+        "阿根廷",
+        "世界杯决赛",
+        "梅西",
+        "最后一舞"
       ],
       "content_type": "热点球评",
-      "score": 88,
-      "expected_heat": "A",
-      "rationale": "数据震撼开场，前中超冠军惨败引发中国足球现状讨论，情绪愤怒+震惊，中甲关注度虽低但反差强，评论区容易争执球队管理层问题。",
+      "score": 92,
+      "expected_heat": "S",
+      "rationale": "世界杯决赛自带顶级流量，绝杀+梅西谢幕双重催泪弹，情绪共鸣强，评论区必为梅西地位和西班牙新核吵翻。",
       "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "感动",
+      "why_pick": "世界杯决赛+绝杀+梅西告别，天然爆款元素，中国球迷最关注的场景。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "齐达内再回法国队，玄学救不了更衣室？",
-      "formula": "B",
-      "angle": "齐达内HWG确认执教法国队，老六觉得这次回归风险极大——世界杯后更衣室已经裂了，姆巴佩和格子谁服谁？齐达内的玄学能压住这帮大爷吗？",
+      "title": "终身禁足还能掌掴孩子？申思，足协的脸都被你丢尽了",
+      "formula": "D",
+      "angle": "以申思掌掴小球员事件为核心，质疑足协终身禁足令形同虚设，揭露中国足球底层乱象，引发球迷对监管缺失的愤怒。",
       "keywords": [
-        "Zidane",
-        "France",
-        "HWG",
-        "World Cup"
+        "Shen Si",
+        "lifetime ban",
+        "child abuse",
+        "Chinese football",
+        "regulatory failure"
       ],
       "keywords_cn": [
-        "齐达内",
-        "法国队",
-        "HWG",
-        "世界杯"
+        "申思",
+        "终身禁足",
+        "掌掴",
+        "中国足球",
+        "监管缺失"
       ],
-      "content_type": "转会资讯",
-      "score": 95,
+      "content_type": "八卦趣事",
+      "score": 88,
       "expected_heat": "S",
-      "rationale": "今日最有爆点的官宣，齐达内是足坛流量王，结合世界杯法国队内部矛盾，争议性高，反问式标题挑动球迷争论他能否成功。",
+      "rationale": "暴力事件叠加足协公信力危机，争议性强，评论区必两极分化：有人骂申思，有人骂足协，情绪引爆点明确。",
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "愤怒",
+      "why_pick": "涉及前国脚+终身禁足+体罚丑闻，与世界杯热点形成反差，能拉回国内球迷注意力。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-18 09:13:06"
+  "last_batch": "noon",
+  "last_updated": "2026-07-18 14:15:42"
 }
