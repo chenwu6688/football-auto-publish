@@ -1,7 +1,7 @@
 {
   "date": "2026-07-19",
-  "generated_at": "2026-07-19T01:16:30.161193",
-  "total_articles": 2,
+  "generated_at": "2026-07-19T06:43:21.783695",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -70,102 +70,133 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "罗德里的电话响了，穆里尼奥递出的不只是一份报价",
+      "path": "/home/runner/work/_temp/output/2026-07-19/article-1-罗德里的电话响了-883915.md",
+      "slug": "罗德里的电话响了-883915",
+      "tags": [
+        "Real Madrid",
+        "Rodri",
+        "transfer",
+        "Mourinho",
+        "World Cup"
+      ],
+      "keywords": [
+        "Real Madrid",
+        "Rodri",
+        "transfer",
+        "Mourinho",
+        "World Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "6-4！英格兰疯狂复仇法国，季军赛打出世界杯最大比分",
-      "formula": "A",
-      "angle": "从英格兰6-4大胜法国拿到季军切入，强调这场进球大战的戏剧性和复仇意味，英格兰半决赛被阿根廷逆转后憋着一口气，终于在这场开放对攻中释放。",
+      "title": "6-4！英格兰血洗法国夺季军，点球踢成网球比分",
+      "formula": "F",
+      "angle": "英格兰在季军战中通过点球大战6-4击败法国，比分极为夸张。老六认为这场比赛展现了英格兰的韧性和法国的无奈，其中点球大战的戏剧性值得深挖，而法国队的表现则令人失望。",
       "keywords": [
         "England",
         "France",
         "World Cup",
         "third place",
+        "penalty shootout",
         "6-4"
       ],
       "keywords_cn": [
         "英格兰",
         "法国",
-        "世界杯季军赛"
+        "世界杯季军战",
+        "点球大战",
+        "6-4"
       ],
       "content_type": "热点球评",
-      "score": 88,
-      "expected_heat": "S",
-      "rationale": "世界杯季军赛是当日唯一已结束的世界杯比赛，6-4超高比分极具视觉冲击，且英格兰复仇话题能引爆球迷情绪，符合爆款公式和世界杯优先模式。",
+      "score": 90,
       "controversy_level": "medium",
       "target_emotion": "震惊",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "rationale": "6-4的比分极具冲击力，球迷看到标题就会点进来，点球大战的戏剧性适合制造情绪共鸣和讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "18岁中国小将首秀传射！留洋开门红比肩武磊",
-      "formula": "C",
-      "angle": "聚焦欧塞尔5-2大胜中魏祥鑫替补登场贡献传射，强调其18岁年龄、首秀即闪耀，对比武磊等留洋标杆，展现中国足球年轻力量的新希望，让球迷骄傲又感慨。",
+      "title": "看完世界杯决赛，皇马1.2亿砸罗德里？曼城急了",
+      "formula": "B",
+      "angle": "罗德里在世界杯表现神勇，皇马重燃引进兴趣，但曼城1.2亿标价让交易扑朔迷离。老六觉得罗德里是西班牙夺冠后最该涨价的球员，但皇马未必掏得起这个钱。",
       "keywords": [
-        "Wei Xiangxin",
-        "Auxerre",
-        "debut",
-        "goal",
-        "assist",
-        "Chinese player"
+        "Rodri",
+        "Real Madrid",
+        "Manchester City",
+        "transfer",
+        "World Cup",
+        "€120m"
       ],
       "keywords_cn": [
-        "魏祥鑫",
-        "欧塞尔",
-        "留洋",
-        "首秀传射"
+        "罗德里",
+        "皇马",
+        "曼城",
+        "转会",
+        "世界杯"
       ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "expected_heat": "A",
-      "rationale": "中国球员留洋高光时刻是球迷最关心的内容之一，18岁小将首秀传射有很强故事性和情绪共鸣（骄傲），且与世界杯话题形成互补，避开赛事冲突。",
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "转会资讯",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "rationale": "结合世界杯热点，罗德里表现引发豪门争夺，转会金额巨大，球迷爱看这种有爆点有争议的传闻。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "欧塞尔 5-2 圣莫尔路斯，7球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-19 09:16:30"
+  "last_batch": "noon",
+  "last_updated": "2026-07-19 14:43:21"
 }
