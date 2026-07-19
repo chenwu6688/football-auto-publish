@@ -1,7 +1,7 @@
 {
   "date": "2026-07-19",
-  "generated_at": "2026-07-19T06:43:21.783695",
-  "total_articles": 3,
+  "generated_at": "2026-07-19T10:47:58.662111",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -102,101 +102,171 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "1300万美元公家草皮，FIFA想切片拍卖9000万？这帮政客不干了",
+      "path": "/home/runner/work/_temp/output/2026-07-19/article-1-1300万美元公-f761da.md",
+      "slug": "1300万美元公-f761da",
+      "tags": [
+        "FIFA",
+        "World Cup",
+        "turf auction",
+        "New Jersey",
+        "Meadowlands"
+      ],
+      "keywords": [
+        "FIFA",
+        "World Cup",
+        "turf auction",
+        "New Jersey",
+        "Meadowlands"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六明日5场预测：西班牙阿根廷巅峰对决，青年队送菜？",
+      "path": "/home/runner/work/_temp/output/2026-07-19/article-2-老六明日5场预测-2b4342.md",
+      "slug": "老六明日5场预测-2b4342",
+      "tags": [
+        "match predictions",
+        "Spain vs Argentina",
+        "football analysis",
+        "La Liga",
+        "World Cup"
+      ],
+      "keywords": [
+        "match predictions",
+        "Spain vs Argentina",
+        "football analysis",
+        "La Liga",
+        "World Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "6-4！英格兰血洗法国夺季军，点球踢成网球比分",
-      "formula": "F",
-      "angle": "英格兰在季军战中通过点球大战6-4击败法国，比分极为夸张。老六认为这场比赛展现了英格兰的韧性和法国的无奈，其中点球大战的戏剧性值得深挖，而法国队的表现则令人失望。",
+      "title": "6-4！英格兰点球掀翻法国，季军战爆出多少猛料",
+      "formula": "A",
+      "angle": "英格兰点球大战击败法国夺得世界杯季军，这场看似鸡肋的比赛却上演了进球大战和戏剧性点球，凯恩终破大赛心魔，索斯盖特证明自己，法国则暴露出心理脆弱的一面。",
       "keywords": [
         "England",
         "France",
         "World Cup",
-        "third place",
         "penalty shootout",
-        "6-4"
+        "third place"
       ],
       "keywords_cn": [
         "英格兰",
         "法国",
-        "世界杯季军战",
+        "世界杯",
         "点球大战",
-        "6-4"
+        "季军战"
       ],
       "content_type": "热点球评",
-      "score": 90,
-      "controversy_level": "medium",
+      "score": 95,
+      "expected_heat": "S",
+      "rationale": "世界杯季军战有大量中国球迷关注，点球大战和6-4高分具备戏剧冲突和争议性，凯恩和法国队的表现容易引发讨论情绪，时效性极佳。",
+      "controversy_level": "high",
       "target_emotion": "震惊",
-      "rationale": "6-4的比分极具冲击力，球迷看到标题就会点进来，点球大战的戏剧性适合制造情绪共鸣和讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "看完世界杯决赛，皇马1.2亿砸罗德里？曼城急了",
+      "title": "仅主哨一场世界杯，马宁是不是被国际足联针对了",
       "formula": "B",
-      "angle": "罗德里在世界杯表现神勇，皇马重燃引进兴趣，但曼城1.2亿标价让交易扑朔迷离。老六觉得罗德里是西班牙夺冠后最该涨价的球员，但皇马未必掏得起这个钱。",
+      "angle": "中国裁判马宁仅在世界杯吹罚一场比赛即结束征程，内部和外界评价都不差却再无机会，质疑国际足联分配不公，为中国裁判鸣不平。",
       "keywords": [
-        "Rodri",
-        "Real Madrid",
-        "Manchester City",
-        "transfer",
-        "World Cup",
-        "€120m"
+        "Ma Ning",
+        "World Cup referee",
+        "FIFA",
+        "controversy",
+        "Chinese referee"
       ],
       "keywords_cn": [
-        "罗德里",
-        "皇马",
-        "曼城",
-        "转会",
-        "世界杯"
+        "马宁",
+        "世界杯裁判",
+        "国际足联",
+        "争议",
+        "中国裁判"
       ],
-      "content_type": "转会资讯",
-      "score": 82,
+      "content_type": "八卦趣事",
+      "score": 84,
+      "expected_heat": "A",
+      "rationale": "中国球迷对裁判话题敏感，马宁只吹一场引发阴谋论猜测，情绪共鸣强烈，评论区容易两极分化，时效性佳。",
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "rationale": "结合世界杯热点，罗德里表现引发豪门争夺，转会金额巨大，球迷爱看这种有爆点有争议的传闻。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "愤怒",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六明日5场预测：西班牙阿根廷巅峰对决，青年队送菜？",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-19 14:43:21"
+  "last_batch": "evening",
+  "last_updated": "2026-07-19 18:47:58"
 }
