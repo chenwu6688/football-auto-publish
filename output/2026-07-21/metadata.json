@@ -1,7 +1,7 @@
 {
   "date": "2026-07-21",
-  "generated_at": "2026-07-21T02:14:03.830328",
-  "total_articles": 4,
+  "generated_at": "2026-07-21T04:04:58.931324",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -138,100 +138,132 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "合同签两年！泰山旧将转投升班马，这盘棋你看懂了吗？",
+      "path": "/home/runner/work/_temp/output/2026-07-21/article-1-合同签两年泰山旧-25e5d9.md",
+      "slug": "合同签两年泰山旧-25e5d9",
+      "tags": [
+        "duan liuyu",
+        "yunnan yukun",
+        "shandong taishan",
+        "transfer",
+        "chinese super league"
+      ],
+      "keywords": [
+        "duan liuyu",
+        "yunnan yukun",
+        "shandong taishan",
+        "transfer",
+        "chinese super league"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-21/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-21/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-21/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "世界杯最终排名出炉！第48名是这支亚洲队，你敢信？",
-      "formula": "E",
-      "angle": "世界杯官方1-48排名公布，亚洲球队大面积垫底，但有一支队伍排名远超预期。这排名合理吗？老六给你掰扯掰扯，别光看名次，背后是足球版图的残酷。",
+      "title": "9.1万欧！从泰山核心到玉昆替补，中国球员身价咋这么惨？",
+      "formula": "F",
+      "angle": "段刘愚仅以9.1万欧转会玉昆，对比昔日鲁能青训希望，数字刺痛人心。老六观点：这不是段刘愚一个人的悲剧，而是中国足球泡沫破裂后的真实缩影。",
       "keywords": [
-        "FIFA World Cup ranking",
-        "World Cup 2026",
-        "team ranking",
-        "Asian football"
+        "Duan Liuyu",
+        "Yunnan Yukun",
+        "transfer fee",
+        "Chinese football"
       ],
       "keywords_cn": [
-        "世界杯排名",
-        "亚洲足球",
-        "排名争议"
+        "段刘愚",
+        "云南玉昆",
+        "转会费",
+        "中国足球"
       ],
-      "content_type": "排行榜",
-      "score": 92,
-      "expected_heat": "S",
-      "rationale": "世界杯排名贴合当下热点，数据有冲击力，能引发球迷对强弱队的争论，尤其亚洲球队尴尬位次容易激起情绪。",
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "梅西刚发声C罗就整活！发社媒暗讽金球奖是笑话？",
-      "formula": "B",
-      "angle": "世界杯决赛后梅西首度开口，C罗却突然在社媒怒刷存在感，矛头疑似指向金球奖评选。老六觉得这波操作就是蹭热度，但葡萄牙球迷可不答应。",
-      "keywords": [
-        "Cristiano Ronaldo",
-        "social media",
-        "Golden Ball",
-        "Messi response"
-      ],
-      "keywords_cn": [
-        "C罗",
-        "社媒风波",
-        "金球奖争议"
-      ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "expected_heat": "S",
-      "rationale": "C罗话题自带流量，结合世界杯决赛刚结束的敏感时间点，情绪对立强烈，评论区肯定炸。",
+      "content_type": "转会资讯",
+      "score": 86,
+      "expected_heat": "A",
+      "rationale": "9.1万欧的极端数据极具视觉冲击力，触发球迷对球员身价下滑的愤怒与反思，情绪共鸣强，讨论空间大。",
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
+      "why_pick": "数字震撼+中国足球痛点，能引爆评论区争论低谷原因。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "武磊：日韩身体好我认，但中国球员缺的不只是这个",
+      "formula": "B",
+      "angle": "武磊坦言日韩节奏能跟上但身体吃亏，老六解读：这看似认怂的实话，实则是撕开中国足球青黄不接的遮羞布。",
+      "keywords": [
+        "Wu Lei",
+        "Japan Korea",
+        "physical gap",
+        "Chinese football"
+      ],
+      "keywords_cn": [
+        "武磊",
+        "日韩差距",
+        "身体对抗",
+        "中国足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "expected_heat": "A",
+      "rationale": "武磊作为现役国足一哥，直白对比引发球迷自豪与无奈的交织情绪，故事性强，评论区易分两派。",
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "why_pick": "武磊的坦诚激起老球迷怀旧与现状焦虑，金句频出自然成梗。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
       "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "老六精准预测：明天五场硬仗，热刺迈阿密谁翻车？",
-      "content_type": "热点球评",
-      "_is_prediction": true
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-07-21 10:14:03"
+  "last_batch": "noon",
+  "last_updated": "2026-07-21 12:04:58"
 }
