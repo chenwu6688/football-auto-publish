@@ -1,7 +1,7 @@
 {
   "date": "2026-07-21",
-  "generated_at": "2026-07-21T01:15:38.139743",
-  "total_articles": 2,
+  "generated_at": "2026-07-21T02:14:03.830328",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -73,92 +73,165 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "散是满天星：一个50万人口岛国，竟靠“侨民网络”养活了一支世界杯球队",
+      "path": "/home/runner/work/_temp/output/2026-07-21/article-1-散是满天星一个5-1fbe0b.md",
+      "slug": "散是满天星一个5-1fbe0b",
+      "tags": [
+        "Cape Verde",
+        "C罗",
+        "Nani",
+        "Nuno Mendes",
+        "Chinese education",
+        "World Cup"
+      ],
+      "keywords": [
+        "Cape Verde",
+        "C罗",
+        "Nani",
+        "Nuno Mendes",
+        "Chinese education",
+        "World Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-21/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-21/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-21/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：明天五场硬仗，热刺迈阿密谁翻车？",
+      "path": "/home/runner/work/_temp/output/2026-07-21/article-2-老六精准预测明天-d4dd14.md",
+      "slug": "老六精准预测明天-d4dd14",
+      "tags": [
+        "football prediction",
+        "Tottenham vs MK Dons",
+        "Miami vs Chicago",
+        "Benfica B vs Al Nassr",
+        "Auxerre vs Chateauroux"
+      ],
+      "keywords": [
+        "football prediction",
+        "Tottenham vs MK Dons",
+        "Miami vs Chicago",
+        "Benfica B vs Al Nassr",
+        "Auxerre vs Chateauroux"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-21/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-21/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "1-0，西班牙赢了，但赛后冲突比进球更刺激！",
-      "formula": "A",
-      "angle": "西班牙1-0阿根廷的比赛本身平淡，但赛后双方球员爆发冲突，裁判控制不力，这才是球迷最想看的真实对抗。",
+      "title": "世界杯最终排名出炉！第48名是这支亚洲队，你敢信？",
+      "formula": "E",
+      "angle": "世界杯官方1-48排名公布，亚洲球队大面积垫底，但有一支队伍排名远超预期。这排名合理吗？老六给你掰扯掰扯，别光看名次，背后是足球版图的残酷。",
       "keywords": [
-        "Spain vs Argentina",
-        "post-match clash",
-        "World Cup 2026"
+        "FIFA World Cup ranking",
+        "World Cup 2026",
+        "team ranking",
+        "Asian football"
       ],
       "keywords_cn": [
-        "西班牙阿根廷",
-        "赛后冲突",
-        "世界杯"
+        "世界杯排名",
+        "亚洲足球",
+        "排名争议"
       ],
-      "content_type": "热点球评",
-      "score": 95,
+      "content_type": "排行榜",
+      "score": 92,
       "expected_heat": "S",
-      "rationale": "世界杯决赛后冲突极具争议性和画面感，中国球迷关注度高，情绪共鸣强烈。",
+      "rationale": "世界杯排名贴合当下热点，数据有冲击力，能引发球迷对强弱队的争论，尤其亚洲球队尴尬位次容易激起情绪。",
       "controversy_level": "high",
       "target_emotion": "震惊",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "C罗又炸了！世界杯刚结束就发长文开撕，矛头直指梅西？",
+      "title": "梅西刚发声C罗就整活！发社媒暗讽金球奖是笑话？",
       "formula": "B",
-      "angle": "C罗在梅西失冠后突然社媒发文，疑似嘲讽或挑起口水仗，引发球迷站队大战。",
+      "angle": "世界杯决赛后梅西首度开口，C罗却突然在社媒怒刷存在感，矛头疑似指向金球奖评选。老六觉得这波操作就是蹭热度，但葡萄牙球迷可不答应。",
       "keywords": [
         "Cristiano Ronaldo",
-        "social media controversy",
-        "Messi"
+        "social media",
+        "Golden Ball",
+        "Messi response"
       ],
       "keywords_cn": [
         "C罗",
         "社媒风波",
-        "梅西"
+        "金球奖争议"
       ],
       "content_type": "八卦趣事",
-      "score": 92,
+      "score": 88,
       "expected_heat": "S",
-      "rationale": "C罗和梅西的恩怨自带流量，世界杯后时间节点敏感，评论区必然两极分化。",
+      "rationale": "C罗话题自带流量，结合世界杯决赛刚结束的敏感时间点，情绪对立强烈，评论区肯定炸。",
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天五场硬仗，热刺迈阿密谁翻车？",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-21 09:15:38"
+  "last_batch": "evening",
+  "last_updated": "2026-07-21 10:14:03"
 }
