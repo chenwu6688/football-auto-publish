@@ -1,7 +1,7 @@
 {
   "date": "2026-07-23",
-  "generated_at": "2026-07-23T01:19:32.419137",
-  "total_articles": 2,
+  "generated_at": "2026-07-23T04:06:00.976594",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -66,94 +66,127 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "预算冻结！罗马尼奥利卡塔尔梦碎，拉齐奥紧急召回",
+      "path": "/home/runner/work/_temp/output/2026-07-23/article-1-预算冻结罗马尼奥-1305fd.md",
+      "slug": "预算冻结罗马尼奥-1305fd",
+      "tags": [
+        "Alessio Romagnoli",
+        "Lazio",
+        "Al Sadd",
+        "transfer freeze",
+        "Di Marzio"
+      ],
+      "keywords": [
+        "Alessio Romagnoli",
+        "Lazio",
+        "Al Sadd",
+        "transfer freeze",
+        "Di Marzio"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-23/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-23/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-23/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "2-0！中甲小球队干翻陕西联合：中国足球的另一种活法",
-      "formula": "E",
-      "angle": "兰州陇原竞技作为中甲升班马，2-0击败实力更强的陕西联合，用一场硬仗证明小球队也能有春天，反衬出金元退潮后本土球员的拼劲。老六态度：这比看国足虐菜爽多了！",
+      "title": "3-2！迈阿密最后时刻绝杀，美职联又现神剧本",
+      "formula": "A",
+      "angle": "迈阿密国际3-2险胜芝加哥火焰，比赛最后时刻的绝杀让全场沸腾，但裁判的判罚和梅西的统治力再次成为焦点。老六认为美职联的戏剧性越来越强，但这种依赖球星个人能力的赢球方式能否走远？",
       "keywords": [
-        "Lanzhou Longyuan",
-        "Shaanxi Union",
-        "Chinese FA Cup"
+        "Inter Miami",
+        "Chicago Fire",
+        "MLS",
+        "comeback",
+        "dramatic win"
       ],
       "keywords_cn": [
-        "兰州陇原竞技",
-        "陕西联合",
-        "足协杯",
-        "中甲"
+        "迈阿密国际",
+        "芝加哥火焰",
+        "美职联",
+        "绝杀"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "expected_heat": "A",
-      "rationale": "国内冷门+草根逆袭，符合老六接地气风格；足协杯话题争议性中等但故事性强，能激发中国球迷的骄傲和怀旧情绪。",
+      "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "震惊",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "7进7出！泰山夏窗仅补报1人，德尔加多彻底沦为弃子",
-      "formula": "A",
-      "angle": "山东泰山夏窗报名名单撤下德尔加多等6将，只补报郝富博，外援调整暴露引援混乱。德尔加多从归化希望到边缘人，折射中超外援政策的尴尬。老六犀利点评：别糟蹋人家了，放条生路吧。",
+      "title": "5500万镑！萨默维尔去沙特，这是英超的悲哀还是球员的明智？",
+      "formula": "B",
+      "angle": "萨默维尔5500万镑转会费加盟利雅得新月，年薪1200万镑，这笔交易再次引爆沙特挖角英超的话题。老六认为这反映了英超中游球员的生存困境，也暴露了足球资本流向的残酷现实——球员有选择权，但英超的竞争力被削弱了。",
       "keywords": [
-        "Shandong Taishan",
-        "Delgado",
-        "summer transfer window"
+        "Summerville",
+        "Al Hilal",
+        "transfer",
+        "Saudi Pro League",
+        "Premier League"
       ],
       "keywords_cn": [
-        "山东泰山",
-        "德尔加多",
-        "夏窗报名",
-        "中超"
+        "萨默维尔",
+        "利雅得新月",
+        "沙特联赛",
+        "转会"
       ],
       "content_type": "转会资讯",
-      "score": 88,
-      "expected_heat": "A",
-      "rationale": "德尔加多曾是归化热门，如今被撤下自带故事性和争议性；数据对比7进7出制造冲击力，评论区必炸。",
+      "score": 90,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-23 09:19:32"
+  "last_batch": "noon",
+  "last_updated": "2026-07-23 12:06:00"
 }
