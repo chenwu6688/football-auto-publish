@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
-  "generated_at": "2026-07-27T03:15:40.745177",
-  "total_articles": 1,
+  "generated_at": "2026-07-27T03:41:02.383600",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -38,27 +38,64 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "3分钟地狱到天堂！延边龙鼎闪电逆转，梅州客家又白忙一场",
+      "path": "/home/runner/work/_temp/output/2026-07-27/article-1-3分钟地狱到天堂-6f308b.md",
+      "slug": "3分钟地狱到天堂-6f308b",
+      "tags": [
+        "Yanbian Longding",
+        "Meizhou Hakka",
+        "China League One",
+        "comeback",
+        "offside goal"
+      ],
+      "keywords": [
+        "Yanbian Longding",
+        "Meizhou Hakka",
+        "China League One",
+        "comeback",
+        "offside goal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "2-1！德丙球队掀翻拜仁，这剧本谁敢写？",
-      "angle": "拜仁热身赛爆冷输给德丙韦恩，暴露防线隐患，新赛季前景堪忧，这场失利比想象中更有深意。",
+      "title": "2-1！中甲队掀翻中超队，这冷门比剧本还离谱",
+      "formula": "A",
+      "angle": "延边龙鼎2-1击败梅州客家，中甲球队正面战胜中超对手，折射中国足球层级模糊与冲超格局的戏剧性，态度是惊叹中甲黑马的韧性并质疑中超下游球队实力。",
       "keywords": [
-        "Bayern Munich",
-        "Wehen Wiesbaden",
-        "friendly upset"
+        "Yanbian Longding",
+        "Meizhou Hakka",
+        "China League One",
+        "Chinese Super League",
+        "upset"
       ],
       "keywords_cn": [
-        "拜仁",
-        "韦恩",
+        "延边龙鼎",
+        "梅州客家",
+        "中甲",
         "冷门"
       ],
       "content_type": "热点球评",
-      "score": 96,
-      "controversy_level": "high",
+      "score": 85,
+      "expected_heat": "A",
+      "rationale": "中甲球队击败中超球队话题性强，中国球迷关注国内联赛冷门，符合老六接地气风格，有情绪共鸣（意外/兴奋），争议性中等。",
+      "controversy_level": "medium",
       "target_emotion": "震惊",
-      "why_pick": "德丙球队击败德甲霸主，话题性极强，球迷必然好奇过程与原因。",
       "_column_id": "wu-jian-kuai-xun",
       "_column_name": "午间快讯",
       "_column_icon": "⚡",
@@ -80,7 +117,9 @@
     }
   ],
   "data_sources": {},
-  "batches_completed": [],
+  "batches_completed": [
+    "noon"
+  ],
   "last_batch": "noon",
-  "last_updated": "2026-07-27 11:15:40"
+  "last_updated": "2026-07-27 11:41:02"
 }
