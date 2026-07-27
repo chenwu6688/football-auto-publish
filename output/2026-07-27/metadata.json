@@ -1,0 +1,88 @@
+{
+  "date": "2026-07-27",
+  "generated_at": "2026-07-27T03:15:40.745177",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "拜仁热身赛输德丙队，这剧情比世界杯还离谱",
+      "path": "/home/runner/work/_temp/output/2026-07-27/article-1-拜仁热身赛输德丙-3f81db.md",
+      "slug": "拜仁热身赛输德丙-3f81db",
+      "tags": [
+        "Bayern",
+        "friendly",
+        "loss",
+        "Wehen",
+        "Dritte Liga",
+        "Ulreich",
+        "mistake"
+      ],
+      "keywords": [
+        "Bayern",
+        "friendly",
+        "loss",
+        "Wehen",
+        "Dritte Liga",
+        "Ulreich",
+        "mistake"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "2-1！德丙球队掀翻拜仁，这剧本谁敢写？",
+      "angle": "拜仁热身赛爆冷输给德丙韦恩，暴露防线隐患，新赛季前景堪忧，这场失利比想象中更有深意。",
+      "keywords": [
+        "Bayern Munich",
+        "Wehen Wiesbaden",
+        "friendly upset"
+      ],
+      "keywords_cn": [
+        "拜仁",
+        "韦恩",
+        "冷门"
+      ],
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "德丙球队击败德甲霸主，话题性极强，球迷必然好奇过程与原因。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-07-27 11:15:40"
+}
