@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
-  "generated_at": "2026-07-27T03:41:02.383600",
-  "total_articles": 2,
+  "generated_at": "2026-07-27T04:01:01.437276",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -70,56 +70,121 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "一张红牌一个漏，铁人主场憋屈输球",
+      "path": "/home/runner/work/_temp/output/2026-07-27/article-1-一张红牌一个漏铁-a58042.md",
+      "slug": "一张红牌一个漏铁-a58042",
+      "tags": [
+        "China Super League",
+        "Liaoning Ironmen",
+        "Qingdao West Coast",
+        "match report",
+        "red card"
+      ],
+      "keywords": [
+        "China Super League",
+        "Liaoning Ironmen",
+        "Qingdao West Coast",
+        "match report",
+        "red card"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "2-1！中甲队掀翻中超队，这冷门比剧本还离谱",
-      "formula": "A",
-      "angle": "延边龙鼎2-1击败梅州客家，中甲球队正面战胜中超对手，折射中国足球层级模糊与冲超格局的戏剧性，态度是惊叹中甲黑马的韧性并质疑中超下游球队实力。",
+      "title": "裁判抢戏？铁人输球姆本扎失控，这球没法踢了",
+      "angle": "辽宁铁人0-1青岛西海岸，争议判罚导致姆本扎情绪失控，队友称憋屈。裁判问题再成中甲焦点，中国足球的软肋不改永远上不去。",
       "keywords": [
-        "Yanbian Longding",
-        "Meizhou Hakka",
-        "China League One",
-        "Chinese Super League",
-        "upset"
+        "liaoning iron",
+        "referee controversy",
+        "mbenza",
+        "china league one"
       ],
       "keywords_cn": [
-        "延边龙鼎",
-        "梅州客家",
-        "中甲",
-        "冷门"
+        "辽宁铁人",
+        "裁判争议"
       ],
       "content_type": "热点球评",
       "score": 85,
-      "expected_heat": "A",
-      "rationale": "中甲球队击败中超球队话题性强，中国球迷关注国内联赛冷门，符合老六接地气风格，有情绪共鸣（意外/兴奋），争议性中等。",
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "争议判罚+球员失控，中国球迷最痛恨裁判问题，情绪共鸣强，有持续发酵空间。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
       "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "1.2亿欧！巴尔科拉拒绝续约，巴黎夏窗要变天",
+      "angle": "队报爆料巴尔科拉拒绝巴黎续约合同，估价1.2亿欧。这位法国新星若离队将引爆欧洲转会市场，巴黎今夏面临核心流失危机。",
+      "keywords": [
+        "barkola",
+        "psg",
+        "transfer",
+        "contract rejection"
+      ],
+      "keywords_cn": [
+        "巴尔科拉",
+        "巴黎圣日耳曼"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "法国新星高价估值+拒绝续约，转会悬念足，欧洲豪门球迷都关心，讨论价值高。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-27 11:41:02"
+  "last_batch": "morning",
+  "last_updated": "2026-07-27 12:01:01"
 }
