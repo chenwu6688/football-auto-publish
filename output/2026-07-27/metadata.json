@@ -1,7 +1,7 @@
 {
   "date": "2026-07-27",
-  "generated_at": "2026-07-27T04:01:01.437276",
-  "total_articles": 3,
+  "generated_at": "2026-07-27T12:39:41.819569",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -102,89 +102,137 @@
       "column_id": "",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "老六精准预测：明天六场硬仗，我看好皇马多特热刺全胜！",
+      "path": "/home/runner/work/_temp/output/2026-07-27/article-1-老六精准预测明天-b36704.md",
+      "slug": "老六精准预测明天-b36704",
+      "tags": [
+        "Chelsea",
+        "Real Madrid",
+        "Tottenham",
+        "Borussia Dortmund",
+        "Atletico Madrid"
+      ],
+      "keywords": [
+        "Chelsea",
+        "Real Madrid",
+        "Tottenham",
+        "Borussia Dortmund",
+        "Atletico Madrid"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-27/images/article-1-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "裁判抢戏？铁人输球姆本扎失控，这球没法踢了",
-      "angle": "辽宁铁人0-1青岛西海岸，争议判罚导致姆本扎情绪失控，队友称憋屈。裁判问题再成中甲焦点，中国足球的软肋不改永远上不去。",
+      "title": "4-4！中乙惊现进球大战，广西恒宸把中甲踢出欧冠味",
+      "formula": "A",
+      "angle": "广西恒宸与定南赣联打出4-4高比分，中乙级别的比赛却上演了堪比五大联赛的疯狂对攻，中国低级别联赛的观赏性不应被忽视，但也暴露防守漏洞。",
       "keywords": [
-        "liaoning iron",
-        "referee controversy",
-        "mbenza",
-        "china league one"
+        "Guangxi Hengchen",
+        "Dingnan Ganlian",
+        "China League Two",
+        "4-4 draw",
+        "crazy match"
       ],
       "keywords_cn": [
-        "辽宁铁人",
-        "裁判争议"
+        "广西恒宸",
+        "定南赣联",
+        "中乙",
+        "进球大战",
+        "4-4"
       ],
       "content_type": "热点球评",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "争议判罚+球员失控，中国球迷最痛恨裁判问题，情绪共鸣强，有持续发酵空间。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "score": 88,
+      "expected_heat": "A",
+      "rationale": "中乙惊现4-4大比分，反差感强；中国球迷对本土联赛有情感，易引发讨论；比赛今日结束，时效性高。",
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "1.2亿欧！巴尔科拉拒绝续约，巴黎夏窗要变天",
-      "angle": "队报爆料巴尔科拉拒绝巴黎续约合同，估价1.2亿欧。这位法国新星若离队将引爆欧洲转会市场，巴黎今夏面临核心流失危机。",
+      "title": "18岁108天！中超又一妖星横空出世，布尼亚明刷爆纪录",
+      "formula": "A",
+      "angle": "上港小将布尼亚明以18岁108天成为2012年以来中超单场传射最年轻球员，对比日韩年轻球员，这个话题能引发对中国青训的思考与争论。",
       "keywords": [
-        "barkola",
-        "psg",
-        "transfer",
-        "contract rejection"
+        "Buniamin",
+        "Shanghai Port",
+        "youngest",
+        "goal assist",
+        "CSL record"
       ],
       "keywords_cn": [
-        "巴尔科拉",
-        "巴黎圣日耳曼"
+        "布尼亚明",
+        "上海海港",
+        "最年轻",
+        "传射",
+        "中超纪录"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
+      "content_type": "排行榜",
+      "score": 90,
+      "expected_heat": "S",
+      "rationale": "中超年轻球员破纪录自带话题，可与日韩对比制造争议；18岁年龄引发‘中国足球未来’情绪；新闻今日热搜，时效性强。",
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "法国新星高价估值+拒绝续约，转会悬念足，欧洲豪门球迷都关心，讨论价值高。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "好奇",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天六场硬仗，我看好皇马多特热刺全胜！",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-07-27 12:01:01"
+  "last_batch": "evening",
+  "last_updated": "2026-07-27 20:39:41"
 }
