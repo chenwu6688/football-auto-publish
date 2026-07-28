@@ -52,15 +52,30 @@ def retry(func, *args, max_retries=3, base_delay=2, desc="API", **kwargs):
     raise last_err
 
 
-def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, timeout=120):
-    def _call():
-        resp = requests.post(url, json={
-            "model": model, "messages": messages, "temperature": temperature,
+def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, timeout=120,
+             fallback_url=None, fallback_key=None, fallback_model=None):
+    """Call LLM with optional fallback to another provider on auth/credit errors.
+
+    When the primary provider returns 401/402/403/404, automatically retry
+    with the fallback provider. Set fallback_url/fallback_key/fallback_model
+    to enable this behavior (e.g. DeepSeek → Qwen on quota exhaustion).
+    """
+    def _call(u, k, m):
+        resp = requests.post(u, json={
+            "model": m, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False
-        }, headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}, timeout=timeout)
+        }, headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"}, timeout=timeout)
         resp.raise_for_status()
         return resp.json()["choices"][0]["message"]["content"]
-    return retry(_call, desc=f"LLM({model})")
+
+    try:
+        return retry(lambda: _call(url, api_key, model), desc=f"LLM({model})")
+    except requests.exceptions.HTTPError as e:
+        status = e.response.status_code if e.response is not None else None
+        if status in (401, 402, 403, 404) and fallback_url and fallback_key and fallback_model:
+            print(f"   ⚠️ LLM({model}) HTTP {status}，自动降级至 {fallback_model}")
+            return retry(lambda: _call(fallback_url, fallback_key, fallback_model), desc=f"LLM({fallback_model})")
+        raise
 
 
 def safe_json_loads(text):
