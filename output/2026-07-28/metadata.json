@@ -1,0 +1,123 @@
+{
+  "date": "2026-07-28",
+  "generated_at": "2026-07-28T02:44:56.606826",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "就差1分钟！K联赛MVP被劳工证活活卡死，转会泡汤",
+      "path": "/home/runner/work/_temp/output/2026-07-28/article-1-就差1分钟K联赛-17b5ee.md",
+      "slug": "就差1分钟K联赛-17b5ee",
+      "tags": [
+        "Lee Dong-gyeong",
+        "Stoke City",
+        "work permit",
+        "K League MVP",
+        "transfer failed"
+      ],
+      "keywords": [
+        "Lee Dong-gyeong",
+        "Stoke City",
+        "work permit",
+        "K League MVP",
+        "transfer failed"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "34岁老将引6豪门疯抢，亨德森凭什么越老越妖？",
+      "angle": "亨德森虽然年纪偏大，但经验与领导力在英超稀缺，多家豪门急需这种更衣室领袖，质疑他的人怕是没看清现代足球的隐性价值。",
+      "keywords": [
+        "Jordan Henderson",
+        "Premier League",
+        "transfer rumors"
+      ],
+      "keywords_cn": [
+        "亨德森",
+        "英超",
+        "转会传闻"
+      ],
+      "content_type": "转会资讯",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "亨德森是英格兰功勋老将，豪门争夺话题自带争议和讨论度。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "550万杯啤酒、135公里热狗！2026世界杯数据太离谱",
+      "angle": "这些疯狂数字背后是球迷的狂欢盛宴，从吃喝拉撒看世界杯的商业魔力，对比国内足球现场数据，反差让人唏嘘。",
+      "keywords": [
+        "2026WorldCup",
+        "beer",
+        "hot dog",
+        "fan culture"
+      ],
+      "keywords_cn": [
+        "2026世界杯",
+        "啤酒",
+        "热狗",
+        "球迷文化"
+      ],
+      "content_type": "八卦趣事",
+      "score": 74,
+      "controversy_level": "low",
+      "target_emotion": "震惊",
+      "why_pick": "极端数据自带视觉冲击，休赛期轻松话题易引发转发讨论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-07-28 10:44:56"
+}
