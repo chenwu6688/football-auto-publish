@@ -445,53 +445,43 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
             if low_types:
                 weight_hint += f"降低频率: {', '.join(low_types)}\n"
 
-    # World Cup priority: during World Cup month, strongly push tournament content
-    world_cup_priority = ""
-    if season_label == "世界杯月":
-        world_cup_matches = sum(1 for m in match_data.get("all_fixtures", [])
-                                if m.get("league") == "FIFA World Cup")
-        if world_cup_matches > 0:
-            world_cup_priority = f"""
-🌍 世界杯优先模式 — 今天是2026世界杯比赛日（{world_cup_matches}场比赛）：
-⚠️ 铁律：必须围绕世界杯比赛选材！这是读者最关心的事。
-- 第1篇(热点球评)：必须从今日世界杯比赛中选一场最有话题性的。分析场上表现、战术、关键球员。
-- 第2篇(转会资讯/八卦趣事)：优先选择世界杯球员的转会动态、场外花边、世界杯相关的争议冲突。
-- 第3篇(排行榜/战术解析/八卦趣事)：优先从世界杯比赛中提炼数据榜单或战术趋势。
-- 只有当今日无世界杯比赛或世界杯比赛确实无话题性时，才允许选择其他赛事/非赛事话题。
+    # Post-World Cup guidance: focus on transfer news, avoid Chinese leagues
+    season_guidance = ""
+    if season_label == "休赛期过渡":
+        season_guidance = """
+## 📌 休赛期选题指引（2026世界杯已结束，新赛季未开始）
+当前是欧洲杯赛休赛期，注意：
+1. ✅ 夏季转会窗是最大热点 — 优先选转会相关话题
+2. ✅ 球员场外花边、经典回顾、赛季前瞻正当其时
+3. ❌ 不要选中超/中甲/中乙/中冠 — 普通中国球迷不关注国内联赛
+4. ❌ 不要从比赛比分中"创造"话题 — 所有话题必须有对应源文章
 """
 
-    prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的真实比赛结果。请筛选 {topic_count} 个有爆款潜力的话题。
+    prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的选题素材。
 
-比赛数据（只显示已结束的比赛FT/AET/PEN，进行中的比赛显示为"vs"）：
+## 📰 今日懂球帝/直播吧文章（主要选题来源）
+❗ 核心规则：必须从下方文章列表中选话题，不能从比赛比分中自创话题。{"".join(news_lines)}
+
+## 📊 今日比赛结果（仅作背景参考，不是选题来源）
 {"".join(lines)}
-{"".join(news_lines)}
 
 ⚠️ 注意：只显示了已结束的比赛(FT/AET/PEN)。进行中的比赛显示为"vs"，不要选作选题。
 
 {history_text}
 {cross_batch_text}
 {weight_hint}
-{world_cup_priority}
-硬性要求 — {topic_count} 个话题必须覆盖不同比赛 + 不同内容类型：
-1. 第1篇（热点球评）：从当日比赛中选最有话题性的一场
-2. 第2篇（转会资讯/八卦趣事）：从新闻文章或场外话题中选材——**不是写另一场比赛！**
-3. 第3篇及以后（排行榜/战术解析/八卦趣事）：可以写比赛数据趋势，也可以写非比赛话题
+{season_guidance}
 
 📌 **内容多样性铁律（最重要规则）**：
-- {topic_count} 个话题必须是 {topic_count} 场不同的比赛或新闻事件——不能都是同一天的比赛
-- 同一场比赛最多选1次！不允许"第1篇写巴西爆冷、第3篇写哈兰德两球"这种同一场比赛的不同角度
-- 非比赛话题（转会传闻、球员排名、战术趋势、花边趣事）优先选择——这能让账号内容更加丰富
-- 如果当日素材中有转会新闻或场外话题，第2篇和第3篇优先选择非比赛内容
-
-⚠️ 绝对禁止编造时间：每场比赛括号里的时间是真实开球时间(北京时间)，写文章时只能用这个时间，不许编造"凌晨X点""深夜X点"等虚构场景。如果比赛是上午9点开的就写"上午"或"早场"，不确定时间的就说"这场比赛"。
+- {topic_count} 个话题必须是 {topic_count} 个不同的事件——不能都是同一场比赛或同一转会故事
+- 非比赛话题（转会传闻、球员趣事、经典回顾）优先选择——休赛期读者更爱看这些
+- 如果当日素材中有转会新闻或场外话题，优先选择非比赛内容
 
 ⚠️ 去重铁律：
-- 禁止2个话题围绕同一核心事件/同一核心球员/同一转会故事展开（即便内容类型不同也不行）
-- 举例：如果第1篇写"姆巴佩离队后巴黎夺冠"，第3篇就 不能 再写"姆巴佩的欧冠诅咒"
-- {topic_count}个话题的核心关键词集合交集必须为空（如都含Mbappe/PSG/Champions League即违规）
+- 禁止2个话题围绕同一核心事件/同一核心球员/同一转会故事展开
+- 举例：如果第1篇写"姆巴佩去皇马"，第2篇就不能再写"姆巴佩的薪资谈判"
+- {topic_count}个话题的核心关键词集合交集必须为空
 - 如果当日素材不够{topic_count}个完全不同的主题，宁可减少话题数也不要凑近似话题
-
-如果当日有绝杀、逆转、红牌、VAR争议、教练冲突等事件，优先选择。
 
 风格要求：像老球迷喝酒聊天一样自然，有明确立场和情绪，不骑墙、不套模板。
 避免：任何过去7天已报道过的球队/球员/话题。
@@ -518,7 +508,8 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # Retry on JSON parse failure: DeepSeek occasionally returns malformed JSON
     topics = None
     for attempt in range(3):
-        response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096)
+        response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096,
+                           fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
         try:
             topics = safe_json_loads(response)
             break  # success
@@ -926,8 +917,9 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
         {"role": "user", "content": prompt},
     ]
 
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages,
-                        temperature=temperature, max_tokens=8192)
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages,
+                        temperature=temperature, max_tokens=8192,
+                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
     article = safe_json_loads(response)
 
     if article and isinstance(article, dict):
@@ -1575,7 +1567,8 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，擅长突发事件快评。{style} 只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-pro", messages, temperature=temperature, max_tokens=4096)
+    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=temperature, max_tokens=4096,
+                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
     article = safe_json_loads(response)
     print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
@@ -1685,7 +1678,8 @@ def generate_prediction_article(future_matches, date_str=None):
     for attempt in range(3):
         try:
             response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash",
-                                messages, temperature=0.7, max_tokens=4096)
+                                messages, temperature=0.7, max_tokens=4096,
+                                fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
             article = safe_json_loads(response)
             if not isinstance(article, dict) or not article.get("title"):
                 if attempt < 2:
@@ -1874,8 +1868,10 @@ def main():
         # Save all articles
         # ============================================================
         if not articles:
-            result_msg = "未能生成任何文章"
+            result_msg = "未能生成任何文章（所有话题改写失败）"
             print(f"ERROR: {result_msg}")
+            # 保存空批次元数据 — 避免同批次其他 cron 触发点重复重试
+            save_batch_state(date_str, batch_mode if batch_mode != "auto" else "full", [])
             send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
             return
 

@@ -117,7 +117,6 @@ season_weights:
   label: 赛季争冠冲刺期
 - months:
   - 6
-  - 7
   weights:
     热点球评: 2.5
     转会资讯: 0.8
@@ -125,6 +124,15 @@ season_weights:
     八卦趣事: 1.0
     战术解析: 2.0
   label: 世界杯月
+- months:
+  - 7
+  weights:
+    热点球评: 0.8
+    转会资讯: 2.0
+    排行榜: 1.2
+    八卦趣事: 1.5
+    战术解析: 0.5
+  label: 休赛期过渡
 - months:
   - 1
   weights:
