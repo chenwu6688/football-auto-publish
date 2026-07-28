@@ -1,7 +1,7 @@
 {
   "date": "2026-07-28",
-  "generated_at": "2026-07-28T02:44:56.606826",
-  "total_articles": 1,
+  "generated_at": "2026-07-28T03:32:18.005574",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -34,90 +34,127 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "1.17亿镑罗杰斯没来，阿森纳该抢维尼修斯还是拉师傅？",
+      "path": "/home/runner/work/_temp/output/2026-07-28/article-1-117亿镑罗杰斯-57c0fb.md",
+      "slug": "117亿镑罗杰斯-57c0fb",
+      "tags": [
+        "Mogan Rogers",
+        "Arsenal",
+        "Rashford",
+        "Chelsea",
+        "Gala"
+      ],
+      "keywords": [
+        "Mogan Rogers",
+        "Arsenal",
+        "Rashford",
+        "Chelsea",
+        "Gala"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "34岁老将引6豪门疯抢，亨德森凭什么越老越妖？",
-      "angle": "亨德森虽然年纪偏大，但经验与领导力在英超稀缺，多家豪门急需这种更衣室领袖，质疑他的人怕是没看清现代足球的隐性价值。",
+      "title": "阿森纳错失罗杰斯是好事？加拉：该挖拉什福德！",
+      "angle": "加拉认为罗杰斯不适合阿森纳，引进拉什福德才是正解，借此批评枪手转会眼光。",
       "keywords": [
-        "Jordan Henderson",
-        "Premier League",
-        "transfer rumors"
+        "arsenal",
+        "gallas",
+        "rashford",
+        "rodgers",
+        "transfer"
       ],
       "keywords_cn": [
-        "亨德森",
-        "英超",
-        "转会传闻"
+        "阿森纳",
+        "加拉",
+        "拉什福德",
+        "罗杰斯",
+        "转会"
       ],
       "content_type": "转会资讯",
-      "score": 82,
+      "score": 85,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "亨德森是英格兰功勋老将，豪门争夺话题自带争议和讨论度。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
+      "why_pick": "阿森纳引援争议贯穿夏窗，加拉观点能引爆球迷辩论。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
       "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "550万杯啤酒、135公里热狗！2026世界杯数据太离谱",
-      "angle": "这些疯狂数字背后是球迷的狂欢盛宴，从吃喝拉撒看世界杯的商业魔力，对比国内足球现场数据，反差让人唏嘘。",
+      "title": "100位高考考生走进津门虎训练场，这操作太暖心",
+      "angle": "津门虎邀请高考生看训练，老六认为这是中超最有温度的人文关怀，值得所有俱乐部学习。",
       "keywords": [
-        "2026WorldCup",
-        "beer",
-        "hot dog",
-        "fan culture"
+        "tianjin jinmen tiger",
+        "college entrance exam",
+        "fan event",
+        "warm story"
       ],
       "keywords_cn": [
-        "2026世界杯",
-        "啤酒",
-        "热狗",
-        "球迷文化"
+        "津门虎",
+        "高考考生",
+        "球迷活动",
+        "暖心"
       ],
       "content_type": "八卦趣事",
-      "score": 74,
+      "score": 80,
       "controversy_level": "low",
-      "target_emotion": "震惊",
-      "why_pick": "极端数据自带视觉冲击，休赛期轻松话题易引发转发讨论。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "target_emotion": "感动",
+      "why_pick": "高考+足球双重情感锚点，容易引发共情和转发。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-28 10:44:56"
+  "last_batch": "morning",
+  "last_updated": "2026-07-28 11:32:18"
 }
