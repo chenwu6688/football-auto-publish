@@ -1,7 +1,7 @@
 {
   "date": "2026-07-29",
-  "generated_at": "2026-07-29T02:11:43.477032",
-  "total_articles": 3,
+  "generated_at": "2026-07-29T04:04:04.132434",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -95,100 +95,158 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "2500万欧买不到？卢库米转会悬念升级",
+      "path": "/home/runner/work/_temp/output/2026-07-29/article-1-2500万欧买不-b0953b.md",
+      "slug": "2500万欧买不-b0953b",
+      "tags": [
+        "Lucumi",
+        "Juventus",
+        "transfer",
+        "Como",
+        "Nottingham Forest"
+      ],
+      "keywords": [
+        "Lucumi",
+        "Juventus",
+        "transfer",
+        "Como",
+        "Nottingham Forest"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-29/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-29/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-29/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "马德兴炮轰亚冠专属外援：钱花了，效果呢？",
+      "path": "/home/runner/work/_temp/output/2026-07-29/article-2-马德兴炮轰亚冠专-59251e.md",
+      "slug": "马德兴炮轰亚冠专-59251e",
+      "tags": [
+        "Chinese Super League",
+        "AFC Champions League",
+        "foreign players",
+        "Ma Dexing"
+      ],
+      "keywords": [
+        "Chinese Super League",
+        "AFC Champions League",
+        "foreign players",
+        "Ma Dexing"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-29/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-29/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-29/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "巴萨真要签罗德里？曼城会放走英超第一后腰？",
-      "angle": "从巴萨联系曼城探讨签罗德里的消息切入，分析这笔转会可能性：曼城不可能放走核心，但巴萨的野心暴露了财政好转的信号，这是典型的豪门博弈。",
+      "title": "6500万欧起步！萨维尼奥真值这价？意大利球队集体沉默",
+      "angle": "从罗马诺爆料萨维尼奥转会费起步6500万欧切入，质疑转会市场泡沫，点出意大利球队无力竞争背后是经济差距和性价比算计，态度鲜明：这价太高，意甲买不起也别硬买。",
       "keywords": [
-        "Rodri",
-        "Barcelona",
-        "Manchester City",
-        "transfer"
+        "Savinho",
+        "transfer fee",
+        "Serie A",
+        "transfer market bubble"
       ],
       "keywords_cn": [
-        "罗德里",
-        "巴萨",
-        "曼城",
-        "转会传闻"
+        "萨维尼奥",
+        "转会费",
+        "意甲",
+        "转会泡沫"
       ],
       "content_type": "转会资讯",
-      "score": 98,
+      "score": 88,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "罗德里是现役顶级后腰，巴萨挖角曼城核心极具争议和话题性",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "target_emotion": "好奇",
+      "why_pick": "休赛期转会话题最热，萨维尼奥身价争议能挑起球迷论战。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "三队抢着租，曼联却只想卖！齐尔克泽到底值不值3500万？",
-      "angle": "报道指出尤文、罗马、科莫想租借齐尔克泽，而曼联倾向直接出售要价3500-4000万欧。切入球员在曼联的尴尬处境：上赛季高光后沦为多余，引发球迷对曼联转会策略的讨论。",
+      "title": "三连胜！津门虎从保级到起飞，中国足球的烟火气回来了",
+      "angle": "聚焦津门虎三连胜后更衣室笑声不断，对比之前保级压力，突出团队氛围转变和本土球员成长，基调温暖骄傲：中国足球需要这种接地气的故事。",
       "keywords": [
-        "Zirkzee",
-        "Manchester United",
-        "Juventus",
-        "Roma",
-        "loan"
+        "Tianjin Jinmen Tiger",
+        "winning streak",
+        "relegation",
+        "team spirit",
+        "Chinese Super League"
       ],
       "keywords_cn": [
-        "齐尔克泽",
-        "曼联",
-        "尤文图斯",
-        "罗马",
-        "租借"
+        "津门虎",
+        "连胜",
+        "保级",
+        "团队氛围",
+        "中超"
       ],
-      "content_type": "转会资讯",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "涉及多队抢人+曼联定价争议，球迷爱看这种豪门内部的矛盾",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "中超正能量话题，球迷爱看本土球队逆境反弹，易引发共情。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
       "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "老六精准预测：明天8场焦点战，马竞利物浦谁翻车？",
-      "content_type": "热点球评",
-      "_is_prediction": true
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-07-29 10:11:43"
+  "last_batch": "noon",
+  "last_updated": "2026-07-29 12:04:04"
 }
