@@ -1,0 +1,121 @@
+{
+  "date": "2026-07-30",
+  "generated_at": "2026-07-30T01:07:33.719871",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "FM神锋登陆西甲！埃尔切400万签下尼尼奥",
+      "path": "/home/runner/work/_temp/output/2026-07-30/article-1-FM神锋登陆西甲-d48031.md",
+      "slug": "FM神锋登陆西甲-d48031",
+      "tags": [
+        "Niño",
+        "Elche",
+        "LaLiga",
+        "transfer",
+        "Burgos"
+      ],
+      "keywords": [
+        "Niño",
+        "Elche",
+        "LaLiga",
+        "transfer",
+        "Burgos"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-30/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-30/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-30/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "1-1！热刺友谊赛现原形？特尔世界波难救主",
+      "path": "/home/runner/work/_temp/output/2026-07-30/article-2-11热刺友谊赛现-886ea3.md",
+      "slug": "11热刺友谊赛现-886ea3",
+      "tags": [
+        "Tottenham",
+        "Sydney FC",
+        "friendly",
+        "Heung-Min Son",
+        "Koki Takai"
+      ],
+      "keywords": [
+        "Tottenham",
+        "Sydney FC",
+        "friendly",
+        "Heung-Min Son",
+        "Koki Takai"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-30/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-30/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "900万欧！韩国后卫又征服欧洲，中国足球差距在哪？",
+      "angle": "布鲁日花900万欧签下韩国后卫李韩汎，亚洲球员持续登陆欧洲五大联赛级别球队，反观中国球员留洋现状，老六感叹差距不仅在球技更在体制。直面差距，不吹不黑。",
+      "keywords": [
+        "Lee Han-beom",
+        "Club Brugge",
+        "K League",
+        "Asian transfer"
+      ],
+      "keywords_cn": [
+        "李韩汎",
+        "布鲁日",
+        "韩国后卫",
+        "转会费"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "韩国球员高价登陆欧洲，对比中国留洋现状，争议与共情兼备",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "切尔西 6-4 西悉尼漫步者，10球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-07-30 09:07:33"
+}
