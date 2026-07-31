@@ -1,7 +1,7 @@
 {
   "date": "2026-07-31",
-  "generated_at": "2026-07-31T04:05:42.113547",
-  "total_articles": 4,
+  "generated_at": "2026-07-31T11:39:28.900184",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -128,93 +128,207 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "勒沃库森接近古铁雷斯？这盘棋有点意思",
+      "path": "/home/runner/work/_temp/output/2026-07-31/article-1-勒沃库森接近古铁-157ca2.md",
+      "slug": "勒沃库森接近古铁-157ca2",
+      "tags": [
+        "Miguel Gutiérrez",
+        "Bayer Leverkusen",
+        "Napoli",
+        "transfer news",
+        "Moretto"
+      ],
+      "keywords": [
+        "Miguel Gutiérrez",
+        "Bayer Leverkusen",
+        "Napoli",
+        "transfer news",
+        "Moretto"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-31/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-31/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "37岁的他，把世界杯金牌装进了法乙背包",
+      "path": "/home/runner/work/_temp/output/2026-07-31/article-2-37岁的他把世界-cf20a3.md",
+      "slug": "37岁的他把世界-cf20a3",
+      "tags": [
+        "Enzozi",
+        "Dunkerque",
+        "Ligue 2",
+        "World Cup 2018",
+        "Stoke City"
+      ],
+      "keywords": [
+        "Enzozi",
+        "Dunkerque",
+        "Ligue 2",
+        "World Cup 2018",
+        "Stoke City"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-31/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-07-31/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-07-31/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "老六明日预测：曼城国米皇马曼联，八场硬仗全解析",
+      "path": "/home/runner/work/_temp/output/2026-07-31/article-3-老六明日预测曼城-09c6c1.md",
+      "slug": "老六明日预测曼城-09c6c1",
+      "tags": [
+        "prediction",
+        "football match",
+        "Manchester City",
+        "Real Madrid",
+        "Arsenal"
+      ],
+      "keywords": [
+        "prediction",
+        "football match",
+        "Manchester City",
+        "Real Madrid",
+        "Arsenal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-07-31/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "欧冠决赛主裁吹中超？马宁都给当四官，这排面绝了！",
-      "angle": "中超能请来执法过欧冠决赛+世界杯的名哨科瓦奇，既是职业化的体现，却也让本土裁判的位子有点尴尬——马宁都只能当四官，这钱花得到底值不值？",
+      "title": "勒沃库森捡到宝？皇马青训遗珠古铁雷斯，真要来了！",
+      "angle": "从皇马青训弃将到德甲强队主力候选，古铁雷斯的成长轨迹值得细品——不是所有皇马青训都得在一棵树上吊死，走出去才是王道。",
       "keywords": [
-        "kovacs",
-        "ma ning",
-        "chinese super league",
-        "referee"
+        "miguel gutierrez",
+        "bayer leverkusen",
+        "transfer"
       ],
       "keywords_cn": [
-        "科瓦奇",
-        "马宁",
-        "中超",
-        "裁判"
-      ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "why_pick": "国际名哨吹中超+马宁当四官，自带争议话题",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "上港冠军教头杀回足坛？佩雷拉成沙特豪门头号目标",
-      "angle": "带过上港拿中超冠军的佩雷拉，如今成了吉达国民的新帅首选，中超教练出口再添一例——别再说中超是教练坟墓，这里有平台更有跳板。",
-      "keywords": [
-        "vitor pereira",
-        "al-ahli",
-        "saudi pro league",
-        "coach"
-      ],
-      "keywords_cn": [
-        "维托尔-佩雷拉",
-        "吉达国民",
-        "沙特联赛",
-        "主帅"
+        "古铁雷斯",
+        "勒沃库森",
+        "皇马青训"
       ],
       "content_type": "转会资讯",
       "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "中超旧帅再就业，中国球迷有天然关注度",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "皇马血统+德甲强队，转会话题自带流量",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "18年世界杯冠军成员！恩宗齐37岁还去法乙，图啥？",
+      "angle": "从世界杯冠军到法乙小球会，恩宗齐这选择看似降维，其实是老将的清醒——在能踢球的地方继续踢，比在豪门看台耗着体面得多。",
+      "keywords": [
+        "nzonzi",
+        "world cup 2018",
+        "french second division"
+      ],
+      "keywords_cn": [
+        "恩宗齐",
+        "世界杯冠军",
+        "法乙"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "世界杯冠军反差不落俗套，老球迷情怀杀",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "西北荒漠，玫瑰盛开！这可能是中国足球最动人的纪录片",
+      "angle": "懂球帝足协杯纪录片讲的是西北孩子踢球的故事——条件越苦，热爱越纯粹，中国足球缺的不是天赋，是这种扎根土地的坚持。",
+      "keywords": [
+        "football association cup",
+        "documentary",
+        "grassroots football"
+      ],
+      "keywords_cn": [
+        "足协杯",
+        "纪录片",
+        "基层足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "基层足球故事共鸣强，符合休赛期温情向"
+    },
+    {
+      "title": "老六明日预测：曼城国米皇马曼联，八场硬仗全解析",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-07-31 12:05:42"
+  "last_batch": "evening",
+  "last_updated": "2026-07-31 19:39:28"
 }
