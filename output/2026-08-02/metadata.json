@@ -1,7 +1,7 @@
 {
   "date": "2026-08-02",
-  "generated_at": "2026-08-02T03:52:53.412814",
-  "total_articles": 1,
+  "generated_at": "2026-08-02T06:52:30.223684",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -34,92 +34,129 @@
       "column_id": "",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "巴萨甩出最后通牒：费兰要么续约要么掏钱",
+      "path": "/home/runner/work/_temp/output/2026-08-02/article-1-巴萨甩出最后通牒-d53600.md",
+      "slug": "巴萨甩出最后通牒-d53600",
+      "tags": [
+        "Barcelona",
+        "Ferran Torres",
+        "transfer",
+        "PSG",
+        "salary policy"
+      ],
+      "keywords": [
+        "Barcelona",
+        "Ferran Torres",
+        "transfer",
+        "PSG",
+        "salary policy"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-02/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-02/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-02/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "4连胜逃出降级区！续约9人是津门虎转折点",
-      "angle": "7月初续约主帅和9名球员，津门虎随即4连胜逃出降级区。老六认为这在打脸中超豪门的砸钱逻辑：保级队最需要的不是引援，是先稳住人心。",
+      "title": "62035人！这业余联赛上座率，中超看了脸不红？",
+      "angle": "东北超大连队对鸡西队吸引62035人到场，比多数中超上座还高。老六想说：中国足球不是没人看，是人家用脚投票去了热闹的地方。专业联赛该脸红，别总怪球迷不进场。",
       "keywords": [
-        "Tianjin Jinmen Tiger",
-        "relegation battle",
-        "winning streak",
-        "contract renewal"
+        "Dalian team",
+        "Northeast Super League",
+        "attendance record",
+        "amateur football",
+        "Chinese football"
       ],
       "keywords_cn": [
-        "津门虎",
-        "保级",
-        "4连胜",
-        "续约"
+        "东北超",
+        "大连队",
+        "业余联赛",
+        "上座率",
+        "中国足球"
       ],
-      "content_type": "热点球评",
-      "score": 86,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "保级队逆袭转折点，故事性感染力强",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "八卦趣事",
+      "score": 95,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "why_pick": "用业余联赛上座数据反衬中超窘境，反差感强烈，自带争论热度。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "0-3朝鲜，王军一句大实话戳穿中国足球遮羞布",
-      "angle": "王军说国内联赛慢节奏踢不了世界杯，这话说到根子上了。U20女足输朝鲜不是意外，是我们整个青训和联赛的节奏脱节，醒醒吧。",
+      "title": "不换帅反而4连胜？津门虎这波续约把命续上了！",
+      "angle": "津门虎7月初一口气续约主帅加9名球员，随后4连胜直接逃出降级区。老六的立场：稳定压过一切，信一个人就信到底，比砸钱买人更值钱。",
       "keywords": [
-        "U20 women's football",
-        "North Korea",
-        "Wang Jun",
-        "China football"
+        "Tianjin Jinmen Tiger",
+        "four-game winning streak",
+        "relegation escape",
+        "coach renewal",
+        "team stability"
       ],
       "keywords_cn": [
-        "U20女足",
-        "朝鲜",
-        "王军",
-        "中国足球"
+        "津门虎",
+        "四连胜",
+        "续约",
+        "于根伟",
+        "降级区"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "教练犀利发言刺痛球迷，激发反思与争论",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "反常识叙事——不折腾反而反弹，切中'中国足球该信谁'的长期争论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-02 11:52:53"
+  "last_batch": "noon",
+  "last_updated": "2026-08-02 14:52:30"
 }
