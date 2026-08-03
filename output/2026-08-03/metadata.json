@@ -1,7 +1,7 @@
 {
   "date": "2026-08-03",
-  "generated_at": "2026-08-03T02:27:50.472992",
-  "total_articles": 4,
+  "generated_at": "2026-08-03T07:43:29.170408",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -138,94 +138,122 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "国米续约埃斯波西托至2031！年薪320万欧，稳了？",
+      "path": "/home/runner/work/_temp/output/2026-08-03/article-1-国米续约埃斯波西-38af01.md",
+      "slug": "国米续约埃斯波西-38af01",
+      "tags": [
+        "Pio Esposito",
+        "Inter Milan",
+        "contract extension",
+        "2005",
+        "future star"
+      ],
+      "keywords": [
+        "Pio Esposito",
+        "Inter Milan",
+        "contract extension",
+        "2005",
+        "future star"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "三连败下课！斯卢茨基走人，申花病根不止教练席",
-      "angle": "足球报都定性为'人祸'了，老六直说：斯卢茨基就是替罪羊，管理层引援混乱、更衣室失控才是真病根，换谁来都白搭。",
+      "title": "国米锁定20岁新星至2031，姆巴佩们看了会脸红吗",
+      "angle": "从埃斯波西托续约国米切入，对比足坛巨星频繁逼宫转会的乱象——不吵不闹自己青训的孩子反而更值钱，国米这波操作才是豪门该有的样子。",
       "keywords": [
-        "shenhua",
-        "slutsky",
-        "csl"
+        "esposito",
+        "inter milan",
+        "contract renewal"
       ],
       "keywords_cn": [
-        "申花",
-        "斯卢茨基",
-        "中超"
-      ],
-      "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "名帅下课+人祸定性，申花球迷炸锅，争议拉满",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "4230万镑连签两人，富勒姆闷声发大财要变天？",
-      "angle": "当big6在转会市场互相抬价，富勒姆这种中产球队才是真赢家——不声不响砸4230万镑补强两条线，老六就欣赏这种闷声干大事的理性操作。",
-      "keywords": [
-        "fulham",
-        "transfer window",
-        "premier league"
-      ],
-      "keywords_cn": [
-        "富勒姆",
-        "转会窗",
-        "英超"
+        "埃斯波西托",
+        "国米",
+        "续约"
       ],
       "content_type": "转会资讯",
-      "score": 83,
+      "score": 92,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "转会窗务实补强，反衬豪门烧钱，引发理性引援讨论",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
+      "target_emotion": "感动",
+      "why_pick": "续约至2031年背后的忠诚与俱乐部温度，引发球迷共鸣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "张琳芃自曝乌龙球导致里皮下课：5年了，我终于敢说出来",
+      "angle": "张琳芃首次公开回溯那次乌龙球与里皮的恩怨纠葛——从自我救赎到足协杯争冠，老将的愧疚与释怀，比任何战术分析都动人。",
+      "keywords": [
+        "zhang linpeng",
+        "lippi",
+        "china national team"
+      ],
+      "keywords_cn": [
+        "张琳芃",
+        "里皮",
+        "乌龙球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "一段尘封五年的歉意，老球迷的青春记忆被瞬间点亮",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
       "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "老六精准预测：拜仁罗马米兰城，豪门之夜谁主沉浮",
-      "content_type": "热点球评",
-      "_is_prediction": true
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-08-03 10:27:50"
+  "last_batch": "noon",
+  "last_updated": "2026-08-03 15:43:29"
 }
