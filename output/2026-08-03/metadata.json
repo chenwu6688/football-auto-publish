@@ -1,0 +1,123 @@
+{
+  "date": "2026-08-03",
+  "generated_at": "2026-08-03T01:28:59.648704",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "热刺绝杀切尔西！3分钟直红+处子球，友谊赛也疯狂",
+      "path": "/home/runner/work/_temp/output/2026-08-03/article-1-热刺绝杀切尔西3-e937cb.md",
+      "slug": "热刺绝杀切尔西3-e937cb",
+      "tags": [
+        "Tottenham",
+        "Chelsea",
+        "Tonali",
+        "Richarlison",
+        "red card",
+        "friendly"
+      ],
+      "keywords": [
+        "Tottenham",
+        "Chelsea",
+        "Tonali",
+        "Richarlison",
+        "red card",
+        "friendly"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "前锋12人后卫16人！切尔西这阵容比菜市场还热闹",
+      "angle": "切尔西今夏引援停不下来，但阵容已经臃肿到离谱。老六得说句公道话：买人一时爽，卖人火葬场，蓝军再不瘦身，更衣室迟早炸锅。",
+      "keywords": [
+        "Chelsea",
+        "squad overhaul",
+        "transfer window"
+      ],
+      "keywords_cn": [
+        "切尔西",
+        "阵容臃肿",
+        "夏窗引援"
+      ],
+      "content_type": "转会资讯",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "切尔西疯狂买人导致阵容爆炸，评论区必吵谁走谁留。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "不吵了！索博被换下先递袖标，这次他没犹豫",
+      "angle": "从上次的队长袖标之争到如今主动让贤，索博这一递递出了成熟。老六看着这画面挺感慨：利物浦更衣室的天，终于要晴了。",
+      "keywords": [
+        "Liverpool",
+        "Szoboszlai",
+        "captain armband"
+      ],
+      "keywords_cn": [
+        "利物浦",
+        "索博斯洛伊",
+        "队长袖标"
+      ],
+      "content_type": "八卦趣事",
+      "score": 83,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "袖标让渡背后是更衣室故事，老球迷最爱看这种人情味。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-08-03 09:28:59"
+}
