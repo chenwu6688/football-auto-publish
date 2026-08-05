@@ -1,9 +1,154 @@
 {
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05T11:31:42.192535",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "吉马良斯转会费藏猫腻？阿森纳7500万镑只是起步价",
+      "path": "/home/runner/work/_temp/output/2026-08-05/article-1-吉马良斯转会费藏-62dff4.md",
+      "slug": "吉马良斯转会费藏-62dff4",
+      "tags": [
+        "Guimaraes",
+        "Arsenal",
+        "Newcastle",
+        "transfer fee",
+        "add-ons"
+      ],
+      "keywords": [
+        "Guimaraes",
+        "Arsenal",
+        "Newcastle",
+        "transfer fee",
+        "add-ons"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-05/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：明日八场恶战，曼城拜仁稳了？",
+      "path": "/home/runner/work/_temp/output/2026-08-05/article-2-老六精准预测明日-377dad.md",
+      "slug": "老六精准预测明日-377dad",
+      "tags": [
+        "football",
+        "prediction",
+        "Milan Derby",
+        "Bayern",
+        "Manchester City"
+      ],
+      "keywords": [
+        "football",
+        "prediction",
+        "Milan Derby",
+        "Bayern",
+        "Manchester City"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-05/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-05/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "砍一刀砍到99.9%！吉马良斯转会成段子，老六笑不活了",
+      "angle": "从球迷玩梗角度切入，调侃转会谈判拖延像拼多多砍一刀，讽刺转会市场拉扯的荒诞，观点轻松犀利。",
+      "keywords": [
+        "Guimaraes",
+        "transfer"
+      ],
+      "keywords_cn": [
+        "吉马良斯",
+        "转会"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "转会窗口期热门话题，球迷都爱看砍一刀梗，轻松接地气易传播。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "星爷钦点！前女足国门赵丽娜，被《功夫女足》选中了",
+      "angle": "从赵丽娜自荐被周星驰选中切入，讲运动员跨界娱乐圈的反差故事，突出情怀与新鲜感。",
+      "keywords": [
+        "Zhao Lina",
+        "Stephen Chow"
+      ],
+      "keywords_cn": [
+        "赵丽娜",
+        "周星驰"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "球星跨界娱乐自带话题度，赵丽娜+周星驰双重情怀杀，易引发球迷围观讨论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明日八场恶战，曼城拜仁稳了？",
+      "content_type": "热点球评",
+      "_is_prediction": true
+    }
+  ],
+  "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-05 09:11:09",
-  "articles": [],
-  "total_articles": 0
+  "last_batch": "evening",
+  "last_updated": "2026-08-05 19:31:42"
 }
