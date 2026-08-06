@@ -1,0 +1,119 @@
+{
+  "date": "2026-08-06",
+  "generated_at": "2026-08-06T01:12:42.366087",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "又一个儿军梦成真！他拿过世界杯冠军，却差点没缓过来",
+      "path": "/home/runner/work/_temp/output/2026-08-06/article-1-又一个儿军梦成真-c0db6b.md",
+      "slug": "又一个儿军梦成真-c0db6b",
+      "tags": [
+        "Victor Munoz",
+        "Liverpool",
+        "transfer",
+        "World Cup winner"
+      ],
+      "keywords": [
+        "Victor Munoz",
+        "Liverpool",
+        "transfer",
+        "World Cup winner"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-06/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "从安菲尔德到特拉布宗，萨拉赫选择让利物浦球迷心碎",
+      "angle": "萨拉赫告别五大联赛远赴土耳其，不仅是职业生涯的转折，更是利物浦时代终结的象征。欧文的失望代表了一代球迷的心声，从英雄到过客，这笔转会背后的无奈值得细品。",
+      "keywords": [
+        "Salah",
+        "Trabzonspor",
+        "Liverpool"
+      ],
+      "keywords_cn": [
+        "萨拉赫",
+        "特拉布宗",
+        "利物浦"
+      ],
+      "content_type": "转会资讯",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "萨拉赫转会土超是颠覆性大新闻，情绪冲击强且话题性极足",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "齐尔克泽或租借尤文，曼联放人葫芦里卖的什么药？",
+      "angle": "曼联对出租齐尔克泽持开放态度，尤文趁虚而入。这笔交易表面是球员练级，实则暴露曼联锋线臃肿与建队思路混乱，红魔球迷该问一句：放走潜力股，图啥？",
+      "keywords": [
+        "Zirkzee",
+        "Juventus",
+        "Manchester United"
+      ],
+      "keywords_cn": [
+        "齐尔克泽",
+        "尤文图斯",
+        "曼联"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "豪门清理潜力新星自带争议，迪马济奥爆料可信度高，评论区必炸",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-08-06 09:12:42"
+}
