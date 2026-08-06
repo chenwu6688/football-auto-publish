@@ -1,7 +1,7 @@
 {
   "date": "2026-08-06",
-  "generated_at": "2026-08-06T06:43:34.263389",
-  "total_articles": 2,
+  "generated_at": "2026-08-06T11:38:23.882945",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -62,89 +62,192 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "皇马1亿身价不松口，阿森纳的维尼修斯美梦要醒了",
+      "path": "/home/runner/work/_temp/output/2026-08-06/article-1-皇马1亿身价不松-1f86c2.md",
+      "slug": "皇马1亿身价不松-1f86c2",
+      "tags": [
+        "Arsenal",
+        "Vinicius Junior",
+        "Real Madrid",
+        "Agbonlahor",
+        "transfer news"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Vinicius Junior",
+        "Real Madrid",
+        "Agbonlahor",
+        "transfer news"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-06/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "U17国少今晚推迟10分钟开球，这10分钟急死谁了？",
+      "path": "/home/runner/work/_temp/output/2026-08-06/article-2-U17国少今晚推-18d225.md",
+      "slug": "U17国少今晚推-18d225",
+      "tags": [
+        "U17",
+        "China youth football",
+        "Bayer Leverkusen U17",
+        "kickoff delay",
+        "Tomorrow Star Cup"
+      ],
+      "keywords": [
+        "U17",
+        "China youth football",
+        "Bayer Leverkusen U17",
+        "kickoff delay",
+        "Tomorrow Star Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-06/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-06/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "老六精准预测：曼联巴黎硬碰硬，我看好红魔掀翻大巴黎",
+      "path": "/home/runner/work/_temp/output/2026-08-06/article-3-老六精准预测曼联-254e60.md",
+      "slug": "老六精准预测曼联-254e60",
+      "tags": [
+        "football prediction",
+        "Manchester United",
+        "PSG",
+        "Inter Milan",
+        "Juventus"
+      ],
+      "keywords": [
+        "football prediction",
+        "Manchester United",
+        "PSG",
+        "Inter Milan",
+        "Juventus"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-06/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "维尼修斯续约皇马倒计时？伯纳乌新王留守",
-      "angle": "维尼修斯续约皇马意味着沙特和巴黎的挖角彻底失败，皇马右路十年无忧。但这份肥约也让人担忧更衣室薪资平衡，真正的考验还在场上。",
+      "title": "4000万镑！23岁门将成队史标王，英超夏窗疯了？",
+      "angle": "英冠升班马利兹联砸4000万镑签门将，转会费水分有多大？老六认为这是英超转会泡沫的缩影，门将溢价已经到了离谱的地步。",
       "keywords": [
-        "Vinicius Jr",
-        "Real Madrid",
-        "contract renewal"
+        "transfer",
+        "goalkeeper",
+        "leeds united",
+        "premier league"
       ],
       "keywords_cn": [
-        "维尼修斯",
-        "皇马",
-        "续约"
+        "转会市场",
+        "门将身价",
+        "利兹联",
+        "英超"
       ],
       "content_type": "转会资讯",
-      "score": 93,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "超级球星续约，转会市场焦点，球迷讨论欲强",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "英冠球队豪购门将成为转会窗口标志性事件，引发身价虚高的大讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "14岁签约拉玛西亚，中国足球别急着造神",
-      "angle": "李昊炎签约拉玛西亚是中国足球罕见的正面消息，但沪媒的提醒很对——别把孩子包装成救世主。我们该关注青训体系的进步，而不是造一个神。",
+      "title": "和勒沃库森扳手腕？U17国足小将今晚别怂",
+      "angle": "U17国足对阵德甲豪门青训梯队，结果不重要，但敢不敢拼、能不能打出自己的东西，才是球迷真正关心的。别急着吹也别急着骂。",
       "keywords": [
-        "Li Haoyan",
-        "La Masia",
-        "Chinese football"
+        "youth football",
+        "china football",
+        "bayer leverkusen",
+        "academy"
       ],
       "keywords_cn": [
-        "李昊炎",
-        "拉玛西亚",
-        "中国足球"
+        "中国足球",
+        "青训",
+        "U17国足",
+        "勒沃库森"
       ],
-      "content_type": "八卦趣事",
-      "score": 97,
-      "controversy_level": "high",
+      "content_type": "热点球评",
+      "score": 90,
+      "controversy_level": "medium",
       "target_emotion": "骄傲",
-      "why_pick": "中国少年进拉玛西亚，话题爆棚，争议与希望并存",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "中国青训过招欧洲豪门梯队，氛围感拉满，老球迷又爱又怕，话题天然有共鸣。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：曼联巴黎硬碰硬，我看好红魔掀翻大巴黎",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-06 14:43:34"
+  "last_batch": "evening",
+  "last_updated": "2026-08-06 19:38:23"
 }
