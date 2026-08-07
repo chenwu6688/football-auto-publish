@@ -1,7 +1,7 @@
 {
   "date": "2026-08-07",
-  "generated_at": "2026-08-07T03:41:48.616308",
-  "total_articles": 3,
+  "generated_at": "2026-08-07T04:05:42.464587",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -94,59 +94,124 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "小熊不走了！维尼修斯续约皇马到2032，八年功勋继续征战",
+      "path": "/home/runner/work/_temp/output/2026-08-07/article-1-小熊不走了维尼修-cc45e2.md",
+      "slug": "小熊不走了维尼修-cc45e2",
+      "tags": [
+        "Vinicius Junior",
+        "Real Madrid",
+        "contract renewal",
+        "2032",
+        "La Liga"
+      ],
+      "keywords": [
+        "Vinicius Junior",
+        "Real Madrid",
+        "contract renewal",
+        "2032",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "热苏斯真要走？阿森纳拒租背后打的什么算盘？",
-      "angle": "那不勒斯想租热苏斯被阿森纳一口回绝，老六觉得这事没那么简单——留着不用也不放人，阿尔特塔手里这步棋到底是资源浪费还是另有深意？",
+      "title": "皇马4小时大起大落，罗德里转身投了死敌巴萨",
+      "angle": "从皇马视角复盘这4小时的心理落差——以为稳了结果被巴萨截胡，老六觉得这不仅是转会失败，更是皇马在顶级球星争夺战中罕见的被动认栽。",
       "keywords": [
-        "gabriel jesus",
-        "napoli",
-        "arsenal",
+        "rodri",
+        "barcelona",
+        "real madrid",
         "transfer"
       ],
       "keywords_cn": [
-        "热苏斯",
-        "那不勒斯",
-        "阿森纳",
+        "罗德里",
+        "巴萨",
+        "皇马",
         "转会"
       ],
       "content_type": "转会资讯",
-      "score": 86,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "夏窗转会谈判拉扯，豪门之间的博弈是球迷最爱吃瓜的戏码",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "皇马巴萨争罗德里，戏剧性拉满，球迷必吵",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "裁判处罚结果该公开么？朱艺唱起了反调",
+      "angle": "力挺朱艺观点：中国足球裁判本来就不容易，公开处罚结果只会让网络暴力和舆论压力毁了执法生态。反对的不是公开，而是把裁判推到风口浪尖。",
+      "keywords": [
+        "referee",
+        "chinese football",
+        "penalty"
+      ],
+      "keywords_cn": [
+        "裁判",
+        "中超",
+        "争议判罚"
+      ],
+      "content_type": "热点球评",
+      "score": 87,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "裁判公开处罚争议大，评论区正反双方必吵翻天",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "老六精准预测：明日豪门盛宴，曼联皇马曼城谁能赢？",
-      "content_type": "热点球评",
-      "_is_prediction": true
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-08-07 11:41:48"
+  "last_batch": "noon",
+  "last_updated": "2026-08-07 12:05:42"
 }
