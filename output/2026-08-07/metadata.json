@@ -1,0 +1,129 @@
+{
+  "date": "2026-08-07",
+  "generated_at": "2026-08-07T02:01:35.193724",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "梅西两射一传雨战定局，迈阿密4-2拿下圣路易斯",
+      "path": "/home/runner/work/_temp/output/2026-08-07/article-1-梅西两射一传雨战-2d6af3.md",
+      "slug": "梅西两射一传雨战-2d6af3",
+      "tags": [
+        "Leagues Cup",
+        "Inter Miami",
+        "Messi",
+        "VAR",
+        "St. Louis"
+      ],
+      "keywords": [
+        "Leagues Cup",
+        "Inter Miami",
+        "Messi",
+        "VAR",
+        "St. Louis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "4笔亿元转会轰炸！今夏转会窗的钱还是钱吗？",
+      "angle": "今年夏窗还没结束，亿元级交易已扎堆出现，老六感叹转会市场彻底进入通胀时代，钱越来越不值钱，但也说明豪门军备竞赛已白热化。",
+      "keywords": [
+        "transfer market",
+        "summer window",
+        "100m transfer",
+        "Diomande"
+      ],
+      "keywords_cn": [
+        "转会市场",
+        "夏窗",
+        "亿元转会",
+        "迪奥曼德"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "亿元转会集中爆发，今夏最大热点，球迷讨论激烈。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "巴西外援爬长城喊话：世界七大奇迹，真不是吹的！",
+      "angle": "马德鲁加游玩长城还晒照感叹，老六觉得这才是有血有肉的外援，来中国踢球懂得感受文化，比只晒豪车豪宅的接地气多了。",
+      "keywords": [
+        "Madruga",
+        "Great Wall",
+        "Brazilian player",
+        "China"
+      ],
+      "keywords_cn": [
+        "马德鲁加",
+        "长城",
+        "巴西外援",
+        "中国文化"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "外援游长城趣味十足，接地气话题，球迷爱看反差萌。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "迈阿密国际 4-2 圣路易斯，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-08-07 10:01:35"
+}
