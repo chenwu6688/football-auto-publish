@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
-  "generated_at": "2026-08-08T05:25:12.954705",
-  "total_articles": 3,
+  "generated_at": "2026-08-08T09:57:26.076675",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -97,93 +97,159 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "水晶宫1500万欧锁美职联球员，周一签约",
+      "path": "/home/runner/work/_temp/output/2026-08-08/article-1-水晶宫1500万-f64de6.md",
+      "slug": "水晶宫1500万-f64de6",
+      "tags": [
+        "Zavier Gozo",
+        "Crystal Palace",
+        "Real Salt Lake",
+        "transfer"
+      ],
+      "keywords": [
+        "Zavier Gozo",
+        "Crystal Palace",
+        "Real Salt Lake",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-08/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：尤文国米死磕，曼联巴黎爆冷？够劲！",
+      "path": "/home/runner/work/_temp/output/2026-08-08/article-2-老六精准预测尤文-1e70fa.md",
+      "slug": "老六精准预测尤文-1e70fa",
+      "tags": [
+        "football prediction",
+        "Juventus Inter",
+        "Man Utd PSG",
+        "Real Madrid",
+        "Man City Atletico"
+      ],
+      "keywords": [
+        "football prediction",
+        "Juventus Inter",
+        "Man Utd PSG",
+        "Real Madrid",
+        "Man City Atletico"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-08/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "罗列裁判“黑历史”要求换人，辽宁铁人这波是兵法还是越界？",
-      "angle": "俱乐部公开罗列裁判过往争议判罚并要求换主裁，世界足坛都少见。用舆论施压确实够狠，但把裁判架在火上烤，反而暴露了职业联赛裁判管理的老毛病。足协如果只罚铁人、不解决问题，下回还会有第二个铁人。",
+      "title": "1500万欧，19岁美国前锋空降水晶宫，英超再添新军？",
+      "angle": "水晶宫用1500万欧签下19岁美国前锋戈佐，这是英超中小球队务实引援的典型操作，也说明美国足球人才输出在加速。这笔转会值不值？",
       "keywords": [
-        "Liaoning Iron Man",
-        "referee dispute",
-        "CSL",
-        "match official"
+        "crystal palace",
+        "premier league",
+        "american forward",
+        "transfer"
       ],
       "keywords_cn": [
-        "辽宁铁人",
-        "裁判争议",
-        "中超",
-        "换主裁"
-      ],
-      "content_type": "热点球评",
-      "score": 96,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "罕见公开叫板裁判，引爆职业联赛裁判生态讨论",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "马赛清洗第一刀砍向国门，鲁利转投曼城图个啥？",
-      "angle": "队报曝鲁利被马赛列入清理名单后转投曼城，30岁的阿根廷国门去英超争冠队，要么等埃德森走人赌一把主力，要么甘心做豪门二门。这笔转会怎么看都不亏，但背后是马赛推倒重建的信号。",
-      "keywords": [
-        "Rulli",
-        "Marseille",
-        "Manchester City",
-        "cleanout"
-      ],
-      "keywords_cn": [
-        "鲁利",
-        "马赛",
-        "曼城",
-        "转会清洗"
+        "水晶宫",
+        "戈佐",
+        "英超转会",
+        "美国前锋"
       ],
       "content_type": "转会资讯",
-      "score": 90,
+      "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "豪门门将更迭+阿根廷国门去向，转会窗关注度拉满",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "英超中游球队豪赌美国新星，转会话题有看点。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "《孙子兵法》指导中超？泰山教练的足球哲学有点东西",
+      "angle": "唐田用《孙子兵法》解读足球，'不可胜在己，可胜在敌'背后是对中超现状的思考。支持这种文化自信，但足球归根结底靠实力。",
+      "keywords": [
+        "sun tzu",
+        "football philosophy",
+        "shandong taishan",
+        "chinese super league"
+      ],
+      "keywords_cn": [
+        "孙子兵法",
+        "唐田",
+        "泰山队",
+        "足球哲学"
+      ],
+      "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "教练用兵法执教中超，文化碰撞接地气。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：尤文国米死磕，曼联巴黎爆冷？够劲！",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-08 13:25:12"
+  "last_batch": "evening",
+  "last_updated": "2026-08-08 17:57:26"
 }
