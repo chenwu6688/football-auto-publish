@@ -1,7 +1,7 @@
 {
   "date": "2026-08-08",
-  "generated_at": "2026-08-08T02:25:28.668729",
-  "total_articles": 2,
+  "generated_at": "2026-08-08T05:25:12.954705",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -65,92 +65,125 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "让个点球照样赢你！门神封神，国少杀进决赛",
+      "path": "/home/runner/work/_temp/output/2026-08-08/article-1-让个点球照样赢你-bf5ab7.md",
+      "slug": "让个点球照样赢你-bf5ab7",
+      "tags": [
+        "U17国少",
+        "河床U17",
+        "江宇涵",
+        "点球大战",
+        "明日之星冠军杯"
+      ],
+      "keywords": [
+        "U17国少",
+        "河床U17",
+        "江宇涵",
+        "点球大战",
+        "明日之星冠军杯"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-08/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "红军租阿劳霍，利物浦后防稳了还是豪赌？",
-      "angle": "利物浦今夏压哨租借巴萨后卫阿劳霍，罗马诺亲自HWG。老六直言：这是一笔即战力与风险并存的交易，红军后防硬度升级，但伤病隐患和买断条款值得紧盯。",
+      "title": "罗列裁判“黑历史”要求换人，辽宁铁人这波是兵法还是越界？",
+      "angle": "俱乐部公开罗列裁判过往争议判罚并要求换主裁，世界足坛都少见。用舆论施压确实够狠，但把裁判架在火上烤，反而暴露了职业联赛裁判管理的老毛病。足协如果只罚铁人、不解决问题，下回还会有第二个铁人。",
       "keywords": [
-        "Liverpool",
-        "Araujo",
-        "Barcelona",
-        "loan"
+        "Liaoning Iron Man",
+        "referee dispute",
+        "CSL",
+        "match official"
       ],
       "keywords_cn": [
-        "利物浦",
-        "阿劳霍",
-        "巴萨",
-        "租借"
+        "辽宁铁人",
+        "裁判争议",
+        "中超",
+        "换主裁"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "夏窗压哨重磅交易，自带流量和讨论度",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "罕见公开叫板裁判，引爆职业联赛裁判生态讨论",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "铁人炮轰裁判，一场德比踢出多少江湖恩怨？",
-      "angle": "辽宁铁人罗列单丹奥多次争议判罚，要求更换辽宁德比主裁。老六认为：这不是矫情，而是俱乐部用舆论施压，把裁判问题摆上台面，职业联赛的裁判公信力该被敲打一下了。",
+      "title": "马赛清洗第一刀砍向国门，鲁利转投曼城图个啥？",
+      "angle": "队报曝鲁利被马赛列入清理名单后转投曼城，30岁的阿根廷国门去英超争冠队，要么等埃德森走人赌一把主力，要么甘心做豪门二门。这笔转会怎么看都不亏，但背后是马赛推倒重建的信号。",
       "keywords": [
-        "Liaoning",
-        "referee",
-        "controversy",
-        "CSL"
+        "Rulli",
+        "Marseille",
+        "Manchester City",
+        "cleanout"
       ],
       "keywords_cn": [
-        "辽宁铁人",
-        "裁判争议",
-        "德比",
-        "中超"
+        "鲁利",
+        "马赛",
+        "曼城",
+        "转会清洗"
       ],
-      "content_type": "热点球评",
-      "score": 82,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "裁判争议+德比恩怨，评论区必炸",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "转会资讯",
+      "score": 90,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "豪门门将更迭+阿根廷国门去向，转会窗关注度拉满",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-08 10:25:28"
+  "last_batch": "noon",
+  "last_updated": "2026-08-08 13:25:12"
 }
