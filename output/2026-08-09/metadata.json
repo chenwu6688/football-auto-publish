@@ -1,7 +1,7 @@
 {
   "date": "2026-08-09",
-  "generated_at": "2026-08-09T00:42:32.401606",
-  "total_articles": 2,
+  "generated_at": "2026-08-09T10:01:18.885243",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -66,93 +66,167 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "8000万欧砸罗德里？巴萨这一票押上了整个身段",
+      "path": "/home/runner/work/_temp/output/2026-08-09/article-1-8000万欧砸罗-dc0421.md",
+      "slug": "8000万欧砸罗-dc0421",
+      "tags": [
+        "Barcelona",
+        "Rodri",
+        "Real Madrid",
+        "Transfer News",
+        "La Liga"
+      ],
+      "keywords": [
+        "Barcelona",
+        "Rodri",
+        "Real Madrid",
+        "Transfer News",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-09/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-09/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-09/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：明日8场豪门对决，曼城马竞火拼我看好谁？",
+      "path": "/home/runner/work/_temp/output/2026-08-09/article-2-老六精准预测明日-85227d.md",
+      "slug": "老六精准预测明日-85227d",
+      "tags": [
+        "Manchester City",
+        "Atletico Madrid",
+        "Arsenal",
+        "Dortmund",
+        "Liverpool",
+        "Monaco",
+        "Juventus",
+        "Benfica"
+      ],
+      "keywords": [
+        "Manchester City",
+        "Atletico Madrid",
+        "Arsenal",
+        "Dortmund",
+        "Liverpool",
+        "Monaco",
+        "Juventus",
+        "Benfica"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-09/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "西汉姆要价太狠！菲尔克鲁格想走都走不了",
-      "angle": "从转会告吹看英超中游球队的定价策略——要价高到把买家吓跑，球员成了受害者。这年头工资都谈好了，俱乐部却卡着不放人。",
+      "title": "巴萨站C位撬罗德里？这桩转会信息量巨大",
+      "angle": "巴萨近年来第一次在转会市场当主角，罗德里若能加盟等于宣告中场重回梦三级别，问题是曼城真舍得放人吗？这笔交易背后的经济账和战术账都值得掰扯。",
       "keywords": [
-        "Fullkrug",
-        "West Ham",
-        "Venezia",
-        "transfer"
+        "Rodri",
+        "Barcelona",
+        "transfer",
+        "Man City"
       ],
       "keywords_cn": [
-        "菲尔克鲁格",
-        "西汉姆",
-        "威尼斯",
-        "转会告吹"
+        "罗德里",
+        "巴萨",
+        "转会",
+        "曼城"
       ],
       "content_type": "转会资讯",
       "score": 93,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "转会拉锯战最能引发球迷骂俱乐部，共鸣感强",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "target_emotion": "好奇",
+      "why_pick": "夏窗最重磅中场转会传闻，巴萨翻身信号拉满",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "友谊赛也能踢出火气？安东尼染红引混战",
-      "angle": "热身赛本来该踢得温温吞吞，结果贝蒂斯和伯恩茅斯直接干起来了。安东尼这张红牌说明他心态还是那个曼联时期的他——这暴脾气到哪都改不了。",
+      "title": "菲戈叛逃皇马26年，死敌转会为何最伤人",
+      "angle": "从菲戈从巴萨转投皇马到坎贝尔从热刺投奔阿森纳，盘点足坛最刺眼的死敌转会，球员为前途背叛旧主到底值不值？老六态度：职业选择可以理解，但球迷心里的那根刺一辈子拔不掉。",
       "keywords": [
-        "Anthony",
-        "Betis",
-        "Bournemouth",
-        "red card"
+        "Figo",
+        "Campbell",
+        "rivalry",
+        "transfer"
       ],
       "keywords_cn": [
-        "安东尼",
-        "贝蒂斯",
-        "伯恩茅斯",
-        "红牌冲突"
+        "菲戈",
+        "坎贝尔",
+        "死敌转会",
+        "足坛经典"
       ],
       "content_type": "八卦趣事",
-      "score": 87,
+      "score": 84,
       "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "why_pick": "球员失控瞬间自带传播点，球迷最爱看这种热闹",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "怀旧",
+      "why_pick": "经典叛逃故事自带情绪撕裂，老球迷代入感极强",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明日8场豪门对决，曼城马竞火拼我看好谁？",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-09 13:17:02"
+  "last_batch": "evening",
+  "last_updated": "2026-08-09 18:01:18"
 }
