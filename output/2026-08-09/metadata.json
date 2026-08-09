@@ -150,8 +150,9 @@
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-09 08:42:32"
+  "last_batch": "noon",
+  "last_updated": "2026-08-09 13:17:02"
 }
