@@ -1,0 +1,191 @@
+{
+  "date": "2026-08-10",
+  "generated_at": "2026-08-10T02:42:29.289428",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "小蜘蛛摊牌日！阿尔瓦雷斯铁了心去巴萨，马竞这回真扛不住了？",
+      "path": "/home/runner/work/_temp/output/2026-08-10/article-1-小蜘蛛摊牌日阿尔-21718c.md",
+      "slug": "小蜘蛛摊牌日阿尔-21718c",
+      "tags": [
+        "Alvarez",
+        "Barcelona",
+        "Atletico Madrid",
+        "transfer"
+      ],
+      "keywords": [
+        "Alvarez",
+        "Barcelona",
+        "Atletico Madrid",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-10/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "16岁小将中甲首秀，深圳客场1-0夺三分",
+      "path": "/home/runner/work/_temp/output/2026-08-10/article-2-16岁小将中甲首-592c90.md",
+      "slug": "16岁小将中甲首-592c90",
+      "tags": [
+        "Chinese League One",
+        "Yuan Bohan",
+        "Shenzhen Junren",
+        "Yanbian Longding",
+        "professional debut"
+      ],
+      "keywords": [
+        "Chinese League One",
+        "Yuan Bohan",
+        "Shenzhen Junren",
+        "Yanbian Longding",
+        "professional debut"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-10/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-10/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "老六精准预测：明晚欧冠翻盘夜，我看好里昂逆袭！",
+      "path": "/home/runner/work/_temp/output/2026-08-10/article-3-老六精准预测明晚-956e3c.md",
+      "slug": "老六精准预测明晚-956e3c",
+      "tags": [
+        "football prediction",
+        "UEFA Champions League",
+        "Lyon comeback",
+        "Juventus",
+        "match analysis"
+      ],
+      "keywords": [
+        "football prediction",
+        "UEFA Champions League",
+        "Lyon comeback",
+        "Juventus",
+        "match analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-10/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-10/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-10/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "阿尔瓦雷斯铁了心要去巴萨？马竞留人还是留面子？",
+      "angle": "老六觉得阿尔瓦雷斯这一闹，表面是球员想走，实则是巴萨挖墙脚太狠——马竞要么放人成全，要么硬留更衣室埋雷，这出戏谁都别想体面收场。",
+      "keywords": [
+        "alvarez",
+        "barcelona",
+        "atletico madrid",
+        "transfer saga"
+      ],
+      "keywords_cn": [
+        "阿尔瓦雷斯",
+        "巴萨",
+        "马竞",
+        "转会风波"
+      ],
+      "content_type": "转会资讯",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "球星公开逼宫+豪门挖角，天然争议流量，球迷必吵架。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "中超争亚冠杀疯了！第二到第七只差3分",
+      "angle": "老六想说，中超这赛季争冠悬念不大，但第二集团的绞杀战比任何剧本都刺激——六队挤在3分区间，每一轮都是生死战，这种乱局才是中国足球该有的热度。",
+      "keywords": [
+        "chinese super league",
+        "standings",
+        "afc champions league",
+        "title race"
+      ],
+      "keywords_cn": [
+        "中超",
+        "积分榜",
+        "亚冠资格",
+        "争二混战"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "中超罕见大乱斗，亚冠名额悬念拉满，球迷代入感极强。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明晚欧冠翻盘夜，我看好里昂逆袭！",
+      "content_type": "热点球评",
+      "_is_prediction": true
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-08-10 10:42:29"
+}
