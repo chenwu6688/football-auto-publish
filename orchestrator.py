@@ -512,7 +512,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     topics = None
     for attempt in range(3):
         response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages, temperature=0.7, max_tokens=4096,
-                           fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
+                           fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
         try:
             topics = safe_json_loads(response)
             break  # success
@@ -922,7 +922,7 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
 
     response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages,
                         temperature=temperature, max_tokens=8192,
-                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
+                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
     article = safe_json_loads(response)
 
     if article and isinstance(article, dict):
@@ -1571,7 +1571,7 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         {"role": "user", "content": prompt}
     ]
     response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages, temperature=temperature, max_tokens=4096,
-                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
+                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
     article = safe_json_loads(response)
     print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
@@ -1682,7 +1682,7 @@ def generate_prediction_article(future_matches, date_str=None):
         try:
             response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH,
                                 messages, temperature=0.7, max_tokens=4096,
-                                fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
+                                fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
             article = safe_json_loads(response)
             if not isinstance(article, dict) or not article.get("title"):
                 if attempt < 2:
