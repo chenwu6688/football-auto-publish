@@ -58,7 +58,7 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
 
     When the primary provider returns 401/402/403/404, automatically retry
     with the fallback provider. Set fallback_url/fallback_key/fallback_model
-    to enable this behavior (e.g. DeepSeek → Qwen on quota exhaustion).
+    to enable this behavior (e.g. hy3/Hunyuan → Qwen on quota exhaustion).
     """
     def _call(u, k, m):
         resp = requests.post(u, json={

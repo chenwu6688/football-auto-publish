@@ -13,8 +13,9 @@ from collections import defaultdict
 from file_writer import FileWriter
 from image_service import ImageService
 from constants import (PROJECT_ROOT, OUTPUT_DIR,
-                       DEEPSEEK_KEY, DASHSCOPE_KEY, UNSPLASH_KEY, FOOTBALL_DATA_KEY,
-                       DEEPSEEK_URL, DASHSCOPE_URL, FOOTBALL_DATA_BASE,
+                       HY3_API_KEY, HY3_BASE_URL, HY3_MODEL_FLASH, HY3_MODEL_PRO,
+                       DASHSCOPE_KEY, UNSPLASH_KEY, FOOTBALL_DATA_KEY,
+                       DASHSCOPE_URL, FOOTBALL_DATA_BASE,
                        WXPUSHER_APPTOKEN, WXPUSHER_UID,
                        WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
                        BATCH_CONFIG)
@@ -367,7 +368,7 @@ def _check_intra_batch_dedup(topics):
 
 
 def select_topics(match_data, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label="", topic_count=3, yesterday_keywords=None):
-    print(f"\n[2/5] LLM 话题筛选 (DeepSeek, target={topic_count}篇)...")
+    print(f"\n[2/5] LLM 话题筛选 (hy3/Hunyuan, target={topic_count}篇)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
         lines.append(f"\n## {league}")
@@ -507,10 +508,10 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         {"role": "system", "content": topic_selector_prompt},
         {"role": "user", "content": prompt}
     ]
-    # Retry on JSON parse failure: DeepSeek occasionally returns malformed JSON
+    # Retry on JSON parse failure: hy3/Hunyuan occasionally returns malformed JSON
     topics = None
     for attempt in range(3):
-        response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=0.7, max_tokens=4096,
+        response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages, temperature=0.7, max_tokens=4096,
                            fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
         try:
             topics = safe_json_loads(response)
@@ -919,7 +920,7 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
         {"role": "user", "content": prompt},
     ]
 
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages,
+    response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages,
                         temperature=temperature, max_tokens=8192,
                         fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
     article = safe_json_loads(response)
@@ -1569,7 +1570,7 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，擅长突发事件快评。{style} 只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash", messages, temperature=temperature, max_tokens=4096,
+    response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages, temperature=temperature, max_tokens=4096,
                         fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
     article = safe_json_loads(response)
     print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
@@ -1679,7 +1680,7 @@ def generate_prediction_article(future_matches, date_str=None):
 
     for attempt in range(3):
         try:
-            response = call_llm(DEEPSEEK_URL, DEEPSEEK_KEY, "deepseek-v4-flash",
+            response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH,
                                 messages, temperature=0.7, max_tokens=4096,
                                 fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen2.5-flash")
             article = safe_json_loads(response)

@@ -13,12 +13,19 @@ OUTPUT_DIR = Path(os.environ.get("OUTPUT_DIR", PROJECT_ROOT / "output"))
 GZH_SCRIPT = str(PROJECT_ROOT / "skills" / "gzh-explosive-content-detector" / "scripts" / "fetch_gzh_trends.py")
 
 # --- API keys from env (GitHub Secrets) ---
-DEEPSEEK_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+# LLM provider: hy3 / 腾讯云 TokenHub（tencentmaas，OpenAI 兼容协议）
+# 优先读 HY3_API_KEY，兼容旧变量 DEEPSEEK_API_KEY，最后用内置默认值
+_HY3_DEFAULT_KEY = "***"
+HY3_API_KEY = os.environ.get("HY3_API_KEY") or os.environ.get("DEEPSEEK_API_KEY", _HY3_DEFAULT_KEY)
+HY3_BASE_URL = "https://tokenhub.tencentmaas.com/v1/chat/completions"
+# 模型映射（可经环境变量覆盖）：TokenHub 仅 hy3 一个模型，flash/pro 均映射为 hy3
+HY3_MODEL_FLASH = os.environ.get("HY3_MODEL_FLASH", "hy3")   # 对应原 deepseek-v4-flash
+HY3_MODEL_PRO = os.environ.get("HY3_MODEL_PRO", "hy3")         # 对应原 deepseek-v4-pro
+
 DASHSCOPE_KEY = os.environ.get("DASHSCOPE_API_KEY", "")
 UNSPLASH_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
 FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
 
-DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
 DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
 FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
 

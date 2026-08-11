@@ -5,13 +5,13 @@ output:
   image_dir: images
 llm:
   topic_selector:
-    provider: deepseek
-    model: deepseek-v4-flash
+    provider: hy3
+    model: hy3
     temperature: 0.7
     max_tokens: 4096
   article_generator:
-    provider: deepseek
-    model: deepseek-v4-pro
+    provider: hy3
+    model: hy3
     temperature: 0.8
     max_tokens: 8192
 data_sources:

@@ -3,11 +3,11 @@
 足球自媒体系统 — 4品类完整功能测试
 Usage:
   # 设置API key后运行
-  export DEEPSEEK_API_KEY="sk-xxx"
+  export HY3_API_KEY="sk-xxx"
   python tests/test_all_categories.py
 
   # 或指定模型
-  DEEPSEEK_MODEL="deepseek-v4-pro" python tests/test_all_categories.py
+  HY3_MODEL="hy3" python tests/test_all_categories.py
 """
 
 import os, sys, json, re, time
@@ -170,14 +170,14 @@ def build_article_prompt(tc, index):
     return system, user_prompt
 
 
-def call_deepseek(system, user_prompt, model=None):
-    """Call DeepSeek API."""
-    api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+def call_hy3(system, user_prompt, model=None):
+    """Call hy3 / Tencent Hunyuan API."""
+    api_key = os.environ.get("HY3_API_KEY", "")
     if not api_key:
-        raise RuntimeError("DEEPSEEK_API_KEY not set. Export it first: export DEEPSEEK_API_KEY='sk-xxx'")
+        raise RuntimeError("HY3_API_KEY not set. Export it first: export HY3_API_KEY='sk-xxx'")
 
-    model = model or os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro")
-    url = "https://api.deepseek.com/v1/chat/completions"
+    model = model or os.environ.get("HY3_MODEL", "hy3")
+    url = "https://tokenhub.tencentmaas.com/v1/chat/completions"
 
     import requests
     resp = requests.post(url, json={
@@ -305,13 +305,13 @@ def main():
     print(f"测试时间: {time.strftime('%Y-%m-%d %H:%M:%S')}")
 
     # Check API key
-    api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    api_key = os.environ.get("HY3_API_KEY", "")
     dry_run = not bool(api_key)
     if dry_run:
-        print("\n⚠️  DEEPSEEK_API_KEY 未设置，将跳过 LLM 调用（仅验证 prompt 和评分逻辑）")
-        print("   设置方式: export DEEPSEEK_API_KEY='sk-xxx' && python tests/test_all_categories.py")
+        print("\n⚠️  HY3_API_KEY 未设置，将跳过 LLM 调用（仅验证 prompt 和评分逻辑）")
+        print("   设置方式: export HY3_API_KEY='sk-xxx' && python tests/test_all_categories.py")
     else:
-        model = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro")
+        model = os.environ.get("HY3_MODEL", "hy3")
         print(f"\n✅ 使用模型: {model}")
 
     results = []
@@ -363,8 +363,8 @@ def main():
         else:
             # Real LLM call
             try:
-                print(f"  🚀 调用 DeepSeek API...")
-                response = call_deepseek(system, user)
+                print(f"  🚀 调用 hy3 API...")
+                response = call_hy3(system, user)
                 article = safe_json_parse(response)
                 print(f"  ✅ LLM 生成成功")
             except Exception as e:
@@ -459,7 +459,7 @@ def main():
             print(f"    - {ai}")
 
     if dry_run:
-        print(f"\n  🔶 干燥模式：已验证 prompt 构建 + 评分逻辑。设置 DEEPSEEK_API_KEY 后重新运行以测试实际 LLM 生成。")
+        print(f"\n  🔶 干燥模式：已验证 prompt 构建 + 评分逻辑。设置 HY3_API_KEY 后重新运行以测试实际 LLM 生成。")
     else:
         print(f"\n  ✅ 完整测试完成。所有文章已通过 prompt + LLM 生成 + 验证 + 评分全链路。")
 
