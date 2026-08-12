@@ -16,13 +16,30 @@ GZH_SCRIPT = str(PROJECT_ROOT / "skills" / "gzh-explosive-content-detector" / "s
 # LLM provider: hy3 / 腾讯云 TokenHub（tencentmaas，OpenAI 兼容协议）
 # 优先读 HY3_API_KEY，兼容旧变量 DEEPSEEK_API_KEY，最后用内置默认值
 _HY3_DEFAULT_KEY = "***"
-HY3_API_KEY = os.environ.get("HY3_API_KEY") or os.environ.get("DEEPSEEK_API_KEY", _HY3_DEFAULT_KEY)
+
+
+def _resolve_api_key(default, *env_names):
+    """按优先级从环境变量读取 API key。
+
+    跳过空值、纯空白、以及占位符 '***'（CI 里未配置/打码占位的常见写法），
+    回退到内置默认值。否则 '***' 会被原样注入 Authorization 头，
+    requests 会因保留字符 '*' 直接抛 InvalidHeader，导致整批文章生成失败、发布全挂。
+    """
+    for name in env_names:
+        v = (os.environ.get(name) or "").strip()
+        if v and v != "***":
+            return v
+    return default
+
+
+HY3_API_KEY = _resolve_api_key(_HY3_DEFAULT_KEY, "HY3_API_KEY", "DEEPSEEK_API_KEY")
 HY3_BASE_URL = "https://tokenhub.tencentmaas.com/v1/chat/completions"
 # 模型映射（可经环境变量覆盖）：TokenHub 仅 hy3 一个模型，flash/pro 均映射为 hy3
 HY3_MODEL_FLASH = os.environ.get("HY3_MODEL_FLASH", "hy3")   # 对应原 deepseek-v4-flash
 HY3_MODEL_PRO = os.environ.get("HY3_MODEL_PRO", "hy3")         # 对应原 deepseek-v4-pro
 
-DASHSCOPE_KEY = os.environ.get("DASHSCOPE_API_KEY", "")
+# DASHSCOPE（通义千问）作为 hy3 配额耗尽时的兜底，同样需要跳过占位符
+DASHSCOPE_KEY = _resolve_api_key("", "DASHSCOPE_API_KEY")
 UNSPLASH_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
 FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
 
