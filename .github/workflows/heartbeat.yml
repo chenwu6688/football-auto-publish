@@ -1,12 +1,13 @@
 name: 调度健康检查
 # cron reactivation after repo went public 2026-06-11
 
-# 每天 22:00 CST (14:00 UTC) 检查三个批次是否全部完成
+# 午检（12:37 CST，实际可能延迟）：仅检查晨读(morning)是否完成
+# 终检（22:17 CST）：检查全部三个批次(morning/noon/evening)是否完成
 # 如有遗漏，通过 WxPusher 发送告警
 on:
   schedule:
     - cron: '17 14 * * *'  # 22:17 CST — 终检，检查全部三个批次（offset to avoid stampede）
-    - cron: '37 4 * * *'  # 12:37 CST — 午检，检查晨读是否完成，未完成则告警
+    - cron: '37 4 * * *'  # 12:37 CST — 午检，仅检查晨读是否完成，未完成则告警
   workflow_dispatch:
 
 jobs:
@@ -26,14 +27,30 @@ jobs:
           python3 scripts/health_check_scraper.py --alert
           echo "status=$?" >> $GITHUB_OUTPUT
 
+      - name: 检测当前检查时段（午检/终检）
+        id: period
+        run: |
+          HOUR=$(TZ='Asia/Shanghai' date +%H)
+          if [ "$HOUR" -lt 15 ]; then
+            # 午检：此时只应完成晨读，午间可能仍在跑、晚间尚未开始
+            echo "period=midday" >> $GITHUB_OUTPUT
+            echo "expect=morning" >> $GITHUB_OUTPUT
+          else
+            # 终检（22:17 CST）：三个批次都应已完成
+            echo "period=final" >> $GITHUB_OUTPUT
+            echo "expect=morning noon evening" >> $GITHUB_OUTPUT
+          fi
+
       - name: 检查今日批次完成情况
         id: check
         run: |
           TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
           META="output/${TODAY}/metadata.json"
+          EXPECTED="${{ steps.period.outputs.expect }}"
           echo "today=$TODAY" >> $GITHUB_OUTPUT
+          echo "expect=$EXPECTED" >> $GITHUB_OUTPUT
 
-          echo "📋 调度健康检查 — ${TODAY}"
+          echo "📋 调度健康检查 — ${TODAY}（时段: ${{ steps.period.outputs.period }}，应完成: ${EXPECTED}）"
           echo ""
 
           if [ ! -f "$META" ]; then
@@ -42,11 +59,11 @@ jobs:
             exit 0
           fi
 
-          MISSING=$(TODAY="$TODAY" python3 scripts/check_missing_batches.py)
+          MISSING=$(EXPECTED="$EXPECTED" TODAY="$TODAY" python3 scripts/check_missing_batches.py)
           echo "missing=$MISSING" >> $GITHUB_OUTPUT
 
           if [ -z "$MISSING" ]; then
-            echo "✅ 全部完成: morning noon evening"
+            echo "✅ 应完成的批次均已就绪: $EXPECTED"
             echo "status=all_ok" >> $GITHUB_OUTPUT
           else
             echo "⚠️  缺失批次: $MISSING"
@@ -58,16 +75,6 @@ jobs:
           echo "今日已发文章:"
           python3 scripts/list_today_articles.py "$TODAY" 2>/dev/null || true
 
-      - name: 检测当前检查时段（午检/终检）
-        id: period
-        run: |
-          HOUR=$(TZ='Asia/Shanghai' date +%H)
-          if [ "$HOUR" -lt 15 ]; then
-            echo "period=midday" >> $GITHUB_OUTPUT
-          else
-            echo "period=final" >> $GITHUB_OUTPUT
-          fi
-
       - name: 发送告警
         if: steps.check.outputs.status != 'all_ok'
         env:
@@ -78,16 +85,17 @@ jobs:
           STATUS="${{ steps.check.outputs.status }}"
           MISSING="${{ steps.check.outputs.missing }}"
           PERIOD="${{ steps.period.outputs.period }}"
+          EXPECTED="${{ steps.check.outputs.expect }}"
 
           if [ "$STATUS" = "all_missing" ]; then
             TITLE="🚨 调度告警"
-            BODY="${TODAY} 今日三个批次全部缺失！请检查 GitHub Actions 状态。"
+            BODY="${TODAY} 今日应完成批次（${EXPECTED}）全部缺失！请检查 GitHub Actions 状态。"
           elif [ "$PERIOD" = "midday" ]; then
             TITLE="⚠️ 午检告警"
             BODY="${TODAY} 晨读批次可能未完成（缺失: ${MISSING}）。请检查 GitHub Actions，必要时手动触发 workflow_dispatch。"
           else
             TITLE="⚠️ 调度告警"
-            BODY="${TODAY} 缺失批次: ${MISSING}，已完成批次不受影响，请检查 GitHub Actions。"
+            BODY="${TODAY} 缺失批次: ${MISSING}（应完成: ${EXPECTED}），已完成批次不受影响，请检查 GitHub Actions。"
           fi
 
           python3 scripts/send_wxpusher.py "$WXPUSHER_APPTOKEN" "$WXPUSHER_UID" "$TITLE" "$BODY"
