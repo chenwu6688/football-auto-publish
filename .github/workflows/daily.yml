@@ -140,7 +140,7 @@ jobs:
           echo "today=$TODAY" >> $GITHUB_OUTPUT
           python orchestrator.py "$TODAY" --batch=${{ inputs.batch || 'auto' }}
         env:
-          HY3_API_KEY: ${{ secrets.HY3_API_KEY || secrets.DEEPSEEK_API_KEY }}
+          HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
           UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
