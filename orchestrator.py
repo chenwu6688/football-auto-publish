@@ -850,13 +850,17 @@ def _find_source_article(topic, match_context):
     return None
 
 
-def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="", date_str=""):
+def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="", date_str="", source=None):
     """将已核实的源文章改写为老六风格。
 
     输入：来自直播吧/懂球帝的记者核实报道
     输出：老六风格文章（完全相同的事实，不同的文笔）
     """
-    source = _find_source_article(topic, match_context)
+    # 优先使用调用方已匹配/懒加载（含爬取全文）的 source；
+    # 否则回退到从 match_context 重新查找。这样转会/八卦类话题在
+    # generate_article_with_retry 里懒加载到完整正文后，不会被 rewrite_article
+    # 重新用短文本查询而误判为「无源文章」导致整篇改写失败。
+    source = source or _find_source_article(topic, match_context)
     if not source:
         return None
 
@@ -1138,7 +1142,8 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
         temp = max(0.3, 0.5 - attempt * 0.1)
         try:
             art = rewrite_article(topic, match_context, index, temperature=temp,
-                                  retry_hint=last_hint, date_str=date_str or "")
+                                  retry_hint=last_hint, date_str=date_str or "",
+                                  source=source)
             if not art or not isinstance(art, dict):
                 last_hint = "改写返回空结果，请确保输出完整的JSON"
                 continue
