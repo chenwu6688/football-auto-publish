@@ -1,7 +1,7 @@
 {
   "date": "2026-08-13",
-  "generated_at": "2026-08-13T00:48:02.444122",
-  "total_articles": 3,
+  "generated_at": "2026-08-13T02:39:45.348515",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -93,96 +93,127 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "数据扒一扒：恩佐和曼城三中场谁更香",
+      "path": "/home/runner/work/_temp/output/2026-08-13/article-1-数据扒一扒恩佐和-b8493a.md",
+      "slug": "数据扒一扒恩佐和-b8493a",
+      "tags": [
+        "transfer",
+        "Enzo",
+        "Maresca",
+        "Manchester City",
+        "Premier League stats"
+      ],
+      "keywords": [
+        "transfer",
+        "Enzo",
+        "Maresca",
+        "Manchester City",
+        "Premier League stats"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-13/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-13/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-13/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "老六精准预测：明天8场焦点战，我看好这几队直接拿分",
+      "path": "/home/runner/work/_temp/output/2026-08-13/article-2-老六精准预测明天-2ae5b7.md",
+      "slug": "老六精准预测明天-2ae5b7",
+      "tags": [
+        "football",
+        "prediction",
+        "uefa",
+        "saudi",
+        "serie",
+        "manchester",
+        "milan"
+      ],
+      "keywords": [
+        "football",
+        "prediction",
+        "uefa",
+        "saudi",
+        "serie",
+        "manchester",
+        "milan"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-13/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-13/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-13/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "5000万欧！切尔西搅局抢卡马拉，摩纳哥狮子大开口",
-      "angle": "切尔西加入拉明·卡马拉争夺战，摩纳哥估价5000万欧，夏窗中场乱战再升级，老六觉得这价码虚高但蓝军真缺人。",
+      "title": "能卖掉几人？切尔西7人估值恩佐1.2亿镑",
+      "angle": "蓝军清洗名单又上天空台了，恩佐标1.2亿、古斯托7500万，这甩卖架势像清仓大促，老六觉得买的人得捏捏口袋。",
       "keywords": [
         "Chelsea",
-        "Lamine Camara",
-        "Monaco",
-        "transfer"
+        "sell",
+        "valuation",
+        "Enzo"
       ],
       "keywords_cn": [
         "切尔西",
-        "拉明卡马拉",
-        "摩纳哥",
-        "转会"
+        "出售",
+        "估值",
+        "恩佐"
       ],
       "content_type": "转会资讯",
-      "score": 88,
+      "score": 92,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "夏窗豪门抢人话题，球迷爱看谁掏冤枉钱",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "why_pick": "夏窗清洗热点，蓝军悬念拉满",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "4000万镑！特拉福德利兹联首秀，出球稳如老狗",
-      "angle": "TA报道特拉福德利兹联首秀出色，出球精准守门也稳，4000万镑花得值，老六认为曼城青训这回真淘着宝了。",
-      "keywords": [
-        "Trafford",
-        "Leeds",
-        "debut",
-        "goalkeeper"
-      ],
-      "keywords_cn": [
-        "特拉福德",
-        "利兹联",
-        "首秀",
-        "门将"
-      ],
-      "content_type": "八卦趣事",
-      "score": 76,
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "why_pick": "非豪门新援亮眼，接地气故事有共鸣",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "阿森纳 5-4 科莫，9球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "老六精准预测：明天8场焦点战，我看好这几队直接拿分",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-13 08:48:02"
+  "last_batch": "evening",
+  "last_updated": "2026-08-13 10:39:45"
 }
