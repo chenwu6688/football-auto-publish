@@ -14,8 +14,10 @@ GZH_SCRIPT = str(PROJECT_ROOT / "skills" / "gzh-explosive-content-detector" / "s
 
 # --- API keys from env (GitHub Secrets) ---
 # LLM provider: hy3 / 腾讯云 TokenHub（tencentmaas，OpenAI 兼容协议）
-# 优先读 HY3_API_KEY，兼容旧变量 DEEPSEEK_API_KEY，最后用内置默认值
-_HY3_DEFAULT_KEY = "***"
+# 优先读 HY3_API_KEY，兼容旧变量 DEEPSEEK_API_KEY。
+# ⚠️ 切勿在此硬编码真实 key：本仓库为 public，写死会泄露并被他人盗刷额度。
+# 真实 key 通过 GitHub Actions Secrets (HY3_API_KEY) 注入 CI。
+_HY3_DEFAULT_KEY = ""
 
 
 def _resolve_api_key(default, *env_names):
