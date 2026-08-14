@@ -1,8 +1,27 @@
 # 球评人老六 · 足球自媒体全自动内容工厂
 
+![Batch CI](https://github.com/chenwu6688/football-auto-publish/actions/workflows/batch.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![Last Commit](https://img.shields.io/github/last-commit/chenwu6688/football-auto-publish)
+![AI Powered](https://img.shields.io/badge/AI--Powered-ff69b4)
+
 > **一句话**：用 AI 把「选题 → 写稿 → 配图 → 发布 → 同步小程序」全包了。每天三班自动出稿，你只管看评论区吵架。
 
 这是一个**完全无人值守**的足球自媒体内容生产系统：AI 自动追踪足球热点、生成带有固定人设「老六」的观点文章，自动发布到**今日头条（头条号）**，并同步到配套的**微信小程序**。整套流程由 GitHub Actions 定时驱动，零人工干预。
+
+---
+
+## 🌐 English Overview
+
+**Lao Liu the Football Commentator** is a fully unattended, AI-driven content factory for a football (soccer) self-media brand. It automatically tracks football hotspots, generates opinionated articles in a fixed persona ("Lao Liu"), publishes them to **Toutiao (头条号)**, and syncs them to a companion **WeChat Mini Program** — all driven by GitHub Actions, zero manual work.
+
+- 🤖 **AI writing** via a TokenHub / DeepSeek-compatible LLM (DashScope fallback), with a distinct persona per column.
+- 🗓️ **Three daily batches** (Morning / Noon / Evening), 2 differentiated columns each — 6 unique pieces per day.
+- 📡 **Dual-channel auto-publishing**: Toutiao (Playwright browser automation) + WeChat Mini Program (free jsDelivr CDN).
+- 🛡️ **Production-grade**: idempotent re-publish guard, retry fallback, health checks & alerts (WxPusher).
+- 💸 **Near-zero running cost**: free GitHub Actions + free CDN + cheap LLM.
+
+Fork it, configure your Secrets, and you own your own football AI account. See the Chinese sections below for full details.
 
 ---
 
@@ -187,6 +206,21 @@ football-auto-publish/
 5. **可演进**：栏目、人格、数据源都在 `constants.py` / `config.yaml` / `prompts/` 里集中配置，想换风格、加栏目、接新平台都很容易。
 
 > 拿去改、拿去用、拿去养你自己的"老六"。欢迎 Issue 与 PR。
+
+---
+
+## 📸 截图 / Screenshots
+
+> 下方为占位图，请用你自己的**头条号文章页**与**微信小程序界面**真实截图替换 `docs/screenshots/` 下的文件（建议 PNG，宽 ≥ 800px）。
+
+| 渠道 | 预览 |
+|---|---|
+| 头条号（头条号）已发布文章页 | ![头条号文章](docs/screenshots/toutiao-article.png) |
+| 配套微信小程序文章阅读页 | ![微信小程序](docs/screenshots/miniprogram.png) |
+
+**建议截图内容**
+- `toutiao-article.png`：一篇已发布的「老六」风格文章，含标题、正文、互动投票/站队引导。
+- `miniprogram.png`：小程序内文章列表或详情页。
 
 ---
 
