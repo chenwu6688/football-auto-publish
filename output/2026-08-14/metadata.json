@@ -1,7 +1,7 @@
 {
   "date": "2026-08-14",
-  "generated_at": "2026-08-14T00:47:44.861287",
-  "total_articles": 3,
+  "generated_at": "2026-08-14T03:31:37.963405",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -97,100 +97,190 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "5000万解约金虚高？纽卡想3500万带走波黑国脚",
+      "path": "/home/runner/work/_temp/output/2026-08-14/article-1-5000万解约金-7ae44c.md",
+      "slug": "5000万解约金-7ae44c",
+      "tags": [
+        "Newcastle",
+        "Amar Dedic",
+        "Benfica",
+        "transfer",
+        "Jaissle"
+      ],
+      "keywords": [
+        "Newcastle",
+        "Amar Dedic",
+        "Benfica",
+        "transfer",
+        "Jaissle"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-14/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-14/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-14/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "09年小将万项留欧首战，国足集训竟不召他？",
+      "path": "/home/runner/work/_temp/output/2026-08-14/article-2-09年小将万项留-2b3d25.md",
+      "slug": "09年小将万项留-2b3d25",
+      "tags": [
+        "Wan Xiang",
+        "Red Star U19",
+        "Serbian U19 League",
+        "Chinese youth football"
+      ],
+      "keywords": [
+        "Wan Xiang",
+        "Red Star U19",
+        "Serbian U19 League",
+        "Chinese youth football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-14/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "老六精准预测：明天8场焦点战，我看好马竞枪手皇马笑到最后",
+      "path": "/home/runner/work/_temp/output/2026-08-14/article-3-老六精准预测明天-8477fb.md",
+      "slug": "老六精准预测明天-8477fb",
+      "tags": [
+        "football",
+        "prediction",
+        "UCL",
+        "LaLiga",
+        "PremierLeague",
+        "Bundesliga"
+      ],
+      "keywords": [
+        "football",
+        "prediction",
+        "UCL",
+        "LaLiga",
+        "PremierLeague",
+        "Bundesliga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-14/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "5000万欧！费兰刚转巴黎，利物浦又盯上巴尔科拉？",
-      "angle": "夏窗疯狂砸钱，巴黎刚吃进费兰，利物浦还想挖巴尔科拉，这转会市场真是疯了，豪门抢人毫不手软。",
+      "title": "3500万欧！纽卡撬本菲卡边卫是捡漏还是交税？",
+      "angle": "纽卡运作本菲卡边卫德迪奇约3500万欧，老六觉得这价在当下市场不算离谱，但能否即战力存疑，夏窗边卫溢价得警惕。",
       "keywords": [
-        "Ferran Torres",
-        "Paris Saint-Germain",
-        "Liverpool",
-        "Barcola",
+        "Newcastle",
+        "Benfica",
+        "Dedic",
         "transfer"
       ],
       "keywords_cn": [
-        "费兰",
-        "巴黎圣日耳曼",
-        "利物浦",
-        "巴尔科拉",
+        "纽卡",
+        "本菲卡",
+        "德迪奇",
         "转会"
       ],
       "content_type": "转会资讯",
-      "score": 92,
+      "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "夏窗豪门转会动态，球迷最关心",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "why_pick": "夏窗边卫转会热点，有费有队有话题",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "吓一跳！克雷桑跳背抱人，高准翼爆粗吐槽",
-      "angle": "中超更衣室花絮比比赛有意思，克雷桑训练间歇突袭高准翼，老哥直接爆粗，这队友关系接地气又乐呵。",
+      "title": "17岁万项踢红星U19，中国小孩哥闯欧是噱头？",
+      "angle": "17岁万项明天以红星U19身份迎新赛季首战，老六认为敢跳级挑战更高年龄组是好事，但别捧杀，看长远。",
       "keywords": [
-        "Cresan",
-        "Gao Zhunyi",
-        "training",
-        "Chinese Super League",
-        "funny"
+        "Wan Xiang",
+        "Red Star",
+        "U19",
+        "Chinese youth"
       ],
       "keywords_cn": [
-        "克雷桑",
-        "高准翼",
-        "训练",
-        "中超",
-        "趣事"
+        "万项",
+        "红星",
+        "U19",
+        "中国青训"
       ],
       "content_type": "八卦趣事",
-      "score": 81,
+      "score": 76,
       "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "中超球员趣事，轻松接地气",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "骄傲",
+      "why_pick": "中国小将留洋新动态，读者爱看",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "迈阿密国际 2-3 莱昂，5球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "老六精准预测：明天8场焦点战，我看好马竞枪手皇马笑到最后",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-14 08:47:44"
+  "last_batch": "evening",
+  "last_updated": "2026-08-14 11:31:37"
 }
