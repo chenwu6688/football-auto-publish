@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
-  "generated_at": "2026-08-15T00:04:47.636638",
-  "total_articles": 2,
+  "generated_at": "2026-08-15T04:42:14.031036",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -68,92 +68,155 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "从皇马青训到萨索洛，04年小将的流浪地图",
+      "path": "/home/runner/work/_temp/output/2026-08-15/article-1-从皇马青训到萨索-6583ae.md",
+      "slug": "从皇马青训到萨索-6583ae",
+      "tags": [
+        "Sassuolo",
+        "Benfica",
+        "Obrador",
+        "loan",
+        "transfer"
+      ],
+      "keywords": [
+        "Sassuolo",
+        "Benfica",
+        "Obrador",
+        "loan",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-15/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-15/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "5岁回中国立誓进国家队，这位混血娃啥来头？",
+      "path": "/home/runner/work/_temp/output/2026-08-15/article-2-5岁回中国立誓进-4da0b7.md",
+      "slug": "5岁回中国立誓进-4da0b7",
+      "tags": [
+        "mixed-heritage",
+        "football",
+        "Cape Verde",
+        "youth player"
+      ],
+      "keywords": [
+        "mixed-heritage",
+        "football",
+        "Cape Verde",
+        "youth player"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-15/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-15/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-15/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "贝索斯财团入股利物浦，足球要变科技局？",
-      "angle": "老六视角：美国资本玩体育不是新鲜事，但贝索斯这尊大佛进来，利物浦商业版图要变天，竞技层面别指望立竿见影。",
+      "title": "萨索洛租本菲卡后卫，这捡漏操作意甲老油条懂的",
+      "angle": "萨索洛租借奥夫拉多尔含买断权，小俱乐部淘宝思路清晰，老六觉得这比砸钱实在。",
       "keywords": [
-        "Bezos",
-        "Liverpool",
-        "Fenway",
-        "investment"
+        "Sassuolo",
+        "Benfica",
+        "Ofladror",
+        "loan"
       ],
       "keywords_cn": [
-        "贝索斯",
-        "利物浦",
-        "芬威",
-        "入股"
+        "萨索洛",
+        "本菲卡",
+        "奥夫拉多尔",
+        "租借"
       ],
       "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "medium",
+      "score": 82,
+      "controversy_level": "low",
       "target_emotion": "好奇",
-      "why_pick": "豪门资本大动作引发球迷热议",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "夏窗租借淘宝有看点，意甲中小队思路",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "第7个孩子！沃克这繁殖力比防守还硬",
-      "angle": "老六调侃：太阳报说沃克和妻子迎来第5个、他总共第7个孩子，这哥们场上右路往返，场下也真没闲着，人生赢家实锤。",
+      "title": "马宁5秒倒计时赶人，克雷桑暴怒吃牌冤不冤？",
+      "angle": "马宁手指克雷桑读秒罚下，尺度严得离谱，老六认为中超裁判这做派该管管了。",
       "keywords": [
-        "Walker",
-        "Sun",
-        "family",
-        "children"
+        "Ma Ning",
+        "Cresan",
+        "referee",
+        "CSL"
       ],
       "keywords_cn": [
-        "沃克",
-        "太阳报",
-        "家庭",
-        "孩子"
+        "马宁",
+        "克雷桑",
+        "裁判",
+        "中超"
       ],
       "content_type": "八卦趣事",
-      "score": 76,
-      "controversy_level": "low",
-      "target_emotion": "震惊",
-      "why_pick": "球星私生活趣闻有吃瓜价值",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "裁判争议话题中国球迷爱骂爱聊",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-15 08:04:47"
+  "last_batch": "noon",
+  "last_updated": "2026-08-15 12:42:14"
 }
