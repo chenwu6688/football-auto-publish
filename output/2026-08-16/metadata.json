@@ -1,7 +1,7 @@
 {
   "date": "2026-08-16",
-  "generated_at": "2026-08-16T00:02:51.007806",
-  "total_articles": 3,
+  "generated_at": "2026-08-16T04:46:38.321888",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -97,96 +97,151 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "从贝尔到内马尔，亿元先生十年浮沉录",
+      "path": "/home/runner/work/_temp/output/2026-08-16/article-1-从贝尔到内马尔亿-108b79.md",
+      "slug": "从贝尔到内马尔亿-108b79",
+      "tags": [
+        "transfer",
+        "100m club",
+        "Neymar",
+        "financial bubble"
+      ],
+      "keywords": [
+        "transfer",
+        "100m club",
+        "Neymar",
+        "financial bubble"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-16/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-16/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-16/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "克洛普首签变欧冠对手？格鲁伊奇这缘分太魔幻",
+      "path": "/home/runner/work/_temp/output/2026-08-16/article-2-克洛普首签变欧冠-ca11c5.md",
+      "slug": "克洛普首签变欧冠-ca11c5",
+      "tags": [
+        "Levski Sofia",
+        "Marko Grujic",
+        "AEK Athens",
+        "Champions League",
+        "free transfer"
+      ],
+      "keywords": [
+        "Levski Sofia",
+        "Marko Grujic",
+        "AEK Athens",
+        "Champions League",
+        "free transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-16/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-16/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-16/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "8500万镑！曼城又要从谁兜里掏这笔巨款？",
-      "angle": "邮报说曼城接近签布阿迪花8500万镑，老六觉得这价够疯，夏窗军备竞赛没完了。",
+      "title": "转会窗“亿”时代：1亿门槛早不是巨星专利？",
+      "angle": "从转会窗亿级交易普及聊起，老六认为烧钱已平常化，中小球队也被裹挟进场。",
       "keywords": [
-        "ManchesterCity",
-        "Bouaddi",
-        "transferfee",
-        "summerwindow"
+        "transfer window",
+        "100m clause",
+        "football inflation"
       ],
       "keywords_cn": [
-        "曼城",
-        "布阿迪",
-        "转会费",
-        "夏季转会窗"
+        "转会窗",
+        "一亿门槛",
+        "转会通胀"
       ],
       "content_type": "转会资讯",
-      "score": 92,
+      "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "why_pick": "天价转会费引爆夏窗话题性足",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "好奇",
+      "why_pick": "夏窗热点，颠覆球迷对亿级转会认知",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "从热刺到国米，斯彭斯这波转会图啥？",
-      "angle": "斯彭斯晒照加盟国米直呼自豪，老六认为去意甲豪门比在热刺坐板凳强百倍。",
+      "title": "利物浦旧将自由身加盟，格鲁伊奇路在何方？",
+      "angle": "格鲁伊奇自由身签索菲亚列夫斯基1+1，老六觉得红军旧将漂流记够写半部书。",
       "keywords": [
-        "Spence",
-        "InterMilan",
-        "Tottenham",
-        "transfer"
+        "Grujic",
+        "Liverpool",
+        "free transfer"
       ],
       "keywords_cn": [
-        "斯彭斯",
-        "国际米兰",
-        "热刺",
-        "转会"
+        "格鲁伊奇",
+        "利物浦旧将",
+        "自由转会"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
+      "score": 76,
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "球员身份反差引发球迷八卦欲",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "怀旧",
+      "why_pick": "豪门弃将漂流记，老球迷爱看往事",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "米兰 4-2 曼联，6球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-16 08:02:51"
+  "last_batch": "noon",
+  "last_updated": "2026-08-16 12:46:38"
 }
