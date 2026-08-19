@@ -1,0 +1,191 @@
+{
+  "date": "2026-08-19",
+  "generated_at": "2026-08-19T00:03:44.336073",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "30岁罗德里去巴萨：金球奖得主为何此时离队",
+      "path": "/home/runner/work/_temp/output/2026-08-19/article-1-30岁罗德里去巴-69b0d5.md",
+      "slug": "30岁罗德里去巴-69b0d5",
+      "tags": [
+        "Rodri",
+        "Barcelona",
+        "Manchester City",
+        "transfer",
+        "La Liga"
+      ],
+      "keywords": [
+        "Rodri",
+        "Barcelona",
+        "Manchester City",
+        "transfer",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "1.2亿镑吓退买家？恩佐留队背后的博弈真相",
+      "path": "/home/runner/work/_temp/output/2026-08-19/article-2-12亿镑吓退买家-d3a1a8.md",
+      "slug": "12亿镑吓退买家-d3a1a8",
+      "tags": [
+        "Enzo Fernandez",
+        "Chelsea",
+        "transfer",
+        "Premier League"
+      ],
+      "keywords": [
+        "Enzo Fernandez",
+        "Chelsea",
+        "transfer",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-19/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "拜仁4-2海登海姆：小将世界波，穆西亚拉又晕了",
+      "path": "/home/runner/work/_temp/output/2026-08-19/article-3-拜仁42海登海姆-e4ef9b.md",
+      "slug": "拜仁42海登海姆-e4ef9b",
+      "tags": [
+        "Bayern",
+        "Heidenheim",
+        "friendly",
+        "Musiala",
+        "Chavez"
+      ],
+      "keywords": [
+        "Bayern",
+        "Heidenheim",
+        "friendly",
+        "Musiala",
+        "Chavez"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-19/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-19/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-19/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "巴萨官宣罗德里！金球先生加盟值不值这价？",
+      "angle": "巴萨秘密谈判签下罗德里，老六认为吸取B席教训这波操作稳，但7000万欧花得肉疼。",
+      "keywords": [
+        "Barcelona",
+        "Rodri",
+        "transfer",
+        "LaLiga"
+      ],
+      "keywords_cn": [
+        "巴萨",
+        "罗德里",
+        "转会",
+        "西甲"
+      ],
+      "content_type": "转会资讯",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "豪门官宣金球先生，夏窗最炸转会",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "切尔西青训改名引众怒，球迷：祖宗招牌也敢动？",
+      "angle": "切尔西把青训改名'科巴姆下一代'遭球迷组织谴责，老六觉得搞噱头不如练好青训。",
+      "keywords": [
+        "Chelsea",
+        "youth",
+        "rebrand",
+        "fan anger"
+      ],
+      "keywords_cn": [
+        "切尔西",
+        "青训",
+        "更名",
+        "球迷愤怒"
+      ],
+      "content_type": "八卦趣事",
+      "score": 81,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "why_pick": "本土球迷共鸣强，话题有戏剧性",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "拜仁 4-2 海登海姆，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-08-19 08:03:44"
+}
