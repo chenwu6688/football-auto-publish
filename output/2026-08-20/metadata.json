@@ -1,0 +1,156 @@
+{
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T00:05:26.680408",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "韦伯动手了！英超角球拉拽要被一刀切？",
+      "path": "/home/runner/work/_temp/output/2026-08-20/article-1-韦伯动手了英超角-b129f4.md",
+      "slug": "韦伯动手了英超角-b129f4",
+      "tags": [
+        "Howard Webb",
+        "PGMOL",
+        "corner kick",
+        "pulling",
+        "red card"
+      ],
+      "keywords": [
+        "Howard Webb",
+        "PGMOL",
+        "corner kick",
+        "pulling",
+        "red card"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-20/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-20/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-20/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "柯蒂斯-琼斯深夜飞米兰，国米3000万+600万拿下",
+      "path": "/home/runner/work/_temp/output/2026-08-20/article-2-柯蒂斯琼斯深夜飞-0b0489.md",
+      "slug": "柯蒂斯琼斯深夜飞-0b0489",
+      "tags": [
+        "Curtis Jones",
+        "Inter Milan",
+        "Liverpool",
+        "transfer",
+        "Orazio Accomando"
+      ],
+      "keywords": [
+        "Curtis Jones",
+        "Inter Milan",
+        "Liverpool",
+        "transfer",
+        "Orazio Accomando"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-20/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-20/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "英超要严打角球摔跤？韦伯这刀砍得对吗",
+      "angle": "韦伯宣布严打角球区'摔跤'防守，老六认为早该治治这股歪风，但执行尺度才是真考验。",
+      "keywords": [
+        "Premier League",
+        "Webb",
+        "corner kick",
+        "defending"
+      ],
+      "keywords_cn": [
+        "英超",
+        "韦伯",
+        "角球",
+        "防守规范"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "规则变动影响观赛，球迷爱争论尺度",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "1亿英镑！利物浦旧将爆巴尔科拉身价虚高？",
+      "angle": "利物浦旧将预测巴尔科拉要价1亿英镑，老六觉得这价够买半条防线了，和萨拉赫根本不是一路货。",
+      "keywords": [
+        "Barcola",
+        "Liverpool",
+        "transfer fee",
+        "Salah"
+      ],
+      "keywords_cn": [
+        "巴尔科拉",
+        "利物浦",
+        "转会费",
+        "萨拉赫"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "天价传闻+对比萨拉赫引发争论",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-08-20 08:05:26"
+}
