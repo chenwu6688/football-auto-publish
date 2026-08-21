@@ -1,7 +1,7 @@
 {
   "date": "2026-08-21",
-  "generated_at": "2026-08-21T04:51:35.155087",
-  "total_articles": 4,
+  "generated_at": "2026-08-21T09:54:47.267672",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -125,93 +125,186 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "尤文官宣阿图尔解约，球迷：天亮了",
+      "path": "/home/runner/work/_temp/output/2026-08-21/article-1-尤文官宣阿图尔解-f67a62.md",
+      "slug": "尤文官宣阿图尔解-f67a62",
+      "tags": [
+        "Juventus",
+        "Arthur",
+        "contract_termination",
+        "transfer"
+      ],
+      "keywords": [
+        "Juventus",
+        "Arthur",
+        "contract_termination",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-21/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-21/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "33岁本特利离狼投考文垂，两年合同值不值？",
+      "path": "/home/runner/work/_temp/output/2026-08-21/article-2-33岁本特利离狼-9426b1.md",
+      "slug": "33岁本特利离狼-9426b1",
+      "tags": [
+        "Coventry",
+        "Wolves",
+        "Daniel Bentley",
+        "transfer",
+        "goalkeeper"
+      ],
+      "keywords": [
+        "Coventry",
+        "Wolves",
+        "Daniel Bentley",
+        "transfer",
+        "goalkeeper"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-21/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-21/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-21/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "老六精准预测：明天8场焦点战，我看好这些队笑到最后",
+      "path": "/home/runner/work/_temp/output/2026-08-21/article-3-老六精准预测明天-36ba2a.md",
+      "slug": "老六精准预测明天-36ba2a",
+      "tags": [
+        "football",
+        "prediction",
+        "match analysis",
+        "tomorrow fixtures"
+      ],
+      "keywords": [
+        "football",
+        "prediction",
+        "match analysis",
+        "tomorrow fixtures"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-21/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-21/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-21/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "小蜘蛛去阿森纳？每体：全看球员自己意愿",
-      "angle": "马竞卖人不阻拦但主动权在阿尔瓦雷斯，枪手夏窗最后豪赌，老六觉得这转会窗越来越看球员脸色。",
+      "title": "6年烂尾！尤文与阿图尔解约谁更坑？",
+      "angle": "尤文官方与阿图尔解约，结束6年失败合作，老六认为这桩天价转会从头到尾就是笔糊涂账，双方都没落着好。",
       "keywords": [
-        "Alvarez",
-        "Arsenal",
-        "Atletico",
-        "transfer"
+        "Juventus",
+        "Arthur",
+        "termination"
       ],
       "keywords_cn": [
-        "阿尔瓦雷斯",
-        "阿森纳",
-        "马竞",
-        "转会"
+        "尤文图斯",
+        "阿图尔",
+        "解约"
       ],
       "content_type": "转会资讯",
       "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "豪门转会悬念足，夏窗热点话题",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "豪门失败转会复盘有话题",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "特里坦承08欧冠失点最低谷，最怕梅西小罗",
-      "angle": "铁血队长聊当年痛与怕，老球迷听的是青春，老六认为这代后卫再难有这种直白真性情。",
+      "title": "33岁本特利转考文垂，狼队养废了？",
+      "angle": "考文垂签下狼队33岁门将本特利签约两年，老六觉得英超边缘队门将流转是常态，但这岁数还能拿合同说明英伦老门将真吃香。",
       "keywords": [
-        "Terry",
-        "ChampionsLeague",
-        "Messi",
-        "Ronaldinho"
+        "Coventry",
+        "Bentley",
+        "transfer"
       ],
       "keywords_cn": [
-        "特里",
-        "欧冠",
-        "梅西",
-        "小罗"
+        "考文垂",
+        "本特利",
+        "转会"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
+      "content_type": "转会资讯",
+      "score": 75,
       "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "why_pick": "名宿轶事有情怀，避开了已写球员",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "好奇",
+      "why_pick": "英超下游转会接地气",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天8场焦点战，我看好这些队笑到最后",
+      "content_type": "热点球评",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-21 12:51:35"
+  "last_batch": "evening",
+  "last_updated": "2026-08-21 17:54:47"
 }
