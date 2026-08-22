@@ -1,7 +1,7 @@
 {
   "date": "2026-08-22",
-  "generated_at": "2026-08-22T00:05:31.220505",
-  "total_articles": 3,
+  "generated_at": "2026-08-22T04:45:23.286335",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -95,96 +95,157 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "转会窗炸了！曼联7000万签巴莱巴，阿森纳再补后防",
+      "path": "/home/runner/work/_temp/output/2026-08-22/article-1-转会窗炸了曼联7-f5cfa4.md",
+      "slug": "转会窗炸了曼联7-f5cfa4",
+      "tags": [
+        "transfer",
+        "Manchester United",
+        "Arsenal",
+        "Baleba",
+        "Konsa"
+      ],
+      "keywords": [
+        "transfer",
+        "Manchester United",
+        "Arsenal",
+        "Baleba",
+        "Konsa"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-22/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-22/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-22/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "前恒大员工爆料：许家印的草坪摆拍与洗脑魅力",
+      "path": "/home/runner/work/_temp/output/2026-08-22/article-2-前恒大员工爆料许-b34a3f.md",
+      "slug": "前恒大员工爆料许-b34a3f",
+      "tags": [
+        "Xu Jiayin",
+        "Evergrande",
+        "former employee",
+        "grass talk",
+        "personality charm"
+      ],
+      "keywords": [
+        "Xu Jiayin",
+        "Evergrande",
+        "former employee",
+        "grass talk",
+        "personality charm"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-22/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-22/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-22/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "7000万镑！曼联终于敲定巴莱巴这颗新腰",
-      "angle": "曼联花7000万镑从布莱顿拿下22岁中场巴莱巴，夏窗最贵引援之一，老六认为红魔中场硬度总算补上了，但价格虚高得警惕。",
+      "title": "7000万镑！曼联夏窗终敲定巴莱巴这桩买卖",
+      "angle": "曼联砸7000万镑拿下巴莱巴，夏窗憋大招终于像样了，老六觉得这钱花得值。",
       "keywords": [
         "Manchester United",
         "Baleba",
         "transfer",
-        "Brighton"
+        "70m pounds"
       ],
       "keywords_cn": [
         "曼联",
         "巴莱巴",
         "转会",
-        "布莱顿"
+        "7000万镑"
       ],
       "content_type": "转会资讯",
-      "score": 95,
+      "score": 92,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "夏窗豪门重磅官宣引爆球迷讨论",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "夏窗豪门转会引爆球迷讨论热度",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "以前的意甲有钱有人，现在资本全跑英超了？",
-      "angle": "维耶里吐槽意大利球队昔日财大气粗，如今资本全流向英超，老六深有同感：意甲落寞不是没原因，烧钱时代早就翻篇了。",
+      "title": "前恒大员工爆料：许家印爱演还草坪摆拍",
+      "angle": "前恒大员工说许家印爱演，把球员叫草坪聊天摆拍，老六看来这就是中国足球荒诞缩影。",
       "keywords": [
-        "Vieri",
-        "Serie A",
-        "Premier League",
-        "capital"
+        "Evergrande",
+        "Xu Jiayin",
+        "former employee",
+        "staging"
       ],
       "keywords_cn": [
-        "维耶里",
-        "意甲",
-        "英超",
-        "资本"
+        "恒大",
+        "许家印",
+        "前员工",
+        "摆拍"
       ],
       "content_type": "八卦趣事",
-      "score": 82,
+      "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "why_pick": "名宿发声引意英联赛对比话题",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "震惊",
+      "why_pick": "足坛秘辛接地气引发老球迷共鸣",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "胜利血洗对手，4球大胜震惊",
-      "content_type": "紧急球评-惨案"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-22 08:05:31"
+  "last_batch": "noon",
+  "last_updated": "2026-08-22 12:45:23"
 }
