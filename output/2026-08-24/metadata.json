@@ -1,7 +1,7 @@
 {
   "date": "2026-08-24",
-  "generated_at": "2026-08-24T00:03:34.306229",
-  "total_articles": 2,
+  "generated_at": "2026-08-24T04:58:02.518107",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -66,92 +66,159 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "600万从拉玛西亚挖来，吉乌如今成了烫手山芋",
+      "path": "/home/runner/work/_temp/output/2026-08-24/article-1-600万从拉玛西-c953bc.md",
+      "slug": "600万从拉玛西-c953bc",
+      "tags": [
+        "Marc Guiu",
+        "Chelsea",
+        "Sevilla",
+        "loan",
+        "transfer"
+      ],
+      "keywords": [
+        "Marc Guiu",
+        "Chelsea",
+        "Sevilla",
+        "loan",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-24/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-24/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-24/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "吾米提江车祸真相：不是剧本，是4S店试驾翻车",
+      "path": "/home/runner/work/_temp/output/2026-08-24/article-2-吾米提江车祸真相-37aadb.md",
+      "slug": "吾米提江车祸真相-37aadb",
+      "tags": [
+        "Shanghai Port",
+        "Wu Mitijiang",
+        "car accident",
+        "test drive",
+        "football"
+      ],
+      "keywords": [
+        "Shanghai Port",
+        "Wu Mitijiang",
+        "car accident",
+        "test drive",
+        "football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-24/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-24/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-24/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "7000万镑！曼联周一官宣巴莱巴签约5年",
-      "angle": "老六认为曼联这钱花得值，夏窗终于干了两件人事，巴莱巴中场硬度直接拉满。",
+      "title": "吉乌不在阿隆索计划内，塞维利亚要租他？",
+      "angle": "皇马新星被弃用，阿隆索铁腕用人引发讨论，租借塞维利亚是解脱还是埋没。",
       "keywords": [
-        "Manchester United",
-        "Baleba",
-        "official",
-        "transfer"
+        "Gilu",
+        "Alonso",
+        "Sevilla",
+        "loan",
+        "RealMadrid"
       ],
       "keywords_cn": [
-        "曼联",
-        "巴莱巴",
-        "官宣",
-        "转会"
+        "吉乌",
+        "阿隆索",
+        "塞维利亚",
+        "租借",
+        "皇马"
       ],
       "content_type": "转会资讯",
-      "score": 92,
+      "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "豪门官宣大笔引援，夏窗热点话题",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "豪门弃将流向，夏窗热点话题",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "哈兰德女友剪短发，竟是效仿男友造型？",
-      "angle": "太阳报这花边有点意思，女朋友跟风男友发型，足坛神仙恋爱接地气又乐呵。",
+      "title": "倒霉！海港吾米提江被4S店试驾撞伤",
+      "angle": "职业球员竟成试驾事故路人，俱乐部证实离谱遭遇，足坛奇葩伤病又添一例。",
       "keywords": [
-        "Haaland",
-        "girlfriend",
-        "haircut",
-        "Sun"
+        "Wumitijiang",
+        "ShanghaiPort",
+        "caraccident",
+        "injury"
       ],
       "keywords_cn": [
-        "哈兰德",
-        "女友",
-        "发型",
-        "太阳报"
+        "吾米提江",
+        "上海海港",
+        "车祸",
+        "受伤"
       ],
       "content_type": "八卦趣事",
-      "score": 78,
+      "score": 82,
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "球星场外趣闻，读者爱看乐子",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "震惊",
+      "why_pick": "离谱场外事故，球迷爱看乐子",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-24 08:03:34"
+  "last_batch": "noon",
+  "last_updated": "2026-08-24 12:58:02"
 }
