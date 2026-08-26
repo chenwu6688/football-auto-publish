@@ -18,8 +18,8 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
                        DASHSCOPE_URL, FOOTBALL_DATA_BASE,
                        WXPUSHER_APPTOKEN, WXPUSHER_UID,
                        WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
-                       BATCH_CONFIG)
-from utils import retry, call_llm, safe_json_loads, load_prompt_template
+                       BATCH_CONFIG, LLM_JSON_CANDIDATES)
+from utils import retry, call_llm, safe_json_loads, load_prompt_template, call_llm_json
 from logger import log
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
@@ -508,23 +508,13 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         {"role": "system", "content": topic_selector_prompt},
         {"role": "user", "content": prompt}
     ]
-    # Retry on JSON parse failure: hy3/Hunyuan occasionally returns malformed JSON
-    topics = None
-    for attempt in range(3):
-        response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages, temperature=0.7, max_tokens=4096,
-                           fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
-        try:
-            topics = safe_json_loads(response)
-            break  # success
-        except ValueError as e:
-            preview = (response or "")[:800].replace("\n", " ")
-            print(f"   ⚠️ JSON 解析失败 (attempt {attempt+1}/3): {e} | 原始响应前800字: {preview}")
-            if attempt < 2:
-                continue
-            print(f"   ❌ JSON 解析失败 (3次均失败)，跳过LLM选题")
-            topics = None
-    if topics is None:
-        print("   ℹ️ 选题 LLM 未返回可用 JSON，本次跳过选题（不影响其他步骤）")
+    # Multi-model rotation on JSON parse failure / empty response.
+    # Default order: hy3 -> hunyuan-lite -> hunyuan-turbo -> ... -> qwen-turbo
+    try:
+        topics, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES, temperature=0.7, max_tokens=4096)
+    except ValueError as e:
+        print(f"   ❌ 所有 LLM 候选均未能返回可用 JSON: {e}")
+        print("   跳过LLM选题")
         return []
     if topics and isinstance(topics, dict) and "title" in topics:
         topics = [topics]  # LLM returned single object instead of array
@@ -938,7 +928,11 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
         column_name = topic.get("_column_name", "")
         if column_name:
             article["_column_name"] = column_name
-            article["_batch_name"] = topic.get("_batch_name", "")
+        # ⚠️ 注意：_batch_name 必须独立于 _column_name 写入。
+        # 应急/预测文章没有 _column_name，但仍有批次归属，否则发布器按批次过滤会漏掉。
+        batch_name = topic.get("_batch_name", "")
+        if batch_name:
+            article["_batch_name"] = batch_name
         print(f"   改写完成: {article.get('title','?')}, {len(article.get('content',''))}字")
     return article
 
@@ -1835,6 +1829,7 @@ def main():
                     articles.append((len(articles), pred_art))
                     topics.append({"title": pred_art.get("title", ""),
                                    "content_type": "热点球评",
+                                   "_batch_name": batch_cfg["name"],
                                    "_is_prediction": True})
                     print(f"   🎯 赛前预测已追加: {pred_art['title'][:50]}")
                 else:
@@ -1861,7 +1856,8 @@ def main():
                     {"title": top_event.get("title_hint", ""),
                      "angle": top_event.get("detail", ""),
                      "content_type": "紧急球评",
-                     "target_emotion": "震惊"},
+                     "target_emotion": "震惊",
+                     "_batch_name": batch_cfg["name"]},
                     match_data, e_idx, max_retries=1, date_str=date_str)
                 stats["generated"] += 1
                 if e_err:

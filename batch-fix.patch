@@ -1,0 +1,114 @@
+diff --git a/.github/workflows/batch.yml b/.github/workflows/batch.yml
+index ff3d620..6c1367a 100644
+--- a/.github/workflows/batch.yml
++++ b/.github/workflows/batch.yml
+@@ -61,6 +61,13 @@ jobs:
+       - name: 检出代码
+         uses: actions/checkout@v4
+ 
++      - name: 配置 Git 推送凭据
++        run: |
++          # 显式把 GITHUB_TOKEN 注入 remote，确保 git push 走令牌鉴权
++          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
++          git config user.name "github-actions[bot]"
++          git config user.email "github-actions[bot]@users.noreply.github.com"
++
+       - name: 设置 Python
+         uses: actions/setup-python@v5
+         with:
+@@ -261,19 +268,19 @@ jobs:
+           dst.parent.mkdir(parents=True, exist_ok=True)
+           dst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))
+           " || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }
+-          git add -f "output/${TODAY}/metadata.json" 2>/dev/null || true
+-          if git diff --cached --quiet 2>/dev/null; then
++          git add -f "output/${TODAY}/metadata.json" || true
++          if git diff --cached --quiet; then
+             echo "📝 无变化，跳过提交"
+             exit 0
+           fi
+           git commit -m "chore: ${TODAY} ${BATCH} 生成完成元数据回写"
+           for attempt in 1 2 3; do
+-            if git push origin main 2>/dev/null; then
++            if git push origin main; then
+               echo "✅ 生成结果已回写仓库"
+               break
+             fi
+             echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+-            git pull --rebase origin main 2>/dev/null || true
++            git pull --rebase origin main || true
+             /usr/bin/sleep $((attempt * 2))
+           done
+ 
+@@ -336,7 +343,7 @@ jobs:
+           print(f'merged batches: {new_meta[\"batches_completed\"]}')
+           " || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }
+ 
+-          git add -f "output/${TODAY}/metadata.json"
++          git add -f "output/${TODAY}/metadata.json" || true
+ 
+           if git diff --cached --quiet; then
+             echo "📝 无变化，跳过提交"
+@@ -346,19 +353,17 @@ jobs:
+           git commit -m "chore: ${TODAY} ${BATCH} 批次完成"
+ 
+           # 重试推送：处理多批次并发写入时的 push 冲突
++          # 注意：git pull --rebase 必须带 || true，否则其失败会以 128 顶出整步
+           for attempt in 1 2 3; do
+             if git push origin main; then
+               echo "✅ 批次状态已回写仓库"
+               break
+             fi
+             echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+-            git pull --rebase origin main
+-            if [ $attempt -eq 3 ]; then
+-              echo "❌ 推送失败，但不影响文章发布（metadata 可通过 artifact 恢复）"
+-              exit 0
+-            fi
++            git pull --rebase origin main || true
+             /usr/bin/sleep $((attempt * 2))
+           done
++          echo "ℹ️ 若上方出现推送失败：文章已发布成功，仅仓库元数据回写未成功（下次运行可自动补齐）"
+       - name: 导出小程序静态数据
+         if: steps.params.outputs.skip != 'true' && !cancelled()
+         env:
+@@ -368,16 +373,16 @@ jobs:
+           # 提交 static_data/ 到仓库
+           git config user.name "github-actions[bot]"
+           git config user.email "github-actions[bot]@users.noreply.github.com"
+-          git add -f static_data/
++          git add -f static_data/ || true
+           if ! git diff --cached --quiet; then
+             git commit -m "chore: ${{ steps.params.outputs.today }} ${{ steps.params.outputs.batch }} 更新小程序静态数据"
+             for attempt in 1 2 3; do
+-              if git push origin main 2>/dev/null; then
++              if git push origin main; then
+                 echo "✅ 小程序静态数据已推送 (jsDelivr CDN 约 2-5 分钟生效)"
+                 break
+               fi
+               echo "⚠️  推送失败 (attempt $attempt/3)"
+-              git pull --rebase origin main 2>/dev/null || true
++              git pull --rebase origin main || true
+               /usr/bin/sleep $((attempt * 2))
+             done
+           else
+@@ -391,6 +396,19 @@ jobs:
+           name: articles-${{ steps.params.outputs.batch }}-${{ steps.params.outputs.today }}
+           path: ${{ runner.temp }}/output/${{ steps.params.outputs.today }}/
+ 
++      - name: 推送诊断（排错用，始终运行）
++        if: always()
++        run: |
++          echo "=== git remote -v ==="
++          git remote -v
++          echo "=== 最近一次提交 ==="
++          git log -1 --oneline 2>/dev/null || true
++          echo "=== 排错提示 ==="
++          echo "若文章已成功发布到头条号，但本运行仍因 git push 失败而告警："
++          echo "请检查仓库 Settings → Branches → main 是否开启了"
++          echo "'Require a pull request before merging'（该保护会禁止 GITHUB_TOKEN 直接推送）。"
++          echo "如开启，请关闭该保护，或为 GITHUB_TOKEN 添加绕过规则。"
++
+       - name: 失败通知
+         if: failure()
+         env:

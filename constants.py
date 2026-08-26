@@ -48,6 +48,17 @@ FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
 DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
 FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
 
+# --- 多模型轮换（JSON 依赖型调用，如话题筛选）---
+# 默认：优先同厂商（腾讯云 TokenHub / Hunyuan）免费模型依次尝试，最后跨厂商兜底到 DashScope qwen-turbo。
+# 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔），例如 secrets.HY3_ROTATION_MODELS="hy3,hunyuan-lite"
+_HY3_ROTATION_MODELS = os.environ.get("HY3_ROTATION_MODELS", "hy3,hunyuan-lite,hunyuan-turbo,hunyuan-standard").split(",")
+HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
+LLM_JSON_CANDIDATES = [
+    (HY3_BASE_URL, HY3_API_KEY, model) for model in HY3_ROTATION_MODELS
+] + [
+    (DASHSCOPE_URL, DASHSCOPE_KEY, "qwen-turbo"),
+]
+
 # --- WxPusher ---
 WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")
 WXPUSHER_UID = os.environ.get("WXPUSHER_UID", "")

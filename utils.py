@@ -69,6 +69,7 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
         return resp.json()["choices"][0]["message"]["content"]
 
     try:
+        print(f"   🔧 调用 LLM: {model}（兜底模型={fallback_model}）")
         return retry(lambda: _call(url, api_key, model), desc=f"LLM({model})")
     except requests.exceptions.HTTPError as e:
         status = e.response.status_code if e.response is not None else None
@@ -124,3 +125,68 @@ def safe_json_loads(text):
             return result
 
     raise ValueError(f"Unable to parse JSON after all fixes. Raw (first 300 chars): {text[:300]}")
+
+
+def try_parse_json(text):
+    """Best-effort JSON parser that returns None on failure instead of raising.
+
+    Strips common LLM reasoning blocks (<think>...</think>) and markdown fences
+    before delegating to safe_json_loads. Treats empty/whitespace responses as
+    failures so callers can rotate to the next model.
+    """
+    import re
+    if not text or not text.strip():
+        return None
+    # Strip reasoning / thinking blocks (e.g., DeepSeek/Hunyuan reasoning)
+    text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL).strip()
+    if not text:
+        return None
+    # If markdown fence exists anywhere, prefer the fenced block
+    if '```' in text and not text.startswith('```'):
+        m = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', text, flags=re.DOTALL)
+        if m:
+            text = m.group(1).strip()
+    try:
+        return safe_json_loads(text)
+    except Exception:
+        return None
+
+
+def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, timeout=120,
+                  parser=try_parse_json):
+    """Try a list of LLM candidates until one returns parseable JSON.
+
+    Args:
+        messages: OpenAI-compatible messages list.
+        candidates: list of (url, api_key, model_name) tuples.
+        parser: function(text) -> parsed object or None.
+
+    Returns:
+        (parsed_object, model_used)
+
+    Raises:
+        ValueError if all candidates fail.
+    """
+    last_err = None
+    for url, key, model in candidates:
+        if not url or not key:
+            continue
+        try:
+            print(f"   🔧 尝试 LLM: {model}")
+            resp_text = call_llm(url, key, model, messages,
+                                 temperature=temperature, max_tokens=max_tokens, timeout=timeout,
+                                 fallback_url=None, fallback_key=None, fallback_model=None)
+            if not resp_text or not resp_text.strip():
+                print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
+                continue
+            parsed = parser(resp_text)
+            if parsed is None:
+                print(f"   ⚠️ LLM({model}) 返回内容无法解析为 JSON，尝试下一个模型")
+                continue
+            print(f"   ✅ LLM({model}) 返回可用 JSON")
+            return parsed, model
+        except Exception as e:
+            preview = str(e)[:200]
+            print(f"   ⚠️ LLM({model}) 调用失败: {preview}")
+            last_err = e
+    raise ValueError(f"所有 LLM 候选均未能返回可用 JSON。最后错误: {last_err}")

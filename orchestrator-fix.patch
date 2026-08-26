@@ -1,0 +1,24 @@
+diff --git a/orchestrator.py b/orchestrator.py
+index 42d348f..c313330 100644
+--- a/orchestrator.py
++++ b/orchestrator.py
+@@ -516,14 +516,16 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
+         try:
+             topics = safe_json_loads(response)
+             break  # success
+-        except ValueError:
++        except ValueError as e:
++            preview = (response or "")[:800].replace("\n", " ")
++            print(f"   ⚠️ JSON 解析失败 (attempt {attempt+1}/3): {e} | 原始响应前800字: {preview}")
+             if attempt < 2:
+-                print(f"   ⚠️ JSON 解析失败 (attempt {attempt+1}/3)，重试...")
+                 continue
+             print(f"   ❌ JSON 解析失败 (3次均失败)，跳过LLM选题")
+             topics = None
+     if topics is None:
+-        return [], []
++        print("   ℹ️ 选题 LLM 未返回可用 JSON，本次跳过选题（不影响其他步骤）")
++        return []
+     if topics and isinstance(topics, dict) and "title" in topics:
+         topics = [topics]  # LLM returned single object instead of array
+     if not isinstance(topics, list):

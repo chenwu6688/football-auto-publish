@@ -195,6 +195,7 @@ def load_articles(date_str, batch_filter=None):
     # Apply batch filter if specified
     if batch_filter:
         before = len(articles)
+        all_articles = articles  # 保留原始列表，供兜底发布
         # Try direct match first, then map English key → Chinese display name
         batch_names_to_match = {batch_filter}
         if batch_filter in BATCH_NAME_MAP:
@@ -204,10 +205,15 @@ def load_articles(date_str, batch_filter=None):
         if skipped > 0:
             print(f"🔍 批次筛选 '{batch_filter}': {before} → {len(articles)} 篇 (跳过 {skipped} 篇其他批次)")
         if not articles:
-            print(f"❌ 没有找到 {batch_filter} 批次的文章 (共 {before} 篇其他批次)，中止发布")
-            print(f"   这通常意味着生成步骤未正确写入 batch_name 元数据")
-            print(f"   请检查 orchestrator 日志确认生成结果")
-            sys.exit(1)
+            if before > 0:
+                # 批次过滤 0 命中但有文章：说明 batch_name 缺失（如应急/预测文章未打标签）。
+                # 降级发布全部文章，避免整批失败丢失内容。
+                print(f"⚠️ 批次筛选 '{batch_filter}' 未匹配到文章 (目录共 {before} 篇，batch_name 可能缺失)")
+                print(f"   为不丢失内容，降级发布全部 {before} 篇 (请检查 orchestrator 是否正确写入 batch_name)")
+                articles = all_articles
+            else:
+                print(f"❌ 没有找到 {batch_filter} 批次的文章 (目录为空)，中止发布")
+                sys.exit(1)
 
     if not articles:
         print(f"❌ {date_dir} 中没有找到文章")
