@@ -169,6 +169,8 @@ BATCH_CONFIG = {
     "morning": {
         "name": "晨读",
         "time": "08:00",
+        # 单批生成上限：突破固定 2 篇限制，按当日实际高质量话题数动态决定（栏目循环复用）
+        "max_articles": 4,
         "reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
         "overall_tone": "轻快、信息密度高、适合碎片化阅读",
         "slots": [
@@ -205,6 +207,7 @@ BATCH_CONFIG = {
     "noon": {
         "name": "午间",
         "time": "12:00",
+        "max_articles": 4,
         "reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
         "overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
         "slots": [
@@ -241,6 +244,7 @@ BATCH_CONFIG = {
     "evening": {
         "name": "晚间",
         "time": "17:30",
+        "max_articles": 5,
         "reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
         "overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
         "slots": [

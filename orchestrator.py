@@ -5,6 +5,7 @@ Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
 import os, json, sys, subprocess, requests, time, re, signal, yaml
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from pathlib import Path
@@ -304,10 +305,10 @@ def _assign_columns_to_topics(topics, batch_mode):
     batch_cfg = BATCH_CONFIG[batch_mode]
     slots = batch_cfg["slots"]
 
+    n_slots = len(slots)
     for i, topic in enumerate(topics):
-        if i >= len(slots):
-            break
-        slot = slots[i]
+        # 动态条数可能超过固定栏目数：循环复用栏目，避免越界导致后续话题缺失栏目元数据
+        slot = slots[i % n_slots]
         topic["_column_id"] = slot["column_id"]
         topic["_column_name"] = slot["column_name"]
         topic["_column_icon"] = slot["icon"]
@@ -446,19 +447,40 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
             if low_types:
                 weight_hint += f"降低频率: {', '.join(low_types)}\n"
 
-    # Post-World Cup guidance: focus on transfer news, avoid Chinese leagues
+    # Season-aware guidance: 不同赛季节奏给 LLM 不同的选题侧重
     season_guidance = ""
     if season_label == "休赛期过渡":
         season_guidance = """
-## 📌 休赛期选题指引（2026世界杯已结束，新赛季未开始）
-当前是欧洲杯赛休赛期，注意：
-1. ✅ 夏季转会窗是最大热点 — 优先选转会相关话题
+## 📌 休赛期选题指引（新赛季未开始）
+当前是赛程空窗期，注意：
+1. ✅ 夏季/冬季转会窗是最大热点 — 优先选转会相关话题
 2. ✅ 球员场外花边、经典回顾、赛季前瞻正当其时
 3. ✅ 中超/中甲/中乙等中国联赛可选 — 前提是懂球帝/直播吧当日有相关源文章
 4. ✅ **2034杯（全国青少年足球锦标赛）** — 近期热度高，如懂球帝/直播吧有相关文章可选
 5. ❌ 不要从比赛比分中"创造"话题 — 所有话题必须有对应源文章
 6. ⚠️ 2034杯等青少年赛事：只能写赛事氛围、感人故事、整体趋势，**绝对不能对具体小球员做"天赋""前途""技术"等断言**
 """
+    elif season_label == "新赛季进行期":
+        season_guidance = """
+## 📌 新赛季选题指引（五大联赛 + 欧联/欧冠进行中）
+当前新赛季已开打，内容应多维覆盖，避免单一维度堆砌：
+1. ✅ 赛程赛况：当日/近期比赛结果、积分榜变化、争冠/保级/出线形势
+2. ✅ 转会动态：关窗前后签约、租借、续约、解约（结合夏窗/冬窗节点）
+3. ✅ 球员八卦：场外花边、伤病、更衣室、个人生活
+4. ✅ 比赛分析：战术解读、数据复盘、关键球员表现与趋势
+5. ⚠️ 同一场比赛不要既写"赛果"又写"分析"两篇雷同稿——换角度或换比赛
+6. ❌ 不要从比赛比分中"创造"话题——所有话题必须有对应源文章
+"""
+
+    # Season-aware diversity hint（注入到"内容多样性铁律"中，替换原先写死的休赛期文案）
+    if season_label == "休赛期过渡":
+        season_focus_text = "- 非比赛话题（转会传闻、球员趣事、经典回顾）优先选择——休赛期读者更爱看这些"
+    elif season_label == "新赛季进行期":
+        season_focus_text = ("- 新赛季进行中：多维覆盖赛程赛况、转会动态、球员八卦、比赛分析（战术/数据），"
+                             "避免只写单一维度；有真实比赛的优先写赛果与看点，无比赛的用转会/八卦/前瞻填充")
+    else:
+        season_focus_text = ("- 比赛话题与非比赛话题按当日素材质量自然配比，优先选最具话题性的事件；"
+                             "转会/八卦类素材丰富时适当提高其占比")
 
     prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的选题素材。
 
@@ -477,7 +499,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 
 📌 **内容多样性铁律（最重要规则）**：
 - {topic_count} 个话题必须是 {topic_count} 个不同的事件——不能都是同一场比赛或同一转会故事
-- 非比赛话题（转会传闻、球员趣事、经典回顾）优先选择——休赛期读者更爱看这些
+{season_focus_text}
 - 如果当日素材中有转会新闻或场外话题，优先选择非比赛内容
 
 ⚠️ 去重铁律：
@@ -511,7 +533,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # Multi-model rotation on JSON parse failure / empty response.
     # Default order: hy3 -> hunyuan-lite -> hunyuan-turbo -> ... -> qwen-turbo
     try:
-        topics, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES, temperature=0.7, max_tokens=4096)
+        topics, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES, temperature=0.7, max_tokens=2048)
     except ValueError as e:
         print(f"   ❌ 所有 LLM 候选均未能返回可用 JSON: {e}")
         print("   跳过LLM选题")
@@ -916,10 +938,13 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
         {"role": "user", "content": prompt},
     ]
 
-    response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages,
-                        temperature=temperature, max_tokens=8192,
-                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
-    article = safe_json_loads(response)
+    # 多模型轮换 + 免费额度管理（空响应/解析失败自动切换，避免单模型空响应导致改写失败）
+    try:
+        article, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                             temperature=temperature, max_tokens=8192)
+    except ValueError as e:
+        print(f"   ❌ 改写：所有 LLM 候选均失败: {e}")
+        return {}
 
     if article and isinstance(article, dict):
         article["content_type"] = content_type
@@ -1571,9 +1596,12 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         {"role": "system", "content": f"你是头条号足球博主'球评人老六'，擅长突发事件快评。{style} 只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
-    response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH, messages, temperature=temperature, max_tokens=4096,
-                        fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
-    article = safe_json_loads(response)
+    try:
+        article, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                             temperature=temperature, max_tokens=4096)
+    except ValueError as e:
+        print(f"   ❌ 紧急球评：所有 LLM 候选均失败: {e}")
+        return {}
     print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
     return article
 
@@ -1582,15 +1610,51 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 # Main
 # ============================================================
 
+def _has_source_for_topic(topic, match_data):
+    """快速预检：该话题是否能在源文章/转会/新闻中找到可改写素材。
+
+    逻辑与 generate_article_with_retry 的匹配保持一致（fixture 匹配 或 新闻标题关键词匹配），
+    用于生成前提前跳过注定失败的话题，避免浪费 LLM 调用（优化②：减少无谓失败与耗时）。
+    """
+    if _find_source_article(topic, match_data):
+        return True
+    # 退路：新闻/转会标题与话题关键词匹配（generate_article_with_retry 会懒加载正文）
+    news = list(match_data.get("news_articles", [])) + list(match_data.get("transfer_news", []))
+    if not news:
+        return False
+    topic_kw = set(k.lower() for k in (topic.get("keywords", []) or []) + (topic.get("keywords_cn", []) or []))
+    topic_text = (topic.get("title", "") + " " + topic.get("angle", "")).lower()
+    for art in news:
+        art_title = art.get("title", "").lower()
+        if not art_title:
+            continue
+        if topic_kw and any(kw in art_title for kw in topic_kw):
+            return True
+        if any(word in topic_text for word in art_title.split()):
+            return True
+    # 话题无关键词时，generate_article_with_retry 会按"匹配任意"处理，视为可尝试
+    return len(topic_kw) == 0
+
+
 def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
-                                    articles_out, date_str=None):
-    """Pipeline A：对每个话题从直播吧/懂球帝源文章改写为老六风格。
+                                    articles_out, date_str=None, max_workers=3):
+    """Pipeline A：对每个话题从直播吧/懂球帝源文章改写为老六风格（并行生成以缩短耗时）。
 
     配图优先级：① 源文章战报图片 → ② Unsplash/Wikipedia 搜索。
+    生成前先做源文章存在性预检，跳过注定失败的话题（优化②）；
+    各话题并行改写，wall-clock 时间随并发数下降（优化③）。
     """
-    for i, topic in enumerate(topics[:count]):
+    selected = topics[:count]
+    if not selected:
+        return
+
+    def _gen_one(i, topic):
         ct = topic.get("content_type", "N/A")
         print(f"\n--- 第{i+1}/{count}篇 [{ct}] ---")
+
+        # 优化②：源文章存在性预检，提前跳过注定失败的话题
+        if not _has_source_for_topic(topic, match_data):
+            return i, None, f"未找到与话题「{topic.get('title','')[:20]}」匹配的源文章（预检跳过）", []
 
         # 优先用源文章的配图（比赛相关，不重复）
         source_imgs = []
@@ -1605,12 +1669,25 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
         else:
             imgs = search_images(topic, count=5)
 
-        images_map[i] = imgs
         art, error = generate_article_with_retry(topic, match_data, i + 1,
                                                   max_retries=2, date_str=date_str)
+        return i, (art if not error else None), error, imgs
+
+    results = {}
+    with ThreadPoolExecutor(max_workers=min(max_workers, len(selected))) as ex:
+        futures = [ex.submit(_gen_one, i, topic) for i, topic in enumerate(selected)]
+        for fut in as_completed(futures):
+            i, art, error, imgs = fut.result()
+            results[i] = (art, error, imgs)
+
+    # 按原顺序汇总，保证文章/配图索引一致（main 末尾会按 index 排序，这里顺序不影响最终输出）
+    for i in sorted(results.keys()):
+        art, error, imgs = results[i]
+        images_map[i] = imgs
+        ct = selected[i].get("content_type", "N/A")
         stats["generated"] += 1
         if error:
-            print(f"   ❌ 最终失败: {error}")
+            print(f"   ❌ 第{i+1}篇失败: {error}")
             stats["failed"] += 1
             stats["issues"].append(f"第{i+1}篇({ct}): {error}")
         else:
@@ -1681,10 +1758,9 @@ def generate_prediction_article(future_matches, date_str=None):
 
     for attempt in range(3):
         try:
-            response = call_llm(HY3_BASE_URL, HY3_API_KEY, HY3_MODEL_FLASH,
-                                messages, temperature=0.7, max_tokens=4096,
-                                fallback_url=DASHSCOPE_URL, fallback_key=DASHSCOPE_KEY, fallback_model="qwen-turbo")
-            article = safe_json_loads(response)
+            # 多模型轮换 + 免费额度管理（空响应/解析失败自动切换，避免单模型空响应导致预测生成失败）
+            article, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                                 temperature=0.7, max_tokens=4096)
             if not isinstance(article, dict) or not article.get("title"):
                 if attempt < 2:
                     print(f"   ⚠️ 预测文章解析失败 (attempt {attempt+1}/3)，重试...")
@@ -1731,12 +1807,18 @@ def main():
     if batch_mode in BATCH_CONFIG:
         batch_cfg = BATCH_CONFIG[batch_mode]
         slots = batch_cfg["slots"]
-        article_count = len(slots)
+        # 单批生成上限：突破固定 2 篇，按当日实际高质量话题数动态决定（见下方 select_topics 后裁剪）
+        max_articles = batch_cfg.get("max_articles", len(slots))
+        article_count = len(slots)  # 初始值用于打印；select_topics 返回后按实际话题数动态裁剪
         # Columns are fixed per batch — no season weight type swapping
         # Season weights only affect topic selection framing, not column identity
         column_names = [s["column_name"] for s in slots]
-        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, 栏目={', '.join(column_names)}, {batch_cfg['name']}·{batch_cfg['time']})\n")
+        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, 栏目={', '.join(column_names)}, {batch_cfg['name']}·{batch_cfg['time']}, 单批上限={max_articles}篇)\n")
         target_types = None  # Column-driven, not type-driven
+    else:
+        max_articles = 4
+        article_count = 2
+        target_types = None
     start_time = time.time()
     log.info(f"开始执行 — 日期:{date_str} 批次:{batch_mode}")
     success = False
@@ -1789,15 +1871,25 @@ def main():
             return
 
         # Topic selection via LLM (based on match data + column domain guidance)
+        # 请求上限为 max_articles，让 LLM 在素材丰富时多选、素材匮乏时少选
         topics = select_topics(match_data, topic_history=topic_history,
                                preferred_types=target_types,
                                season_weights=season_weights,
                                cross_batch_covered=cross_batch_covered,
                                season_label=season_label,
-                               topic_count=article_count,
+                               topic_count=max_articles,
                                yesterday_keywords=yesterday_keywords)
         extra_meta = {"type": "match_analysis"}
         _assign_columns_to_topics(topics, batch_mode)
+
+        # 动态条数：按实际返回的高质量话题数裁剪，单批不超过 max_articles（去除固定 2 篇硬限制）
+        article_count = min(len(topics), max_articles)
+        if article_count >= max_articles:
+            print(f"   📈 动态条数：本批生成 {article_count} 篇（已达上限 {max_articles}）")
+        elif article_count > 0:
+            print(f"   📉 动态条数：本批实际高质量话题 {len(topics)} 个，生成 {article_count} 篇（上限 {max_articles}）")
+        else:
+            print(f"   ⚠️ 动态条数：LLM 未返回可用话题，本批主稿 0 篇（将走应急/空批次兜底）")
 
         # Generate articles: find source article for each topic, rewrite to 老六 style
         _generate_articles_from_topics(topics, article_count, match_data,

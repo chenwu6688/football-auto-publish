@@ -71,21 +71,21 @@ schedule:
     morning:
       name: 晨读
       cron: 0 0 * * *
-      article_count: 2
+      article_count: 4  # 单批上限（动态条数，实际数量按当日高质量话题决定，不再固定 2 篇）
       columns:
       - 晨读快讯
       - 话题擂台
     noon:
       name: 午间
       cron: 0 4 * * *
-      article_count: 2
+      article_count: 4  # 单批上限（动态条数）
       columns:
       - 午间快讯
       - 热点速评
     evening:
       name: 晚间
       cron: 30 9 * * *
-      article_count: 2
+      article_count: 5  # 单批上限（动态条数）
       columns: dynamic
       column_pool:
       - 世界杯日报
@@ -98,12 +98,12 @@ season_weights:
   - 8
   - 9
   weights:
-    热点球评: 1.0
-    转会资讯: 2.0
+    热点球评: 1.5
+    转会资讯: 1.5
     排行榜: 1.0
-    八卦趣事: 1.2
-    战术解析: 0.8
-  label: 夏季转会窗
+    八卦趣事: 1.3
+    战术解析: 1.2
+  label: 新赛季进行期
 - months:
   - 3
   - 4
