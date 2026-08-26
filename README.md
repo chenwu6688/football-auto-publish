@@ -61,8 +61,11 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 ## 功能特性 / Features
 
-- ✅ **每日三班自动生成**：晨读（08:00）、午间（12:00）、晚间（17:30 CST），每班 2 篇。
-- ✅ **动态栏目池**：晚间从 6 个候选栏目中按当日热点智能挑 2 个，内容不僵化。
+- ✅ **每日三班自动生成**：晨读（08:00）、午间（12:00）、晚间（17:30 CST）。
+- ✅ **动态条数（不再固定 2 篇）**：每批按当日高质量话题数动态生成，晨读/午间上限 4 篇、晚间上限 5 篇；素材少则少发，素材多则多发。
+- ✅ **动态栏目池**：晚间从候选栏目中按当日热点智能挑选，内容不僵化。
+- ✅ **多模型轮换 + 免费额度管理**：LLM 调用在 TokenHub 多模型池（hy3 / DeepSeek v4 / GLM-5 / Kimi / Hunyuan / MiniMax 等 20+ 模型）中按序轮换，单模型空响应/解析失败自动切下一个；每个模型免费额度用满前自动切换，避免产生实际费用（用量见 `data/llm_usage.json`）。
+- ✅ **赛季感知选题**：新赛季（8/9 月「新赛季进行期」）多维覆盖赛程赛况、转会动态、球员八卦、比赛分析，避免单一维度堆砌。
 - ✅ **多数据源融合**：
   - 比赛/转会数据：football-data.org
   - 热点发现：公众号爆款探测器（`skills/gzh-explosive-content-detector`）
@@ -93,8 +96,8 @@ flowchart LR
 每日流程（`batch.yml` 由 cron 触发）：
 
 1. **确定批次**：根据当前 CST 时段判定 morning / noon / evening。
-2. **选题**：按栏目规则 + 数据源打分，选出当日话题与角度。
-3. **生成**：LLM 按栏目人设写稿（带互动投票/站队引导）。
+2. **选题**：LLM 多模型轮换按栏目规则 + 数据源打分，选出当日话题与角度（新赛季自动偏向赛程/转会/八卦/分析多维覆盖）。
+3. **生成**：LLM 按栏目人设写稿（带互动投票/站队引导）；改写与赛前预测同样走多模型轮换，单模型空响应自动切换。
 4. **配图排版**：抓取球员图/通用图，渲染 Markdown。
 5. **发布**：头条号浏览器自动化发文；同步小程序静态数据。
 6. **巡检**：心跳工作流核对批次完成情况，缺失则告警。
@@ -106,7 +109,7 @@ flowchart LR
 | 层 | 技术 |
 |---|---|
 | 语言 | Python 3 |
-| LLM | TokenHub（tencentmaas，OpenAI 兼容）/ DeepSeek；通义千问 DashScope 兜底 |
+| LLM | TokenHub 多模型池（hy3 / DeepSeek v4 / GLM-5 / Kimi / Hunyuan / MiniMax 等 20+ 模型，按序轮换）；通义千问 DashScope qwen-turbo 兜底；免费额度用满前自动切换 |
 | 数据 | football-data.org、公众号抓取、Wikipedia API、Unsplash、Footyrenders |
 | 自动化 | GitHub Actions（`batch.yml` / `daily.yml` / `heartbeat.yml`） |
 | 浏览器 | Playwright（头条号发布） |
@@ -187,7 +190,7 @@ football-auto-publish/
 |---|---|
 | GitHub Actions 运行 | 公开仓库免费额度内基本为 0 |
 | 小程序静态托管（jsDelivr CDN） | 免费 |
-| LLM 调用（TokenHub / DeepSeek） | 极低，按量计费 |
+| LLM 调用 | 0 元：多模型免费额度按序轮换，用满前自动切换，几乎不触发付费 |
 | 数据 API（football-data 等） | 免费档或按需 |
 | 头条号 / 小程序 | 平台免费 |
 
@@ -201,7 +204,7 @@ football-auto-publish/
 
 1. **真·无人值守**：从选题到发布全链路自动化，断更焦虑归零。
 2. **有 IP 才有价值**：固定人设「老六」输出观点，沉淀的是**粉丝与互动**，而不是一次性阅读——这对涨粉和后续变现才是关键。
-3. **成本几乎为零**：白嫖 CI + 免费 CDN + 便宜 LLM，一个人就能养一个"日更三篇"的号。
+3. **成本几乎为零**：白嫖 CI + 免费 CDN + 多模型免费额度轮换的 LLM，一个人就能养一个"日更三篇"的号。
 4. **工程上能长期跑**：幂等防重、重试兜底、健康巡检、告警——这些"看不见的活"决定了一个自动化项目是跑三天还是跑三年。
 5. **可演进**：栏目、人格、数据源都在 `constants.py` / `config.yaml` / `prompts/` 里集中配置，想换风格、加栏目、接新平台都很容易。
 
