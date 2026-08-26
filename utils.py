@@ -7,6 +7,8 @@ retry, call_llm, safe_json_loads, load_prompt_template — 被所有模块使用
 import json, time, requests
 from pathlib import Path
 
+from constants import LLM_USAGE_FILE, LLM_FREE_QUOTA_TOKENS, LLM_USAGE_THRESHOLD
+
 PROMPT_DIR = Path(__file__).parent / "prompts"
 
 
@@ -53,12 +55,16 @@ def retry(func, *args, max_retries=3, base_delay=2, desc="API", **kwargs):
 
 
 def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, timeout=120,
-             fallback_url=None, fallback_key=None, fallback_model=None):
+             fallback_url=None, fallback_key=None, fallback_model=None, usage_ref=None):
     """Call LLM with optional fallback to another provider on auth/credit errors.
 
     When the primary provider returns 401/402/403/404, automatically retry
     with the fallback provider. Set fallback_url/fallback_key/fallback_model
     to enable this behavior (e.g. hy3/Hunyuan → Qwen on quota exhaustion).
+
+    Args:
+        usage_ref: Optional dict-like object. If provided, it will be populated
+                   with {"model": str, "usage": dict} from the response.
     """
     def _call(u, k, m):
         resp = requests.post(u, json={
@@ -66,7 +72,11 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
             "max_tokens": max_tokens, "stream": False
         }, headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"}, timeout=timeout)
         resp.raise_for_status()
-        return resp.json()["choices"][0]["message"]["content"]
+        data = resp.json()
+        if usage_ref is not None:
+            usage_ref["model"] = m
+            usage_ref["usage"] = data.get("usage", {})
+        return data["choices"][0]["message"]["content"]
 
     try:
         print(f"   🔧 调用 LLM: {model}（兜底模型={fallback_model}）")
@@ -152,9 +162,46 @@ def try_parse_json(text):
         return None
 
 
+def _load_llm_usage(path=LLM_USAGE_FILE):
+    """Load accumulated LLM token usage from disk."""
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _save_llm_usage(usage, path=LLM_USAGE_FILE):
+    """Persist accumulated LLM token usage to disk."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(usage, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _is_model_quota_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD):
+    """Return True if the model's accumulated usage is below the free-quota threshold."""
+    used = usage.get(model, {}).get("total_tokens", 0)
+    limit = quota * threshold
+    return used < limit
+
+
+def _add_llm_usage(usage, model, usage_info):
+    """Add usage_info (prompt/completion/total_tokens) to accumulated usage for model."""
+    if not usage_info or not isinstance(usage_info, dict):
+        return usage
+    prev = usage.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0})
+    for k in ("prompt_tokens", "completion_tokens", "total_tokens"):
+        prev[k] = prev.get(k, 0) + usage_info.get(k, 0)
+    return usage
+
+
 def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, timeout=120,
-                  parser=try_parse_json):
+                  parser=try_parse_json,
+                  usage_file=LLM_USAGE_FILE,
+                  quota=LLM_FREE_QUOTA_TOKENS,
+                  threshold=LLM_USAGE_THRESHOLD):
     """Try a list of LLM candidates until one returns parseable JSON.
+
+    Skips models whose accumulated token usage has reached the free-quota
+    threshold (default 90%) to avoid pay-as-you-go charges.
 
     Args:
         messages: OpenAI-compatible messages list.
@@ -167,15 +214,21 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
     Raises:
         ValueError if all candidates fail.
     """
+    usage = _load_llm_usage(usage_file)
     last_err = None
     for url, key, model in candidates:
         if not url or not key:
             continue
+        if not _is_model_quota_available(model, usage, quota, threshold):
+            print(f"   ⏭️ LLM({model}) 免费额度已接近上限 ({usage.get(model, {}).get('total_tokens', 0)}/{quota} tokens)，跳过")
+            continue
         try:
             print(f"   🔧 尝试 LLM: {model}")
+            usage_ref = {}
             resp_text = call_llm(url, key, model, messages,
                                  temperature=temperature, max_tokens=max_tokens, timeout=timeout,
-                                 fallback_url=None, fallback_key=None, fallback_model=None)
+                                 fallback_url=None, fallback_key=None, fallback_model=None,
+                                 usage_ref=usage_ref)
             if not resp_text or not resp_text.strip():
                 print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
                 continue
@@ -183,6 +236,9 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             if parsed is None:
                 print(f"   ⚠️ LLM({model}) 返回内容无法解析为 JSON，尝试下一个模型")
                 continue
+            # Success: record usage and persist it
+            usage = _add_llm_usage(usage, usage_ref.get("model", model), usage_ref.get("usage", {}))
+            _save_llm_usage(usage, usage_file)
             print(f"   ✅ LLM({model}) 返回可用 JSON")
             return parsed, model
         except Exception as e:

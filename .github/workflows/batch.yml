@@ -228,6 +228,28 @@ jobs:
         run: |
           python orchestrator.py "${{ steps.params.outputs.today }}" --batch="${{ steps.params.outputs.batch }}"
 
+      - name: 回写 LLM 用量统计
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 持久化 LLM 额度消耗，供下次运行按免费额度阈值选择模型
+          git config user.name "github-actions[bot]" || true
+          git config user.email "github-actions[bot]@users.noreply.github.com" || true
+          git add -f data/llm_usage.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: LLM 用量统计回写"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ LLM 用量统计已回写"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          else
+            echo "📝 LLM 用量无变化，跳过提交"
+          fi
+
       - name: 回写生成结果（跨批次去重）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         env:

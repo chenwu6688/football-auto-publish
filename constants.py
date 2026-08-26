@@ -49,15 +49,30 @@ DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completi
 FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
 
 # --- 多模型轮换（JSON 依赖型调用，如话题筛选）---
-# 默认：优先同厂商（腾讯云 TokenHub / Hunyuan）免费模型依次尝试，最后跨厂商兜底到 DashScope qwen-turbo。
-# 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔），例如 secrets.HY3_ROTATION_MODELS="hy3,hunyuan-lite"
-_HY3_ROTATION_MODELS = os.environ.get("HY3_ROTATION_MODELS", "hy3,hunyuan-lite,hunyuan-turbo,hunyuan-standard").split(",")
+# 默认：优先同一 TokenHub 账号下的多厂商免费模型依次尝试（URL/key 相同，仅 model 名不同）。
+# hy3 额度接近上限后自动切换到其余 100% 免费模型，最后跨厂商兜底到 DashScope qwen-turbo。
+# 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
+_HY3_ROTATION_MODELS = os.environ.get(
+    "HY3_ROTATION_MODELS",
+    "hy3,"
+    "kimi-k3,deepseek-v4-flash-202605,deepseek-v4-pro-202606,deepseek-v4-pro,deepseek-v4-flash,"
+    "glm-5.2,glm-5.1,glm-5,glm-5-turbo,glm-5v-turbo,"
+    "kimi-k2.6,kimi-k2.7-code,kimi-k2.7-code-highspeed,"
+    "hy-mt2-plus,hy-mt2-lite,hy-role,hunyuan-role-latest,"
+    "minimax-m2.7,minimax-m3"
+).split(",")
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
 LLM_JSON_CANDIDATES = [
     (HY3_BASE_URL, HY3_API_KEY, model) for model in HY3_ROTATION_MODELS
 ] + [
     (DASHSCOPE_URL, DASHSCOPE_KEY, "qwen-turbo"),
 ]
+
+# --- LLM 免费额度管理 ---
+# 当某模型累计 token 达到阈值（默认 90% 免费额度）时，自动跳过该模型，避免产生按量计费。
+LLM_USAGE_FILE = PROJECT_ROOT / "data" / "llm_usage.json"
+LLM_FREE_QUOTA_TOKENS = int(os.environ.get("LLM_FREE_QUOTA_TOKENS", "1000000"))
+LLM_USAGE_THRESHOLD = float(os.environ.get("LLM_USAGE_THRESHOLD", "0.9"))
 
 # --- WxPusher ---
 WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")
