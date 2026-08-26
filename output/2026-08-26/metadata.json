@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
-  "generated_at": "2026-08-26T02:55:35.202034",
-  "total_articles": 1,
+  "generated_at": "2026-08-26T04:21:31.186025",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -34,18 +34,123 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "卖人还得看切尔西！德拉普4500万镑加盟森林",
+      "path": "/home/runner/work/_temp/output/2026-08-26/article-1-卖人还得看切尔西-65ec5d.md",
+      "slug": "卖人还得看切尔西-65ec5d",
+      "tags": [
+        "Delap",
+        "Nottingham Forest",
+        "Chelsea",
+        "transfer",
+        "45m"
+      ],
+      "keywords": [
+        "Delap",
+        "Nottingham Forest",
+        "Chelsea",
+        "transfer",
+        "45m"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-26/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "伯明翰 1-6 布伦特福德，7球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "43岁孔卡晒甜蜜日常，昔日天体之王如今活成了这样",
+      "angle": "从孔卡最新社媒动态切入，回顾这位中超传奇外援的巅峰时刻，对比当下中国足球的归化乱象与外援质量下滑，引发球迷怀旧情绪和对金元足球时代的复杂情感。",
+      "keywords": [
+        "Dario Conca",
+        "Guangzhou Evergrande",
+        "Chinese Super League"
+      ],
+      "keywords_cn": [
+        "孔卡",
+        "广州恒大",
+        "天体之王",
+        "金元足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "孔卡是中超历史上最成功的外援之一，43岁近况能引发大量球迷怀旧共鸣，天然带流量。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "已11队砸钱超1亿！这个夏窗，英超的购买力是不是太离谱了？",
+      "angle": "以英超球队今夏巨额转会支出数据为切入点，用反问句式引发对英超与其他联赛财力差距的讨论，探讨这种寡头化趋势对足球生态的影响，立场鲜明地指出英超正在变成'超级联赛'。",
+      "keywords": [
+        "Premier League",
+        "transfer spending",
+        "summer window"
+      ],
+      "keywords_cn": [
+        "英超",
+        "转会支出",
+        "夏窗",
+        "购买力"
+      ],
+      "content_type": "转会资讯",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "今夏转会窗最大的话题就是英超的钞能力，数据极具冲击力，能引发球迷关于联赛平衡的热议。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-26 10:55:35"
+  "last_batch": "noon",
+  "last_updated": "2026-08-26 12:21:31"
 }
