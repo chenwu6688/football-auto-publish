@@ -1,7 +1,7 @@
 {
   "date": "2026-08-26",
-  "generated_at": "2026-08-26T04:21:31.186025",
-  "total_articles": 2,
+  "generated_at": "2026-08-26T10:13:45.617297",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -66,91 +66,367 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "陈涛更衣室三连问，陕西联合客场1-4输得明白吗？",
+      "path": "/home/runner/work/_temp/output/2026-08-26/article-1-陈涛更衣室三连问-8aacbb.md",
+      "slug": "陈涛更衣室三连问-8aacbb",
+      "tags": [
+        "China League One",
+        "Shaanxi Union",
+        "Chen Tao",
+        "Nantong Zhiyun",
+        "dressing room"
+      ],
+      "keywords": [
+        "China League One",
+        "Shaanxi Union",
+        "Chen Tao",
+        "Nantong Zhiyun",
+        "dressing room"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-26/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "中超看台乱象：赛区该背锅还是俱乐部？",
+      "path": "/home/runner/work/_temp/output/2026-08-26/article-2-中超看台乱象赛区-af2734.md",
+      "slug": "中超看台乱象赛区-af2734",
+      "tags": [
+        "Chinese Super League",
+        "fan misconduct",
+        "match security",
+        "stadium management"
+      ],
+      "keywords": [
+        "Chinese Super League",
+        "fan misconduct",
+        "match security",
+        "stadium management"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-26/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "足协杯1/4决赛前，卢建辰：干完找张玉宁合影",
+      "path": "/home/runner/work/_temp/output/2026-08-26/article-3-足协杯14决赛前-e1ca4e.md",
+      "slug": "足协杯14决赛前-e1ca4e",
+      "tags": [
+        "Chinese FA Cup",
+        "Beijing Guoan",
+        "Lanzhou Longyuan Jingji",
+        "Lu Jianchen",
+        "Zhang Yuning"
+      ],
+      "keywords": [
+        "Chinese FA Cup",
+        "Beijing Guoan",
+        "Lanzhou Longyuan Jingji",
+        "Lu Jianchen",
+        "Zhang Yuning"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-26/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "08黄金一代破土而出，中国青训终见曙光？",
+      "path": "/home/runner/work/_temp/output/2026-08-26/article-4-08黄金一代破土-bf5acd.md",
+      "slug": "08黄金一代破土-bf5acd",
+      "tags": [
+        "Chinese football",
+        "youth academy",
+        "Bunyamin",
+        "Evergrande football school",
+        "2008 generation"
+      ],
+      "keywords": [
+        "Chinese football",
+        "youth academy",
+        "Bunyamin",
+        "Evergrande football school",
+        "2008 generation"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "老六精准预测：皇马巴萨双线齐发，里昂恐翻车，帕尔梅拉斯德比稳胆",
+      "path": "/home/runner/work/_temp/output/2026-08-26/article-5-老六精准预测皇马-46adfd.md",
+      "slug": "老六精准预测皇马-46adfd",
+      "tags": [
+        "football prediction",
+        "Real Madrid",
+        "Barcelona",
+        "Lyon",
+        "Chelsea",
+        "Palmeiras"
+      ],
+      "keywords": [
+        "football prediction",
+        "Real Madrid",
+        "Barcelona",
+        "Lyon",
+        "Chelsea",
+        "Palmeiras"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-26/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-26/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "43岁孔卡晒甜蜜日常，昔日天体之王如今活成了这样",
-      "angle": "从孔卡最新社媒动态切入，回顾这位中超传奇外援的巅峰时刻，对比当下中国足球的归化乱象与外援质量下滑，引发球迷怀旧情绪和对金元足球时代的复杂情感。",
+      "title": "陈涛更衣室暴怒：别骗球迷，别太爱惜自己羽毛！",
+      "angle": "从陈涛极具冲击力的更衣室喊话切入，探讨中国足球长期存在的“敷衍”文化，对比职业球员和球迷的付出落差，发出“球员凭什么觉得自己比球迷金贵”的拷问。",
       "keywords": [
-        "Dario Conca",
-        "Guangzhou Evergrande",
-        "Chinese Super League"
+        "Chen Tao",
+        "dressing room",
+        "Chinese football"
+      ],
+      "keywords_cn": [
+        "陈涛",
+        "更衣室",
+        "中国足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "金句锐利，切中球迷痛点，能引发对中国足球职业态度的激烈讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "43岁孔卡携娇妻出游，当年的天体之王如今怎样了？",
+      "angle": "借孔卡晒照秀恩爱，勾起老球迷的“天体之王”回忆杀，对比当年千万欧年薪与退役后的平淡生活，感叹时光飞逝，引发对一代中超外援的集体怀旧。",
+      "keywords": [
+        "Conca",
+        "retired",
+        "nostalgia",
+        "Guangzhou Evergrande"
       ],
       "keywords_cn": [
         "孔卡",
-        "广州恒大",
-        "天体之王",
-        "金元足球"
+        "退役",
+        "怀旧",
+        "广州恒大"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
+      "score": 88,
       "controversy_level": "low",
       "target_emotion": "怀旧",
-      "why_pick": "孔卡是中超历史上最成功的外援之一，43岁近况能引发大量球迷怀旧共鸣，天然带流量。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "已11队砸钱超1亿！这个夏窗，英超的购买力是不是太离谱了？",
-      "angle": "以英超球队今夏巨额转会支出数据为切入点，用反问句式引发对英超与其他联赛财力差距的讨论，探讨这种寡头化趋势对足球生态的影响，立场鲜明地指出英超正在变成'超级联赛'。",
-      "keywords": [
-        "Premier League",
-        "transfer spending",
-        "summer window"
-      ],
-      "keywords_cn": [
-        "英超",
-        "转会支出",
-        "夏窗",
-        "购买力"
-      ],
-      "content_type": "转会资讯",
-      "score": 78,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "今夏转会窗最大的话题就是英超的钞能力，数据极具冲击力，能引发球迷关于联赛平衡的热议。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "情怀牌，唤醒一代球迷的黄金记忆，满足对故人近况的好奇心。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "马德兴开炮：互联网最擅长制造一个下午的天才",
+      "angle": "结合马德兴对青训浮躁现象的尖锐批评，聊一聊那些被网络“捧杀”或“瞬间造神”的年轻球员，探讨舆论环境对青少年足球发展的伤害，观点鲜明地反对“造星运动”。",
+      "keywords": [
+        "Ma Dexing",
+        "youth training",
+        "criticism",
+        "internet"
+      ],
+      "keywords_cn": [
+        "马德兴",
+        "青训",
+        "批评",
+        "互联网"
+      ],
+      "content_type": "热点球评",
+      "score": 90,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "观点犀利，直击中国足球青训痛点，老球迷深有共鸣。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "7场零封！22岁李昊在中超完成降维打击？",
+      "angle": "从李昊连续5轮零封、赛季7场零封的火热状态切入，用数据说话，探讨这位年轻门将的崛起是否意味着中国足球门将位置后继有人，但保持冷静，不盲目吹捧。",
+      "keywords": [
+        "Li Hao",
+        "clean sheet",
+        "goalkeeper",
+        "Chinese Super League"
+      ],
+      "keywords_cn": [
+        "李昊",
+        "零封",
+        "门将",
+        "中超"
+      ],
+      "content_type": "排行榜",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "数据亮眼，为本土球员的出色表现提供正向讨论空间。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "恒大足校08一代开始抢班夺权，这次能成吗？",
+      "angle": "从《东方体育日报》关于恒大足校08年龄段球员在职业联赛崭露头角的报道切入，复盘恒大足校这些年的起起伏伏，客观分析这批球员面临的机遇与挑战，拒绝捧杀，提出“青训是长跑”的观点。",
+      "keywords": [
+        "Evergrande Football School",
+        "youth academy",
+        "2008 generation"
+      ],
+      "keywords_cn": [
+        "恒大足校",
+        "青训",
+        "08年龄段"
+      ],
+      "content_type": "战术解析",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "回应青训热点，提供深度观察，冷静看待新一代球员的成长。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：皇马巴萨双线齐发，里昂恐翻车，帕尔梅拉斯德比稳胆",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-26 12:21:31"
+  "last_batch": "evening",
+  "last_updated": "2026-08-26 18:13:45"
 }
