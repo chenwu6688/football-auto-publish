@@ -193,11 +193,12 @@ def _add_llm_usage(usage, model, usage_info):
     return usage
 
 
-def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, timeout=120,
+def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, timeout=60,
                   parser=try_parse_json,
                   usage_file=LLM_USAGE_FILE,
                   quota=LLM_FREE_QUOTA_TOKENS,
-                  threshold=LLM_USAGE_THRESHOLD):
+                  threshold=LLM_USAGE_THRESHOLD,
+                  max_per_provider=2, max_candidates=5):
     """Try a list of LLM candidates until one returns parseable JSON.
 
     Skips models whose accumulated token usage has reached the free-quota
@@ -216,12 +217,22 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
     """
     usage = _load_llm_usage(usage_file)
     last_err = None
+    attempts = 0
+    provider_attempts = {}
     for url, key, model in candidates:
         if not url or not key:
+            continue
+        if attempts >= max_candidates:
+            print(f"   ⏭️ 已达最大尝试数 {max_candidates}，停止 LLM 轮换")
+            break
+        provider_key = (url, key)
+        if provider_attempts.get(provider_key, 0) >= max_per_provider:
             continue
         if not _is_model_quota_available(model, usage, quota, threshold):
             print(f"   ⏭️ LLM({model}) 免费额度已接近上限 ({usage.get(model, {}).get('total_tokens', 0)}/{quota} tokens)，跳过")
             continue
+        provider_attempts[provider_key] = provider_attempts.get(provider_key, 0) + 1
+        attempts += 1
         try:
             print(f"   🔧 尝试 LLM: {model}")
             usage_ref = {}

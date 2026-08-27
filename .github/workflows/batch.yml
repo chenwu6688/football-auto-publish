@@ -56,6 +56,9 @@ jobs:
     timeout-minutes: 25
     permissions:
       contents: write
+    env:
+      # 确保 Python stdout/stderr 实时 flush，避免超时被杀时日志空白
+      PYTHONUNBUFFERED: "1"
 
     steps:
       - name: 检出代码
