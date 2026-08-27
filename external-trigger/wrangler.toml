@@ -4,6 +4,8 @@ compatibility_date = "2026-01-01"
 
 # Cloudflare Cron Triggers 使用 UTC 时间（无时区设置，需自行换算）
 # 免费计划每 Worker 最多 3 个 trigger，正好覆盖三班（晨/午/晚各 1）
+# 注意：wrangler 4 要求 crons 放在 [triggers] 块下，而非顶层字段
+[triggers]
 crons = [
   "7 0 * * *",     # 晨读  CST 08:07 = UTC 00:07
   "7 4 * * *",     # 午间  CST 12:07 = UTC 04:07
