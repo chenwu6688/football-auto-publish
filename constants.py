@@ -62,11 +62,18 @@ _HY3_ROTATION_MODELS = os.environ.get(
     "minimax-m2.7,minimax-m3"
 ).split(",")
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
-LLM_JSON_CANDIDATES = [
-    (HY3_BASE_URL, HY3_API_KEY, model) for model in HY3_ROTATION_MODELS
-] + [
-    (DASHSCOPE_URL, DASHSCOPE_KEY, "qwen-turbo"),
+# JSON 调用候选：优先 hy3，次优先跨厂商兜底 qwen-turbo（不同 endpoint/key，
+# 避免 TokenHub 整体挂掉时全部失效），再试同一 TokenHub 账号下的其他模型。
+# utils.call_llm_json 内部会并发尝试，任一成功即停；缺 key 或额度用完会自动跳过。
+_LLM_JSON_OTHER_HY3 = [
+    (HY3_BASE_URL, HY3_API_KEY, model)
+    for model in HY3_ROTATION_MODELS
+    if model != "hy3"
 ]
+LLM_JSON_CANDIDATES = [
+    (HY3_BASE_URL, HY3_API_KEY, "hy3"),
+    (DASHSCOPE_URL, DASHSCOPE_KEY, "qwen-turbo"),
+] + _LLM_JSON_OTHER_HY3
 
 # --- LLM 免费额度管理 ---
 # 当某模型累计 token 达到阈值（默认 90% 免费额度）时，自动跳过该模型，避免产生按量计费。

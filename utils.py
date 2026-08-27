@@ -5,6 +5,7 @@ retry, call_llm, safe_json_loads, load_prompt_template — 被所有模块使用
 """
 
 import json, time, requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from constants import LLM_USAGE_FILE, LLM_FREE_QUOTA_TOKENS, LLM_USAGE_THRESHOLD
@@ -55,7 +56,8 @@ def retry(func, *args, max_retries=3, base_delay=2, desc="API", **kwargs):
 
 
 def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, timeout=120,
-             fallback_url=None, fallback_key=None, fallback_model=None, usage_ref=None):
+             fallback_url=None, fallback_key=None, fallback_model=None, usage_ref=None,
+             max_retries=3):
     """Call LLM with optional fallback to another provider on auth/credit errors.
 
     When the primary provider returns 401/402/403/404, automatically retry
@@ -65,6 +67,8 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
     Args:
         usage_ref: Optional dict-like object. If provided, it will be populated
                    with {"model": str, "usage": dict} from the response.
+        max_retries: Number of attempts for primary (and fallback) call.
+                     call_llm_json passes 1 to fail-fast across providers.
     """
     def _call(u, k, m):
         resp = requests.post(u, json={
@@ -80,12 +84,12 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
 
     try:
         print(f"   🔧 调用 LLM: {model}（兜底模型={fallback_model}）")
-        return retry(lambda: _call(url, api_key, model), desc=f"LLM({model})")
+        return retry(lambda: _call(url, api_key, model), desc=f"LLM({model})", max_retries=max_retries)
     except requests.exceptions.HTTPError as e:
         status = e.response.status_code if e.response is not None else None
         if status in (401, 402, 403, 404) and fallback_url and fallback_key and fallback_model:
             print(f"   ⚠️ LLM({model}) HTTP {status}，自动降级至 {fallback_model}")
-            return retry(lambda: _call(fallback_url, fallback_key, fallback_model), desc=f"LLM({fallback_model})")
+            return retry(lambda: _call(fallback_url, fallback_key, fallback_model), desc=f"LLM({fallback_model})", max_retries=max_retries)
         raise
 
 
@@ -198,8 +202,12 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
                   usage_file=LLM_USAGE_FILE,
                   quota=LLM_FREE_QUOTA_TOKENS,
                   threshold=LLM_USAGE_THRESHOLD,
-                  max_per_provider=2, max_candidates=5):
-    """Try a list of LLM candidates until one returns parseable JSON.
+                  max_per_provider=2, max_candidates=8, concurrency=3, llm_max_retries=1):
+    """Try a list of LLM candidates in parallel until one returns parseable JSON.
+
+    Candidates are filtered first, then submitted to a thread pool with limited
+    concurrency. The first successful parse wins; remaining futures are cancelled
+    and the pool shuts down without waiting for slow/flaky providers.
 
     Skips models whose accumulated token usage has reached the free-quota
     threshold (default 90%) to avoid pay-as-you-go charges.
@@ -208,6 +216,10 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         messages: OpenAI-compatible messages list.
         candidates: list of (url, api_key, model_name) tuples.
         parser: function(text) -> parsed object or None.
+        max_candidates: max number of candidates to consider.
+        concurrency: max concurrent provider calls.
+        llm_max_retries: retries inside call_llm for each candidate (default 1:
+                         fail-fast so we rotate quickly across providers).
 
     Returns:
         (parsed_object, model_used)
@@ -216,15 +228,13 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         ValueError if all candidates fail.
     """
     usage = _load_llm_usage(usage_file)
-    last_err = None
-    attempts = 0
     provider_attempts = {}
+
+    # Filter and prepare candidates up-front.
+    filtered = []
     for url, key, model in candidates:
         if not url or not key:
             continue
-        if attempts >= max_candidates:
-            print(f"   ⏭️ 已达最大尝试数 {max_candidates}，停止 LLM 轮换")
-            break
         provider_key = (url, key)
         if provider_attempts.get(provider_key, 0) >= max_per_provider:
             continue
@@ -232,28 +242,62 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             print(f"   ⏭️ LLM({model}) 免费额度已接近上限 ({usage.get(model, {}).get('total_tokens', 0)}/{quota} tokens)，跳过")
             continue
         provider_attempts[provider_key] = provider_attempts.get(provider_key, 0) + 1
-        attempts += 1
+        filtered.append((url, key, model))
+        if len(filtered) >= max_candidates:
+            break
+
+    if not filtered:
+        raise ValueError("没有可用的 LLM 候选（请检查 API key 与额度）")
+
+    def _try_one(item):
+        url, key, model = item
         try:
             print(f"   🔧 尝试 LLM: {model}")
             usage_ref = {}
             resp_text = call_llm(url, key, model, messages,
                                  temperature=temperature, max_tokens=max_tokens, timeout=timeout,
                                  fallback_url=None, fallback_key=None, fallback_model=None,
-                                 usage_ref=usage_ref)
+                                 usage_ref=usage_ref,
+                                 max_retries=llm_max_retries)
             if not resp_text or not resp_text.strip():
-                print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
-                continue
+                return model, None, "empty", usage_ref.get("model", model), usage_ref.get("usage", {})
             parsed = parser(resp_text)
             if parsed is None:
-                print(f"   ⚠️ LLM({model}) 返回内容无法解析为 JSON，尝试下一个模型")
-                continue
-            # Success: record usage and persist it
-            usage = _add_llm_usage(usage, usage_ref.get("model", model), usage_ref.get("usage", {}))
-            _save_llm_usage(usage, usage_file)
-            print(f"   ✅ LLM({model}) 返回可用 JSON")
-            return parsed, model
+                return model, None, "parse_fail", usage_ref.get("model", model), usage_ref.get("usage", {})
+            return model, parsed, "ok", usage_ref.get("model", model), usage_ref.get("usage", {})
         except Exception as e:
-            preview = str(e)[:200]
-            print(f"   ⚠️ LLM({model}) 调用失败: {preview}")
-            last_err = e
-    raise ValueError(f"所有 LLM 候选均未能返回可用 JSON。最后错误: {last_err}")
+            return model, None, f"error: {str(e)[:200]}", None, {}
+
+    executor = ThreadPoolExecutor(max_workers=concurrency)
+    future_to_item = {executor.submit(_try_one, item): item for item in filtered}
+    result = None
+    last_status = None
+    try:
+        for future in as_completed(future_to_item):
+            model, parsed, status, used_model, usage_info = future.result()
+            if status == "ok":
+                usage = _add_llm_usage(usage, used_model, usage_info)
+                _save_llm_usage(usage, usage_file)
+                print(f"   ✅ LLM({model}) 返回可用 JSON")
+                result = (parsed, model)
+                break
+            elif status == "empty":
+                print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
+            elif status == "parse_fail":
+                print(f"   ⚠️ LLM({model}) 返回内容无法解析为 JSON，尝试下一个模型")
+            elif status.startswith("error:"):
+                preview = status.split("error: ", 1)[1]
+                print(f"   ⚠️ LLM({model}) 调用失败: {preview}")
+            else:
+                print(f"   ⚠️ LLM({model}) 调用失败: {status}")
+            last_status = status
+    finally:
+        # Stop everything as soon as we have a winner (don't wait for timeouts)
+        for f in future_to_item:
+            if not f.done():
+                f.cancel()
+        executor.shutdown(wait=False, cancel_futures=True)
+
+    if result:
+        return result
+    raise ValueError(f"所有 LLM 候选均未能返回可用 JSON。最后状态: {last_status}")
