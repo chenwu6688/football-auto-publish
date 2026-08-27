@@ -1,8 +1,13 @@
 name = "gh-batch-trigger"
 main = "worker.js"
 compatibility_date = "2026-01-01"
-# 纯 cron 触发，无需公开 URL，关闭 workers.dev 子域发布
+# 纯 cron Worker，无需公开 workers.dev 地址
 workers_dev = false
+
+# 观测用 KV：记录每次 scheduled 是否被触发（沙箱可通过 CF API 读取）
+[[kv_namespaces]]
+binding = "LOG"
+id = "190216dadbc14505bd97205647899150"
 
 # Cloudflare Cron Triggers 使用 UTC 时间（无时区设置，需自行换算）
 # 免费计划每 Worker 最多 3 个 trigger，正好覆盖三班（晨/午/晚各 1）

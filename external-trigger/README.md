@@ -68,6 +68,24 @@ GitHub Actions 免费调度器在 UTC 00:00（全球零点）严重拥堵，
 | 午间 | 12:07 | `7 4 * * *` |
 | 晚间 | 17:37 | `37 9 * * *` |
 
+## 已知坑位与排查
+
+- **`fetch` 必须带 `User-Agent` 头**：GitHub REST API 强制要求 `User-Agent`，
+  缺失一律返回 `403 Request forbidden by administrative rules`。
+  Worker 的 `fetch()` **默认不带该头**（而 `curl` 会自动带，所以沙箱 curl 测试能过、
+  Worker 却每次 403）——这是 2026-08-27 三班全部"看似没触发"的真正根因。
+  已在 `worker.js` 的 dispatch 请求里显式加 `'User-Agent'` 头修复。
+- **观测是否触发（无需 workers.dev 公网）**：`worker.js` 每次 `scheduled` 被调用，
+  第一件事就把记录写入 KV 命名空间 `gh-batch-log`（绑定名 `LOG`，key=`last_scheduled`）。
+  沙箱网络无法访问 `*.workers.dev`，但能访问 CF API，故可用下方命令读取，
+  100% 区分「CF 没 firing」还是「worker 运行时 dispatch 失败」：
+  ```bash
+  curl -s -H "Authorization: Bearer $CF_TOKEN" \
+    "https://api.cloudflare.com/client/v4/accounts/$ACCT/storage/kv/namespaces/$NS/values/last_scheduled"
+  ```
+  - 有 `stage:'start'` 但无 `stage:'ok'` → CF 触发了，但 dispatch 报错（看 `error` 字段）。
+  - 整条记录为空 → CF 根本没调用 `scheduled`（cron 未注册或 CF 侧异常）。
+
 ## 安全须知
 
 - **禁止**使用带全账号权限的经典 PAT；务必用 Fine-grained PAT 且只授权本仓库 Actions:write。
