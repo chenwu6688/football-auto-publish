@@ -1,0 +1,11 @@
+name = "gh-batch-trigger"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Cloudflare Cron Triggers 使用 UTC 时间（无时区设置，需自行换算）
+# 免费计划每 Worker 最多 3 个 trigger，正好覆盖三班（晨/午/晚各 1）
+crons = [
+  "7 0 * * *",     # 晨读  CST 08:07 = UTC 00:07
+  "7 4 * * *",     # 午间  CST 12:07 = UTC 04:07
+  "37 9 * * *",    # 晚间  CST 17:37 = UTC 09:37
+]
