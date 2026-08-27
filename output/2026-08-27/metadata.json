@@ -1,7 +1,7 @@
 {
   "date": "2026-08-27",
-  "generated_at": "2026-08-27T02:27:23.521296",
-  "total_articles": 5,
+  "generated_at": "2026-08-27T05:35:34.241490",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -161,166 +161,203 @@
       "column_id": "",
       "column_name": "",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "儿子挨完耳光还想踢球，大人们却建了个声援群",
+      "path": "/home/runner/work/_temp/output/2026-08-27/article-1-儿子挨完耳光还想-3a9953.md",
+      "slug": "儿子挨完耳光还想-3a9953",
+      "tags": [
+        "Shen Si",
+        "youth football",
+        "Shanghai Lucky Star",
+        "child safeguarding",
+        "parents silence"
+      ],
+      "keywords": [
+        "Shen Si",
+        "youth football",
+        "Shanghai Lucky Star",
+        "child safeguarding",
+        "parents silence"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "狂砸9500万欧买小孩，足坛年轻天才身价到底有多疯？",
-      "angle": "从布阿迪9500万欧转会切入，犀利吐槽如今欧洲豪门哄抢年轻妖星的溢价泡沫，对比历史U19身价榜看谁真正踢了出来。",
+      "title": "4500万就卖莱奥？米兰这笔清仓甩卖到底图什么",
+      "angle": "曾经意甲MVP被加拉塔萨雷抄底，米兰管理层急于止损割肉，操作让人直呼看不懂。",
       "keywords": [
-        "U19 transfer record",
-        "Bouaddi",
-        "wonderkid inflation"
+        "Leao",
+        "Milan",
+        "Galatasaray",
+        "Transfer"
       ],
       "keywords_cn": [
-        "U19转会费纪录",
-        "布阿迪",
-        "妖星身价泡沫"
-      ],
-      "content_type": "排行榜",
-      "score": 96,
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "why_pick": "榜单数据震撼老球迷对天价小将极有讨论欲",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "狂赚1.2亿镑！这支豪门甩卖三大前锋到底在布什么局？",
-      "angle": "解析切尔西接连出售杰克逊等三名前锋回血1.2亿镑的资本操作，犀利指出疯狂换血背后可能带来的更衣室隐患。",
-      "keywords": [
-        "Nicolas Jackson",
-        "Chelsea transfers",
-        "player sales"
-      ],
-      "keywords_cn": [
-        "杰克逊",
-        "切尔西清洗",
-        "转会回血"
+        "莱奥",
+        "AC米兰",
+        "加拉塔萨雷",
+        "转会"
       ],
       "content_type": "转会资讯",
-      "score": 94,
+      "score": 105,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "单窗连甩三前锋回笼上亿资金话题度拉满",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "相恋整整8年！身价过亿的他，身边依然是那个青梅竹马",
-      "angle": "聚焦凯塞多与青梅竹马女友长达8年的爱情长跑，用接地气的人文关怀视角对比浮躁足坛，传递温暖正能量。",
-      "keywords": [
-        "Moises Caicedo",
-        "childhood sweetheart",
-        "football romance"
-      ],
-      "keywords_cn": [
-        "凯塞多",
-        "青梅竹马",
-        "足坛清流"
-      ],
-      "content_type": "八卦趣事",
-      "score": 91,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "球星反差人设与长情故事极具大众共鸣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "震惊",
+      "why_pick": "前意甲顶流远走土超争议极大",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "年年卖核心年年重建，维拉这是逼着功勋主帅卷铺盖走人？",
-      "angle": "针对默森对维拉卖人策略的炮轰，深入探讨中小球会面对资本剥削的生存困境，直言埃梅里随时可能被逼离开。",
+      "title": "1.72力压亚马尔！无冠魔咒的凯恩真能圆梦金球？",
+      "angle": "老将熬出头领跑金球榜单，赔率断层领先之下，凯恩能否打破宿命引爆全网讨论。",
       "keywords": [
-        "Unai Emery",
-        "Aston Villa transfer policy",
-        "Paul Merson"
+        "Kane",
+        "Ballon dOr",
+        "Yamal",
+        "Odds"
       ],
       "keywords_cn": [
-        "埃梅里",
-        "阿斯顿维拉卖人",
-        "名宿炮轰"
+        "凯恩",
+        "金球奖",
+        "亚马尔",
+        "金球赔率"
       ],
-      "content_type": "热点球评",
-      "score": 93,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "名宿锐评直击痛点引发教练与管理层矛盾争论",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "排行榜",
+      "score": 98,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "老将冲金球与新星对决流量拉满",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "热刺 5-1 查尔顿，6球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "被打小球员反遭全群孤立？基层青训的人情世故太丑陋",
+      "angle": "受害者反成被孤立对象，家长拉群护短维稳，老六痛批中国青训染上成人糟粕圈子文化。",
+      "keywords": [
+        "Shen Si",
+        "Youth Football",
+        "Bullying",
+        "Chinese Football"
+      ],
+      "keywords_cn": [
+        "申思",
+        "青训乱象",
+        "家长孤立",
+        "中国足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 110,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "青训丑闻直击痛点极易引共鸣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "维尔茨配伊萨克不来电？希勒这番大实话戳痛了谁",
+      "angle": "名宿直指大牌双核战术排斥与罢训风波，单兵强不等于成体系，新贵磨合危机浮出水面。",
+      "keywords": [
+        "Shearer",
+        "Isak",
+        "Wirtz",
+        "Newcastle"
+      ],
+      "keywords_cn": [
+        "希勒",
+        "伊萨克",
+        "维尔茨",
+        "纽卡战术"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "名宿锐评天价组合自带战术争议",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-08-27 10:27:23"
+  "last_batch": "noon",
+  "last_updated": "2026-08-27 13:35:34"
 }
