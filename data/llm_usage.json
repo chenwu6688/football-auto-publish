@@ -8,5 +8,20 @@
     "prompt_tokens": 1625,
     "completion_tokens": 5985,
     "total_tokens": 7610
+  },
+  "kimi-k3": {
+    "prompt_tokens": 5416,
+    "completion_tokens": 970,
+    "total_tokens": 6386
+  },
+  "hy3": {
+    "prompt_tokens": 2379,
+    "completion_tokens": 14466,
+    "total_tokens": 16845
+  },
+  "deepseek-v4-flash-202605": {
+    "prompt_tokens": 3542,
+    "completion_tokens": 3815,
+    "total_tokens": 7357
   }
 }
