@@ -23,5 +23,10 @@
     "prompt_tokens": 3542,
     "completion_tokens": 3815,
     "total_tokens": 7357
+  },
+  "deepseek-v4-flash": {
+    "prompt_tokens": 5766,
+    "completion_tokens": 1542,
+    "total_tokens": 7308
   }
 }
