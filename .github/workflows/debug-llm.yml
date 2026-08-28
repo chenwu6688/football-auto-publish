@@ -1,0 +1,39 @@
+name: debug-llm
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: probe tokenhub models
+        env:
+          HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
+        run: |
+          python - <<'EOF'
+          import os, json, requests
+          url = "https://tokenhub.tencentmaas.com/v1/chat/completions"
+          key = os.environ["HY3_API_KEY"]
+          models = ["deepseek-v4-flash", "deepseek-v4-flash-202605", "deepseek-v4-pro",
+                    "deepseek-v4-pro-202606", "kimi-k2.6", "kimi-k2.7-code",
+                    "kimi-k3", "hy-mt2-lite", "minimax-m2.7", "glm-5"]
+          for m in models:
+              try:
+                  r = requests.post(url, json={
+                      "model": m,
+                      "messages": [{"role": "user", "content": "请只回复四个字：一切正常"}],
+                      "temperature": 0.7, "max_tokens": 200, "stream": False},
+                      headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                      timeout=45)
+                  body = r.text[:1000]
+                  print(f"### {m} -> HTTP {r.status_code}")
+                  print(body)
+                  print()
+              except Exception as e:
+                  print(f"### {m} -> EXC {type(e).__name__}: {str(e)[:300]}")
+                  print()
+          EOF
