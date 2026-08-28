@@ -1,0 +1,232 @@
+{
+  "date": "2026-08-29",
+  "generated_at": "2026-08-28T16:34:55.813140",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "恩佐1.3亿镑去曼城？切尔西这波操作我看不懂",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-1-恩佐13亿镑去曼-888227.md",
+      "slug": "恩佐13亿镑去曼-888227",
+      "tags": [
+        "Enzo Fernandez",
+        "Manchester City",
+        "Chelsea",
+        "transfer"
+      ],
+      "keywords": [
+        "Enzo Fernandez",
+        "Manchester City",
+        "Chelsea",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-29/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "转会闹剧升级！阿尔瓦雷斯被逼到泪流满面，巴萨成唯一出路？",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-2-转会闹剧升级阿尔-47f5b2.md",
+      "slug": "转会闹剧升级阿尔-47f5b2",
+      "tags": [
+        "Alvarez",
+        "Atletico Madrid",
+        "Barcelona",
+        "transfer",
+        "threat"
+      ],
+      "keywords": [
+        "Alvarez",
+        "Atletico Madrid",
+        "Barcelona",
+        "transfer",
+        "threat"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-29/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "一周不吃饭、体重暴跌！阿尔瓦雷斯抑郁真相，马竞高层内讧曝光",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-3-一周不吃饭体重暴-a31ea9.md",
+      "slug": "一周不吃饭体重暴-a31ea9",
+      "tags": [
+        "Alvarez",
+        "depression",
+        "Atletico Madrid",
+        "Arsenal",
+        "transfer"
+      ],
+      "keywords": [
+        "Alvarez",
+        "depression",
+        "Atletico Madrid",
+        "Arsenal",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-29/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "1.3亿镑！切尔西这价码，曼城会为恩佐掏空钱包吗？",
+      "angle": "从切尔西对恩佐的1.3亿镑要价切入，质疑曼城是否愿意为这名中场支付创纪录转会费，分析转会市场泡沫和球员实际价值。",
+      "keywords": [
+        "Enzo Fernandez",
+        "Chelsea",
+        "Manchester City",
+        "transfer fee",
+        "record"
+      ],
+      "keywords_cn": [
+        "恩佐",
+        "切尔西",
+        "曼城",
+        "转会费",
+        "创纪录"
+      ],
+      "content_type": "转会资讯",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "恩佐转会费争议大，曼城切尔西恩怨引爆讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "50位英超主帅，22位干不满一年！这工作比国足教练还难当？",
+      "angle": "用卫报数据揭示英超主帅高离职率，对比中国足球环境，调侃英超教练席是‘高危职业’，引发球迷对管理层耐心和教练命运的共鸣。",
+      "keywords": [
+        "Premier League",
+        "manager",
+        "sack",
+        "turnover",
+        "stability"
+      ],
+      "keywords_cn": [
+        "英超",
+        "主帅",
+        "下课",
+        "离职率",
+        "稳定性"
+      ],
+      "content_type": "排行榜",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "数据震撼，对比中国足球，引发职场共情。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "从中超球星到外卖骑手？小蜘蛛抑郁症传闻背后，足球圈该反思什么？",
+      "angle": "从阿尔瓦雷斯抑郁症传闻切入，探讨球员心理健康问题，用‘外卖骑手’比喻制造反差，呼吁足球圈关注球员压力而非只盯着转会费。",
+      "keywords": [
+        "Julian Alvarez",
+        "depression",
+        "mental health",
+        "footballer",
+        "pressure"
+      ],
+      "keywords_cn": [
+        "阿尔瓦雷斯",
+        "抑郁症",
+        "心理健康",
+        "球员",
+        "压力"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "why_pick": "球员心理健康话题稀缺，引发人文关怀和讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-08-29 00:34:55"
+}
