@@ -1,7 +1,222 @@
 {
-  "batches_completed": [],
-  "last_batch": "",
-  "last_updated": "2026-08-28 09:58:00 (状态清理，恢复批次可执行)",
-  "articles": [],
-  "total_articles": 0
+  "date": "2026-08-28",
+  "generated_at": "2026-08-28T02:00:15.557911",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "切尔西这波操作，我直接看懵了！",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-1-切尔西这波操作我-56702f.md",
+      "slug": "切尔西这波操作我-56702f",
+      "tags": [
+        "Chelsea",
+        "Enzo Fernandez",
+        "Lamine Camara",
+        "transfer"
+      ],
+      "keywords": [
+        "Chelsea",
+        "Enzo Fernandez",
+        "Lamine Camara",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "多特18岁新星自荐国米，但帕瓦尔不走没戏！",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-2-多特18岁新星自-77850a.md",
+      "slug": "多特18岁新星自-77850a",
+      "tags": [
+        "Inter Milan",
+        "Borussia Dortmund",
+        "Luca Reggiani",
+        "Benjamin Pavard",
+        "transfer"
+      ],
+      "keywords": [
+        "Inter Milan",
+        "Borussia Dortmund",
+        "Luca Reggiani",
+        "Benjamin Pavard",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "35岁维尔贝克斩蓝军首球！切尔西2-0卢顿晋级，这老将还能用？",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-3-35岁维尔贝克斩-b90fb1.md",
+      "slug": "35岁维尔贝克斩-b90fb1",
+      "tags": [
+        "Chelsea",
+        "Luton",
+        "Carabao Cup",
+        "Welbeck",
+        "Estevao"
+      ],
+      "keywords": [
+        "Chelsea",
+        "Luton",
+        "Carabao Cup",
+        "Welbeck",
+        "Estevao"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "官宣在即！大马丁加盟切尔西，蓝军门将位置要变天？",
+      "angle": "从罗马诺确认大马丁今日抵达伦敦体检切入，分析这笔交易对切尔西门将位置的影响，以及大马丁能否成为蓝军新门神。",
+      "keywords": [
+        "Martinez",
+        "Chelsea",
+        "transfer",
+        "goalkeeper"
+      ],
+      "keywords_cn": [
+        "大马丁",
+        "切尔西",
+        "转会",
+        "门将"
+      ],
+      "content_type": "转会资讯",
+      "score": 95,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "大马丁加盟切尔西是今日最大转会新闻，球迷关注度高。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "没了莱奥，米兰反而要起飞？",
+      "angle": "以米兰关注法兰克福边锋巴奥亚为引子，探讨莱奥可能离队对米兰战术体系的影响，质疑米兰是否真的能摆脱对莱奥的依赖。",
+      "keywords": [
+        "Leao",
+        "AC Milan",
+        "Baoa",
+        "transfer"
+      ],
+      "keywords_cn": [
+        "莱奥",
+        "米兰",
+        "巴奥亚",
+        "转会"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "why_pick": "莱奥离队传闻与米兰新目标结合，制造反常识讨论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "1-0主义？切尔西2-0卢顿，但蓝军进攻问题依然没解决",
+      "angle": "复盘切尔西2-0胜卢顿的比赛，指出虽然赢球但进攻端缺乏创造力，质疑新赛季蓝军的前景。",
+      "keywords": [
+        "Chelsea",
+        "Luton",
+        "2-0",
+        "analysis"
+      ],
+      "keywords_cn": [
+        "切尔西",
+        "卢顿",
+        "2-0",
+        "战术分析"
+      ],
+      "content_type": "热点球评",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "why_pick": "切尔西比赛有话题性，进攻问题可引发球迷讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-08-28 10:00:15"
 }
