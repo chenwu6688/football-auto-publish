@@ -20,7 +20,8 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
                        WXPUSHER_APPTOKEN, WXPUSHER_UID,
                        WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
                        BATCH_CONFIG, LLM_JSON_CANDIDATES)
-from utils import retry, call_llm, safe_json_loads, load_prompt_template, call_llm_json
+from utils import (retry, call_llm, safe_json_loads, load_prompt_template,
+                   call_llm_json, QuotaExhaustedError)
 from logger import log
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
@@ -2002,6 +2003,13 @@ def main():
         for a in result.get("articles", []):
             print(f"   - [{a.get('content_type', 'N/A')}] {a.get('title', 'N/A')[:50]} ({len(a.get('images', []))}张图)")
         success = True
+
+    except QuotaExhaustedError as e:
+        result_msg = f"所有 LLM 免费额度已耗尽: {e}"
+        print(f"ERROR: {result_msg}")
+        log.error(f"额度耗尽: {e}")
+        send_wxpusher("足球自媒体 🪫 额度耗尽", f"{date_str} 发文任务中止：{result_msg}\n请检查是否需要充值、降频或补充新的 API key。")
+        sys.exit(1)
 
     except Exception as e:
         result_msg = f"异常: {e}"

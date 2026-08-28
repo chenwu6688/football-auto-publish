@@ -5,7 +5,6 @@ retry, call_llm, safe_json_loads, load_prompt_template — 被所有模块使用
 """
 
 import json, time, requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from constants import LLM_USAGE_FILE, LLM_FREE_QUOTA_TOKENS, LLM_USAGE_THRESHOLD
@@ -180,8 +179,10 @@ def _save_llm_usage(usage, path=LLM_USAGE_FILE):
     path.write_text(json.dumps(usage, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _is_model_quota_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD):
-    """Return True if the model's accumulated usage is below the free-quota threshold."""
+def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD):
+    """Return True if the model has free quota remaining and is not disabled."""
+    if usage.get(model, {}).get("disabled"):
+        return False
     used = usage.get(model, {}).get("total_tokens", 0)
     limit = quota * threshold
     return used < limit
@@ -197,60 +198,78 @@ def _add_llm_usage(usage, model, usage_info):
     return usage
 
 
+class QuotaExhaustedError(ValueError):
+    """Raised when all LLM candidates have exhausted their free quota or are disabled."""
+    pass
+
+
 def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, timeout=60,
                   parser=try_parse_json,
                   usage_file=LLM_USAGE_FILE,
                   quota=LLM_FREE_QUOTA_TOKENS,
                   threshold=LLM_USAGE_THRESHOLD,
-                  max_per_provider=2, max_candidates=8, concurrency=3, llm_max_retries=1):
-    """Try a list of LLM candidates in parallel until one returns parseable JSON.
+                  max_per_provider=2, max_candidates=12, llm_max_retries=1):
+    """Try LLM candidates sequentially until one returns parseable JSON.
 
-    Candidates are filtered first, then submitted to a thread pool with limited
-    concurrency. The first successful parse wins; remaining futures are cancelled
-    and the pool shuts down without waiting for slow/flaky providers.
-
-    Skips models whose accumulated token usage has reached the free-quota
-    threshold (default 90%) to avoid pay-as-you-go charges.
+    Uses one model at a time ( preserving free-quota exhaustion order ):
+    - skips models whose free quota is below threshold (default 5%)
+    - skips models marked disabled (e.g. returned 401/403)
+    - single HTTP attempt per candidate (fail-fast)
 
     Args:
         messages: OpenAI-compatible messages list.
         candidates: list of (url, api_key, model_name) tuples.
         parser: function(text) -> parsed object or None.
-        max_candidates: max number of candidates to consider.
-        concurrency: max concurrent provider calls.
+        max_candidates: max number of available candidates to actually call.
         llm_max_retries: retries inside call_llm for each candidate (default 1:
-                         fail-fast so we rotate quickly across providers).
+                         zero retries, fail-fast so we rotate to next model).
 
     Returns:
         (parsed_object, model_used)
 
     Raises:
-        ValueError if all candidates fail.
+        QuotaExhaustedError if all candidates are quota-exhausted or disabled.
+        ValueError if available candidates all fail to return usable JSON.
     """
     usage = _load_llm_usage(usage_file)
     provider_attempts = {}
 
-    # Filter and prepare candidates up-front.
-    filtered = []
+    # Check ALL candidates so we can tell whether the pool is truly exhausted.
+    available = []
+    exhausted = []
+    disabled = []
     for url, key, model in candidates:
         if not url or not key:
             continue
         provider_key = (url, key)
         if provider_attempts.get(provider_key, 0) >= max_per_provider:
             continue
-        if not _is_model_quota_available(model, usage, quota, threshold):
-            print(f"   ⏭️ LLM({model}) 免费额度已接近上限 ({usage.get(model, {}).get('total_tokens', 0)}/{quota} tokens)，跳过")
-            continue
         provider_attempts[provider_key] = provider_attempts.get(provider_key, 0) + 1
-        filtered.append((url, key, model))
-        if len(filtered) >= max_candidates:
-            break
+        if usage.get(model, {}).get("disabled"):
+            disabled.append(model)
+            continue
+        if not _is_model_available(model, usage, quota, threshold):
+            used = usage.get(model, {}).get("total_tokens", 0)
+            print(f"   ⏭️ LLM({model}) 免费额度已低于阈值 ({used}/{quota} tokens，剩余 {(1-threshold)*100:.0f}% 以下），跳过")
+            exhausted.append(model)
+            continue
+        available.append((url, key, model))
 
-    if not filtered:
+    if not available:
+        reasons = []
+        if exhausted:
+            reasons.append(f"免费额度耗尽（剩余 <{(1-threshold)*100:.0f}%）: {', '.join(exhausted)}")
+        if disabled:
+            reasons.append(f"key 无效/模型被禁用: {', '.join(disabled)}")
+        if reasons:
+            raise QuotaExhaustedError("；".join(reasons))
         raise ValueError("没有可用的 LLM 候选（请检查 API key 与额度）")
 
-    def _try_one(item):
-        url, key, model = item
+    last_err = None
+    for i, (url, key, model) in enumerate(available):
+        if i >= max_candidates:
+            print(f"   ⏭️ 已达最大尝试数 {max_candidates}，停止 LLM 轮换")
+            break
         try:
             print(f"   🔧 尝试 LLM: {model}")
             usage_ref = {}
@@ -260,44 +279,30 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
                                  usage_ref=usage_ref,
                                  max_retries=llm_max_retries)
             if not resp_text or not resp_text.strip():
-                return model, None, "empty", usage_ref.get("model", model), usage_ref.get("usage", {})
+                print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
+                continue
             parsed = parser(resp_text)
             if parsed is None:
-                return model, None, "parse_fail", usage_ref.get("model", model), usage_ref.get("usage", {})
-            return model, parsed, "ok", usage_ref.get("model", model), usage_ref.get("usage", {})
-        except Exception as e:
-            return model, None, f"error: {str(e)[:200]}", None, {}
-
-    executor = ThreadPoolExecutor(max_workers=concurrency)
-    future_to_item = {executor.submit(_try_one, item): item for item in filtered}
-    result = None
-    last_status = None
-    try:
-        for future in as_completed(future_to_item):
-            model, parsed, status, used_model, usage_info = future.result()
-            if status == "ok":
-                usage = _add_llm_usage(usage, used_model, usage_info)
-                _save_llm_usage(usage, usage_file)
-                print(f"   ✅ LLM({model}) 返回可用 JSON")
-                result = (parsed, model)
-                break
-            elif status == "empty":
-                print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
-            elif status == "parse_fail":
                 print(f"   ⚠️ LLM({model}) 返回内容无法解析为 JSON，尝试下一个模型")
-            elif status.startswith("error:"):
-                preview = status.split("error: ", 1)[1]
-                print(f"   ⚠️ LLM({model}) 调用失败: {preview}")
+                continue
+            usage = _add_llm_usage(usage, usage_ref.get("model", model), usage_ref.get("usage", {}))
+            _save_llm_usage(usage, usage_file)
+            print(f"   ✅ LLM({model}) 返回可用 JSON")
+            return parsed, model
+        except requests.exceptions.HTTPError as e:
+            status = e.response.status_code if e.response is not None else None
+            if status in (401, 403):
+                print(f"   🚫 LLM({model}) 返回 HTTP {status}，标记禁用（请检查 key/权限）")
+                usage.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0})
+                usage[model]["disabled"] = True
+                _save_llm_usage(usage, usage_file)
             else:
-                print(f"   ⚠️ LLM({model}) 调用失败: {status}")
-            last_status = status
-    finally:
-        # Stop everything as soon as we have a winner (don't wait for timeouts)
-        for f in future_to_item:
-            if not f.done():
-                f.cancel()
-        executor.shutdown(wait=False, cancel_futures=True)
+                preview = str(e)[:200]
+                print(f"   ⚠️ LLM({model}) HTTP 调用失败: {preview}")
+            last_err = e
+        except Exception as e:
+            preview = str(e)[:200]
+            print(f"   ⚠️ LLM({model}) 调用失败: {preview}")
+            last_err = e
 
-    if result:
-        return result
-    raise ValueError(f"所有 LLM 候选均未能返回可用 JSON。最后状态: {last_status}")
+    raise ValueError(f"前 {len(available)} 个可用候选均未能返回可用 JSON。最后错误: {last_err}")
