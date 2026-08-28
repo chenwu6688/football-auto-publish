@@ -14,6 +14,7 @@ jobs:
         env:
           HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
         run: |
+          pip install requests -q
           python - <<'EOF'
           import os, json, requests
           url = "https://tokenhub.tencentmaas.com/v1/chat/completions"
