@@ -1,11 +1,7 @@
 {
-  "batches_completed": [
-    "evening",
-    "morning",
-    "noon"
-  ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-28 09:42:30",
+  "batches_completed": [],
+  "last_batch": "",
+  "last_updated": "2026-08-28 09:58:00 (状态清理，恢复批次可执行)",
   "articles": [],
   "total_articles": 0
 }
