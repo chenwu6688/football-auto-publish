@@ -1,7 +1,10 @@
 {
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-08-28 03:54:40"
+  "last_batch": "morning",
+  "last_updated": "2026-08-28 08:09:49",
+  "articles": [],
+  "total_articles": 0
 }
