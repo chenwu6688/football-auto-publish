@@ -70,10 +70,21 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
                      call_llm_json passes 1 to fail-fast across providers.
     """
     def _call(u, k, m):
-        resp = requests.post(u, json={
+        body = {
             "model": m, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False
-        }, headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"}, timeout=timeout)
+        }
+        # TokenHub 模型参数适配（2026-08-28 实测确认）：
+        # - kimi 系列只接受 temperature=1，传 0.7 会 400
+        # - deepseek/glm 为推理模型，不关 thinking 时 reasoning 吃掉大量 token
+        #   且 glm 甚至可能 content 为空；关掉后 token 省一半以上且输出稳定
+        if m.startswith("kimi-"):
+            body["temperature"] = 1.0
+        elif m.startswith(("deepseek-", "glm-")):
+            body["thinking"] = {"type": "disabled"}
+        resp = requests.post(u, json=body,
+                             headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"},
+                             timeout=timeout)
         resp.raise_for_status()
         data = resp.json()
         if usage_ref is not None:
@@ -208,7 +219,7 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
                   usage_file=LLM_USAGE_FILE,
                   quota=LLM_FREE_QUOTA_TOKENS,
                   threshold=LLM_USAGE_THRESHOLD,
-                  max_per_provider=2, max_candidates=12, llm_max_retries=1):
+                  max_per_provider=None, max_candidates=18, llm_max_retries=1):
     """Try LLM candidates sequentially until one returns parseable JSON.
 
     Uses one model at a time ( preserving free-quota exhaustion order ):
@@ -220,6 +231,8 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         messages: OpenAI-compatible messages list.
         candidates: list of (url, api_key, model_name) tuples.
         parser: function(text) -> parsed object or None.
+        max_per_provider: legacy per-provider cap; default None = no limit
+                          (sequential calls never fan out per provider).
         max_candidates: max number of available candidates to actually call.
         llm_max_retries: retries inside call_llm for each candidate (default 1:
                          zero retries, fail-fast so we rotate to next model).
@@ -232,7 +245,6 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         ValueError if available candidates all fail to return usable JSON.
     """
     usage = _load_llm_usage(usage_file)
-    provider_attempts = {}
 
     # Check ALL candidates so we can tell whether the pool is truly exhausted.
     available = []
@@ -241,10 +253,11 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
     for url, key, model in candidates:
         if not url or not key:
             continue
-        provider_key = (url, key)
-        if provider_attempts.get(provider_key, 0) >= max_per_provider:
-            continue
-        provider_attempts[provider_key] = provider_attempts.get(provider_key, 0) + 1
+        if max_per_provider is not None:
+            provider_key = (url, key)
+            if provider_attempts.get(provider_key, 0) >= max_per_provider:
+                continue
+            provider_attempts[provider_key] = provider_attempts.get(provider_key, 0) + 1
         if usage.get(model, {}).get("disabled"):
             disabled.append(model)
             continue
