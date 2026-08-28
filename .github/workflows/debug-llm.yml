@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: probe tokenhub models
+      - name: probe tokenhub models with real prompt
         env:
           HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
         run: |
@@ -19,22 +19,65 @@ jobs:
           import os, json, requests
           url = "https://tokenhub.tencentmaas.com/v1/chat/completions"
           key = os.environ["HY3_API_KEY"]
-          models = ["deepseek-v4-flash", "deepseek-v4-flash-202605", "deepseek-v4-pro",
-                    "deepseek-v4-pro-202606", "kimi-k2.6", "kimi-k2.7-code",
-                    "kimi-k3", "hy-mt2-lite", "minimax-m2.7", "glm-5"]
-          for m in models:
+          H = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+
+          # 真实话题筛选 prompt + 模拟赛事数据（长上下文）
+          try:
+              sys_prompt = open("prompts/topic_selector.txt", encoding="utf-8").read()
+          except Exception:
+              sys_prompt = "你是一名资深足球编辑，请从给定比赛中挑选值得写的话题。"
+          match_block = """
+          ## 英超
+            曼城 2-1 利物浦 (08-28 03:00 开球)
+            阿森纳 3-0 切尔西 (08-28 03:00 开球)
+            热刺 5-1 查尔顿 (08-27 23:00 开球)
+            曼联 1-1 纽卡斯尔 (08-28 01:30 开球)
+          ## 西甲
+            皇家马德里 4-1 皇家社会 (08-28 04:00 开球)
+            巴塞罗那 2-2 马德里竞技 (08-28 04:00 开球)
+          ## 📰 今日足球新闻（含转会/花边/战报，选材重要来源）
+            - 罗马诺：大马丁今日抵达伦敦接受蓝军体检，数小时内完成全部签约
+            - 罗马诺：埃梅里全力推动引进莱奥，交易取决于球员的决定
+            - 记者：曼联决定冬窗清洗3名高薪球员，拉什福德在列
+            - 梅西：这是我生涯最艰难的一个赛季，但我从不后悔
+            - 姆巴佩梅开二度，皇马4-1大胜皇家社会领跑西甲
+          """
+          messages = [
+              {"role": "system", "content": sys_prompt},
+              {"role": "user", "content": match_block + "\n\n请按格式输出4个话题的JSON。"}
+          ]
+
+          def probe(name, model, extra=None, temperature=0.7, max_tokens=4096):
+              body = {"model": model, "messages": messages, "temperature": temperature,
+                      "max_tokens": max_tokens, "stream": False}
+              if extra:
+                  body.update(extra)
               try:
-                  r = requests.post(url, json={
-                      "model": m,
-                      "messages": [{"role": "user", "content": "请只回复四个字：一切正常"}],
-                      "temperature": 0.7, "max_tokens": 200, "stream": False},
-                      headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                      timeout=45)
-                  body = r.text[:1000]
-                  print(f"### {m} -> HTTP {r.status_code}")
-                  print(body)
-                  print()
+                  r = requests.post(url, json=body, headers=H, timeout=120)
+                  print(f"### {name} -> HTTP {r.status_code}")
+                  if r.status_code != 200:
+                      print(r.text[:400])
+                      return
+                  d = r.json()
+                  msg = d["choices"][0]["message"]
+                  content = msg.get("content") or ""
+                  rc = msg.get("reasoning_content") or ""
+                  print(f"  content长度={len(content)} | reasoning长度={len(rc)} | finish={d['choices'][0].get('finish_reason')}")
+                  print(f"  usage={d.get('usage')}")
+                  print(f"  content前120字: {content[:120]!r}")
               except Exception as e:
-                  print(f"### {m} -> EXC {type(e).__name__}: {str(e)[:300]}")
-                  print()
+                  print(f"### {name} -> EXC {type(e).__name__}: {str(e)[:200]}")
+              print()
+
+          probe("A deepseek-v4-flash 默认", "deepseek-v4-flash")
+          probe("B deepseek-v4-flash thinking-disabled", "deepseek-v4-flash",
+                extra={"thinking": {"type": "disabled"}})
+          probe("C deepseek-v4-flash max_tokens=8000", "deepseek-v4-flash", max_tokens=8000)
+          probe("D kimi-k2.6 temp=1.0", "kimi-k2.6", temperature=1.0)
+          probe("E kimi-k2.6 temp=1.0 thinking-disabled", "kimi-k2.6", temperature=1.0,
+                extra={"thinking": {"type": "disabled"}})
+          probe("F glm-5 thinking-disabled", "glm-5",
+                extra={"thinking": {"type": "disabled"}})
+          probe("G hy-mt2-lite 默认", "hy-mt2-lite")
+          probe("H minimax-m2.7 默认", "minimax-m2.7")
           EOF
