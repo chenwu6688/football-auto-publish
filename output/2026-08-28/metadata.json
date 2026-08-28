@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
-  "generated_at": "2026-08-28T02:00:15.557911",
-  "total_articles": 3,
+  "generated_at": "2026-08-28T07:09:46.314606",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -92,131 +92,333 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "中超第25轮：青岛青春足球场，海牛与三镇谁更“牛”？",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-1-中超第25轮青岛-9cc0ef.md",
+      "slug": "中超第25轮青岛-9cc0ef",
+      "tags": [
+        "Qingdao Hainiu",
+        "Wuhan Three Towns",
+        "Chinese Super League",
+        "relegation battle",
+        "key match"
+      ],
+      "keywords": [
+        "Qingdao Hainiu",
+        "Wuhan Three Towns",
+        "Chinese Super League",
+        "relegation battle",
+        "key match"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "彭欣力停赛4场，球童惹的祸？老六：西海岸赛区该醒醒了！",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-2-彭欣力停赛4场球-673a50.md",
+      "slug": "彭欣力停赛4场球-673a50",
+      "tags": [
+        "Peng Xinli",
+        "suspension",
+        "ball boy",
+        "Qingdao West Coast",
+        "Shandong Taishan"
+      ],
+      "keywords": [
+        "Peng Xinli",
+        "suspension",
+        "ball boy",
+        "Qingdao West Coast",
+        "Shandong Taishan"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "齐尔克泽还没走，红魔就盯上23岁克罗地亚前锋了？",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-3-齐尔克泽还没走红-de14e7.md",
+      "slug": "齐尔克泽还没走红-de14e7",
+      "tags": [
+        "Manchester United",
+        "Zirkzee",
+        "Matanovic",
+        "transfer",
+        "Serie A"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Zirkzee",
+        "Matanovic",
+        "transfer",
+        "Serie A"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 4,
+      "title": "铜梁龙球迷画像出炉：四川老铁占外省25%，这波川渝一家亲你服不服？",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-4-铜梁龙球迷画像出-8748f7.md",
+      "slug": "铜梁龙球迷画像出-8748f7",
+      "tags": [
+        "Chongqing Tonglianglong",
+        "fan portrait",
+        "double home stadium",
+        "Sichuan fans",
+        "female fans"
+      ],
+      "keywords": [
+        "Chongqing Tonglianglong",
+        "fan portrait",
+        "double home stadium",
+        "Sichuan fans",
+        "female fans"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 5,
+      "title": "5-1！热刺虐菜局，米奇·摩尔一球一助，萨维尼奥首秀3分钟造两球",
+      "path": "/home/runner/work/_temp/output/2026-08-28/article-5-51热刺虐菜局米-7ac5a1.md",
+      "slug": "51热刺虐菜局米-7ac5a1",
+      "tags": [
+        "Tottenham",
+        "Carabao Cup",
+        "Mickey Moore",
+        "Savinho",
+        "Charlton"
+      ],
+      "keywords": [
+        "Tottenham",
+        "Carabao Cup",
+        "Mickey Moore",
+        "Savinho",
+        "Charlton"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-28/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-28/images/article-5-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "官宣在即！大马丁加盟切尔西，蓝军门将位置要变天？",
-      "angle": "从罗马诺确认大马丁今日抵达伦敦体检切入，分析这笔交易对切尔西门将位置的影响，以及大马丁能否成为蓝军新门神。",
+      "title": "1-0险胜，申花球迷高呼他才是真登贝莱",
+      "angle": "从直播吧中超MVP阿苏埃的采访切入，用球迷戏称他‘申花登贝莱’的梗，对比外租西乙归来的成长故事，带出中超外援的励志叙事。",
       "keywords": [
-        "Martinez",
-        "Chelsea",
-        "transfer",
-        "goalkeeper"
+        "Shenhua",
+        "Asue",
+        "Dembele",
+        "Chinese Super League"
       ],
       "keywords_cn": [
-        "大马丁",
-        "切尔西",
-        "转会",
-        "门将"
+        "申花",
+        "阿苏埃",
+        "登贝莱",
+        "中超"
       ],
-      "content_type": "转会资讯",
-      "score": 95,
-      "controversy_level": "medium",
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
       "target_emotion": "好奇",
-      "why_pick": "大马丁加盟切尔西是今日最大转会新闻，球迷关注度高。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
+      "why_pick": "球迷戏称+外租逆袭，有故事性和话题度。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
       "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "没了莱奥，米兰反而要起飞？",
-      "angle": "以米兰关注法兰克福边锋巴奥亚为引子，探讨莱奥可能离队对米兰战术体系的影响，质疑米兰是否真的能摆脱对莱奥的依赖。",
+      "title": "中超罚单满天飞，球员领队教练全遭殃",
+      "angle": "结合彭欣力推击面部停赛4场、青岛红狮领队禁赛5场、主帅禁赛10场等官宣处罚，质疑联赛纪律失控，用‘暴力足球’‘教练冲休息室’等爆点制造争议。",
       "keywords": [
-        "Leao",
-        "AC Milan",
-        "Baoa",
-        "transfer"
+        "Chinese Super League",
+        "penalty",
+        "Peng Xinli",
+        "violence"
       ],
       "keywords_cn": [
-        "莱奥",
-        "米兰",
-        "巴奥亚",
-        "转会"
+        "中超",
+        "罚单",
+        "彭欣力",
+        "暴力"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
+      "content_type": "热点球评",
+      "score": 92,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "莱奥离队传闻与米兰新目标结合，制造反常识讨论。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "target_emotion": "愤怒",
+      "why_pick": "多起处罚叠加，争议性强，球迷爱看裁判和纪律话题。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "1-0主义？切尔西2-0卢顿，但蓝军进攻问题依然没解决",
-      "angle": "复盘切尔西2-0胜卢顿的比赛，指出虽然赢球但进攻端缺乏创造力，质疑新赛季蓝军的前景。",
+      "title": "曼联盯上弗赖堡前锋，齐尔克泽走人倒计时",
+      "angle": "从米体报道齐尔克泽离队在即、曼联对马塔诺维奇感兴趣切入，分析曼联锋线调整逻辑，用‘走人倒计时’制造紧迫感，引发转会窗讨论。",
       "keywords": [
-        "Chelsea",
-        "Luton",
-        "2-0",
-        "analysis"
+        "Manchester United",
+        "Zirkzee",
+        "Matanovic",
+        "transfer"
       ],
       "keywords_cn": [
-        "切尔西",
-        "卢顿",
-        "2-0",
-        "战术分析"
+        "曼联",
+        "齐尔克泽",
+        "马塔诺维奇",
+        "转会"
       ],
-      "content_type": "热点球评",
-      "score": 82,
+      "content_type": "转会资讯",
+      "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "why_pick": "切尔西比赛有话题性，进攻问题可引发球迷讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
+      "target_emotion": "好奇",
+      "why_pick": "曼联转会话题自带流量，前锋更替有故事性。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
       "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "铜梁龙观众画像：四川球迷占四分之一，女球迷超三成",
+      "angle": "从铜梁龙观众数据切入，分析市外观众四川籍占比25%、女观众31%高于行业均值，用‘川渝德比’‘女球迷崛起’等角度，带出中甲俱乐部的社区文化现象。",
+      "keywords": [
+        "Tongliang Dragon",
+        "fan portrait",
+        "Sichuan",
+        "female fans"
+      ],
+      "keywords_cn": [
+        "铜梁龙",
+        "观众画像",
+        "四川",
+        "女球迷"
+      ],
+      "content_type": "排行榜",
+      "score": 78,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "数据有趣，揭示中甲俱乐部地域文化，差异化选题。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "热刺 5-1 查尔顿，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-28 10:00:15"
+  "last_batch": "morning",
+  "last_updated": "2026-08-28 15:09:46"
 }
