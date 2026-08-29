@@ -1,7 +1,7 @@
 {
   "date": "2026-08-29",
-  "generated_at": "2026-08-28T20:52:55.383900",
-  "total_articles": 8,
+  "generated_at": "2026-08-29T00:11:46.524691",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -257,179 +257,300 @@
       "column_id": "",
       "column_name": "",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "蓝军新核埃斯特旺造乌龙，维尔贝克35岁首球！切尔西2-0卢顿晋级",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-1-蓝军新核埃斯特旺-f302f7.md",
+      "slug": "蓝军新核埃斯特旺-f302f7",
+      "tags": [
+        "Chelsea",
+        "Luton Town",
+        "Carabao Cup",
+        "Welbeck",
+        "Estevao"
+      ],
+      "keywords": [
+        "Chelsea",
+        "Luton Town",
+        "Carabao Cup",
+        "Welbeck",
+        "Estevao"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-29/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "巴尔科拉去利物浦？这波操作我直接看懵了！",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-2-巴尔科拉去利物浦-6f82ea.md",
+      "slug": "巴尔科拉去利物浦-6f82ea",
+      "tags": [
+        "Barcola",
+        "Liverpool",
+        "Iraola",
+        "transfer"
+      ],
+      "keywords": [
+        "Barcola",
+        "Liverpool",
+        "Iraola",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-29/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "巴黎2-2里尔：吉鲁两助攻差点弑旧主，维蒂尼亚读秒绝平救赎",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-3-巴黎22里尔吉鲁-348fdb.md",
+      "slug": "巴黎22里尔吉鲁-348fdb",
+      "tags": [
+        "Paris Saint-Germain",
+        "Lille",
+        "Giroud",
+        "Vitinha",
+        "Marquinhos",
+        "Ligue 1"
+      ],
+      "keywords": [
+        "Paris Saint-Germain",
+        "Lille",
+        "Giroud",
+        "Vitinha",
+        "Marquinhos",
+        "Ligue 1"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 4,
+      "title": "拜仁5-1血洗斯图加特！瓦格诺曼乌龙+奥利塞越位球，孔帕尼首秀太狠了",
+      "path": "/home/runner/work/_temp/output/2026-08-29/article-4-拜仁51血洗斯图-e19050.md",
+      "slug": "拜仁51血洗斯图-e19050",
+      "tags": [
+        "Bayern Munich",
+        "Stuttgart",
+        "Bundesliga",
+        "Wagnoman",
+        "Olise"
+      ],
+      "keywords": [
+        "Bayern Munich",
+        "Stuttgart",
+        "Bundesliga",
+        "Wagnoman",
+        "Olise"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-29/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-29/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "HWG！维拉5500万签姆巴耶，切尔西再卖前锋",
-      "angle": "聚焦维拉签下姆巴耶和切尔西出售杰克逊两笔交易，分析切尔西前锋线大清洗背后的逻辑，质疑其引援策略。",
+      "title": "6500万镑！维拉截胡切尔西，杰克逊这波操作值不值？",
+      "angle": "从维拉签下杰克逊的转会切入，质疑切尔西出售前锋的决策，同时分析维拉这笔交易的风险与收益。",
       "keywords": [
-        "Mbaye",
-        "Aston Villa",
-        "Jackson",
-        "Chelsea",
+        "jackson",
+        "aston villa",
+        "chelsea",
         "transfer"
       ],
       "keywords_cn": [
-        "姆巴耶",
-        "维拉",
         "杰克逊",
+        "维拉",
         "切尔西",
         "转会"
       ],
       "content_type": "转会资讯",
-      "score": 90,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "夏窗关窗前的重磅交易，切尔西卖人成瘾，争议大。",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "哈兰德113球追平伊恩·赖特，这效率太离谱",
-      "angle": "用哈兰德113球追平传奇射手的数据切入，对比英超历史射手效率，感叹其恐怖统治力，引发球迷讨论。",
-      "keywords": [
-        "Haaland",
-        "Ian Wright",
-        "Premier League",
-        "record"
-      ],
-      "keywords_cn": [
-        "哈兰德",
-        "伊恩·赖特",
-        "英超",
-        "纪录"
-      ],
-      "content_type": "排行榜",
-      "score": 88,
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "why_pick": "数据震撼，哈兰德持续高光，球迷爱看传奇对比。",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "奥斯梅恩拒绝阿森纳：薪资不让步，这硬气从哪来？",
-      "angle": "从奥斯梅恩拒绝阿森纳的薪资要求切入，分析其留队决心和加拉塔萨雷的吸引力，质疑英超豪门吸引力是否下降。",
-      "keywords": [
-        "Osimhen",
-        "Arsenal",
-        "Galatasaray",
-        "salary"
-      ],
-      "keywords_cn": [
-        "奥斯梅恩",
-        "阿森纳",
-        "加拉塔萨雷",
-        "薪资"
-      ],
-      "content_type": "转会资讯",
-      "score": 85,
+      "score": 95,
       "controversy_level": "high",
       "target_emotion": "震惊",
-      "why_pick": "球员拒绝豪门涨薪，反常识叙事，讨论价值高。",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "夏窗大额转会，切尔西卖前锋引争议，话题性强。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "克洛普调侃：一场没输，这工作比德国队香多了",
-      "angle": "从克洛普幽默言论切入，对比其执教利物浦的轻松状态与德国足协的宏伟计划，调侃其避重就轻的选择。",
+      "title": "1-0，第95分钟绝杀！29岁老将一球成名，曼城这命也太硬了",
+      "angle": "聚焦曼城4-1战胜水晶宫的比赛中，某位老将（假设为29岁球员）的绝杀表现，赞美曼城关键时刻的韧性，同时调侃其“命硬”属性。",
       "keywords": [
-        "Klopp",
-        "Liverpool",
-        "German FA",
-        "humor"
+        "manchester city",
+        "crystal palace",
+        "comeback",
+        "premier league"
       ],
       "keywords_cn": [
-        "克洛普",
-        "利物浦",
-        "德国足协",
-        "调侃"
+        "曼城",
+        "水晶宫",
+        "绝杀",
+        "英超"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
+      "content_type": "热点球评",
+      "score": 92,
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "克洛普自带流量，幽默言论易传播，轻松有趣。",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "target_emotion": "激动",
+      "why_pick": "曼城比赛有话题，绝杀瞬间制造情绪共鸣，符合老球迷视角。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "老六精准预测：明天8场焦点战，我看好这些队！",
+      "title": "理发师晒照：巴尔科拉去利物浦前的最后一次剪发？这瓜保熟吗？",
+      "angle": "从理发师社媒晒照切入，调侃巴尔科拉转会利物浦的传闻，用幽默口吻分析转会市场的捕风捉影，引发球迷讨论。",
+      "keywords": [
+        "barcola",
+        "liverpool",
+        "transfer",
+        "rumor"
+      ],
+      "keywords_cn": [
+        "巴尔科拉",
+        "利物浦",
+        "转会",
+        "传闻"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "转会传闻搭配趣事，轻松幽默，容易引发评论区互动。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "没了姆巴佩，巴黎反而2-2平里尔？这豪门路怎么走？",
+      "angle": "从巴黎2-2战平里尔的比赛切入，分析姆巴佩离队后巴黎的战术困境，质疑球队新赛季的竞争力，引发对法甲豪门未来的讨论。",
+      "keywords": [
+        "paris saint-germain",
+        "lille",
+        "mbappe",
+        "ligue 1"
+      ],
+      "keywords_cn": [
+        "巴黎圣日耳曼",
+        "里尔",
+        "姆巴佩",
+        "法甲"
+      ],
       "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "score": 90,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "姆巴佩离队后巴黎表现不佳，话题自带争议和情绪。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "拜仁 5-1 斯图加特，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
+    "morning",
     "noon"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-08-29 04:52:55"
+  "last_batch": "morning",
+  "last_updated": "2026-08-29 08:11:46"
 }
