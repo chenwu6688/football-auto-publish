@@ -1,7 +1,7 @@
 {
   "date": "2026-08-31",
-  "generated_at": "2026-08-31T04:10:15.124792",
-  "total_articles": 6,
+  "generated_at": "2026-08-31T09:40:48.463922",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -194,171 +194,408 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "米特里策帽子戏法+助攻，浙江6-0血洗玉昆！这MVP拿得毫无悬念",
+      "path": "/home/runner/work/_temp/output/2026-08-31/article-1-米特里策帽子戏法-cde054.md",
+      "slug": "米特里策帽子戏法-cde054",
+      "tags": [
+        "MiTritse",
+        "MVP",
+        "Zhejiang",
+        "Yunnan",
+        "hat-trick"
+      ],
+      "keywords": [
+        "MiTritse",
+        "MVP",
+        "Zhejiang",
+        "Yunnan",
+        "hat-trick"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-31/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "利物浦2-2森林开局两连平！阿利松送点又扑单刀，这剧本你敢信？",
+      "path": "/home/runner/work/_temp/output/2026-08-31/article-2-利物浦22森林开-6516ef.md",
+      "slug": "利物浦22森林开-6516ef",
+      "tags": [
+        "Liverpool",
+        "Nottingham Forest",
+        "Premier League",
+        "Alisson",
+        "Wirtz"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Nottingham Forest",
+        "Premier League",
+        "Alisson",
+        "Wirtz"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-31/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "因凡蒂诺的黑历史：普京的私人飞机，教皇的私人行程，年薪150万嫌少",
+      "path": "/home/runner/work/_temp/output/2026-08-31/article-3-因凡蒂诺的黑历史-336f4c.md",
+      "slug": "因凡蒂诺的黑历史-336f4c",
+      "tags": [
+        "FIFA",
+        "Infantino",
+        "private jet",
+        "Pope",
+        "salary"
+      ],
+      "keywords": [
+        "FIFA",
+        "Infantino",
+        "private jet",
+        "Pope",
+        "salary"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-31/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "6-0！浙江队外援戴帽+造点，这MVP不给米特里策天理难容",
+      "path": "/home/runner/work/_temp/output/2026-08-31/article-4-60浙江队外援戴-bd832c.md",
+      "slug": "60浙江队外援戴-bd832c",
+      "tags": [
+        "Zhejiang FC",
+        "Mitrite",
+        "Chinese Super League",
+        "MVP",
+        "hat-trick"
+      ],
+      "keywords": [
+        "Zhejiang FC",
+        "Mitrite",
+        "Chinese Super League",
+        "MVP",
+        "hat-trick"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-31/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "德国天才陨落？穆科科转会乔鲁姆，背后真相让人唏嘘",
+      "path": "/home/runner/work/_temp/output/2026-08-31/article-5-德国天才陨落穆科-7cf083.md",
+      "slug": "德国天才陨落穆科-7cf083",
+      "tags": [
+        "Moukoko",
+        "Corum",
+        "transfer",
+        "Turkish Super Lig"
+      ],
+      "keywords": [
+        "Moukoko",
+        "Corum",
+        "transfer",
+        "Turkish Super Lig"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-31/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 6,
+      "title": "老六精准预测：明天8场硬仗，巴萨罗马枪手谁翻车？",
+      "path": "/home/runner/work/_temp/output/2026-08-31/article-6-老六精准预测明天-f47a41.md",
+      "slug": "老六精准预测明天-f47a41",
+      "tags": [
+        "football prediction",
+        "Serie A",
+        "Premier League",
+        "La Liga",
+        "Barcelona",
+        "Arsenal",
+        "Roma",
+        "Atalanta"
+      ],
+      "keywords": [
+        "football prediction",
+        "Serie A",
+        "Premier League",
+        "La Liga",
+        "Barcelona",
+        "Arsenal",
+        "Roma",
+        "Atalanta"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-08-31/images/article-6-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-08-31/images/article-6-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "4-3！切尔西布莱顿玩心跳，这剧本谁敢写？",
-      "angle": "切尔西4-3险胜布莱顿，比赛跌宕起伏，老六点评：蓝军防线还是老问题，但进攻端总算有点看头了。",
+      "title": "40岁胡尔克圆月弯刀！这状态中超还能打吗？",
+      "angle": "从胡尔克巴甲任意球破门切入，对比中超外援现状，感叹老将风采不减当年，引发球迷对中超外援政策的讨论。",
       "keywords": [
-        "Chelsea",
-        "Brighton",
-        "Premier League",
-        "4-3"
+        "Hulk",
+        "Brazilian Serie A",
+        "free kick",
+        "中超"
       ],
       "keywords_cn": [
-        "切尔西",
-        "布莱顿",
-        "英超",
-        "4-3"
+        "胡尔克",
+        "巴甲",
+        "任意球",
+        "中超"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "score": 95,
-      "controversy_level": "high",
+      "controversy_level": "medium",
       "target_emotion": "震惊",
-      "why_pick": "英超焦点战，比分刺激，争议和话题性十足，符合爆款潜力。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "40岁老将技惊四座，视觉冲击力强，易引发怀旧和讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "利物浦总监休斯去新月？这波操作太骚了",
-      "angle": "记者爆料利物浦总监休斯将加盟利雅得新月，老六直呼：欧洲豪门高管被沙特挖角，这转会窗的玩法真变了。",
+      "title": "利物浦3500万签18岁门将！这操作你看懂了吗？",
+      "angle": "分析利物浦签下18岁门将布吕赫曼斯的转会操作，探讨其作为未来投资的战略意义，以及当前门将位置的竞争格局。",
       "keywords": [
         "Liverpool",
-        "Hughes",
-        "Al-Hilal",
-        "transfer"
+        "transfer",
+        "Bruggeman",
+        "goalkeeper"
       ],
       "keywords_cn": [
         "利物浦",
-        "休斯",
-        "利雅得新月",
-        "转会"
+        "转会",
+        "布吕赫曼斯",
+        "门将"
       ],
       "content_type": "转会资讯",
       "score": 90,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "沙特挖角欧洲豪门高管，话题新颖，争议性强，中国球迷也爱看。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "利物浦豪购年轻门将，话题性足，可引发对球队未来规划的讨论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "5-2！曼联终于赢了，但滕哈赫的麻烦还在后头",
-      "angle": "曼联5-2大胜伊镇取赛季首胜，老六直言：别高兴太早，对手太弱，红魔的防守问题一个没解决。",
+      "title": "电讯报曝光因凡蒂诺丑闻：任人唯亲，FIFA还有救吗？",
+      "angle": "从电讯报的调查报道切入，直指因凡蒂诺的不当行为，质疑国际足联的治理腐败，表达对足球管理机构的不满。",
       "keywords": [
-        "Manchester United",
-        "Ipswich",
-        "Premier League",
-        "5-2"
+        "Infantino",
+        "FIFA",
+        "corruption",
+        "investigation"
       ],
       "keywords_cn": [
-        "曼联",
-        "伊镇",
-        "英超",
-        "首胜"
+        "因凡蒂诺",
+        "国际足联",
+        "腐败",
+        "调查"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "FIFA高层丑闻自带争议，能引发球迷对足球腐败的愤怒和讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "明年中超普及裁判现场播报！这改革能少点争议吗？",
+      "angle": "从足球报消息切入，肯定中超引入裁判现场播报和半自动越位技术的改革，认为这是减少争议判罚、提升联赛专业度的关键一步。",
+      "keywords": [
+        "Chinese Super League",
+        "referee",
+        "VAR",
+        "technology"
+      ],
+      "keywords_cn": [
+        "中超",
+        "裁判",
+        "VAR",
+        "技术"
       ],
       "content_type": "热点球评",
       "score": 85,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "曼联首胜有话题性，但老六的犀利点评能激发讨论，避免吹捧。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "巴萨坚称今夏能签小蜘蛛，这底气从哪来？",
-      "angle": "TA报道巴萨坚称今夏能签下阿尔瓦雷斯，老六吐槽：巴萨的杠杆还没用完？这饼画得有点大。",
-      "keywords": [
-        "Barcelona",
-        "Alvarez",
-        "transfer",
-        "summer"
-      ],
-      "keywords_cn": [
-        "巴萨",
-        "阿尔瓦雷斯",
-        "转会",
-        "夏季"
-      ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "巴萨转会传闻自带流量，质疑巴萨的财政状况能引发球迷站队。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "中超改革直接关系球迷观赛体验，话题接地气，易引发讨论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "穆科科加盟土甲球队！昔日天才怎么就陨落了？",
+      "angle": "从穆科科即将加盟土甲球队乔鲁姆五洲的新闻切入，回顾其从多特蒙德天才到如今辗转的职业生涯，探讨年轻球员发展的不确定性。",
+      "keywords": [
+        "Moukoko",
+        "Turkey",
+        "transfer",
+        "Borussia Dortmund"
+      ],
+      "keywords_cn": [
+        "穆科科",
+        "土耳其",
+        "转会",
+        "多特蒙德"
+      ],
+      "content_type": "转会资讯",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "昔日天才陨落的故事性极强，能引发球迷感慨和讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天8场硬仗，巴萨罗马枪手谁翻车？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-08-31 12:10:15"
+  "last_batch": "evening",
+  "last_updated": "2026-08-31 17:40:48"
 }
