@@ -1,7 +1,7 @@
 {
   "date": "2026-09-02",
-  "generated_at": "2026-09-02T00:10:46.019317",
-  "total_articles": 3,
+  "generated_at": "2026-09-02T04:10:04.292719",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -98,178 +98,199 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "1.25亿镑！恩佐空降曼城，切尔西球迷炸了：这波操作你给几分？",
+      "path": "/home/runner/work/_temp/output/2026-09-02/article-1-125亿镑恩佐空-0983c1.md",
+      "slug": "125亿镑恩佐空-0983c1",
+      "tags": [
+        "Enzo Fernandez",
+        "Manchester City",
+        "Chelsea",
+        "transfer",
+        "Premier League"
+      ],
+      "keywords": [
+        "Enzo Fernandez",
+        "Manchester City",
+        "Chelsea",
+        "transfer",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-02/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-02/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-02/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "夏窗关了，这些大牌却还在找工作！",
+      "path": "/home/runner/work/_temp/output/2026-09-02/article-2-夏窗关了这些大牌-d16ad7.md",
+      "slug": "夏窗关了这些大牌-d16ad7",
+      "tags": [
+        "free agents",
+        "transfer window",
+        "Benzema",
+        "Sancho",
+        "Sterling"
+      ],
+      "keywords": [
+        "free agents",
+        "transfer window",
+        "Benzema",
+        "Sancho",
+        "Sterling"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-02/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-02/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "3亿签套首发！维拉今夏豪购，能撼动英超格局吗？",
-      "angle": "从维拉今夏3亿镑签下杰克逊、加纳乔等强援切入，质疑其能否真正提升球队实力，避免成为下一个切尔西式冤大头。",
+      "title": "38亿欧！英超转会投入创纪录，这还是足球吗？",
+      "angle": "以英超夏窗总投入38亿欧元为切入点，质疑金元足球的疯狂，引发球迷对足球本质的讨论。",
       "keywords": [
-        "Aston Villa",
-        "transfer",
         "Premier League",
-        "Nicolas Jackson",
-        "Garnacho"
+        "transfer spending",
+        "record",
+        "summer window"
       ],
       "keywords_cn": [
-        "阿斯顿维拉",
-        "转会",
         "英超",
-        "杰克逊",
-        "加纳乔"
+        "转会投入",
+        "纪录",
+        "夏窗"
       ],
-      "content_type": "转会资讯",
-      "score": 95,
+      "content_type": "排行榜",
+      "score": 88,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "夏窗最大手笔之一，争议性极强，中国球迷爱看豪门砸钱翻车故事。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "愤怒",
+      "why_pick": "数据震撼，直击金元足球痛点，容易引发正反方激烈争论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "1-0，阿森纳客场闷杀维拉，英超争冠又添变数？",
-      "angle": "复盘阿森纳1-0客胜维拉，强调防守反击的务实胜利，暗示枪手在强强对话中已学会丑陋赢球，争冠模式开启。",
+      "title": "从中超弃将到自由球员，桑乔本泽马们何去何从？",
+      "angle": "聚焦自由球员市场中的大牌球星，如桑乔、本泽马等，探讨他们的职业困境和未来选择，引发球迷共情。",
       "keywords": [
-        "Arsenal",
-        "Aston Villa",
-        "Premier League",
-        "1-0",
-        "title race"
+        "free agent",
+        "Sancho",
+        "Benzema",
+        "Zinchenko",
+        "Martial",
+        "Pogba"
       ],
       "keywords_cn": [
-        "阿森纳",
-        "阿斯顿维拉",
-        "英超",
-        "1-0",
-        "争冠"
-      ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "why_pick": "强强对话结果直接影响争冠格局，阿森纳球迷情绪高涨，讨论度高。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "B费爆料：马夏尔、拉什福德欠我很多顿饭？曼联更衣室有内幕！",
-      "angle": "以B费调侃队友欠饭的趣闻切入，暗讽曼联锋线球员状态低迷，揭示更衣室微妙氛围，引发球迷对曼联攻击力的讨论。",
-      "keywords": [
-        "Bruno Fernandes",
-        "Manchester United",
-        "Marcus Rashford",
-        "Anthony Martial",
-        "locker room"
-      ],
-      "keywords_cn": [
-        "B费",
-        "曼联",
-        "拉什福德",
+        "自由球员",
+        "桑乔",
+        "本泽马",
+        "津琴科",
         "马夏尔",
-        "更衣室"
+        "博格巴"
       ],
       "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "曼联自带流量，B费爆料有话题性，能引发球迷对球队内部关系的猜测。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "官方：水晶宫签下昆滕·廷伯，兄弟德比即将上演！",
-      "angle": "从水晶宫签下昆滕·廷伯切入，聚焦与阿森纳的廷伯兄弟对决，讲述足坛兄弟情与竞争，增加比赛看点和人情味。",
-      "keywords": [
-        "Crystal Palace",
-        "Quinten Timber",
-        "Jurrien Timber",
-        "brothers",
-        "Premier League"
-      ],
-      "keywords_cn": [
-        "水晶宫",
-        "昆滕·廷伯",
-        "尤里恩·廷伯",
-        "兄弟",
-        "英超"
-      ],
-      "content_type": "转会资讯",
       "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "兄弟德比故事性强，情感共鸣高，球迷爱看这类温情又带竞争的话题。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "why_pick": "大牌球星落魄故事，身份反差大，容易引发球迷感慨和讨论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "5-2！巴萨狂胜巴列卡诺，但防守漏洞依旧触目惊心",
+      "angle": "复盘巴萨5-2大胜，肯定进攻火力，但重点批评防守端的问题，指出球队争冠隐患。",
+      "keywords": [
+        "Barcelona",
+        "Rayo Vallecano",
+        "La Liga",
+        "defensive issues"
+      ],
+      "keywords_cn": [
+        "巴塞罗那",
+        "巴列卡诺",
+        "西甲",
+        "防守问题"
+      ],
+      "content_type": "热点球评",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "大胜背后有隐忧，犀利观点能引发巴萨球迷讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-02 08:10:46"
+  "last_batch": "noon",
+  "last_updated": "2026-09-02 12:10:04"
 }
