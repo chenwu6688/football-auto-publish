@@ -1,7 +1,7 @@
 {
   "date": "2026-09-03",
-  "generated_at": "2026-09-03T04:10:04.449711",
-  "total_articles": 7,
+  "generated_at": "2026-09-03T09:40:36.130551",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -221,171 +221,344 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "20岁日本小将名和田我空，放着J联赛机会不要，偏要去比利时踢球？",
+      "path": "/home/runner/work/_temp/output/2026-09-03/article-1-20岁日本小将名-2e2d25.md",
+      "slug": "20岁日本小将名-2e2d25",
+      "tags": [
+        "Nawata Waku",
+        "Belgian Pro League",
+        "Gamba Osaka",
+        "World Cup dream"
+      ],
+      "keywords": [
+        "Nawata Waku",
+        "Belgian Pro League",
+        "Gamba Osaka",
+        "World Cup dream"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "3000甘肃球迷工体喊谢谢北京，国安这波操作我给满分",
+      "path": "/home/runner/work/_temp/output/2026-09-03/article-2-3000甘肃球迷-af2bd6.md",
+      "slug": "3000甘肃球迷-af2bd6",
+      "tags": [
+        "Beijing Guoan",
+        "FA Cup",
+        "Gansu fans",
+        "sportsmanship",
+        "football culture"
+      ],
+      "keywords": [
+        "Beijing Guoan",
+        "FA Cup",
+        "Gansu fans",
+        "sportsmanship",
+        "football culture"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-03/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "巴萨卖人计划落空！阿布德4300万报价被拒，860万分成泡汤",
+      "path": "/home/runner/work/_temp/output/2026-09-03/article-3-巴萨卖人计划落空-5688e0.md",
+      "slug": "巴萨卖人计划落空-5688e0",
+      "tags": [
+        "Barcelona",
+        "Abde",
+        "transfer",
+        "Real Betis",
+        "Premier League"
+      ],
+      "keywords": [
+        "Barcelona",
+        "Abde",
+        "transfer",
+        "Real Betis",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-03/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-03/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-03/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "伊劳拉发布会金句频出：巴尔科拉明天能上，索博斯洛伊改打右后卫？",
+      "path": "/home/runner/work/_temp/output/2026-09-03/article-4-伊劳拉发布会金句-7d6868.md",
+      "slug": "伊劳拉发布会金句-7d6868",
+      "tags": [
+        "Liverpool",
+        "Iraola",
+        "Barcola",
+        "Szoboszlai",
+        "Gakpo",
+        "Ipswich"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Iraola",
+        "Barcola",
+        "Szoboszlai",
+        "Gakpo",
+        "Ipswich"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-03/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-03/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-03/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "老六精准预测：皇马曼城稳了？利物浦巴黎有坑！",
+      "path": "/home/runner/work/_temp/output/2026-09-03/article-5-老六精准预测皇马-2bc8c1.md",
+      "slug": "老六精准预测皇马-2bc8c1",
+      "tags": [
+        "football prediction",
+        "La Liga",
+        "Premier League",
+        "Bundesliga",
+        "Real Madrid",
+        "Manchester City",
+        "Liverpool",
+        "PSG"
+      ],
+      "keywords": [
+        "football prediction",
+        "La Liga",
+        "Premier League",
+        "Bundesliga",
+        "Real Madrid",
+        "Manchester City",
+        "Liverpool",
+        "PSG"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-03/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "12.6亿镑！英超净支出暴跌，金元足球真要凉？",
-      "angle": "从泰晤士报数据切入，质疑英超烧钱模式是否到头，用老球迷视角对比往年疯狂砸钱，抛出'金元足球泡沫要破'的犀利观点。",
+      "title": "20岁日本小将留洋比甲，名和田我空能成下一个久保？",
+      "angle": "从名和田我空租借沙勒鲁瓦切入，对比日本青训体系，反思中国年轻球员留洋困境。",
       "keywords": [
-        "Premier League",
-        "net spend",
-        "financial decline"
+        "Nawatari Gaku",
+        "Belgian Pro League",
+        "Japanese football",
+        "youth development"
       ],
       "keywords_cn": [
-        "英超",
-        "净支出",
-        "金元足球"
+        "名和田我空",
+        "比甲",
+        "日本足球",
+        "青训",
+        "留洋"
       ],
       "content_type": "转会资讯",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "数据震撼，争议性强，能引发球迷对英超未来的讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "从巴萨签阿森纳11人看，这笔买卖亏大了！",
-      "angle": "结合世体报道，盘点巴萨从阿森纳签下的11人，用'失败多于成功'定调，吐槽巴萨眼光，制造怀旧和反差感。",
-      "keywords": [
-        "Barcelona",
-        "Arsenal",
-        "transfers",
-        "flops"
-      ],
-      "keywords_cn": [
-        "巴萨",
-        "阿森纳",
-        "转会",
-        "失败"
-      ],
-      "content_type": "八卦趣事",
       "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "why_pick": "故事性强，能勾起老球迷回忆，评论区肯定吵翻。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "target_emotion": "好奇",
+      "why_pick": "日本小将留洋话题自带流量，对比中国足球引发反思。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "穆帅心仪恩佐+维尼修斯差点去阿森纳，这瓜保熟吗？",
-      "angle": "用TA报道的转会内幕为引子，调侃穆里尼奥和维尼修斯的转会传闻，以'老六独家揭秘'口吻分析真假，挑动球迷好奇心。",
-      "keywords": [
-        "Mourinho",
-        "Enzo Fernandez",
-        "Vinicius Jr",
-        "Arsenal",
-        "transfer rumors"
-      ],
-      "keywords_cn": [
-        "穆里尼奥",
-        "恩佐",
-        "维尼修斯",
-        "阿森纳",
-        "转会传闻"
-      ],
-      "content_type": "转会资讯",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "大牌球星+豪门+内幕，天然爆款，争议和讨论价值极高。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "中超罚单满天飞：穿错球衣罚4万，打人停4场，这联赛还能看吗？",
-      "angle": "从南京城市和广州蒲公英的罚单入手，吐槽中超管理混乱，用'老六看中超'的犀利视角，表达对联赛职业化的失望。",
+      "title": "国安把客队票全给了兰州，甘肃球迷高喊：谢谢北京！",
+      "angle": "从国安将客队票完整交给兰州陇原竞技切入，赞扬中超罕见的人情味，对比其他球队的客队票争议。",
       "keywords": [
-        "Chinese Super League",
-        "fine",
-        "suspension",
-        "discipline"
+        "Beijing Guoan",
+        "Lanzhou Longyuan",
+        "away fans",
+        "sportsmanship"
       ],
       "keywords_cn": [
-        "中超",
-        "罚单",
-        "球员",
-        "管理混乱"
+        "北京国安",
+        "兰州陇原竞技",
+        "客队球迷",
+        "体育精神"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "why_pick": "接地气，能引发中国球迷对联赛现状的吐槽和共鸣。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "score": 90,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "中超赛场正能量故事，引发球迷情感共鸣。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "西甲青训落地上海！中国足球小将能学到啥真本事？",
+      "angle": "从西甲青少年锦标赛在上海举办切入，分析中国青训引入欧洲体系的利弊，质疑是否只是面子工程。",
+      "keywords": [
+        "La Liga",
+        "youth tournament",
+        "Shanghai",
+        "Chinese football development"
+      ],
+      "keywords_cn": [
+        "西甲",
+        "青训",
+        "上海",
+        "中国足球",
+        "青少年"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "青训话题关注度高，西甲品牌加持，讨论中国足球未来。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "伊劳拉：巴尔科拉首发还得想想，这转会窗我知足了",
+      "angle": "从伊劳拉对巴尔科拉首发和转会窗的言论切入，分析英超中游球队的引援策略与生存哲学。",
+      "keywords": [
+        "Iraola",
+        "Bournemouth",
+        "Barcola",
+        "transfer window",
+        "Premier League"
+      ],
+      "keywords_cn": [
+        "伊劳拉",
+        "伯恩茅斯",
+        "巴尔科拉",
+        "转会窗",
+        "英超"
+      ],
+      "content_type": "转会资讯",
+      "score": 78,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "英超主帅言论有话题性，反映中游球队务实心态。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：皇马曼城稳了？利物浦巴黎有坑！",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-03 12:10:04"
+  "last_batch": "evening",
+  "last_updated": "2026-09-03 17:40:36"
 }
