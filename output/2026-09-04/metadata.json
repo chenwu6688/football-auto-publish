@@ -1,7 +1,7 @@
 {
   "date": "2026-09-04",
-  "generated_at": "2026-09-04T00:10:49.115729",
-  "total_articles": 4,
+  "generated_at": "2026-09-04T04:10:19.849773",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -123,174 +123,297 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "英超预测：阿森纳2-0切尔西？老六觉得这波稳了",
+      "path": "/home/runner/work/_temp/output/2026-09-04/article-1-英超预测阿森纳2-a39423.md",
+      "slug": "英超预测阿森纳2-a39423",
+      "tags": [
+        "Premier League",
+        "Arsenal",
+        "Chelsea",
+        "Sky Sports",
+        "prediction"
+      ],
+      "keywords": [
+        "Premier League",
+        "Arsenal",
+        "Chelsea",
+        "Sky Sports",
+        "prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-04/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-04/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "U23亚运名单出炉，吾米提江因车祸落选太冤了！",
+      "path": "/home/runner/work/_temp/output/2026-09-04/article-2-U23亚运名单出-eb97ea.md",
+      "slug": "U23亚运名单出-eb97ea",
+      "tags": [
+        "U23 Asian Games",
+        "Zhang Yuning",
+        "Wu Xi",
+        "Yu Dabao",
+        "Wu Mi Tijiang"
+      ],
+      "keywords": [
+        "U23 Asian Games",
+        "Zhang Yuning",
+        "Wu Xi",
+        "Yu Dabao",
+        "Wu Mi Tijiang"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-04/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-04/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "于大宝密会皇马U16，一句话让中国足球人破防",
+      "path": "/home/runner/work/_temp/output/2026-09-04/article-3-于大宝密会皇马U-f52b28.md",
+      "slug": "于大宝密会皇马U-f52b28",
+      "tags": [
+        "Yu Dabao",
+        "Real Madrid U16",
+        "Great Wall Cup",
+        "youth training",
+        "Chinese football"
+      ],
+      "keywords": [
+        "Yu Dabao",
+        "Real Madrid U16",
+        "Great Wall Cup",
+        "youth training",
+        "Chinese football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-04/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-04/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-04/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "索尼官方揭秘：你看到的弯曲越位线，其实是球场和镜头的锅",
+      "path": "/home/runner/work/_temp/output/2026-09-04/article-4-索尼官方揭秘你看-bca80d.md",
+      "slug": "索尼官方揭秘你看-bca80d",
+      "tags": [
+        "VAR",
+        "offside line",
+        "3D virtual offside",
+        "Hawk-Eye",
+        "Sony"
+      ],
+      "keywords": [
+        "VAR",
+        "offside line",
+        "3D virtual offside",
+        "Hawk-Eye",
+        "Sony"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-04/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-04/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-04/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "7000万欧！马丁内利离队，阿森纳这波操作亏了还是赚了？",
-      "angle": "从马丁内利以7000万欧创纪录转会费加盟利雅得新月切入，分析阿森纳出售核心边锋的利弊，质疑球队阵容深度是否足够争冠。",
+      "title": "阿森纳2-0切尔西，枪手新赛季真能争冠？",
+      "angle": "从阿森纳2-0切尔西的胜利切入，分析枪手新赛季的争冠实力和战术变化，强调阿尔特塔的体系成熟度，不盲目吹捧但指出蓝军问题。",
       "keywords": [
-        "martinelli",
-        "arsenal",
-        "transfer",
-        "al-hilal"
+        "Arsenal",
+        "Chelsea",
+        "Premier League",
+        "title race"
       ],
       "keywords_cn": [
-        "马丁内利",
         "阿森纳",
-        "转会",
-        "利雅得新月"
+        "切尔西",
+        "英超",
+        "争冠"
       ],
-      "content_type": "转会资讯",
+      "content_type": "热点球评",
       "score": 95,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "创纪录转会费+豪门卖核心，争议性十足，球迷必吵。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "好奇",
+      "why_pick": "阿森纳2-0切尔西是当日焦点战，有话题性和争议性，适合犀利点评。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "切尔西用橄榄球护垫练定位球？老六：这招能防住阿森纳？",
-      "angle": "从太阳报报道切尔西用橄榄球护垫针对性训练切入，调侃蓝军防守定位球的奇葩招数，质疑其效果并预测与阿森纳的伦敦德比。",
+      "title": "徐正源激活邦本宜裕，中超外教真有两把刷子？",
+      "angle": "从徐正源谈激活邦本宜裕切入，对比中超外教与本土教练的用人差异，强调战术调整的细腻性，引发对中超教练水平的讨论。",
       "keywords": [
-        "chelsea",
-        "arsenal",
-        "set piece",
-        "training",
-        "premier league"
+        "Xu Zhengyuan",
+        "Bang Benyiyu",
+        "Chinese Super League",
+        "tactics"
       ],
       "keywords_cn": [
-        "切尔西",
-        "阿森纳",
-        "定位球",
-        "训练",
-        "英超"
+        "徐正源",
+        "邦本宜裕",
+        "中超",
+        "激活"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "徐正源作为韩国名帅，激活邦本宜裕的故事有看点，能引发对中超外教的讨论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "于大宝曝皇马U16队有4-6名未来五大联赛球员，青训差距多大？",
+      "angle": "从于大宝与皇马U16队交流切入，对比中国与欧洲青训体系，强调皇马青训的产出能力，引发对中国足球青训的反思。",
+      "keywords": [
+        "Yu Dabao",
+        "Real Madrid U16",
+        "youth academy",
+        "La Liga"
+      ],
+      "keywords_cn": [
+        "于大宝",
+        "皇马U16",
+        "青训",
+        "五大联赛"
       ],
       "content_type": "八卦趣事",
       "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "训练方式奇葩，球迷爱看花边，伦敦德比预热。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "B费：马奎尔帮我成更好队长，这搭档比C罗还靠谱？",
-      "angle": "从B费采访中称赞马奎尔帮助自己成长切入，对比曼联队长与C罗的过往，暗示更衣室和谐才是关键，带点调侃。",
-      "keywords": [
-        "bruno fernandes",
-        "maguire",
-        "manchester united",
-        "captain"
-      ],
-      "keywords_cn": [
-        "B费",
-        "马奎尔",
-        "曼联",
-        "队长"
-      ],
-      "content_type": "八卦趣事",
-      "score": 82,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "曼联队长话题自带流量，B费马奎尔关系引热议。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "震惊",
+      "why_pick": "于大宝的爆料有反差感，皇马青训的恐怖产出能引发中国球迷对青训的讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "萨拉赫法比尼奥亲自致电！里沙利松要去土超养老？",
-      "angle": "从ESPN报道萨拉赫和法比尼奥邀请里沙利松加盟特拉布宗体育切入，调侃巴西前锋从英超到土超的落差，质疑其职业生涯选择。",
+      "title": "索尼3D虚拟越位线引争议，VAR技术是进步还是倒退？",
+      "angle": "从索尼介绍3D虚拟越位线切入，质疑VAR技术的复杂化是否反而影响比赛流畅性，强调技术越先进争议越多，引发球迷对VAR的吐槽。",
       "keywords": [
-        "salah",
-        "richarlison",
-        "trabzonspor",
-        "transfer",
-        "fabinho"
+        "Sony",
+        "VAR",
+        "offside line",
+        "technology"
       ],
       "keywords_cn": [
-        "萨拉赫",
-        "里沙利松",
-        "特拉布宗体育",
-        "转会",
-        "法比尼奥"
+        "索尼",
+        "VAR",
+        "越位线",
+        "技术争议"
       ],
-      "content_type": "转会资讯",
-      "score": 78,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "球星亲自招募，故事性强，里沙利松去向成谜。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "VAR越位线是球迷老生常谈的槽点，索尼新技术的引入能引发新一轮争议讨论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-04 08:10:49"
+  "last_batch": "noon",
+  "last_updated": "2026-09-04 12:10:19"
 }
