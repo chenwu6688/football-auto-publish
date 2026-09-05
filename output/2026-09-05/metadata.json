@@ -1,7 +1,7 @@
 {
   "date": "2026-09-05",
-  "generated_at": "2026-09-05T04:10:57.955618",
-  "total_articles": 4,
+  "generated_at": "2026-09-05T09:40:39.966798",
+  "total_articles": 10,
   "articles": [
     {
       "index": 1,
@@ -126,171 +126,402 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "14岁中国娃在巴萨U15进球了！董路晒视频，老六看完直呼内行",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-1-14岁中国娃在巴-59eb7f.md",
+      "slug": "14岁中国娃在巴-59eb7f",
+      "tags": [
+        "Li Haoyan",
+        "Barcelona U15",
+        "Dong Lu",
+        "Chinese football",
+        "youth football"
+      ],
+      "keywords": [
+        "Li Haoyan",
+        "Barcelona U15",
+        "Dong Lu",
+        "Chinese football",
+        "youth football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "宋凯一句“起势了”，中国足球真能翻身？",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-2-宋凯一句起势了中-f43b71.md",
+      "slug": "宋凯一句起势了中-f43b71",
+      "tags": [
+        "Song Kai",
+        "Chinese football",
+        "rise",
+        "runner-up",
+        "fans"
+      ],
+      "keywords": [
+        "Song Kai",
+        "Chinese football",
+        "rise",
+        "runner-up",
+        "fans"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "门将送礼！陕西2-1险胜，何立攀这失误看得我血压飙升",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-3-门将送礼陕西21-5c0bac.md",
+      "slug": "门将送礼陕西21-5c0bac",
+      "tags": [
+        "China League One",
+        "Shaanxi United",
+        "Dingnan Ganlian",
+        "He Lipan",
+        "Tang Shi"
+      ],
+      "keywords": [
+        "China League One",
+        "Shaanxi United",
+        "Dingnan Ganlian",
+        "He Lipan",
+        "Tang Shi"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "申花输球后球迷围堵穿武磊球衣小孩，这波操作真给中国足球丢人",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-4-申花输球后球迷围-0d89c3.md",
+      "slug": "申花输球后球迷围-0d89c3",
+      "tags": [
+        "Shanghai Shenhua",
+        "Beijing Guoan",
+        "Wu Lei",
+        "Chinese Super League",
+        "football hooliganism"
+      ],
+      "keywords": [
+        "Shanghai Shenhua",
+        "Beijing Guoan",
+        "Wu Lei",
+        "Chinese Super League",
+        "football hooliganism"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "申花球迷骂武磊儿子被拘！中超看台乱象该治治了",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-5-申花球迷骂武磊儿-11b555.md",
+      "slug": "申花球迷骂武磊儿-11b555",
+      "tags": [
+        "Chinese Super League",
+        "football hooliganism",
+        "fan violence",
+        "Wu Lei",
+        "Shanghai Shenhua"
+      ],
+      "keywords": [
+        "Chinese Super League",
+        "football hooliganism",
+        "fan violence",
+        "Wu Lei",
+        "Shanghai Shenhua"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 6,
+      "title": "老六精准预测：明天8场焦点战，我看好曼城、国米、拜仁稳赢",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-6-老六精准预测明天-71ef82.md",
+      "slug": "老六精准预测明天-71ef82",
+      "tags": [
+        "football prediction",
+        "Premier League",
+        "Serie A",
+        "Bundesliga",
+        "La Liga",
+        "Ligue 1",
+        "match analysis",
+        "expert tips"
+      ],
+      "keywords": [
+        "football prediction",
+        "Premier League",
+        "Serie A",
+        "Bundesliga",
+        "La Liga",
+        "Ligue 1",
+        "match analysis",
+        "expert tips"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-6-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-6-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "1.25亿先生？维尔茨3场丢53次球权，药厂该卖吗？",
-      "angle": "从维尔茨低迷表现切入，质疑其1.25亿欧身价是否虚高，探讨勒沃库森是否该趁高价套现，引发球迷对年轻球员泡沫的讨论。",
+      "title": "14岁中国小将单刀破巴萨U15，这波操作啥水平？",
+      "angle": "从14岁李昊炎在巴萨U15热身赛破门切入，讨论中国足球青训的亮点和希望，同时避免过度吹捧，强调还需观察。",
       "keywords": [
-        "Wirtz",
-        "Bayer Leverkusen",
-        "Bundesliga",
-        "transfer"
+        "Li Haoyan",
+        "Barcelona U15",
+        "Chinese football youth"
       ],
       "keywords_cn": [
-        "维尔茨",
-        "勒沃库森",
-        "德甲",
-        "转会"
-      ],
-      "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "数据砸脸，争议性十足，能引爆评论区对身价泡沫的骂战。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "澳波：高层不支持我放弃联赛争欧联，夺冠后我就知道下课",
-      "angle": "以澳波自曝下课内幕为引子，讽刺热刺高层短视，牺牲联赛争欧联，最终两空，揭示豪门管理层的混乱。",
-      "keywords": [
-        "Postecoglou",
-        "Tottenham",
-        "Europa League",
-        "sacking"
-      ],
-      "keywords_cn": [
-        "澳波",
-        "热刺",
-        "欧联",
-        "下课"
+        "李昊炎",
+        "巴萨U15",
+        "中国足球青训"
       ],
       "content_type": "八卦趣事",
-      "score": 90,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "热刺是流量密码，教练撕高层内幕，球迷最爱看这种宫斗戏。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "why_pick": "中国小将留洋闪光，正能量且稀有，球迷爱看。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "2100万买断，5000万回购！曼城这波操作太骚了",
-      "angle": "解析本菲卡买断埃切韦里、曼城设回购条款的交易，称赞曼城将青训球员当理财产品玩的精明，对比其他豪门的转会亏损。",
-      "keywords": [
-        "Echeverri",
-        "Manchester City",
-        "Benfica",
-        "buy-back clause"
-      ],
-      "keywords_cn": [
-        "埃切韦里",
-        "曼城",
-        "本菲卡",
-        "回购条款"
-      ],
-      "content_type": "转会资讯",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "转会窗余热，曼城骚操作自带讨论度，球迷爱看这种商业头脑分析。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "0-1！皇马主场输贝蒂斯，安胖的玄学失灵了？",
-      "angle": "从皇马主场爆冷输球切入，分析球队锋线乏力、中场失控的问题，质疑安切洛蒂的战术调整，引出“皇马是否该换血”的争议。",
+      "title": "宋凯说中国足球今年起势了，两个亚军是偶然吗？",
+      "angle": "针对宋凯的言论，从中国足球今年拿两个亚军的背景切入，分析这是否是长期积累的结果，还是偶然现象，带点质疑和调侃。",
       "keywords": [
-        "Real Madrid",
-        "Real Betis",
-        "Ancelotti",
-        "La Liga"
+        "Song Kai",
+        "Chinese football",
+        "Asian Games runner-up"
       ],
       "keywords_cn": [
-        "皇马",
-        "贝蒂斯",
-        "安切洛蒂",
-        "西甲"
+        "宋凯",
+        "中国足球",
+        "亚军"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "皇马输球自带流量，安帅下课论能吵三天，话题性拉满。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "领导言论自带争议，球迷爱辩论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "门将小禁区带球送礼，何立攀这失误能排进中超历史前三吗？",
+      "angle": "从中甲陕西联合门将何立攀的超巨失误切入，调侃这是门将送礼的经典案例，顺带盘点中超历史上的门将低级失误。",
+      "keywords": [
+        "He Lipan",
+        "Shaanxi Union",
+        "goalkeeper error"
+      ],
+      "keywords_cn": [
+        "何立攀",
+        "陕西联合",
+        "门将失误"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "震惊",
+      "why_pick": "门将低级失误自带搞笑和讨论度，球迷爱看乐子。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "成都蓉城最快今晚夺冠，西部首支顶级联赛冠军要来了？",
+      "angle": "从成都蓉城有望提前夺冠切入，强调这是中国足球职业化32年来首支西部顶级联赛冠军，突出历史意义和地域情怀。",
+      "keywords": [
+        "Chengdu Rongcheng",
+        "Chinese Super League",
+        "championship"
+      ],
+      "keywords_cn": [
+        "成都蓉城",
+        "中超",
+        "冠军"
+      ],
+      "content_type": "热点球评",
+      "score": 90,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "why_pick": "西部首冠历史意义大，球迷情绪高涨。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "J联赛跨年制落地，中超跟风？草皮费用谁出？",
+      "angle": "从J联赛跨年制落地和鲁媒的质疑切入，分析中超盲目跟风跨年赛制的现实困难，比如草皮改造和维护费用分担问题。",
+      "keywords": [
+        "J-League",
+        "Chinese Super League",
+        "cross-year system"
+      ],
+      "keywords_cn": [
+        "J联赛",
+        "中超",
+        "跨年赛制"
+      ],
+      "content_type": "战术解析",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "赛制改革争议大，球迷爱讨论可行性。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天8场焦点战，我看好曼城、国米、拜仁稳赢",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-05 12:10:57"
+  "last_batch": "evening",
+  "last_updated": "2026-09-05 17:40:39"
 }
