@@ -1,0 +1,166 @@
+{
+  "date": "2026-09-05",
+  "generated_at": "2026-09-05T00:10:47.889348",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "波特硬刚喷子：普拉提比执教切尔西强？",
+      "path": "/home/runner/work/_temp/output/2026-09-05/article-1-波特硬刚喷子普拉-150d82.md",
+      "slug": "波特硬刚喷子普拉-150d82",
+      "tags": [
+        "Graham Potter",
+        "Chelsea",
+        "West Ham United",
+        "Pilates",
+        "social media feud"
+      ],
+      "keywords": [
+        "Graham Potter",
+        "Chelsea",
+        "West Ham United",
+        "Pilates",
+        "social media feud"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-05/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "1-0！皇马赛季首败，姆巴佩哑火，老六看不下去了",
+      "angle": "从皇马0-1输给贝蒂斯切入，质疑姆巴佩加盟后皇马进攻端反而效率下降，结合安切洛蒂的战术调整问题，引发皇马球迷对“银河战舰三期”的讨论和担忧。",
+      "keywords": [
+        "Real Madrid",
+        "Mbappe",
+        "La Liga",
+        "Betis"
+      ],
+      "keywords_cn": [
+        "皇马",
+        "姆巴佩",
+        "西甲",
+        "贝蒂斯"
+      ],
+      "content_type": "热点球评",
+      "score": 98,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "皇马首败+姆巴佩哑火，话题性极强，球迷情绪高涨。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "太阳报：穆德里克禁赛期自费请业余球员陪练，真拼了？",
+      "angle": "从穆德里克禁赛期坚持训练并自费招募陪练的新闻切入，对比其高昂转会费和低迷表现，质疑他是否在作秀，同时讽刺切尔西的引援眼光。",
+      "keywords": [
+        "Mudryk",
+        "Chelsea",
+        "Sun",
+        "training"
+      ],
+      "keywords_cn": [
+        "穆德里克",
+        "切尔西",
+        "太阳报",
+        "训练"
+      ],
+      "content_type": "八卦趣事",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "why_pick": "穆德里克话题自带争议，自费训练反差感强，容易引发讨论。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "TA英超夏窗评级：利兹联第1，曼联仅第14，利物浦第15！",
+      "angle": "从TA的英超夏窗引援排名切入，重点分析利兹联为何排第一，以及曼联和利物浦引援为何被看低，直接点出管理层决策问题，引发两队球迷争论。",
+      "keywords": [
+        "Premier League",
+        "transfer window",
+        "Leeds United",
+        "Manchester United",
+        "Liverpool"
+      ],
+      "keywords_cn": [
+        "英超",
+        "转会窗",
+        "利兹联",
+        "曼联",
+        "利物浦"
+      ],
+      "content_type": "转会资讯",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "夏窗排名争议大，利兹联第一、曼联利物浦垫底，极具反差感。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-09-05 08:10:47"
+}
