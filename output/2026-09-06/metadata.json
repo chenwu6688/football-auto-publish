@@ -1,7 +1,7 @@
 {
   "date": "2026-09-06",
-  "generated_at": "2026-09-06T04:10:02.245284",
-  "total_articles": 8,
+  "generated_at": "2026-09-06T09:40:53.226143",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -260,171 +260,259 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "32年等待！成都蓉城今夜赢球就夺冠，西南足球第一冠来了",
+      "path": "/home/runner/work/_temp/output/2026-09-06/article-1-32年等待成都蓉-926bbe.md",
+      "slug": "32年等待成都蓉-926bbe",
+      "tags": [
+        "Chengdu Rongcheng",
+        "Chinese Super League",
+        "championship",
+        "southwest football",
+        "John Aloisi"
+      ],
+      "keywords": [
+        "Chengdu Rongcheng",
+        "Chinese Super League",
+        "championship",
+        "southwest football",
+        "John Aloisi"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-06/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "武汉三镇2-2西海岸，VAR掉线背后：中超的应急方案够不够硬？",
+      "path": "/home/runner/work/_temp/output/2026-09-06/article-2-武汉三镇22西海-09973d.md",
+      "slug": "武汉三镇22西海-09973d",
+      "tags": [
+        "Chinese Super League",
+        "VAR",
+        "emergency response",
+        "Wuhan Three Towns",
+        "Qingdao West Coast"
+      ],
+      "keywords": [
+        "Chinese Super League",
+        "VAR",
+        "emergency response",
+        "Wuhan Three Towns",
+        "Qingdao West Coast"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-06/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-06/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-06/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "16岁1米83，德国中卫投奔巴萨，表哥拜仁大将送祝福！",
+      "path": "/home/runner/work/_temp/output/2026-09-06/article-3-16岁1米83德-221af8.md",
+      "slug": "16岁1米83德-221af8",
+      "tags": [
+        "Barcelona",
+        "Bayer Munich",
+        "Jonathan Tah",
+        "Mikael Baza",
+        "youth transfer"
+      ],
+      "keywords": [
+        "Barcelona",
+        "Bayer Munich",
+        "Jonathan Tah",
+        "Mikael Baza",
+        "youth transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-06/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-06/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-06/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "老六精准预测：明晚英超双红会，阿森纳切尔西谁更怂？",
+      "path": "/home/runner/work/_temp/output/2026-09-06/article-4-老六精准预测明晚-e88d29.md",
+      "slug": "老六精准预测明晚-e88d29",
+      "tags": [
+        "football prediction",
+        "Premier League",
+        "Arsenal vs Chelsea",
+        "Juventus vs AC Milan",
+        "match analysis"
+      ],
+      "keywords": [
+        "football prediction",
+        "Premier League",
+        "Arsenal vs Chelsea",
+        "Juventus vs AC Milan",
+        "match analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-06/images/article-4-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "1-2！巴黎输摩纳哥，没了姆巴佩连法甲都玩不转？",
-      "angle": "巴黎圣日耳曼主场1-2不敌摩纳哥，姆巴佩离队后进攻乏力，质疑球队的建队策略和统治力下滑。",
+      "title": "蓉城今晚赢球即夺冠！32年等待，西部首个顶级联赛冠军来了",
+      "angle": "从成都蓉城冲击西部首个顶级联赛冠军切入，聚焦32年等待的戏剧性和城市荣耀，强调这场比赛的里程碑意义，引发球迷共鸣和骄傲情绪。",
       "keywords": [
-        "PSG",
-        "Monaco",
-        "Mbappe",
-        "Ligue 1"
+        "Chengdu Rongcheng",
+        "Chinese Super League",
+        "title"
       ],
       "keywords_cn": [
-        "巴黎圣日耳曼",
-        "摩纳哥",
-        "姆巴佩",
-        "法甲"
+        "成都蓉城",
+        "中超",
+        "冠军"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "巴黎输球热度高，姆巴佩话题争议大，球迷爱看豪门翻车。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "3-0！毕尔巴鄂暴揍马竞，西蒙尼的战术过时了？",
-      "angle": "马竞客场0-3惨败毕尔巴鄂，西蒙尼的铁血防守被撕碎，战术体系遭质疑，引发下课危机讨论。",
-      "keywords": [
-        "Atletico Madrid",
-        "Bilbao",
-        "Simeone",
-        "La Liga"
-      ],
-      "keywords_cn": [
-        "马德里竞技",
-        "毕尔巴鄂竞技",
-        "西蒙尼",
-        "西甲"
-      ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "马竞惨败有爆点，西蒙尼是流量密码，球迷爱喷战术。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "score": 95,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "why_pick": "西部首冠悬念，32年等待，情感共鸣强，爆款潜力大。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "斯坦丘：120球成就达成，中超名将到哪都是大腿",
-      "angle": "斯坦丘在6.5万球迷面前达成120球里程碑，回顾其从中超到英博的职业生涯，称赞其职业态度和实力。",
+      "title": "中超裁判又出幺蛾子！VAR信号中断，四官顶替，这操作谁懂？",
+      "angle": "从中足联官方回应VAR信号中断切入，聚焦裁判组临时顶替的混乱操作，讽刺中超裁判水平，引发球迷对裁判制度的质疑和愤怒。",
       "keywords": [
-        "Stanciu",
-        "Dalian Yingbo",
         "Chinese Super League",
-        "milestone"
+        "VAR",
+        "referee"
       ],
       "keywords_cn": [
-        "斯坦丘",
-        "大连英博",
         "中超",
-        "里程碑"
+        "VAR",
+        "裁判"
       ],
       "content_type": "八卦趣事",
       "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "why_pick": "中超旧将高光时刻，中国球迷有共鸣，故事感强。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "转会窗最后一天反悔？英超这操作比宫斗剧还精彩",
-      "angle": "从懂球译站文章切入，吐槽转会截止日各队不讲道义，撕毁承诺，分析英超转会窗的混乱与人性博弈。",
-      "keywords": [
-        "transfer window",
-        "Premier League",
-        "deadline day",
-        "betrayal"
-      ],
-      "keywords_cn": [
-        "转会窗",
-        "英超",
-        "截止日",
-        "背叛"
-      ],
-      "content_type": "转会资讯",
-      "score": 90,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "why_pick": "转会窗话题自带流量，撕逼剧情吸引眼球，评论区必炸。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "裁判争议话题，易引发球迷激烈讨论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "16岁表弟加盟巴萨！约纳坦-塔发文祝贺，这家族基因太强了",
+      "angle": "从约纳坦-塔祝贺16岁表弟巴扎加盟巴萨切入，聚焦足坛家族传承和年轻天才的崛起，用温情故事吸引球迷，引发怀旧和感动情绪。",
+      "keywords": [
+        "Jonathan Tah",
+        "Barcelona",
+        "Baza"
+      ],
+      "keywords_cn": [
+        "约纳坦-塔",
+        "巴萨",
+        "巴扎"
+      ],
+      "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "家族传承故事，温情有趣，易引发共鸣。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明晚英超双红会，阿森纳切尔西谁更怂？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-06 12:10:02"
+  "last_batch": "evening",
+  "last_updated": "2026-09-06 17:40:53"
 }
