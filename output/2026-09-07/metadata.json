@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
-  "generated_at": "2026-09-07T04:09:55.581595",
-  "total_articles": 7,
+  "generated_at": "2026-09-07T09:40:43.403802",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -222,133 +222,334 @@
       "column_id": "",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "巴萨杀回青岛！这次不是来踢球，是来开学校的",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-1-巴萨杀回青岛这次-1d298a.md",
+      "slug": "巴萨杀回青岛这次-1d298a",
+      "tags": [
+        "Barcelona",
+        "Qingdao",
+        "football academy",
+        "La Masia",
+        "youth training"
+      ],
+      "keywords": [
+        "Barcelona",
+        "Qingdao",
+        "football academy",
+        "La Masia",
+        "youth training"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "泰山队三大任务曝光：选帅、换外援、B队冲甲，一个都不能少！",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-2-泰山队三大任务曝-9263e1.md",
+      "slug": "泰山队三大任务曝-9263e1",
+      "tags": [
+        "Shandong Taishan",
+        "coach selection",
+        "foreign player adjustment",
+        "B team promotion"
+      ],
+      "keywords": [
+        "Shandong Taishan",
+        "coach selection",
+        "foreign player adjustment",
+        "B team promotion"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "门将送礼+黄油手！大连英博2-1送海牛9连败，这剧本你敢信？",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-3-门将送礼黄油手大-4f6cbd.md",
+      "slug": "门将送礼黄油手大-4f6cbd",
+      "tags": [
+        "Dalian Yingbo",
+        "Qingdao Hainiu",
+        "Chinese Super League",
+        "Stanchiu",
+        "Luo Jing"
+      ],
+      "keywords": [
+        "Dalian Yingbo",
+        "Qingdao Hainiu",
+        "Chinese Super League",
+        "Stanchiu",
+        "Luo Jing"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "肇俊哲儿子中甲首球！19岁小将一球成名，老国脚后继有人",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-4-肇俊哲儿子中甲首-bd13bc.md",
+      "slug": "肇俊哲儿子中甲首-bd13bc",
+      "tags": [
+        "Zhao Chenwei",
+        "Zhao Junzhe",
+        "Shijiazhuang Gongfu",
+        "China League One",
+        "first goal"
+      ],
+      "keywords": [
+        "Zhao Chenwei",
+        "Zhao Junzhe",
+        "Shijiazhuang Gongfu",
+        "China League One",
+        "first goal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-4-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "老六精准预测：皇马国米火星撞地球，曼城客场稳如狗",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-5-老六精准预测皇马-d13dce.md",
+      "slug": "老六精准预测皇马-d13dce",
+      "tags": [
+        "football prediction",
+        "Champions League",
+        "Real Madrid vs Inter Milan",
+        "Manchester City",
+        "Serie A",
+        "La Liga"
+      ],
+      "keywords": [
+        "football prediction",
+        "Champions League",
+        "Real Madrid vs Inter Milan",
+        "Manchester City",
+        "Serie A",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "申花解约米内罗！管理层这波操作是壮士断腕还是甩锅？",
-      "angle": "从申花火速解约米内罗切入，质疑管理层决策逻辑——当初引援谁拍板的？现在解约是给球迷交代还是掩盖引援失败？",
+      "title": "韦世豪手势真相：偷井盖还是自证清白？",
+      "angle": "从韦世豪赛后手势争议切入，质疑部分球迷和媒体过度解读，力挺球员用行动自证，批判网络暴力",
       "keywords": [
-        "Shanghai Shenhua",
-        "Mineiro",
-        "contract termination"
+        "Wei Shihao",
+        "Chinese Super League",
+        "controversy",
+        "fan abuse"
       ],
       "keywords_cn": [
-        "申花",
-        "米内罗",
-        "解约",
-        "管理层"
+        "韦世豪",
+        "中超",
+        "争议",
+        "球迷暴力"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "score": 95,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "why_pick": "申花解约是当天最大争议，能引爆球迷对管理层的不满",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "韦世豪手势事件有视频证据，反转剧情引热议，球迷站队激烈",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "埃弗顿买不起大杜埃，转签奈尔斯——英超中下游球队的生存哲学就一个字：穷",
-      "angle": "从埃弗顿引援选择切入，调侃英超中下游球队在转会市场的无奈，对比豪门烧钱，揭示小球队的务实生存之道。",
+      "title": "泽卡骨折赛季报销，泰山续约成谜？",
+      "angle": "泽卡右侧内踝骨折伤缺6-8周，合同年底到期，分析泰山队是否续约的权衡：年龄、伤病、薪资结构，老六直言：该放就放",
       "keywords": [
-        "Everton",
-        "Niles",
-        "Dué",
-        "transfer"
+        "Zeca",
+        "Shandong Taishan",
+        "injury",
+        "contract renewal"
       ],
       "keywords_cn": [
-        "埃弗顿",
-        "奈尔斯",
-        "大杜埃",
-        "转会",
-        "英超"
+        "泽卡",
+        "山东泰山",
+        "伤病",
+        "续约"
       ],
       "content_type": "转会资讯",
-      "score": 85,
-      "controversy_level": "low",
+      "score": 88,
+      "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "转会窗话题热度高，用趣味对比吸引球迷讨论",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "泰山队外援伤病+合同到期，转会窗口期话题性强",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "0-6输球还有球迷接机？布尼亚明一句话，让我看到了中国足球最后的倔强",
-      "angle": "从国足亚运队球员布尼亚明赛后感谢球迷切入，用反差感制造情感共鸣，强调在惨败中球迷不离不弃的温情和球员的感恩之心。",
+      "title": "九连败！海牛保级只剩理论，外援背锅？",
+      "angle": "青岛海牛九连败创纪录，足球报指外援是主因，老六直言：全队心态崩了，外援只是替罪羊，保级只剩奇迹",
       "keywords": [
-        "China U20",
-        "Bunyammin",
-        "fans",
-        "support"
+        "Qingdao Hainiu",
+        "Chinese Super League",
+        "relegation",
+        "nine consecutive losses"
       ],
       "keywords_cn": [
-        "国足亚运队",
-        "布尼亚明",
-        "球迷",
-        "接机",
-        "温情"
+        "青岛海牛",
+        "中超",
+        "保级",
+        "九连败"
+      ],
+      "content_type": "热点球评",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "九连败话题性极强，保级形势绝望，球迷情绪低落",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "肇宸惟中甲首球，肇俊哲之子能接班吗？",
+      "angle": "19岁肇宸惟打进中甲首球，作为前国脚肇俊哲之子，老六从星二代压力切入，鼓励但不捧杀，看未来成长",
+      "keywords": [
+        "Zhao Chenwei",
+        "Zhao Junzhe",
+        "China League One",
+        "youth"
+      ],
+      "keywords_cn": [
+        "肇宸惟",
+        "肇俊哲",
+        "中甲",
+        "星二代"
       ],
       "content_type": "八卦趣事",
       "score": 82,
       "controversy_level": "low",
       "target_emotion": "感动",
-      "why_pick": "惨败后球迷接机的反差故事能引发情感共鸣，话题性强",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "星二代首球有故事性，能勾起老球迷怀旧情怀",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：皇马国米火星撞地球，曼城客场稳如狗",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-07 12:09:55"
+  "last_batch": "evening",
+  "last_updated": "2026-09-07 17:40:43"
 }
