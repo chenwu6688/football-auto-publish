@@ -1,7 +1,7 @@
 {
   "date": "2026-09-07",
-  "generated_at": "2026-09-07T00:10:38.543222",
-  "total_articles": 4,
+  "generated_at": "2026-09-07T04:09:55.581595",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -126,162 +126,229 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "申花快刀斩乱麻！米内罗一脚踢走自己，球迷：大快人心！",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-1-申花快刀斩乱麻米-43fa8e.md",
+      "slug": "申花快刀斩乱麻米-43fa8e",
+      "tags": [
+        "Shanghai Shenhua",
+        "米内罗",
+        "contract termination",
+        "red card",
+        "Chinese Super League"
+      ],
+      "keywords": [
+        "Shanghai Shenhua",
+        "米内罗",
+        "contract termination",
+        "red card",
+        "Chinese Super League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "曼联2-2埃弗顿：B费血染赛场，读秒绝平太刺激！",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-2-曼联22埃弗顿B-bd1ce2.md",
+      "slug": "曼联22埃弗顿B-bd1ce2",
+      "tags": [
+        "Manchester United",
+        "Everton",
+        "Premier League",
+        "draw",
+        "B费"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Everton",
+        "Premier League",
+        "draw",
+        "B费"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "亚运队紧急集结，老六：这波操作有点急！",
+      "path": "/home/runner/work/_temp/output/2026-09-07/article-3-亚运队紧急集结老-4cf009.md",
+      "slug": "亚运队紧急集结老-4cf009",
+      "tags": [
+        "Asian Games",
+        "Chinese football",
+        "team integration",
+        "injury",
+        "time pressure"
+      ],
+      "keywords": [
+        "Asian Games",
+        "Chinese football",
+        "team integration",
+        "injury",
+        "time pressure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-07/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-07/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "韦世豪全家遭诅咒，中超球员家属何时能不被网暴？",
-      "angle": "从韦世豪晒出私信截图、妻子遭辱骂孩子被诅咒切入，痛批极端球迷越界行为，呼吁保护球员家庭，引发球迷共情与讨论。",
+      "title": "申花解约米内罗！管理层这波操作是壮士断腕还是甩锅？",
+      "angle": "从申花火速解约米内罗切入，质疑管理层决策逻辑——当初引援谁拍板的？现在解约是给球迷交代还是掩盖引援失败？",
       "keywords": [
-        "Wei Shihao",
-        "cyberbullying",
-        "Chinese Super League"
+        "Shanghai Shenhua",
+        "Mineiro",
+        "contract termination"
       ],
       "keywords_cn": [
-        "韦世豪",
-        "网暴",
-        "中超"
+        "申花",
+        "米内罗",
+        "解约",
+        "管理层"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 95,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "why_pick": "球员家属被辱骂是情绪炸弹，能引爆球迷正义感与讨论",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "申花解约是当天最大争议，能引爆球迷对管理层的不满",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "阿森纳2-1切尔西，摩根：蓝军没人能进枪手首发！",
-      "angle": "借摩根狂言切入伦敦德比复盘，分析阿森纳如何用反击压制切尔西，同时反问：切尔西真的这么不堪？制造两队球迷对立。",
+      "title": "埃弗顿买不起大杜埃，转签奈尔斯——英超中下游球队的生存哲学就一个字：穷",
+      "angle": "从埃弗顿引援选择切入，调侃英超中下游球队在转会市场的无奈，对比豪门烧钱，揭示小球队的务实生存之道。",
       "keywords": [
-        "Arsenal",
-        "Chelsea",
-        "London derby"
-      ],
-      "keywords_cn": [
-        "阿森纳",
-        "切尔西",
-        "伦敦德比"
-      ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "摩根言论极具争议，能引爆枪手与蓝军球迷骂战",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "曼联2-2被绝平，莫耶斯：我们本不该让曼联领先！",
-      "angle": "从曼联绝杀后被埃弗顿绝平切入，指出曼联防线漏洞和莫耶斯的不甘，质问滕哈赫的换人是否太保守，引发红魔球迷反思。",
-      "keywords": [
-        "Manchester United",
         "Everton",
-        "Moyes"
+        "Niles",
+        "Dué",
+        "transfer"
       ],
       "keywords_cn": [
-        "曼联",
         "埃弗顿",
-        "莫耶斯"
-      ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "why_pick": "曼联绝杀被绝平，剧情反转易引发球迷情绪共鸣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "利物浦两大招募主管随休斯投奔新月，红军的球探体系要崩？",
-      "angle": "从TA报道两名利物浦招募部门职员将随休斯加盟利雅得新月切入，分析利物浦人才流失隐患，质疑管理层是否在透支未来。",
-      "keywords": [
-        "Liverpool",
-        "recruitment",
-        "Al Hilal"
-      ],
-      "keywords_cn": [
-        "利物浦",
-        "招募团队",
-        "利雅得新月"
+        "奈尔斯",
+        "大杜埃",
+        "转会",
+        "英超"
       ],
       "content_type": "转会资讯",
       "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "why_pick": "利物浦核心团队被挖角，球迷担忧球队未来引援质量",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "转会窗话题热度高，用趣味对比吸引球迷讨论",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "0-6输球还有球迷接机？布尼亚明一句话，让我看到了中国足球最后的倔强",
+      "angle": "从国足亚运队球员布尼亚明赛后感谢球迷切入，用反差感制造情感共鸣，强调在惨败中球迷不离不弃的温情和球员的感恩之心。",
+      "keywords": [
+        "China U20",
+        "Bunyammin",
+        "fans",
+        "support"
+      ],
+      "keywords_cn": [
+        "国足亚运队",
+        "布尼亚明",
+        "球迷",
+        "接机",
+        "温情"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "惨败后球迷接机的反差故事能引发情感共鸣，话题性强",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-07 08:10:38"
+  "last_batch": "noon",
+  "last_updated": "2026-09-07 12:09:55"
 }
