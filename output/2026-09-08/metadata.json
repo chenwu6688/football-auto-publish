@@ -1,7 +1,7 @@
 {
   "date": "2026-09-08",
-  "generated_at": "2026-09-08T04:09:51.203137",
-  "total_articles": 7,
+  "generated_at": "2026-09-08T09:40:39.388193",
+  "total_articles": 11,
   "articles": [
     {
       "index": 1,
@@ -226,177 +226,356 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "韦世豪连发六条社媒又秒删，这次他到底冤不冤？",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-1-韦世豪连发六条社-6a3955.md",
+      "slug": "韦世豪连发六条社-6a3955",
+      "tags": [
+        "Wei Shihao",
+        "Chengdu Rongcheng",
+        "Chinese Super League",
+        "social media controversy",
+        "player behavior"
+      ],
+      "keywords": [
+        "Wei Shihao",
+        "Chengdu Rongcheng",
+        "Chinese Super League",
+        "social media controversy",
+        "player behavior"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "吉达联合20岁小将租借艾卜哈，这操作你看懂了吗？",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-2-吉达联合20岁小-2794eb.md",
+      "slug": "吉达联合20岁小-2794eb",
+      "tags": [
+        "Al-Ittihad",
+        "Abha",
+        "Mateo Borelli",
+        "Saudi Pro League",
+        "loan"
+      ],
+      "keywords": [
+        "Al-Ittihad",
+        "Abha",
+        "Mateo Borelli",
+        "Saudi Pro League",
+        "loan"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "老六精准预测：皇马国米火星撞地球，曼城客场稳如狗",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-3-老六精准预测皇马-d13dce.md",
+      "slug": "老六精准预测皇马-d13dce",
+      "tags": [
+        "Champions League",
+        "Real Madrid",
+        "Inter Milan",
+        "Manchester City",
+        "Liverpool",
+        "PSG",
+        "Chelsea",
+        "football prediction"
+      ],
+      "keywords": [
+        "Champions League",
+        "Real Madrid",
+        "Inter Milan",
+        "Manchester City",
+        "Liverpool",
+        "PSG",
+        "Chelsea",
+        "football prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
+    },
+    {
+      "index": 4,
+      "title": "泽卡骨折后晒京都旅游照，泰山球迷：这是度假还是养伤？",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-4-泽卡骨折后晒京都-0f4388.md",
+      "slug": "泽卡骨折后晒京都-0f4388",
+      "tags": [
+        "Zeca",
+        "Shandong Taishan",
+        "injury",
+        "Kyoto",
+        "contract"
+      ],
+      "keywords": [
+        "Zeca",
+        "Shandong Taishan",
+        "injury",
+        "Kyoto",
+        "contract"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-4-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "39岁穆谢奎300场180球，中超老妖还能火几年？",
-      "angle": "从穆谢奎的300场里程碑切入，回顾这位39岁老将的中超传奇，探讨他为何能在中国保持如此高水平的竞技状态，对比年轻外援的浮躁，引发球迷对老将坚守的共鸣和讨论。",
+      "title": "韦世豪连发6条动态炮轰足协：还嘴就是错的？",
+      "angle": "从韦世豪删光快拍又连发6条动态炮轰足协停赛处罚切入，分析中国球员与足协、媒体之间的对抗关系，质疑处罚标准是否双标，引发球迷对足协管理方式的讨论。",
       "keywords": [
-        "Mushekwi",
-        "Chinese Super League",
-        "300 appearances",
-        "180 goals"
+        "Wei Shihao",
+        "Chinese FA",
+        "suspension",
+        "social media controversy"
       ],
       "keywords_cn": [
-        "穆谢奎",
-        "中超",
-        "300场",
-        "180球",
-        "老将"
+        "韦世豪",
+        "足协",
+        "停赛处罚",
+        "社媒炮轰",
+        "双标"
       ],
       "content_type": "八卦趣事",
-      "score": 92,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "穆谢奎的里程碑数据震撼，老将故事自带情怀，容易引发球迷共鸣和讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "米内罗解约光速回巴乙，这操作是不是太不地道了？",
-      "angle": "从米内罗被申花解约后迅速加盟巴乙塞阿拉切入，质疑其职业道德，同时探讨中超外援管理问题，引发球迷对球员忠诚度和职业操守的争论。",
-      "keywords": [
-        "Mineiro",
-        "Shanghai Shenhua",
-        "Ceara",
-        "transfer",
-        "ethics"
-      ],
-      "keywords_cn": [
-        "米内罗",
-        "上海申花",
-        "塞阿拉",
-        "解约",
-        "职业道德"
-      ],
-      "content_type": "转会资讯",
       "score": 95,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "why_pick": "米内罗解约后光速加盟巴乙，操作诡异，争议性极大，能引爆评论区。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "why_pick": "韦世豪情绪爆发+足协处罚争议，引爆中国球迷情绪共鸣",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "U20女足5-0大胜却被批“小胜”，沪媒是不是太苛刻了？",
-      "angle": "从U20女足大胜却遭沪媒批评净胜球不足切入，探讨中国青训和媒体对年轻球员的舆论环境，引发球迷对“捧杀”和“棒杀”的讨论，情绪共鸣强。",
-      "keywords": [
-        "China U20 women",
-        "5-0 win",
-        "media criticism",
-        "goal difference"
-      ],
-      "keywords_cn": [
-        "U20女足",
-        "5-0大胜",
-        "沪媒",
-        "净胜球",
-        "苛刻"
-      ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "女足大胜反被批，反差感强，能引发球迷对媒体和青训的双重讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "胡尔克：在中国能上街骑自行车，比巴西自由多了！",
-      "angle": "从胡尔克盛赞中国生活切入，对比中超外援在中国的真实体验，探讨中国足球环境对外援的吸引力，轻松有趣，能引发球迷对外援生活八卦的兴趣。",
+      "title": "0-5！巴萨客场血洗瓦伦西亚，新赛季西甲要大结局？",
+      "angle": "从巴萨客场5-0大胜瓦伦西亚切入，分析巴萨新赛季的统治力表现，结合皇马近期状态不稳，提出西甲争冠悬念是否提前终结的犀利观点，引发球迷站队讨论。",
       "keywords": [
-        "Hulk",
-        "China",
-        "life",
-        "freedom",
-        "bicycle"
+        "Barcelona",
+        "Valencia",
+        "La Liga",
+        "title race"
       ],
       "keywords_cn": [
-        "胡尔克",
-        "中国生活",
-        "自由",
-        "骑自行车",
-        "外援"
+        "巴萨",
+        "瓦伦西亚",
+        "西甲",
+        "争冠",
+        "大胜"
       ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "胡尔克接地气的言论反差感强，八卦属性高，轻松有趣容易传播。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "巴萨5-0大胜+西甲争冠悬念，豪门话题自带流量",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "官宣！20岁阿根廷中场租借艾卜哈，沙特联赛还在疯狂挖人？",
+      "angle": "从吉达联合20岁阿根廷中场博雷利租借加盟艾卜哈切入，分析沙特联赛持续从欧洲和南美挖角年轻球员的趋势，质疑沙特联赛是否正在改变全球足球人才流动格局，引发球迷对沙特联赛的讨论。",
+      "keywords": [
+        "Saudi Pro League",
+        "Borelli",
+        "Al-Ahli",
+        "transfer",
+        "youth talent"
+      ],
+      "keywords_cn": [
+        "沙特联赛",
+        "博雷利",
+        "吉达联合",
+        "艾卜哈",
+        "转会",
+        "挖角"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "沙特联赛持续引援+年轻球员话题，转会窗热点延续",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "U20女足5-0大胜鱼腩，沪媒却泼冷水：净胜球不足恐埋隐患",
+      "angle": "从中国U20女足5-0大胜但沪媒指出净胜球不足切入，分析中国女足青训的真实水平与大赛出线形势，提出'赢鱼腩不算本事，关键看硬仗'的犀利观点，引发球迷对女足未来的讨论。",
+      "keywords": [
+        "China U20 women",
+        "big win",
+        "goal difference",
+        "qualification",
+        "criticism"
+      ],
+      "keywords_cn": [
+        "中国U20女足",
+        "大胜",
+        "净胜球",
+        "出线",
+        "沪媒批评"
+      ],
+      "content_type": "热点球评",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "担忧",
+      "why_pick": "女足话题+媒体泼冷水，反差感引发讨论",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "泰山外援泽卡京都旅游！因伤缺阵6-8周，中超外援度假成常态？",
+      "angle": "从泰山外援泽卡因伤缺阵6-8周却在日本旅游切入，质疑中超外援的职业态度和俱乐部管理，对比其他联赛外援受伤后积极康复的做法，引发球迷对中超外援管理松散的不满。",
+      "keywords": [
+        "Zeca",
+        "Shandong Taishan",
+        "injury",
+        "vacation",
+        "Chinese Super League"
+      ],
+      "keywords_cn": [
+        "泽卡",
+        "山东泰山",
+        "伤病",
+        "旅游",
+        "中超外援",
+        "职业态度"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "外援受伤旅游+中超管理话题，球迷情绪容易点燃",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：皇马国米火星撞地球，曼城客场稳如狗",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-08 12:09:51"
+  "last_batch": "evening",
+  "last_updated": "2026-09-08 17:40:39"
 }
