@@ -1,0 +1,263 @@
+{
+  "date": "2026-09-08",
+  "generated_at": "2026-09-08T00:10:38.275554",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "2分钟闪击？没用！阿森纳2-1逆转切尔西，三连胜稳坐第二",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-1-2分钟闪击没用阿-a034e1.md",
+      "slug": "2分钟闪击没用阿-a034e1",
+      "tags": [
+        "Arsenal",
+        "Chelsea",
+        "Premier League",
+        "Havertz",
+        "Odegaard"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Chelsea",
+        "Premier League",
+        "Havertz",
+        "Odegaard"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "尤文边锋热格罗瓦：沙特土豪看不上我，我留队继续卷",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-2-尤文边锋热格罗瓦-d8c844.md",
+      "slug": "尤文边锋热格罗瓦-d8c844",
+      "tags": [
+        "transfer news",
+        "Serie A",
+        "Torino",
+        "Juventus",
+        "Che Adams",
+        "Gedson Fernandes"
+      ],
+      "keywords": [
+        "transfer news",
+        "Serie A",
+        "Torino",
+        "Juventus",
+        "Che Adams",
+        "Gedson Fernandes"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "胡尔克：在中国踢球比巴西更自由，能上街骑自行车",
+      "path": "/home/runner/work/_temp/output/2026-09-08/article-3-胡尔克在中国踢球-2faaef.md",
+      "slug": "胡尔克在中国踢球-2faaef",
+      "tags": [
+        "Hulk",
+        "Romario",
+        "China",
+        "Shanghai Port",
+        "Atletico Mineiro"
+      ],
+      "keywords": [
+        "Hulk",
+        "Romario",
+        "China",
+        "Shanghai Port",
+        "Atletico Mineiro"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-08/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-08/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "1-0，第95分钟绝杀，29岁老将一球成名",
+      "angle": "从阿森纳2-1切尔西的比赛中，聚焦第95分钟绝杀瞬间，强调老将的戏剧性表现和比赛悬念，引发球迷对英超争冠的讨论。",
+      "keywords": [
+        "Arsenal",
+        "Chelsea",
+        "last-minute goal"
+      ],
+      "keywords_cn": [
+        "阿森纳",
+        "切尔西",
+        "绝杀"
+      ],
+      "content_type": "热点球评",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "英超焦点战，绝杀话题自带爆款基因，球迷爱看豪门对决的戏剧性时刻。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "罗马诺：罗马边锋引援，格雷罗还是桑乔？",
+      "angle": "转会窗即将关闭，罗马急需补强边锋，分析格雷罗和桑乔的适配性，制造悬念和争议，吸引转会迷关注。",
+      "keywords": [
+        "Roma",
+        "transfer",
+        "Guerrero",
+        "Sancho"
+      ],
+      "keywords_cn": [
+        "罗马",
+        "转会",
+        "格雷罗",
+        "桑乔"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "转会窗热点，罗马引援话题自带讨论度，桑乔名字能吸引流量。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "从中超球星到外卖骑手？胡尔克：中国是我最享受的国家",
+      "angle": "从胡尔克回忆中超生涯切入，对比球星退役后的生活反差，引发球迷对中超辉煌时代的怀旧情绪，同时强调中国足球的吸引力。",
+      "keywords": [
+        "Hulk",
+        "CSL",
+        "nostalgia"
+      ],
+      "keywords_cn": [
+        "胡尔克",
+        "中超",
+        "怀旧"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "胡尔克是中超标志性外援，怀旧话题能引发老球迷共鸣，接地气。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "51血洗！马竞主场遭遇史上最大比分惨败",
+      "angle": "从瓦伦西亚0-5巴萨的比赛中，聚焦马竞惨败的极端数据，分析巴萨的强势和马竞的崩盘，制造震撼感和讨论点。",
+      "keywords": [
+        "Atletico Madrid",
+        "Barcelona",
+        "big loss"
+      ],
+      "keywords_cn": [
+        "马竞",
+        "巴萨",
+        "惨败"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "极端比分数据自带爆款属性，巴萨崛起和马竞低迷形成反差，话题性强。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-09-08 08:10:38"
+}
