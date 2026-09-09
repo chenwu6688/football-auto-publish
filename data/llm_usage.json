@@ -20,13 +20,13 @@
     "total_tokens": 16845
   },
   "deepseek-v4-flash-202605": {
-    "prompt_tokens": 3542,
-    "completion_tokens": 3815,
-    "total_tokens": 7357
+    "prompt_tokens": 4834,
+    "completion_tokens": 4693,
+    "total_tokens": 9527
   },
   "deepseek-v4-flash": {
-    "prompt_tokens": 359363,
-    "completion_tokens": 132195,
-    "total_tokens": 491558
+    "prompt_tokens": 367608,
+    "completion_tokens": 135372,
+    "total_tokens": 502980
   }
 }
