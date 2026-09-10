@@ -1,7 +1,7 @@
 {
   "date": "2026-09-10",
-  "generated_at": "2026-09-10T00:11:06.865989",
-  "total_articles": 2,
+  "generated_at": "2026-09-10T04:10:30.413105",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -62,125 +62,261 @@
       "column_id": "",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "别光顾着看球，足协杯70年经典战役投票，你的一票值千金！",
+      "path": "/home/runner/work/_temp/output/2026-09-10/article-1-别光顾着看球足协-50890d.md",
+      "slug": "别光顾着看球足协-50890d",
+      "tags": [
+        "FA Cup",
+        "70th anniversary",
+        "classic matches",
+        "voting",
+        "football"
+      ],
+      "keywords": [
+        "FA Cup",
+        "70th anniversary",
+        "classic matches",
+        "voting",
+        "football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-10/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "韦世豪又摊上事了！那个手势到底算不算地域黑？",
+      "path": "/home/runner/work/_temp/output/2026-09-10/article-2-韦世豪又摊上事了-3d3871.md",
+      "slug": "韦世豪又摊上事了-3d3871",
+      "tags": [
+        "Wei Shihao",
+        "regional discrimination",
+        "Chinese Super League",
+        "Chengdu Rongcheng"
+      ],
+      "keywords": [
+        "Wei Shihao",
+        "regional discrimination",
+        "Chinese Super League",
+        "Chengdu Rongcheng"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-10/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-10/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "1-5惨败后，费耶诺德后卫说了句大实话，巴萨球迷听了都点头",
+      "path": "/home/runner/work/_temp/output/2026-09-10/article-3-15惨败后费耶诺-9ebc68.md",
+      "slug": "15惨败后费耶诺-9ebc68",
+      "tags": [
+        "Barcelona",
+        "Feyenoord",
+        "Champions League",
+        "St. Juste"
+      ],
+      "keywords": [
+        "Barcelona",
+        "Feyenoord",
+        "Champions League",
+        "St. Juste"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-10/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "1.17亿镑值了？摩根·罗杰斯5场2球4助打脸质疑者",
-      "angle": "从摩根·罗杰斯切尔西开局爆发切入，讨论高额转会费是否物有所值，质疑转会市场泡沫的同时肯定球员实力。",
+      "title": "1-0，阿森纳欧冠13连胜，距拜仁纪录只差4场",
+      "angle": "从阿森纳1-0那不勒斯入手，强调团队足球和厄德高进球前的29脚传球，对比拜仁纪录，突出阿森纳的统治力与争冠野心。",
       "keywords": [
-        "Morgan Rogers",
-        "Chelsea",
-        "Premier League"
+        "Arsenal",
+        "Champions League",
+        "Odegaard",
+        "Napoli"
       ],
       "keywords_cn": [
-        "摩根·罗杰斯",
-        "切尔西",
-        "英超"
+        "阿森纳",
+        "欧冠",
+        "厄德高",
+        "那不勒斯"
       ],
       "content_type": "热点球评",
       "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "高转会费+新援爆发，争议性强，球迷爱看打脸或真香",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "why_pick": "阿森纳13连胜逼近拜仁纪录，数据震撼，引爆球迷讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "里沙利松要跟热刺翻脸？申请解约回巴西，这操作太狠",
-      "angle": "以里沙利松申请解约回巴西的爆炸性新闻为切入点，讨论球员与俱乐部关系破裂，以及巴西球员思乡情结。",
+      "title": "17岁高中生进国足！足协：体验氛围，别太当真",
+      "angle": "从赵松源入选国足切入，调侃足协的‘体验氛围’说法，质疑选人标准，引发对青训和国足未来的讨论。",
       "keywords": [
-        "Richarlison",
-        "Tottenham",
-        "transfer"
+        "Zhao Songyuan",
+        "Chinese national team",
+        "high school",
+        "FA"
       ],
       "keywords_cn": [
-        "里沙利松",
-        "热刺",
-        "转会"
+        "赵松源",
+        "国足",
+        "高中生",
+        "足协"
       ],
-      "content_type": "转会资讯",
+      "content_type": "八卦趣事",
       "score": 88,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "球星解约+回老东家，戏剧性强，球迷爱看撕破脸故事",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "好奇",
+      "why_pick": "17岁高中生进国足反差大，争议性强，球迷爱看。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "阿隆索主动背锅：战术太复杂害了球队，这教练有点东西",
-      "angle": "从阿隆索赛后主动揽责、承认战术布置过复杂切入，讨论教练的担当与自我反思，对比其他甩锅型教练。",
+      "title": "韦世豪疑讽河南‘偷井盖’，足协或追罚3场",
+      "angle": "从韦世豪暗讽河南事件切入，批评球员不职业行为，结合人民网评论，强调球迷身份不是保护伞，引发对球员素质的讨论。",
       "keywords": [
-        "Xabi Alonso",
-        "Bayer Leverkusen",
-        "Bundesliga"
+        "Wei Shihao",
+        "suspension",
+        "Henan",
+        "controversy"
       ],
       "keywords_cn": [
-        "阿隆索",
-        "勒沃库森",
-        "德甲"
+        "韦世豪",
+        "禁赛",
+        "河南",
+        "争议"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "教练主动背锅+反思，故事性强，球迷爱看有担当的主帅",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "韦世豪争议言论引爆球迷情绪，处罚悬念高。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "克雷桑携女友观战欧冠，与拉菲尼亚合影引热议",
+      "angle": "从克雷桑现身诺坎普看欧冠切入，结合与拉菲尼亚合影，展现中超球星场外生活，拉近球迷距离，轻松有趣。",
+      "keywords": [
+        "Creson",
+        "Raphinha",
+        "Barcelona",
+        "Champions League"
+      ],
+      "keywords_cn": [
+        "克雷桑",
+        "拉菲尼亚",
+        "巴萨",
+        "欧冠"
+      ],
+      "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "why_pick": "中超球星欧冠偶遇，八卦轻松，球迷爱看花边。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-10 08:11:06"
+  "last_batch": "noon",
+  "last_updated": "2026-09-10 12:10:30"
 }
