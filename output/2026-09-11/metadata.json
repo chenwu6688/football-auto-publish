@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
-  "generated_at": "2026-09-11T00:11:16.813855",
-  "total_articles": 2,
+  "generated_at": "2026-09-11T04:10:56.032384",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -66,125 +66,287 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "艾克森晒旧照，2015恒大有多强？",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-1-艾克森晒旧照20-607755.md",
+      "slug": "艾克森晒旧照20-607755",
+      "tags": [
+        "Evergrande",
+        "Aikesen",
+        "2015 season",
+        "Asian Champions",
+        "World Club Cup"
+      ],
+      "keywords": [
+        "Evergrande",
+        "Aikesen",
+        "2015 season",
+        "Asian Champions",
+        "World Club Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-11/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-11/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-11/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "斯卡洛尼续约悬了？阿根廷足协欠薪+重建压力，主帅犹豫了！",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-2-斯卡洛尼续约悬了-d928f1.md",
+      "slug": "斯卡洛尼续约悬了-d928f1",
+      "tags": [
+        "Scaloni",
+        "Argentina",
+        "contract renewal",
+        "rebuilding",
+        "salary arrears"
+      ],
+      "keywords": [
+        "Scaloni",
+        "Argentina",
+        "contract renewal",
+        "rebuilding",
+        "salary arrears"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-11/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "曼联4-0大胜，B费舍什科联手导演老特拉福德狂欢夜",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-3-曼联40大胜B费-628519.md",
+      "slug": "曼联40大胜B费-628519",
+      "tags": [
+        "Manchester United",
+        "Champions League",
+        "Bruno Fernandes",
+        "Shashko",
+        "4-0 victory"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Champions League",
+        "Bruno Fernandes",
+        "Shashko",
+        "4-0 victory"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "鲁比亚莱斯炮轰摩洛哥：决赛必须留在西班牙！",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-4-鲁比亚莱斯炮轰摩-779fbd.md",
+      "slug": "鲁比亚莱斯炮轰摩-779fbd",
+      "tags": [
+        "Rubiales",
+        "Morocco",
+        "World Cup 2030",
+        "final",
+        "Spain"
+      ],
+      "keywords": [
+        "Rubiales",
+        "Morocco",
+        "World Cup 2030",
+        "final",
+        "Spain"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "4-0大胜却难掩隐患？曼联欧冠路还长着呢",
-      "angle": "曼联4-0大胜沙巴巴库，卡里克和利马都说零封重要，但卡拉格泼冷水说曼联硬实力不够。老六觉得这胜利含金量有限，欧冠走远还得看硬仗。",
+      "title": "11年前五连冠+亚冠！艾克森晒回忆杀，那支恒大有多强？",
+      "angle": "借艾克森晒2015年夺冠旧照，带老球迷重温广州恒大巅峰时代，同时对比当下中超格局，感叹时代变迁。",
       "keywords": [
-        "Manchester United",
-        "Champions League",
-        "Carrick"
+        "Guangzhou Evergrande",
+        "Elkeson",
+        "2015 AFC Champions League"
       ],
       "keywords_cn": [
-        "曼联",
-        "欧冠",
-        "卡里克"
+        "广州恒大",
+        "艾克森",
+        "亚冠冠军"
       ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "曼联欧冠大胜有话题性，卡拉格评论引发争议。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "八卦趣事",
+      "score": 92,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "艾克森回忆杀戳中老球迷泪点，自带情怀流量。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "皇马砸钱留人！贝林厄姆续约至2032，值不值？",
-      "angle": "记者曝皇马着手与贝林厄姆谈续约至2032年，老六觉得这是皇马锁定未来核心的明智之举，但也质疑高薪长约的风险。",
+      "title": "记者爆料：阿根廷足协拖欠奖金！斯卡洛尼续约谈判陷入僵局",
+      "angle": "从斯卡洛尼续约受阻切入，揭露阿根廷足协内部管理混乱，质疑为何刚夺世界杯就闹出欠薪丑闻。",
       "keywords": [
-        "Real Madrid",
-        "Bellingham",
-        "contract extension"
+        "Argentina FA",
+        "Scaloni",
+        "contract renewal",
+        "bonus dispute"
       ],
       "keywords_cn": [
-        "皇马",
-        "贝林厄姆",
-        "续约"
+        "阿根廷足协",
+        "斯卡洛尼",
+        "续约",
+        "奖金纠纷"
       ],
       "content_type": "转会资讯",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "皇马续约大牌球星，中国球迷关注度高。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "世界杯冠军主帅续约卡在奖金上，争议性拉满。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "从中超到外卖骑手？中国足球的另类生存法则",
-      "angle": "中国足球退役球员或转型球员的生存现状，老六从U20女足和津媒女足出征新闻切入，感叹中国足球基层艰辛，引发共情。",
+      "title": "21岁梅努获卡里克盛赞！从离队边缘到中场节拍器，他经历了什么？",
+      "angle": "回顾梅努从差点被曼联清洗到如今成为中场核心的逆袭故事，结合卡里克公开称赞，探讨年轻球员成长路径。",
       "keywords": [
-        "Chinese football",
-        "retirement",
-        "life after football"
+        "Kobbie Mainoo",
+        "Michael Carrick",
+        "Manchester United",
+        "breakthrough"
       ],
       "keywords_cn": [
-        "中国足球",
-        "退役",
-        "生存"
+        "梅努",
+        "卡里克",
+        "曼联",
+        "逆袭"
       ],
       "content_type": "八卦趣事",
-      "score": 75,
-      "controversy_level": "medium",
+      "score": 88,
+      "controversy_level": "low",
       "target_emotion": "感动",
-      "why_pick": "场外故事接地气，能引发中国球迷情感共鸣。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "逆袭故事自带正能量，卡里克背书增加权威性。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "U20女足世界杯出线在即！末轮死磕西班牙，中国小花能行吗？",
+      "angle": "分析U20女足前两轮1胜1平的战绩和战术执行，展望末轮对阵西班牙的关键战，强调出线主动权在手。",
+      "keywords": [
+        "U20 Women's World Cup",
+        "China",
+        "Spain",
+        "qualification"
+      ],
+      "keywords_cn": [
+        "U20女足",
+        "中国女足",
+        "世界杯",
+        "出线"
+      ],
+      "content_type": "热点球评",
+      "score": 90,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "why_pick": "女足出线关键战，球迷关注度高，情绪共鸣强。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-11 08:11:16"
+  "last_batch": "noon",
+  "last_updated": "2026-09-11 12:10:56"
 }
