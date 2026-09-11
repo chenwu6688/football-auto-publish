@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
-  "generated_at": "2026-09-11T04:10:56.032384",
-  "total_articles": 6,
+  "generated_at": "2026-09-11T09:40:55.269716",
+  "total_articles": 11,
   "articles": [
     {
       "index": 1,
@@ -184,169 +184,381 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "别吹了！利兹联总监泼冷水：夏窗成功？一年后再看",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-1-别吹了利兹联总监-24dc40.md",
+      "slug": "别吹了利兹联总监-24dc40",
+      "tags": [
+        "Leeds United",
+        "transfer window",
+        "Robbie Evans",
+        "Harry Wilson",
+        "summer window"
+      ],
+      "keywords": [
+        "Leeds United",
+        "transfer window",
+        "Robbie Evans",
+        "Harry Wilson",
+        "summer window"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-11/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-11/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-11/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "布罗佐维奇真要走了？自由身投奔卡塔尔，这操作有点意思",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-2-布罗佐维奇真要走-a29f48.md",
+      "slug": "布罗佐维奇真要走-a29f48",
+      "tags": [
+        "Brozovic",
+        "Al Sadd",
+        "free transfer",
+        "Qatar Stars League"
+      ],
+      "keywords": [
+        "Brozovic",
+        "Al Sadd",
+        "free transfer",
+        "Qatar Stars League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-11/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-11/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-11/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "U17国足集训名单出炉，这阵容能冲世界杯吗？",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-3-U17国足集训名-98a6ea.md",
+      "slug": "U17国足集训名-98a6ea",
+      "tags": [
+        "U17 national team",
+        "training camp",
+        "Wan Xiang",
+        "Kuang Zhaolei",
+        "Fushima Min"
+      ],
+      "keywords": [
+        "U17 national team",
+        "training camp",
+        "Wan Xiang",
+        "Kuang Zhaolei",
+        "Fushima Min"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-11/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "宋凯领队，女足姑娘们名古屋首训！这届亚运会，咱们来点不一样的",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-4-宋凯领队女足姑娘-137aa7.md",
+      "slug": "宋凯领队女足姑娘-137aa7",
+      "tags": [
+        "Chinese women's football",
+        "Asian Games",
+        "Song Kai",
+        "Nagoya",
+        "training"
+      ],
+      "keywords": [
+        "Chinese women's football",
+        "Asian Games",
+        "Song Kai",
+        "Nagoya",
+        "training"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "老六精准预测：明天8场焦点战，我看好多特复仇皇马曼城翻车",
+      "path": "/home/runner/work/_temp/output/2026-09-11/article-5-老六精准预测明天-8fe92c.md",
+      "slug": "老六精准预测明天-8fe92c",
+      "tags": [
+        "football prediction",
+        "Bundesliga",
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Ligue 1",
+        "Manchester derby"
+      ],
+      "keywords": [
+        "football prediction",
+        "Bundesliga",
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Ligue 1",
+        "Manchester derby"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-11/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "11年前五连冠+亚冠！艾克森晒回忆杀，那支恒大有多强？",
-      "angle": "借艾克森晒2015年夺冠旧照，带老球迷重温广州恒大巅峰时代，同时对比当下中超格局，感叹时代变迁。",
+      "title": "39岁瓦尔迪加盟伯恩利！老将的英超最后一舞？",
+      "angle": "从瓦尔迪39岁高龄加盟英冠伯恩利切入，探讨老将的坚守与职业精神，对比中超球员的早退现象，引发对中国足球职业态度的反思。",
       "keywords": [
-        "Guangzhou Evergrande",
-        "Elkeson",
-        "2015 AFC Champions League"
+        "Vardy",
+        "Burnley",
+        "Premier League",
+        "veteran",
+        "Championship"
       ],
       "keywords_cn": [
-        "广州恒大",
-        "艾克森",
-        "亚冠冠军"
-      ],
-      "content_type": "八卦趣事",
-      "score": 92,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "why_pick": "艾克森回忆杀戳中老球迷泪点，自带情怀流量。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "记者爆料：阿根廷足协拖欠奖金！斯卡洛尼续约谈判陷入僵局",
-      "angle": "从斯卡洛尼续约受阻切入，揭露阿根廷足协内部管理混乱，质疑为何刚夺世界杯就闹出欠薪丑闻。",
-      "keywords": [
-        "Argentina FA",
-        "Scaloni",
-        "contract renewal",
-        "bonus dispute"
-      ],
-      "keywords_cn": [
-        "阿根廷足协",
-        "斯卡洛尼",
-        "续约",
-        "奖金纠纷"
+        "瓦尔迪",
+        "伯恩利",
+        "英超",
+        "老将",
+        "英冠"
       ],
       "content_type": "转会资讯",
       "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "世界杯冠军主帅续约卡在奖金上，争议性拉满。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "why_pick": "39岁老将逆袭加盟，故事性强，能引发中国球迷对职业态度的讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "21岁梅努获卡里克盛赞！从离队边缘到中场节拍器，他经历了什么？",
-      "angle": "回顾梅努从差点被曼联清洗到如今成为中场核心的逆袭故事，结合卡里克公开称赞，探讨年轻球员成长路径。",
-      "keywords": [
-        "Kobbie Mainoo",
-        "Michael Carrick",
-        "Manchester United",
-        "breakthrough"
-      ],
-      "keywords_cn": [
-        "梅努",
-        "卡里克",
-        "曼联",
-        "逆袭"
-      ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "why_pick": "逆袭故事自带正能量，卡里克背书增加权威性。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "U20女足世界杯出线在即！末轮死磕西班牙，中国小花能行吗？",
-      "angle": "分析U20女足前两轮1胜1平的战绩和战术执行，展望末轮对阵西班牙的关键战，强调出线主动权在手。",
+      "title": "切尔西6-3利兹联！这进攻是开挂了吧？",
+      "angle": "复盘切尔西6-3大胜利兹联，聚焦蓝军进攻端的火力全开，同时指出防守漏洞，犀利点评波切蒂诺的战术取舍。",
       "keywords": [
-        "U20 Women's World Cup",
-        "China",
-        "Spain",
-        "qualification"
+        "Chelsea",
+        "Leeds United",
+        "Premier League",
+        "attack",
+        "defense"
       ],
       "keywords_cn": [
-        "U20女足",
-        "中国女足",
-        "世界杯",
-        "出线"
+        "切尔西",
+        "利兹联",
+        "英超",
+        "进攻",
+        "防守"
       ],
       "content_type": "热点球评",
-      "score": 90,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "why_pick": "女足出线关键战，球迷关注度高，情绪共鸣强。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "大比分比赛话题性强，攻防两端都有槽点，容易引发评论区争论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "布罗佐维奇自由身赴萨德，沙特又挖走一巨星？",
+      "angle": "从布罗佐维奇接近加盟卡塔尔萨德切入，对比沙特联赛的金元攻势，探讨欧洲球星外流的趋势，质疑这是否是职业生涯的倒退。",
+      "keywords": [
+        "Brozovic",
+        "Al Sadd",
+        "Qatar",
+        "transfer",
+        "European football"
+      ],
+      "keywords_cn": [
+        "布罗佐维奇",
+        "萨德",
+        "卡塔尔",
+        "转会",
+        "欧洲足球"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "球星转会中东话题持续火热，能引发对职业选择的讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "王上源：战三镇是今年最重要一战！河南队能逆天改命？",
+      "angle": "从王上源的赛前宣言切入，分析河南队保级形势，对比武汉三镇的实力，犀利点评中超保级大战的残酷与悬念。",
+      "keywords": [
+        "Wang Shangyuan",
+        "Henan",
+        "Wuhan Three Towns",
+        "relegation",
+        "Chinese Super League"
+      ],
+      "keywords_cn": [
+        "王上源",
+        "河南队",
+        "武汉三镇",
+        "保级",
+        "中超"
+      ],
+      "content_type": "热点球评",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "中超保级战有本土话题性，能吸引国内球迷关注。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "中国女足出征亚运会！宋凯随队，这次能摘金吗？",
+      "angle": "从中国女足出征亚运会切入，聚焦足协主席随队的重视程度，回顾女足辉煌历史，展望本届赛事前景，同时指出日本队的主场优势。",
+      "keywords": [
+        "Chinese women's football",
+        "Asian Games",
+        "Song Kai",
+        "Japan",
+        "gold medal"
+      ],
+      "keywords_cn": [
+        "中国女足",
+        "亚运会",
+        "宋凯",
+        "日本",
+        "金牌"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "why_pick": "女足出征自带情怀，足协主席随队有话题点，能激发球迷的民族自豪感。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天8场焦点战，我看好多特复仇皇马曼城翻车",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-11 12:10:56"
+  "last_batch": "evening",
+  "last_updated": "2026-09-11 17:40:55"
 }
