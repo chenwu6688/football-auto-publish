@@ -1,7 +1,7 @@
 {
   "date": "2026-09-12",
-  "generated_at": "2026-09-12T00:10:49.499633",
-  "total_articles": 4,
+  "generated_at": "2026-09-12T04:10:39.432287",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -123,141 +123,293 @@
       "column_id": "",
       "column_name": "",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "中超“罚单王”韦世豪：三年停赛16场，罚款14万，这次又惹事了",
+      "path": "/home/runner/work/_temp/output/2026-09-12/article-1-中超罚单王韦世豪-514951.md",
+      "slug": "中超罚单王韦世豪-514951",
+      "tags": [
+        "Wei Shihao",
+        "Chinese Super League",
+        "suspension",
+        "fine",
+        "controversy"
+      ],
+      "keywords": [
+        "Wei Shihao",
+        "Chinese Super League",
+        "suspension",
+        "fine",
+        "controversy"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-12/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "39岁J马复出！那个让恒大花4200万的男人又回来了",
+      "path": "/home/runner/work/_temp/output/2026-09-12/article-2-39岁J马复出那-b73129.md",
+      "slug": "39岁J马复出那-b73129",
+      "tags": [
+        "Jackson Martinez",
+        "Medellin",
+        "Guangzhou Evergrande",
+        "transfer",
+        "comeback"
+      ],
+      "keywords": [
+        "Jackson Martinez",
+        "Medellin",
+        "Guangzhou Evergrande",
+        "transfer",
+        "comeback"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-12/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "阿劳霍想留利物浦？这事儿有戏但别急",
+      "path": "/home/runner/work/_temp/output/2026-09-12/article-3-阿劳霍想留利物浦-98c7f9.md",
+      "slug": "阿劳霍想留利物浦-98c7f9",
+      "tags": [
+        "Araujo",
+        "Liverpool",
+        "Barcelona",
+        "transfer",
+        "La Liga"
+      ],
+      "keywords": [
+        "Araujo",
+        "Liverpool",
+        "Barcelona",
+        "transfer",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-12/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "青岛海牛这波操作，冲超还是摆烂？",
+      "path": "/home/runner/work/_temp/output/2026-09-12/article-4-青岛海牛这波操作-9cbe1b.md",
+      "slug": "青岛海牛这波操作-9cbe1b",
+      "tags": [
+        "Qingdao Hainiu",
+        "Ezuma",
+        "Messaoudi",
+        "Chinese Super League",
+        "contract"
+      ],
+      "keywords": [
+        "Qingdao Hainiu",
+        "Ezuma",
+        "Messaoudi",
+        "Chinese Super League",
+        "contract"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-12/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-12/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "时隔6年复出！J马加盟麦德林独立，中超水货还是传奇？",
-      "angle": "从J马时隔6年复出切入，回顾其恒大生涯的争议与高光，探讨中超外援的生存现状，态度中立但带点调侃。",
+      "title": "韦世豪停赛16场，中国足球的底线在哪？",
+      "angle": "从韦世豪3年停赛16场的纪录切入，犀利批评球员纪律问题，引发对职业素养的讨论。",
       "keywords": [
-        "J·马丁内斯",
-        "广州恒大",
-        "中超",
-        "麦德林独立",
-        "复出"
+        "Wei Shihao",
+        "suspension",
+        "Chinese football"
       ],
       "keywords_cn": [
-        "J马",
-        "广州恒大",
-        "中超",
-        "麦德林独立",
-        "复出"
+        "韦世豪",
+        "停赛",
+        "中国足球"
       ],
       "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "why_pick": "J马复出是冷门趣闻，勾起老球迷对中超金元时代的回忆，有故事性。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "韦世豪停赛记录爆表，争议大，球迷情绪强。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "太阳报：贝尔给好友当球童，这比踢球有意思多了？",
-      "angle": "从贝尔退役后沉迷高尔夫切入，调侃其“不务正业”的生活态度，对比职业足球的残酷，引发球迷对生活选择的讨论。",
+      "title": "退役6年再复出！39岁J马加盟麦德林独立",
+      "angle": "杰克逊·马丁内斯退役6年后复出，聚焦老将的足球情怀和职业生涯反转故事。",
       "keywords": [
-        "贝尔",
-        "高尔夫",
-        "球童",
-        "太阳报",
-        "退役生活"
+        "Jackson Martinez",
+        "comeback",
+        "Medellin"
       ],
       "keywords_cn": [
-        "贝尔",
-        "高尔夫",
-        "球童",
-        "太阳报",
-        "退役生活"
+        "杰克逊·马丁内斯",
+        "复出",
+        "麦德林独立"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "转会资讯",
       "score": 85,
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "why_pick": "贝尔的高尔夫梗是球迷常聊的话题，轻松有趣，容易引发评论区调侃。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "感动",
+      "why_pick": "J马复出有故事性，老球迷怀旧情绪。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "曼市德比前瞻：卡里克该让库尼亚首发？拉什福德该坐板凳？",
-      "angle": "从达伦·本特的建议切入，质疑拉什福德近期状态，力挺库尼亚首发，态度鲜明地站队，制造球迷对立话题。",
+      "title": "阿劳霍想留利物浦？巴萨租将的逆袭剧本",
+      "angle": "阿劳霍租借利物浦后表态愿留队，分析球员心态和巴萨卖人策略的得失。",
       "keywords": [
-        "曼市德比",
-        "卡里克",
-        "库尼亚",
-        "拉什福德",
-        "首发"
+        "Araujo",
+        "Liverpool",
+        "loan",
+        "Barcelona"
       ],
       "keywords_cn": [
-        "曼市德比",
-        "卡里克",
-        "库尼亚",
-        "拉什福德",
-        "首发"
+        "阿劳霍",
+        "利物浦",
+        "租借",
+        "巴萨"
       ],
-      "content_type": "战术解析",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "曼市德比是焦点战，拉什福德状态争议大，库尼亚是潜力新星，容易引战。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "阿劳霍留队意愿引热议，利物浦巴萨球迷争论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "拉格斯拉维亚 2-3 朗斯，5球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "中超上座破4万场次超100，中国足球回暖了？",
+      "angle": "从观众数据破纪录切入，质疑是否真回暖，对比金元时代和现状。",
+      "keywords": [
+        "Chinese Super League",
+        "attendance",
+        "record"
+      ],
+      "keywords_cn": [
+        "中超",
+        "上座率",
+        "纪录"
+      ],
+      "content_type": "排行榜",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "why_pick": "数据亮眼，球迷自豪感强，有讨论空间。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-12 08:10:49"
+  "last_batch": "noon",
+  "last_updated": "2026-09-12 12:10:39"
 }
