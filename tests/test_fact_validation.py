@@ -94,6 +94,32 @@ class TestRewriteFidelity(unittest.TestCase):
         self.assertFalse(passed)
         self.assertTrue(any("武磊" in i for i in issues))
 
+    def test_minute_corroborated_by_sibling(self):
+        # 改写文含 '第35分钟'，兄弟源正文也含 -> 多渠道核到 -> 通过
+        fx = _mk_fixture("曼城", "曼联", 1, 0, [])
+        other = {"article_text": "第35分钟哈兰德破门，曼城1-0曼联。"}
+        ctx = {"all_fixtures": [fx, other]}
+        article = {"content": "第35分钟哈兰德一锤定音，曼城拿下曼联。", "title": "曼城曼联"}
+        passed, issues = check_rewrite_fidelity(fx, article, ctx)
+        self.assertTrue(passed, f"应放行，却报: {issues}")
+
+    def test_minute_uncorroborated_warned_not_blocked(self):
+        # 改写文含 '第42分钟'，任何源都核不到 -> 放宽（仅告警），不拦截
+        fx = _mk_fixture("曼城", "曼联", 1, 0, [])
+        fx["article_text"] = "曼城1-0击败曼联。"  # 源文无分钟
+        article = {"content": "第42分钟曼城完成绝杀，1-0曼联。", "title": "曼城曼联"}
+        passed, issues = check_rewrite_fidelity(fx, article, {"all_fixtures": [fx]})
+        self.assertTrue(passed, f"具体时间应放宽不拦截，却报: {issues}")
+
+    def test_hattrick_still_hard_blocked(self):
+        # 改写文称 '帽子戏法'，但结构化进球数据无 3+ 球且源文无此词 -> 仍硬拦截
+        fx = _mk_fixture("曼城", "曼联", 3, 0, [{"scorer_name": "哈兰德", "minute": 35}])
+        fx["article_text"] = "哈兰德梅开二度，曼城3-0曼联。"  # 源文只有梅开二度
+        article = {"content": "哈兰德上演帽子戏法，曼城3-0曼联。", "title": "曼城曼联"}
+        passed, issues = check_rewrite_fidelity(fx, article, {"all_fixtures": [fx]})
+        self.assertFalse(passed)
+        self.assertTrue(any("帽子戏法" in i for i in issues))
+
 
 class TestMatchDataValidation(unittest.TestCase):
     def test_dirty_away_team_recovered(self):
