@@ -1,7 +1,7 @@
 {
   "date": "2026-09-14",
-  "generated_at": "2026-09-14T02:40:36.961322",
-  "total_articles": 2,
+  "generated_at": "2026-09-14T02:51:49.256816",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -66,130 +66,336 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "十人曼城硬扛曼联！这红牌和VAR，瓜迪奥拉看了都摇头",
+      "path": "/home/runner/work/_temp/output/2026-09-14/article-1-十人曼城硬扛曼联-873748.md",
+      "slug": "十人曼城硬扛曼联-873748",
+      "tags": [
+        "Manchester derby",
+        "Phil Foden red card",
+        "Erling Haaland goal",
+        "VAR",
+        "Man City vs Man Utd"
+      ],
+      "keywords": [
+        "Manchester derby",
+        "Phil Foden red card",
+        "Erling Haaland goal",
+        "VAR",
+        "Man City vs Man Utd"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-14/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-14/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-14/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "21岁中国中场在荷兰的生存报告：打满全场，却挡不住降级区",
+      "path": "/home/runner/work/_temp/output/2026-09-14/article-2-21岁中国中场在-3595e6.md",
+      "slug": "21岁中国中场在-3595e6",
+      "tags": [
+        "Wang Bohao",
+        "Den Bosch",
+        "Eerste Divisie",
+        "Chinese player abroad",
+        "Dutch football"
+      ],
+      "keywords": [
+        "Wang Bohao",
+        "Den Bosch",
+        "Eerste Divisie",
+        "Chinese player abroad",
+        "Dutch football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-14/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-14/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-14/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "十人曼城硬扛曼联，这剧本谁敢写？",
+      "path": "/home/runner/work/_temp/output/2026-09-14/article-3-十人曼城硬扛曼联-66b832.md",
+      "slug": "十人曼城硬扛曼联-66b832",
+      "tags": [
+        "Manchester derby",
+        "Man City",
+        "Man United",
+        "Haaland",
+        "red card",
+        "VAR"
+      ],
+      "keywords": [
+        "Manchester derby",
+        "Man City",
+        "Man United",
+        "Haaland",
+        "red card",
+        "VAR"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-14/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "利物浦4轮3平，这支球队到底缺了啥？",
+      "path": "/home/runner/work/_temp/output/2026-09-14/article-4-利物浦4轮3平这-692c55.md",
+      "slug": "利物浦4轮3平这-692c55",
+      "tags": [
+        "Liverpool",
+        "Fulham",
+        "Alisson",
+        "Premier League",
+        "Anfield"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Fulham",
+        "Alisson",
+        "Premier League",
+        "Anfield"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "老六精准预测：明天利物浦对热刺，我看好红军主场教做人！",
+      "path": "/home/runner/work/_temp/output/2026-09-14/article-5-老六精准预测明天-96ed35.md",
+      "slug": "老六精准预测明天-96ed35",
+      "tags": [
+        "football prediction",
+        "Premier League",
+        "Serie A",
+        "La Liga",
+        "Liverpool vs Tottenham"
+      ],
+      "keywords": [
+        "football prediction",
+        "Premier League",
+        "Serie A",
+        "La Liga",
+        "Liverpool vs Tottenham"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-14/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "十人曼城1-0曼联！这场曼市德比，裁判的哨子是不是又偏了？",
-      "angle": "聚焦十人曼城仍能取胜的戏剧性，重点放在比赛中可能存在的争议判罚上，挑动两队球迷的争论，而不是单纯复盘比赛过程。",
+      "title": "十人曼城1-0绝杀曼联，这红牌反而把瓜帅的冠军相逼出来了",
+      "angle": "曼城在少打一人的绝境下赢下德比，展现出了与以往不同的铁血气质。这不是那支只会绣花的曼城了，这种丑陋的胜利，恰恰是联赛冠军最需要的韧性。",
       "keywords": [
-        "Manchester Derby",
+        "manchester city",
+        "manchester united",
+        "derby",
         "red card",
-        "controversial refereeing"
+        "premier league"
       ],
       "keywords_cn": [
+        "曼城",
+        "曼联",
         "曼市德比",
         "红牌",
-        "争议判罚"
+        "英超"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 95,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "曼市德比自带流量，十人作战+争议判罚是评论区对线的完美燃料。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "target_emotion": "骄傲",
+      "why_pick": "曼市德比+少打一人绝杀，戏剧张力拉满，适合犀利复盘。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "9场17球！中国足球小将在西班牙又夺冠了，这次是下一个林良铭还是武磊？",
-      "angle": "以中国足球小将海外夺冠为引子，探讨这种批量留洋模式的价值，对比过去个体留洋的成败，引发对中国足球青训路径的讨论。",
+      "title": "21岁王博豪荷乙连续首发，中国球员留洋是不是该换个活法了？",
+      "angle": "与其盯着五大联赛的冷板凳，不如关注这些能在欧洲二级联赛站稳脚跟的年轻人。王博豪的连续首发是个信号，务实留洋、踢上比赛比镀金重要一万倍。",
       "keywords": [
-        "Chinese football kids",
-        "Brava Cup",
-        "youth training"
+        "wang bohao",
+        "dutch second division",
+        "chinese players abroad"
       ],
       "keywords_cn": [
-        "中国足球小将",
-        "西班牙夺冠",
-        "青训"
+        "王博豪",
+        "荷乙",
+        "中国球员留洋"
       ],
-      "content_type": "八卦趣事",
-      "score": 85,
+      "content_type": "热点球评",
+      "score": 82,
       "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "why_pick": "海外夺冠是正能量热点，同时“下一个谁”的讨论能激发球迷对青训的复杂情绪。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "好奇",
+      "why_pick": "留洋话题有热度，角度从五大联赛转向二级联赛，观点新颖。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "耐克击败阿迪，签下曼联“新C罗接班人”！这事儿靠谱吗？",
-      "angle": "从商业品牌争夺年轻球员的角度切入，调侃曼联近年来“新C罗”魔咒，表达对过度炒作年轻球员的担忧，立场鲜明。",
+      "title": "耐克击败阿迪签下曼联新天才，下一个C罗还是营销泡沫？",
+      "angle": "商业巨头抢人背后是足球世界的残酷现实：资本永远在寻找下一个“金童”。JJ·加布里埃尔还没踢出名堂就被架上神坛，这对年轻球员真的是好事吗？",
       "keywords": [
-        "Nike",
-        "Adidas",
-        "Man Utd",
-        "Gabriel",
-        "next Ronaldo"
+        "nike",
+        "adidas",
+        "manchester united",
+        "jj gabriel",
+        "endorsement"
       ],
       "keywords_cn": [
         "耐克",
         "阿迪达斯",
         "曼联",
         "加布里埃尔",
-        "C罗接班人"
+        "赞助"
       ],
       "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "品牌大战+曼联+“C罗接班人”标签，集齐了商业、流量和情怀三大爆款要素。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "豪门+商业巨头+天才少年，争议性十足，能引发关于“造星”的讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "埃利奥特又要凉？瓦伦西亚换帅，利物浦外租小将的噩梦循环",
+      "angle": "每次换帅，第一个被牺牲的往往就是租借球员。埃利奥特在瓦伦西亚刚有起色就遭遇变故，这就是年轻球员外租的残酷现实，不是每个人都有阿宽的运气。",
+      "keywords": [
+        "harvey elliott",
+        "valencia",
+        "liverpool",
+        "loan",
+        "manager change"
+      ],
+      "keywords_cn": [
+        "埃利奥特",
+        "瓦伦西亚",
+        "利物浦",
+        "租借",
+        "换帅"
+      ],
+      "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "why_pick": "豪门租将困境是经典话题，有故事性，能引发球迷共情。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：明天利物浦对热刺，我看好红军主场教做人！",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-14 10:40:36"
+  "last_batch": "evening",
+  "last_updated": "2026-09-14 10:51:49"
 }
