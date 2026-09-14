@@ -49,22 +49,32 @@ DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completi
 FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
 
 # --- 多模型轮换（JSON 依赖型调用，如话题筛选）---
-# 默认候选顺序：按中文语义质量 deepseek > kimi > hy > minimax > glm，
+# 候选顺序：按中文语义质量 deepseek > kimi > hy > qwen > glm，
 # 同品牌内优先更省 token 的 flash/lite/turbo/code 变体。
-# 所有候选共用 TokenHub endpoint（hy3 已耗尽、DASHSCOPE qwen-turbo key 已失效，
-# 均已从候选列表移除）。模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
+# 2026-09-14 充值后，依据 TokenHub 平台额度截图重建本列表：
+#   ✅ 剔除已耗尽(0%)：deepseek-v4-flash、hy3
+#   ✅ 保留 88–99% 可用：kimi-k3(88.3%)、deepseek-v4-flash-202605(90.8%)、
+#      deepseek-v4-pro-202606(95.1%)、deepseek-v4-pro(96.9%)、glm-5.2(98.8%)
+#   ✅ 新增 100% 额度：deepseek-v4-flash-0731、deepseek/deepseek-flash、
+#      deepseek-v4-pro-0813、kimi-k2.8-preview、kimi-k2.5、hy4-preview、
+#      qwen3.5-flash、qwen3.5-plus、glm-5.3、glm-5.3-flash
+#   ❌ 截图未出现、疑似下架的旧模型（kimi-k2.6、hy-mt2-*、minimax-*、glm-5/-5.1/
+#      glm-5-turbo/glm-5v-turbo）一律移除——404 只会白费一轮，不如先剔除。
+# 已实测可用的模型排在前面，确保批次快速命中；新模型靠后兜底。
+# 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
 _HY3_ROTATION_MODELS = os.environ.get(
     "HY3_ROTATION_MODELS",
-    # DeepSeek
-    "deepseek-v4-flash,deepseek-v4-flash-202605,deepseek-v4-pro,deepseek-v4-pro-202606,"
-    # Kimi
-    "kimi-k2.6,kimi-k2.7-code,kimi-k2.7-code-highspeed,kimi-k3,"
-    # Hunyuan
-    "hy-mt2-lite,hy-mt2-plus,hy-role,"
-    # Minimax
-    "minimax-m2.7,minimax-m3,"
-    # GLM
-    "glm-5-turbo,glm-5v-turbo,glm-5,glm-5.1,glm-5.2"
+    # DeepSeek（推理模型，utils.call_llm 已自动关 thinking）
+    "deepseek-v4-pro,deepseek-v4-pro-202606,deepseek-v4-flash-202605,"
+    "deepseek-v4-pro-0813,deepseek-v4-flash-0731,deepseek/deepseek-flash,"
+    # Kimi（仅接受 temperature=1.0，已适配）
+    "kimi-k3,kimi-k2.7-code,kimi-k2.7-code-highspeed,kimi-k2.8-preview,kimi-k2.5,"
+    # Hunyuan（标准对话，无需特殊参数）
+    "hy4-preview,"
+    # Qwen（TokenHub 同端点，100% 额度，补充容量）
+    "qwen3.5-flash,qwen3.5-plus,"
+    # GLM（推理模型，已自动关 thinking）
+    "glm-5.3,glm-5.3-flash,glm-5.2"
 ).split(",")
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
 

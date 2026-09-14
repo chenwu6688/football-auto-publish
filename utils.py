@@ -74,13 +74,15 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
             "model": m, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False
         }
-        # TokenHub 模型参数适配（2026-08-28 实测确认）：
+        # TokenHub 模型参数适配（2026-08-28 实测确认，2026-09-14 扩充）：
         # - kimi 系列只接受 temperature=1，传 0.7 会 400
-        # - deepseek/glm 为推理模型，不关 thinking 时 reasoning 吃掉大量 token
+        # - deepseek/glm/qwen3 为推理模型，不关 thinking 时 reasoning 吃掉大量 token
         #   且 glm 甚至可能 content 为空；关掉后 token 省一半以上且输出稳定
+        #   注意：deepseek 前缀用 "deepseek"（不带连字符），以同时覆盖
+        #   "deepseek-v4-..." 与 "deepseek/..."(如 deepseek/deepseek-flash) 两种命名
         if m.startswith("kimi-"):
             body["temperature"] = 1.0
-        elif m.startswith(("deepseek-", "glm-")):
+        elif m.startswith(("deepseek", "glm-", "qwen3")):
             body["thinking"] = {"type": "disabled"}
         resp = requests.post(u, json=body,
                              headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"},
