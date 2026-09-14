@@ -1,5 +1,119 @@
 {
-  "batches_completed": [],
-  "articles": [],
-  "total_articles": 0
+  "date": "2026-09-14",
+  "generated_at": "2026-09-14T01:57:26.718042",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "落后三球还在拼！这支U20女足，输球晋级却让人看到希望",
+      "path": "/home/runner/work/_temp/output/2026-09-14/article-1-落后三球还在拼这-c3d278.md",
+      "slug": "落后三球还在拼这-c3d278",
+      "tags": [
+        "U20 Women's World Cup",
+        "China women's football",
+        "knockout stage",
+        "Spain",
+        "comeback"
+      ],
+      "keywords": [
+        "U20 Women's World Cup",
+        "China women's football",
+        "knockout stage",
+        "Spain",
+        "comeback"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-14/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-14/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-14/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "十人曼城1-0客胜曼联，这场曼市德比的火药味比比分更炸裂",
+      "angle": "从‘十人作战’和‘马奎尔哈兰德冲突’两个戏剧性瞬间切入，复盘这场德比的技术含量不如情绪浓度，重点聊英超对抗尺度和球员血性。",
+      "keywords": [
+        "Manchester Derby",
+        "Red Card"
+      ],
+      "keywords_cn": [
+        "曼市德比",
+        "红牌",
+        "冲突"
+      ],
+      "content_type": "热点球评",
+      "score": 105,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "曼市德比自带流量，十人绝杀+大规模冲突，要素拉满，且过去7天未深度覆盖这两队。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "时隔20年再出线！这支中国U20女足凭什么让人眼前一亮？",
+      "angle": "不吹具体球员天赋，只聊‘轮换5人保存实力’的战术智慧和‘时隔20年’的历史厚度，强调团队韧性和主帅布局，避开对年轻球员个体的捧杀。",
+      "keywords": [
+        "China U20",
+        "Women Football"
+      ],
+      "keywords_cn": [
+        "中国U20女足",
+        "出线",
+        "20年"
+      ],
+      "content_type": "热点球评",
+      "score": 90,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "why_pick": "中国足球难得的正能量，符合民族情绪，且严格遵循不吹个体的铁律，只谈整体。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-09-14 09:57:26"
 }
