@@ -710,7 +710,8 @@ class SportsScraper:
             home_prefix_match = re.match(r"^[^一-鿿]+", before_clean)
             if home_prefix_match:
                 before_clean = before_clean[home_prefix_match.end():]
-            home_prefixes = ["爆冷", "大冷", "再爆冷"]
+            home_prefixes = ["爆冷", "大冷", "再爆冷", "十人", "九人", "八人",
+                             "七人", "十一人", "十二人", "少一人", "多一人"]
             for prefix in home_prefixes:
                 if before_clean.startswith(prefix):
                     before_clean = before_clean[len(prefix):]
@@ -723,7 +724,8 @@ class SportsScraper:
             away_prefixes = ["绝杀", "点杀", "逆转", "爆冷", "遭", "被",
                              "力克", "大胜", "小胜", "险胜", "战平", "逼平",
                              "横扫", "完胜", "击退", "斩杀", "淘汰",
-                             "淘汰出局", "拒", "止步"]
+                             "淘汰出局", "拒", "止步", "客胜", "主胜",
+                             "客场胜", "主场胜"]
             after_clean = after
             # 去掉比分和队名之间的描述词，以及管道符分隔的额外比分信息
             first_pipe = after.find("|")
@@ -881,6 +883,27 @@ class SportsScraper:
         }
 
     @staticmethod
+    def _strip_scorer_verb(name: str) -> str:
+        """清理球员名尾部被动作词污染的片段，如 '内利上演' -> '内利'。"""
+        if not name:
+            return ""
+        s = name.strip()
+        suffixes = ("上演", "破门", "进球", "帽子戏法", "梅开二度", "独中两元",
+                    "绝杀", "助攻", "头球", "远射", "抽射", "推射", "点射",
+                    "补射", "铲射", "垫射", "完成", "帮助", "传中", "传出",
+                    "梅开", "独中", "独造", "分钟", "第", "双响", "扳平",
+                    "反超", "扳回")
+        changed = True
+        while changed:
+            changed = False
+            for suf in suffixes:
+                if s.endswith(suf) and len(s) > len(suf):
+                    s = s[: -len(suf)]
+                    changed = True
+                    break
+        return s if len(s) >= 2 else ""
+
+    @staticmethod
     def _extract_goals_from_text(text: str, home_team: str, away_team: str) -> list[dict]:
         """从战报正文提取进球信息。
 
@@ -914,6 +937,9 @@ class SportsScraper:
                 else:
                     player = m.group(1) if re.match(r"^[一-鿿]+$", m.group(1)) else ""
                     minute = int(m.group(1)) if m.group(1).isdigit() else None
+
+                # 清理球员名尾部动作词（如 '内利上演' -> '内利'）
+                player = SportsScraper._strip_scorer_verb(player)
 
                 if not player:
                     continue

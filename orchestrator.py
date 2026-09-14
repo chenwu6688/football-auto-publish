@@ -963,7 +963,106 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
     return article
 
 
-def check_rewrite_fidelity(source_fixture, rewritten_article):
+# ============================================================
+# 事实校验辅助：队名/球员名脏数据识别 + 多渠道校准
+# ============================================================
+# 含这些结果/动作词的字符串不是纯队名（如 "客胜曼联"、"十人曼城"）
+_TEAM_DIRTY_TOKENS = ("胜", "负", "平", "赢", "输", "绝杀", "逆转", "爆冷",
+                      "晋级", "淘汰", "出局", "点球", "加时", "帽子戏法",
+                      "梅开二度", "上演", "破门", "进球", "十人", "九人",
+                      "八人", "七人", "十一人", "十二人")
+# 球员名尾部常见的动作/描述词，出现说明抽取到了片段而非纯名字
+_PLAYER_DIRTY_TOKENS = ("上演", "破门", "进球", "帽子戏法", "梅开二度", "独中两元",
+                        "绝杀", "助攻", "头球", "远射", "抽射", "推射", "点射",
+                        "补射", "铲射", "垫射", "完成", "帮助", "传中", "传出",
+                        "梅开", "独中", "独造", "分钟", "第", "连下", "双响",
+                        "扳平", "反超", "扳回")
+
+
+def _looks_like_team(name):
+    """判断字符串是否像一个干净的球队名（用于过滤脏数据）。
+
+    含结果/红牌描述词（如 '客胜曼联'、'十人曼城'）的不是纯队名；
+    纯拉丁队名（如 'Manchester City FC'，不含中文描述词）也视为有效。
+    """
+    if not isinstance(name, str):
+        return False
+    s = name.strip()
+    if not (2 <= len(s) <= 30):
+        return False
+    if any(tok in s for tok in _TEAM_DIRTY_TOKENS):
+        return False
+    return True
+
+
+def _clean_player_name(raw):
+    """清理被动作片段污染的球员名（如 '内利上演' -> '内利'）。
+
+    返回 (cleaned, was_dirty)：was_dirty 表示原始串含动作词、可信度低。
+    """
+    if not isinstance(raw, str):
+        return "", False
+    s = raw.strip()
+    was_dirty = any(tok in s for tok in _PLAYER_DIRTY_TOKENS)
+    changed = True
+    while changed:
+        changed = False
+        for tok in _PLAYER_DIRTY_TOKENS:
+            if s.endswith(tok) and len(s) > len(tok):
+                s = s[: -len(tok)]
+                changed = True
+                break
+    if not s or len(s) < 2:
+        return "", was_dirty
+    if any(tok in s for tok in _PLAYER_DIRTY_TOKENS):
+        return "", was_dirty
+    return s, was_dirty
+
+
+def _build_match_reference(fixture, match_context):
+    """从多渠道 fixtures 中为该场比赛中提取校准后的队名与球员名。
+
+    返回 {'home_team','away_team','scorers'}：优先采用同场不同源的干净值，
+    作为事实校验的"共识基准"，从而用多个渠道交叉验证而非依赖单一脏数据。
+    """
+    ref = {"home_team": "", "away_team": "", "scorers": set()}
+    if not fixture or not match_context:
+        return ref
+    hg, ag = fixture.get("home_score"), fixture.get("away_score")
+    ht0, at0 = fixture.get("home_team", ""), fixture.get("away_team", "")
+    siblings = []
+    for f in match_context.get("all_fixtures", []) or []:
+        if f is fixture:
+            continue
+        if f.get("home_score") is None or f.get("away_score") is None:
+            continue
+        if (f.get("home_score"), f.get("away_score")) != (hg, ag):
+            continue
+        fh, fa = f.get("home_team", ""), f.get("away_team", "")
+        if not fh or not fa:
+            continue
+        if any(x and x in (fh + fa) for x in (ht0, at0) if x) or \
+           any(x and x in (ht0 + at0) for x in (fh, fa) if x):
+            siblings.append(f)
+    home_cands = [t for t in [ht0] + [s.get("home_team", "") for s in siblings] if _looks_like_team(t)]
+    away_cands = [t for t in [at0] + [s.get("away_team", "") for s in siblings] if _looks_like_team(t)]
+    ref["home_team"] = ht0 if _looks_like_team(ht0) else (home_cands[0] if home_cands else "")
+    ref["away_team"] = at0 if _looks_like_team(at0) else (away_cands[0] if away_cands else "")
+    scorers = set()
+    all_goals = list(fixture.get("goals", []) or [])
+    for s in siblings:
+        all_goals.extend(s.get("goals", []) or [])
+    for g in all_goals:
+        if not isinstance(g, dict):
+            continue
+        cleaned, _ = _clean_player_name(g.get("scorer_name", g.get("scorer", "")))
+        if cleaned:
+            scorers.add(cleaned)
+    ref["scorers"] = scorers
+    return ref
+
+
+def check_rewrite_fidelity(source_fixture, rewritten_article, match_context=None):
     """检查改写文是否忠实于来源文章。
 
     对比关键事实（比分、球员名、球队名）是否被改动。
@@ -989,17 +1088,40 @@ def check_rewrite_fidelity(source_fixture, rewritten_article):
             if not score_ok:
                 issues.append(f"比分不一致: 来源 {expected_hg}-{expected_ag}")
 
-    # 检查2：源文章中的球员名出现在改写文中
-    source_goals = source_fixture.get("goals", [])
-    for g in source_goals:
-        scorer = g.get("scorer_name", g.get("scorer", ""))
-        if scorer and scorer not in content:
-            if scorer in source_text:
-                issues.append(f"缺少球员: {scorer}")
+    # 检查2：球员名出现在改写文中（多渠道校准：自身清理 + 兄弟源干净名）
+    ref = _build_match_reference(source_fixture, match_context) if match_context else None
+    cand = []  # (name, confident)
+    for g in source_fixture.get("goals", []) or []:
+        raw = g.get("scorer_name", g.get("scorer", ""))
+        if not raw:
+            continue
+        cleaned, was_dirty = _clean_player_name(raw)
+        if cleaned:
+            cand.append((cleaned, not was_dirty))
+    if ref:
+        for s in ref["scorers"]:
+            cand.append((s, True))
+    # 去重保序
+    seen, unique = set(), []
+    for name, conf in cand:
+        if name in seen:
+            continue
+        seen.add(name)
+        unique.append((name, conf))
+    for name, confident in unique:
+        if name in content:
+            continue  # 改写文已包含该球员，通过
+        if name in source_text:
+            if confident:
+                issues.append(f"缺少球员: {name}")
+            else:
+                print(f"   ⚠️ 球员名 '{name}' 源自脏数据片段且改写文未出现，放宽校验（不拦截）")
+        # 源文章中也没有该名字（多为清理产物），跳过
 
     # 检查3：禁止新增断言表达，但需对照结构化进球数据做语义判断
     # 先用 goals[] 数据统计每个球员的进球数，用于验证"梅开二度""帽子戏法"
     from collections import defaultdict
+    source_goals = source_fixture.get("goals", []) or []
     goals_by_scorer = defaultdict(int)
     for g in source_goals:
         name = g.get("scorer_name", g.get("scorer", ""))
@@ -1030,7 +1152,7 @@ def check_rewrite_fidelity(source_fixture, rewritten_article):
     return len(issues) == 0, issues
 
 
-def validate_article_vs_match_data(source_fixture, rewritten_article):
+def validate_article_vs_match_data(source_fixture, rewritten_article, match_context=None):
     """验证改写文中的关键比赛信息是否与结构化比赛数据一致。
 
     与 check_rewrite_fidelity 不同，此函数直接对比比赛数据（而非源文章），
@@ -1040,8 +1162,18 @@ def validate_article_vs_match_data(source_fixture, rewritten_article):
     issues = []
     content = rewritten_article.get("content", "") + rewritten_article.get("title", "")
 
-    ht = source_fixture.get("home_team", "")
-    at = source_fixture.get("away_team", "")
+    # 多渠道校准：优先用同场不同源的干净队名，避免单一脏数据（如 '客胜曼联'）误拦截
+    ref = _build_match_reference(source_fixture, match_context) if match_context else None
+    ht = (ref or {}).get("home_team") or source_fixture.get("home_team", "")
+    at = (ref or {}).get("away_team") or source_fixture.get("away_team", "")
+    if not _looks_like_team(ht):
+        if ht:
+            print(f"   ⚠️ 主队名 '{ht}' 疑似脏数据，跳过主队名校验")
+        ht = ""
+    if not _looks_like_team(at):
+        if at:
+            print(f"   ⚠️ 客队名 '{at}' 疑似脏数据，跳过客队名校验")
+        at = ""
     hg = source_fixture.get("home_score")
     ag = source_fixture.get("away_score")
 
@@ -1069,7 +1201,8 @@ def validate_article_vs_match_data(source_fixture, rewritten_article):
     goals = source_fixture.get("goals", [])
     goals_by_scorer = defaultdict(int)
     for g in goals:
-        name = g.get("scorer_name", g.get("scorer", ""))
+        raw = g.get("scorer_name", g.get("scorer", ""))
+        name = _clean_player_name(raw)[0] if raw else ""
         if name:
             goals_by_scorer[name] += 1
 
@@ -1179,7 +1312,7 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 continue
 
             # Fidelity check: verify facts preserved
-            passed, issues = check_rewrite_fidelity(fixture, art)
+            passed, issues = check_rewrite_fidelity(fixture, art, match_context)
             if not passed:
                 last_hint = "; ".join(issues)
                 if attempt < max_retries:
@@ -1187,7 +1320,7 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 return {}, f"改写不忠实: {last_hint}"
 
             # 第二层验证：防止改写文编造比赛数据中不存在的事件
-            match_passed, match_issues = validate_article_vs_match_data(fixture, art)
+            match_passed, match_issues = validate_article_vs_match_data(fixture, art, match_context)
             if not match_passed:
                 last_hint = "; ".join(match_issues)
                 if attempt < max_retries:
