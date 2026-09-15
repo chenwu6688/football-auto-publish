@@ -1,7 +1,7 @@
 {
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T02:00:14.701754",
-  "total_articles": 7,
+  "generated_at": "2026-09-15T04:11:13.358616",
+  "total_articles": 10,
   "articles": [
     {
       "index": 1,
@@ -230,171 +230,265 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "U20女足看台惊现红色海洋，领喊大哥：我适应得很快",
+      "path": "/home/runner/work/_temp/output/2026-09-15/article-1-U20女足看台惊-4a32b2.md",
+      "slug": "U20女足看台惊-4a32b2",
+      "tags": [
+        "U20 Women's World Cup",
+        "China",
+        "Spain",
+        "fan",
+        "Poland"
+      ],
+      "keywords": [
+        "U20 Women's World Cup",
+        "China",
+        "Spain",
+        "fan",
+        "Poland"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-15/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-15/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "国安时隔5年回亚洲，浦项制铁却想的是联赛保级",
+      "path": "/home/runner/work/_temp/output/2026-09-15/article-2-国安时隔5年回亚-d1a946.md",
+      "slug": "国安时隔5年回亚-d1a946",
+      "tags": [
+        "AFC Champions League",
+        "Ratchaburi",
+        "Shanghai Port",
+        "Beijing Guoan",
+        "Pohang Steelers",
+        "football prediction"
+      ],
+      "keywords": [
+        "AFC Champions League",
+        "Ratchaburi",
+        "Shanghai Port",
+        "Beijing Guoan",
+        "Pohang Steelers",
+        "football prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-15/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-15/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-15/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "7队保级大乱斗！这队赛程简直地狱难度",
+      "path": "/home/runner/work/_temp/output/2026-09-15/article-3-7队保级大乱斗这-1a682f.md",
+      "slug": "7队保级大乱斗这-1a682f",
+      "tags": [
+        "relegation battle",
+        "CSL",
+        "Wuhan Three Towns",
+        "Tianjin Jinmen Tiger"
+      ],
+      "keywords": [
+        "relegation battle",
+        "CSL",
+        "Wuhan Three Towns",
+        "Tianjin Jinmen Tiger"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-15/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-15/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "哈兰德争议球杀死曼联，VAR裁判被停哨这事儿还没完？",
-      "angle": "从VAR裁判被停哨切入，质疑判罚流程的系统性问题，而非单纯指责某个人。结合卡拉格和英媒的评论，带出曼联球迷的愤怒和英超裁判的公信力危机。",
+      "title": "5-3！国米乌迪内斯合演8球神剧，这防守比中超还刺激",
+      "angle": "从一场8球盛宴切入，讨论国米新赛季进攻火力与防守漏洞的极端反差，用调侃语气吐槽意甲豪门防守质量，引发球迷对攻守平衡的讨论。",
       "keywords": [
-        "Haaland",
-        "VAR",
-        "Manchester Derby",
-        "referee"
+        "Inter Milan",
+        "Udinese",
+        "Serie A",
+        "goal fest"
       ],
       "keywords_cn": [
-        "哈兰德",
-        "视频助理裁判",
-        "曼市德比",
-        "裁判停哨"
+        "国际米兰",
+        "乌迪内斯",
+        "意甲",
+        "进球大战"
       ],
       "content_type": "热点球评",
-      "score": 105,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "曼市德比争议球+裁判被罚，时效性强，争议性拉满，完美契合老六犀利点评风格。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "8球盛宴有天然话题性，国米作为中国球迷关注的豪门，防守问题能引发激烈讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "尤文要冬窗租借切尔西弃将？马杜埃凯这笔交易靠谱吗",
-      "angle": "从尤文图斯关注并考虑租借马杜埃凯的传闻入手，分析这笔交易的逻辑。质疑尤文图斯的引援眼光和切尔西的球员清理策略，探讨这位年轻边锋是否能在意甲重生。",
+      "title": "从1人泪海到满眼中国红，U20女足球迷故事比0-3比分更动人",
+      "angle": "聚焦U20女足比赛中球迷从独自助威到全场响应的温情故事，用人文视角展现中国足球底层热爱，避开比赛结果，传递正能量。",
       "keywords": [
-        "Juventus",
-        "Madueke",
-        "Chelsea",
-        "loan"
+        "U20 Women's World Cup",
+        "Chinese fans",
+        "grassroots football"
       ],
       "keywords_cn": [
-        "尤文图斯",
-        "马杜埃凯",
-        "切尔西",
-        "转会租借"
+        "U20女足",
+        "中国球迷",
+        "草根足球",
+        "温情故事"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "冬窗转会传闻，涉及英超弃将和意甲豪门，有“树挪死人挪活”的故事潜力。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "球迷故事极具情绪共鸣，符合老六接地气人设，展现足球温情一面。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "没了梅西巴萨反而更强？莱万特这场2-4背后有玄机",
-      "angle": "以巴萨4-2逆转莱万特的比赛为引子，提出反常识观点。重点不是吹捧巴萨，而是探讨球队在彻底摆脱梅西依赖后，进攻体系多点开花的变化，引发梅粉和萨迷的争论。",
-      "keywords": [
-        "Barcelona",
-        "post-Messi",
-        "La Liga",
-        "tactics"
-      ],
-      "keywords_cn": [
-        "巴塞罗那",
-        "后梅西时代",
-        "西甲",
-        "战术体系"
-      ],
-      "content_type": "热点球评",
-      "score": 90,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "经典反常识叙事，有比赛结果支撑，能精准挑动球迷群体对立情绪，讨论度极高。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "金球奖评委放话：只看个人表现！那今年的标准到底是什么？",
-      "angle": "借阿斯报评委的言论，抛出金球奖评选标准的老问题。结合今年缺乏绝对统治力球星的情况，讨论到底是数据更重要，还是冠军荣誉、关键战表现更值钱，引导球迷为各自偶像站队。",
+      "title": "恒大足球基地被接管清算，广州队亚冠奖杯真要进博物馆了？",
+      "angle": "从恒大足球基地破产清算切入，以怀旧视角回顾广州队亚冠辉煌，讨论金元足球时代终结的象征意义，引发中国球迷对金元时代的集体回忆。",
       "keywords": [
-        "Ballon dOr",
-        "criteria",
-        "individual performance",
-        "debate"
+        "Guangzhou Evergrande",
+        "AFC Champions League",
+        "bankruptcy",
+        "Chinese football"
       ],
       "keywords_cn": [
-        "金球奖",
-        "评选标准",
-        "个人表现",
-        "争议"
+        "广州恒大",
+        "亚冠",
+        "破产清算",
+        "金元足球"
       ],
       "content_type": "八卦趣事",
       "score": 85,
       "controversy_level": "high",
+      "target_emotion": "怀旧",
+      "why_pick": "恒大清算触动中国球迷集体记忆，金元足球兴衰极具讨论价值，争议性高。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "中超最后4轮7队保级混战，武汉三镇形势比想象中更严峻",
+      "angle": "梳理中超保级乱局，重点分析三镇危机，用数据+形势图呈现7队绞杀局面，给球迷一个清晰的中超收官看点指南。",
+      "keywords": [
+        "Chinese Super League",
+        "relegation battle",
+        "Wuhan Three Towns"
+      ],
+      "keywords_cn": [
+        "中超",
+        "保级",
+        "武汉三镇",
+        "收官战"
+      ],
+      "content_type": "热点球评",
+      "score": 75,
+      "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "金球奖评选永远是流量密码，评委亲自下场解释，给了老六借题发挥、挑动争论的绝佳素材。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "保级大战天然有悬念，7队混战极具戏剧性，符合国内球迷关注焦点。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-15 10:00:14"
+  "last_batch": "noon",
+  "last_updated": "2026-09-15 12:11:13"
 }
