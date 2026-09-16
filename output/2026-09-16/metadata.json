@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
-  "generated_at": "2026-09-16T04:10:53.355957",
-  "total_articles": 7,
+  "generated_at": "2026-09-16T09:41:49.592852",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -233,167 +233,372 @@
       "column_id": "",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "廖三宁30分硬扛沙特，这比赛看得我血压拉满！",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-1-廖三宁30分硬扛-e17200.md",
+      "slug": "廖三宁30分硬扛-e17200",
+      "tags": [
+        "basketball",
+        "Asian Games",
+        "China men's basketball",
+        "Liao Sanning",
+        "Saudi Arabia",
+        "quarterfinal"
+      ],
+      "keywords": [
+        "basketball",
+        "Asian Games",
+        "China men's basketball",
+        "Liao Sanning",
+        "Saudi Arabia",
+        "quarterfinal"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "欠薪俩月还能排第7？宁波队这波操作，让人心疼又佩服",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-2-欠薪俩月还能排第-2cf280.md",
+      "slug": "欠薪俩月还能排第-2cf280",
+      "tags": [
+        "Ningbo",
+        "China League One",
+        "salary arrears",
+        "football",
+        "professional"
+      ],
+      "keywords": [
+        "Ningbo",
+        "China League One",
+        "salary arrears",
+        "football",
+        "professional"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "15岁国少队长自费飞欧洲，这机票背后藏着多少不甘？",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-3-15岁国少队长自-61a2c8.md",
+      "slug": "15岁国少队长自-61a2c8",
+      "tags": [
+        "Lu Qizheng",
+        "Chinese youth football",
+        "Belgrade",
+        "Evergrande Football School",
+        "discipline issue"
+      ],
+      "keywords": [
+        "Lu Qizheng",
+        "Chinese youth football",
+        "Belgrade",
+        "Evergrande Football School",
+        "discipline issue"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "申花主场还没赢过？米洛耶维奇这波操作，像极了开盲盒",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-4-申花主场还没赢过-c7edc7.md",
+      "slug": "申花主场还没赢过-c7edc7",
+      "tags": [
+        "Shanghai Shenhua",
+        "AFC Champions League Two",
+        "Milojevic",
+        "Liu Chengyu",
+        "home winless"
+      ],
+      "keywords": [
+        "Shanghai Shenhua",
+        "AFC Champions League Two",
+        "Milojevic",
+        "Liu Chengyu",
+        "home winless"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "老六精准预测：米兰硬刚本菲卡，曼联那场我看好冷门",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-5-老六精准预测米兰-58296c.md",
+      "slug": "老六精准预测米兰-58296c",
+      "tags": [
+        "football",
+        "prediction",
+        "UEFA Europa League",
+        "Premier League",
+        "La Liga"
+      ],
+      "keywords": [
+        "football",
+        "prediction",
+        "UEFA Europa League",
+        "Premier League",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-5-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "8000万差点走人，如今5场造6球！加克波这是要打谁的脸？",
-      "angle": "聚焦加克波夏窗一度接近离队后状态爆发的反差故事，从球员心理和俱乐部决策角度切入，探讨'留下'对双方的意义。",
+      "title": "37岁吴曦重返国字号，这到底是情怀还是无奈？",
+      "angle": "吴曦时隔两年半再次为国字号出战，从俱乐部核心到U23国足救火，折射出中国足球人才断档的尴尬现实。",
       "keywords": [
-        "Cody Gakpo",
-        "Liverpool",
-        "transfer",
-        "Man City"
+        "Wu Xi",
+        "China U23",
+        "veteran return"
       ],
       "keywords_cn": [
-        "加克波",
-        "利物浦",
-        "转会",
-        "曼城"
-      ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "状态复苏+转会反转故事，完美契合老六犀利点评和球迷吃瓜心态。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "13年！张稀哲传射复仇，海港亚冠101分终于喘了口气",
-      "angle": "以张稀哲'13年后再赢你们一次'的言论为引，结合海港终结亚冠13场不胜的历史节点，用老球迷视角讲述这场胜利的含金量和心理意义。",
-      "keywords": [
-        "Zhang Xizhe",
-        "Shanghai Port",
-        "AFC Champions League"
-      ],
-      "keywords_cn": [
-        "张稀哲",
-        "上海海港",
-        "亚冠"
+        "吴曦",
+        "U23国足",
+        "老将回归",
+        "人才断档"
       ],
       "content_type": "热点球评",
       "score": 85,
-      "controversy_level": "low",
+      "controversy_level": "medium",
       "target_emotion": "怀旧",
-      "why_pick": "13年复仇+终结耻辱纪录，故事性强，能引发老球迷集体回忆。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "老将救火U23极具话题性，引发对中国足球青训的讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "亚运官网闹乌龙！中国队首发12人，这波操作看傻网友",
+      "angle": "亚运会官网公布中国U23男足首发竟出现12人，低级失误背后是赛事组织的业余，老六带你看这出国际笑话。",
+      "keywords": [
+        "Asian Games",
+        "China U23",
+        "lineup blunder"
+      ],
+      "keywords_cn": [
+        "亚运会",
+        "中国U23",
+        "首发乌龙",
+        "12人"
+      ],
+      "content_type": "八卦趣事",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "官方低级失误极具戏剧性和吐槽价值，天然适合社交媒体传播。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "前申花外援停赛变公益！这处罚方式，咱们中超能学学吗？",
-      "angle": "从米内罗将3场停赛转为社会公益处罚的新闻入手，对比国内联赛纪律处罚的僵化，提出'惩罚也可以有人情味和建设性'的观点。",
+      "title": "中甲宁波队欠薪两月排第7，中国足球的生存困境有多真实？",
+      "angle": "宁波队欠薪两月还能排中甲第7，球员为爱发电，揭开低级别联赛球队在生存线上挣扎的血泪现实。",
       "keywords": [
-        "Mineiro",
-        "Shanghai Shenhua",
-        "discipline",
-        "community service"
+        "Ningbo FC",
+        "wage arrears",
+        "China League One"
       ],
       "keywords_cn": [
-        "米内罗",
-        "上海申花",
-        "纪律处罚",
-        "社会公益"
+        "宁波队",
+        "欠薪",
+        "中甲",
+        "生存困境"
       ],
       "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "why_pick": "欠薪话题直击中国足球痛点，能引发球迷对联赛生态的共情与讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "前国少队长独自飞往贝尔格莱德，又一个追梦少年能成吗？",
+      "angle": "前国少队长卢琦政晒机票独自留洋塞尔维亚，没有喧嚣只有一张机票，这才是中国足球留洋最真实的模样。",
+      "keywords": [
+        "Lu Qizheng",
+        "overseas trial",
+        "Belgrade"
+      ],
+      "keywords_cn": [
+        "卢琦政",
+        "留洋",
+        "贝尔格莱德",
+        "国少队长"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "少年独自追梦的故事有温度，与中国足球留洋大背景契合。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "国安16场不败靠什么？杜齐亚克一句话道出真相",
+      "angle": "国安外援杜齐亚克称连续16场不败体现团结，但老六要扒一扒这背后亚冠专属外援验货成功和伤员回归的硬实力支撑。",
+      "keywords": [
+        "Beijing Guoan",
+        "unbeaten streak",
+        "AFC Champions League"
+      ],
+      "keywords_cn": [
+        "北京国安",
+        "16场不败",
+        "亚冠",
+        "团结"
+      ],
+      "content_type": "热点球评",
       "score": 82,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "足球与人文关怀结合，有中外对比点，能引发关于联赛管理的讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "18岁布尼亚明进国足！是梦想成真，还是国足真没人了？",
-      "angle": "借小将布尼亚明首次入选国家队的激动表态，抛出'年轻化是希望还是无奈'的争议话题，既肯定球员梦想，又理性探讨国足人才储备现状。",
-      "keywords": [
-        "Buniamin",
-        "China national team",
-        "youth"
-      ],
-      "keywords_cn": [
-        "布尼亚明",
-        "国足",
-        "年轻化"
-      ],
-      "content_type": "热点球评",
-      "score": 80,
-      "controversy_level": "high",
-      "target_emotion": "骄傲",
-      "why_pick": "国足名单永远有流量，年轻球员入选自带希望与争议双重属性。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "why_pick": "长不败纪录+外援解密，兼具成绩复盘与战术分析价值。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "老六精准预测：米兰硬刚本菲卡，曼联那场我看好冷门",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-16 12:10:53"
+  "last_batch": "evening",
+  "last_updated": "2026-09-16 17:41:49"
 }
