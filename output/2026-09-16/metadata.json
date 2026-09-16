@@ -1,7 +1,7 @@
 {
   "date": "2026-09-16",
-  "generated_at": "2026-09-16T00:12:00.771031",
-  "total_articles": 3,
+  "generated_at": "2026-09-16T04:10:53.355957",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -100,176 +100,300 @@
       "column_id": "",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "续约到2030！这位曼联弃将，如今成了水晶宫的队史级大腿",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-1-续约到2030这-e6e2ff.md",
+      "slug": "续约到2030这-e6e2ff",
+      "tags": [
+        "Dean Henderson",
+        "Crystal Palace",
+        "contract extension",
+        "Premier League",
+        "goalkeeper"
+      ],
+      "keywords": [
+        "Dean Henderson",
+        "Crystal Palace",
+        "contract extension",
+        "Premier League",
+        "goalkeeper"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "6比4！海港用一场进球狂欢终结13场不胜，但最后30分钟看得人心慌",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-2-6比4海港用一场-c422c9.md",
+      "slug": "6比4海港用一场-c422c9",
+      "tags": [
+        "Shanghai Port",
+        "AFC Champions League",
+        "Ratchaburi",
+        "Anpem",
+        "Wu Lei",
+        "Muscat",
+        "6-4",
+        "101 points"
+      ],
+      "keywords": [
+        "Shanghai Port",
+        "AFC Champions League",
+        "Ratchaburi",
+        "Anpem",
+        "Wu Lei",
+        "Muscat",
+        "6-4",
+        "101 points"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "申花旧将的魔幻现实：这边解约走人，那边首秀登场",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-3-申花旧将的魔幻现-3c99fb.md",
+      "slug": "申花旧将的魔幻现-3c99fb",
+      "tags": [
+        "Mineiro",
+        "Shanghai Shenhua",
+        "Ceará",
+        "red card",
+        "Brazil Serie B"
+      ],
+      "keywords": [
+        "Mineiro",
+        "Shanghai Shenhua",
+        "Ceará",
+        "red card",
+        "Brazil Serie B"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "海港6-4大胜连夜逃回上海，国脚三天假，这波操作太真实了",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-4-海港64大胜连夜-2982b3.md",
+      "slug": "海港64大胜连夜-2982b3",
+      "tags": [
+        "AFC Champions League",
+        "Shanghai Port",
+        "national team",
+        "rest",
+        "schedule"
+      ],
+      "keywords": [
+        "AFC Champions League",
+        "Shanghai Port",
+        "national team",
+        "rest",
+        "schedule"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "15岁的神！皇马巴萨巴黎拜仁都在抢，曼联这波血亏？",
-      "angle": "从JJ·加布三天前通知曼联离队切入，分析曼联青训流失的深层问题，以及皇萨等豪门为何对15岁小将如此疯狂。立场：曼联管理层该反思了，连自家孩子都留不住。",
+      "title": "8000万差点走人，如今5场造6球！加克波这是要打谁的脸？",
+      "angle": "聚焦加克波夏窗一度接近离队后状态爆发的反差故事，从球员心理和俱乐部决策角度切入，探讨'留下'对双方的意义。",
       "keywords": [
-        "JJ Gabriel",
-        "Manchester United",
-        "Real Madrid",
-        "Barcelona",
-        "youth transfer"
+        "Cody Gakpo",
+        "Liverpool",
+        "transfer",
+        "Man City"
       ],
       "keywords_cn": [
-        "JJ·加布",
-        "曼联",
-        "皇马",
-        "巴萨",
-        "青训流失"
-      ],
-      "content_type": "转会资讯",
-      "score": 98,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "15岁天才引发全欧哄抢+曼联留不住人，争议性拉满，转会窗最大爆点",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "梅西回归！阿根廷告别赛，这一次我们好好说再见",
-      "angle": "从早报中'梅西回归参加阿根廷告别赛'切入，回顾梅西国家队生涯的高光与遗憾，以老球迷视角写一篇充满情怀的告别文。立场：这是梅西应得的体面告别，也是我们青春的句号。",
-      "keywords": [
-        "Messi",
-        "Argentina",
-        "farewell match",
-        "national team"
-      ],
-      "keywords_cn": [
-        "梅西",
-        "阿根廷",
-        "告别赛",
-        "国家队"
+        "加克波",
+        "利物浦",
+        "转会",
+        "曼城"
       ],
       "content_type": "八卦趣事",
-      "score": 95,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "why_pick": "梅西告别赛是今日最大情感爆点，老球迷集体回忆杀，评论区必炸",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "联赛杯利物浦3-1热刺，20岁库马斯全场最佳，克洛普后继有人？",
-      "angle": "从库马斯当选全场最佳+加克波为他颁奖切入，结合麦卡利斯特传射数据，分析利物浦年轻球员在联赛杯的表现，探讨红军青训是否迎来新黄金一代。立场：利物浦这波年轻人，有点东西。",
-      "keywords": [
-        "Koumas",
-        "Liverpool",
-        "EFL Cup",
-        "young player",
-        "Gakpo"
-      ],
-      "keywords_cn": [
-        "库马斯",
-        "利物浦",
-        "联赛杯",
-        "年轻球员",
-        "加克波"
-      ],
-      "content_type": "热点球评",
       "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "利物浦年轻球员表现亮眼+库马斯一战成名，有数据有故事有未来",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "状态复苏+转会反转故事，完美契合老六犀利点评和球迷吃瓜心态。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "阿尔特塔盛赞道曼：天赋异禀但必须循序渐进，又一个被保护的天才？",
-      "angle": "结合阿尔特塔对道曼的评价'循序渐进'和梅里诺说'从他眼中看到踢球的快乐'，讨论豪门如何保护年轻天才，对比JJ·加布的转会风波，形成两种青训路线的对比。立场：保护天才比炒作天才更重要。",
+      "title": "13年！张稀哲传射复仇，海港亚冠101分终于喘了口气",
+      "angle": "以张稀哲'13年后再赢你们一次'的言论为引，结合海港终结亚冠13场不胜的历史节点，用老球迷视角讲述这场胜利的含金量和心理意义。",
       "keywords": [
-        "Arteta",
-        "Dowman",
-        "Arsenal",
-        "young talent",
-        "protection"
+        "Zhang Xizhe",
+        "Shanghai Port",
+        "AFC Champions League"
       ],
       "keywords_cn": [
-        "阿尔特塔",
-        "道曼",
-        "阿森纳",
-        "年轻天才",
-        "保护"
+        "张稀哲",
+        "上海海港",
+        "亚冠"
       ],
-      "content_type": "战术解析",
+      "content_type": "热点球评",
       "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "阿森纳保护天才vs曼联流失天才，对比鲜明，引发青训路线讨论",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "13年复仇+终结耻辱纪录，故事性强，能引发老球迷集体回忆。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "前申花外援停赛变公益！这处罚方式，咱们中超能学学吗？",
+      "angle": "从米内罗将3场停赛转为社会公益处罚的新闻入手，对比国内联赛纪律处罚的僵化，提出'惩罚也可以有人情味和建设性'的观点。",
+      "keywords": [
+        "Mineiro",
+        "Shanghai Shenhua",
+        "discipline",
+        "community service"
+      ],
+      "keywords_cn": [
+        "米内罗",
+        "上海申花",
+        "纪律处罚",
+        "社会公益"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "足球与人文关怀结合，有中外对比点，能引发关于联赛管理的讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "18岁布尼亚明进国足！是梦想成真，还是国足真没人了？",
+      "angle": "借小将布尼亚明首次入选国家队的激动表态，抛出'年轻化是希望还是无奈'的争议话题，既肯定球员梦想，又理性探讨国足人才储备现状。",
+      "keywords": [
+        "Buniamin",
+        "China national team",
+        "youth"
+      ],
+      "keywords_cn": [
+        "布尼亚明",
+        "国足",
+        "年轻化"
+      ],
+      "content_type": "热点球评",
+      "score": 80,
+      "controversy_level": "high",
+      "target_emotion": "骄傲",
+      "why_pick": "国足名单永远有流量，年轻球员入选自带希望与争议双重属性。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-16 08:12:00"
+  "last_batch": "noon",
+  "last_updated": "2026-09-16 12:10:53"
 }
