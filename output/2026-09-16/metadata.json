@@ -1,0 +1,275 @@
+{
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T00:12:00.771031",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "皇马这剧本谁敢写？领先两球被扳平，92分钟绝杀！",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-1-皇马这剧本谁敢写-385ac4.md",
+      "slug": "皇马这剧本谁敢写-385ac4",
+      "tags": [
+        "Real Madrid",
+        "Mbappe",
+        "Elche",
+        "La Liga",
+        "last-minute winner"
+      ],
+      "keywords": [
+        "Real Madrid",
+        "Mbappe",
+        "Elche",
+        "La Liga",
+        "last-minute winner"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "21岁替补两献绝杀！皇马这2500万花得太值了",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-2-21岁替补两献绝-ab02b6.md",
+      "slug": "21岁替补两献绝-ab02b6",
+      "tags": [
+        "Real Madrid",
+        "Espi",
+        "Mbappe",
+        "Ronaldo",
+        "Messi",
+        "Champions League"
+      ],
+      "keywords": [
+        "Real Madrid",
+        "Espi",
+        "Mbappe",
+        "Ronaldo",
+        "Messi",
+        "Champions League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "16岁小孩哥油炸丸子破门，阿森纳这4-2看得人五味杂陈",
+      "path": "/home/runner/work/_temp/output/2026-09-16/article-3-16岁小孩哥油炸-df3144.md",
+      "slug": "16岁小孩哥油炸-df3144",
+      "tags": [
+        "Arsenal",
+        "Carabao Cup",
+        "Ipswich Town",
+        "Dowman",
+        "Gyokeres"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Carabao Cup",
+        "Ipswich Town",
+        "Dowman",
+        "Gyokeres"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-16/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "15岁的神！皇马巴萨巴黎拜仁都在抢，曼联这波血亏？",
+      "angle": "从JJ·加布三天前通知曼联离队切入，分析曼联青训流失的深层问题，以及皇萨等豪门为何对15岁小将如此疯狂。立场：曼联管理层该反思了，连自家孩子都留不住。",
+      "keywords": [
+        "JJ Gabriel",
+        "Manchester United",
+        "Real Madrid",
+        "Barcelona",
+        "youth transfer"
+      ],
+      "keywords_cn": [
+        "JJ·加布",
+        "曼联",
+        "皇马",
+        "巴萨",
+        "青训流失"
+      ],
+      "content_type": "转会资讯",
+      "score": 98,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "15岁天才引发全欧哄抢+曼联留不住人，争议性拉满，转会窗最大爆点",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "梅西回归！阿根廷告别赛，这一次我们好好说再见",
+      "angle": "从早报中'梅西回归参加阿根廷告别赛'切入，回顾梅西国家队生涯的高光与遗憾，以老球迷视角写一篇充满情怀的告别文。立场：这是梅西应得的体面告别，也是我们青春的句号。",
+      "keywords": [
+        "Messi",
+        "Argentina",
+        "farewell match",
+        "national team"
+      ],
+      "keywords_cn": [
+        "梅西",
+        "阿根廷",
+        "告别赛",
+        "国家队"
+      ],
+      "content_type": "八卦趣事",
+      "score": 95,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "why_pick": "梅西告别赛是今日最大情感爆点，老球迷集体回忆杀，评论区必炸",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "联赛杯利物浦3-1热刺，20岁库马斯全场最佳，克洛普后继有人？",
+      "angle": "从库马斯当选全场最佳+加克波为他颁奖切入，结合麦卡利斯特传射数据，分析利物浦年轻球员在联赛杯的表现，探讨红军青训是否迎来新黄金一代。立场：利物浦这波年轻人，有点东西。",
+      "keywords": [
+        "Koumas",
+        "Liverpool",
+        "EFL Cup",
+        "young player",
+        "Gakpo"
+      ],
+      "keywords_cn": [
+        "库马斯",
+        "利物浦",
+        "联赛杯",
+        "年轻球员",
+        "加克波"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "利物浦年轻球员表现亮眼+库马斯一战成名，有数据有故事有未来",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "阿尔特塔盛赞道曼：天赋异禀但必须循序渐进，又一个被保护的天才？",
+      "angle": "结合阿尔特塔对道曼的评价'循序渐进'和梅里诺说'从他眼中看到踢球的快乐'，讨论豪门如何保护年轻天才，对比JJ·加布的转会风波，形成两种青训路线的对比。立场：保护天才比炒作天才更重要。",
+      "keywords": [
+        "Arteta",
+        "Dowman",
+        "Arsenal",
+        "young talent",
+        "protection"
+      ],
+      "keywords_cn": [
+        "阿尔特塔",
+        "道曼",
+        "阿森纳",
+        "年轻天才",
+        "保护"
+      ],
+      "content_type": "战术解析",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "阿森纳保护天才vs曼联流失天才，对比鲜明，引发青训路线讨论",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-09-16 08:12:00"
+}
