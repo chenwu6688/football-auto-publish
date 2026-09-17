@@ -1,7 +1,7 @@
 {
   "date": "2026-09-17",
-  "generated_at": "2026-09-17T00:11:18.158195",
-  "total_articles": 5,
+  "generated_at": "2026-09-17T04:11:03.917996",
+  "total_articles": 9,
   "articles": [
     {
       "index": 1,
@@ -159,174 +159,299 @@
       "column_id": "",
       "column_name": "",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "C罗倒钩打飞+4球惨败！利雅得胜利这后防，是来搞笑的吗？",
+      "path": "/home/runner/work/_temp/output/2026-09-17/article-1-C罗倒钩打飞4球-76b961.md",
+      "slug": "C罗倒钩打飞4球-76b961",
+      "tags": [
+        "AFC Champions League",
+        "Al Nassr",
+        "Al Ain",
+        "Cristiano Ronaldo",
+        "Soufiane Rahimi"
+      ],
+      "keywords": [
+        "AFC Champions League",
+        "Al Nassr",
+        "Al Ain",
+        "Cristiano Ronaldo",
+        "Soufiane Rahimi"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "不靠神仙球，只拼执行力！津门虎把防守反击玩成了中超另类标杆",
+      "path": "/home/runner/work/_temp/output/2026-09-17/article-2-不靠神仙球只拼执-04be77.md",
+      "slug": "不靠神仙球只拼执-04be77",
+      "tags": [
+        "Tianjin Jinmen Tiger",
+        "Yu Genwei",
+        "Chinese Super League",
+        "defensive counterattack",
+        "point deduction"
+      ],
+      "keywords": [
+        "Tianjin Jinmen Tiger",
+        "Yu Genwei",
+        "Chinese Super League",
+        "defensive counterattack",
+        "point deduction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-17/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "37岁吴曦传射救主，这剧本谁敢编？",
+      "path": "/home/runner/work/_temp/output/2026-09-17/article-3-37岁吴曦传射救-15eeb4.md",
+      "slug": "37岁吴曦传射救-15eeb4",
+      "tags": [
+        "Wu Xi",
+        "China U23",
+        "Asian Games",
+        "North Korea",
+        "comeback"
+      ],
+      "keywords": [
+        "Wu Xi",
+        "China U23",
+        "Asian Games",
+        "North Korea",
+        "comeback"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-17/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "泰山外援的假期：诺坎普看球、电音蹦迪，回来就上跑步机",
+      "path": "/home/runner/work/_temp/output/2026-09-17/article-4-泰山外援的假期诺-d9d543.md",
+      "slug": "泰山外援的假期诺-d9d543",
+      "tags": [
+        "Cryzan",
+        "Shandong Taishan",
+        "mate tea",
+        "holiday",
+        "training"
+      ],
+      "keywords": [
+        "Cryzan",
+        "Shandong Taishan",
+        "mate tea",
+        "holiday",
+        "training"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-17/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-17/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "加盟仅31分钟！加纳乔在维拉把板凳坐穿，埃梅里这话太扎心了",
-      "angle": "从埃梅里公开表态加纳乔顺位靠后切入，犀利点评这笔转会的双输局面，质疑球员职业规划。",
+      "title": "艾因4-0血洗利雅得胜利，C罗缺阵就这水平？",
+      "angle": "从利雅得胜利0-4惨败艾因的比赛切入，犀利点评球队在C罗等球星缺阵下的真实水平，直指沙特豪门过度依赖球星的问题，用老球迷视角分析这种建队模式的脆弱性。",
       "keywords": [
-        "Garnacho",
-        "Aston Villa",
-        "Emery",
-        "transfer flop"
+        "Al Ain",
+        "Al Nassr",
+        "Saudi League",
+        "heavy defeat"
       ],
       "keywords_cn": [
-        "加纳乔",
-        "阿斯顿维拉",
-        "埃梅里",
-        "转会失败"
+        "艾因",
+        "利雅得胜利",
+        "惨败",
+        "沙特联赛"
+      ],
+      "content_type": "热点球评",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "豪门惨败+球星依赖症，争议性极强，评论区必炸",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "于根伟：球迷观点不用参考？这话说得有点狂了",
+      "angle": "从于根伟'球迷观点应该不用做参考'的争议言论切入，以老球迷身份犀利反驳，探讨教练与球迷的关系，强调球迷才是足球的根基，语气接地气但观点尖锐。",
+      "keywords": [
+        "Yu Genwei",
+        "controversial comment",
+        "fans",
+        "Tianjin"
+      ],
+      "keywords_cn": [
+        "于根伟",
+        "争议言论",
+        "球迷",
+        "天津"
       ],
       "content_type": "八卦趣事",
       "score": 88,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "曼联旧将陷困境，埃梅里言论极具争议，完美契合老六毒舌人设。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "target_emotion": "愤怒",
+      "why_pick": "教练怼球迷引爆舆论，天然争议话题",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "2.5万镑体验球员生活？埃弗顿这波操作，是创意还是割韭菜？",
-      "angle": "以老球迷视角调侃埃弗顿高价套票，对比普通球迷消费能力，探讨足球商业化底线。",
+      "title": "沪媒吹吴曦是'中国莫德里奇'，这帽子戴得有点高",
+      "angle": "从沪媒称吴曦为'中国莫德里奇'的报道切入，用调侃但客观的视角分析吴曦真实水平，对比莫德里奇的技术特点，既肯定老将价值又反对过度吹捧，保持犀利但不刻薄。",
       "keywords": [
-        "Everton",
-        "season ticket",
-        "commercialization",
-        "fan experience"
+        "Wu Xi",
+        "Modric",
+        "Shanghai media",
+        "overpraise"
       ],
       "keywords_cn": [
-        "埃弗顿",
-        "套票",
-        "商业化",
-        "球迷体验"
+        "吴曦",
+        "莫德里奇",
+        "沪媒",
+        "过度吹捧"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 82,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "场外奇葩新闻自带槽点，价格与体验反差大，极易引发球迷关于消费观的讨论。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "米兰0-2完败本菲卡开门黑，没了吉鲁的红黑军团魂也丢了？",
-      "angle": "复盘米兰欧联失利，聚焦进攻乏力问题，直接拷问球队缺少支点后的战术迷茫。",
-      "keywords": [
-        "AC Milan",
-        "Benfica",
-        "Europa League",
-        "tactical failure"
-      ],
-      "keywords_cn": [
-        "AC米兰",
-        "本菲卡",
-        "欧联杯",
-        "战术失败"
-      ],
-      "content_type": "热点球评",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "豪门欧战爆冷输球，战术层面有明确槽点，适合老六进行辛辣的赛后拷打。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "媒体吹捧vs球迷认知的反差，讨论价值高",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "忙着转会没空接电话？朗斯总监这操作，比球队战绩还离谱",
-      "angle": "从《队报》爆料切入，用夸张语气描绘转会窗最后时刻的疯狂，讽刺俱乐部管理混乱。",
+      "title": "克雷桑晒健身照，马黛茶配泽卡，泰山外援这默契绝了",
+      "angle": "从克雷桑社媒晒与泽卡一起健身、喝马黛茶的轻松场外故事切入，展现中超外援的日常生活和兄弟情谊，用接地气语言拉近球迷距离，给紧张赛程增添一丝人情味。",
       "keywords": [
-        "Lens",
-        "transfer window",
-        "Leca",
-        "Ligue 1"
+        "Cryzan",
+        "Zeca",
+        "Shandong Taishan",
+        "mate tea"
       ],
       "keywords_cn": [
-        "朗斯",
-        "转会窗",
-        "莱卡",
-        "法甲"
+        "克雷桑",
+        "泽卡",
+        "山东泰山",
+        "马黛茶"
       ],
-      "content_type": "转会资讯",
+      "content_type": "八卦趣事",
       "score": 78,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "why_pick": "转会窗趣闻符合夏窗热点，细节充满画面感，揭露球队幕后乱象有窥探欲。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "why_pick": "场外温情故事，休赛日填补内容空白",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "伊普斯维奇 2-4 阿森纳，6球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-17 08:11:18"
+  "last_batch": "noon",
+  "last_updated": "2026-09-17 12:11:03"
 }
