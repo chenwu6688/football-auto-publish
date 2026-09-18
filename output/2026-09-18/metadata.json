@@ -1,0 +1,232 @@
+{
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T00:10:54.589601",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "姆巴佩凯恩隔空喊话金球奖，但今天的头条必须是他们",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-1-姆巴佩凯恩隔空喊-77df83.md",
+      "slug": "姆巴佩凯恩隔空喊-77df83",
+      "tags": [
+        "Champions League",
+        "Europa League",
+        "Chinese Super League",
+        "Ballon d'Or",
+        "Mbappe",
+        "Kane"
+      ],
+      "keywords": [
+        "Champions League",
+        "Europa League",
+        "Chinese Super League",
+        "Ballon d'Or",
+        "Mbappe",
+        "Kane"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "迪尼开喷：加纳乔只关心腹肌和耳环，连梅西都受不了你",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-2-迪尼开喷加纳乔只-937a3d.md",
+      "slug": "迪尼开喷加纳乔只-937a3d",
+      "tags": [
+        "Garnacho",
+        "Deeney",
+        "criticism",
+        "Manchester United",
+        "Chelsea",
+        "Messi"
+      ],
+      "keywords": [
+        "Garnacho",
+        "Deeney",
+        "criticism",
+        "Manchester United",
+        "Chelsea",
+        "Messi"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "2-0领先被逆转，曼联这后场出球，看得人血压飙升",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-3-20领先被逆转曼-ee10b1.md",
+      "slug": "20领先被逆转曼-ee10b1",
+      "tags": [
+        "Manchester United",
+        "Brighton",
+        "Carabao Cup",
+        "comeback",
+        "defensive errors"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Brighton",
+        "Carabao Cup",
+        "comeback",
+        "defensive errors"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "英超球队欧战8战全胜只丢4球，这统治力是不是有点离谱了？",
+      "angle": "以英超球队欧战首轮全胜的惊人战绩为切入点，讨论英超与其他联赛的财力与竞技差距是否已形成降维打击。",
+      "keywords": [
+        "Premier League",
+        "European dominance",
+        "financial gap"
+      ],
+      "keywords_cn": [
+        "英超",
+        "欧战",
+        "统治力",
+        "财力差距"
+      ],
+      "content_type": "排行榜",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "极端数据展现联赛统治力，能引发其他联赛球迷不服与争论，评论区能吵起来。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "迪尼开炮：加纳乔进不了国家队，都怪他学C罗只学皮毛",
+      "angle": "借迪尼的犀利言论，聊加纳乔模仿C罗却忽视苦练的现象，讨论年轻球员成长中的偶像崇拜与自我认知问题。",
+      "keywords": [
+        "Garnacho",
+        "Ronaldo",
+        "imitation",
+        "work ethic"
+      ],
+      "keywords_cn": [
+        "加纳乔",
+        "C罗",
+        "模仿",
+        "苦练",
+        "迪尼"
+      ],
+      "content_type": "八卦趣事",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "名宿开炮+顶级球星躺枪，争议性拉满，球迷站队互喷的绝佳素材。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "前曼联后卫马拉西亚转投美职联，27岁就去养老了？",
+      "angle": "从马拉西亚即将加盟美职联的消息切入，探讨欧洲足坛边缘球员的职业生涯选择，以及美职联对欧洲二线球员的吸引力。",
+      "keywords": [
+        "Malacia",
+        "MLS",
+        "career move",
+        "Manchester United"
+      ],
+      "keywords_cn": [
+        "马拉西亚",
+        "美职联",
+        "养老",
+        "曼联旧将"
+      ],
+      "content_type": "转会资讯",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "why_pick": "曼联旧将的非主流转会，年龄与去向的反差感能引发对球员生涯规划的讨论。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-09-18 08:10:54"
+}
