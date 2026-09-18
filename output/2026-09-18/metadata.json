@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
-  "generated_at": "2026-09-18T04:10:40.227790",
-  "total_articles": 7,
+  "generated_at": "2026-09-18T09:41:08.773010",
+  "total_articles": 13,
   "articles": [
     {
       "index": 1,
@@ -230,179 +230,407 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "董路带小将西班牙夺冠，自嘲“出道即巅峰”",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-1-董路带小将西班牙-a65cd1.md",
+      "slug": "董路带小将西班牙-a65cd1",
+      "tags": [
+        "Dong Lu",
+        "Chinese football kids",
+        "Brava Cup",
+        "U9 champion",
+        "Barcelona youth",
+        "Atletico Madrid youth"
+      ],
+      "keywords": [
+        "Dong Lu",
+        "Chinese football kids",
+        "Brava Cup",
+        "U9 champion",
+        "Barcelona youth",
+        "Atletico Madrid youth"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "2-0领先被三球逆转，曼联这防线是纸糊的？",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-2-20领先被三球逆-758bb2.md",
+      "slug": "20领先被三球逆-758bb2",
+      "tags": [
+        "Manchester United",
+        "Brighton",
+        "Carabao Cup",
+        "comeback",
+        "defeat"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Brighton",
+        "Carabao Cup",
+        "comeback",
+        "defeat"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "董路带小将西班牙夺冠，自己都懵了：人没认全就拿冠军",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-3-董路带小将西班牙-56ec51.md",
+      "slug": "董路带小将西班牙-56ec51",
+      "tags": [
+        "dong lu",
+        "chinese football kids",
+        "brava cup",
+        "u9 champion",
+        "barcelona youth",
+        "atletico madrid youth"
+      ],
+      "keywords": [
+        "dong lu",
+        "chinese football kids",
+        "brava cup",
+        "u9 champion",
+        "barcelona youth",
+        "atletico madrid youth"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "47岁马宁还在扛旗！新疆银哨上位，裁判圈变天了",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-4-47岁马宁还在扛-de5adf.md",
+      "slug": "47岁马宁还在扛-de5adf",
+      "tags": [
+        "referee",
+        "Chinese Super League",
+        "Ma Ning",
+        "Maimaitijiang",
+        "international referee"
+      ],
+      "keywords": [
+        "referee",
+        "Chinese Super League",
+        "Ma Ning",
+        "Maimaitijiang",
+        "international referee"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "残阵申花没掉链子，这剧本比爽文还燃",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-5-残阵申花没掉链子-324588.md",
+      "slug": "残阵申花没掉链子-324588",
+      "tags": [
+        "Shanghai Shenhua",
+        "AFC Champions League Two",
+        "Milojevic",
+        "Xu Haoyang",
+        "Yang Shuai",
+        "reserve squad"
+      ],
+      "keywords": [
+        "Shanghai Shenhua",
+        "AFC Champions League Two",
+        "Milojevic",
+        "Xu Haoyang",
+        "Yang Shuai",
+        "reserve squad"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 6,
+      "title": "塞维利亚硬撼巴萨，马德里德比火星四溅",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-6-塞维利亚硬撼巴萨-a58cc5.md",
+      "slug": "塞维利亚硬撼巴萨-a58cc5",
+      "tags": [
+        "LaLiga",
+        "Premier League",
+        "Madrid Derby",
+        "Barcelona",
+        "predictions"
+      ],
+      "keywords": [
+        "LaLiga",
+        "Premier League",
+        "Madrid Derby",
+        "Barcelona",
+        "predictions"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-6-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-6-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "曼联2-3布莱顿，这后防线是纸糊的吗？滕哈格还能撑多久？",
-      "angle": "从曼联主场被布莱顿逆转切入，剖析后防漏洞和滕哈格下课危机，点出更衣室潜在问题",
+      "title": "17岁高中生入选国足，董路却说十年难遇，凭啥？",
+      "angle": "从董路对赵松源的极高评价切入，探讨中国足球青训的偶然性与必然性，质疑这种'十年一遇'的定论是真心赞赏还是捧杀，引发老球迷对中国足球人才断档的深层焦虑。",
       "keywords": [
-        "manchester united",
-        "brighton",
-        "ten hag",
-        "defensive errors",
-        "premier league"
+        "Zhao Songyuan",
+        "youth talent",
+        "Chinese football"
+      ],
+      "keywords_cn": [
+        "赵松源",
+        "国足",
+        "董路",
+        "青训"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "why_pick": "17岁高中生入选国足本身极具戏剧性，董路'十年不遇'的断言更添争议，能戳中老球迷对中国足球未来的复杂情绪。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "曼联2-3被布莱顿逆转，这后防线是不是该集体谢罪？",
+      "angle": "复盘曼联主场惨遭逆转，重点抨击后防线的业余表现和滕哈格的临场调整，用老球迷的视角对比弗格森时代的铁血防守，制造今昔对比的愤怒感。",
+      "keywords": [
+        "Manchester United",
+        "Brighton",
+        "defensive collapse"
       ],
       "keywords_cn": [
         "曼联",
         "布莱顿",
-        "滕哈格",
-        "后防失误",
-        "英超"
+        "逆转",
+        "后防线"
       ],
       "content_type": "热点球评",
-      "score": 95,
+      "score": 92,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "why_pick": "豪门主场被逆转，话题性拉满，球迷情绪激愤，评论区必炸",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "热刺想免签伊卡尔迪？这步棋是救命稻草还是病急乱投医？",
-      "angle": "热刺进球荒背景下盯上伊卡尔迪，分析这笔潜在交易的利弊和阿根廷前锋的场外隐患",
-      "keywords": [
-        "tottenham",
-        "icardi",
-        "transfer",
-        "goal drought",
-        "free agent"
-      ],
-      "keywords_cn": [
-        "热刺",
-        "伊卡尔迪",
-        "转会",
-        "进球荒",
-        "免签"
-      ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "伊卡尔迪自带争议属性，热刺进球荒是刚需，引援逻辑成立但风险极大",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "曼联主场被逆转永远是流量密码，后防问题持续发酵，能引爆球迷评论区激烈争论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "米兰0-2本菲卡，没了吉鲁的红黑军团，进攻端怎么就这么难？",
-      "angle": "米兰欧联杯输球暴露锋无力问题，复盘吉鲁离队后的战术困境和新援磨合",
+      "title": "悬赏46万！董路自掏腰包送中国孩子留洋，这钱花得值吗？",
+      "angle": "从董路个人悬赏46万激励留洋切入，讨论中国足球留洋的困境与民间力量的无奈，既肯定其情怀又质疑这种'个人英雄主义'能否真正改变青训生态。",
       "keywords": [
-        "ac milan",
-        "benfica",
-        "europa league",
-        "giroud",
-        "attack"
+        "Dong Lu",
+        "reward",
+        "Chinese player",
+        "La Liga"
       ],
       "keywords_cn": [
-        "AC米兰",
-        "本菲卡",
-        "欧联杯",
-        "吉鲁",
-        "进攻乏力"
-      ],
-      "content_type": "热点球评",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "why_pick": "米兰欧战输球，进攻端问题集中爆发，老球迷有共鸣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "范晓冬为韦世豪喊冤：球迷骂他十恶不赦，到底是谁心态出了问题？",
-      "angle": "借范晓冬言论切入，讨论韦世豪争议体质和中国球迷的苛责文化，立场鲜明站球员",
-      "keywords": [
-        "wei shihao",
-        "fan xiaodong",
-        "chinese football",
-        "fan culture",
-        "controversy"
-      ],
-      "keywords_cn": [
-        "韦世豪",
-        "范晓冬",
-        "中国足球",
-        "球迷文化",
-        "争议"
+        "董路",
+        "留洋",
+        "西班牙人",
+        "青训"
       ],
       "content_type": "八卦趣事",
       "score": 82,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "韦世豪自带流量，范晓冬言论挑动对立，评论区必然两极分化",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "why_pick": "个人悬赏46万的故事极具话题性，能引发关于中国足球青训出路的深度讨论，情怀与争议并存。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "47岁马宁继续执法国际赛，中国裁判凭啥能长青？",
+      "angle": "从马宁47岁仍担任国际级裁判切入，探讨中国裁判在国际足坛的真实地位，对比球员生涯短暂，裁判却'超长待机'的反差，带出中国足球人才结构的畸形。",
+      "keywords": [
+        "Ma Ning",
+        "international referee",
+        "Chinese football"
+      ],
+      "keywords_cn": [
+        "马宁",
+        "国际级裁判",
+        "中国足球"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "47岁裁判长青与球员生涯短暂形成鲜明反差，能引发老球迷对中国足球体制的深层思考。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "残阵申花拿下亚冠开门红，靠的是骨子里那股劲吗？",
+      "angle": "从申花残阵取胜的韧性切入，肯定球队的战斗精神，同时理性分析后续亚冠征程的隐忧，用老申花球迷的视角唤起对球队底蕴的认同感。",
+      "keywords": [
+        "Shanghai Shenhua",
+        "AFC Champions League",
+        "resilience"
+      ],
+      "keywords_cn": [
+        "申花",
+        "亚冠",
+        "残阵",
+        "开门红"
+      ],
+      "content_type": "热点球评",
+      "score": 80,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "why_pick": "申花亚冠开门红是今日中国足球少有的正能量，能激发球迷自豪感，平衡整体选题的情绪调性。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "塞维利亚硬撼巴萨，马德里德比火星四溅",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-18 12:10:40"
+  "last_batch": "evening",
+  "last_updated": "2026-09-18 17:41:08"
 }
