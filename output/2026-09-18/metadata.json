@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
-  "generated_at": "2026-09-18T00:10:54.589601",
-  "total_articles": 3,
+  "generated_at": "2026-09-18T04:10:40.227790",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -102,131 +102,307 @@
       "column_id": "",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "2-0领先被3球逆转，曼联这后防是纸糊的？",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-1-20领先被3球逆-dcc7a6.md",
+      "slug": "20领先被3球逆-dcc7a6",
+      "tags": [
+        "Manchester United",
+        "Brighton",
+        "Carabao Cup",
+        "Rashford",
+        "Lacey"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Brighton",
+        "Carabao Cup",
+        "Rashford",
+        "Lacey"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "热刺病急乱投医？33岁伊卡尔迪真能救这艘破船？",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-2-热刺病急乱投医3-8a6967.md",
+      "slug": "热刺病急乱投医3-8a6967",
+      "tags": [
+        "Tottenham",
+        "Icardi",
+        "transfer",
+        "Premier League",
+        "Galatasaray"
+      ],
+      "keywords": [
+        "Tottenham",
+        "Icardi",
+        "transfer",
+        "Premier League",
+        "Galatasaray"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "圣西罗0-2惨案：五个换人名额都救不活这支米兰",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-3-圣西罗02惨案五-339fd9.md",
+      "slug": "圣西罗02惨案五-339fd9",
+      "tags": [
+        "AC Milan",
+        "Benfica",
+        "Europa League",
+        "Amorim",
+        "Lukebakio"
+      ],
+      "keywords": [
+        "AC Milan",
+        "Benfica",
+        "Europa League",
+        "Amorim",
+        "Lukebakio"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "范晓冬怒怼键盘侠：你骂韦世豪时，心里想的是你领导吧？",
+      "path": "/home/runner/work/_temp/output/2026-09-18/article-4-范晓冬怒怼键盘侠-44bcde.md",
+      "slug": "范晓冬怒怼键盘侠-44bcde",
+      "tags": [
+        "Fan Xiaodong",
+        "Wei Shihao",
+        "Chinese football",
+        "fans",
+        "cyberbullying"
+      ],
+      "keywords": [
+        "Fan Xiaodong",
+        "Wei Shihao",
+        "Chinese football",
+        "fans",
+        "cyberbullying"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-18/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-18/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "英超球队欧战8战全胜只丢4球，这统治力是不是有点离谱了？",
-      "angle": "以英超球队欧战首轮全胜的惊人战绩为切入点，讨论英超与其他联赛的财力与竞技差距是否已形成降维打击。",
+      "title": "曼联2-3布莱顿，这后防线是纸糊的吗？滕哈格还能撑多久？",
+      "angle": "从曼联主场被布莱顿逆转切入，剖析后防漏洞和滕哈格下课危机，点出更衣室潜在问题",
       "keywords": [
-        "Premier League",
-        "European dominance",
-        "financial gap"
+        "manchester united",
+        "brighton",
+        "ten hag",
+        "defensive errors",
+        "premier league"
       ],
       "keywords_cn": [
-        "英超",
-        "欧战",
-        "统治力",
-        "财力差距"
+        "曼联",
+        "布莱顿",
+        "滕哈格",
+        "后防失误",
+        "英超"
       ],
-      "content_type": "排行榜",
-      "score": 88,
+      "content_type": "热点球评",
+      "score": 95,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "极端数据展现联赛统治力，能引发其他联赛球迷不服与争论，评论区能吵起来。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "愤怒",
+      "why_pick": "豪门主场被逆转，话题性拉满，球迷情绪激愤，评论区必炸",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "迪尼开炮：加纳乔进不了国家队，都怪他学C罗只学皮毛",
-      "angle": "借迪尼的犀利言论，聊加纳乔模仿C罗却忽视苦练的现象，讨论年轻球员成长中的偶像崇拜与自我认知问题。",
+      "title": "热刺想免签伊卡尔迪？这步棋是救命稻草还是病急乱投医？",
+      "angle": "热刺进球荒背景下盯上伊卡尔迪，分析这笔潜在交易的利弊和阿根廷前锋的场外隐患",
       "keywords": [
-        "Garnacho",
-        "Ronaldo",
-        "imitation",
-        "work ethic"
+        "tottenham",
+        "icardi",
+        "transfer",
+        "goal drought",
+        "free agent"
       ],
       "keywords_cn": [
-        "加纳乔",
-        "C罗",
-        "模仿",
-        "苦练",
-        "迪尼"
+        "热刺",
+        "伊卡尔迪",
+        "转会",
+        "进球荒",
+        "免签"
       ],
-      "content_type": "八卦趣事",
-      "score": 92,
+      "content_type": "转会资讯",
+      "score": 88,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "名宿开炮+顶级球星躺枪，争议性拉满，球迷站队互喷的绝佳素材。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "好奇",
+      "why_pick": "伊卡尔迪自带争议属性，热刺进球荒是刚需，引援逻辑成立但风险极大",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "前曼联后卫马拉西亚转投美职联，27岁就去养老了？",
-      "angle": "从马拉西亚即将加盟美职联的消息切入，探讨欧洲足坛边缘球员的职业生涯选择，以及美职联对欧洲二线球员的吸引力。",
+      "title": "米兰0-2本菲卡，没了吉鲁的红黑军团，进攻端怎么就这么难？",
+      "angle": "米兰欧联杯输球暴露锋无力问题，复盘吉鲁离队后的战术困境和新援磨合",
       "keywords": [
-        "Malacia",
-        "MLS",
-        "career move",
-        "Manchester United"
+        "ac milan",
+        "benfica",
+        "europa league",
+        "giroud",
+        "attack"
       ],
       "keywords_cn": [
-        "马拉西亚",
-        "美职联",
-        "养老",
-        "曼联旧将"
+        "AC米兰",
+        "本菲卡",
+        "欧联杯",
+        "吉鲁",
+        "进攻乏力"
       ],
-      "content_type": "转会资讯",
-      "score": 82,
+      "content_type": "热点球评",
+      "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "why_pick": "曼联旧将的非主流转会，年龄与去向的反差感能引发对球员生涯规划的讨论。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "愤怒",
+      "why_pick": "米兰欧战输球，进攻端问题集中爆发，老球迷有共鸣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "范晓冬为韦世豪喊冤：球迷骂他十恶不赦，到底是谁心态出了问题？",
+      "angle": "借范晓冬言论切入，讨论韦世豪争议体质和中国球迷的苛责文化，立场鲜明站球员",
+      "keywords": [
+        "wei shihao",
+        "fan xiaodong",
+        "chinese football",
+        "fan culture",
+        "controversy"
+      ],
+      "keywords_cn": [
+        "韦世豪",
+        "范晓冬",
+        "中国足球",
+        "球迷文化",
+        "争议"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "韦世豪自带流量，范晓冬言论挑动对立，评论区必然两极分化",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-18 08:10:54"
+  "last_batch": "noon",
+  "last_updated": "2026-09-18 12:10:40"
 }
