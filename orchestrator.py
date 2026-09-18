@@ -25,7 +25,8 @@ from utils import (retry, call_llm, safe_json_loads, load_prompt_template,
 from logger import log
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
-                             extract_search_entities, get_topic_history)
+                             extract_search_entities, get_topic_history,
+                             build_match_signature, is_event_duplicate)
 
 
 def print_daily_summary(date_str, batch_mode):
@@ -192,7 +193,8 @@ def get_cross_batch_covered(date_str):
     so the current batch can avoid duplication.
     """
     covered = {"content_types": set(), "teams": set(), "players": set(),
-               "keywords": set(), "titles": set(), "batch_count": 0}
+               "keywords": set(), "titles": set(), "batch_count": 0,
+               "event_signatures": set(), "title_prefixes": set()}
     meta_path = OUTPUT_DIR / date_str / "metadata.json"
     if not meta_path.exists():
         return covered
@@ -205,6 +207,10 @@ def get_cross_batch_covered(date_str):
             title = a.get("title", "")
             if title:
                 covered["titles"].add(title[:30])
+                covered["title_prefixes"].add(title[:6])
+                sig = build_match_signature(title)
+                if sig:
+                    covered["event_signatures"].add(sig)
             for kw in a.get("keywords", []):
                 covered["keywords"].add(kw.lower())
             for tag in a.get("tags", []):
@@ -483,6 +489,20 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         season_focus_text = ("- 比赛话题与非比赛话题按当日素材质量自然配比，优先选最具话题性的事件；"
                              "转会/八卦类素材丰富时适当提高其占比")
 
+    # P1-6 内容类型再平衡指引（赛季感知，动态注入，非阻断由 warn_type_balance 监控）
+    type_balance_hint = ""
+    if season_label == "新赛季进行期":
+        type_balance_hint = """
+## 📌 内容类型再平衡（P1-6）
+新赛季进行期：热点球评设下限（≥40%）、转会资讯+八卦趣事设上限（合计 ≤50%），
+避免场外话题霸屏；同一批 ≥3 篇至少覆盖 2 个不同品类。
+"""
+    elif season_label == "休赛期过渡":
+        type_balance_hint = """
+## 📌 内容类型再平衡（P1-6）
+休赛期：转会资讯+八卦趣事为主力，热点球评为辅；不要硬凑比赛稿。
+"""
+
     prompt = f"""你是头条号足球博主"球评人老六"。以下是 {match_data['date']} 的选题素材。
 
 ## 📰 今日懂球帝/直播吧文章（主要选题来源）
@@ -497,6 +517,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 {cross_batch_text}
 {weight_hint}
 {season_guidance}
+{type_balance_hint}
 
 📌 **内容多样性铁律（最重要规则）**：
 - {topic_count} 个话题必须是 {topic_count} 个不同的事件——不能都是同一场比赛或同一转会故事
@@ -566,6 +587,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     if cross_batch_covered and topics:
         cross_kw = cross_batch_covered.get("keywords", set())
         cross_titles = cross_batch_covered.get("titles", set())
+        cross_sigs = cross_batch_covered.get("event_signatures", set())
         filtered = []
         for t in topics:
             t_title = t.get("title", "")[:30]
@@ -574,6 +596,8 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
             kw_overlap = len(t_kws & cross_kw) / max(len(t_kws), 1) if t_kws else 0
             if title_overlap or kw_overlap >= 0.4:
                 print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(关键词重叠率 {kw_overlap:.0%})")
+            elif is_event_duplicate(t.get("title", ""), cross_sigs):
+                print(f"   🗑️ 跨批次事件去重: 丢弃「{t_title}」(与今日已发比赛重复)")
             else:
                 filtered.append(t)
         if len(filtered) < len(topics):
@@ -595,12 +619,52 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
             print(f"   跨天去重: {len(topics)} → {len(filtered)} 个话题")
         topics = filtered
 
+    # ── P0-1: 语义去重（事件指纹硬去重）──
+    # 同一场比赛（同两队 + 同比分）近 7 天只发一次，与措辞无关，
+    # 彻底拦截「换说法重发」（如「切尔西4-3布莱顿：进球大战」与「…老六直呼过瘾」）。
+    event_sigs = (topic_history or {}).get("event_signatures")
+    if event_sigs and topics:
+        filtered = []
+        for t in topics:
+            t_title = t.get("title", "")
+            if is_event_duplicate(t_title, event_sigs):
+                print(f"   🗑️ 事件指纹去重: 丢弃「{t_title[:30]}」(与近7天已发比赛重复)")
+            else:
+                filtered.append(t)
+        if len(filtered) < len(topics):
+            print(f"   事件指纹去重: {len(topics)} → {len(filtered)} 个话题")
+        topics = filtered
+
+    # ── P0-1: 跨天关键词去重（7 天窗口，>=50% 重叠即丢弃）──
+    # 比仅看昨天更稳：覆盖「跨天同事件换说法」且标题未带比分的情形。
+    hist_kw = (topic_history or {}).get("keywords")
+    if hist_kw and topics:
+        filtered = []
+        for t in topics:
+            t_title = t.get("title", "")[:30]
+            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
+            if not t_kws:
+                filtered.append(t)
+                continue
+            overlap = len(t_kws & hist_kw) / max(len(t_kws), 1)
+            if overlap >= 0.5:
+                print(f"   🗑️ 跨天去重(7天): 丢弃「{t_title}」(关键词重叠 {overlap:.0%})")
+            else:
+                filtered.append(t)
+        if len(filtered) < len(topics):
+            print(f"   跨天去重(7天): {len(topics)} → {len(filtered)} 个话题")
+        topics = filtered
+
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
 
     # Check topic material sufficiency — reject topics that match_data can't support
     topics = _check_topic_material_sufficiency(topics, match_data)
+
+    # ── P1-4 / P1-6: 非阻断监控（标题钩子分布 / 内容类型再平衡）──
+    warn_title_hook_distribution(topics)
+    warn_type_balance(topics, season_label=season_label)
 
     return topics
 
@@ -950,15 +1014,15 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
     if article and isinstance(article, dict):
         article["content_type"] = content_type
         article["_source_fixture"] = fixture
-        # Inject column metadata
-        column_name = topic.get("_column_name", "")
-        if column_name:
-            article["_column_name"] = column_name
+        # Inject column metadata（P2-7：消除元数据空字段，保证栏目/风格/互动齐全）
+        for _f in ("_column_id", "_column_name", "_writing_style", "_style_detail",
+                   "_interaction_type", "_topic_domain", "_batch_name",
+                   "_batch_time", "_reader_scenario", "_overall_tone"):
+            v = topic.get(_f, "")
+            if v:
+                article[_f] = v
         # ⚠️ 注意：_batch_name 必须独立于 _column_name 写入。
         # 应急/预测文章没有 _column_name，但仍有批次归属，否则发布器按批次过滤会漏掉。
-        batch_name = topic.get("_batch_name", "")
-        if batch_name:
-            article["_batch_name"] = batch_name
         print(f"   改写完成: {article.get('title','?')}, {len(article.get('content',''))}字")
     return article
 
@@ -1442,6 +1506,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
     for i, art in enumerate(articles):
         idx = i + 1
+        # P2-7: 补全栏目/风格/互动字段，避免 metadata 出现空字段（垂直锚点缺失）
+        fill_article_defaults(art)
         prefix = f"article-{idx}-img"
 
         downloaded = []
@@ -1860,22 +1926,183 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
             stats["issues"].append(f"第{i+1}篇({ct}): {error}")
         else:
             stats["valid"] += 1
+            # P0-3: 信息增量非阻断告警
+            warn_if_low_info_increment(art)
             articles_out.append((i, art))
+
+
+# ============================================================
+# Info-increment check (P0-3: 信息增量 · 非阻断告警)
+# ============================================================
+import re as _re
+
+_INFO_NUM_RE = _re.compile(r"(\d{1,3}(?:\.\d+)?\s*(?:%|％|万|亿|岁|分|球|场|次|连|名|位|米|kg|KG|磅|′|’|\'|’))")
+_INFO_DATE_RE = _re.compile(r"(\d{4}年|\d{1,2}月\d{1,2}日|第\d+[届次轮])")
+_INFO_PROPER_RE = _re.compile(r"([一-鿿]{2,5}(?:杯|联赛|纪录|冠军|赛季|转会|德比|德比战|战|大战))")
+
+
+def count_info_points(content):
+    """粗略统计正文中的「信息点」数量（非阻断，仅用于告警）。
+
+    信息点 = 具体数值/单位 + 时间锚点 + 专有赛事/纪录名词。
+    低于阈值说明文章可能只是复述核心事实、缺乏增量，有被限流风险。
+    """
+    if not content:
+        return 0
+    # 去重计数：同一数字/名词只算一次
+    nums = set(_INFO_NUM_RE.findall(content))
+    dates = set(_INFO_DATE_RE.findall(content))
+    props = set(_INFO_PROPER_RE.findall(content))
+    # 球员/球队专有名词（来自别名词典）也算信息点
+    teams = set()
+    try:
+        from data_collector import extract_match_teams
+        teams = set(extract_match_teams(content))
+    except Exception:
+        teams = set()
+    return len(nums) + len(dates) + len(props) + len(teams)
+
+
+def warn_if_low_info_increment(article):
+    """对单篇文章做信息增量告警（非阻断）。"""
+    content = (article or {}).get("content", "")
+    pts = count_info_points(content)
+    title = (article or {}).get("title", "?")[:30]
+    if pts < 4:
+        print(f"   ⚠️ 信息增量偏低: 「{title}」仅检出 {pts} 个信息点"
+              f"（数值/时间/专有名词偏少，限流风险↑，建议补充数据或背景）")
+    else:
+        print(f"   ✅ 信息增量 OK: 「{title}」检出 {pts} 个信息点")
+    return pts
+
+
+# ============================================================
+# P1-4 / P1-6 非阻断监控：标题钩子分布 / 内容类型再平衡
+# ============================================================
+_TITLE_Q_RE = re.compile(r"[?？]|(吗|呢|凭什么|凭啥|为啥|为什么|怎么|究竟|到底)[\s，。！!]")
+_TITLE_CONFLICT_KW = ["却", "反而", "逆袭", "惨败", "绝杀", "爆冷", "反转", "下课", "翻盘",
+                      "打脸", "暴跌", "血洗", "横扫", "复仇", "意外", "离谱", "掀翻",
+                      "不过", "然而", "反超", "绝平", "苦涩", "尴尬", "打回原形", "崩盘"]
+_TITLE_NUM_RE = re.compile(r"\d+")
+
+
+def _classify_title_hook(title):
+    """把标题归类为 (是否疑问钩子, 是否冲突钩子, 是否数据钩子)。三类可重叠。"""
+    t = title or ""
+    is_q = bool(_TITLE_Q_RE.search(t))
+    has_conflict = any(k in t for k in _TITLE_CONFLICT_KW)
+    has_num = bool(_TITLE_NUM_RE.search(t))
+    return is_q, has_conflict, has_num
+
+
+def warn_title_hook_distribution(topics):
+    """非阻断：检查选题标题的钩子分布（P1-4 提点击率，目标 疑问≥60% / 冲突≥30%）。"""
+    if not topics:
+        return
+    n = len(topics)
+    q = c = num = 0
+    for t in topics:
+        is_q, has_conflict, has_num = _classify_title_hook(t.get("title", ""))
+        if is_q:
+            q += 1
+        if has_conflict:
+            c += 1
+        if has_num:
+            num += 1
+    qp, cp, np_ = q / n, c / n, num / n
+    print(f"   📊 标题钩子分布: 疑问 {q}/{n} ({qp:.0%}) | 冲突 {c}/{n} ({cp:.0%}) | 数据 {num}/{n} ({np_:.0%})")
+    if qp < 0.6:
+        print(f"   ⚠️ 疑问钩子偏低（{qp:.0%} < 60%）——点击率风险↑，建议增加「？/吗/凭什么」类标题")
+    if cp < 0.3:
+        print(f"   ⚠️ 冲突钩子偏低（{cp:.0%} < 30%）——缺乏戏剧张力，建议增加反差/爆冷/绝杀类标题")
+    if qp >= 0.6 and cp >= 0.3:
+        print(f"   ✅ 标题钩子分布达标")
+
+
+def warn_type_balance(topics, season_label=""):
+    """非阻断：检查内容类型分布（P1-6 破同质化）。"""
+    if not topics:
+        return
+    cnt = {}
+    for t in topics:
+        ct = t.get("content_type", "未知")
+        cnt[ct] = cnt.get(ct, 0) + 1
+    n = len(topics)
+    print(f"   📊 内容类型分布: " + ", ".join(f"{k} {v}/{n}" for k, v in sorted(cnt.items(), key=lambda x: -x[1])))
+    ball = cnt.get("热点球评", 0)
+    tf = cnt.get("转会资讯", 0) + cnt.get("八卦趣事", 0)
+    if season_label == "新赛季进行期":
+        if n >= 3 and ball / n < 0.4:
+            print(f"   ⚠️ 热点球评占比偏低（{ball / n:.0%} < 40%）——新赛季进行期应保球评下限")
+        if tf / n > 0.5:
+            print(f"   ⚠️ 转会+八卦占比偏高（{tf / n:.0%} > 50%）——应设上限，避免场外霸屏")
+    if n >= 3 and len(cnt) < 2:
+        print(f"   ⚠️ 品类单一（仅 {len(cnt)} 类）——建议覆盖 ≥2 个品类破同质化")
+
+
+# ============================================================
+# Article field fill (P2-7: 消除元数据空字段)
+# ============================================================
+# 按 content_type 给文章补齐默认栏目/风格/互动字段，保证发布器与算法
+# 拿到完整的结构化信号（栏目=行为锚点，互动=涨粉钩子）。
+_COLUMN_DEFAULTS_BY_TYPE = {
+    "热点球评": ("hot-take", "老六辣评", "脱口秀吐槽体",
+                "像足球吐槽大会单人版：开篇直接开火，用事实当子弹，有情绪更要有依据；结尾让人想截图转发。"),
+    "转会资讯": ("transfer-radar", "转会雷达", "内幕分析体",
+                "像球队经理评估交易：消息来源→球员分析→球队需求→转会可能性→影响评估，不确定的就说不知道。"),
+    "八卦趣事": ("fan-life", "球迷众生相", "人间观察体",
+                "像在球场边观察人间百态，用细节和画面说话，少评论多展示，让读者有共鸣。"),
+    "战术解析": ("tactics-board", "战术黑板", "教书体",
+                "先抛一个反常识的战术发现，用生活类比解释，最后给一个能记住的结论。"),
+    "排行榜": ("data-rank", "数据盘点", "排名体",
+                "每个条目3-5句话，毒舌但不刻薄，用对比制造笑点，最后一句是让人截图转发的吐槽。"),
+    "紧急球评": ("breaking", "突发直击", "快讯体",
+                "第一时间犀利点评，直击最刺激的瞬间，观点锋利不留余地。"),
+}
+
+
+def fill_article_defaults(art):
+    """为单篇文章补齐缺失的栏目/风格/互动字段（非阻断，原地修改 art）。
+
+    主稿经 _assign_columns_to_topics + rewrite_article 透传后通常已齐全；
+    预测/Hupu/应急稿原本没有栏目，这里按 content_type 给默认，
+    确保 metadata 不再出现『栏目/风格/互动为空』，强化算法垂直锚点。
+    """
+    if not isinstance(art, dict):
+        return art
+    ct = art.get("content_type", "") or "八卦趣事"
+    cid, cname, style, detail = _COLUMN_DEFAULTS_BY_TYPE.get(
+        ct, _COLUMN_DEFAULTS_BY_TYPE["八卦趣事"])
+    if not art.get("_column_id"):
+        art["_column_id"] = cid
+    if not art.get("_column_name"):
+        art["_column_name"] = cname
+    if not art.get("_writing_style"):
+        art["_writing_style"] = style
+    if not art.get("_style_detail"):
+        art["_style_detail"] = detail
+    if not art.get("_interaction_type"):
+        art["_interaction_type"] = "共鸣式"
+    return art
 
 
 # ============================================================
 # Prediction Article — 赛前预测
 # ============================================================
 
-def generate_prediction_article(future_matches, date_str=None):
+def generate_prediction_article(future_matches, date_str=None, recent_prefixes=None):
     """根据未来比赛数据生成一篇赛前预测文章。
 
     用 LLM 对每场明日比赛做 2-3 句分析 + 预测结果，
     文末带互动引导："评论区下注，明天赛后回来打我脸！"
 
+    ⚠️ P0-2 改造：赛前预测**禁止**使用固定栏目前缀（如"老六精准预测："），
+    并要求标题每日各不相同、不与近 7 天已发标题同前缀，破除模板化复读。
+
     Args:
         future_matches: list[dict]，由 collect_future_matches 返回
         date_str: 当前日期 YYYY-MM-DD（用于配图搜索）
+        recent_prefixes: set[str]，近 7 天已发布标题的前 6 字集合（用于防重）
 
     Returns:
         dict or None: 文章 dict（含 title, content, content_type 等），
@@ -1897,6 +2124,18 @@ def generate_prediction_article(future_matches, date_str=None):
     matches_text = "\n".join(match_lines)
     max_matches = min(len(future_matches), 8)
 
+    # P0-2：把近 7 天已用标题前缀作为禁忌，明确禁止复读
+    prefix_hint = ""
+    if recent_prefixes:
+        sample = list(recent_prefixes)[:12]
+        prefix_hint = (
+            "\n⚠️ 标题防重铁律（最重要）：\n"
+            f"- 禁止以任何固定栏目前缀开头（尤其严禁『老六精准预测：』这类每天重复的模板）。\n"
+            f"- 近 7 天已用过的标题开头（前 6 字）不可再用：{sample}\n"
+            "- 今天这篇预测标题必须全新、独立，和上面任何一条都不重样；"
+            "用具体的比赛/看点做开头，而不是固定口号。\n"
+        )
+
     prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝，以犀利预测和毒舌分析著称。
 
 你的任务是写一篇"明日赛程预测"——分析明天的足球比赛，给出你的预测结果。
@@ -1905,9 +2144,9 @@ def generate_prediction_article(future_matches, date_str=None):
 以下是明天的赛程（{len(future_matches)} 场），请选择最有话题性的 {max_matches} 场进行分析：
 
 {matches_text}
-
+{prefix_hint}
 写作要求：
-1. 标题如"老六精准预测：明天XX对XX，我看好..."
+1. 标题必须自然、有信息量（例如用具体对阵/看点开头，如"曼城主场能否啃下铁桶阵？""欧冠夜这三场最值得熬夜"），严禁任何固定栏目前缀模板
 2. 为每场选中的比赛写 2-3 句话分析，给出明确预测结果（XX胜/平局/谁赢面大）
 3. 语气要自信但不狂妄，像老球迷在群里吹水
 4. 文末带互动引导：🔥 评论区下注，明天赛后回来打我脸！
@@ -1916,11 +2155,11 @@ def generate_prediction_article(future_matches, date_str=None):
 没有确切数据就说"老六觉得""从近期表现来看"。
 
 输出纯JSON:
-{{"title": "标题(18-30字)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评"}}
+{{"title": "标题(18-30字，全新且非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评"}}
 只输出JSON。"""
 
     messages = [
-        {"role": "system", "content": "你是头条号足球博主'球评人老六'，以犀利预测和毒舌分析著称。风格自信、有数据感。不编造球员级别数据。只输出JSON。"},
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，以犀利预测和毒舌分析著称。风格自信、有数据感。不编造球员级别数据。标题必须自然不套模板。只输出JSON。"},
         {"role": "user", "content": prompt}
     ]
 
@@ -1943,6 +2182,31 @@ def generate_prediction_article(future_matches, date_str=None):
                     continue
                 return None
 
+            title = article.get("title", "")
+
+            # ── P0-2：标题前缀防重拦截 ──
+            # 若生成标题开头(前6字)与近7天已发标题重复，先重试；
+            # 末次仍冲突则剥离违规前缀兜底，避免模板化复读上线。
+            if recent_prefixes and title[:6] in recent_prefixes:
+                if attempt < 2:
+                    print(f"   ⚠️ 预测标题前缀复读「{title[:6]}」，重试换标题 (attempt {attempt+1}/3)...")
+                    continue
+                # 兜底：剥离固定前缀
+                stripped = title
+                for bad in ("老六精准预测：", "老六精准预测:", "老六预测：", "老六预测:"):
+                    if stripped.startswith(bad):
+                        stripped = stripped[len(bad):]
+                        break
+                else:
+                    stripped = title[6:].lstrip("：:，, -—")
+                stripped = stripped.strip("：:，, -— ")
+                if stripped:
+                    title = stripped
+                    print(f"   🛠️ 预测标题前缀剥离兜底: →「{title[:30]}」")
+                else:
+                    print(f"   ⚠️ 预测标题剥离后为空，保留原样:「{article.get('title','')[:30]}」")
+
+            article["title"] = title
             article["content_type"] = "热点球评"
             article["interaction_type"] = article.get("interaction_type", "预测式")
             article["_is_prediction"] = True
@@ -2070,7 +2334,9 @@ def main():
             print("\n[预测] 晚间批次：采集明日赛程，生成赛前预测...")
             future_matches = collect_future_matches(date_str, days_ahead=1)
             if future_matches:
-                pred_art = generate_prediction_article(future_matches, date_str=date_str)
+                pred_art = generate_prediction_article(
+                    future_matches, date_str=date_str,
+                    recent_prefixes=topic_history.get("title_prefixes"))
                 if pred_art:
                     p_idx = len(articles) + 1
                     # 为预测文章搜索配图
@@ -2086,6 +2352,8 @@ def main():
                     images_map[len(articles)] = p_imgs
                     stats["generated"] += 1
                     stats["valid"] += 1
+                    # P0-3: 信息增量非阻断告警（预测稿同样检查）
+                    warn_if_low_info_increment(pred_art)
                     articles.append((len(articles), pred_art))
                     topics.append({"title": pred_art.get("title", ""),
                                    "content_type": "热点球评",
