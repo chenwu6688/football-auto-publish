@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
-  "generated_at": "2026-09-19T00:12:50.672658",
-  "total_articles": 3,
+  "generated_at": "2026-09-19T04:11:59.797525",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -95,125 +95,203 @@
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "1-4惨败后李昂失控飞踹，三镇防线已无后手",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-1-14惨败后李昂失-cdf294.md",
+      "slug": "14惨败后李昂失-cdf294",
+      "tags": [
+        "Wuhan Three Towns",
+        "Li Ang",
+        "red card",
+        "Chinese Super League",
+        "Zhejiang FC"
+      ],
+      "keywords": [
+        "Wuhan Three Towns",
+        "Li Ang",
+        "red card",
+        "Chinese Super League",
+        "Zhejiang FC"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "7-0血洗柏林联合，拜仁这状态谁能挡得住？",
-      "angle": "拜仁7-0大胜柏林联合，凯恩继续进球为金球奖造势，从詹俊的点评切入，分析拜仁新赛季恐怖攻击力，并抛出一个反问：这支拜仁在德甲还有对手吗？",
+      "title": "切尔西0-3布伦特福德，这后防是纸糊的吗？",
+      "angle": "切尔西主场0-3惨败布伦特福德，大马丁4场丢10球毫无零封，从门将到整条防线都该被拷问。这不是豪门该有的防守水平。",
       "keywords": [
-        "Bayern Munich",
-        "Harry Kane",
-        "Bundesliga"
+        "Chelsea",
+        "Brentford",
+        "Martinez",
+        "defense"
       ],
       "keywords_cn": [
-        "拜仁慕尼黑",
-        "凯恩",
-        "德甲"
+        "切尔西",
+        "布伦特福德",
+        "大马丁",
+        "防线"
       ],
       "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "why_pick": "7-0极端比分自带流量，凯恩金球奖话题有讨论度，符合老球迷对豪门碾压局的热议习惯。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "why_pick": "豪门主场惨败+门将数据极差，争议拉满，老球迷最爱拷问防守",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "16岁小孩哥登场，阿隆索这手牌是打给谁看的？",
-      "angle": "从乔·科尔的观点切入，解读阿隆索在困境中换上16岁中场这一举动，核心争论点：这究竟是对年轻球员的信任，还是对管理层夏窗不作为的无声抗议？",
+      "title": "李昂这一脚飞踹，到底该停几场？",
+      "angle": "李昂飞踹动作被足球报点名是球员心态写照，可能面临直红之外的追加处罚。这种动作在中超不是第一次了，足协这次会下重手吗？",
       "keywords": [
-        "Xabi Alonso",
-        "Leverkusen",
-        "Joe Cole"
+        "Li Ang",
+        "Chinese Super League",
+        "red card",
+        "disciplinary"
       ],
       "keywords_cn": [
-        "阿隆索",
-        "勒沃库森",
-        "乔·科尔"
+        "李昂",
+        "飞踹",
+        "直红",
+        "追罚"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 88,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "why_pick": "名宿点名质疑主帅用人动机，更衣室政治话题极具争议，能挑动球迷站队互喷。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "愤怒",
+      "why_pick": "中超恶意犯规+追加处罚悬念，能引爆评论区正反方争论",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "扎卡涉嫌伪造疫苗证明被查，这又是哪一出？",
-      "angle": "瑞士媒体曝出扎卡涉嫌使用伪造疫苗接种证明遭到调查，从老球迷视角聊聊这位硬汉中场不为人知的另一面，探讨球星在场外的法律风险与道德争议。",
+      "title": "18岁国脚一天学1-2小时英语，想去五大联赛？",
+      "angle": "布尼亚明说想去五大联赛、每天抽空学英语，18岁小将的野心值得点赞，但中国球员留洋这条路，光会英语真不够。",
       "keywords": [
-        "Granit Xhaka",
-        "Switzerland",
-        "Scandal"
+        "Buniamin",
+        "Chinese footballer",
+        "top five leagues",
+        "English learning"
       ],
       "keywords_cn": [
-        "扎卡",
-        "瑞士",
-        "丑闻"
+        "布尼亚明",
+        "留洋",
+        "五大联赛",
+        "学英语"
       ],
       "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "知名球星涉嫌违法行为的场外大瓜，自带猎奇属性，能突破足球圈层吸引泛体育用户关注。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "score": 75,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "why_pick": "年轻国脚留洋梦+细节故事，老球迷对中国球员留洋话题有天然关注度",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "8000万身价19岁小将英超5轮全替补，切尔西买他图啥？",
+      "angle": "埃斯特旺身价8000万欧却在英超5轮全替补、7场只踢148分钟，切尔西这笔投资到底是囤潜力股还是钱多了烧的？",
+      "keywords": [
+        "Estevao",
+        "Chelsea",
+        "bench",
+        "transfer value"
+      ],
+      "keywords_cn": [
+        "埃斯特旺",
+        "切尔西",
+        "替补",
+        "身价"
+      ],
+      "content_type": "转会资讯",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "高价新援坐穿板凳，转会策略争议大，戳中球迷对豪门乱花钱的吐槽欲",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-19 08:12:50"
+  "last_batch": "noon",
+  "last_updated": "2026-09-19 12:11:59"
 }
