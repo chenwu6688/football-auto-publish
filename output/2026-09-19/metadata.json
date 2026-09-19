@@ -1,7 +1,7 @@
 {
   "date": "2026-09-19",
-  "generated_at": "2026-09-19T04:11:59.797525",
-  "total_articles": 4,
+  "generated_at": "2026-09-19T09:41:05.521540",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -127,171 +127,306 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "3-0！布伦特福德教切尔西做人，帕尔默独木难支",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-1-30布伦特福德教-a3d4f6.md",
+      "slug": "30布伦特福德教-a3d4f6",
+      "tags": [
+        "Chelsea",
+        "Brentford",
+        "Premier League",
+        "3-0",
+        "Palmer",
+        "Damsgaard"
+      ],
+      "keywords": [
+        "Chelsea",
+        "Brentford",
+        "Premier League",
+        "3-0",
+        "Palmer",
+        "Damsgaard"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "打伊朗前夜，U23教练组翻出了一盘旧录像",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-2-打伊朗前夜U23-49012f.md",
+      "slug": "打伊朗前夜U23-49012f",
+      "tags": [
+        "Asian Games",
+        "China U23",
+        "Iran U23",
+        "football",
+        "group stage"
+      ],
+      "keywords": [
+        "Asian Games",
+        "China U23",
+        "Iran U23",
+        "football",
+        "group stage"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "从1块6到亚洲雄风：中国体育的亚运起点",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-3-从1块6到亚洲雄-691ead.md",
+      "slug": "从1块6到亚洲雄-691ead",
+      "tags": [
+        "Asian Games",
+        "China sports history",
+        "Beijing 1990",
+        "Tehran 1974",
+        "sports diplomacy"
+      ],
+      "keywords": [
+        "Asian Games",
+        "China sports history",
+        "Beijing 1990",
+        "Tehran 1974",
+        "sports diplomacy"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "马德里德比火药味最浓，巴黎背靠背要翻车？",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-4-马德里德比火药味-83ec71.md",
+      "slug": "马德里德比火药味-83ec71",
+      "tags": [
+        "Madrid Derby",
+        "PSG",
+        "Arsenal",
+        "Serie A",
+        "La Liga"
+      ],
+      "keywords": [
+        "Madrid Derby",
+        "PSG",
+        "Arsenal",
+        "Serie A",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-4-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "切尔西0-3布伦特福德，这后防是纸糊的吗？",
-      "angle": "切尔西主场0-3惨败布伦特福德，大马丁4场丢10球毫无零封，从门将到整条防线都该被拷问。这不是豪门该有的防守水平。",
+      "title": "3-0完胜切尔西，布伦特福德凭什么在转会市场屡屡淘到宝？",
+      "angle": "从布伦特福德3-0击败切尔西切入，深挖这支小球队的转会策略——用数据模型低价买人、高价卖出，对比切尔西烧钱无果的窘境，给中国球迷一个看欧洲足球的全新视角。",
       "keywords": [
-        "Chelsea",
         "Brentford",
-        "Martinez",
-        "defense"
+        "Chelsea",
+        "transfer strategy",
+        "moneyball"
       ],
       "keywords_cn": [
-        "切尔西",
         "布伦特福德",
-        "大马丁",
-        "防线"
+        "切尔西",
+        "转会策略",
+        "魔球理论"
       ],
-      "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "豪门主场惨败+门将数据极差，争议拉满，老球迷最爱拷问防守",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "李昂这一脚飞踹，到底该停几场？",
-      "angle": "李昂飞踹动作被足球报点名是球员心态写照，可能面临直红之外的追加处罚。这种动作在中超不是第一次了，足协这次会下重手吗？",
-      "keywords": [
-        "Li Ang",
-        "Chinese Super League",
-        "red card",
-        "disciplinary"
-      ],
-      "keywords_cn": [
-        "李昂",
-        "飞踹",
-        "直红",
-        "追罚"
-      ],
-      "content_type": "热点球评",
+      "content_type": "战术解析",
       "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "中超恶意犯规+追加处罚悬念，能引爆评论区正反方争论",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "18岁国脚一天学1-2小时英语，想去五大联赛？",
-      "angle": "布尼亚明说想去五大联赛、每天抽空学英语，18岁小将的野心值得点赞，但中国球员留洋这条路，光会英语真不够。",
-      "keywords": [
-        "Buniamin",
-        "Chinese footballer",
-        "top five leagues",
-        "English learning"
-      ],
-      "keywords_cn": [
-        "布尼亚明",
-        "留洋",
-        "五大联赛",
-        "学英语"
-      ],
-      "content_type": "八卦趣事",
-      "score": 75,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "why_pick": "年轻国脚留洋梦+细节故事，老球迷对中国球员留洋话题有天然关注度",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "以小博大故事有戏剧性，数据模型选人角度新颖，对比切尔西烧钱失败引发讨论。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "8000万身价19岁小将英超5轮全替补，切尔西买他图啥？",
-      "angle": "埃斯特旺身价8000万欧却在英超5轮全替补、7场只踢148分钟，切尔西这笔投资到底是囤潜力股还是钱多了烧的？",
+      "title": "19岁混血后腰要进国足？黄晟豪这步高升，到底是谁在推动？",
+      "angle": "广州豹19岁混血后腰黄晟豪被记者暗示将补招入国足，质疑这种跳跃式提拔是实力使然还是背后运作，挑起球迷对国足选人标准的讨论。",
       "keywords": [
-        "Estevao",
-        "Chelsea",
-        "bench",
-        "transfer value"
+        "Chinese national team",
+        "Huang Shenghao",
+        "naturalized player",
+        "selection controversy"
       ],
       "keywords_cn": [
-        "埃斯特旺",
-        "切尔西",
-        "替补",
-        "身价"
+        "国足",
+        "黄晟豪",
+        "混血球员",
+        "选人争议"
       ],
-      "content_type": "转会资讯",
-      "score": 82,
+      "content_type": "八卦趣事",
+      "score": 85,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "why_pick": "高价新援坐穿板凳，转会策略争议大，戳中球迷对豪门乱花钱的吐槽欲",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "好奇",
+      "why_pick": "19岁中甲球员直通国足极具争议，混血身份增添话题性，能引发球迷对选人标准的激烈争论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "韩鹏崔鹏蒿俊闵坐进教练班，鲁能这帮老炮儿真能带出好苗子吗？",
+      "angle": "三位鲁能名宿同时参加职业级教练培训班，勾起老球迷对鲁能黄金一代的回忆，同时质疑这批球员转型教练后能否真正改变中国足球的青训困局。",
+      "keywords": [
+        "Han Peng",
+        "Cui Peng",
+        "Hao Junmin",
+        "coaching course",
+        "Shandong Luneng"
+      ],
+      "keywords_cn": [
+        "韩鹏",
+        "崔鹏",
+        "蒿俊闵",
+        "教练培训班",
+        "鲁能"
+      ],
+      "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "why_pick": "鲁能名宿集体亮相触动老球迷情怀，球员转型教练话题有讨论价值，符合41+主力受众。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "三镇半只脚进中甲，这支昔日冠军怎么就找不到自救的路？",
+      "angle": "足球报指出武汉三镇濒临降级且自救无门，从俱乐部管理、资金链、球员心态多维度剖析一支冠军球队的崩塌，给球迷一个看热闹不嫌事大的悲情故事。",
+      "keywords": [
+        "Wuhan Three Towns",
+        "relegation",
+        "Chinese Super League",
+        "club crisis"
+      ],
+      "keywords_cn": [
+        "武汉三镇",
+        "降级",
+        "中超",
+        "俱乐部危机"
+      ],
+      "content_type": "热点球评",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "昔日冠军濒临降级有强烈反差，足球报已有深度报道，可做情绪化解读吸引点击。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "马德里德比火药味最浓，巴黎背靠背要翻车？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-19 12:11:59"
+  "last_batch": "evening",
+  "last_updated": "2026-09-19 17:41:05"
 }
