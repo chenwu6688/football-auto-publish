@@ -1,0 +1,219 @@
+{
+  "date": "2026-09-19",
+  "generated_at": "2026-09-19T00:12:50.672658",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "7-0！凯恩百球夜，拜仁把柏林联合打成了筛子",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-1-70凯恩百球夜拜-113aff.md",
+      "slug": "70凯恩百球夜拜-113aff",
+      "tags": [
+        "Bayern Munich",
+        "Harry Kane",
+        "Michael Olise",
+        "Bundesliga",
+        "hat-trick",
+        "7-0"
+      ],
+      "keywords": [
+        "Bayern Munich",
+        "Harry Kane",
+        "Michael Olise",
+        "Bundesliga",
+        "hat-trick",
+        "7-0"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "16岁孩子上场救火，切尔西这出戏演给谁看？",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-2-16岁孩子上场救-4b9740.md",
+      "slug": "16岁孩子上场救-4b9740",
+      "tags": [
+        "Chelsea",
+        "Alonso",
+        "Joe Cole",
+        "Premier League",
+        "transfer"
+      ],
+      "keywords": [
+        "Chelsea",
+        "Alonso",
+        "Joe Cole",
+        "Premier League",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-19/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "扎卡被检察院盯上，10月初要当面交代——这事比你想的复杂",
+      "path": "/home/runner/work/_temp/output/2026-09-19/article-3-扎卡被检察院盯上-fecbe0.md",
+      "slug": "扎卡被检察院盯上-fecbe0",
+      "tags": [
+        "Xhaka",
+        "Switzerland",
+        "vaccine",
+        "certificate",
+        "investigation"
+      ],
+      "keywords": [
+        "Xhaka",
+        "Switzerland",
+        "vaccine",
+        "certificate",
+        "investigation"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    }
+  ],
+  "topics": [
+    {
+      "title": "7-0血洗柏林联合，拜仁这状态谁能挡得住？",
+      "angle": "拜仁7-0大胜柏林联合，凯恩继续进球为金球奖造势，从詹俊的点评切入，分析拜仁新赛季恐怖攻击力，并抛出一个反问：这支拜仁在德甲还有对手吗？",
+      "keywords": [
+        "Bayern Munich",
+        "Harry Kane",
+        "Bundesliga"
+      ],
+      "keywords_cn": [
+        "拜仁慕尼黑",
+        "凯恩",
+        "德甲"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "why_pick": "7-0极端比分自带流量，凯恩金球奖话题有讨论度，符合老球迷对豪门碾压局的热议习惯。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "16岁小孩哥登场，阿隆索这手牌是打给谁看的？",
+      "angle": "从乔·科尔的观点切入，解读阿隆索在困境中换上16岁中场这一举动，核心争论点：这究竟是对年轻球员的信任，还是对管理层夏窗不作为的无声抗议？",
+      "keywords": [
+        "Xabi Alonso",
+        "Leverkusen",
+        "Joe Cole"
+      ],
+      "keywords_cn": [
+        "阿隆索",
+        "勒沃库森",
+        "乔·科尔"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "why_pick": "名宿点名质疑主帅用人动机，更衣室政治话题极具争议，能挑动球迷站队互喷。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "扎卡涉嫌伪造疫苗证明被查，这又是哪一出？",
+      "angle": "瑞士媒体曝出扎卡涉嫌使用伪造疫苗接种证明遭到调查，从老球迷视角聊聊这位硬汉中场不为人知的另一面，探讨球星在场外的法律风险与道德争议。",
+      "keywords": [
+        "Granit Xhaka",
+        "Switzerland",
+        "Scandal"
+      ],
+      "keywords_cn": [
+        "扎卡",
+        "瑞士",
+        "丑闻"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "why_pick": "知名球星涉嫌违法行为的场外大瓜，自带猎奇属性，能突破足球圈层吸引泛体育用户关注。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-09-19 08:12:50"
+}
