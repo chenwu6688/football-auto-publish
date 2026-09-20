@@ -91,6 +91,7 @@ def compose_video(
     *, width=1080, height=1920, fps=30,
     bg_fallback="gradient", bg_color="0x10131A",
     ken_burns=True,
+    talking_head_video=None,
     sub_style=None,
 ):
     """合成竖屏视频。
@@ -117,11 +118,15 @@ def compose_video(
     mv = sub_style.get("margin_v", 140)
 
     has_portrait = bool(portrait_path) and Path(portrait_path).exists()
+    talking_head = bool(talking_head_video) and Path(talking_head_video).exists()
     dur = ffprobe_duration(audio_path) or 75.0
 
     # ---- 视频源输入 ----
     inputs = []
-    if has_portrait:
+    if talking_head:
+        # 说话脸中间视频（SadTalker/Wav2Lip 产出）：作为主视频源，音频仍用配音轨
+        inputs += ["-i", str(talking_head_video)]
+    elif has_portrait:
         inputs += ["-loop", "1", "-i", str(portrait_path)]
     else:
         if bg_fallback == "color":
@@ -134,7 +139,13 @@ def compose_video(
     inputs += ["-i", str(audio_path)]
 
     # ---- 视频滤镜链 ----
-    if has_portrait:
+    if talking_head:
+        # 适配竖屏：等比缩放不超出目标（小尺寸说话脸会放大，属输入质量限制），
+        # 再用深色背景 pad 到 1080x1920，避免裁掉人脸；随后烧录字幕。
+        vf = (f"[0:v]scale={width}:{height}:force_original_aspect_ratio=decrease,"
+              f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2:color=0x10131A,"
+              f"format=yuv420p")
+    elif has_portrait:
         # 覆盖缩放，保证两维均 ≥ 目标
         vf = (f"[0:v]scale='trunc(iw*max({width}/iw\\,{height}/ih))':"
               f"'trunc(ih*max({width}/iw\\,{height}/ih))',crop={width}:{height}")

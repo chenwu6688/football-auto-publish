@@ -24,10 +24,16 @@ voice:
   pitch: "+0Hz"
 
 # 声线克隆（GPT-SoVITS / CosyVoice2，预留，默认关；拿到参考音后再开）
+# 声线克隆（GPT-SoVITS，Phase 2，默认关；装好服务、备好参考音后再开）
+# 推荐"免训练 few-shot"：用预训练底座 + 参考音 + 参考文本即可复刻声线（CPU 可跑）。
 clone:
   enabled: false
-  reference_audio: ""      # 老六参考音 .wav（建议 10-30s 清晰人声）
-  model_dir: ""            # 训练/导出后的模型目录
+  reference_audio: ""      # 老六参考音 .wav（已备：voice_ref/reference_voice.wav，建议 10-60s 清晰人声）
+  model_dir: ""            # 已训练模型权重目录；留空则走 few-shot（不需训练）
+  host: "127.0.0.1"        # 本地 GPT-SoVITS 推理服务地址（先 `python <GPT-SoVITS>/api.py -a 127.0.0.1 -p 9880`）
+  port: 9880
+  prompt_text: ""          # 参考音对应的文本（few-shot 更稳，建议填）
+  timeout: 600             # 推理超时（秒）
 
 # 火山引擎 TTS（可选升级项：字节系原生适配抖音，28 种情感/风格男声；需 key）
 volcano:
@@ -36,6 +42,22 @@ volcano:
   token: ""
   cluster: ""
   speaker: ""              # 具体音色 Speaker ID（挑体育解说/侃爷风格流量向）
+
+# 真·说话数字人（Phase 2，默认关；M710q 无独显，SadTalker CPU 跑 60-90s 视频可能要几十分钟）
+# 开启后：肖像 + 配音 → SadTalker 说话脸（失败回退 Wav2Lip，再失败回退静态肖像 Ken-Burns）。
+talking_head:
+  enabled: false
+  engine: "sadtalker"      # sadtalker（主）| wav2lip（兜底）
+  python: "python"         # 各自仓库的解释器（含 torch 的 venv/conda）
+  device: "cpu"            # cpu | cuda
+  size: 256                # SadTalker 输出尺寸（256 轻量；512 更清晰更慢）
+  preprocess: "full"       # crop（裁脸）| full（全图）
+  pose: "none"             # none | static | clone
+  batch_size: 1
+  sadtalker_dir: ""        # SadTalker 仓库根目录（必填，如 /opt/SadTalker）
+  wav2lip:
+    dir: ""                # Wav2Lip 仓库根目录
+    checkpoint: ""         # 预训练权重 .pt 路径（必填才有兜底）
 
 # 视频合成
 video:

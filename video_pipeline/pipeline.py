@@ -21,6 +21,8 @@ if str(_ROOT) not in sys.path:
 import yaml
 # 用绝对导入，保证既可作为包导入，也可 `python video_pipeline/pipeline.py` 直接运行
 from video_pipeline import script_gen, tts, subtitles, compose
+from video_pipeline.clone import CloneUnavailable
+from video_pipeline.talking_head import TalkingHeadUnavailable
 
 CONFIG_PATH = Path(__file__).parent / "video_config.yaml"
 
@@ -87,33 +89,76 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     script_text = script_info["script"]
     print(f"   来源={script_info.get('source')} 字数={len(script_text)}")
 
-    # 2) TTS
+    # 2) TTS（声线：clone/volcano 优先，失败自动回退 Edge TTS，保证出片）
     print("② TTS 合成音频 + 字幕时间轴")
     vc = cfg.get("voice", {})
     rate = vc.get("rate", "+0%"); volume = vc.get("volume", "+0%"); pitch = vc.get("pitch", "+0Hz")
     provider = vc.get("provider", "edge")
-    if provider == "clone" and cfg.get("clone", {}).get("enabled"):
-        audio_path, srt_path, used = tts.synthesize_clone(
-            script_text, audio_path=audio_path, srt_path=srt_path,
-            reference_audio=cfg["clone"].get("reference_audio"),
-            model_dir=cfg["clone"].get("model_dir"))
-    elif provider == "volcano" and cfg.get("volcano", {}).get("enabled"):
-        vol = cfg["volcano"]
-        audio_path, srt_path, used = tts.synthesize_volcano(
-            script_text, audio_path=audio_path, srt_path=srt_path,
-            app_id=vol.get("app_id"), token=vol.get("token"),
-            cluster=vol.get("cluster"), speaker=vol.get("speaker"))
-    else:
+    tts_engine = "edge"
+    voice_cloned = False
+    try:
+        if provider == "clone" and cfg.get("clone", {}).get("enabled"):
+            cc = cfg["clone"]
+            audio_path, srt_path, used = tts.synthesize_clone(
+                script_text, audio_path=audio_path, srt_path=srt_path,
+                reference_audio=cc.get("reference_audio"),
+                model_dir=cc.get("model_dir", ""),
+                host=cc.get("host", "127.0.0.1"),
+                port=cc.get("port", 9880),
+                prompt_text=cc.get("prompt_text", ""),
+                timeout=cc.get("timeout", 600))
+            tts_engine = "gpt-sovits"
+            voice_cloned = True
+        elif provider == "volcano" and cfg.get("volcano", {}).get("enabled"):
+            vol = cfg["volcano"]
+            audio_path, srt_path, used = tts.synthesize_volcano(
+                script_text, audio_path=audio_path, srt_path=srt_path,
+                app_id=vol.get("app_id"), token=vol.get("token"),
+                cluster=vol.get("cluster"), speaker=vol.get("speaker"))
+            tts_engine = "volcano"
+        else:
+            voices = tts.resolve_voice(vc)
+            audio_path, srt_path, used = tts.synthesize(
+                script_text, voice=voices[0], audio_path=audio_path, srt_path=srt_path,
+                rate=rate, volume=volume, pitch=pitch, fallback_voices=voices[1:])
+    except Exception as e:
+        # 克隆/火山失败 → 回退 Edge TTS（不中断出片）
+        print(f"   ⚠️ TTS 分支({provider})失败：{e}，回退 Edge TTS")
         voices = tts.resolve_voice(vc)
         audio_path, srt_path, used = tts.synthesize(
             script_text, voice=voices[0], audio_path=audio_path, srt_path=srt_path,
             rate=rate, volume=volume, pitch=pitch, fallback_voices=voices[1:])
-    print(f"   声线={used}")
+        tts_engine = "edge"
+        voice_cloned = False
+    print(f"   声线={used} 引擎={tts_engine}")
 
     # 3) 字幕折行优化
     sub_cfg = cfg.get("video", {}).get("subtitle", {})
     max_chars = sub_cfg.get("max_chars_per_line", 18)
     subtitles.postprocess(srt_path, max_chars=max_chars)
+
+    # 3.5) 说话数字人（可选）：肖像 + 配音 → 说话脸中间视频；失败回退静态肖像
+    talking_head_video = None
+    talking_head_engine = ""
+    talking_head_used = False
+    th_cfg = cfg.get("talking_head", {})
+    if th_cfg.get("enabled"):
+        try:
+            from video_pipeline import talking_head as _th
+            th_out = inter / f"{slug}.talking.mp4"
+            portrait = cfg.get("portrait_path", "")
+            talking_head_video, th_engine = _th.generate_talking_head(
+                portrait, str(audio_path), str(th_out),
+                engine=th_cfg.get("engine", "sadtalker"), cfg=th_cfg)
+            talking_head_engine = th_engine
+            talking_head_used = True
+            print(f"   说话脸={th_engine}")
+        except TalkingHeadUnavailable as e:
+            print(f"   ⚠️ 说话数字人不可用：{e}，回退静态肖像")
+            talking_head_video = None
+        except Exception as e:
+            print(f"   ⚠️ 说话数字人异常：{e}，回退静态肖像")
+            talking_head_video = None
 
     # 4) 合成视频
     print("③ ffmpeg 合成竖屏视频")
@@ -128,6 +173,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         bg_fallback=vcfg.get("background_fallback", "gradient"),
         bg_color=vcfg.get("bg_color", "0x10131A"),
         ken_burns=vcfg.get("ken_burns", True),
+        talking_head_video=talking_head_video,
         sub_style=sub_style,
     )
     print(f"   视频={mp4_path} 时长={info.get('duration'):.1f}s 校验={info.get('ok')}")
@@ -153,6 +199,10 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         "resonance_angle": article.get("resonance_angle", ""),
         "series_id": article.get("series_id", ""),
         "voice": used,
+        "tts_engine": tts_engine,
+        "voice_cloned": voice_cloned,
+        "talking_head_engine": talking_head_engine,
+        "talking_head_used": talking_head_used,
         "resolution": f"{vcfg.get('width', 1080)}x{vcfg.get('height', 1920)}",
         "has_portrait": bool(cfg.get("portrait_path")) and Path(cfg["portrait_path"]).exists(),
         "video_path": str(mp4_path),
@@ -164,10 +214,13 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     meta_path = base / f"{slug}.meta.json"
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # 6) 中间产物清理（可选）；连 compose 阶段产生的瞬时 .ass 一并清理
+    # 6) 中间产物清理（可选）；连 compose 阶段产生的瞬时 .ass、说话脸中间视频一并清理
     if not cfg.get("output", {}).get("keep_intermediate", True):
         ass_path = Path(srt_path).with_suffix(".ass")
-        for p in (audio_path, srt_path, ass_path):
+        cleanup = [audio_path, srt_path, ass_path]
+        if talking_head_video:
+            cleanup.append(Path(talking_head_video))
+        for p in cleanup:
             try:
                 Path(p).unlink()
             except Exception:

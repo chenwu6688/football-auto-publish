@@ -89,14 +89,15 @@ def synthesize(text, *, voice=DEFAULT_VOICE, audio_path, srt_path,
 
 
 def synthesize_clone(text, *, reference_audio, model_dir, audio_path, srt_path, **kwargs):
-    """声线克隆分支（GPT-SoVITS / CosyVoice2）—— 预留，默认未实现。
+    """声线克隆分支（GPT-SoVITS）—— 委托 video_pipeline.clone 模块。
 
-    接入时：加载本地推理服务或 SoVITS 推理脚本，用 reference_audio 复刻老六声线。
-    当前抛 NotImplementedError，由 config.clone.enabled 控制是否调用。
+    任一环节失败会抛 clone.CloneUnavailable，由 pipeline 捕获并回退到 Edge TTS，
+    保证出片不中断。config.clone.enabled 控制是否进入本分支。
     """
-    raise NotImplementedError(
-        "声线克隆尚未接入：请在 config.clone 配置 reference_audio/model_dir 后，"
-        "在此挂载 GPT-SoVITS / CosyVoice2 推理；当前请保持 clone.enabled=false 使用 Edge TTS。"
+    from video_pipeline import clone
+    return clone.synthesize_clone_impl(
+        text, reference_audio=reference_audio, model_dir=model_dir or "",
+        audio_path=audio_path, srt_path=srt_path, **kwargs,
     )
 
 

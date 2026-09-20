@@ -19,6 +19,8 @@ if str(_ROOT) not in sys.path:
 from video_pipeline import (
     script_gen, tts, subtitles, compose, pipeline,
 )
+from video_pipeline.clone import CloneUnavailable, split_sentences, build_proportional_srt
+from video_pipeline.talking_head import TalkingHeadUnavailable
 
 _SAMPLE_ARTICLE = {
     "title": "皇马更衣室炸了？贝林厄姆和主帅当场互喷",
@@ -228,4 +230,68 @@ def test_run_pipeline_without_intermediate_cleanup(tmp_path, monkeypatch):
                                  llm_fn=_fake_llm)
     # 中间产物被清理
     assert not meta.get("audio_path") and not meta.get("srt_path")
+    assert Path(meta["video_path"]).exists()
+
+
+# ---------------------------------------------------------------- 克隆/说话脸 回退 & 分句SRT（Phase 2）
+def test_split_sentences_basic():
+    s = split_sentences("老球迷们，今天这条你一定得看。皇马更衣室炸了，评论区聊聊！")
+    assert s[0].endswith("。") and s[1].endswith("！")
+    assert len(s) == 2
+
+
+def test_build_proportional_srt_timing():
+    srt = build_proportional_srt("第一句内容。第二句更长一些的内容。", duration=5.0)
+    blocks = [b for b in srt.strip().split("\n\n") if b]
+    assert len(blocks) == 2
+    # 末句结束时间 ≈ 总时长
+    last = blocks[-1].split("\n")[1]
+    end = last.split(" --> ")[1]
+    h, m, rest = end.split(":")
+    sec = int(h) * 3600 + int(m) * 60 + float(rest.replace(",", "."))
+    assert 4.5 <= sec <= 5.0
+
+
+def _make_clip(path, size="320x320", dur=2):
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", f"color=c=blue:s={size}:r=30",
+         "-t", str(dur), "-pix_fmt", "yuv420p", str(path)],
+        capture_output=True, check=True,
+    )
+
+
+def test_compose_with_talking_head_video(tmp_path):
+    wav = tmp_path / "a.wav"; srt = tmp_path / "a.srt"; th = tmp_path / "th.mp4"
+    mp4 = tmp_path / "v.mp4"
+    _make_audio(wav); _make_srt(srt); _make_clip(th)
+    out, info = compose.compose_video("", str(wav), str(srt), str(mp4),
+                                      talking_head_video=str(th))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    assert info["width"] == 1080 and info["height"] == 1920
+
+
+def test_pipeline_clone_fallback_to_edge(tmp_path, monkeypatch):
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    # reference_audio 留空 → synthesize_clone 必抛 CloneUnavailable，应回退 Edge
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["voice"]["provider"] = "clone"
+    cfg["clone"]["enabled"] = True
+    cfg["clone"]["reference_audio"] = ""  # 故意缺失，触发不可用
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["tts_engine"] == "edge"
+    assert meta["voice_cloned"] is False
+    assert Path(meta["video_path"]).exists()
+
+
+def test_pipeline_talking_head_fallback_to_static(tmp_path, monkeypatch):
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    # sadtalker_dir 留空 → 说话脸不可用，应回退静态肖像（无肖像则渐变兜底）
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["talking_head"]["enabled"] = True
+    cfg["talking_head"]["sadtalker_dir"] = ""  # 故意缺失
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["talking_head_used"] is False
+    assert meta["talking_head_engine"] == ""
     assert Path(meta["video_path"]).exists()
