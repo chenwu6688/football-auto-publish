@@ -19,7 +19,8 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 import yaml
-from . import script_gen, tts, subtitles, compose
+# 用绝对导入，保证既可作为包导入，也可 `python video_pipeline/pipeline.py` 直接运行
+from video_pipeline import script_gen, tts, subtitles, compose
 
 CONFIG_PATH = Path(__file__).parent / "video_config.yaml"
 
