@@ -132,6 +132,17 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     )
     print(f"   视频={mp4_path} 时长={info.get('duration'):.1f}s 校验={info.get('ok')}")
 
+    # 4.5) 自愈：清掉输出根目录里与 mp4 同名的外挂字幕（历史版本残留的 .srt/.ass）。
+    # 播放器会把与视频同名的字幕文件当外挂自动加载，与烧录字幕叠成"两条字幕"。
+    # 新版中间产物已隔离到 _intermediate，这里再兜一层，连历史残留一起自愈。
+    for _ext in (".srt", ".ass"):
+        _stale = Path(mp4_path).with_suffix(_ext)
+        if _stale.exists():
+            try:
+                _stale.unlink()
+            except OSError:
+                pass
+
     # 5) 元数据
     meta = {
         "title": script_info.get("title", article.get("title", "")),
