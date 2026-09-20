@@ -103,6 +103,28 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 ---
 
+## 🎬 数字人口播视频管线 / Video Pipeline（Phase 0+1 · 免费 MVP）
+
+> 把同一篇图文**额外**产出「数字人口播视频」，发头条号 / 抖音 / 视频号。**独立于现有图文发布链路**，复用品牌手册与 LLM 额度，零新增成本、本地 CPU 可跑、无 GPU。
+
+- 📝 **口播稿**：`video_pipeline/script_gen.py` 复用 `config/brand_manual.yaml` + LLM，产出 60–90s 口语稿（黄金 3 秒强钩子 + 共鸣/系列钩子 + 结尾互动钩子）；LLM 失效自动回退规则兜底，**绝不阻断生成**。
+- 🔊 **TTS**：`video_pipeline/tts.py` 默认 **Edge TTS 云希（男声，免 key）**，云健/晓睿降级备选；句级时间轴直接喂 `SubMaker` 出 SRT。声线克隆（GPT-SoVITS）/ 火山引擎分支已预留开关，默认关。
+- 🎞️ **合成**：`video_pipeline/compose.py` 用 ffmpeg 把**肖像（老六本人照）+ Ken-Burns 推拉 + 音频 + 烧录字幕** → 1080×1920 竖屏 mp4；无肖像时自动用渐变背景兜底。编码器自动择优选 H.264（libx264 / libopenh264）。
+- 🧩 **编排**：`video_pipeline/pipeline.py` 串起「稿→音→字幕→视频→元数据」，命令行 `--demo` / `--article <json>` 即跑。
+
+```bash
+# 装依赖（生成侧）
+pip install edge-tts            # 免 key 中文男声 TTS
+# 跑一遍内置样例（无需 API key 也能验证 ffmpeg 链路；TTS 需联网微软）
+python video_pipeline/pipeline.py --demo
+# 指定文章 JSON（含 title/content，可选 resonance_angle/series_id/source_id）
+python video_pipeline/pipeline.py --article my_article.json
+```
+
+产出落在 `output/videos/YYYY-MM-DD/`（mp4 + srt + wav + meta.json）。**发布侧本期手动**：头条号跑通后，抖音/视频号由你手动上传（符合「其他平台我自己传」约定）；头条视频自动发布作为下一批验证。
+
+---
+
 ## 它是怎么跑起来的 / How it works
 
 ```mermaid

@@ -1,0 +1,62 @@
+# ============================================================
+# 数字人口播视频 · 生成侧配置（Phase 0+1 MVP · 免费·本地·CPU）
+# 版本: 2026-09-20
+# 适用: football-auto-publish/video_pipeline —— 文章 → 口播稿 → TTS → 字幕 → 竖屏视频
+# 设计原则: 零新增成本、不碰现有图文发布链路、肖像合规（用老六本人照）
+# ============================================================
+
+# 肖像素材：用老六本人照片（用户自供）。在 M710q 上填绝对路径；留空则用渐变背景兜底。
+portrait_path: ""          # 例: /home/chenwu/portraits/laoliu.jpg
+
+# 声线（Edge TTS，免 key，免费）
+voice:
+  provider: "edge"         # edge（默认）| volcano（火山引擎，需 key）| clone（GPT-SoVITS，预留）
+  default: "zh-CN-YunxiNeural"      # 云希（男声·沉稳专业，通用解说/资讯）
+  # 备选男声（按此顺序降级尝试，避免单音色抽风）:
+  #   zh-CN-YunjianNeural（云健·更具张力/激情，适合体育吐槽）
+  #   zh-CN-YunyangNeural（晓睿·男声）
+  fallback_order:
+    - "zh-CN-YunxiNeural"
+    - "zh-CN-YunjianNeural"
+    - "zh-CN-YunyangNeural"
+  rate: "+0%"              # 语速: "-8%" 更稳重 / "+5%" 更紧凑（短视頻常用稍快）
+  volume: "+0%"
+  pitch: "+0Hz"
+
+# 声线克隆（GPT-SoVITS / CosyVoice2，预留，默认关；拿到参考音后再开）
+clone:
+  enabled: false
+  reference_audio: ""      # 老六参考音 .wav（建议 10-30s 清晰人声）
+  model_dir: ""            # 训练/导出后的模型目录
+
+# 火山引擎 TTS（可选升级项：字节系原生适配抖音，28 种情感/风格男声；需 key）
+volcano:
+  enabled: false
+  app_id: ""
+  token: ""
+  cluster: ""
+  speaker: ""              # 具体音色 Speaker ID（挑体育解说/侃爷风格流量向）
+
+# 视频合成
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  # 无肖像时的背景兜底: "gradient"（深蓝黑渐变）| "color"（纯色）
+  background_fallback: "gradient"
+  bg_color: "0x10131A"     # 纯色兜底色（BGR 十六进制）
+  ken_burns: true          # 肖像缓慢推拉（提升观感，CPU 轻负载）
+  # 字幕样式（ffmpeg subtitles force_style，适配手机竖屏）
+  subtitle:
+    font_size: 46
+    primary_color: "0xFFFFFF"   # 白
+    outline_color: "0x000000"   # 黑描边
+    outline: 4
+    back_color: "0x80000000"    # 半透明黑底（&H 格式，BGR+A）
+    margin_v: 140
+    max_chars_per_line: 18      # 超过则折行，提升手机可读性
+
+# 输出
+output:
+  base_dir: "output/videos"     # 相对仓库根目录；实际落盘 base_dir/YYYY-MM-DD/
+  keep_intermediate: true       # 保留 wav/srt 中间文件便于排查（关掉可省空间）
