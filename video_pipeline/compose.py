@@ -113,10 +113,7 @@ def compose_video(
 
     sub_style = sub_style or {}
     fs = sub_style.get("font_size", 46)
-    pc = _to_ff_color(sub_style.get("primary_color", "0xFFFFFF"))
-    oc = _to_ff_color(sub_style.get("outline_color", "0x000000"))
     ol = sub_style.get("outline", 4)
-    bc = _to_ff_color(sub_style.get("back_color", "0x80000000"))
     mv = sub_style.get("margin_v", 140)
 
     has_portrait = bool(portrait_path) and Path(portrait_path).exists()
@@ -152,10 +149,25 @@ def compose_video(
         vf = "[0:v]format=yuv420p"
 
     # 字幕烧录（末端统一标 [v]，供 -map 引用）
-    esc = _escape_sub_path(srt_path)
-    force = (f"FontSize={fs},PrimaryColour={pc},OutlineColour={oc},"
-             f"Outline={ol},BackColour={bc},Alignment=2,MarginV={mv}")
-    vf += f",subtitles=filename='{esc}':force_style='{force}'[v]"
+    # 关键：先把 SRT 转成 PlayRes=视频尺寸 的 ASS 再烧录。直接把 SRT 交给 subtitles
+    # 滤镜时 ffmpeg 会把 PlayRes 固定为 384x288，FontSize/MarginV 被按 288 缩放
+    # （在 1080x1920 上放大 ~6.7 倍并跑到画面中部盖住人脸）；original_size 选项在
+    # 部分 ffmpeg 构建下无效。生成 ASS 可彻底规避该坑。
+    from video_pipeline import subtitles as _subs
+    srt_text = Path(srt_path).read_text(encoding="utf-8")
+    ass_text = _subs.srt_to_ass(
+        srt_text, width=width, height=height, font_size=fs,
+        primary_color=sub_style.get("primary_color", "0xFFFFFF"),
+        outline_color=sub_style.get("outline_color", "0x000000"),
+        back_color=sub_style.get("back_color", "0x80000000"),
+        outline=ol, margin_v=mv,
+        margin_h=sub_style.get("margin_h", 60),
+        font_name=sub_style.get("font_name", "Arial"),
+    )
+    ass_path = Path(srt_path).with_suffix(".ass")
+    ass_path.write_text(ass_text, encoding="utf-8")
+    esc = _escape_sub_path(ass_path)
+    vf += f",subtitles=filename='{esc}'[v]"
 
     cmd = [
         "ffmpeg", "-y",

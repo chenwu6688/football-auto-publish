@@ -130,6 +130,31 @@ def test_wrap_srt_preserves_timecodes():
     assert "00:00:01,000 --> 00:00:03,500" in out
 
 
+def test_srt_to_ass_playres_and_style():
+    srt = "1\n00:00:01,000 --> 00:00:03,500\n老球迷们，今天这条你一定得看。\n"
+    ass = subtitles.srt_to_ass(
+        srt, width=1080, height=1920, font_size=46,
+        primary_color="0xFFFFFF", outline_color="0x000000",
+        back_color="0x80000000", outline=4, margin_v=140)
+    # PlayRes 必须等于视频尺寸（否则字号会被按 288 缩放，重现"巨字盖脸"）
+    assert "PlayResX: 1080" in ass
+    assert "PlayResY: 1920" in ass
+    # ASS 颜色为 BGR 序：白 0xFFFFFF → &H00FFFFFF，黑 → &H00000000
+    assert "&H00FFFFFF" in ass and "&H00000000" in ass
+    # 字号/边距按真实像素写入样式行
+    assert ",46," in ass
+    assert "60,60,140,1" in ass
+    # 时间换算：SRT 毫秒 → ASS 厘秒
+    assert "Dialogue: 0,0:00:01.00,0:00:03.50,Default" in ass
+
+
+def test_ass_color_bgr_order():
+    assert subtitles._ass_color("0x0000FF") == "&H00FF0000"   # 蓝
+    assert subtitles._ass_color("0xFF0000") == "&H000000FF"   # 红
+    assert subtitles._ass_color("0xFFFFFF") == "&H00FFFFFF"   # 白
+    assert subtitles._ass_color("0x80000000") == "&H80000000"  # 带 alpha
+
+
 # ---------------------------------------------------------------- 合成端到端
 def _make_audio(path, duration=3):
     subprocess.run(
