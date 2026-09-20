@@ -628,7 +628,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 - ✅ 如果不确定该事件是否最新，写"此前有报道称"并用过去时表述。
 
 输出纯JSON数组：
-[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "why_pick": "为什么选这个角度(20字)"}}]
+[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "resonance_angle": "国足情结/老球迷身份认同/世界杯经典时刻/名帅名宿沉浮/无", "why_pick": "为什么选这个角度(20字)"}}]
 只输出JSON。"""
 
     topic_selector_prompt = load_prompt_template("topic_selector.txt")
@@ -758,9 +758,10 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # Check topic material sufficiency — reject topics that match_data can't support
     topics = _check_topic_material_sufficiency(topics, match_data)
 
-    # ── P1-4 / P1-6: 非阻断监控（标题钩子分布 / 内容类型再平衡）──
+    # ── P1-4 / P1-6 / 维度4: 非阻断监控（标题钩子分布 / 内容类型再平衡 / 共鸣角度覆盖）──
     warn_title_hook_distribution(topics)
     warn_type_balance(topics, season_label=season_label)
+    warn_resonance_coverage(topics)
 
     return topics
 
@@ -1089,6 +1090,9 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
         column_block=column_block,
         retry_block=retry_block,
     )
+
+    # 维度4：共鸣角度闭环——选题锁定的共鸣角度，改写时自然融入
+    prompt = prompt + _build_resonance_hint(topic)
 
     # 维度1：品牌手册注入系统提示（单一事实源，避免无魂/偷懒）
     system_content = ("你是一个足球文章改写助手。你必须保留所有事实（比分、球员、事件），只改变文风和叙述角度。\n")
@@ -2136,6 +2140,43 @@ def warn_type_balance(topics, season_label=""):
             print(f"   ⚠️ 转会+八卦占比偏高（{tf / n:.0%} > 50%）——应设上限，避免场外霸屏")
     if n >= 3 and len(cnt) < 2:
         print(f"   ⚠️ 品类单一（仅 {len(cnt)} 类）——建议覆盖 ≥2 个品类破同质化")
+
+
+# 维度4（情绪共鸣升级）：选题须标注共鸣角度，以下为"无共鸣"判定值
+_RESONANCE_NONE = ("无", "无（确实难共鸣时）", "无（确实难共鸣）", "")
+
+
+def _build_resonance_hint(topic):
+    """根据选题锁定的共鸣角度，生成改写环节的自然融入提示（维度4 闭环）。
+
+    返回追加到改写 prompt 的文本；若无可共鸣角度则返回空串。
+    """
+    ra = (topic or {}).get("resonance_angle", "")
+    if ra and ra not in _RESONANCE_NONE:
+        return (
+            f"\n\n## 本篇共鸣角度提示（来自选题）\n"
+            f"本篇选题已锁定共鸣角度：{ra}。改写时自然融入，用老球迷聊球的口吻带出具体画面或回忆，"
+            f"不强行煽情、不脱离事实（详见品牌手册「共鸣剧本」的切入与 framing 示例）。"
+        )
+    return ""
+
+
+def warn_resonance_coverage(topics):
+    """非阻断：检查选题共鸣角度覆盖率（维度4 情绪共鸣升级，目标 ≥60% 带真实共鸣角度）。"""
+    if not topics:
+        return
+    n = len(topics)
+    hit = 0
+    for t in topics:
+        ra = (t or {}).get("resonance_angle", "")
+        if ra and ra not in _RESONANCE_NONE:
+            hit += 1
+    cov = hit / n
+    print(f"   📊 共鸣角度覆盖: {hit}/{n} ({cov:.0%}) 带真实共鸣角度")
+    if cov < 0.6:
+        print(f"   ⚠️ 共鸣角度覆盖偏低（{cov:.0%} < 60%）——建议选题优先挑能用『国足情结/老球迷身份/世界杯经典/名宿沉浮』切入的事件")
+    else:
+        print(f"   ✅ 共鸣角度覆盖达标")
 
 
 # ============================================================
