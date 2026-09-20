@@ -1,7 +1,7 @@
 {
   "date": "2026-09-20",
-  "generated_at": "2026-09-20T04:10:46.952477",
-  "total_articles": 2,
+  "generated_at": "2026-09-20T09:41:03.503824",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -68,93 +68,200 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "0-0闷平伊朗，这支U23国足踢出了我们这代人最熟悉的味道",
+      "path": "/home/runner/work/_temp/output/2026-09-20/article-1-00闷平伊朗这支-8716bb.md",
+      "slug": "00闷平伊朗这支-8716bb",
+      "tags": [
+        "AFC U23 Asian Cup",
+        "China U23",
+        "Iran U23",
+        "Zhang Yuning",
+        "Wu Xi",
+        "Zhu Chenjie"
+      ],
+      "keywords": [
+        "AFC U23 Asian Cup",
+        "China U23",
+        "Iran U23",
+        "Zhang Yuning",
+        "Wu Xi",
+        "Zhu Chenjie"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-20/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-20/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-20/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "一场0-0，看得人五味杂陈",
+      "path": "/home/runner/work/_temp/output/2026-09-20/article-2-一场00看得人五-91b0ca.md",
+      "slug": "一场00看得人五-91b0ca",
+      "tags": [
+        "U23",
+        "Iran",
+        "Asian Games",
+        "football",
+        "China"
+      ],
+      "keywords": [
+        "U23",
+        "Iran",
+        "Asian Games",
+        "football",
+        "China"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-20/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-20/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-20/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "曼城屠杀剧本已写好？马德里德比火药味藏不住",
+      "path": "/home/runner/work/_temp/output/2026-09-20/article-3-曼城屠杀剧本已写-7aa95f.md",
+      "slug": "曼城屠杀剧本已写-7aa95f",
+      "tags": [
+        "football prediction",
+        "La Liga",
+        "Premier League",
+        "Serie A",
+        "Bundesliga"
+      ],
+      "keywords": [
+        "football prediction",
+        "La Liga",
+        "Premier League",
+        "Serie A",
+        "Bundesliga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-20/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-20/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "阿森纳0-3惨败布莱顿，阿尔特塔的争冠剧本又写不下去了？",
-      "angle": "从阿森纳完败布莱顿切入，分析枪手本赛季争冠路上的老毛病——关键战掉链子，质疑阿尔特塔的战术调整和球队心理素质，用老球迷视角对比温格时代的稳定性。",
+      "title": "熟悉的打平出线又来了，这次U23国足能争口气吗？",
+      "angle": "从U23国足0-0平伊朗后末轮打平即可出线的局势切入，回顾中国足球历代'打平出线'的悲喜剧，带出老球迷对这支队伍既期待又怕受伤害的复杂心态。",
       "keywords": [
-        "Arsenal",
-        "Brighton",
-        "Arteta",
-        "Premier League"
+        "China U23",
+        "Asian Games",
+        "qualification scenario"
       ],
       "keywords_cn": [
-        "阿森纳",
-        "布莱顿",
-        "阿尔特塔",
-        "英超"
+        "U23国足",
+        "亚运会",
+        "打平出线",
+        "伊朗"
       ],
       "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "why_pick": "豪门惨败自带流量，争议性高，能引发枪迷和质疑者激烈争论",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足经典'打平出线'剧本再现，戳中老球迷集体记忆，话题性强且自带讨论度。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "18岁的凯恩曾在码头工人德比替补出战，你还记得那个青涩的大英帝星吗？",
-      "angle": "以凯恩18岁代表米尔沃尔出战码头工人德比的往事为引，回顾他从低级别联赛租借到成为世界级前锋的成长历程，用怀旧感戳中老球迷的情怀，对比当下年轻球员的成长环境。",
+      "title": "吴曦那脚横梁没进，赛后他说这是战术设计？",
+      "angle": "从吴曦赛后透露凌空抽射中横梁是训练中的战术设计切入，带出老将的遗憾与这支U23国足的战术细节，用'差之毫厘的战术球'引发对教练组用心的讨论。",
       "keywords": [
-        "Harry Kane",
-        "Millwall",
-        "London derby",
-        "nostalgia"
+        "Wu Xi",
+        "crossbar",
+        "tactical design",
+        "China U23"
       ],
       "keywords_cn": [
-        "凯恩",
-        "米尔沃尔",
-        "伦敦德比",
-        "怀旧"
+        "吴曦",
+        "横梁",
+        "战术设计",
+        "U23国足"
       ],
       "content_type": "八卦趣事",
-      "score": 82,
+      "score": 78,
       "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "why_pick": "凯恩往事罕见曝光，情怀牌打41+男球迷，有故事性和讨论价值",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "感动",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "老将的遗憾与战术细节的结合，有人情味也有干货，契合老球迷对国足的复杂情感。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "曼城屠杀剧本已写好？马德里德比火药味藏不住",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-20 12:10:46"
+  "last_batch": "evening",
+  "last_updated": "2026-09-20 17:41:03"
 }
