@@ -183,6 +183,26 @@ def get_brand_style_guide():
     return style_guide
 
 
+def get_brand_series():
+    """从品牌手册的 series_playbook 派生 (id->series_dict, max_per_batch)。
+
+    用于维度2 连载引擎：改写环节按 series_id 查系列名/主题注入追更提示，
+    监控环节校验同批同系列不超过上限。
+    """
+    data = _get_brand_manual_data()
+    sp = data.get("series_playbook", {}) if isinstance(data, dict) else {}
+    if not isinstance(sp, dict):
+        sp = {}
+    series = sp.get("series", []) if isinstance(sp, dict) else []
+    max_per = sp.get("max_per_batch", 1)
+    by_id = {}
+    if isinstance(series, list):
+        for s in series:
+            if isinstance(s, dict) and s.get("id"):
+                by_id[s["id"]] = s
+    return by_id, max_per
+
+
 def _apply_performance_boost(weights):
     """根据 performance_log.json 的历史阅读数据，自动微调选题权重。
 
@@ -628,7 +648,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
 - ✅ 如果不确定该事件是否最新，写"此前有报道称"并用过去时表述。
 
 输出纯JSON数组：
-[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "resonance_angle": "国足情结/老球迷身份认同/世界杯经典时刻/名帅名宿沉浮/无", "why_pick": "为什么选这个角度(20字)"}}]
+[{{"title": "标题(15-25字)", "angle": "切入角度+明确态度", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析", "score": 90, "controversy_level": "high/medium/low", "target_emotion": "愤怒/骄傲/怀旧/震惊/感动/好奇", "resonance_angle": "国足情结/老球迷身份认同/世界杯经典时刻/名帅名宿沉浮/无", "series_id": "guozu-chronicle/wc-classics/old-fan-night/无", "why_pick": "为什么选这个角度(20字)"}}]
 只输出JSON。"""
 
     topic_selector_prompt = load_prompt_template("topic_selector.txt")
@@ -758,10 +778,11 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # Check topic material sufficiency — reject topics that match_data can't support
     topics = _check_topic_material_sufficiency(topics, match_data)
 
-    # ── P1-4 / P1-6 / 维度4: 非阻断监控（标题钩子分布 / 内容类型再平衡 / 共鸣角度覆盖）──
+    # ── P1-4 / P1-6 / 维度4 / 维度2: 非阻断监控（标题钩子 / 类型平衡 / 共鸣角度 / 系列连载）──
     warn_title_hook_distribution(topics)
     warn_type_balance(topics, season_label=season_label)
     warn_resonance_coverage(topics)
+    warn_series_continuity(topics)
 
     return topics
 
@@ -1093,6 +1114,8 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
 
     # 维度4：共鸣角度闭环——选题锁定的共鸣角度，改写时自然融入
     prompt = prompt + _build_resonance_hint(topic)
+    # 维度2：系列连载闭环——选题锁定的 series_id，改写时注入追更引导
+    prompt = prompt + _build_series_hint(topic)
 
     # 维度1：品牌手册注入系统提示（单一事实源，避免无魂/偷懒）
     system_content = ("你是一个足球文章改写助手。你必须保留所有事实（比分、球员、事件），只改变文风和叙述角度。\n")
@@ -2177,6 +2200,59 @@ def warn_resonance_coverage(topics):
         print(f"   ⚠️ 共鸣角度覆盖偏低（{cov:.0%} < 60%）——建议选题优先挑能用『国足情结/老球迷身份/世界杯经典/名宿沉浮』切入的事件")
     else:
         print(f"   ✅ 共鸣角度覆盖达标")
+
+
+# 维度2（连载栏目引擎）：选题可标注 series_id，以下为"无系列"判定
+_SERIES_NONE = ("无", "无(不适配系列时)", "无（不适配系列时）", "")
+
+
+def _build_series_hint(topic):
+    """根据选题锁定的 series_id，生成改写环节的追更引导提示（维度2 闭环）。
+
+    返回追加到改写 prompt 的文本；若 series_id 为空或不在品牌手册系列库中则返回空串。
+    不臆造『第N期』具体数字，避免与已发内容事实冲突。
+    """
+    sid = (topic or {}).get("series_id", "")
+    if not sid or sid in _SERIES_NONE:
+        return ""
+    by_id, _ = get_brand_series()
+    s = by_id.get(sid)
+    if not s:
+        return ""
+    name = s.get("name", sid)
+    theme = s.get("theme", "")
+    return (
+        f"\n\n## 本篇系列归属提示（来自选题）\n"
+        f"本篇归属系列：《{name}》（主题：{theme}）。改写时可在文末自然加追更引导"
+        f"（如『这个系列我会持续更，关注老六不迷路』）；若确系承接前文，可加『上集我们聊了…』，"
+        f"但必须确保与已发内容事实一致，不编造未发生的『上一集』。"
+    )
+
+
+def warn_series_continuity(topics):
+    """非阻断：检查系列连载分布（维度2 连载引擎）。
+
+    同一批同系列不超过 max_per_batch（默认1），避免系列扎堆导致同质化；
+    并汇报本批归属系列的篇数（系列并非每批都要开，0 篇属正常）。
+    """
+    if not topics:
+        return
+    n = len(topics)
+    by_id, max_per = get_brand_series()
+    counts = {}
+    for t in topics:
+        sid = (t or {}).get("series_id", "")
+        if sid and sid not in _SERIES_NONE:
+            counts[sid] = counts.get(sid, 0) + 1
+    total = sum(counts.values())
+    if counts:
+        parts = ", ".join(f"{by_id.get(s, {}).get('name', s)}×{c}" for s, c in sorted(counts.items()))
+        print(f"   📊 系列连载分布: {total}/{n} 篇归属系列（{parts}）")
+    else:
+        print(f"   📊 系列连载分布: 0/{n} 篇归属系列（本批无系列选题，正常）")
+    for sid, c in counts.items():
+        if c > max_per:
+            print(f"   ⚠️ 系列『{by_id.get(sid, {}).get('name', sid)}』同批 {c} 篇 > 上限 {max_per}——同质化风险，建议同批只续 1 篇")
 
 
 # ============================================================
