@@ -193,6 +193,12 @@ def compose_video(
         raise RuntimeError(f"ffmpeg 合成失败 (rc={rc}):\n{snippet}")
 
     info = verify_video(out_mp4)
+    # ASS 只是 ffmpeg 的瞬时中间产物，字幕已烧录进 mp4，成功后即删除，
+    # 避免它在输出目录留下与 mp4 同名的 orphan 外挂字幕（会导致播放器叠字幕）。
+    try:
+        ass_path.unlink()
+    except OSError:
+        pass
     return str(out_mp4), info
 
 

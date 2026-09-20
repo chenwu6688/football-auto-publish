@@ -70,10 +70,15 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     if out_dir:
         base = Path(out_dir)
     base.mkdir(parents=True, exist_ok=True)
+    # 中间产物（wav/srt/ass）统一放进 _intermediate 子目录，输出目录只留 mp4 + meta.json。
+    # 关键：避免与 mp4 同名的 .srt 落在输出目录，导致播放器自动加载外挂字幕、
+    # 与烧录字幕叠成"两条字幕"（曾反复踩坑）。
+    inter = base / "_intermediate"
+    inter.mkdir(parents=True, exist_ok=True)
 
     slug = _slug(article.get("title", ""))
-    audio_path = base / f"{slug}.wav"
-    srt_path = base / f"{slug}.srt"
+    audio_path = inter / f"{slug}.wav"
+    srt_path = inter / f"{slug}.srt"
     mp4_path = base / f"{slug}.mp4"
 
     # 1) 口播稿
@@ -148,9 +153,10 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     meta_path = base / f"{slug}.meta.json"
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # 6) 中间产物清理（可选）
+    # 6) 中间产物清理（可选）；连 compose 阶段产生的瞬时 .ass 一并清理
     if not cfg.get("output", {}).get("keep_intermediate", True):
-        for p in (audio_path, srt_path):
+        ass_path = Path(srt_path).with_suffix(".ass")
+        for p in (audio_path, srt_path, ass_path):
             try:
                 Path(p).unlink()
             except Exception:
