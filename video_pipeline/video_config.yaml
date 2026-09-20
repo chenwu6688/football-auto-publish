@@ -48,13 +48,13 @@ video:
   ken_burns: true          # 肖像缓慢推拉（提升观感，CPU 轻负载）
   # 字幕样式（ffmpeg subtitles force_style，适配手机竖屏）
   subtitle:
-    font_size: 46
+    font_size: 54
     primary_color: "0xFFFFFF"   # 白
     outline_color: "0x000000"   # 黑描边
     outline: 4
     back_color: "0x80000000"    # 半透明黑底（&H 格式，BGR+A）
-    margin_v: 140
-    max_chars_per_line: 18      # 超过则折行，提升手机可读性
+    margin_v: 150
+    max_chars_per_line: 15      # 字号放大后每行收短，避免横向溢出 1080 宽
 
 # 输出
 output:
