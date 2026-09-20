@@ -96,6 +96,93 @@ def load_season_weights(date_str=None):
         return None, ""
 
 
+# ============================================================
+# 品牌手册（单一事实源）加载与渲染
+# 所有"球评人老六"的人设/口吻/立场/红线/受众/栏目/钩子/配比集中维护在
+# config/brand_manual.yaml，本模块读取后渲染成文本，注入到选题与改写 prompt，
+# 根治"AI 偷懒/无魂"——人设定义只改一处即可全局生效。
+# ============================================================
+_BRAND_MANUAL_DATA = None  # 缓存原始 dict，避免每次调用重复读盘
+
+
+def _get_brand_manual_data():
+    """读取 config/brand_manual.yaml，返回 dict（带模块级缓存）。文件缺失/解析失败返回 {}。"""
+    global _BRAND_MANUAL_DATA
+    if _BRAND_MANUAL_DATA is not None:
+        return _BRAND_MANUAL_DATA
+    path = PROJECT_ROOT / "config" / "brand_manual.yaml"
+    data = {}
+    if path.exists():
+        try:
+            data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+            if not isinstance(data, dict):
+                data = {}
+        except Exception as e:
+            log.warning(f"品牌手册加载失败，跳过注入: {e}")
+            data = {}
+    _BRAND_MANUAL_DATA = data
+    return data
+
+
+def _render_brand_manual_node(node, indent):
+    """递归渲染品牌手册节点为可读文本（LLM 上下文友好）。"""
+    pad = "  " * indent
+    lines = []
+    if isinstance(node, dict):
+        for k, v in node.items():
+            if isinstance(v, (dict, list)):
+                lines.append(f"{pad}- {k}：")
+                lines.extend(_render_brand_manual_node(v, indent + 1))
+            else:
+                lines.append(f"{pad}- {k}：{v}")
+    elif isinstance(node, list):
+        for item in node:
+            if isinstance(item, (dict, list)):
+                lines.extend(_render_brand_manual_node(item, indent))
+            else:
+                lines.append(f"{pad}- {item}")
+    else:
+        lines.append(f"{pad}{node}")
+    return lines
+
+
+def _render_brand_manual(data):
+    """将品牌手册 dict 渲染为带分节标题的文本块。"""
+    out = []
+    for section, body in data.items():
+        title = section.replace("_", " ").strip()
+        out.append(f"### {title}")
+        out.extend(_render_brand_manual_node(body, 1))
+        out.append("")
+    return "\n".join(out).strip()
+
+
+def load_brand_manual():
+    """返回渲染后的品牌手册文本块；无内容时返回空串（调用方据此决定是否注入）。"""
+    data = _get_brand_manual_data()
+    if not data:
+        return ""
+    return _render_brand_manual(data)
+
+
+def get_brand_style_guide():
+    """从品牌手册的 columns 派生 style_guide（content_type → 风格引导），
+    保留三大核心类型的兜底文案，新增栏目自动纳入。"""
+    defaults = {
+        "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
+        "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
+        "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。",
+    }
+    data = _get_brand_manual_data()
+    columns = data.get("columns", {}) if isinstance(data, dict) else {}
+    style_guide = dict(defaults)
+    if isinstance(columns, dict):
+        for ct, c in columns.items():
+            if isinstance(c, dict) and c.get("style"):
+                style_guide[ct] = c["style"]
+    return style_guide
+
+
 def _apply_performance_boost(weights):
     """根据 performance_log.json 的历史阅读数据，自动微调选题权重。
 
@@ -548,6 +635,15 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     if not topic_selector_prompt:
         topic_selector_prompt = "你是头条号足球博主'球评人老六'，有态度、有人味、不骑墙。严格按要求分配内容类型，避开历史话题。只输出JSON。"
 
+    # 维度1：品牌手册单一事实源——注入人设/口吻/立场/红线/栏目/钩子/配比
+    brand_manual_block = load_brand_manual()
+    if brand_manual_block:
+        topic_selector_prompt = (
+            topic_selector_prompt
+            + "\n\n## 品牌手册（球评人老六 · 单一事实源，选题须遵循）\n"
+            + brand_manual_block
+        )
+
     messages = [
         {"role": "system", "content": topic_selector_prompt},
         {"role": "user", "content": prompt}
@@ -949,12 +1045,8 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
     content_type = topic.get("content_type", "热点球评")
     print(f"\n[3.{index}] [改写-{content_type}] {topic['title'][:40]}...")
 
-    # 风格引导
-    style_guide = {
-        "热点球评": "像赛后和球友喝酒复盘——先讲最刺激的瞬间，再拆关键战术细节，最后给个不带套路的结论。",
-        "转会资讯": "像球迷群里的八卦——重点是「为什么」和「影响」。有趣不编造，有逻辑不学术。",
-        "八卦趣事": "聚焦一个侧面、一个瞬间、一个画面。用细节和情绪让读者有代入感。",
-    }
+    # 风格引导（维度1：由品牌手册 columns 派生，单一事实源）
+    style_guide = get_brand_style_guide()
     style = style_guide.get(content_type, "自然口语化中文写作")
 
     # 字数
@@ -998,8 +1090,14 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
         retry_block=retry_block,
     )
 
+    # 维度1：品牌手册注入系统提示（单一事实源，避免无魂/偷懒）
+    system_content = ("你是一个足球文章改写助手。你必须保留所有事实（比分、球员、事件），只改变文风和叙述角度。\n")
+    brand_manual_block = load_brand_manual()
+    if brand_manual_block:
+        system_content += "\n## 品牌手册（球评人老六 · 单一事实源，本篇写作须遵循）\n" + brand_manual_block
+
     messages = [
-        {"role": "system", "content": "你是一个足球文章改写助手。你必须保留所有事实（比分、球员、事件），只改变文风和叙述角度。"},
+        {"role": "system", "content": system_content},
         {"role": "user", "content": prompt},
     ]
 
