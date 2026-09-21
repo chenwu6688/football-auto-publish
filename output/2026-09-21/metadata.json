@@ -1,7 +1,7 @@
 {
   "date": "2026-09-21",
-  "generated_at": "2026-09-21T04:10:43.933819",
-  "total_articles": 5,
+  "generated_at": "2026-09-21T09:40:07.645568",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -165,138 +165,131 @@
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "U15名单藏着个日本回来的孩子，这届小孩能踢过日本队吗？",
+      "path": "/home/runner/work/_temp/output/2026-09-21/article-1-U15名单藏着个-96d5cb.md",
+      "slug": "U15名单藏着个-96d5cb",
+      "tags": [
+        "U15",
+        "China",
+        "Japan",
+        "Azerbaijan",
+        "World Cup",
+        "youth football",
+        "Shimizu S-Pulse"
+      ],
+      "keywords": [
+        "U15",
+        "China",
+        "Japan",
+        "Azerbaijan",
+        "World Cup",
+        "youth football",
+        "Shimizu S-Pulse"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-21/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "伊拉克主场拿捏阿曼没悬念？这场西亚内战有猫腻",
+      "path": "/home/runner/work/_temp/output/2026-09-21/article-2-伊拉克主场拿捏阿-c2a372.md",
+      "slug": "伊拉克主场拿捏阿-c2a372",
+      "tags": [
+        "Iraq",
+        "Oman",
+        "World Cup qualifier",
+        "prediction",
+        "West Asia"
+      ],
+      "keywords": [
+        "Iraq",
+        "Oman",
+        "World Cup qualifier",
+        "prediction",
+        "West Asia"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-21/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "3-0完胜莱切，米兰这新援到底什么来头？",
-      "angle": "从米兰3-0大胜切入，聚焦某位表现亮眼的新援，分析其技术特点与融入情况，给老球迷一个通俗的战术解读。",
+      "title": "U15世界杯名单出炉，恒大足校申花各5人，这届苗子行不行？",
+      "angle": "讨论U15世界杯集训名单，聚焦恒大足校和申花各贡献5人的青训格局。用老球迷经历对比过往国少，聊聊这波孩子面临的机遇和挑战，只写整体氛围，不对单个小球员做技术断言。",
       "keywords": [
-        "ac milan",
-        "lecce",
-        "serie a",
-        "new signing"
+        "U15 World Cup",
+        "Evergrande Football School",
+        "Shenhua",
+        "youth training"
       ],
       "keywords_cn": [
-        "AC米兰",
-        "莱切",
-        "意甲",
-        "新援表现"
+        "U15世界杯",
+        "恒大足校",
+        "申花",
+        "青训"
       ],
-      "content_type": "战术解析",
-      "score": 95,
-      "controversy_level": "low",
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
       "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "米兰大胜，新援是看点，用生活类比讲战术，符合老球迷想了解球队变化的心理。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "布莱顿3-0暴揍阿森纳，没了萨卡枪手真就二流？",
-      "angle": "从阿森纳惨败切入，直指核心问题——萨卡缺阵对进攻体系的影响，观点犀利：没有萨卡，阿森纳的进攻就是没牙的老虎。",
-      "keywords": [
-        "brighton",
-        "arsenal",
-        "premier league",
-        "saka"
-      ],
-      "keywords_cn": [
-        "布莱顿",
-        "阿森纳",
-        "英超",
-        "萨卡缺阵"
-      ],
-      "content_type": "热点球评",
-      "score": 108,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "阿森纳惨败是今天最大冷门，核心缺阵影响是经典话题，能引发枪迷和非枪迷激烈争论。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "why_pick": "国字号青少年赛事，契合球迷对未来的关注，话题有讨论度。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "曼城曾报价1亿欧？加克波6场2球4助，利物浦庆幸没卖",
-      "angle": "从加克波近期爆棚状态切入，回顾夏窗曼城1亿欧报价的传闻，复盘这笔“没发生的转会”如何成为利物浦的幸事。",
-      "keywords": [
-        "gakpo",
-        "liverpool",
-        "man city",
-        "transfer"
-      ],
-      "keywords_cn": [
-        "加克波",
-        "利物浦",
-        "曼城",
-        "转会传闻"
-      ],
-      "content_type": "转会资讯",
-      "score": 98,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "结合球员爆棚状态回顾转会传闻，有故事性有数据，老球迷爱看这种“幸好没卖”的爽文剧本。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "title": "伊拉克主场拿捏阿曼没悬念？这场西亚内战有猫腻",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-21 12:10:43"
+  "last_batch": "evening",
+  "last_updated": "2026-09-21 17:40:07"
 }
