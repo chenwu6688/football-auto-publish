@@ -397,6 +397,39 @@ def test_edit_with_broll_real(tmp_path):
     assert abs(info["duration"] - 3.4) < 0.5
 
 
+def test_edit_with_broll_mixed_framerate(tmp_path):
+    """真实场景回归：25fps 实拍素材 与 30fps 合成锚层（时间基不一致）
+    混剪时，xfade 必须能过——验证段级 fps+settb 统一时间基的修复。
+
+    注：用 color 源造不同帧率（锚层 30fps / 素材 25fps）即可触发 xfade 的
+    「timebase do not match」冲突；gradients 源在本沙箱 ffmpeg 构建下会卡死，故不用。
+    """
+    from video_pipeline import edit
+    # 锚层：color 30fps（时间基 1/15360 量级）+ 正弦音轨
+    anchor = tmp_path / "anchor.mp4"
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
+         "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
+         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
+        capture_output=True, check=True)
+    # 实拍素材：25fps（Pexels 真实片段典型帧率），横屏到竖屏会被 scale+pad
+    real = tmp_path / "real25.mp4"
+    subprocess.run(["ffmpeg", "-y", "-r", "25", "-f", "lavfi", "-i", "color=c=blue:s=1920x1080:r=25:d=3",
+                    "-c:v", "libopenh264", "-pix_fmt", "yuv420p", str(real)],
+                   capture_output=True, check=True)
+    pool = [{"path": str(real), "is_image": False, "duration": 3.0},
+            {"path": str(real), "is_image": False, "duration": 3.0}]
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    out = tmp_path / "edited.mp4"
+    edit.edit_with_broll(str(anchor), str(anchor), segs, pool, str(out),
+                         transition=0.4, lower_third="老六说球")
+    assert out.exists()
+    info = compose.verify_video(str(out))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    # 时长 ≈ 5 - 4*0.4 = 3.4
+    assert abs(info["duration"] - 3.4) < 0.5
+
+
 def test_pipeline_footage_integration(tmp_path, monkeypatch):
     """footage 开启 + 本地素材库 → 应做 B-roll 剪接并记 footage_used=True。"""
     monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)

@@ -149,17 +149,20 @@ def edit_with_broll(
     sfilters = []
     prev_cum = 0.0
     for i, (st, en, d) in enumerate(segs):
+        # 关键修复：每段统一 fps + settb，强制所有段（25fps 实拍 / 30fps 合成锚层）
+        # 使用同一帧率与时间基，否则 xfade 会因时间基不一致而崩溃。
+        tb = f"fps={fps},settb=AVTB"
         if use_broll[i]:
             sfilters.append(
                 f"[{clip_idx[i]}:v]scale={W}:{H}:force_original_aspect_ratio=decrease,"
                 f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color=0x10131A,setsar=1,"
-                f"trim=duration={d:.3f},setpts=PTS-STARTPTS[sv{i}]")
+                f"trim=duration={d:.3f},setpts=PTS-STARTPTS,{tb}[sv{i}]")
         else:
             # 主讲人段：从 anchor 视频按时间轴裁出对应口播段（保证嘴型/口播同步）
             sfilters.append(
                 f"[{anchor_idx}:v]trim=start={prev_cum:.3f}:duration={d:.3f},"
                 f"setpts=PTS-STARTPTS,scale={W}:{H}:force_original_aspect_ratio=decrease,"
-                f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color=0x10131A,setsar=1[sv{i}]")
+                f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color=0x10131A,setsar=1,{tb}[sv{i}]")
         prev_cum += d
 
     # xfade 串联（段时长可变）：第 i 次转场 offset = 前 i 段时长之和 - i×转场时长
