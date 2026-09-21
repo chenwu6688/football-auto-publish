@@ -195,6 +195,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     # 背景是一条贯穿全片的 lavfi 渐变源 → **物理上不可能黑屏**（修"开场全黑/段间黑场"）。
     textmotion_used = False
     tm_used = False
+    tm_anim_seed = None      # v4：记录本次随机动效种子（meta 可追溯/复现）
     tc_cfg = cfg.get("textmotion", {})
     if tc_cfg.get("enabled"):
         try:
@@ -227,6 +228,22 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             except Exception:
                 teams_table = None
             v_m = cfg.get("video", {})
+            # v4 词级时间戳：TTS 落盘的 .words.json（逐词真实发音时刻）→
+            # 驱动「块显示窗」与「逐字点亮」，字幕节奏跟语速严格对齐（治"跟不上语速"）。
+            words_path = Path(srt_path).with_suffix(".words.json")
+            word_timings = None
+            if words_path.exists():
+                try:
+                    word_timings = json.loads(words_path.read_text(encoding="utf-8"))
+                    print(f"   词级时间戳：{len(word_timings)} 词（点亮节奏=真实发音）")
+                except Exception as e:
+                    print(f"   ⚠️ 词级时间戳读取失败：{e}，回退句内按字数分配")
+                    word_timings = None
+            _seed_raw = tc_cfg.get("anim_seed", 0)
+            try:
+                anim_seed = int(_seed_raw) if _seed_raw else None
+            except (TypeError, ValueError):
+                anim_seed = None
             text_motion_mod.render_text_motion(
                 str(audio_path), segments, str(mp4_path),
                 width=v_m.get("width", 1080), height=v_m.get("height", 1920),
@@ -242,7 +259,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 outline=int(tc_cfg.get("outline", 6)),
                 outline_color=tc_cfg.get("outline_color", "0x10131A"),
                 max_chars_per_line=int(tc_cfg.get("max_chars_per_line", 9)),
-                in_anim=tc_cfg.get("in_anim", "pop"),
+                in_anim=tc_cfg.get("in_anim", "random"),
                 keyword_stagger=float(tc_cfg.get("keyword_stagger", 0.15)),
                 crest_map=crest_map,
                 crest_size=int(tc_cfg.get("crest_size", 170)),
@@ -252,8 +269,11 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 extra_words=tc_cfg.get("extra_words") or None,
                 max_kw=int(tc_cfg.get("max_kw_per_sentence", 1)),
                 max_block_units=int(tc_cfg.get("max_block_units", 9)),
+                word_timings=word_timings,
+                anim_seed=anim_seed,
                 keep_ass=bool(tc_cfg.get("keep_ass", False)),
             )
+            tm_anim_seed = anim_seed
             tm_used = True
             textmotion_used = True
             print(f"   文字动效成片：{Path(mp4_path).name}（渐变底·大字动效·关键词高亮）")
@@ -394,6 +414,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         "footage_source": footage_source,
         "footage_count": footage_count,
         "textmotion_used": textmotion_used,
+        "textmotion_anim_seed": tm_anim_seed,
         "teams_used": teams_used,
         "show_portrait": show_portrait,
         "audio_mixed": bool(cfg.get("audio", {}).get("enabled")),

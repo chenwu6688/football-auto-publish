@@ -166,11 +166,16 @@ textmotion:
   num_color: "0xFFD60A"       # 比分/时间等数字色（黄，最抢眼）
   outline: 6                  # 文字描边粗细（深底上更清晰）
   outline_color: "0x10131A"   # 描边色
-  # 入场动效：auto（推荐·全片统一 pop，抖音铁律「一种字体+一种入场」）| 或固定单种：
-  #   pop 弹入(唯一auto动效) / flipx 竖翻牌 / flipy 横翻面 / swing 斜甩正 /
-  #   zoomout 大砸定 / zoomin 小放大 / blurin 模糊变清晰 / spread 中线展开 / fade 渐入
-  #   （slideup 已退役：硬编码坐标与底部居中构图冲突，传入会兜底为 pop）
-  in_anim: "auto"
+  # 入场动效：random（推荐·v4 对话式插入感）| auto（全片统一 pop）| 或固定单种：
+  #   random —— 每块从 12 种动效池随机抽（不与上一块重样）：pop 弹入 / flipx 竖翻牌 /
+  #   flipy 横翻面 / swing 斜甩正 / zoomout 大砸定 / zoomin 小放大 / blurin 模糊变清晰 /
+  #   fade 渐入 / slideup·slidedown·slideleft·slideright 四向滑入（按底部居中锚点参数化）；
+  #   并叠加「轻重缓急」：节奏三档（快 240ms·45% / 中 320ms·35% / 慢 460ms·20%）
+  #   × 力度三档（轻 0.8 / 中 1.0 / 重 1.25），每段对话随机组合 → 对话式插入感。
+  #   auto —— 唯一保留的统一入场（pop），抖音铁律「一种字体+一种入场」保守派用。
+  in_anim: "random"
+  # 随机动效种子：0 = 每次运行随机（真随机）；>0 = 固定种子（同样内容可复现同样动效序列）
+  anim_seed: 0
   keyword_stagger: 0.15       # 已弃用：卡拉OK逐字点亮接管节奏（保留仅为兼容）
   max_block_units: 9          # 长句按标点切块的最大字数（每屏字少→字大，抖音风格；建议 8~10）
   max_kw_per_sentence: 1      # 每块最多高亮几个词（1=每屏只点亮一个最值钱的词，按 num>team>emotion 优先）

@@ -25,6 +25,7 @@
 - `gradients` 多用色时必须显式 `nb_colors=N`，否则写 c2/c3 直接报错
 """
 
+import random
 import subprocess
 from pathlib import Path
 
@@ -199,17 +200,24 @@ def build_motion_ass(segments, *, width=1080, height=1920,
                      hl_color="0xFF3B30", num_color="0xFFD60A",
                      outline=6, outline_color="0x10131A",
                      max_chars_per_line=9, keyword_stagger=0.15,
-                     in_anim="auto", teams_table=None, extra_words=None,
-                     max_kw=1, end_hold=0.35, max_block_units=9):
-    """生成「文字动效」ASS：整屏大字 + 卡拉OK逐字点亮 + 关键词跳球 + 统一 pop 入场。
+                     in_anim="random", teams_table=None, extra_words=None,
+                     max_kw=1, end_hold=0.35, max_block_units=9,
+                     word_timings=None, anim_seed=None, margin_v=700):
+    """生成「文字动效」ASS：卡拉OK逐字点亮 + 关键词跳球 + 随机入场动效（轻重缓急）。
 
     Args:
         segments: [{'start':s,'end':e,'text':t}, ...]（SRT 解析结果）。
         font_name: ASS 的 Fontname（走 fontconfig）。
-        total: 成片总时长；最后一句的 end 会被夹到 total 内。
+        total: 成片总时长；最后一块的显示会被夹到 total 内。
         max_chars_per_line: 兼容参数（实际每行字数由 max_px/字号 推导）。
         keyword_stagger: **已弃用**（卡拉OK逐字点亮接管了节奏），仅为兼容保留。
-        in_anim: 入场动效；auto = 全片统一 pop（抖音铁律：一种入场）。
+        in_anim: random（推荐·12 种动效随机 + 轻重缓急三档，连续不重样）|
+                 auto（全片统一 pop）| 固定单种（pop/flipx/...）。
+        anim_seed: 随机种子；None=每次随机，整数=可复现（同输入同动效）。
+        word_timings: 词级时间轴 [{"start","end","text"}]（秒，来自 tts 的
+            .words.json）。**提供后块时间窗与逐字点亮直接跟真实发音对齐**
+            （解决「字幕跟不上语速」）；缺省退化为按字数线性分摊。
+        margin_v: 底部边距（px），滑入动效的落点锚点 = height - margin_v。
         max_kw: 每块最多高亮几个词（默认 1 —— 每屏只点亮一个最值钱的词）。
         max_block_units: 每屏块最大字符单位（默认 9，抖音大字流）。
     Returns:
@@ -243,21 +251,22 @@ def build_motion_ass(segments, *, width=1080, height=1920,
         # 正文：底部居中（Alignment 2 + MarginV 700 → 稳定落在画面中下 1/3，抖音构图）；
         # PrimaryColour=已读白，SecondaryColour=未读暗灰（\k 逐字点亮）
         f"Style: Body,{font_name},{int(body_font_size)},{primary},{sec_c},"
-        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,2,90,90,700,1",
+        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,2,90,90,{int(margin_v)},1",
         # 关键词：比正文大 15%，已读态=红（未读同为暗灰）
         f"Style: HL,{font_name},{int(body_font_size * 1.15)},{hl_c},{sec_c},"
-        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,2,90,90,700,1",
+        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,2,90,90,{int(margin_v)},1",
         # 数字/比分：更大更黄
         f"Style: Num,{font_name},{int(body_font_size * 1.25)},{num_c},{sec_c},"
-        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline) + 1},3,2,90,90,700,1",
+        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline) + 1},3,2,90,90,{int(margin_v)},1",
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
 
+    # ---------- 阶段 1：全局块流 + 时间窗（词级对齐优先，字数加权兜底） ----------
     body = []
-    anim_idx = 0                      # auto 模式动效序号（块级递增，节奏更碎更带感）
-    for i, seg in enumerate(segments):
+    flat = []                     # [(blk, seg_start, seg_end)]
+    for seg in segments:
         st = float(seg.get("start", 0) or 0)
         en = float(seg.get("end", 0) or 0)
         text = (seg.get("text") or "").strip()
@@ -265,61 +274,107 @@ def build_motion_ass(segments, *, width=1080, height=1920,
             continue
         if total:
             en = min(en, float(total))
-        if i == len(segments) - 1 and total:      # 末句多停留一点，收尾更稳
-            en = min(en + end_hold, float(total)) if end_hold else en
+        for blk in _split_blocks(text, max_block_units):
+            flat.append((blk, st, en))
+    if not flat:
+        return "\n".join(header + body) + "\n"
 
-        # 长句按标点切块（每屏字少 → 字大），块间按字数加权分时间窗
-        blocks = _split_blocks(text, max_block_units)
-        if not blocks:
+    win = _block_windows(flat, word_timings, total=total, end_hold=end_hold)
+    # win: [(blk, disp_start, disp_end, light or None)]，light 与块字符流对齐
+
+    # ---------- 阶段 2：逐块渲染（卡拉OK + 随机动效） ----------
+    body = []
+    rng = random.Random(anim_seed)
+    prev_anim = None
+    anim_idx = 0
+    for blk, b_st, b_en, light in win:
+        if b_en <= b_st:
             continue
-        block_units = [_text_units(b) for b in blocks]
-        sum_u = sum(block_units)
-        t = st
-        for bi, blk in enumerate(blocks):
-            dt = (en - st) * block_units[bi] / sum_u
-            b_st, b_en = t, t + dt
-            t = b_en
-            if bi == len(blocks) - 1:
-                b_en = en                      # 末块吃满（含 end_hold）
-            elif dt < 0.6 and bi + 1 < len(blocks):
-                # 最短块时长保护：低于 0.6s 从下一块借时间（避免闪屏）
-                borrow = min(0.6 - dt, (en - t) * 0.5)
-                b_en += borrow
-                t = b_en
-
-            highlights = tk.extract_highlights(
-                blk, teams_table=teams_table, extra_words=extra_words, max_kw=max_kw)
-            pieces = tk.split_by_highlights(blk, highlights)
-            # 块短 → 字大：块内最多 2 行（抖音风格），超出才缩字号（9 字块一般不触发）
-            fs = _fit_font_size(blk, body_font_size, max_px, max_lines=2)
-            per_line = max(2.0, max_px / fs)
-            scale = fs / float(body_font_size) if body_font_size else 1.0
-            # 卡拉OK时间轴：\k 从本块起播（start+0.04）到块尾，逐字分摊厘秒
-            disp_cs = max(1, int(round((b_en - (b_st + 0.04)) * 100)))
+        highlights = tk.extract_highlights(
+            blk, teams_table=teams_table, extra_words=extra_words, max_kw=max_kw)
+        pieces = tk.split_by_highlights(blk, highlights)
+        # 块短 → 字大：块内最多 2 行（抖音风格），超出才缩字号（9 字块一般不触发）
+        fs = _fit_font_size(blk, body_font_size, max_px, max_lines=2)
+        per_line = max(2.0, max_px / fs)
+        scale = fs / float(body_font_size) if body_font_size else 1.0
+        # 卡拉OK cs：词级 = 逐字真实点亮时刻；兜底 = 线性分摊（Σ\k=显示窗）
+        if light:
+            win_cs = max(1, int(round((b_en - b_st) * 100)))
+            cs_list, prev_c = [], 0
+            for _stc, enc in light:
+                cur_c = min(max(0, int(round((enc - b_st) * 100))), win_cs)
+                cur_c = max(cur_c, prev_c)        # 单调 + 截断到显示窗
+                cs_list.append(cur_c - prev_c)
+                prev_c = cur_c
+            disp_cs = None
+        else:
+            cs_list = None
+            disp_cs = max(1, int(round((b_en - b_st) * 100)))
+        # 入场动效：random = 随机动效 × 轻重缓急；auto = 统一 pop；固定单种
+        if in_anim == "random":
+            anim = _pick_anim("random", anim_idx, rng=rng, prev=prev_anim)
+            dur, power = _pick_rhythm(rng)
+            prev_anim = anim
+        else:
             anim = _pick_anim(in_anim, anim_idx)
-            anim_idx += 1
-            entrance = _anim_prefix(anim, scale=scale, width=width, height=height)
-            rendered = _render_line_styles(pieces, per_line, scale=scale,
-                                           total_cs=disp_cs, entrance=entrance)
-            content = r"\N".join(rendered)
-
-            start_ts = _ass_time(b_st + 0.04)
-            end_ts = _ass_time(b_en)
-            body.append(f"Dialogue: 0,{start_ts},{end_ts},Body,,0,0,0,,{content}")
+            dur, power = 240, 1.0
+        anim_idx += 1
+        entrance = _anim_prefix(anim, scale=scale, width=width, height=height,
+                                dur=dur, power=power, margin_v=margin_v)
+        rendered = _render_line_styles(pieces, per_line, scale=scale,
+                                       total_cs=disp_cs, entrance=entrance,
+                                       char_cs=cs_list)
+        content = r"\N".join(rendered)
+        body.append(f"Dialogue: 0,{_ass_time(b_st)},{_ass_time(b_en)},Body,,0,0,0,,{content}")
 
     return "\n".join(header + body) + "\n"
 
 
-# 动效池（auto 模式）：只留 pop —— 抖音口播号铁律「一种字体 + 一种入场」，
-# 花式轮换实测观感不如统一节拍（动效是节拍器，不是烟花）。其余预设仍可用 in_anim 指定。
-_ANIM_POOL = ["pop"]
+# 动效池（in_anim=random 时加权随机抽 + 轻重缓急三档，连续不重样 →「对话式插入感」）：
+#   翻转类 flipx/flipy/swing · 缩放类 pop/zoomout/zoomin · 位移类 slide×4 · 质感 blurin/fade
+# in_anim=auto 仍只走 pop（统一节拍模式，保留给喜欢克制风格的场景）。
+_ANIM_POOL = ["pop", "flipx", "flipy", "zoomout", "zoomin", "swing",
+              "slideup", "slidedown", "slideleft", "slideright", "blurin", "fade"]
+
+# 轻重缓急档位：时长（ms）× 力度（幅度倍率）
+_SPEED_PRESETS = {"fast": 240, "mid": 320, "slow": 460}
+_POWER_PRESETS = {"light": 0.8, "mid": 1.0, "heavy": 1.25}
 
 
-def _pick_anim(mode, index):
-    """in_anim=auto 时按句轮换动效池；否则用固定模式。"""
+def _pick_anim(mode, index, rng=None, prev=None):
+    """选入场动效：random=随机抽（连续不重样，最多回抽 5 次）；auto=统一 pop；其他=固定单种。"""
+    if mode == "random" and rng is not None:
+        a = prev
+        for _ in range(5):
+            a = rng.choice(_ANIM_POOL)
+            if a != prev:
+                break
+        return a
     if not mode or mode == "auto":
-        return _ANIM_POOL[index % len(_ANIM_POOL)]
+        return "pop"
     return mode
+
+
+def _pick_rhythm(rng):
+    """轻重缓急：时长档（fast/mid/slow）× 力度档（light/mid/heavy）加权随机。
+
+    快而轻 = 轻快插入感；慢而重 = 重音砸落感 —— 让每块的出现都有自己的「语气」。
+    """
+    def _weighted(pairs):
+        r = rng.random() * sum(w for _v, w in pairs)
+        for v, w in pairs:
+            r -= w
+            if r <= 0:
+                return v
+        return pairs[-1][0]
+
+    dur = _weighted([(_SPEED_PRESETS["fast"], 0.35),
+                     (_SPEED_PRESETS["mid"], 0.45),
+                     (_SPEED_PRESETS["slow"], 0.20)])
+    power = _weighted([(_POWER_PRESETS["light"], 0.30),
+                       (_POWER_PRESETS["mid"], 0.45),
+                       (_POWER_PRESETS["heavy"], 0.25)])
+    return int(dur), float(power)
 
 
 # 长句切块的分隔标点（优先在句读处断）
@@ -366,48 +421,68 @@ def _split_blocks(text, max_units):
     return [b for b in blocks if b.strip()]
 
 
-def _anim_prefix(anim, scale=1.0, width=1080, height=1920):
+def _anim_prefix(anim, scale=1.0, width=1080, height=1920, dur=240, power=1.0,
+                 margin_v=700):
     """入场动效标签（含首尾花括号）。
 
     原则：**动画终值 = 静态值 = 稳态**（折行按稳态宽度算），动画只负责
-    「从初值过渡到稳态」，不依赖渲染器对标签顺序/叠加的未定义行为。
-    所有 \\fscx/\\fscy 都乘 scale（长句整句缩小），保证动画不破坏按句字号。
+    「从初值过渡到稳态」。所有 \\fscx/\\fscy 都乘 scale（长句整句缩小）。
+    ⚠️ \\r 会清空此前累积的全部覆盖标签（含本标签），所以返回值会在
+    **每个样式组开头重挂**（见 _render_line_styles），不是只写在 Dialogue 开头。
 
-    ⚠️ 调用方注意：libass 的 \\r 会清空此前累积的**全部**覆盖标签（含本标签），
-    所以本返回值会在**每个样式组开头重挂**（见 _render_line_styles），
-    而不是只写在 Dialogue 开头。
+    dur/power：动效时长（ms）与力度倍率（1.0=默认幅度），random 模式由
+    _pick_rhythm 按三档随机抽（轻重缓急）；固定/auto 模式用默认值。
 
-    auto 池只有 pop（抖音铁律：全片统一一种入场）；其余预设可经 in_anim 指定：
-        pop      轻弹落定（鼓到 108% 再回落）+ 快进淡入/淡出 —— 唯一 auto 动效
-        flipx    竖着翻牌（绕 X 轴从侧立翻正）
-        flipy    横着翻面（绕 Y 轴）
-        swing    斜着甩正（-14° 旋转 + 从小放大）
-        zoomout  从大到小砸定（185% → 100%）
-        zoomin   从小放大顶定（55% → 100%）
-        blurin   模糊 → 清晰
-        spread   从画面中线向两侧展开（clip 扫出）
-        fade     纯渐入渐出
-    （slideup 已退役：其 \\move 硬编码了画面中心坐标，与底部居中构图不兼容；
-      传入 slideup 会兜底为 pop。）
+    动效一览（random 池 12 种 + spread 展开保留为固定项）：
+        pop        轻弹落定（鼓到 108%×power 再回落）
+        flipx      竖着翻牌（绕 X 轴翻正，角度 88°×power）
+        flipy      横着翻面（绕 Y 轴）
+        swing      斜着甩正（-14°×power 旋转 + 从小放大）
+        zoomout    从大到小砸定（185%×power → 100%）
+        zoomin     从小放大顶定（55%/power → 100%）
+        slideup / slidedown / slideleft / slideright
+                   四向滑入（「对话式插入感」主力：从锚点对应方向滑入落位；
+                   锚点 = (width/2, height−margin_v)，即底部居中构图）
+        blurin     模糊 → 清晰
+        spread     从画面中线向两侧展开（clip 扫出；仅固定指定，不进随机池）
+        fade       纯渐入渐出
+    （旧 slideup 的硬编码 \move 坐标已改为按 an2 锚点参数化计算。）
     """
     s = float(scale)
     fsx = lambda v: str(max(1, int(round(v * s))))    # \fscx 值 = 目标% × 句缩放（\fscx 本身就是百分比）
     fs = f"\\fscx{fsx(100)}\\fscy{fsx(100)}"           # 稳态缩放
+    dur = max(120, int(dur))
+    p = max(0.5, min(1.6, float(power)))
     if anim == "flipx":
-        return "{\\fad(150,90)\\frx88" + fs + "\\t(0,300,\\frx0)}"
+        ang = min(135, int(round(88 * p)))
+        return "{\\fad(150,90)\\frx" + str(ang) + fs + "\\t(0," + str(dur) + ",\\frx0)}"
     if anim == "flipy":
-        return "{\\fad(150,90)\\fry-88" + fs + "\\t(0,300,\\fry0)}"
+        ang = min(135, int(round(88 * p)))
+        return "{\\fad(150,90)\\fry-" + str(ang) + fs + "\\t(0," + str(dur) + ",\\fry0)}"
     if anim == "swing":
-        return ("{\\fad(150,90)\\frz-14\\fscx" + fsx(66) + "\\fscy" + fsx(66)
-                + "\\t(0,320,\\frz0\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+        ang = int(round(14 * p))
+        v0 = max(40, int(round(66 / p)))
+        return ("{\\fad(150,90)\\frz-" + str(ang) + "\\fscx" + fsx(v0) + "\\fscy" + fsx(v0)
+                + "\\t(0," + str(dur) + ",\\frz0\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
     if anim == "zoomout":
-        return ("{\\fad(120,90)\\fscx" + fsx(185) + "\\fscy" + fsx(185)
-                + "\\t(0,300,\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+        v0 = min(260, int(round(185 * p)))
+        return ("{\\fad(120,90)\\fscx" + fsx(v0) + "\\fscy" + fsx(v0)
+                + "\\t(0," + str(dur) + ",\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
     if anim == "zoomin":
-        return ("{\\fad(120,90)\\fscx" + fsx(55) + "\\fscy" + fsx(55)
-                + "\\t(0,300,\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+        v0 = max(40, int(round(55 / p)))
+        return ("{\\fad(120,90)\\fscx" + fsx(v0) + "\\fscy" + fsx(v0)
+                + "\\t(0," + str(dur) + ",\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+    if anim in ("slideup", "slidedown", "slideleft", "slideright"):
+        ax, ay = int(width // 2), int(height - margin_v)
+        d = int(round(55 * p))
+        dx, dy = {"slideup": (0, d), "slidedown": (0, -d),
+                  "slideleft": (d, 0), "slideright": (-d, 0)}[anim]
+        # 稳态缩放 fs 必须声明在 \move() 之外（拼进 move 参数会吞掉标签）
+        return ("{\\fad(120,90)" + fs + "\\move(" + str(ax + dx) + "," + str(ay + dy) + ","
+                + str(ax) + "," + str(ay) + ",0," + str(dur) + ")}")
     if anim == "blurin":
-        return "{\\fad(140,90)\\blur16" + fs + "\\t(0,340,\\blur0.8)}"
+        bl = min(28, int(round(16 * p)))
+        return "{\\fad(140,90)\\blur" + str(bl) + fs + "\\t(0," + str(dur) + ",\\blur0.8)}"
     if anim == "spread":
         cx, cy = int(width // 2), int(height // 2)
         x0, y0 = int(width * 0.06), int(height * 0.02)     # 展开终点留 6% 边距
@@ -416,12 +491,14 @@ def _anim_prefix(anim, scale=1.0, width=1080, height=1920):
                 f"\\clip({cx},-50,{cx},{height + 50})"
                 f"\\t(0,480,\\clip({x0},{y0},{x1},{y1}))" + "}")
     if anim == "fade":
-        return "{\\fad(220,110)}"
-    # pop（默认）：鼓到 108% 再回落稳态（两个 \t 串行，终值=稳态，不改变行宽）；
-    # \fad(120,110) = 120ms 快速淡入 + 110ms 淡出，块与块的交接更顺滑
+        return "{\\fad(" + str(min(220, dur)) + ",110)}"
+    # pop（默认）：鼓到 108%×power 再回落稳态（终值=稳态，不改变行宽）；
+    # dur=240、power=1.0 时与上一版完全一致（\t(0,90,...)\t(90,240,...)）
+    t1 = max(60, int(dur * 0.375))
+    bump = min(128, int(round(108 * p)))
     return ("{\\fad(120,110)" + fs
-            + "\\t(0,90,\\fscx" + fsx(108) + "\\fscy" + fsx(108) + ")"
-            + "\\t(90,240,\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+            + "\\t(0," + str(t1) + ",\\fscx" + fsx(bump) + "\\fscy" + fsx(bump) + ")"
+            + "\\t(" + str(t1) + "," + str(dur) + ",\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
 
 
 # 行首禁则字符（避头点）：这些标点不应出现在行首
@@ -445,21 +522,145 @@ def _karaoke_cs_list(stream, total_cs):
     return out
 
 
+# 不发音字符（切块标点 + 句读 + 常见符号/空白）——对齐词时间轴时跳过
+_PUNCT_ALL = set("，。！？；、：…—,.!?;: \t　()（）【】《》\"'“”‘’%·_-")
+
+
+def _is_voice(ch):
+    """是否发音字符（去标点/空白）。"""
+    return bool(ch.strip()) and ch not in _PUNCT_ALL
+
+
+def _block_windows(flat, words, *, total=None, end_hold=0.35,
+                   lead=0.04, tail_gap=0.6):
+    """计算每块的显示窗与逐字点亮时刻（解决「字幕跟不上语速」的核心）。
+
+    词级模式（words 有效）：
+      - 全局「块发音字符流」按占比映射到「词字符流」，每字的点亮完成时刻 =
+        所在词区间内按字占比取点（标点继承前一个发音字，随其一起点亮）；
+      - disp_start = 块首字 start − lead（提前 ~40ms 入场，淡入不吞首字点亮）；
+      - disp_end = 下一块 disp_start（首尾相接**不叠字**）；换句最多多挂
+        tail_gap 秒，全片末块最多多挂 end_hold（均夹到 total）；
+      - 点亮累计只到「块末字完成时刻」，不足窗的部分保持已读态（自然停留）。
+    无词表兜底：句内按字数加权分摊 + 0.6s 借时（旧行为），点亮线性分摊。
+
+    Args:
+        flat: [(blk, seg_start, seg_end)] 全局块流。
+        words: [{"start","end","text"}]（秒）或 None。
+    Returns:
+        [(blk, disp_start, disp_end, light or None)]，light 与块字符流对齐。
+    """
+    wchars = []                      # 词字符流 [(char, word_idx)]
+    for wi, w in enumerate(words or []):
+        for c in (w.get("text") or ""):
+            if _is_voice(c):
+                wchars.append((c, wi))
+    m = len(wchars)
+    spans = {}                       # word_idx -> [流内起, 流内止)
+    for i, (_c, wi) in enumerate(wchars):
+        if wi in spans:
+            spans[wi][1] = i + 1
+        else:
+            spans[wi] = [i, i + 1]
+    n_voice = sum(1 for blk, _s, _e in flat for ch in blk if _is_voice(ch))
+    usable = m > 0 and n_voice > 0
+
+    if not usable:
+        # ---- 兜底：句内按字数加权分摊 + 0.6s 借时（旧行为）----
+        win = []
+        i, nb = 0, len(flat)
+        while i < nb:
+            j = i
+            while j < nb and (flat[j][1], flat[j][2]) == (flat[i][1], flat[i][2]):
+                j += 1
+            st0, en0 = flat[i][1], flat[i][2]
+            if j == nb and total:            # 最后一句多停留，收尾更稳
+                en0 = min(float(total), en0 + (end_hold or 0))
+            blocks = [flat[k][0] for k in range(i, j)]
+            units = [_text_units(b) for b in blocks]
+            su = sum(units) or 1.0
+            t = st0
+            for k, blk in enumerate(blocks):
+                dt = (en0 - st0) * units[k] / su
+                b_st, b_en = t, t + dt
+                t = b_en
+                cnt = j - i
+                if k == cnt - 1:
+                    b_en = en0
+                elif dt < 0.6 and k + 1 < cnt:
+                    b_en += min(0.6 - dt, (en0 - t) * 0.5)
+                    t = b_en
+                win.append([blk, b_st + 0.04, b_en, None])
+            i = j
+        return win
+
+    # ---- 词级模式：逐字点亮时刻 ----
+    win = []
+    q = 0                            # 全局发音字符游标
+    for bi, (blk, seg_st, _seg_en) in enumerate(flat):
+        light, first_st, last_en = [], None, None
+        for ch in blk:
+            if _is_voice(ch):
+                # floor 中心映射（int 截断）：m==n 时恒等映射；round 的银行家
+                # 舍入在词边界处会跳到下一词（单字块窗被挤成 10ms 的根因）。
+                qm = min(m - 1, int((q + 0.5) * m / max(1, n_voice)))
+                wi = wchars[qm][1]
+                i0, i1 = spans[wi]
+                w = words[wi]
+                wd = max(1e-3, float(w["end"]) - float(w["start"]))
+                frac = (qm - i0) / max(1, i1 - i0)
+                stc = float(w["start"]) + wd * frac
+                enc = float(w["start"]) + wd * min(1.0, frac + 1.0 / max(1, i1 - i0))
+                enc = max(enc, stc + 0.01)
+                light.append((stc, enc))
+                first_st = stc if first_st is None else first_st
+                last_en = enc
+                q += 1
+            elif light:
+                light.append(light[-1])          # 标点/空白继承前一个发音字
+            else:
+                light.append((seg_st, seg_st + 0.2))     # 块首即标点（罕见）兜底
+                first_st = seg_st if first_st is None else first_st
+                last_en = seg_st + 0.2
+        win.append([blk, max(0.0, (first_st or seg_st) - lead), last_en or seg_st,
+                    light])
+
+    # 显示窗：首尾相接不叠字；换句多挂 tail_gap；全片末块多挂 end_hold
+    for bi, item in enumerate(win):
+        disp_start, last_en = item[1], item[2]
+        if bi + 1 < len(win):
+            disp_end = win[bi + 1][1]
+            if (flat[bi + 1][1], flat[bi + 1][2]) != (flat[bi][1], flat[bi][2]):
+                disp_end = min(disp_end, last_en + tail_gap)
+        else:
+            cap = float(total) if total else last_en + end_hold
+            disp_end = min(cap, last_en + max(end_hold, tail_gap))
+        item[2] = max(disp_end, disp_start + 0.3)        # 最短显示 0.3s 防闪屏
+        if bi + 1 < len(win):
+            # 快语速连读时 0.3s 最短显示可能越过下一块起点 → libass 会对重叠
+            # Dialogue 做堆叠布局（字幕跳动）。不重叠优先：cap 到下一块起点。
+            item[2] = max(min(item[2], win[bi + 1][1]), item[1] + 0.01)
+    return win
+
+
 # 「尚未遇到任何字符」哨兵（区别于 None=普通正文，用于组开标签判定）
 _UNSET = object()
 
 
-def _render_line_styles(pieces, max_units, scale=1.0, total_cs=0, entrance=""):
+def _render_line_styles(pieces, max_units, scale=1.0, total_cs=0, entrance="",
+                        char_cs=None):
     """把 [(片段, kind_or_None)] 折行，生成「卡拉OK逐字点亮」的 ASS 行。
 
     - 三态配色：未读=暗灰（Style 的 SecondaryColour）→ 已读=白/红/黄
       （PrimaryColour），由 ASS 原生 \\k（厘秒精度）驱动，逐字填充；
+    - char_cs：词级模式下与块字符流对齐的逐字 cs 列表（点亮跟真实语音），
+      优先于 total_cs 线性分摊；
     - 关键词组在被读到的那一刻（ms = 累计厘秒×10）做一次
       「弹大 112% → 回落」的跳球动效；普通正文只变色不弹（克制）；
     - 行宽按「渲染占宽」计算（关键词乘放大系数），保证不顶屏幕边；
       避头点：，。等标点不出现在行首（悬挂在上一行行尾）；
     - entrance：入场动效标签（含首尾花括号）。因 libass 的 \\r 会清空
-      此前累积的全部覆盖标签（含 \\fad/\\t 入场动画），入场标签必须
+      此前累积的全部覆盖标签（含 \\fad/\\t/\\move 入场动画），入场标签必须
       **在每个样式组开头重新声明**，而不是只写在 Dialogue 开头。
     返回 ASS 文本行列表（调用方用 \\N 连接）。
     """
@@ -477,9 +678,14 @@ def _render_line_styles(pieces, max_units, scale=1.0, total_cs=0, entrance=""):
     if not stream:
         return [""]
 
-    # 2) 卡拉OK计时：逐字符分摊厘秒（无 total_cs 时退化为静态文本，无 \k）
-    cs_list = (_karaoke_cs_list(stream, int(total_cs))
-               if total_cs and int(total_cs) > 0 else None)
+    # 2) 卡拉OK计时：词级 char_cs 优先（与块字符流对齐）→ 线性分摊 → 静态
+    if char_cs is not None:
+        cs_list = [max(0, int(c)) for c in list(char_cs)[:len(stream)]]
+        cs_list += [0] * (len(stream) - len(cs_list))
+    elif total_cs and int(total_cs) > 0:
+        cs_list = _karaoke_cs_list(stream, int(total_cs))
+    else:
+        cs_list = None
 
     # 3) 逐字符填行（宽度按高亮放大系数加权；避头点悬挂）
     lines_chars, cur, cur_u = [], [], 0.0
@@ -581,12 +787,13 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
                        body_font_size=130, text_color="0xE8ECF4",
                        hl_color="0xFF3B30", num_color="0xFFD60A",
                        outline=6, outline_color="0x10131A",
-                       max_chars_per_line=9, in_anim="auto",
+                       max_chars_per_line=9, in_anim="random",
                        keyword_stagger=0.15,
                        crest_map=None, crest_size=170, crest_y=0.78,
                        crest_glow=True, teams_table=None, extra_words=None,
-                       max_kw=1, keep_ass=False, max_block_units=9):
-    """纯文字动效口播：动态渐变背景 + 大字卡拉OK逐字点亮 + 关键词跳球 + 队标点缀 + 原音轨。
+                       max_kw=1, keep_ass=False, max_block_units=9,
+                       word_timings=None, anim_seed=None, margin_v=700):
+    """纯文字动效口播：动态渐变背景 + 大字卡拉OK逐字点亮 + 随机动效 + 队标点缀 + 原音轨。
 
     **单趟 ffmpeg 出片**（含音频），总时长 ≡ 音频时长 —— 不会黑屏、不会切末句。
 
@@ -598,6 +805,10 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
         bg_colors: 渐变底色（2~8 个 '0xRRGGBB'）。
         crest_map: {段下标: 队标 png 路径}，按该段时间窗显示为小图标点缀。
         teams_table: 球队词表（用于关键词高亮识别队名）。
+        in_anim: random（随机 12 种动效+轻重缓急，推荐）| auto（统一 pop）| 固定单种。
+        anim_seed: 随机种子（None=每次随机；整数=可复现）。
+        word_timings: 词级时间轴 [{"start","end","text"}]（秒）——来自 tts 的
+            .words.json；提供后逐字点亮与块时间窗直接跟真实发音对齐。
         keyword_stagger: 已弃用（卡拉OK逐字点亮接管节奏），仅为兼容保留。
         keep_ass: True 时保留生成的 .ass 供排查。
     Returns:
@@ -623,10 +834,11 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
         segments, width=width, height=height, font_name=family, total=total,
         body_font_size=body_font_size, text_color=text_color,
         hl_color=hl_color, num_color=num_color, outline=outline,
-        outline_color=outline_color,         max_chars_per_line=max_chars_per_line,
+        outline_color=outline_color, max_chars_per_line=max_chars_per_line,
         keyword_stagger=keyword_stagger, in_anim=in_anim,
         teams_table=teams_table, extra_words=extra_words, max_kw=max_kw,
-        max_block_units=max_block_units)
+        max_block_units=max_block_units, word_timings=word_timings,
+        anim_seed=anim_seed, margin_v=margin_v)
     ass_path = out_mp4.with_suffix(".motion.ass")
     ass_path.write_text(ass_text, encoding="utf-8")
 

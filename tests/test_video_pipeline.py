@@ -1135,8 +1135,9 @@ def test_anim_auto_uniform_pop():
         assert r"\fad(120,110)" in d, f"缺统一 pop 入场: {d[:60]}"
         for bad in (r"\move(", r"\clip(", r"\frx", r"\fry", r"\frz", r"\blur"):
             assert bad not in d, f"auto 池应只有 pop，却出现 {bad}: {d[:60]}"
-    # slideup 已退役：与 pop 同样回落到默认弹入（其硬编码 \move 与底部居中冲突）
-    assert tm._anim_prefix("slideup") == tm._anim_prefix("pop")
+    # slideup 已参数化回归（v4）：不再回落 pop，而是真实滑入（\move 终态=底部居中锚点）
+    assert r"\move(" in tm._anim_prefix("slideup")
+    assert tm._anim_prefix("slideup") != tm._anim_prefix("pop")
 
 
 def test_anim_prefix_stable_state_matches_static():
@@ -1350,3 +1351,218 @@ def test_build_motion_ass_block_split_time_window():
         prev_end = e
     # 首块从句首开始
     assert sec(dialogues[0].split(",")[1]) >= 10.0
+
+
+# ==================== v4：词级时间驱动 + 随机动效池 ====================
+
+
+def _scan_plain_cs(text_field):
+    """扫描 ASS 文本字段：返回 [(明文字符, 该字符点亮完成累计cs)]。"""
+    import re as _re
+    out, cum, i = [], 0, 0
+    while i < len(text_field):
+        if text_field[i] == "{":
+            j = text_field.find("}", i)
+            if j < 0:
+                break
+            m_ = _re.match(r"\\k(\d+)", text_field[i + 1:j])
+            if m_:
+                cum += int(m_.group(1))
+            i = j + 1
+            continue
+        if text_field[i:i + 2] == "\\N":
+            i += 2
+            continue
+        out.append((text_field[i], cum))
+        i += 1
+    return out
+
+
+def test_srt_from_words_splits_by_punct_and_word_windows():
+    """srt_from_words：原文标点切句；句窗 = 首词 start → 末词 end；
+    句尾留白 gap 且不越过下一句起点（词轴长度一致 → 精确对齐场景）。"""
+    from video_pipeline import tts
+    text = "皇马3比1逆转巴萨。姆巴佩梅开二度，登顶西甲！"
+    words = [
+        {"start": 0.0, "end": 0.4, "text": "皇马"},
+        {"start": 0.4, "end": 0.6, "text": "3"},
+        {"start": 0.6, "end": 0.8, "text": "比"},
+        {"start": 0.8, "end": 1.0, "text": "1"},
+        {"start": 1.0, "end": 1.3, "text": "逆转"},
+        {"start": 1.3, "end": 1.7, "text": "巴萨"},
+        {"start": 2.0, "end": 2.5, "text": "姆巴佩"},
+        {"start": 2.5, "end": 2.9, "text": "梅开二度"},
+        {"start": 3.1, "end": 3.3, "text": "登顶"},
+        {"start": 3.3, "end": 3.7, "text": "西甲"},
+    ]
+    srt = tts.srt_from_words(text, words)
+    blocks = [b for b in srt.strip().split("\n\n") if b.strip()]
+    assert len(blocks) == 3
+    # 句文本 = 发音字符（标点由切句逻辑消化，不进入字幕）
+    assert "皇马3比1逆转巴萨" in blocks[0]
+    assert "姆巴佩梅开二度" in blocks[1]
+    assert "登顶西甲" in blocks[2]
+
+    def sec(ts):
+        h, m, rest = ts.split(":")
+        return int(h) * 3600 + int(m) * 60 + float(rest.replace(",", "."))
+
+    wins = []
+    for b in blocks:
+        a, z = b.splitlines()[1].split(" --> ")
+        wins.append((sec(a), sec(z)))
+    # 句窗贴词轴：句1 [0.0→1.7]（留白 capped 到下一句 1.99），
+    # 句2 [2.0→2.9]（capped 3.09），句3 末句留满 gap → 4.2
+    assert abs(wins[0][0] - 0.0) < 0.01 and abs(wins[0][1] - 1.99) < 0.02
+    assert abs(wins[1][0] - 2.0) < 0.01 and abs(wins[1][1] - 3.09) < 0.02
+    assert abs(wins[2][0] - 3.1) < 0.01 and abs(wins[2][1] - 4.2) < 0.02
+    # 句间不重叠、时序递增
+    assert wins[0][1] <= wins[1][0] + 0.01 and wins[1][1] <= wins[2][0] + 0.01
+
+
+def test_block_windows_word_level_lighting_aligns_real_speech():
+    """_block_windows 词级模式：逐字点亮区间落在对应词的发音区间内；
+    标点继承前一个发音字；块窗首尾相接不叠字；点亮时刻单调不减。"""
+    from video_pipeline import text_motion as tm
+    words = [
+        {"start": 0.0, "end": 0.4, "text": "皇马"},
+        {"start": 0.4, "end": 0.6, "text": "3"},
+        {"start": 0.6, "end": 0.8, "text": "比"},
+        {"start": 0.8, "end": 1.0, "text": "1"},
+        {"start": 1.0, "end": 1.3, "text": "逆转"},
+        {"start": 1.3, "end": 1.7, "text": "巴萨"},
+        {"start": 2.0, "end": 2.4, "text": "登顶"},
+    ]
+    flat = [("皇马3比1逆转巴萨，", 0.0, 2.0), ("登顶！", 2.0, 2.6)]
+    win = tm._block_windows(flat, words, total=2.6, end_hold=0.3)
+    assert len(win) == 2
+    b1, b2 = win
+    light1 = b1[3]
+    assert light1 and len(light1) == len("皇马3比1逆转巴萨，")
+    # 「3」（第3个字符）点亮区间 ⊆ 词「3」的真实发音区间 [0.4, 0.6]
+    stc, enc = light1[2]
+    assert 0.4 - 0.01 <= stc and enc <= 0.6 + 0.01, \
+        f"「3」点亮 {stc:.2f}~{enc:.2f}s 偏离词轴 [0.4,0.6]"
+    # 标点「，」继承前一个发音字（「萨」）的点亮时刻
+    assert light1[-1] == light1[-2]
+    # 点亮完成时刻单调不减（不得出现往回点亮）
+    ends = [e for _s, e in light1]
+    assert ends == sorted(ends)
+    # 首尾相接：块2 起点 = 块1 终点（链式窗，不叠字不脱节）
+    assert abs(b1[2] - b2[1]) < 1e-6
+    # 末块窗夹到 total 内
+    assert b2[2] <= 2.6 + 1e-6
+
+
+def test_block_windows_no_overlap_on_rapid_speech():
+    """快语速连读：0.3s 最短显示不得越过下一块起点
+    （libass 对重叠 Dialogue 会做堆叠布局 → 字幕跳动）。"""
+    from video_pipeline import text_motion as tm
+    words = [
+        {"start": 1.0, "end": 1.15, "text": "好"},
+        {"start": 1.2, "end": 1.5, "text": "世界波"},
+    ]
+    flat = [("好", 1.0, 2.0), ("世界波", 1.2, 2.0)]   # 两块窗起点仅差 0.2s
+    win = tm._block_windows(flat, words, total=2.0, end_hold=0.3)
+    assert win[0][2] <= win[1][1] + 1e-9, \
+        f"块1 终点 {win[0][2]:.3f} 越过块2 起点 {win[1][1]:.3f}（会堆叠）"
+    assert win[0][2] > win[0][1], "块窗不得为零时长"
+
+
+def test_block_windows_single_char_block_stays_in_own_word():
+    """硬切单字块（如「直塞」被切成「直」+「塞」）不得映射到下一个词：
+    round 的银行家舍入在词边界跳词 → 单字块窗被挤成 10ms（字一闪而过）。"""
+    from video_pipeline import text_motion as tm
+    words = [
+        {"start": 22.0, "end": 22.4, "text": "直塞"},
+        {"start": 22.9, "end": 23.3, "text": "单刀"},
+    ]
+    flat = [("直", 22.0, 24.0), ("塞", 22.0, 24.0), ("单刀", 22.5, 24.0)]
+    win = tm._block_windows(flat, words, total=24.0, end_hold=0.3)
+    # 「直」→「直塞」首字；「塞」→「直塞」尾字（都不得跳到「单刀」）
+    assert win[0][3][0][1] <= 22.4 + 0.01, f"「直」点亮 {win[0][3][0]} 偏离词「直塞」"
+    assert win[1][3][0][1] <= 22.4 + 0.01, f"「塞」点亮 {win[1][3][0]} 偏离词「直塞」"
+    assert win[2][1] < 22.9, "「单刀」块应从其发音前入场"
+    # 窗两两不重叠且正时长
+    for a, b in zip(win, win[1:]):
+        assert a[2] <= b[1] + 1e-9, f"重叠: [{a[1]:.3f},{a[2]:.3f}] vs [{b[1]:.3f},…]"
+        assert a[2] > a[1]
+
+
+def test_build_motion_ass_word_timings_lighting_follows_speech():
+    """build_motion_ass(word_timings=...)：比分「3」的点亮完成时刻应落在
+    其真实发音区间内（治「字幕跟不上语速」的核心回归）。"""
+    from video_pipeline import text_motion as tm
+    words = [
+        {"start": 0.0, "end": 0.4, "text": "皇马"},
+        {"start": 0.4, "end": 0.6, "text": "3"},
+        {"start": 0.6, "end": 0.8, "text": "比"},
+        {"start": 0.8, "end": 1.0, "text": "1"},
+        {"start": 1.0, "end": 1.3, "text": "逆转"},
+        {"start": 1.3, "end": 1.7, "text": "巴萨"},
+        {"start": 2.0, "end": 2.4, "text": "登顶"},
+    ]
+    segs = [
+        {"start": 0.0, "end": 2.0, "text": "皇马3比1逆转巴萨"},
+        {"start": 2.0, "end": 2.6, "text": "登顶！"},
+    ]
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=2.6,
+                              teams_table=["皇马", "巴萨"],
+                              word_timings=words, end_hold=0.3)
+    dialogues = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
+    assert len(dialogues) == 2
+
+    def sec(ts):
+        h, m, rest = ts.split(":")
+        return int(h) * 3600 + int(m) * 60 + float(rest)
+
+    d1 = dialogues[0]
+    s1 = sec(d1.split(",")[1])
+    plain_cs = _scan_plain_cs(d1.split(",,", 2)[-1])
+    plain = "".join(c for c, _ in plain_cs)
+    at = plain.find("3")
+    assert at >= 0
+    t_light = s1 + plain_cs[at][1] / 100.0        # 「3」点亮完成时刻
+    assert 0.39 <= t_light <= 0.61, \
+        f"「3」点亮于 {t_light:.2f}s，偏离真实发音区间 [0.4,0.6]"
+
+
+def test_random_anim_reproducible_and_varied():
+    """random 模式：同 seed 逐字节可复现；不同 seed 序列不同；
+    动效特征覆盖多类（位移/翻转/旋转/质感）；节奏档位多样（轻重缓急）。"""
+    from video_pipeline import text_motion as tm
+    import re as _re
+    segs = [{"start": i * 1.0, "end": i * 1.0 + 1.0,
+             "text": f"第{i}句皇马又炸了真的顶不住"} for i in range(8)]
+    kw = dict(width=1080, height=1920, total=8.0, in_anim="random")
+    a1 = tm.build_motion_ass(segs, anim_seed=42, **kw)
+    a2 = tm.build_motion_ass(segs, anim_seed=42, **kw)
+    a3 = tm.build_motion_ass(segs, anim_seed=43, **kw)
+    assert a1 == a2, "同 seed 必须逐字节可复现"
+    assert a1 != a3, "不同 seed 应产生不同动效序列"
+
+    # 抽取每块首个正文样式组（入场标签嵌入其中）
+    anims = []
+    for l in a1.splitlines():
+        if l.startswith("Dialogue: 0,"):
+            tf = l.split(",,", 2)[-1]
+            for m_ in _re.finditer(r"\{\\rBody\\fscx\d+\\fscy\d+(\\[^}]+)\}", tf):
+                anims.append(m_.group(1))
+    assert len(anims) >= 8, "每块至少一组入场标签"
+    # slide 类标签合法性：\move(...) 括号内不得混入其他标签（否则参数被污染）
+    for a in anims:
+        for m_ in _re.finditer(r"\\move\(([^)]*)\)", a):
+            assert "\\" not in m_.group(1), \
+                f"\\move 参数被标签污染: \\move({m_.group(1)})"
+    kinds = set()
+    for a in anims:
+        for tag in ("\\move(", "\\frx", "\\fry", "\\frz", "\\blur"):
+            if tag in a:
+                kinds.add(tag)
+    assert len(kinds) >= 2, f"8 块应覆盖多类动效特征，实际 {kinds}"
+    # 节奏档位：入场 \t(0,dur) 的 dur 应出现多种（fast 240 / mid 320 / slow 460）
+    durs = set()
+    for a in anims:
+        for m_ in _re.finditer(r"\\t\(0,(\d+),", a):
+            durs.add(int(m_.group(1)))
+    assert len(durs) >= 2, f"轻重缓急应产生多种节奏档位，实际 {durs}"
