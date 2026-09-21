@@ -10,6 +10,7 @@
 - 任何失败（素材为空/ffmpeg 异常）由调用方回退到纯主讲人，保证出片。
 """
 
+import re
 import subprocess
 from pathlib import Path
 
@@ -79,6 +80,30 @@ def _venc():
 
 def _escape_text(t):
     return t.replace("\\", "\\\\").replace("'", "\\'")
+
+
+def _probe_audio_duration(anchor_path):
+    """探测 anchor（成片音轨来源，-map {anchor_idx}:a）里的音频时长（拿不到则返回 0）。
+
+    用途：把成片时长对齐到「音频真实长度」，防止末句口播被 -t 截断。
+    优先取音频流自身 duration；拿不到（部分容器不写）回退容器总时长。
+    """
+    p = str(anchor_path)
+
+    def _ffprobe(args):
+        try:
+            proc = subprocess.run(["ffprobe", "-v", "error", *args, p],
+                                  capture_output=True, text=True)
+            return float(proc.stdout.strip() or 0)
+        except Exception:
+            return 0.0
+
+    dur = _ffprobe(["-select_streams", "a:0", "-show_entries", "stream=duration",
+                    "-of", "default=nw=1:nk=1"])
+    if not dur:
+        dur = _ffprobe(["-show_entries", "format=duration",
+                        "-of", "default=nw=1:nk=1"])
+    return dur or 0.0
 
 
 def edit_with_broll(
@@ -252,7 +277,23 @@ def edit_with_broll(
         vf += (f";[vout]drawtext={ff}text='{txt}':fontcolor=white:fontsize=46:"
                f"box=1:boxcolor=black@0.5:boxborderw=12:x=(w-tw)/2:y=h-th-90[vout]")
 
-    total = sum(d for _, _, d in segs) - (n - 1) * transition
+    # 成片时长取「视觉总长」与「音频时长」的较大者：
+    #   各段之和 - 转场重叠 = 画面实际长度；但音频（旁白/BGM混音）可能比它长，
+    #   若只按画面长度 -t 截断，末句口播会被切掉（实测 61.56s 音频被截成 58.27s）。
+    # 解决：垫满到音频长度（tpad 冻结末帧），保证「说完最后一句」。
+    # 注意：必须先改标签再回写，不能 `[vout]...[vout]`（同标签既读又写，ffmpeg 不认）。
+    visual_total = sum(d for _, _, d in segs) - (n - 1) * transition
+    audio_total = _probe_audio_duration(anchor_path)
+    total = max(visual_total, audio_total) if audio_total else visual_total
+    if audio_total and audio_total > visual_total + 0.05:
+        pad = audio_total - visual_total + 0.2
+        # 只把「链路末尾」的 [vout] 改名成 [vpre]，再垫帧回 [vout]。
+        # 不能整串替换 `[vout]`（xfade 的读端也叫 [vout]，改错会断链）；
+        # 用 rsplit 精确定位最后一次出现。
+        head, sep, tail = vf.rpartition("[vout]")
+        if sep:
+            vf = head + "[vpre]" + tail
+        vf += f";[vpre]tpad=stop_mode=clone:stop_duration={pad:.3f},format=yuv420p[vout]"
     cmd = [
         "ffmpeg", "-y", *inputs,
         "-filter_complex", vf,

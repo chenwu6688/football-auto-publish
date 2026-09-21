@@ -138,6 +138,9 @@ video:
   ken_burns: true          # 肖像缓慢推拉（提升观感，CPU 轻负载）
   # 字幕样式（ffmpeg subtitles force_style，适配手机竖屏）
   subtitle:
+    # ⚠️ font_name 必须指定中文字体，否则 libass 回退 Arial（无中文字形）→ 汉字变方框（乱码）
+    # 走 fontconfig 族名。仓库已内置 assets/fonts/NotoSansCJK-Bold.ttc，系统装了 Noto 即可命中。
+    font_name: "Noto Sans CJK SC"
     font_size: 54
     primary_color: "0xFFFFFF"   # 白
     outline_color: "0x000000"   # 黑描边
@@ -145,6 +148,41 @@ video:
     back_color: "0x80000000"    # 半透明黑底（&H 格式，BGR+A）
     margin_v: 150
     max_chars_per_line: 15      # 字号放大后每行收短，避免横向溢出 1080 宽
+
+# ============================================================
+# 纯文字动效口播（抖音口播号风格）—— 推荐开启
+# 不搜网素材、不露真人：深色动态渐变底 + 整屏大字逐句弹出 + 关键词自动高亮 + 队标小图标点缀。
+# 开启后自动跳过 footage B-roll 与二次合成（字幕在动效渲染里直接烧录），单趟 ffmpeg 出片。
+# 关键收益：背景是一条贯穿全片的渐变源 → 物理上不会黑屏；成片时长 ≡ 音频时长 → 不会切末句；
+#          用内置中文字体 → 不会出现方框乱码。
+# ============================================================
+textmotion:
+  enabled: true               # 开启纯文字动效（抖音口播号风格）
+  font_path: ""               # 中文字体绝对路径；留空自动探测（优先仓库 assets/fonts/NotoSansCJK-Bold.ttc）
+  body_font_size: 96          # 正文字号（长句会自动缩小到不溢出，下限 56）
+  max_chars_per_line: 9       # 每行最多几个全角字（超出折行）
+  text_color: "0xE8ECF4"      # 正文色（冷白）
+  hl_color: "0xFF3B30"        # 关键词高亮色（红）
+  num_color: "0xFFD60A"       # 比分/时间等数字色（黄，最抢眼）
+  outline: 6                  # 文字描边粗细（深底上更清晰）
+  outline_color: "0x10131A"   # 描边色
+  in_anim: "pop"              # 入场动效：pop（弹出·推荐）| slideup（上滑）| fade（淡入）
+  keyword_stagger: 0.15       # 关键词比正文晚弹入的秒数（制造"砸下来"的击打节奏）
+  max_kw_per_sentence: 3      # 每句最多高亮几个词（避免满屏花）
+  extra_words: []             # 额外自定义高亮词（如球队昵称、黑话）
+  # 动态渐变底（一条源贯穿全片，绝不会黑屏）
+  bg_colors:                  # 渐变底色（2~8 个 '0xRRGGBB'）
+    - "0x22365C"              # 深蓝
+    - "0x141A28"              # 近黑（有底噪，非纯黑）
+    - "0x3A2450"              # 暗紫
+  bg_speed: 0.02              # 渐变流动速度（越小越缓慢高级）
+  bg_type: "radial"           # radial（径向光晕·推荐）| linear（线性）
+  # 队标点缀（小图标，非全屏）
+  crest: true                 # 是否用水队标当小图标点缀（需 teams.enabled）
+  crest_size: 170             # 队标像素尺寸（约 16% 屏宽，只做点缀）
+  crest_y: 0.78               # 队标纵向位置（0=顶 1=底）
+  crest_glow: true            # 队标加柔光光晕（更高级）
+  keep_ass: false             # 是否保留生成的 .ass（排查用）
 
 # 输出
 output:

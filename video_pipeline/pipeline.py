@@ -27,6 +27,7 @@ from video_pipeline import footage as footage_mod
 from video_pipeline import edit as edit_mod
 from video_pipeline import teams as teams_mod
 from video_pipeline import audio_mix as audio_mix_mod
+from video_pipeline import text_motion as text_motion_mod
 from video_pipeline.subtitles import parse_segments
 
 CONFIG_PATH = Path(__file__).parent / "video_config.yaml"
@@ -48,6 +49,8 @@ def load_video_config(path=None):
                       "subtitle": {"font_size": 46, "primary_color": "0xFFFFFF",
                                    "outline_color": "0x000000", "outline": 4,
                                    "back_color": "0x80000000", "margin_v": 140, "max_chars_per_line": 18}},
+            # 纯文字动效（无配置文件时的兜底默认：关，保持旧行为）
+            "textmotion": {"enabled": False},
             "output": {"base_dir": "output/videos", "keep_intermediate": True},
         }
     return yaml.safe_load(p.read_text(encoding="utf-8"))
@@ -187,17 +190,86 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             print(f"   ⚠️ 说话数字人异常：{e}，回退静态肖像")
             talking_head_video = None
 
-    # 3.7) B-roll 素材剪接（可选）：按口播内容搜素材 → 按句切入主讲人 → 转场串联
+    # 3.7) 纯文字动效（可选·优先）：整屏大字逐句弹出 + 关键词高亮 + 队标点缀。
+    # 与 B-roll 二选一：开启后不再搜网素材、不再走 compose 二次烧字（字幕在动效渲染里已烧）。
+    # 背景是一条贯穿全片的 lavfi 渐变源 → **物理上不可能黑屏**（修"开场全黑/段间黑场"）。
+    textmotion_used = False
+    tm_used = False
+    tc_cfg = cfg.get("textmotion", {})
+    if tc_cfg.get("enabled"):
+        try:
+            segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
+            # 队标点缀：识别球队 → 拉队标 → 对齐到「提到该队的那一句」
+            crest_map = {}
+            tm_cfg = cfg.get("teams", {})
+            teams_table = None
+            if tc_cfg.get("crest", True) and tm_cfg.get("enabled", False):
+                try:
+                    detected = teams_mod.detect_teams(script_text, tm_cfg)
+                    if detected:
+                        图池 = teams_mod.collect_team_images(detected, tm_cfg)
+                        teams_used = [t["zh"] for t in detected]
+                        zh2img = {}
+                        for t, item in zip(detected, 图池):
+                            zh2img.setdefault(t["zh"], item["path"])
+                        seg2zh = teams_mod.align_teams_to_segments(
+                            detected, segments, script_text)
+                        crest_map = {si: zh2img[zh] for si, zh in seg2zh.items()
+                                     if zh in zh2img}
+                        print(f"   队标点缀：{teams_used} → {len(crest_map)} 段（对齐到提及句）")
+                    else:
+                        print("   未识别到球队，跳过队标点缀")
+                except Exception as e:
+                    print(f"   ⚠️ 队标获取失败：{e}，跳过队标点缀")
+            # 关键词高亮用的球队词表（不含队标也应能识别队名）
+            try:
+                teams_table = list(teams_mod.TEAMS.keys()) if hasattr(teams_mod, "TEAMS") else None
+            except Exception:
+                teams_table = None
+            v_m = cfg.get("video", {})
+            text_motion_mod.render_text_motion(
+                str(audio_path), segments, str(mp4_path),
+                width=v_m.get("width", 1080), height=v_m.get("height", 1920),
+                fps=v_m.get("fps", 30),
+                font_path=tc_cfg.get("font_path") or None,
+                bg_colors=tc_cfg.get("bg_colors") or ("0x22365C", "0x141A28", "0x3A2450"),
+                bg_speed=float(tc_cfg.get("bg_speed", 0.02)),
+                bg_type=tc_cfg.get("bg_type", "radial"),
+                body_font_size=int(tc_cfg.get("body_font_size", 96)),
+                text_color=tc_cfg.get("text_color", "0xE8ECF4"),
+                hl_color=tc_cfg.get("hl_color", "0xFF3B30"),
+                num_color=tc_cfg.get("num_color", "0xFFD60A"),
+                outline=int(tc_cfg.get("outline", 6)),
+                outline_color=tc_cfg.get("outline_color", "0x10131A"),
+                max_chars_per_line=int(tc_cfg.get("max_chars_per_line", 9)),
+                in_anim=tc_cfg.get("in_anim", "pop"),
+                keyword_stagger=float(tc_cfg.get("keyword_stagger", 0.15)),
+                crest_map=crest_map,
+                crest_size=int(tc_cfg.get("crest_size", 170)),
+                crest_y=float(tc_cfg.get("crest_y", 0.78)),
+                crest_glow=bool(tc_cfg.get("crest_glow", True)),
+                teams_table=teams_table,
+                extra_words=tc_cfg.get("extra_words") or None,
+                max_kw=int(tc_cfg.get("max_kw_per_sentence", 3)),
+                keep_ass=bool(tc_cfg.get("keep_ass", False)),
+            )
+            tm_used = True
+            textmotion_used = True
+            print(f"   文字动效成片：{Path(mp4_path).name}（渐变底·大字动效·关键词高亮）")
+        except Exception as e:
+            print(f"   ⚠️ 文字动效失败：{e}，回退常规管线")
+
+    # 3.8) B-roll 素材剪接（可选）：按口播内容搜素材 → 按句切入主讲人 → 转场串联
     footage_used = False
     footage_source = ""
     footage_count = 0
-    teams_used = []
+    teams_used = teams_used if 'teams_used' in dir() else []
     final_video = talking_head_video  # 未做素材剪接时的主讲人视频（可能为 None）
     fc_cfg = cfg.get("footage", {})
     # 开场是否露真人肖像：host.show_portrait=false 时不使用肖像锚层，改用渐变底（去真人出镜）
     host_cfg = cfg.get("host", {})
     show_portrait = bool(host_cfg.get("show_portrait", True))
-    if fc_cfg.get("enabled"):
+    if fc_cfg.get("enabled") and not tm_used:
         try:
             segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
             # 开场球队标识：从口播稿识别球队 → 拉队标/球场图（仅 teams.enabled 时）
@@ -265,23 +337,31 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             final_video = talking_head_video
 
     # 4) 合成视频
-    print("③ ffmpeg 合成竖屏视频")
     vcfg = cfg.get("video", {})
-    sub_style = {k: sub_cfg[k] for k in ("font_size", "primary_color", "outline_color",
-                                         "outline", "back_color", "margin_v") if k in sub_cfg}
-    # host.show_portrait=false → 不传肖像（无真人出镜）；有最终视频层时肖像本就不参与
-    compose_portrait = cfg.get("portrait_path", "") if show_portrait else ""
-    mp4_path, info = compose.compose_video(
-        compose_portrait,
-        audio_path, srt_path, mp4_path,
-        width=vcfg.get("width", 1080), height=vcfg.get("height", 1920),
-        fps=vcfg.get("fps", 30),
-        bg_fallback=vcfg.get("background_fallback", "gradient"),
-        bg_color=vcfg.get("bg_color", "0x10131A"),
-        ken_burns=vcfg.get("ken_burns", True),
-        talking_head_video=final_video,
-        sub_style=sub_style,
-    )
+    if tm_used:
+        # 文字动效分支已直接出片（含音轨），这里只做校验，避免二次烧字
+        print("③ 校验文字动效成片（跳过二次合成）")
+        info = compose.verify_video(str(mp4_path))
+        if not info.get("duration"):
+            info["duration"] = compose.ffprobe_duration(str(mp4_path)) or 0.0
+    else:
+        print("③ ffmpeg 合成竖屏视频")
+        sub_style = {k: sub_cfg[k] for k in ("font_size", "primary_color", "outline_color",
+                                             "outline", "back_color", "margin_v",
+                                             "font_name") if k in sub_cfg}
+        # host.show_portrait=false → 不传肖像（无真人出镜）；有最终视频层时肖像本就不参与
+        compose_portrait = cfg.get("portrait_path", "") if show_portrait else ""
+        mp4_path, info = compose.compose_video(
+            compose_portrait,
+            audio_path, srt_path, mp4_path,
+            width=vcfg.get("width", 1080), height=vcfg.get("height", 1920),
+            fps=vcfg.get("fps", 30),
+            bg_fallback=vcfg.get("background_fallback", "gradient"),
+            bg_color=vcfg.get("bg_color", "0x10131A"),
+            ken_burns=vcfg.get("ken_burns", True),
+            talking_head_video=final_video,
+            sub_style=sub_style,
+        )
     print(f"   视频={mp4_path} 时长={info.get('duration'):.1f}s 校验={info.get('ok')}")
 
     # 4.5) 自愈：清掉输出根目录里与 mp4 同名的外挂字幕（历史版本残留的 .srt/.ass）。
@@ -312,6 +392,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         "footage_used": footage_used,
         "footage_source": footage_source,
         "footage_count": footage_count,
+        "textmotion_used": textmotion_used,
         "teams_used": teams_used,
         "show_portrait": show_portrait,
         "audio_mixed": bool(cfg.get("audio", {}).get("enabled")),

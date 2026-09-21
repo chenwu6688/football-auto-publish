@@ -214,6 +214,8 @@ def _disable_optional(cfg):
     cfg.setdefault("footage", {})["enabled"] = False
     cfg.setdefault("teams", {})["enabled"] = False
     cfg.setdefault("audio", {})["enabled"] = False
+    # 纯文字动效也关掉：基础管线测试要覆盖「常规 compose 分支」，不能被动效分支短路
+    cfg.setdefault("textmotion", {})["enabled"] = False
     return cfg
 
 
@@ -481,15 +483,16 @@ def test_edit_with_broll_real(tmp_path):
                        capture_output=True, check=True)
     pool = [{"path": str(blue), "is_image": False, "duration": 3.0},
             {"path": str(green), "is_image": False, "duration": 3.0}]
-    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(6)]
     out = tmp_path / "edited.mp4"
     edit.edit_with_broll(str(anchor), str(anchor), segs, pool, str(out),
                          transition=0.4, lower_third="老六说球")
     assert out.exists()
     info = compose.verify_video(str(out))
     assert info["ok"] and info["has_video"] and info["has_audio"]
-    # 时长 ≈ 5 - 4*0.4 = 3.4
-    assert abs(info["duration"] - 3.4) < 0.5
+    # 视觉总长 = 6 - 5*0.4 = 4.0，小于锚层音频 5.0s → 应垫满到音频长度（末帧冻结），
+    # 即成片时长 ≡ 音频时长 5.0s（修复「末句口播被切」）
+    assert abs(info["duration"] - 5.0) < 0.5, f"应垫满到音频 5.0s，实际={info['duration']}"
 
 
 def test_edit_with_broll_mixed_framerate(tmp_path):
@@ -514,15 +517,15 @@ def test_edit_with_broll_mixed_framerate(tmp_path):
                    capture_output=True, check=True)
     pool = [{"path": str(real), "is_image": False, "duration": 3.0},
             {"path": str(real), "is_image": False, "duration": 3.0}]
-    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(6)]
     out = tmp_path / "edited.mp4"
     edit.edit_with_broll(str(anchor), str(anchor), segs, pool, str(out),
                          transition=0.4, lower_third="老六说球")
     assert out.exists()
     info = compose.verify_video(str(out))
     assert info["ok"] and info["has_video"] and info["has_audio"]
-    # 时长 ≈ 5 - 4*0.4 = 3.4
-    assert abs(info["duration"] - 3.4) < 0.5
+    # 视觉 4.0s < 音频 5.0s → 垫满到音频长度（末帧冻结）
+    assert abs(info["duration"] - 5.0) < 0.5, f"应垫满到音频 5.0s，实际={info['duration']}"
 
 
 def test_pipeline_footage_integration(tmp_path, monkeypatch):
@@ -544,6 +547,7 @@ def test_pipeline_footage_integration(tmp_path, monkeypatch):
     cfg["footage"]["lower_third_text"] = "老六说球"
     cfg["teams"]["enabled"] = False   # 关闭球队标识，避免测试触网
     cfg["audio"]["enabled"] = False   # 关闭音频混音，专注验证 B-roll
+    cfg["textmotion"]["enabled"] = False  # 关闭文字动效，走常规 B-roll 剪接分支
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     assert meta["footage_used"] is True
@@ -705,7 +709,7 @@ def test_edit_with_broll_intro_forces_first_segments(tmp_path):
     c1 = tmp_path / "c1.png"; c2 = tmp_path / "c2.png"
     Image.new("RGB", (600, 600), (240, 240, 240)).save(str(c1))
     Image.new("RGB", (600, 600), (20, 20, 80)).save(str(c2))
-    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(6)]
     # 仅有开场标识、素材池为空 → 应能出片（非开场段回退主讲人）
     out = tmp_path / "edited.mp4"
     edit.edit_with_broll(str(anchor), str(anchor), segs, [], str(out),
@@ -713,7 +717,8 @@ def test_edit_with_broll_intro_forces_first_segments(tmp_path):
     assert out.exists()
     info = compose.verify_video(str(out))
     assert info["ok"] and info["has_video"] and info["has_audio"]
-    assert abs(info["duration"] - 3.4) < 0.5
+    # 视觉 4.0s < 音频 5.0s → 垫满到音频长度
+    assert abs(info["duration"] - 5.0) < 0.5, f"应垫满到音频 5.0s，实际={info['duration']}"
 
 
 def test_edit_with_broll_intro_map_places_exact_segments(tmp_path):
@@ -729,7 +734,7 @@ def test_edit_with_broll_intro_map_places_exact_segments(tmp_path):
     c1 = tmp_path / "c1.png"; c2 = tmp_path / "c2.png"
     Image.new("RGB", (600, 600), (240, 240, 240)).save(str(c1))
     Image.new("RGB", (600, 600), (20, 20, 80)).save(str(c2))
-    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(6)]
     out = tmp_path / "edited.mp4"
     # 段 1 放 c1、段 3 放 c2（乱序、非连续）
     edit.edit_with_broll(str(anchor), str(anchor), segs, [], str(out),
@@ -737,7 +742,8 @@ def test_edit_with_broll_intro_map_places_exact_segments(tmp_path):
     assert out.exists()
     info = compose.verify_video(str(out))
     assert info["ok"] and info["has_video"] and info["has_audio"]
-    assert abs(info["duration"] - 3.4) < 0.5
+    # 视觉 4.0s < 音频 5.0s → 垫满到音频长度
+    assert abs(info["duration"] - 5.0) < 0.5, f"应垫满到音频 5.0s，实际={info['duration']}"
 
 
 def test_align_teams_to_segments_positions():
@@ -783,6 +789,7 @@ def test_pipeline_teams_integration(tmp_path, monkeypatch):
     cfg["teams"]["enabled"] = True
     cfg["teams"]["stadium"] = False
     cfg["audio"]["enabled"] = False
+    cfg["textmotion"]["enabled"] = False  # 走常规 B-roll + 队标剪接分支
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     assert meta["footage_used"] is True
@@ -881,8 +888,8 @@ def test_edit_with_broll_keeps_full_duration(tmp_path):
     out = tmp_path / "e.mp4"
     edit.edit_with_broll(str(anchor), str(anchor), segs, pool, str(out), transition=0.4)
     info = compose.verify_video(str(out))
-    # 6 - 2*0.4 = 5.2
-    assert abs(info["duration"] - 5.2) < 0.4, f"成片应≈5.2s，实际={info['duration']}"
+    # 视觉 6 - 2*0.4 = 5.2s < 音频 6.0s → 应垫满到音频长度（末帧冻结），末句口播不被切
+    assert abs(info["duration"] - 6.0) < 0.4, f"成片应垫满到音频≈6.0s，实际={info['duration']}"
 
 
 # ---------------------------------------------------------------- 队标源补充（api-sports 兜底 + 本地覆盖表）
@@ -945,3 +952,210 @@ def test_local_teams_map_missing_is_silent(tmp_path):
     from video_pipeline import teams
     table = teams.get_teams({"local_map": str(tmp_path / "nope.json")})
     assert "皇马" in table
+
+
+# ================================================================
+# 纯文字动效（text_keywords 关键词抽取 + text_motion 渲染）
+# ================================================================
+def test_extract_highlights_num_and_decision():
+    """比分/时间（num）与判罚词（decision）都应被抽出；序号整词不被切断。"""
+    from video_pipeline import text_keywords as tk
+    got = tk.extract_highlights("第67分钟姆巴佩主罚点球")
+    assert ("第67分钟", "num") in got      # 整词优先，不能只取「第67分」
+    assert ("点球", "decision") in got
+
+
+def test_extract_highlights_team_and_num_priority():
+    """球队名与比分：球队走 team，比分走 num（返回按出现位置排序，便于 ASS 顺序拼接）。"""
+    from video_pipeline import text_keywords as tk
+    got = tk.extract_highlights("皇马3比1巴萨", teams_table=["皇马", "巴萨"])
+    kinds = dict(got)
+    assert kinds.get("皇马") == "team" and kinds.get("巴萨") == "team"
+    assert kinds.get("3比1") == "num"
+    # 返回顺序 = 出现位置顺序
+    assert [w for w, _ in got] == ["皇马", "3比1", "巴萨"]
+
+
+def test_extract_highlights_emotion_words():
+    """情绪动词（逆转/绝杀）应被识别为 emotion 类。"""
+    from video_pipeline import text_keywords as tk
+    got = tk.extract_highlights("皇马完成读秒逆转，完成绝杀")
+    words = [w for w, _ in got]
+    assert "读秒绝杀" in words or "绝杀" in words
+    assert "逆转" in words
+
+
+def test_extract_highlights_respects_max_kw():
+    """max_kw 上限生效，且高亮词互不重叠。"""
+    from video_pipeline import text_keywords as tk
+    got = tk.extract_highlights(
+        "第88分钟皇马3比1逆转巴萨完成绝杀", teams_table=["皇马", "巴萨"], max_kw=2)
+    assert len(got) <= 2
+    # 无重叠（词之间不互相包含）
+    for a, _ in got:
+        for b, _ in got:
+            if a != b:
+                assert not (a in b)
+
+
+def test_extract_highlights_extra_words():
+    """自定义额外关键词（球队昵称/黑话）可被命中。"""
+    from video_pipeline import text_keywords as tk
+    got = tk.extract_highlights("银河战舰今夜又炸了", extra_words=["银河战舰"])
+    assert ("银河战舰", "emotion") in got
+
+
+def test_split_by_highlights_roundtrip():
+    """切分后拼回原文，且高亮片段 kind 正确、正文片段 kind 为 None。
+
+    max_kw=4：num+team×2+emotion 各占一个名额（默认 3 会把"逆转"挤掉）。
+    文本首尾带正文（"昨夜…完成了"），保证存在非高亮片段。
+    """
+    from video_pipeline import text_keywords as tk
+    text = "昨夜皇马3比1逆转巴萨完成了登顶"
+    hl = tk.extract_highlights(text, teams_table=["皇马", "巴萨"], max_kw=4)
+    pieces = tk.split_by_highlights(text, hl)
+    assert "".join(p for p, _ in pieces) == text
+    kinds = {p: k for p, k in pieces}
+    assert kinds.get("皇马") == "team"
+    assert kinds.get("3比1") == "num"
+    assert kinds.get("逆转") == "emotion"
+    assert any(k is None for _, k in pieces)   # "昨夜"/"了" 等正文片段
+
+
+def test_resolve_cjk_font_returns_cjk_capable_file():
+    """字体探测：必须返回真实存在、且能覆盖中文的字体（绝不回退 Arial → 无方框乱码）。"""
+    from video_pipeline import text_motion as tm
+    ff, family = tm.resolve_cjk_font()
+    assert Path(ff).exists()
+    assert "CJK" in family or "Noto" in family or "YaHei" in family or "PingFang" in family
+
+
+def test_resolve_cjk_font_explicit_missing_raises(tmp_path):
+    """显式指定不存在的字体 → 抛异常，不静默回退。"""
+    from video_pipeline import text_motion as tm
+    with pytest.raises(RuntimeError):
+        tm.resolve_cjk_font(str(tmp_path / "nope.ttf"))
+
+
+def test_fit_font_size_shrinks_long_sentence():
+    """长句应自动缩小字号（不超过 3 行），短句保持基准字号。"""
+    from video_pipeline import text_motion as tm
+    short = tm._fit_font_size("皇马炸了", 96, max_px=928)
+    assert short == 96
+    long_text = "皇马在输球之后更衣室爆发了激烈争执矛盾点集中在中场调度和换人时机的选择上面"
+    long_fs = tm._fit_font_size(long_text, 96, max_px=928)
+    assert long_fs < 96 and long_fs >= 56
+
+
+def test_ass_color_converts_to_bgr():
+    """颜色转换：0xRRGGBB → ASS 的 &H00BBGGRR（ASS 为 BGR 序）。"""
+    from video_pipeline import text_motion as tm
+    assert tm._ass_color("0xFF3B30") == "&H00303BFF"
+    assert tm._ass_color("0xAABBCCDD") == "&HAADDCCBB"
+    assert tm._ass_color(None, "&H00FFFFFF") == "&H00FFFFFF"
+
+
+def test_ass_time_format():
+    """秒 → ASS 时间 H:MM:SS.cc，含进位保护。"""
+    from video_pipeline import text_motion as tm
+    assert tm._ass_time(0) == "0:00:00.00"
+    assert tm._ass_time(61.5) == "0:01:01.50"
+    assert tm._ass_time(3661.999) == "1:01:01.99"
+
+
+def test_build_motion_ass_has_header_and_highlights():
+    """ASS 生成：PlayRes 必须等于真实分辨率（否则 libass 缩放错位）；
+    关键词带上内联高亮样式，且内联样式后 \rBody 必须复位。"""
+    from video_pipeline import text_motion as tm
+    segs = [
+        {"start": 0.0, "end": 2.0, "text": "皇马3比1逆转巴萨"},
+        {"start": 2.0, "end": 4.0, "text": "姆巴佩又炸了"},
+    ]
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=4.0,
+                              teams_table=["皇马", "巴萨"])
+    assert "PlayResX: 1080" in ass and "PlayResY: 1920" in ass
+    assert "Style: Body," in ass and "Style: HL," in ass and "Style: Num," in ass
+    # 高亮内联样式存在，且紧跟复位标记（否则后文会继承高亮样式）
+    assert r"{\r" in ass and r"{\rBody}" in ass
+    # 两条 Dialogue（两句）
+    assert ass.count("Dialogue: 0,") == 2
+    # 每行不超过 max_chars_per_line（删掉全部 {..} 内联标签后按纯文本算）
+    import re as _re
+    for line in ass.splitlines():
+        if line.startswith("Dialogue: 0,"):
+            body = line.split(",,", 2)[-1]
+            for sub in body.split(r"\N"):
+                plain = _re.sub(r"\{[^}]*\}", "", sub)
+                assert len(plain) <= 20, f"单行过长({len(plain)}字): {plain!r}"
+
+
+def test_build_motion_ass_clamps_last_segment_to_total():
+    """末句 end 超出总时长 → 夹到 total 内（不产出超长时间轴）。"""
+    from video_pipeline import text_motion as tm
+    segs = [{"start": 0.0, "end": 99.0, "text": "皇马炸了"}]
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=5.0, end_hold=0)
+    assert "0:00:05.00" in ass and "0:00:99" not in ass
+
+
+def test_render_text_motion_end_to_end(tmp_path):
+    """真实渲染：渐变底 + 大字动效 + 关键词高亮；时长 ≡ 音频，且首帧非黑。"""
+    from video_pipeline import text_motion as tm, compose
+    audio = tmp_path / "a.wav"
+    subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "sine=frequency=440:duration=6",
+                    str(audio)], capture_output=True, check=True)
+    segs = [
+        {"start": 0.0, "end": 2.0, "text": "皇马3比1逆转巴萨"},
+        {"start": 2.0, "end": 4.0, "text": "贝林厄姆和主帅当场互喷"},
+        {"start": 4.0, "end": 6.0, "text": "更衣室炸了"},
+    ]
+    out = tmp_path / "motion.mp4"
+    tm.render_text_motion(str(audio), segs, str(out), width=1080, height=1920, fps=30)
+    assert out.exists() and out.stat().st_size > 10000
+    info = compose.verify_video(str(out))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    assert "1080x1920" in (info.get("resolution") or f"{info.get('width')}x{info.get('height')}")
+    # 时长 ≡ 音频（6s），既不黑屏也不切末句
+    assert abs(info["duration"] - 6.0) < 0.3, f"时长应≈6.0s，实际={info['duration']}"
+    # 首帧必须非黑（修「开场长时间全黑」）
+    probe = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-ss", "0.2", "-i", str(out), "-vframes", "1",
+         "-vf", "scale=32:32,format=gray", "-f", "rawvideo", "-"],
+        capture_output=True)
+    pixels = probe.stdout
+    mean = sum(pixels) / max(1, len(pixels))
+    assert mean > 8, f"首帧过暗（mean={mean:.1f}），疑似黑屏"
+
+
+def test_render_text_motion_with_crest_decoration(tmp_path):
+    """队标点缀：段内时间窗叠加小图标（不影响出片与时长）。"""
+    from video_pipeline import text_motion as tm, compose
+    from PIL import Image
+    audio = tmp_path / "a.wav"
+    subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "sine=frequency=440:duration=4",
+                    str(audio)], capture_output=True, check=True)
+    crest = tmp_path / "crest.png"
+    Image.new("RGBA", (300, 300), (255, 255, 255, 255)).save(str(crest))
+    segs = [{"start": i * 1.0, "end": i * 1.0 + 1.0, "text": f"第{i}句 皇马"} for i in range(4)]
+    out = tmp_path / "motion_crest.mp4"
+    tm.render_text_motion(str(audio), segs, str(out), crest_map={1: str(crest), 3: str(crest)})
+    assert out.exists()
+    info = compose.verify_video(str(out))
+    assert info["ok"] and abs(info["duration"] - 4.0) < 0.3
+
+
+def test_textmotion_branch_takes_precedence(tmp_path, monkeypatch):
+    """textmotion 开启时：应走动效分支出片（跳过 footage/compose），meta 标记 textmotion_used。"""
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["output"]["keep_intermediate"] = True
+    cfg["textmotion"]["enabled"] = True
+    cfg["footage"]["enabled"] = True      # 即便 footage 也开着，动效优先
+    cfg["teams"]["enabled"] = False       # 避免触网
+    cfg["audio"]["enabled"] = False
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["textmotion_used"] is True
+    assert meta["footage_used"] is False
+    assert Path(meta["video_path"]).exists()
+    assert meta["actual_duration_sec"] > 0
