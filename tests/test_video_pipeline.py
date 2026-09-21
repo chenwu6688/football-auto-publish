@@ -407,8 +407,28 @@ def test_collect_footage_translates_cjk_to_english(tmp_path):
     assert not any(footage._has_cjk(q) for q in captured["queries"])
 
 
+def test_extract_keywords_rule_prefers_football_entities():
+    """english=True：优先抽「B-roll 安全词」（球队/赛事/场景），且**排除球员名**。"""
+    from video_pipeline import footage
+    script = "姆巴佩接贝林厄姆直塞单刀破门，皇马主场逆转巴萨登顶积分榜。"
+    kw = footage.extract_keywords_rule(script, k=6, english=True)
+    # 只抽「场景/赛事/通用」类 B-roll 安全词，且它们都能译成英文
+    assert all(footage._to_english(w) is not None for w in kw)
+    # 球员名必须被排除：按球员名搜出的是「长相相似的路人/模特」，会张冠李戴
+    assert "姆巴佩" not in kw
+    assert "贝林厄姆" not in kw
+    assert all(w not in footage._PLAYER_NAMES for w in kw)
+    # 球队名也必须被排除：按队名（如 Barcelona）搜图会返回城市街景等无关画面
+    assert "皇马" not in kw and "巴萨" not in kw
+    assert all(w not in footage._TEAM_NAMES for w in kw)
+    # 不足 k 个时用通用词补齐
+    assert len(kw) == 6
+    # 非 english 模式：不注入通用英文词
+    kw2 = footage.extract_keywords_rule("皇马更衣室炸了", k=4, english=False)
+    assert not any(w in ("football", "soccer stadium") for w in kw2)
+
+
 def test_collect_footage_online_before_local(tmp_path, monkeypatch):
-    """联网优先：即便 local_dir 有素材，只要 Pexels 能搜到，就只用 Pexels，不动本地。"""
     from video_pipeline import footage
     # 本地放一条素材（制造"本地有货"的前提）
     local_dir = tmp_path / "local"; local_dir.mkdir()
@@ -424,9 +444,11 @@ def test_collect_footage_online_before_local(tmp_path, monkeypatch):
            "local_dir": str(local_dir), "keywords": 2, "per_query": 1,
            "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
     pool, used = footage.collect_footage("皇马", cfg=cfg, cache_dir=str(tmp_path / "cache"))
-    assert len(pool) == 1
+    # english=True 时不足 k 个会用通用足球词补齐（保证联网源有素材），
+    # mock 每个 query 都返回 1 条 → 数量 = 实际查询数（≥1），全部来自 Pexels。
+    assert len(pool) >= 1
     assert used == ["pexels_video"]            # 只用了联网源
-    assert "local_clip" not in pool[0]["path"]  # 没用本地那条
+    assert all("local_clip" not in p["path"] for p in pool)  # 没用本地那条
 
 
 def test_collect_footage_local_fallback_when_online_empty(tmp_path):

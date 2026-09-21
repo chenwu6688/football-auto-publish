@@ -75,14 +75,34 @@ def extract_keywords(text, k=4, llm_fn=None, english=False):
                     return out
         except Exception:
             pass  # 回退规则法
-    return extract_keywords_rule(text, k=k)
+    return extract_keywords_rule(text, k=k, english=english)
 
 
-def extract_keywords_rule(text, k=4):
-    """规则法：分句 → 去停用词 → 保留 2–6 字短语 → 去重取前 k。"""
+def extract_keywords_rule(text, k=4, english=False):
+    """规则法：分句 → 去停用词 → 保留 2–6 字短语 → 去重取前 k。
+
+    english=True（联网源用英文检索）时，优先挑「能命中足球实体词库」的短语
+    （球队/球星/赛事/球场等 → 有中英映射），不足 k 个再用通用足球词补齐。
+    否则（早前实现）会抽出一堆译不成英文的中文长句，最终全部落到同一个兜底词，
+    导致素材来源单一、B-roll 重复。
+    """
     text = re.sub(r"[^\u4e00-\u9fa5A-Za-z0-9\s]", " ", text or "")
     clauses = re.split(r"[\s，。！？!?；;、：:]", text)
     out, seen = [], set()
+
+    if english:
+        # 第一轮：整段文本里命中实体词库的词（按词库长度降序，长词优先）。
+        # 注意：**球员名不用于检索 B-roll**——Pexels 上搜 "Mbappe" 得到的是长相相似的
+        # 模特照而非本人，会造成「张冠李戴」的错误暗示（比没素材更糟）。
+        # 故只抽「球队 / 赛事 / 场景 / 球场」等不会指认具体人的安全词。
+        for zh in sorted(_FOOTBALL_EN_SAFE.keys(), key=len, reverse=True):
+            if zh in (text or "") and zh not in seen:
+                seen.add(zh)
+                out.append(zh)
+                if len(out) >= k:
+                    return out
+
+    # 第二轮：分句短语（原规则）
     for cl in clauses:
         cl = cl.strip()
         if len(cl) < 2 or len(cl) > 8:
@@ -96,6 +116,16 @@ def extract_keywords_rule(text, k=4):
             out.append(cl)
         if len(out) >= k:
             break
+
+    if english and len(out) < k:
+        # 不足则用通用足球词补齐（保证联网源有素材可用）
+        for g in ("football", "soccer stadium", "soccer match",
+                  "football fans", "soccer player", "stadium crowd"):
+            if g not in seen:
+                seen.add(g)
+                out.append(g)
+            if len(out) >= k:
+                break
     return out
 
 
@@ -191,7 +221,8 @@ _FOOTBALL_EN = {
     "哈兰德": "Haaland", "姆巴佩": "Mbappe", "维尼修斯": "Vinicius",
     "罗德里": "Rodri", "凯恩": "Kane", "孙兴慜": "Son Heung-min",
     "内马尔": "Neymar", "萨拉赫": "Salah",
-    "欧冠": "champions league", "世界杯": "world cup", "德比": "football derby",
+    "欧冠": "champions league stadium", "世界杯": "world cup stadium",
+    "德比": "soccer stadium crowd",
     # —— 通用名词（后命中，作为兜底）——
     "足球": "football", "球迷": "football fans", "球场": "stadium",
     "体育场": "stadium", "球队": "football team", "比赛": "football match",
@@ -200,6 +231,28 @@ _FOOTBALL_EN = {
     "教练": "football coach", "主帅": "football coach", "球员": "football player",
     "球星": "football star", "转会": "football transfer", "更衣室": "locker room",
 }
+
+# 球员名：仅用于「识别/口播」，**不用于检索 B-roll 素材**。
+# 理由：Pexels/Pixabay 上按球员名搜出来的是「长相相似的路人/模特」，
+# 放进讲该球员的段落会构成「张冠李戴」的错误暗示（比不放素材更糟）。
+_PLAYER_NAMES = {
+    "梅西", "C罗", "C 罗", "贝林厄姆", "哈兰德", "姆巴佩", "维尼修斯",
+    "罗德里", "凯恩", "孙兴慜", "内马尔", "萨拉赫",
+}
+
+# 球队/国家队名：用于「识别 + 队标」，但**不用于检索 B-roll 图片**。
+# 理由：按队名（尤其城市名球队，如 "Barcelona"）搜图会返回「该城市街景」等
+# 与足球无关的画面；搜视频虽多能命中球场/球迷，但为一致性与稳妥，统一不用队名搜素材。
+_TEAM_NAMES = {
+    "皇马", "巴萨", "曼联", "曼城", "利物浦", "切尔西", "阿森纳", "拜仁",
+    "多特", "巴黎", "尤文", "国米", "米兰", "热刺",
+    "英格兰", "西班牙", "德国", "法国", "巴西", "阿根廷", "葡萄牙",
+}
+
+# B-roll 安全词表：从 _FOOTBALL_EN 里剔除「球员名 + 球队名」后的子集，
+# 只用于「搜素材」——只剩赛事/场景/通用词，不会指认到具体人或地点。
+_FOOTBALL_EN_SAFE = {k: v for k, v in _FOOTBALL_EN.items()
+                     if k not in _PLAYER_NAMES and k not in _TEAM_NAMES}
 
 
 def _has_cjk(s):

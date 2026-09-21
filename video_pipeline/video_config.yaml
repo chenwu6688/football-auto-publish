@@ -75,11 +75,11 @@ footage:
     - "pexels_image"      # Pexels 免费图片当 B-roll（Ken-Burns 动起来，视频+图片混合更自然）
     - "local"             # 本地素材库兜底（仅当联网源一无所获时才用；需填 local_dir）
   # 检索关键词数量（规则法从口播稿抽取；llm_keywords=true 时可由 LLM 提取更准实体）
-  keywords: 4
+  keywords: 6
   # 每个关键词最多下载的素材条数（总池上限受 max_clips 约束）
-  per_query: 3
+  per_query: 4
   # 一次成片最多用多少段素材（避免素材喧宾夺主，主讲人仍是主体）
-  max_clips: 8
+  max_clips: 12
   # 单段素材最短/最长时长（秒），过长会被裁，过短会被滤。
   # 注意：B-roll 段时长由口播句长决定（通常 1-4s），素材会被 trim 到该时长，
   # 所以这里放宽上限，避免把 10-15s 的优质中景素材误删（默认只保留 <=15s）。
@@ -95,7 +95,7 @@ footage:
   # 缓存目录（已下载素材复用，避免重复请求 API）
   cache_dir: "assets/footage_cache"
   # —— 各来源凭证/目录 ——
-  pexels_api_key: ""       # https://www.pexels.com/api/ 免费申请
+  pexels_api_key: "seLZYNKMTsal4RLmKofu6OUJU6v8DI5ETKQCiABw27yNsKH5qQiDx7IT"   # https://www.pexels.com/api/ 免费申请
   pixabay_api_key: ""      # https://pixabay.com/api/docs/ 免费申请
   local_dir: "assets/footage_local"  # 本地素材库（相对仓库根）。已预置一批免版权足球图（球场/球/球迷/球门）作兜底
 
