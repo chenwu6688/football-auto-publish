@@ -39,7 +39,7 @@ class FootageUnavailable(Exception):
 
 
 # ----------------------------------------------------------- 关键词抽取
-def extract_keywords(text, k=4, llm_fn=None):
+def extract_keywords(text, k=4, llm_fn=None, english=False):
     """从口播稿抽取检索关键词。
 
     Args:
@@ -47,16 +47,18 @@ def extract_keywords(text, k=4, llm_fn=None):
         k: 最多返回关键词数。
         llm_fn: 可选，注入 LLM(messages)->(dict,model)；若提供则优先让 LLM 提取
                足球实体（球队/球星/赛事），失败回退规则法。
+        english: True 时让 LLM 返回英文关键词（Pexels/Pixabay 是英文标签库）。
     Returns:
         list[str]: 关键词（去重，最多 k 个）。
     """
     if llm_fn:
         try:
+            lang_tip = "用英文返回" if english else "用原语言返回"
             msgs = [{
                 "role": "system",
                 "content": "你是足球内容关键词提取器。从口播稿提取最多%d个最适合用来搜索"
                            "相关视频素材的足球关键词（球队名、球星名、赛事名、球场等具象词），"
-                           "只返回 JSON：{\"keywords\": [\"...\",\"...\"]}。" % k,
+                           "%s，只返回 JSON：{\"keywords\": [\"...\",\"...\"]}。" % (k, lang_tip),
             }, {"role": "user", "content": text}]
             resp, _ = llm_fn(msgs)
             kws = resp.get("keywords") or []
@@ -165,6 +167,58 @@ def search_pexels_images(query, api_key, per_page=5, timeout=20):
     return cands
 
 
+# ----------------------------------------------------------- 中文→英文 检索词映射
+# Pexels / Pixabay 的素材几乎全是英文标签，中文关键词直接搜基本 0 结果；
+# 这里把常见中文足球词映射到英文检索词，保证中文脚本也能拉到相关素材。
+# 顺序有讲究：球队/球星/赛事等「具体实体」放前面，通用名词放后面——
+# _to_english 按此顺序做子串匹配，优先命中具体实体（如 "皇马更衣室炸了" → Real Madrid，
+# 而非更短的通用词 locker room），检索相关度更高。
+_FOOTBALL_EN = {
+    # —— 具体球队 / 球星 / 赛事（优先命中）——
+    "梅西": "Messi", "C罗": "Cristiano Ronaldo", "C 罗": "Cristiano Ronaldo",
+    "皇马": "Real Madrid", "巴萨": "Barcelona", "曼联": "Manchester United",
+    "曼城": "Manchester City", "利物浦": "Liverpool", "切尔西": "Chelsea",
+    "阿森纳": "Arsenal", "拜仁": "Bayern Munich", "多特": "Borussia Dortmund",
+    "巴黎": "Paris Saint-Germain", "尤文": "Juventus", "国米": "Inter Milan",
+    "米兰": "AC Milan", "热刺": "Tottenham", "英格兰": "England",
+    "西班牙": "Spain", "德国": "Germany", "法国": "France", "巴西": "Brazil",
+    "阿根廷": "Argentina", "葡萄牙": "Portugal", "贝林厄姆": "Bellingham",
+    "哈兰德": "Haaland", "姆巴佩": "Mbappe", "维尼修斯": "Vinicius",
+    "罗德里": "Rodri", "凯恩": "Kane", "孙兴慜": "Son Heung-min",
+    "内马尔": "Neymar", "萨拉赫": "Salah",
+    "欧冠": "champions league", "世界杯": "world cup", "德比": "football derby",
+    # —— 通用名词（后命中，作为兜底）——
+    "足球": "football", "球迷": "football fans", "球场": "stadium",
+    "体育场": "stadium", "球队": "football team", "比赛": "football match",
+    "赛事": "football match", "联赛": "football league", "进球": "goal",
+    "射门": "football", "传球": "football", "防守": "football", "进攻": "football",
+    "教练": "football coach", "主帅": "football coach", "球员": "football player",
+    "球星": "football star", "转会": "football transfer", "更衣室": "locker room",
+}
+
+
+def _has_cjk(s):
+    return any("一" <= ch <= "鿿" for ch in s)
+
+
+def _to_english(query):
+    """把检索词转成英文（Pexels/Pixabay 友好）。
+
+    规则：纯 ASCII → 原样返回；含中文 → 命中映射表（含子串匹配）取英文，
+    未命中 → 返回 None（该词跳过，避免拿中文去英文库搜 0 结果）。
+    """
+    q = (query or "").strip()
+    if not q:
+        return None
+    if not _has_cjk(q):
+        return q
+    # 子串匹配：长短语里含已知词也能命中（如 "皇马更衣室炸了" → Real Madrid）
+    for zh, en in _FOOTBALL_EN.items():
+        if zh in q:
+            return en
+    return None
+
+
 # ----------------------------------------------------------- 收集与下载
 def _cache_key(query, source):
     h = hashlib.md5(f"{source}:{query}".encode("utf-8")).hexdigest()[:12]
@@ -191,6 +245,10 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
     """
     fc = cfg or {}
     sources = fc.get("sources") or ["pexels_video"]
+    # 联网源（Pexels/Pixabay）列表，供下方英文检索判断 & 检索循环复用
+    online = [s for s in sources if s in
+              ("pexels_video", "pixabay_video", "pexels_image")]
+    use_image = (online[0] == "pexels_image") if online else False
     per_query = int(fc.get("per_query", 3))
     max_clips = int(fc.get("max_clips", 8))
     min_d = float(fc.get("min_clip_dur", 2.0))
@@ -202,7 +260,8 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
 
     keywords = extract_keywords(
         script, k=int(fc.get("keywords", 4)),
-        llm_fn=(llm_fn if llm_kw else None))
+        llm_fn=(llm_fn if llm_kw else None),
+        english=bool(online))  # 联网源用英文检索词（Pexels/Pixabay 英文标签）
 
     cache_dir = Path(cache_dir or Path(__file__).resolve().parents[1]
                      / "output" / "footage_cache")
@@ -223,9 +282,17 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
             print(f"   本地素材库命中 {len(pool)} 条（{local_dir}）")
 
     # 2) 联网源：Pexels / Pixabay（视频或图片），按 sources 列表顺序尝试
-    online = [s for s in sources if s in
-              ("pexels_video", "pixabay_video", "pexels_image")]
     queries = keywords or [script[:8]]
+    # 中文关键词 → 英文（Pexels/Pixabay 英文标签库），未命中/纯中文无映射则跳过
+    eqs = []
+    for q in queries:
+        eq = _to_english(q)
+        if eq:
+            eqs.append(eq)
+    if not eqs:
+        eqs = ["football"]  # 兜底：关键词都译不出英文时，用通用词保证有素材
+    queries = eqs
+
     try:
         for src_name in online:
             if len(pool) >= max_clips:
@@ -271,6 +338,34 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
                                      "duration": c.get("duration", 0)})
                     except Exception as e:
                         print(f"   ⚠️ 素材下载失败（{q}#{i}）：{e}")
+            if pool:
+                break  # 该源已搜到素材，无需继续尝试后续源
+        # 全源都搜不到（如网络/限流）→ 最后一次通用兜底，保证至少有足球素材
+        if not pool and online:
+            fb_q = "football match" if not use_image else "football stadium"
+            try:
+                if online[0] == "pexels_video":
+                    cands = search_pexels_videos(fb_q, pexels_key, per_query)
+                elif online[0] == "pixabay_video":
+                    cands = search_pixabay_videos(fb_q, pixabay_key, per_query)
+                else:
+                    cands = search_pexels_images(fb_q, pexels_key, per_query)
+                for i, c in enumerate(cands[:per_query]):
+                    if len(pool) >= max_clips:
+                        break
+                    if not _duration_ok(c.get("duration", 0), min_d, max_d):
+                        continue
+                    suf = ".jpg" if use_image else ".mp4"
+                    dst = cache_dir / f"_fb_{i}{suf}"
+                    try:
+                        _http_download(c["url"], str(dst), timeout=60)
+                        pool.append({"path": str(dst),
+                                     "is_image": use_image,
+                                     "duration": c.get("duration", 0)})
+                    except Exception:
+                        pass
+            except Exception:
+                pass
     except Exception as e:
         print(f"   ⚠️ 素材检索异常：{e}，回退纯主讲人")
 

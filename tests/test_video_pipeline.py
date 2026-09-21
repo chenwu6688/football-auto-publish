@@ -338,6 +338,39 @@ def test_collect_footage_no_key_returns_empty():
     assert pool == []
 
 
+def test_to_english_translates_football_terms():
+    from video_pipeline import footage
+    # 中文足球词应映射到英文检索词
+    assert footage._to_english("皇马") == "Real Madrid"
+    assert footage._to_english("贝林厄姆") == "Bellingham"
+    assert footage._to_english("更衣室") == "locker room"
+    # 含中文的短语应子串命中
+    assert footage._to_english("皇马更衣室炸了") == "Real Madrid"
+    # 纯 ASCII 原样返回
+    assert footage._to_english("Real Madrid") == "Real Madrid"
+    # 无映射的纯中文 → None（避免拿中文去英文库搜 0 结果）
+    assert footage._to_english("我今天心情不错") is None
+
+
+def test_collect_footage_translates_cjk_to_english(tmp_path):
+    from video_pipeline import footage
+    # 用假的联网检索，验证中文脚本会被翻译成英文去搜
+    captured = {}
+    def fake_search(q, key, per_page=5, timeout=20):
+        captured.setdefault("queries", []).append(q)
+        return []  # 返回空，触发兜底
+    footage.search_pexels_videos = fake_search
+    footage.search_pixabay_videos = fake_search
+    footage.search_pexels_images = fake_search
+    cfg = {"sources": ["pexels_video"], "pexels_api_key": "x", "keywords": 4,
+           "per_query": 2, "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
+    pool = footage.collect_footage(
+        "皇马更衣室炸了，贝林厄姆和主帅当场互喷", cfg=cfg, cache_dir=str(tmp_path / "c"))
+    # 至少应有英文检索词（含兜底 football match），且不应出现中文
+    assert any("Real Madrid" in q or "football" in q for q in captured["queries"])
+    assert not any(footage._has_cjk(q) for q in captured["queries"])
+
+
 def test_edit_with_broll_real(tmp_path):
     """真实 ffmpeg 端到端：主讲人 + 素材交替 + xfade，输出竖屏且时长正确。"""
     from video_pipeline import edit
