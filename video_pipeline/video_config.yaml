@@ -59,6 +59,43 @@ talking_head:
     dir: ""                # Wav2Lip 仓库根目录
     checkpoint: ""         # 预训练权重 .pt 路径（必填才有兜底）
 
+# 素材剪接（Phase 3：根据口播内容自动检索相关素材做 B-roll 切剪，提升"自然感"）
+# 默认关。开启后：口播稿抽关键词 → 搜素材(Pexels/Pixabay 免费视频API / 本地素材库) →
+# 按句时间轴切替 → ffmpeg 多轨剪接(crossfade 转场 + 花字条) → 竖屏 mp4。
+# 素材搜不到/失败 → 自动回退纯主讲人层（绝不卡出片）。
+footage:
+  enabled: false
+  # 素材来源（按优先级尝试，直到搜到足够条数）:
+  #   pexels_video   —— Pexels 免费视频 API（免版权·可商用转发；需 key）
+  #   pixabay_video  —— Pixabay 免费视频 API（免版权·可商用转发；需 key）
+  #   local          —— 你自己的本地素材库（零版权风险；需填 local_dir）
+  #   pexels_image   —— Pexels 免费图片当 B-roll（Ken-Burns 动起来；比视频轻）
+  sources:
+    - "pexels_video"
+    - "local"
+  # 检索关键词数量（规则法从口播稿抽取；llm_keywords=true 时可由 LLM 提取更准实体）
+  keywords: 4
+  # 每个关键词最多下载的素材条数（总池上限受 max_clips 约束）
+  per_query: 3
+  # 一次成片最多用多少段素材（避免素材喧宾夺主，主讲人仍是主体）
+  max_clips: 8
+  # 单段素材最短/最长时长（秒），过长会被裁，过短会被滤
+  min_clip_dur: 2.0
+  max_clip_dur: 8.0
+  # 关键词抽取：规则为主（球队/球星/赛事词库）→ 命中即作为搜索词
+  # llm_keywords: true 时若提供 llm_fn 可让 LLM 提 3-5 个更语义化的词（兜底回退规则）
+  llm_keywords: false
+  # 转场时长（秒），相邻素材之间 crossfade
+  xfade: 0.4
+  # 花字条(lower-third)开关：底部标题条，强化"专业感"
+  lower_third: true
+  # 缓存目录（已下载素材复用，避免重复请求 API）
+  cache_dir: "assets/footage_cache"
+  # —— 各来源凭证/目录 ——
+  pexels_api_key: ""       # https://www.pexels.com/api/ 免费申请
+  pixabay_api_key: ""      # https://pixabay.com/api/docs/ 免费申请
+  local_dir: ""            # 本地素材库绝对路径（放你的 .mp4/.jpg 即可）
+
 # 视频合成
 video:
   width: 1080

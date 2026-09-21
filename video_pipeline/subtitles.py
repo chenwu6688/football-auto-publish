@@ -171,3 +171,21 @@ def srt_to_ass(srt_text, *, width=1080, height=1920, font_size=46,
         text = content.replace("\n", "\\N")
         body.append(f"Dialogue: 0,{start},{end},Default,,0,0,0,,{text}")
     return "\n".join(header + body) + "\n"
+
+
+def parse_segments(srt_text):
+    """把 SRT 解析为句时间轴 list[{"start","end","text"}]（秒），供剪接对齐。
+
+    兼容句级/逐词 SRT；多行内容合并为一句。无效块跳过。
+    """
+    def _to_sec(tc, off):
+        return (int(tc.group(off)) * 3600 + int(tc.group(off + 1)) * 60 +
+                int(tc.group(off + 2)) + int(tc.group(off + 3)) / 1000.0)
+    segs = []
+    for _idx, tcm, content in _parse_srt(srt_text):
+        start = _to_sec(tcm, 1)
+        end = _to_sec(tcm, 5)
+        text = " ".join(content.split())
+        if end > start:
+            segs.append({"start": start, "end": end, "text": text})
+    return segs

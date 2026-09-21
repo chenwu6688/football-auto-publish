@@ -13,6 +13,13 @@ from .clone import synthesize_clone_impl, split_sentences, build_proportional_sr
 from .talking_head import (
     generate_talking_head, generate_sadtalker, generate_wav2lip, TalkingHeadUnavailable,
 )
+from .footage import (
+    extract_keywords, extract_keywords_rule, collect_footage,
+    search_pexels_videos, search_pixabay_videos, search_pexels_images, FootageUnavailable,
+)
+from .edit import (
+    edit_with_broll, build_image_anchor,
+)
 from .pipeline import run_pipeline, load_video_config
 
 __all__ = [
@@ -22,5 +29,8 @@ __all__ = [
     "compose_video", "verify_video", "ffprobe_duration",
     "synthesize_clone_impl", "split_sentences", "build_proportional_srt", "CloneUnavailable",
     "generate_talking_head", "generate_sadtalker", "generate_wav2lip", "TalkingHeadUnavailable",
+    "extract_keywords", "extract_keywords_rule", "collect_footage",
+    "search_pexels_videos", "search_pixabay_videos", "search_pexels_images", "FootageUnavailable",
+    "edit_with_broll", "build_image_anchor",
     "run_pipeline", "load_video_config",
 ]

@@ -21,6 +21,8 @@ from video_pipeline import (
 )
 from video_pipeline.clone import CloneUnavailable, split_sentences, build_proportional_srt
 from video_pipeline.talking_head import TalkingHeadUnavailable
+from video_pipeline import footage as _footage
+from video_pipeline import edit as _edit
 
 _SAMPLE_ARTICLE = {
     "title": "皇马更衣室炸了？贝林厄姆和主帅当场互喷",
@@ -294,4 +296,104 @@ def test_pipeline_talking_head_fallback_to_static(tmp_path, monkeypatch):
                                  llm_fn=_fake_llm)
     assert meta["talking_head_used"] is False
     assert meta["talking_head_engine"] == ""
+    assert Path(meta["video_path"]).exists()
+
+
+# ---------------------------------------------------------------- Phase 3：素材剪接
+def test_extract_keywords_rule_basic():
+    from video_pipeline.footage import extract_keywords_rule
+    kws = extract_keywords_rule(
+        "老球迷们，皇马更衣室炸了，贝林厄姆和主帅当场互喷，评论区聊聊。", k=4)
+    # 朴素规则器应至少命中足球具象词（皇马/贝林厄姆/更衣室）
+    joined = " ".join(kws)
+    assert any(t in joined for t in ("皇马", "贝林厄姆", "更衣室"))
+    # 超长复合句（>8 字）应被过滤，避免无效检索词
+    assert all(len(w) <= 8 for w in kws)
+
+
+def test_collect_footage_local_source(tmp_path, monkeypatch):
+    from video_pipeline import footage
+    # 放两个本地素材片段
+    for name in ("a.mp4", "b.jpg"):
+        p = tmp_path / name
+        if name.endswith(".mp4"):
+            _make_clip(p, size="320x320", dur=2)
+        else:
+            from PIL import Image
+            Image.new("RGB", (400, 300), (10, 20, 30)).save(str(p))
+    cfg = {"sources": ["local"], "local_dir": str(tmp_path), "max_clips": 8,
+           "keywords": 4, "per_query": 3, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
+    pool = footage.collect_footage("皇马更衣室炸了", cfg=cfg, cache_dir=str(tmp_path / "cache"))
+    assert len(pool) == 2
+    assert any(x["is_image"] for x in pool)
+    assert any(not x["is_image"] for x in pool)
+
+
+def test_collect_footage_no_key_returns_empty():
+    from video_pipeline import footage
+    # 联网源但无 key → 应优雅返回空池（不抛异常），由上层回退纯主讲人
+    cfg = {"sources": ["pexels_video"], "pexels_api_key": "", "keywords": 3,
+           "per_query": 2, "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
+    pool = footage.collect_footage("皇马", cfg=cfg, cache_dir="/tmp/_fp_test_cache")
+    assert pool == []
+
+
+def test_edit_with_broll_real(tmp_path):
+    """真实 ffmpeg 端到端：主讲人 + 素材交替 + xfade，输出竖屏且时长正确。"""
+    from video_pipeline import edit
+    anchor = tmp_path / "anchor.mp4"
+    subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
+                    "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
+                    "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
+                   capture_output=True, check=True)
+    blue = tmp_path / "blue.mp4"; green = tmp_path / "green.mp4"
+    for c in (blue, green):
+        subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", f"color=c=blue:s=1920x1080:r=30:d=3",
+                        "-c:v", "libopenh264", "-pix_fmt", "yuv420p", str(c)],
+                       capture_output=True, check=True)
+    pool = [{"path": str(blue), "is_image": False, "duration": 3.0},
+            {"path": str(green), "is_image": False, "duration": 3.0}]
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    out = tmp_path / "edited.mp4"
+    edit.edit_with_broll(str(anchor), str(anchor), segs, pool, str(out),
+                         transition=0.4, lower_third="老六说球")
+    assert out.exists()
+    info = compose.verify_video(str(out))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    # 时长 ≈ 5 - 4*0.4 = 3.4
+    assert abs(info["duration"] - 3.4) < 0.5
+
+
+def test_pipeline_footage_integration(tmp_path, monkeypatch):
+    """footage 开启 + 本地素材库 → 应做 B-roll 剪接并记 footage_used=True。"""
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    # 准备本地素材片段
+    foot_dir = tmp_path / "footage"
+    foot_dir.mkdir()
+    _make_clip(foot_dir / "clip1.mp4", size="640x360", dur=3)
+    _make_clip(foot_dir / "clip2.mp4", size="640x360", dur=3)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["output"]["keep_intermediate"] = True
+    cfg["footage"]["enabled"] = True
+    cfg["footage"]["sources"] = ["local"]
+    cfg["footage"]["local_dir"] = str(foot_dir)
+    cfg["footage"]["min_clip_dur"] = 0.0
+    cfg["footage"]["max_clip_dur"] = 100.0
+    cfg["footage"]["lower_third"] = True
+    cfg["footage"]["lower_third_text"] = "老六说球"
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["footage_used"] is True
+    assert meta["footage_count"] >= 2
+    assert Path(meta["video_path"]).exists()
+
+
+def test_pipeline_footage_disabled(tmp_path, monkeypatch):
+    """footage 关闭 → 不应做 B-roll，footage_used=False（纯主讲人）。"""
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["footage"]["enabled"] = False
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["footage_used"] is False
     assert Path(meta["video_path"]).exists()

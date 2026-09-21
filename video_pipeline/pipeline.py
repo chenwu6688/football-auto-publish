@@ -23,6 +23,9 @@ import yaml
 from video_pipeline import script_gen, tts, subtitles, compose
 from video_pipeline.clone import CloneUnavailable
 from video_pipeline.talking_head import TalkingHeadUnavailable
+from video_pipeline import footage as footage_mod
+from video_pipeline import edit as edit_mod
+from video_pipeline.subtitles import parse_segments
 
 CONFIG_PATH = Path(__file__).parent / "video_config.yaml"
 
@@ -54,7 +57,8 @@ def _slug(title, max_len=40):
     return s[:max_len] or "video"
 
 
-def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=None):
+def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=None,
+                anchor_video=None):
     """跑完整支线：稿→音→字幕→视频→元数据。
 
     Args:
@@ -142,7 +146,12 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     talking_head_engine = ""
     talking_head_used = False
     th_cfg = cfg.get("talking_head", {})
-    if th_cfg.get("enabled"):
+    if anchor_video and Path(anchor_video).exists():
+        talking_head_video = anchor_video
+        talking_head_engine = "external"
+        talking_head_used = True
+        print(f"   外部主讲人视频={anchor_video}")
+    elif th_cfg.get("enabled"):
         try:
             from video_pipeline import talking_head as _th
             th_out = inter / f"{slug}.talking.mp4"
@@ -160,6 +169,51 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             print(f"   ⚠️ 说话数字人异常：{e}，回退静态肖像")
             talking_head_video = None
 
+    # 3.7) B-roll 素材剪接（可选）：按口播内容搜素材 → 按句切入主讲人 → 转场串联
+    footage_used = False
+    footage_source = ""
+    footage_count = 0
+    final_video = talking_head_video  # 未做素材剪接时的主讲人视频（可能为 None）
+    fc_cfg = cfg.get("footage", {})
+    if fc_cfg.get("enabled"):
+        try:
+            segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
+            pool = footage_mod.collect_footage(
+                script_text, cfg=fc_cfg, cache_dir=str(inter / "footage_cache"),
+                llm_fn=llm_fn)
+            if pool and segments:
+                # 锚层：优先用说话脸/外部视频；否则用肖像/渐变合成锚层视频
+                if talking_head_video and Path(talking_head_video).exists():
+                    anchor = talking_head_video
+                else:
+                    _v = cfg.get("video", {})
+                    dur = compose.ffprobe_duration(audio_path) or 60.0
+                    anchor = str(inter / f"{slug}.anchor.mp4")
+                    edit_mod.build_image_anchor(
+                        cfg.get("portrait_path", ""), str(audio_path), anchor, dur,
+                        width=_v.get("width", 1080), height=_v.get("height", 1920),
+                        fps=_v.get("fps", 30))
+                edited_out = str(inter / f"{slug}.edited.mp4")
+                # 花字条：开启时显示文案（默认频道名），否则不画
+                lt = fc_cfg.get("lower_third_text", "老六说球") if fc_cfg.get("lower_third") else ""
+                edit_mod.edit_with_broll(
+                    anchor, str(audio_path), segments, pool, edited_out,
+                    width=_v.get("width", 1080), height=_v.get("height", 1920),
+                    fps=_v.get("fps", 30),
+                    transition=float(fc_cfg.get("xfade", 0.4)),
+                    lower_third=lt,
+                    fontfile=fc_cfg.get("fontfile") or None)
+                final_video = edited_out
+                footage_used = True
+                footage_source = ",".join(fc_cfg.get("sources", []))
+                footage_count = len(pool)
+                print(f"   B-roll 剪接：素材 {len(pool)} 条，转场 {fc_cfg.get('xfade',0.4)}s")
+            else:
+                print("   ⚠️ 未检索到素材，回退纯主讲人")
+        except Exception as e:
+            print(f"   ⚠️ B-roll 剪接失败：{e}，回退纯主讲人")
+            final_video = talking_head_video
+
     # 4) 合成视频
     print("③ ffmpeg 合成竖屏视频")
     vcfg = cfg.get("video", {})
@@ -173,7 +227,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         bg_fallback=vcfg.get("background_fallback", "gradient"),
         bg_color=vcfg.get("bg_color", "0x10131A"),
         ken_burns=vcfg.get("ken_burns", True),
-        talking_head_video=talking_head_video,
+        talking_head_video=final_video,
         sub_style=sub_style,
     )
     print(f"   视频={mp4_path} 时长={info.get('duration'):.1f}s 校验={info.get('ok')}")
@@ -203,6 +257,9 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         "voice_cloned": voice_cloned,
         "talking_head_engine": talking_head_engine,
         "talking_head_used": talking_head_used,
+        "footage_used": footage_used,
+        "footage_source": footage_source,
+        "footage_count": footage_count,
         "resolution": f"{vcfg.get('width', 1080)}x{vcfg.get('height', 1920)}",
         "has_portrait": bool(cfg.get("portrait_path")) and Path(cfg["portrait_path"]).exists(),
         "video_path": str(mp4_path),
@@ -214,12 +271,14 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     meta_path = base / f"{slug}.meta.json"
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # 6) 中间产物清理（可选）；连 compose 阶段产生的瞬时 .ass、说话脸中间视频一并清理
+    # 6) 中间产物清理（可选）；连 compose 阶段产生的瞬时 .ass、说话脸/剪接中间视频一并清理
     if not cfg.get("output", {}).get("keep_intermediate", True):
         ass_path = Path(srt_path).with_suffix(".ass")
         cleanup = [audio_path, srt_path, ass_path]
         if talking_head_video:
             cleanup.append(Path(talking_head_video))
+        if final_video and final_video != (talking_head_video or ""):
+            cleanup.append(Path(final_video))
         for p in cleanup:
             try:
                 Path(p).unlink()
@@ -253,6 +312,7 @@ def _main():
     ap.add_argument("--demo", action="store_true", help="用内置样例文章跑一遍")
     ap.add_argument("--config", help="video_config.yaml 路径（默认模块内）")
     ap.add_argument("--out", help="输出目录（默认 output/videos/YYYY-MM-DD）")
+    ap.add_argument("--anchor", help="外部主讲人视频（如剪映数字人 mp4），作为剪接锚层；配合 footage 使用")
     ap.add_argument("--list-voices", action="store_true", help="列出可用 Edge TTS 男声预设")
     args = ap.parse_args()
 
@@ -269,7 +329,7 @@ def _main():
         ap.error("需指定 --article <json> 或 --demo")
 
     cfg = load_video_config(args.config)
-    meta = run_pipeline(article, config=cfg, out_dir=args.out)
+    meta = run_pipeline(article, config=cfg, out_dir=args.out, anchor_video=args.anchor)
     print("\n--- 元数据 ---")
     print(json.dumps(meta, ensure_ascii=False, indent=2))
 
