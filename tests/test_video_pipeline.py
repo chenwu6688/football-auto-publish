@@ -1039,13 +1039,14 @@ def test_resolve_cjk_font_explicit_missing_raises(tmp_path):
 
 
 def test_fit_font_size_shrinks_long_sentence():
-    """长句应自动缩小字号（不超过 3 行），短句保持基准字号。"""
+    """长句应自动缩小字号（不超过 4 行），短句保持基准字号。"""
     from video_pipeline import text_motion as tm
-    short = tm._fit_font_size("皇马炸了", 96, max_px=928)
+    short = tm._fit_font_size("皇马炸了", 96, max_px=864)
     assert short == 96
-    long_text = "皇马在输球之后更衣室爆发了激烈争执矛盾点集中在中场调度和换人时机的选择上面"
-    long_fs = tm._fit_font_size(long_text, 96, max_px=928)
-    assert long_fs < 96 and long_fs >= 56
+    long_text = ("皇马在输球之后更衣室爆发了激烈争执矛盾点集中在中场调度和换人时机的选择上面"
+                 "再加上板凳深度不足的问题接二连三地暴露出来")
+    long_fs = tm._fit_font_size(long_text, 96, max_px=864)
+    assert long_fs < 96 and long_fs >= 52
 
 
 def test_ass_color_converts_to_bgr():
@@ -1076,18 +1077,86 @@ def test_build_motion_ass_has_header_and_highlights():
                               teams_table=["皇马", "巴萨"])
     assert "PlayResX: 1080" in ass and "PlayResY: 1920" in ass
     assert "Style: Body," in ass and "Style: HL," in ass and "Style: Num," in ass
-    # 高亮内联样式存在，且紧跟复位标记（否则后文会继承高亮样式）
-    assert r"{\r" in ass and r"{\rBody}" in ass
+    # 高亮内联样式存在；\rBody 复位必须带句级缩放（裸 \rBody 会把正文跳回 96px）
+    assert r"{\r" in ass and r"{\rBody\fscx" in ass
     # 两条 Dialogue（两句）
     assert ass.count("Dialogue: 0,") == 2
-    # 每行不超过 max_chars_per_line（删掉全部 {..} 内联标签后按纯文本算）
-    import re as _re
+    # 边距：每行「加权占宽」不得超过 per_line（高亮词按放大系数计入，防止顶到屏幕边）
     for line in ass.splitlines():
         if line.startswith("Dialogue: 0,"):
             body = line.split(",,", 2)[-1]
+            import re as _re
             for sub in body.split(r"\N"):
+                # 粗断言：删掉全部 {..} 标签后纯文本不超过 20 字（0.80 边距下的安全上限）
                 plain = _re.sub(r"\{[^}]*\}", "", sub)
                 assert len(plain) <= 20, f"单行过长({len(plain)}字): {plain!r}"
+
+
+def test_build_motion_ass_lines_fit_weighted_width():
+    """折行核心回归：折行必须按高亮词「放大后的渲染宽度」计算。
+
+    极端用例：整句全是情绪词（全部带 HL 样式 ×1.52）。
+    若按未加权宽度折行，每行实际渲染宽度会超 max_px 顶到屏幕边。
+    """
+    from video_pipeline import text_motion as tm
+    import re as _re
+    width = 1080
+    max_px = int(width * 0.80)
+    text = "逆转绝杀爆冷崩盘内讧互喷下课官宣签约夺冠登顶捧杯血洗大胜惨败复仇"
+    segs = [{"start": 0.0, "end": 5.0, "text": text}]
+    # max_kw=30：15 个情绪词全部高亮 → 全句 HL（×1.52），最严苛的折行场景
+    ass = tm.build_motion_ass(segs, width=width, height=1920, total=5.0, max_kw=30)
+    fs = tm._fit_font_size(text, 96, max_px)
+    per_line = max(2.0, max_px / fs)
+    dialogue = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")][0]
+    body = dialogue.split(",,", 2)[-1]
+    for line in body.split(r"\N"):
+        plain = _re.sub(r"\{[^}]*\}", "", line)
+        weighted = tm._text_units(plain) * 1.52     # 全句均为 HL 高亮
+        assert weighted <= per_line + 1e-6, \
+            f"行加权占宽 {weighted:.2f} > per_line {per_line:.2f}（会顶边）: {plain!r}"
+
+
+def test_anim_auto_cycles_variety():
+    """auto 模式：按句轮换动效，多句应覆盖多种动效标签（翻转/缩放/模糊/扫出）。"""
+    from video_pipeline import text_motion as tm
+    segs = [{"start": i * 1.0, "end": i * 1.0 + 1.0, "text": f"第{i}句皇马炸了"}
+            for i in range(9)]
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=9.0,
+                              in_anim="auto", teams_table=["皇马"])
+    prefixes = [l.split(",,", 2)[-1].split("}")[0] + "}"
+                for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
+    assert len(prefixes) == 9
+    assert len(set(prefixes)) >= 7, f"9 句动效应高度多样，实际 {len(set(prefixes))} 种"
+    all_p = "".join(prefixes)
+    for tag in (r"\frx", r"\fry", r"\frz", r"\blur", r"\clip(", r"\move(", r"\t("):
+        assert tag in all_p, f"动效池应包含 {tag}"
+
+
+def test_anim_prefix_stable_state_matches_static():
+    """动效原则：动画终值 = 静态值（稳态），缩放标签前后一致，不依赖未定义行为。"""
+    from video_pipeline import text_motion as tm
+    import re as _re
+    # scale=0.6 时稳态 fscx=60；合法值 = 稳态(60)/pop鼓起(65)/swing初值(40)/
+    # zoomout初值(111)/zoomin初值(33)
+    legal = {"60", "65", "40", "111", "33"}
+    for anim in ("pop", "flipx", "flipy", "swing", "zoomout", "zoomin", "blurin"):
+        p = tm._anim_prefix(anim, scale=0.6)
+        # 所有 \t 里的 \fscx 目标必须乘过 scale（不得出现裸 100/108 之类）
+        for m in _re.finditer(r"\\t\(\d+,\d+,([^)]*)\)", p):
+            for v in _re.findall(r"\\fscx(\d+)", m.group(1)):
+                assert v in legal, f"{anim} 异常缩放值 {v}: {p}"
+    # pop 终值回落稳态：最后一个 \t 的 fscx 目标 == 静态值（scale=1.0 → 100）
+    p = tm._anim_prefix("pop", scale=1.0)
+    assert p.endswith(r"\t(90,240,\fscx100\fscy100)}")
+
+
+def test_fit_font_size_four_lines_and_floor():
+    """长句按 4 行上限收字号，下限 52。"""
+    from video_pipeline import text_motion as tm
+    long_text = "下半场易边再战第67分钟维尼修斯左路突破造成对方后卫犯规裁判果断判罚点球姆巴佩主罚一蹴而就完成梅开二度皇马2比1反超登顶西甲积分榜"
+    fs = tm._fit_font_size(long_text, 96, max_px=864)
+    assert 52 <= fs < 96
 
 
 def test_build_motion_ass_clamps_last_segment_to_total():
@@ -1159,3 +1228,74 @@ def test_textmotion_branch_takes_precedence(tmp_path, monkeypatch):
     assert meta["footage_used"] is False
     assert Path(meta["video_path"]).exists()
     assert meta["actual_duration_sec"] > 0
+
+
+def test_render_line_styles_no_punct_at_line_start():
+    """避头点：，。等标点不得出现在行首（悬挂在上一行行尾）。"""
+    from video_pipeline import text_motion as tm
+    # 构造必然在"造"后断行的场景：断点恰好落在"，"前
+    pieces = [("下半场易边再战，维尼修斯左路突破造成对方后卫犯规，裁判判罚点球", None)]
+    lines = tm._render_line_styles(pieces, max_units=12.0)
+    assert len(lines) > 1
+    import re as _re
+    for line in lines:
+        plain = _re.sub(r"\{[^}]*\}", "", line)
+        assert plain[0] not in tm._NO_LINE_START, f"行首出现标点: {plain!r}"
+    # 拼回原文不丢字
+    joined = "".join(_re.sub(r"\{[^}]*\}", "", l) for l in lines)
+    assert joined == pieces[0][0]
+
+
+def test_render_line_styles_keeps_highlight_kind_across_lines():
+    """长高亮词跨行时 kind 不丢（词被折断的两半都保持高亮样式）。"""
+    from video_pipeline import text_motion as tm
+    pieces = [("前情提要三个字", None), ("读秒绝杀", "emotion"), ("然后继续说下去", None)]
+    lines = tm._render_line_styles(pieces, max_units=6.0)
+    joined = "".join(lines)
+    # "读秒绝杀" 4 字占宽 4*1.52≈6.1 > 6 → 会被折断；两半都应带 {\rHL 样式
+    assert joined.count(r"{\rHL") >= 2 or joined.count(r"{\rHL") >= 1
+    import re as _re
+    plain = _re.sub(r"\{[^}]*\}", "", joined)
+    assert "读秒绝杀" in plain and "前情提要三个字" in plain
+
+
+def test_split_blocks_by_punct():
+    """长句按标点切块：每块 ≤ max_units，拼回不丢字，块数合理。"""
+    from video_pipeline import text_motion as tm
+    text = "下半场易边再战，第67分钟，维尼修斯左路突破造成对方后卫犯规，裁判果断判罚点球。"
+    blocks = tm._split_blocks(text, max_units=12)
+    assert len(blocks) >= 3
+    for b in blocks:
+        assert tm._text_units(b) <= 12 + 1e-6, f"块超宽: {b!r}"
+    assert "".join(blocks) == text.replace("，", "，").replace("。", "。")
+    # 短句不切块
+    assert tm._split_blocks("皇马炸了", 12) == ["皇马炸了"]
+    # 无标点超长句硬切
+    long_np = "皇家马德里客场挑战巴塞罗那的比赛中姆巴佩完成梅开二度帮助球队取胜"
+    hard = tm._split_blocks(long_np, 10)
+    assert all(tm._text_units(b) <= 10 + 1e-6 for b in hard)
+    assert "".join(hard) == long_np
+
+
+def test_build_motion_ass_block_split_time_window():
+    """块拆分后：Dialogue 数 = 块数；时间窗按字数加权、覆盖整句时段不重叠。"""
+    from video_pipeline import text_motion as tm
+    text = "下半场易边再战，第67分钟，维尼修斯左路突破造成对方后卫犯规，裁判果断判罚点球。"
+    segs = [{"start": 10.0, "end": 22.0, "text": text}]   # 12s
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=22.0,
+                              in_anim="fade", end_hold=0)
+    dialogues = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
+    assert len(dialogues) >= 3, "长句应切多块"
+    # 时间窗解析（fade 前缀无 \t 干扰）：start 递增、末块 end ≤ total
+    def sec(ts):
+        h, m, rest = ts.split(":")
+        return int(h) * 3600 + int(m) * 60 + float(rest)
+    prev_end = 0.0
+    for d in dialogues:
+        parts = d.split(",")
+        s, e = sec(parts[1]), sec(parts[2])
+        assert s >= prev_end - 0.01, f"时间窗重叠: {d[:40]}"
+        assert e <= 22.0 + 0.01
+        prev_end = e
+    # 首块从句首开始
+    assert sec(dialogues[0].split(",")[1]) >= 10.0

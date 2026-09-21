@@ -251,6 +251,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 teams_table=teams_table,
                 extra_words=tc_cfg.get("extra_words") or None,
                 max_kw=int(tc_cfg.get("max_kw_per_sentence", 3)),
+                max_block_units=int(tc_cfg.get("max_block_units", 12)),
                 keep_ass=bool(tc_cfg.get("keep_ass", False)),
             )
             tm_used = True

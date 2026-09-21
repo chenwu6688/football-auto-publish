@@ -93,23 +93,23 @@ def _text_units(text):
     return sum(_char_units(c) for c in (text or ""))
 
 
-def _fit_font_size(text, base, max_px, max_lines=3):
+def _fit_font_size(text, base, max_px, max_lines=4):
     """按「最多 max_lines 行」选字号，防止大字溢出屏幕。
 
     大字口播的常见坑：一句 10 个汉字在 1080 宽下用 96px 就会横向溢出。
     做法：先按基准字号折行，若行数超过 max_lines（尤其句子很长时），
-    逐步缩小字号（下限 56）直到行数收敛，兼顾「字够大」和「不溢出、不刷屏」。
+    逐步缩小字号（下限 52）直到行数收敛，兼顾「字够大」和「不溢出、不刷屏」。
     """
     if not text:
         return base
     units = _text_units(text)
     size = base
-    while size > 56:
+    while size > 52:
         per_line = max_px / size            # 该字号下一行最多几个字符单位
         if units / per_line <= max_lines:   # 行数达标
             break
         size -= 4
-    return max(56, min(base, size))
+    return max(52, min(base, size))
 
 
 def _wrap_by_units(text, max_units):
@@ -179,6 +179,20 @@ def _ass_color(v, default="&H00FFFFFF"):
 # kind → 样式名（num 更大更黄；team/emotion/decision 走 HL 尺寸，颜色由内联 \c 覆盖）
 _KIND_STYLE = {"num": "Num", "team": "HL", "emotion": "HL", "decision": "HL"}
 
+# 样式 → 实际渲染宽度放大系数（折行必须按「最终渲染宽度」算，否则行会顶到屏幕边）：
+#   HL  字号 = base*1.15，再被内联 \fscx132 放大 → 1.15*1.32 ≈ 1.52
+#   Num 字号 = base*1.25，再被内联 \fscx132 放大 → 1.25*1.32 ≈ 1.65
+_KIND_SCALE = {"HL": 1.15 * 1.32, "Num": 1.25 * 1.32}
+
+
+def _frag_units(frag, kind=None):
+    """片段的「渲染占宽单位」：普通正文按字符单位，高亮片段乘放大系数。"""
+    u = _text_units(frag)
+    if not kind:
+        return u
+    style = _KIND_STYLE.get(kind, "HL")
+    return u * _KIND_SCALE.get(style, 1.0)
+
 
 def build_motion_ass(segments, *, width=1080, height=1920,
                      font_name="Noto Sans CJK SC", total=None,
@@ -187,7 +201,7 @@ def build_motion_ass(segments, *, width=1080, height=1920,
                      outline=6, outline_color="0x10131A",
                      max_chars_per_line=9, keyword_stagger=0.15,
                      in_anim="pop", teams_table=None, extra_words=None,
-                     max_kw=3, end_hold=0.35):
+                     max_kw=3, end_hold=0.35, max_block_units=12):
     """生成「文字动效」ASS：整屏大字逐句弹出 + 关键词内联高亮 + 入场动效。
 
     Args:
@@ -200,7 +214,7 @@ def build_motion_ass(segments, *, width=1080, height=1920,
     Returns:
         str: ASS 文本。
     """
-    max_px = int(width * 0.86)      # 左右各留 7% 边距
+    max_px = int(width * 0.80)      # 左右各留 10% 边距（高亮词放大后也不顶边）
     primary = _ass_color(text_color)
     hl_c = _ass_color(hl_color)
     num_c = _ass_color(num_color)
@@ -213,7 +227,9 @@ def build_motion_ass(segments, *, width=1080, height=1920,
         f"PlayResX: {int(width)}",
         f"PlayResY: {int(height)}",
         "ScaledBorderAndShadow: yes",
-        "WrapStyle: 2",
+        # WrapStyle 0 = smart wrapping：即便生成侧折行计算偶有偏差，
+        # libass 也会在 MarginL/R 内自动折行兜底，而不是把行画出屏幕
+        "WrapStyle: 0",
         "YCbCr Matrix: None",
         "",
         "[V4+ Styles]",
@@ -221,21 +237,22 @@ def build_motion_ass(segments, *, width=1080, height=1920,
         "OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, "
         "ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, "
         "MarginL, MarginR, MarginV, Encoding",
-        # 正文：居中、加粗、带描边（深色底上更清晰）
+        # 正文：居中、加粗、带描边（深色底上更清晰）；边距 90px（约 8.3% 屏宽）
         f"Style: Body,{font_name},{int(body_font_size)},{primary},{primary},"
-        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,5,60,60,60,1",
+        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,5,90,90,60,1",
         # 高亮词：比正文大 15%
         f"Style: HL,{font_name},{int(body_font_size * 1.15)},{hl_c},{hl_c},"
-        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,5,60,60,60,1",
+        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,5,90,90,60,1",
         # 数字/比分：更大更黄
         f"Style: Num,{font_name},{int(body_font_size * 1.25)},{num_c},{num_c},"
-        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline) + 1},3,5,60,60,60,1",
+        f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline) + 1},3,5,90,90,60,1",
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
 
     body = []
+    anim_idx = 0                      # auto 模式动效序号（块级递增，节奏更碎更带感）
     for i, seg in enumerate(segments):
         st = float(seg.get("start", 0) or 0)
         en = float(seg.get("end", 0) or 0)
@@ -247,83 +264,224 @@ def build_motion_ass(segments, *, width=1080, height=1920,
         if i == len(segments) - 1 and total:      # 末句多停留一点，收尾更稳
             en = min(en + end_hold, float(total)) if end_hold else en
 
-        # 关键词 & 内联高亮拼接
-        highlights = tk.extract_highlights(
-            text, teams_table=teams_table, extra_words=extra_words, max_kw=max_kw)
-        pieces = tk.split_by_highlights(text, highlights)
-        # 按句动态字号（长句自动缩小），再按行宽折行 → 逐行加内联样式
-        fs = _fit_font_size(text, body_font_size, max_px)
-        per_line = max(2.0, max_px / fs)
-        rendered = _render_line_styles(pieces, per_line,
-                                       stagger_ms=int(keyword_stagger * 1000))
-        content = r"\N".join(rendered)
-        # 本句字号相对基准的缩放系数（内联 \fs 覆盖 Style，保证按句生效）
-        scale = fs / float(body_font_size) if body_font_size else 1.0
+        # 长句按标点切块（每屏字少 → 字大），块间按字数加权分时间窗
+        blocks = _split_blocks(text, max_block_units)
+        if not blocks:
+            continue
+        block_units = [_text_units(b) for b in blocks]
+        sum_u = sum(block_units)
+        t = st
+        for bi, blk in enumerate(blocks):
+            dt = (en - st) * block_units[bi] / sum_u
+            b_st, b_en = t, t + dt
+            t = b_en
+            if bi == len(blocks) - 1:
+                b_en = en                      # 末块吃满（含 end_hold）
+            elif dt < 0.6 and bi + 1 < len(blocks):
+                # 最短块时长保护：低于 0.6s 从下一块借时间（避免闪屏）
+                borrow = min(0.6 - dt, (en - t) * 0.5)
+                b_en += borrow
+                t = b_en
 
-        start_ts = _ass_time(st + 0.04)
-        end_ts = _ass_time(en)
-        body.append(f"Dialogue: 0,{start_ts},{end_ts},Body,,0,0,0,,"
-                    f"{_anim_prefix(in_anim, scale)}{content}")
+            highlights = tk.extract_highlights(
+                blk, teams_table=teams_table, extra_words=extra_words, max_kw=max_kw)
+            pieces = tk.split_by_highlights(blk, highlights)
+            # 块短 → 字大：块内最多 2 行（抖音风格），超出才缩字号
+            fs = _fit_font_size(blk, body_font_size, max_px, max_lines=2)
+            per_line = max(2.0, max_px / fs)
+            scale = fs / float(body_font_size) if body_font_size else 1.0
+            rendered = _render_line_styles(pieces, per_line,
+                                           stagger_ms=int(keyword_stagger * 1000),
+                                           scale=scale)
+            content = r"\N".join(rendered)
+
+            start_ts = _ass_time(b_st + 0.04)
+            end_ts = _ass_time(b_en)
+            anim = _pick_anim(in_anim, anim_idx)
+            anim_idx += 1
+            body.append(f"Dialogue: 0,{start_ts},{end_ts},Body,,0,0,0,,"
+                        f"{_anim_prefix(anim, scale, width=width, height=height)}{content}")
 
     return "\n".join(header + body) + "\n"
 
 
-def _anim_prefix(anim, scale=1.0):
-    """入场动效前缀；scale<1 时按句缩放字号（长句自动变小）。"""
-    fs_scale = "" if abs(scale - 1.0) < 0.01 else f"\\fscx{scale*100:.0f}\\fscy{scale*100:.0f}"
+# 动效池（auto 模式按句轮换，cycle 天然保证相邻句不重样；节奏感优先，重动效拉开间隔）
+_ANIM_POOL = ["pop", "flipx", "zoomout", "flipy", "swing", "blurin",
+              "slideup", "spread", "fade"]
+
+
+def _pick_anim(mode, index):
+    """in_anim=auto 时按句轮换动效池；否则用固定模式。"""
+    if not mode or mode == "auto":
+        return _ANIM_POOL[index % len(_ANIM_POOL)]
+    return mode
+
+
+# 长句切块的分隔标点（优先在句读处断）
+_BLOCK_SPLIT = "，。！？；、：…—"
+
+
+def _split_blocks(text, max_units):
+    """把长句按标点切成 ≤max_units 的「显示块」（抖音口播号风格：每屏字少、字大）。
+
+    先按句读标点切短语，再贪心合并相邻短语到不超 max_units；
+    无标点的超长短语按 max_units 硬切。返回块列表。
+    """
+    phrases, buf = [], ""
+    for ch in (text or ""):
+        buf += ch
+        if ch in _BLOCK_SPLIT:
+            phrases.append(buf)
+            buf = ""
+    if buf:
+        phrases.append(buf)
+    blocks, cur = [], ""
+    for p in phrases:
+        # 单短语本身超长（无标点）→ 硬切
+        while _text_units(p) > max_units:
+            n, u = 0, 0.0
+            for i, ch in enumerate(p):
+                u += _char_units(ch)
+                if u > max_units and i > 0:
+                    n = i
+                    break
+            else:
+                n = len(p)
+            if cur:
+                blocks.append(cur)
+                cur = ""
+            blocks.append(p[:n])
+            p = p[n:]
+        if cur and _text_units(cur) + _text_units(p) > max_units:
+            blocks.append(cur)
+            cur = ""
+        cur += p
+    if cur:
+        blocks.append(cur)
+    return [b for b in blocks if b.strip()]
+
+
+def _anim_prefix(anim, scale=1.0, width=1080, height=1920):
+    """入场动效前缀。
+
+    原则：**动画终值 = 静态值 = 稳态**（折行按稳态宽度算），动画只负责
+    「从初值过渡到稳态」，不依赖渲染器对标签顺序/叠加的未定义行为。
+    所有 \\fscx/\\fscy 都乘 scale（长句整句缩小），保证动画不破坏按句字号。
+
+    动效一览（in_anim=auto 时按句轮换）：
+        pop      弹入：先鼓到 108% 再回落稳态
+        flipx    竖着翻牌（绕 X 轴从侧立翻正）
+        flipy    横着翻面（绕 Y 轴）
+        swing    斜着甩正（-14° 旋转 + 从小放大）
+        zoomout  从大到小砸定（185% → 100%）
+        zoomin   从小放大顶定（55% → 100%）
+        blurin   模糊 → 清晰
+        spread   从画面中线向两侧展开（clip 扫出）
+        slideup  上滑入位
+        fade     渐入
+    """
+    s = float(scale)
+    fsx = lambda v: str(max(1, int(round(v * s))))    # \fscx 值 = 目标% × 句缩放（\fscx 本身就是百分比）
+    fs = f"\\fscx{fsx(100)}\\fscy{fsx(100)}"           # 稳态缩放
+    if anim == "flipx":
+        return "{\\fad(150,0)\\frx88" + fs + "\\t(0,300,\\frx0)}"
+    if anim == "flipy":
+        return "{\\fad(150,0)\\fry-88" + fs + "\\t(0,300,\\fry0)}"
+    if anim == "swing":
+        return ("{\\fad(150,0)\\frz-14\\fscx" + fsx(66) + "\\fscy" + fsx(66)
+                + "\\t(0,320,\\frz0\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+    if anim == "zoomout":
+        return ("{\\fad(120,0)\\fscx" + fsx(185) + "\\fscy" + fsx(185)
+                + "\\t(0,300,\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+    if anim == "zoomin":
+        return ("{\\fad(120,0)\\fscx" + fsx(55) + "\\fscy" + fsx(55)
+                + "\\t(0,300,\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
+    if anim == "blurin":
+        return "{\\fad(140,0)\\blur16" + fs + "\\t(0,340,\\blur0.8)}"
+    if anim == "spread":
+        cx, cy = int(width // 2), int(height // 2)
+        x0, y0 = int(width * 0.06), int(height * 0.02)     # 展开终点留 6% 边距
+        x1, y1 = width - x0, height - y0
+        return ("{\\fad(100,0)"
+                f"\\clip({cx},-50,{cx},{height + 50})"
+                f"\\t(0,480,\\clip({x0},{y0},{x1},{y1}))" + "}")
     if anim == "slideup":
-        base = r"{\fad(180,0)\move(540,1010,540,900)}"
-    elif anim == "fade":
-        base = r"{\fad(220,0)}"
-    else:  # pop
-        base = r"{\fad(120,0)\t(0,180,\fscx108\fscy108)}"
-    if fs_scale:
-        return base[:-1] + fs_scale + "}"   # 插到 } 之前
-    return base
+        return "{\\fad(180,0)\\move(540,1010,540,900)}"
+    if anim == "fade":
+        return "{\\fad(220,0)}"
+    # pop（默认）：鼓到 108% 再回落稳态（两个 \t 串行，终值=稳态，不改变行宽）
+    return ("{\\fad(120,0)" + fs
+            + "\\t(0,90,\\fscx" + fsx(108) + "\\fscy" + fsx(108) + ")"
+            + "\\t(90,240,\\fscx" + fsx(100) + "\\fscy" + fsx(100) + ")}")
 
 
-def _render_line_styles(pieces, max_units, stagger_ms=0):
+# 行首禁则字符（避头点）：这些标点不应出现在行首
+_NO_LINE_START = "，。、；：！？）】》\"'…—%"
+
+
+def _render_line_styles(pieces, max_units, stagger_ms=0, scale=1.0):
     """把 [(片段, kind_or_None)] 按行宽折行，并对高亮片段加内联样式。
 
+    - 行宽按「渲染占宽」计算（高亮词乘放大系数），保证放大后也不顶屏幕边；
+    - 避头点（避头标点）：，。等标点不出现在行首——放不下则悬挂在上一行行尾
+      （最多超宽 1 字符，仍在安全边距内）；
+    - scale：句级字号缩放，透传给样式标签（\\r 复位后必须补回，见 _style_frag）。
     返回 ASS 文本行列表（调用方用 \\N 连接）。
     """
-    lines, cur, cur_u = [], "", 0.0
+    # 1) 展平成字符流 [(ch, kind)]（高亮词整词同 kind）
+    stream = []
     for frag, kind in pieces:
-        if not frag:
-            continue
-        # 片段可能很长，需内部再切
-        for sub in _split_frag(frag, kind, max_units):
-            s_text, s_kind = sub
-            u = _text_units(s_text)
-            if cur_u + u > max_units and cur:
-                lines.append(cur)
-                cur, cur_u = "", 0.0
-            cur += _style_frag(s_text, s_kind, stagger_ms)
-            cur_u += u
-    if cur:
-        lines.append(cur)
-    return lines or [""]
+        for ch in (frag or ""):
+            stream.append((ch, kind))
+    if not stream:
+        return [""]
 
-
-def _split_frag(frag, kind, max_units):
-    """把一个片段按行宽切成若干子片段（保持 kind 不变）。"""
-    if _text_units(frag) <= max_units:
-        return [(frag, kind)]
-    out, cur, cur_u = [], "", 0.0
-    for ch in frag:
-        u = _char_units(ch)
-        if cur_u + u > max_units and cur:
-            out.append((cur, kind))
-            cur, cur_u = "", 0.0
-        cur += ch
+    # 2) 逐字符填行
+    lines_chars, cur, cur_u = [], [], 0.0
+    for ch, kind in stream:
+        u = _char_units(ch) * (_KIND_SCALE.get(_KIND_STYLE.get(kind, ""), 1.0)
+                               if kind else 1.0)
+        if cur and cur_u + u > max_units:
+            # 避头点：下一行行首不能是标点 → 标点悬挂在本行行尾（超宽 1 字符可接受）
+            if ch in _NO_LINE_START:
+                cur.append((ch, kind))
+                cur_u += u
+                lines_chars.append(cur)
+                cur, cur_u = [], 0.0
+                continue
+            lines_chars.append(cur)
+            cur, cur_u = [], 0.0
+        cur.append((ch, kind))
         cur_u += u
     if cur:
-        out.append((cur, kind))
-    return out
+        lines_chars.append(cur)
+
+    # 3) 相邻同 kind 字符合并为片段 → 加内联样式
+    out = []
+    for line in lines_chars:
+        buf, buf_kind = "", None
+        parts = []
+        for ch, kind in line:
+            if kind != buf_kind and buf:
+                parts.append(_style_frag(buf, buf_kind, stagger_ms, scale))
+                buf = ""
+            buf += ch
+            buf_kind = kind
+        if buf:
+            parts.append(_style_frag(buf, buf_kind, stagger_ms, scale))
+        out.append("".join(parts))
+    return out or [""]
 
 
-def _style_frag(frag, kind, stagger_ms=0):
+def _style_frag(frag, kind, stagger_ms=0, scale=1.0):
     """给片段加内联 ASS 样式；普通正文原样返回。
+
+    ⚠️ libass 的 \\r 会把**所有**内联覆盖重置回 Style 定义——包括 Dialogue 开头的
+    句级 \\fscx 缩放（实测确认）。所以：
+      - 高亮标签：\\r{Style} 后必须重新声明句级 \\fscx，且 stagger 动画目标
+        也要乘 scale（否则高亮词会跳到 120px+ 巨字）；
+      - 复位标签：{\\rBody} 也要补回句级 \\fscx，否则其后的正文跳回 96px、
+        行宽暴涨 → libass 自动重折行 → 行首标点 + 贴边。
 
     stagger_ms > 0 时，该片段延迟一点点再放大（关键词「砸下来」的击打感），
     但仍在同一条 Dialogue 内 —— 不会与正文叠字（叠字是拆成两条 Dialogue 造成的）。
@@ -332,13 +490,15 @@ def _style_frag(frag, kind, stagger_ms=0):
         return _escape_ass_text(frag)
     style = _KIND_STYLE.get(kind, "HL")
     safe = _escape_ass_text(frag)
+    sx = max(1, int(round(scale * 100)))            # 句级缩放（%）
+    base = f"\\fscx{sx}\\fscy{sx}"
+    hl = max(1, int(round(scale * 132)))            # 高亮态 = 132% × 句缩放
     if stagger_ms > 0:
-        # 先保持原大小，延迟 stagger_ms 后放大到 132% —— 制造「后砸下来」的节奏
-        anim = f"\\t({int(stagger_ms)},{int(stagger_ms) + 160},\\fscx132\\fscy132)"
+        anim = f"\\t({int(stagger_ms)},{int(stagger_ms) + 160},\\fscx{hl}\\fscy{hl})"
     else:
-        anim = "\\fscx132\\fscy132"
-    # 结尾 \rBody 复位，避免后续正文继承高亮样式（漏了会整句变大变色）
-    return f"{{\\r{style}{anim}}}{safe}{{\\rBody}}"
+        anim = f"\\fscx{hl}\\fscy{hl}"
+    # 结尾复位必须带回句级缩放（裸 \rBody 会把正文跳回 96px）
+    return f"{{\\r{style}{base}{anim}}}{safe}{{\\rBody{base}}}"
 
 
 def _escape_ass_text(s):
@@ -399,7 +559,7 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
                        keyword_stagger=0.15,
                        crest_map=None, crest_size=170, crest_y=0.78,
                        crest_glow=True, teams_table=None, extra_words=None,
-                       max_kw=3, keep_ass=False):
+                       max_kw=3, keep_ass=False, max_block_units=12):
     """纯文字动效口播：动态渐变背景 + 大字逐句弹出 + 关键词高亮 + 队标点缀 + 原音轨。
 
     **单趟 ffmpeg 出片**（含音频），总时长 ≡ 音频时长 —— 不会黑屏、不会切末句。
@@ -436,9 +596,10 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
         segments, width=width, height=height, font_name=family, total=total,
         body_font_size=body_font_size, text_color=text_color,
         hl_color=hl_color, num_color=num_color, outline=outline,
-        outline_color=outline_color, max_chars_per_line=max_chars_per_line,
+        outline_color=outline_color,         max_chars_per_line=max_chars_per_line,
         keyword_stagger=keyword_stagger, in_anim=in_anim,
-        teams_table=teams_table, extra_words=extra_words, max_kw=max_kw)
+        teams_table=teams_table, extra_words=extra_words, max_kw=max_kw,
+        max_block_units=max_block_units)
     ass_path = out_mp4.with_suffix(".motion.ass")
     ass_path.write_text(ass_text, encoding="utf-8")
 
