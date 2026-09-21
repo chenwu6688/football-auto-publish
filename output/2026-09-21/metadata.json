@@ -1,7 +1,7 @@
 {
   "date": "2026-09-21",
-  "generated_at": "2026-09-21T00:11:04.256853",
-  "total_articles": 3,
+  "generated_at": "2026-09-21T04:10:43.933819",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -100,175 +100,203 @@
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "阿尔特塔这场0-3，像极了当年温格被扒光底裤的样子",
+      "path": "/home/runner/work/_temp/output/2026-09-21/article-1-阿尔特塔这场03-822080.md",
+      "slug": "阿尔特塔这场03-822080",
+      "tags": [
+        "Brighton",
+        "Arsenal",
+        "Premier League",
+        "Gross",
+        "Kostoulas",
+        "Arteta"
+      ],
+      "keywords": [
+        "Brighton",
+        "Arsenal",
+        "Premier League",
+        "Gross",
+        "Kostoulas",
+        "Arteta"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-21/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "利物浦这1-0，看得我血压比阿利松扑救还高",
+      "path": "/home/runner/work/_temp/output/2026-09-21/article-2-利物浦这10看得-adda55.md",
+      "slug": "利物浦这10看得-adda55",
+      "tags": [
+        "Liverpool",
+        "Bournemouth",
+        "Premier League",
+        "Alisson",
+        "Isaac"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Bournemouth",
+        "Premier League",
+        "Alisson",
+        "Isaac"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-21/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-21/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "先丢球就赢不了？热刺这48场不胜的魔咒，凭啥破不了？",
-      "angle": "从热刺24年11月以来先丢球的48场比赛均未能赢球的惊人数据切入，剖析球队心理韧性问题。这不是战术问题，是骨子里的气质——落后就崩盘，这不是豪门该有的样子。",
+      "title": "3-0完胜莱切，米兰这新援到底什么来头？",
+      "angle": "从米兰3-0大胜切入，聚焦某位表现亮眼的新援，分析其技术特点与融入情况，给老球迷一个通俗的战术解读。",
       "keywords": [
-        "Tottenham",
-        "comeback",
-        "mentality"
+        "ac milan",
+        "lecce",
+        "serie a",
+        "new signing"
       ],
       "keywords_cn": [
-        "热刺",
-        "先丢球",
-        "逆转",
-        "心理素质"
+        "AC米兰",
+        "莱切",
+        "意甲",
+        "新援表现"
       ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "48场不胜的极端数据有冲击力，直击热刺球队气质痛点，能引发球迷争论",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "弗格森看曼联1-1富勒姆，眼里全是痛苦，红魔这十年到底丢了什么？",
-      "angle": "弗格森现场观战曼联平局，球迷描述'从他眼中看到痛苦'。以老爵爷的眼神为引，对比曼联昔日的统治力与如今的挣扎，打情怀牌的同时拷问曼联重建之路。",
-      "keywords": [
-        "Ferguson",
-        "Manchester United",
-        "decline"
-      ],
-      "keywords_cn": [
-        "弗格森",
-        "曼联",
-        "衰落",
-        "情怀"
-      ],
-      "content_type": "八卦趣事",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "弗格森+曼联的怀旧组合是流量密码，老球迷DNA动了，评论区必炸",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "萨拉赫超速被禁驾6个月，法老在场外怎么也踩油门？",
-      "angle": "萨拉赫座驾超速且未回应传票被禁驾6个月+罚款，从场外花边切入，用轻松调侃的语气讲球星也是普通人，但要承担法律后果。太阳报的消息，八卦属性拉满。",
-      "keywords": [
-        "Salah",
-        "speeding",
-        "ban"
-      ],
-      "keywords_cn": [
-        "萨拉赫",
-        "超速",
-        "禁驾",
-        "罚款"
-      ],
-      "content_type": "八卦趣事",
-      "score": 82,
+      "content_type": "战术解析",
+      "score": 95,
       "controversy_level": "low",
       "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "萨拉赫场外新闻自带流量，禁驾6个月有戏剧性，打破比赛复盘的同质化",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "米兰大胜，新援是看点，用生活类比讲战术，符合老球迷想了解球队变化的心理。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "阿韦洛亚开炮：曼市德比裁判根本不想曼联输？这话里有话啊",
-      "angle": "阿韦洛亚爆料称曼市德比时裁判'根本不希望曼联输'，直接质疑裁判公正性。用这个争议言论做引，讨论英超裁判的'豪门偏向'潜规则，给出明确立场。",
+      "title": "布莱顿3-0暴揍阿森纳，没了萨卡枪手真就二流？",
+      "angle": "从阿森纳惨败切入，直指核心问题——萨卡缺阵对进攻体系的影响，观点犀利：没有萨卡，阿森纳的进攻就是没牙的老虎。",
       "keywords": [
-        "Arbeloa",
-        "Manchester Derby",
-        "referee",
-        "controversy"
+        "brighton",
+        "arsenal",
+        "premier league",
+        "saka"
       ],
       "keywords_cn": [
-        "阿韦洛亚",
-        "曼市德比",
-        "裁判",
-        "争议"
+        "布莱顿",
+        "阿森纳",
+        "英超",
+        "萨卡缺阵"
       ],
       "content_type": "热点球评",
-      "score": 95,
+      "score": 108,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "裁判争议+德比话题+名宿开炮，三重爆款元素叠加，评论区必站队撕起来",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "阿森纳惨败是今天最大冷门，核心缺阵影响是经典话题，能引发枪迷和非枪迷激烈争论。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "曼城曾报价1亿欧？加克波6场2球4助，利物浦庆幸没卖",
+      "angle": "从加克波近期爆棚状态切入，回顾夏窗曼城1亿欧报价的传闻，复盘这笔“没发生的转会”如何成为利物浦的幸事。",
+      "keywords": [
+        "gakpo",
+        "liverpool",
+        "man city",
+        "transfer"
+      ],
+      "keywords_cn": [
+        "加克波",
+        "利物浦",
+        "曼城",
+        "转会传闻"
+      ],
+      "content_type": "转会资讯",
+      "score": 98,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "结合球员爆棚状态回顾转会传闻，有故事性有数据，老球迷爱看这种“幸好没卖”的爽文剧本。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-21 08:11:04"
+  "last_batch": "noon",
+  "last_updated": "2026-09-21 12:10:43"
 }
