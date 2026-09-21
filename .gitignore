@@ -14,3 +14,6 @@ logs/
 miniprogram/private.*.key
 miniprogram/node_modules/
 static_data/
+
+# 视频管线运行时素材（BGM/音效/球队标识/素材缓存，用户本地自备）
+assets/

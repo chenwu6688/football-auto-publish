@@ -34,9 +34,14 @@ def build_image_anchor(portrait_path, audio_path, out_path, duration, *,
     has_portrait = bool(portrait_path) and Path(portrait_path).exists()
     if has_portrait:
         src = ["-loop", "1", "-i", str(portrait_path)]
+        shortest = True
     else:
+        # 无肖像 → 渐变兜底。注意：lavfi 源必须显式给 d=<时长>，
+        # 且**不能用 -shortest**：实测 -shortest 会让 lavfi 无限源在约 1.9s 处
+        # 提前结束，导致锚层时长远短于旁白（整片被截短）。改用源时长 + -t 精确控制。
         src = ["-f", "lavfi", "-i", f"gradients=c0={bg_color}:c1=0x000000:"
-               f"x0=0:y0=0:x1=0:y1=1:s={width}x{height}:r={fps}"]
+               f"x0=0:y0=0:x1=0:y1=1:s={width}x{height}:r={fps}:d={duration:.3f}"]
+        shortest = False
     cmd = [
         "ffmpeg", "-y", *src, "-i", str(audio_path),
         "-filter_complex",
@@ -46,8 +51,11 @@ def build_image_anchor(portrait_path, audio_path, out_path, duration, *,
         "-map", "[v]", "-map", "1:a",
         "-c:v", _venc(), "-preset", "veryfast", "-crf", "23",
         "-c:a", "aac", "-b:a", "192k", "-r", str(fps),
-        "-t", f"{duration:.3f}", "-shortest", str(out_path),
+        "-t", f"{duration:.3f}",
     ]
+    if shortest:  # 仅肖像（-loop 1 无限）时保留 -shortest，确保与音频同长
+        cmd.append("-shortest")
+    cmd.append(str(out_path))
     rc, out, err = _run(cmd)
     if rc != 0:
         raise RuntimeError(f"锚层视频合成失败 (rc={rc}):\n{(err or out)[-1500:]}")
@@ -77,6 +85,7 @@ def edit_with_broll(
     anchor_path, audio_path, segments, footage_pool, out_path,
     *, width=1080, height=1920, fps=30, transition=0.3,
     lower_third=None, fontfile=None, broll_every=2, keep_bookends=True,
+    intro_broll=None,
 ):
     """按句时间轴把 B-roll 切入主讲人视频，转场串联，输出竖屏 mp4。
 
@@ -84,6 +93,8 @@ def edit_with_broll(
     - 主讲人(anchor)音频贯穿全片，保证口播连续；
     - 视频按句切成 n 段，部分段用 B-roll 素材（图片则静止 + 深色底；视频则裁剪铺满），
       其余段仍显示主讲人（首尾默认保留为主讲人，避免「人凭空消失」）；
+    - 开场可强制前 N 段为 B-roll（intro_broll=球队标识图），用来「去掉真人出镜、
+      改放双方球队标识」，口播继续；
     - 段与段之间 xfade 交叉淡化转场；可选叠加底部花字条(lower-third)。
     - 音频只取 anchor 音轨，B-roll 自带音丢弃。
 
@@ -91,13 +102,16 @@ def edit_with_broll(
         anchor_path: 主讲人视频（含旁白音；剪映数字人 / 本地锚层 / 说话脸）。
         audio_path: 旁白音路径（仅作校验，实际音频取 anchor 音轨）。
         segments: 句时间轴 list[{start,end,text}]（秒）。
-        footage_pool: 素材池 list[{path,is_image,duration}]。
+        footage_pool: 素材池 list[{path,is_image,duration}]（仅用于非开场 B-roll 段）。
         out_path: 输出 mp4。
         transition: xfade 转场时长（秒）。
         lower_third: 可选花字条文本（如"老六说球"）。
         fontfile: 可选 drawtext 字体文件路径。
         broll_every: 每隔几段用一次 B-roll（2=每两段用一次素材）。
-        keep_bookends: 保留首尾段为主讲人（默认 True）。
+        keep_bookends: 保留首尾段为主讲人（默认 True，但会被 intro_broll 覆盖）。
+        intro_broll: 可选，开场强制 B-roll 的图片路径列表（球队标识）。
+            前 len(intro_broll) 段会被强制设为 B-roll 并轮流使用这些图，
+            覆盖 keep_bookends 的开场真人约束（实现「开场去真人→放球队标识」）。
     Returns:
         str: out_path
     """
@@ -113,8 +127,7 @@ def edit_with_broll(
         raise RuntimeError("segments 为空或无效")
     n = len(segs)
     pool = list(footage_pool or [])
-    if not pool:
-        raise RuntimeError("素材池为空，回退纯主讲人")
+    intro_imgs = [str(p) for p in (intro_broll or [])]
 
     # 决定哪些段用 B-roll（主讲人 + 素材交替，首尾默认保留主讲人）
     use_broll = [False] * n
@@ -129,19 +142,40 @@ def edit_with_broll(
             if not (keep_bookends and i == n - 1):
                 use_broll[i] = True
 
-    # 收集需要用的 B-roll 输入（每用一次素材占一个输入文件，按 pool 轮询）
+    # 开场球队标识：强制前 len(intro_imgs) 段为 B-roll（覆盖 keep_bookends 的开场真人约束）
+    for i in range(min(len(intro_imgs), n)):
+        use_broll[i] = True
+
+    # 素材池为空时优雅降级：只保留「开场标识」这些 B-roll 段，其余段回到主讲人，
+    # 避免因缺 footage 素材而整片回退（开场标识图单独也能出片）。
+    if not pool:
+        for i in range(n):
+            if i >= len(intro_imgs):
+                use_broll[i] = False
+        if not any(use_broll):
+            raise RuntimeError("素材池为空且无开场标识，回退纯主讲人")
+
+    # 收集需要用的 B-roll 输入（每用一次素材占一个输入文件，按池轮询）
     inputs = []
     clip_idx = {}   # segment i -> 输入文件序号（仅 B-roll 段）
     n_inputs = 0    # 已加入的输入文件数（与 inputs 参数列表长度无关）
+    pool_pos = 0    # footage 素材池轮询指针（仅非开场段使用）
     for i in range(n):
-        if use_broll[i]:
-            clip = pool[len(clip_idx) % len(pool)]["path"]
-            if _is_image(clip):
-                inputs += ["-loop", "1", "-i", str(clip)]
-            else:
-                inputs += ["-stream_loop", "-1", "-i", str(clip)]
-            clip_idx[i] = n_inputs
-            n_inputs += 1
+        if not use_broll[i]:
+            continue
+        if i < len(intro_imgs):
+            clip = intro_imgs[i]            # 开场球队标识图（强制 B-roll）
+        else:
+            if not pool:
+                continue                    # 已被 has_footage_broll 拦截，兜底跳过
+            clip = pool[pool_pos % len(pool)]["path"]
+            pool_pos += 1
+        if _is_image(clip):
+            inputs += ["-loop", "1", "-i", str(clip)]
+        else:
+            inputs += ["-stream_loop", "-1", "-i", str(clip)]
+        clip_idx[i] = n_inputs
+        n_inputs += 1
     anchor_idx = n_inputs
     inputs += ["-i", str(anchor_path)]
 
@@ -197,7 +231,10 @@ def edit_with_broll(
         "-map", f"{anchor_idx}:a",
         "-c:v", _venc(), "-preset", "veryfast", "-crf", "23",
         "-c:a", "aac", "-b:a", "192k",
-        "-r", str(fps), "-t", f"{total:.3f}", "-shortest",
+        # 用显式 -t 精确控制成片时长（= 各段之和 - 转场重叠）。
+        # 不要加 -shortest：B-roll 用 -stream_loop -1、锚层音频可能长短不一，
+        # -shortest 会取到最短流而把整片截短（曾把 5.2s 截成 1.9s）。
+        "-r", str(fps), "-t", f"{total:.3f}",
         "-movflags", "+faststart", str(out_path),
     ]
     rc, out, err = _run(cmd)

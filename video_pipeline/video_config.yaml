@@ -11,15 +11,15 @@ portrait_path: ""          # 例: /home/chenwu/portraits/laoliu.jpg
 # 声线（Edge TTS，免 key，免费）
 voice:
   provider: "edge"         # edge（默认）| volcano（火山引擎，需 key）| clone（GPT-SoVITS，预留）
-  default: "zh-CN-YunxiNeural"      # 云希（男声·沉稳专业，通用解说/资讯）
+  default: "zh-CN-YunjianNeural"    # 云健（男声·更具张力/激情，适合体育解说吐槽）
   # 备选男声（按此顺序降级尝试，避免单音色抽风）:
-  #   zh-CN-YunjianNeural（云健·更具张力/激情，适合体育吐槽）
+  #   zh-CN-YunxiNeural（云希·沉稳专业，通用解说/资讯）
   #   zh-CN-YunyangNeural（晓睿·男声）
   fallback_order:
-    - "zh-CN-YunxiNeural"
     - "zh-CN-YunjianNeural"
+    - "zh-CN-YunxiNeural"
     - "zh-CN-YunyangNeural"
-  rate: "+0%"              # 语速: "-8%" 更稳重 / "+5%" 更紧凑（短视頻常用稍快）
+  rate: "+12%"             # 语速：加快节奏、更有激情（" -8%" 更稳重 / "+12%" 紧凑激情）
   volume: "+0%"
   pitch: "+0Hz"
 
@@ -64,7 +64,7 @@ talking_head:
 # 按句时间轴切替 → ffmpeg 多轨剪接(crossfade 转场 + 花字条) → 竖屏 mp4。
 # 素材搜不到/失败 → 自动回退纯主讲人层（绝不卡出片）。
 footage:
-  enabled: false
+  enabled: true
   # 素材来源（按优先级尝试，直到搜到足够条数）:
   #   pexels_video   —— Pexels 免费视频 API（免版权·可商用转发；需 key）
   #   pixabay_video  —— Pixabay 免费视频 API（免版权·可商用转发；需 key）
@@ -98,6 +98,32 @@ footage:
   pexels_api_key: ""       # https://www.pexels.com/api/ 免费申请
   pixabay_api_key: ""      # https://pixabay.com/api/docs/ 免费申请
   local_dir: ""            # 本地素材库绝对路径（放你的 .mp4/.jpg 即可）
+
+# 主讲人出镜控制（开场去真人）
+# show_portrait=false 时不使用真人肖像作为锚层/背景，改用深色渐变底；
+# 配合 teams 用球队标识开场，实现"不露脸也能有画面"。
+host:
+  show_portrait: false     # 是否在视频中露出真人肖像（false=去真人出镜）
+
+# 开场球队标识（根据口播稿自动识别球队 → 拉队标/球场图开场，替代真人出镜）
+# 识别用内置中文球队词表；图片来自 Wikimedia（自由版权·可二创），缓存到 cache_dir。
+# 识别不到球队/拉取失败 → 自动跳过，不影响出片。
+teams:
+  enabled: true            # 是否启用开场球队标识
+  cache_dir: "assets/teams"  # 队标/球场图缓存目录（重复运行不重复请求）
+  stadium: true            # 是否同时拉主场球场图（false 只拉队标，更省请求）
+
+# 音频氛围（背景音乐 + 关键词音效）
+# 见 audio_mix.py：BGM 循环铺底（压低音量）→ 按字幕关键词在对应时刻叠加音效。
+# bgm_dir / sfx_dir 放你自己的免版权音乐/音效文件（.wav/.mp3 等），留空则跳过对应部分。
+audio:
+  enabled: true            # 是否启用音频混音（无素材时自动跳过，用原旁白）
+  bgm_dir: "assets/bgm"    # 背景音乐目录（取其中第一条曲目）
+  sfx_dir: "assets/sfx"    # 音效目录（按关键词映射文件名，见 audio_mix.DEFAULT_KEYWORD_MAP）
+  bgm_volume: 0.18         # BGM 音量（≈-18dB，压低当底衬，不盖过旁白）
+  sfx_volume: 0.40         # 音效音量（≈-8dB，点到为止）
+  master_volume: 1.0       # 总音量（保留旁白主音量）
+  bgm_fade_out: 1.0        # BGM 结尾淡出时长（秒）
 
 # 视频合成
 video:

@@ -25,6 +25,8 @@ from video_pipeline.clone import CloneUnavailable
 from video_pipeline.talking_head import TalkingHeadUnavailable
 from video_pipeline import footage as footage_mod
 from video_pipeline import edit as edit_mod
+from video_pipeline import teams as teams_mod
+from video_pipeline import audio_mix as audio_mix_mod
 from video_pipeline.subtitles import parse_segments
 
 CONFIG_PATH = Path(__file__).parent / "video_config.yaml"
@@ -141,6 +143,22 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     max_chars = sub_cfg.get("max_chars_per_line", 18)
     subtitles.postprocess(srt_path, max_chars=max_chars)
 
+    # 3.2) 音频混音（可选）：旁白 + 背景音乐 + 关键词音效 → 氛围增强。
+    # 混音后的音频替换 audio_path，下游锚层/合成/剪接统一复用，保证口播出片不变。
+    ac_cfg = cfg.get("audio", {})
+    if ac_cfg.get("enabled"):
+        mix_out = inter / f"{slug}.mixed.wav"
+        mixed = audio_mix_mod.mix(
+            str(audio_path), str(srt_path), ac_cfg,
+            bgm_dir=ac_cfg.get("bgm_dir", ""),
+            sfx_dir=ac_cfg.get("sfx_dir", ""),
+            out_path=str(mix_out))
+        if str(mixed) != str(audio_path):
+            print(f"   音频混音：BGM+音效 → {Path(mixed).name}")
+            audio_path = Path(mixed)
+        else:
+            print("   音频混音：无 BGM/音效素材，跳过（用原旁白）")
+
     # 3.5) 说话数字人（可选）：肖像 + 配音 → 说话脸中间视频；失败回退静态肖像
     talking_head_video = None
     talking_head_engine = ""
@@ -173,15 +191,34 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     footage_used = False
     footage_source = ""
     footage_count = 0
+    teams_used = []
     final_video = talking_head_video  # 未做素材剪接时的主讲人视频（可能为 None）
     fc_cfg = cfg.get("footage", {})
+    # 开场是否露真人肖像：host.show_portrait=false 时不使用肖像锚层，改用渐变底（去真人出镜）
+    host_cfg = cfg.get("host", {})
+    show_portrait = bool(host_cfg.get("show_portrait", True))
     if fc_cfg.get("enabled"):
         try:
             segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
+            # 开场球队标识：从口播稿识别球队 → 拉队标/球场图（仅 teams.enabled 时）
+            intro_imgs = []
+            tm_cfg = cfg.get("teams", {})
+            if tm_cfg.get("enabled", False):
+                try:
+                    detected = teams_mod.detect_teams(script_text)
+                    if detected:
+                        intro_imgs = [x["path"] for x in
+                                      teams_mod.collect_team_images(detected, tm_cfg)]
+                        teams_used = [t["zh"] for t in detected]
+                        print(f"   开场球队标识：{teams_used} → {len(intro_imgs)} 张图")
+                    else:
+                        print("   未识别到球队，跳过开场标识")
+                except Exception as e:
+                    print(f"   ⚠️ 球队标识获取失败：{e}，跳过开场标识")
             pool, used_src = footage_mod.collect_footage(
                 script_text, cfg=fc_cfg, cache_dir=str(inter / "footage_cache"),
                 llm_fn=llm_fn)
-            if pool and segments:
+            if (pool or intro_imgs) and segments:
                 # 锚层：优先用说话脸/外部视频；否则用肖像/渐变合成锚层视频
                 if talking_head_video and Path(talking_head_video).exists():
                     anchor = talking_head_video
@@ -189,8 +226,10 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                     _v = cfg.get("video", {})
                     dur = compose.ffprobe_duration(audio_path) or 60.0
                     anchor = str(inter / f"{slug}.anchor.mp4")
+                    # show_portrait=false → 传空肖像，走渐变兜底（不露真人）
+                    anchor_portrait = cfg.get("portrait_path", "") if show_portrait else ""
                     edit_mod.build_image_anchor(
-                        cfg.get("portrait_path", ""), str(audio_path), anchor, dur,
+                        anchor_portrait, str(audio_path), anchor, dur,
                         width=_v.get("width", 1080), height=_v.get("height", 1920),
                         fps=_v.get("fps", 30))
                 edited_out = str(inter / f"{slug}.edited.mp4")
@@ -202,7 +241,8 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                     fps=_v.get("fps", 30),
                     transition=float(fc_cfg.get("xfade", 0.4)),
                     lower_third=lt,
-                    fontfile=fc_cfg.get("fontfile") or None)
+                    fontfile=fc_cfg.get("fontfile") or None,
+                    intro_broll=intro_imgs)
                 final_video = edited_out
                 footage_used = True
                 footage_source = ",".join(used_src) if used_src else ",".join(fc_cfg.get("sources", []))
@@ -219,8 +259,10 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     vcfg = cfg.get("video", {})
     sub_style = {k: sub_cfg[k] for k in ("font_size", "primary_color", "outline_color",
                                          "outline", "back_color", "margin_v") if k in sub_cfg}
+    # host.show_portrait=false → 不传肖像（无真人出镜）；有最终视频层时肖像本就不参与
+    compose_portrait = cfg.get("portrait_path", "") if show_portrait else ""
     mp4_path, info = compose.compose_video(
-        cfg.get("portrait_path", ""),
+        compose_portrait,
         audio_path, srt_path, mp4_path,
         width=vcfg.get("width", 1080), height=vcfg.get("height", 1920),
         fps=vcfg.get("fps", 30),
@@ -260,8 +302,12 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         "footage_used": footage_used,
         "footage_source": footage_source,
         "footage_count": footage_count,
+        "teams_used": teams_used,
+        "show_portrait": show_portrait,
+        "audio_mixed": bool(cfg.get("audio", {}).get("enabled")),
         "resolution": f"{vcfg.get('width', 1080)}x{vcfg.get('height', 1920)}",
-        "has_portrait": bool(cfg.get("portrait_path")) and Path(cfg["portrait_path"]).exists(),
+        "has_portrait": show_portrait and bool(cfg.get("portrait_path"))
+                        and Path(cfg["portrait_path"]).exists(),
         "video_path": str(mp4_path),
         "audio_path": str(audio_path),
         "srt_path": str(srt_path),

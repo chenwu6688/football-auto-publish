@@ -51,7 +51,7 @@ def _fake_llm(messages):
 # ---------------------------------------------------------------- 配置
 def test_load_video_config_default():
     cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
-    assert cfg["voice"]["default"] == "zh-CN-YunxiNeural"
+    assert cfg["voice"]["default"] == "zh-CN-YunjianNeural"
     assert cfg["video"]["width"] == 1080 and cfg["video"]["height"] == 1920
     assert cfg["output"]["base_dir"] == "output/videos"
 
@@ -209,15 +209,24 @@ def _fake_synthesize(text, *, voice, audio_path, srt_path, rate="+0%", volume="+
     return Path(audio_path), Path(srt_path), voice
 
 
+def _disable_optional(cfg):
+    """关掉联网/素材相关可选块，让基础管线测试可离线、确定性运行。"""
+    cfg.setdefault("footage", {})["enabled"] = False
+    cfg.setdefault("teams", {})["enabled"] = False
+    cfg.setdefault("audio", {})["enabled"] = False
+    return cfg
+
+
 def test_run_pipeline_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
     cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
     cfg["output"]["keep_intermediate"] = True
+    _disable_optional(cfg)
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     assert meta["source_id"] == _SAMPLE_ARTICLE["source_id"] if "source_id" in _SAMPLE_ARTICLE else True
     assert Path(meta["video_path"]).exists()
-    assert meta["voice"] == "zh-CN-YunxiNeural"
+    assert meta["voice"] == "zh-CN-YunjianNeural"
     assert meta["resolution"] == "1080x1920"
     assert meta["actual_duration_sec"] > 0
     # 元数据落盘
@@ -228,6 +237,7 @@ def test_run_pipeline_without_intermediate_cleanup(tmp_path, monkeypatch):
     monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
     cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
     cfg["output"]["keep_intermediate"] = False
+    _disable_optional(cfg)
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     # 中间产物被清理
@@ -279,6 +289,7 @@ def test_pipeline_clone_fallback_to_edge(tmp_path, monkeypatch):
     cfg["voice"]["provider"] = "clone"
     cfg["clone"]["enabled"] = True
     cfg["clone"]["reference_audio"] = ""  # 故意缺失，触发不可用
+    _disable_optional(cfg)
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     assert meta["tts_engine"] == "edge"
@@ -292,6 +303,7 @@ def test_pipeline_talking_head_fallback_to_static(tmp_path, monkeypatch):
     cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
     cfg["talking_head"]["enabled"] = True
     cfg["talking_head"]["sadtalker_dir"] = ""  # 故意缺失
+    _disable_optional(cfg)
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     assert meta["talking_head_used"] is False
@@ -508,6 +520,8 @@ def test_pipeline_footage_integration(tmp_path, monkeypatch):
     cfg["footage"]["max_clip_dur"] = 100.0
     cfg["footage"]["lower_third"] = True
     cfg["footage"]["lower_third_text"] = "老六说球"
+    cfg["teams"]["enabled"] = False   # 关闭球队标识，避免测试触网
+    cfg["audio"]["enabled"] = False   # 关闭音频混音，专注验证 B-roll
     meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
                                  llm_fn=_fake_llm)
     assert meta["footage_used"] is True
@@ -524,3 +538,283 @@ def test_pipeline_footage_disabled(tmp_path, monkeypatch):
                                  llm_fn=_fake_llm)
     assert meta["footage_used"] is False
     assert Path(meta["video_path"]).exists()
+
+
+# ---------------------------------------------------------------- 开场球队标识（去真人出镜）
+def test_detect_teams_identifies_clubs_not_players():
+    """球队识别：命中俱乐部/国家队；球员名（姆巴佩）不应被当作球队。"""
+    from video_pipeline import teams
+    script = "皇马更衣室炸了，姆巴佩和主帅互喷；巴萨与巴黎的比赛也起波澜。"
+    got = teams.detect_teams(script)
+    zhs = [t["zh"] for t in got]
+    assert "皇马" in zhs and "巴萨" in zhs and "巴黎" in zhs
+    assert "姆巴佩" not in zhs               # 球员不在球队表
+    assert all(t.get("en") and t.get("wiki") for t in got)
+    # 按出现顺序：皇马在前，巴萨其次
+    assert zhs.index("皇马") < zhs.index("巴萨")
+
+
+def test_detect_teams_empty_when_none():
+    from video_pipeline import teams
+    assert teams.detect_teams("今天天气不错，适合出门散步。") == []
+    assert teams.detect_teams("") == []
+
+
+def test_fetch_team_assets_mock_and_cache(tmp_path, monkeypatch):
+    """fetch_team_assets：mock 掉网络 → 下载队标/球场图并落盘缓存；二次调用不再请求。"""
+    from video_pipeline import teams
+    calls = {"n": 0}
+    def fake_json(url, timeout=20):
+        calls["n"] += 1
+        if "pageimages" in url:
+            return {"query": {"pages": {"1": {"original": {"source": "http://x/crest.png"}}}}}
+        if "pageprops" in url:
+            return {"query": {"pages": {"1": {"pageprops": {"wikibase_item": "Q1"}}}}}
+        if "Q1" in url and "EntityData" in url:
+            return {"entities": {"Q1": {"claims": {"P115": [{"mainsnak": {"datavalue": {"value": {"id": "Q2"}}}}]}}}}
+        if "Q2" in url:
+            return {"entities": {"Q2": {"claims": {"P18": [{"mainsnak": {"datavalue": {"value": "Stadium.jpg"}}}]}}}}
+        return {}
+    def fake_dl(url, out_path, timeout=60):
+        Path(out_path).write_bytes(b"\x89PNG\r\n")
+    monkeypatch.setattr(teams, "_http_get_json", fake_json)
+    monkeypatch.setattr(teams, "_http_download", fake_dl)
+    team = {"zh": "皇马", "en": "Real Madrid", "wiki": "Real Madrid CF"}
+    cache = tmp_path / "teams"
+    out1 = teams.fetch_team_assets(team, cache, stadium=True)
+    assert out1["crest"] and Path(out1["crest"]).exists()
+    assert out1["stadium"] and Path(out1["stadium"]).exists()
+    n_after_first = calls["n"]
+    # 二次调用：文件已缓存 → 网络请求数不再增加
+    out2 = teams.fetch_team_assets(team, cache, stadium=True)
+    assert out2["crest"] == out1["crest"] and out2["stadium"] == out1["stadium"]
+    assert calls["n"] == n_after_first
+
+
+def test_collect_team_images_builds_pool(tmp_path, monkeypatch):
+    """collect_team_images：把队标/球场图组装成可 prepend 的素材池条目。"""
+    from video_pipeline import teams
+    def fake_assets(team, cache_dir, *, stadium=True, timeout=20):
+        c = Path(cache_dir); c.mkdir(parents=True, exist_ok=True)
+        cp = c / f"{team['en']}_crest.png"; cp.write_bytes(b"\x89PNG")
+        return {"crest": str(cp), "stadium": None}
+    monkeypatch.setattr(teams, "fetch_team_assets", fake_assets)
+    cfg = {"cache_dir": str(tmp_path / "tc"), "stadium": False}
+    pool = teams.collect_team_images(
+        [{"zh": "皇马", "en": "Real Madrid", "wiki": "Real Madrid CF"}], cfg)
+    assert len(pool) == 1
+    assert pool[0]["is_image"] is True and Path(pool[0]["path"]).exists()
+
+
+# ---------------------------------------------------------------- 音频混音（BGM + 音效）
+def _make_tone(path, freq=440, dur=3):
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", f"sine=frequency={freq}:duration={dur}",
+         "-c:a", "pcm_s16le", str(path)], capture_output=True, check=True)
+    return path
+
+
+def test_audio_mix_no_assets_returns_narration(tmp_path):
+    """无 BGM/音效素材 → 原样返回旁白路径（优雅降级）。"""
+    from video_pipeline import audio_mix
+    narr = _make_tone(tmp_path / "narr.wav")
+    srt = tmp_path / "a.srt"
+    srt.write_text("1\n00:00:00,000 --> 00:00:03,000\n皇马进球了。\n", encoding="utf-8")
+    out = audio_mix.mix(str(narr), str(srt), {}, str(tmp_path / "nobgm"), str(tmp_path / "nosfx"))
+    assert str(out) == str(narr)
+
+
+def test_audio_mix_with_bgm_and_sfx(tmp_path):
+    """有 BGM + 关键词音效 → 产出混音 wav，时长贴合旁白，含音轨。"""
+    from video_pipeline import audio_mix
+    narr = _make_tone(tmp_path / "narr.wav", 440, 4)
+    bgm_dir = tmp_path / "bgm"; bgm_dir.mkdir()
+    _make_tone(bgm_dir / "theme.wav", 220, 2)     # 2s，会被 loop 到 4s
+    sfx_dir = tmp_path / "sfx"; sfx_dir.mkdir()
+    _make_tone(sfx_dir / "cheer.wav", 880, 1)     # 命中"进球"
+    srt = tmp_path / "a.srt"
+    srt.write_text(
+        "1\n00:00:00,000 --> 00:00:02,000\n大家好，聊聊这场比赛。\n\n"
+        "2\n00:00:02,000 --> 00:00:04,000\n他完成绝杀进球。\n", encoding="utf-8")
+    cfg = {"bgm_volume": 0.18, "sfx_volume": 0.4, "bgm_fade_out": 1.0}
+    out = tmp_path / "mixed.wav"
+    res = audio_mix.mix(str(narr), str(srt), cfg, str(bgm_dir), str(sfx_dir), out_path=str(out))
+    assert res == str(out) and Path(res).exists()
+    info = compose.verify_video(res)
+    assert info["has_audio"]
+    assert abs(info["duration"] - 4.0) < 0.6
+
+
+def test_audio_mix_keyword_map_detection():
+    """关键词 → 音效映射：进球→cheer，红牌→whistle，转会→news。"""
+    from video_pipeline import audio_mix
+    segs = [{"start": 1.0, "text": "他打进了绝杀进球"},
+            {"start": 3.0, "text": "裁判出示红牌引发争议"},
+            {"start": 5.0, "text": "俱乐部官宣签下新援"}]
+    km = audio_mix._build_keyword_map({})
+    trig = audio_mix._detect_sfx_triggers(segs, km)
+    names = {n for n, _ in trig}
+    assert "cheer" in names and "whistle" in names and "news" in names
+    # 时间对齐：cheer 应在 1.0s 触发
+    assert (("cheer", 1.0) in trig) or any(n == "cheer" and abs(t - 1.0) < 0.01 for n, t in trig)
+
+
+def test_audio_mix_keyword_map_override():
+    from video_pipeline import audio_mix
+    km = audio_mix._build_keyword_map({"cheer": ["破门", "绝平"]})
+    # 覆盖后旧关键词"进球"不再触发 cheer
+    segs = [{"start": 0.5, "text": "他打进一球"}]
+    assert all(n != "cheer" for n, _ in audio_mix._detect_sfx_triggers(segs, km))
+    segs2 = [{"start": 0.5, "text": "他绝平了比分"}]
+    assert ("cheer", 0.5) in audio_mix._detect_sfx_triggers(segs2, km)
+
+
+# ---------------------------------------------------------------- 开场球队标识接入剪接
+def test_edit_with_broll_intro_forces_first_segments(tmp_path):
+    """intro_broll：前 N 段强制用球队标识图（覆盖开场真人），且能在空素材池时出片。"""
+    from video_pipeline import edit
+    anchor = tmp_path / "anchor.mp4"
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
+         "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
+         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
+        capture_output=True, check=True)
+    from PIL import Image
+    c1 = tmp_path / "c1.png"; c2 = tmp_path / "c2.png"
+    Image.new("RGB", (600, 600), (240, 240, 240)).save(str(c1))
+    Image.new("RGB", (600, 600), (20, 20, 80)).save(str(c2))
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    # 仅有开场标识、素材池为空 → 应能出片（非开场段回退主讲人）
+    out = tmp_path / "edited.mp4"
+    edit.edit_with_broll(str(anchor), str(anchor), segs, [], str(out),
+                         transition=0.4, intro_broll=[str(c1), str(c2)])
+    assert out.exists()
+    info = compose.verify_video(str(out))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    assert abs(info["duration"] - 3.4) < 0.5
+
+
+def test_pipeline_teams_integration(tmp_path, monkeypatch):
+    """footage+teams 开启 → 识别出球队并作为开场标识接入剪接（mock 掉拉图）。"""
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    from video_pipeline import teams as _teams
+    from PIL import Image
+    def fake_assets(team, cache_dir, *, stadium=False, timeout=20):
+        c = Path(cache_dir); c.mkdir(parents=True, exist_ok=True)
+        cp = c / f"{team['en']}_crest.png"
+        Image.new("RGB", (600, 600), (200, 200, 200)).save(str(cp))
+        return {"crest": str(cp), "stadium": None}
+    monkeypatch.setattr(_teams, "fetch_team_assets", fake_assets)
+    foot_dir = tmp_path / "footage"; foot_dir.mkdir()
+    _make_clip(foot_dir / "clip1.mp4", size="640x360", dur=3)
+    _make_clip(foot_dir / "clip2.mp4", size="640x360", dur=3)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["output"]["keep_intermediate"] = True
+    cfg["footage"]["enabled"] = True
+    cfg["footage"]["sources"] = ["local"]
+    cfg["footage"]["local_dir"] = str(foot_dir)
+    cfg["footage"]["min_clip_dur"] = 0.0
+    cfg["footage"]["max_clip_dur"] = 100.0
+    cfg["teams"]["enabled"] = True
+    cfg["teams"]["stadium"] = False
+    cfg["audio"]["enabled"] = False
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["footage_used"] is True
+    assert "皇马" in meta["teams_used"]      # 样例稿含"皇马"
+    assert Path(meta["video_path"]).exists()
+
+
+def test_pipeline_host_show_portrait_false(tmp_path, monkeypatch):
+    """host.show_portrait=false → 元数据 has_portrait=False（去真人出镜）。"""
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    _disable_optional(cfg)
+    cfg["host"]["show_portrait"] = False
+    cfg["portrait_path"] = str(tmp_path / "nonexistent.jpg")  # 即便配了肖像也不该用
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["show_portrait"] is False
+    assert meta["has_portrait"] is False
+    assert Path(meta["video_path"]).exists()
+
+
+def test_pipeline_audio_mix_integration(tmp_path, monkeypatch):
+    """audio 开启 + 提供 BGM → 管线产出音频为混音结果，且标记 audio_mixed=True。"""
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    bgm_dir = tmp_path / "bgm"; bgm_dir.mkdir()
+    _make_tone(bgm_dir / "theme.wav", 220, 2)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    _disable_optional(cfg)
+    cfg["output"]["keep_intermediate"] = True
+    cfg["audio"]["enabled"] = True
+    cfg["audio"]["bgm_dir"] = str(bgm_dir)
+    cfg["audio"]["sfx_dir"] = str(tmp_path / "nosfx")
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_llm)
+    assert meta["audio_mixed"] is True
+    assert Path(meta["video_path"]).exists()
+
+
+# ---------------------------------------------------------------- 时长回归（防截断）
+def test_build_image_anchor_no_portrait_keeps_full_duration(tmp_path):
+    """回归：无肖像（lavfi 渐变兜底）时锚层时长必须等于旁白时长。
+
+    历史 bug：lavfi 源 + -shortest 会让锚层音频被截到 ~1.9s，
+    整个成片随之变短。修复：源显式给 d=<dur> 且无肖像时不加 -shortest。
+    """
+    from video_pipeline import edit
+    wav = _make_tone(tmp_path / "narr.wav", 440, 5)
+    out = tmp_path / "anchor.mp4"
+    edit.build_image_anchor("", str(wav), str(out), 5.0)
+    info = compose.verify_video(str(out))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    assert abs(info["duration"] - 5.0) < 0.3, f"锚层时长应≈5s，实际={info['duration']}"
+
+
+def test_audio_mix_output_is_real_wav(tmp_path):
+    """回归：混音输出必须是真·PCM WAV（后缀 .wav 与编码一致）。
+
+    历史 bug：audio_mix 用 aac 编码却存成 .wav，下游 ffmpeg 按扩展名当 WAV 解析
+    → "Invalid data found" → 音频被截断到 ~1.9s。修复：改用 pcm_s16le。
+    """
+    import subprocess as _sp
+    from video_pipeline import audio_mix
+    narr = _make_tone(tmp_path / "narr.wav", 440, 4)
+    bgm_dir = tmp_path / "bgm"; bgm_dir.mkdir()
+    _make_tone(bgm_dir / "theme.wav", 220, 2)
+    srt = tmp_path / "a.srt"
+    srt.write_text("1\n00:00:00,000 --> 00:00:04,000\n皇马进球了。\n", encoding="utf-8")
+    out = tmp_path / "m.wav"
+    res = audio_mix.mix(str(narr), str(srt), {"bgm_volume": 0.18},
+                        str(bgm_dir), str(tmp_path / "nosfx"), out_path=str(out))
+    probe = _sp.run(["ffprobe", "-v", "error", "-show_entries",
+                     "format=format_name:stream=codec_name",
+                     "-of", "default=noprint_wrappers=1", res],
+                    capture_output=True, text=True).stdout
+    assert "format_name=wav" in probe
+    assert "codec_name=pcm_s16le" in probe
+    # 时长与旁白一致（不被截断）
+    assert abs(compose.ffprobe_duration(res) - 4.0) < 0.3
+
+
+def test_edit_with_broll_keeps_full_duration(tmp_path):
+    """回归：edit_with_broll 成片时长 = 各段之和 - 转场重叠（不被 -shortest 截短）。"""
+    from video_pipeline import edit
+    anchor = tmp_path / "anchor.mp4"
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=6",
+         "-f", "lavfi", "-i", "sine=frequency=440:duration=6",
+         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
+        capture_output=True, check=True)
+    clip = tmp_path / "c.mp4"
+    subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=blue:s=1920x1080:r=30:d=4",
+                    "-c:v", "libopenh264", "-pix_fmt", "yuv420p", str(clip)],
+                   capture_output=True, check=True)
+    pool = [{"path": str(clip), "is_image": False, "duration": 4.0}]
+    segs = [{"start": i * 2, "end": i * 2 + 2, "text": f"s{i}"} for i in range(3)]  # 6s
+    out = tmp_path / "e.mp4"
+    edit.edit_with_broll(str(anchor), str(anchor), segs, pool, str(out), transition=0.4)
+    info = compose.verify_video(str(out))
+    # 6 - 2*0.4 = 5.2
+    assert abs(info["duration"] - 5.2) < 0.4, f"成片应≈5.2s，实际={info['duration']}"
