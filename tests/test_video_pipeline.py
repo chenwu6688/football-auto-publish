@@ -340,6 +340,28 @@ def test_collect_footage_no_key_returns_empty():
     assert used == []
 
 
+def test_http_get_json_sets_user_agent(monkeypatch):
+    """回归：_http_get_json 必须带浏览器 UA，否则 Pexels WAF 拦截 Python-urllib 返回 403。"""
+    from video_pipeline import footage
+    import urllib.request
+    captured = {}
+    class FakeResp:
+        def read(self): return b'{"ok":1}'
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+    def fake_urlopen(req, timeout=20):
+        hdrs = dict(req.header_items())
+        # Request 可能把 key 规整为 'User-agent'，做大小写不敏感匹配
+        ua = next((v for k, v in hdrs.items() if k.lower() == "user-agent"), None)
+        captured["ua"] = ua
+        return FakeResp()
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    footage._http_get_json("https://example.com/x", headers={"Authorization": "k"})
+    ua = captured["ua"]
+    assert ua and ua.startswith("Mozilla"), f"UA 应带浏览器标识，实际={ua}"
+    assert "urllib" not in ua.lower(), f"UA 不能含 urllib（会被 Pexels 403），实际={ua}"
+
+
 def test_to_english_translates_football_terms():
     from video_pipeline import footage
     # 中文足球词应映射到英文检索词

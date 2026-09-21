@@ -101,7 +101,12 @@ def extract_keywords_rule(text, k=4):
 
 # ----------------------------------------------------------- 检索客户端
 def _http_get_json(url, headers=None, timeout=20):
-    req = urllib.request.Request(url, headers=headers or {})
+    # 必须带 User-Agent：Pexels 的 WAF 会拦截 urllib 默认 UA(Python-urllib/*) 返回 403，
+    # 导致「素材检索异常：HTTP Error 403」。统一用浏览器 UA 规避。
+    h = {"User-Agent": "Mozilla/5.0"}
+    if headers:
+        h.update(headers)
+    req = urllib.request.Request(url, headers=h)
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode("utf-8"))
 
