@@ -159,21 +159,24 @@ video:
 textmotion:
   enabled: true               # 开启纯文字动效（抖音口播号风格）
   font_path: ""               # 中文字体绝对路径；留空自动探测（优先仓库 assets/fonts/NotoSansCJK-Bold.ttc）
-  body_font_size: 96          # 正文字号（长句会自动缩小到不溢出，下限 56）
-  max_chars_per_line: 9       # 每行最多几个全角字（超出折行）
-  text_color: "0xE8ECF4"      # 正文色（冷白）
+  body_font_size: 130         # 正文字号（v3 大字流；块内超 2 行才会自动缩小，下限 52）
+  max_chars_per_line: 9       # 兼容参数（实际每行字数由边距/字号推导）
+  text_color: "0xE8ECF4"      # 正文已读色（冷白；未读态固定为暗灰 0x7A8996）
   hl_color: "0xFF3B30"        # 关键词高亮色（红）
   num_color: "0xFFD60A"       # 比分/时间等数字色（黄，最抢眼）
   outline: 6                  # 文字描边粗细（深底上更清晰）
   outline_color: "0x10131A"   # 描边色
-  # 入场动效：auto（推荐·每句轮换 10 种动效）| 或固定单种：
-  #   pop 弹入 / flipx 竖翻牌 / flipy 横翻面 / swing 斜甩正 / zoomout 大砸定 /
-  #   zoomin 小放大 / blurin 模糊变清晰 / spread 中线向两侧展开 / slideup 上滑 / fade 渐入
+  # 入场动效：auto（推荐·全片统一 pop，抖音铁律「一种字体+一种入场」）| 或固定单种：
+  #   pop 弹入(唯一auto动效) / flipx 竖翻牌 / flipy 横翻面 / swing 斜甩正 /
+  #   zoomout 大砸定 / zoomin 小放大 / blurin 模糊变清晰 / spread 中线展开 / fade 渐入
+  #   （slideup 已退役：硬编码坐标与底部居中构图冲突，传入会兜底为 pop）
   in_anim: "auto"
-  keyword_stagger: 0.15       # 关键词比正文晚弹入的秒数（制造"砸下来"的击打节奏）
-  max_block_units: 12         # 长句按标点切块的最大字数（每屏字少→字大，抖音风格；1=不切块无意义，建议 9~14）
-  max_kw_per_sentence: 3      # 每句最多高亮几个词（避免满屏花）
+  keyword_stagger: 0.15       # 已弃用：卡拉OK逐字点亮接管节奏（保留仅为兼容）
+  max_block_units: 9          # 长句按标点切块的最大字数（每屏字少→字大，抖音风格；建议 8~10）
+  max_kw_per_sentence: 1      # 每块最多高亮几个词（1=每屏只点亮一个最值钱的词，按 num>team>emotion 优先）
   extra_words: []             # 额外自定义高亮词（如球队昵称、黑话）
+  # 卡拉OK逐字点亮（v3 核心）：未读暗灰 → 已读白/红/黄，逐字填充与语音对齐；
+  # 关键词在被读到的那一刻弹大 112% 再回落（跳球感）。文字落位：画面中下 1/3（MarginV 700）。
   # 动态渐变底（一条源贯穿全片，绝不会黑屏）
   bg_colors:                  # 渐变底色（2~8 个 '0xRRGGBB'）
     - "0x22365C"              # 深蓝

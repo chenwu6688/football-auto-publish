@@ -1095,7 +1095,7 @@ def test_build_motion_ass_has_header_and_highlights():
 def test_build_motion_ass_lines_fit_weighted_width():
     """折行核心回归：折行必须按高亮词「放大后的渲染宽度」计算。
 
-    极端用例：整句全是情绪词（全部带 HL 样式 ×1.52）。
+    极端用例：整句全是情绪词（全部带 HL 样式 ×1.15）。
     若按未加权宽度折行，每行实际渲染宽度会超 max_px 顶到屏幕边。
     """
     from video_pipeline import text_motion as tm
@@ -1104,33 +1104,39 @@ def test_build_motion_ass_lines_fit_weighted_width():
     max_px = int(width * 0.80)
     text = "逆转绝杀爆冷崩盘内讧互喷下课官宣签约夺冠登顶捧杯血洗大胜惨败复仇"
     segs = [{"start": 0.0, "end": 5.0, "text": text}]
-    # max_kw=30：15 个情绪词全部高亮 → 全句 HL（×1.52），最严苛的折行场景
+    # max_kw=30：15 个情绪词全部高亮 → 全句 HL（×1.15），最严苛的折行场景
     ass = tm.build_motion_ass(segs, width=width, height=1920, total=5.0, max_kw=30)
-    fs = tm._fit_font_size(text, 96, max_px)
-    per_line = max(2.0, max_px / fs)
-    dialogue = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")][0]
-    body = dialogue.split(",,", 2)[-1]
-    for line in body.split(r"\N"):
-        plain = _re.sub(r"\{[^}]*\}", "", line)
-        weighted = tm._text_units(plain) * 1.52     # 全句均为 HL 高亮
-        assert weighted <= per_line + 1e-6, \
-            f"行加权占宽 {weighted:.2f} > per_line {per_line:.2f}（会顶边）: {plain!r}"
+    dialogues = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
+    assert len(dialogues) >= 3, "36 字长句应按 max_block_units=9 切多块"
+    for dialogue in dialogues:
+        body = dialogue.split(",,", 2)[-1]
+        # 取该 Dialogue 的纯文本，反推所在块，按块字号计算 per_line
+        plain_all = "".join(_re.sub(r"\{[^}]*\}", "", ln)
+                            for ln in body.split(r"\N"))
+        fs = tm._fit_font_size(plain_all, 130, max_px, max_lines=2)
+        per_line = max(2.0, max_px / fs)
+        for line in body.split(r"\N"):
+            plain = _re.sub(r"\{[^}]*\}", "", line)
+            weighted = tm._text_units(plain) * 1.15     # 全句均为 HL 高亮
+            assert weighted <= per_line + 1e-6, \
+                f"行加权占宽 {weighted:.2f} > per_line {per_line:.2f}（会顶边）: {plain!r}"
 
 
-def test_anim_auto_cycles_variety():
-    """auto 模式：按句轮换动效，多句应覆盖多种动效标签（翻转/缩放/模糊/扫出）。"""
+def test_anim_auto_uniform_pop():
+    """auto 模式（抖音铁律）：全片统一 pop 入场（\\fad(120,110)），无花式轮换。"""
     from video_pipeline import text_motion as tm
     segs = [{"start": i * 1.0, "end": i * 1.0 + 1.0, "text": f"第{i}句皇马炸了"}
             for i in range(9)]
     ass = tm.build_motion_ass(segs, width=1080, height=1920, total=9.0,
                               in_anim="auto", teams_table=["皇马"])
-    prefixes = [l.split(",,", 2)[-1].split("}")[0] + "}"
-                for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
-    assert len(prefixes) == 9
-    assert len(set(prefixes)) >= 7, f"9 句动效应高度多样，实际 {len(set(prefixes))} 种"
-    all_p = "".join(prefixes)
-    for tag in (r"\frx", r"\fry", r"\frz", r"\blur", r"\clip(", r"\move(", r"\t("):
-        assert tag in all_p, f"动效池应包含 {tag}"
+    dialogues = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
+    assert len(dialogues) == 9
+    for d in dialogues:
+        assert r"\fad(120,110)" in d, f"缺统一 pop 入场: {d[:60]}"
+        for bad in (r"\move(", r"\clip(", r"\frx", r"\fry", r"\frz", r"\blur"):
+            assert bad not in d, f"auto 池应只有 pop，却出现 {bad}: {d[:60]}"
+    # slideup 已退役：与 pop 同样回落到默认弹入（其硬编码 \move 与底部居中冲突）
+    assert tm._anim_prefix("slideup") == tm._anim_prefix("pop")
 
 
 def test_anim_prefix_stable_state_matches_static():
@@ -1149,6 +1155,51 @@ def test_anim_prefix_stable_state_matches_static():
     # pop 终值回落稳态：最后一个 \t 的 fscx 目标 == 静态值（scale=1.0 → 100）
     p = tm._anim_prefix("pop", scale=1.0)
     assert p.endswith(r"\t(90,240,\fscx100\fscy100)}")
+
+
+def test_karaoke_timing_and_three_state_colors():
+    """卡拉OK逐字点亮：\\k 总厘秒 == 块显示窗；未读态暗灰；关键词组带跳球 \\t。
+
+    三态配色：未读=暗灰(0x7A8996, SecondaryColour) → 已读=白/红/黄(Primary)；
+    跳球：关键词组在其被读到的累计毫秒处弹大 112% 再回落（终值=稳态）。
+    """
+    from video_pipeline import text_motion as tm
+    import re as _re
+    segs = [{"start": 0.0, "end": 6.0, "text": "皇马3比1逆转巴萨完成了登顶"}]
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=6.0,
+                              teams_table=["皇马", "巴萨"], end_hold=0)
+    # 未读色（SecondaryColour）：三个样式统一暗灰 0x7A8996 → &H0096897A（BGR）
+    assert ass.count("&H0096897A") == 3
+    # 底部居中构图：Alignment 2 + MarginV 700 + 左右边距 90
+    assert ",2,90,90,700,1" in ass
+    dialogues = [l for l in ass.splitlines() if l.startswith("Dialogue: 0,")]
+    assert dialogues
+
+    def sec(ts):
+        h, m, rest = ts.split(":")
+        return int(h) * 3600 + int(m) * 60 + float(rest)
+
+    n_k = 0
+    for d in dialogues:
+        parts = d.split(",")
+        s, e = sec(parts[1]), sec(parts[2])
+        ks = [int(v) for v in _re.findall(r"\\k(\d+)", d)]
+        n_k += len(ks)
+        assert ks, f"卡拉OK块缺少 \\k 标签: {d[:60]}"
+        disp = int(round((e - s) * 100))
+        assert abs(sum(ks) - disp) <= 1, \
+            f"\\k 总和 {sum(ks)}cs != 显示窗 {disp}cs（逐字点亮会漂移）: {d[:60]}"
+        # 覆盖标签必须闭合（防止标签泄漏成屏幕文字）
+        text_field = d.split(",,", 2)[-1].replace(r"\{", "").replace(r"\}", "")
+        stripped = _re.sub(r"\{[^}]*\}", "", text_field).replace(r"\N", "")
+        assert "\\" not in stripped, f"花括号外有标签残留: {stripped!r}"
+    assert n_k >= 12, "整句应逐字挂 \\k"
+    # 关键词跳球：\rNum/\rHL 组开头带「弹大112%→回落」两个 \t，时窗 140ms
+    assert _re.search(r"\{\\r(Num|HL)\\fscx100\\fscy100.*\\t\(\d+,\d+,\\fscx112\\fscy112\)", ass)
+    assert r"\t(" in ass
+    # 皇马之后读到比分：Num 组的跳球起点 = 皇马两字的累计厘秒（>0，非句首）
+    m = _re.search(r"\{\\rNum[^}]*\\t\((\d+),\d+,\\fscx112\\fscy112\)", ass)
+    assert m and int(m.group(1)) > 0, "Num 组跳球应从其被读到的时刻开始"
 
 
 def test_fit_font_size_four_lines_and_floor():

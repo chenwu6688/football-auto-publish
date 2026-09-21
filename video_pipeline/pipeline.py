@@ -235,7 +235,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 bg_colors=tc_cfg.get("bg_colors") or ("0x22365C", "0x141A28", "0x3A2450"),
                 bg_speed=float(tc_cfg.get("bg_speed", 0.02)),
                 bg_type=tc_cfg.get("bg_type", "radial"),
-                body_font_size=int(tc_cfg.get("body_font_size", 96)),
+                body_font_size=int(tc_cfg.get("body_font_size", 130)),
                 text_color=tc_cfg.get("text_color", "0xE8ECF4"),
                 hl_color=tc_cfg.get("hl_color", "0xFF3B30"),
                 num_color=tc_cfg.get("num_color", "0xFFD60A"),
@@ -250,8 +250,8 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 crest_glow=bool(tc_cfg.get("crest_glow", True)),
                 teams_table=teams_table,
                 extra_words=tc_cfg.get("extra_words") or None,
-                max_kw=int(tc_cfg.get("max_kw_per_sentence", 3)),
-                max_block_units=int(tc_cfg.get("max_block_units", 12)),
+                max_kw=int(tc_cfg.get("max_kw_per_sentence", 1)),
+                max_block_units=int(tc_cfg.get("max_block_units", 9)),
                 keep_ass=bool(tc_cfg.get("keep_ass", False)),
             )
             tm_used = True
