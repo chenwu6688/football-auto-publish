@@ -71,17 +71,20 @@ footage:
   #   local          —— 你自己的本地素材库（零版权风险；需填 local_dir）
   #   pexels_image   —— Pexels 免费图片当 B-roll（Ken-Burns 动起来；比视频轻）
   sources:
-    - "pexels_video"
-    - "local"
+    - "pexels_video"      # Pexels 免费视频（需 key）
+    - "pexels_image"      # Pexels 免费图片当 B-roll（Ken-Burns 动起来，视频+图片混合更自然）
+    - "local"             # 本地素材库兜底（仅当联网源一无所获时才用；需填 local_dir）
   # 检索关键词数量（规则法从口播稿抽取；llm_keywords=true 时可由 LLM 提取更准实体）
   keywords: 4
   # 每个关键词最多下载的素材条数（总池上限受 max_clips 约束）
   per_query: 3
   # 一次成片最多用多少段素材（避免素材喧宾夺主，主讲人仍是主体）
   max_clips: 8
-  # 单段素材最短/最长时长（秒），过长会被裁，过短会被滤
-  min_clip_dur: 2.0
-  max_clip_dur: 8.0
+  # 单段素材最短/最长时长（秒），过长会被裁，过短会被滤。
+  # 注意：B-roll 段时长由口播句长决定（通常 1-4s），素材会被 trim 到该时长，
+  # 所以这里放宽上限，避免把 10-15s 的优质中景素材误删（默认只保留 <=15s）。
+  min_clip_dur: 1.0
+  max_clip_dur: 15.0
   # 关键词抽取：规则为主（球队/球星/赛事词库）→ 命中即作为搜索词
   # llm_keywords: true 时若提供 llm_fn 可让 LLM 提 3-5 个更语义化的词（兜底回退规则）
   llm_keywords: false

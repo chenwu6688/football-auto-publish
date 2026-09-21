@@ -323,10 +323,11 @@ def test_collect_footage_local_source(tmp_path, monkeypatch):
             Image.new("RGB", (400, 300), (10, 20, 30)).save(str(p))
     cfg = {"sources": ["local"], "local_dir": str(tmp_path), "max_clips": 8,
            "keywords": 4, "per_query": 3, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
-    pool = footage.collect_footage("皇马更衣室炸了", cfg=cfg, cache_dir=str(tmp_path / "cache"))
+    pool, used = footage.collect_footage("皇马更衣室炸了", cfg=cfg, cache_dir=str(tmp_path / "cache"))
     assert len(pool) == 2
     assert any(x["is_image"] for x in pool)
     assert any(not x["is_image"] for x in pool)
+    assert used == ["local"]
 
 
 def test_collect_footage_no_key_returns_empty():
@@ -334,8 +335,9 @@ def test_collect_footage_no_key_returns_empty():
     # 联网源但无 key → 应优雅返回空池（不抛异常），由上层回退纯主讲人
     cfg = {"sources": ["pexels_video"], "pexels_api_key": "", "keywords": 3,
            "per_query": 2, "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
-    pool = footage.collect_footage("皇马", cfg=cfg, cache_dir="/tmp/_fp_test_cache")
+    pool, used = footage.collect_footage("皇马", cfg=cfg, cache_dir="/tmp/_fp_test_cache")
     assert pool == []
+    assert used == []
 
 
 def test_to_english_translates_football_terms():
@@ -364,11 +366,48 @@ def test_collect_footage_translates_cjk_to_english(tmp_path):
     footage.search_pexels_images = fake_search
     cfg = {"sources": ["pexels_video"], "pexels_api_key": "x", "keywords": 4,
            "per_query": 2, "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
-    pool = footage.collect_footage(
+    pool, used = footage.collect_footage(
         "皇马更衣室炸了，贝林厄姆和主帅当场互喷", cfg=cfg, cache_dir=str(tmp_path / "c"))
     # 至少应有英文检索词（含兜底 football match），且不应出现中文
     assert any("Real Madrid" in q or "football" in q for q in captured["queries"])
     assert not any(footage._has_cjk(q) for q in captured["queries"])
+
+
+def test_collect_footage_online_before_local(tmp_path, monkeypatch):
+    """联网优先：即便 local_dir 有素材，只要 Pexels 能搜到，就只用 Pexels，不动本地。"""
+    from video_pipeline import footage
+    # 本地放一条素材（制造"本地有货"的前提）
+    local_dir = tmp_path / "local"; local_dir.mkdir()
+    _make_clip(local_dir / "local_clip.mp4", size="320x320", dur=2)
+    # mock Pexels 视频检索 + 下载（避免真实网络）；用 monkeypatch 自动还原，避免污染后续用例
+    def fake_search(q, key, per_page=5, timeout=20):
+        return [{"url": "http://example.com/v.mp4", "width": 1920, "height": 1080, "duration": 5}]
+    monkeypatch.setattr(footage, "search_pexels_videos", fake_search)
+    def fake_dl(url, out_path, timeout=60):
+        open(out_path, "wb").close()
+    monkeypatch.setattr(footage, "_http_download", fake_dl)
+    cfg = {"sources": ["pexels_video", "local"], "pexels_api_key": "x",
+           "local_dir": str(local_dir), "keywords": 2, "per_query": 1,
+           "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
+    pool, used = footage.collect_footage("皇马", cfg=cfg, cache_dir=str(tmp_path / "cache"))
+    assert len(pool) == 1
+    assert used == ["pexels_video"]            # 只用了联网源
+    assert "local_clip" not in pool[0]["path"]  # 没用本地那条
+
+
+def test_collect_footage_local_fallback_when_online_empty(tmp_path):
+    """联网全空（无 key/无网）→ 回退本地素材库。"""
+    from video_pipeline import footage
+    local_dir = tmp_path / "local"; local_dir.mkdir()
+    _make_clip(local_dir / "local_clip.mp4", size="320x320", dur=2)
+    # 联网源无 key → 抛 FootageUnavailable，最终回退本地
+    cfg = {"sources": ["pexels_video", "local"], "pexels_api_key": "",
+           "local_dir": str(local_dir), "keywords": 2, "per_query": 1,
+           "max_clips": 6, "min_clip_dur": 0.0, "max_clip_dur": 100.0}
+    pool, used = footage.collect_footage("皇马", cfg=cfg, cache_dir=str(tmp_path / "cache"))
+    assert len(pool) == 1
+    assert used == ["local"]
+    assert "local_clip" in pool[0]["path"]
 
 
 def test_edit_with_broll_real(tmp_path):

@@ -178,7 +178,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     if fc_cfg.get("enabled"):
         try:
             segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
-            pool = footage_mod.collect_footage(
+            pool, used_src = footage_mod.collect_footage(
                 script_text, cfg=fc_cfg, cache_dir=str(inter / "footage_cache"),
                 llm_fn=llm_fn)
             if pool and segments:
@@ -205,9 +205,9 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                     fontfile=fc_cfg.get("fontfile") or None)
                 final_video = edited_out
                 footage_used = True
-                footage_source = ",".join(fc_cfg.get("sources", []))
+                footage_source = ",".join(used_src) if used_src else ",".join(fc_cfg.get("sources", []))
                 footage_count = len(pool)
-                print(f"   B-roll 剪接：素材 {len(pool)} 条，转场 {fc_cfg.get('xfade',0.4)}s")
+                print(f"   B-roll 剪接：素材 {len(pool)} 条（来源 {footage_source}），转场 {fc_cfg.get('xfade',0.4)}s")
             else:
                 print("   ⚠️ 未检索到素材，回退纯主讲人")
         except Exception as e:

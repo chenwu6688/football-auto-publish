@@ -268,22 +268,10 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
     cache_dir.mkdir(parents=True, exist_ok=True)
 
     pool = []
+    used = []  # 实际贡献素材的来源（按出现顺序），用于反馈与元数据
 
-    # 1) 本地素材库：直接扫描目录，零版权、不联网
-    if "local" in sources and local_dir.exists():
-        for ext in _VIDEO_EXT + _IMG_EXT:
-            for p in sorted(local_dir.rglob(f"*{ext}")):
-                if len(pool) >= max_clips:
-                    break
-                pool.append({"path": str(p),
-                             "is_image": ext.lower() in _IMG_EXT,
-                             "duration": 0})
-        if pool:
-            print(f"   本地素材库命中 {len(pool)} 条（{local_dir}）")
-
-    # 2) 联网源：Pexels / Pixabay（视频或图片），按 sources 列表顺序尝试
-    queries = keywords or [script[:8]]
     # 中文关键词 → 英文（Pexels/Pixabay 英文标签库），未命中/纯中文无映射则跳过
+    queries = keywords or [script[:8]]
     eqs = []
     for q in queries:
         eq = _to_english(q)
@@ -293,25 +281,33 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
         eqs = ["football"]  # 兜底：关键词都译不出英文时，用通用词保证有素材
     queries = eqs
 
+    # 每个联网源最多贡献的条数：保证多源混合（如视频+图片都出现，而非某一种占满）
+    per_source_cap = max(2, max_clips // max(1, len(online))) if online else 0
+
     try:
+        # 1) 联网源优先（Pexels / Pixabay 视频 或 Pexels 图片）—— 设计上「素材来源优先走 Pexels」
         for src_name in online:
             if len(pool) >= max_clips:
                 break
             use_image = src_name == "pexels_image"
             key = pexels_key if src_name.startswith("pexels") else pixabay_key
+            contributed = 0
             for q in queries:
-                if len(pool) >= max_clips:
+                if contributed >= per_source_cap or len(pool) >= max_clips:
                     break
                 ck = _cache_key(q, src_name)
                 # 先看缓存
                 cached = sorted(cache_dir.glob(f"{ck}_*"))
                 if cached:
                     for c in cached:
-                        if len(pool) >= max_clips:
+                        if contributed >= per_source_cap or len(pool) >= max_clips:
                             break
                         pool.append({"path": str(c),
                                      "is_image": c.suffix.lower() in _IMG_EXT,
                                      "duration": 0})
+                        contributed += 1
+                    if contributed and src_name not in used:
+                        used.append(src_name)
                     continue
                 # 联网检索
                 try:
@@ -325,7 +321,7 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
                     print(f"   ⚠️ {src_name} 不可用：{e}")
                     break
                 for i, c in enumerate(cands[:per_query]):
-                    if len(pool) >= max_clips:
+                    if contributed >= per_source_cap or len(pool) >= max_clips:
                         break
                     if not _duration_ok(c.get("duration", 0), min_d, max_d):
                         continue
@@ -336,13 +332,17 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
                         pool.append({"path": str(dst),
                                      "is_image": use_image,
                                      "duration": c.get("duration", 0)})
+                        contributed += 1
                     except Exception as e:
                         print(f"   ⚠️ 素材下载失败（{q}#{i}）：{e}")
-            if pool:
-                break  # 该源已搜到素材，无需继续尝试后续源
-        # 全源都搜不到（如网络/限流）→ 最后一次通用兜底，保证至少有足球素材
+            if contributed and src_name not in used:
+                used.append(src_name)
+            if contributed:
+                print(f"   ✅ {src_name} 命中 {contributed} 条素材")
+
+        # 联网全源都搜不到（网络/限流/key 问题）→ 通用兜底再试一次，保证至少有足球素材
         if not pool and online:
-            fb_q = "football match" if not use_image else "football stadium"
+            fb_q = "football match" if (online[0] != "pexels_image") else "football stadium"
             try:
                 if online[0] == "pexels_video":
                     cands = search_pexels_videos(fb_q, pexels_key, per_query)
@@ -350,6 +350,7 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
                     cands = search_pixabay_videos(fb_q, pixabay_key, per_query)
                 else:
                     cands = search_pexels_images(fb_q, pexels_key, per_query)
+                use_image = online[0] == "pexels_image"
                 for i, c in enumerate(cands[:per_query]):
                     if len(pool) >= max_clips:
                         break
@@ -364,9 +365,24 @@ def collect_footage(script, *, cfg, cache_dir=None, llm_fn=None):
                                      "duration": c.get("duration", 0)})
                     except Exception:
                         pass
+                if pool and online[0] not in used:
+                    used.append(online[0])
             except Exception:
                 pass
+
+        # 2) 联网全失败/空 → 回退本地素材库（零版权兜底，仅当联网一无所获时）
+        if not pool and "local" in sources and local_dir.exists():
+            for ext in _VIDEO_EXT + _IMG_EXT:
+                for p in sorted(local_dir.rglob(f"*{ext}")):
+                    if len(pool) >= max_clips:
+                        break
+                    pool.append({"path": str(p),
+                                 "is_image": ext.lower() in _IMG_EXT,
+                                 "duration": 0})
+            if pool:
+                used.append("local")
+                print(f"   ⚠️ 联网源无结果，回退本地素材库 {len(pool)} 条（{local_dir}）")
     except Exception as e:
         print(f"   ⚠️ 素材检索异常：{e}，回退纯主讲人")
 
-    return pool
+    return pool, used
