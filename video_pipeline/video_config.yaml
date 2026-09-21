@@ -97,7 +97,7 @@ footage:
   # —— 各来源凭证/目录 ——
   pexels_api_key: ""       # https://www.pexels.com/api/ 免费申请
   pixabay_api_key: ""      # https://pixabay.com/api/docs/ 免费申请
-  local_dir: ""            # 本地素材库绝对路径（放你的 .mp4/.jpg 即可）
+  local_dir: "assets/footage_local"  # 本地素材库（相对仓库根）。已预置一批免版权足球图（球场/球/球迷/球门）作兜底
 
 # 主讲人出镜控制（开场去真人）
 # show_portrait=false 时不使用真人肖像作为锚层/背景，改用深色渐变底；

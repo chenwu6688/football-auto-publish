@@ -114,7 +114,8 @@ def detect_teams(script, cfg=None):
         cfg: teams 配置块（可选）；提供时把 assets/teams/teams_local.json 的本地球队
              一并纳入识别（用于补冷门/中超球队）。
     Returns:
-        list[dict]: [{zh, en, wiki, api_id?}, ...]，未识别到返回 []。
+        list[dict]: [{zh, en, wiki, api_id?, pos}, ...]，未识别到返回 []。
+            pos = 该队名在口播稿中「首次出现」的字符下标（用于把队标对齐到提到它的那句）。
     """
     text = script or ""
     table = get_teams(cfg) if cfg is not None else TEAMS
@@ -125,9 +126,9 @@ def detect_teams(script, cfg=None):
         idx = text.find(zh)
         if idx >= 0 and zh not in seen:
             seen.add(zh)
-            found.append({"zh": zh, **table[zh]})
+            found.append({"zh": zh, "pos": idx, **table[zh]})
     # 按出现顺序排序
-    found.sort(key=lambda t: text.find(t["zh"]))
+    found.sort(key=lambda t: t["pos"])
     return found
 
 
@@ -248,6 +249,70 @@ def fetch_team_assets(team, cache_dir, *, stadium=True, timeout=20):
                     out["stadium"] = str(st_path)
                 except Exception:
                     pass
+    return out
+
+
+def align_teams_to_segments(teams, segments, script):
+    """把「球队」对齐到「提到它的那一句」，供开场队标按位置插播。
+
+    做法：把各句文本按顺序拼成全文（与 script 同源），累计每句在全文中的
+    起止字符区间；再用 detect_teams 给出的 pos 找该队名落在哪一句。
+    找不到（拼接与 script 有出入）则退化为「按顺序铺在前 N 段」。
+
+    Args:
+        teams: detect_teams 返回列表（含 pos）。
+        segments: 句时间轴 list[{start,end,text}]。
+        script: 口播稿全文。
+    Returns:
+        dict[int, str]: {段下标: 队名 zh}，按段号升序唯一（同一段只保留第一支）。
+    """
+    if not teams or not segments:
+        return {}
+    # 逐句累计区间（用 strip 后长度累计，容忍 SRT 与全文的空格差异）
+    spans = []          # [(seg_i, start, end)]
+    cursor = 0
+    for i, s in enumerate(segments):
+        t = (s.get("text") or "").strip()
+        if not t:
+            continue
+        # 在 script 中从 cursor 处向后找该句，定位真实区间
+        at = script.find(t, cursor) if script else -1
+        if at >= 0:
+            spans.append((i, at, at + len(t)))
+            cursor = at + len(t)
+        else:
+            spans.append((i, cursor, cursor + len(t)))
+            cursor += len(t)
+
+    out = {}
+    used_seg = set()
+    for t in teams:
+        pos = t.get("pos")
+        seg_i = None
+        if isinstance(pos, int):
+            for si, st, en in spans:
+                if st <= pos < en:
+                    seg_i = si
+                    break
+            if seg_i is None and spans:
+                # pos 落在句间空隙：归给最近的下一句
+                for si, st, en in spans:
+                    if st >= pos:
+                        seg_i = si
+                        break
+                if seg_i is None:
+                    seg_i = spans[-1][0]
+        if seg_i is None:
+            continue
+        if seg_i in used_seg:      # 同段只放第一支（避免叠加）
+            continue
+        used_seg.add(seg_i)
+        out[seg_i] = t["zh"]
+    # 若对齐结果为空（异常），退化：前 N 段按顺序铺
+    if not out:
+        for k, t in enumerate(teams):
+            if k < len(segments):
+                out[k] = t["zh"]
     return out
 
 

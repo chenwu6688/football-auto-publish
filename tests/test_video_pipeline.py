@@ -694,8 +694,51 @@ def test_edit_with_broll_intro_forces_first_segments(tmp_path):
     assert abs(info["duration"] - 3.4) < 0.5
 
 
+def test_edit_with_broll_intro_map_places_exact_segments(tmp_path):
+    """intro_map：队标精确落到指定段（讲哪支队就显示哪支队标），空素材池也能出片。"""
+    from video_pipeline import edit
+    anchor = tmp_path / "anchor.mp4"
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
+         "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
+         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
+        capture_output=True, check=True)
+    from PIL import Image
+    c1 = tmp_path / "c1.png"; c2 = tmp_path / "c2.png"
+    Image.new("RGB", (600, 600), (240, 240, 240)).save(str(c1))
+    Image.new("RGB", (600, 600), (20, 20, 80)).save(str(c2))
+    segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(5)]
+    out = tmp_path / "edited.mp4"
+    # 段 1 放 c1、段 3 放 c2（乱序、非连续）
+    edit.edit_with_broll(str(anchor), str(anchor), segs, [], str(out),
+                         transition=0.4, intro_map={1: str(c1), 3: str(c2)})
+    assert out.exists()
+    info = compose.verify_video(str(out))
+    assert info["ok"] and info["has_video"] and info["has_audio"]
+    assert abs(info["duration"] - 3.4) < 0.5
+
+
+def test_align_teams_to_segments_positions():
+    """align_teams_to_segments：按「队名首次出现的字符位置」对齐到对应句。"""
+    from video_pipeline import teams as _teams
+    script = "皇马率先破门取得领先。随后巴萨疯狂反扑扳平比分。最后皇马绝杀赢下比赛。"
+    segs = [{"start": 0, "end": 3, "text": "皇马率先破门取得领先。"},
+            {"start": 3, "end": 6, "text": "随后巴萨疯狂反扑扳平比分。"},
+            {"start": 6, "end": 9, "text": "最后皇马绝杀赢下比赛。"}]
+    detected = _teams.detect_teams(script)
+    # 内置表里应有皇马/巴萨（此处不依赖联网）
+    zhs = [t["zh"] for t in detected]
+    assert "皇马" in zhs and "巴萨" in zhs
+    # 每支队都应带 pos（首次出现位置）
+    for t in detected:
+        assert isinstance(t["pos"], int) and t["pos"] >= 0
+    m = _teams.align_teams_to_segments(detected, segs, script)
+    # 皇马首次出现在第 1 句（段 0），巴萨首次出现在第 2 句（段 1）
+    assert m.get(0) == "皇马"
+    assert m.get(1) == "巴萨"
+
+
 def test_pipeline_teams_integration(tmp_path, monkeypatch):
-    """footage+teams 开启 → 识别出球队并作为开场标识接入剪接（mock 掉拉图）。"""
     monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
     from video_pipeline import teams as _teams
     from PIL import Image

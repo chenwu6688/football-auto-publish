@@ -85,7 +85,7 @@ def edit_with_broll(
     anchor_path, audio_path, segments, footage_pool, out_path,
     *, width=1080, height=1920, fps=30, transition=0.3,
     lower_third=None, fontfile=None, broll_every=2, keep_bookends=True,
-    intro_broll=None,
+    intro_broll=None, intro_map=None,
 ):
     """按句时间轴把 B-roll 切入主讲人视频，转场串联，输出竖屏 mp4。
 
@@ -112,6 +112,9 @@ def edit_with_broll(
         intro_broll: 可选，开场强制 B-roll 的图片路径列表（球队标识）。
             前 len(intro_broll) 段会被强制设为 B-roll 并轮流使用这些图，
             覆盖 keep_bookends 的开场真人约束（实现「开场去真人→放球队标识」）。
+        intro_map: 可选，{段下标: 图片路径}，把指定队标**精确放到指定段**
+            （用于「讲到哪支队就显示哪支队标」，由 teams.align_teams_to_segments 生成）。
+            提供时优先于 intro_broll 的顺序铺法。
     Returns:
         str: out_path
     """
@@ -128,6 +131,21 @@ def edit_with_broll(
     n = len(segs)
     pool = list(footage_pool or [])
     intro_imgs = [str(p) for p in (intro_broll or [])]
+    # intro_map：{段下标: 图片路径}（精确放置，优先级高于 intro_broll 顺序铺）
+    intro_by_seg = {}
+    if intro_map:
+        for k, v in intro_map.items():
+            try:
+                seg_k = int(k)
+            except (TypeError, ValueError):
+                continue
+            if 0 <= seg_k < n and v:
+                intro_by_seg[seg_k] = str(v)
+    # 向后兼容：没有 intro_map 时，退回「前 len(intro_imgs) 段」的旧行为
+    if not intro_by_seg and intro_imgs:
+        for i in range(min(len(intro_imgs), n)):
+            intro_by_seg[i] = intro_imgs[i]
+    intro_set = set(intro_by_seg.keys())
 
     # 决定哪些段用 B-roll（主讲人 + 素材交替，首尾默认保留主讲人）
     use_broll = [False] * n
@@ -142,15 +160,15 @@ def edit_with_broll(
             if not (keep_bookends and i == n - 1):
                 use_broll[i] = True
 
-    # 开场球队标识：强制前 len(intro_imgs) 段为 B-roll（覆盖 keep_bookends 的开场真人约束）
-    for i in range(min(len(intro_imgs), n)):
+    # 开场球队标识：强制这些段为 B-roll（覆盖 keep_bookends 的开场真人约束）
+    for i in intro_set:
         use_broll[i] = True
 
     # 素材池为空时优雅降级：只保留「开场标识」这些 B-roll 段，其余段回到主讲人，
     # 避免因缺 footage 素材而整片回退（开场标识图单独也能出片）。
     if not pool:
         for i in range(n):
-            if i >= len(intro_imgs):
+            if i not in intro_set:
                 use_broll[i] = False
         if not any(use_broll):
             raise RuntimeError("素材池为空且无开场标识，回退纯主讲人")
@@ -163,8 +181,8 @@ def edit_with_broll(
     for i in range(n):
         if not use_broll[i]:
             continue
-        if i < len(intro_imgs):
-            clip = intro_imgs[i]            # 开场球队标识图（强制 B-roll）
+        if i in intro_by_seg:
+            clip = intro_by_seg[i]          # 该段对应的球队标识图（精确放置）
         else:
             if not pool:
                 continue                    # 已被 has_footage_broll 拦截，兜底跳过
@@ -187,10 +205,21 @@ def edit_with_broll(
         # 使用同一帧率与时间基，否则 xfade 会因时间基不一致而崩溃。
         tb = f"fps={fps},settb=AVTB"
         if use_broll[i]:
-            sfilters.append(
-                f"[{clip_idx[i]}:v]scale={W}:{H}:force_original_aspect_ratio=decrease,"
-                f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color=0x10131A,setsar=1,"
-                f"trim=duration={d:.3f},setpts=PTS-STARTPTS,{tb}[sv{i}]")
+            if i in intro_by_seg:
+                # 球队标识：白底衬 + 居中留白（避免拉满屏）+ 提亮，
+                # 让队标在黑底视频里清晰醒目（透明底 PNG 叠深色底会显得发暗）。
+                # 注：此 ffmpeg 构建无 eq 滤镜，改用 colorlevels 提亮。
+                sfilters.append(
+                    f"[{clip_idx[i]}:v]scale={int(W*0.72)}:{int(H*0.72)}"
+                    f":force_original_aspect_ratio=decrease,"
+                    f"colorlevels=rimin=0.02:gimin=0.02:bimin=0.02,"
+                    f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color=white,setsar=1,"
+                    f"trim=duration={d:.3f},setpts=PTS-STARTPTS,{tb}[sv{i}]")
+            else:
+                sfilters.append(
+                    f"[{clip_idx[i]}:v]scale={W}:{H}:force_original_aspect_ratio=decrease,"
+                    f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color=0x10131A,setsar=1,"
+                    f"trim=duration={d:.3f},setpts=PTS-STARTPTS,{tb}[sv{i}]")
         else:
             # 主讲人段：从 anchor 视频按时间轴裁出对应口播段（保证嘴型/口播同步）
             sfilters.append(

@@ -202,15 +202,25 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
             # 开场球队标识：从口播稿识别球队 → 拉队标/球场图（仅 teams.enabled 时）
             intro_imgs = []
+            intro_map = {}
             tm_cfg = cfg.get("teams", {})
             if tm_cfg.get("enabled", False):
                 try:
                     detected = teams_mod.detect_teams(script_text, tm_cfg)
                     if detected:
-                        intro_imgs = [x["path"] for x in
-                                      teams_mod.collect_team_images(detected, tm_cfg)]
+                        图池 = teams_mod.collect_team_images(detected, tm_cfg)
+                        intro_imgs = [x["path"] for x in 图池]
                         teams_used = [t["zh"] for t in detected]
-                        print(f"   开场球队标识：{teams_used} → {len(intro_imgs)} 张图")
+                        # 把「队标」对齐到「提到该队的那一句」（讲哪支队就显示哪支队标）
+                        zh2img = {}
+                        for t, item in zip(detected, 图池):
+                            zh2img.setdefault(t["zh"], item["path"])
+                        seg2zh = teams_mod.align_teams_to_segments(
+                            detected, segments, script_text)
+                        intro_map = {si: zh2img[zh] for si, zh in seg2zh.items()
+                                     if zh in zh2img}
+                        print(f"   开场球队标识：{teams_used} → "
+                              f"{len(intro_map)} 段（对齐到提及句）")
                     else:
                         print("   未识别到球队，跳过开场标识")
                 except Exception as e:
@@ -242,7 +252,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                     transition=float(fc_cfg.get("xfade", 0.4)),
                     lower_third=lt,
                     fontfile=fc_cfg.get("fontfile") or None,
-                    intro_broll=intro_imgs)
+                    intro_broll=intro_imgs, intro_map=intro_map)
                 final_video = edited_out
                 footage_used = True
                 footage_source = ",".join(used_src) if used_src else ",".join(fc_cfg.get("sources", []))
