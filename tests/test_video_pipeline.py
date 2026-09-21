@@ -818,3 +818,65 @@ def test_edit_with_broll_keeps_full_duration(tmp_path):
     info = compose.verify_video(str(out))
     # 6 - 2*0.4 = 5.2
     assert abs(info["duration"] - 5.2) < 0.4, f"成片应≈5.2s，实际={info['duration']}"
+
+
+# ---------------------------------------------------------------- 队标源补充（api-sports 兜底 + 本地覆盖表）
+def test_fetch_crest_falls_back_to_api_sports(tmp_path, monkeypatch):
+    """Wikimedia 拿不到队标时，应降级到 api-sports CDN（无需 key）。"""
+    from video_pipeline import teams
+    calls = {"wiki": 0, "dl": []}
+    monkeypatch.setattr(teams, "_fetch_crest", lambda wiki, timeout=20: (calls.__setitem__("wiki", calls["wiki"] + 1) or None))
+    def fake_dl(url, out_path, timeout=60):
+        calls["dl"].append(url)
+        Path(out_path).write_bytes(b"\x89PNG\r\n")
+    monkeypatch.setattr(teams, "_http_download", fake_dl)
+    monkeypatch.setattr(teams, "_fetch_stadium", lambda wiki, timeout=20: None)
+    team = {"zh": "皇马", "en": "Real Madrid", "wiki": "Real Madrid CF", "api_id": 541}
+    out = teams.fetch_team_assets(team, tmp_path / "c", stadium=False)
+    assert out["crest"] and Path(out["crest"]).exists()
+    assert calls["dl"] == ["https://media.api-sports.io/football/teams/541.png"]
+
+
+def test_fetch_crest_api_sports_source_when_wiki_ok(tmp_path, monkeypatch):
+    """Wikimedia 有队标时优先用它，不请求 api-sports。"""
+    from video_pipeline import teams
+    dl = []
+    monkeypatch.setattr(teams, "_fetch_crest", lambda wiki, timeout=20: "http://wiki/crest.png")
+    monkeypatch.setattr(teams, "_http_download", lambda u, o, timeout=60: (dl.append(u), Path(o).write_bytes(b"x")))
+    monkeypatch.setattr(teams, "_fetch_stadium", lambda wiki, timeout=20: None)
+    team = {"zh": "皇马", "en": "Real Madrid", "wiki": "Real Madrid CF", "api_id": 541}
+    teams.fetch_team_assets(team, tmp_path / "c", stadium=False)
+    assert dl == ["http://wiki/crest.png"]
+    assert not any("api-sports" in u for u in dl)
+
+
+def test_national_teams_have_no_api_id():
+    """国家队不设 api_id（api-sports 对国家队返回国旗，非队徽）。"""
+    from video_pipeline import teams
+    for zh in ("英格兰", "西班牙", "德国", "法国", "巴西", "阿根廷", "葡萄牙"):
+        assert "api_id" not in teams.TEAMS[zh], f"{zh} 不应有 api_id（会是国旗）"
+    # 俱乐部应有 api_id（已核对的兜底源）
+    for zh in ("皇马", "巴萨", "曼联", "拜仁", "尤文"):
+        assert teams.TEAMS[zh].get("api_id"), f"{zh} 应有 api_id"
+
+
+def test_local_teams_map_merges_and_detects(tmp_path, monkeypatch):
+    """local_map：本地球队表并入识别（补中超/冷门队）；识别时一并命中。"""
+    from video_pipeline import teams
+    import json as _json
+    lm = tmp_path / "teams_local.json"
+    lm.write_text(_json.dumps({"上海海港": {"en": "Shanghai Port", "wiki": "Shanghai Port F.C.", "api_id": 1234}},
+                              ensure_ascii=False), encoding="utf-8")
+    cfg = {"local_map": str(lm)}
+    table = teams.get_teams(cfg)
+    assert "上海海港" in table and table["上海海港"]["api_id"] == 1234
+    got = teams.detect_teams("上海海港主场迎战，皇马也在备战。", cfg)
+    zhs = [t["zh"] for t in got]
+    assert "上海海港" in zhs and "皇马" in zhs
+
+
+def test_local_teams_map_missing_is_silent(tmp_path):
+    """local_map 文件不存在 → 静默忽略，不影响内置识别。"""
+    from video_pipeline import teams
+    table = teams.get_teams({"local_map": str(tmp_path / "nope.json")})
+    assert "皇马" in table

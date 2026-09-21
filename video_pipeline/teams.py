@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
-"""球队标识（开场去真人）—— 根据口播稿自动识别球队，从 Wikimedia 拉取队标/球场。
+"""球队标识（开场去真人）—— 根据口播稿自动识别球队，拉取队标/球场图。
 
 设计：
 - 识别：复用中文→英文球队映射（TEAMS 表，覆盖主流俱乐部+国家队），按出现顺序抽取被提及的球队。
-- 拉取：Wikipedia pageimages 取俱乐部条目主图（基本即队标，较稳）；Wikidata P115 取主场球场图（best-effort）。
-- 缓存：下载到 assets/teams/ 按球队 slug 落盘，重复运行不重复请求；任意失败优雅跳过，绝不臆造错误标识。
-- 合规：Wikimedia 为自由版权，可用于足球二创；用户也可在 assets/teams/ 放本地核实图覆盖自动拉取结果。
+- 取图（双源，按序降级）：
+    1) Wikimedia（Wikipedia pageimages 取队标、Wikidata P115 取主场球场图）——自由版权，首选；
+    2) api-sports 队标 CDN（media.api-sports.io/football/teams/<id>.png）——**无需 key、直链稳定**，
+       本沙箱实测可直连且队标正确；作为 Wikimedia 不可达/冷门条目无图时的兜底。
+  两源都拿不到 → 优雅跳过，绝不臆造错误标识。
+- 缓存：下载到 assets/teams/ 按球队 slug 落盘，重复运行不重复请求。
+- 合规：Wikimedia 为自由版权；api-sports CDN 仅取队标图作节目内标识展示（二创用途），
+  用户也可在 assets/teams/ 放本地核实图覆盖自动拉取结果。
+
+补充说明（关于 tzuqiu.cc）：tzuqiu.cc（T足球）确有中文球队资料，但整站经 Cloudflare
+托管式 JS 挑战，脚本化抓取会被拦（curl/无头浏览器均 403），且其页面/接口对外不稳定，
+不适合做自动管线数据源，故未接入；如需中文球队资料，建议人工整理成表放本地。
 """
 
 import json
@@ -15,23 +24,27 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-# 中文球队名 → 英文 + Wikipedia 条目标题（国家队指向"国家足球队"条目，避免主图变成国旗）
+# 中文球队名 → 英文 + Wikipedia 条目标题 + api-sports 队标 ID（api_id）
+#   · wiki：国家队指向"国家足球队"条目，避免主图变成国旗
+#   · api_id：api-sports 队标 CDN 的球队 ID（已逐个肉眼核对队标正确）
 # 仅收录俱乐部/国家队「球队」实体；球员/赛事不在此表（由 detect_teams 自然排除）。
 TEAMS = {
-    "皇马":   {"en": "Real Madrid",        "wiki": "Real Madrid CF"},
-    "巴萨":   {"en": "Barcelona",          "wiki": "FC Barcelona"},
-    "曼联":   {"en": "Manchester United",  "wiki": "Manchester United F.C."},
-    "曼城":   {"en": "Manchester City",    "wiki": "Manchester City F.C."},
-    "利物浦": {"en": "Liverpool",          "wiki": "Liverpool F.C."},
-    "切尔西": {"en": "Chelsea",            "wiki": "Chelsea F.C."},
-    "阿森纳": {"en": "Arsenal",            "wiki": "Arsenal F.C."},
-    "拜仁":   {"en": "Bayern Munich",      "wiki": "FC Bayern Munich"},
-    "多特":   {"en": "Borussia Dortmund",  "wiki": "Borussia Dortmund"},
-    "巴黎":   {"en": "Paris Saint-Germain","wiki": "Paris Saint-Germain F.C."},
-    "尤文":   {"en": "Juventus",           "wiki": "Juventus F.C."},
-    "国米":   {"en": "Inter Milan",        "wiki": "Inter Milan"},
-    "米兰":   {"en": "AC Milan",           "wiki": "AC Milan"},
-    "热刺":   {"en": "Tottenham",          "wiki": "Tottenham Hotspur F.C."},
+    "皇马":   {"en": "Real Madrid",        "wiki": "Real Madrid CF",              "api_id": 541},
+    "巴萨":   {"en": "Barcelona",          "wiki": "FC Barcelona",                "api_id": 529},
+    "曼联":   {"en": "Manchester United",  "wiki": "Manchester United F.C.",      "api_id": 33},
+    "曼城":   {"en": "Manchester City",    "wiki": "Manchester City F.C.",        "api_id": 50},
+    "利物浦": {"en": "Liverpool",          "wiki": "Liverpool F.C.",              "api_id": 40},
+    "切尔西": {"en": "Chelsea",            "wiki": "Chelsea F.C.",                "api_id": 49},
+    "阿森纳": {"en": "Arsenal",            "wiki": "Arsenal F.C.",                "api_id": 42},
+    "拜仁":   {"en": "Bayern Munich",      "wiki": "FC Bayern Munich",            "api_id": 157},
+    "多特":   {"en": "Borussia Dortmund",  "wiki": "Borussia Dortmund",           "api_id": 165},
+    "巴黎":   {"en": "Paris Saint-Germain","wiki": "Paris Saint-Germain F.C.",    "api_id": 85},
+    "尤文":   {"en": "Juventus",           "wiki": "Juventus F.C.",               "api_id": 496},
+    "国米":   {"en": "Inter Milan",        "wiki": "Inter Milan",                 "api_id": 505},
+    "米兰":   {"en": "AC Milan",           "wiki": "AC Milan",                    "api_id": 489},
+    "热刺":   {"en": "Tottenham",          "wiki": "Tottenham Hotspur F.C.",      "api_id": 47},
+    # 国家队：api-sports 返回的是国旗（非队徽），故不设 api_id，队标统一走 Wikimedia 的
+    # "X national football team" 条目（主图即队徽），避免"国旗冒充队标"。
     "英格兰": {"en": "England",            "wiki": "England national football team"},
     "西班牙": {"en": "Spain",              "wiki": "Spain national football team"},
     "德国":   {"en": "Germany",            "wiki": "Germany national football team"},
@@ -40,6 +53,41 @@ TEAMS = {
     "阿根廷": {"en": "Argentina",          "wiki": "Argentina national football team"},
     "葡萄牙": {"en": "Portugal",           "wiki": "Portugal national football team"},
 }
+
+# api-sports 队标 CDN 模板（无需 key，直链）
+_API_SPORTS_BADGE = "https://media.api-sports.io/football/teams/{id}.png"
+# 注意：api-sports 对「不存在的 ID」会返回通用占位图；且国家队 ID 返回的是国旗而非队徽。
+# 因此 api_id 只用于**已肉眼核对过队标正确**的俱乐部；国家队不设 api_id（走 Wikimedia 队徽条目）。
+# 需要补冷门/中超球队时，先确证其 api-sports ID（核对队标图正确）再填，切勿凭猜。
+
+
+def _load_local_teams(cfg):
+    """从本地覆盖文件加载球队映射（补冷门/中超球队），与内置 TEAMS 合并。
+
+    配置：teams.local_map（默认 assets/teams/teams_local.json），格式：
+        { "上海海港": {"en": "Shanghai Port", "wiki": "Shanghai Port F.C.", "api_id": 1234}, ... }
+    覆盖优先级高于内置表；文件不存在则忽略（不报错）。
+    """
+    path = (cfg or {}).get("local_map") or "assets/teams/teams_local.json"
+    p = Path(path)
+    if not p.is_absolute():
+        p = Path(__file__).resolve().parents[1] / p
+    if not p.exists():
+        return {}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        return {k: v for k, v in data.items() if isinstance(v, dict) and v.get("en")} \
+            if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def get_teams(cfg=None):
+    """返回「内置表 + 本地覆盖表」合并后的球队映射。"""
+    merged = dict(TEAMS)
+    merged.update(_load_local_teams(cfg))
+    return merged
+
 
 
 def _http_get_json(url, timeout=20):
@@ -58,21 +106,26 @@ def _slug(s):
     return re.sub(r"[^A-Za-z0-9]+", "_", s).strip("_") or "team"
 
 
-def detect_teams(script):
+def detect_teams(script, cfg=None):
     """从口播稿识别被提及的球队（按出现顺序去重）。
 
+    Args:
+        script: 口播稿。
+        cfg: teams 配置块（可选）；提供时把 assets/teams/teams_local.json 的本地球队
+             一并纳入识别（用于补冷门/中超球队）。
     Returns:
-        list[dict]: [{zh, en, wiki}, ...]，未识别到返回 []。
+        list[dict]: [{zh, en, wiki, api_id?}, ...]，未识别到返回 []。
     """
     text = script or ""
+    table = get_teams(cfg) if cfg is not None else TEAMS
     found = []
     seen = set()
     # 长词优先匹配（如"巴黎圣日耳曼"之类；本表无更长重叠，但保留顺序稳健性）
-    for zh in sorted(TEAMS.keys(), key=len, reverse=True):
+    for zh in sorted(table.keys(), key=len, reverse=True):
         idx = text.find(zh)
         if idx >= 0 and zh not in seen:
             seen.add(zh)
-            found.append({"zh": zh, **TEAMS[zh]})
+            found.append({"zh": zh, **table[zh]})
     # 按出现顺序排序
     found.sort(key=lambda t: text.find(t["zh"]))
     return found
@@ -142,11 +195,21 @@ def _fetch_stadium(wiki_title, timeout=20):
     return None
 
 
+def _fetch_crest_api_sports(api_id, timeout=20):
+    """api-sports 队标 CDN 直链（无需 key）。返回图片 URL；无 api_id 返回 None。"""
+    if not api_id:
+        return None
+    return _API_SPORTS_BADGE.format(id=int(api_id))
+
+
 def fetch_team_assets(team, cache_dir, *, stadium=True, timeout=20):
     """拉取单支球队的队标 + 球场图，缓存到 cache_dir。
 
+    队标双源降级：Wikimedia（自由版权首选）→ api-sports CDN（无 key、直链稳）。
+    球场图仅走 Wikidata（best-effort），失败跳过。
+
     Args:
-        team: detect_teams 返回的单个球队 dict（含 wiki）。
+        team: detect_teams 返回的单个球队 dict（含 wiki，可能含 api_id）。
         cache_dir: 缓存目录。
         stadium: 是否尝试拉球场图。
     Returns:
@@ -161,7 +224,11 @@ def fetch_team_assets(team, cache_dir, *, stadium=True, timeout=20):
     if crest_path.exists():
         out["crest"] = str(crest_path)
     else:
+        # 源1：Wikimedia（自由版权首选）
         src = _fetch_crest(team["wiki"], timeout=timeout)
+        # 源2：Wikimedia 拿不到 → api-sports CDN 兜底（本沙箱实测可直连）
+        if not src:
+            src = _fetch_crest_api_sports(team.get("api_id"), timeout=timeout)
         if src:
             try:
                 _http_download(src, str(crest_path), timeout=timeout)

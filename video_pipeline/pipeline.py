@@ -205,7 +205,7 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             tm_cfg = cfg.get("teams", {})
             if tm_cfg.get("enabled", False):
                 try:
-                    detected = teams_mod.detect_teams(script_text)
+                    detected = teams_mod.detect_teams(script_text, tm_cfg)
                     if detected:
                         intro_imgs = [x["path"] for x in
                                       teams_mod.collect_team_images(detected, tm_cfg)]

@@ -106,12 +106,14 @@ host:
   show_portrait: false     # 是否在视频中露出真人肖像（false=去真人出镜）
 
 # 开场球队标识（根据口播稿自动识别球队 → 拉队标/球场图开场，替代真人出镜）
-# 识别用内置中文球队词表；图片来自 Wikimedia（自由版权·可二创），缓存到 cache_dir。
+# 队标双源：① Wikimedia（自由版权，首选）→ ② api-sports 队标 CDN（无需 key，直链稳，兜底）。
+# 识别用内置中文球队词表；可用 local_map 补冷门/中超球队。
 # 识别不到球队/拉取失败 → 自动跳过，不影响出片。
 teams:
   enabled: true            # 是否启用开场球队标识
   cache_dir: "assets/teams"  # 队标/球场图缓存目录（重复运行不重复请求）
   stadium: true            # 是否同时拉主场球场图（false 只拉队标，更省请求）
+  local_map: "assets/teams/teams_local.json"  # 本地球队覆盖表（补中超/冷门队；文件不存在则忽略）
 
 # 音频氛围（背景音乐 + 关键词音效）
 # 见 audio_mix.py：BGM 循环铺底（压低音量）→ 按字幕关键词在对应时刻叠加音效。
