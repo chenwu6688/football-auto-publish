@@ -95,7 +95,7 @@ footage:
   # 缓存目录（已下载素材复用，避免重复请求 API）
   cache_dir: "assets/footage_cache"
   # —— 各来源凭证/目录 ——
-  pexels_api_key: "seLZYNKMTsal4RLmKofu6OUJU6v8DI5ETKQCiABw27yNsKH5qQiDx7IT"   # https://www.pexels.com/api/ 免费申请
+  pexels_api_key: ""   # 已脱敏：去 https://www.pexels.com/api/ 免费申请你自己的 key（原 key 已泄露，请务必轮换）
   pixabay_api_key: ""      # https://pixabay.com/api/docs/ 免费申请
   local_dir: "assets/footage_local"  # 本地素材库（相对仓库根）。已预置一批免版权足球图（球场/球/球迷/球门）作兜底
 
