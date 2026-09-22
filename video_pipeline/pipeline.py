@@ -193,10 +193,17 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     ac_cfg = cfg.get("audio", {})
     if ac_cfg.get("enabled"):
         mix_out = inter / f"{slug}.mixed.wav"
+        # BGM/音效目录可能是相对路径：统一按「项目根 _ROOT」解析，而不是进程 cwd。
+        # 否则调用方 cwd 不是仓库根时，会静默找不到素材、混音被跳过（曾踩坑）。
+        def _asset_dir(v):
+            if not v:
+                return v
+            p = Path(v)
+            return str(p if p.is_absolute() else (_ROOT / p))
         mixed = audio_mix_mod.mix(
             str(audio_path), str(srt_path), ac_cfg,
-            bgm_dir=ac_cfg.get("bgm_dir", ""),
-            sfx_dir=ac_cfg.get("sfx_dir", ""),
+            bgm_dir=_asset_dir(ac_cfg.get("bgm_dir", "")),
+            sfx_dir=_asset_dir(ac_cfg.get("sfx_dir", "")),
             out_path=str(mix_out))
         if str(mixed) != str(audio_path):
             print(f"   音频混音：BGM+音效 → {Path(mixed).name}")

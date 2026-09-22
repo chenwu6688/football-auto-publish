@@ -870,6 +870,38 @@ def test_audio_mix_output_is_real_wav(tmp_path):
     assert abs(compose.ffprobe_duration(res) - 4.0) < 0.3
 
 
+def test_pipeline_relative_bgm_dir_resolved_against_root(tmp_path, monkeypatch):
+    """回归：audio.bgm_dir/sfx_dir 为相对路径时，按「项目根 _ROOT」解析而非进程 cwd。
+
+    历史 bug：pipeline 直接把相对路径透传给 audio_mix，_find_first_audio 按进程 cwd
+    查找；当调用方 cwd 不是仓库根时，BGM/音效静默找不到 → 混音被跳过、氛围全无。
+    修复：pipeline 侧统一把相对素材目录拼到 _ROOT 下。
+    """
+    monkeypatch.setattr(pipeline.tts, "synthesize", _fake_synthesize)
+    # 构造一个相对项目根存在的素材目录：<root>/assets/_test_bgm
+    rel_dir = Path("assets/_test_bgm")
+    abs_dir = Path(pipeline._ROOT) / rel_dir
+    abs_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        _make_tone(abs_dir / "theme.wav", 220, 2)
+        cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+        _disable_optional(cfg)
+        cfg["output"]["keep_intermediate"] = True
+        cfg["audio"]["enabled"] = True
+        cfg["audio"]["bgm_dir"] = str(rel_dir)          # 相对路径
+        cfg["audio"]["sfx_dir"] = str(rel_dir / "nosfx")  # 相对、不存在
+        monkeypatch.chdir(tmp_path)                      # 故意把 cwd 切到别处
+        meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                     llm_fn=_fake_llm)
+        assert meta["audio_mixed"] is True
+        # 中间目录应产出 mixed.wav（证明混音真的执行了，而非跳过）
+        mixed = list((tmp_path / "_intermediate").glob("*.mixed.wav"))
+        assert mixed, "相对 bgm_dir 未按 _ROOT 解析，混音被跳过"
+    finally:
+        import shutil
+        shutil.rmtree(abs_dir, ignore_errors=True)
+
+
 def test_edit_with_broll_keeps_full_duration(tmp_path):
     """回归：edit_with_broll 成片时长 = 各段之和 - 转场重叠（不被 -shortest 截短）。"""
     from video_pipeline import edit
