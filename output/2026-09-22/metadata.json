@@ -1,7 +1,7 @@
 {
   "date": "2026-09-22",
-  "generated_at": "2026-09-21T16:03:30.674468",
-  "total_articles": 3,
+  "generated_at": "2026-09-22T00:10:25.254073",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -98,143 +98,233 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "曼联89分钟绝平，但老球迷看的是另一场戏",
+      "path": "/home/runner/work/_temp/output/2026-09-22/article-1-曼联89分钟绝平-16a8c5.md",
+      "slug": "曼联89分钟绝平-16a8c5",
+      "tags": [
+        "Manchester United",
+        "Marcus Rashford",
+        "Fulham",
+        "Alex Ferguson",
+        "Premier League"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Marcus Rashford",
+        "Fulham",
+        "Alex Ferguson",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-22/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-22/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-22/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "利物浦这1-0，看得老球迷血压拉满",
+      "path": "/home/runner/work/_temp/output/2026-09-22/article-2-利物浦这10看得-1f2c42.md",
+      "slug": "利物浦这10看得-1f2c42",
+      "tags": [
+        "Liverpool",
+        "Bournemouth",
+        "Alisson",
+        "Isaac",
+        "Premier League"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Bournemouth",
+        "Alisson",
+        "Isaac",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-22/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-22/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-22/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "89分钟绝平，曼联从克拉文农场抢回一分，但问题更大了",
+      "path": "/home/runner/work/_temp/output/2026-09-22/article-3-89分钟绝平曼联-6d460e.md",
+      "slug": "89分钟绝平曼联-6d460e",
+      "tags": [
+        "Manchester United",
+        "Fulham",
+        "Rashford",
+        "Ferguson",
+        "Premier League"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Fulham",
+        "Rashford",
+        "Ferguson",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-22/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-22/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "罗马2-2国米，穆里尼奥走后这队怎么越来越不会踢硬仗了？",
-      "angle": "从罗马主场2-2战平国米切入，对比穆里尼奥时期罗马遇强则强的气质，讨论球队在换帅后硬仗能力的退化。不是吹穆帅，而是点出一个事实：有些教练留下的不是战术，是一股气，散了就难聚回来。",
+      "title": "30岁马夏尔还没找到下家，当年那个金童到底怎么了？",
+      "angle": "以曼联旧将马夏尔30岁仍无球可踢的现状为切口，回溯他当年顶着8000万欧元金童光环加盟曼联的高光与至暗，探讨天才陨落的个人原因与职业足球的残酷，给年轻球员敲警钟。",
       "keywords": [
-        "AS Roma",
-        "Inter Milan",
-        "Jose Mourinho",
-        "Serie A"
+        "Martial",
+        "Manchester United",
+        "free agent",
+        "Golden Boy"
       ],
       "keywords_cn": [
-        "罗马",
-        "国际米兰",
-        "穆里尼奥",
-        "意甲"
+        "马夏尔",
+        "曼联",
+        "自由球员",
+        "金童奖"
       ],
-      "content_type": "热点球评",
-      "score": 85,
+      "content_type": "八卦趣事",
+      "score": 88,
       "controversy_level": "medium",
       "target_emotion": "怀旧",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "穆里尼奥与罗马的情感纽带+硬仗气质对比，戳中老球迷对名帅执教印记的讨论欲",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "昔日金童陨落自带戏剧张力，结合曼联球迷的集体记忆，引发对天赋与职业态度的讨论。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "安古伊萨替补5分钟又伤了，那不勒斯这续约合同还敢给吗？",
-      "angle": "从安古伊萨替补出场仅5分钟再次受伤的倒霉事件切入，讨论玻璃人球员的续约风险。那不勒斯管理层现在进退两难：不给合同显得没人情味，给了合同可能砸手里。这种两难选择，比纯数据有意思多了。",
+      "title": "卡拉格开喷：维尔茨就这水平，利物浦买他算不算看走眼？",
+      "angle": "借卡拉格对维尔茨的犀利点评切入，对比维尔茨在德甲的高光与英超适应期的挣扎，讨论现代足球里数据型球员的适配陷阱，以及名宿评论是否过于苛刻。",
       "keywords": [
-        "Andre-Frank Zambo Anguissa",
-        "Napoli",
-        "contract renewal",
-        "injury"
+        "Wirtz",
+        "Carragher",
+        "Liverpool",
+        "transfer flop"
       ],
       "keywords_cn": [
-        "安古伊萨",
-        "那不勒斯",
-        "续约",
-        "伤病"
+        "维尔茨",
+        "卡拉格",
+        "利物浦",
+        "转会水货"
       ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "medium",
+      "content_type": "战术解析",
+      "score": 85,
+      "controversy_level": "high",
       "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "玻璃人续约是足球经理玩家的经典难题，代入感强，讨论价值高，非比赛日填补转会资讯配额",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "why_pick": "名宿炮轰+高价新援争议，天然具备正反方讨论空间，符合老球迷对战术适配的深度探讨需求。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "富勒姆1-1逼平曼联，这支花了10亿重建的红魔到底缺什么？",
-      "angle": "从曼联客场被富勒姆逼平的憋屈结果切入，不写战报复述比分，而是追问一个核心问题：钱花到位了，为什么打中下游球队还是磕磕绊绊？对比弗格森时期曼联虐菜的稳定性，讨论这支球队气质上的缺失。",
+      "title": "曼联想让孔蒂接替卡里克？这事听着怎么这么不靠谱呢",
+      "angle": "从曼联有意孔蒂的传闻切入，分析孔蒂的铁腕治军风格与曼联更衣室文化的天然冲突，对比卡里克代理期的温和路线，探讨曼联管理层选帅逻辑的混乱与反复。",
       "keywords": [
+        "Conte",
+        "Carrick",
         "Manchester United",
-        "Fulham",
-        "Premier League",
-        "rebuilding"
+        "manager"
       ],
       "keywords_cn": [
+        "孔蒂",
+        "卡里克",
         "曼联",
-        "富勒姆",
-        "英超",
-        "重建"
+        "主教练"
       ],
-      "content_type": "热点球评",
-      "score": 90,
+      "content_type": "转会资讯",
+      "score": 82,
       "controversy_level": "high",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "曼联永远是流量密码，被富勒姆逼平+花钱多成绩差的反差，最能激发老球迷恨铁不成钢的讨论",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "豪门换帅传闻自带流量，孔蒂与曼联的错配感制造悬念，戳中球迷对管理层决策的好奇与吐槽欲。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "伊拉克主场遇上阿曼铁桶，这场闷战谁能偷到三分？",
-      "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-09-22 00:03:30"
+  "last_batch": "morning",
+  "last_updated": "2026-09-22 08:10:25"
 }
