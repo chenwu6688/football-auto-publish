@@ -196,6 +196,27 @@ textmotion:
   crest_glow: true            # 队标加柔光光晕（更高级）
   keep_ass: false             # 是否保留生成的 .ass（排查用）
 
+  # 双人对话（双人口播）：把口播稿改成 A 抛观点 / B 补料 的一问一答，
+  # 用两套音色合成 + 画面双色区分。默认关闭，不影响单人链路。
+  dialogue:
+    enabled: false            # true = 走双人链路（生成对话稿 + 双音色合成 + 双色渲染）
+    # 角色音色（edge-tts 中文音色：云希/云健/晓睿=男声；晓晓/晓伊/晓妮=女声）
+    voices:
+      A: "zh-CN-YunjianNeural"   # 老六（主播·激情男声）
+      B: "zh-CN-XiaoxiaoNeural"  # 搭档「数据君」（女声·冷静补刀）
+    # 每个角色的语速/音量（可选，制造听感上的对话节奏；不填用 voice.* 全局值）
+    rate_map:
+      A: "+10%"               # 老六稍快带情绪
+      B: "+0%"                # 数据君平稳
+    labels:                   # 说话人名字前缀（首屏即显，强化"谁在说话"；留空不加）
+      A: "老六"
+      B: "数据君"
+    gap_ms: 250               # 两个 turn 之间的换气静音（ms）；最后一轮后不加
+    color_b: "0x5AC8FA"       # B 角色的区分色（已读态主色；未读暗灰/高亮红黄不变）
+    # layout: color —— 同屏大字、仅换色+名字区分（MVP，复用度最高）；
+    #          chat  —— 左右聊天气泡（更"对话式"，待实现）。当前仅 color 生效。
+
+
 # 输出
 output:
   base_dir: "output/videos"     # 相对仓库根目录；实际落盘 base_dir/YYYY-MM-DD/

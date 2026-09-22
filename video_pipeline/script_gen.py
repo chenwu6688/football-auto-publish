@@ -189,3 +189,123 @@ def generate_script(article, *, llm_fn=None, brand_manual=None):
         print(f"   ⚠️ 口播稿 LLM 调用失败（{type(e).__name__}: {e}），回退规则兜底")
 
     return condense_fallback(article)
+
+
+# ------------------------------------------------------------------ 双人对话稿
+
+_PROMPT_DIALOGUE = "video_dialogue.txt"
+_DIALOGUE_MIN_TURNS = 2
+_DIALOGUE_MAX_TURNS = 8
+
+
+def _build_dialogue_messages(article, brand_manual):
+    template = load_prompt_template(_PROMPT_DIALOGUE)
+    if not template:
+        template = (
+            "把图文改写成双人对话口播稿（A=主播抛观点，B=搭档补数据抬杠，事实零改动）。"
+            "只输出 JSON: {\"title\":..,\"dialogue\":[{\"spk\":\"A\",\"text\":..},"
+            "{\"spk\":\"B\",\"text\":..}],\"hook_type\":..,\"estimated_duration_sec\":..}\n"
+            "标题：{title}\n正文：{content}"
+        )
+    resonance_hint, series_hint = _build_hints(article)
+    prompt = (
+        template
+        .replace("{brand_manual}", brand_manual or "（无品牌手册）")
+        .replace("{title}", (article or {}).get("title", ""))
+        .replace("{content}", (article or {}).get("content", ""))
+        .replace("{resonance_hint}", resonance_hint)
+        .replace("{series_hint}", series_hint)
+    )
+    return [
+        {"role": "system", "content": "你是足球短视频双人对话口播稿编剧，输出严格 JSON。"},
+        {"role": "user", "content": prompt},
+    ]
+
+
+def _validate_dialogue(parsed):
+    """校验 LLM 返回的双人对话 JSON 是否可用。"""
+    if not isinstance(parsed, dict):
+        return False
+    dialogue = parsed.get("dialogue")
+    if not isinstance(dialogue, list) or not dialogue:
+        return False
+    turns = []
+    for d in dialogue:
+        if not isinstance(d, dict):
+            return False
+        spk = (d.get("spk") or "").strip().upper()
+        text = (d.get("text") or "").strip()
+        if spk not in ("A", "B") or not text:
+            return False
+        turns.append((spk, text))
+    if not (_DIALOGUE_MIN_TURNS <= len(turns) <= _DIALOGUE_MAX_TURNS):
+        return False
+    # 必须以 A 开头（强钩子），且 A/B 交替出现
+    if turns[0][0] != "A":
+        return False
+    for i in range(1, len(turns)):
+        if turns[i][0] == turns[i - 1][0]:
+            return False
+    return True
+
+
+def condense_dialogue_fallback(article):
+    """规则兜底：把图文压成一段可用的双人对话稿（LLM 不可用时保证有产出）。"""
+    title = (article or {}).get("title", "今日足球热点")
+    content = (article or {}).get("content", "")
+    text = re.sub(r"#+\s*", "", content)
+    text = re.sub(r"[*_`>#-]", "", text)
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"\s+", "", text)
+    sentences = [s.strip() for s in re.split(r"(?<=[。！？])", text) if s.strip()]
+    picked = "".join(sentences)[:260]
+    if picked and picked[-1] not in "。！？":
+        picked += "。"
+    a_hook = "老球迷们，今天这条你一定得看——"
+    b_hook = "这数据，我补一刀："
+    a_close = "所以你看，这球没那么简单。"
+    b_close = "你觉得呢？评论区聊聊，关注老六，每天球评不断更。"
+    dialogue = [
+        {"spk": "A", "text": a_hook + picked[:120]},
+        {"spk": "B", "text": b_hook + (picked[120:200] or "数据不会骗人。")},
+        {"spk": "A", "text": a_close},
+        {"spk": "B", "text": b_close},
+    ]
+    return {
+        "title": title,
+        "dialogue": dialogue,
+        "hook_type": "冲突",
+        "estimated_duration_sec": 75,
+        "source": "fallback",
+    }
+
+
+def generate_dialogue(article, *, llm_fn=None, brand_manual=None):
+    """生成双人对话口播稿。
+
+    Returns:
+        dict: {title, dialogue:[{spk,text}], hook_type, estimated_duration_sec,
+               source, model?}
+    """
+    if brand_manual is None:
+        try:
+            brand_manual = _get_brand_manual()
+        except Exception:
+            brand_manual = ""
+
+    messages = _build_dialogue_messages(article, brand_manual)
+    llm = llm_fn if llm_fn is not None else _real_llm
+
+    try:
+        parsed, model = llm(messages)
+        if _validate_dialogue(parsed):
+            parsed["source"] = "llm"
+            parsed["model"] = model
+            parsed.setdefault("hook_type", "疑问")
+            parsed.setdefault("estimated_duration_sec", 75)
+            return parsed
+        print("   ⚠️ 双人对话稿 LLM 返回未通过校验，回退规则兜底")
+    except Exception as e:
+        print(f"   ⚠️ 双人对话稿 LLM 调用失败（{type(e).__name__}: {e}），回退规则兜底")
+
+    return condense_dialogue_fallback(article)

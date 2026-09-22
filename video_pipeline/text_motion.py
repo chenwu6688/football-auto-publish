@@ -202,7 +202,8 @@ def build_motion_ass(segments, *, width=1080, height=1920,
                      max_chars_per_line=9, keyword_stagger=0.15,
                      in_anim="random", teams_table=None, extra_words=None,
                      max_kw=1, end_hold=0.35, max_block_units=9,
-                     word_timings=None, anim_seed=None, margin_v=700):
+                     word_timings=None, anim_seed=None, margin_v=700,
+                     speaker_b_color="0x5AC8FA", speaker_labels=None):
     """生成「文字动效」ASS：卡拉OK逐字点亮 + 关键词跳球 + 随机入场动效（轻重缓急）。
 
     Args:
@@ -228,8 +229,13 @@ def build_motion_ass(segments, *, width=1080, height=1920,
     hl_c = _ass_color(hl_color)
     num_c = _ass_color(num_color)
     out_c = _ass_color(outline_color)
+    # 双人对话：B 角色已读态主色（区分色）；未读暗灰 sec_c 与高亮红黄不变
+    b_c = _ass_color(speaker_b_color)
     # 卡拉OK「未读态」颜色（SecondaryColour）：暗灰 —— \k 逐字从暗灰点亮到主色
     sec_c = _ass_color("0x7A8996")
+    # 双人对话：仅在存在 B 说话人时才追加 B 样式组（保持单人口播输出零变化）
+    has_b = any((s.get("speaker") or "A").strip().upper() == "B"
+                for s in (segments or []))
 
     header = [
         "[Script Info]",
@@ -258,24 +264,39 @@ def build_motion_ass(segments, *, width=1080, height=1920,
         # 数字/比分：更大更黄
         f"Style: Num,{font_name},{int(body_font_size * 1.25)},{num_c},{sec_c},"
         f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline) + 1},3,2,90,90,{int(margin_v)},1",
+    ]
+    # B 角色样式组：仅替换已读态主色为区分色；未读暗灰/高亮红黄不变。
+    # 必须放在 [V4+ Styles] 区段内、[Events] 之前，否则 libass 会把这些
+    # Style 行当成事件文本忽略，导致 \rBodyB 回退成默认样式（白字）。
+    if has_b:
+        header.extend([
+            f"Style: BodyB,{font_name},{int(body_font_size)},{b_c},{sec_c},"
+            f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,2,90,90,{int(margin_v)},1",
+            f"Style: HLB,{font_name},{int(body_font_size * 1.15)},{hl_c},{sec_c},"
+            f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline)},2,2,90,90,{int(margin_v)},1",
+            f"Style: NumB,{font_name},{int(body_font_size * 1.25)},{num_c},{sec_c},"
+            f"{out_c},&H00000000,-1,0,0,0,100,100,0,0,1,{int(outline) + 1},3,2,90,90,{int(margin_v)},1",
+        ])
+    header.extend([
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-    ]
+    ])
 
     # ---------- 阶段 1：全局块流 + 时间窗（词级对齐优先，字数加权兜底） ----------
     body = []
-    flat = []                     # [(blk, seg_start, seg_end)]
+    flat = []                     # [(blk, seg_start, seg_end, spk)]
     for seg in segments:
         st = float(seg.get("start", 0) or 0)
         en = float(seg.get("end", 0) or 0)
         text = (seg.get("text") or "").strip()
+        spk = (seg.get("speaker") or "A").strip().upper()
         if not text or en <= st:
             continue
         if total:
             en = min(en, float(total))
         for blk in _split_blocks(text, max_block_units):
-            flat.append((blk, st, en))
+            flat.append((blk, st, en, spk))
     if not flat:
         return "\n".join(header + body) + "\n"
 
@@ -287,7 +308,7 @@ def build_motion_ass(segments, *, width=1080, height=1920,
     rng = random.Random(anim_seed)
     prev_anim = None
     anim_idx = 0
-    for blk, b_st, b_en, light in win:
+    for blk, b_st, b_en, light, spk in win:
         if b_en <= b_st:
             continue
         highlights = tk.extract_highlights(
@@ -297,6 +318,11 @@ def build_motion_ass(segments, *, width=1080, height=1920,
         fs = _fit_font_size(blk, body_font_size, max_px, max_lines=2)
         per_line = max(2.0, max_px / fs)
         scale = fs / float(body_font_size) if body_font_size else 1.0
+        # 双人对话：B 角色用带 "B" 后缀的样式组（区分色），并加说话人名字前缀
+        spk_suffix = "B" if spk == "B" else ""
+        spk_label = None
+        if speaker_labels and spk in speaker_labels:
+            spk_label = speaker_labels[spk]
         # 卡拉OK cs：词级 = 逐字真实点亮时刻；兜底 = 线性分摊（Σ\k=显示窗）
         if light:
             win_cs = max(1, int(round((b_en - b_st) * 100)))
@@ -323,7 +349,8 @@ def build_motion_ass(segments, *, width=1080, height=1920,
                                 dur=dur, power=power, margin_v=margin_v)
         rendered = _render_line_styles(pieces, per_line, scale=scale,
                                        total_cs=disp_cs, entrance=entrance,
-                                       char_cs=cs_list)
+                                       char_cs=cs_list, spk=spk_suffix,
+                                       speaker_label=spk_label)
         content = r"\N".join(rendered)
         body.append(f"Dialogue: 0,{_ass_time(b_st)},{_ass_time(b_en)},Body,,0,0,0,,{content}")
 
@@ -446,7 +473,7 @@ def _anim_prefix(anim, scale=1.0, width=1080, height=1920, dur=240, power=1.0,
         blurin     模糊 → 清晰
         spread     从画面中线向两侧展开（clip 扫出；仅固定指定，不进随机池）
         fade       纯渐入渐出
-    （旧 slideup 的硬编码 \move 坐标已改为按 an2 锚点参数化计算。）
+    （旧 slideup 的硬编码 \\move 坐标已改为按 an2 锚点参数化计算。）
     """
     s = float(scale)
     fsx = lambda v: str(max(1, int(round(v * s))))    # \fscx 值 = 目标% × 句缩放（\fscx 本身就是百分比）
@@ -562,7 +589,7 @@ def _block_windows(flat, words, *, total=None, end_hold=0.35,
             spans[wi][1] = i + 1
         else:
             spans[wi] = [i, i + 1]
-    n_voice = sum(1 for blk, _s, _e in flat for ch in blk if _is_voice(ch))
+    n_voice = sum(1 for it in flat for ch in it[0] if _is_voice(ch))
     usable = m > 0 and n_voice > 0
 
     if not usable:
@@ -590,14 +617,17 @@ def _block_windows(flat, words, *, total=None, end_hold=0.35,
                 elif dt < 0.6 and k + 1 < cnt:
                     b_en += min(0.6 - dt, (en0 - t) * 0.5)
                     t = b_en
-                win.append([blk, b_st + 0.04, b_en, None])
+                win.append([blk, b_st + 0.04, b_en, None,
+                            (flat[i][3] if len(flat[i]) > 3 else "A")])
             i = j
         return win
 
     # ---- 词级模式：逐字点亮时刻 ----
     win = []
     q = 0                            # 全局发音字符游标
-    for bi, (blk, seg_st, _seg_en) in enumerate(flat):
+    for bi, item in enumerate(flat):
+        blk, seg_st, _seg_en = item[0], item[1], item[2]
+        spk = item[3] if len(item) > 3 else "A"
         light, first_st, last_en = [], None, None
         for ch in blk:
             if _is_voice(ch):
@@ -623,7 +653,7 @@ def _block_windows(flat, words, *, total=None, end_hold=0.35,
                 first_st = seg_st if first_st is None else first_st
                 last_en = seg_st + 0.2
         win.append([blk, max(0.0, (first_st or seg_st) - lead), last_en or seg_st,
-                    light])
+                    light, spk])
 
     # 显示窗：首尾相接不叠字；换句多挂 tail_gap；全片末块多挂 end_hold
     for bi, item in enumerate(win):
@@ -648,7 +678,7 @@ _UNSET = object()
 
 
 def _render_line_styles(pieces, max_units, scale=1.0, total_cs=0, entrance="",
-                        char_cs=None):
+                        char_cs=None, spk="", speaker_label=None):
     """把 [(片段, kind_or_None)] 折行，生成「卡拉OK逐字点亮」的 ASS 行。
 
     - 三态配色：未读=暗灰（Style 的 SecondaryColour）→ 已读=白/红/黄
@@ -712,24 +742,35 @@ def _render_line_styles(pieces, max_units, scale=1.0, total_cs=0, entrance="",
     sx = max(1, int(round(scale * 100)))            # 句级缩放（%）
     bump = max(1, int(round(sx * 1.12)))            # 跳球瞬态（+12%）
     out, cum_ms = [], 0                             # cum_ms 跨行累计（卡拉OK时间轴是块级的）
+    # 说话人名字前缀：静态（不进卡拉OK），在讲话人颜色里首屏即显，强化"谁在说话"
+    label_group = ""
+    if speaker_label:
+        label_group = ("{\\rBody" + spk + "\\fscx" + str(sx) + "\\fscy" + str(sx)
+                       + inner + "}" + _escape_ass_text(speaker_label))
     for line in lines_chars:
         parts, cur_kind = [], _UNSET
         for idx, ch, kind in line:
             if kind is not cur_kind:
                 if kind:
-                    style = _KIND_STYLE.get(kind, "HL")
+                    style = _KIND_STYLE.get(kind, "HL") + spk
                     ms = cum_ms
-                    parts.append(f"{{\\r{style}\\fscx{sx}\\fscy{sx}{inner}"
-                                 f"\\t({ms},{ms + 140},\\fscx{bump}\\fscy{bump})"
-                                 f"\\t({ms + 140},{ms + 280},\\fscx{sx}\\fscy{sx})}}")
+                    parts.append(
+                        "{\\r" + style + "\\fscx" + str(sx) + "\\fscy" + str(sx) + inner
+                        + "\\t(" + str(ms) + "," + str(ms + 140) + ",\\fscx" + str(bump)
+                        + "\\fscy" + str(bump) + ")"
+                        + "\\t(" + str(ms + 140) + "," + str(ms + 280) + ",\\fscx"
+                        + str(sx) + "\\fscy" + str(sx) + ")}")
                 else:
-                    parts.append(f"{{\\rBody\\fscx{sx}\\fscy{sx}{inner}}}")
+                    parts.append("{\\rBody" + spk + "\\fscx" + str(sx) + "\\fscy"
+                                 + str(sx) + inner + "}")
                 cur_kind = kind
             if cs_list is not None:
                 parts.append(f"{{\\k{cs_list[idx]}}}")
             parts.append(_escape_ass_text(ch))
             cum_ms += cs_list[idx] if cs_list else 0
         out.append("".join(parts))
+    if label_group and out:
+        out[0] = label_group + out[0]
     return out or [""]
 
 
@@ -792,7 +833,8 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
                        crest_map=None, crest_size=170, crest_y=0.78,
                        crest_glow=True, teams_table=None, extra_words=None,
                        max_kw=1, keep_ass=False, max_block_units=9,
-                       word_timings=None, anim_seed=None, margin_v=700):
+                       word_timings=None, anim_seed=None, margin_v=700,
+                       speaker_b_color="0x5AC8FA", speaker_labels=None):
     """纯文字动效口播：动态渐变背景 + 大字卡拉OK逐字点亮 + 随机动效 + 队标点缀 + 原音轨。
 
     **单趟 ffmpeg 出片**（含音频），总时长 ≡ 音频时长 —— 不会黑屏、不会切末句。
@@ -838,7 +880,8 @@ def render_text_motion(audio_path, srt_or_segments, out_mp4, *,
         keyword_stagger=keyword_stagger, in_anim=in_anim,
         teams_table=teams_table, extra_words=extra_words, max_kw=max_kw,
         max_block_units=max_block_units, word_timings=word_timings,
-        anim_seed=anim_seed, margin_v=margin_v)
+        anim_seed=anim_seed, margin_v=margin_v,
+        speaker_b_color=speaker_b_color, speaker_labels=speaker_labels)
     ass_path = out_mp4.with_suffix(".motion.ass")
     ass_path.write_text(ass_text, encoding="utf-8")
 
@@ -913,6 +956,7 @@ def _to_segments(srt_or_segments):
             continue
         txt = (s.get("text") or "").strip()
         if txt and en > st:
-            out.append({"start": st, "end": en, "text": txt})
+            out.append({"start": st, "end": en, "text": txt,
+                        "speaker": (s.get("speaker") or "A").strip().upper()})
     return out
 

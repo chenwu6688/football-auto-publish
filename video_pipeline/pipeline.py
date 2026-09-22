@@ -92,54 +92,96 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     srt_path = inter / f"{slug}.srt"
     mp4_path = base / f"{slug}.mp4"
 
-    # 1) 口播稿
-    print(f"① 口播稿生成：{article.get('title', '')[:30]}")
-    script_info = script_gen.generate_script(article, llm_fn=llm_fn, brand_manual=brand_manual)
-    script_text = script_info["script"]
-    print(f"   来源={script_info.get('source')} 字数={len(script_text)}")
+    # 1) 口播稿（双人对话 或 单人）
+    dialogue_cfg = ((cfg.get("textmotion", {}) or {}).get("dialogue", {}) or {}) \
+        if cfg else {}
+    use_dialogue = bool(dialogue_cfg.get("enabled"))
+    dialogue_info = None
+    dialogue_segments = None
+    script_info = None
+    if use_dialogue:
+        print(f"① 双人对话稿生成：{article.get('title', '')[:30]}")
+        dialogue_info = script_gen.generate_dialogue(
+            article, llm_fn=llm_fn, brand_manual=brand_manual)
+        turns = dialogue_info.get("dialogue") or []
+        script_text = " ".join((t.get("text") or "") for t in turns)
+        print(f"   来源={dialogue_info.get('source')} 来回={len(turns)}")
+    else:
+        print(f"① 口播稿生成：{article.get('title', '')[:30]}")
+        script_info = script_gen.generate_script(
+            article, llm_fn=llm_fn, brand_manual=brand_manual)
+        script_text = script_info["script"]
+        print(f"   来源={script_info.get('source')} 字数={len(script_text)}")
 
-    # 2) TTS（声线：clone/volcano 优先，失败自动回退 Edge TTS，保证出片）
+    # 2) TTS（双人对话：双音色 edge 合成 + 拼接；单人：clone/volcano/edge 原有链路）
     print("② TTS 合成音频 + 字幕时间轴")
     vc = cfg.get("voice", {})
     rate = vc.get("rate", "+0%"); volume = vc.get("volume", "+0%"); pitch = vc.get("pitch", "+0Hz")
     provider = vc.get("provider", "edge")
     tts_engine = "edge"
     voice_cloned = False
-    try:
-        if provider == "clone" and cfg.get("clone", {}).get("enabled"):
-            cc = cfg["clone"]
-            audio_path, srt_path, used = tts.synthesize_clone(
-                script_text, audio_path=audio_path, srt_path=srt_path,
-                reference_audio=cc.get("reference_audio"),
-                model_dir=cc.get("model_dir", ""),
-                host=cc.get("host", "127.0.0.1"),
-                port=cc.get("port", 9880),
-                prompt_text=cc.get("prompt_text", ""),
-                timeout=cc.get("timeout", 600))
-            tts_engine = "gpt-sovits"
-            voice_cloned = True
-        elif provider == "volcano" and cfg.get("volcano", {}).get("enabled"):
-            vol = cfg["volcano"]
-            audio_path, srt_path, used = tts.synthesize_volcano(
-                script_text, audio_path=audio_path, srt_path=srt_path,
-                app_id=vol.get("app_id"), token=vol.get("token"),
-                cluster=vol.get("cluster"), speaker=vol.get("speaker"))
-            tts_engine = "volcano"
-        else:
+    if use_dialogue and dialogue_info:
+        try:
+            voice_map = dialogue_cfg.get("voices", {}) or {}
+            gap = float(dialogue_cfg.get("gap_ms", 250)) / 1000.0
+            words_path = Path(srt_path).with_suffix(".words.json")
+            segs_path = words_path.with_suffix(".dialogue_segments.json")
+            audio_path, _wp, segs_path, used_voices = tts.synthesize_dialogue(
+                dialogue_info.get("dialogue") or [], voice_map,
+                audio_path=audio_path, words_path=words_path, srt_path=srt_path,
+                gap=gap, rate=rate, volume=volume, pitch=pitch,
+                rate_map=dialogue_cfg.get("rate_map"))
+            if Path(segs_path).exists():
+                dialogue_segments = json.loads(
+                    Path(segs_path).read_text(encoding="utf-8"))
+            tts_engine = "edge-dialogue"
+            print(f"   声线={used_voices}")
+        except Exception as e:
+            print(f"   ⚠️ 双人 TTS 失败：{e}，回退单人 TTS")
+            use_dialogue = False
+            dialogue_segments = None
             voices = tts.resolve_voice(vc)
             audio_path, srt_path, used = tts.synthesize(
                 script_text, voice=voices[0], audio_path=audio_path, srt_path=srt_path,
                 rate=rate, volume=volume, pitch=pitch, fallback_voices=voices[1:])
-    except Exception as e:
-        # 克隆/火山失败 → 回退 Edge TTS（不中断出片）
-        print(f"   ⚠️ TTS 分支({provider})失败：{e}，回退 Edge TTS")
-        voices = tts.resolve_voice(vc)
-        audio_path, srt_path, used = tts.synthesize(
-            script_text, voice=voices[0], audio_path=audio_path, srt_path=srt_path,
-            rate=rate, volume=volume, pitch=pitch, fallback_voices=voices[1:])
-        tts_engine = "edge"
-        voice_cloned = False
-    print(f"   声线={used} 引擎={tts_engine}")
+            print(f"   声线={used} 引擎={tts_engine}")
+    else:
+        try:
+            if provider == "clone" and cfg.get("clone", {}).get("enabled"):
+                cc = cfg["clone"]
+                audio_path, srt_path, used = tts.synthesize_clone(
+                    script_text, audio_path=audio_path, srt_path=srt_path,
+                    reference_audio=cc.get("reference_audio"),
+                    model_dir=cc.get("model_dir", ""),
+                    host=cc.get("host", "127.0.0.1"),
+                    port=cc.get("port", 9880),
+                    prompt_text=cc.get("prompt_text", ""),
+                    timeout=cc.get("timeout", 600))
+                tts_engine = "gpt-sovits"
+                voice_cloned = True
+            elif provider == "volcano" and cfg.get("volcano", {}).get("enabled"):
+                vol = cfg["volcano"]
+                audio_path, srt_path, used = tts.synthesize_volcano(
+                    script_text, audio_path=audio_path, srt_path=srt_path,
+                    app_id=vol.get("app_id"), token=vol.get("token"),
+                    cluster=vol.get("cluster"), speaker=vol.get("speaker"))
+                tts_engine = "volcano"
+            else:
+                voices = tts.resolve_voice(vc)
+                audio_path, srt_path, used = tts.synthesize(
+                    script_text, voice=voices[0], audio_path=audio_path, srt_path=srt_path,
+                    rate=rate, volume=volume, pitch=pitch, fallback_voices=voices[1:])
+        except Exception as e:
+            # 克隆/火山失败 → 回退 Edge TTS（不中断出片）
+            print(f"   ⚠️ TTS 分支({provider})失败：{e}，回退 Edge TTS")
+            voices = tts.resolve_voice(vc)
+            audio_path, srt_path, used = tts.synthesize(
+                script_text, voice=voices[0], audio_path=audio_path, srt_path=srt_path,
+                rate=rate, volume=volume, pitch=pitch, fallback_voices=voices[1:])
+            tts_engine = "edge"
+            voice_cloned = False
+        used_voices = used
+        print(f"   声线={used} 引擎={tts_engine}")
 
     # 3) 字幕折行优化
     sub_cfg = cfg.get("video", {}).get("subtitle", {})
@@ -199,7 +241,13 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
     tc_cfg = cfg.get("textmotion", {})
     if tc_cfg.get("enabled"):
         try:
-            segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
+            # 双人对话：优先用含 speaker 的合并段流（synthesize_dialogue 产出）；
+            # 否则退化为 parse_segments(srt)（单人/兜底链路）。
+            if use_dialogue and dialogue_segments:
+                segments = dialogue_segments
+                print("   双人段流：已载入含 speaker 的合并段（双色区分）")
+            else:
+                segments = parse_segments(Path(srt_path).read_text(encoding="utf-8"))
             # 队标点缀：识别球队 → 拉队标 → 对齐到「提到该队的那一句」
             crest_map = {}
             tm_cfg = cfg.get("teams", {})
@@ -272,6 +320,9 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 word_timings=word_timings,
                 anim_seed=anim_seed,
                 keep_ass=bool(tc_cfg.get("keep_ass", False)),
+                speaker_b_color=(tc_cfg.get("dialogue", {}) or {}).get(
+                    "color_b", "0x5AC8FA"),
+                speaker_labels=(tc_cfg.get("dialogue", {}) or {}).get("labels"),
             )
             tm_anim_seed = anim_seed
             tm_used = True
@@ -397,15 +448,17 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
                 pass
 
     # 5) 元数据
+    script_meta = (dialogue_info if (use_dialogue and dialogue_info)
+                   else (script_info or {}))
     meta = {
-        "title": script_info.get("title", article.get("title", "")),
+        "title": script_meta.get("title", article.get("title", "")),
         "script": script_text,
-        "hook_type": script_info.get("hook_type", ""),
-        "estimated_duration_sec": script_info.get("estimated_duration_sec", 0),
+        "hook_type": script_meta.get("hook_type", ""),
+        "estimated_duration_sec": script_meta.get("estimated_duration_sec", 0),
         "source_id": article.get("source_id", ""),
         "resonance_angle": article.get("resonance_angle", ""),
         "series_id": article.get("series_id", ""),
-        "voice": used,
+        "voice": used_voices,
         "tts_engine": tts_engine,
         "voice_cloned": voice_cloned,
         "talking_head_engine": talking_head_engine,
@@ -415,6 +468,9 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
         "footage_count": footage_count,
         "textmotion_used": textmotion_used,
         "textmotion_anim_seed": tm_anim_seed,
+        "dialogue_used": bool(use_dialogue and dialogue_segments),
+        "dialogue_speakers": (sorted({s.get("speaker") for s in (dialogue_segments or [])})
+                              if (use_dialogue and dialogue_segments) else None),
         "teams_used": teams_used,
         "show_portrait": show_portrait,
         "audio_mixed": bool(cfg.get("audio", {}).get("enabled")),

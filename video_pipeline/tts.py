@@ -57,6 +57,18 @@ def _ticks_to_sec(ticks):
         return 0.0
 
 
+def _fmt(sec):
+    """秒 → SRT 时间 'HH:MM:SS,mmm'。"""
+    sec = max(0.0, float(sec))
+    h = int(sec // 3600)
+    m = int((sec % 3600) // 60)
+    s = int(sec % 60)
+    ms = int(round((sec - int(sec)) * 1000))
+    if ms >= 1000:
+        ms = 999
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+
+
 def _plain_units(s):
     """有效发音字符序列（去标点/空白）—— 对齐词时间轴的基准。"""
     return [c for c in (s or "") if c.strip() and c not in _SENT_SPLIT]
@@ -191,7 +203,159 @@ def synthesize(text, *, voice=DEFAULT_VOICE, audio_path, srt_path,
     raise RuntimeError(f"所有 TTS 音色均失败：{last_err}")
 
 
-def synthesize_clone(text, *, reference_audio, model_dir, audio_path, srt_path, **kwargs):
+def synthesize_dialogue(turns, voice_map, *, audio_path, words_path, srt_path=None,
+                        gap=0.25, rate="+0%", volume="+0%", pitch="+0Hz",
+                        rate_map=None, volume_map=None, pitch_map=None,
+                        fallback_voices=None):
+    """双人/多角色对话合成：每个 turn 用对应音色合成 → **重编码拼接**（规避
+    edge-tts 把 MP3 塞进 .wav 导致 concat -c copy 时长错乱）→ 时间轴整体偏移合并。
+
+    ⚠️ 不透明坑：edge-tts 生成的 .wav 实为 MP3 流；用 concat **demuxer + -c copy**
+    拼接会把时长算错（实测差 ~4s）→ 字幕整片错位。**必须用 filter_complex concat
+    重编码**（或显式 -c:a 重编码）才能拿到正确时长。本函数已采用该做法。
+
+    Args:
+        turns: [{"spk":"A","text":"..."}, ...]，spk 与 voice_map 的键对应。
+        voice_map: {"A": voice_id, "B": voice_id}；缺键的 spk 回退 DEFAULT_VOICE。
+        audio_path: 合并后的音频输出（wav/pcm）。
+        words_path: 合并后的词级时间轴 .words.json 输出（含 speaker 无关，纯时间轴）。
+        srt_path: 合并后的句级 SRT 输出（兼容下游 postprocess/parse_segments）。
+        gap: turn 之间的静音间隔（秒），给说话人换气；最后一轮后不加。
+        rate/volume/pitch: 默认 TTS 参数；可用 rate_map={spk:val} 逐角色覆盖。
+        fallback_voices: 主音色失败时的降级列表（全局）。
+    Returns:
+        (audio_path, words_path, segments_path, used_voices)
+        segments_path: [{start,end,text,speaker}] 合并段流（供 V4 透传 speaker）。
+    """
+    from video_pipeline import compose
+
+    audio_path = Path(audio_path)
+    words_path = Path(words_path)
+    audio_path.parent.mkdir(parents=True, exist_ok=True)
+    words_path.parent.mkdir(parents=True, exist_ok=True)
+    if srt_path:
+        srt_path = Path(srt_path)
+        srt_path.parent.mkdir(parents=True, exist_ok=True)
+
+    tmp = audio_path.parent / f"._dlg_{audio_path.stem}"
+    tmp.mkdir(parents=True, exist_ok=True)
+
+    parts = []          # [(spk, temp_wav, dur, local_words)]
+    used_voices = {}
+    for i, turn in enumerate(turns):
+        spk = (turn.get("spk") or "A").strip().upper()
+        text = (turn.get("text") or "").strip()
+        if not text:
+            continue
+        voice = voice_map.get(spk) or DEFAULT_VOICE
+        used_voices[spk] = voice
+        twav = tmp / f"t{i}.wav"
+        tsrt = tmp / f"t{i}.srt"
+        voices = [voice] + [v for v in (fallback_voices or []) if v != voice]
+        last_err = None
+        ok = False
+        for v in voices:
+            try:
+                asyncio.run(_synthesize_one(text, v, twav, tsrt,
+                                            rate_map.get(spk, rate) if rate_map else rate,
+                                            volume_map.get(spk, volume) if volume_map else volume,
+                                            pitch_map.get(spk, pitch) if pitch_map else pitch))
+                used_voices[spk] = v
+                ok = True
+                break
+            except Exception as e:
+                last_err = e
+        if not ok:
+            raise RuntimeError(f"对话 turn {i}({spk}) 所有音色失败：{last_err}")
+        dur = compose.ffprobe_duration(str(twav)) or 0.0
+        local_words = []
+        lwpath = twav.with_suffix(".words.json")
+        if lwpath.exists():
+            try:
+                local_words = json.loads(lwpath.read_text(encoding="utf-8"))
+            except Exception:
+                local_words = []
+        parts.append((spk, twav, dur, local_words, text))
+
+    if not parts:
+        raise RuntimeError("对话稿为空，无法合成")
+
+    # ---- 拼接（filter_complex concat + 重编码，规避 mp3-as-wav 时长错乱）----
+    if len(parts) == 1:
+        import shutil
+        shutil.copyfile(str(parts[0][1]), str(audio_path))
+    else:
+        inputs = []
+        for p in parts:
+            inputs += ["-i", str(p[1])]
+        ns = len(parts)                 # 静音输入索引
+        inputs += ["-f", "lavfi", "-i", f"anullsrc=r=24000:cl=mono:d={gap}"]
+        labels = []
+        for i in range(len(parts)):
+            labels.append(f"[{i}:a]")
+            if i < len(parts) - 1:
+                labels.append(f"[{ns}:a]")
+        flt = "".join(labels) + f"concat=n={2 * len(parts) - 1}:v=0:a=1[out]"
+        cmd = ["ffmpeg", "-y", *inputs, "-filter_complex", flt, "-map", "[out]",
+               "-c:a", "pcm_s16le", "-ar", "24000", "-ac", "1", str(audio_path)]
+        compose._run(cmd)
+
+    # ---- 时间轴整体偏移合并 ----
+    offset = 0.0
+    merged_words = []
+    segments = []
+    srt_blocks = []
+    srt_idx = 0
+    for spk, _twav, dur, local_words, text in parts:
+        for w in local_words:
+            merged_words.append({
+                "start": float(w.get("start", 0)) + offset,
+                "end": float(w.get("end", 0)) + offset,
+                "text": w.get("text", ""),
+            })
+        segments.append({
+            "start": round(offset, 3),
+            "end": round(offset + dur, 3),
+            "text": text,
+            "speaker": spk,
+        })
+        if srt_path:
+            st = srt_from_words(text, local_words, gap=0)
+            for line in st.split("\n"):
+                if line.strip().isdigit() and line.strip():
+                    srt_idx += 1
+                    srt_blocks.append(str(srt_idx))
+                elif "-->" in line:
+                    a, b = line.split(" --> ")
+                    def shift(ts):
+                        h, m, rest = ts.split(":")
+                        s, cs = rest.split(",")
+                        t = int(h) * 3600 + int(m) * 60 + int(s) + int(cs) / 1000.0
+                        return _fmt(t + offset)
+                    srt_blocks.append(f"{shift(a)} --> {shift(b)}")
+                else:
+                    srt_blocks.append(line)
+        offset += dur + gap
+
+    words_path.write_text(json.dumps(merged_words, ensure_ascii=False), encoding="utf-8")
+    segments_path = words_path.with_suffix(".dialogue_segments.json")
+    segments_path.write_text(json.dumps(segments, ensure_ascii=False), encoding="utf-8")
+    if srt_path:
+        srt_path.write_text("\n".join(srt_blocks).strip() + "\n", encoding="utf-8")
+
+    # 清理临时文件
+    try:
+        for p in tmp.glob("*.wav"):
+            p.unlink()
+        for p in tmp.glob("*.srt"):
+            p.unlink()
+        for p in tmp.glob("*.words.json"):
+            p.unlink()
+        tmp.rmdir()
+    except OSError:
+        pass
+
+    return audio_path, words_path, segments_path, used_voices
     """声线克隆分支（GPT-SoVITS）—— 委托 video_pipeline.clone 模块。
 
     任一环节失败会抛 clone.CloneUnavailable，由 pipeline 捕获并回退到 Edge TTS，

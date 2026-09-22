@@ -1566,3 +1566,154 @@ def test_random_anim_reproducible_and_varied():
         for m_ in _re.finditer(r"\\t\(0,(\d+),", a):
             durs.add(int(m_.group(1)))
     assert len(durs) >= 2, f"轻重缓急应产生多种节奏档位，实际 {durs}"
+
+
+# ---------------------------------------------------------------- 双人对话稿
+def _fake_dialogue_llm(messages):
+    return {
+        "title": "测试对话标题",
+        "dialogue": [
+            {"spk": "A", "text": "老球迷们，今天这条你一定得看。"},
+            {"spk": "B", "text": "皇马3比1逆转巴萨，数据不会骗人。"},
+            {"spk": "A", "text": "姆巴佩又炸了，登顶西甲。"},
+            {"spk": "B", "text": "你觉得呢，评论区聊聊。"},
+        ],
+        "hook_type": "冲突", "estimated_duration_sec": 70,
+    }, "fake-model"
+
+
+def test_generate_dialogue_llm():
+    r = script_gen.generate_dialogue(_SAMPLE_ARTICLE, llm_fn=_fake_dialogue_llm)
+    assert r["source"] == "llm"
+    dlg = r["dialogue"]
+    assert len(dlg) >= 2
+    assert dlg[0]["spk"] == "A"
+    assert all(t["spk"] in ("A", "B") for t in dlg)
+    # 严格交替
+    for i in range(1, len(dlg)):
+        assert dlg[i]["spk"] != dlg[i - 1]["spk"]
+
+
+def test_generate_dialogue_fallback_on_invalid():
+    def bad(messages):
+        return {"dialogue": [{"spk": "A", "text": "太短"}]}, "m"  # 不够来回
+    r = script_gen.generate_dialogue(_SAMPLE_ARTICLE, llm_fn=bad)
+    assert r["source"] == "fallback"
+    assert r["dialogue"][0]["spk"] == "A"
+    assert all(t["spk"] in ("A", "B") for t in r["dialogue"])
+
+
+# ---------------------------------------------------------------- 双音色合成拼接
+async def _fake_synth_one(text, voice, audio_path, srt_path, rate, volume, pitch):
+    """离线替身：写出已知时长的 pcm wav + 词级时间轴（每字均分），避免真实联网。"""
+    dur = 0.4 + 0.08 * max(1, len(text))
+    _make_audio(audio_path, duration=dur)
+    chars = [c for c in text if c.strip()]
+    n = max(1, len(chars))
+    words = []
+    for i, c in enumerate(chars):
+        st = dur * i / n
+        en = dur * (i + 1) / n
+        words.append({"start": round(st, 3), "end": round(en, 3), "text": c})
+    Path(srt_path).with_suffix(".words.json").write_text(
+        json.dumps(words, ensure_ascii=False), encoding="utf-8")
+    Path(srt_path).write_text(
+        "1\n00:00:00,000 --> 00:00:02,000\n" + text[:20] + "\n", encoding="utf-8")
+
+
+def test_synthesize_dialogue_concat_and_offset(tmp_path, monkeypatch):
+    """双人合成：拼接时长 = Σ各 turn 时长 + (n-1)*gap（修 mp3-as-wav 时长错乱）；
+    段流带 speaker 且时间轴整体偏移。"""
+    monkeypatch.setattr(tts, "_synthesize_one", _fake_synth_one)
+    turns = [
+        {"spk": "A", "text": "皇马3比1逆转巴萨"},
+        {"spk": "B", "text": "姆巴佩又炸了"},
+        {"spk": "A", "text": "登顶西甲"},
+    ]
+    voice_map = {"A": "zh-CN-YunjianNeural", "B": "zh-CN-XiaoxiaoNeural"}
+    ap = tmp_path / "d.wav"; wp = tmp_path / "d.words.json"; sp_ = tmp_path / "d.srt"
+    gap = 0.25
+    _ap, _wp, sp_path, used = tts.synthesize_dialogue(
+        turns, voice_map, audio_path=ap, words_path=wp, srt_path=sp_, gap=gap)
+    dur = compose.ffprobe_duration(str(_ap))
+    expect = sum(0.4 + 0.08 * max(1, len(t["text"])) for t in turns) + gap * (len(turns) - 1)
+    assert abs(dur - expect) < 0.3, f"拼接时长 {dur:.2f} 偏离预期 {expect:.2f}（mp3-as-wav 坑复发？）"
+    segs = json.loads(Path(sp_path).read_text(encoding="utf-8"))
+    assert [s["speaker"] for s in segs] == ["A", "B", "A"]
+    # 段起点 = 上一段 end + gap（时间轴整体偏移）
+    assert abs(segs[1]["start"] - (segs[0]["end"] + gap)) < 0.05
+    words = json.loads(Path(_wp).read_text(encoding="utf-8"))
+    assert words[-1]["end"] <= dur + 0.05, "词轴末端应夹在总时长内"
+
+
+# ---------------------------------------------------------------- 双色渲染
+def test_build_motion_ass_speaker_styles():
+    """含 B 说话人时追加 BodyB/HLB/NumB 样式组；说话人名字前缀首屏即显；B 块用 B 样式。"""
+    from video_pipeline import text_motion as tm
+    segs = [
+        {"start": 0.0, "end": 2.0, "text": "皇马3比1逆转巴萨", "speaker": "A"},
+        {"start": 2.25, "end": 4.25, "text": "姆巴佩又炸了", "speaker": "B"},
+    ]
+    ass = tm.build_motion_ass(
+        segs, width=1080, height=1920, total=4.25,
+        speaker_labels={"A": "老六", "B": "数据君"}, teams_table=["皇马", "巴萨"])
+    assert "Style: BodyB," in ass and "Style: HLB," in ass and "Style: NumB," in ass
+    assert "老六" in ass and "数据君" in ass
+    assert ass.count("\\rBodyB") >= 1        # B 块（或 B 名字前缀）用 B 样式
+    assert "\\rBody\\fscx" in ass            # A 块仍用 Body 样式
+
+
+def test_build_motion_ass_single_speaker_no_b_styles():
+    """单人口播（无 B）：不追加 B 样式组，未读色仍只出现 3 次（不含 B 的）。"""
+    from video_pipeline import text_motion as tm
+    segs = [{"start": 0.0, "end": 2.0, "text": "皇马3比1逆转巴萨"}]
+    ass = tm.build_motion_ass(segs, width=1080, height=1920, total=2.0, teams_table=["皇马"])
+    assert "Style: BodyB," not in ass
+    assert ass.count("&H0096897A") == 3      # 仅 Body/HL/Num 的未读色
+
+
+def test_build_motion_ass_b_styles_inside_styles_section():
+    """回归：B 样式组必须落在 [V4+ Styles] 区段、[Events] 之前。
+
+    若被错误地追加到 [Events] 之后，libass 会把这些 Style 行当成事件文本
+    忽略，导致 \\rBodyB 回退成默认（白字），双人双色区分失效。
+    """
+    from video_pipeline import text_motion as tm
+    segs = [
+        {"start": 0.0, "end": 2.0, "text": "皇马3比1逆转巴萨", "speaker": "A"},
+        {"start": 2.25, "end": 4.25, "text": "姆巴佩又炸了", "speaker": "B"},
+    ]
+    ass = tm.build_motion_ass(
+        segs, width=1080, height=1920, total=4.25,
+        speaker_labels={"A": "老六", "B": "数据君"}, teams_table=["皇马", "巴萨"])
+    styles_idx = ass.index("[V4+ Styles]")
+    events_idx = ass.index("[Events]")
+    assert styles_idx < events_idx
+    # 所有 B 样式定义都应出现在 [Events] 之前
+    for name in ("Style: BodyB,", "Style: HLB,", "Style: NumB,"):
+        b_idx = ass.index(name)
+        assert b_idx < events_idx, f"{name} 必须在 [Events] 之前（当前在事件区段内）"
+        assert styles_idx < b_idx, f"{name} 必须在 [V4+ Styles] 区段内"
+
+
+# ---------------------------------------------------------------- 管线双人分支
+def test_pipeline_dialogue_branch(tmp_path, monkeypatch):
+    """dialogue.enabled 时走双人链路：meta 记录 dialogue_used / speakers，成片存在。"""
+    monkeypatch.setattr(tts, "_synthesize_one", _fake_synth_one)
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["output"]["keep_intermediate"] = True
+    cfg.setdefault("footage", {})["enabled"] = False
+    cfg.setdefault("teams", {})["enabled"] = False
+    cfg.setdefault("audio", {})["enabled"] = False
+    cfg.setdefault("textmotion", {})["enabled"] = True
+    cfg["textmotion"]["dialogue"] = {
+        "enabled": True,
+        "voices": {"A": "zh-CN-YunjianNeural", "B": "zh-CN-XiaoxiaoNeural"},
+        "labels": {"A": "老六", "B": "数据君"}, "gap_ms": 250,
+    }
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_dialogue_llm)
+    assert meta["dialogue_used"] is True
+    assert set(meta["dialogue_speakers"]) == {"A", "B"}
+    assert Path(meta["video_path"]).exists()
+    assert abs(meta["actual_duration_sec"] - meta.get("expected", meta["actual_duration_sec"])) >= 0
