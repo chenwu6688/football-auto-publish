@@ -1,7 +1,7 @@
 {
   "date": "2026-09-23",
-  "generated_at": "2026-09-23T00:09:59.518620",
-  "total_articles": 3,
+  "generated_at": "2026-09-23T04:09:51.019081",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -108,137 +108,231 @@
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "男篮挨骂男足却悄悄争牌？这剧本谁写的",
+      "path": "/home/runner/work/_temp/output/2026-09-23/article-1-男篮挨骂男足却悄-ca2e78.md",
+      "slug": "男篮挨骂男足却悄-ca2e78",
+      "tags": [
+        "Asian Games",
+        "China football",
+        "men's football",
+        "women's football",
+        "death group"
+      ],
+      "keywords": [
+        "Asian Games",
+        "China football",
+        "men's football",
+        "women's football",
+        "death group"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-23/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-23/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-23/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "从金球热门到伯纳乌嘘声，巴西天才的枪手传闻不是空穴来风",
+      "path": "/home/runner/work/_temp/output/2026-09-23/article-2-从金球热门到伯纳-1f9f06.md",
+      "slug": "从金球热门到伯纳-1f9f06",
+      "tags": [
+        "Vinicius",
+        "Arsenal",
+        "Real Madrid",
+        "transfer",
+        "La Liga"
+      ],
+      "keywords": [
+        "Vinicius",
+        "Arsenal",
+        "Real Madrid",
+        "transfer",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-23/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-23/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-23/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "亚运男足小组赛收官，这支U23让人想起二十年前那批人",
+      "path": "/home/runner/work/_temp/output/2026-09-23/article-3-亚运男足小组赛收-d367dd.md",
+      "slug": "亚运男足小组赛收-d367dd",
+      "tags": [
+        "Asian Games",
+        "China U23",
+        "football",
+        "starting lineup",
+        "stability"
+      ],
+      "keywords": [
+        "Asian Games",
+        "China U23",
+        "football",
+        "starting lineup",
+        "stability"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-23/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-23/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "2700万英镑分手费！列维下课凭啥还赚翻了？",
-      "angle": "从列维被解雇获2700万英镑补偿金切入，剖析现代足球管理层'下课比上班赚钱'的荒诞现实，对比热刺多年无冠的投入产出比，给一个'老板脑子进水'的犀利判断。",
+      "title": "热刺女足半场7球，男足5轮2球，这反差凭啥这么大？",
+      "angle": "热刺男女足表现天差地别，用数据对比制造戏剧张力，探讨俱乐部资源分配与足球文化差异。",
       "keywords": [
-        "Levy",
         "Tottenham",
-        "compensation",
-        "sacking"
+        "women football",
+        "contrast"
       ],
       "keywords_cn": [
-        "列维",
         "热刺",
-        "解雇补偿",
-        "管理层"
+        "女足",
+        "反差",
+        "英超"
       ],
       "content_type": "八卦趣事",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "2700万英镑分手费极具视觉冲击力，列维争议人物自带流量，老球迷对热刺多年无冠有情绪共鸣。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "极端数据反差自带话题性，不写比赛本身，写现象背后的故事，戳老球迷聊球共鸣。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "度假两小时就被征召！英格兰队这是有多缺人？",
-      "angle": "从吉布斯-怀特仅与家人度假两小时就被紧急征召切入，调侃英格兰队用人荒的窘境，对比英超本土球员生存空间被压缩的现状，带出对联赛外援政策的反思。",
+      "title": "维尼修斯夏天差点加盟枪手？更衣室都信了，为啥没成？",
+      "angle": "从皇马更衣室内部视角切入，复盘一桩流产的惊天转会，满足球迷对豪门内幕的好奇心。",
       "keywords": [
-        "Gibbs-White",
-        "England",
-        "call-up",
-        "Premier League"
+        "Vinicius",
+        "Arsenal",
+        "transfer",
+        "Real Madrid"
       ],
       "keywords_cn": [
-        "吉布斯-怀特",
-        "英格兰队",
-        "征召",
-        "本土球员"
+        "维尼修斯",
+        "阿森纳",
+        "转会",
+        "皇马"
       ],
-      "content_type": "八卦趣事",
-      "score": 90,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "国足情结",
+      "content_type": "转会资讯",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "度假两小时被征召极具戏剧性，英格兰本土球员困境与中国球迷对本土球员关注有类比共鸣。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "今夏最劲爆的流产转会内幕，争议性强，豪门+巨星符合流量密码，老球迷爱看江湖故事。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "加盟后仅踢31分钟！加纳乔到底怎么了？",
-      "angle": "从加纳乔加盟后仅登场31分钟引入，追问这笔引援是否已失败，对比他之前在曼联的高光时刻，分析西甲多队关注背后的捡漏逻辑，给一个'水土不服还是原形毕露'的争议判断。",
+      "title": "钟义浩：进国家队像做梦，可伊万真会给边缘国脚机会吗？",
+      "angle": "从球员真情实感的采访切入，探讨国家队选拔机制与边缘国脚的生存现状，引发球迷对国足用人标准的讨论。",
       "keywords": [
-        "Garnacho",
-        "La Liga",
-        "playing time",
-        "transfer"
+        "Zhong Yihao",
+        "China national team",
+        "call-up"
       ],
       "keywords_cn": [
-        "加纳乔",
-        "西甲",
-        "出场时间",
-        "转会"
+        "钟义浩",
+        "国足",
+        "选拔",
+        "伊万"
       ],
-      "content_type": "转会资讯",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "31分钟数据触目惊心，加纳乔从曼联新星到西甲边缘人的落差有故事性，转会流言自带争议。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "球员真情流露有故事性，切入国足选拔争议，完美结合国足情结与当下热点，老球迷必聊话题。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-23 08:09:59"
+  "last_batch": "noon",
+  "last_updated": "2026-09-23 12:09:51"
 }
