@@ -1,12 +1,12 @@
 {
   "deepseek-v4-pro": {
-    "prompt_tokens": 438014,
-    "completion_tokens": 130002,
-    "total_tokens": 568016
+    "prompt_tokens": 442697,
+    "completion_tokens": 131200,
+    "total_tokens": 573897
   },
   "deepseek-v4-pro-202606": {
-    "prompt_tokens": 4014,
-    "completion_tokens": 921,
-    "total_tokens": 4935
+    "prompt_tokens": 11017,
+    "completion_tokens": 1749,
+    "total_tokens": 12766
   }
 }
