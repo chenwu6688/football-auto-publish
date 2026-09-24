@@ -356,6 +356,9 @@ def synthesize_dialogue(turns, voice_map, *, audio_path, words_path, srt_path=No
         pass
 
     return audio_path, words_path, segments_path, used_voices
+
+
+def synthesize_clone(text, *, reference_audio, model_dir, audio_path, srt_path, **kwargs):
     """声线克隆分支（GPT-SoVITS）—— 委托 video_pipeline.clone 模块。
 
     任一环节失败会抛 clone.CloneUnavailable，由 pipeline 捕获并回退到 Edge TTS，
@@ -368,12 +371,323 @@ def synthesize_dialogue(turns, voice_map, *, audio_path, words_path, srt_path=No
     )
 
 
-def synthesize_volcano(text, *, app_id, token, cluster, speaker, audio_path, srt_path, **kwargs):
-    """火山引擎 TTS 分支（字节系·28 情感风格男声）—— 预留，默认未实现。
+# ============================================================================
+# 火山引擎（字节系）TTS —— 真·抖音音色
+# ============================================================================
+# 接口：https://openspeech.bytedance.com/api/v1/tts
+# 鉴权：Header "Authorization: Bearer;{access_token}"（注意是分号，不是空格）
+# 请求：{"app":{appid,token,cluster}, "user":{uid}, "audio":{...}, "request":{...}}
+# 返回：JSON，data 字段是 base64 音频；addition.frontend 内含词/音素级时间戳。
+# 音色（voice_type）：控制台「音色列表」里的 Speaker ID（如 BV700_streaming、
+#   zh_male_jingqiangkanye_moon_bigtts 等）。cluster 常见值 volcano_tts。
+# ----------------------------------------------------------------------------
 
-    接入时调用火山大模型语音合成 API（需 key）。当前抛 NotImplementedError。
+VOLCANO_ENDPOINT = "https://openspeech.bytedance.com/api/v1/tts"
+
+# edge-tts 的 "±N%" / "±NHz" 文本 → 火山要求的比例数值
+def _pct_to_ratio(v, default=1.0):
+    """"+22%" → 1.22；"-10%" → 0.9；已是数字则原样返回。"""
+    if v is None or v == "":
+        return default
+    if isinstance(v, (int, float)):
+        return float(v)
+    s = str(v).strip().replace("%", "")
+    try:
+        return round(1.0 + float(s) / 100.0, 3)
+    except ValueError:
+        return default
+
+
+def _hz_to_ratio(v, default=1.0):
+    """"+0Hz" → 1.0；"+30Hz" → 约 1.06；已是数字则原样返回。
+
+    火山 pitch_ratio 为倍率（0.1–3），无固定 Hz 换算，这里用线性近似：
+    以 500Hz 基准折算，保证同向调整、数值落在合法区间内。
     """
-    raise NotImplementedError(
-        "火山引擎 TTS 尚未接入：请在 config.volcano 配置 app_id/token/cluster/speaker 后，"
-        "在此挂载火山语音合成；当前请保持 volcano.enabled=false 使用 Edge TTS。"
-    )
+    if v is None or v == "":
+        return default
+    if isinstance(v, (int, float)):
+        return float(v)
+    s = str(v).strip().replace("Hz", "")
+    try:
+        return round(max(0.1, min(3.0, 1.0 + float(s) / 500.0)), 3)
+    except ValueError:
+        return default
+
+
+def _reqid():
+    import uuid
+    return str(uuid.uuid4())
+
+
+def synthesize_volcano(text, *, app_id, token, cluster, speaker, audio_path, srt_path,
+                       rate="+0%", volume="+0%", pitch="+0Hz",
+                       language="cn", emotion=None, timeout=60):
+    """火山引擎 TTS：一次 HTTP 请求合成整段文本 → mp3 → 24k 单声道 WAV + 词轴/SRT。
+
+    Args:
+        text: 口播稿。
+        app_id / token / cluster: 控制台获取的鉴权三件套（token 即 Access Token）。
+        speaker: voice_type（音色 ID，如 BV700_streaming 或 zh_male_*_bigtts）。
+        audio_path / srt_path: 输出路径（.wav + .srt；词轴写 .words.json）。
+        rate/volume/pitch: 形如 "+22%"/"+0%"/"+0Hz"，会换算成火山的 speed/volume/pitch_ratio。
+        language: 语言类型，中文 "cn"。
+        emotion: 情感/风格（部分音色支持，如 "happy"）；None 则不传。
+        timeout: 单次请求超时秒数（HTTP 接口服务端上限 60s）。
+    Returns:
+        (audio_path, srt_path, used_speaker)
+    Raises:
+        RuntimeError: 鉴权失败 / 参数非法 / 文本超限 / 网络异常等（含服务端 message）。
+    """
+    import base64
+    import requests
+
+    audio_path = Path(audio_path)
+    srt_path = Path(srt_path)
+    audio_path.parent.mkdir(parents=True, exist_ok=True)
+    srt_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if not (app_id and token and cluster and speaker):
+        raise RuntimeError(
+            "火山引擎 TTS 参数不完整：需要 app_id / token / cluster / speaker(音色ID)，"
+            "请在 config.volcano 中补全。"
+        )
+
+    body = {
+        "app": {"appid": str(app_id), "token": str(token), "cluster": str(cluster)},
+        "user": {"uid": "football_pipeline"},
+        "audio": {
+            "voice_type": str(speaker),
+            "encoding": "mp3",
+            "rate": 24000,
+            "speed_ratio": _pct_to_ratio(rate),
+            "volume_ratio": _pct_to_ratio(volume),
+            "pitch_ratio": _hz_to_ratio(pitch),
+            "language": language,
+        },
+        "request": {
+            "reqid": _reqid(),
+            "text": text,
+            "text_type": "plain",
+            "operation": "query",
+            "with_frontend": "1",       # 开启前端时间戳（词级）
+            "frontend_type": "unitTson",
+        },
+    }
+    if emotion:
+        body["audio"]["emotion"] = emotion
+
+    headers = {
+        "Authorization": f"Bearer;{token}",
+        "Content-Type": "application/json",
+    }
+
+    try:
+        resp = requests.post(VOLCANO_ENDPOINT, headers=headers,
+                             data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
+                             timeout=timeout)
+    except Exception as e:
+        raise RuntimeError(f"火山引擎 TTS 请求异常：{e}") from e
+
+    if resp.status_code != 200:
+        raise RuntimeError(f"火山引擎 TTS HTTP {resp.status_code}：{resp.text[:300]}")
+
+    try:
+        payload = resp.json()
+    except Exception as e:
+        raise RuntimeError(f"火山引擎 TTS 返回非 JSON：{resp.text[:300]}") from e
+
+    code = payload.get("code")
+    if code != 3000:
+        raise RuntimeError(
+            f"火山引擎 TTS 失败 code={code} message={payload.get('message')}"
+        )
+
+    data_b64 = payload.get("data")
+    if not data_b64:
+        raise RuntimeError("火山引擎 TTS 返回 data 为空")
+
+    mp3_bytes = base64.b64decode(data_b64)
+
+    # ---- mp3 → 24k 单声道 WAV（与 edge 分支保持一致的下游口径）----
+    from video_pipeline import compose
+    tmp_mp3 = audio_path.with_suffix(".volcano.mp3")
+    tmp_mp3.write_bytes(mp3_bytes)
+    rc, _out, err = compose._run([
+        "ffmpeg", "-y", "-i", str(tmp_mp3),
+        "-ar", "24000", "-ac", "1", "-c:a", "pcm_s16le", str(audio_path),
+    ])
+    if rc != 0:
+        raise RuntimeError(f"火山引擎 TTS 音频转码失败：{err[-300:]}")
+    try:
+        tmp_mp3.unlink()
+    except OSError:
+        pass
+
+    # ---- 词级时间轴（addition.frontend，秒）----
+    words = _parse_volcano_words(payload)
+    words_path = srt_path.with_suffix(".words.json")
+    words_path.write_text(json.dumps(words, ensure_ascii=False), encoding="utf-8")
+
+    # 无词轴时（个别音色不返回时间戳）退回按字符均分，保证下游字幕不为空
+    if not words:
+        dur = compose.ffprobe_duration(str(audio_path)) or 0.0
+        units = _plain_units(text)
+        if dur > 0 and units:
+            step = dur / len(units)
+            words = [{"start": round(i * step, 3), "end": round((i + 1) * step, 3),
+                      "text": c} for i, c in enumerate(units)]
+            words_path.write_text(json.dumps(words, ensure_ascii=False), encoding="utf-8")
+
+    srt_path.write_text(srt_from_words(text, words), encoding="utf-8")
+    return audio_path, srt_path, speaker
+
+
+def _parse_volcano_words(payload):
+    """从火山返回的 addition.frontend 解出词级时间轴 [{"start","end","text"}]（秒）。"""
+    add = payload.get("addition") or {}
+    frontend = add.get("frontend")
+    if not frontend:
+        return []
+    if isinstance(frontend, str):
+        try:
+            frontend = json.loads(frontend)
+        except Exception:
+            return []
+    raw = frontend.get("words") or []
+    out = []
+    for w in raw:
+        try:
+            st = float(w.get("start_time", 0.0))
+            en = float(w.get("end_time", st))
+        except (TypeError, ValueError):
+            continue
+        txt = w.get("word") or ""
+        if txt.strip():
+            out.append({"start": round(st, 3), "end": round(en, 3), "text": txt})
+    return out
+
+
+def synthesize_dialogue_volcano(turns, voice_map, *, app_id, token, cluster,
+                                audio_path, words_path, srt_path=None, gap=0.04,
+                                rate="+0%", volume="+0%", pitch="+0Hz",
+                                rate_map=None, volume_map=None, pitch_map=None):
+    """火山引擎版双人对话合成：每 turn 用对应音色 → 重编码拼接（同 edge 分支口径）。
+
+    voice_map: {"A": voice_type, "B": voice_type}——这里每个角色对应一个火山音色 ID。
+    行为与 synthesize_dialogue 对齐：返回 (audio_path, words_path, segments_path, used_voices)，
+    segments 带 speaker 供 V4 双色渲染。
+    """
+    from video_pipeline import compose
+
+    audio_path = Path(audio_path)
+    words_path = Path(words_path)
+    audio_path.parent.mkdir(parents=True, exist_ok=True)
+    words_path.parent.mkdir(parents=True, exist_ok=True)
+    if srt_path:
+        srt_path = Path(srt_path)
+        srt_path.parent.mkdir(parents=True, exist_ok=True)
+
+    tmp = audio_path.parent / f"._dlgv_{audio_path.stem}"
+    tmp.mkdir(parents=True, exist_ok=True)
+
+    parts = []
+    used_voices = {}
+    for i, turn in enumerate(turns):
+        spk = (turn.get("spk") or "A").strip().upper()
+        text = (turn.get("text") or "").strip()
+        if not text:
+            continue
+        speaker = voice_map.get(spk)
+        if not speaker:
+            raise RuntimeError(
+                f"对话 turn {i}({spk}) 未配置火山音色 ID（voice_map 缺键 {spk}）"
+            )
+        used_voices[spk] = speaker
+        twav = tmp / f"t{i}.wav"
+        tsrt = tmp / f"t{i}.srt"
+        synthesize_volcano(
+            text, app_id=app_id, token=token, cluster=cluster, speaker=speaker,
+            audio_path=twav, srt_path=tsrt,
+            rate=rate_map.get(spk, rate) if rate_map else rate,
+            volume=volume_map.get(spk, volume) if volume_map else volume,
+            pitch=pitch_map.get(spk, pitch) if pitch_map else pitch,
+        )
+        dur = compose.ffprobe_duration(str(twav)) or 0.0
+        local_words = []
+        lwpath = twav.with_suffix(".words.json")
+        if lwpath.exists():
+            try:
+                local_words = json.loads(lwpath.read_text(encoding="utf-8"))
+            except Exception:
+                local_words = []
+        parts.append((spk, twav, dur, local_words, text))
+
+    if not parts:
+        raise RuntimeError("对话稿为空，无法合成")
+
+    # ---- 拼接（filter_complex concat 重编码，同 edge 分支）----
+    if len(parts) == 1:
+        import shutil
+        shutil.copyfile(str(parts[0][1]), str(audio_path))
+    else:
+        inputs = []
+        for p in parts:
+            inputs += ["-i", str(p[1])]
+        ns = len(parts)
+        inputs += ["-f", "lavfi", "-i", f"anullsrc=r=24000:cl=mono:d={gap}"]
+        labels = []
+        for i in range(len(parts)):
+            labels.append(f"[{i}:a]")
+            if i < len(parts) - 1:
+                labels.append(f"[{ns}:a]")
+        flt = "".join(labels) + f"concat=n={2 * len(parts) - 1}:v=0:a=1[out]"
+        compose._run(["ffmpeg", "-y", *inputs, "-filter_complex", flt, "-map", "[out]",
+                      "-c:a", "pcm_s16le", "-ar", "24000", "-ac", "1", str(audio_path)])
+
+    # ---- 时间轴整体偏移合并 ----
+    offset = 0.0
+    merged_words, segments, srt_blocks = [], [], []
+    srt_idx = 0
+    for spk, _twav, dur, local_words, text in parts:
+        for w in local_words:
+            merged_words.append({
+                "start": float(w.get("start", 0)) + offset,
+                "end": float(w.get("end", 0)) + offset,
+                "text": w.get("text", ""),
+            })
+        segments.append({"start": round(offset, 3), "end": round(offset + dur, 3),
+                         "text": text, "speaker": spk})
+        if srt_path:
+            st = srt_from_words(text, local_words, gap=0)
+            for line in st.split("\n"):
+                if line.strip().isdigit() and line.strip():
+                    srt_idx += 1
+                    srt_blocks.append(str(srt_idx))
+                elif "-->" in line:
+                    a, b = line.split(" --> ")
+                    def shift(ts):
+                        h, m, rest = ts.split(":")
+                        s, cs = rest.split(",")
+                        t = int(h) * 3600 + int(m) * 60 + int(s) + int(cs) / 1000.0
+                        return _fmt(t + offset)
+                    srt_blocks.append(f"{shift(a)} --> {shift(b)}")
+                else:
+                    srt_blocks.append(line)
+        offset += dur + gap
+
+    words_path.write_text(json.dumps(merged_words, ensure_ascii=False), encoding="utf-8")
+    segments_path = words_path.with_suffix(".dialogue_segments.json")
+    segments_path.write_text(json.dumps(segments, ensure_ascii=False), encoding="utf-8")
+    if srt_path:
+        srt_path.write_text("\n".join(srt_blocks).strip() + "\n", encoding="utf-8")
+
+    try:
+        for pat in ("*.wav", "*.srt", "*.words.json"):
+            for p in tmp.glob(pat):
+                p.unlink()
+        tmp.rmdir()
+    except OSError:
+        pass
+
+    return audio_path, words_path, segments_path, used_voices

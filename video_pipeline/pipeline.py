@@ -126,16 +126,37 @@ def run_pipeline(article, config=None, out_dir=None, brand_manual=None, llm_fn=N
             gap = float(dialogue_cfg.get("gap_ms", 250)) / 1000.0
             words_path = Path(srt_path).with_suffix(".words.json")
             segs_path = words_path.with_suffix(".dialogue_segments.json")
-            audio_path, _wp, segs_path, used_voices = tts.synthesize_dialogue(
-                dialogue_info.get("dialogue") or [], voice_map,
-                audio_path=audio_path, words_path=words_path, srt_path=srt_path,
-                gap=gap, rate=rate, volume=volume, pitch=pitch,
-                rate_map=dialogue_cfg.get("rate_map"))
+            # 双人对话音色来源：dialogue.engine（volcano | edge，缺省跟随 voice.provider）
+            dlg_engine = (dialogue_cfg.get("engine")
+                          or ("volcano" if provider == "volcano" and cfg.get("volcano", {}).get("enabled")
+                              else "edge"))
+            if dlg_engine == "volcano":
+                vol = cfg.get("volcano", {}) or {}
+                # 火山双人音色：dialogue.volcano_voices={A:voice_type,B:voice_type}；
+                # 缺省时退化为 volcano.speaker 给 A、voices 里给 B 的占位。
+                vol_voices = dialogue_cfg.get("volcano_voices", {}) or {}
+                if not vol_voices:
+                    vol_voices = {"A": vol.get("speaker"), "B": vol.get("speaker_b")
+                                  or vol.get("speaker")}
+                audio_path, _wp, segs_path, used_voices = tts.synthesize_dialogue_volcano(
+                    dialogue_info.get("dialogue") or [], vol_voices,
+                    audio_path=audio_path, words_path=words_path, srt_path=srt_path,
+                    gap=gap, rate=rate, volume=volume, pitch=pitch,
+                    rate_map=dialogue_cfg.get("rate_map"),
+                    app_id=vol.get("app_id"), token=vol.get("token"),
+                    cluster=vol.get("cluster"))
+                tts_engine = "volcano-dialogue"
+            else:
+                audio_path, _wp, segs_path, used_voices = tts.synthesize_dialogue(
+                    dialogue_info.get("dialogue") or [], voice_map,
+                    audio_path=audio_path, words_path=words_path, srt_path=srt_path,
+                    gap=gap, rate=rate, volume=volume, pitch=pitch,
+                    rate_map=dialogue_cfg.get("rate_map"))
+                tts_engine = "edge-dialogue"
             if Path(segs_path).exists():
                 dialogue_segments = json.loads(
                     Path(segs_path).read_text(encoding="utf-8"))
-            tts_engine = "edge-dialogue"
-            print(f"   声线={used_voices}")
+            print(f"   声线={used_voices} 引擎={tts_engine}")
         except Exception as e:
             print(f"   ⚠️ 双人 TTS 失败：{e}，回退单人 TTS")
             use_dialogue = False

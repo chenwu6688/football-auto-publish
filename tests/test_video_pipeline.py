@@ -1749,3 +1749,211 @@ def test_pipeline_dialogue_branch(tmp_path, monkeypatch):
     assert set(meta["dialogue_speakers"]) == {"A", "B"}
     assert Path(meta["video_path"]).exists()
     assert abs(meta["actual_duration_sec"] - meta.get("expected", meta["actual_duration_sec"])) >= 0
+
+
+# ---------------------------------------------------------------- 火山引擎 TTS
+def _volcano_mp3_bytes(duration=1.0):
+    """造一段真实可解码的 mp3（用 ffmpeg），返回字节，供 mock 返回。"""
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "x.mp3"
+        subprocess.run(
+            ["ffmpeg", "-y", "-f", "lavfi",
+             "-i", f"sine=frequency=440:duration={duration}",
+             "-c:a", "libmp3lame", "-b:a", "64k", str(p)],
+            capture_output=True, check=True,
+        )
+        return p.read_bytes()
+
+
+class _FakeResp:
+    def __init__(self, payload, status_code=200):
+        self._payload = payload
+        self.status_code = status_code
+        self.text = json.dumps(payload, ensure_ascii=False)
+
+    def json(self):
+        return self._payload
+
+
+def _volcano_ok_payload(mp3_bytes, text="皇马赢了"):
+    import base64
+    words = [{"word": c, "start_time": i * 0.2, "end_time": (i + 1) * 0.2}
+             for i, c in enumerate(text)]
+    return {
+        "reqid": "r1", "code": 3000, "message": "Success", "sequence": -1,
+        "data": base64.b64encode(mp3_bytes).decode("ascii"),
+        "addition": {
+            "duration": "1000",
+            "frontend": json.dumps({"words": words, "phonemes": []},
+                                   ensure_ascii=False),
+        },
+    }
+
+
+def test_volcano_pct_and_hz_ratio_conversion():
+    """edge 风格参数 → 火山比例：+22%→1.22、-10%→0.9、+0Hz→1.0、数字原样。"""
+    assert tts._pct_to_ratio("+22%") == 1.22
+    assert tts._pct_to_ratio("-10%") == 0.9
+    assert tts._pct_to_ratio("") == 1.0
+    assert tts._pct_to_ratio(1.5) == 1.5
+    assert tts._hz_to_ratio("+0Hz") == 1.0
+    assert tts._hz_to_ratio("") == 1.0
+    assert abs(tts._hz_to_ratio("+50Hz") - 1.1) < 1e-6
+    # 越界被夹到合法区间
+    assert tts._hz_to_ratio("+99999Hz") <= 3.0
+
+
+def test_volcano_request_body_and_outputs(tmp_path, monkeypatch):
+    """火山合成：请求体字段正确；mp3→24k WAV；词轴/SRT 落盘；返回 used_speaker。"""
+    captured = {}
+
+    def _fake_post(url, headers=None, data=None, timeout=None):
+        captured["url"] = url
+        captured["headers"] = headers
+        captured["body"] = json.loads(data.decode("utf-8"))
+        return _FakeResp(_volcano_ok_payload(_volcano_mp3_bytes(1.0)))
+
+    import requests
+    monkeypatch.setattr(requests, "post", _fake_post)
+
+    audio = tmp_path / "a.wav"
+    srt = tmp_path / "a.srt"
+    ap, sp, used = tts.synthesize_volcano(
+        "皇马赢了", app_id="app123", token="tok456", cluster="volcano_tts",
+        speaker="zh_male_jingqiangkanye_moon_bigtts",
+        audio_path=audio, srt_path=srt, rate="+20%", volume="+0%", pitch="+0Hz")
+
+    # 端点 + 鉴权头（分号格式）
+    assert captured["url"] == tts.VOLCANO_ENDPOINT
+    assert captured["headers"]["Authorization"] == "Bearer;tok456"
+    # 请求体结构
+    b = captured["body"]
+    assert b["app"] == {"appid": "app123", "token": "tok456", "cluster": "volcano_tts"}
+    assert b["user"]["uid"]
+    assert b["audio"]["voice_type"] == "zh_male_jingqiangkanye_moon_bigtts"
+    assert b["audio"]["encoding"] == "mp3"
+    assert b["audio"]["speed_ratio"] == 1.2
+    assert b["audio"]["volume_ratio"] == 1.0
+    assert b["audio"]["pitch_ratio"] == 1.0
+    assert b["request"]["operation"] == "query"
+    assert b["request"]["text"] == "皇马赢了"
+    assert b["request"]["with_frontend"] == "1"
+    assert b["request"]["reqid"]
+    # 输出
+    assert used == "zh_male_jingqiangkanye_moon_bigtts"
+    assert Path(ap).exists() and Path(ap).stat().st_size > 1000
+    base = Path(ap).read_bytes()[:4]
+    assert base[:4] not in (b"ID3", b"\xff\xfb") or True     # 已转码为 wav
+    assert Path(ap).read_bytes()[:4] == b"RIFF"              # 真 WAV 头
+    words = json.loads(Path(sp).with_suffix(".words.json").read_text(encoding="utf-8"))
+    assert len(words) == 4 and words[0]["text"] == "皇"
+    assert Path(sp).read_text(encoding="utf-8").count("-->") == 1
+
+
+def test_volcano_no_words_falls_back_to_even_split(tmp_path, monkeypatch):
+    """火山不返回 frontend 时间戳时，按字符均分兜底，SRT 不为空。"""
+    import base64
+    payload = {"reqid": "r", "code": 3000, "message": "Success", "sequence": -1,
+               "data": base64.b64encode(_volcano_mp3_bytes(2.0)).decode("ascii")}
+    import requests
+    monkeypatch.setattr(requests, "post",
+                        lambda *a, **k: _FakeResp(payload))
+    audio = tmp_path / "b.wav"
+    srt = tmp_path / "b.srt"
+    tts.synthesize_volcano("一二三四", app_id="a", token="t", cluster="volcano_tts",
+                           speaker="s", audio_path=audio, srt_path=srt)
+    words = json.loads(Path(srt).with_suffix(".words.json").read_text(encoding="utf-8"))
+    assert len(words) == 4
+    assert "-->" in Path(srt).read_text(encoding="utf-8")
+
+
+def test_volcano_missing_params_raises(tmp_path):
+    """缺 key 时立刻报错（不发起网络请求）。"""
+    with pytest.raises(RuntimeError, match="参数不完整"):
+        tts.synthesize_volcano("x", app_id="", token="t", cluster="c", speaker="s",
+                               audio_path=tmp_path / "a.wav", srt_path=tmp_path / "a.srt")
+
+
+def test_volcano_api_error_code_raises(tmp_path, monkeypatch):
+    """服务端返回非 3000 → RuntimeError 携带 message。"""
+    import requests
+    monkeypatch.setattr(requests, "post", lambda *a, **k: _FakeResp(
+        {"code": 3011, "message": "illegal input text!"}))
+    with pytest.raises(RuntimeError, match="3011"):
+        tts.synthesize_volcano("x", app_id="a", token="t", cluster="c", speaker="s",
+                               audio_path=tmp_path / "a.wav", srt_path=tmp_path / "a.srt")
+
+
+def test_volcano_http_non200_raises(tmp_path, monkeypatch):
+    """HTTP 非 200 → RuntimeError。"""
+    import requests
+    monkeypatch.setattr(requests, "post", lambda *a, **k: _FakeResp({}, status_code=403))
+    with pytest.raises(RuntimeError, match="HTTP 403"):
+        tts.synthesize_volcano("x", app_id="a", token="t", cluster="c", speaker="s",
+                               audio_path=tmp_path / "a.wav", srt_path=tmp_path / "a.srt")
+
+
+def test_volcano_dialogue_concat_and_offsets(tmp_path, monkeypatch):
+    """火山双人对话：每 turn 一次请求、双音色、拼接 + 时间轴偏移、段流带 speaker。"""
+    calls = []
+
+    def _fake_post(url, headers=None, data=None, timeout=None):
+        body = json.loads(data.decode("utf-8"))
+        calls.append(body["audio"]["voice_type"])
+        return _FakeResp(_volcano_ok_payload(_volcano_mp3_bytes(1.0), text="测试"))
+
+    import requests
+    monkeypatch.setattr(requests, "post", _fake_post)
+
+    turns = [{"spk": "A", "text": "皇马逆转"}, {"spk": "B", "text": "姆巴佩火了"},
+             {"spk": "A", "text": "登顶了"}]
+    voice_map = {"A": "zh_male_jingqiangkanye_moon_bigtts",
+                 "B": "zh_female_shuangkuaisisi_moon_bigtts"}
+    audio = tmp_path / "d.wav"
+    words = tmp_path / "d.words.json"
+    srt = tmp_path / "d.srt"
+    ap, wp, sp, used = tts.synthesize_dialogue_volcano(
+        turns, voice_map, app_id="a", token="t", cluster="volcano_tts",
+        audio_path=audio, words_path=words, srt_path=srt, gap=0.04)
+
+    assert len(calls) == 3
+    assert calls[0] != calls[1]                       # A/B 音色不同
+    assert used["A"] == voice_map["A"] and used["B"] == voice_map["B"]
+    assert Path(ap).exists()
+    dur = compose.ffprobe_duration(str(ap))
+    assert dur > 2.9                                   # ≈ 3 段 + 2 间隔
+    segs = json.loads(Path(sp).read_text(encoding="utf-8"))
+    assert [s["speaker"] for s in segs] == ["A", "B", "A"]
+    assert segs[1]["start"] >= segs[0]["end"] - 1e-6   # 顺序推进、无重叠
+    assert Path(srt).exists() and "-->" in Path(srt).read_text(encoding="utf-8")
+
+
+def test_pipeline_dialogue_volcano_engine_selects_volcano(tmp_path, monkeypatch):
+    """dialogue.engine=volcano 时管线走火山双人分支（不再调 edge 分支）。"""
+    import requests
+    monkeypatch.setattr(requests, "post", lambda *a, **k: _FakeResp(
+        _volcano_ok_payload(_volcano_mp3_bytes(1.0), text="测试")))
+    # edge 分支应完全不被触发
+    def _boom(*a, **k):
+        raise AssertionError("engine=volcano 时不应调用 edge synthesize_dialogue")
+    monkeypatch.setattr(tts, "synthesize_dialogue", _boom)
+
+    cfg = pipeline.load_video_config(_ROOT / "video_pipeline" / "video_config.yaml")
+    cfg["output"]["keep_intermediate"] = True
+    cfg.setdefault("footage", {})["enabled"] = False
+    cfg.setdefault("teams", {})["enabled"] = False
+    cfg.setdefault("audio", {})["enabled"] = False
+    cfg.setdefault("textmotion", {})["enabled"] = True
+    cfg["textmotion"]["dialogue"] = {
+        "enabled": True, "engine": "volcano",
+        "volcano_voices": {"A": "vA", "B": "vB"},
+        "labels": {}, "gap_ms": 40,
+    }
+    cfg["volcano"] = {"enabled": True, "app_id": "a", "token": "t",
+                      "cluster": "volcano_tts", "speaker": "vA", "speaker_b": "vB"}
+    meta = pipeline.run_pipeline(_SAMPLE_ARTICLE, config=cfg, out_dir=tmp_path,
+                                 llm_fn=_fake_dialogue_llm)
+    assert meta["dialogue_used"] is True
+    assert meta["tts_engine"] == "volcano-dialogue"
+    assert set(meta["dialogue_speakers"]) == {"A", "B"}

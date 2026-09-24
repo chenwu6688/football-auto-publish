@@ -35,13 +35,16 @@ clone:
   prompt_text: ""          # 参考音对应的文本（few-shot 更稳，建议填）
   timeout: 600             # 推理超时（秒）
 
-# 火山引擎 TTS（可选升级项：字节系原生适配抖音，28 种情感/风格男声；需 key）
+# 火山引擎 TTS（字节系·真·抖音音色；大模型语音合成 HTTP 接口，需 key）
+# 控制台入口：https://console.volcengine.com/speech/app —— 开通「语音合成（大模型）」后
+#   在「音色管理」里下单/试听音色，复制 AppID / Access Token / Cluster / 音色 Speaker ID。
 volcano:
   enabled: false
-  app_id: ""
-  token: ""
-  cluster: ""
-  speaker: ""              # 具体音色 Speaker ID（挑体育解说/侃爷风格流量向）
+  app_id: ""               # 控制台 → 应用 → AppID
+  token: ""                # 控制台 → 应用 → Access Token（写入 Authorization: Bearer;{token}）
+  cluster: "volcano_tts"   # 业务集群：标准音色填 volcano_tts（复刻音色不同，见控制台 FAQ）
+  speaker: ""              # A 角色音色 Speaker ID（单人模式即用此；挑体育解说/侃爷风格）
+  speaker_b: ""            # B 角色音色 Speaker ID（双人对话用；留空则与 speaker 相同）
 
 # 真·说话数字人（Phase 2，默认关；M710q 无独显，SadTalker CPU 跑 60-90s 视频可能要几十分钟）
 # 开启后：肖像 + 配音 → SadTalker 说话脸（失败回退 Wav2Lip，再失败回退静态肖像 Ken-Burns）。
@@ -200,12 +203,22 @@ textmotion:
   # 用两套音色合成 + 画面双色区分。默认关闭，不影响单人链路。
   dialogue:
     enabled: false            # true = 走双人链路（生成对话稿 + 双音色合成 + 双色渲染）
+    # 音色来源引擎：volcano（真·抖音音色，需 volcano.* 填 key）| edge（免费免 key）
+    # 留空则跟随 voice.provider（provider=volcano 时自动走火山）。
+    engine: ""                # ""（跟随 provider） | volcano | edge
     # 角色音色（edge-tts 中文音色，已实测可用：云健=激情男声、晓伊=活泼女声、
     # 云扬=专业男声、晓晓=温柔女声、辽宁小北/陕西小妮=方言女声。
     # 注意：云希 YunxiNeural 当前服务端返回 NoAudioReceived 不可用，勿选）
     voices:
       A: "zh-CN-YunjianNeural"   # 老六（主播·激情男声）
       B: "zh-CN-XiaoyiNeural"    # 搭档（女声·活泼，一男一女 + 都是激情范）
+    # 火山引擎双人音色（engine=volcano 时生效）：填音色 Speaker ID（voice_type）。
+    # 抖音风男声示例：zh_male_jingqiangkanye_moon_bigtts（京腔侃爷）、
+    #   zh_male_haoyuxiaoge_moon_bigtts（浩宇小哥）、zh_male_yangguangqingnian_moon_bigtts（阳光青年）；
+    # 女声示例：zh_female_shuangkuaisisi_moon_bigtts（爽快思思）等，具体以控制台音色列表为准。
+    volcano_voices:
+      A: ""
+      B: ""
     # 每个角色的语速/音量（可选，制造听感上的对话节奏；不填用 voice.* 全局值）
     rate_map:
       A: "+22%"                # 老六快、冲，带火药味
@@ -214,6 +227,8 @@ textmotion:
                                # 想显示可填 {A: "老六", B: "..."} 则逐句显示
     gap_ms: 40                # 两个 turn 之间的换气静音（ms）；越小越"抢话"，衔接越紧
     color_b: "0x5AC8FA"       # B 角色的区分色（已读态主色；未读暗灰/高亮红黄不变）
+    # layout: color —— 同屏大字、仅换色区分（MVP，复用度最高）；
+    #          chat  —— 左右聊天气泡（更"对话式"，待实现）。当前仅 color 生效。
     # layout: color —— 同屏大字、仅换色区分（MVP，复用度最高）；
     #          chat  —— 左右聊天气泡（更"对话式"，待实现）。当前仅 color 生效。
 
