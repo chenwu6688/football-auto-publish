@@ -1,7 +1,7 @@
 {
   "date": "2026-09-24",
-  "generated_at": "2026-09-24T04:10:31.885933",
-  "total_articles": 7,
+  "generated_at": "2026-09-24T09:41:07.885480",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -224,175 +224,345 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "23年前那场10-1，中国球迷为什么骂街？",
+      "path": "/home/runner/work/_temp/output/2026-09-24/article-1-23年前那场10-422c1d.md",
+      "slug": "23年前那场10-422c1d",
+      "tags": [
+        "China football",
+        "Maldives",
+        "World Cup qualifier",
+        "Bora Milutinovic",
+        "2001"
+      ],
+      "keywords": [
+        "China football",
+        "Maldives",
+        "World Cup qualifier",
+        "Bora Milutinovic",
+        "2001"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-24/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-24/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-24/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "6战全胜进28球丢1球，那1球咋丢的？",
+      "path": "/home/runner/work/_temp/output/2026-09-24/article-2-6战全胜进28球-115226.md",
+      "slug": "6战全胜进28球-115226",
+      "tags": [
+        "China football",
+        "Maldives",
+        "World Cup qualifier",
+        "2001",
+        "Milo"
+      ],
+      "keywords": [
+        "China football",
+        "Maldives",
+        "World Cup qualifier",
+        "2001",
+        "Milo"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-24/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-24/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-24/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "31岁巴西前锋，从印尼金靴到港超流浪",
+      "path": "/home/runner/work/_temp/output/2026-09-24/article-3-31岁巴西前锋从-4e77ea.md",
+      "slug": "31岁巴西前锋从-4e77ea",
+      "tags": [
+        "Matheus Pato",
+        "Hong Kong Premier League",
+        "Shandong Taishan",
+        "Indonesian League",
+        "Brazilian striker"
+      ],
+      "keywords": [
+        "Matheus Pato",
+        "Hong Kong Premier League",
+        "Shandong Taishan",
+        "Indonesian League",
+        "Brazilian striker"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-24/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "打越南，女足这口气得绷住了",
+      "path": "/home/runner/work/_temp/output/2026-09-24/article-4-打越南女足这口气-ce9bdd.md",
+      "slug": "打越南女足这口气-ce9bdd",
+      "tags": [
+        "China women's football",
+        "Asian Games",
+        "Vietnam",
+        "quarterfinal",
+        "knockout"
+      ],
+      "keywords": [
+        "China women's football",
+        "Asian Games",
+        "Vietnam",
+        "quarterfinal",
+        "knockout"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "荷兰德国二番战，袋鼠军团硬刚巴西",
+      "path": "/home/runner/work/_temp/output/2026-09-24/article-5-荷兰德国二番战袋-9ad80f.md",
+      "slug": "荷兰德国二番战袋-9ad80f",
+      "tags": [
+        "Netherlands vs Germany",
+        "Australia vs Brazil",
+        "Portugal vs Wales",
+        "Italy vs Belgium",
+        "Japan vs Uruguay",
+        "Ivory Coast vs Ghana",
+        "Turkey vs France",
+        "Norway vs Denmark"
+      ],
+      "keywords": [
+        "Netherlands vs Germany",
+        "Australia vs Brazil",
+        "Portugal vs Wales",
+        "Italy vs Belgium",
+        "Japan vs Uruguay",
+        "Ivory Coast vs Ghana",
+        "Turkey vs France",
+        "Norway vs Denmark"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-24/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-24/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-24/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "17岁破上古纪录？赵松源今晚登场凭啥改写国足历史",
-      "angle": "从17岁赵松源可能打破最年轻国脚纪录切入，探讨国足'青春风暴'背后的现实：是人才井喷还是无奈之举？结合安东尼奥直言'年轻球员技术不占优'，不做无脑吹捧，给老球迷一个冷静的观察视角。",
+      "title": "2001年10-1马尔代夫，球迷为啥骂米卢骗子？",
+      "angle": "回溯01年世预赛国足10-1大胜马尔代夫却被骂“骗子”的历史，对比今晚对阵马尔代夫的期待落差，揭示中国球迷对国足“既要赢又要赢得漂亮”的矛盾心理。",
       "keywords": [
-        "Zhao Songyuan",
-        "youngest international",
-        "China national team"
+        "china football",
+        "2002 world cup qualifier",
+        "bora milutinovic",
+        "maldives"
       ],
       "keywords_cn": [
-        "赵松源",
-        "最年轻国脚",
         "国足",
-        "青春风暴"
+        "02世界杯预选赛",
+        "米卢",
+        "马尔代夫"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "score": 92,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "怀旧",
       "resonance_angle": "国足情结",
       "series_id": "guozu-chronicle",
-      "why_pick": "国足比赛日最热话题，纪录+争议+老球迷情怀，完美匹配人设",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "队友被欺负就干回去？李昊这脾气老国脚看了都得竖大拇指",
-      "angle": "从李昊'为队友出头'的强硬表态切入，对比国足过往'窝囊'名场面，聊聊这支年轻球队的血性。不吹不黑，就事论事，这种团结劲儿是以前国足最缺的东西。",
-      "keywords": [
-        "Li Hao",
-        "team spirit",
-        "China football"
-      ],
-      "keywords_cn": [
-        "李昊",
-        "队友出头",
-        "国足血性",
-        "团队精神"
-      ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
-      "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "场外故事有人味、有态度，戳中老球迷对国足'硬起来'的期待",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "why_pick": "借今晚对阵马尔代夫，回看01年经典骂战，直击老球迷集体记忆与国足情结。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "王钰栋怒火中烧被队友搂住，这场景国足多少年没见过了？",
-      "angle": "以王钰栋情绪失控被毛伟杰搂住的画面为切口，聊国足年轻球员的求胜欲和血性。对比过去国足场上'温吞水'的表现，这种'急眼'反而是好事，说明在乎。",
+      "title": "98元看国足，868元看啥？这票价割韭菜还是真值？",
+      "angle": "从国足门票最低98元到最高868元的巨大跨度切入，探讨当前国足的吸引力与球迷的消费意愿，质疑高票价是否对得起球队表现，引发球迷关于“值不值”的争论。",
       "keywords": [
-        "Wang Yudong",
-        "passion",
-        "young players"
+        "china football",
+        "ticket price",
+        "world cup qualifier"
       ],
       "keywords_cn": [
-        "王钰栋",
-        "情绪失控",
-        "国足血性",
-        "年轻球员"
+        "国足",
+        "门票",
+        "世预赛",
+        "消费"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "感动",
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "画面感强、情绪饱满，用细节打动老球迷，区别于纯比赛复盘",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "斯坦丘被两支罗马尼亚球队盯上，大连英博这次能留住人吗？",
-      "angle": "从罗马尼亚球队有意斯坦丘的转会传闻切入，结合他与大连英博合同即将到期的现实，聊聊中超球队留不住核心外援的老问题。不写纯传闻，而是借这事说说中超的尴尬处境。",
-      "keywords": [
-        "Stanciu",
-        "transfer rumour",
-        "Dalian Yingbo"
-      ],
-      "keywords_cn": [
-        "斯坦丘",
-        "转会传闻",
-        "大连英博",
-        "中超外援"
-      ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "转会窗尾声的实在话题，有信息增量，带出中超老问题",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "票价争议极具讨论性，能引发球迷对国足价值与自身情感付出的激烈辩论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "31岁前泰山外援，为啥沦落到踢港超？",
+      "angle": "以31岁前山东泰山外援帕托加盟港超标准流浪为切入点，讲述一位中超旧将职业生涯的断崖式下滑，探讨外援在中超的生存现状与离开后的命运，充满人物弧光。",
+      "keywords": [
+        "matheus pate",
+        "shandong taishan",
+        "hong kong premier league",
+        "career decline"
+      ],
+      "keywords_cn": [
+        "帕托",
+        "山东泰山",
+        "港超",
+        "职业生涯"
+      ],
+      "content_type": "八卦趣事",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "名将沉浮故事自带戏剧性，戳中有阅历球迷对球员生涯起落的感慨。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "中国女足冲四强，为啥北青要特意提醒“避免轻敌”？",
+      "angle": "从北青报道女足要求“避免轻敌思想”这个细节切入，结合女足对阵越南的历史战绩与近期表现，分析这种“官方提醒”背后可能存在的隐患和压力，探讨女足的真实状态。",
+      "keywords": [
+        "china women football",
+        "asian games",
+        "vietnam",
+        "underestimation"
+      ],
+      "keywords_cn": [
+        "中国女足",
+        "亚运会",
+        "越南",
+        "轻敌"
+      ],
+      "content_type": "热点球评",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "“避免轻敌”的提醒反成新闻点，角度刁钻，能引发对女足心态的讨论。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "荷兰德国二番战，袋鼠军团硬刚巴西",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-24 12:10:31"
+  "last_batch": "evening",
+  "last_updated": "2026-09-24 17:41:07"
 }
