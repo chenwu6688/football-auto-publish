@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
-  "generated_at": "2026-09-25T04:10:15.027463",
-  "total_articles": 7,
+  "generated_at": "2026-09-25T09:40:56.080760",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -234,132 +234,338 @@
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "从2019到2027，马宁的亚洲杯之路比国足还长",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-1-从2019到20-ed1174.md",
+      "slug": "从2019到20-ed1174",
+      "tags": [
+        "Ma Ning",
+        "AFC Asian Cup",
+        "Chinese referee",
+        "2027 Saudi Arabia",
+        "national football"
+      ],
+      "keywords": [
+        "Ma Ning",
+        "AFC Asian Cup",
+        "Chinese referee",
+        "2027 Saudi Arabia",
+        "national football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "26岁，自由身，被俄超拒绝——桑乔这剧本，谁写的？",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-2-26岁自由身被俄-472694.md",
+      "slug": "26岁自由身被俄-472694",
+      "tags": [
+        "Jadon Sancho",
+        "Krasnodar",
+        "free agent",
+        "Manchester United",
+        "transfer"
+      ],
+      "keywords": [
+        "Jadon Sancho",
+        "Krasnodar",
+        "free agent",
+        "Manchester United",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "克洛普首秀差点拿3分，这德国队有内味儿了",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-3-克洛普首秀差点拿-0b7628.md",
+      "slug": "克洛普首秀差点拿-0b7628",
+      "tags": [
+        "Netherlands",
+        "Germany",
+        "UEFA Nations League",
+        "VAR",
+        "Gakpo",
+        "Klopp"
+      ],
+      "keywords": [
+        "Netherlands",
+        "Germany",
+        "UEFA Nations League",
+        "VAR",
+        "Gakpo",
+        "Klopp"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "20分钟连进4个，这剧情国足熟啊",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-4-20分钟连进4个-b2ce5f.md",
+      "slug": "20分钟连进4个-b2ce5f",
+      "tags": [
+        "Curacao",
+        "Costa Rica",
+        "CONCACAF Nations League",
+        "comeback",
+        "Chinese diaspora"
+      ],
+      "keywords": [
+        "Curacao",
+        "Costa Rica",
+        "CONCACAF Nations League",
+        "comeback",
+        "Chinese diaspora"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "意大利比利时恩怨局，英格兰西班牙谁是纸老虎？",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-5-意大利比利时恩怨-5e49a1.md",
+      "slug": "意大利比利时恩怨-5e49a1",
+      "tags": [
+        "football prediction",
+        "Italy vs Belgium",
+        "England vs Spain",
+        "World Cup qualifiers"
+      ],
+      "keywords": [
+        "football prediction",
+        "Italy vs Belgium",
+        "England vs Spain",
+        "World Cup qualifiers"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "3-1领先被追平，U16国少这6分钟经历了什么？",
-      "angle": "张耀坤执教首秀遭遇黑色6分钟，从3-1到3-3，不是技术问题，是心理和体能的双重崩盘。中国足球的老毛病，从国家队传染到国少队了。",
+      "title": "马宁第三次执法亚洲杯，凭什么中国裁判比中国球员走得更远？",
+      "angle": "以马宁入选2027亚洲杯裁判名单为引子，对比中国男足连亚洲杯正赛都悬的尴尬，反讽式发问：裁判在国际赛场比球员更有存在感，这是中国足球的悲哀还是另一种出路？既肯定马宁个人坚守，又刺痛国足现实。",
       "keywords": [
-        "China U16",
-        "Zhang Yaokun",
-        "collapse"
+        "Ma Ning",
+        "AFC Asian Cup 2027",
+        "Chinese referee"
       ],
       "keywords_cn": [
-        "U16国足",
-        "张耀坤",
-        "黑色6分钟"
+        "马宁",
+        "亚洲杯",
+        "中国裁判",
+        "国足"
       ],
-      "content_type": "热点球评",
-      "score": 95,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "国字号球队老毛病重现，戳中老球迷痛点，争议性强，有话题性。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "国安收队外援全归，这赛季争冠还有戏吗？",
-      "angle": "国安今日收队，亚冠专属外援和塞鸟都回来了。阵容齐整的国安，能不能在最后几轮冲一把？但看看积分榜，现实可能比理想骨感。",
-      "keywords": [
-        "Beijing Guoan",
-        "foreign players",
-        "title race"
-      ],
-      "keywords_cn": [
-        "北京国安",
-        "外援归队",
-        "中超争冠"
-      ],
-      "content_type": "转会资讯",
+      "content_type": "八卦趣事",
       "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "怀旧",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "裁判比球员争气是巨大反差，戳中国足球痛点，有自嘲有骄傲，老球迷爱看",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "桑乔想去俄超被拒？当年8500万的天才，如今连俄超都嫌贵",
+      "angle": "从俄媒曝桑乔愿意加盟俄超球队却遭拒绝切入，复盘桑乔从多特蒙德8500万欧元转会曼联后的断崖式下滑轨迹。用名宿沉浮的视角感叹：当年多风光，如今连俄超都看不上，足球就是这么现实。",
+      "keywords": [
+        "Jadon Sancho",
+        "Russian Premier League",
+        "Krasnodar"
+      ],
+      "keywords_cn": [
+        "桑乔",
+        "俄超",
+        "克拉斯诺达尔",
+        "曼联"
+      ],
+      "content_type": "转会资讯",
+      "score": 90,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "中超老牌劲旅的赛季冲刺，有情怀有悬念，外援归队是转会资讯好切入点。",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "桑乔身价崩塌是足坛悲剧，名宿沉浮角度戳老球迷阅历感，话题性极强",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "中国女足亚运首发：王霜领衔，但张琳艳替补？",
-      "angle": "中国女足vs越南的首发出来了，王霜、吴海燕先发没问题，但张琳艳坐替补席？水庆霞这手牌是留力还是另有打算？球迷评论区已经炸了。",
+      "title": "哈弗茨穆西亚拉同时伤退，德国队这届欧国联还踢不踢了？",
+      "angle": "从德国队官方宣布哈弗茨、穆西亚拉因肌肉伤离队切入，分析德国队进攻线核心接连伤退对欧国联前景的致命打击，并用老球迷视角调侃：这阵容厚度，还不如十年前克洛泽一个人扛着走的时候。",
+      "keywords": [
+        "Germany national team",
+        "Kai Havertz",
+        "Jamal Musiala",
+        "UEFA Nations League"
+      ],
+      "keywords_cn": [
+        "德国队",
+        "哈弗茨",
+        "穆西亚拉",
+        "欧国联",
+        "伤病"
+      ],
+      "content_type": "热点球评",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "德国队双核心伤退影响欧国联前景，对比十年前引发老球迷怀旧，有话题性",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "女足换人闹乌龙忘交申请，113分钟被裁判发现补黄牌，这管理像话吗？",
+      "angle": "从中国女足换人未交申请、113分钟被裁判补发黄牌的荒诞一幕切入，直指教练组和管理层的业余——场上球员拼到加时，场下连最基本的换人流程都搞不清楚，这不是足球水平问题，是管理灾难。",
       "keywords": [
         "China women's football",
-        "Wang Shuang",
-        "Zhang Linyan"
+        "substitution error",
+        "yellow card"
       ],
       "keywords_cn": [
         "中国女足",
-        "王霜",
-        "张琳艳替补"
+        "换人失误",
+        "黄牌",
+        "管理混乱"
       ],
-      "content_type": "热点球评",
-      "score": 91,
+      "content_type": "八卦趣事",
+      "score": 85,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "女足首发争议大，张琳艳替补是爆点，能引发评论区激烈讨论。",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "换人乌龙是管理灾难，荒诞又真实，戳中国足球体制痛点，争议大共鸣强",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "意大利比利时恩怨局，英格兰西班牙谁是纸老虎？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-25 12:10:15"
+  "last_batch": "evening",
+  "last_updated": "2026-09-25 17:40:56"
 }
