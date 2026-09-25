@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
-  "generated_at": "2026-09-25T00:11:05.676803",
-  "total_articles": 4,
+  "generated_at": "2026-09-25T04:10:15.027463",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -138,62 +138,156 @@
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "黑色6分钟，国少3-1领先被扳平，这剧本咱太熟了",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-1-黑色6分钟国少3-bccd32.md",
+      "slug": "黑色6分钟国少3-bccd32",
+      "tags": [
+        "U16 national team",
+        "Zhang Yaokun",
+        "Peace Cup",
+        "Kyrgyzstan",
+        "black 6 minutes",
+        "youth football"
+      ],
+      "keywords": [
+        "U16 national team",
+        "Zhang Yaokun",
+        "Peace Cup",
+        "Kyrgyzstan",
+        "black 6 minutes",
+        "youth football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "第27轮改期背后，藏着中超多少无奈",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-2-第27轮改期背后-d919b3.md",
+      "slug": "第27轮改期背后-d919b3",
+      "tags": [
+        "Beijing Guoan",
+        "Qingdao Hainiu",
+        "CSL fixture change",
+        "Chinese Super League"
+      ],
+      "keywords": [
+        "Beijing Guoan",
+        "Qingdao Hainiu",
+        "CSL fixture change",
+        "Chinese Super League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "中秋夜女足踢越南，米指导这首发一出来，老球迷心里咯噔一下",
+      "path": "/home/runner/work/_temp/output/2026-09-25/article-3-中秋夜女足踢越南-b97ff3.md",
+      "slug": "中秋夜女足踢越南-b97ff3",
+      "tags": [
+        "women's football",
+        "Asian Games",
+        "China vs Vietnam",
+        "Wang Shuang",
+        "starting lineup"
+      ],
+      "keywords": [
+        "women's football",
+        "Asian Games",
+        "China vs Vietnam",
+        "Wang Shuang",
+        "starting lineup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-25/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-25/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "帕尔默凭啥这么横？落选世界杯就敢撂挑子不干",
-      "angle": "从希勒和英超旧将的质疑切入，聊帕尔默退出国家队的争议——是耍大牌还是真委屈？对比当年老派球员带伤上阵的态度，老球迷来评评理。",
+      "title": "3-1领先被追平，U16国少这6分钟经历了什么？",
+      "angle": "张耀坤执教首秀遭遇黑色6分钟，从3-1到3-3，不是技术问题，是心理和体能的双重崩盘。中国足球的老毛病，从国家队传染到国少队了。",
       "keywords": [
-        "Palmer",
-        "England",
-        "withdrawal"
+        "China U16",
+        "Zhang Yaokun",
+        "collapse"
       ],
       "keywords_cn": [
-        "帕尔默",
-        "英格兰队",
-        "退出"
+        "U16国足",
+        "张耀坤",
+        "黑色6分钟"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 95,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "名宿公开质疑+球员争议行为，天然吵架话题，评论区必站队",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国字号球队老毛病重现，戳中老球迷痛点，争议性强，有话题性。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "曼联从利物浦嘴里抢下16岁天才，七位数补偿金值吗？",
-      "angle": "聚焦曼联签下利物浦青训边锋孔德，从两家死敌的青训争夺战切入，聊豪门抢人的疯狂和年轻球员的赌注——这钱花得冤不冤？",
+      "title": "国安收队外援全归，这赛季争冠还有戏吗？",
+      "angle": "国安今日收队，亚冠专属外援和塞鸟都回来了。阵容齐整的国安，能不能在最后几轮冲一把？但看看积分榜，现实可能比理想骨感。",
       "keywords": [
-        "Man United",
-        "Liverpool",
-        "academy",
-        "transfer"
+        "Beijing Guoan",
+        "foreign players",
+        "title race"
       ],
       "keywords_cn": [
-        "曼联",
-        "利物浦",
-        "青训",
-        "转会"
+        "北京国安",
+        "外援归队",
+        "中超争冠"
       ],
       "content_type": "转会资讯",
       "score": 88,
@@ -201,109 +295,71 @@
       "target_emotion": "好奇",
       "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "双红会延伸到青训抢人，话题性强，有数据有故事",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "中超老牌劲旅的赛季冲刺，有情怀有悬念，外援归队是转会资讯好切入点。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "47岁马宁还在扛旗，中国裁判在亚洲到底啥地位？",
-      "angle": "从马宁入选亚洲杯裁判名单切入，结合新疆银哨上位的背景，聊中国裁判在亚洲的真实处境——不是吹捧，是给老球迷一个客观交代。",
+      "title": "中国女足亚运首发：王霜领衔，但张琳艳替补？",
+      "angle": "中国女足vs越南的首发出来了，王霜、吴海燕先发没问题，但张琳艳坐替补席？水庆霞这手牌是留力还是另有打算？球迷评论区已经炸了。",
       "keywords": [
-        "Ma Ning",
-        "Asian Cup",
-        "referee"
+        "China women's football",
+        "Wang Shuang",
+        "Zhang Linyan"
       ],
       "keywords_cn": [
-        "马宁",
-        "亚洲杯",
-        "裁判"
+        "中国女足",
+        "王霜",
+        "张琳艳替补"
       ],
       "content_type": "热点球评",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "骄傲",
+      "score": 91,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
       "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "裁判话题敏感但有料，结合国足情结，老球迷关心中国足球的国际地位",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "series_id": "无",
+      "why_pick": "女足首发争议大，张琳艳替补是爆点，能引发评论区激烈讨论。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "克洛普德国首秀就平局，当年带利物浦也是这个剧本？",
-      "angle": "从克洛普执教德国首秀1-1平荷兰切入，翻出他当年带利物浦首秀也是平局的老黄历，用名帅的宿命感戳老球迷的怀旧神经。",
-      "keywords": [
-        "Klopp",
-        "Germany",
-        "debut"
-      ],
-      "keywords_cn": [
-        "克洛普",
-        "德国",
-        "首秀"
-      ],
-      "content_type": "八卦趣事",
-      "score": 82,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "名帅首秀有故事性，跨时空对比制造宿命感，老球迷共鸣强",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-25 08:11:05"
+  "last_batch": "noon",
+  "last_updated": "2026-09-25 12:10:15"
 }
