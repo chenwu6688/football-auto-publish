@@ -2,11 +2,103 @@
   "deepseek-v4-pro": {
     "prompt_tokens": 544791,
     "completion_tokens": 152734,
-    "total_tokens": 697525
+    "total_tokens": 697525,
+    "disabled": true
   },
   "deepseek-v4-pro-202606": {
     "prompt_tokens": 19480,
     "completion_tokens": 3887,
-    "total_tokens": 23367
+    "total_tokens": 23367,
+    "disabled": true
+  },
+  "deepseek-v4-flash-202605": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "deepseek-v4-pro-0813": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "deepseek-v4-flash-0731": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "deepseek/deepseek-flash": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "kimi-k3": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "kimi-k2.7-code": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "kimi-k2.7-code-highspeed": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "kimi-k2.8-preview": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "kimi-k2.5": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "hy4-preview": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "qwen3.5-flash": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "qwen3.5-plus": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "glm-5.3": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "glm-5.3-flash": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
+  },
+  "glm-5.2": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
   }
 }
