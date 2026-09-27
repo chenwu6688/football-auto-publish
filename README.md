@@ -105,6 +105,11 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 ## 🎬 数字人口播视频管线 / Video Pipeline（Phase 0+1 · 免费 MVP）
 
+> ⏸️ **状态：暂停使用（2026-09-27）** —— 实测效果未达预期，暂不接入发布链路。
+> 本节及 `video_pipeline/` 相关代码**保持入库留档**，但**不参与任何定时发布流程**
+> （`batch.yml` / `daily.yml` 均不调用）。图文发布链路不受其影响，可放心忽略本模块。
+> 后续若重启，再单独评估。
+
 > 把同一篇图文**额外**产出「数字人口播视频」，发头条号 / 抖音 / 视频号。**独立于现有图文发布链路**，复用品牌手册与 LLM 额度，零新增成本、本地 CPU 可跑、无 GPU。
 
 - 📝 **口播稿**：`video_pipeline/script_gen.py` 复用 `config/brand_manual.yaml` + LLM，产出 60–90s 口语稿（黄金 3 秒强钩子 + 共鸣/系列钩子 + 结尾互动钩子）；LLM 失效自动回退规则兜底，**绝不阻断生成**。
