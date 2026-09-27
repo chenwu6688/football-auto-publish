@@ -2,38 +2,15 @@
 TODAY=2026-09-27
 auth_ok=yes
 === last 12000 chars of output ===
-在 /home/runner/work/football-auto-publish/football-auto-publish/output/2026-09-27 中找到 4 个 article-*.md 文件: ['article-1-亚运七连冠328-2e3892.md', 'article-2-28年等一回U2-11693a.md', 'article-3-中超射手王亲口揭-519ecb.md', 'article-4-凯恩点球中横梁英-a03f13.md']
-加载 4 篇文章:
-  [1] 亚运七连冠！328.56分碾压夺冠，韩国队连尾灯都看不见
-  [2] 28年等一回！U23国足3-0泰国再上新闻联播，这次能走多远？
-  [3] 中超射手王亲口揭秘：从右路挪到左路，乔迪一句话让他多进10个球
-  [4] 凯恩点球中横梁，英格兰主场被西班牙3-2掀翻，这剧本谁写的？
-📰 加载 4 篇文章, headless=True
+在 /home/runner/work/football-auto-publish/football-auto-publish/output/2026-09-27 中找到 5 个 article-*.md 文件: ['article-1-领先70多分是什-8bc15e.md', 'article-2-32856分中国-773842.md', 'article-3-大雨里换掉半支队-4f5ebf.md', 'article-4-克雷桑逛环球影城-4adba1.md', 'article-5-凯恩点球中横梁英-35b57f.md']
+加载 5 篇文章:
+  [1] 领先70多分是什么概念？中国跳水这统治力，让我想起02年那支国足
+  [2] 328.56分！中国跳水七连冠，这统治力让我想起02年那支国足
+  [3] 大雨里换掉半支队，这个西班牙老头把国足带进了28年没进过的四强
+  [4] 克雷桑逛环球影城顺手看劳力士，21场16球的射手，歇赛期该不该晒这表？
+  [5] 凯恩点球中横梁，英格兰2-3被西班牙绝杀，这剧本谁顶得住？
+📰 加载 5 篇文章, headless=True
 🚀 启动浏览器...
-Traceback (most recent call last):
-  File "/home/runner/work/football-auto-publish/football-auto-publish/publisher.py", line 1174, in <module>
-    publish_all(date_str, draft_mode, headless=headless, batch_filter=batch_filter)
-  File "/home/runner/work/football-auto-publish/football-auto-publish/publisher.py", line 1087, in publish_all
-    browser = p.chromium.launch(headless=headless, args=launch_args)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 16814, in launch
-    self._sync(
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
-    return task.result()
-           ^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_browser_type.py", line 101, in launch
-    await self._channel.send(
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
-    return await self._connection.wrap_api_call(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
-    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /home/runner/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell
-╔════════════════════════════════════════════════════════════╗
-║ Looks like Playwright was just installed or updated.       ║
-║ Please run the following command to download new browsers: ║
-║                                                            ║
-║     playwright install                                     ║
-║                                                            ║
-║ <3 Playwright Team                                         ║
-╚════════════════════════════════════════════════════════════╝
+⚠️  登录已过期，需要重新登录
+   当前URL: https://mp.toutiao.com/auth/page/login?redirect_url=JTJGcHJvZmlsZV92NCUyRmdyYXBoaWMlMkZwdWJsaXNo
+   运行: python scripts/publisher.py --login
