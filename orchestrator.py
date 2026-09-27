@@ -2463,6 +2463,10 @@ def main():
         print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, 栏目={', '.join(column_names)}, {batch_cfg['name']}·{batch_cfg['time']}, 单批上限={max_articles}篇)\n")
         target_types = None  # Column-driven, not type-driven
     else:
+        # auto / 未配置批次：BATCH_CONFIG 里没有 "auto"，
+        # 但下游「紧急球评」分支(batch_mode in ("auto","morning")) 会读 batch_cfg["name"]，
+        # 不在此绑定会导致 UnboundLocalError（2026-09-27 生成文章 失败根因）。
+        batch_cfg = {"name": "自动", "time": "", "max_articles": 4}
         max_articles = 4
         article_count = 2
         target_types = None
