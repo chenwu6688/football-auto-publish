@@ -306,12 +306,19 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             return parsed, model
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else None
-            if status in (401, 402, 403):
-                hint = "key/权限无效" if status in (401, 403) else "额度耗尽(需充值)"
-                print(f"   🚫 LLM({model}) 返回 HTTP {status}，标记禁用（{hint}）")
+            if status in (401, 403):
+                # 401/403 = key 无效 / 无权限 —— 换 key 之前必然一直失败，值得持久禁用。
+                hint = "key 无效" if status == 401 else "无权限"
+                print(f"   🚫 LLM({model}) 返回 HTTP {status}（{hint}），标记禁用")
                 usage.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0})
                 usage[model]["disabled"] = True
                 _save_llm_usage(usage, usage_file)
+            elif status == 402:
+                # 402 = 账户欠费 / 余额不足 —— 这是**账户级**问题，不是模型坏了。
+                # 充值后即可恢复，因此**绝不持久禁用**，否则充了钱也永远跑不起来
+                # （曾导致 2026-09-26 欠费后即使充值，后续批次仍被全部跳过）。
+                print(f"   💸 LLM({model}) 返回 HTTP 402（账户欠费/余额不足），本次跳过；"
+                      f"充值后自动恢复（不标记禁用）")
             else:
                 preview = str(e)[:200]
                 print(f"   ⚠️ LLM({model}) HTTP 调用失败: {preview}")
