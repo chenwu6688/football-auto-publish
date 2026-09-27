@@ -35,11 +35,21 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
+      - name: 读取 Playwright 版本（用于缓存键）
+        id: pw
+        run: |
+          pip install -q --disable-pip-version-check "playwright>=1.40" 2>/dev/null || true
+          VER=$(python3 -c "import importlib.metadata as m; print(m.version('playwright'))" 2>/dev/null || echo unknown)
+          echo "version=$VER" >> $GITHUB_OUTPUT
+          echo "resolved playwright=$VER"
+
       - name: 缓存 Playwright 浏览器
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          # 用「解析后的 playwright 版本」作缓存键：库升级 → 键变化 → 重新下载对应浏览器，
+          # 避免命中旧缓存后缺少新版 headless-shell（2026-09-27 发布失败根因）。
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
           restore-keys: |
             playwright-${{ runner.os }}-
 
@@ -47,6 +57,8 @@ jobs:
         run: |
           pip install -r requirements.txt
           playwright install chromium --with-deps
+          # 强制补齐与当前 playwright 版本匹配的浏览器（缓存命中时 install 可能跳过）
+          python3 -c "from playwright.__main__ import main; import sys; sys.argv=['playwright','install','chromium','--force']" 2>/dev/null || playwright install chromium
 
       - name: 静态分析 — 检查无未定义的函数引用
         run: |
