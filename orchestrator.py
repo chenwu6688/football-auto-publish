@@ -483,7 +483,7 @@ def _check_intra_batch_dedup(topics):
 
 
 def select_topics(match_data, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label="", topic_count=3, yesterday_keywords=None):
-    print(f"\n[2/5] LLM 话题筛选 (hy3/Hunyuan, target={topic_count}篇)...")
+    print(f"\n[2/5] LLM 话题筛选 (TokenHub 多模型轮换, target={topic_count}篇)...")
     lines = []
     for league, matches in sorted(match_data.get("fixtures_by_league", {}).items()):
         lines.append(f"\n## {league}")
@@ -669,7 +669,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         {"role": "user", "content": prompt}
     ]
     # Multi-model rotation on JSON parse failure / empty response.
-    # Default order: hy3 -> hunyuan-lite -> hunyuan-turbo -> ... -> qwen-turbo
+    # Default order = constants.LLM_JSON_CANDIDATES（deepseek > kimi > hy/mimo/step > glm）
     try:
         topics, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES, temperature=0.7, max_tokens=2048)
     except ValueError as e:
