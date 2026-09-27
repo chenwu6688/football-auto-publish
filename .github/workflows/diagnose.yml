@@ -46,16 +46,23 @@ jobs:
           echo "----- captured -----"
           cat data/gen_error.log
 
-      - name: 提交诊断结果
+      - name: 提交诊断结果 (via API)
         if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git config user.email "vecly@outlook.com"
-          git config user.name "chenwu6688"
-          git add -f data/gen_error.log data/llm_diag.txt
-          git commit -m "chore(diag): orchestrator 生成错误回溯 [skip ci]" || echo "no change to commit"
-          for i in 1 2 3 4 5; do
-            git fetch origin main || true
-            git rebase origin/main || git rebase --abort || true
-            if git push origin HEAD:main; then echo "PUSHED"; break; fi
-            echo "push attempt $i failed, retrying..."; sleep 4
-          done
+          FILE=data/gen_error.log
+          [ -f "$FILE" ] || echo "(missing gen_error.log)" > "$FILE"
+          CONTENT=$(base64 -w0 "$FILE")
+          REPO="${{ github.repository }}"
+          SHA=$(gh api "repos/$REPO/contents/$FILE?ref=main" --jq '.sha' 2>/dev/null || true)
+          if [ -n "$SHA" ]; then
+            gh api --method PUT "repos/$REPO/contents/$FILE" \
+              -f message="chore(diag): orchestrator 生成错误 [skip ci]" \
+              -f content="$CONTENT" -f branch=main -f sha="$SHA" >/dev/null && echo "UPDATED"
+          else
+            gh api --method PUT "repos/$REPO/contents/$FILE" \
+              -f message="chore(diag): orchestrator 生成错误 [skip ci]" \
+              -f content="$CONTENT" -f branch=main >/dev/null && echo "CREATED"
+          fi
+          echo "commit step done"
