@@ -33,6 +33,7 @@ jobs:
           WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
           WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
         run: |
+          set +e
           TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
           echo "TODAY=$TODAY"
           python orchestrator.py "$TODAY" --batch=auto > /tmp/gen.log 2>&1
@@ -45,6 +46,7 @@ jobs:
           } > data/gen_error.log
           echo "----- captured -----"
           cat data/gen_error.log
+          exit 0
 
       - name: 提交诊断结果 (via API)
         if: always()
