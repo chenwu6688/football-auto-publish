@@ -1,7 +1,242 @@
 {
-  "batches_completed": [
-    "morning"
+  "date": "2026-09-27",
+  "generated_at": "2026-09-27T04:09:21.000046",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "328.56分！陈艺文陈佳卫冕，这块金牌的含金量老球迷才懂",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-1-32856分陈艺-27dfc4.md",
+      "slug": "32856分陈艺-27dfc4",
+      "tags": [
+        "Asian Games",
+        "diving",
+        "Chen Yiwen",
+        "Chen Jia",
+        "China"
+      ],
+      "keywords": [
+        "Asian Games",
+        "diving",
+        "Chen Yiwen",
+        "Chen Jia",
+        "China"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "新西兰刚踢完美加墨世界杯，国足今晚这块试金石够硬吗？",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-2-新西兰刚踢完美加-f0e6fb.md",
+      "slug": "新西兰刚踢完美加-f0e6fb",
+      "tags": [
+        "China national football team",
+        "New Zealand",
+        "friendly match",
+        "Shao Jiayi",
+        "World Cup 2026"
+      ],
+      "keywords": [
+        "China national football team",
+        "New Zealand",
+        "friendly match",
+        "Shao Jiayi",
+        "World Cup 2026"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "欧洲球探盯上王钰栋？比利时荷兰德国三选一，这事靠谱吗",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-3-欧洲球探盯上王钰-4e6ddf.md",
+      "slug": "欧洲球探盯上王钰-4e6ddf",
+      "tags": [
+        "Wang Yudong",
+        "scout report",
+        "European clubs",
+        "Belgium",
+        "Netherlands",
+        "Germany"
+      ],
+      "keywords": [
+        "Wang Yudong",
+        "scout report",
+        "European clubs",
+        "Belgium",
+        "Netherlands",
+        "Germany"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    }
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-27 08:09:09"
+  "topics": [
+    {
+      "title": "半决赛突然上VAR，中韩这场是要靠哨子定生死吗？",
+      "angle": "小组赛和1/4决赛都没VAR，偏偏中韩半决赛开VAR——这到底是公平升级还是给中国队上压力？老六认为：越是关键战越需要技术兜底，但中国球员得先学会别在禁区里伸手。",
+      "keywords": [
+        "VAR",
+        "Asian Games",
+        "China U23",
+        "South Korea",
+        "semi-final"
+      ],
+      "keywords_cn": [
+        "亚运会",
+        "VAR",
+        "中韩对决",
+        "U23国足",
+        "半决赛"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "VAR突然启用制造争议，中韩对决自带情绪",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "从米卢到安东尼奥，好教练真能让国足正常发挥？",
+      "angle": "沪媒把安东尼奥比作米卢——这话戳中了老球迷的痛点：中国足球缺的从来不是天才，是能把普通人用明白的教练。老六借这个对比聊聊米卢当年那套'快乐足球'到底灵在哪。",
+      "keywords": [
+        "Antonio",
+        "Milutinovic",
+        "China national team",
+        "coach",
+        "World Cup 2002"
+      ],
+      "keywords_cn": [
+        "安东尼奥",
+        "米卢",
+        "国足",
+        "名帅",
+        "2002世界杯"
+      ],
+      "content_type": "战术解析",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "世界杯经典时刻",
+      "series_id": "wc-classics",
+      "why_pick": "米卢对比唤醒02记忆，老球迷DNA动了",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "王钰栋球探报告惊动欧洲，这次留洋能成真吗？",
+      "angle": "博主一份球探报告引来欧洲俱乐部问询——这些年'留洋机会'听得太多，老六不吹不黑：机会是真的，但能不能走成、走得对不对，比能不能被看上更关键。",
+      "keywords": [
+        "Wang Yudong",
+        "overseas",
+        "scout report",
+        "Europe",
+        "Chinese player"
+      ],
+      "keywords_cn": [
+        "王钰栋",
+        "留洋",
+        "球探报告",
+        "欧洲俱乐部",
+        "中国球员"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "留洋话题自带期待，理性角度避免过度炒作",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning",
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-09-27 12:09:21"
 }
