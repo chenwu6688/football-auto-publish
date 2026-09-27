@@ -1,8 +1,7 @@
 name: 诊断-TokenHub-LLM
 
-# 临时诊断：直接用 CI 里的 HY3_API_KEY 逐个探测候选模型，
-# 把每个模型的真实 HTTP 状态写进 data/llm_diag.txt 并提交，便于沙箱读取。
-# 排查完成后删除本文件。
+# 临时诊断：复现 daily.yml 的"生成文章"步骤并捕获完整输出/回溯，
+# 写入 data/gen_error.log 并提交，便于沙箱读取。排查完成后删除本文件。
 
 on:
   workflow_dispatch:
@@ -23,54 +22,35 @@ jobs:
           python-version: '3.11'
 
       - name: 安装依赖
-        run: pip install -q requests
+        run: pip install -q -r requirements.txt
 
-      - name: 逐个探测候选模型
+      - name: 复现 生成文章 并捕获错误
         env:
           HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
         run: |
-          python3 - <<'PY'
-          import os, requests
-          from datetime import datetime, timezone
-          key = os.environ.get("HY3_API_KEY", "")
-          url = "https://tokenhub.tencentmaas.com/v1/chat/completions"
-          models = [
-            "deepseek-v4-flash-202605", "deepseek/deepseek-flash", "deepseek-v4-flash-0731",
-            "deepseek-v4.1-flash", "deepseek/deepseek-v4-flash-vision-exp",
-            "deepseek-v4-pro-202606", "deepseek-v4-pro-0813", "kimi-k3",
-            "kimi-k2.7-code-highspeed", "kimi-k2.8-preview", "hy4-preview",
-            "mimo-v2.6-flash", "mimo-v2.6-pro", "step-5-preview",
-            "glm-5.3-flash", "glm-5.3-flashx", "glm-5.3", "glm-5.2",
-          ]
-          lines = [f"=== TokenHub 模型探测 ===",
-                   f"time_utc={datetime.now(timezone.utc).isoformat()}",
-                   f"key_len={len(key)}"]
-          for m in models:
-              body = {"model": m,
-                      "messages": [{"role": "user", "content": "ping, reply the single word pong"}],
-                      "max_tokens": 16, "stream": False}
-              if m.startswith("kimi-"):
-                  body["temperature"] = 1.0
-              elif m.startswith(("deepseek", "glm-", "qwen3")):
-                  body["thinking"] = {"type": "disabled"}
-              try:
-                  r = requests.post(url, json=body,
-                      headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                      timeout=40)
-                  snippet = " ".join(r.text.split())[:220]
-                  lines.append(f"{m}\tHTTP {r.status_code}\t{snippet}")
-              except Exception as e:
-                  lines.append(f"{m}\tERR\t{type(e).__name__}: {e}")
-          out = "\n".join(lines) + "\n"
-          os.makedirs("data", exist_ok=True)
-          open("data/llm_diag.txt", "w", encoding="utf-8").write(out)
-          print(out)
-          PY
+          TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
+          echo "TODAY=$TODAY"
+          python orchestrator.py "$TODAY" --batch=auto > /tmp/gen.log 2>&1
+          RC=$?
+          {
+            echo "=== orchestrator exit code = $RC ==="
+            echo "TODAY=$TODAY  BATCH=auto"
+            echo "=== last 12000 chars of output ==="
+            tail -c 12000 /tmp/gen.log
+          } > data/gen_error.log
+          echo "----- captured -----"
+          cat data/gen_error.log
 
       - name: 提交诊断结果
+        if: always()
         run: |
           git config user.email "vecly@outlook.com"
           git config user.name "chenwu6688"
-          git add -f data/llm_diag.txt
-          git commit -m "chore(diag): TokenHub 模型探测结果 [skip ci]" || echo "no change to commit"
+          git add -f data/gen_error.log data/llm_diag.txt
+          git commit -m "chore(diag): orchestrator 生成错误回溯 [skip ci]" || echo "no change to commit"
           git push origin HEAD:main || echo "push failed"
