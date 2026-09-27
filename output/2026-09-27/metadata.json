@@ -1,7 +1,7 @@
 {
   "date": "2026-09-27",
-  "generated_at": "2026-09-27T04:09:21.000046",
-  "total_articles": 3,
+  "generated_at": "2026-09-27T09:39:41.555176",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -99,144 +99,342 @@
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "前申花主帅自曝：在中国执教时，有个女人无处不在",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-1-前申花主帅自曝在-b0815b.md",
+      "slug": "前申花主帅自曝在-b0815b",
+      "tags": [
+        "Slutsky",
+        "Shenhua",
+        "stalker",
+        "football",
+        "CSL"
+      ],
+      "keywords": [
+        "Slutsky",
+        "Shenhua",
+        "stalker",
+        "football",
+        "CSL"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "从黑色九分钟到0:0出线，中国足球这道算术题终于有人会解了",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-2-从黑色九分钟到0-3667fc.md",
+      "slug": "从黑色九分钟到0-3667fc",
+      "tags": [
+        "Chinese football",
+        "Antonio",
+        "Asian Games",
+        "draw to qualify",
+        "tactical discipline"
+      ],
+      "keywords": [
+        "Chinese football",
+        "Antonio",
+        "Asian Games",
+        "draw to qualify",
+        "tactical discipline"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "点球罚丢又怎样？U16这帮小子硬是把越南啃下来了",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-3-点球罚丢又怎样U-3faac0.md",
+      "slug": "点球罚丢又怎样U-3faac0",
+      "tags": [
+        "China U16",
+        "Vietnam U16",
+        "Peace Cup",
+        "Ji Zhenghao",
+        "Chen Zhengfei"
+      ],
+      "keywords": [
+        "China U16",
+        "Vietnam U16",
+        "Peace Cup",
+        "Ji Zhenghao",
+        "Chen Zhengfei"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "12月3日申花亚冠不在上海踢了，昆山奥体接盘背后有啥讲究",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-4-12月3日申花亚-693719.md",
+      "slug": "12月3日申花亚-693719",
+      "tags": [
+        "Shenhua",
+        "AFC Champions League",
+        "Kunshan",
+        "venue change",
+        "football"
+      ],
+      "keywords": [
+        "Shenhua",
+        "AFC Champions League",
+        "Kunshan",
+        "venue change",
+        "football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-4-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "德国碰希腊，比利时死磕法国，明晚这8场全是硬菜",
+      "path": "/home/runner/work/_temp/output/2026-09-27/article-5-德国碰希腊比利时-4abe47.md",
+      "slug": "德国碰希腊比利时-4abe47",
+      "tags": [
+        "Germany vs Greece",
+        "Belgium vs France",
+        "Norway vs Portugal",
+        "Serbia vs Netherlands",
+        "South Korea vs Uruguay"
+      ],
+      "keywords": [
+        "Germany vs Greece",
+        "Belgium vs France",
+        "Norway vs Portugal",
+        "Serbia vs Netherlands",
+        "South Korea vs Uruguay"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-27/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-27/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "半决赛突然上VAR，中韩这场是要靠哨子定生死吗？",
-      "angle": "小组赛和1/4决赛都没VAR，偏偏中韩半决赛开VAR——这到底是公平升级还是给中国队上压力？老六认为：越是关键战越需要技术兜底，但中国球员得先学会别在禁区里伸手。",
+      "title": "跟踪、情书、泪痕：一个洋帅在中国的离奇遭遇",
+      "angle": "斯卢茨基自曝在中国被女球迷跟踪、收到带泪痕的长篇情书，这事听着离谱，但恰恰说明中超外教在中国活成了'明星'。从职业角度看，这种场外骚扰对教练组是负担，别把越界当浪漫。",
+      "keywords": [
+        "Sluisky",
+        "stalker",
+        "Chinese Super League"
+      ],
+      "keywords_cn": [
+        "斯卢茨基",
+        "女球迷跟踪",
+        "中超外教"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "外教场外离奇遭遇，自带话题和边界讨论",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "半决赛才上VAR，亚运会这规则是进步还是双标？",
+      "angle": "亚运男足半决赛才启用VAR，小组赛和1/4决赛都没有。同一届赛事两套标准，前面吃亏的队找谁说理？规则公平性比技术本身更值得聊。",
       "keywords": [
         "VAR",
         "Asian Games",
-        "China U23",
-        "South Korea",
-        "semi-final"
+        "referee",
+        "football rules"
       ],
       "keywords_cn": [
-        "亚运会",
         "VAR",
-        "中韩对决",
-        "U23国足",
-        "半决赛"
+        "亚运会",
+        "裁判",
+        "规则公平"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 82,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "VAR突然启用制造争议，中韩对决自带情绪",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "从米卢到安东尼奥，好教练真能让国足正常发挥？",
-      "angle": "沪媒把安东尼奥比作米卢——这话戳中了老球迷的痛点：中国足球缺的从来不是天才，是能把普通人用明白的教练。老六借这个对比聊聊米卢当年那套'快乐足球'到底灵在哪。",
-      "keywords": [
-        "Antonio",
-        "Milutinovic",
-        "China national team",
-        "coach",
-        "World Cup 2002"
-      ],
-      "keywords_cn": [
-        "安东尼奥",
-        "米卢",
-        "国足",
-        "名帅",
-        "2002世界杯"
-      ],
-      "content_type": "战术解析",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "世界杯经典时刻",
-      "series_id": "wc-classics",
-      "why_pick": "米卢对比唤醒02记忆，老球迷DNA动了",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "同届赛事两套判罚标准，争议性强易引战",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "王钰栋球探报告惊动欧洲，这次留洋能成真吗？",
-      "angle": "博主一份球探报告引来欧洲俱乐部问询——这些年'留洋机会'听得太多，老六不吹不黑：机会是真的，但能不能走成、走得对不对，比能不能被看上更关键。",
+      "title": "五次'打平就出线'全通关，安东尼奥到底做对了啥？",
+      "angle": "亚运会五次遭遇'打平就出线'的魔咒局面全部过关，安东尼奥靠的是知己知彼和针对性备战。中国足球最缺的从来不是天赋，是把对手研究透的笨功夫。",
       "keywords": [
-        "Wang Yudong",
-        "overseas",
-        "scout report",
-        "Europe",
-        "Chinese player"
+        "Antonio",
+        "Asian Games",
+        "China U23",
+        "tactics"
       ],
       "keywords_cn": [
-        "王钰栋",
-        "留洋",
-        "球探报告",
-        "欧洲俱乐部",
-        "中国球员"
+        "安东尼奥",
+        "亚运会",
+        "U23国足",
+        "备战"
       ],
-      "content_type": "转会资讯",
-      "score": 85,
+      "content_type": "战术解析",
+      "score": 86,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
+      "target_emotion": "骄傲",
       "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "留洋话题自带期待，理性角度避免过度炒作",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国字号突破+战术细节，情怀与干货兼具",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "申花亚冠主场改到昆山，这波操作球迷买账吗？",
+      "angle": "12月3日亚冠二级上海申花对柴桢，比赛场地改到昆山奥体中心。主场说改就改，上海球迷跑一趟昆山，这笔账该算在谁头上？",
+      "keywords": [
+        "Shanghai Shenhua",
+        "AFC Champions League",
+        "Kunshan",
+        "venue"
+      ],
+      "keywords_cn": [
+        "上海申花",
+        "亚冠",
+        "昆山奥体",
+        "主场变更"
+      ],
+      "content_type": "热点球评",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "主场异地办赛，涉及球迷利益有讨论空间",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "德国碰希腊，比利时死磕法国，明晚这8场全是硬菜",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-27 12:09:21"
+  "last_batch": "evening",
+  "last_updated": "2026-09-27 17:39:41"
 }
