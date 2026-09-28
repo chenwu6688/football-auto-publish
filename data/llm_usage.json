@@ -34,5 +34,25 @@
     "prompt_tokens": 4440,
     "completion_tokens": 1141,
     "total_tokens": 5581
+  },
+  "deepseek/deepseek-v4-flash-vision-exp": {
+    "prompt_tokens": 7395,
+    "completion_tokens": 1059,
+    "total_tokens": 8454
+  },
+  "deepseek-v4-pro-0813": {
+    "prompt_tokens": 3976,
+    "completion_tokens": 1111,
+    "total_tokens": 5087
+  },
+  "kimi-k2.7-code-highspeed": {
+    "prompt_tokens": 4103,
+    "completion_tokens": 4834,
+    "total_tokens": 8937
+  },
+  "mimo-v2.6-flash": {
+    "prompt_tokens": 2064,
+    "completion_tokens": 2630,
+    "total_tokens": 4694
   }
 }
