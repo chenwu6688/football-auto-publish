@@ -1,7 +1,7 @@
 {
   "date": "2026-09-28",
-  "generated_at": "2026-09-28T04:09:57.359680",
-  "total_articles": 8,
+  "generated_at": "2026-09-28T09:43:28.781208",
+  "total_articles": 13,
   "articles": [
     {
       "index": 1,
@@ -255,98 +255,309 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "全球U22边卫评分，大连这小孩排第五，什么水平？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-1-全球U22边卫评-aea7d9.md",
+      "slug": "全球U22边卫评-aea7d9",
+      "tags": [
+        "CIES",
+        "U22",
+        "full-back",
+        "Mao Weijie",
+        "Dalian Yingbo",
+        "Espart",
+        "Barcelona"
+      ],
+      "keywords": [
+        "CIES",
+        "U22",
+        "full-back",
+        "Mao Weijie",
+        "Dalian Yingbo",
+        "Espart",
+        "Barcelona"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "韩国人盯上王钰栋了，这排面咱多久没见过了？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-2-韩国人盯上王钰栋-72637f.md",
+      "slug": "韩国人盯上王钰栋-72637f",
+      "tags": [
+        "Wang Yudong",
+        "Yang Min-hyeok",
+        "Asian Games football",
+        "China U23",
+        "Korea U23"
+      ],
+      "keywords": [
+        "Wang Yudong",
+        "Yang Min-hyeok",
+        "Asian Games football",
+        "China U23",
+        "Korea U23"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "两轮不胜！德国战车在欧国联熄火，问题出在哪？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-3-两轮不胜德国战车-35c75d.md",
+      "slug": "两轮不胜德国战车-35c75d",
+      "tags": [
+        "Germany",
+        "Greece",
+        "UEFA Nations League",
+        "Klopp",
+        "Kimmich"
+      ],
+      "keywords": [
+        "Germany",
+        "Greece",
+        "UEFA Nations League",
+        "Klopp",
+        "Kimmich"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "U16国少1胜1平，定位球成了救命稻草？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-4-U16国少1胜1-f4ff6c.md",
+      "slug": "U16国少1胜1-f4ff6c",
+      "tags": [
+        "China U16",
+        "Zhang Yaokun",
+        "Peace Cup",
+        "set pieces",
+        "youth football"
+      ],
+      "keywords": [
+        "China U16",
+        "Zhang Yaokun",
+        "Peace Cup",
+        "set pieces",
+        "youth football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "比利时法国火星撞地球，欧国联一夜五场硬仗先说清楚",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-5-比利时法国火星撞-f82d64.md",
+      "slug": "比利时法国火星撞-f82d64",
+      "tags": [
+        "Nations League",
+        "Belgium France",
+        "Spain Croatia",
+        "England Czech",
+        "Turkey Italy",
+        "football predictions"
+      ],
+      "keywords": [
+        "Nations League",
+        "Belgium France",
+        "Spain Croatia",
+        "England Czech",
+        "Turkey Italy",
+        "football predictions"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "马德兴一句「小学生」，戳中了多少老球迷的痛处？",
-      "angle": "马德兴直言国足与世界潮流脱轨、部分国脚不具备实力——这话难听，但作为看了三十年国足的老球迷，我认。不骂街，就聊聊我们到底差在哪一层：不是身体不是拼劲，是脑子里的足球。",
+      "title": "U22边卫排名第五，这个大连小伙凭什么挤进欧洲榜单？",
+      "angle": "CIES本赛季U22边卫榜，埃斯帕特居首，大连英博的毛伟杰排第五。别急着喊天才，先看清：这是数据模型排名，不是能力认证，中国球员能被算法看见本身就是信号。",
       "keywords": [
-        "China national football team",
-        "Ma Dexing",
-        "World Cup qualifiers"
+        "CIES",
+        "U22 fullback ranking",
+        "Mao Weijie",
+        "Dalian Yingbo"
       ],
       "keywords_cn": [
-        "国足",
-        "马德兴",
-        "足球理念脱轨"
+        "CIES",
+        "U22边卫排名",
+        "毛伟杰",
+        "大连英博"
       ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "content_type": "排行榜",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
       "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "国足痛点加名记开炮，老球迷共鸣拉满",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "series_id": "无",
+      "why_pick": "中国球员上榜欧洲数据榜，稀缺信息有增量",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "U23打完韩国还要打韩国？这支国奥凭啥说「毫无心理劣势」",
-      "angle": "东体说U23国足半决赛战韩国毫无心理劣势，全队信任主帅战术；可对面马德兴点出韩国阵容比三年前更强、还有9名旅欧球员。信任是好事，但别把自信当实力——聊聊这批孩子真正的机会在哪。",
+      "title": "韩媒盯着王钰栋和梁民革，这场正面对决到底谁更急？",
+      "angle": "韩媒把梁民革和'中国梁民革'王钰栋的对决炒成看点，本质是两边都在找下一个留洋招牌。别被带节奏——真正的较量不在媒体标题里，在能不能踢上球。",
       "keywords": [
-        "China U23",
-        "South Korea U23",
-        "Asian Games football"
+        "Wang Yudong",
+        "Yang Min-hyuk",
+        "Korean media",
+        "overseas duel"
       ],
       "keywords_cn": [
-        "U23国足",
-        "韩国国奥",
-        "亚运男足"
+        "王钰栋",
+        "梁民革",
+        "韩媒",
+        "留洋对决"
       ],
-      "content_type": "热点球评",
-      "score": 85,
+      "content_type": "八卦趣事",
+      "score": 83,
       "controversy_level": "medium",
       "target_emotion": "好奇",
       "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "中韩对决自带话题，心理优势引争议",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "中韩新星对比自带话题，老球迷爱看",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "U16国少换帅后「平稳启航」，可球员连新阵型都没摸熟？",
-      "angle": "体坛说U16国少换帅后平稳启航、定位球成亮点，但球员还不熟悉新阵型。换帅如换刀，刀是快了，可刀法还没练熟——从这批孩子看中国青训的老毛病：总在推倒重来。",
+      "title": "德国0-1输给希腊，这支队伍的问题真只是运气差？",
+      "angle": "德国主场0-1栽在希腊脚下，别再用'热身赛不算数'搪塞。从锋无力到中场脱节，这不是一场意外，是老问题又犯了——再不改，大赛还得栽。",
       "keywords": [
-        "China U16",
-        "coaching change",
-        "youth football"
+        "Germany",
+        "Greece",
+        "friendly defeat",
+        "tactical problems"
+      ],
+      "keywords_cn": [
+        "德国",
+        "希腊",
+        "热身赛失利",
+        "战术问题"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "豪门爆冷输球，争议与复盘价值双高",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "U16国少换帅后平稳启航，定位球成亮点却藏着隐忧？",
+      "angle": "体坛：U16国少换帅后平稳启航，定位球是亮点，但球员还不熟悉新阵型。青训换帅从来是双刃剑——短期成绩好看，长期磨合的账迟早要还。",
+      "keywords": [
+        "U16 China",
+        "coach change",
+        "set pieces",
+        "youth development"
       ],
       "keywords_cn": [
         "U16国少",
         "换帅",
+        "定位球",
         "青训"
       ],
       "content_type": "战术解析",
@@ -354,72 +565,40 @@
       "controversy_level": "low",
       "target_emotion": "好奇",
       "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "青训换帅老问题，定位球亮点有增量",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "女足碰朝鲜「难度拉满」，米利西奇还要硬啃这块骨头吗？",
-      "angle": "东体直言中国女足想赢朝鲜难度拉满，劝米利西奇别再没苦硬吃。铿锵玫瑰这些年从亚洲霸主熬成追赶者，这场球该怎么打——是死磕还是练兵，老球迷心里有杆秤。",
-      "keywords": [
-        "China women's football",
-        "North Korea women",
-        "Milicic"
-      ],
-      "keywords_cn": [
-        "中国女足",
-        "朝鲜女足",
-        "米利西奇"
-      ],
-      "content_type": "热点球评",
-      "score": 80,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "女足沉浮引情怀，排兵布阵有争议",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "series_id": "guozu-chronicle",
+      "why_pick": "青训换帅话题接国足编年史，戳老球迷情怀",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "比利时法国火星撞地球，欧国联一夜五场硬仗先说清楚",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-09-28 12:09:57"
+  "last_batch": "evening",
+  "last_updated": "2026-09-28 17:43:28"
 }
