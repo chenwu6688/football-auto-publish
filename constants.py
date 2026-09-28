@@ -86,11 +86,18 @@ LLM_JSON_CANDIDATES = [
 ]
 
 # --- LLM 免费额度管理 ---
-# 当某模型剩余免费额度低于阈值（默认 5%）时自动跳过并切换下一个。
-# threshold=0.95 表示已用 >= 95%（剩余 <= 5%）时跳过。
+# 多模型轮换的额度规则（2026-09-27 调整）：
+#   1) 阈值 THRESHOLD：某模型已用 >= 阈值（默认 0.90 = 剩余 <=10%）时跳过，切下一个。
+#   2) 硬上限 HARD_CAP：本地累计到该 tokens 数即视为耗尽（保险丝，防本地计数失真导致超额）。
+# 切换顺序改为「剩余额度降序，同分按原候选顺序」，优先用剩余最多的模型。
 LLM_USAGE_FILE = PROJECT_ROOT / "data" / "llm_usage.json"
 LLM_FREE_QUOTA_TOKENS = int(os.environ.get("LLM_FREE_QUOTA_TOKENS", "1000000"))
-LLM_USAGE_THRESHOLD = float(os.environ.get("LLM_USAGE_THRESHOLD", "0.95"))
+LLM_USAGE_THRESHOLD = float(os.environ.get("LLM_USAGE_THRESHOLD", "0.90"))
+# 单模型本地累计硬上限（tokens）：到线即切走（默认 80 万 = 80%）。
+# 设得比 threshold 略低，作为「本地计数与后台对不上」时的保险丝。
+LLM_HARD_CAP_TOKENS = int(os.environ.get("LLM_HARD_CAP_TOKENS", "800000"))
+# 切换排序：True=按剩余额度降序（同分按原顺序）；False=保持原候选顺序。
+LLM_SORT_BY_REMAINING = os.environ.get("LLM_SORT_BY_REMAINING", "1").lower() not in ("0", "false", "no")
 
 # --- WxPusher ---
 WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")

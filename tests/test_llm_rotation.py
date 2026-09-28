@@ -146,12 +146,65 @@ def mock_http_error(status):
 
 
 def test_is_model_available_threshold(tmp_path):
-    """单元层面确认阈值判断：已用 < 95% 可用；>= 95% 不可用。"""
+    """单元层面确认阈值判断：已用 < 90% 可用；>= 90% 不可用。"""
     q = utils.LLM_FREE_QUOTA_TOKENS
     th = utils.LLM_USAGE_THRESHOLD
-    assert utils._is_model_available("m", {"m": {"total_tokens": int(q * 0.96)}}) is False
+    assert th == 0.90, f"阈值应为 0.90（剩余 10% 切换），实际 {th}"
+    assert utils._is_model_available("m", {"m": {"total_tokens": int(q * 0.91)}}) is False
     assert utils._is_model_available("m", {"m": {"total_tokens": int(q * 0.50)}}) is True
     assert utils._is_model_available("m", {"m": {"disabled": True}}) is False
+
+
+def test_hard_cap_forces_skip(tmp_path):
+    """方案 I 保险丝：本地已用达到硬上限(80万)即视为耗尽，即使阈值(90%)未到。"""
+    cap = utils.LLM_HARD_CAP_TOKENS
+    q = utils.LLM_FREE_QUOTA_TOKENS
+    assert cap == 800_000, f"硬上限应为 800000，实际 {cap}"
+    assert cap < q * utils.LLM_USAGE_THRESHOLD, "硬上限应低于阈值线，才能起保险丝作用"
+    # 80万 / 100万 = 80% < 90% 阈值，但硬上限命中 → 不可用
+    assert utils._is_model_available("m", {"m": {"total_tokens": cap}}) is False
+    assert utils._is_model_available("m", {"m": {"total_tokens": cap - 1}}) is True
+
+
+def test_rotation_prefers_model_with_most_remaining(tmp_path, monkeypatch):
+    """方案 II：按剩余额度降序——剩余最多的模型应被优先命中，哪怕它排在候选末尾。"""
+    usage_file = tmp_path / "usage.json"
+    # deepseek-v4-pro 已用 50 万（剩余 50 万）；kimi-k3 全新（剩余 100 万）
+    usage_file.write_text(json.dumps(_usage_with(**{
+        "deepseek-v4-pro": {"total_tokens": 500_000},
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+
+    calls = []
+    def fake_call_llm(url, key, model, messages, **kw):
+        calls.append(model)
+        return '{"ok": true}'
+    monkeypatch.setattr(utils, "call_llm", fake_call_llm)
+
+    parsed, used = utils.call_llm_json(
+        [{"role": "user", "content": "x"}], candidates=_CAND,
+        usage_file=usage_file,
+    )
+    # kimi-k3/glm-5.3 剩余均为 100 万（同分按原顺序 → kimi-k3 先），排在已用 50 万的 deepseek-v4-pro 之前
+    assert used == "kimi-k3", f"应优先用剩余最多的模型，实际 {used}"
+    assert calls[0] == "kimi-k3", f"首个被调用应是剩余最多的模型，实际 {calls[0]}"
+
+
+def test_rotation_sort_can_be_disabled(tmp_path, monkeypatch):
+    """开关关闭时保持原候选顺序（第一个可用即被调用）。"""
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with(**{
+        "deepseek-v4-pro": {"total_tokens": 500_000},
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+
+    parsed, used = utils.call_llm_json(
+        [{"role": "user", "content": "x"}], candidates=_CAND,
+        usage_file=usage_file, sort_by_remaining=False,
+    )
+    assert used == "deepseek-v4-pro", f"关闭排序应保持原顺序，实际 {used}"
 
 
 def test_global_candidate_list_is_nonempty():

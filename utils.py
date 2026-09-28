@@ -7,7 +7,13 @@ retry, call_llm, safe_json_loads, load_prompt_template — 被所有模块使用
 import json, time, requests
 from pathlib import Path
 
-from constants import LLM_USAGE_FILE, LLM_FREE_QUOTA_TOKENS, LLM_USAGE_THRESHOLD
+from constants import (
+    LLM_USAGE_FILE,
+    LLM_FREE_QUOTA_TOKENS,
+    LLM_USAGE_THRESHOLD,
+    LLM_HARD_CAP_TOKENS,
+    LLM_SORT_BY_REMAINING,
+)
 
 PROMPT_DIR = Path(__file__).parent / "prompts"
 
@@ -192,13 +198,33 @@ def _save_llm_usage(usage, path=LLM_USAGE_FILE):
     path.write_text(json.dumps(usage, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD):
-    """Return True if the model has free quota remaining and is not disabled."""
+def _model_used_tokens(model, usage):
+    """Return accumulated total_tokens for a model (0 if unknown)."""
+    return usage.get(model, {}).get("total_tokens", 0)
+
+
+def _remaining_tokens(model, usage, quota=LLM_FREE_QUOTA_TOKENS):
+    """Return free tokens remaining for a model (never negative)."""
+    return max(0, quota - _model_used_tokens(model, usage))
+
+
+def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD,
+                        hard_cap=LLM_HARD_CAP_TOKENS):
+    """Return True if the model has free quota remaining and is not disabled.
+
+    Two guards (2026-09-27 免费额度规则):
+      1) 阈值 threshold：已用 >= quota*threshold（默认 0.90，即剩余 <=10%）→ 不可用。
+      2) 硬上限 hard_cap：已用 >= hard_cap（默认 80 万 tokens）→ 不可用。
+         作为「本地计数与后台实际不一致」时的保险丝，避免本地少记导致超额扣费。
+    """
     if usage.get(model, {}).get("disabled"):
         return False
-    used = usage.get(model, {}).get("total_tokens", 0)
-    limit = quota * threshold
-    return used < limit
+    used = _model_used_tokens(model, usage)
+    if used >= quota * threshold:
+        return False
+    if hard_cap and used >= hard_cap:
+        return False
+    return True
 
 
 def _add_llm_usage(usage, model, usage_info):
@@ -221,18 +247,26 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
                   usage_file=LLM_USAGE_FILE,
                   quota=LLM_FREE_QUOTA_TOKENS,
                   threshold=LLM_USAGE_THRESHOLD,
+                  hard_cap=LLM_HARD_CAP_TOKENS,
+                  sort_by_remaining=LLM_SORT_BY_REMAINING,
                   max_per_provider=None, max_candidates=18, llm_max_retries=1):
     """Try LLM candidates sequentially until one returns parseable JSON.
 
-    Uses one model at a time ( preserving free-quota exhaustion order ):
-    - skips models whose free quota is below threshold (default 5%)
+    Rotation policy (2026-09-27 免费额度规则 I+II):
+    - skips models whose free quota is below threshold (default used >=90%)
+    - skips models whose local usage hit the hard cap (default 800k tokens)
     - skips models marked disabled (e.g. returned 401/403)
+    - if sort_by_remaining: order candidates by remaining tokens DESC
+      (tie broken by original candidate order) → always spend the
+      least-used model first, so no single model burns to over-quota
     - single HTTP attempt per candidate (fail-fast)
 
     Args:
         messages: OpenAI-compatible messages list.
         candidates: list of (url, api_key, model_name) tuples.
         parser: function(text) -> parsed object or None.
+        hard_cap: local token cap; usage >= hard_cap ⇒ treat as exhausted.
+        sort_by_remaining: True = sort available by remaining desc.
         max_per_provider: legacy per-provider cap; default None = no limit
                           (sequential calls never fan out per provider).
         max_candidates: max number of available candidates to actually call.
@@ -263,12 +297,23 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         if usage.get(model, {}).get("disabled"):
             disabled.append(model)
             continue
-        if not _is_model_available(model, usage, quota, threshold):
-            used = usage.get(model, {}).get("total_tokens", 0)
-            print(f"   ⏭️ LLM({model}) 免费额度已低于阈值 ({used}/{quota} tokens，剩余 {(1-threshold)*100:.0f}% 以下），跳过")
+        if not _is_model_available(model, usage, quota, threshold, hard_cap):
+            used = _model_used_tokens(model, usage)
+            remaining = _remaining_tokens(model, usage, quota)
+            cap_hit = hard_cap and used >= hard_cap
+            why = f"已达本地硬上限 {hard_cap}" if cap_hit else f"免费额度剩余 <=10% ({(1-threshold)*100:.0f}%)"
+            print(f"   ⏭️ LLM({model}) 跳过：{why}（已用 {used}/{quota}，剩余 {remaining} tokens）")
             exhausted.append(model)
             continue
         available.append((url, key, model))
+
+    # 方案 II：按剩余额度降序（同分按原候选顺序）——优先用剩余最多的模型，
+    # 避免单个模型被反复命中而先行超额。list.sort 是稳定排序，天然保持同分原顺序。
+    if sort_by_remaining and len(available) > 1:
+        available.sort(key=lambda c: -_remaining_tokens(c[2], usage, quota))
+        top = available[0][2]
+        print(f"   🧮 按剩余额度降序排列候选（首位 {top}，剩余 "
+              f"{_remaining_tokens(top, usage, quota)} tokens）")
 
     if not available:
         reasons = []
