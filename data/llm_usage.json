@@ -1,9 +1,9 @@
 {
-  "_calibration_note": "2026-09-27 依据 TokenHub 后台截图校准本地计数（后台无额度 API，只能手工对齐）。deepseek-v4-flash-202605 取后台基准 575000 + CI 增量 61128；未列出者视为 0 消耗（后台显示 100%）。",
+  "_calibration_note": "2026-09-28 对齐 TokenHub 后台截图（后台=唯一真值）。后台无额度 API，只能手工对齐。已用 = 1000000 - 后台剩余。未列出者本地记 0（后台显示 100%）。",
   "deepseek-v4-flash-202605": {
-    "prompt_tokens": 51483,
-    "completion_tokens": 9645,
-    "total_tokens": 636128
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 575000
   },
   "kimi-k3": {
     "prompt_tokens": 0,
@@ -14,5 +14,10 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 72000
+  },
+  "glm-5.2": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 12000
   }
 }
