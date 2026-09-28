@@ -1,7 +1,7 @@
 {
   "date": "2026-09-28",
-  "generated_at": "2026-09-28T00:10:13.275509",
-  "total_articles": 4,
+  "generated_at": "2026-09-28T04:09:57.359680",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -133,135 +133,293 @@
       "column_id": "breaking",
       "column_name": "突发直击",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "别被4比0骗了，韩国队这进攻还没成型",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-1-别被4比0骗了韩-8aa96e.md",
+      "slug": "别被4比0骗了韩-8aa96e",
+      "tags": [
+        "China U23",
+        "Asian Games",
+        "South Korea",
+        "tactics",
+        "national team"
+      ],
+      "keywords": [
+        "China U23",
+        "Asian Games",
+        "South Korea",
+        "tactics",
+        "national team"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "中韩足球的账，该算算了！这次能翻盘吗？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-2-中韩足球的账该算-f12e35.md",
+      "slug": "中韩足球的账该算-f12e35",
+      "tags": [
+        "China U23",
+        "Asian Games",
+        "South Korea",
+        "Antonio",
+        "semi-final"
+      ],
+      "keywords": [
+        "China U23",
+        "Asian Games",
+        "South Korea",
+        "Antonio",
+        "semi-final"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "U16国少两场丢5球，张耀坤的定位球是遮羞布还是救命稻草？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-3-U16国少两场丢-b75572.md",
+      "slug": "U16国少两场丢-b75572",
+      "tags": [
+        "U16国少",
+        "和平杯",
+        "张耀坤",
+        "定位球",
+        "国足青训"
+      ],
+      "keywords": [
+        "U16国少",
+        "和平杯",
+        "张耀坤",
+        "定位球",
+        "国足青训"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-28/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-28/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "四年前6-0，如今被越南拖进加时——这落差谁顶得住？",
+      "path": "/home/runner/work/_temp/output/2026-09-28/article-4-四年前60如今被-f852e4.md",
+      "slug": "四年前60如今被-f852e4",
+      "tags": [
+        "China Women's Football",
+        "Asian Games",
+        "North Korea",
+        "Wang Shuang",
+        "Milicic"
+      ],
+      "keywords": [
+        "China Women's Football",
+        "Asian Games",
+        "North Korea",
+        "Wang Shuang",
+        "Milicic"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "C罗替补90分钟没上场，葡萄牙2-1挪威赢在哪？",
-      "angle": "葡萄牙赢了，但全场最大话题是C罗一直坐着。内托赛后说'球队展现了韧性'，若热·热苏斯说'挪威和葡萄牙都是欧洲前5'——可问题是，没有C罗的葡萄牙，到底踢得更好还是更乱？老六不站队，但这场球确实给了答案的一半。",
+      "title": "马德兴一句「小学生」，戳中了多少老球迷的痛处？",
+      "angle": "马德兴直言国足与世界潮流脱轨、部分国脚不具备实力——这话难听，但作为看了三十年国足的老球迷，我认。不骂街，就聊聊我们到底差在哪一层：不是身体不是拼劲，是脑子里的足球。",
       "keywords": [
-        "Cristiano Ronaldo",
-        "Portugal",
-        "Norway"
+        "China national football team",
+        "Ma Dexing",
+        "World Cup qualifiers"
       ],
       "keywords_cn": [
-        "C罗",
-        "葡萄牙",
-        "挪威"
+        "国足",
+        "马德兴",
+        "足球理念脱轨"
       ],
       "content_type": "热点球评",
-      "score": 90,
+      "score": 92,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "C罗替补+葡萄牙赢球，天然争议话题",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足痛点加名记开炮，老球迷共鸣拉满",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "出球被踢倒还挨骂，厄德高补时那口气憋了多久？",
-      "angle": "B席发力踢倒厄德高，补时阶段厄德高拍地怒骂——这画面比比分更有信息量。俱乐部层面是队友，国家队层面是对手，职业球员的情绪管理在补时第90分钟最容易崩。老六觉得：这不是脏，这是高强度对抗下的真实人性。",
+      "title": "U23打完韩国还要打韩国？这支国奥凭啥说「毫无心理劣势」",
+      "angle": "东体说U23国足半决赛战韩国毫无心理劣势，全队信任主帅战术；可对面马德兴点出韩国阵容比三年前更强、还有9名旅欧球员。信任是好事，但别把自信当实力——聊聊这批孩子真正的机会在哪。",
       "keywords": [
-        "Martin Odegaard",
-        "Bernardo Silva",
-        "Portugal Norway"
+        "China U23",
+        "South Korea U23",
+        "Asian Games football"
       ],
       "keywords_cn": [
-        "厄德高",
-        "B席",
-        "葡萄牙挪威"
+        "U23国足",
+        "韩国国奥",
+        "亚运男足"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "补时冲突画面感强，情绪共鸣直接",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "中韩对决自带话题，心理优势引争议",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "从英超球星到狱中藏手机，巴顿这剧本谁敢写？",
-      "angle": "太阳报爆料乔伊·巴顿在狱中私藏手机和烟草，可能面临处罚。当年那个在场上敢跟人干架的巴顿，如今连监狱规矩都敢碰——这不是堕落故事，这是一个从来没学会'边界'的人，用一辈子在重复同一个错误。",
+      "title": "U16国少换帅后「平稳启航」，可球员连新阵型都没摸熟？",
+      "angle": "体坛说U16国少换帅后平稳启航、定位球成亮点，但球员还不熟悉新阵型。换帅如换刀，刀是快了，可刀法还没练熟——从这批孩子看中国青训的老毛病：总在推倒重来。",
       "keywords": [
-        "Joey Barton",
-        "Prison",
-        "Premier League"
+        "China U16",
+        "coaching change",
+        "youth football"
       ],
       "keywords_cn": [
-        "乔伊·巴顿",
-        "监狱",
-        "英超"
+        "U16国少",
+        "换帅",
+        "青训"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
-      "controversy_level": "medium",
+      "content_type": "战术解析",
+      "score": 78,
+      "controversy_level": "low",
       "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "英超旧将狱中新闻，人物弧光完整",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "青训换帅老问题，定位球亮点有增量",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "英格兰 2-3 西班牙，5球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "女足碰朝鲜「难度拉满」，米利西奇还要硬啃这块骨头吗？",
+      "angle": "东体直言中国女足想赢朝鲜难度拉满，劝米利西奇别再没苦硬吃。铿锵玫瑰这些年从亚洲霸主熬成追赶者，这场球该怎么打——是死磕还是练兵，老球迷心里有杆秤。",
+      "keywords": [
+        "China women's football",
+        "North Korea women",
+        "Milicic"
+      ],
+      "keywords_cn": [
+        "中国女足",
+        "朝鲜女足",
+        "米利西奇"
+      ],
+      "content_type": "热点球评",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "女足沉浮引情怀，排兵布阵有争议",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-28 08:10:13"
+  "last_batch": "noon",
+  "last_updated": "2026-09-28 12:09:57"
 }
