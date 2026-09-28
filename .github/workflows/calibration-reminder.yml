@@ -1,0 +1,24 @@
+name: 每周额度校准提醒
+
+# 每周一 09:00 CST（01:00 UTC）推送 LLM 免费额度校准提醒。
+# 背景：TokenHub 无额度查询 API，本地 data/llm_usage.json 与后台真实用量只能手工对齐，
+# 定期人工校准可避免「本地少记 → 后台超额扣费」。
+# 也可在 Actions 页面手动触发（workflow_dispatch）随时校准。
+on:
+  schedule:
+    - cron: '3 1 * * 1'  # 周一 09:03 CST（避开整点 cron 拥堵）
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 生成并推送校准提醒
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          echo "🔔 生成每周额度校准提醒..."
+          python3 scripts/remind_llm_calibration.py
