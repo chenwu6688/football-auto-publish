@@ -133,8 +133,23 @@ def send(title, content):
                   "uids": [WXPUSHER_UID]},
             timeout=10,
         )
-        print(f"✅ 校准提醒已推送: HTTP {resp.status_code}")
-        return resp.status_code == 200
+        # WxPusher 返回 {"code":1000,"msg":"处理成功","data":[messageIds]}
+        # code=1000 才是真正受理成功（HTTP 200 不代表业务成功）。
+        try:
+            body = resp.json()
+        except Exception:
+            body = {}
+        code = body.get("code")
+        msg = body.get("msg", "")
+        ids = body.get("data") or []
+        ok = resp.status_code == 200 and code == 1000
+        if ok:
+            print(f"✅ 校准提醒已推送: HTTP {resp.status_code}, code={code}, "
+                  f"msg={msg}, messageIds={ids}")
+        else:
+            print(f"❌ 校准提醒推送未成功: HTTP {resp.status_code}, code={code}, "
+                  f"msg={msg}, body={str(body)[:300]}")
+        return ok
     except Exception as e:
         print(f"⚠️ WxPusher 推送失败: {e}")
         return False
@@ -151,7 +166,11 @@ def main():
     print("=" * 60)
 
     if not args.dry_run:
-        send("🔔 每周免费额度校准提醒", report)
+        ok = send("🔔 每周免费额度校准提醒", report)
+        if not ok:
+            # 推送失败让 Actions 运行标红，避免「静默失联」——提醒本身就是保险机制。
+            print("❌ 提醒推送失败，返回非零退出码以便 Actions 报警")
+            return 1
     return 0
 
 

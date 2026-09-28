@@ -59,9 +59,20 @@ def test_send_posts_when_configured(monkeypatch):
     monkeypatch.setattr(R, "WXPUSHER_APPTOKEN", "tok")
     monkeypatch.setattr(R, "WXPUSHER_UID", "uid")
     fake = mock.Mock(status_code=200)
+    fake.json.return_value = {"code": 1000, "msg": "处理成功", "data": [12345]}
     with mock.patch("requests.post", return_value=fake) as mp:
         assert R.send("标题", "正文") is True
         args, kwargs = mp.call_args
         assert "wxpusher" in args[0]
         assert kwargs["json"]["appToken"] == "tok"
         assert kwargs["json"]["uids"] == ["uid"]
+
+
+def test_send_reports_business_failure(monkeypatch):
+    """HTTP 200 但 code != 1000（业务失败）应返回 False，避免假成功。"""
+    monkeypatch.setattr(R, "WXPUSHER_APPTOKEN", "tok")
+    monkeypatch.setattr(R, "WXPUSHER_UID", "uid")
+    fake = mock.Mock(status_code=200)
+    fake.json.return_value = {"code": 1005, "msg": "appToken 无效", "data": None}
+    with mock.patch("requests.post", return_value=fake):
+        assert R.send("标题", "正文") is False
