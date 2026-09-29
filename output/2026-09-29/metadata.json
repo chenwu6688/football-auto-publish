@@ -1,7 +1,7 @@
 {
   "date": "2026-09-29",
-  "generated_at": "2026-09-28T17:52:32.822426",
-  "total_articles": 4,
+  "generated_at": "2026-09-29T00:25:40.491668",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -129,137 +129,228 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "0红牌3点球，这位裁判什么路数？",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-1-0红牌3点球这位-856dce.md",
+      "slug": "0红牌3点球这位-856dce",
+      "tags": [
+        "referee",
+        "Asian Games",
+        "women's football",
+        "China vs Korea DPR"
+      ],
+      "keywords": [
+        "referee",
+        "Asian Games",
+        "women's football",
+        "China vs Korea DPR"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "阿森纳又把手伸向意甲：科莫这颗中卫明珠值4500万吗",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-2-阿森纳又把手伸向-18e95c.md",
+      "slug": "阿森纳又把手伸向-18e95c",
+      "tags": [
+        "Arsenal",
+        "Alvaro Ramon",
+        "Como",
+        "Real Madrid",
+        "transfer"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Alvaro Ramon",
+        "Como",
+        "Real Madrid",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "输西班牙后仍说不慌，图赫尔这碗鸡汤老球迷喝不喝？",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-3-输西班牙后仍说不-07ad8c.md",
+      "slug": "输西班牙后仍说不-07ad8c",
+      "tags": [
+        "Tuchel",
+        "England",
+        "Nations League",
+        "Czech Republic",
+        "Rice"
+      ],
+      "keywords": [
+        "Tuchel",
+        "England",
+        "Nations League",
+        "Czech Republic",
+        "Rice"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "曼城不让哈兰德说话？挪威主帅这波解释你信吗",
-      "angle": "围绕'曼城是否施压挪威队不让哈兰德受访'的疑云，对比挪威主帅'决定是我做的'与外界猜测，点出国家队与俱乐部博弈的微妙，给老球迷一个判断空间。",
+      "title": "中超跑得比沙特还慢？这份榜单把老球迷看笑了",
+      "angle": "从CIES最慢联赛榜单切入，吐槽中超节奏慢背后是青训和战术的老问题，老球迷看了直摇头。",
       "keywords": [
-        "Haaland interview",
-        "Man City Norway",
-        "media pressure"
+        "CIES",
+        "Chinese Super League",
+        "pace"
       ],
       "keywords_cn": [
-        "哈兰德",
-        "挪威主帅",
-        "受访争议"
+        "中超",
+        "节奏慢",
+        "CIES榜单"
       ],
-      "content_type": "八卦趣事",
-      "score": 78,
+      "content_type": "排行榜",
+      "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "场外博弈有嚼头，且避开已写过的曼城比赛话题。",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "榜单自带争议，吐槽中超节奏慢戳中国足球痛点，老球迷有共鸣。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "图赫尔不敢动阿诺德？英格兰这右后卫谜题怎么解",
-      "angle": "从'图赫尔上任后从未让阿诺德踢右后卫'切入，结合英格兰2-3西班牙的防守漏洞，质疑用人逻辑并给出老球迷视角的战术判断。",
+      "title": "阿森纳又盯上意甲小妖？科莫21岁中卫值不值得抢",
+      "angle": "阿森纳引援眼光向来挑剔，这次看上科莫中卫拉蒙，从技术和身价角度分析这笔买卖划不划算。",
       "keywords": [
-        "Alexander-Arnold",
-        "Tuchel England",
-        "right back dilemma"
+        "Arsenal",
+        "Como",
+        "Ramon",
+        "transfer"
       ],
       "keywords_cn": [
-        "阿诺德",
-        "图赫尔",
-        "英格兰右后卫"
+        "阿森纳",
+        "科莫",
+        "拉蒙",
+        "转会"
       ],
-      "content_type": "战术解析",
-      "score": 85,
-      "controversy_level": "medium",
+      "content_type": "转会资讯",
+      "score": 78,
+      "controversy_level": "low",
       "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "无",
       "series_id": "无",
-      "why_pick": "英格兰刚输西班牙，右后卫用人争议正热，战术角度有增量。",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "why_pick": "豪门挖小妖是球迷最爱看的转会瓜，有分析空间和期待感。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "姆巴佩弟弟欧冠肘击直红禁3场，这脾气随谁？",
-      "angle": "从伊桑·姆巴佩直红禁赛切入，带出'姆巴佩家族'聚光灯下的压力与年轻球员情绪管理，不做球技断言，只聊足坛星二代的生存环境。",
+      "title": "欧国联10天4场，图赫尔都看不下去了，这赛程谁受得了？",
+      "angle": "图赫尔公开炮轰欧国联赛程密集，拿球员伤病风险说事，老球迷都懂这种为国家队拼到透支的无奈。",
       "keywords": [
-        "Ethan Mbappe red card",
-        "Champions League ban",
-        "Mbappe family"
+        "Tuchel",
+        "Nations League",
+        "fixture congestion"
       ],
       "keywords_cn": [
-        "伊桑·姆巴佩",
-        "肘击直红",
-        "星二代压力"
+        "图赫尔",
+        "欧国联",
+        "赛程密集"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 75,
-      "controversy_level": "low",
-      "target_emotion": "震惊",
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "姆巴佩家族自带流量，直红禁赛有戏剧性且未与C罗/凯恩重复。",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "名帅炮轰赛程有态度有立场，球员疲劳是普遍痛点，容易引发共鸣。",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "明晨八场硬仗：英西法意全出击，谁能翻车",
-      "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-09-29 01:52:32"
+  "last_batch": "morning",
+  "last_updated": "2026-09-29 08:25:40"
 }
