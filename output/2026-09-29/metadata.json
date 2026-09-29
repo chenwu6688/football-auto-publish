@@ -1,7 +1,7 @@
 {
   "date": "2026-09-29",
-  "generated_at": "2026-09-29T00:25:40.491668",
-  "total_articles": 7,
+  "generated_at": "2026-09-29T04:19:10.169241",
+  "total_articles": 11,
   "articles": [
     {
       "index": 1,
@@ -223,134 +223,310 @@
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "中超81.6%的跑动都是慢跑，问题到底出在哪",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-1-中超816的跑动-c6d9bc.md",
+      "slug": "中超816的跑动-c6d9bc",
+      "tags": [
+        "Chinese Super League",
+        "CIES",
+        "slowest league",
+        "running distance",
+        "J-League",
+        "Saudi Pro League"
+      ],
+      "keywords": [
+        "Chinese Super League",
+        "CIES",
+        "slowest league",
+        "running distance",
+        "J-League",
+        "Saudi Pro League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "0-3输新西兰，邵佳一更衣室那段话比比分更扎心",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-2-03输新西兰邵佳-c6114b.md",
+      "slug": "03输新西兰邵佳-c6114b",
+      "tags": [
+        "China national team",
+        "Shao Jiayi",
+        "New Zealand",
+        "international friendly",
+        "World Cup qualification"
+      ],
+      "keywords": [
+        "China national team",
+        "Shao Jiayi",
+        "New Zealand",
+        "international friendly",
+        "World Cup qualification"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "马晓旭带队出征！U17女足名单出炉，谁还记得她当年的样子",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-3-马晓旭带队出征U-88bfde.md",
+      "slug": "马晓旭带队出征U-88bfde",
+      "tags": [
+        "ChinaWU17",
+        "MaXiaoxu",
+        "U17WomensWorldCup",
+        "ChineseFootball",
+        "YouthFootball"
+      ],
+      "keywords": [
+        "ChinaWU17",
+        "MaXiaoxu",
+        "U17WomensWorldCup",
+        "ChineseFootball",
+        "YouthFootball"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "韩国1-4乌拉圭：努涅斯双响破荒，马宁执法惹争议？",
+      "path": "/home/runner/work/_temp/output/2026-09-29/article-4-韩国14乌拉圭努-fddfbd.md",
+      "slug": "韩国14乌拉圭努-fddfbd",
+      "tags": [
+        "Korea vs Uruguay",
+        "Son Heung-min",
+        "Darwin Nunez",
+        "Ma Ning",
+        "friendly match"
+      ],
+      "keywords": [
+        "Korea vs Uruguay",
+        "Son Heung-min",
+        "Darwin Nunez",
+        "Ma Ning",
+        "friendly match"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-29/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-29/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "中超跑得比沙特还慢？这份榜单把老球迷看笑了",
-      "angle": "从CIES最慢联赛榜单切入，吐槽中超节奏慢背后是青训和战术的老问题，老球迷看了直摇头。",
+      "title": "中超竟是全球第4慢？这块遮羞布被CIES一把扯下来了",
+      "angle": "CIES最慢联赛榜中超排全球第4，比沙特联、韩K还慢。别急着骂球员懒，根子在节奏培养和联赛强度——看了二十年球，咱这比赛确实像慢放，一停二看三回传，快攻都成了奢侈品。",
       "keywords": [
         "CIES",
+        "slowest league",
         "Chinese Super League",
-        "pace"
+        "tempo"
       ],
       "keywords_cn": [
         "中超",
-        "节奏慢",
-        "CIES榜单"
+        "最慢联赛",
+        "CIES",
+        "比赛节奏"
       ],
       "content_type": "排行榜",
       "score": 88,
-      "controversy_level": "medium",
+      "controversy_level": "high",
       "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "榜单自带争议，吐槽中超节奏慢戳中国足球痛点，老球迷有共鸣。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "数据榜单反常识，戳中超痛点引骂战",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "阿森纳又盯上意甲小妖？科莫21岁中卫值不值得抢",
-      "angle": "阿森纳引援眼光向来挑剔，这次看上科莫中卫拉蒙，从技术和身价角度分析这笔买卖划不划算。",
+      "title": "0-3输新西兰后，邵佳一那句'必须过这道坎'是认怂还是清醒？",
+      "angle": "邵佳一赛后说想进世界杯必须过新西兰这道坎，还说对手不算顶级。这话听着矛盾，其实是大实话——认清差距不等于放弃。老球迷都懂，最怕的不是输球，是输了还嘴硬。",
       "keywords": [
-        "Arsenal",
-        "Como",
-        "Ramon",
-        "transfer"
+        "Shao Jiayi",
+        "New Zealand",
+        "World Cup",
+        "China national team"
       ],
       "keywords_cn": [
-        "阿森纳",
-        "科莫",
-        "拉蒙",
-        "转会"
+        "邵佳一",
+        "新西兰",
+        "国足",
+        "世界杯预选赛"
       ],
-      "content_type": "转会资讯",
-      "score": 78,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "豪门挖小妖是球迷最爱看的转会瓜，有分析空间和期待感。",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "热点球评",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足惨败加主帅表态，情怀与争议齐飞",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "欧国联10天4场，图赫尔都看不下去了，这赛程谁受得了？",
-      "angle": "图赫尔公开炮轰欧国联赛程密集，拿球员伤病风险说事，老球迷都懂这种为国家队拼到透支的无奈。",
+      "title": "从李金羽到马晓旭，这批老国脚怎么都跑去带娃娃兵了？",
+      "angle": "李金羽说不看自己踢球视频专注当下，马晓旭挂帅U17女足，黄晟豪盼挣钱给家人换房。一代国脚转型青训和基层，是中国足球少有的踏实信号——比起当年喊口号，这代人更愿意弯腰做事。",
       "keywords": [
-        "Tuchel",
-        "Nations League",
-        "fixture congestion"
+        "Li Jinyu",
+        "Ma Xiaoxu",
+        "U17 women",
+        "youth coaching"
       ],
       "keywords_cn": [
-        "图赫尔",
-        "欧国联",
-        "赛程密集"
+        "李金羽",
+        "马晓旭",
+        "U17女足",
+        "青训"
       ],
-      "content_type": "热点球评",
-      "score": 75,
-      "controversy_level": "medium",
-      "target_emotion": "愤怒",
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
       "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "名帅炮轰赛程有态度有立场，球员疲劳是普遍痛点，容易引发共鸣。",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "series_id": "old-fan-night",
+      "why_pick": "老国脚转型群像，戳中老球迷情怀",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "韩国U23连败给中国，李敏成这次复仇能翻盘吗？",
+      "angle": "韩媒承认韩国U23对阵中国遭遇连败，主帅李敏成着手备战复仇。中韩青年队近年的胜负天平在悄悄倾斜，但别高兴太早——青年队赢球和成年队是两码事，别又养成'恐韩症'的心理安慰。",
+      "keywords": [
+        "South Korea U23",
+        "Lee Min-sung",
+        "China U23",
+        "revenge"
+      ],
+      "keywords_cn": [
+        "韩国U23",
+        "李敏成",
+        "中国U23",
+        "复仇之战"
+      ],
+      "content_type": "热点球评",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "中韩青年对抗悬念，老球迷DNA动",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-29 08:25:40"
+  "last_batch": "noon",
+  "last_updated": "2026-09-29 12:19:10"
 }
