@@ -21,14 +21,14 @@
     "total_tokens": 12000
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 7365,
-    "completion_tokens": 861,
-    "total_tokens": 8226
+    "prompt_tokens": 11253,
+    "completion_tokens": 1923,
+    "total_tokens": 13176
   },
   "deepseek-v4-flash-0731": {
-    "prompt_tokens": 4827,
-    "completion_tokens": 1085,
-    "total_tokens": 5912
+    "prompt_tokens": 12150,
+    "completion_tokens": 1832,
+    "total_tokens": 13982
   },
   "deepseek-v4.1-flash": {
     "prompt_tokens": 9440,
@@ -51,13 +51,18 @@
     "total_tokens": 8937
   },
   "mimo-v2.6-flash": {
-    "prompt_tokens": 2064,
-    "completion_tokens": 2630,
-    "total_tokens": 4694
+    "prompt_tokens": 6128,
+    "completion_tokens": 4548,
+    "total_tokens": 10676
   },
   "mimo-v2.6-pro": {
     "prompt_tokens": 2206,
     "completion_tokens": 1434,
     "total_tokens": 3640
+  },
+  "step-5-preview": {
+    "prompt_tokens": 3899,
+    "completion_tokens": 4128,
+    "total_tokens": 8027
   }
 }
