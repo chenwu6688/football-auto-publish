@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-01",
+  "generated_at": "2026-09-30T16:16:35.417673",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "25岁就结束6年留洋回美国，他图啥？",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-1-25岁就结束6年-a0bf21.md",
+      "slug": "25岁就结束6年-a0bf21",
+      "tags": [
+        "Mark McKenzie",
+        "Philadelphia Union",
+        "Toulouse",
+        "MLS",
+        "USMNT"
+      ],
+      "keywords": [
+        "Mark McKenzie",
+        "Philadelphia Union",
+        "Toulouse",
+        "MLS",
+        "USMNT"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "法意大战领衔，哈兰德C罗隔空较劲，8场预测一次给齐",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-2-法意大战领衔哈兰-02cb0d.md",
+      "slug": "法意大战领衔哈兰-02cb0d",
+      "tags": [
+        "football predictions",
+        "France vs Italy",
+        "Haaland",
+        "Cristiano Ronaldo",
+        "match analysis",
+        "international break"
+      ],
+      "keywords": [
+        "football predictions",
+        "France vs Italy",
+        "Haaland",
+        "Cristiano Ronaldo",
+        "match analysis",
+        "international break"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "法甲后卫放弃欧洲回美职联，这步棋图啥呢？",
+      "angle": "图卢兹后卫麦肯齐明年1月回归费城联合并签2+1年——在欧洲还能踢的当口选择回家，是落叶归根还是曲线救国？老六的态度：球员的职业规划不该用'欧洲即成功'一刀切，但27岁回美职联，国家队生涯基本就到头了。",
+      "keywords": [
+        "Mark McKenzie",
+        "Toulouse",
+        "Philadelphia Union",
+        "MLS transfer",
+        "January window"
+      ],
+      "keywords_cn": [
+        "麦肯齐",
+        "图卢兹",
+        "费城联合",
+        "美职联转会",
+        "冬窗"
+      ],
+      "content_type": "转会资讯",
+      "score": 72,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "今日唯一源文章，欧洲回流美职联路径值得聊",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "法意大战领衔，哈兰德C罗隔空较劲，8场预测一次给齐",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-10-01 00:16:35"
+}
