@@ -1,7 +1,7 @@
 {
   "date": "2026-09-30",
-  "generated_at": "2026-09-29T16:24:02.519826",
-  "total_articles": 4,
+  "generated_at": "2026-09-30T00:22:36.304483",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -132,137 +132,272 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "3分钟破门却被反超，巴西这场友谊赛赢得怎么这么悬？",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-1-3分钟破门却被反-587eda.md",
+      "slug": "3分钟破门却被反-587eda",
+      "tags": [
+        "Brazil",
+        "Australia",
+        "friendly match",
+        "Raphinha",
+        "Endrick"
+      ],
+      "keywords": [
+        "Brazil",
+        "Australia",
+        "friendly match",
+        "Raphinha",
+        "Endrick"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "曼城九年账本被掀，9亿英镑窟窿怎么补？",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-2-曼城九年账本被掀-c2652c.md",
+      "slug": "曼城九年账本被掀-c2652c",
+      "tags": [
+        "Manchester City",
+        "Premier League",
+        "financial rules",
+        "ADUG",
+        "independent commission"
+      ],
+      "keywords": [
+        "Manchester City",
+        "Premier League",
+        "financial rules",
+        "ADUG",
+        "independent commission"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "西班牙4-1克罗地亚，最动人的却是第81分钟那一幕",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-3-西班牙41克罗地-4c9905.md",
+      "slug": "西班牙41克罗地-4c9905",
+      "tags": [
+        "Spain vs Croatia",
+        "Lamine Yamal",
+        "Modric",
+        "UEFA Nations League",
+        "40 unbeaten"
+      ],
+      "keywords": [
+        "Spain vs Croatia",
+        "Lamine Yamal",
+        "Modric",
+        "UEFA Nations League",
+        "40 unbeaten"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 4,
+      "title": "巴西4-2澳大利亚，这友谊赛踢出了世界杯淘汰赛的火药味",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-4-巴西42澳大利亚-a11d51.md",
+      "slug": "巴西42澳大利亚-a11d51",
+      "tags": [
+        "Brazil",
+        "Australia",
+        "friendly",
+        "Vinicius",
+        "Raphinha",
+        "VAR"
+      ],
+      "keywords": [
+        "Brazil",
+        "Australia",
+        "friendly",
+        "Vinicius",
+        "Raphinha",
+        "VAR"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "breaking",
+      "column_name": "突发直击",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "比利时又栽了！0-1法国，这批黄金一代到底还差啥？",
-      "angle": "比利时0-1不敌法国，老问题重现——大赛硬仗掉链子。老六观点：黄金一代的窗口正在关闭，这不是运气问题，是骨子里的东西。",
+      "title": "奥斯卡这番话扎心了：巴西足球落后，有些国脚连俱乐部主力都不是",
+      "angle": "在中超踢了多年的奥斯卡，回望巴西足球说了句大实话——'很多方面落后了，有些国脚都不是俱乐部主力'。老六借这个由头聊中外足球的落差：我们骂国足骂了二十年，可人家巴西自己也在反思，问题从来不只是某一代球员。",
       "keywords": [
-        "Belgium",
-        "France",
-        "golden generation"
+        "Oscar",
+        "Brazil football",
+        "national team",
+        "CSL"
       ],
       "keywords_cn": [
-        "比利时",
-        "法国",
-        "黄金一代"
+        "奥斯卡",
+        "巴西足球",
+        "国脚",
+        "中超"
       ],
-      "content_type": "热点球评",
-      "score": 85,
+      "content_type": "八卦趣事",
+      "score": 88,
       "controversy_level": "medium",
       "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "黄金一代宿命，老球迷共情强",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "借巴西反思照应国足，情怀钩子强",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "土耳其1-4被意大利打花，这防线是来旅游的吗？",
-      "angle": "意大利4-1大胜土耳其，蓝衣军团找回进攻火力。老六观点：意大利这种状态，别急着吹，土耳其的防守漏洞才是这比分的真相。",
+      "title": "热刺要向曼城索赔5000万镑？11年前那笔旧账，凭什么现在翻出来",
+      "angle": "金融专家称热刺可能就2011-13年间错过欧冠资格向曼城索赔5000万镑。老六拆这笔陈年旧账：财务违规的连锁反应，最终买单的可能是整个联赛的竞争秩序，这5000万到底合不合理，球迷各有说法。",
       "keywords": [
-        "Italy",
-        "Turkey",
-        "Euro qualifier"
+        "Tottenham",
+        "Manchester City",
+        "compensation",
+        "Champions League"
       ],
       "keywords_cn": [
-        "意大利",
-        "土耳其",
-        "欧洲杯预选赛"
+        "热刺",
+        "曼城",
+        "索赔",
+        "欧冠资格"
       ],
-      "content_type": "热点球评",
-      "score": 78,
-      "controversy_level": "low",
+      "content_type": "转会资讯",
+      "score": 84,
+      "controversy_level": "high",
       "target_emotion": "好奇",
       "resonance_angle": "无",
       "series_id": "无",
-      "why_pick": "大比分有画面感，意大利回暖",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "why_pick": "天价索赔+陈年旧账，争议与好奇兼具",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "巴西4-2澳大利亚，桑巴军团这后防还能让人放心吗？",
-      "angle": "巴西4-2拿下澳大利亚，进攻华丽但丢了两个球。老六态度：赢球掩盖不了问题，这支巴西要真冲世界杯，后防线得先治治。",
+      "title": "亚马尔模仿亨利庆祝：一个18岁小孩，凭什么敢碰枪王的招牌动作",
+      "angle": "亚马尔谈模仿亨利庆祝，说'他是标杆，我很喜欢这个动作'。老六聊这背后的传承意味：亨利当年在英超的庆祝是整整一代人的记忆，如今被一个西班牙少年复刻，足球的接力棒就是这么传下去的。",
       "keywords": [
-        "Brazil",
-        "Australia",
-        "friendly"
+        "Lamine Yamal",
+        "Thierry Henry",
+        "celebration",
+        "Barcelona"
       ],
       "keywords_cn": [
-        "巴西",
-        "澳大利亚",
-        "热身赛"
+        "亚马尔",
+        "亨利",
+        "庆祝动作",
+        "巴萨"
       ],
-      "content_type": "战术解析",
-      "score": 76,
+      "content_type": "八卦趣事",
+      "score": 82,
       "controversy_level": "low",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "桑巴进攻华丽，后防隐忧有话题",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "新星致敬枪王，代际传承戳老球迷",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "西班牙克罗地亚今晚死磕，阿根廷日本接连亮相",
-      "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "title": "澳大利亚 2-4 巴西，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-09-30 00:24:02"
+  "last_batch": "morning",
+  "last_updated": "2026-09-30 08:22:36"
 }
