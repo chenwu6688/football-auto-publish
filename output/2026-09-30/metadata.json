@@ -1,7 +1,7 @@
 {
   "date": "2026-09-30",
-  "generated_at": "2026-09-30T00:22:36.304483",
-  "total_articles": 8,
+  "generated_at": "2026-09-30T04:19:35.667011",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -262,142 +262,306 @@
       "column_id": "breaking",
       "column_name": "突发直击",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "韩国主场1-4被乌拉圭打崩，金玟哉乌龙那下，像不像我们当年的国足？",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-1-韩国主场14被乌-59a9a7.md",
+      "slug": "韩国主场14被乌-59a9a7",
+      "tags": [
+        "South Korea",
+        "Uruguay",
+        "Nunez",
+        "Kim Min-jae",
+        "Son Heung-min"
+      ],
+      "keywords": [
+        "South Korea",
+        "Uruguay",
+        "Nunez",
+        "Kim Min-jae",
+        "Son Heung-min"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "22年摸不着四强门槛，今年国字号咋一口气闯了三次？",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-2-22年摸不着四强-a6cd57.md",
+      "slug": "22年摸不着四强-a6cd57",
+      "tags": [
+        "China U23",
+        "Asian Games semifinal",
+        "South Korea U23",
+        "22-year drought",
+        "U17 Asian Cup",
+        "national team"
+      ],
+      "keywords": [
+        "China U23",
+        "Asian Games semifinal",
+        "South Korea U23",
+        "22-year drought",
+        "U17 Asian Cup",
+        "national team"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-09-30/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "0比2输朝鲜，真只是运气差？女足这笔账该好好算算了",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-3-0比2输朝鲜真只-0befe6.md",
+      "slug": "0比2输朝鲜真只-0befe6",
+      "tags": [
+        "China Women's Football",
+        "Asian Games",
+        "North Korea",
+        "Miyalich",
+        "Wang Shuang"
+      ],
+      "keywords": [
+        "China Women's Football",
+        "Asian Games",
+        "North Korea",
+        "Miyalich",
+        "Wang Shuang"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "马宁吹韩国这场，最扎心的不是1-4，是金玟哉那个乌龙",
+      "path": "/home/runner/work/_temp/output/2026-09-30/article-4-马宁吹韩国这场最-84d81e.md",
+      "slug": "马宁吹韩国这场最-84d81e",
+      "tags": [
+        "Son Heung-min",
+        "Darwin Nunez",
+        "Kim Min-jae",
+        "South Korea vs Uruguay",
+        "Ma Ning"
+      ],
+      "keywords": [
+        "Son Heung-min",
+        "Darwin Nunez",
+        "Kim Min-jae",
+        "South Korea vs Uruguay",
+        "Ma Ning"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-09-30/images/article-4-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "奥斯卡这番话扎心了：巴西足球落后，有些国脚连俱乐部主力都不是",
-      "angle": "在中超踢了多年的奥斯卡，回望巴西足球说了句大实话——'很多方面落后了，有些国脚都不是俱乐部主力'。老六借这个由头聊中外足球的落差：我们骂国足骂了二十年，可人家巴西自己也在反思，问题从来不只是某一代球员。",
+      "title": "40年没进韩国一个球，今晚能破咒吗？",
+      "angle": "从国足亚运对韩国40年0进球的屈辱史切入，结合U23国足稳守反击战术和塔吉克裁判+VAR的客观条件，给出'历史是拿来打破的'的立场，既承认差距又给希望",
       "keywords": [
-        "Oscar",
-        "Brazil football",
-        "national team",
-        "CSL"
+        "china u23",
+        "korea u23",
+        "asian games",
+        "scoreless streak"
       ],
       "keywords_cn": [
-        "奥斯卡",
-        "巴西足球",
-        "国脚",
-        "中超"
+        "U23国足",
+        "韩国U23",
+        "亚运会",
+        "40年0进球"
       ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "guozu-chronicle",
-      "why_pick": "借巴西反思照应国足，情怀钩子强",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "40年0球是国足最痛的伤疤，今晚就是最好的破咒机会",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "热刺要向曼城索赔5000万镑？11年前那笔旧账，凭什么现在翻出来",
-      "angle": "金融专家称热刺可能就2011-13年间错过欧冠资格向曼城索赔5000万镑。老六拆这笔陈年旧账：财务违规的连锁反应，最终买单的可能是整个联赛的竞争秩序，这5000万到底合不合理，球迷各有说法。",
+      "title": "两获亚军三进四强，国字号今年到底行不行？",
+      "angle": "从男足国字号今年三次闯入洲际四强的突破切入，对比此前22年未进四强的黑暗期，犀利指出'进步是真进步，但亚军不是终点'，用数据讲清国足青训的拐点是否真的到来",
       "keywords": [
-        "Tottenham",
-        "Manchester City",
-        "compensation",
-        "Champions League"
+        "china youth",
+        "asian games",
+        "semifinal",
+        "breakthrough"
       ],
       "keywords_cn": [
-        "热刺",
-        "曼城",
-        "索赔",
-        "欧冠资格"
+        "国字号",
+        "亚运会",
+        "四强",
+        "22年突破"
       ],
-      "content_type": "转会资讯",
-      "score": 84,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "天价索赔+陈年旧账，争议与好奇兼具",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "content_type": "排行榜",
+      "score": 90,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "22年未进四强到三进四强，这拐点值得老球迷细品",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "亚马尔模仿亨利庆祝：一个18岁小孩，凭什么敢碰枪王的招牌动作",
-      "angle": "亚马尔谈模仿亨利庆祝，说'他是标杆，我很喜欢这个动作'。老六聊这背后的传承意味：亨利当年在英超的庆祝是整整一代人的记忆，如今被一个西班牙少年复刻，足球的接力棒就是这么传下去的。",
+      "title": "女足又输了，米利西奇凭什么不担责？",
+      "angle": "从中国女足亚洲杯退步明显、沪媒直呼必须换帅切入，对比朝鲜女足的比赛强度，犀利质问'留洋球员回来了为什么还是踢不明白'，把矛头直指主帅米利西奇的战术与用人，立场鲜明不骑墙",
       "keywords": [
-        "Lamine Yamal",
-        "Thierry Henry",
-        "celebration",
-        "Barcelona"
+        "china women",
+        "milicic",
+        "asian cup",
+        "coach change"
       ],
       "keywords_cn": [
-        "亚马尔",
-        "亨利",
-        "庆祝动作",
-        "巴萨"
+        "中国女足",
+        "米利西奇",
+        "亚洲杯退步",
+        "换帅"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "新星致敬枪王，代际传承戳老球迷",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "女足退步明显，换帅呼声高，米利西奇必须给说法",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "澳大利亚 2-4 巴西，6球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "董方卓说不用怕韩国，他凭什么这么硬气？",
+      "angle": "从董方卓谈U23国足vs韩国的'尊重但不怕'切入，结合他当年曼联经历和国足锋线无力的现实，用老球迷视角拆解'我们自己的特点'到底是什么，既肯定自信又点出差距",
+      "keywords": [
+        "dong fangzhuo",
+        "china u23",
+        "korea",
+        "confidence"
+      ],
+      "keywords_cn": [
+        "董方卓",
+        "U23国足",
+        "韩国",
+        "自信"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "董方卓的硬气背后是国足锋线之痛，老球迷想听他说透",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-09-30 08:22:36"
+  "last_batch": "noon",
+  "last_updated": "2026-09-30 12:19:35"
 }
