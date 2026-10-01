@@ -1,7 +1,7 @@
 {
   "date": "2026-10-01",
-  "generated_at": "2026-09-30T16:16:35.417673",
-  "total_articles": 2,
+  "generated_at": "2026-10-01T00:22:38.244057",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -68,63 +68,132 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "捷克少一人还差点乌龙，英格兰2-0首胜硬不硬？",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-1-捷克少一人还差点-e886c8.md",
+      "slug": "捷克少一人还差点-e886c8",
+      "tags": [
+        "England",
+        "Czech Republic",
+        "UEFA Nations League",
+        "Harry Kane",
+        "VAR"
+      ],
+      "keywords": [
+        "England",
+        "Czech Republic",
+        "UEFA Nations League",
+        "Harry Kane",
+        "VAR"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "巴西4-2澳大利亚，这场友谊赛比决赛还刺激，裁判抢戏了",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-2-巴西42澳大利亚-4c9077.md",
+      "slug": "巴西42澳大利亚-4c9077",
+      "tags": [
+        "Brazil",
+        "Australia",
+        "friendly",
+        "Vinicius",
+        "Raphinha",
+        "Wanderson",
+        "penalty",
+        "VAR"
+      ],
+      "keywords": [
+        "Brazil",
+        "Australia",
+        "friendly",
+        "Vinicius",
+        "Raphinha",
+        "Wanderson",
+        "penalty",
+        "VAR"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "breaking",
+      "column_name": "突发直击",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "法甲后卫放弃欧洲回美职联，这步棋图啥呢？",
-      "angle": "图卢兹后卫麦肯齐明年1月回归费城联合并签2+1年——在欧洲还能踢的当口选择回家，是落叶归根还是曲线救国？老六的态度：球员的职业规划不该用'欧洲即成功'一刀切，但27岁回美职联，国家队生涯基本就到头了。",
+      "title": "36岁斯莫林免签去波尔图，曼联弃将的欧洲漂流记",
+      "angle": "官方消息，波尔图免签36岁中卫斯莫林，签约到赛季末还带续约选项。当年曼联3000万买他，如今自由身投奔葡超——一个英格兰中卫的十年漂流，比很多人的职业生涯都长。态度：别急着说'混日子'，36岁还能被波尔图看上，本身就是一种本事。",
       "keywords": [
-        "Mark McKenzie",
-        "Toulouse",
-        "Philadelphia Union",
-        "MLS transfer",
-        "January window"
+        "Chris Smalling",
+        "Porto",
+        "free transfer",
+        "Manchester United",
+        "veteran defender"
       ],
       "keywords_cn": [
-        "麦肯齐",
-        "图卢兹",
-        "费城联合",
-        "美职联转会",
-        "冬窗"
+        "斯莫林",
+        "波尔图",
+        "免签",
+        "曼联",
+        "老将中卫"
       ],
       "content_type": "转会资讯",
-      "score": 72,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "今日唯一源文章，欧洲回流美职联路径值得聊",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "老将免签背后是曼联十年沉浮的缩影",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "法意大战领衔，哈兰德C罗隔空较劲，8场预测一次给齐",
-      "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "title": "澳大利亚 2-4 巴西，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-10-01 00:16:35"
+  "last_batch": "morning",
+  "last_updated": "2026-10-01 08:22:38"
 }
