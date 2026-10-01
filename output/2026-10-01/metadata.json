@@ -1,7 +1,7 @@
 {
   "date": "2026-10-01",
-  "generated_at": "2026-10-01T00:22:38.244057",
-  "total_articles": 4,
+  "generated_at": "2026-10-01T04:20:23.589049",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -138,62 +138,314 @@
       "column_id": "breaking",
       "column_name": "突发直击",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "阿根廷4-0玻利维亚，这比分藏着多少世界杯的回忆",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-1-阿根廷40玻利维-87ee7a.md",
+      "slug": "阿根廷40玻利维-87ee7a",
+      "tags": [
+        "Argentina",
+        "Bolivia",
+        "Lautaro Martinez",
+        "Nico Paz",
+        "friendly match"
+      ],
+      "keywords": [
+        "Argentina",
+        "Bolivia",
+        "Lautaro Martinez",
+        "Nico Paz",
+        "friendly match"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "利物浦新总监上任，第一刀砍向谁？",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-2-利物浦新总监上任-26579b.md",
+      "slug": "利物浦新总监上任-26579b",
+      "tags": [
+        "Liverpool",
+        "Julian Ward",
+        "sporting director",
+        "Alisson",
+        "Van Dijk",
+        "transfer"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Julian Ward",
+        "sporting director",
+        "Alisson",
+        "Van Dijk",
+        "transfer"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "C罗连夜包机离队，葡萄牙更衣室炸了？",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-3-C罗连夜包机离队-40c8f3.md",
+      "slug": "C罗连夜包机离队-40c8f3",
+      "tags": [
+        "C罗",
+        "葡萄牙国家队",
+        "曼城",
+        "瓜迪奥拉",
+        "热苏斯"
+      ],
+      "keywords": [
+        "C罗",
+        "葡萄牙国家队",
+        "曼城",
+        "瓜迪奥拉",
+        "热苏斯"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "哈维被追问曼城115项指控，他的回答太妙了",
+      "path": "/home/runner/work/_temp/output/2026-10-01/article-4-哈维被追问曼城1-4d4244.md",
+      "slug": "哈维被追问曼城1-4d4244",
+      "tags": [
+        "Xavi",
+        "Manchester City",
+        "115 charges",
+        "fair play",
+        "press conference"
+      ],
+      "keywords": [
+        "Xavi",
+        "Manchester City",
+        "115 charges",
+        "fair play",
+        "press conference"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-01/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-01/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "36岁斯莫林免签去波尔图，曼联弃将的欧洲漂流记",
-      "angle": "官方消息，波尔图免签36岁中卫斯莫林，签约到赛季末还带续约选项。当年曼联3000万买他，如今自由身投奔葡超——一个英格兰中卫的十年漂流，比很多人的职业生涯都长。态度：别急着说'混日子'，36岁还能被波尔图看上，本身就是一种本事。",
+      "title": "阿根廷4-0却比世界杯决赛年轻6岁，这换代速度吓人不？",
+      "angle": "阿根廷对玻利维亚终场平均年龄仅24.1岁，比世界杯决赛年轻6岁多。梅西时代落幕的速度，比所有人想象的都快——这不是重建，是无声的换血。老球迷该接受一个事实：那个夏天真的翻篇了。",
       "keywords": [
-        "Chris Smalling",
-        "Porto",
-        "free transfer",
-        "Manchester United",
-        "veteran defender"
+        "Argentina",
+        "Bolivia",
+        "average age",
+        "World Cup final",
+        "generational change"
       ],
       "keywords_cn": [
-        "斯莫林",
-        "波尔图",
-        "免签",
-        "曼联",
-        "老将中卫"
+        "阿根廷",
+        "玻利维亚",
+        "平均年龄",
+        "世界杯决赛",
+        "新老交替"
       ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "low",
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "medium",
       "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "老将免签背后是曼联十年沉浮的缩影",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "resonance_angle": "世界杯经典时刻",
+      "series_id": "wc-classics",
+      "why_pick": "用年龄数据讲换代，戳老球迷青春记忆",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "澳大利亚 2-4 巴西，6球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "利物浦新总监上任先接两颗雷，范戴克和阿利松的合同，敢动吗？",
+      "angle": "邮报报道利物浦新体育总监上任即面临大考，阿利松、范戴克未来待定。克洛普时代最后的定海神针，如今合同悬而未决。利物浦这艘船换舵手容易，换龙骨难——老臣子到底是留是走，考验的是管理层的魄力还是冷血。",
+      "keywords": [
+        "Liverpool",
+        "sporting director",
+        "Van Dijk",
+        "Alisson",
+        "contract"
+      ],
+      "keywords_cn": [
+        "利物浦",
+        "体育总监",
+        "范戴克",
+        "阿利松",
+        "续约"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "功勋老将合同悬念，天然转会争议话题",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "17岁沙利文铁了心去曼城，巴萨连手都没伸，这买卖谁亏了？",
+      "angle": "罗马诺确认17岁沙利文没有改变加盟曼城的计划，巴萨并未采取行动。全欧洲都在抢的天才，巴萨为何按兵不动？是财政真的揭不开锅，还是球探体系判断他名不副实？这笔账，三年后才知道谁笑谁哭。",
+      "keywords": [
+        "Sullivan",
+        "Manchester City",
+        "Barcelona",
+        "Romano",
+        "transfer"
+      ],
+      "keywords_cn": [
+        "沙利文",
+        "曼城",
+        "巴萨",
+        "罗马诺",
+        "转会"
+      ],
+      "content_type": "转会资讯",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "新星争夺战，豪门取舍有讨论价值",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "哈维开口谈曼城115项指控：我喜欢公平竞争，这话说给谁听？",
+      "angle": "哈维被问及曼城115项指控时回应'这不是我的话题，但我喜欢公平竞争'。这话表面滴水不漏，实则绵里藏针。作为巴萨DNA的传人，他太清楚财务公平这把刀的分量。一句话，既不得罪人，又表明立场，老江湖的分寸感。",
+      "keywords": [
+        "Xavi",
+        "Manchester City",
+        "115 charges",
+        "fair competition",
+        "financial"
+      ],
+      "keywords_cn": [
+        "哈维",
+        "曼城",
+        "115项指控",
+        "公平竞争",
+        "财政"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "名帅表态带刺，财政公平争议有话题",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-01 08:22:38"
+  "last_batch": "noon",
+  "last_updated": "2026-10-01 12:20:23"
 }
