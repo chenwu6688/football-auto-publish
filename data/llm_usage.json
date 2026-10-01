@@ -31,9 +31,9 @@
     "total_tokens": 21578
   },
   "deepseek-v4.1-flash": {
-    "prompt_tokens": 15970,
-    "completion_tokens": 3140,
-    "total_tokens": 19110
+    "prompt_tokens": 22464,
+    "completion_tokens": 4109,
+    "total_tokens": 26573
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
     "prompt_tokens": 19417,
@@ -41,14 +41,14 @@
     "total_tokens": 22582
   },
   "deepseek-v4-pro-0813": {
-    "prompt_tokens": 16074,
-    "completion_tokens": 3177,
-    "total_tokens": 19251
+    "prompt_tokens": 20872,
+    "completion_tokens": 4337,
+    "total_tokens": 25209
   },
   "kimi-k2.7-code-highspeed": {
-    "prompt_tokens": 8625,
-    "completion_tokens": 10257,
-    "total_tokens": 18882
+    "prompt_tokens": 13071,
+    "completion_tokens": 16296,
+    "total_tokens": 29367
   },
   "mimo-v2.6-flash": {
     "prompt_tokens": 10413,
