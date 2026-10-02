@@ -1,7 +1,7 @@
 {
   "date": "2026-10-02",
-  "generated_at": "2026-10-02T00:17:56.419792",
-  "total_articles": 10,
+  "generated_at": "2026-10-02T04:13:19.147732",
+  "total_articles": 13,
   "articles": [
     {
       "index": 1,
@@ -331,142 +331,229 @@
       "column_id": "breaking",
       "column_name": "突发直击",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "国足又缺人了？这回连右后卫都得现抓",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-1-国足又缺人了这回-441d22.md",
+      "slug": "国足又缺人了这回-441d22",
+      "tags": [
+        "Chinese national football team",
+        "Palestine",
+        "friendly match",
+        "lineup issues",
+        "right-back"
+      ],
+      "keywords": [
+        "Chinese national football team",
+        "Palestine",
+        "friendly match",
+        "lineup issues",
+        "right-back"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "25岁张琳艳又断韧带，女足最怕的事还是来了",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-2-25岁张琳艳又断-07e766.md",
+      "slug": "25岁张琳艳又断-07e766",
+      "tags": [
+        "Zhang Linyan",
+        "ACL injury",
+        "Chinese women's football",
+        "Asian Games",
+        "World Cup preparation"
+      ],
+      "keywords": [
+        "Zhang Linyan",
+        "ACL injury",
+        "Chinese women's football",
+        "Asian Games",
+        "World Cup preparation"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "孙兴慜亲自推荐！热刺冬窗要挖韩国中锋，贝西克塔斯放不放？",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-3-孙兴慜亲自推荐热-7291a5.md",
+      "slug": "孙兴慜亲自推荐热-7291a5",
+      "tags": [
+        "Tottenham",
+        "Son Heung-min",
+        "Oh Hyeon-gyu",
+        "Besiktas",
+        "transfer"
+      ],
+      "keywords": [
+        "Tottenham",
+        "Son Heung-min",
+        "Oh Hyeon-gyu",
+        "Besiktas",
+        "transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "没C罗反而4-2？葡萄牙三连胜凭啥这么猛",
-      "angle": "葡萄牙4-2大胜丹麦，C罗缺席反而打得更流畅。质疑过度依赖老将的战术体系，观点明确不骑墙。",
+      "title": "5胜2平只丢2球，今晚这一战真是国足的囊中之物吗？",
+      "angle": "历史交手数据漂亮得离谱，但多名主力缺席+抗风险能力一般，这场球恰恰是最容易翻车的类型。别拿历史战绩当护身符，国足最擅长的就是在该赢的球上让人心跳。",
       "keywords": [
-        "portugal",
-        "cristiano ronaldo",
-        "denmark",
-        "tactical system"
+        "China national team",
+        "Palestine",
+        "FIFA ranking"
       ],
       "keywords_cn": [
-        "葡萄牙",
-        "C罗",
-        "丹麦",
-        "战术体系"
+        "国足",
+        "巴勒斯坦",
+        "世预赛"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 93,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "C罗缺阵反大胜，戳中老将依赖争议",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足出战+历史数据反差，情怀与争议双拉满",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "曼城若上诉失败，球员免费走人这合理吗？",
-      "angle": "体育律师指出曼城若上诉失败，球员可终止合同离队。从合同法理与豪门生态角度分析这记核弹级条款的杀伤力。",
+      "title": "十字韧带断过又要重伤，张琳艳这一跤摔碎了多少期待？",
+      "angle": "津媒曝张琳艳重伤，甚至影响世界杯备战，而她此前就经历过十字韧带断裂。女足好不容易冒出的尖子，一次次被伤病按在地上——聊的不只是一个人，是中国女足的伤病魔咒。",
       "keywords": [
-        "manchester city",
-        "appeal",
-        "contract termination",
-        "legal clause"
+        "Zhang Linyan",
+        "women's football",
+        "ACL injury"
       ],
       "keywords_cn": [
-        "曼城",
-        "上诉",
-        "终止合同",
-        "法律条款"
+        "张琳艳",
+        "女足",
+        "十字韧带"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "法律核弹条款曝光，颠覆转会认知",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "女足尖子重伤，人物弧光戳中老球迷心疼",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "安帅1000万领跑，克洛普700万，凭啥差三百万？",
-      "angle": "安切洛蒂1000万欧年薪居国家队主帅榜首，克洛普700万次之。从履历与性价比角度对比两位名帅的市场定价。",
+      "title": "热刺盯上韩国前锋，孙兴慜亲自推荐这操作你服不服？",
+      "angle": "土媒称热刺有意贝西克塔斯的韩国前锋吴贤揆，还是孙兴慜亲自推荐的。老队长给老东家带货国家队后辈，这波人情账背后，是热刺锋线真缺人还是又在抄近道？",
       "keywords": [
-        "ancelotti",
-        "klopp",
-        "salary ranking",
-        "national team coach"
+        "Tottenham",
+        "Son Heung-min",
+        "Oh Hyeon-gyu"
       ],
       "keywords_cn": [
-        "安切洛蒂",
-        "克洛普",
-        "年薪榜",
-        "国家队主帅"
+        "热刺",
+        "孙兴慜",
+        "吴贤揆"
       ],
-      "content_type": "排行榜",
-      "score": 85,
+      "content_type": "转会资讯",
+      "score": 82,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "名帅年薪横向对比，老球迷爱看排位",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "孙兴慜推荐同胞，转会+人情双重看点",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "葡萄牙 4-2 丹麦，6球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-02 08:17:56"
+  "last_batch": "noon",
+  "last_updated": "2026-10-02 12:13:19"
 }
