@@ -1,7 +1,7 @@
 {
   "date": "2026-10-02",
-  "generated_at": "2026-10-01T16:47:10.084182",
-  "total_articles": 6,
+  "generated_at": "2026-10-02T00:17:56.419792",
+  "total_articles": 10,
   "articles": [
     {
       "index": 1,
@@ -198,215 +198,275 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "丹麦人敢在C罗面前SIU？葡萄牙4-2教做人",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-1-丹麦人敢在C罗面-cbea14.md",
+      "slug": "丹麦人敢在C罗面-cbea14",
+      "tags": [
+        "Portugal",
+        "Denmark",
+        "UEFA Nations League",
+        "Jorge Jesus",
+        "Goncalo Ramos",
+        "Hojlund",
+        "SIU celebration"
+      ],
+      "keywords": [
+        "Portugal",
+        "Denmark",
+        "UEFA Nations League",
+        "Jorge Jesus",
+        "Goncalo Ramos",
+        "Hojlund",
+        "SIU celebration"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "瓜迪奥拉这次站队，赌上的是他这辈子的名声",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-2-瓜迪奥拉这次站队-85f977.md",
+      "slug": "瓜迪奥拉这次站队-85f977",
+      "tags": [
+        "Guardiola",
+        "ManCity",
+        "financial breach",
+        "Premier League",
+        "legacy"
+      ],
+      "keywords": [
+        "Guardiola",
+        "ManCity",
+        "financial breach",
+        "Premier League",
+        "legacy"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "德国这帮小年轻，把塞尔维亚踢成训练赛了",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-3-德国这帮小年轻把-573ff5.md",
+      "slug": "德国这帮小年轻把-573ff5",
+      "tags": [
+        "Germany",
+        "Serbia",
+        "Wirtz",
+        "Klopp",
+        "UEFA Nations League"
+      ],
+      "keywords": [
+        "Germany",
+        "Serbia",
+        "Wirtz",
+        "Klopp",
+        "UEFA Nations League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 4,
+      "title": "4-2踢翻丹麦，热苏斯的葡萄牙凭什么3连胜",
+      "path": "/home/runner/work/_temp/output/2026-10-02/article-4-42踢翻丹麦热苏-27fee1.md",
+      "slug": "42踢翻丹麦热苏-27fee1",
+      "tags": [
+        "Portugal",
+        "Denmark",
+        "NationsLeague",
+        "BrunoFernandes",
+        "Hojlund",
+        "Ramos"
+      ],
+      "keywords": [
+        "Portugal",
+        "Denmark",
+        "NationsLeague",
+        "BrunoFernandes",
+        "Hojlund",
+        "Ramos"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-02/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-02/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "column_id": "breaking",
+      "column_name": "突发直击",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "斯内德一句「命运皆有定数」，藏着多少老球迷的青春？",
-      "angle": "斯内德亲述离开皇马后在国米赢得一切，用他的三冠王往事照应当下球员的漂泊，讲一个「被豪门扫地出门却成传奇」的人物弧光——立场：足球江湖最动人的从来不是顺风顺水，是被抛弃后的绝地反击。",
+      "title": "没C罗反而4-2？葡萄牙三连胜凭啥这么猛",
+      "angle": "葡萄牙4-2大胜丹麦，C罗缺席反而打得更流畅。质疑过度依赖老将的战术体系，观点明确不骑墙。",
       "keywords": [
-        "Sneijder",
-        "Inter Milan",
-        "Real Madrid"
+        "portugal",
+        "cristiano ronaldo",
+        "denmark",
+        "tactical system"
       ],
       "keywords_cn": [
-        "斯内德",
-        "国际米兰",
-        "皇马"
+        "葡萄牙",
+        "C罗",
+        "丹麦",
+        "战术体系"
       ],
-      "content_type": "八卦趣事",
-      "score": 94,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
       "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "三冠王名宿亲述沉浮，戳老球迷情怀",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "series_id": "无",
+      "why_pick": "C罗缺阵反大胜，戳中老将依赖争议",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "伯明翰要请默塔夫？这位签下桑乔安东尼的主管，曼联球迷熟啊",
-      "angle": "前曼联转会主管默塔夫有望加盟伯明翰，复盘他在曼联的几笔争议签约——立场：一个转会主管的功过，比一场球更能说明现代足球的荒诞，签对人封神，签错人背锅走人。",
+      "title": "曼城若上诉失败，球员免费走人这合理吗？",
+      "angle": "体育律师指出曼城若上诉失败，球员可终止合同离队。从合同法理与豪门生态角度分析这记核弹级条款的杀伤力。",
       "keywords": [
-        "Murtough",
-        "Birmingham",
-        "Manchester United"
+        "manchester city",
+        "appeal",
+        "contract termination",
+        "legal clause"
       ],
       "keywords_cn": [
-        "默塔夫",
-        "伯明翰",
-        "曼联"
-      ],
-      "content_type": "转会资讯",
-      "score": 86,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "争议转会主管再就业，曼联旧账重新翻",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "赖斯领衔9人将可自由身走人，阿森纳这盘棋下得慌不慌？",
-      "angle": "英媒曝阿森纳多名主力一年多后能自由谈海外转会，赖斯在列——立场：这是现代合同运营的定时炸弹，留不住核心，再好的战术也是空中楼阁，豪门最怕的不是输球是人心散。",
-      "keywords": [
-        "Declan Rice",
-        "Arsenal",
-        "free transfer"
-      ],
-      "keywords_cn": [
-        "赖斯",
-        "阿森纳",
-        "自由转会"
+        "曼城",
+        "上诉",
+        "终止合同",
+        "法律条款"
       ],
       "content_type": "转会资讯",
       "score": 88,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "豪门合同隐患，赖斯去向自带争议",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "内格雷拉案巴萨坚信会不了了之，这笔烂账到底谁在拖？",
-      "angle": "巴萨方面认为内格雷拉案终将不了了之，并指拖延源于皇马——立场：足坛这桩世纪悬案，早就不只是法律问题，是谁耗得起谁就赢的拉锯战，真相在利益面前总是慢半拍。",
-      "keywords": [
-        "Negreira case",
-        "Barcelona",
-        "Real Madrid"
-      ],
-      "keywords_cn": [
-        "内格雷拉案",
-        "巴萨",
-        "皇马"
-      ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "世纪悬案互撕，皇马巴萨宿怨再添火",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "why_pick": "法律核弹条款曝光，颠覆转会认知",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "普利西奇说想留在米兰，美国队长这次真找对家了？",
-      "angle": "普利西奇表态不介意「美国队长」外号并希望长留米兰——立场：从切尔西的失意到圣西罗的重生，一个被英超抛弃的天才如何在意大利找回自己，这才是职业球员该有的清醒。",
+      "title": "安帅1000万领跑，克洛普700万，凭啥差三百万？",
+      "angle": "安切洛蒂1000万欧年薪居国家队主帅榜首，克洛普700万次之。从履历与性价比角度对比两位名帅的市场定价。",
       "keywords": [
-        "Pulisic",
-        "AC Milan",
-        "Chelsea"
+        "ancelotti",
+        "klopp",
+        "salary ranking",
+        "national team coach"
       ],
       "keywords_cn": [
-        "普利西奇",
-        "AC米兰",
-        "切尔西"
+        "安切洛蒂",
+        "克洛普",
+        "年薪榜",
+        "国家队主帅"
       ],
-      "content_type": "八卦趣事",
-      "score": 83,
-      "controversy_level": "low",
-      "target_emotion": "感动",
+      "content_type": "排行榜",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
       "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "失意天才重生故事，米兰球迷有共鸣",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "series_id": "old-fan-night",
+      "why_pick": "名帅年薪横向对比，老球迷爱看排位",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "高卢雄鸡硬撼蓝衣军团，明晚这三场最值得定闹钟",
-      "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "title": "葡萄牙 4-2 丹麦，6球对攻大战",
+      "content_type": "紧急球评-进球大战"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-10-02 00:47:10"
+  "last_batch": "morning",
+  "last_updated": "2026-10-02 08:17:56"
 }
