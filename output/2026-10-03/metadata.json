@@ -1,7 +1,7 @@
 {
   "date": "2026-10-03",
-  "generated_at": "2026-10-02T16:29:23.149298",
-  "total_articles": 4,
+  "generated_at": "2026-10-03T00:28:57.030567",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -136,141 +136,216 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "0-5！国足又输巴勒斯坦，这剧本我们看了二十多年",
+      "path": "/home/runner/work/_temp/output/2026-10-03/article-1-05国足又输巴勒-f05645.md",
+      "slug": "05国足又输巴勒-f05645",
+      "tags": [
+        "China vs Palestine",
+        "friendly match",
+        "0-5 defeat",
+        "VAR decision",
+        "national team",
+        "Chongqing",
+        "Wu代 Dabagh",
+        "Hamrawi"
+      ],
+      "keywords": [
+        "China vs Palestine",
+        "friendly match",
+        "0-5 defeat",
+        "VAR decision",
+        "national team",
+        "Chongqing",
+        "Wu代 Dabagh",
+        "Hamrawi"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "35岁马赫雷斯免签卡塔尔，当年夺冠功臣咋混成这样了",
+      "path": "/home/runner/work/_temp/output/2026-10-03/article-2-35岁马赫雷斯免-5e8dc6.md",
+      "slug": "35岁马赫雷斯免-5e8dc6",
+      "tags": [
+        "Mahrez",
+        "Al-North Sports",
+        "free transfer",
+        "Qatar",
+        "Al-Ahli",
+        "veteran",
+        "transfer",
+        "contract",
+        "Leicester",
+        "Manchester City"
+      ],
+      "keywords": [
+        "Mahrez",
+        "Al-North Sports",
+        "free transfer",
+        "Qatar",
+        "Al-Ahli",
+        "veteran",
+        "transfer",
+        "contract",
+        "Leicester",
+        "Manchester City"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-03/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "曼联闭门热身2-1，失踪人口回归首发，这是要翻身？",
-      "angle": "曼联一场没人看的闭门热身赛，巴莱巴和德里赫特首发才是重点。这俩人一个是转会窗悬案主角，一个是被质疑的防线新援，滕哈赫（或现任主帅）到底在憋什么招？热身赛的排兵比比分有看头。",
+      "title": "0-5惨败巴勒斯坦！国足底线到底在哪？",
+      "angle": "28年重返领奖台成笑话，一场0-5把底裤扒光。从亚运创佳绩到惨案，国足的遮羞布碎了一地。",
       "keywords": [
-        "Manchester United",
-        "Baleba",
-        "De Ligt",
-        "friendly"
+        "china national team",
+        "palestine",
+        "asian games",
+        "defeat"
       ],
       "keywords_cn": [
-        "曼联",
-        "巴莱巴",
-        "德里赫特",
-        "热身赛"
-      ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "曼联新援首发是转会窗延续话题，球迷关心阵容",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "希腊2-2逼平荷兰，这支老牌劲旅凭什么又杀回来了？",
-      "angle": "2004年欧洲杯神话过去二十多年，希腊足球一度销声匿迹，如今能在荷兰身上抢分，靠的不是运气，是那套'丑陋但管用'的老配方。老球迷看希腊，看的就是一种不服输的活法。",
-      "keywords": [
-        "Greece",
-        "Netherlands",
-        "Euro qualifier"
-      ],
-      "keywords_cn": [
-        "希腊",
-        "荷兰",
-        "欧洲杯预选赛"
+        "国足",
+        "巴勒斯坦",
+        "亚运会",
+        "惨败"
       ],
       "content_type": "热点球评",
-      "score": 78,
+      "score": 98,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足惨案戳中全民痛点，情绪拉满",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "3场仅3球，齐达内执教法国真的水土不服吗？",
+      "angle": "齐祖上任后进攻端挣扎，创造机会多但转化率低。球员时代大杀四方的玄宗，教练席上碰了硬钉子。",
+      "keywords": [
+        "zidane",
+        "france",
+        "goal drought",
+        "coaching"
+      ],
+      "keywords_cn": [
+        "齐达内",
+        "法国队",
+        "进球荒",
+        "执教"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "世界杯经典时刻",
-      "series_id": "wc-classics",
-      "why_pick": "希腊2004神话是老球迷共同记忆，照应当下",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "old-fan-night",
+      "why_pick": "玄宗执教困境反差大，话题足",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "威尔士2-1挪威，哈兰德又哑火了？大赛预选赛他到底差在哪",
-      "angle": "哈兰德在俱乐部进球如麻，一到国家队关键预选赛就隐身，威尔士这场2-1又把这个问题摆上台面。不是他不行，是国家队这套体系喂不饱他——这锅到底该谁背？",
+      "title": "35岁免签卡塔尔，马赫雷斯这么快就躺平了？",
+      "angle": "当打之年离开欧洲去淘金，35岁免签卡塔尔联赛。当年莱斯特奇迹功臣，如今选择安逸令人唏嘘。",
       "keywords": [
-        "Wales",
-        "Norway",
-        "Haaland",
-        "qualifier"
+        "mahrez",
+        "qatar",
+        "free transfer",
+        "al-ahli"
       ],
       "keywords_cn": [
-        "威尔士",
-        "挪威",
-        "哈兰德",
-        "预选赛"
+        "马赫雷斯",
+        "卡塔尔",
+        "免签",
+        "转会"
       ],
-      "content_type": "热点球评",
-      "score": 80,
+      "content_type": "转会资讯",
+      "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "target_emotion": "怀旧",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "哈兰德国家队哑火是老话题新素材，讨论度高",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
+      "why_pick": "球星去沙特淘金引老球迷唏嘘",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
       "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "法国意大利宿敌战领衔，这八场明天别错过",
-      "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-10-03 00:29:23"
+  "last_batch": "morning",
+  "last_updated": "2026-10-03 08:28:57"
 }
