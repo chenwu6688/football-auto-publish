@@ -1,7 +1,7 @@
 {
   "date": "2026-10-04",
-  "generated_at": "2026-10-04T04:16:40.180478",
-  "total_articles": 7,
+  "generated_at": "2026-10-04T09:51:02.722625",
+  "total_articles": 11,
   "articles": [
     {
       "index": 1,
@@ -246,132 +246,267 @@
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "时隔28年再夺亚运铜牌，这枚奖牌到底值多少？",
+      "path": "/home/runner/work/_temp/output/2026-10-04/article-1-时隔28年再夺亚-b59a9a.md",
+      "slug": "时隔28年再夺亚-b59a9a",
+      "tags": [
+        "China U23",
+        "Asian Games",
+        "Asian Games bronze medal",
+        "Chinese football fans",
+        "Beijing airport"
+      ],
+      "keywords": [
+        "China U23",
+        "Asian Games",
+        "Asian Games bronze medal",
+        "Chinese football fans",
+        "Beijing airport"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-04/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-04/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-04/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "28年等来一块铜牌，国足这趟回家路看哭多少人",
+      "path": "/home/runner/work/_temp/output/2026-10-04/article-2-28年等来一块铜-b69a2a.md",
+      "slug": "28年等来一块铜-b69a2a",
+      "tags": [
+        "China football",
+        "Asian Games",
+        "bronze medal",
+        "national team",
+        "fans welcome"
+      ],
+      "keywords": [
+        "China football",
+        "Asian Games",
+        "bronze medal",
+        "national team",
+        "fans welcome"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-04/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "国足0-5惨败，让商业队来踢真能翻身？",
+      "path": "/home/runner/work/_temp/output/2026-10-04/article-3-国足05惨败让商-eea13c.md",
+      "slug": "国足05惨败让商-eea13c",
+      "tags": [
+        "China national football team",
+        "youth development",
+        "commercialization",
+        "FIFA",
+        "Palestine"
+      ],
+      "keywords": [
+        "China national football team",
+        "youth development",
+        "commercialization",
+        "FIFA",
+        "Palestine"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-04/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-04/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-04/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "葡萄牙挪威对轰，法国比利时谁是真大佬？",
+      "path": "/home/runner/work/_temp/output/2026-10-04/article-4-葡萄牙挪威对轰法-05da9d.md",
+      "slug": "葡萄牙挪威对轰法-05da9d",
+      "tags": [
+        "Portugal vs Norway",
+        "France vs Belgium",
+        "Greece vs Germany",
+        "Netherlands vs Serbia",
+        "Italy vs Turkey",
+        "Japan vs New Zealand"
+      ],
+      "keywords": [
+        "Portugal vs Norway",
+        "France vs Belgium",
+        "Greece vs Germany",
+        "Netherlands vs Serbia",
+        "Italy vs Turkey",
+        "Japan vs New Zealand"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-04/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-04/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-04/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "拿了亚运铜牌，韩国国旗却没升起？这事老球迷怎么看",
-      "angle": "颁奖仪式上韩国国旗未升起，韩国U23队长公开表态'若蓄意则非常不妥'。不站队，但要把'升旗'这件小事背后的大情绪讲透——体育仪式感对老球迷意味着什么，我们当年看国足升旗时的那种心跳，谁都懂。",
+      "title": "带着铜牌回家，U23这帮孩子凭什么让我们又爱又心疼？",
+      "angle": "U23亚运摘铜全队飞抵北京，大批球迷机场接机——不吹不黑，这块铜牌的分量比很多人想的重。中国足球太久没有好消息了，安东尼奥带队8年像养儿子，这份坚持本身就值得说。",
       "keywords": [
-        "Asian Games",
-        "South Korea U23",
-        "flag ceremony"
-      ],
-      "keywords_cn": [
-        "亚运会",
-        "韩国U23",
-        "升旗仪式"
-      ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "颁奖仪式争议自带讨论度，仪式感戳老球迷",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
-    },
-    {
-      "title": "国足0-5，U23却摘铜：这枚奖牌到底算不算遮羞布？",
-      "angle": "沪媒说'男足成了意外之喜，若非这枚铜牌中国三大球更难看'，贺炜说'U字号回升，国足回升才有底层支撑'。两种声音摆一起，老六给个判断：铜牌不是遮羞布，但也别急着当救命稻草——这批孩子扛不动整个中国足球。",
-      "keywords": [
-        "China U23",
+        "U23 China",
         "Asian Games bronze",
-        "Chinese football"
+        "Antonio"
       ],
       "keywords_cn": [
         "U23国足",
-        "亚运铜牌",
-        "中国足球"
+        "亚运会铜牌",
+        "安东尼奥"
       ],
       "content_type": "热点球评",
       "score": 92,
-      "controversy_level": "high",
+      "controversy_level": "medium",
       "target_emotion": "骄傲",
       "resonance_angle": "国足情结",
       "series_id": "guozu-chronicle",
-      "why_pick": "铜牌与0-5强烈反差，国足情结天然共鸣",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "国足久违的好消息，情怀拉满",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "17岁小将独自面对镜头，国足输球到底输掉了什么？",
+      "angle": "国足惨败后17岁赵松源一个人接受采访，浙媒点评'输掉了责任与担当'——输球不可怕，可怕的是大人躲了让小孩扛。拿U23这帮敢拼的年轻人做对照，问题一目了然。",
+      "keywords": [
+        "Zhao Songyuan",
+        "China national team",
+        "responsibility"
+      ],
+      "keywords_cn": [
+        "赵松源",
+        "国足",
+        "责任担当"
+      ],
+      "content_type": "热点球评",
+      "score": 90,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "国足责任话题争议大，戳中老球迷痛点",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "巴萨想让巴尔德冬窗走人？这操作老球迷越看越眼熟",
-      "angle": "马卡报称巴萨希望阿莱士-巴尔德冬窗同意离队。从这条转会消息切入，聊巴萨这些年'卖青训填窟窿'的老毛病——拉玛西亚出品一个个被摆上货架，这剧本老球迷看过太多遍。",
+      "title": "青训不是好生意？骆明这话戳破了中国足球多少年的幻觉",
+      "angle": "骆明谈张雪言论：就算商业机构能介入青训，青训本身也不是好生意——这话难听但真实。中国足球喊了二十年青训，为什么始终做不起来？从投入产出比讲透这门'赔本买卖'的底层逻辑。",
       "keywords": [
-        "Barcelona",
-        "Alejandro Balde",
-        "transfer"
+        "Luo Ming",
+        "youth academy",
+        "China football"
       ],
       "keywords_cn": [
-        "巴萨",
-        "巴尔德",
-        "转会"
+        "骆明",
+        "青训",
+        "中国足球"
       ],
-      "content_type": "转会资讯",
-      "score": 82,
+      "content_type": "战术解析",
+      "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "resonance_angle": "名帅名宿沉浮",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "巴萨卖青训老话题，转会窗素材，有情绪",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "青训话题有深度，老球迷关心根源问题",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "葡萄牙挪威对轰，法国比利时谁是真大佬？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-04 12:16:40"
+  "last_batch": "evening",
+  "last_updated": "2026-10-04 17:51:02"
 }
