@@ -21,9 +21,9 @@
     "total_tokens": 46110
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 34789,
-    "completion_tokens": 5863,
-    "total_tokens": 40652
+    "prompt_tokens": 41413,
+    "completion_tokens": 6729,
+    "total_tokens": 48142
   },
   "deepseek-v4-flash-0731": {
     "prompt_tokens": 35945,
@@ -36,9 +36,9 @@
     "total_tokens": 41704
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 34855,
-    "completion_tokens": 6482,
-    "total_tokens": 41337
+    "prompt_tokens": 39657,
+    "completion_tokens": 7510,
+    "total_tokens": 47167
   },
   "deepseek-v4-pro-0813": {
     "prompt_tokens": 35342,
