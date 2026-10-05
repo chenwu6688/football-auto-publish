@@ -1,7 +1,7 @@
 {
   "date": "2026-10-05",
-  "generated_at": "2026-10-05T04:18:51.495819",
-  "total_articles": 6,
+  "generated_at": "2026-10-05T09:58:07.611082",
+  "total_articles": 12,
   "articles": [
     {
       "index": 1,
@@ -194,91 +194,413 @@
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
       "batch_name": "午间"
+    },
+    {
+      "index": 1,
+      "title": "0-5惨案刚过，国足这场收官战谁还敢混日子？",
+      "path": "/home/runner/work/_temp/output/2026-10-05/article-1-05惨案刚过国足-77d7df.md",
+      "slug": "05惨案刚过国足-77d7df",
+      "tags": [
+        "China national football team",
+        "Tajikistan",
+        "Asian Cup",
+        "Asian Games bronze",
+        "Chongqing Invitational",
+        "World Cup memory"
+      ],
+      "keywords": [
+        "China national football team",
+        "Tajikistan",
+        "Asian Cup",
+        "Asian Games bronze",
+        "Chongqing Invitational",
+        "World Cup memory"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "落后4分没退路，三镇这回押宝押对了吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-05/article-2-落后4分没退路三-fb4178.md",
+      "slug": "落后4分没退路三-fb4178",
+      "tags": [
+        "WuhanThreeTowns",
+        "DengZhuoxiang",
+        "Suarez",
+        "ChineseSuperLeague",
+        "Relegation"
+      ],
+      "keywords": [
+        "WuhanThreeTowns",
+        "DengZhuoxiang",
+        "Suarez",
+        "ChineseSuperLeague",
+        "Relegation"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-05/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 3,
+      "title": "U23主力中卫被4S店试驾撞伤，这块铜牌他永远错过了",
+      "path": "/home/runner/work/_temp/output/2026-10-05/article-3-U23主力中卫被-ef7aae.md",
+      "slug": "U23主力中卫被-ef7aae",
+      "tags": [
+        "U23国足",
+        "亚运会铜牌",
+        "吾米提江",
+        "上海海港",
+        "4S店试驾撞伤"
+      ],
+      "keywords": [
+        "U23国足",
+        "亚运会铜牌",
+        "吾米提江",
+        "上海海港",
+        "4S店试驾撞伤"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-05/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "西班牙3-1捷克，亚马尔这脚兜射让我想起02年那个夏天",
+      "path": "/home/runner/work/_temp/output/2026-10-05/article-4-西班牙31捷克亚-6e52d9.md",
+      "slug": "西班牙31捷克亚-6e52d9",
+      "tags": [
+        "Spain",
+        "Czech Republic",
+        "UEFA Nations League",
+        "Yamal",
+        "Rodri"
+      ],
+      "keywords": [
+        "Spain",
+        "Czech Republic",
+        "UEFA Nations League",
+        "Yamal",
+        "Rodri"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-05/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "韩乔生一句话戳中痛点：U23能站稳三流，国足就真有盼头了？",
+      "path": "/home/runner/work/_temp/output/2026-10-05/article-5-韩乔生一句话戳中-db5a0c.md",
+      "slug": "韩乔生一句话戳中-db5a0c",
+      "tags": [
+        "U23国足",
+        "亚运会",
+        "韩乔生",
+        "亚洲三流",
+        "青训梯队",
+        "国足编年史"
+      ],
+      "keywords": [
+        "U23国足",
+        "亚运会",
+        "韩乔生",
+        "亚洲三流",
+        "青训梯队",
+        "国足编年史"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-05/images/article-5-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 6,
+      "title": "法比大战凌晨开打，这八场我先押个痛快",
+      "path": "/home/runner/work/_temp/output/2026-10-05/article-6-法比大战凌晨开打-6328fe.md",
+      "slug": "法比大战凌晨开打-6328fe",
+      "tags": [
+        "France vs Belgium",
+        "Italy vs Turkey",
+        "Croatia vs Spain",
+        "England vs Czech",
+        "USA vs Canada",
+        "prediction"
+      ],
+      "keywords": [
+        "France vs Belgium",
+        "Italy vs Turkey",
+        "Croatia vs Spain",
+        "England vs Czech",
+        "USA vs Canada",
+        "prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-05/images/article-6-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-6-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-05/images/article-6-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "国足教练组经验值不够用？这话说得，老球迷心里跟明镜似的",
-      "angle": "记者直言国足教练组综合能力和执教经验完全不够用，这话戳中了老球迷的痛点。从米卢到里皮再到现在，我们这代人看国足换帅如换衣服，问题从来不只是教练。",
+      "title": "国足惨败后，U23这批孩子真能扛起亚洲杯大旗吗？",
+      "angle": "北青报道称U23国足相当一部分球员将入选国足名单，成为亚洲杯中坚力量。结合国足刚刚惨败、士气状态失控的现状，探讨这批年轻人是被迫上位还是真有实力，以及中国足球是否又在重复'换血自救'的老路。",
       "keywords": [
-        "China national football team",
-        "coaching staff"
+        "U23 China",
+        "Asian Cup",
+        "national team overhaul"
       ],
       "keywords_cn": [
-        "国足",
-        "教练组"
+        "U23国足",
+        "亚洲杯",
+        "国足换血"
       ],
       "content_type": "热点球评",
-      "score": 88,
+      "score": 92,
       "controversy_level": "high",
       "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "guozu-chronicle",
-      "why_pick": "教练组能力争议戳中老球迷多年痛点",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "国足惨败后U23上位话题自带争议，戳中国足球集体焦虑",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
     },
     {
-      "title": "帕托评速度最快球员：大罗排梅西前面，这份榜单你服不服？",
-      "angle": "帕托给出的速度排名把大罗放在梅西和姆巴佩之前，引发争议。但老球迷都知道，大罗巅峰期那种带球突击的爆发力，确实是另一个维度的存在。",
+      "title": "三镇主帅又下课了，邓卓翔第三次救火凭啥总能顶上？",
+      "angle": "武汉三镇主帅苏亚雷斯下课，邓卓翔将第三次出任临时主帅。从球员到救火教练，邓卓翔的'三进宫'背后折射出中国俱乐部选帅的短视与无奈，也让人想起他当年在国足的高光时刻。",
       "keywords": [
-        "Pato",
-        "Ronaldo Nazario",
-        "Messi"
+        "Deng Zhuoxiang",
+        "Wuhan Three Towns",
+        "caretaker coach"
       ],
       "keywords_cn": [
-        "帕托",
-        "大罗",
-        "梅西"
+        "邓卓翔",
+        "武汉三镇",
+        "临时主帅"
       ],
-      "content_type": "排行榜",
+      "content_type": "八卦趣事",
       "score": 85,
       "controversy_level": "medium",
       "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "old-fan-night",
-      "why_pick": "大罗速度之争唤醒老球迷青春记忆",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "邓卓翔三度救火有故事性，老球迷记得他当年国足高光",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "吾米提江被4S店试驾撞伤，无缘亚运铜牌，这账怎么算？",
+      "angle": "吾米提江8月意外被4S店员试驾撞伤，无缘亚运会和铜牌。一个职业球员的赛季被场外意外毁掉，这种'天降横祸'的荒诞感让人愤怒又无奈，也暴露出运动员场外保障的真空地带。",
+      "keywords": [
+        "Wumitijiang",
+        "car accident",
+        "Asian Games"
+      ],
+      "keywords_cn": [
+        "吾米提江",
+        "车祸",
+        "亚运会"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "场外意外毁掉赛季的荒诞故事，情绪共鸣强且有讨论价值",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "安东尼奥能成中国的德拉富恩特吗？这问题本身就不对",
+      "angle": "有人拿安东尼奥和西班牙主帅德拉富恩特对比，问能不能复制成功。但中国足球的问题从来不是一个教练能解决的，这种对比本身就是对两国足球土壤差异的误读。",
+      "keywords": [
+        "Antonio",
+        "De la Fuente",
+        "coaching comparison"
+      ],
+      "keywords_cn": [
+        "安东尼奥",
+        "德拉富恩特",
+        "教练对比"
+      ],
+      "content_type": "战术解析",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "跨联赛教练对比有争议空间，能引发对足球体系的深层讨论",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "韩乔生说U23已稳站亚洲三流，这话扎心但真没毛病吗？",
+      "angle": "韩乔生评价U23国足已稳站亚洲三流，U系列有起色国足不再是毫无希望。老韩的话直白扎心，但'三流'定位是否准确？从U23到成年队，中国足球的梯队建设到底走到哪一步了？",
+      "keywords": [
+        "Han Qiaosheng",
+        "U23 level",
+        "Asian football"
+      ],
+      "keywords_cn": [
+        "韩乔生",
+        "U23水平",
+        "亚洲足球"
+      ],
+      "content_type": "热点球评",
+      "score": 86,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "韩乔生点评有争议性，U23定位问题戳中球迷对国足未来的焦虑",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "法比大战凌晨开打，这八场我先押个痛快",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-05 12:18:51"
+  "last_batch": "evening",
+  "last_updated": "2026-10-05 17:58:07"
 }
