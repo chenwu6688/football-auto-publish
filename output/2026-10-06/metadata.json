@@ -1,7 +1,7 @@
 {
   "date": "2026-10-06",
-  "generated_at": "2026-10-06T00:30:42.262131",
-  "total_articles": 10,
+  "generated_at": "2026-10-06T04:17:24.387251",
+  "total_articles": 11,
   "articles": [
     {
       "index": 1,
@@ -321,64 +321,53 @@
       "column_id": "breaking",
       "column_name": "突发直击",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "三进三出！邓卓翔又接武汉三镇这个烂摊子，图啥？",
+      "path": "/home/runner/work/_temp/output/2026-10-06/article-1-三进三出邓卓翔又-6ee728.md",
+      "slug": "三进三出邓卓翔又-6ee728",
+      "tags": [
+        "Deng Zhuoxiang",
+        "Wuhan Three Towns",
+        "Chinese Super League",
+        "coaching change",
+        "relegation battle"
+      ],
+      "keywords": [
+        "Deng Zhuoxiang",
+        "Wuhan Three Towns",
+        "Chinese Super League",
+        "coaching change",
+        "relegation battle"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-06/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "4连败出局！蒙特拉还嘴硬，土耳其足球到底怎么了？",
-      "angle": "意大利3-1送土耳其欧国联4连败出局，蒙特拉赛后仍强调动力十足。从欧洲杯黑马到如今连败，高期望值反成包袱，土耳其足球的虚假繁荣该戳破了。",
+      "title": "三进宫！邓卓翔再救武汉三镇，这剧本怎么这么熟？",
+      "angle": "邓卓翔第三次出任武汉三镇主帅，去年刚带队保级，今年又回来接苏亚雷斯的班。一个赛季三次换帅，这到底是信任还是没人可用？本土教练的处境，比想象中更尴尬。",
       "keywords": [
-        "turkey",
-        "montella",
-        "nations league",
-        "losing streak"
+        "Deng Zhuoxiang",
+        "Wuhan Three Towns",
+        "coach change"
       ],
       "keywords_cn": [
-        "土耳其",
-        "蒙特拉",
-        "欧国联",
-        "四连败"
-      ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "4连败+主帅嘴硬，争议性拉满",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "29岁还想踢奥运？多纳鲁马这波操作你怎么看",
-      "angle": "罗体爆料多纳鲁马想以超龄球员身份参加28年洛杉矶奥运。一个门将黄金期跑去踢奥运，是情怀使然还是职业规划跑偏？曼奇尼力挺背后有玄机。",
-      "keywords": [
-        "donnarumma",
-        "olympics",
-        "overage",
-        "italy"
-      ],
-      "keywords_cn": [
-        "多纳鲁马",
-        "奥运会",
-        "超龄球员",
-        "意大利"
+        "邓卓翔",
+        "武汉三镇",
+        "换帅"
       ],
       "content_type": "八卦趣事",
       "score": 85,
@@ -386,118 +375,33 @@
       "target_emotion": "好奇",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "超龄踢奥运罕见，反常识有话题",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "B费续约谈不拢？曼联更衣室又要变天了吗",
-      "angle": "罗马诺确认B费与曼联续约谈判尚未达成协议，同时利马也在谈。核心续约卡壳往往是更衣室洗牌的前兆，曼联这盘棋到底往哪走？",
-      "keywords": [
-        "bruno fernandes",
-        "man utd",
-        "contract",
-        "renewal"
-      ],
-      "keywords_cn": [
-        "B费",
-        "曼联",
-        "续约",
-        "更衣室"
-      ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "核心续约卡壳，曼联流量密码",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "三进宫戏剧性+本土教练沉浮",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "从中超金靴到回巴西打工，保利尼奥经历了啥？",
-      "angle": "保利尼奥官宣加盟克鲁塞罗任职。从恒大巅峰到巴萨镀金再到如今回巴西俱乐部打工，暴力鸟的职业生涯弧光，正是老球迷最熟悉的那种江湖起落。",
-      "keywords": [
-        "paulinho",
-        "cruzeiro",
-        "guangzhou",
-        "career"
-      ],
-      "keywords_cn": [
-        "保利尼奥",
-        "克鲁塞罗",
-        "广州恒大",
-        "退役"
-      ],
-      "content_type": "八卦趣事",
-      "score": 86,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "恒大旧将转型，戳中老球迷情怀",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "法国 4-1 比利时，5球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-06 08:30:42"
+  "last_batch": "noon",
+  "last_updated": "2026-10-06 12:17:24"
 }
