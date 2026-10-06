@@ -56,14 +56,14 @@
     "total_tokens": 60647
   },
   "mimo-v2.6-pro": {
-    "prompt_tokens": 35802,
-    "completion_tokens": 15844,
-    "total_tokens": 51646
+    "prompt_tokens": 40155,
+    "completion_tokens": 17636,
+    "total_tokens": 57791
   },
   "step-5-preview": {
-    "prompt_tokens": 21113,
-    "completion_tokens": 24062,
-    "total_tokens": 45175
+    "prompt_tokens": 26491,
+    "completion_tokens": 26050,
+    "total_tokens": 52541
   },
   "kimi-k2.8-preview": {
     "prompt_tokens": 6481,
