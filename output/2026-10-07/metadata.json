@@ -1,7 +1,7 @@
 {
   "date": "2026-10-07",
-  "generated_at": "2026-10-06T16:21:58.595837",
-  "total_articles": 1,
+  "generated_at": "2026-10-06T16:23:45.832527",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -34,33 +34,61 @@
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "32岁金特尔续约弗赖堡，他图个啥？",
+      "path": "/home/runner/work/_temp/output/2026-10-07/article-1-32岁金特尔续约-1077bc.md",
+      "slug": "32岁金特尔续约-1077bc",
+      "tags": [
+        "Ginter",
+        "Freiburg",
+        "contract renewal",
+        "Bundesliga",
+        "defender"
+      ],
+      "keywords": [
+        "Ginter",
+        "Freiburg",
+        "contract renewal",
+        "Bundesliga",
+        "defender"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
     }
   ],
   "topics": [
     {
-      "title": "32岁世界杯冠军后卫续约小球队，金特尔到底图啥？",
-      "angle": "从'落叶归根'切入：金特尔是弗赖堡青训出身，2014年世界杯冠军成员，游历多特、门兴后回家坚守。对照当下转会市场漫天要价的风气，这种不图钱的坚守，正是老球迷最认的东西——观点明确：钱买不到的东西，才叫足球。",
+      "title": "金特尔续约弗赖堡，德国中卫的退路到底在哪？",
+      "angle": "金特尔从多特蒙德到门兴再到弗赖堡，德国本土中卫在英超高薪时代选择留守德甲，弗赖堡靠稳定框架而非大牌球星立足，这种反潮流操作值得聊聊。",
       "keywords": [
-        "Matthias Ginter",
+        "Ginter",
         "Freiburg",
-        "contract renewal",
-        "2014 World Cup",
         "Bundesliga"
       ],
       "keywords_cn": [
         "金特尔",
         "弗赖堡",
-        "续约",
-        "德国队",
-        "世界杯冠军"
+        "德甲"
       ],
       "content_type": "转会资讯",
-      "score": 80,
+      "score": 76,
       "controversy_level": "low",
       "target_emotion": "怀旧",
-      "resonance_angle": "世界杯经典时刻",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "old-fan-night",
-      "why_pick": "素材独苗，青训归乡+世界杯冠军情怀，老球迷共鸣拉满",
+      "why_pick": "德国中卫留守德甲反潮流，老球迷有共鸣。",
       "_column_id": "world-cup-daily",
       "_column_name": "世界杯日报",
       "_column_icon": "📰",
@@ -86,5 +114,5 @@
     "evening"
   ],
   "last_batch": "evening",
-  "last_updated": "2026-10-07 00:21:58"
+  "last_updated": "2026-10-07 00:23:45"
 }
