@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-07",
+  "generated_at": "2026-10-06T16:21:58.595837",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "金特尔续约弗赖堡，32岁老将的归宿让人想起世界杯那年",
+      "path": "/home/runner/work/_temp/output/2026-10-07/article-1-金特尔续约弗赖堡-ec9ff6.md",
+      "slug": "金特尔续约弗赖堡-ec9ff6",
+      "tags": [
+        "Ginter",
+        "Freiburg",
+        "contract extension",
+        "Bundesliga",
+        "veteran defender"
+      ],
+      "keywords": [
+        "Ginter",
+        "Freiburg",
+        "contract extension",
+        "Bundesliga",
+        "veteran defender"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    }
+  ],
+  "topics": [
+    {
+      "title": "32岁世界杯冠军后卫续约小球队，金特尔到底图啥？",
+      "angle": "从'落叶归根'切入：金特尔是弗赖堡青训出身，2014年世界杯冠军成员，游历多特、门兴后回家坚守。对照当下转会市场漫天要价的风气，这种不图钱的坚守，正是老球迷最认的东西——观点明确：钱买不到的东西，才叫足球。",
+      "keywords": [
+        "Matthias Ginter",
+        "Freiburg",
+        "contract renewal",
+        "2014 World Cup",
+        "Bundesliga"
+      ],
+      "keywords_cn": [
+        "金特尔",
+        "弗赖堡",
+        "续约",
+        "德国队",
+        "世界杯冠军"
+      ],
+      "content_type": "转会资讯",
+      "score": 80,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "resonance_angle": "世界杯经典时刻",
+      "series_id": "old-fan-night",
+      "why_pick": "素材独苗，青训归乡+世界杯冠军情怀，老球迷共鸣拉满",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-10-07 00:21:58"
+}
