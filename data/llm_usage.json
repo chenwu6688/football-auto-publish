@@ -26,9 +26,9 @@
     "total_tokens": 62936
   },
   "deepseek-v4-flash-0731": {
-    "prompt_tokens": 50260,
-    "completion_tokens": 8878,
-    "total_tokens": 59138
+    "prompt_tokens": 54334,
+    "completion_tokens": 9710,
+    "total_tokens": 64044
   },
   "deepseek-v4.1-flash": {
     "prompt_tokens": 52034,
@@ -66,8 +66,8 @@
     "total_tokens": 45175
   },
   "kimi-k2.8-preview": {
-    "prompt_tokens": 1312,
-    "completion_tokens": 3686,
-    "total_tokens": 4998
+    "prompt_tokens": 6481,
+    "completion_tokens": 5734,
+    "total_tokens": 12215
   }
 }
