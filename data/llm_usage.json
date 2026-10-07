@@ -31,14 +31,14 @@
     "total_tokens": 64044
   },
   "deepseek-v4.1-flash": {
-    "prompt_tokens": 52034,
-    "completion_tokens": 9238,
-    "total_tokens": 61272
+    "prompt_tokens": 56000,
+    "completion_tokens": 10093,
+    "total_tokens": 66093
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 50840,
-    "completion_tokens": 9755,
-    "total_tokens": 60595
+    "prompt_tokens": 56364,
+    "completion_tokens": 10550,
+    "total_tokens": 66914
   },
   "deepseek-v4-pro-0813": {
     "prompt_tokens": 50739,
