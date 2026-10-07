@@ -1,7 +1,7 @@
 {
   "date": "2026-10-07",
-  "generated_at": "2026-10-06T16:23:45.832527",
-  "total_articles": 2,
+  "generated_at": "2026-10-07T00:17:59.994822",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -66,53 +66,194 @@
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
       "batch_name": "晚间"
+    },
+    {
+      "index": 1,
+      "title": "曼城被裁定违规，旧将冈萨雷斯这番话，听着怎么这么不是滋味？",
+      "path": "/home/runner/work/_temp/output/2026-10-07/article-1-曼城被裁定违规旧-6104e4.md",
+      "slug": "曼城被裁定违规旧-6104e4",
+      "tags": [
+        "Manchester City",
+        "Newcastle",
+        "Nico Gonzalez",
+        "Premier League",
+        "Financial Rules"
+      ],
+      "keywords": [
+        "Manchester City",
+        "Newcastle",
+        "Nico Gonzalez",
+        "Premier League",
+        "Financial Rules"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "47场首红+队史首败，国足一夜把纪录破了个遍？",
+      "path": "/home/runner/work/_temp/output/2026-10-07/article-2-47场首红队史首-36cd88.md",
+      "slug": "47场首红队史首-36cd88",
+      "tags": [
+        "China national football team",
+        "Tajikistan",
+        "Wei Shihao",
+        "red card",
+        "FIFA ranking",
+        "Shao Jiayi"
+      ],
+      "keywords": [
+        "China national football team",
+        "Tajikistan",
+        "Wei Shihao",
+        "red card",
+        "FIFA ranking",
+        "Shao Jiayi"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-07/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "金特尔续约弗赖堡，德国中卫的退路到底在哪？",
-      "angle": "金特尔从多特蒙德到门兴再到弗赖堡，德国本土中卫在英超高薪时代选择留守德甲，弗赖堡靠稳定框架而非大牌球星立足，这种反潮流操作值得聊聊。",
+      "title": "梅西要办告别赛了，C罗却还在为离队发长文，这俩人的晚年咋差这么多？",
+      "angle": "同一时代的两尊神，一个体面谢幕、一个还在和俱乐部拉扯。不站队，但要说句实在话：告别的方式，往往比巅峰时的高度更能看出一个人的江湖地位。",
       "keywords": [
-        "Ginter",
-        "Freiburg",
-        "Bundesliga"
+        "messi farewell",
+        "ronaldo exit",
+        "national team retirement"
       ],
       "keywords_cn": [
-        "金特尔",
-        "弗赖堡",
-        "德甲"
+        "梅西告别赛",
+        "C罗离队",
+        "国家队退役"
+      ],
+      "content_type": "八卦趣事",
+      "score": 93,
+      "controversy_level": "high",
+      "target_emotion": "怀旧",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "old-fan-night",
+      "why_pick": "梅罗同框对比，老球迷DNA直接动",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "从曼城被指控到投奔纽卡，尼科这半年心情像坐过山车",
+      "angle": "一个球员夹在俱乐部官司和职业选择中间，说的那句'心情复杂'特别真实。不吹不黑，聊聊职业球员在风暴中心到底怎么选。",
+      "keywords": [
+        "nico gonzalez",
+        "newcastle",
+        "manchester city"
+      ],
+      "keywords_cn": [
+        "尼科·冈萨雷斯",
+        "纽卡斯尔",
+        "曼城转会"
       ],
       "content_type": "转会资讯",
-      "score": 76,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "德国中卫留守德甲反潮流，老球迷有共鸣。",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "球员视角讲转会，比官宣有人味",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "国足友谊赛又连败了，我们这代人到底还要等几个四年？",
+      "angle": "又一次热身赛输球，朋友圈骂声一片。但骂归骂，我还是想说：从02年那批人到现在，我们等的从来不是一场胜利，是一个说得过去的交代。",
+      "keywords": [
+        "china national team",
+        "friendly defeat",
+        "world cup dream"
+      ],
+      "keywords_cn": [
+        "国足连败",
+        "友谊赛",
+        "世界杯梦"
+      ],
+      "content_type": "热点球评",
+      "score": 89,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足连败戳中老球迷集体记忆",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-10-07 00:23:45"
+  "last_batch": "morning",
+  "last_updated": "2026-10-07 08:17:59"
 }
