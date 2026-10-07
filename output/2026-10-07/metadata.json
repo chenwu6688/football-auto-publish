@@ -1,7 +1,7 @@
 {
   "date": "2026-10-07",
-  "generated_at": "2026-10-07T00:17:59.994822",
-  "total_articles": 4,
+  "generated_at": "2026-10-07T04:18:28.981609",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -128,132 +128,164 @@
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "中超助攻榜第3的高天意，国家队只捞到12分钟？",
+      "path": "/home/runner/work/_temp/output/2026-10-07/article-1-中超助攻榜第3的-b0906b.md",
+      "slug": "中超助攻榜第3的-b0906b",
+      "tags": [
+        "Gao Tianyi",
+        "China national team",
+        "Shao Jiayi",
+        "Chinese Super League assists",
+        "friendly matches",
+        "Chongqing"
+      ],
+      "keywords": [
+        "Gao Tianyi",
+        "China national team",
+        "Shao Jiayi",
+        "Chinese Super League assists",
+        "friendly matches",
+        "Chongqing"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "梅西告别战，纪念碑球场这3个细节比3-0更戳人",
+      "path": "/home/runner/work/_temp/output/2026-10-07/article-2-梅西告别战纪念碑-c61ecb.md",
+      "slug": "梅西告别战纪念碑-c61ecb",
+      "tags": [
+        "Messi",
+        "Argentina",
+        "farewell",
+        "national team",
+        "monumental"
+      ],
+      "keywords": [
+        "Messi",
+        "Argentina",
+        "farewell",
+        "national team",
+        "monumental"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-07/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-07/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "梅西要办告别赛了，C罗却还在为离队发长文，这俩人的晚年咋差这么多？",
-      "angle": "同一时代的两尊神，一个体面谢幕、一个还在和俱乐部拉扯。不站队，但要说句实在话：告别的方式，往往比巅峰时的高度更能看出一个人的江湖地位。",
+      "title": "0球0助！高天意12分钟国脚生涯凭什么留队？",
+      "angle": "中超本土助攻王高天意本赛季联赛助攻上双，但在国家队仅获12分钟出场。用这组极端反差数据质问邵佳一的用人逻辑，探讨联赛状态与国家队选人的割裂。",
       "keywords": [
-        "messi farewell",
-        "ronaldo exit",
-        "national team retirement"
+        "gao tianyi",
+        "assists",
+        "shao jiayi",
+        "squad selection"
       ],
       "keywords_cn": [
-        "梅西告别赛",
-        "C罗离队",
-        "国家队退役"
+        "高天意",
+        "助攻",
+        "邵佳一",
+        "用人争议"
       ],
-      "content_type": "八卦趣事",
-      "score": 93,
+      "content_type": "热点球评",
+      "score": 88,
       "controversy_level": "high",
-      "target_emotion": "怀旧",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "梅罗同框对比，老球迷DNA直接动",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "联赛助攻王与国脚12分钟反差强",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "从曼城被指控到投奔纽卡，尼科这半年心情像坐过山车",
-      "angle": "一个球员夹在俱乐部官司和职业选择中间，说的那句'心情复杂'特别真实。不吹不黑，聊聊职业球员在风暴中心到底怎么选。",
+      "title": "梅西告别赛3-0收尾，这剧本你给打几分？",
+      "angle": "阿根廷3-0胜贝宁的梅西国家队告别赛，抛开比分谈情怀。从05年首秀到26年谢幕，21年国家队生涯的起落是老球迷的青春线，用一场含金量不高的友谊赛照见一代球王的落幕。",
       "keywords": [
-        "nico gonzalez",
-        "newcastle",
-        "manchester city"
+        "messi",
+        "farewell match",
+        "argentina",
+        "international retirement"
       ],
       "keywords_cn": [
-        "尼科·冈萨雷斯",
-        "纽卡斯尔",
-        "曼城转会"
+        "梅西",
+        "告别赛",
+        "阿根廷",
+        "国家队退役"
       ],
-      "content_type": "转会资讯",
-      "score": 78,
+      "content_type": "八卦趣事",
+      "score": 95,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "target_emotion": "怀旧",
+      "resonance_angle": "世界杯经典时刻",
       "series_id": "无",
-      "why_pick": "球员视角讲转会，比官宣有人味",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "梅西国家队谢幕，情怀杀戳中老球迷",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
-    },
-    {
-      "title": "国足友谊赛又连败了，我们这代人到底还要等几个四年？",
-      "angle": "又一次热身赛输球，朋友圈骂声一片。但骂归骂，我还是想说：从02年那批人到现在，我们等的从来不是一场胜利，是一个说得过去的交代。",
-      "keywords": [
-        "china national team",
-        "friendly defeat",
-        "world cup dream"
-      ],
-      "keywords_cn": [
-        "国足连败",
-        "友谊赛",
-        "世界杯梦"
-      ],
-      "content_type": "热点球评",
-      "score": 89,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "国足连败戳中老球迷集体记忆",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-07 08:17:59"
+  "last_batch": "noon",
+  "last_updated": "2026-10-07 12:18:28"
 }
