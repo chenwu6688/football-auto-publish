@@ -66,14 +66,15 @@
     "total_tokens": 102000
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 60983,
-    "completion_tokens": 9283,
-    "total_tokens": 86000
+    "prompt_tokens": 66868,
+    "completion_tokens": 11250,
+    "total_tokens": 93852,
+    "fail_streak": 0
   },
   "deepseek-v4-pro-202606": {
-    "prompt_tokens": 11009,
-    "completion_tokens": 1914,
-    "total_tokens": 84923,
+    "prompt_tokens": 17806,
+    "completion_tokens": 3049,
+    "total_tokens": 92855,
     "fail_streak": 0
   },
   "glm-5.3": {
