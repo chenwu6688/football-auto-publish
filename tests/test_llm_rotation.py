@@ -210,3 +210,81 @@ def test_rotation_sort_can_be_disabled(tmp_path, monkeypatch):
 def test_global_candidate_list_is_nonempty():
     """线上候选列表非空（防止误写成空导致永远失败）。"""
     assert len(LLM_JSON_CANDIDATES) > 0
+
+
+def test_failing_model_sinks_to_back(tmp_path, monkeypatch):
+    """连续失败的模型应沉底——避免每次都先浪费一轮超时（实测 23 分钟长跑根因）。
+
+    kimi-k3 剩余最多（全新）但失败 3 次；deepseek-v4-pro 剩余较少但从未失败。
+    失败优先沉底：应优先尝试 deepseek-v4-pro，而非剩余更多但老失败的 kimi-k3。
+    """
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with(**{
+        "deepseek-v4-pro": {"total_tokens": 500_000},      # 剩余 50 万，稳定
+        "kimi-k3": {"total_tokens": 0, "fail_streak": 3},  # 剩余 100 万，老失败
+        "glm-5.3": {"total_tokens": 0},                    # 剩余 100 万，稳定
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+
+    calls = []
+    def fake_call_llm(url, key, model, messages, **kw):
+        calls.append(model)
+        return '{"ok": true}'
+    monkeypatch.setattr(utils, "call_llm", fake_call_llm)
+
+    parsed, used = utils.call_llm_json(
+        [{"role": "user", "content": "x"}], candidates=_CAND, usage_file=usage_file)
+    assert used == "glm-5.3", f"稳定模型应优先于老失败模型，实际用了 {used}"
+    assert "kimi-k3" not in calls, "失败 3 次的 kimi-k3 不应被优先调用"
+    assert calls.index("kimi-k3") if "kimi-k3" in calls else 999 > 0
+
+
+def test_fail_streak_increments_and_resets(tmp_path, monkeypatch):
+    """空响应累计失败次数；一旦成功即清零。"""
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with()))
+    saved = {}
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda u, p: saved.update(u))
+
+    # 第一个模型返回空 → 失败计数 +1；第二个返回合法 JSON → 采用
+    seq = iter(['', '{"ok": true}'])
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: next(seq))
+    parsed, used = utils.call_llm_json(
+        [{"role": "user", "content": "x"}], candidates=_CAND, usage_file=usage_file)
+    assert used == "kimi-k3"
+    assert saved.get("deepseek-v4-pro", {}).get("fail_streak") == 1, "空响应应累计失败"
+    assert saved.get("kimi-k3", {}).get("fail_streak") == 0, "成功应清零失败计数"
+
+
+def test_call_llm_downgrades_on_400(monkeypatch):
+    """HTTP 400 时应用「最小参数集」重试一次（实测 glm-5.3 拒绝 thinking 参数）。
+
+    用假 requests.post 模拟：第一次（含 thinking）返回 400，降级重试返回 200。
+    """
+    import requests as _rq
+
+    calls = []
+    class FakeResp:
+        def __init__(self, status, text):
+            self.status_code = status
+            self.text = text
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise _rq.exceptions.HTTPError(response=self)
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}], "usage": {}}
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        calls.append(dict(json or {}))
+        if len(calls) == 1:
+            return FakeResp(400, '{"error":"unknown parameter: thinking"}')
+        return FakeResp(200, "")
+
+    monkeypatch.setattr(utils.requests, "post", fake_post)
+    out = utils.call_llm("https://x/v1", "k", "glm-5.3", [{"role": "user", "content": "hi"}])
+    assert out == '{"ok": true}'
+    assert len(calls) == 2, "400 后应降级重试一次"
+    assert "thinking" in calls[0], "首次应带 thinking 参数"
+    assert "thinking" not in calls[1], "降级重试应去掉 thinking"
+    assert "temperature" not in calls[1], "降级重试应去掉 temperature"

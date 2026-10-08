@@ -75,7 +75,13 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
         max_retries: Number of attempts for primary (and fallback) call.
                      call_llm_json passes 1 to fail-fast across providers.
     """
-    def _call(u, k, m):
+    def _build_body(m, *, minimal=False):
+        if minimal:
+            # 最小参数集：仅 model/messages/max_tokens/stream。
+            # 用于 400 后的降级重试——某些模型（如 glm-5.3 系列）不接受
+            # temperature / thinking 等可选参数，传了直接 400 Bad Request。
+            return {"model": m, "messages": messages,
+                    "max_tokens": max_tokens, "stream": False}
         body = {
             "model": m, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False
@@ -90,9 +96,22 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
             body["temperature"] = 1.0
         elif m.startswith(("deepseek", "glm-", "qwen3")):
             body["thinking"] = {"type": "disabled"}
-        resp = requests.post(u, json=body,
+        return body
+
+    def _post(u, k, m, *, minimal=False):
+        resp = requests.post(u, json=_build_body(m, minimal=minimal),
                              headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"},
                              timeout=timeout)
+        return resp
+
+    def _call(u, k, m):
+        resp = _post(u, k, m)
+        if resp.status_code == 400:
+            # 400 = 请求参数不被该模型接受（实测 glm-5.3 系列拒绝 thinking 参数）。
+            # 打印错误体后再用「最小参数集」重试一次，避免整池白白跳过满额模型。
+            detail = resp.text[:300]
+            print(f"   ⚠️ LLM({m}) HTTP 400，参数可能不被支持，降级重试。body={detail}")
+            resp = _post(u, k, m, minimal=True)
         resp.raise_for_status()
         data = resp.json()
         if usage_ref is not None:
@@ -208,6 +227,25 @@ def _remaining_tokens(model, usage, quota=LLM_FREE_QUOTA_TOKENS):
     return max(0, quota - _model_used_tokens(model, usage))
 
 
+def _fail_streak(model, usage):
+    """Return the current consecutive-failure count for a model (0 if none).
+
+    用于把「稳定失灵」的模型（空响应/400/超时）沉到候选末尾，避免每次都先
+    浪费一轮超时。成功后清零。持久化在 llm_usage.json 的 fail_streak 字段。
+    """
+    return usage.get(model, {}).get("fail_streak", 0)
+
+
+def _bump_fail_streak(usage, model, *, reset=False):
+    """Increment (or reset) a model's consecutive-failure counter in usage."""
+    rec = usage.setdefault(model, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0})
+    if reset:
+        rec["fail_streak"] = 0
+    else:
+        rec["fail_streak"] = rec.get("fail_streak", 0) + 1
+    return usage
+
+
 def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD,
                         hard_cap=LLM_HARD_CAP_TOKENS):
     """Return True if the model has free quota remaining and is not disabled.
@@ -309,11 +347,19 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
 
     # 方案 II：按剩余额度降序（同分按原候选顺序）——优先用剩余最多的模型，
     # 避免单个模型被反复命中而先行超额。list.sort 是稳定排序，天然保持同分原顺序。
+    #
+    # 同时把「连续失败」的模型沉底：某些模型会稳定地返回空/400/超时
+    # （实测 hy4-preview 空响应、glm-5.3 系列 400），若一直排在候选最前，
+    # 每次都要先浪费一轮 60s 超时，导致整跑耗时 20+ 分钟。失败次数越多越靠后，
+    # 成功后清零（见下方 _bump_fail_streak）。
     if sort_by_remaining and len(available) > 1:
-        available.sort(key=lambda c: -_remaining_tokens(c[2], usage, quota))
+        available.sort(key=lambda c: (
+            _fail_streak(c[2], usage),               # 失败次数升序：少的优先（沉底失灵模型）
+            -_remaining_tokens(c[2], usage, quota),  # 其次按剩余额度降序
+        ))
         top = available[0][2]
-        print(f"   🧮 按剩余额度降序排列候选（首位 {top}，剩余 "
-              f"{_remaining_tokens(top, usage, quota)} tokens）")
+        print(f"   🧮 候选排序：首位 {top}（失败次数 {_fail_streak(top, usage)}，"
+              f"剩余 {_remaining_tokens(top, usage, quota)} tokens）")
 
     if not available:
         reasons = []
@@ -340,12 +386,17 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
                                  max_retries=llm_max_retries)
             if not resp_text or not resp_text.strip():
                 print(f"   ⚠️ LLM({model}) 返回空内容，跳过")
+                _bump_fail_streak(usage, model)
+                _save_llm_usage(usage, usage_file)
                 continue
             parsed = parser(resp_text)
             if parsed is None:
                 print(f"   ⚠️ LLM({model}) 返回内容无法解析为 JSON，尝试下一个模型")
+                _bump_fail_streak(usage, model)
+                _save_llm_usage(usage, usage_file)
                 continue
             usage = _add_llm_usage(usage, usage_ref.get("model", model), usage_ref.get("usage", {}))
+            _bump_fail_streak(usage, model, reset=True)  # 成功 → 失败连击清零
             _save_llm_usage(usage, usage_file)
             print(f"   ✅ LLM({model}) 返回可用 JSON")
             return parsed, model
@@ -367,10 +418,14 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             else:
                 preview = str(e)[:200]
                 print(f"   ⚠️ LLM({model}) HTTP 调用失败: {preview}")
+                _bump_fail_streak(usage, model)  # 含 400/404/5xx：沉底以防反复超时
+                _save_llm_usage(usage, usage_file)
             last_err = e
         except Exception as e:
             preview = str(e)[:200]
             print(f"   ⚠️ LLM({model}) 调用失败: {preview}")
+            _bump_fail_streak(usage, model)  # 超时/连接错误：沉底以防反复超时
+            _save_llm_usage(usage, usage_file)
             last_err = e
 
     raise ValueError(f"前 {len(available)} 个可用候选均未能返回可用 JSON。最后错误: {last_err}")
