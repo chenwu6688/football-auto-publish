@@ -51,32 +51,36 @@ FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
 # --- 多模型轮换（JSON 依赖型调用，如话题筛选）---
 # 候选顺序：按中文语义质量 deepseek > kimi > hy/mimo/step > glm，
 # 同品牌内优先更省 token 的 flash/lite/code 变体。
+#
+# ⚠️ 2026-10-08 实测校正（依据 CI 运行日志）：
+#   - glm-5.3 / glm-5.3-flash / glm-5.3-flashx 在 TokenHub 侧稳定返回
+#     HTTP 400（code 400001「internal MaaS component 拒绝请求」），
+#     无论是否带 thinking/temperature 都失败 → 降级到列表**最末尾**
+#     （仅在前面的模型全部不可用时才兜底尝试，避免每次白跑 3 轮 ~30s）。
+#   - hy4-preview / kimi-k2.8-preview / step-5-preview / mimo-v2.6-pro
+#     实测稳定「返回空内容」→ 也下调靠后。
+#   - 实测稳定可用的主力：deepseek 系、kimi-k3/k2.7-code-highspeed、
+#     mimo-v2.6-flash。
+#
 # 2026-09-27 依据 TokenHub 后台截图重建本列表（后台共 20 个模型）：
 #   ❌ 剔除「已停止 / 剩余 0%」：hy3、deepseek-v4-pro
 #   ⚠️ 后台截图未出现、疑似下架：kimi-k2.7-code、kimi-k2.5、qwen3.5-flash、qwen3.5-plus
-#      （原 Qwen 补充容量槽位改由 mimo/step 顶上）
-#   ✅ 新增 100% 额度：deepseek-v4.1-flash、deepseek/deepseek-v4-flash-vision-exp、
-#      mimo-v2.6-flash、mimo-v2.6-pro、step-5-preview、glm-5.3-flashx
-#   ✅ 保留 88–99% 可用：kimi-k3(88.3%)、deepseek-v4-flash-202605(90.8%)、
-#      deepseek-v4-pro-202606(92.8%)、glm-5.2(98.8%)
-# 已实测可用的模型排在前面，确保批次快速命中；新模型靠后兜底。
 # 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
 _HY3_ROTATION_MODELS = os.environ.get(
     "HY3_ROTATION_MODELS",
-    # DeepSeek（推理模型，utils.call_llm 已自动关 thinking）
+    # DeepSeek（推理模型，utils.call_llm 已自动关 thinking）—— 实战主力，排最前
     "deepseek-v4-flash-202605,deepseek/deepseek-flash,deepseek-v4-flash-0731,"
     "deepseek-v4.1-flash,deepseek/deepseek-v4-flash-vision-exp,"
     "deepseek-v4-pro-202606,deepseek-v4-pro-0813,"
     # Kimi（仅接受 temperature=1.0，已适配）
-    "kimi-k3,kimi-k2.7-code-highspeed,kimi-k2.8-preview,"
-    # Hunyuan（标准对话，无需特殊参数）
-    "hy4-preview,"
-    # MiMo（小米，标准对话）
-    "mimo-v2.6-flash,mimo-v2.6-pro,"
-    # StepFun
-    "step-5-preview,"
-    # GLM（推理模型，已自动关 thinking）
-    "glm-5.3-flash,glm-5.3-flashx,glm-5.3,glm-5.2"
+    "kimi-k3,kimi-k2.7-code-highspeed,"
+    # MiMo（小米，标准对话）—— 实测可用的稳定替补
+    "mimo-v2.6-flash,"
+    # 以下实测易失灵（空响应/400），下调靠后兜底
+    "kimi-k2.8-preview,step-5-preview,mimo-v2.6-pro,hy4-preview,"
+    "glm-5.2,"
+    # GLM 5.3 系列：TokenHub 侧稳定 400，压到最末尾
+    "glm-5.3-flash,glm-5.3-flashx,glm-5.3"
 ).split(",")
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
 
