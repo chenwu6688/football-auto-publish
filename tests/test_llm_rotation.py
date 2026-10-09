@@ -257,6 +257,37 @@ def test_fail_streak_increments_and_resets(tmp_path, monkeypatch):
     assert saved.get("kimi-k3", {}).get("fail_streak") == 0, "成功应清零失败计数"
 
 
+def test_preseded_fail_streak_keeps_unreliable_at_back(tmp_path, monkeypatch):
+    """回归保护：已预置 fail_streak 的失灵模型，即便剩余额度最高，也不排到健康模型前。
+
+    对应修复：data/llm_usage.json 给 known-unreliable 模型预置 fail_streak=1，
+    避免全新 clone / reset --purge 后它们因剩余额度偏高被排到前面、白等超时。
+    """
+    usage_file = tmp_path / "usage.json"
+    # unreliable 剩余最多（全新），但已预置 fail_streak=1；healthy 已用 50 万、fail_streak=0
+    usage_file.write_text(json.dumps(_usage_with(**{
+        "deepseek-v4-pro": {"total_tokens": 500_000},                 # 剩余 50 万，健康
+        "kimi-k3": {"total_tokens": 0},                               # 剩余 100 万，健康
+        "glm-5.3": {"total_tokens": 0, "fail_streak": 1},             # 剩余 100 万，已失灵
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+
+    calls = []
+    def fake_call_llm(url, key, model, messages, **kw):
+        calls.append(model)
+        return '{"ok": true}'
+    monkeypatch.setattr(utils, "call_llm", fake_call_llm)
+
+    parsed, used = utils.call_llm_json(
+        [{"role": "user", "content": "x"}], candidates=_CAND, usage_file=usage_file)
+    # fail_streak=0 的健康模型（kimi-k3）必须先被调用且被采用；
+    # 因 kimi-k3 成功即返回，glm-5.3（fail_streak=1）不会被触及——这正说明它没排到前面。
+    assert used == "kimi-k3", f"健康模型应先于已失灵模型被采用，实际 {used}"
+    assert calls[0] == "kimi-k3", "首个被调用的必须是 fail_streak=0 的健康模型"
+    assert "glm-5.3" not in calls, "预置 fail_streak 的失灵模型不应在健康模型之前被调用"
+
+
 def test_call_llm_downgrades_on_400(monkeypatch):
     """HTTP 400 时应用「最小参数集」重试一次（实测 glm-5.3 拒绝 thinking 参数）。
 

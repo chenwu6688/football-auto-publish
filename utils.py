@@ -319,6 +319,7 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         ValueError if available candidates all fail to return usable JSON.
     """
     usage = _load_llm_usage(usage_file)
+    provider_attempts = {}  # 防御：max_per_provider 分支引用，未初始化会触发 NameError
 
     # Check ALL candidates so we can tell whether the pool is truly exhausted.
     available = []

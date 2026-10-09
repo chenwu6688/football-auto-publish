@@ -14,7 +14,7 @@
 ----
     python3 scripts/reset_llm_usage.py            # 清 disabled，保留用量
     python3 scripts/reset_llm_usage.py --dry-run  # 只看会改什么，不落盘
-    python3 scripts/reset_llm_usage.py --purge    # 连用量一起清空（回到全新状态）
+    python3 scripts/reset_llm_usage.py --purge    # 清空用量/禁用（保留 fail_streak 可靠性标记）
     python3 scripts/reset_llm_usage.py --list      # 只列出当前被禁用的模型
 
 跑完后记得提交并推送，否则 CI 每次 checkout 到的还是旧的禁用状态：
@@ -70,8 +70,15 @@ def main():
         return 0
 
     if args.purge:
+        # 清空用量/禁用，但**保留 fail_streak 可靠性标记**——
+        # 否则 purge 后那 4 个已知失灵模型 fail_streak 归零、剩余额度偏高，
+        # 首个 JSON 步骤会被排到前面，重开「白等超时」风险（见 test_failing_model_sinks_to_back）。
         new_usage = {}
-        print(f"🧹 清空全部用量记录（原 {len(usage)} 个模型）")
+        for model, v in usage.items():
+            if isinstance(v, dict) and "fail_streak" in v:
+                new_usage[model] = {"fail_streak": v["fail_streak"]}
+        print(f"🧹 清空用量/禁用记录（保留 fail_streak；原 {len(usage)} 个模型，"
+              f"保留 {len(new_usage)} 个可靠性标记）")
     else:
         new_usage = {}
         for model, v in usage.items():
