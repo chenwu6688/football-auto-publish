@@ -1,0 +1,163 @@
+{
+  "date": "2026-10-10",
+  "generated_at": "2026-10-09T16:14:03.810345",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "37岁老将把老东家叫\"妻子\"，这球要是进了他该怎么庆祝？",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-1-37岁老将把老东-90eeb0.md",
+      "slug": "37岁老将把老东-90eeb0",
+      "tags": [
+        "Tadic",
+        "Ajax",
+        "NEC Nijmegen",
+        "Eredivisie",
+        "veteran"
+      ],
+      "keywords": [
+        "Tadic",
+        "Ajax",
+        "NEC Nijmegen",
+        "Eredivisie",
+        "veteran"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 2,
+      "title": "阿森纳利兹联暗藏冷意，皇马巴萨谁更稳？明日五大联赛焦点战全解析",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-2-阿森纳利兹联暗藏-450154.md",
+      "slug": "阿森纳利兹联暗藏-450154",
+      "tags": [
+        "Arsenal",
+        "Real Madrid",
+        "Barcelona",
+        "Bayern Munich",
+        "Liverpool",
+        "Manchester City"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Real Madrid",
+        "Barcelona",
+        "Bayern Munich",
+        "Liverpool",
+        "Manchester City"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "塔迪奇说阿贾克斯是我妻子，这话怎么听着比退役还动人？",
+      "angle": "塔迪奇把老东家比作妻子，还说想以教练身份回去——这不是客套，是一个漂泊老将对青春和归属的告白。",
+      "keywords": [
+        "Dusan Tadic",
+        "Ajax",
+        "return as coach"
+      ],
+      "keywords_cn": [
+        "塔迪奇",
+        "阿贾克斯",
+        "教练回归"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "old-fan-night",
+      "why_pick": "老将归属情怀，戳老球迷代际记忆",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "0-3十连败，青岛海牛这波到底谁该站出来？",
+      "angle": "海牛0-3国安吃到十连败，保级基本判死刑。别只骂球员，管理层和引援思路才是根子——老球迷见多了这种'温水煮青蛙'式沉沦。",
+      "keywords": [
+        "Qingdao Hainiu",
+        "relegation",
+        "ten straight losses"
+      ],
+      "keywords_cn": [
+        "青岛海牛",
+        "保级",
+        "十连败"
+      ],
+      "content_type": "热点球评",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "十连败惨案，保级话题情绪强易引战",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+    },
+    {
+      "title": "阿森纳利兹联暗藏冷意，皇马巴萨谁更稳？明日五大联赛焦点战全解析",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-10-10 00:14:03"
+}
