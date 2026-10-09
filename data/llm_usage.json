@@ -61,20 +61,21 @@
     "total_tokens": 110000
   },
   "glm-5.2": {
-    "prompt_tokens": 49167,
-    "completion_tokens": 7087,
-    "total_tokens": 102000
+    "prompt_tokens": 56454,
+    "completion_tokens": 7801,
+    "total_tokens": 110001,
+    "fail_streak": 0
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 74978,
-    "completion_tokens": 13264,
-    "total_tokens": 103976,
+    "prompt_tokens": 80685,
+    "completion_tokens": 14232,
+    "total_tokens": 110651,
     "fail_streak": 0
   },
   "deepseek-v4-pro-202606": {
-    "prompt_tokens": 28928,
-    "completion_tokens": 4936,
-    "total_tokens": 105864,
+    "prompt_tokens": 32997,
+    "completion_tokens": 5855,
+    "total_tokens": 110852,
     "fail_streak": 0
   },
   "glm-5.3": {
