@@ -1551,6 +1551,23 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                     continue
                 return {}, f"事实验证失败: {last_hint}"
 
+            # 计划 11.3 / 12.3 反洗稿双保险：相似度闸门 + 信息增量强制
+            _src_texts = extract_source_texts(source)
+            if _src_texts:
+                _sim_ok, _sim_issues, _sim_metrics = check_similarity_gate(art, _src_texts)
+                _inc_ok, _inc_issues, _inc_metrics = check_information_increment(art, _src_texts)
+                art["_similarity"] = _sim_metrics
+                art["_increment"] = _inc_metrics
+                if not (_sim_ok and _inc_ok):
+                    last_hint = ("；".join(_sim_issues + _inc_issues) +
+                                 "。请用全新表达重写、切勿复述源文句子，并补充源文没有的事实"
+                                 "（数据补充 / 历史对比 / 双源交叉）。")
+                    if attempt < max_retries:
+                        print(f"   🔁 反洗稿检查未过(attempt {attempt+1}/{max_retries+1}): "
+                              f"{'；'.join(_sim_issues + _inc_issues)[:80]}")
+                        continue
+                    return {}, f"反洗稿检查未过: {last_hint}"
+
             # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
             _ct = topic.get("content_type", "热点球评")
             _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct, date_str or "")
@@ -2554,6 +2571,157 @@ def check_consistency_plan(article, facts=None, *, blocking=True):
         # warn-only：永远放行，但 issues 仍回传供日志
         return True, issues
     return (len(issues) == 0), issues
+
+
+# ------------------------------------------------------------
+# 计划 11.3 / 12.3：相似度闸门 + 信息增量强制（反洗稿双保险）
+#   第二道防线：成稿与源文 n-gram 重叠检测
+#   第三道防线：成稿事实点数须不少于最强源文，且至少新增 2 条源文没有的事实
+# ------------------------------------------------------------
+_SIM_MAX_RUN = 12            # 连续重合字数上限（超过即判洗稿）
+_SIM_GRAM_N = 8              # n-gram 长度
+_SIM_MAX_GRAM_RATIO = 0.15   # 8-gram 重合率上限
+
+# 信息增量强制（计划 11.3 / 12.3）
+_INCREMENT_MIN_NEW = 2                  # 至少新增的「源文没有」的事实条数
+_INCREMENT_REQUIRE_COUNT_PARITY = True  # 成稿事实点数须不少于最强源文
+
+
+def _normalize_for_sim(text):
+    """相似度比对前的归一化：去图片标记/markdown 符号/空白，只留实义字符。"""
+    t = text or ""
+    t = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", t)          # 配图标记
+    t = re.sub(r"\]\([^)]*\)", "", t)                   # 残留链接
+    t = re.sub(r"[#>*`\-—|\[\]（）()【】「」《》！？。，、；：“”‘’…\s]+", "", t)
+    return t
+
+
+def _longest_shared_run(a, b, n_gram=None):
+    """a、b 的最长公共子串长度（13-gram 命中后左右扩展，O(n) 级别）。"""
+    n = n_gram or (_SIM_MAX_RUN + 1)
+    if not a or not b or len(a) < n or len(b) < n:
+        return 0
+    idx = {}
+    for j in range(len(b) - n + 1):
+        idx.setdefault(b[j:j + n], j)
+    best = 0
+    for i in range(len(a) - n + 1):
+        j = idx.get(a[i:i + n])
+        if j is None:
+            continue
+        x, y = i, j
+        while x > 0 and y > 0 and a[x - 1] == b[y - 1]:
+            x -= 1
+            y -= 1
+        e1, e2 = i + n, j + n
+        while e1 < len(a) and e2 < len(b) and a[e1] == b[e2]:
+            e1 += 1
+            e2 += 1
+        run = e1 - x
+        if run > best:
+            best = run
+    return best
+
+
+def _gram_overlap_ratio(article_text, source_text, n=_SIM_GRAM_N):
+    """成稿的 n-gram 有多少比例出现在源文中（重合率）。"""
+    if not article_text or not source_text or len(article_text) < n:
+        return 0.0
+    A = {article_text[i:i + n] for i in range(len(article_text) - n + 1)}
+    S = {source_text[i:i + n] for i in range(len(source_text) - n + 1)}
+    if not A:
+        return 0.0
+    return len(A & S) / len(A)
+
+
+def extract_source_texts(source):
+    """从改写路径的 source 结构里收集全部源文文本（去重）。"""
+    texts = []
+
+    def _grab(d):
+        if not isinstance(d, dict):
+            return
+        for k in ("article_text", "content", "text", "raw_text"):
+            v = d.get(k)
+            if isinstance(v, str) and len(v) >= 50:
+                texts.append(v)
+
+    if isinstance(source, dict):
+        _grab(source)
+        _grab(source.get("fixture"))
+    out, seen = [], set()
+    for t in texts:
+        key = t[:80]
+        if key not in seen:
+            seen.add(key)
+            out.append(t)
+    return out
+
+
+def check_similarity_gate(article, source_texts, *, max_run=_SIM_MAX_RUN,
+                          gram_n=_SIM_GRAM_N, max_gram_ratio=_SIM_MAX_GRAM_RATIO):
+    """计划 11.3 第二道防线：n-gram 相似度闸门。
+
+    连续重合 > max_run 字，或 gram_n 元组重合率 > max_gram_ratio → 判洗稿。
+    返回 (passed:bool, issues:list[str], metrics:dict)。source_texts 为空时放行。
+    """
+    content = _normalize_for_sim((article or {}).get("content", ""))
+    if not content or not source_texts:
+        return True, [], {"max_run": 0, "gram_ratio": 0.0}
+    worst_run, worst_ratio = 0, 0.0
+    for st in source_texts:
+        s = _normalize_for_sim(st)
+        if not s:
+            continue
+        run = _longest_shared_run(content, s)
+        if run > worst_run:
+            worst_run = run
+        ratio = _gram_overlap_ratio(content, s, gram_n)
+        if ratio > worst_ratio:
+            worst_ratio = ratio
+    issues = []
+    if worst_run > max_run:
+        issues.append(f"与源文连续重合 {worst_run} 字（>{max_run}，疑似洗稿）")
+    if worst_ratio > max_gram_ratio:
+        issues.append(f"{gram_n}-gram 重合率 {worst_ratio:.1%}（>{max_gram_ratio:.0%}，疑似洗稿）")
+    return (len(issues) == 0), issues, {"max_run": worst_run, "gram_ratio": round(worst_ratio, 4)}
+
+
+def _extract_fact_points(text):
+    """抽取事实点：数字（带常见单位）+ 知名球队/球员实体。"""
+    t = text or ""
+    nums = set(re.findall(
+        r"\d+(?:\.\d+)?(?:亿|万)?(?:欧元|英镑|镑|万|岁|年|%|球|分|场|次|连胜|连败|名|位|人)?", t))
+    nums = {x for x in nums if x}
+    ents = {e for e in _KNOWN_TEAMS if e in t}
+    ents |= {e for e in _KNOWN_PLAYERS if e in t}
+    return nums | ents
+
+
+def check_information_increment(article, source_texts, *, min_new=_INCREMENT_MIN_NEW,
+                                require_count_parity=_INCREMENT_REQUIRE_COUNT_PARITY):
+    """计划 11.3 / 12.3 第三道防线：信息增量强制。
+
+    成稿事实点数须不少于最强源文，且至少新增 min_new 条源文没有的事实。
+    返回 (passed:bool, issues:list[str], metrics:dict)。
+    """
+    content = (article or {}).get("content", "") or ""
+    if not source_texts:
+        return True, [], {"article_facts": 0, "source_max": 0, "new_facts": 0}
+    a_facts = _extract_fact_points(content)
+    source_union, source_max = set(), 0
+    for st in source_texts:
+        f = _extract_fact_points(st)
+        source_union |= f
+        source_max = max(source_max, len(f))
+    new_facts = a_facts - source_union
+    issues = []
+    if require_count_parity and len(a_facts) < source_max:
+        issues.append(f"事实点数少于最强源文（{len(a_facts)} < {source_max}）")
+    if len(new_facts) < min_new:
+        issues.append(f"信息增量不足：仅新增 {len(new_facts)} 条源文没有的事实（需≥{min_new}）")
+    return (len(issues) == 0), issues, {
+        "article_facts": len(a_facts), "source_max": source_max, "new_facts": len(new_facts)}
 
 
 # ============================================================
