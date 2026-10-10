@@ -13,3 +13,6 @@ export FOOTBALL_DATA_KEY=""        # football-data.org，赛程数据
 export UNSPLASH_ACCESS_KEY=""      # 配图
 export WXPUSHER_APPTOKEN=""        # 运行结果推送
 export WXPUSHER_UID=""
+
+# 聚合数据 juhe.cn（中文源，补中超/校验，不作主力事实）
+export JUHE_API_KEY=""

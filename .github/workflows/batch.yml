@@ -214,6 +214,7 @@ jobs:
         if: steps.params.outputs.skip != 'true'
         env:
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          JUHE_API_KEY: ${{ secrets.JUHE_API_KEY }}
         run: |
           python scripts/fixture_library.py || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"
 

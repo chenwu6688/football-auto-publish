@@ -8,7 +8,7 @@
   4. 时效闸门：每条选题带 expires_at，过期不得进入发布流。
   5. 落库缓存：业务侧只读 data/fixtures/topic_pool.json，不直连 API。
 
-上游数据：football-data.org v4（免费层限制：单次查询窗口 ≤ 10 天，多赛事可合并）
+上游数据：football-data.org v4（免费层限制：单次查询窗口 ≤ 10 天，多赛事可合并）+ 聚合数据 juhe.cn（补中超，中文源）
   用法：python3 scripts/fixture_library.py [--days 10] [--refresh]
 """
 from __future__ import annotations
@@ -37,7 +37,7 @@ FIXTURE_COMPETITIONS = {
 }
 
 # 赛事权重：欧冠 > 五大联赛（决定选题优先级）
-COMPETITION_WEIGHT = {"欧冠": 1.0, "英超": 0.95, "西甲": 0.9, "意甲": 0.85, "德甲": 0.85, "法甲": 0.8}
+COMPETITION_WEIGHT = {"欧冠": 1.0, "英超": 0.95, "西甲": 0.9, "意甲": 0.85, "德甲": 0.85, "法甲": 0.8, "中超": 0.7}
 
 # 窗口上限：免费层硬限制，超过会返回 400 "Specified period must not exceed 10 days"
 MAX_WINDOW_DAYS = 10
@@ -73,11 +73,33 @@ def load_entity_map() -> dict:
     return {"raw": data, "by_en": by_en}
 
 
-def resolve_team(name_en: str, emap: dict) -> dict | None:
-    """英文队名 → 中文实体。未登记实体返回 None（打回，不进生成）。"""
-    if not name_en:
+# 中超国内高关注度球队（按头条画像：男 95%+、31-50 占 43%、50+ 占 51%，
+# 中超是其本土赛事，传统强队认知度接近五大联赛二线）。其余中超队默认 B 级。
+CSL_TOP_TIER = {
+    "上海海港", "北京国安", "山东泰山", "上海申花",
+    "成都蓉城", "武汉三镇",
+}
+
+def resolve_csl_team(name_zh: str) -> dict:
+    """中超队名（已是中文）→ 实体。Juhe 为中文权威源，未知队名也按 B 级放行不丢弃。"""
+    if not name_zh:
         return None
-    return emap["by_en"].get(name_en.strip().lower())
+    name_zh = name_zh.strip()
+    return {
+        "name_zh": name_zh, "name_en": "", "aliases": [],
+        "awareness": "A" if name_zh in CSL_TOP_TIER else "B",
+    }
+
+def resolve_team(name: str, emap: dict, competition: str = "") -> dict | None:
+    """队名 → 中文实体。
+    - 中超：中文名直接走 resolve_csl_team（不依赖 entity_map）。
+    - 其它赛事：英文/别名 → entity_map（en→zh）；未登记返回 None（打回，不进生成）。
+    """
+    if not name:
+        return None
+    if competition == "中超":
+        return resolve_csl_team(name)
+    return emap["by_en"].get(name.strip().lower())
 
 
 def fetch_window(days: int, emap: dict, refresh: bool = False) -> list[dict]:
@@ -134,21 +156,19 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
     topics, dropped_unmapped, dropped_lowaware = [], [], []
 
     for m in matches:
-        home = resolve_team(m.get("homeTeam", {}).get("name", ""), emap)
-        away = resolve_team(m.get("awayTeam", {}).get("name", ""), emap)
+        comp_id = str((m.get("competition") or {}).get("id", ""))
+        comp_name = next(
+            (v for k, v in FIXTURE_COMPETITIONS.items() if k == comp_id),
+            (m.get("competition") or {}).get("name", ""),
+        )
+        home = resolve_team(m.get("homeTeam", {}).get("name", ""), emap, comp_name)
+        away = resolve_team(m.get("awayTeam", {}).get("name", ""), emap, comp_name)
         if not home or not away:
             missing = m.get("homeTeam", {}).get("name") if not home else m.get("awayTeam", {}).get("name")
             dropped_unmapped.append({"match_id": m.get("id"), "unmapped": missing})
             continue
 
-        comp = COMPETITION_WEIGHT.get(
-            next((v for k, v in FIXTURE_COMPETITIONS.items() if k == str((m.get("competition") or {}).get("id"))), ""),
-            0.5,
-        )
-        comp_name = next(
-            (v for k, v in FIXTURE_COMPETITIONS.items() if k == str((m.get("competition") or {}).get("id"))),
-            (m.get("competition") or {}).get("name", ""),
-        )
+        comp = COMPETITION_WEIGHT.get(comp_name, 0.5)
 
         aw_pair = (home["awareness"], away["awareness"])
         n_c = aw_pair.count("C")
@@ -201,7 +221,13 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
             "status": m.get("status"),
             # 时效闸门：赛程类选题必须在开赛前发布。开赛后再发＝旧闻新发（扣 10 分）
             "publish_by": dt.strftime("%Y-%m-%d %H:%M"),
-            "fact_source": {"api": "football-data.org/v4", "match_id": m.get("id"), "fd_comp_id": (m.get("competition") or {}).get("id")},
+            "fact_source": (
+                {"api": "juhe.cn/football/query(zhongchao)", "match_id": m.get("id"),
+                 "stage": m.get("match_stage", ""), "source": "juhe"}
+                if m.get("source") == "juhe" else
+                {"api": "football-data.org/v4", "match_id": m.get("id"),
+                 "fd_comp_id": (m.get("competition") or {}).get("id")}
+            ),
         })
 
     topics.sort(key=lambda t: -t["priority"])
@@ -222,10 +248,81 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
             "by_angle": {k: sum(1 for t in topics if t["angle_type"] == k) for k in {r[1] for r in ANGLE_RULES} if any(t["angle_type"] == k for t in topics)},
             "by_weekday": by_weekday,
         },
-        "coverage_gap": ["欧联", "中超", "亚冠", "国足"],   # 免费层不含，待 API-Football / 聚合数据补齐
+        "coverage_gap": ["欧联", "亚冠", "国足"],   # 中超已由聚合数据 juhe.cn 补齐；欧联/亚冠/国足待 API-Football（绑卡暂停）
         "topics": topics,
         "_dropped": {"unmapped": dropped_unmapped[:20], "low_awareness": dropped_lowaware[:20]},
     }
+
+
+def fetch_juhe_fixtures(refresh: bool = False) -> list[dict]:
+    """聚合数据 juhe.cn 中超赛程（中文源，补 football-data 免费层没有的中超）。
+
+    只取「未开赛」的未来赛事；已完赛(status=3)/进行中(status=2)不进前瞻池
+    （赛事前瞻已停发，只产冲突点选题）。降级：无 key / 网络错 / error_code!=0
+    → 返回 [] 不崩，不影响主流程。
+    """
+    cache_path = FIXTURE_DIR / "raw_juhe_csl.json"
+    if cache_path.exists() and not refresh:
+        try:
+            with open(cache_path, encoding="utf-8") as f:
+                cached = json.load(f)
+            print(f"📦 使用 Juhe 中超缓存 {cache_path.name}（{len(cached)} 场未来赛事）")
+            return cached
+        except Exception:
+            pass
+
+    key = os.environ.get("JUHE_API_KEY", "").strip()
+    if not key or key == "***":
+        print("⚠️ 未设置 JUHE_API_KEY，跳过中超赛程（不影响主流程）")
+        return []
+
+    import urllib.request
+    import urllib.parse
+    url = "http://apis.juhe.cn/fapig/football/query?" + urllib.parse.urlencode(
+        {"key": key, "type": "zhongchao"}
+    )
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            data = json.loads(r.read().decode("utf-8", "replace"))
+    except Exception as e:
+        print(f"⚠️ Juhe 中超拉取失败（降级跳过）：{e}")
+        return []
+
+    if data.get("error_code", -1) != 0:
+        print(f"⚠️ Juhe 返回错误（降级跳过）：error_code={data.get('error_code')} reason={data.get('reason')}")
+        return []
+
+    matches: list[dict] = []
+    today = datetime.now(CST).date()
+    for day in data.get("result", {}).get("matchs", []):
+        d = day.get("date", "")
+        try:
+            ddate = datetime.strptime(d, "%Y-%m-%d").date()
+        except Exception:
+            continue
+        for it in day.get("list", []):
+            if it.get("status") != "1":        # 只取未开赛
+                continue
+            if ddate < today:                   # 过去日期跳过（旧闻）
+                continue
+            ts = (it.get("time_start") or "19:35").strip()
+            matches.append({
+                "id": f"csl-{d}-{it.get('team1')}-{it.get('team2')}",
+                "competition": {"id": "csl", "name": "中超"},
+                "homeTeam": {"name": it.get("team1", "")},
+                "awayTeam": {"name": it.get("team2", "")},
+                "utcDate": f"{d}T{ts}:00+08:00",
+                "status": "SCHEDULED",
+                "source": "juhe",
+                "match_stage": it.get("match_stage", ""),
+            })
+
+    FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
+    with open(cache_path, "w", encoding="utf-8") as f:
+        json.dump(matches, f, ensure_ascii=False, indent=2)
+    print(f"✅ Juhe 中超：{len(matches)} 场未来赛事（已缓存 {cache_path.name}）")
+    return matches
 
 
 def main():
@@ -239,7 +336,10 @@ def main():
           f"（A={emap['raw']['stats']['A']} B={emap['raw']['stats']['B']} C={emap['raw']['stats']['C']}）")
 
     matches = fetch_window(args.days, emap, refresh=args.refresh)
-    pool = build_topic_pool(matches, emap)
+    csl = fetch_juhe_fixtures(refresh=args.refresh)
+    all_matches = matches + csl
+    pool = build_topic_pool(all_matches, emap)
+    print(f"   （其中中超未来赛事：{sum(1 for m in all_matches if m.get('source') == 'juhe')} 场，来自聚合数据 juhe.cn）")
 
     FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
     out = FIXTURE_DIR / "topic_pool.json"
