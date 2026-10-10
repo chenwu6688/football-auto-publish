@@ -15,7 +15,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
                        UNSPLASH_KEY)
 
-from utils import retry
+from utils import retry, filter_fresh_news, NEWS_MAX_AGE_HOURS, CST
 
 
 # ============================================================
@@ -217,6 +217,19 @@ def collect_real_matches(date_str):
         except Exception as e:
             print(f"   ⚠️ 转会快讯采集异常: {e}")
 
+        # 时效闸门（计划 4.1 / 7.2）：新闻流统一过闸，超 72h 素材不得进发布流。
+        # 降级原则（计划九）：闸门自身异常时放行，绝不因拦截逻辑阻塞发布。
+        try:
+            merged["news_articles"], _d_n, _u_n = filter_fresh_news(
+                merged.get("news_articles", []), NEWS_MAX_AGE_HOURS, label="新闻流")
+            merged["transfer_news"], _d_t, _u_t = filter_fresh_news(
+                merged.get("transfer_news", []), NEWS_MAX_AGE_HOURS, label="转会流")
+            if _d_n or _d_t:
+                print(f"   ⏱️ 时效闸门：新闻流剔 {len(_d_n)} 条、转会流剔 {len(_d_t)} 条"
+                      f"（无法判定时间各保留 {_u_n}/{_u_t} 条）")
+        except Exception as e:
+            print(f"   ⚠️ 时效闸门异常（降级放行）: {e}")
+
         return merged
 
     # ── 两源都失败 → football-data.org ──
@@ -286,6 +299,7 @@ def collect_transfer_news(date_str):
                     "article_text": article_text,
                     "source": "dongqiudi",
                     "_content_type_hint": "转会资讯",
+                    "published_at": art.get("published_at", ""),
                 })
     except Exception as e:
         print(f"   ⚠️ 懂球帝转会新闻采集异常: {e}")
@@ -296,6 +310,10 @@ def collect_transfer_news(date_str):
             print(f"      - {a['title'][:45]}")
     else:
         print(f"   ℹ️ 暂未发现转会新闻")
+    # 时效闸门（计划 4.1 / 7.2）：转会新闻同样受 72h 约束，防旧闻新发
+    articles, _d_tr, _u_tr = filter_fresh_news(articles, NEWS_MAX_AGE_HOURS, label="转会新闻")
+    if _d_tr:
+        print(f"   ⏱️ 转会新闻时效闸门：剔除 {len(_d_tr)} 条超 {NEWS_MAX_AGE_HOURS}h 素材")
     return articles
 
 
@@ -445,6 +463,11 @@ def _collect_from_dongqiudi(scraper, date_str):
     data_source = "dongqiudi"。
     """
     headlines = scraper.scrape_dongqiudi_headlines(max_articles=15)
+    # 时效闸门（计划 4.1 / 7.2）：懂球帝首页会挂出多日前文章，
+    # 先按发布时间拦截旧闻，再取正文（顺带省下无谓的正文抓取）。
+    headlines, _dropped_dq, _ = filter_fresh_news(headlines, NEWS_MAX_AGE_HOURS, label="dongqiudi")
+    if _dropped_dq:
+        print(f"   ⏱️ 懂球帝时效闸门：剔除 {len(_dropped_dq)} 条超 {NEWS_MAX_AGE_HOURS}h 旧闻")
     if not headlines:
         return {"date": date_str, "total_matches": 0, "fixtures_by_league": {},
                 "all_fixtures": [], "standings": {}, "data_source": "media"}

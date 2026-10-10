@@ -329,11 +329,19 @@ class SportsScraper:
                 if len(clean_title) < 8:
                     clean_title = text[:60]
 
+                # 时效闸门（计划 4.1）：懂球帝首页把发布时间嵌在链接文本里，
+                # 清洗标题时会被剥掉，这里单独抓出来留作时效判定依据。
+                _tm = re.search(
+                    r'(\d{1,2}-\d{1,2}\s+\d{1,2}:\d{2})|(\d+\s*(?:分钟|小时|天)前)|(刚刚|刚才)',
+                    text)
+
                 articles.append({
                     "source": "dongqiudi",
                     "title": clean_title[:80],
                     "url": href,
                     "article_text": "",
+                    "published_at": _tm.group(0) if _tm else "",
+                    "raw_text": text[:120],
                 })
 
                 if len(articles) >= max_articles:

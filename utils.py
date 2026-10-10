@@ -4,8 +4,9 @@
 retry, call_llm, safe_json_loads, load_prompt_template — 被所有模块使用。
 """
 
-import json, time, requests
+import json, time, re, requests
 from pathlib import Path
+from datetime import datetime, timedelta, timezone
 
 from constants import (
     LLM_USAGE_FILE,
@@ -430,3 +431,159 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             last_err = e
 
     raise ValueError(f"前 {len(available)} 个可用候选均未能返回可用 JSON。最后错误: {last_err}")
+
+
+# ============================================================
+# 时效闸门（计划 4.1 / 7.2）：超 NEWS_MAX_AGE_HOURS 的素材不得进新闻流
+#   扣分项「发布已过时效内容 -10」的唯一硬性对冲手段。
+# ============================================================
+CST = timezone(timedelta(hours=8))
+NEWS_MAX_AGE_HOURS = 72
+
+# 显式时间字段候选（按优先级）
+_NEWS_TIME_KEYS = ("published_at", "publish_time", "pub_time", "publicTime",
+                   "publishTime", "updateTime", "createTime", "datetime", "time")
+
+_ABS_TIME_FORMATS = (
+    "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M",
+    "%Y/%m/%d %H:%M:%S", "%Y/%m/%d %H:%M", "%Y-%m-%d", "%Y/%m/%d",
+)
+
+_REL_MINUTES = re.compile(r"(\d+)\s*分钟前")
+_REL_HOURS = re.compile(r"(\d+)\s*小时前")
+_REL_DAYS = re.compile(r"(\d+)\s*天前")
+_MD_HM = re.compile(r"(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})")
+_URL_DATE = re.compile(r"/(\d{4})-(\d{2})-(\d{2})/")
+_CLOCK = re.compile(r"(\d{1,2}):(\d{2})")
+
+
+def _coerce_dt(v, now):
+    """把单个绝对时间值解析为 CST datetime；失败返回 None。"""
+    if v is None or v == "":
+        return None
+    if isinstance(v, (int, float)) or (isinstance(v, str) and v.strip().isdigit()):
+        try:
+            n = float(v)
+            if n > 1e12:          # 毫秒时间戳
+                n /= 1000.0
+            if n > 1e9:           # 合理 epoch 秒
+                return datetime.fromtimestamp(n, CST)
+        except Exception:
+            return None
+        return None
+    s = str(v).strip()
+    if not s:
+        return None
+    try:                          # ISO（含 Z 后缀）
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        return dt if dt.tzinfo else dt.replace(tzinfo=CST)
+    except Exception:
+        pass
+    for fmt in _ABS_TIME_FORMATS:
+        try:
+            return datetime.strptime(s, fmt).replace(tzinfo=CST)
+        except Exception:
+            continue
+    return None
+
+
+def _parse_embedded_time(s, now):
+    """从文本里解析相对时间 / 缺年份的 MM-DD HH:MM（懂球帝首页形态）。"""
+    if not s or not isinstance(s, str):
+        return None
+    m = _REL_MINUTES.search(s)
+    if m:
+        return now - timedelta(minutes=int(m.group(1)))
+    m = _REL_HOURS.search(s)
+    if m:
+        return now - timedelta(hours=int(m.group(1)))
+    m = _REL_DAYS.search(s)
+    if m:
+        return now - timedelta(days=int(m.group(1)))
+    if "刚刚" in s or "刚才" in s:
+        return now
+    if s.startswith("昨天"):
+        base = now - timedelta(days=1)
+        hm = _CLOCK.search(s)
+        if hm:
+            return base.replace(hour=int(hm.group(1)), minute=int(hm.group(2)), second=0, microsecond=0)
+        return base
+    if s.startswith("今天"):
+        hm = _CLOCK.search(s)
+        if hm:
+            return now.replace(hour=int(hm.group(1)), minute=int(hm.group(2)), second=0, microsecond=0)
+        return now
+    m = _MD_HM.search(s)
+    if m:
+        try:
+            dt = datetime(now.year, int(m.group(1)), int(m.group(2)),
+                          int(m.group(3)), int(m.group(4)), tzinfo=CST)
+            if dt - now > timedelta(days=1):   # 跨年：12-31 在次年 1 月看
+                dt = dt.replace(year=now.year - 1)
+            return dt
+        except Exception:
+            return None
+    return None
+
+
+def parse_news_time(item, now=None):
+    """解析新闻条目的发布时间（CST datetime）；无法判定返回 None。
+
+    顺序：显式时间字段 → URL 中的日期 → 标题/摘要里的相对时间或 MM-DD HH:MM。
+    """
+    if not isinstance(item, dict):
+        return None
+    now = now or datetime.now(CST)
+    for k in _NEWS_TIME_KEYS:
+        if item.get(k):
+            dt = _coerce_dt(item.get(k), now)
+            if dt:
+                return dt
+    for k in ("url", "href"):
+        v = item.get(k)
+        if isinstance(v, str):
+            m = _URL_DATE.search(v)
+            if m:
+                try:
+                    return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)), tzinfo=CST)
+                except Exception:
+                    pass
+    for k in ("published_at", "title", "summary", "text", "raw_text"):
+        dt = _parse_embedded_time(item.get(k), now)
+        if dt:
+            return dt
+    return None
+
+
+def filter_fresh_news(items, max_hours=NEWS_MAX_AGE_HOURS, now=None, label=""):
+    """时效闸门：剔除发布时间超过 max_hours 的素材。
+
+    返回 (kept, dropped, unknown)：
+      - kept    : 通过闸门的条目（附带 _age_hours / _freshness）
+      - dropped : [(item, age_hours), ...] 超时被剔
+      - unknown : 无法判定时间的条目数（已保留并标记 _freshness="unknown"）
+
+    口径（计划 4.1）：有据可查的过期素材必须硬拦；无法判定时间的保守保留并计入 unknown。
+    """
+    now = now or datetime.now(CST)
+    kept, dropped, unknown = [], [], 0
+    for it in (items or []):
+        if not isinstance(it, dict):
+            continue
+        dt = parse_news_time(it, now)
+        if dt is None:
+            unknown += 1
+            it.setdefault("_freshness", "unknown")
+            kept.append(it)
+            continue
+        age = (now - dt).total_seconds() / 3600.0
+        if age > max_hours:
+            dropped.append((it, round(age, 1)))
+            continue
+        it["_age_hours"] = round(age, 1)
+        it["_freshness"] = "fresh"
+        kept.append(it)
+    if dropped:
+        oldest = max((d[1] for d in dropped), default=0)
+        print(f"   🚫 时效闸门[{label or 'news'}]：剔除 {len(dropped)} 条超 {max_hours}h 素材（最旧 {oldest}h）")
+    return kept, dropped, unknown
