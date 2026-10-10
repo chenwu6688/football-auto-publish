@@ -21,6 +21,15 @@ VENV_PYTHON="/home/chenwu/projects/wusongshuruf/venv/bin/python3"
 LOG_DIR="$PROJECT_DIR/output/logs"
 OUTPUT_DIR="/home/chenwu/每日自媒体文案"
 
+# --- 密钥来源 ---
+# CI：由 GitHub Actions Secrets 注入环境变量，下面的 source 会被跳过。
+# 本地/自托管：从 scripts/local_env.sh 读取（该文件已被 .gitignore 排除）。
+# ⚠️ 本仓库为 public，禁止在此文件或任何被跟踪文件里硬编码真实密钥。
+if [ -f "$PROJECT_DIR/scripts/local_env.sh" ]; then
+    # shellcheck disable=SC1091
+    . "$PROJECT_DIR/scripts/local_env.sh"
+fi
+
 # Parse --batch=xxx
 BATCH="auto"
 for arg in "$@"; do
@@ -33,9 +42,9 @@ LOCK_FILE="/tmp/football_${BATCH}.lock"
 ORCHESTRATOR_TIMEOUT=600
 PUBLISHER_TIMEOUT=600
 
-# WxPusher
-WXPUSHER_APPTOKEN="AT_bDxaogJWYj2tDHbqpwx6SOnPFDlViC9f"
-WXPUSHER_UID="UID_HeN23B80PBHA9E2Yb71QLHrNERM1"
+# WxPusher（取值见文件顶部的密钥加载逻辑）
+WXPUSHER_APPTOKEN="${WXPUSHER_APPTOKEN:-}"
+WXPUSHER_UID="${WXPUSHER_UID:-}"
 
 mkdir -p "$LOG_DIR"
 
@@ -104,12 +113,12 @@ echo "[2/2] 生成文章 ($BATCH 批次)... (最多等待 ${ORCHESTRATOR_TIMEOUT
 cd "$PROJECT_DIR"
 
 export OUTPUT_DIR="$OUTPUT_DIR"
-export HY3_API_KEY="${HY3_API_KEY:-***}"
-export DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-sk-ca3e44197141434cb24f286402c3ecdf}"
-export UNSPLASH_ACCESS_KEY="${UNSPLASH_ACCESS_KEY:-hiiaKbLS64bsBA-pWAJBnF_g1rG0ZAcw68clp70jkxU}"
-export FOOTBALL_DATA_KEY="${FOOTBALL_DATA_KEY:-3106b3825289475ba851bff42ebb452d}"
-export WXPUSHER_APPTOKEN="${WXPUSHER_APPTOKEN:-AT_bDxaogJWYj2tDHbqpwx6SOnPFDlViC9f}"
-export WXPUSHER_UID="${WXPUSHER_UID:-UID_HeN23B80PBHA9E2Yb71QLHrNERM1}"
+export HY3_API_KEY="${HY3_API_KEY:-}"
+export DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-}"
+export UNSPLASH_ACCESS_KEY="${UNSPLASH_ACCESS_KEY:-}"
+export FOOTBALL_DATA_KEY="${FOOTBALL_DATA_KEY:-}"
+export WXPUSHER_APPTOKEN="${WXPUSHER_APPTOKEN:-}"
+export WXPUSHER_UID="${WXPUSHER_UID:-}"
 export TOUTIAO_AUTH_FILE="/home/chenwu/projects/wusongshuruf/config/toutiao_auth.json"
 
 if timeout $ORCHESTRATOR_TIMEOUT "$VENV_PYTHON" orchestrator.py "$TODAY" --batch="$BATCH"; then

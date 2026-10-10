@@ -1,0 +1,15 @@
+# 本地 / 自托管运行所需的密钥模板
+#
+# 用法：复制为 scripts/local_env.sh 并填入真实值。
+#       local_env.sh 已被 .gitignore 排除，不会被提交。
+#       CI（GitHub Actions）走 Secrets，无需此文件。
+#
+# ⚠️ 本仓库为 public。任何真实密钥都不允许写进被跟踪的文件。
+#    2026-10-10 已清理 scripts/batch_pipeline.sh 中残留的硬编码密钥。
+
+export HY3_API_KEY=""              # 腾讯云 TokenHub（原 DeepSeek）
+export DASHSCOPE_API_KEY=""        # 通义千问，hy3 配额耗尽时兜底
+export FOOTBALL_DATA_KEY=""        # football-data.org，赛程数据
+export UNSPLASH_ACCESS_KEY=""      # 配图
+export WXPUSHER_APPTOKEN=""        # 运行结果推送
+export WXPUSHER_UID=""

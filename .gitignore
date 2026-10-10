@@ -6,6 +6,8 @@ __pycache__/
 /tmp/
 logs/
 .env
+scripts/local_env.sh
+data/fixtures/
 
 # OpenWolf memory system
 .wolf/
