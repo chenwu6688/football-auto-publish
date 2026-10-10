@@ -22,3 +22,12 @@ jobs:
         run: |
           echo "🔔 生成每周额度校准提醒..."
           python3 scripts/remind_llm_calibration.py
+
+      - name: 择优量表每周人工抽查（计划 12.4）
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          # 抽样产出人工复核清单 + 五维覆盖校验 + 偏好漂移检测，防模型审美漂移与选题同质化
+          python3 scripts/weekly_rank_audit.py --days 7 --sample 10 \
+            || echo "::warning::择优抽查失败（非阻断）"
