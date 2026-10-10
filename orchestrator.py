@@ -1102,8 +1102,18 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
 
 输出JSON: {{{{ "title": "标题(15-25字)", "content": "Markdown正文({word_min}-{word_max}字，含≥2个##小标题)", "summary": "摘要", "keywords": [], "keywords_cn": [], "golden_lines": [], "interaction_type": "共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}" }}}}"""
 
+    # 计划 11.3 素材边界·物理隔离：生成器只能看到抽取器产出的「结构化事实块」，
+    # 绝不接触正文原文。抽取器允许看原文，但其输出在离开抽取器前已过逐字比对闸门。
+    from extractor import build_source_facts_block
+    try:
+        facts_block, _extracted = build_source_facts_block(source, call_llm=call_llm_json)
+    except Exception as _e:
+        facts_block, _extracted = "（抽取器不可用）", []
+        print(f"   ⚠️ 抽取器失败，降级为无源文事实块: {type(_e).__name__}")
+    print(f"   🧩 抽取器：{len(_extracted)} 条结构化事实（生成器对原文不可见）")
+
     prompt = base_prompt.format(
-        source_text=source_text[:3000],
+        source_text=facts_block,
         content_type=content_type,
         style=style,
         word_min=word_min,
