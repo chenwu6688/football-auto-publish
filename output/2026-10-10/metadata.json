@@ -1,7 +1,7 @@
 {
   "date": "2026-10-10",
-  "generated_at": "2026-10-10T02:50:44.815320",
-  "total_articles": 5,
+  "generated_at": "2026-10-10T04:04:50.086309",
+  "total_articles": 9,
   "articles": [
     {
       "index": 1,
@@ -162,144 +162,295 @@
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
       "batch_name": "晨读"
+    },
+    {
+      "index": 1,
+      "title": "去年欠一年工资，今年税务申报月月是0：大连青训教练的冬天",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-1-去年欠一年工资今-740660.md",
+      "slug": "去年欠一年工资今-740660",
+      "tags": [
+        "Dalian youth training",
+        "unpaid wages",
+        "Chinese football",
+        "Miao Yuan",
+        "youth coach"
+      ],
+      "keywords": [
+        "Dalian youth training",
+        "unpaid wages",
+        "Chinese football",
+        "Miao Yuan",
+        "youth coach"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 2,
+      "title": "多打一人还差点输？河南这8轮不胜，看得老球迷直拍大腿",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-2-多打一人还差点输-c6d799.md",
+      "slug": "多打一人还差点输-c6d799",
+      "tags": [
+        "Henan FC",
+        "Chinese Super League",
+        "8 games without win",
+        "Ramos",
+        "relegation battle"
+      ],
+      "keywords": [
+        "Henan FC",
+        "Chinese Super League",
+        "8 games without win",
+        "Ramos",
+        "relegation battle"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-2-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
+    },
+    {
+      "index": 3,
+      "title": "拉倒送点还换球衣？这帮U23小伙的江湖气，老球迷看懂了",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-3-拉倒送点还换球衣-80f483.md",
+      "slug": "拉倒送点还换球衣-80f483",
+      "tags": [
+        "Wang Yudong",
+        "Yang Xi",
+        "U23 China",
+        "CSL",
+        "jersey swap"
+      ],
+      "keywords": [
+        "Wang Yudong",
+        "Yang Xi",
+        "U23 China",
+        "CSL",
+        "jersey swap"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间"
+    },
+    {
+      "index": 4,
+      "title": "莫耶斯都懵了！埃弗顿老板一年半就想跑，8亿镑谁接盘？",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-4-莫耶斯都懵了埃弗-5727fc.md",
+      "slug": "莫耶斯都懵了埃弗-5727fc",
+      "tags": [
+        "Everton",
+        "Moyes",
+        "Friedkin Group",
+        "Premier League",
+        "takeover"
+      ],
+      "keywords": [
+        "Everton",
+        "Moyes",
+        "Friedkin Group",
+        "Premier League",
+        "takeover"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-4-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-4-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-4-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间"
     }
   ],
   "topics": [
     {
-      "title": "海牛降级怪教练激进？中超这锅甩得动吗",
-      "angle": "鲁媒把降级归咎于里斯蒂奇战术激进，但津媒说得多因叠加。真金白银砸出来的差距，一个教练背不动这口锅。中超升降级背后是投入决定命运，不是换个帅就能翻盘的。",
+      "title": "大连青训教练欠薪去开滴滴，中国足球的根烂在哪？",
+      "angle": "从苗原爆料大连青训教练欠薪开滴滴切入，对比王钰栋这批年轻球员的自信，点出中国足球最深的矛盾：青训根基在崩塌，但苗子反而起来了。",
       "keywords": [
-        "qingdao hainiu",
-        "relegation",
-        "milan",
-        "tactics",
-        "cs1"
+        "dalian youth academy",
+        "coach salary arrears",
+        "chinese football grassroots"
       ],
       "keywords_cn": [
-        "海牛降级",
-        "米兰下课",
-        "里斯蒂奇",
-        "中超投入",
-        "战术激进"
+        "大连青训",
+        "教练欠薪",
+        "中国足球根基"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "score": 88,
       "controversy_level": "high",
       "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "降级话题争议大，教练背锅引发讨论",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "series_id": "guozu-chronicle",
+      "why_pick": "青训教练开滴滴对比球员自信，矛盾感拉满，戳中国足球痛点",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "周定洋感恩河南：中超最缺这种人情味？",
-      "angle": "周定洋发文感谢河南打开来中国的大门，在功利的中超圈子里显得格外珍贵。从英冠到中原，他的轨迹折射出中国足球对外援的态度——用完即走是常态，懂得感恩反而是新闻。",
+      "title": "河南队8轮不胜，经济问题把老牌劲旅逼成什么样了？",
+      "angle": "足球报报道河南队因经济问题变得脆弱，结合海牛降级、大连青训欠薪，串起中国足球俱乐部生存困境的群像。河南队从专治不服到如今8轮不胜，老球迷看得心酸。",
       "keywords": [
-        "zhou dingyang",
-        "henan",
-        "shenzhen pengcheng",
-        "gratitude",
-        "naturalized"
+        "henan fc",
+        "financial crisis",
+        "chinese super league survival"
       ],
       "keywords_cn": [
-        "周定洋",
-        "河南足球",
-        "深圳新鹏城",
-        "外援文化",
-        "归化球员"
+        "河南队",
+        "经济问题",
+        "中超生存"
       ],
-      "content_type": "八卦趣事",
+      "content_type": "热点球评",
       "score": 82,
       "controversy_level": "medium",
-      "target_emotion": "感动",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "外援感恩叙事戳中老球迷情怀",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "河南队8轮不胜背后是经济困境，老牌球队沉浮戳中老球迷",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     },
     {
-      "title": "蒋圣龙回归训练：申花争冠还差最后一口气？",
-      "angle": "蒋圣龙晒照说随时战斗，申花本轮迎战云南玉昆。蓉城不败就夺冠，申花只能先赢再说。从去年差一口气到今年追到现在，申花球迷的等待比谁都长——这口气能不能提上来，就看这种时刻。",
+      "title": "王钰栋说这批球员最大不同是自信心，留洋路怎么走才不废？",
+      "angle": "王钰栋亚运铜牌后谈留洋选择和自信心，对比以往留洋球员的困境，讨论这批年轻球员能否真正走出去。不吹不黑，留洋不是镀金，是去吃苦。",
       "keywords": [
-        "jiang shenglong",
-        "shanghai shenhua",
-        "yunnan yukun",
-        "title race",
-        "chengdu rongcheng"
+        "wang yudong",
+        "chinese young players",
+        "overseas football"
       ],
       "keywords_cn": [
-        "蒋圣龙",
-        "上海申花",
-        "云南玉昆",
-        "争冠形势",
-        "蓉城夺冠"
+        "王钰栋",
+        "留洋",
+        "年轻球员信心"
       ],
       "content_type": "热点球评",
-      "score": 79,
+      "score": 80,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "争冠悬念+老牌球队情怀有张力",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "亚运铜牌后谈留洋与自信，年轻一代能否破局引好奇",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
+    },
+    {
+      "title": "莫耶斯说埃弗顿出售早有预兆，曼联那300万镑条款是什么鬼？",
+      "angle": "从莫耶斯谈埃弗顿出售切入，结合太阳报爆料JJ转会曼联能拿300万镑的条款，聊聊英超中小俱乐部在资本面前的无奈。莫耶斯经历了埃弗顿的起落，说话有分量。",
+      "keywords": [
+        "moyes everton sale",
+        "man united sell-on clause",
+        "premier league finance"
+      ],
+      "keywords_cn": [
+        "莫耶斯",
+        "埃弗顿出售",
+        "曼联条款"
+      ],
+      "content_type": "转会资讯",
+      "score": 78,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "埃弗顿出售背后的资本逻辑，莫耶斯视角有阅历感",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
     "evening",
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-10 10:50:44"
+  "last_batch": "noon",
+  "last_updated": "2026-10-10 12:04:50"
 }
