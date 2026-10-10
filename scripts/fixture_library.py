@@ -260,7 +260,9 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
             "by_angle": {k: sum(1 for t in topics if t["angle_type"] == k) for k in {r[1] for r in ANGLE_RULES} if any(t["angle_type"] == k for t in topics)},
             "by_weekday": by_weekday,
         },
-        "coverage_gap": ["欧联", "亚冠", "国足"],   # 中超已由聚合数据 juhe.cn 补齐；欧联/亚冠/国足待 API-Football（绑卡暂停）
+        # 欧联/亚冠/欧协联：已由 API-Football 接入（需 API_FOOTBALL_KEY，缺失时自动跳过）；
+        # 国足：年度赛事少，由人工赛历 config/manual_fixtures.yaml 兜底（计划 11.4）。
+        "coverage_gap": ["国足（人工赛历兜底）"],
         "topics": topics,
         "_dropped": {"unmapped": dropped_unmapped[:20], "low_awareness": dropped_lowaware[:20]},
     }
@@ -394,7 +396,16 @@ def main():
     matches = fetch_window(args.days, emap, refresh=args.refresh)
     csl = fetch_juhe_fixtures(refresh=args.refresh)
     manual = load_manual_fixtures()
-    all_matches = matches + csl + manual
+    # 计划 13.2：亚冠/欧联/欧协联/中超 由 API-Football 补齐（无 key 自动跳过）
+    try:
+        import api_football
+        af = api_football.fetch_fixtures(args.days, refresh=args.refresh)
+    except Exception as e:
+        print(f"⚠️ API-Football 接入异常（跳过）：{str(e)[:80]}")
+        af = []
+    all_matches = matches + csl + manual + af
+    if af:
+        print(f"   （其中洲际赛程：{len(af)} 场，来自 API-Football）")
     pool = build_topic_pool(all_matches, emap)
     print(f"   （其中中超未来赛事：{sum(1 for m in all_matches if m.get('source') == 'juhe')} 场，来自聚合数据 juhe.cn）")
     if manual:

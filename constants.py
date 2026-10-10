@@ -48,6 +48,13 @@ FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
 DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
 FOOTBALL_DATA_BASE = "https://api.football-data.org/v4"
 
+# --- API-Football（RapidAPI）：计划 13.2 补齐亚冠/欧联/欧协联/中超 ---
+# 免费档 100 次/日，必须落库缓存；联赛 ID 由 api_football.resolve_league_ids 动态解析。
+API_FOOTBALL_KEY = os.environ.get("API_FOOTBALL_KEY", "") or os.environ.get("RAPIDAPI_KEY", "")
+API_FOOTBALL_HOST = os.environ.get("API_FOOTBALL_HOST", "api-football-v1.p.rapidapi.com")
+# 计划 13.2：football-data.org 免费层不含的赛事，由 API-Football 覆盖
+INTERCONTINENTAL_COMPETITIONS = ("亚冠", "欧联", "欧协联", "中超")
+
 # --- 多模型轮换（JSON 依赖型调用，如话题筛选）---
 # 候选顺序：按中文语义质量 deepseek > kimi > hy/mimo/step > glm，
 # 同品牌内优先更省 token 的 flash/lite/code 变体。
