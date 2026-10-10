@@ -17,6 +17,7 @@ import argparse
 import json
 import os
 import sys
+import yaml
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -93,13 +94,20 @@ def resolve_csl_team(name_zh: str) -> dict:
 def resolve_team(name: str, emap: dict, competition: str = "") -> dict | None:
     """队名 → 中文实体。
     - 中超：中文名直接走 resolve_csl_team（不依赖 entity_map）。
+    - 人工赛历等中文权威源：中文名（含 CJK）按 B 级放行（媒体惯用名，人工维护）。
     - 其它赛事：英文/别名 → entity_map（en→zh）；未登记返回 None（打回，不进生成）。
     """
     if not name:
         return None
     if competition == "中超":
         return resolve_csl_team(name)
-    return emap["by_en"].get(name.strip().lower())
+    mapped = emap["by_en"].get(name.strip().lower())
+    if mapped:
+        return mapped
+    # 中文名兜底：来自聚合数据/人工赛历等中文源，按 B 级放行（计划 13.2）
+    if any("\u4e00" <= c <= "\u9fff" for c in name):
+        return resolve_csl_team(name)
+    return None
 
 
 def fetch_window(days: int, emap: dict, refresh: bool = False) -> list[dict]:
@@ -329,6 +337,50 @@ def fetch_juhe_fixtures(refresh: bool = False) -> list[dict]:
     return matches
 
 
+def load_manual_fixtures(path: Path | None = None) -> list[dict]:
+    """读取人工赛历（计划 11.4 / 13.2）：国足 / 中超 / 欧联的格式补位。
+
+    输出与接口赛程同构的 match dict，直接并入选题池。
+    仅登记未来赛程；过去日期跳过（旧闻）。
+    """
+    p = Path(path) if path else (PROJECT_ROOT / "config" / "manual_fixtures.yaml")
+    if not p.exists():
+        return []
+    try:
+        cfg = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+    except Exception as e:
+        print(f"⚠️ 人工赛历解析失败（跳过）: {e}")
+        return []
+
+    today = datetime.now(CST).date()
+    out = []
+    for it in (cfg.get("fixtures") or []):
+        d = str(it.get("date", "")).strip()
+        home = str(it.get("home", "")).strip()
+        away = str(it.get("away", "")).strip()
+        if not (d and home and away):
+            continue
+        try:
+            ddate = datetime.strptime(d, "%Y-%m-%d").date()
+        except Exception:
+            continue
+        if ddate < today:
+            continue
+        ts = str(it.get("time") or "19:35").strip()
+        comp = str(it.get("competition") or "人工赛历").strip()
+        out.append({
+            "id": f"manual-{d}-{home}-{away}",
+            "competition": {"id": "manual", "name": comp},
+            "homeTeam": {"name": home},
+            "awayTeam": {"name": away},
+            "utcDate": f"{d}T{ts}:00+08:00",
+            "status": "SCHEDULED",
+            "source": "manual",
+            "note": str(it.get("note") or ""),
+        })
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description="赛程库 + 选题池生成器")
     ap.add_argument("--days", type=int, default=MAX_WINDOW_DAYS, help=f"向前天数（上限 {MAX_WINDOW_DAYS}）")
@@ -341,9 +393,12 @@ def main():
 
     matches = fetch_window(args.days, emap, refresh=args.refresh)
     csl = fetch_juhe_fixtures(refresh=args.refresh)
-    all_matches = matches + csl
+    manual = load_manual_fixtures()
+    all_matches = matches + csl + manual
     pool = build_topic_pool(all_matches, emap)
     print(f"   （其中中超未来赛事：{sum(1 for m in all_matches if m.get('source') == 'juhe')} 场，来自聚合数据 juhe.cn）")
+    if manual:
+        print(f"   （其中人工赛历：{len(manual)} 场，来自 config/manual_fixtures.yaml）")
 
     FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
     out = FIXTURE_DIR / "topic_pool.json"
