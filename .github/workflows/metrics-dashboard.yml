@@ -1,0 +1,49 @@
+name: 验收指标看板
+
+# 计划第十章：增长指标看效果，合规指标看底线。
+# 每周一生成一次看板（HTML + Markdown + JSON），提交回仓库，便于人工按周复盘。
+
+on:
+  schedule:
+    - cron: '15 1 * * 1'   # 周一 09:15 CST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 生成验收指标看板（近 30 天）
+        run: python3 scripts/build_metrics_dashboard.py --days 30 --out data/metrics
+
+      - name: 提交看板
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/metrics/ || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: 更新验收指标看板 $(TZ=Asia/Shanghai date +%F)"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ 看板已推送"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          else
+            echo "📝 看板无变化，跳过提交"
+          fi
