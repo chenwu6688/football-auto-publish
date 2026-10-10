@@ -24,6 +24,7 @@ from utils import (retry, call_llm, safe_json_loads, load_prompt_template,
                    call_llm_json, QuotaExhaustedError)
 from logger import log
 import risk_gate
+import degrade
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
@@ -1517,6 +1518,18 @@ def check_cross_day_duplicate(title, content, date_str):
     return False, "", 0
 
 
+def _downgrade_topic(topic):
+    """计划九·一致性校验打回：把选题降级为低风险板块（无硬事实/时效依赖）。"""
+    try:
+        section = degrade.pick_low_risk_section()
+    except Exception:
+        section = "人物故事"
+    topic["content_type"] = section
+    topic["_column_name"] = section
+    topic["_degraded"] = True
+    return topic
+
+
 def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_str):
     """Rewrite a verified source article with retry on fidelity failure.
 
@@ -1560,6 +1573,14 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 last_hint = "; ".join(match_issues)
                 if attempt < max_retries:
                     continue
+                # 计划九·一致性校验打回：降级为低风险板块后重生成一次；仍不过则丢弃
+                if not topic.get("_degraded"):
+                    _downgrade_topic(topic)
+                    degrade.note("一致性校验", f"事实验证连续不过: {last_hint[:60]}",
+                                 action=f"降级为低风险板块（{topic.get('content_type')}）后重生成一次")
+                    return _rewrite_with_retry(topic, match_context, index, source, 1, date_str)
+                degrade.note("一致性校验", f"降级后仍不过: {last_hint[:60]}",
+                             action="丢弃该选题，交由候选池补位")
                 return {}, f"事实验证失败: {last_hint}"
 
             # 计划 11.3 / 12.3 反洗稿双保险：相似度闸门 + 信息增量强制
@@ -1587,6 +1608,8 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                              "。请按公式重拟：具体球队/球员+冲突反差动作+疑问收尾，字数18-30。")
                 if attempt < max_retries:
                     continue
+                degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
+                             action="丢弃该选题并由候选池补位")
                 return {}, f"标题评分未过: {last_hint}"
 
             # 计划合规·AI 生成标注（7.2，发布前强制；改写路径的一致性校验由上方 fidelity 承担）
@@ -1596,8 +1619,11 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
         except Exception as e:
             last_hint = f"异常: {e}"
             if attempt >= max_retries:
+                degrade.note("标题评分", f"改写异常: {str(e)[:60]}",
+                             action="按上一版配比直接生成，不阻塞发布")
                 return {}, f"改写异常: {e}"
 
+    degrade.note("评分连续不过", "重生成次数耗尽", action="丢弃该选题并由候选池补位")
     return {}, "改写失败"
 
 
@@ -1834,6 +1860,10 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                        "batch_name": art.get("_batch_name", "")})
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
+    _degrade_events = degrade.drain()
+    if _degrade_events:
+        meta["degrade_events"] = _degrade_events
+        print(f"   🧯 本次降级事件 {len(_degrade_events)} 条（详见 metadata.degrade_events）")
     if pending_review:
         meta["pending_review"] = pending_review
         print(f"   🛡️ 本次 {len(pending_review)} 篇高风险成稿已转人工确认队列"
@@ -3188,6 +3218,8 @@ def main():
                   f"可信度 {_fc_stats['可信度']}，生命周期 {_fc_stats['生命周期']}）")
         except Exception as e:
             print(f"   ⚠️ 事实卡编译异常（不影响主流程）: {e}")
+            degrade.note("事实层", f"事实卡编译失败: {str(e)[:60]}",
+                         action="跳过该条事实，用剩余事实装配，不足则减少当日篇数")
 
         articles = []
         images_map = {}
@@ -3333,6 +3365,10 @@ def main():
                     date_str, batch_mode=batch_mode, max_topics=FIXTURE_PER_BATCH,
                     lookahead_days=5, topic_history=topic_history,
                     cross_batch_covered=cross_batch_covered)
+                if not fixture_topics:
+                    # 计划九·赛程源不可用：退化为纯新闻流驱动，选题池仅由事实卡装配
+                    degrade.note("赛程源", "本批无可用赛程选题（源不可用或无匹配）",
+                                 action="退化为纯新闻流驱动，选题池仅由事实卡装配")
                 for ft in fixture_topics:
                     facts = gather_fixture_facts(ft)
                     f_art = generate_fixture_article(
