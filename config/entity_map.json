@@ -1,0 +1,1865 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-10-10 15:33",
+  "source": "football-data.org v4 /competitions/{id}/teams",
+  "awareness_legend": {
+    "A": "认知度高，可进新闻流首选",
+    "B": "中等认知，需搭配冲突点/反差角度",
+    "C": "低认知，降权；仅用于数据类、榜单类内容"
+  },
+  "stats": {
+    "total": 111,
+    "A": 18,
+    "B": 33,
+    "C": 60
+  },
+  "entities": {
+    "club_1_fc_köln": {
+      "internal_id": "club_1_fc_köln",
+      "fd_id": 1,
+      "fd_tla": "KOE",
+      "af_id": null,
+      "name_en": "1. FC Köln",
+      "name_zh": "科隆",
+      "aliases": [
+        "科隆"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_tsg_1899_hoffenheim": {
+      "internal_id": "club_tsg_1899_hoffenheim",
+      "fd_id": 2,
+      "fd_tla": "TSG",
+      "af_id": null,
+      "name_en": "TSG 1899 Hoffenheim",
+      "name_zh": "霍芬海姆",
+      "aliases": [
+        "霍芬海姆"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_bayer_04_leverkusen": {
+      "internal_id": "club_bayer_04_leverkusen",
+      "fd_id": 3,
+      "fd_tla": "B04",
+      "af_id": null,
+      "name_en": "Bayer 04 Leverkusen",
+      "name_zh": "勒沃库森",
+      "aliases": [
+        "勒沃库森",
+        "药厂"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_borussia_dortmund": {
+      "internal_id": "club_borussia_dortmund",
+      "fd_id": 4,
+      "fd_tla": "BVB",
+      "af_id": null,
+      "name_en": "Borussia Dortmund",
+      "name_zh": "多特蒙德",
+      "aliases": [
+        "多特",
+        "多特蒙德",
+        "大黄蜂"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    "club_fc_bayern_münchen": {
+      "internal_id": "club_fc_bayern_münchen",
+      "fd_id": 5,
+      "fd_tla": "FCB",
+      "af_id": null,
+      "name_en": "FC Bayern München",
+      "name_zh": "拜仁",
+      "aliases": [
+        "南部之星",
+        "拜仁",
+        "拜仁慕尼黑"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    "club_fc_schalke_04": {
+      "internal_id": "club_fc_schalke_04",
+      "fd_id": 6,
+      "fd_tla": "S04",
+      "af_id": null,
+      "name_en": "FC Schalke 04",
+      "name_zh": "沙尔克04",
+      "aliases": [
+        "沙尔克",
+        "沙尔克04"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_hamburger_sv": {
+      "internal_id": "club_hamburger_sv",
+      "fd_id": 7,
+      "fd_tla": "HSV",
+      "af_id": null,
+      "name_en": "Hamburger SV",
+      "name_zh": "汉堡",
+      "aliases": [
+        "汉堡"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_vfb_stuttgart": {
+      "internal_id": "club_vfb_stuttgart",
+      "fd_id": 10,
+      "fd_tla": "VFB",
+      "af_id": null,
+      "name_en": "VfB Stuttgart",
+      "name_zh": "斯图加特",
+      "aliases": [
+        "斯图加特"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    "club_sv_werder_bremen": {
+      "internal_id": "club_sv_werder_bremen",
+      "fd_id": 12,
+      "fd_tla": "SVW",
+      "af_id": null,
+      "name_en": "SV Werder Bremen",
+      "name_zh": "不来梅",
+      "aliases": [
+        "不来梅",
+        "云达不来梅"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_1_fsv_mainz_05": {
+      "internal_id": "club_1_fsv_mainz_05",
+      "fd_id": 15,
+      "fd_tla": "M05",
+      "af_id": null,
+      "name_en": "1. FSV Mainz 05",
+      "name_zh": "美因茨",
+      "aliases": [
+        "美因茨"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_fc_augsburg": {
+      "internal_id": "club_fc_augsburg",
+      "fd_id": 16,
+      "fd_tla": "FCA",
+      "af_id": null,
+      "name_en": "FC Augsburg",
+      "name_zh": "奥格斯堡",
+      "aliases": [
+        "奥格斯堡"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_sc_freiburg": {
+      "internal_id": "club_sc_freiburg",
+      "fd_id": 17,
+      "fd_tla": "SCF",
+      "af_id": null,
+      "name_en": "SC Freiburg",
+      "name_zh": "弗赖堡",
+      "aliases": [
+        "弗赖堡"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_borussia_mönchengladbach": {
+      "internal_id": "club_borussia_mönchengladbach",
+      "fd_id": 18,
+      "fd_tla": "BMG",
+      "af_id": null,
+      "name_en": "Borussia Mönchengladbach",
+      "name_zh": "门兴",
+      "aliases": [
+        "门兴",
+        "门兴格拉德巴赫"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_eintracht_frankfurt": {
+      "internal_id": "club_eintracht_frankfurt",
+      "fd_id": 19,
+      "fd_tla": "SGE",
+      "af_id": null,
+      "name_en": "Eintracht Frankfurt",
+      "name_zh": "法兰克福",
+      "aliases": [
+        "法兰克福"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_1_fc_union_berlin": {
+      "internal_id": "club_1_fc_union_berlin",
+      "fd_id": 28,
+      "fd_tla": "UNB",
+      "af_id": null,
+      "name_en": "1. FC Union Berlin",
+      "name_zh": "柏林联合",
+      "aliases": [
+        "柏林联合"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_sc_paderborn_07": {
+      "internal_id": "club_sc_paderborn_07",
+      "fd_id": 29,
+      "fd_tla": "SCP",
+      "af_id": null,
+      "name_en": "SC Paderborn 07",
+      "name_zh": "帕德博恩",
+      "aliases": [
+        "帕德博恩"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_sv_07_elversberg": {
+      "internal_id": "club_sv_07_elversberg",
+      "fd_id": 719,
+      "fd_tla": "ELV",
+      "af_id": null,
+      "name_en": "SV 07 Elversberg",
+      "name_zh": "埃尔弗斯贝格",
+      "aliases": [
+        "埃尔弗斯贝格"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "德甲"
+      ]
+    },
+    "club_rb_leipzig": {
+      "internal_id": "club_rb_leipzig",
+      "fd_id": 721,
+      "fd_tla": "RBL",
+      "af_id": null,
+      "name_en": "RB Leipzig",
+      "name_zh": "莱比锡",
+      "aliases": [
+        "莱比锡",
+        "莱比锡红牛"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    "club_arsenal_fc": {
+      "internal_id": "club_arsenal_fc",
+      "fd_id": 57,
+      "fd_tla": "ARS",
+      "af_id": null,
+      "name_en": "Arsenal FC",
+      "name_zh": "阿森纳",
+      "aliases": [
+        "枪手",
+        "阿森纳"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "英超"
+      ]
+    },
+    "club_aston_villa_fc": {
+      "internal_id": "club_aston_villa_fc",
+      "fd_id": 58,
+      "fd_tla": "AVL",
+      "af_id": null,
+      "name_en": "Aston Villa FC",
+      "name_zh": "阿斯顿维拉",
+      "aliases": [
+        "维拉",
+        "阿斯顿维拉"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "英超"
+      ]
+    },
+    "club_liverpool_fc": {
+      "internal_id": "club_liverpool_fc",
+      "fd_id": 64,
+      "fd_tla": "LIV",
+      "af_id": null,
+      "name_en": "Liverpool FC",
+      "name_zh": "利物浦",
+      "aliases": [
+        "利物浦",
+        "红军"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "英超"
+      ]
+    },
+    "club_manchester_city_fc": {
+      "internal_id": "club_manchester_city_fc",
+      "fd_id": 65,
+      "fd_tla": "MCI",
+      "af_id": null,
+      "name_en": "Manchester City FC",
+      "name_zh": "曼城",
+      "aliases": [
+        "曼城",
+        "曼彻斯特城",
+        "蓝月亮"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "英超"
+      ]
+    },
+    "club_manchester_united_fc": {
+      "internal_id": "club_manchester_united_fc",
+      "fd_id": 66,
+      "fd_tla": "MUN",
+      "af_id": null,
+      "name_en": "Manchester United FC",
+      "name_zh": "曼联",
+      "aliases": [
+        "曼彻斯特联",
+        "曼联",
+        "红魔"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "英超"
+      ]
+    },
+    "club_club_atlético_de_madrid": {
+      "internal_id": "club_club_atlético_de_madrid",
+      "fd_id": 78,
+      "fd_tla": "ATL",
+      "af_id": null,
+      "name_en": "Club Atlético de Madrid",
+      "name_zh": "马德里竞技",
+      "aliases": [
+        "马德里竞技",
+        "马竞"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "西甲"
+      ]
+    },
+    "club_fc_barcelona": {
+      "internal_id": "club_fc_barcelona",
+      "fd_id": 81,
+      "fd_tla": "FCB",
+      "af_id": null,
+      "name_en": "FC Barcelona",
+      "name_zh": "巴萨",
+      "aliases": [
+        "巴塞罗那",
+        "巴萨"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "西甲"
+      ]
+    },
+    "club_real_madrid_cf": {
+      "internal_id": "club_real_madrid_cf",
+      "fd_id": 86,
+      "fd_tla": "RMA",
+      "af_id": null,
+      "name_en": "Real Madrid CF",
+      "name_zh": "皇马",
+      "aliases": [
+        "皇家马德里",
+        "皇马",
+        "银河战舰"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "西甲"
+      ]
+    },
+    "club_real_betis_balompié": {
+      "internal_id": "club_real_betis_balompié",
+      "fd_id": 90,
+      "fd_tla": "BET",
+      "af_id": null,
+      "name_en": "Real Betis Balompié",
+      "name_zh": "皇家贝蒂斯",
+      "aliases": [
+        "皇家贝蒂斯",
+        "贝蒂斯"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "西甲"
+      ]
+    },
+    "club_villarreal_cf": {
+      "internal_id": "club_villarreal_cf",
+      "fd_id": 94,
+      "fd_tla": "VIL",
+      "af_id": null,
+      "name_en": "Villarreal CF",
+      "name_zh": "比利亚雷亚尔",
+      "aliases": [
+        "比利亚雷亚尔",
+        "黄色潜水艇"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "西甲"
+      ]
+    },
+    "club_as_roma": {
+      "internal_id": "club_as_roma",
+      "fd_id": 100,
+      "fd_tla": "ROM",
+      "af_id": null,
+      "name_en": "AS Roma",
+      "name_zh": "罗马",
+      "aliases": [
+        "红狼",
+        "罗马"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    "club_fc_internazionale_milano": {
+      "internal_id": "club_fc_internazionale_milano",
+      "fd_id": 108,
+      "fd_tla": "INT",
+      "af_id": null,
+      "name_en": "FC Internazionale Milano",
+      "name_zh": "国际米兰",
+      "aliases": [
+        "国米",
+        "国际米兰",
+        "蓝黑军团"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    "club_ssc_napoli": {
+      "internal_id": "club_ssc_napoli",
+      "fd_id": 113,
+      "fd_tla": "NAP",
+      "af_id": null,
+      "name_en": "SSC Napoli",
+      "name_zh": "那不勒斯",
+      "aliases": [
+        "那不勒斯"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    "club_sporting_clube_de_portugal": {
+      "internal_id": "club_sporting_clube_de_portugal",
+      "fd_id": 498,
+      "fd_tla": "SPO",
+      "af_id": null,
+      "name_en": "Sporting Clube de Portugal",
+      "name_zh": "葡萄牙体育",
+      "aliases": [
+        "葡萄牙体育",
+        "里斯本竞技"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_fc_porto": {
+      "internal_id": "club_fc_porto",
+      "fd_id": 503,
+      "fd_tla": "FCP",
+      "af_id": null,
+      "name_en": "FC Porto",
+      "name_zh": "波尔图",
+      "aliases": [
+        "波尔图"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_lille_osc": {
+      "internal_id": "club_lille_osc",
+      "fd_id": 521,
+      "fd_tla": "LIL",
+      "af_id": null,
+      "name_en": "Lille OSC",
+      "name_zh": "里尔",
+      "aliases": [
+        "里尔"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "法甲"
+      ]
+    },
+    "club_paris_saint_germain_fc": {
+      "internal_id": "club_paris_saint_germain_fc",
+      "fd_id": 524,
+      "fd_tla": "PSG",
+      "af_id": null,
+      "name_en": "Paris Saint-Germain FC",
+      "name_zh": "巴黎圣日耳曼",
+      "aliases": [
+        "大巴黎",
+        "巴黎",
+        "巴黎圣日耳曼"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "法甲"
+      ]
+    },
+    "club_racing_club_de_lens": {
+      "internal_id": "club_racing_club_de_lens",
+      "fd_id": 546,
+      "fd_tla": "RCL",
+      "af_id": null,
+      "name_en": "Racing Club de Lens",
+      "name_zh": "朗斯",
+      "aliases": [
+        "朗斯"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠",
+        "法甲"
+      ]
+    },
+    "club_galatasaray_sk": {
+      "internal_id": "club_galatasaray_sk",
+      "fd_id": 610,
+      "fd_tla": "GAL",
+      "af_id": null,
+      "name_en": "Galatasaray SK",
+      "name_zh": "加拉塔萨雷",
+      "aliases": [
+        "加拉塔萨雷"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_fenerbahçe_sk": {
+      "internal_id": "club_fenerbahçe_sk",
+      "fd_id": 613,
+      "fd_tla": "FEN",
+      "af_id": null,
+      "name_en": "Fenerbahçe SK",
+      "name_zh": "费内巴切",
+      "aliases": [
+        "费内巴切"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_psv": {
+      "internal_id": "club_psv",
+      "fd_id": 674,
+      "fd_tla": "PSV",
+      "af_id": null,
+      "name_en": "PSV",
+      "name_zh": "埃因霍温",
+      "aliases": [
+        "PSV",
+        "埃因霍温"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_feyenoord_rotterdam": {
+      "internal_id": "club_feyenoord_rotterdam",
+      "fd_id": 675,
+      "fd_tla": "FEY",
+      "af_id": null,
+      "name_en": "Feyenoord Rotterdam",
+      "name_zh": "费耶诺德",
+      "aliases": [
+        "费耶诺德"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_club_brugge_kv": {
+      "internal_id": "club_club_brugge_kv",
+      "fd_id": 851,
+      "fd_tla": "BRU",
+      "af_id": null,
+      "name_en": "Club Brugge KV",
+      "name_zh": "布鲁日",
+      "aliases": [
+        "布鲁日"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_sk_slavia_praha": {
+      "internal_id": "club_sk_slavia_praha",
+      "fd_id": 930,
+      "fd_tla": "SLP",
+      "af_id": null,
+      "name_en": "SK Slavia Praha",
+      "name_zh": "布拉格斯拉维亚",
+      "aliases": [
+        "布拉格斯拉维亚",
+        "斯拉维亚"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_fk_shakhtar_donetsk": {
+      "internal_id": "club_fk_shakhtar_donetsk",
+      "fd_id": 1887,
+      "fd_tla": "SHD",
+      "af_id": null,
+      "name_en": "FK Shakhtar Donetsk",
+      "name_zh": "顿涅茨克矿工",
+      "aliases": [
+        "矿工",
+        "顿涅茨克矿工"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_pae_aek": {
+      "internal_id": "club_pae_aek",
+      "fd_id": 1899,
+      "fd_tla": "AEK",
+      "af_id": null,
+      "name_en": "PAE AEK",
+      "name_zh": "AEK雅典",
+      "aliases": [
+        "AEK雅典"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_lask_linz": {
+      "internal_id": "club_lask_linz",
+      "fd_id": 2016,
+      "fd_tla": "LIN",
+      "af_id": null,
+      "name_en": "LASK Linz",
+      "name_zh": "LASK林茨",
+      "aliases": [
+        "LASK林茨"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_viking_fk": {
+      "internal_id": "club_viking_fk",
+      "fd_id": 5720,
+      "fd_tla": "VIK",
+      "af_id": null,
+      "name_en": "Viking FK",
+      "name_zh": "维京",
+      "aliases": [
+        "维京"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_fk_bodø_glimt": {
+      "internal_id": "club_fk_bodø_glimt",
+      "fd_id": 5721,
+      "fd_tla": "FK",
+      "af_id": null,
+      "name_en": "FK Bodø/Glimt",
+      "name_zh": "博多闪耀",
+      "aliases": [
+        "博多闪耀"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_como_1907": {
+      "internal_id": "club_como_1907",
+      "fd_id": 7397,
+      "fd_tla": "COM",
+      "af_id": null,
+      "name_en": "Como 1907",
+      "name_zh": "科莫",
+      "aliases": [
+        "科莫"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    "club_šk_slovan_bratislava": {
+      "internal_id": "club_šk_slovan_bratislava",
+      "fd_id": 7509,
+      "fd_tla": "SBA",
+      "af_id": null,
+      "name_en": "ŠK Slovan Bratislava",
+      "name_zh": "布拉迪斯拉发",
+      "aliases": [
+        "布拉迪斯拉发",
+        "斯拉夫人"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_sabah_fk": {
+      "internal_id": "club_sabah_fk",
+      "fd_id": 10233,
+      "fd_tla": "SAB",
+      "af_id": null,
+      "name_en": "Sabah FK",
+      "name_zh": "萨巴赫",
+      "aliases": [
+        "萨巴赫"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "欧冠"
+      ]
+    },
+    "club_toulouse_fc": {
+      "internal_id": "club_toulouse_fc",
+      "fd_id": 511,
+      "fd_tla": "TOU",
+      "af_id": null,
+      "name_en": "Toulouse FC",
+      "name_zh": "图卢兹",
+      "aliases": [
+        "图卢兹"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_stade_brestois_29": {
+      "internal_id": "club_stade_brestois_29",
+      "fd_id": 512,
+      "fd_tla": "BRE",
+      "af_id": null,
+      "name_en": "Stade Brestois 29",
+      "name_zh": "布雷斯特",
+      "aliases": [
+        "布雷斯特"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_olympique_de_marseille": {
+      "internal_id": "club_olympique_de_marseille",
+      "fd_id": 516,
+      "fd_tla": "MAR",
+      "af_id": null,
+      "name_en": "Olympique de Marseille",
+      "name_zh": "马赛",
+      "aliases": [
+        "马赛"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_aj_auxerre": {
+      "internal_id": "club_aj_auxerre",
+      "fd_id": 519,
+      "fd_tla": "AJA",
+      "af_id": null,
+      "name_en": "AJ Auxerre",
+      "name_zh": "欧塞尔",
+      "aliases": [
+        "欧塞尔"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_ogc_nice": {
+      "internal_id": "club_ogc_nice",
+      "fd_id": 522,
+      "fd_tla": "NIC",
+      "af_id": null,
+      "name_en": "OGC Nice",
+      "name_zh": "尼斯",
+      "aliases": [
+        "尼斯"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_olympique_lyonnais": {
+      "internal_id": "club_olympique_lyonnais",
+      "fd_id": 523,
+      "fd_tla": "LYO",
+      "af_id": null,
+      "name_en": "Olympique Lyonnais",
+      "name_zh": "里昂",
+      "aliases": [
+        "里昂"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_fc_lorient": {
+      "internal_id": "club_fc_lorient",
+      "fd_id": 525,
+      "fd_tla": "FCL",
+      "af_id": null,
+      "name_en": "FC Lorient",
+      "name_zh": "洛里昂",
+      "aliases": [
+        "洛里昂"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_stade_rennais_fc_1901": {
+      "internal_id": "club_stade_rennais_fc_1901",
+      "fd_id": 529,
+      "fd_tla": "REN",
+      "af_id": null,
+      "name_en": "Stade Rennais FC 1901",
+      "name_zh": "雷恩",
+      "aliases": [
+        "雷恩"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_es_troyes_ac": {
+      "internal_id": "club_es_troyes_ac",
+      "fd_id": 531,
+      "fd_tla": "ETR",
+      "af_id": null,
+      "name_en": "ES Troyes AC",
+      "name_zh": "特鲁瓦",
+      "aliases": [
+        "特鲁瓦"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_angers_sco": {
+      "internal_id": "club_angers_sco",
+      "fd_id": 532,
+      "fd_tla": "ANG",
+      "af_id": null,
+      "name_en": "Angers SCO",
+      "name_zh": "昂热",
+      "aliases": [
+        "昂热"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_le_havre_ac": {
+      "internal_id": "club_le_havre_ac",
+      "fd_id": 533,
+      "fd_tla": "HAC",
+      "af_id": null,
+      "name_en": "Le Havre AC",
+      "name_zh": "勒阿弗尔",
+      "aliases": [
+        "勒阿弗尔"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_le_mans_fc": {
+      "internal_id": "club_le_mans_fc",
+      "fd_id": 535,
+      "fd_tla": "LMF",
+      "af_id": null,
+      "name_en": "Le Mans FC",
+      "name_zh": "勒芒",
+      "aliases": [
+        "勒芒"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_as_monaco_fc": {
+      "internal_id": "club_as_monaco_fc",
+      "fd_id": 548,
+      "fd_tla": "ASM",
+      "af_id": null,
+      "name_en": "AS Monaco FC",
+      "name_zh": "摩纳哥",
+      "aliases": [
+        "摩纳哥"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_rc_strasbourg_alsace": {
+      "internal_id": "club_rc_strasbourg_alsace",
+      "fd_id": 576,
+      "fd_tla": "RC ",
+      "af_id": null,
+      "name_en": "RC Strasbourg Alsace",
+      "name_zh": "斯特拉斯堡",
+      "aliases": [
+        "斯特拉斯堡"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_paris_fc": {
+      "internal_id": "club_paris_fc",
+      "fd_id": 1045,
+      "fd_tla": "PFC",
+      "af_id": null,
+      "name_en": "Paris FC",
+      "name_zh": "巴黎FC",
+      "aliases": [
+        "巴黎FC"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "法甲"
+      ]
+    },
+    "club_athletic_club": {
+      "internal_id": "club_athletic_club",
+      "fd_id": 77,
+      "fd_tla": "ATH",
+      "af_id": null,
+      "name_en": "Athletic Club",
+      "name_zh": "毕尔巴鄂竞技",
+      "aliases": [
+        "毕尔巴鄂",
+        "毕尔巴鄂竞技"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_ca_osasuna": {
+      "internal_id": "club_ca_osasuna",
+      "fd_id": 79,
+      "fd_tla": "OSA",
+      "af_id": null,
+      "name_en": "CA Osasuna",
+      "name_zh": "奥萨苏纳",
+      "aliases": [
+        "奥萨苏纳"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_rcd_espanyol_de_barcelona": {
+      "internal_id": "club_rcd_espanyol_de_barcelona",
+      "fd_id": 80,
+      "fd_tla": "ESP",
+      "af_id": null,
+      "name_en": "RCD Espanyol de Barcelona",
+      "name_zh": "西班牙人",
+      "aliases": [
+        "西班牙人"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_getafe_cf": {
+      "internal_id": "club_getafe_cf",
+      "fd_id": 82,
+      "fd_tla": "GET",
+      "af_id": null,
+      "name_en": "Getafe CF",
+      "name_zh": "赫塔菲",
+      "aliases": [
+        "赫塔菲"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_málaga_cf": {
+      "internal_id": "club_málaga_cf",
+      "fd_id": 84,
+      "fd_tla": "MAL",
+      "af_id": null,
+      "name_en": "Málaga CF",
+      "name_zh": "马拉加",
+      "aliases": [
+        "马拉加"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_rayo_vallecano_de_madrid": {
+      "internal_id": "club_rayo_vallecano_de_madrid",
+      "fd_id": 87,
+      "fd_tla": "RAY",
+      "af_id": null,
+      "name_en": "Rayo Vallecano de Madrid",
+      "name_zh": "巴列卡诺",
+      "aliases": [
+        "巴列卡诺"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_levante_ud": {
+      "internal_id": "club_levante_ud",
+      "fd_id": 88,
+      "fd_tla": "LEV",
+      "af_id": null,
+      "name_en": "Levante UD",
+      "name_zh": "莱万特",
+      "aliases": [
+        "莱万特"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_real_sociedad_de_fútbol": {
+      "internal_id": "club_real_sociedad_de_fútbol",
+      "fd_id": 92,
+      "fd_tla": "RSO",
+      "af_id": null,
+      "name_en": "Real Sociedad de Fútbol",
+      "name_zh": "皇家社会",
+      "aliases": [
+        "皇家社会"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_valencia_cf": {
+      "internal_id": "club_valencia_cf",
+      "fd_id": 95,
+      "fd_tla": "VAL",
+      "af_id": null,
+      "name_en": "Valencia CF",
+      "name_zh": "瓦伦西亚",
+      "aliases": [
+        "巴伦西亚",
+        "瓦伦西亚"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_deportivo_alavés": {
+      "internal_id": "club_deportivo_alavés",
+      "fd_id": 263,
+      "fd_tla": "ALA",
+      "af_id": null,
+      "name_en": "Deportivo Alavés",
+      "name_zh": "阿拉维斯",
+      "aliases": [
+        "阿拉维斯"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_elche_cf": {
+      "internal_id": "club_elche_cf",
+      "fd_id": 285,
+      "fd_tla": "ELC",
+      "af_id": null,
+      "name_en": "Elche CF",
+      "name_zh": "埃尔切",
+      "aliases": [
+        "埃尔切"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_rc_celta_de_vigo": {
+      "internal_id": "club_rc_celta_de_vigo",
+      "fd_id": 558,
+      "fd_tla": "CEL",
+      "af_id": null,
+      "name_en": "RC Celta de Vigo",
+      "name_zh": "塞尔塔",
+      "aliases": [
+        "塞尔塔"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_sevilla_fc": {
+      "internal_id": "club_sevilla_fc",
+      "fd_id": 559,
+      "fd_tla": "SEV",
+      "af_id": null,
+      "name_en": "Sevilla FC",
+      "name_zh": "塞维利亚",
+      "aliases": [
+        "塞维利亚"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_rc_deportivo_la_coruña": {
+      "internal_id": "club_rc_deportivo_la_coruña",
+      "fd_id": 560,
+      "fd_tla": "DEP",
+      "af_id": null,
+      "name_en": "RC Deportivo La Coruña",
+      "name_zh": "拉科鲁尼亚",
+      "aliases": [
+        "拉科",
+        "拉科鲁尼亚"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_real_racing_club_de_santander": {
+      "internal_id": "club_real_racing_club_de_santander",
+      "fd_id": 5335,
+      "fd_tla": "SAN",
+      "af_id": null,
+      "name_en": "Real Racing Club de Santander",
+      "name_zh": "桑坦德竞技",
+      "aliases": [
+        "桑坦德",
+        "桑坦德竞技"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "西甲"
+      ]
+    },
+    "club_chelsea_fc": {
+      "internal_id": "club_chelsea_fc",
+      "fd_id": 61,
+      "fd_tla": "CHE",
+      "af_id": null,
+      "name_en": "Chelsea FC",
+      "name_zh": "切尔西",
+      "aliases": [
+        "切尔西",
+        "蓝军"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_everton_fc": {
+      "internal_id": "club_everton_fc",
+      "fd_id": 62,
+      "fd_tla": "EVE",
+      "af_id": null,
+      "name_en": "Everton FC",
+      "name_zh": "埃弗顿",
+      "aliases": [
+        "埃弗顿",
+        "太妃糖"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_fulham_fc": {
+      "internal_id": "club_fulham_fc",
+      "fd_id": 63,
+      "fd_tla": "FUL",
+      "af_id": null,
+      "name_en": "Fulham FC",
+      "name_zh": "富勒姆",
+      "aliases": [
+        "富勒姆"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_newcastle_united_fc": {
+      "internal_id": "club_newcastle_united_fc",
+      "fd_id": 67,
+      "fd_tla": "NEW",
+      "af_id": null,
+      "name_en": "Newcastle United FC",
+      "name_zh": "纽卡斯尔",
+      "aliases": [
+        "喜鹊",
+        "纽卡",
+        "纽卡斯尔"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_sunderland_afc": {
+      "internal_id": "club_sunderland_afc",
+      "fd_id": 71,
+      "fd_tla": "SUN",
+      "af_id": null,
+      "name_en": "Sunderland AFC",
+      "name_zh": "桑德兰",
+      "aliases": [
+        "桑德兰",
+        "黑猫"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_tottenham_hotspur_fc": {
+      "internal_id": "club_tottenham_hotspur_fc",
+      "fd_id": 73,
+      "fd_tla": "TOT",
+      "af_id": null,
+      "name_en": "Tottenham Hotspur FC",
+      "name_zh": "热刺",
+      "aliases": [
+        "托特纳姆",
+        "热刺"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_hull_city_afc": {
+      "internal_id": "club_hull_city_afc",
+      "fd_id": 322,
+      "fd_tla": "HUL",
+      "af_id": null,
+      "name_en": "Hull City AFC",
+      "name_zh": "赫尔城",
+      "aliases": [
+        "赫尔城"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_leeds_united_fc": {
+      "internal_id": "club_leeds_united_fc",
+      "fd_id": 341,
+      "fd_tla": "LEE",
+      "af_id": null,
+      "name_en": "Leeds United FC",
+      "name_zh": "利兹联",
+      "aliases": [
+        "利兹联",
+        "白玫瑰"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_ipswich_town_fc": {
+      "internal_id": "club_ipswich_town_fc",
+      "fd_id": 349,
+      "fd_tla": "IPS",
+      "af_id": null,
+      "name_en": "Ipswich Town FC",
+      "name_zh": "伊普斯维奇",
+      "aliases": [
+        "伊普斯维奇"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_nottingham_forest_fc": {
+      "internal_id": "club_nottingham_forest_fc",
+      "fd_id": 351,
+      "fd_tla": "NOT",
+      "af_id": null,
+      "name_en": "Nottingham Forest FC",
+      "name_zh": "诺丁汉森林",
+      "aliases": [
+        "诺丁汉森林"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_crystal_palace_fc": {
+      "internal_id": "club_crystal_palace_fc",
+      "fd_id": 354,
+      "fd_tla": "CRY",
+      "af_id": null,
+      "name_en": "Crystal Palace FC",
+      "name_zh": "水晶宫",
+      "aliases": [
+        "水晶宫"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_brighton_hove_albion_fc": {
+      "internal_id": "club_brighton_hove_albion_fc",
+      "fd_id": 397,
+      "fd_tla": "BHA",
+      "af_id": null,
+      "name_en": "Brighton & Hove Albion FC",
+      "name_zh": "布莱顿",
+      "aliases": [
+        "布莱顿",
+        "海鸥"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_brentford_fc": {
+      "internal_id": "club_brentford_fc",
+      "fd_id": 402,
+      "fd_tla": "BRE",
+      "af_id": null,
+      "name_en": "Brentford FC",
+      "name_zh": "布伦特福德",
+      "aliases": [
+        "布伦特福德"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_afc_bournemouth": {
+      "internal_id": "club_afc_bournemouth",
+      "fd_id": 1044,
+      "fd_tla": "BOU",
+      "af_id": null,
+      "name_en": "AFC Bournemouth",
+      "name_zh": "伯恩茅斯",
+      "aliases": [
+        "伯恩茅斯"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_coventry_city_fc": {
+      "internal_id": "club_coventry_city_fc",
+      "fd_id": 1076,
+      "fd_tla": "COV",
+      "af_id": null,
+      "name_en": "Coventry City FC",
+      "name_zh": "考文垂",
+      "aliases": [
+        "考文垂"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "英超"
+      ]
+    },
+    "club_ac_milan": {
+      "internal_id": "club_ac_milan",
+      "fd_id": 98,
+      "fd_tla": "MIL",
+      "af_id": null,
+      "name_en": "AC Milan",
+      "name_zh": "AC米兰",
+      "aliases": [
+        "AC米兰",
+        "米兰"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_acf_fiorentina": {
+      "internal_id": "club_acf_fiorentina",
+      "fd_id": 99,
+      "fd_tla": "FIO",
+      "af_id": null,
+      "name_en": "ACF Fiorentina",
+      "name_zh": "佛罗伦萨",
+      "aliases": [
+        "佛罗伦萨",
+        "紫百合"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_atalanta_bc": {
+      "internal_id": "club_atalanta_bc",
+      "fd_id": 102,
+      "fd_tla": "ATA",
+      "af_id": null,
+      "name_en": "Atalanta BC",
+      "name_zh": "亚特兰大",
+      "aliases": [
+        "亚特兰大",
+        "真蓝黑"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_bologna_fc_1909": {
+      "internal_id": "club_bologna_fc_1909",
+      "fd_id": 103,
+      "fd_tla": "BOL",
+      "af_id": null,
+      "name_en": "Bologna FC 1909",
+      "name_zh": "博洛尼亚",
+      "aliases": [
+        "博洛尼亚"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_cagliari_calcio": {
+      "internal_id": "club_cagliari_calcio",
+      "fd_id": 104,
+      "fd_tla": "CAG",
+      "af_id": null,
+      "name_en": "Cagliari Calcio",
+      "name_zh": "卡利亚里",
+      "aliases": [
+        "卡利亚里"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_genoa_cfc": {
+      "internal_id": "club_genoa_cfc",
+      "fd_id": 107,
+      "fd_tla": "GEN",
+      "af_id": null,
+      "name_en": "Genoa CFC",
+      "name_zh": "热那亚",
+      "aliases": [
+        "热那亚"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_juventus_fc": {
+      "internal_id": "club_juventus_fc",
+      "fd_id": 109,
+      "fd_tla": "JUV",
+      "af_id": null,
+      "name_en": "Juventus FC",
+      "name_zh": "尤文图斯",
+      "aliases": [
+        "尤文",
+        "尤文图斯",
+        "斑马军团"
+      ],
+      "awareness": "A",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_ss_lazio": {
+      "internal_id": "club_ss_lazio",
+      "fd_id": 110,
+      "fd_tla": "LAZ",
+      "af_id": null,
+      "name_en": "SS Lazio",
+      "name_zh": "拉齐奥",
+      "aliases": [
+        "拉齐奥",
+        "蓝鹰"
+      ],
+      "awareness": "B",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_parma_calcio_1913": {
+      "internal_id": "club_parma_calcio_1913",
+      "fd_id": 112,
+      "fd_tla": "PAR",
+      "af_id": null,
+      "name_en": "Parma Calcio 1913",
+      "name_zh": "帕尔马",
+      "aliases": [
+        "帕尔马"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_udinese_calcio": {
+      "internal_id": "club_udinese_calcio",
+      "fd_id": 115,
+      "fd_tla": "UDI",
+      "af_id": null,
+      "name_en": "Udinese Calcio",
+      "name_zh": "乌迪内斯",
+      "aliases": [
+        "乌迪内斯"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_venezia_fc": {
+      "internal_id": "club_venezia_fc",
+      "fd_id": 454,
+      "fd_tla": "VEN",
+      "af_id": null,
+      "name_en": "Venezia FC",
+      "name_zh": "威尼斯",
+      "aliases": [
+        "威尼斯"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_frosinone_calcio": {
+      "internal_id": "club_frosinone_calcio",
+      "fd_id": 470,
+      "fd_tla": "FRO",
+      "af_id": null,
+      "name_en": "Frosinone Calcio",
+      "name_zh": "弗罗西诺内",
+      "aliases": [
+        "弗罗西诺内"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_us_sassuolo_calcio": {
+      "internal_id": "club_us_sassuolo_calcio",
+      "fd_id": 471,
+      "fd_tla": "SAS",
+      "af_id": null,
+      "name_en": "US Sassuolo Calcio",
+      "name_zh": "萨索洛",
+      "aliases": [
+        "萨索洛"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_torino_fc": {
+      "internal_id": "club_torino_fc",
+      "fd_id": 586,
+      "fd_tla": "TOR",
+      "af_id": null,
+      "name_en": "Torino FC",
+      "name_zh": "都灵",
+      "aliases": [
+        "都灵"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_us_lecce": {
+      "internal_id": "club_us_lecce",
+      "fd_id": 5890,
+      "fd_tla": "USL",
+      "af_id": null,
+      "name_en": "US Lecce",
+      "name_zh": "莱切",
+      "aliases": [
+        "莱切"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    },
+    "club_ac_monza": {
+      "internal_id": "club_ac_monza",
+      "fd_id": 5911,
+      "fd_tla": "MON",
+      "af_id": null,
+      "name_en": "AC Monza",
+      "name_zh": "蒙扎",
+      "aliases": [
+        "蒙扎"
+      ],
+      "awareness": "C",
+      "category": "club",
+      "competitions": [
+        "意甲"
+      ]
+    }
+  }
+}
