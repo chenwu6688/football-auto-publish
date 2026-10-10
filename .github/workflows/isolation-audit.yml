@@ -1,0 +1,57 @@
+name: 物理隔离审计
+
+# 计划 11.3：正文只进抽取器、永不进生成器；辅以相似度闸门与信息增量。
+# 单测保证逻辑正确，本任务保证运行期不退化——每周审计模板隔离、生成路径隔离、
+# 成稿重复与溯源覆盖率，产出报告并回写仓库；未通过即失败告警。
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'   # 周日 10:00 CST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: python -m pip install --quiet pyyaml requests
+
+      - name: 运行隔离审计（近 7 天）
+        id: audit
+        continue-on-error: true
+        run: python3 scripts/audit_isolation.py --days 7
+
+      - name: 提交审计报告
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/audit/ || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: 隔离审计报告 $(TZ=Asia/Shanghai date +%F)"
+            for attempt in 1 2 3; do
+              if git push origin main; then break; fi
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          else
+            echo "📝 审计报告无变化"
+          fi
+
+      - name: 审计未通过则失败
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "::error::物理隔离审计未通过，请查看 data/audit/latest.json"
+          exit 1

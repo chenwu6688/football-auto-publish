@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-10-10 21:30",
+  "window_days": 7,
+  "ok": true,
+  "checks": [
+    {
+      "item": "生成器模板隔离",
+      "ok": true,
+      "detail": [
+        "隔离声明齐备"
+      ]
+    },
+    {
+      "item": "生成路径静态隔离",
+      "ok": true,
+      "detail": [
+        "生成路径只经抽取器事实块"
+      ]
+    },
+    {
+      "item": "成稿重复自查",
+      "ok": true,
+      "detail": [
+        "同天两两重合均在阈值内"
+      ],
+      "pairs": []
+    },
+    {
+      "item": "溯源覆盖率",
+      "ok": true,
+      "warn": true,
+      "detail": [
+        "0/80 = 0.0%（计划第十章目标 100%）"
+      ],
+      "rate": 0.0,
+      "total": 80
+    }
+  ]
+}
