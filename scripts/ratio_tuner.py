@@ -26,7 +26,8 @@ import yaml
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = PROJECT_ROOT / "output"
 CONFIG_PATH = PROJECT_ROOT / "config" / "ratio_config.yaml"
-SUGGESTION_PATH = OUTPUT_DIR / "ratio_suggestion.json"
+# 建议落档到 data/（随仓库持久化，便于人工查看与留档；output/ 属运行产物不入库）
+SUGGESTION_PATH = PROJECT_ROOT / "data" / "ratio_suggestion.json"
 
 # content_type / column_name → 计划四板块（保守映射，未命中归「其他」，不参与调参）
 _SECTION_MAP = {

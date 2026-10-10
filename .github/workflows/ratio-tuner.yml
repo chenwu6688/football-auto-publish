@@ -1,0 +1,81 @@
+name: 配比调参（每两周）
+
+# 计划第八章 / 6.3：滚动 14 天窗口 + 最小样本 30 + 四道防呆；每两周产出一份
+# 含触发指标与数值的配比建议，满足条件则自动升版 config/ratio_config.yaml。
+#
+# 触发：每月 1 日与 15 日 09:00 CST（01:00 UTC），以及手动 workflow_dispatch。
+# 也可在 Actions 页面手动触发随时产出建议。
+
+on:
+  schedule:
+    - cron: '0 1 1,15 * *'  # 每月 1/15 日 09:00 CST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '只计算不写配置'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  tune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: python -m pip install --quiet pyyaml
+
+      - name: 计算配比建议（滚动 14 天 + 四道防呆）
+        id: tune
+        env:
+          OUTPUT_DIR: ${{ github.workspace }}/output
+        run: |
+          set -o pipefail
+          python3 scripts/ratio_tuner.py --report 2>&1 | tee /tmp/tuner_out.txt
+          echo "----- 摘要 -----"
+          grep -E "建议配比|变更原因|自动执行|自动升版|交人工确认" /tmp/tuner_out.txt || true
+
+      - name: 回写配比配置（仅在自动升版时）
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f config/ratio_config.yaml data/ratio_suggestion.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "📝 配比无变化（可能样本不足或处于死区/冷静期）"
+          else
+            git commit -m "chore(tuning): 配比建议/自动升版回写"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                echo "✅ 配比配置已回写"; break
+              fi
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          fi
+
+      - name: 推送提醒
+        if: always()
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          SUMMARY=$(grep -E "建议配比|变更原因|自动执行|自动升版|交人工确认" /tmp/tuner_out.txt 2>/dev/null | head -8 || echo "（无摘要）")
+          if [ -n "$WXPUSHER_APPTOKEN" ] && [ -n "$WXPUSHER_UID" ]; then
+            python3 scripts/send_wxpusher.py "$WXPUSHER_APPTOKEN" "$WXPUSHER_UID" \
+              "配比调参（每两周）" "$SUMMARY
+          查看 config/ratio_config.yaml 与 data/ratio_suggestion.json"
+          else
+            echo "ℹ️ 未配置 WxPusher，跳过推送"
+          fi
