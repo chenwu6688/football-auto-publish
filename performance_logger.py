@@ -42,7 +42,7 @@ def save_performance_log(log_data):
     PERF_LOG_PATH.write_text(json.dumps(log_data, ensure_ascii=False, indent=2))
 
 
-def log_article_performance(date_str, article_index, reads=0, comments=0, likes=0, shares=0, retention_rate=0.0):
+def log_article_performance(date_str, article_index, reads=0, comments=0, likes=0, shares=0, retention_rate=0.0, new_followers=0):
     """Record performance metrics for a single article.
 
     Args:
@@ -53,6 +53,7 @@ def log_article_performance(date_str, article_index, reads=0, comments=0, likes=
         likes: 点赞数
         shares: 分享数
         retention_rate: 完读率 (0.0-1.0)
+        new_followers: 当日涨粉数（计划 11.6：配比归因必需字段）
     """
     log_data = load_performance_log()
     key = f"{date_str}/article-{article_index}"
@@ -64,10 +65,11 @@ def log_article_performance(date_str, article_index, reads=0, comments=0, likes=
         "likes": likes,
         "shares": shares,
         "retention_rate": retention_rate,
+        "new_followers": new_followers,
         "logged_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }
     save_performance_log(log_data)
-    print(f"   性能数据已记录: {key} — 阅读:{reads} 评论:{comments} 点赞:{likes}")
+    print(f"   性能数据已记录: {key} — 阅读:{reads} 评论:{comments} 点赞:{likes} 涨粉:{new_followers}")
     return log_data
 
 
@@ -96,6 +98,7 @@ def update_metadata_performance(date_str):
                 "likes": perf["likes"],
                 "shares": perf["shares"],
                 "retention_rate": perf["retention_rate"],
+                "new_followers": perf.get("new_followers", 0),
             }
             updated += 1
 
@@ -121,6 +124,7 @@ if __name__ == "__main__":
     parser.add_argument("--likes", type=int, default=0, help="点赞数")
     parser.add_argument("--shares", type=int, default=0, help="分享数")
     parser.add_argument("--retention", type=float, default=0.0, help="完读率")
+    parser.add_argument("--followers", type=int, default=0, help="当日涨粉数（计划 11.6）")
     parser.add_argument("--sync", action="store_true", help="同步到 metadata.json")
 
     args = parser.parse_args()
@@ -128,7 +132,8 @@ if __name__ == "__main__":
     log_article_performance(args.date, args.index,
                             reads=args.reads, comments=args.comments,
                             likes=args.likes, shares=args.shares,
-                            retention_rate=args.retention)
+                            retention_rate=args.retention,
+                            new_followers=args.followers)
 
     if args.sync:
         update_metadata_performance(args.date)

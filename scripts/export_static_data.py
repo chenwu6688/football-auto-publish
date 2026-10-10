@@ -262,6 +262,52 @@ def get_metadata(date_str):
         return None
 
 
+PERF_LOG_PATH = OUTPUT_DIR / "performance_log.json"
+
+
+def _load_perf_articles(date_str):
+    """读取 performance_log.json 中该日的 {index: {reads, new_followers, ...}}（计划 11.6）。"""
+    if not PERF_LOG_PATH.exists():
+        return {}
+    try:
+        data = json.loads(PERF_LOG_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for key, rec in (data.get("articles") or {}).items():
+        if not isinstance(rec, dict):
+            continue
+        if rec.get("date") == date_str or str(key).startswith(f"{date_str}/"):
+            out[rec.get("index")] = rec
+    return out
+
+
+def _enrich_articles(articles, meta, date_str):
+    """补齐计划 11.6 三字段：内容类型 / 所属栏目 / 当日涨粉（另附阅读量）。
+
+    数据来源：metadata.json（content_type/column_name）+ performance_log.json（reads/new_followers）。
+    """
+    meta = meta or {}
+    by_title = {ma.get("title", ""): ma for ma in meta.get("articles", [])}
+    by_index = {ma.get("index"): ma for ma in meta.get("articles", [])}
+    perf = _load_perf_articles(date_str)
+    for a in articles:
+        ma = by_title.get(a.get("title", "")) or {}
+        # 无标题匹配时按 markdown 文件名尾号兜底匹配 index
+        if not ma:
+            try:
+                idx_guess = int(str(a.get("id", "")).rsplit("_", 1)[-1])
+                ma = by_index.get(idx_guess, {})
+            except Exception:
+                ma = {}
+        a["content_type"] = ma.get("content_type", a.get("content_type", ""))
+        a["column_name"] = ma.get("column_name", a.get("column_name", ""))
+        rec = perf.get(ma.get("index")) or {}
+        a["reads"] = rec.get("reads", 0)
+        a["new_followers"] = rec.get("new_followers", 0)
+    return articles
+
+
 def scan_articles(date_str):
     """扫描日期目录下的所有文章，返回结构化列表"""
     articles = []
@@ -287,6 +333,7 @@ def build_batch_groups(date_str):
     articles = scan_articles(date_str)
     if not articles:
         return [], {}
+    articles = _enrich_articles(articles, meta, date_str)
 
     # 批次映射
     batch_map = {"晨读": "morning", "午间": "noon", "晚间": "evening"}
@@ -328,7 +375,9 @@ def build_batch_groups(date_str):
 def _articles_from_metadata(meta, date_str):
     """从 metadata 构建基础文章信息（没有 md 文件时兜底）"""
     articles = []
+    perf = _load_perf_articles(date_str)
     for i, ma in enumerate(meta.get("articles", [])):
+        rec = perf.get(ma.get("index", i + 1)) or {}
         articles.append({
             "id": f"{date_str}_{i+1}",
             "title": ma.get("title", "未知标题"),
@@ -340,6 +389,11 @@ def _articles_from_metadata(meta, date_str):
             "cover_image": "",
             "html_content": f"<p>{ma.get('originality_note', '内容加载中...')}</p>",
             "batch_name": ma.get("batch_name", ""),
+            # 计划 11.6：内容类型 / 所属栏目 / 当日涨粉（+阅读量），供配比精确归因
+            "content_type": ma.get("content_type", ""),
+            "column_name": ma.get("column_name", ""),
+            "reads": rec.get("reads", 0),
+            "new_followers": rec.get("new_followers", 0),
         })
     return articles
 

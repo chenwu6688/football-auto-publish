@@ -23,6 +23,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
 from utils import (retry, call_llm, safe_json_loads, load_prompt_template,
                    call_llm_json, QuotaExhaustedError)
 from logger import log
+import risk_gate
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
@@ -1666,6 +1667,7 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     images_dir.mkdir(parents=True, exist_ok=True)
 
     saved = []
+    pending_review = []
     all_hashes = set()
     pre_downloaded = pre_downloaded_images or {}
 
@@ -1673,6 +1675,19 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         idx = i + 1
         # P2-7: 补全栏目/风格/互动字段，避免 metadata 出现空字段（垂直锚点缺失）
         fill_article_defaults(art)
+
+        # 计划 1.2 / 4.1 高风险内容人工确认：涉及伤病/合同金额/争议指控的成稿
+        # 转入人工确认队列（data/pending_review.json），确认前不进入发布集合。
+        _risk = risk_gate.assess(art)
+        if _risk.get("high_risk"):
+            _rid = risk_gate.enqueue(art, date_str, idx, _risk)
+            pending_review.append({"id": _rid, "index": idx,
+                                   "title": art.get("title", ""),
+                                   "reasons": _risk.get("reasons", [])})
+            print(f"   🛡️ 高风险内容转人工确认队列 [{_rid}]："
+                  f"{'；'.join(_risk.get('reasons', []))} → 本次不发布")
+            continue
+
         prefix = f"article-{idx}-img"
 
         downloaded = []
@@ -1819,6 +1834,10 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                        "batch_name": art.get("_batch_name", "")})
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
+    if pending_review:
+        meta["pending_review"] = pending_review
+        print(f"   🛡️ 本次 {len(pending_review)} 篇高风险成稿已转人工确认队列"
+              f"（risk_gate.py --list 查看 / --approve <id> 确认）")
     if extra:
         meta.update(extra)
     file_writer.save_index(date_str, saved)

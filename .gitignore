@@ -10,6 +10,9 @@ scripts/local_env.sh
 data/fixtures/
 data/facts/
 data/ranker_cache.json
+data/pending_review.json
+data/reservoir/
+data/rank_audit/
 
 # OpenWolf memory system
 .wolf/
