@@ -3189,6 +3189,22 @@ def main():
         extra_meta = {"type": "match_analysis"}
         _assign_columns_to_topics(topics, batch_mode)
 
+        # 计划 11.2 择优模型：上游选题层已完成 L1（时效/配比/冷门度），此处接 L2 信号增强
+        # + L3 五维规则量表重排（仅重排、不删题，非阻断）。信号源接入后可由 ranker.rank_candidates
+        # 走 L3 模型打分；当前无信号时用规则排序（即 L4 降级路径）。
+        try:
+            import ranker
+            ranker.l2_enrich(topics)
+            topics.sort(key=lambda t: ranker.rule_total({
+                "主体": (t.get("keywords_cn") or [""])[0] if t.get("keywords_cn") else "",
+                "动作": t.get("content_type", ""),
+                "发生时间": date_str,
+                "可用角度": [t.get("angle", "")] if t.get("angle") else [],
+            }, t), reverse=True)
+            print("   🎯 择优排序：按五维规则量表重排候选（L2 信号 + L3 规则）")
+        except Exception as e:
+            print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
+
         # 动态条数：按实际返回的高质量话题数裁剪，单批不超过 max_articles（去除固定 2 篇硬限制）
         article_count = min(len(topics), max_articles)
         if article_count >= max_articles:

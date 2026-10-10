@@ -9,6 +9,7 @@ logs/
 scripts/local_env.sh
 data/fixtures/
 data/facts/
+data/ranker_cache.json
 
 # OpenWolf memory system
 .wolf/
