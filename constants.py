@@ -87,7 +87,11 @@ HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
 # JSON 调用候选：按上面质量/费用顺序，顺序尝试、额度低于 5% 自动切下一个。
 LLM_JSON_CANDIDATES = [
     (HY3_BASE_URL, HY3_API_KEY, model) for model in HY3_ROTATION_MODELS
-]
+] + (
+    # DASHSCOPE（通义千问）作为 hy3 配额耗尽 / key 缺失时的兜底（见上方注释意图）。
+    # 仅当 key 真实存在时才加入候选，空 key 会被 call_llm_json 自动跳过。
+    [(DASHSCOPE_URL, DASHSCOPE_KEY, "qwen-plus")] if DASHSCOPE_KEY else []
+)
 
 # --- LLM 免费额度管理 ---
 # 多模型轮换的额度规则（2026-09-27 调整）：

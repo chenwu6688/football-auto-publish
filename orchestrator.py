@@ -2274,6 +2274,13 @@ _COLUMN_DEFAULTS_BY_TYPE = {
                 "每个条目3-5句话，毒舌但不刻薄，用对比制造笑点，最后一句是让人截图转发的吐槽。"),
     "紧急球评": ("breaking", "突发直击", "快讯体",
                 "第一时间犀利点评，直击最刺激的瞬间，观点锋利不留余地。"),
+    # —— 计划 6.2 固定四板块（赛程确定性供给落位到此）——
+    "战术榜单": ("tactics-board", "战术黑板", "教书体",
+                "先抛一个反常识的战术发现，用生活类比解释，最后给一个能记住的结论。"),
+    "人物故事": ("fan-life", "球迷众生相", "人间观察体",
+                "像在球场边观察人间百态，用细节和画面说话，少评论多展示，让读者有共鸣。"),
+    "中国足球": ("china-football", "中国足球", "本土视角体",
+                "深耕本土赛事，做全国媒体覆盖不到的本土视角。"),
 }
 
 
@@ -2444,9 +2451,8 @@ FIXTURE_PER_BATCH = 1  # 每批最多生成的确定性供给篇数（计划：�
 
 
 def _fixture_content_type(topic):
-    """赛程分型 → 栏目 content_type。"""
-    col = topic.get("suggested_column", "")
-    return {"战术榜单": "战术解析", "人物故事": "八卦趣事", "数据对照": "排行榜"}.get(col, "战术解析")
+    """赛程分型 → 板块 content_type（计划 6.2 固定四板块：转会动态／人物故事／中国足球／战术榜单）。"""
+    return topic.get("板块", "战术榜单")
 
 
 def _build_fixture_fact_card(facts):
@@ -2487,7 +2493,45 @@ def _build_fixture_fact_card(facts):
     return "\n".join(lines)
 
 
-def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None):
+def score_fixture_title(topic, title, batch_mode="auto"):
+    """管道内规则评分器（计划 5.1/7.2）：及格线 60 分，低于阈值打回重生成。
+
+    评分维度（计划 5.1：字数、问号、板块、时段 —— 只判格式合规，不作择优漏斗）：
+      - 字数 30 分：26~30 字达标；22~34 字给 20；其余 0（计划 3.3：字数落在 26 至 30 字）。
+      - 疑问收尾 30 分：以『？』收尾满分；含疑问词（吗/呢/为何/凭什么/怎么/谁更）给 18；否则 0
+        （计划 3.3：以疑问收尾）。
+      - 具体对阵 25 分：标题含主客队双方各 25；含一方 15；否则 0（计划 3.3：具体人名或球队+冲突反差）。
+      - 板块保底 15 分：赛程确定性选题默认给到（避免误杀）。
+    返回 (score 0~100, reasons)。
+    """
+    t = (title or "").strip()
+    n = len(t)
+    reasons = []
+    score = 0
+    if 26 <= n <= 30:
+        score += 30; reasons.append("字数达标")
+    elif 22 <= n <= 34:
+        score += 20; reasons.append(f"字数略偏({n})")
+    else:
+        reasons.append(f"字数偏差({n})")
+    if t.endswith("？") or t.endswith("?"):
+        score += 30; reasons.append("疑问收尾")
+    elif any(k in t for k in ("吗", "呢", "为何", "凭什么", "怎么", "为啥", "谁更", "究竟")):
+        score += 18; reasons.append("含疑问词")
+    else:
+        reasons.append("无疑问收尾")
+    home, away = topic.get("home_zh", ""), topic.get("away_zh", "")
+    if home and home in t and away and away in t:
+        score += 25; reasons.append("含主客队")
+    elif (home and home in t) or (away and away in t):
+        score += 15; reasons.append("含一方队名")
+    else:
+        reasons.append("未含对阵队名")
+    score += 15; reasons.append("板块保底")
+    return min(100, score), reasons
+
+
+def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None, batch_mode="auto"):
     """确定性供给文章：基于赛程冲突点 + 积分榜/射手榜事实层，由 LLM 生成表达层。
 
     事实层/表达层隔离：LLM 只能基于下方事实卡表达，禁止编造任何具体数据
@@ -2530,15 +2574,22 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
 
 今天是 {date_str or '今日'}，比赛在北京时间 {topic.get('kickoff_cst', '')} 开球。
 {prefix_hint}
-写作硬规则：
-1. 标题必须自然、有信息量（用具体对阵/看点开头，如「曼联热刺这场，真正的胜负手在边路」），严禁『XX前瞻』『赛前分析』等模板化标题。
-2. 所有数据只能来自上方事实卡；卡里没有的（具体比分、转会、伤病、历史交锋）一律不写，宁可不提也不编造。
+写作硬规则（严格按计划 v1.0 第三章/第五章/第七章）：
+1. 标题公式：用具体球队或人名 + 冲突/反差动作开头，以疑问『？』收尾；字数严格落在 26~30 字（含标点）。
+   严禁『XX前瞻』『赛前分析』等模板化标题（赛事前瞻已停发，计划 7.1 验收：前瞻体占比为零）。
+2. 所有数据只能来自上方事实卡；卡里没有的（具体比分、转会、伤病、历史交锋、合同金额）一律不写，宁可不提也不编造。
 3. 语气像老球迷喝酒聊天，有明确立场和情绪，不套模板。
-4. 依角度类型落栏：{content_type}。
-5. 文末带互动钩子，引评论区讨论。
+4. 依板块落栏：{content_type}（计划 6.2 板块：转会动态／人物故事／中国足球／战术榜单）。
+5. 文末必须包含两类固定内容：
+   (a) 互动钩子，引评论区讨论；
+   (b) 一段「老六视角」——基于上述事实卡给出的独立判断（只做判断、不编造任何卡外数据），
+       既是计划 4.2 要求的「基于事实的独立判断」（满足实质人工介入判定、形成账号人设），
+       也体现计划 13.5「观点增量」差异化方向。
+6. 文末另须显式标注（计划 4.1 失实表述对策、4.2 反向利好）：
+   「⚠️ 本文由 AI 生成，数据来源：football-data.org / 聚合数据，赛程与数据以官方为准；文中观点为基于公开数据的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(18-30字，非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，具体对阵/人名+冲突反差开头，必须以疑问？收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -2561,7 +2612,14 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                     print(f"   ⚠️ 确定性供给正文仅{len(content)}字 (attempt {attempt + 1}/3)")
                     continue
                 return None
-            title = article.get("title", "")
+            title = (article.get("title", "") or "").strip()
+            # 评分器及格线（计划 5.1/7.2）：低于 60 分打回重生成，最多两次（attempt 0,1 重试，第 3 次兜底放行）
+            s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
+            if s_score < 60:
+                if attempt < 2:
+                    print(f"   ⚠️ 确定性供给标题评分 {s_score} 未过及格线(60) [{','.join(s_reasons)}] (attempt {attempt + 1}/3)，重生成...")
+                    continue
+                print(f"   ⚠️ 确定性供给标题评分 {s_score} 仍不过，兜底放行（不阻塞发布）")
             if recent_prefixes and title[:6] in recent_prefixes:
                 if attempt < 2:
                     print(f"   ⚠️ 确定性供给标题前缀复读「{title[:6]}」，重试 (attempt {attempt + 1}/3)...")
@@ -2570,10 +2628,13 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                 title = stripped or title
             article["title"] = title
             article["content_type"] = content_type
+            article["板块"] = topic.get("板块", content_type)
             article["_is_fixture"] = True
-            article["sources_used"] = ["football-data.org/v4 (赛程/积分榜/射手榜)"]
+            src = ("聚合数据 juhe.cn (中超赛程)" if topic.get("competition") == "中超"
+                   else "football-data.org/v4 (赛程/积分榜/射手榜)")
+            article["sources_used"] = [src]
             article["topic_id"] = topic.get("topic_id", "")
-            print(f"   ✅ 确定性供给生成成功: {article['title'][:50]} ({len(content)}字)")
+            print(f"   ✅ 确定性供给生成成功(score={s_score}): {article['title'][:50]} ({len(content)}字)")
             return article
         except Exception as e:
             if attempt < 2:
@@ -2740,14 +2801,14 @@ def main():
             try:
                 fixture_topics = collect_fixture_topics(
                     date_str, batch_mode=batch_mode, max_topics=FIXTURE_PER_BATCH,
-                    lookahead_days=3, topic_history=topic_history,
+                    lookahead_days=5, topic_history=topic_history,
                     cross_batch_covered=cross_batch_covered)
                 for ft in fixture_topics:
                     facts = gather_fixture_facts(ft)
                     f_art = generate_fixture_article(
                         ft, facts, date_str=date_str,
                         recent_prefixes=topic_history.get("title_prefixes"),
-                        topic_history=topic_history)
+                        topic_history=topic_history, batch_mode=batch_mode)
                     if f_art:
                         img_topic = {
                             "title": f_art.get("title", ""),

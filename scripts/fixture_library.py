@@ -217,6 +217,10 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
             "angle_type": angle_type,
             "conflict": conflict,
             "suggested_column": column,
+            # 计划 6.2 固定四板块：转会动态／人物故事／中国足球／战术榜单。
+            # 赛程类选题映射：中超→中国足球；人物角度(suggested_column=人物故事)→人物故事；其余战术/数据角度→战术榜单。
+            "板块": ("中国足球" if comp_name == "中超" else
+                     ("人物故事" if column == "人物故事" else "战术榜单")),
             "priority": priority,
             "status": m.get("status"),
             # 时效闸门：赛程类选题必须在开赛前发布。开赛后再发＝旧闻新发（扣 10 分）
