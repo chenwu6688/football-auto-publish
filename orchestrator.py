@@ -2165,6 +2165,74 @@ def _has_source_for_topic(topic, match_data):
     return len(topic_kw) == 0
 
 
+def _ranker_llm_call(messages):
+    """ranker L3 模型打分的调用适配器。
+
+    复用全局 LLM 轮换与额度管理（call_llm_json）；温度压低以保证量表打分的稳定性。
+    """
+    return call_llm_json(messages, LLM_JSON_CANDIDATES,
+                         temperature=0.3, max_tokens=1024, timeout=60)
+
+
+def _topic_card(t, cid, date_str):
+    """把选题适配为事实卡形式，供 ranker 择优（L1 预筛 / L3 五维打分）使用。"""
+    kw = t.get("keywords_cn") or t.get("keywords") or []
+    return {
+        "id": cid,
+        "主体": (kw[0] if kw else ""),
+        "动作": t.get("content_type", ""),
+        "发生时间": date_str,
+        "可用角度": [t.get("angle")] if t.get("angle") else [],
+        "生命周期": "进行中",
+    }
+
+
+def _rank_topics(topics, match_data, date_str, *, use_llm=True):
+    """计划 11.2 择优 L1→L2→L3→L4：信号增强 + 模型五维打分重排（非阻断）。
+
+    纪律：
+      - 仅重排、不删题——L1 剔除或未进入排名的候选按原序追加到末尾，发布集合不变；
+      - 模型不可用 / 无信号 / 单日 token 超限 → 由 ranker 自动降级为规则排序（计划九）；
+      - 全部异常都不影响发布（调用方 try/except 包裹）。
+    """
+    import ranker
+    import source_watch
+
+    # 计划 13.4 信源前移：原始信源只作信号（谁在谈），不进正文
+    _signals = source_watch.signals_from_match_data(match_data)
+    # 计划 11.2 L2：并入社媒/搜索等可得信号（缺失时保持缺省，绝不假装有信号）
+    try:
+        import signal_sources
+        _signals = signal_sources.merge_with_forwarded(_signals, signal_sources.load_external())
+    except Exception:
+        pass
+
+    cands = []
+    for i, t in enumerate(topics):
+        cid = f"topic-{i}"
+        t["_rank_id"] = cid
+        cands.append({
+            "id": cid,
+            "card": _topic_card(t, cid, date_str),
+            "板块": t.get("column_name") or t.get("content_type", ""),
+            "keywords_cn": t.get("keywords_cn"),
+            "title": t.get("title"),
+            "_topic": t,
+        })
+
+    now = datetime.now(ZoneInfo("Asia/Shanghai"))
+    res = ranker.rank_candidates(
+        cands, ctx={"now": now, "max_age_hours": 72}, signals=_signals,
+        call_llm=_ranker_llm_call if use_llm else None,
+        now=now, target_max=max(len(cands), ranker.DEFAULT_TARGET_MAX))
+
+    order = {r["id"]: i for i, r in enumerate(res["ranking"])}
+    topics.sort(key=lambda t: order.get(t.get("_rank_id"), 10_000))
+    print(f"   🎯 择优（{res['mode']} 模式）：{len(res['ranking'])} 条进入排名；"
+          f"{'；'.join(res['notes'][:2])}")
+    return res
+
+
 def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
                                     articles_out, date_str=None, max_workers=3):
     """Pipeline A：对每个话题从直播吧/懂球帝源文章改写为老六风格（并行生成以缩短耗时）。
@@ -3302,24 +3370,12 @@ def main():
         extra_meta = {"type": "match_analysis"}
         _assign_columns_to_topics(topics, batch_mode)
 
-        # 计划 11.2 择优模型：上游选题层已完成 L1（时效/配比/冷门度），此处接 L2 信号增强
-        # + L3 五维规则量表重排（仅重排、不删题，非阻断）。信号源接入后可由 ranker.rank_candidates
-        # 走 L3 模型打分；当前无信号时用规则排序（即 L4 降级路径）。
+        # 计划 11.2 择优模型：L1（时效/配比/冷门度）→ L2 信号增强（信源前移 + 社媒/搜索）
+        # → L3 五维模型打分重排 → L4 缓存与限额。仅重排、不删题；模型/信号不可用时
+        # 自动降级为规则排序（计划九，非阻断）。
         try:
-            import ranker
-            import source_watch
-            # 计划 13.4 信源前移：原始信源只作信号（谁在谈），不进正文
-            _signals = source_watch.signals_from_match_data(match_data)
-            ranker.l2_enrich(topics, _signals)
-            if _signals:
-                print(f"   📡 信源前移：{len(_signals)} 个实体带热度信号（仅作信号，不进正文）")
-            topics.sort(key=lambda t: ranker.rule_total({
-                "主体": (t.get("keywords_cn") or [""])[0] if t.get("keywords_cn") else "",
-                "动作": t.get("content_type", ""),
-                "发生时间": date_str,
-                "可用角度": [t.get("angle", "")] if t.get("angle") else [],
-            }, t), reverse=True)
-            print("   🎯 择优排序：按五维规则量表重排候选（L2 信号 + L3 规则）")
+            _rank_res = _rank_topics(topics, match_data, date_str)
+            extra_meta["ranker_mode"] = _rank_res.get("mode", "rule")
         except Exception as e:
             print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
 
