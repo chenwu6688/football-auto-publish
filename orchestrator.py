@@ -4,7 +4,7 @@
 Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
-import os, json, sys, subprocess, requests, time, re, signal, yaml
+import os, json, sys, subprocess, requests, time, re, signal, threading, yaml
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -1530,6 +1530,34 @@ def _downgrade_topic(topic):
     return topic
 
 
+# ── 计划第十章 · 自动熔断钩子 ───────────────────────────────────
+# 同批次一致性校验打回次数是「事实层是否整体失真」的早期信号。
+# 超过阈值即主动熔断（宁停勿错），避免在事实层失真的情况下继续批量产出。
+_CONSISTENCY_REJECTS = {"count": 0, "suspended": False}
+_CONSISTENCY_REJECT_LOCK = threading.Lock()
+
+
+def _note_consistency_reject(hint: str) -> None:
+    """登记一次一致性打回；超阈值触发合规自动熔断（计划第十章）。"""
+    try:
+        import compliance_guard
+    except Exception:
+        return
+    with _CONSISTENCY_REJECT_LOCK:
+        if _CONSISTENCY_REJECTS["suspended"]:
+            return
+        _CONSISTENCY_REJECTS["count"] += 1
+        n = _CONSISTENCY_REJECTS["count"]
+    if compliance_guard.auto_suspend_if_systemic(
+            n, detail=f"同批次一致性校验打回 {n} 次，疑事实层失真：{hint[:80]}"):
+        _CONSISTENCY_REJECTS["suspended"] = True
+        try:
+            send_wxpusher("足球自媒体 ⛔ 自动熔断",
+                          f"一致性校验打回 {n} 次，疑似事实层失真，已暂停自动发布")
+        except Exception:
+            pass
+
+
 def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_str):
     """Rewrite a verified source article with retry on fidelity failure.
 
@@ -1571,6 +1599,7 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
             match_passed, match_issues = validate_article_vs_match_data(fixture, art, match_context)
             if not match_passed:
                 last_hint = "; ".join(match_issues)
+                _note_consistency_reject(last_hint)
                 if attempt < max_retries:
                     continue
                 # 计划九·一致性校验打回：降级为低风险板块后重生成一次；仍不过则丢弃
@@ -2085,6 +2114,8 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         sc, sc_pass, sc_reasons = score_title_plan(
             {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评")
         if not (cons_ok and sc_pass):
+            if not cons_ok:
+                _note_consistency_reject("; ".join(cons_issues))
             if attempt < max_retries:
                 parts = []
                 if cons_issues:
@@ -3151,6 +3182,27 @@ def main():
             date_str = arg
     if date_str is None:
         date_str = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")
+
+    # 计划第十章 · 合规红线熔断：合规指标是硬门槛，不实违规出现一次即暂停自动发布
+    try:
+        import compliance_guard
+        _cg = compliance_guard.status()
+        if _cg["suspended"]:
+            _msg = (f"合规熔断中，自动发布已暂停：{_cg['reason']}（自 {_cg['since']}）。"
+                    f"人工定位原因后运行 `python3 compliance_guard.py --clear` 解除。")
+            print(f"   ⛔ {_msg}")
+            log.error(_msg)
+            try:
+                send_wxpusher("足球自媒体 ⛔ 合规熔断",
+                              f"{date_str} 发文已暂停：{_cg['reason']}")
+            except Exception:
+                pass
+            return
+        # 新批次开始，重置自动熔断计数器
+        _CONSISTENCY_REJECTS["count"] = 0
+        _CONSISTENCY_REJECTS["suspended"] = False
+    except Exception as e:
+        print(f"   ⚠️ 合规熔断检查异常（按不熔断继续）: {e}")
 
     # Load season weights for content type optimization
     season_weights, season_label = load_season_weights(date_str)

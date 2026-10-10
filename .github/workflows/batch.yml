@@ -210,6 +210,15 @@ jobs:
             echo "✅ 已同步历史批次元数据到 OUTPUT_DIR"
           fi
 
+      - name: 合规熔断检查（计划第十章 · 不实违规即暂停自动发布）
+        if: steps.params.outputs.skip != 'true'
+        run: |
+          python3 compliance_guard.py --status
+          if ! python3 compliance_guard.py --status --exit-code-if-suspended; then
+            echo "::error::合规熔断中，自动发布已暂停；请人工定位原因后执行 python3 compliance_guard.py --clear"
+            exit 1
+          fi
+
       - name: 刷新赛程选题池（确定性供给）
         if: steps.params.outputs.skip != 'true'
         env:
@@ -252,6 +261,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com" || true
           git add -f data/llm_usage.json || true
           git add -f data/reservoir || true
+          # 合规熔断状态（计划第十章：不实违规即熔断，跨运行持久化）
+          git add -f data/compliance_state.json || true
           if ! git diff --cached --quiet; then
             git commit -m "chore: 回写 LLM 用量与软性蓄水池"
             for attempt in 1 2 3; do
