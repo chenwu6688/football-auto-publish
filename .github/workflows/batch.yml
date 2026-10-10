@@ -218,6 +218,16 @@ jobs:
         run: |
           python scripts/fixture_library.py || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"
 
+      - name: 补充软性内容蓄水池（三级供给 · 计划 12.1）
+        if: steps.params.outputs.skip != 'true'
+        env:
+          HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+        run: |
+          # 供给不足时由蓄水池补位；此处按水位线备货（只补缺口，控制 token 成本）
+          python scripts/refill_reservoir.py --target 8 --max-gen 3 \
+            || echo "::warning::蓄水池备货失败，沿用现有库存（非阻断）"
+
       - name: 生成文章
         id: generate
         if: steps.params.outputs.skip != 'true'
@@ -233,18 +243,20 @@ jobs:
         run: |
           python orchestrator.py "${{ steps.params.outputs.today }}" --batch="${{ steps.params.outputs.batch }}"
 
-      - name: 回写 LLM 用量统计
+      - name: 回写状态（LLM 用量 + 软性蓄水池）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
-          # 持久化 LLM 额度消耗，供下次运行按免费额度阈值选择模型
+          # 持久化 LLM 额度消耗（供下次按阈值选模型）
+          # + 软性内容蓄水池（计划 12.1：跨日复用，突发日补位）
           git config user.name "github-actions[bot]" || true
           git config user.email "github-actions[bot]@users.noreply.github.com" || true
           git add -f data/llm_usage.json || true
+          git add -f data/reservoir || true
           if ! git diff --cached --quiet; then
-            git commit -m "chore: LLM 用量统计回写"
+            git commit -m "chore: 回写 LLM 用量与软性蓄水池"
             for attempt in 1 2 3; do
               if git push origin main; then
-                echo "✅ LLM 用量统计已回写"
+                echo "✅ 状态已回写（LLM 用量 + 蓄水池）"
                 break
               fi
               echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
@@ -252,7 +264,7 @@ jobs:
               sleep $((attempt * 2))
             done
           else
-            echo "📝 LLM 用量无变化，跳过提交"
+            echo "📝 状态无变化，跳过提交"
           fi
 
       - name: 回写生成结果（跨批次去重）

@@ -3248,6 +3248,38 @@ def main():
                                        images_map, stats, articles, date_str=date_str)
 
         # ============================================================
+        # 三级·软性蓄水池补位（计划 12.1）
+        # ============================================================
+        # 主稿供给不足（LLM 少选/源文缺失）时，由备货池中的软性内容补位，
+        # 保证突发日不断供；突发密集时池中内容自然顺延（当日用不到即留库）。
+        _supply_gap = max_articles - len(articles)
+        if _supply_gap > 0:
+            try:
+                import reservoir
+                reservoir.expire()
+                _picked = reservoir.fill_gap(_supply_gap)
+                for _it in _picked:
+                    _art = _it.get("article") or {}
+                    if not _art:
+                        continue
+                    _art["_from_reservoir"] = True
+                    _art["_batch_name"] = batch_cfg["name"]
+                    _art["_batch_time"] = batch_cfg["time"]
+                    _art["_column_name"] = _art.get("_column_name") or _it.get("section", "")
+                    articles.append((len(articles), _art))
+                    images_map[len(articles) - 1] = []
+                    topics.append({"title": _art.get("title", ""),
+                                   "content_type": _art.get("content_type", "人物故事"),
+                                   "_column_name": _art["_column_name"],
+                                   "_from_reservoir": True})
+                    stats["generated"] += 1
+                    stats["valid"] += 1
+                if _picked:
+                    print(f"   🗄️ 蓄水池补位：{len(_picked)} 篇软性备货转正（主稿缺口 {_supply_gap} 篇）")
+            except Exception as e:
+                print(f"   ⚠️ 蓄水池补位异常（跳过，不影响发布）: {e}")
+
+        # ============================================================
         # Prediction Article — 晚间批次生成明日赛前预测
         # ============================================================
         if batch_mode == "evening":
