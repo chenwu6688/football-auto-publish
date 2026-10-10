@@ -19,3 +19,6 @@ static_data/
 
 # 视频管线运行时素材（BGM/音效/球队标识/素材缓存，用户本地自备）
 assets/
+
+# 本地密钥（含真实 LLM/API key，禁止入库；CI 用 GitHub Secrets 注入）
+scripts/local_env.sh

@@ -1551,6 +1551,18 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                     continue
                 return {}, f"事实验证失败: {last_hint}"
 
+            # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
+            _ct = topic.get("content_type", "热点球评")
+            _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct, date_str or "")
+            if not _sc_pass:
+                last_hint = (f"标题未达及格线({_sc}分): " + "; ".join(_sc_reasons) +
+                             "。请按公式重拟：具体球队/球员+冲突反差动作+疑问收尾，字数18-30。")
+                if attempt < max_retries:
+                    continue
+                return {}, f"标题评分未过: {last_hint}"
+
+            # 计划合规·AI 生成标注（7.2，发布前强制；改写路径的一致性校验由上方 fidelity 承担）
+            append_ai_annotation(art, art.get("ai_perspective"))
             return art, None
 
         except Exception as e:
@@ -1908,11 +1920,14 @@ def detect_major_events(match_data, gzh_articles=None):
 
 
 def generate_emergency_article(event, match_data, index, temperature=0.8):
-    """Generate a focused emergency article for a major event."""
+    """Generate a focused emergency article for a major event.
+
+    计划合规：标题评分(60及格, 未过打回最多2次) + 一致性校验(卡外实体/比分即打回)
+    + AI 生成标注（7.2）。第 3 次兜底发布并标注告警。
+    """
     event_type = event.get("type", "突发新闻")
     title_hint = event.get("title_hint", "")
     detail = event.get("detail", "")
-
     print(f"\n[紧急] [{event_type}] 快速生成突发球评: {title_hint[:40]}...")
 
     fixtures = match_data.get("fixtures_by_league", {})
@@ -1923,10 +1938,9 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         "urgency_level": event.get("urgency", 70),
     }, ensure_ascii=False)
 
-    # Style for emergency articles: urgent, punchy
     style = "突发新闻快评风格：开篇直接冲事件核心，节奏快，短句多，像第一条推送。300-400字即可，有冲击力，有明确态度。"
 
-    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。刚刚发生了一件大事，需要你立刻写一篇快评！
+    base_prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝。刚刚发生了一件大事，需要你立刻写一篇快评！
 
 ⚠️ 重大事件：{title_hint}
 事件详情：{detail}
@@ -1949,21 +1963,69 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
 输出JSON:
-{{"title": "标题(15-25字，有冲击力)", "backup_title": "备选标题", "content": "Markdown正文(300-500字，含≥2个##小标题，文末配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "紧急球评", "event_type": "{event_type}"}}
+{{"title": "标题(15-25字，有冲击力)", "backup_title": "备选标题", "content": "Markdown正文(300-500字，含≥2个##小标题，文末配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "紧急球评", "event_type": "{event_type}", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
 只输出JSON。"""
 
-    messages = [
-        {"role": "system", "content": f"你是头条号足球博主'球评人老六'，擅长突发事件快评。{style} 只输出JSON。"},
-        {"role": "user", "content": prompt}
-    ]
-    try:
-        article, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES,
-                                             temperature=temperature, max_tokens=4096)
-    except ValueError as e:
-        print(f"   ❌ 紧急球评：所有 LLM 候选均失败: {e}")
-        return {}
-    print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
-    return article
+    # 事实卡：事件实际比分 + 事件涉及球队（用于一致性校验）
+    _det_score = re.search(r"(\d{1,2})[-:：](\d{1,2})", detail or "")
+    facts = {
+        "allowed_scores": [f"{_det_score.group(1)}-{_det_score.group(2)}"] if _det_score else [],
+        "allowed_teams": [t for t in _KNOWN_TEAMS if t in (detail or "") or t in (title_hint or "")],
+    }
+
+    last_hint = ""
+    max_retries = 2
+    for attempt in range(max_retries + 1):
+        prompt = base_prompt
+        if last_hint:
+            prompt += f"\n⚠️ 上次未达标：{last_hint}\n这次必须修正。\n"
+        messages = [
+            {"role": "system", "content": f"你是头条号足球博主'球评人老六'，擅长突发事件快评。{style} 只输出JSON。"},
+            {"role": "user", "content": prompt}
+        ]
+        try:
+            article, _model_used = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                                 temperature=temperature, max_tokens=4096)
+        except ValueError as e:
+            print(f"   ❌ 紧急球评：所有 LLM 候选均失败: {e}")
+            return {}
+
+        if not isinstance(article, dict) or not article.get("title"):
+            if attempt < max_retries:
+                last_hint = "模型未返回有效JSON/标题"
+                continue
+            print(f"   ❌ 紧急球评解析失败 (3次)")
+            return {}
+
+        content = article.get("content", "")
+        if len(content) < 200:
+            if attempt < max_retries:
+                last_hint = f"正文仅{len(content)}字，需≥300字"
+                continue
+
+        # 计划合规·一致性校验（卡外实体/比分即打回）
+        cons_ok, cons_issues = check_consistency_plan(article, facts, blocking=True)
+        # 计划合规·标题评分（及格线 60）
+        sc, sc_pass, sc_reasons = score_title_plan(
+            {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评")
+        if not (cons_ok and sc_pass):
+            if attempt < max_retries:
+                parts = []
+                if cons_issues:
+                    parts.append("一致性:" + "; ".join(cons_issues))
+                if not sc_pass:
+                    parts.append(f"标题{sc}分:" + "; ".join(sc_reasons))
+                last_hint = "；".join(parts)
+                print(f"   🔁 紧急球评合规未过(attempt {attempt+1}/{max_retries+1}): {last_hint}")
+                continue
+            print(f"   ⚠️ 紧急球评合规末次仍未过(标题{sc}分/一致性{'OK' if cons_ok else 'FAIL'})，兜底发布并标注告警")
+
+        # 计划合规·AI 生成标注（7.2）
+        append_ai_annotation(article, article.get("ai_perspective"))
+        print(f"   紧急球评标题: {article.get('title','?')}, 正文: {len(article.get('content',''))}字")
+        return article
+
+    return {}
 
 
 # ============================================================
@@ -2310,6 +2372,191 @@ def fill_article_defaults(art):
 
 
 # ============================================================
+# 计划合规层（评分器 / AI 标注 / 一致性校验）
+# 来源：《足球自媒体自动化选题与内容生产完善计划》v1.0
+#   - 5.1 评分器是「及格线」(60分)：低于打回重生成，高于放行，不做择优漏斗
+#   - 3.3 / 462 标题公式：具体人名或球队 + 冲突/反差动作 + 疑问收尾 + 字数 26-30
+#   - 7.2 发布前强制加入 AI 生成标注
+#   - 7.3 一致性校验：成稿专有名词/数字比对事实卡，卡外实体即打回
+# 覆盖：主稿 Pipeline A（改写）、突发层（紧急球评）、预测层（赛前预测）
+# ============================================================
+
+# 标题字数合理区间（按内容类型；计划 3.3 公式化标题 26-30，快评/预测放宽）
+_TITLE_LEN_BAND = {
+    "紧急球评": (12, 28),
+}
+_TITLE_LEN_DEFAULT = (18, 30)
+
+# 冲突/反差动作词（计划 3.3：冲突或反差动作）
+_TITLE_CONFLICT_KW = ["却", "反而", "逆袭", "惨败", "绝杀", "爆冷", "反转", "下课", "翻盘",
+                       "打脸", "暴跌", "血洗", "横扫", "复仇", "意外", "离谱", "掀翻",
+                       "不过", "然而", "反超", "绝平", "苦涩", "尴尬", "崩盘", "硬仗",
+                       "生死战", "点球", "红牌", "德比", "逆转", "翻车"]
+
+# 知名球队/国家队（一致性校验「卡外实体」候选识别，仅球队；误漏不误杀）
+_KNOWN_TEAMS = {
+    "曼城", "曼联", "利物浦", "切尔西", "阿森纳", "热刺", "纽卡", "埃弗顿", "西汉姆", "维拉",
+    "皇马", "巴萨", "马竞", "塞维利亚", "瓦伦西亚", "毕尔巴鄂", "国米", "米兰", "尤文", "那不勒斯",
+    "罗马", "拉齐奥", "拜仁", "多特", "勒沃库森", "莱比锡", "法兰克福", "巴黎", "马赛", "里昂",
+    "葡萄牙", "西班牙", "英格兰", "法国", "德国", "巴西", "阿根廷", "荷兰", "意大利", "比利时",
+    "克罗地亚", "日本", "韩国", "中超", "国足", "广州", "申花", "海港", "国安", "泰山", "蓉城",
+    "浙江", "三镇", "亚泰", "玉昆",
+}
+# 知名球员（仅用于标题「具体人物」加分，不参与一致性实体拦截，避免误杀）
+_KNOWN_PLAYERS = {"梅西", "C罗", "姆巴佩", "哈兰德", "内马尔", "贝林厄姆", "凯恩", "萨拉赫"}
+
+
+def score_title_plan(topic, title, content_type, batch_mode=None):
+    """计划合规·标题评分器（及格线 60）。
+
+    维度（计划 5.1/3.3/462）：字数、疑问钩子、具体对阵/球队/人物、冲突反差动作、
+    板块对齐、自指惩罚。返回 (score:int 0-100, passed:bool, reasons:list[str])。
+    reasons 用于在打回时回灌给 LLM 作为 retry_hint。
+    """
+    title = (title or "").strip()
+    reasons = []
+    if not title:
+        return 0, False, ["标题为空"]
+
+    L = len(title)
+    lo, hi = _TITLE_LEN_BAND.get(content_type, _TITLE_LEN_DEFAULT)
+    if lo <= L <= hi:
+        score = 25
+    elif L < lo:
+        score = max(0, 25 - (lo - L) * 3)
+        reasons.append(f"标题偏短({L}字<{lo})")
+    else:
+        score = max(0, 25 - (L - hi) * 2)
+        reasons.append(f"标题偏长({L}字>{hi})")
+
+    # 疑问钩子（计划公式：疑问收尾）
+    has_q = bool(re.search(r"[?？]$", title)) or any(
+        w in title for w in ("吗", "呢", "凭什么", "凭啥", "为啥", "为什么", "怎么", "究竟", "到底"))
+    if has_q:
+        score += 20
+    else:
+        score += 5
+        reasons.append("缺疑问钩子(建议以？/吗收尾)")
+
+    # 具体对阵/球队/人物
+    has_specific = bool(re.search(r"(vs|VS|对阵|大战|德比|\b:\b|：)", title)) or any(
+        t in title for t in (_KNOWN_TEAMS | _KNOWN_PLAYERS))
+    if has_specific:
+        score += 20
+    else:
+        score += 3
+        reasons.append("缺具体对阵/球队/人物")
+
+    # 冲突/反差动作
+    if any(k in title for k in _TITLE_CONFLICT_KW):
+        score += 20
+    else:
+        score += 6
+        reasons.append("缺冲突/反差动作")
+
+    # 板块对齐（计划 5.1：板块）
+    board_kw = {
+        "转会资讯": ("转会", "签约", "官宣", "加盟", "离队", "续约", "转会费"),
+        "战术解析": ("战术", "阵型", "数据", "打法", "复盘"),
+        "排行榜": ("榜", "排名", "排行", "数据", "盘点"),
+    }.get(content_type)
+    if board_kw:
+        if any(k in title for k in board_kw):
+            score += 10
+        else:
+            score += 2
+            reasons.append(f"与板块[{content_type}]关键词不匹配")
+    else:
+        score += 8  # 通用板块（热点球评/紧急球评/八卦）给基础分
+
+    # 自指惩罚
+    if any(w in title for w in ("老六", "小编", "我们")):
+        score -= 10
+        reasons.append("标题自指(老六/小编/我们)扣10")
+
+    # 模板前缀惩罚（计划 P0-2：预测禁用固定前缀）
+    for bad in ("老六精准预测：", "老六精准预测:", "老六预测：", "老六预测:"):
+        if title.startswith(bad):
+            score = 0
+            reasons.append("命中禁用模板前缀(老六精准预测)")
+            break
+
+    score = max(0, min(100, int(score)))
+    passed = score >= 60
+    if not passed and not reasons:
+        reasons.append("综合得分未达60及格线")
+    return score, passed, reasons
+
+
+def append_ai_annotation(article, perspective=None):
+    """计划合规·AI 生成标注（7.2）。
+
+    文末强制加入「本文由 AI 生成」显式标识 + 「老六视角」独立判断段落
+    （计划 4.1/4.2：主动标注并让判断力可见，满足实质人工介入判定）。
+    幂等：已注入则跳过，避免重试时重复追加。
+    """
+    if not isinstance(article, dict):
+        return article
+    content = article.get("content", "") or ""
+    if "本文由 AI 生成" in content:
+        return article
+    persp = (perspective or article.get("ai_perspective") or "").strip()
+    block = (
+        "\n\n---\n"
+        "> 🤖 **本文由 AI 生成**。内容由「球评人老六」人设创作模型基于公开赛事数据自动撰写，"
+        "观点仅为个人看法，**不构成任何投资、投注或决策建议**。\n"
+    )
+    if persp:
+        block += f"\n**老六视角**（基于上述事实的独立判断）：{persp}\n"
+    else:
+        block += ("\n**老六视角**（基于上述事实的独立判断）：以上纯属老六一家之言，"
+                  "欢迎评论区拍砖，赛后见真章。\n")
+    article["content"] = content + block
+    article["ai_generated"] = True
+    article["ai_annotation_added"] = True
+    return article
+
+
+def check_consistency_plan(article, facts=None, *, blocking=True):
+    """计划合规·一致性校验（7.3）。
+
+    抽取成稿中的数字（比分）与知名实体（球队/球星），比对事实卡：
+    - 比分：若 facts 提供 allowed_scores，出现卡外比分即打回（高 precision，针对不实内容）。
+    - 球队实体：若 facts 提供 allowed_teams，正文中出现的知名球队不在允许集即打回（卡外实体）。
+      blocking=False 时仅记录 issues、不阻断（用于前瞻类内容，避免误杀）。
+    返回 (passed:bool, issues:list[str])。issues 用于 retry_hint / 告警日志。
+    """
+    facts = facts or {}
+    content = (article or {}).get("content", "") or ""
+    issues = []
+
+    allowed_scores = set(facts.get("allowed_scores", []) or [])
+    if allowed_scores:
+        found = re.findall(r"(?<!\d)(\d{1,2})[-:：](\d{1,2})(?!\d)", content)
+        norm = {f"{a}-{b}" for a, b in found}
+        stray = norm - allowed_scores
+        if stray:
+            issues.append(f"出现事实卡外的比分: {', '.join(sorted(stray))}")
+
+    allowed_teams = list(facts.get("allowed_teams", []) or [])
+    if allowed_teams:
+        hit = any(t and t in content for t in allowed_teams)
+        if not hit:
+            issues.append("未提及任何事实卡内球队（疑似编造对阵/事件）")
+        # strict 实体拦截：仅在 blocking 且来源为中文事实卡时启用，避免跨语言误杀
+        if blocking:
+            for t in _KNOWN_TEAMS:
+                if t in content and not any((t in at) or (at in t) for at in allowed_teams):
+                    issues.append(f"出现事实卡外的球队实体: {t}")
+                    break
+
+    if not blocking:
+        # warn-only：永远放行，但 issues 仍回传供日志
+        return True, issues
+    return (len(issues) == 0), issues
+
+
+# ============================================================
 # Prediction Article — 赛前预测
 # ============================================================
 
@@ -2378,7 +2625,7 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
 没有确切数据就说"老六觉得""从近期表现来看"。
 
 输出纯JSON:
-{{"title": "标题(18-30字，全新且非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评"}}
+{{"title": "标题(18-30字，全新且非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
 只输出JSON。"""
 
     messages = [
@@ -2430,6 +2677,28 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
                     print(f"   ⚠️ 预测标题剥离后为空，保留原样:「{article.get('title','')[:30]}」")
 
             article["title"] = title
+
+            # 计划合规·一致性校验（前瞻内容：以赛程团队范围为软校验，warn-only 不阻断）
+            pred_facts = {"allowed_teams": [m.get("home_team", "") for m in future_matches]
+                          + [m.get("away_team", "") for m in future_matches]}
+            _cons_ok, _cons_issues = check_consistency_plan(article, pred_facts, blocking=False)
+            if _cons_issues:
+                print(f"   ⚠️ 预测一致性软告警: {'; '.join(_cons_issues)}")
+            # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
+            _p_sc, _p_sc_pass, _p_sc_reasons = score_title_plan(
+                {"content_type": "热点球评"}, article.get("title", ""), "热点球评")
+            if not _p_sc_pass:
+                if attempt < 2:
+                    _hint = (f"标题未过及格线({_p_sc}分): " + "; ".join(_p_sc_reasons) +
+                             "。按公式重拟：具体对阵+冲突反差动作+疑问收尾。")
+                    messages[1]["content"] += f"\n⚠️ {_hint}\n"
+                    print(f"   🔁 预测标题未过及格线({_p_sc}分): {'; '.join(_p_sc_reasons)}，重试换标题...")
+                    continue
+                print(f"   ⚠️ 预测标题末次未过({_p_sc}分)，兜底发布并标注告警")
+
+            # 计划合规·AI 生成标注（7.2，发布前强制）
+            append_ai_annotation(article, article.get("ai_perspective"))
+
             article["content_type"] = "热点球评"
             article["interaction_type"] = article.get("interaction_type", "预测式")
             article["_is_prediction"] = True

@@ -73,4 +73,6 @@
 
 只输出纯JSON，不要任何markdown包裹：
 
-{{"title": "优选标题(15-25字)", "backup_title": "备选标题(完全不同的切入角度)", "content": "Markdown正文({word_min}-{word_max}字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["适合截图转发或能引发共鸣的金句1", "金句2"], "interaction_type": "站队式(支持A还是B)/投票式(选哪个)/预测式(猜会怎样)/共鸣式(有同感吗)/挑战式(不服来辩)/调侃式(开个玩笑)", "interaction_bait": "具体可回复的互动问题，引导读者在评论区留言（如'评论区告诉我你的选择，我先来——'）", "content_type": "{content_type}", "source_facts_used": "来源中的关键事实列表"}}
+请在 `ai_perspective` 字段给出**基于上述事实的一句独立判断（老六视角）**，≤40字，犀利、有态度、不骑墙（系统会在文末据此生成「老六视角」标注段，满足 AI 生成内容合规要求）。
+
+{{"title": "优选标题(15-25字)", "backup_title": "备选标题(完全不同的切入角度)", "content": "Markdown正文({word_min}-{word_max}字，含≥2个##小标题，文末含2个配图标记)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["适合截图转发或能引发共鸣的金句1", "金句2"], "interaction_type": "站队式(支持A还是B)/投票式(选哪个)/预测式(猜会怎样)/共鸣式(有同感吗)/挑战式(不服来辩)/调侃式(开个玩笑)", "interaction_bait": "具体可回复的互动问题，引导读者在评论区留言（如'评论区告诉我你的选择，我先来——'）", "content_type": "{content_type}", "source_facts_used": "来源中的关键事实列表", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
