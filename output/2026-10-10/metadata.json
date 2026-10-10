@@ -1,7 +1,7 @@
 {
   "date": "2026-10-10",
-  "generated_at": "2026-10-09T16:14:03.810345",
-  "total_articles": 2,
+  "generated_at": "2026-10-10T02:50:44.815320",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -66,98 +66,240 @@
       "column_id": "hot-take",
       "column_name": "老六辣评",
       "batch_name": ""
+    },
+    {
+      "index": 1,
+      "title": "海牛0-3降级那晚，13年前的眼泪去哪了？",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-1-海牛03降级那晚-64d1b4.md",
+      "slug": "海牛03降级那晚-64d1b4",
+      "tags": [
+        "Qingdao Hainiu",
+        "relegation",
+        "CSL",
+        "Beijing Guoan",
+        "Chinese football"
+      ],
+      "keywords": [
+        "Qingdao Hainiu",
+        "relegation",
+        "CSL",
+        "Beijing Guoan",
+        "Chinese football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "2-2战平老东家，周定洋这番话让河南球迷心里啥滋味？",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-2-22战平老东家周-2603bd.md",
+      "slug": "22战平老东家周-2603bd",
+      "tags": [
+        "Zhou Dingyang",
+        "Henan FC",
+        "Shenzhen Peng City",
+        "CSL",
+        "old club"
+      ],
+      "keywords": [
+        "Zhou Dingyang",
+        "Henan FC",
+        "Shenzhen Peng City",
+        "CSL",
+        "old club"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 3,
+      "title": "5月刚做完肾脏手术，如今他晒照归队，申花争冠最后拼图回来了",
+      "path": "/home/runner/work/_temp/output/2026-10-10/article-3-5月刚做完肾脏手-e308e3.md",
+      "slug": "5月刚做完肾脏手-e308e3",
+      "tags": [
+        "Jiang Shenglong",
+        "Shenhua",
+        "kidney surgery",
+        "return to training",
+        "CSL"
+      ],
+      "keywords": [
+        "Jiang Shenglong",
+        "Shenhua",
+        "kidney surgery",
+        "return to training",
+        "CSL"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-10/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-10/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
     }
   ],
   "topics": [
     {
-      "title": "塔迪奇说阿贾克斯是我妻子，这话怎么听着比退役还动人？",
-      "angle": "塔迪奇把老东家比作妻子，还说想以教练身份回去——这不是客套，是一个漂泊老将对青春和归属的告白。",
+      "title": "海牛降级怪教练激进？中超这锅甩得动吗",
+      "angle": "鲁媒把降级归咎于里斯蒂奇战术激进，但津媒说得多因叠加。真金白银砸出来的差距，一个教练背不动这口锅。中超升降级背后是投入决定命运，不是换个帅就能翻盘的。",
       "keywords": [
-        "Dusan Tadic",
-        "Ajax",
-        "return as coach"
-      ],
-      "keywords_cn": [
-        "塔迪奇",
-        "阿贾克斯",
-        "教练回归"
-      ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "老将归属情怀，戳老球迷代际记忆",
-      "_column_id": "world-cup-daily",
-      "_column_name": "世界杯日报",
-      "_column_icon": "📰",
-      "_writing_style": "快讯集锦体",
-      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
-      "_topic_domain": "世界杯日报",
-      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
-    },
-    {
-      "title": "0-3十连败，青岛海牛这波到底谁该站出来？",
-      "angle": "海牛0-3国安吃到十连败，保级基本判死刑。别只骂球员，管理层和引援思路才是根子——老球迷见多了这种'温水煮青蛙'式沉沦。",
-      "keywords": [
-        "Qingdao Hainiu",
+        "qingdao hainiu",
         "relegation",
-        "ten straight losses"
+        "milan",
+        "tactics",
+        "cs1"
       ],
       "keywords_cn": [
-        "青岛海牛",
-        "保级",
-        "十连败"
+        "海牛降级",
+        "米兰下课",
+        "里斯蒂奇",
+        "中超投入",
+        "战术激进"
       ],
       "content_type": "热点球评",
-      "score": 82,
+      "score": 88,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "十连败惨案，保级话题情绪强易引战",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "why_pick": "降级话题争议大，教练背锅引发讨论",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
+    },
+    {
+      "title": "周定洋感恩河南：中超最缺这种人情味？",
+      "angle": "周定洋发文感谢河南打开来中国的大门，在功利的中超圈子里显得格外珍贵。从英冠到中原，他的轨迹折射出中国足球对外援的态度——用完即走是常态，懂得感恩反而是新闻。",
+      "keywords": [
+        "zhou dingyang",
+        "henan",
+        "shenzhen pengcheng",
+        "gratitude",
+        "naturalized"
+      ],
+      "keywords_cn": [
+        "周定洋",
+        "河南足球",
+        "深圳新鹏城",
+        "外援文化",
+        "归化球员"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "外援感恩叙事戳中老球迷情怀",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
-      "_data_source_hint": "gzh_only",
-      "_batch_name": "晚间",
-      "_batch_time": "17:30",
-      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     },
     {
-      "title": "阿森纳利兹联暗藏冷意，皇马巴萨谁更稳？明日五大联赛焦点战全解析",
+      "title": "蒋圣龙回归训练：申花争冠还差最后一口气？",
+      "angle": "蒋圣龙晒照说随时战斗，申花本轮迎战云南玉昆。蓉城不败就夺冠，申花只能先赢再说。从去年差一口气到今年追到现在，申花球迷的等待比谁都长——这口气能不能提上来，就看这种时刻。",
+      "keywords": [
+        "jiang shenglong",
+        "shanghai shenhua",
+        "yunnan yukun",
+        "title race",
+        "chengdu rongcheng"
+      ],
+      "keywords_cn": [
+        "蒋圣龙",
+        "上海申花",
+        "云南玉昆",
+        "争冠形势",
+        "蓉城夺冠"
+      ],
       "content_type": "热点球评",
-      "_batch_name": "晚间",
-      "_is_prediction": true
+      "score": 79,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "争冠悬念+老牌球队情怀有张力",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读"
     }
   ],
   "data_sources": {},
   "batches_completed": [
-    "evening"
+    "evening",
+    "morning"
   ],
-  "last_batch": "evening",
-  "last_updated": "2026-10-10 00:14:03"
+  "last_batch": "morning",
+  "last_updated": "2026-10-10 10:50:44"
 }
