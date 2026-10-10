@@ -168,17 +168,40 @@ def _age_hours(occurred_at, now):
 # ------------------------------------------------------------
 # L2 信号增强
 # ------------------------------------------------------------
+def _lookup_signals(signals, cand, card):
+    """按多个键查找信号：事实卡 id/主体 → 选题关键词/标题 → 标题内实体。"""
+    if not signals:
+        return {}
+    keys = [card.get("id"), card.get("主体")]
+    for kw in (cand.get("keywords_cn") or []):
+        keys.append(kw)
+    for kw in (cand.get("keywords") or []):
+        keys.append(kw)
+    keys.append(cand.get("title"))
+    for k in keys:
+        if k and k in signals:
+            return signals[k]
+    # 标题内实体兜底（信源前移信号以实体为键）
+    try:
+        import cover_binding
+        for e in cover_binding.article_entities(cand):
+            if e in signals:
+                return signals[e]
+    except Exception:
+        pass
+    return {}
+
+
 def l2_enrich(candidates, signals=None):
     """为候选补齐热度信号；缺失信号给保守默认值并标记 _signal_missing。
 
-    signals: {主体 或 fact_id: {同题报道条数, 来源媒体权重, 社媒讨论量, 搜索指数}}
+    signals: {实体 或 fact_id: {同题报道条数, 来源媒体权重, 社媒讨论量, 搜索指数}}
     返回带 `_signals` 的候选列表（原地补字段）。
     """
     signals = signals or {}
     for c in (candidates or []):
         card = c.get("card") or c
-        key = card.get("id") or card.get("主体")
-        sig = dict(signals.get(key) or signals.get(card.get("主体")) or {})
+        sig = dict(_lookup_signals(signals, c, card))
         missing = [k for k in ("同题报道条数", "来源媒体权重", "社媒讨论量", "搜索指数")
                    if k not in sig]
         # 来源权重可由来源名兜底推算

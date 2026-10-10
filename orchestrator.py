@@ -3223,7 +3223,12 @@ def main():
         # 走 L3 模型打分；当前无信号时用规则排序（即 L4 降级路径）。
         try:
             import ranker
-            ranker.l2_enrich(topics)
+            import source_watch
+            # 计划 13.4 信源前移：原始信源只作信号（谁在谈），不进正文
+            _signals = source_watch.signals_from_match_data(match_data)
+            ranker.l2_enrich(topics, _signals)
+            if _signals:
+                print(f"   📡 信源前移：{len(_signals)} 个实体带热度信号（仅作信号，不进正文）")
             topics.sort(key=lambda t: ranker.rule_total({
                 "主体": (t.get("keywords_cn") or [""])[0] if t.get("keywords_cn") else "",
                 "动作": t.get("content_type", ""),

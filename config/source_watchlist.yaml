@@ -1,0 +1,66 @@
+# 信源前移清单（计划 13.4）
+#
+# 平台媒体的核心资产不是选题，而是编辑团队每日跟踪的原始信源。
+# 直接订阅原始信源可比中间商早 2-6 小时，这是唯一能稳定胜过平台媒体的维度。
+#
+# ⚠️ 纪律（计划 13.4 末）：原始信源只作「信号」使用（谁在谈、谁受伤、哪场要踢），
+#    正文仍按事实卡生成，原始信源文本不得进入成稿。
+#    本文件只驱动 ranker 的热度信号（同题报道条数 / 来源媒体权重），不参与生成。
+#
+# weight：来源媒体权重（0-1），用于 L2 信号增强；官宣与顶级转会记者权重最高。
+
+version: 1
+updated_at: "2026-10-10"
+
+# 信号来源（name 用于匹配标题/正文中的"XX："前缀或正文提及）
+sources:
+  - name: 罗马诺
+    aliases: [Fabrizio Romano, Romano, Here we go, 罗马诺]
+    beat: 全球转会
+    weight: 1.0
+  - name: 天空体育
+    aliases: [Sky Sports, Sky, 天空体育, 天空]
+    beat: 英超
+    weight: 0.85
+  - name: 德国天空体育
+    aliases: [Sky Deutschland, 德国天空]
+    beat: 德甲
+    weight: 0.8
+  - name: 迪马济奥
+    aliases: [Di Marzio, Gianluca Di Marzio, 迪马济奥]
+    beat: 意甲
+    weight: 0.85
+  - name: 米兰体育报
+    aliases: [Gazzetta, Gazzetta dello Sport, 米兰体育报]
+    beat: 意甲
+    weight: 0.75
+  - name: 全市场
+    aliases: [TuttoMercato, TMW, 全市场]
+    beat: 意甲
+    weight: 0.7
+  - name: 阿斯报
+    aliases: [AS, Diario AS, 阿斯报]
+    beat: 西甲
+    weight: 0.75
+  - name: 马卡报
+    aliases: [Marca, 马卡报]
+    beat: 西甲
+    weight: 0.75
+  - name: 图片报
+    aliases: [Bild, 图片报]
+    beat: 德甲
+    weight: 0.8
+  - name: 队报
+    aliases: [L'Equipe, LEquipe, 队报]
+    beat: 法甲
+    weight: 0.75
+  - name: 俱乐部官方
+    aliases: [官方, 官宣, Official, 俱乐部官方]
+    beat: 官宣（最终事实）
+    weight: 1.0
+
+# 权重归一参数：某实体热度信号里的「来源媒体权重」= 命中来源权重之和，封顶 1.0
+signal:
+  weight_cap: 1.0
+  # 同题报道条数：命中任一信源或实体出现的新闻条数
+  same_topic_cap: 10
