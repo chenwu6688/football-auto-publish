@@ -26,7 +26,8 @@ from logger import log
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
-                             build_match_signature, is_event_duplicate)
+                             build_match_signature, is_event_duplicate,
+                             collect_fixture_topics, gather_fixture_facts)
 
 
 def print_daily_summary(date_str, batch_mode):
@@ -2436,6 +2437,152 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
             return None
 
 
+# ============================================================
+# Fixture Article — 确定性供给（赛程冲突点选题）
+# ============================================================
+FIXTURE_PER_BATCH = 1  # 每批最多生成的确定性供给篇数（计划：确定性供给占内容~30%）
+
+
+def _fixture_content_type(topic):
+    """赛程分型 → 栏目 content_type。"""
+    col = topic.get("suggested_column", "")
+    return {"战术榜单": "战术解析", "人物故事": "八卦趣事", "数据对照": "排行榜"}.get(col, "战术解析")
+
+
+def _build_fixture_fact_card(facts):
+    """事实层：把积分榜/射手榜/站位组装成 LLM 唯一可引用的事实卡（中文）。"""
+    lines = [
+        f"赛事：{facts.get('competition', '')}",
+        f"开赛（北京时间）：{facts.get('kickoff_cst', '')}",
+        f"对阵：{facts.get('home_zh', '')} vs {facts.get('away_zh', '')}",
+        f"认知度组合：{facts.get('awareness_pair', '')}",
+        f"核心冲突点：{facts.get('conflict', '')}",
+    ]
+    standings = facts.get("standings") or []
+    if standings:
+        lines.append("\n积分榜（前5）：")
+        for r in standings[:5]:
+            lines.append(f"  {r['position']}. {r['team_zh']} {r['points']}分（净胜球{r['gd']}）")
+    hs, aw = facts.get("home_standing"), facts.get("away_standing")
+    if hs or aw:
+        lines.append("\n两队站位：")
+        if hs:
+            lines.append(f"  {facts['home_zh']}：第{hs['position']}位 {hs['points']}分 净胜球{hs['gd']}")
+        if aw:
+            lines.append(f"  {facts['away_zh']}：第{aw['position']}位 {aw['points']}分 净胜球{aw['gd']}")
+    scorers = facts.get("scorers") or []
+    if scorers:
+        lines.append("\n射手榜（前5）：")
+        for s in scorers[:5]:
+            lines.append(f"  {s['player_zh']}（{s['team_zh']}）{s['goals']}球")
+    hts, ats = facts.get("home_top_scorer"), facts.get("away_top_scorer")
+    if hts or ats:
+        lines.append("\n两队射手王：")
+        if hts:
+            lines.append(f"  {facts['home_zh']}：{hts['player_zh']} {hts['goals']}球")
+        if ats:
+            lines.append(f"  {facts['away_zh']}：{ats['player_zh']} {ats['goals']}球")
+    if not standings and not scorers:
+        lines.append("\n（注：积分榜/射手榜接口暂不可用，仅基于赛程与认知度冲突点创作，禁止编造数据）")
+    return "\n".join(lines)
+
+
+def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None):
+    """确定性供给文章：基于赛程冲突点 + 积分榜/射手榜事实层，由 LLM 生成表达层。
+
+    事实层/表达层隔离：LLM 只能基于下方事实卡表达，禁止编造任何具体数据
+    （比分、转会、伤病等卡外信息）。失败返回 None（非阻断）。
+    """
+    if not topic:
+        return None
+    content_type = _fixture_content_type(topic)
+    fact_card = _build_fixture_fact_card(facts)
+
+    prefix_hint = ""
+    if recent_prefixes:
+        sample = list(recent_prefixes)[:12]
+        prefix_hint = (
+            "\n⚠️ 标题防重铁律：\n"
+            f"- 禁止任何固定栏目前缀/模板（尤其『老六前瞻：』『赛前分析：』这类每天重复的）。\n"
+            f"- 近7天已用过的标题开头（前6字）不可再用：{sample}\n"
+            "- 标题必须全新、独立，用具体对阵/看点开头；赛程类选题严禁写『XX前瞻』做标题"
+            "（可用战术/数据/人物角度）。\n"
+        )
+
+    angle_type = topic.get("angle_type", "")
+    angle_guidance = {
+        "战术榜单": "从战术层面拆解这场较量的胜负手，用生活类比解释一个反常识的战术发现，给出能记住的结论。",
+        "数据对照": "用数据对比呈现两队/两名球员的境遇落差，每个数据点配一句毒舌点评，最后一句让人想截图。",
+        "人物故事": "聚焦被让球一方（或弱侧）的关键球员/人物故事，写他的处境与变数，有人味、有细节、少评论多展示。",
+    }.get(angle_type, "围绕核心冲突点做有态度的分析。")
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝，犀利、有数据感、不骑墙。
+
+今天要写一篇「赛程确定性选题」——不是赛果复盘，而是基于即将到来的比赛，从冲突点出发做战术/数据/人物分析。
+
+## 事实卡（唯一事实来源，严禁编造卡外数据）
+{fact_card}
+
+## 选题角度
+类型：{angle_type}（建议栏目：{topic.get('suggested_column', '')}）
+核心冲突：{topic.get('conflict', '')}
+写法指引：{angle_guidance}
+
+今天是 {date_str or '今日'}，比赛在北京时间 {topic.get('kickoff_cst', '')} 开球。
+{prefix_hint}
+写作硬规则：
+1. 标题必须自然、有信息量（用具体对阵/看点开头，如「曼联热刺这场，真正的胜负手在边路」），严禁『XX前瞻』『赛前分析』等模板化标题。
+2. 所有数据只能来自上方事实卡；卡里没有的（具体比分、转会、伤病、历史交锋）一律不写，宁可不提也不编造。
+3. 语气像老球迷喝酒聊天，有明确立场和情绪，不套模板。
+4. 依角度类型落栏：{content_type}。
+5. 文末带互动钩子，引评论区讨论。
+
+输出纯JSON:
+{{"title": "标题(18-30字，非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+只输出JSON。"""
+
+    messages = [
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，犀利、有数据感。事实层/表达层隔离：只基于给定事实卡表达，不编造任何卡外数据。标题必须自然不套模板。只输出JSON。"},
+        {"role": "user", "content": prompt}
+    ]
+
+    for attempt in range(3):
+        try:
+            article, _model = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                            temperature=0.7, max_tokens=4096)
+            if not isinstance(article, dict) or not article.get("title"):
+                if attempt < 2:
+                    print(f"   ⚠️ 确定性供给解析失败 (attempt {attempt + 1}/3)，重试...")
+                    continue
+                return None
+            content = article.get("content", "")
+            if len(content) < 200:
+                if attempt < 2:
+                    print(f"   ⚠️ 确定性供给正文仅{len(content)}字 (attempt {attempt + 1}/3)")
+                    continue
+                return None
+            title = article.get("title", "")
+            if recent_prefixes and title[:6] in recent_prefixes:
+                if attempt < 2:
+                    print(f"   ⚠️ 确定性供给标题前缀复读「{title[:6]}」，重试 (attempt {attempt + 1}/3)...")
+                    continue
+                stripped = title[6:].lstrip("：:，, -—").strip("：:，, -— ")
+                title = stripped or title
+            article["title"] = title
+            article["content_type"] = content_type
+            article["_is_fixture"] = True
+            article["sources_used"] = ["football-data.org/v4 (赛程/积分榜/射手榜)"]
+            article["topic_id"] = topic.get("topic_id", "")
+            print(f"   ✅ 确定性供给生成成功: {article['title'][:50]} ({len(content)}字)")
+            return article
+        except Exception as e:
+            if attempt < 2:
+                print(f"   ⚠️ 确定性供给生成异常 (attempt {attempt + 1}/3): {e}")
+                continue
+            print(f"   ❌ 确定性供给生成失败: {e}")
+            return None
+
+
 def main():
     # Parse args: python orchestrator.py [YYYY-MM-DD] [--batch=morning|noon|evening]
     date_str = None
@@ -2583,6 +2730,46 @@ def main():
                     print("   ℹ️ 赛前预测生成跳过（无有效素材或生成失败）")
             else:
                 print("   ℹ️ 明日无赛程，跳过赛前预测")
+
+        # ============================================================
+        # Fixture Pipeline — 确定性供给（赛程冲突点选题，非 scraper 改写）
+        # ============================================================
+        # 与 Pipeline A 解耦：不依赖直播吧/懂球帝源文章，scraper 失效时也能产出
+        # 真实、时效、有冲突点的内容。每批最多 FIXTURE_PER_BATCH 篇（计划：确定性供给~30%）。
+        if FIXTURE_PER_BATCH > 0:
+            try:
+                fixture_topics = collect_fixture_topics(
+                    date_str, batch_mode=batch_mode, max_topics=FIXTURE_PER_BATCH,
+                    lookahead_days=3, topic_history=topic_history,
+                    cross_batch_covered=cross_batch_covered)
+                for ft in fixture_topics:
+                    facts = gather_fixture_facts(ft)
+                    f_art = generate_fixture_article(
+                        ft, facts, date_str=date_str,
+                        recent_prefixes=topic_history.get("title_prefixes"),
+                        topic_history=topic_history)
+                    if f_art:
+                        img_topic = {
+                            "title": f_art.get("title", ""),
+                            "keywords_cn": [ft.get("home_zh", ""), ft.get("away_zh", "")],
+                            "keywords": ["football", (ft.get("competition") or "match")],
+                        }
+                        f_imgs = search_images(img_topic, count=3)
+                        images_map[len(articles)] = f_imgs
+                        stats["generated"] += 1
+                        stats["valid"] += 1
+                        warn_if_low_info_increment(f_art)
+                        articles.append((len(articles), f_art))
+                        topics.append({
+                            "title": f_art.get("title", ""),
+                            "content_type": f_art.get("content_type", ""),
+                            "_is_fixture": True,
+                        })
+                        print(f"   🗓️ 确定性供给已追加: {f_art['title'][:50]}")
+                    else:
+                        print("   ℹ️ 确定性供给选题生成跳过（无有效素材或生成失败）")
+            except Exception as e:
+                print(f"   ⚠️ 确定性供给生成异常 (不影响主流程): {e}")
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)

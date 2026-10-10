@@ -5,7 +5,7 @@
 """
 
 import os, json, sys, subprocess, requests, time, re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from collections import defaultdict
 
@@ -1218,4 +1218,213 @@ def search_images(topic, count=5):
 # ============================================================
 # Topic Selection & Article Generation
 # ============================================================
+
+
+# ============================================================
+# Deterministic Fixture Supply (一级·确定性供给)
+# ============================================================
+# 赛程驱动的「冲突点选题」：提前 7 天可预生成，占内容供给 ~30%。
+# 与 Pipeline A（scraper 改写）解耦——不依赖直播吧/懂球帝源文章，
+# 因此可作为 scraper 失效时的可靠补充/兜底。
+# 事实层（积分榜/射手榜）来自 football-data.org，表达层由 LLM 生成。
+CST = timezone(timedelta(hours=8))
+
+FIXTURE_POOL_PATH = PROJECT_ROOT / "data" / "fixtures" / "topic_pool.json"
+ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
+
+# 本地缓存：en/别名(lower) → 中文名，供事实层 en→zh 映射
+_ENTITY_ZH_CACHE = None
+
+
+def load_entity_zh_map():
+    """加载中文实体映射，返回 en/别名(lower) → name_zh 字典（带模块级缓存）。"""
+    global _ENTITY_ZH_CACHE
+    if _ENTITY_ZH_CACHE is not None:
+        return _ENTITY_ZH_CACHE
+    m = {}
+    if ENTITY_MAP_PATH.exists():
+        try:
+            data = json.loads(ENTITY_MAP_PATH.read_text(encoding="utf-8"))
+            for e in data.get("entities", {}).values():
+                m[e["name_en"].lower()] = e.get("name_zh")
+                for a in e.get("aliases", []):
+                    m.setdefault(a.lower(), e.get("name_zh"))
+        except Exception:
+            pass
+    _ENTITY_ZH_CACHE = m
+    return m
+
+
+def _zh(name_en):
+    """英文队名/球员名 → 中文名（未知返回原值）。"""
+    if not name_en:
+        return name_en
+    return load_entity_zh_map().get(name_en.strip().lower(), name_en)
+
+
+def collect_fixture_topics(date_str, batch_mode="auto", max_topics=1,
+                           lookahead_days=3, topic_history=None,
+                           cross_batch_covered=None):
+    """确定性供给：从 data/fixtures/topic_pool.json 读取赛程选题，筛选本批次可发布的。
+
+    筛选规则：
+      1. 时效闸门：publish_by（开赛时刻）必须晚于当前北京时间，过期=旧闻新发，打回。
+      2. 临近窗口：开赛时刻必须在 [now, now+lookahead_days] 内，太远不急。
+      3. 去重：与近 7 天已覆盖球队 / 今日已发 / 昨日已报 去重，避免重复同一场比赛。
+
+    Returns:
+        list[dict]: 赛程选题（含 home_zh/away_zh/competition/kickoff_cst/angle_type/
+                    conflict/awareness_pair/suggested_column/fact_source/priority）。
+    """
+    if not FIXTURE_POOL_PATH.exists():
+        print("   ℹ️ 赛程选题池不存在（未运行 fixture_library.py），跳过确定性供给")
+        return []
+    try:
+        pool = json.loads(FIXTURE_POOL_PATH.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"   ⚠️ 赛程选题池解析失败: {e}")
+        return []
+
+    topics = pool.get("topics", [])
+    if not topics:
+        return []
+
+    now = datetime.now(CST)
+    horizon = now + timedelta(days=lookahead_days)
+
+    # 去重基准：近 7 天已覆盖球队（topic_history["teams"]）+ 今日已发关键词
+    hist_teams = set(topic_history.get("teams", set())) if topic_history else set()
+    covered_kw = set(cross_batch_covered.get("keywords", set())) if cross_batch_covered else set()
+    covered_titles = set(cross_batch_covered.get("titles", set())) if cross_batch_covered else set()
+
+    candidates = []
+    for t in topics:
+        # 1. 时效闸门
+        try:
+            pub_by = datetime.strptime(t.get("publish_by", ""), "%Y-%m-%d %H:%M").replace(tzinfo=CST)
+        except Exception:
+            continue
+        if pub_by <= now:
+            continue
+        if pub_by > horizon:
+            continue
+
+        home, away = t.get("home_zh", ""), t.get("away_zh", "")
+        pair = frozenset([home, away])
+
+        # 3. 去重：近 7 天已写过这两队之一 → 跳过（赛程稿主打冲突点，重发两队易撞车）
+        if home in hist_teams or away in hist_teams:
+            continue
+        # 今日已发同队关键词 → 跳过
+        if any(kw for kw in covered_kw if kw and (kw in home or home in kw or kw in away or away in kw)):
+            continue
+        # 今日已发同标题（粗略：含两队名）→ 跳过
+        if any((home in ti and away in ti) for ti in covered_titles if ti):
+            continue
+
+        candidates.append(t)
+
+    candidates.sort(key=lambda x: -x.get("priority", 0))
+    picked = candidates[:max_topics]
+    if picked:
+        print(f"   🗓️ 确定性供给候选（{len(picked)}/{len(candidates)} 通过筛选，窗口 {lookahead_days} 天）:")
+        for t in picked:
+            print(f"      [{t['priority']:5.1f}] {t['kickoff_cst'][:16]} {t['competition']:3s} "
+                  f"{t['home_zh']} vs {t['away_zh']} <{t['angle_type']}>")
+    else:
+        print(f"   ℹ️ 确定性供给：本批次窗口内无可发布赛程选题（{len(topics)} 条中 "
+              f"{sum(1 for t in topics if _within_horizon(t, now, horizon))} 条在窗口内但被去重/过期）")
+    return picked
+
+
+def _within_horizon(t, now, horizon):
+    try:
+        pub_by = datetime.strptime(t.get("publish_by", ""), "%Y-%m-%d %H:%M").replace(tzinfo=CST)
+    except Exception:
+        return False
+    return now < pub_by <= horizon
+
+
+def gather_fixture_facts(topic):
+    """为赛程选题采集事实层（积分榜 + 射手榜），全部来自 football-data.org。
+
+    失败则降级返回部分数据（非阻断）——确定性供给宁可少发也不编数据。
+    队名/球员名做 en→zh 映射，便于 LLM 用中文表达。
+    """
+    comp_id = (topic.get("fact_source") or {}).get("fd_comp_id")
+    comp_name = topic.get("competition", "")
+    facts = {
+        "competition": comp_name,
+        "kickoff_cst": topic.get("kickoff_cst", ""),
+        "home_zh": topic.get("home_zh", ""),
+        "away_zh": topic.get("away_zh", ""),
+        "conflict": topic.get("conflict", ""),
+        "angle_type": topic.get("angle_type", ""),
+        "awareness_pair": topic.get("awareness_pair", ""),
+        "standings": [],
+        "scorers": [],
+        "home_standing": None,
+        "away_standing": None,
+        "home_top_scorer": None,
+        "away_top_scorer": None,
+    }
+    if not comp_id:
+        return facts
+
+    headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
+    base = FOOTBALL_DATA_BASE
+
+    # 积分榜
+    try:
+        r = requests.get(f"{base}/competitions/{comp_id}/standings", headers=headers, timeout=15)
+        if r.status_code == 200:
+            for s in r.json().get("standings", []):
+                if s.get("type") == "TOTAL":
+                    table = [{"position": x.get("position"),
+                              "team_zh": _zh(x.get("team", {}).get("name", "")),
+                              "team_en": x.get("team", {}).get("name", ""),
+                              "points": x.get("points"),
+                              "played": x.get("playedGames"),
+                              "gd": x.get("goalDifference")}
+                             for x in s.get("table", [])]
+                    facts["standings"] = table
+                    break
+    except Exception as e:
+        print(f"   ⚠️ 积分榜采集失败({comp_name}): {e}")
+
+    # 射手榜
+    try:
+        r = requests.get(f"{base}/competitions/{comp_id}/scorers",
+                         headers=headers, params={"limit": 15}, timeout=15)
+        if r.status_code == 200:
+            facts["scorers"] = [{"player_zh": _zh(x.get("player", {}).get("name", "")),
+                                 "player_en": x.get("player", {}).get("name", ""),
+                                 "team_zh": _zh(x.get("team", {}).get("name", "")),
+                                 "goals": x.get("goals"),
+                                 "assists": x.get("assists")}
+                                for x in r.json().get("scorers", [])]
+    except Exception as e:
+        print(f"   ⚠️ 射手榜采集失败({comp_name}): {e}")
+
+    # 抽取两队站位与队内射手王
+    home_en = None
+    away_en = None
+    emap = load_entity_zh_map()
+    for en, zh in emap.items():
+        if zh == facts["home_zh"]:
+            home_en = en
+        if zh == facts["away_zh"]:
+            away_en = en
+    for row in facts["standings"]:
+        if home_en and row.get("team_en", "").lower() == home_en:
+            facts["home_standing"] = row
+        if away_en and row.get("team_en", "").lower() == away_en:
+            facts["away_standing"] = row
+    for sc in facts["scorers"]:
+        if home_en and sc.get("team_en", "").lower() == home_en and not facts["home_top_scorer"]:
+            facts["home_top_scorer"] = sc
+        if away_en and sc.get("team_en", "").lower() == away_en and not facts["away_top_scorer"]:
+            facts["away_top_scorer"] = sc
+
+    return facts
 

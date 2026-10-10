@@ -210,6 +210,13 @@ jobs:
             echo "✅ 已同步历史批次元数据到 OUTPUT_DIR"
           fi
 
+      - name: 刷新赛程选题池（确定性供给）
+        if: steps.params.outputs.skip != 'true'
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+        run: |
+          python scripts/fixture_library.py || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"
+
       - name: 生成文章
         id: generate
         if: steps.params.outputs.skip != 'true'

@@ -112,6 +112,17 @@ echo ""
 echo "[2/2] 生成文章 ($BATCH 批次)... (最多等待 ${ORCHESTRATOR_TIMEOUT}s)"
 cd "$PROJECT_DIR"
 
+# --- 2.0 刷新赛程选题池（确定性供给） ---
+# 使用当日缓存（data/fixtures/raw_YYYY-MM-DD.json），缓存命中则不消耗 API 额度。
+# 失败非阻断：沿用已有 topic_pool.json（如有），不影响主流程。
+echo ""
+echo "[2.0] 刷新赛程选题池（确定性供给）..."
+if timeout 60 "$VENV_PYTHON" scripts/fixture_library.py; then
+    echo "✅ 赛程选题池已刷新"
+else
+    echo "⚠️ 赛程选题池刷新失败（API 限额/不可用），沿用已有 topic_pool（如有）"
+fi
+
 export OUTPUT_DIR="$OUTPUT_DIR"
 export HY3_API_KEY="${HY3_API_KEY:-}"
 export DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-}"
