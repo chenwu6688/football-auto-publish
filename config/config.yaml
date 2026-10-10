@@ -65,6 +65,16 @@ images:
     priority: 2
   - name: unsplash
     priority: 3
+# ─────────────────────────────────────────────────────────────────────────────
+# ⚠️ DEPRECATED SCHEDULE — 本 schedule 块不再是发布触发源，请勿依赖其 cron。
+# 现行调度（唯一主调度 + 单一兜底，详见 external-trigger/README.md）：
+#   主调度: Cloudflare Worker → CST 08:00 / 12:00 / 17:30
+#   兜底:   GitHub Actions batch.yml 原生 cron（比主调度晚 30 分钟）
+# 此块下的 cron/timezone 仅本地 systemd 路径曾使用，现已废弃；
+# 注意原 cron 在 Asia/Shanghai 下为 00:00/04:00/09:30（即北京时间 00:00/04:00/17:30），
+# 与三班目标（08:00/12:00/17:30）不符，进一步说明它已非活跃调度。
+# 下方 article_count / columns 为内容配置，仍供参考，但发布不再读取本块时间。
+# ─────────────────────────────────────────────────────────────────────────────
 schedule:
   timezone: Asia/Shanghai
   batches:

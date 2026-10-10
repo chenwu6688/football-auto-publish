@@ -74,7 +74,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - ✅ **自动发布双端**：头条号（浏览器自动化登录一次后长期复用）+ 微信小程序（静态 JSON 经 jsDelivr CDN 分发）。
 - ✅ **幂等保护**：`metadata.json` 记录已完成批次，重跑不会重复发稿。
 - ✅ **健康监控**：`heartbeat.yml` 午检/终检 + 爬虫健康检查，异常经 WxPusher 推送告警。
-- ✅ **手动/补发通道**：`daily.yml` 支持 `workflow_dispatch` 手动触发与紧急补发。
+- ✅ **手动/补发通道**：`batch.yml` 支持 `workflow_dispatch` 手动触发与紧急补发（选 morning/noon/evening，可指定日期）。
 - ✅ **配套小程序**：零成本微信小程序，自动同步当日文章，读者即点即读。
 
 ## 内容治理与防限流机制 / Content Governance
@@ -107,7 +107,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 > ⏸️ **状态：暂停使用（2026-09-27）** —— 实测效果未达预期，暂不接入发布链路。
 > 本节及 `video_pipeline/` 相关代码**保持入库留档**，但**不参与任何定时发布流程**
-> （`batch.yml` / `daily.yml` 均不调用）。图文发布链路不受其影响，可放心忽略本模块。
+> （`batch.yml` 不调用）。图文发布链路不受其影响，可放心忽略本模块。
 > 后续若重启，再单独评估。
 
 > 把同一篇图文**额外**产出「数字人口播视频」，发头条号 / 抖音 / 视频号。**独立于现有图文发布链路**，复用品牌手册与 LLM 额度，零新增成本、本地 CPU 可跑、无 GPU。
@@ -144,7 +144,7 @@ flowchart LR
     I[WxPusher 告警] -.异常.-> H
 ```
 
-每日流程（`batch.yml` 由 cron 触发）：
+每日流程（由 Cloudflare Worker 主调度在 CST 08:00/12:00/17:30 触发 workflow_dispatch，GitHub Actions `batch.yml` 原生 cron 仅在其失效时兜底）：
 
 1. **确定批次**：根据当前 CST 时段判定 morning / noon / evening。
 2. **选题**：LLM 多模型轮换按栏目规则 + 数据源打分，选出当日话题与角度（新赛季自动偏向赛程/转会/八卦/分析多维覆盖）。
@@ -162,7 +162,7 @@ flowchart LR
 | 语言 | Python 3 |
 | LLM | TokenHub 多模型池（hy3 / DeepSeek v4 / GLM-5 / Kimi / Hunyuan / MiniMax 等 20+ 模型，按序轮换）；通义千问 DashScope qwen-turbo 兜底；免费额度用满前自动切换 |
 | 数据 | football-data.org、公众号抓取、Wikipedia API、Unsplash、Footyrenders |
-| 自动化 | GitHub Actions（`batch.yml` / `daily.yml` / `heartbeat.yml`） |
+| 自动化 | GitHub Actions（`batch.yml` / `heartbeat.yml`）+ Cloudflare Worker（主调度） |
 | 浏览器 | Playwright（头条号发布） |
 | 前端 | 微信小程序 + jsDelivr CDN |
 | 通知 | WxPusher |
@@ -229,8 +229,7 @@ football-auto-publish/
 
 ## 调度与健康监控
 
-- **`batch.yml`**：每日三班主发布流程，含多窗口重试兜底（GitHub cron 偶发延迟也能命中正确批次）。
-- **`daily.yml`**：手动/外部触发与紧急补发。
+- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/17:30 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。
 - **`heartbeat.yml`**：午检（仅校验晨读是否完成，避免未到点误报）+ 终检（校验三班全完成），异常经 WxPusher 告警。
 
 ---

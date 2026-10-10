@@ -14,8 +14,9 @@ GitHub Actions 免费调度器在 UTC 00:00（全球零点）严重拥堵，
 > - 午间 `04:xx` → 实际延迟 ~40~67 分钟
 > - 晚间 `09~10` → 实际延迟 ~30~40 分钟
 
-`batch.yml` 已带**幂等保护**：同一批次多次触发只发布一次，
-因此本触发器与原 GitHub `schedule` 可并存、互为兜底，**不会重复发文**。
+`batch.yml` 已带**幂等保护**：同一批次多次触发只发布一次；
+本触发器是**唯一主调度**，GitHub `schedule` 仅作**单一兜底**（晚 30 分钟），
+主调度正常时兜底自动跳过，**不会重复发文**。
 
 ## 文件
 
@@ -49,7 +50,7 @@ GitHub Actions 免费调度器在 UTC 00:00（全球零点）严重拥堵，
    ```
 5. 验证：
    - Cloudflare 控制台 → Workers & Pages → `gh-batch-trigger` → **Triggers**
-     应看到 3 个 cron（UTC `00:07` / `04:07` / `09:37`）
+     应看到 3 个 cron（UTC `00:00` / `04:00` / `09:30`）
    - 下次触发后，GitHub Actions 会出现一条 `event=workflow_dispatch` 的 run
    - 想立即验证：部署后在 CF 控制台手动 **Run** 一次，或临时把某个 cron 改成近时间点
 

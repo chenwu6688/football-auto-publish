@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
-# cron-job.org 精确调度 → GitHub Actions batch.yml
+# ============================================================================
+# ⚠️ DEPRECATED — 调度已整合，本脚本不再作为日常调度源
+# ----------------------------------------------------------------------------
+# 现行调度架构（唯一主调度 + 单一兜底，详见 external-trigger/README.md）：
+#   主调度 (准点): Cloudflare Worker (external-trigger/worker.js)  → CST 08:00/12:00/17:30
+#   兜底 (可靠):   GitHub Actions batch.yml 原生 cron（比主调度晚 30 分钟）
+# cron-job.org 属于被砍掉的冗余外部触发源，与主调度并存会导致多源抢首发、
+# 时间节点漂移。请改用 Cloudflare Worker；本脚本仅保留作历史参考。
+# ============================================================================
+# cron-job.org 精确调度 → GitHub Actions batch.yml（历史方案）
 # 主调度方案，精度 <1 分钟。GitHub Actions 原生 cron 为 30 分钟后备份。
 #
 # 用法:

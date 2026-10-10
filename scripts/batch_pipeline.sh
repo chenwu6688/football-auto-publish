@@ -1,5 +1,14 @@
 #!/bin/bash
-# 足球自媒体 - 批次发布脚本 (morning/noon/evening)
+# ============================================================================
+# ⚠️ DEPRECATED — 本地 systemd 发布路径已废弃，请勿再启用
+# ----------------------------------------------------------------------------
+# 现行发布方式：全部经由 GitHub Actions（batch.yml）运行，调度由
+#   Cloudflare Worker（主调度）→ batch.yml 原生 cron（兜底）承担。
+# 本地 systemd + batch_pipeline.sh 属于被砍掉的冗余路径，且与 GH Actions
+# 双写 output/ 元数据会互相踩踏。如需手动/补发，请用 batch.yml 的
+# workflow_dispatch。本脚本仅保留作历史参考。
+# ============================================================================
+# 足球自媒体 - 批次发布脚本 (morning/noon/evening)（历史方案）
 # 由 systemd timer 在 08:00 / 12:00 / 17:30 触发（均为北京时间）
 # 如需配置 systemd timer，确保服务器时区为 Asia/Shanghai 或换算对应的 UTC 时间
 #

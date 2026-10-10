@@ -1,14 +1,20 @@
 /**
- * gh-batch-trigger
+ * gh-batch-trigger —— 唯一主调度（准点）
+ *
  * 用 Cloudflare Cron Triggers 在准点调用 GitHub workflow_dispatch，
  * 绕开 GitHub 免费调度器在 UTC 00:00 全球零点的拥堵，保证三班准点发布。
  *
- * 触发映射（Cloudflare cron 仅支持 UTC，已换算为 CST）：
- *   7 0 * * *   -> morning   (CST 08:07)
- *   7 4 * * *   -> noon      (CST 12:07)
- *   37 9 * * *  -> evening   (CST 17:37)
+ * 角色：本 Worker 是项目的【唯一主调度】。GitHub Actions batch.yml 的原生
+ * cron 仅作为「单一兜底」（比本触发晚 30 分钟），靠 batch.yml 的幂等保护
+ * 跳过已被本触发完成的批次，不会重复发文。详见 external-trigger/README.md。
  *
- * 依赖 secret：GH_TOKEN = GitHub PAT（Actions: write）
+ * 触发映射（Cloudflare cron 仅支持 UTC，已换算为 CST）：
+ *   0 0 * * *   -> morning   (CST 08:00)
+ *   0 4 * * *   -> noon      (CST 12:00)
+ *   30 9 * * *  -> evening   (CST 17:30)
+ *
+ * 依赖 secret：GH_TOKEN = GitHub Fine-grained PAT（仅本仓库 Actions: write，
+ *             务必设 1 年有效期，到期前在 Cloudflare 侧更新，否则主调度静默失效）
  * 依赖 KV：LOG = 观测用，记录每次 scheduled 是否被触发（沙箱可读，用于诊断）
  *
  * 注意：GitHub REST API 强制要求 User-Agent 头，否则一律 403。
@@ -56,10 +62,14 @@ async function dispatch(batch, env) {
 }
 
 function batchFromCron(cron) {
-  let batch = 'morning';
-  if (cron.startsWith('7 4'))       batch = 'noon';
-  else if (cron.startsWith('37 9')) batch = 'evening';
-  return batch;
+  const parts = cron.trim().split(/\s+/);
+  const hour = parseInt(parts[1], 10);
+  const minute = parseInt(parts[0], 10);
+  // 主调度 cron（UTC）：0 0=晨读, 0 4=午间, 30 9=晚间（见 wrangler.toml）
+  if (hour === 0) return 'morning';
+  if (hour === 4) return 'noon';
+  if ((hour === 9 && minute >= 30) || hour === 10) return 'evening';
+  return 'morning';
 }
 
 export default {
