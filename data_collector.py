@@ -17,6 +17,8 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
 
 from utils import retry, filter_fresh_news, NEWS_MAX_AGE_HOURS, CST
 
+import cover_binding as _cb  # 计划 2.2/4.1：封面与正文绑定（禁用随机图库配图）
+
 
 # ============================================================
 # Event-fingerprint dedup (P0-1: 语义去重，杜绝「换说法重发」)
@@ -1188,54 +1190,58 @@ def search_images(topic, count=5):
             if img["url"] not in [i["url"] for i in images]:
                 images.append(img)
 
+    ents = _cb.article_entities(topic) if isinstance(topic, dict) else []
+    _title_terms = _cb.title_terms(topic.get("title", "")) if isinstance(topic, dict) else []
+
+    # 图库检索：query 必须绑定正文（实体优先，其次标题词）；不构成绑定则跳过。
+    # 计划 2.2 / 4.1：禁用随机图库配图，故不再使用 football / stadium 这类通用词。
     if len(images) < count and UNSPLASH_KEY:
-        core = " ".join(en_keywords[:3]) if en_keywords else "football"
-        for q in [f"{core} football match action", f"{core} soccer", "football match stadium"]:
-            if len(images) >= count:
-                break
+        core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
+        if core:
+            for suffix in ("football match action", "soccer"):
+                if len(images) >= count:
+                    break
+                q = f"{core} {suffix}".strip()
+                try:
+                    resp = requests.get("https://api.unsplash.com/search/photos", params={
+                        "query": q, "per_page": count - len(images), "orientation": "landscape",
+                        "client_id": UNSPLASH_KEY}, timeout=10)
+                    if resp.status_code == 200:
+                        for r in resp.json().get("results", []):
+                            images.append({"url": r["urls"]["regular"], "source": "unsplash",
+                                           "alt": r.get("description") or "", "query": q})
+                except Exception:
+                    pass
+
+    # DuckDuckGo 兜底：同样必须绑定正文（无绑定 query 则不放图）
+    if len(images) < count:
+        core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
+        if core:
             try:
-                resp = requests.get("https://api.unsplash.com/search/photos", params={
-                    "query": q, "per_page": count - len(images), "orientation": "landscape",
-                    "client_id": UNSPLASH_KEY}, timeout=10)
-                if resp.status_code == 200:
-                    for r in resp.json().get("results", []):
-                        images.append({"url": r["urls"]["regular"], "source": "unsplash",
-                                       "alt": r.get("description") or q})
+                from urllib.parse import quote_plus as qp
+                import re as _re
+                ddg = requests.get("https://duckduckgo.com/", params={"q": core}, timeout=10)
+                vqd_match = _re.search(r'vqd=([\d-]+)', ddg.text)
+                if vqd_match:
+                    vqd = vqd_match.group(1)
+                    resp = requests.get(
+                        f"https://duckduckgo.com/i.js?q={qp(core)}&vqd={vqd}&o=json", timeout=10)
+                    if resp.status_code == 200:
+                        for item in resp.json().get("results", [])[:count]:
+                            url = item.get("image", "")
+                            if url and url not in [i["url"] for i in images]:
+                                images.append({"url": url, "source": "duckduckgo",
+                                               "alt": item.get("title", ""), "query": core})
             except Exception:
                 pass
 
-    if len(images) == 0 and UNSPLASH_KEY:
-        try:
-            resp = requests.get("https://api.unsplash.com/search/photos", params={
-                "query": "football", "per_page": count, "orientation": "landscape",
-                "client_id": UNSPLASH_KEY}, timeout=10)
-            if resp.status_code == 200:
-                for r in resp.json().get("results", []):
-                    images.append({"url": r["urls"]["regular"], "source": "unsplash", "alt": "football"})
-        except Exception:
-            pass
-
-    # Final fallback: DuckDuckGo (free, no key)
-    if len(images) < count:
-        try:
-            q = " ".join(en_keywords[:3]) if en_keywords else "football match"
-            from urllib.parse import quote_plus as qp
-            import re
-            ddg = requests.get("https://duckduckgo.com/", params={"q": f"{q} football"}, timeout=10)
-            vqd_match = re.search(r'vqd=([\d-]+)', ddg.text)
-            if vqd_match:
-                vqd = vqd_match.group(1)
-                resp = requests.get(
-                    f"https://duckduckgo.com/i.js?q={qp(q)}+football&vqd={vqd}&o=json",
-                    timeout=10)
-                if resp.status_code == 200:
-                    for item in resp.json().get("results", [])[:count]:
-                        url = item.get("image", "")
-                        if url and url not in [i["url"] for i in images]:
-                            images.append({"url": url, "source": "duckduckgo", "alt": item.get("title", "")})
-        except Exception:
-            pass
-    return images[:count]
+    # 绑定复核：剔除未与正文绑定的配图（随机图库配图在此被拦下）
+    bound = _cb.filter_bound_images(images, ents, _title_terms + en_keywords)
+    if len(bound) < len(images):
+        print(f"   🖼️ 封面绑定：剔除 {len(images) - len(bound)} 张未绑定配图（计划 2.2 禁用随机图库）")
+    if not bound:
+        print("   🖼️ 封面绑定：未找到与正文绑定的配图，本篇不配随机图")
+    return bound[:count]
 
 
 # ============================================================
