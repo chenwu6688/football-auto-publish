@@ -3149,6 +3149,17 @@ def main():
         except Exception as e:
             print(f"   ⚠️ 转会新闻采集异常 (不影响主流程): {e}")
 
+        # 事实卡编译与落库（计划 6.1 / 12.2）：素材 → 结构化事实卡，可溯源、带生命周期。
+        # 非阻断：失败仅告警，绝不阻塞发布（计划九）。
+        try:
+            from fact_card import compile_and_persist
+            _fc_store, _fc_stats = compile_and_persist(match_data, date_str=date_str)
+            print(f"   🗂️ 事实卡入库: 共 {_fc_stats['total']} 张"
+                  f"（新增 {_fc_stats['added']} / 更新 {_fc_stats['updated']}，"
+                  f"可信度 {_fc_stats['可信度']}，生命周期 {_fc_stats['生命周期']}）")
+        except Exception as e:
+            print(f"   ⚠️ 事实卡编译异常（不影响主流程）: {e}")
+
         articles = []
         images_map = {}
         topics = []

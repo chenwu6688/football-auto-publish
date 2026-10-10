@@ -8,6 +8,7 @@ logs/
 .env
 scripts/local_env.sh
 data/fixtures/
+data/facts/
 
 # OpenWolf memory system
 .wolf/
