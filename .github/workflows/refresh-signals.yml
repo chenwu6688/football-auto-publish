@@ -1,0 +1,52 @@
+name: 预热水号热度信号
+
+# 计划 11.2 L2：社媒讨论量 / 搜索指数。
+# 主流程只读 data/signals/external_signals.json；本任务在每日早批之前预热好该文件。
+# 早批 08:00 CST，本任务 06:30 CST（22:30 UTC 前一日）。
+
+on:
+  schedule:
+    - cron: '30 22 * * *'   # 次日 06:30 CST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: python -m pip install --quiet requests
+
+      - name: 预热信号（微博/百度热搜 + 百度联想）
+        run: python3 scripts/refresh_signals.py --level A --workers 4
+
+      - name: 提交信号缓存
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/signals/ || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: 预热热度信号 $(TZ=Asia/Shanghai date +%F)"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ 信号缓存已推送"
+                break
+              fi
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          else
+            echo "📝 信号无变化，跳过提交"
+          fi

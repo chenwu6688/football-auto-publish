@@ -28,8 +28,9 @@ class TestSourceWatch(unittest.TestCase):
         self.assertEqual(sig["曼城"]["同题报道条数"], 2)
         self.assertGreater(sig["曼城"]["来源媒体权重"], 0)
         self.assertEqual(sig["皇马"]["同题报道条数"], 1)
-        # 未接入的信号源给保守默认 0（不假装有信号）
-        self.assertEqual(sig["曼城"]["社媒讨论量"], 0)
+        # 社媒/搜索不在本模块产出：未接入即「缺失」（不写 0 冒充），由 signal_sources 补齐
+        self.assertNotIn("社媒讨论量", sig["曼城"])
+        self.assertNotIn("搜索指数", sig["曼城"])
 
     def test_signals_from_match_data(self):
         md = {"news_articles": [{"title": "曼城 news"}],

@@ -81,11 +81,13 @@ def _entity_terms() -> set[str]:
 
 
 def signals_from_articles(articles, entities=None) -> dict:
-    """从新闻条目计算热度信号。
+    """从新闻条目计算「可计算」热度信号（同题报道条数 / 来源媒体权重）。
 
     articles: [{"title":..., "source":..., "url":...}, ...]
-    返回 {实体: {"同题报道条数": n, "来源媒体权重": w, "社媒讨论量": 0, "搜索指数": 0}}
-    （社媒/搜索无接入，按计划给保守默认 0，由 ranker 标记为缺失信号。）
+    返回 {实体: {"同题报道条数": n, "来源媒体权重": w}}
+
+    社媒讨论量 / 搜索指数不在本模块产出：由 signal_sources 接入公开源（微博/百度热搜、
+    百度联想）后补齐；未命中即为缺失，由 ranker 标记 _signal_missing，绝不用 0 冒充。
     """
     data = load_watchlist()
     cap = int((data.get("signal") or {}).get("same_topic_cap", 10))
@@ -99,8 +101,7 @@ def signals_from_articles(articles, entities=None) -> dict:
         w = source_weight(srcs, data)
         for e in ents:
             if e and e in text:
-                rec = out.setdefault(e, {"同题报道条数": 0, "来源媒体权重": 0.0,
-                                         "社媒讨论量": 0, "搜索指数": 0})
+                rec = out.setdefault(e, {"同题报道条数": 0, "来源媒体权重": 0.0})
                 rec["同题报道条数"] = min(cap, rec["同题报道条数"] + 1)
                 rec["来源媒体权重"] = max(rec["来源媒体权重"], w)
     return out
