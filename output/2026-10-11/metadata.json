@@ -1,0 +1,278 @@
+{
+  "date": "2026-10-11",
+  "generated_at": "2026-10-11T00:07:00.448691",
+  "total_articles": 4,
+  "articles": [
+    {
+      "index": 1,
+      "title": "范志毅年过半百还在骂后卫，中国足球的痛他治得好吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-1-范志毅年过半百还-661647.md",
+      "slug": "范志毅年过半百还-661647",
+      "tags": [
+        "Fan Zhiyi",
+        "Chinese football",
+        "nostalgia",
+        "2002 World Cup",
+        "Qingxun"
+      ],
+      "keywords": [
+        "Fan Zhiyi",
+        "Chinese football",
+        "nostalgia",
+        "2002 World Cup",
+        "Qingxun"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-11/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-11/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-11/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 2,
+      "title": "史上最佳之争：马拉多纳贝利梅西，你选谁？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-2-史上最佳之争马拉-4ec232.md",
+      "slug": "史上最佳之争马拉-4ec232",
+      "tags": [
+        "Messi",
+        "Maradona",
+        "Pele",
+        "GOAT",
+        "football"
+      ],
+      "keywords": [
+        "Messi",
+        "Maradona",
+        "Pele",
+        "GOAT",
+        "football"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 4,
+      "title": "罗纳尔多VS姆巴佩，30年两代速度之王，谁更配得上外星人？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-4-罗纳尔多VS姆巴-717e63.md",
+      "slug": "罗纳尔多VS姆巴-717e63",
+      "tags": [
+        "Ronaldo",
+        "Mbappe",
+        "data comparison",
+        "World Cup",
+        "speed"
+      ],
+      "keywords": [
+        "Ronaldo",
+        "Mbappe",
+        "data comparison",
+        "World Cup",
+        "speed"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晨读"
+    },
+    {
+      "index": 5,
+      "title": "比利亚雷亚尔就爱给强队上眼药，那不勒斯这关过得去？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-5-比利亚雷亚尔就爱-7779ef.md",
+      "slug": "比利亚雷亚尔就爱-7779ef",
+      "tags": [
+        "Villarreal",
+        "Napoli",
+        "Champions League",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "Villarreal",
+        "Napoli",
+        "Champions League",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-11/images/article-5-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-11/images/article-5-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-11/images/article-5-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": ""
+    }
+  ],
+  "topics": [
+    {
+      "title": "曼联又被十人热刺逼平，这剧本你熟不熟？",
+      "angle": "多打一人还被绝平，曼联的问题不是运气，是老毛病。从弗格森退休那天起，这种'该赢没赢'的戏码演了十几年，老球迷看得比谁都清楚。",
+      "keywords": [
+        "Manchester United",
+        "Tottenham",
+        "draw"
+      ],
+      "keywords_cn": [
+        "曼联",
+        "热刺",
+        "绝平"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "曼联老毛病引发老球迷集体共鸣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "切尔西5-1血洗背后，凯塞多这话说得有点大？",
+      "angle": "赢一场球就喊'把切尔西带回属于它的位置'，凯塞多这话有底气也有风险。老六想说：蓝军现在的问题从来不是能不能赢伯恩茅斯，是能不能赢曼城利物浦。",
+      "keywords": [
+        "Chelsea",
+        "Caicedo",
+        "Bournemouth"
+      ],
+      "keywords_cn": [
+        "切尔西",
+        "凯塞多",
+        "伯恩茅斯"
+      ],
+      "content_type": "热点球评",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "球员豪言引发豪门定位争议",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "梅西和马拉多纳谁更强？这个问题终于有人敢下结论了",
+      "angle": "CBS分析师说：曾认为老马是史上最佳，现在确信是梅西。老六不急着站队，但想聊聊——为什么这个问题每隔几年就要吵一次，而我们这代人的答案，往往取决于第一次看球是哪年。",
+      "keywords": [
+        "Messi",
+        "Maradona",
+        "GOAT debate"
+      ],
+      "keywords_cn": [
+        "梅西",
+        "马拉多纳",
+        "历史最佳"
+      ],
+      "content_type": "排行榜",
+      "score": 90,
+      "controversy_level": "high",
+      "target_emotion": "怀旧",
+      "resonance_angle": "世界杯经典时刻",
+      "series_id": "wc-classics",
+      "why_pick": "球王之争是永恒怀旧爆款话题",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "范志毅年过半百还在骂后卫，中国足球的痛他治得好吗？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "C罗梅西领跑历史射手榜，老球迷眼中谁才是真正的无冕之王？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "罗纳尔多VS姆巴佩，30年两代速度之王，谁更配得上外星人？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "比利亚雷亚尔就爱给强队上眼药，那不勒斯这关过得去？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    }
+  ],
+  "data_sources": {},
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-11 08:07:00"
+}
