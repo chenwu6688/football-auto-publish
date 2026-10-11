@@ -1,7 +1,7 @@
 {
   "date": "2026-10-11",
-  "generated_at": "2026-10-11T04:06:03.363694",
-  "total_articles": 9,
+  "generated_at": "2026-10-11T09:36:27.848375",
+  "total_articles": 14,
   "articles": [
     {
       "index": 1,
@@ -276,194 +276,392 @@
       "column_id": "tactics-board",
       "column_name": "战术黑板",
       "batch_name": ""
+    },
+    {
+      "index": 3,
+      "title": "蓉城主场翻车！33年的西部冠军梦，还得再等等？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-3-蓉城主场翻车33-b038c6.md",
+      "slug": "蓉城主场翻车33-b038c6",
+      "tags": [
+        "Chengdu Rongcheng",
+        "Tianjin Jinmen Tiger",
+        "CSL",
+        "title race",
+        "Western China football"
+      ],
+      "keywords": [
+        "Chengdu Rongcheng",
+        "Tianjin Jinmen Tiger",
+        "CSL",
+        "title race",
+        "Western China football"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 4,
+      "title": "马拉多纳与普拉蒂尼数据打架，谁才是真球王？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-4-马拉多纳与普拉蒂-553abf.md",
+      "slug": "马拉多纳与普拉蒂-553abf",
+      "tags": [
+        "Maradona",
+        "Platini",
+        "World Cup",
+        "Serie A",
+        "1986",
+        "data comparison"
+      ],
+      "keywords": [
+        "Maradona",
+        "Platini",
+        "World Cup",
+        "Serie A",
+        "1986",
+        "data comparison"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 5,
+      "title": "当年那个把国足逼到绝境的卡希尔，如今满头白发你还能认出吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-5-当年那个把国足逼-f951ef.md",
+      "slug": "当年那个把国足逼-f951ef",
+      "tags": [
+        "Tim Cahill",
+        "Asian Cup",
+        "Chinese football",
+        "retired star",
+        "nostalgia"
+      ],
+      "keywords": [
+        "Tim Cahill",
+        "Asian Cup",
+        "Chinese football",
+        "retired star",
+        "nostalgia"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间"
+    },
+    {
+      "index": 6,
+      "title": "利物浦曼城今晚死磕，尤文米兰谁能笑着睡",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-6-利物浦曼城今晚死-baccbe.md",
+      "slug": "利物浦曼城今晚死-baccbe",
+      "tags": [
+        "Liverpool",
+        "Man City",
+        "Serie A",
+        "Premier League",
+        "Prediction"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Man City",
+        "Serie A",
+        "Premier League",
+        "Prediction"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": ""
+    },
+    {
+      "index": 7,
+      "title": "国米账面碾压布鲁日？别急，这三点变量能掀翻梅阿查吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-11/article-7-国米账面碾压布鲁-1e4166.md",
+      "slug": "国米账面碾压布鲁-1e4166",
+      "tags": [
+        "Inter Milan",
+        "Club Brugge",
+        "Champions League",
+        "upset",
+        "tactics"
+      ],
+      "keywords": [
+        "Inter Milan",
+        "Club Brugge",
+        "Champions League",
+        "upset",
+        "tactics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-11/images/article-7-img-001.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": ""
     }
   ],
   "topics": [
     {
-      "title": "孙继海一句'扛不住就淘汰'，戳中了多少中国足球的旧伤疤？",
-      "angle": "孙继海谈国足惨败对年轻球员影响，说'因人而异，扛不住就淘汰了'。这话糙理不糙——中国足球最缺的从来不是天赋，是能在废墟里爬起来的心脏。借他这句狠话，聊聊我们这代人对国足又爱又恨的执念。",
+      "title": "两个球同时进门，这中甲比赛是在演喜剧吗？",
+      "angle": "陕西5-1佛山，场内同时出现两个球还都进了——这不是段子是真事。规则上该吹哪个？裁判当时估计也懵了，聊聊足坛这类活久见的荒诞瞬间。",
       "keywords": [
-        "sun jihai",
-        "china national team",
-        "young players",
-        "mental toughness"
+        "two balls on pitch",
+        "china league one",
+        "referee chaos"
       ],
       "keywords_cn": [
-        "孙继海",
-        "国足",
-        "年轻球员",
-        "心理承受"
+        "两个球",
+        "中甲",
+        "裁判争议"
       ],
       "content_type": "八卦趣事",
-      "score": 88,
+      "score": 78,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "孙继海老将发声，天然带国足情怀钩子",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "活久见荒诞事件，猎奇+规则争议双重钩子",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "奥格斯堡2-2逼平拜仁，德甲霸主这防线怎么又双叒漏风了？",
-      "angle": "拜仁客场被奥格斯堡2-2逼平，赛季至今防线问题反复发作。别光盯着进攻火力，一支想在欧冠走远的球队，后防这种'漏勺'状态迟早要还债。",
+      "title": "36岁被泰国球队解约，比埃拉还想回工体吗？",
+      "angle": "当年国安那个穿10号的比埃拉，如今被拉查武里解约，重返工体战旧主成了泡影。一个外援在中超的黄金岁月和落幕，老球迷最懂这种滋味。",
       "keywords": [
-        "bayern munich",
-        "augsburg",
-        "bundesliga",
-        "defense"
+        "Jonathan Viera",
+        "Beijing Guoan",
+        "Thai League"
       ],
       "keywords_cn": [
-        "拜仁慕尼黑",
-        "奥格斯堡",
-        "德甲",
-        "防线"
+        "比埃拉",
+        "北京国安",
+        "外援解约"
       ],
-      "content_type": "热点球评",
+      "content_type": "八卦趣事",
       "score": 82,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "豪门平局+防线争议，话题性强",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "中超旧将沉浮，戳老球迷情怀",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "莫德里奇说压力下才踢得更好，这话年轻球员听懂了吗？",
-      "angle": "莫德里奇自述'相较于放松，我在压力之下往往能踢出更好表现'。40岁还在顶级赛场的老妖，用一句话点破了顶级球员和普通球员的差距——把压力当燃料还是当枷锁，决定了一个人的上限。",
+      "title": "马宁飞到沙特却执法不了，亚冠这安排合理吗？",
+      "angle": "北青报道马宁等人抵达沙特另一城市，能否赴利雅得执法亚冠还要等通知。中国裁判在亚洲赛场的处境，背后是话语权问题，值得说道说道。",
       "keywords": [
-        "modric",
-        "pressure",
-        "mentality",
-        "veteran"
+        "Ma Ning",
+        "AFC Champions League",
+        "referee"
       ],
       "keywords_cn": [
-        "莫德里奇",
-        "压力",
-        "心态",
-        "老将"
+        "马宁",
+        "亚冠",
+        "中国裁判"
       ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "莫德里奇金句，人物弧光戳中阅历感",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "content_type": "热点球评",
+      "score": 75,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "中国裁判国际处境，关联足球话语权",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-2"
     },
     {
-      "title": "申花大胜背后，米洛耶维奇把吴曦朱辰杰调成了什么模样？",
-      "angle": "东体评申花大胜展现整体控制力，米洛耶维奇训练卓有成效，还点名吴曦、朱辰杰是榜样。换帅后的申花到底变了什么？从用人到战术，聊聊这支老牌劲旅的复苏逻辑。",
+      "title": "蓉城这个冠军，含金量到底打了几折？",
+      "angle": "刘越直言蓉城不出意外会夺冠，但下半程表现让奖杯成色略降。一边是队史首冠的喜悦，一边是'赢得不够漂亮'的质疑，这账该怎么算？",
       "keywords": [
-        "shenhua",
-        "milosevic",
-        "wu xi",
-        "zhu chenjie"
+        "Chengdu Rongcheng",
+        "CSL title",
+        "Liu Yue"
       ],
       "keywords_cn": [
-        "上海申花",
-        "米洛耶维奇",
-        "吴曦",
-        "朱辰杰"
+        "蓉城",
+        "中超冠军",
+        "含金量"
       ],
-      "content_type": "战术解析",
+      "content_type": "热点球评",
       "score": 80,
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "resonance_angle": "老球迷身份认同",
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
       "series_id": "无",
-      "why_pick": "申花换帅成效，老牌劲旅话题有共鸣",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "冠军成色争议，正反两方都有话说",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-3"
     },
     {
-      "title": "当年扛着国足冲世界杯的人，如今在街头卖烧烤？你还记得他吗？",
+      "title": "曼联1-1热刺，3500万镑的蒂莱曼斯值这个价吗？",
+      "angle": "蒂莱曼斯对热刺多次贡献狼狈镜头，红魔当初3500万镑引进他，如今这笔账该怎么算？中场引援的眼光问题，曼联球迷最有发言权。",
+      "keywords": [
+        "Tielemans",
+        "Manchester United",
+        "Tottenham"
+      ],
+      "keywords_cn": [
+        "蒂莱曼斯",
+        "曼联",
+        "热刺"
+      ],
+      "content_type": "人物故事",
+      "score": 79,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "曼联引援争议，球迷情绪天然高涨",
+      "_column_id": "world-cup-daily",
+      "_column_name": "人物故事",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "17:30",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-4",
+      "_degraded": true
+    },
+    {
+      "title": "盖德穆勒进球如麻，现役竟无人能撼？历史射手榜谁最硬？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "马拉多纳与普拉蒂尼数据打架，谁才是真球王？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "当年那个把国足逼到绝境的卡希尔，如今满头白发你还能认出吗？",
       "content_type": "人物故事",
       "_column_name": "人物故事",
       "_from_reservoir": true
     },
     {
-      "title": "国米账面碾压布鲁日，净胜球榜前五里藏了多少冷门密码？",
+      "title": "利物浦曼城今晚死磕，尤文米兰谁能笑着睡",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
+    },
+    {
+      "title": "国米账面碾压布鲁日？别急，这三点变量能掀翻梅阿查吗？",
       "content_type": "战术榜单",
       "_is_fixture": true
     }
   ],
   "data_sources": {},
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-11 12:06:03"
+  "last_batch": "evening",
+  "last_updated": "2026-10-11 17:36:27"
 }
