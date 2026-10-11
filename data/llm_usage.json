@@ -40,9 +40,10 @@
     "total_tokens": 181000
   },
   "deepseek-v4-pro-0813": {
-    "prompt_tokens": 55634,
-    "completion_tokens": 12131,
-    "total_tokens": 126000
+    "prompt_tokens": 58173,
+    "completion_tokens": 14107,
+    "total_tokens": 130515,
+    "fail_streak": 0
   },
   "kimi-k3": {
     "prompt_tokens": 0,
@@ -51,39 +52,39 @@
     "fail_streak": 1
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 64279,
-    "completion_tokens": 12535,
-    "total_tokens": 121863,
+    "prompt_tokens": 73825,
+    "completion_tokens": 15039,
+    "total_tokens": 133913,
     "fail_streak": 0
   },
   "deepseek-v4-flash-0731": {
-    "prompt_tokens": 60227,
-    "completion_tokens": 12199,
-    "total_tokens": 118353,
+    "prompt_tokens": 67480,
+    "completion_tokens": 16710,
+    "total_tokens": 130117,
     "fail_streak": 0
   },
   "deepseek-v4.1-flash": {
-    "prompt_tokens": 73121,
-    "completion_tokens": 12805,
-    "total_tokens": 122411,
+    "prompt_tokens": 79467,
+    "completion_tokens": 14894,
+    "total_tokens": 130846,
     "fail_streak": 0
   },
   "glm-5.2": {
     "prompt_tokens": 68411,
     "completion_tokens": 9578,
     "total_tokens": 123735,
-    "fail_streak": 0
+    "fail_streak": 1
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 89339,
-    "completion_tokens": 16201,
-    "total_tokens": 121274,
+    "prompt_tokens": 100965,
+    "completion_tokens": 18256,
+    "total_tokens": 134955,
     "fail_streak": 0
   },
   "deepseek-v4-pro-202606": {
-    "prompt_tokens": 44943,
-    "completion_tokens": 7752,
-    "total_tokens": 124695,
+    "prompt_tokens": 47841,
+    "completion_tokens": 10379,
+    "total_tokens": 130220,
     "fail_streak": 0
   },
   "glm-5.3": {
@@ -103,5 +104,11 @@
     "completion_tokens": 0,
     "total_tokens": 0,
     "fail_streak": 1
+  },
+  "qwen-plus": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "disabled": true
   }
 }
