@@ -204,6 +204,45 @@ jobs:
             fi
           fi
 
+          # 延迟兜底防错位（2026-10-12 夜实证）：schedule 的预期 CST 日期 = 运行日 UTC 日期
+          # （三班目标 08/12/18 CST 均与 UTC 同日，cron 00/04/10）。一旦实际 CST 日期跨天，
+          # 说明该兜底 cron 已严重延迟、其目标批次所属日期整体过去——放行只会把内容写到
+          # 错误日期：实证 2026-10-11 晚间兜底（UTC 10:30）延迟 5.6h，于 10-12 00:14 CST
+          # 生成并发布「10-12 晚间」4 篇，提前消耗次日晚间配额外还撞上凌晨低效时段。
+          # 同日延迟放行（兜底救场：今晨 08:01 主调度因合规误报熔断失败，14:15 兜底补回晨读）。
+          # workflow_dispatch（人工补发 / CF 主调度）不受此限——它按当前 CST 定日期，无错位风险。
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            _INTENDED_DATE=$(date -u +%Y-%m-%d)
+            _ACTUAL_DATE=$(TZ=Asia/Shanghai date +%Y-%m-%d)
+            if [ "$_ACTUAL_DATE" != "$_INTENDED_DATE" ]; then
+              echo "⏭️  兜底 cron 跨 CST 日期延迟（预期 ${_INTENDED_DATE} → 实际 ${_ACTUAL_DATE} ${CST_HOUR}:00），跳过本批，避免把 ${BATCH} 批次写到错误日期"
+              echo "::warning::兜底 cron 严重延迟已跨 CST 日期，本批跳过；请检查主调度（Cloudflare Worker）是否准点触发"
+              echo "skip=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
+          # 延迟兜底防错位·三：批次槽位尚未开始就放行 = 提前消耗未来槽位——on-time 主调度
+          # 随后会被幂等保护跳过，「准点发布」静默退化。实证场景：晚间兜底（cron UTC 10）
+          # 延迟到次日 CST 06:00-14:59 放行，会写下「当日 evening」，把当日 18:00 峰值档
+          # 提前大半天消耗掉（与 2026-10-12 夜同源，只是延迟时长跨过了 UTC 零点）。
+          # 槽位起点与时区校验窗口一致：morning 06 / noon 10 / evening 15。
+          # 同日延迟（槽内或槽后）放行——兜底救场，如今晨 14:15 补回晨读。
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            case "$BATCH" in
+              morning) _SLOT_START=6 ;;
+              noon)    _SLOT_START=10 ;;
+              evening) _SLOT_START=15 ;;
+              *)       _SLOT_START=0 ;;
+            esac
+            if [ "$CST_HOUR" -lt "$_SLOT_START" ]; then
+              echo "⏭️  ${BATCH} 批次槽位（CST ${_SLOT_START}:00 起）尚未开始（当前 CST ${CST_HOUR}:00），跳过本批，避免提前消耗未来槽位"
+              echo "::warning::兜底 cron 早于批次槽位放行，本批跳过；请检查主调度（Cloudflare Worker）是否准点触发"
+              echo "skip=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
           # 幂等保护：通过 GitHub API 读取最新 metadata（比本地文件更可靠）
           echo "   检查批次是否已执行..."
           META_API="repos/${{ github.repository }}/contents/output/${TODAY}/metadata.json?ref=main"
@@ -227,6 +266,7 @@ jobs:
           printf "║  %-20s %s ║\n" "GitHub event:" "${{ github.event_name }}"
           printf "║  %-20s %s ║\n" "Detected batch:" "${{ steps.params.outputs.batch }}"
           printf "║  %-20s %s ║\n" "Target date:" "${{ steps.params.outputs.today }}"
+          printf "║  %-20s %s ║\n" "Skip:" "${{ steps.params.outputs.skip }}"
           echo "╚══════════════════════════════════════╝"
 
       - name: 同步已有批次元数据（跨批次去重）
