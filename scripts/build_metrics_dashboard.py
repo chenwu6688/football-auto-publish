@@ -76,6 +76,9 @@ def collect(days: int, *, now=None) -> dict:
     columns: dict[str, int] = {}
     reads: list[int] = []
     retentions: list[float] = []
+    impressions_total = 0
+    impressions_days = 0
+    follower_reads_total = 0
     followers_total = 0
     followers_days = 0
 
@@ -109,6 +112,11 @@ def collect(days: int, *, now=None) -> dict:
                     reads.append(int(rec.get("reads", 0)))
                 if rec.get("retention_rate"):
                     retentions.append(float(rec["retention_rate"]))
+                if rec.get("impressions"):
+                    impressions_total += int(rec.get("impressions", 0) or 0)
+                    impressions_days = 1        # 有曝光量即可算点击率
+                if rec.get("follower_reads"):
+                    follower_reads_total += int(rec.get("follower_reads", 0) or 0)
         # 当日涨粉（以日为单位去重）
         day_f = 0
         for a in arts:
@@ -132,8 +140,12 @@ def collect(days: int, *, now=None) -> dict:
         "篇均阅读": round(sum(reads) / len(reads), 1) if reads else None,
         "平均完成率": round(sum(retentions) / len(retentions) * 100, 1) if retentions else None,
         "日均涨粉": round(followers_total / followers_days, 1) if followers_days else None,
-        "整体点击率": None,          # 需曝光量，头条后台未接入
-        "粉丝阅读占比": None,        # 需粉丝/非粉丝拆分，未接入
+        # 点击率 = 总阅读 / 总展现（需 impressions 回填，未接入则为 None，绝不用 0 冒充）
+        "整体点击率": (round(sum(reads) / impressions_total * 100, 2)
+                  if impressions_total and reads else None),
+        # 粉丝阅读占比 = 总粉丝阅读 / 总阅读（需 follower_reads 回填）
+        "粉丝阅读占比": (round(follower_reads_total / sum(reads) * 100, 2)
+                   if follower_reads_total and reads else None),
         "_data_points": len(reads),
     }
     return {"growth": growth, "supply": supply}
@@ -166,9 +178,11 @@ def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
 
     growth_rows = [
         ("篇均阅读", _fmt(growth["篇均阅读"], " 次"), "需 performance_log 回填"),
-        ("整体点击率", _fmt(growth["整体点击率"], "%"), "需曝光量，未接入"),
+        ("整体点击率", _fmt(growth["整体点击率"], "%"),
+         "已接入" if growth["整体点击率"] is not None else "需回填 impressions（展现量）"),
         ("平均完成率", _fmt(growth["平均完成率"], "%"), "需完读率回填"),
-        ("粉丝阅读占比", _fmt(growth["粉丝阅读占比"], "%"), "需粉丝拆分，未接入"),
+        ("粉丝阅读占比", _fmt(growth["粉丝阅读占比"], "%"),
+         "已接入" if growth["粉丝阅读占比"] is not None else "需回填 follower_reads（粉丝阅读量）"),
         ("溯源覆盖率", _fmt(supply["溯源覆盖率"], "%"), "sources_used/source_post"),
         ("不实违规次数", (comp.get("false_content_count")
                       if comp.get("false_content_count") is not None else "—"), "硬门槛=0"),
@@ -215,8 +229,10 @@ def render_markdown(rep: dict) -> str:
         L.append("板块分布：" + "、".join(f"{k} {v} 篇" for k, v in supply["板块分布"].items()))
         L.append("")
     if rep["growth"]["_data_points"] == 0:
-        L.append("> ⚠️ 阅读类指标尚未接入：请用 `python3 performance_logger.py <日期> <序号> "
-                 "--reads N --followers M --sync` 从头条后台回填，本看板即可显示真实值。")
+        L.append("> ⚠️ 阅读类指标尚未接入：请用 "
+                 "`python3 scripts/import_performance.py <CSV/JSON>` 批量回填"
+                 "（或 `python3 performance_logger.py <日期> <序号> --reads N --sync` 单篇），"
+                 "本看板即可显示真实值。")
     return "\n".join(L)
 
 
