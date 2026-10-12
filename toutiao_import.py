@@ -391,7 +391,12 @@ _INT_METRICS = ("reads", "impressions", "follower_reads",
 def _fill_metrics(rec: dict, cell) -> None:
     for f in _INT_METRICS:
         v = clean_int(cell(f))
-        rec[f] = v if (v is not None and v >= 0) else 0
+        if v is None:
+            rec[f] = 0            # 该列未提供 → schema 约定用 0（不凭空造值）
+        elif v < 0:
+            rec[f] = None         # 负占位（头条用 -1）= 该指标无数据 → 「待接入」
+        else:
+            rec[f] = v
     # 完读率：负占位（-1）与空值都保持 None = 「待接入」，绝不冒充 0
     rec["retention_rate"] = normalize_retention(cell("retention_rate"))
 

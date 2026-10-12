@@ -91,10 +91,14 @@ def validate_row(row: dict, lineno: int) -> tuple[dict | None, str | None]:
     for f in INT_FIELDS:
         if f == "index":
             continue
-        v = _to_int(row.get(f), 0)
-        if v < 0:
-            return None, f"第 {lineno} 行：{f} 为负（{v}）"
-        rec[f] = v
+        raw = row.get(f)
+        if raw is None or str(raw).strip() == "":
+            # 未提供 = 「待接入」，绝不冒充 0（适配层把头条 -1 占位符也判成 None）
+            rec[f] = None
+            continue
+        v = _to_int(raw, 0)
+        # 负占位（头条后台用 -1）＝ 该指标无数据 → None；真实的 0 仍保留为 0
+        rec[f] = None if v < 0 else v
     raw_ret = row.get("retention_rate")
     if raw_ret is None or str(raw_ret).strip() == "":
         # 未提供完读率 → 存 None = 「待接入」，绝不用 0 冒充真实数据

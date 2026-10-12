@@ -33,11 +33,12 @@ class TestValidateRow(unittest.TestCase):
         self.assertIsNone(err)
         self.assertAlmostEqual(rec["retention_rate"], 0.41)
 
-    def test_missing_optional_defaults_zero(self):
+    def test_missing_optional_is_none_not_zero(self):
+        """未提供的指标 → None（待接入），不能默认成 0 冒充真实数据。"""
         rec, err = ip.validate_row({"date": "2026-10-10", "index": "1"}, 2)
         self.assertIsNone(err)
-        self.assertEqual(rec["reads"], 0)
-        self.assertEqual(rec["impressions"], 0)
+        self.assertIsNone(rec["reads"])
+        self.assertIsNone(rec["impressions"])
 
     def test_missing_retention_is_none_not_zero(self):
         """未提供完读率 → None（待接入），不能默认成 0% 冒充真实数据。"""
@@ -58,10 +59,14 @@ class TestValidateRow(unittest.TestCase):
         self.assertIsNone(rec)
         self.assertIn("index", err)
 
-    def test_negative_rejected(self):
-        rec, err = ip.validate_row({"date": "2026-10-10", "index": "1", "reads": "-5"}, 5)
-        self.assertIsNone(rec)
-        self.assertIn("reads", err)
+    def test_negative_placeholder_is_none_not_rejected(self):
+        """头条后台用 -1 表示「无该指标数据」→ None（不冒充 0），也不该整行拒绝
+        （缺一个指标不该让该篇其余真实指标一起丢掉）。"""
+        rec, err = ip.validate_row(
+            {"date": "2026-10-10", "index": "1", "reads": "-1", "likes": "3"}, 5)
+        self.assertIsNone(err)
+        self.assertIsNone(rec["reads"])
+        self.assertEqual(rec["likes"], 3)
 
     def test_retention_out_of_range(self):
         rec, err = ip.validate_row({"date": "2026-10-10", "index": "1", "retention_rate": "150"}, 6)
@@ -118,6 +123,9 @@ class TestImportRows(unittest.TestCase):
         log = json.loads((self.tmp / "performance_log.json").read_text(encoding="utf-8"))
         self.assertEqual(log["articles"]["2026-10-10/article-1"]["reads"], 100)
         self.assertEqual(log["articles"]["2026-10-10/article-1"]["impressions"], 1000)
+        # 第 2 篇只给了 reads；缺数据的指标不写 key（绝不用 0 冒充真实读数）
+        self.assertNotIn("impressions", log["articles"]["2026-10-10/article-2"])
+        self.assertNotIn("follower_reads", log["articles"]["2026-10-10/article-2"])
 
     def test_errors_reported_but_valid_imported(self):
         rows = [

@@ -162,6 +162,19 @@ class TestNumberCleaning(unittest.TestCase):
         self.assertEqual(ti.normalize_retention("0.00"), 0.0)
         self.assertEqual(ti.normalize_retention("0"), 0.0)
 
+    def test_int_metric_negative_placeholder_is_none(self):
+        """计数类指标（阅读量/粉丝阅读量/展现量…）同样用 -1 表示「无数据」→ None，不冒充 0。
+        （实测 2026-10-12 导出：801-869 段有 69 行 阅读量/粉丝阅读量 = -1）"""
+        rec = {}
+        ti._fill_metrics(rec, lambda f: "-1")
+        self.assertIsNone(rec["reads"])
+        self.assertIsNone(rec["follower_reads"])
+        self.assertIsNone(rec["impressions"])
+        # 真实的 0（有人看但没互动）仍保留为 0，两者不可混淆
+        rec2 = {}
+        ti._fill_metrics(rec2, lambda f: "0")
+        self.assertEqual(rec2["reads"], 0)
+
     def test_parse_date_like(self):
         self.assertEqual(ti.parse_date_like("2026-10-12 08:05"), "2026-10-12")
         self.assertEqual(ti.parse_date_like("2026/10/3"), "2026-10-03")

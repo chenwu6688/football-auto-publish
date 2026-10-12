@@ -100,20 +100,20 @@ def log_article_performance(date_str, article_index=None, reads=0, comments=0, l
     """
     log_data = load_performance_log()
     key = perf_key(date_str, index=article_index, slug=slug)
-    log_data["articles"][key] = {
+    entry = {
         "date": date_str,
         "index": article_index,
         "slug": slug,
-        "reads": reads,
-        "comments": comments,
-        "likes": likes,
-        "shares": shares,
-        "retention_rate": retention_rate,
-        "new_followers": new_followers,
-        "impressions": impressions,
-        "follower_reads": follower_reads,
-        "logged_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }
+    # 缺数据的指标（None = 待接入）不写 key，绝不用 0 冒充真实读数
+    for field, value in (("reads", reads), ("comments", comments), ("likes", likes),
+                         ("shares", shares), ("retention_rate", retention_rate),
+                         ("new_followers", new_followers), ("impressions", impressions),
+                         ("follower_reads", follower_reads)):
+        if value is not None:
+            entry[field] = value
+    entry["logged_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_data["articles"][key] = entry
     save_performance_log(log_data)
     print(f"   性能数据已记录: {key} — 阅读:{reads} 评论:{comments} 点赞:{likes} 涨粉:{new_followers}")
     return log_data
@@ -148,16 +148,10 @@ def update_metadata_performance(date_str):
             elif counts.get(idx, 0) > 1:
                 skipped_ambiguous += 1
         if perf:
-            article["performance"] = {
-                "reads": perf.get("reads", 0),
-                "comments": perf.get("comments", 0),
-                "likes": perf.get("likes", 0),
-                "shares": perf.get("shares", 0),
-                "retention_rate": perf.get("retention_rate", 0.0),
-                "new_followers": perf.get("new_followers", 0),
-                "impressions": perf.get("impressions", 0),
-                "follower_reads": perf.get("follower_reads", 0),
-            }
+            # 只回写台账里真实存在的指标；缺数据的字段不落 0（避免把「无数据」写成 0）
+            fields = ("reads", "comments", "likes", "shares", "retention_rate",
+                      "new_followers", "impressions", "follower_reads")
+            article["performance"] = {k: perf[k] for k in fields if k in perf}
             updated += 1
 
     if updated > 0:

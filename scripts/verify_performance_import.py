@@ -267,12 +267,24 @@ def check_number_cleaning() -> dict:
         if tti.normalize_retention(raw) is not None:
             bad.append(f"完读率占位 {raw} → {tti.normalize_retention(raw)}"
                        f"（应为 None，不能当 0）")
+    # 计数类指标（阅读量/粉丝阅读量/展现量…）同样用 -1 表示「无数据」→ None
+    # （实测 2026-10-12 导出：801-869 段有 69 行 阅读量/粉丝阅读量 = -1）
+    rec = {}
+    tti._fill_metrics(rec, lambda f: "-1")
+    for f in ("reads", "follower_reads", "impressions"):
+        if rec[f] is not None:
+            bad.append(f"计数指标占位 {f} → {rec[f]}（应为 None，不能当 0）")
+    rec0 = {}
+    tti._fill_metrics(rec0, lambda f: "0")
+    if rec0["reads"] != 0:
+        bad.append(f"真实 0 被误伤：reads → {rec0['reads']}（应保留 0）")
     return {"item": "数值清洗（万/亿、千分位、占位符）与完读率换算", "ok": not bad,
             "advisory": False,
             "detail": ([f"❌ {'；'.join(bad)}"] if bad else
                        ["单位与千分位换算正确；「--/—/无」判为缺数据而非 0 ✅",
                         "完读率 41.2% → 0.412（百分号只在完读率上换算）✅",
-                        "完读率占位 -1 / -1.00 → None（待接入），不冒充 0 ✅"])}
+                        "完读率占位 -1 / -1.00 → None（待接入），不冒充 0 ✅",
+                        "计数指标占位 -1 → None；真实 0 仍为 0（不误伤）✅"])}
 
 
 def check_title_match_and_no_write() -> dict:
