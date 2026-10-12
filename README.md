@@ -61,7 +61,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 ## 功能特性 / Features
 
-- ✅ **每日三班自动生成**：晨读（08:00）、午间（12:00）、晚间（17:30 CST）。
+- ✅ **每日三班自动生成**：晨读（08:00）、午间（12:00）、晚间（18:00 CST）。
 - ✅ **动态条数（不再固定 2 篇）**：每批按当日高质量话题数动态生成，晨读/午间上限 4 篇、晚间上限 5 篇；素材少则少发，素材多则多发。
 - ✅ **动态栏目池**：晚间从候选栏目中按当日热点智能挑选，内容不僵化。
 - ✅ **多模型轮换 + 免费额度管理**：LLM 调用在 TokenHub 多模型池（hy3 / DeepSeek v4 / GLM-5 / Kimi / Hunyuan / MiniMax 等 20+ 模型）中按序轮换，单模型空响应/解析失败自动切下一个；每个模型免费额度用满前自动切换，避免产生实际费用（用量见 `data/llm_usage.json`）。
@@ -195,7 +195,7 @@ flowchart LR
     I[WxPusher 告警] -.异常.-> H
 ```
 
-每日流程（由 Cloudflare Worker 主调度在 CST 08:00/12:00/17:30 触发 workflow_dispatch，GitHub Actions `batch.yml` 原生 cron 仅在其失效时兜底）：
+每日流程（由 Cloudflare Worker 主调度在 CST 08:00/12:00/18:00 触发 workflow_dispatch，GitHub Actions `batch.yml` 原生 cron 仅在其失效时兜底）：
 
 1. **确定批次**：根据当前 CST 时段判定 morning / noon / evening。
 2. **选题**：LLM 多模型轮换按栏目规则 + 数据源打分，选出当日话题与角度（新赛季自动偏向赛程/转会/八卦/分析多维覆盖）。
@@ -306,7 +306,7 @@ football-auto-publish/
 
 ## 调度与健康监控
 
-- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/17:30 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。发布前依次执行：合规熔断检查 → 刷新赛程选题池（14 天窗口，接 football-data / juhe / API-Football 三源）+ 7.1 验收 + **11.4 接口额度验收** → 一级节点量产入库 → 三级蓄水池备货；生成后追加 **4.1 传闻措辞验收** + **7.2/7.3 发布闸门验收** + **策略手册第五章单批篇数纪律验收**，并跑 **13.3 内容参照层验收** 与 **13.5 差异化方向验收**。全部验收「只告警不阻断」，产物落 `data/audit/`。`data/fixtures` 通过 Actions 缓存跨运行保留——赛程库是「库」而非一次性产物，否则每次运行都是冷启动、额度必被联赛 ID 解析吃掉。
+- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/18:00 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。发布前依次执行：合规熔断检查 → 刷新赛程选题池（14 天窗口，接 football-data / juhe / API-Football 三源）+ 7.1 验收 + **11.4 接口额度验收** → 一级节点量产入库 → 三级蓄水池备货；生成后追加 **4.1 传闻措辞验收** + **7.2/7.3 发布闸门验收** + **策略手册第五章单批篇数纪律验收**，并跑 **13.3 内容参照层验收** 与 **13.5 差异化方向验收**。全部验收「只告警不阻断」，产物落 `data/audit/`。`data/fixtures` 通过 Actions 缓存跨运行保留——赛程库是「库」而非一次性产物，否则每次运行都是冷启动、额度必被联赛 ID 解析吃掉。
 - **`heartbeat.yml`**：午检（仅校验晨读是否完成，避免未到点误报）+ 终检（校验三班全完成），异常经 WxPusher 告警。
 - **`refresh-signals.yml`**：每日 06:30 CST 预热社媒/搜索热度信号（早于早批），产出 `data/signals/external_signals.json`。
 - **`isolation-audit.yml`**：每周日跑物理隔离常态化审计，产出 `data/audit/`。

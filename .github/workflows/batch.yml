@@ -5,7 +5,7 @@ name: 足球自媒体批次发布
 #
 # 调度架构（已整合，详见 external-trigger/README.md）：
 #   主调度 (准点): Cloudflare Worker (external-trigger/worker.js)
-#                 在 CST 08:00 / 12:00 / 17:30 精确触发 workflow_dispatch
+#                 在 CST 08:00 / 12:00 / 18:00 精确触发 workflow_dispatch
 #   兜底 (可靠):  本文件的 GitHub Actions 原生 cron —— 仅作 backstop，
 #                 比主调度晚 30 分钟触发，靠下方「幂等保护」跳过已被主调度
 #                 完成的批次，绝不重复发文。
@@ -14,8 +14,12 @@ name: 足球自媒体批次发布
 #   调度器在 UTC 00:xx 时段的偶发漏触发（实测曾整批漏触发）。
 #
 #   批次检测: schedule 事件从 github.event.schedule 解析 cron 表达式的 UTC hour
-#   (0→morning, 4→noon, 9/10→evening)，不依赖当前时间，彻底解决 cron 延迟导致的批次误判。
+#   (0→morning, 4→noon, 10→evening)，不依赖当前时间，彻底解决 cron 延迟导致的批次误判。
 #   workflow_dispatch 时直接使用 inputs.batch 参数（手动/补发通道）。
+#
+#   发布时段护栏（2026-10-12 新增）: 见 params step「死区护栏」——CST 00:00-05:59
+#   一律跳过。869 条真实数据中凌晨发布 122 条、篇均阅读 60.5（全时段最差），
+#   而 9-10 月有 41 条凌晨误发（均为 GitHub cron 延迟所致），此护栏杜绝该亏损。
 # ============================================================
 on:
   schedule:
@@ -25,9 +29,9 @@ on:
     # 兜底：午间（主调度 CST 12:00 → 兜底 CST 12:30 / 12:50 = UTC 04:30 / 04:50）
     - cron: '30 4 * * *'
     - cron: '50 4 * * *'
-    # 兜底：晚间（主调度 CST 17:30 → 兜底 CST 18:00 / 18:20 = UTC 10:00 / 10:20）
-    - cron: '0 10 * * *'
-    - cron: '20 10 * * *'
+    # 兜底：晚间（主调度 CST 18:00 → 兜底 CST 18:30 / 18:50 = UTC 10:30 / 10:50）
+    - cron: '30 10 * * *'
+    - cron: '50 10 * * *'
   workflow_dispatch:
     inputs:
       batch:
@@ -122,7 +126,7 @@ jobs:
             case "$SCHEDULE_HOUR" in
               0|23) BATCH="morning" ;;
               4)    BATCH="noon" ;;
-              9|10) BATCH="evening" ;;
+              10)   BATCH="evening" ;;
               *)
                 # Fallback: UTC hour window (±2h tolerance)
                 if [ "$UTC_HOUR" -ge 0 ] && [ "$UTC_HOUR" -le 2 ]; then BATCH="morning"
@@ -182,6 +186,22 @@ jobs:
               exit 1
             fi
             echo "✅ 时区校验通过"
+          fi
+
+          # 发布时段护栏（2026-10-12）：CST 00:00-05:59 为死区，一律不发。
+          # 依据：869 条真实数据中凌晨发布 122 条、篇均阅读 60.5（全时段最差；
+          #      最优为晚间 18:00 档，点击率 2.27%）。9-10 月有 41 条凌晨误发，
+          #      均为 GitHub cron 延迟（主调度 Cloudflare 准点，兜底 cron 会漂移）。
+          # 仅约束 schedule 事件；workflow_dispatch（人工补发 / CF 主调度）不受限。
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            _DZH=$(TZ=Asia/Shanghai date +%H)
+            if [ "$_DZH" -lt 6 ]; then
+              echo "🌙 CST ${_DZH}:00 属发布死区（00:00-05:59），跳过本批发布（避免在无流量时段浪费内容）"
+              echo "::warning::调度延迟至 CST ${_DZH}:00（死区），本批已跳过；请检查主调度（Cloudflare Worker）是否失效"
+              echo "dead_zone=true" >> $GITHUB_OUTPUT
+              echo "skip=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
           fi
 
           # 幂等保护：通过 GitHub API 读取最新 metadata（比本地文件更可靠）

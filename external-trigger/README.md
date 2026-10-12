@@ -50,7 +50,7 @@ GitHub Actions 免费调度器在 UTC 00:00（全球零点）严重拥堵，
    ```
 5. 验证：
    - Cloudflare 控制台 → Workers & Pages → `gh-batch-trigger` → **Triggers**
-     应看到 3 个 cron（UTC `00:00` / `04:00` / `09:30`）
+     应看到 3 个 cron（UTC `00:00` / `04:00` / `10:00`）
    - 下次触发后，GitHub Actions 会出现一条 `event=workflow_dispatch` 的 run
    - 想立即验证：部署后在 CF 控制台手动 **Run** 一次，或临时把某个 cron 改成近时间点
 

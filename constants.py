@@ -304,7 +304,7 @@ BATCH_CONFIG = {
     },
     "evening": {
         "name": "晚间",
-        "time": "17:30",
+        "time": "18:00",
         # 常态 2 篇；手册对晚间固定 2 篇，故晚间不加发
         "max_articles": 2,
         "reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",

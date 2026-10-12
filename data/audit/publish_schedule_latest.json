@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-10-12 15:00",
+  "ok": true,
+  "checks": [
+    {
+      "item": "时段窗口配置（ratio_config）",
+      "ok": true,
+      "advisory": false,
+      "windows": {
+        "晨读": "08:00",
+        "午间": "12:00",
+        "晚间": "18:00",
+        "死区": [
+          "00:00",
+          "06:00"
+        ]
+      },
+      "detail": [
+        "三批目标 ['08:00', '12:00', '18:00']；死区 ['00:00', '06:00'] ✅"
+      ]
+    },
+    {
+      "item": "目标时刻一致（constants ↔ 时段窗口）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "constants 三班时刻与窗口目标一致：{'morning': '08:00', 'noon': '12:00', 'evening': '18:00'} ✅"
+      ]
+    },
+    {
+      "item": "主调度 cron（wrangler.toml）",
+      "ok": true,
+      "advisory": false,
+      "crons_utc": [
+        "00:00",
+        "04:00",
+        "10:00"
+      ],
+      "detail": [
+        "crons（UTC）['00:00', '04:00', '10:00'] = 目标（CST）['08:00', '12:00', '18:00'] - 8h ✅"
+      ]
+    },
+    {
+      "item": "主调度映射（worker.js）",
+      "ok": true,
+      "advisory": false,
+      "map": {
+        "UTC 00": "morning",
+        "UTC 04": "noon",
+        "UTC 10": "evening"
+      },
+      "detail": [
+        "worker.js 映射 {0: 'morning', 4: 'noon', 10: 'evening'} 与 wrangler crons 一致 ✅"
+      ]
+    },
+    {
+      "item": "兜底 cron（batch.yml）",
+      "ok": true,
+      "advisory": false,
+      "crons_utc": [
+        "00:30",
+        "00:50",
+        "04:30",
+        "04:50",
+        "10:30",
+        "10:50"
+      ],
+      "detail": [
+        "兜底 crons（UTC）[00:30, 00:50, 04:30, 04:50, 10:30, 10:50] = 各批目标 +30/+50 分钟 ✅"
+      ]
+    },
+    {
+      "item": "死区护栏（batch.yml）",
+      "ok": true,
+      "advisory": false,
+      "deadzone": [
+        "00:00",
+        "06:00"
+      ],
+      "detail": [
+        "死区 ['00:00', '06:00'] 护栏就绪（CST < 6 时跳过）✅"
+      ]
+    },
+    {
+      "item": "死区与时段不重叠",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "死区 ['00:00', '06:00'] 与三批目标/容忍窗口均无重叠 ✅"
+      ]
+    },
+    {
+      "item": "近 14 天成稿写入时刻（告警）",
+      "ok": true,
+      "advisory": true,
+      "days": 15,
+      "by_hour_cst": {
+        "11": 1,
+        "12": 9,
+        "14": 1,
+        "17": 4
+      },
+      "dead": [],
+      "detail": [
+        "近 14 天有 metadata 的 15 天，末次写入 CST 小时分布 {11: 1, 12: 9, 14: 1, 17: 4}（原始时间按 UTC 换算）",
+        "无凌晨（死区）写入 ✅"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": []
+}

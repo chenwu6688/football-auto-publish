@@ -68,11 +68,11 @@ images:
 # ─────────────────────────────────────────────────────────────────────────────
 # ⚠️ DEPRECATED SCHEDULE — 本 schedule 块不再是发布触发源，请勿依赖其 cron。
 # 现行调度（唯一主调度 + 单一兜底，详见 external-trigger/README.md）：
-#   主调度: Cloudflare Worker → CST 08:00 / 12:00 / 17:30
+#   主调度: Cloudflare Worker → CST 08:00 / 12:00 / 18:00
 #   兜底:   GitHub Actions batch.yml 原生 cron（比主调度晚 30 分钟）
+#   死区:   CST 00:00-05:59 一律不发（batch.yml「发布时段护栏」）
 # 此块下的 cron/timezone 仅本地 systemd 路径曾使用，现已废弃；
-# 注意原 cron 在 Asia/Shanghai 下为 00:00/04:00/09:30（即北京时间 00:00/04:00/17:30），
-# 与三班目标（08:00/12:00/17:30）不符，进一步说明它已非活跃调度。
+# 三班目标时刻以 ratio_config.yaml「时段窗口」为准，本块时间不生效。
 # 下方 article_count / columns 为内容配置，仍供参考，但发布不再读取本块时间。
 #
 # 篇数：article_count 已于 2026-10-12 对齐「常态 2 篇」（策略手册第五章 / 计划 12.1）。
@@ -98,7 +98,7 @@ schedule:
       - 热点速评
     evening:
       name: 晚间
-      cron: 30 9 * * *
+      cron: 0 10 * * *
       article_count: 2  # 手册对晚间固定 2 篇，不加发
       columns: dynamic
       column_pool:

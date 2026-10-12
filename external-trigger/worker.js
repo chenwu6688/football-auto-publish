@@ -11,7 +11,7 @@
  * 触发映射（Cloudflare cron 仅支持 UTC，已换算为 CST）：
  *   0 0 * * *   -> morning   (CST 08:00)
  *   0 4 * * *   -> noon      (CST 12:00)
- *   30 9 * * *  -> evening   (CST 17:30)
+ *   0 10 * * *  -> evening   (CST 18:00)
  *
  * 依赖 secret：GH_TOKEN = GitHub Fine-grained PAT（仅本仓库 Actions: write，
  *             务必设 1 年有效期，到期前在 Cloudflare 侧更新，否则主调度静默失效）
@@ -64,11 +64,10 @@ async function dispatch(batch, env) {
 function batchFromCron(cron) {
   const parts = cron.trim().split(/\s+/);
   const hour = parseInt(parts[1], 10);
-  const minute = parseInt(parts[0], 10);
-  // 主调度 cron（UTC）：0 0=晨读, 0 4=午间, 30 9=晚间（见 wrangler.toml）
+  // 主调度 cron（UTC）：0 0=晨读, 0 4=午间, 0 10=晚间（见 wrangler.toml）
   if (hour === 0) return 'morning';
   if (hour === 4) return 'noon';
-  if ((hour === 9 && minute >= 30) || hour === 10) return 'evening';
+  if (hour === 10) return 'evening';
   return 'morning';
 }
 

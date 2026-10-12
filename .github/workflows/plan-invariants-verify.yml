@@ -9,6 +9,7 @@ name: 计划结构不变量验收（6.1/6.2/8.1/11.5/12.2/12.4/13.2/13.4/第十�
 #   - 单批篇数纪律（策略手册第五章 / 计划 12.1）
 #   - 头条后台数据接入（第十章：主键唯一性 / 列名映射 / 标题匹配 / 无依赖 xlsx）
 #   - 标题反模式闸门（3.3 / 第十章：赛果播报式硬规则与生成侧接入）
+#   - 发布时段纪律（3.3 / 第十章：主调度/兜底 cron 与死区护栏一致性）
 on:
   schedule:
     - cron: '30 4 * * 1'
@@ -75,6 +76,11 @@ jobs:
         run: |
           python3 scripts/verify_title_antipattern.py --quiet \
             || echo "::warning::标题反模式闸门验收未通过（赛果播报式硬规则 / 生成侧接入），详见 data/audit/title_antipattern_latest.json"
+
+      - name: 发布时段纪律（计划 3.3 / 第十章）
+        run: |
+          python3 scripts/verify_publish_schedule.py --quiet \
+            || echo "::warning::发布时段纪律验收未通过（主调度/兜底 cron 与死区护栏一致性），详见 data/audit/publish_schedule_latest.json"
 
       - name: 回写验收报告
         if: always()
