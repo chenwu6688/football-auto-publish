@@ -297,6 +297,27 @@ jobs:
           python3 scripts/verify_rumor_wording.py --quiet \
             || echo "::warning::传闻措辞未达 4.1 验收标准，详见 data/audit/rumor_wording_latest.json"
 
+      - name: 内容参照层验收（计划 13.3 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入
+          python3 scripts/verify_content_reference.py --quiet \
+            || echo "::warning::内容参照层未达 13.3 验收标准，详见 data/audit/content_reference_latest.json"
+
+      - name: 差异化方向验收（计划 13.5 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 硬项：六方向结构齐备 + 代码 hook 落地
+          python3 scripts/verify_differentiation.py --quiet \
+            || echo "::warning::差异化方向未达 13.5 验收标准，详见 data/audit/differentiation_latest.json"
+
+      - name: 发布闸门验收（计划 7.2 / 7.3 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发
+          python3 scripts/verify_publish_gate.py --quiet \
+            || echo "::warning::发布闸门未达 7.2/7.3 验收标准，详见 data/audit/publish_gate_latest.json"
+
       - name: 回写状态（LLM 用量 + 软性蓄水池）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
