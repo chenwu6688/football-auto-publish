@@ -171,9 +171,14 @@ def clean_int(v):
 
 
 def normalize_retention(v):
-    """完读率 → 0-1 小数；>1 视为百分数自动换算；无法解析返回 None。"""
+    """完读率 → 0-1 小数；>1 视为百分数自动换算；无法解析返回 None。
+
+    **负数一律返回 None**：头条后台用 `-1`（及 `-1.00`）表示「该作品无完读率数据」，
+    它不是「0% 完读率」。若折算成 0.0，就是把「无数据」冒充成「真实 0」，
+    违反第十章诚实原则（实测 2026-10-10 导出有 4 行 -1.00）。
+    """
     x = clean_number(v)
-    if x is None:
+    if x is None or x < 0:
         return None
     if x > 1.0:
         x = x / 100.0
@@ -387,8 +392,8 @@ def _fill_metrics(rec: dict, cell) -> None:
     for f in _INT_METRICS:
         v = clean_int(cell(f))
         rec[f] = v if (v is not None and v >= 0) else 0
-    r = normalize_retention(cell("retention_rate"))
-    rec["retention_rate"] = 0.0 if r is None else r
+    # 完读率：负占位（-1）与空值都保持 None = 「待接入」，绝不冒充 0
+    rec["retention_rate"] = normalize_retention(cell("retention_rate"))
 
 
 def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,

@@ -39,6 +39,15 @@ class TestValidateRow(unittest.TestCase):
         self.assertEqual(rec["reads"], 0)
         self.assertEqual(rec["impressions"], 0)
 
+    def test_missing_retention_is_none_not_zero(self):
+        """未提供完读率 → None（待接入），不能默认成 0% 冒充真实数据。"""
+        rec, err = ip.validate_row({"date": "2026-10-10", "index": "1"}, 2)
+        self.assertIsNone(err)
+        self.assertIsNone(rec["retention_rate"])
+        rec2, _ = ip.validate_row(
+            {"date": "2026-10-10", "index": "1", "retention_rate": ""}, 2)
+        self.assertIsNone(rec2["retention_rate"])
+
     def test_bad_date(self):
         rec, err = ip.validate_row({"date": "2026/10/10", "index": "1"}, 3)
         self.assertIsNone(rec)

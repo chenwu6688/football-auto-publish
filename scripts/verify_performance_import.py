@@ -261,11 +261,18 @@ def check_number_cleaning() -> dict:
     for raw, want in (("41.2%", 0.412), ("0.387", 0.387), ("38.7%", 0.387)):
         if tti.normalize_retention(raw) != want:
             bad.append(f"完读率 {raw} → {tti.normalize_retention(raw)}（期望 {want}）")
+    # 头条用 -1 / -1.00 表示「该作品无完读率数据」，必须判为 None（待接入），
+    # 绝不能折算成 0%（那是把「无数据」冒充成「真实 0」）。
+    for raw in ("-1", "-1.00", "-1.0"):
+        if tti.normalize_retention(raw) is not None:
+            bad.append(f"完读率占位 {raw} → {tti.normalize_retention(raw)}"
+                       f"（应为 None，不能当 0）")
     return {"item": "数值清洗（万/亿、千分位、占位符）与完读率换算", "ok": not bad,
             "advisory": False,
             "detail": ([f"❌ {'；'.join(bad)}"] if bad else
                        ["单位与千分位换算正确；「--/—/无」判为缺数据而非 0 ✅",
-                        "完读率 41.2% → 0.412（百分号只在完读率上换算）✅"])}
+                        "完读率 41.2% → 0.412（百分号只在完读率上换算）✅",
+                        "完读率占位 -1 / -1.00 → None（待接入），不冒充 0 ✅"])}
 
 
 def check_title_match_and_no_write() -> dict:

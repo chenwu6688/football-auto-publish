@@ -95,14 +95,20 @@ def validate_row(row: dict, lineno: int) -> tuple[dict | None, str | None]:
         if v < 0:
             return None, f"第 {lineno} 行：{f} 为负（{v}）"
         rec[f] = v
-    r = _to_float(row.get("retention_rate"), 0.0)
-    if r < 0:
-        return None, f"第 {lineno} 行：retention_rate 为负"
-    if r > 1.0:
-        r = r / 100.0            # 百分数自动换算
-    if r > 1.0:
-        return None, f"第 {lineno} 行：retention_rate 超出范围（{row.get('retention_rate')}）"
-    rec["retention_rate"] = round(r, 4)
+    raw_ret = row.get("retention_rate")
+    if raw_ret is None or str(raw_ret).strip() == "":
+        # 未提供完读率 → 存 None = 「待接入」，绝不用 0 冒充真实数据
+        # （头条后台的 -1 / -1.00 占位符已在 toutiao_import 层判为 None）
+        rec["retention_rate"] = None
+    else:
+        r = _to_float(raw_ret, 0.0)
+        if r < 0:
+            return None, f"第 {lineno} 行：retention_rate 为负（{raw_ret}）"
+        if r > 1.0:
+            r = r / 100.0            # 百分数自动换算
+        if r > 1.0:
+            return None, f"第 {lineno} 行：retention_rate 超出范围（{raw_ret}）"
+        rec["retention_rate"] = round(r, 4)
     return rec, None
 
 

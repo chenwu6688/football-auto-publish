@@ -154,6 +154,14 @@ class TestNumberCleaning(unittest.TestCase):
         self.assertEqual(ti.normalize_retention("0.387"), 0.387)
         self.assertIsNone(ti.normalize_retention("--"))
 
+    def test_retention_negative_placeholder_is_none(self):
+        """头条用 -1 / -1.00 表示「无完读率数据」，必须判缺数据，不能折算成 0%。"""
+        for raw in ("-1", "-1.00", "-1.0", -1.0):
+            self.assertIsNone(ti.normalize_retention(raw), repr(raw))
+        # 真实的 0% 完读率（有人看但没读完）仍是 0.0，两者不可混淆
+        self.assertEqual(ti.normalize_retention("0.00"), 0.0)
+        self.assertEqual(ti.normalize_retention("0"), 0.0)
+
     def test_parse_date_like(self):
         self.assertEqual(ti.parse_date_like("2026-10-12 08:05"), "2026-10-12")
         self.assertEqual(ti.parse_date_like("2026/10/3"), "2026-10-03")
