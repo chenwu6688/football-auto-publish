@@ -77,6 +77,35 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - ✅ **手动/补发通道**：`batch.yml` 支持 `workflow_dispatch` 手动触发与紧急补发（选 morning/noon/evening，可指定日期）。
 - ✅ **配套小程序**：零成本微信小程序，自动同步当日文章，读者即点即读。
 
+## 🧱 三层选题供给与计划落地模块 / Three-Tier Supply
+
+> 实时抓取只能覆盖突发层，窗口期内事件密度不足即会断供。供给拆成三层互为缓冲，日更 6-8 篇稳定不断供。
+
+- 🗓️ **一级·确定性（~30%，提前量产入库）**：赛程驱动由 `scripts/fixture_library.py` 生成选题池；转会窗截止日 / 赛季节点 / 开赛倒计时由 `config/season_calendar.yaml` + `deterministic_supply.py` 维护，`scripts/pregen_deterministic.py` 提前 7 天量产入库，发布日直接取用。
+- ⚡ **二级·突发（~50%，当日实时装配）**：source 源文 → 物理隔离抽取 → 事实卡 → 改写（见下）。
+- 🧊 **三级·软性（~20%，蓄水池补位）**：人物故事 / 榜单 / 数据对比 / 历史回顾无时效压力，`reservoir.py` 库存 + `scripts/refill_reservoir.py` 备货，突发日补位、密集日顺延。
+
+### 反洗稿与合规（计划 4 / 11.3）
+
+- 🔒 **物理隔离**：抽取器把源文压成结构化事实三元组，生成器物理看不到原文；`assert_no_verbatim` 硬闸门（连续 ≥12 字逐字重合即失效）。
+- 📐 **相似度闸门**：连续重合 >12 字 或 8-gram 重合率 >15% 判洗稿；信息增量要求事实点数 ≥ 最强源文且新增 ≥2。
+- 🧾 **事实卡**：8 字段 + 三级可信度 + 生命周期（进行中 / 已收官 / 已过期），落 `data/facts/`。
+- 🧯 **合规红线熔断**：`compliance_guard.py` —— 不实内容级违规出现一次即暂停自动发布，同批次一致性打回 ≥5 次自动熔断，跨运行持久化到 `data/compliance_state.json`。
+- 🧿 **高风险队列**：伤病 / 合同金额 / 争议指控类事实进 `risk_gate.py` 人工复核队列。
+- 🖼️ **封面绑定**：`cover_binding.py` 强制图片客体与标题实体绑定，删除通用兜底图。
+- 🎯 **择优模型（L1→L4）**：`ranker.py` 规则预筛 → 信号增强 → 五维量表（可走 LLM 打分）→ 缓存降级；无信号 / 模型不可用时自动降级规则排序。
+- 📡 **信源与热度信号**：`source_watch.py`（11 个信源清单）+ `signal_sources.py`（百度热搜→社媒讨论量、百度联想→搜索指数）；只对真实命中写入，未命中即标缺失，**绝不用 0 冒充**。
+- 🌏 **洲际赛程**：`api_football.py` 补亚冠 / 欧联 / 欧协联 / 中超（联赛 ID 动态解析、不硬编码）。
+- 🈶 **中文实体映射**：`config/entity_map.json`（`scripts/build_player_map.py` / `scripts/build_team_map.py` 增量维护），未登记实体不进生成环节。
+- 📉 **失败降级**：`degrade.py` 六路径策略表；一致性打回 → 降级低风险板块重生成一次，仍不过即丢弃。
+
+### 验收与审计（计划 7.1 / 10 / 11.3）
+
+- 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区；未接入指标标注「待接入」。
+- ⬆️ **增长指标回填**：`scripts/import_performance.py` 支持 CSV/JSON 批量回填头条后台数据（点击率 = 阅读/展现，粉丝阅读占比 = 粉丝阅读/总阅读）。
+- 🔍 **隔离常态化审计**：`scripts/audit_isolation.py` —— 模板隔离 / 生成路径静态隔离 / 同天成稿重复自查 / 溯源覆盖率。
+- ✅ **赛程池验收**：`scripts/verify_fixture_pool.py` —— 五类覆盖 / 单日候选 ≥6 / 前瞻体为 0（硬项）+ 板块配比偏差（告警项）。
+
 ## 内容治理与防限流机制 / Content Governance
 
 > 针对头条号「同质化限流、CTR 偏低、涨粉乏力」做的工程化改造。完整诊断与改造成品见 [`docs/头条号数据体检与改造诊断报告.md`](docs/头条号数据体检与改造诊断报告.md)。
@@ -211,26 +240,47 @@ python scripts/publisher.py --login      # 浏览器打开手动扫码登录，�
 football-auto-publish/
 ├── orchestrator.py          # 文章生成编排器（选题→生成→配图→排版）
 ├── publisher.py             # 头条号 Playwright 自动发布 + 小程序数据回写
-├── data_collector.py        # 比赛/转会/热点数据采集
+├── data_collector.py        # 比赛/转会/热点数据采集 + 一级·确定性赛程选题
 ├── media_scraper.py         # 媒体素材抓取
 ├── image_service.py         # 配图服务
 ├── match_scheduler.py       # 赛程调度
+├── extractor.py             # 物理隔离：源文 → 结构化事实（生成器看不到原文）
+├── fact_card.py             # 事实卡编译/持久化/生命周期
+├── ranker.py                # 择优模型 L1→L4（含 LLM 打分与降级）
+├── source_watch.py          # 信源清单与热度信号（信源前移）
+├── signal_sources.py        # 社媒/搜索公开信号采集（百度热搜/联想）
+├── risk_gate.py             # 高风险事实人工复核队列
+├── cover_binding.py         # 封面与标题实体绑定
+├── reservoir.py             # 三级·软性内容蓄水池
+├── deterministic_supply.py  # 一级·确定性节点供给（转会窗/赛季节点/倒计时）
+├── degrade.py               # 失败降级策略表
+├── compliance_guard.py      # 合规红线熔断（不实违规即暂停自动发布）
+├── api_football.py          # 洲际赛程源（亚冠/欧联/欧协联/中超）
 ├── constants.py             # 批次/栏目配置、人格与写作风格定义
 ├── config/config.yaml       # LLM、数据源、输出配置
+├── config/season_calendar.yaml  # 赛季节点日历（一级确定性供给）
+├── config/entity_map.json   # 中文实体映射（球队/球员，人工译名 + 认知度分级）
+├── config/ratio_config.yaml # 板块配比与调参纪律
 ├── prompts/                 # 选题/改写提示词模板
 ├── skills/                  # 公众号爆款探测器
-├── scripts/                 # 巡检、补发、告警、静态数据导出等
+├── scripts/                 # 巡检、补发、告警、静态数据导出、看板/审计/维护等
 ├── miniprogram/             # 配套微信小程序
 ├── tests/                   # 单元测试
-└── .github/workflows/       # batch / daily / heartbeat 三个工作流
+└── .github/workflows/       # batch / daily / heartbeat / 审计 / 看板 / 维护等
 ```
 
 ---
 
 ## 调度与健康监控
 
-- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/17:30 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。
+- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/17:30 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。发布前依次执行：合规熔断检查 → 刷新赛程选题池 + 7.1 验收 → 一级节点量产入库 → 三级蓄水池备货。
 - **`heartbeat.yml`**：午检（仅校验晨读是否完成，避免未到点误报）+ 终检（校验三班全完成），异常经 WxPusher 告警。
+- **`refresh-signals.yml`**：每日 06:30 CST 预热社媒/搜索热度信号（早于早批），产出 `data/signals/external_signals.json`。
+- **`isolation-audit.yml`**：每周日跑物理隔离常态化审计，产出 `data/audit/`。
+- **`fixture-pool-verify.yml`**：每周一刷新赛程池并跑 7.1 验收，硬项不过即失败告警。
+- **`metrics-dashboard.yml`**：每周一生成验收指标看板，回写 `data/metrics/`。
+- **`ratio-tuner.yml`**：每月 1/15 日跑配比调参（四道防呆）。
+- **`entity-map-refresh.yml`**：每月 1 日增量维护中文实体映射（球队/球员）。
 
 ---
 
