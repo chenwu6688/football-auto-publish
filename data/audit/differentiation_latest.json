@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-10-12 10:39",
+  "ok": true,
+  "checks": [
+    {
+      "item": "六方向配置结构（6 方向）",
+      "ok": true,
+      "bad": [],
+      "detail": [
+        "速度／地域深耕／怀旧与情感／数据再加工／评论区运营／观点增量 齐备且字段完整 ✅"
+      ]
+    },
+    {
+      "item": "六方向代码 hook 落地",
+      "ok": true,
+      "coverage": [
+        {
+          "key": "速度",
+          "ok": true,
+          "hit": [
+            "source_watch.py",
+            "signal_sources.py"
+          ],
+          "marker": "来源媒体权重",
+          "files": [
+            "source_watch.py",
+            "signal_sources.py"
+          ]
+        },
+        {
+          "key": "地域深耕",
+          "ok": true,
+          "hit": [
+            "ranker.py"
+          ],
+          "marker": "地域",
+          "files": [
+            "ranker.py"
+          ]
+        },
+        {
+          "key": "怀旧与情感",
+          "ok": true,
+          "hit": [
+            "config/brand_manual.yaml",
+            "ranker.py"
+          ],
+          "marker": "怀旧",
+          "files": [
+            "config/brand_manual.yaml",
+            "ranker.py"
+          ]
+        },
+        {
+          "key": "数据再加工",
+          "ok": true,
+          "hit": [
+            "config/ratio_config.yaml"
+          ],
+          "marker": "战术榜单",
+          "files": [
+            "config/ratio_config.yaml",
+            "ranker.py"
+          ]
+        },
+        {
+          "key": "评论区运营",
+          "ok": true,
+          "hit": [
+            "orchestrator.py"
+          ],
+          "marker": "interaction_bait",
+          "files": [
+            "orchestrator.py"
+          ]
+        },
+        {
+          "key": "观点增量",
+          "ok": true,
+          "hit": [
+            "orchestrator.py"
+          ],
+          "marker": "老六视角",
+          "files": [
+            "orchestrator.py"
+          ]
+        }
+      ],
+      "missing": [],
+      "detail": [
+        "速度 → source_watch.py",
+        "地域深耕 → ranker.py",
+        "怀旧与情感 → config/brand_manual.yaml",
+        "数据再加工 → config/ratio_config.yaml",
+        "评论区运营 → orchestrator.py",
+        "观点增量 → orchestrator.py"
+      ]
+    }
+  ],
+  "hard_failed": []
+}

@@ -1,0 +1,39 @@
+# 六个差异化方向（计划 13.5）
+#
+# 计划 13.5 的核心判断：账号要在推荐流里胜出，靠的不是选题抄得像，而是六个「别人不做或做不好」
+# 的差异化方向。本文件把六方向**固化**为可校验配置：依据（数据）、落地要点、以及对应的
+# 代码 hook（`files` 中至少一处出现 `marker` 即视为已落地），供 verify_differentiation 复核。
+#
+# 纪律：本文件只描述「怎么做」，不承载任何素材；选题仍受 13.1 认知度分级与 13.3 排除项约束。
+
+方向:
+  - key: 速度
+    依据: 信源前移可比中间商早 2 至 6 小时
+    落地要点: 直接订阅原始信源，抢在平台媒体之前出稿
+    files: [source_watch.py, signal_sources.py]
+    marker: 来源媒体权重
+  - key: 地域深耕
+    依据: "读者地域集中：上海 14.91%、广东、江苏、湖北、四川"
+    落地要点: 做本地视角，全国性媒体覆盖不到
+    files: [ranker.py]
+    marker: 地域
+  - key: 怀旧与情感
+    依据: 五十岁以上读者占 51.76%
+    落地要点: 退役球星现状、经典战役、影像回顾
+    files: [config/brand_manual.yaml, ranker.py]
+    marker: 怀旧
+  - key: 数据再加工
+    依据: 零信源风险
+    落地要点: 榜单、身价对比、历史排名
+    files: [config/ratio_config.yaml, ranker.py]
+    marker: 战术榜单
+  - key: 评论区运营
+    依据: 现有评论率 0.18%，空间大
+    落地要点: 主动埋争议点，引导观点表达
+    files: [orchestrator.py]
+    marker: interaction_bait
+  - key: 观点增量
+    依据: 平台鼓励信息增量
+    落地要点: 他人给事实，自己给判断
+    files: [orchestrator.py]
+    marker: 老六视角
