@@ -35,7 +35,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 693,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.1573,
+        "new_followers": 0,
+        "impressions": 7790,
+        "follower_reads": 3
+      }
     },
     {
       "index": 2,
@@ -65,7 +75,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 18,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.2935,
+        "new_followers": 0,
+        "impressions": 3811,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -97,7 +117,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 84,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.1039,
+        "new_followers": 0,
+        "impressions": 3875,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,

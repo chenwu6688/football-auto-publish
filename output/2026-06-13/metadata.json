@@ -35,7 +35,17 @@
       "content_type": "八卦趣事",
       "column_id": "ren-wu-zhi",
       "column_name": "人物志",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -67,7 +77,17 @@
       "content_type": "八卦趣事",
       "column_id": "shi-guang-ji",
       "column_name": "时光机",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1687,
+        "follower_reads": 0
+      }
     }
   ],
   "topics": [

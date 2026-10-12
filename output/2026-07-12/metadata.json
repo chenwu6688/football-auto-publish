@@ -35,7 +35,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.23,
+        "new_followers": 0,
+        "impressions": 4262,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,
@@ -67,7 +77,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 4509,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -141,7 +161,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.565,
+        "new_followers": 0,
+        "impressions": 4653,
+        "follower_reads": 2
+      }
     },
     {
       "index": 1,
@@ -183,7 +213,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 4796,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -218,7 +258,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 4869,
+        "follower_reads": 0
+      }
     }
   ],
   "topics": [

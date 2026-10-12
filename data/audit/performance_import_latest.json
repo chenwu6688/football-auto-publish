@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12 14:18",
+  "generated_at": "2026-10-12 15:07",
   "ok": true,
   "checks": [
     {
@@ -8,10 +8,10 @@
       "advisory": false,
       "days": 123,
       "dup_slug": [],
-      "dup_index_count": 395,
+      "dup_index_count": 397,
       "detail": [
         "扫描 123 天：slug 全部唯一 ✅",
-        "同期 index 重复 395 处（正是本次把主键从 index 换成 slug 的原因）"
+        "同期 index 重复 397 处（正是本次把主键从 index 换成 slug 的原因）"
       ]
     },
     {
@@ -87,6 +87,14 @@
       "advisory": false,
       "detail": [
         "自检通过 ✅"
+      ]
+    },
+    {
+      "item": "绩效源回落（无台账时从 metadata 取数）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "无台账时取到 1 条观测（期望 1 条、reads=1234） ✅"
       ]
     },
     {

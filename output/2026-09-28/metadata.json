@@ -37,7 +37,17 @@
       "content_type": "热点球评",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 36,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.6936,
+        "new_followers": 0,
+        "impressions": 1852,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -68,7 +78,17 @@
       "content_type": "八卦趣事",
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 21,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.3809,
+        "new_followers": 0,
+        "impressions": 1888,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -100,7 +120,17 @@
       "content_type": "八卦趣事",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 48,
+        "comments": 0,
+        "likes": 0,
+        "shares": 1,
+        "retention_rate": 0.32,
+        "new_followers": 0,
+        "impressions": 2653,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -132,7 +162,17 @@
       "content_type": "紧急球评",
       "column_id": "breaking",
       "column_name": "突发直击",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 0,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1547,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -164,7 +204,17 @@
       "content_type": "热点球评",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 67,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.6603,
+        "new_followers": 0,
+        "impressions": 38503,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -194,7 +244,17 @@
       "content_type": "热点球评",
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.5,
+        "new_followers": 0,
+        "impressions": 1799,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -226,7 +286,17 @@
       "content_type": "战术解析",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 24,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.5522,
+        "new_followers": 0,
+        "impressions": 1905,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -254,7 +324,17 @@
       "content_type": "热点球评",
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2027,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,

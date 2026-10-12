@@ -37,7 +37,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.99,
+        "new_followers": 0,
+        "impressions": 6126,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,
@@ -71,7 +81,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 19,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.2429,
+        "new_followers": 0,
+        "impressions": 6628,
+        "follower_reads": 1
+      }
     },
     {
       "index": 1,

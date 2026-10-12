@@ -30,7 +30,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 7,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.3329,
+        "new_followers": 0,
+        "impressions": 2382,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -92,7 +102,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 6,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.2857,
+        "new_followers": 0,
+        "impressions": 2509,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,
@@ -124,7 +144,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 59,
+        "comments": 2,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.1225,
+        "new_followers": 0,
+        "impressions": 5274,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -156,7 +186,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 10,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2661,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -188,7 +228,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 33,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.1371,
+        "new_followers": 0,
+        "impressions": 3084,
+        "follower_reads": 1
+      }
     },
     {
       "index": 3,

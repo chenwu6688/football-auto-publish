@@ -69,36 +69,84 @@ def _trimmed_mean(values):
     return sum(v) / len(v)
 
 
+def _section_from_meta(meta, idx=None, slug=None):
+    for a in (meta.get("articles") or []):
+        if slug is not None and a.get("slug") == slug:
+            return resolve_section(a.get("content_type"), a.get("column_name"))
+        if slug is None and a.get("index") == idx:
+            return resolve_section(a.get("content_type"), a.get("column_name"))
+    return "其他"
+
+
 def collect_observations(window_days=14, today=None):
-    """回收阅读数据：join performance_log.json（reads） × metadata.json（板块）。"""
+    """回收阅读数据：join 绩效源（reads）× metadata.json（板块）。
+
+    绩效源按优先级：
+      1) ``output/performance_log.json``——真导入台账（含最新回流）；
+      2) 回落 ``metadata.json`` 的 ``articles[].performance``——该字段随仓库提交
+         （.gitignore 仅放行 ``output/**/metadata.json``），故 CI 上无本地台账时
+         仍能拿到真实数据（否则自动调参永远「无样本」，属结构性缺口）。
+    同一 (日期, slug||index) 以台账为准，避免重复计数。
+    """
     today = today or datetime.now()
     start = (today - timedelta(days=window_days)).strftime("%Y-%m-%d")
+    obs: list[dict] = []
+    seen: set = set()
+
     perf_path = OUTPUT_DIR / "performance_log.json"
-    if not perf_path.exists():
-        return []
-    try:
-        perf = json.loads(perf_path.read_text(encoding="utf-8")).get("articles", {})
-    except Exception:
-        return []
-    obs = []
+    perf: dict = {}
+    if perf_path.exists():
+        try:
+            perf = json.loads(perf_path.read_text(encoding="utf-8")).get("articles", {}) or {}
+        except Exception:
+            perf = {}
+
     for key, rec in perf.items():
-        date_str = rec.get("date") or key.split("/")[0]
+        date_str = rec.get("date") or str(key).split("/")[0]
         if date_str < start:
             continue
         idx = rec.get("index")
-        meta_path = OUTPUT_DIR / date_str / "metadata.json"
+        slug = rec.get("slug")
         section = "其他"
+        meta_path = OUTPUT_DIR / date_str / "metadata.json"
         if meta_path.exists():
             try:
                 meta = json.loads(meta_path.read_text(encoding="utf-8"))
-                for a in meta.get("articles", []):
-                    if a.get("index") == idx:
-                        section = resolve_section(a.get("content_type"), a.get("column_name"))
-                        break
+                section = _section_from_meta(meta, idx=idx, slug=slug)
             except Exception:
                 pass
         obs.append({"date": date_str, "index": idx, "section": section,
-                    "reads": rec.get("reads", 0), "retention": rec.get("retention_rate", 0)})
+                    "reads": rec.get("reads", 0),
+                    "retention": rec.get("retention_rate", 0)})
+        seen.add((date_str, slug if slug else idx))
+
+    # 回落：metadata 内已回写的 performance（CI 上的主要来源）
+    if OUTPUT_DIR.exists():
+        for date_dir in sorted(OUTPUT_DIR.iterdir()):
+            if not date_dir.is_dir():
+                continue
+            date_str = date_dir.name
+            if len(date_str) != 10 or date_str[4] != "-" or date_str < start:
+                continue
+            meta_path = date_dir / "metadata.json"
+            if not meta_path.exists():
+                continue
+            try:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            for a in (meta.get("articles") or []):
+                p = a.get("performance") or {}
+                if not isinstance(p, dict) or not p or p.get("reads") is None:
+                    continue
+                key = (date_str, a.get("slug") if a.get("slug") else a.get("index"))
+                if key in seen:
+                    continue
+                obs.append({"date": date_str, "index": a.get("index"),
+                            "section": resolve_section(a.get("content_type"), a.get("column_name")),
+                            "reads": p.get("reads") or 0,
+                            "retention": p.get("retention_rate") or 0})
+                seen.add(key)
     return obs
 
 

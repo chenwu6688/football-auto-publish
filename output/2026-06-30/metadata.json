@@ -35,7 +35,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "球迷众生相",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.1186,
+        "new_followers": 0,
+        "impressions": 3532,
+        "follower_reads": 1
+      }
     }
   ],
   "topics": [

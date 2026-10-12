@@ -33,7 +33,17 @@
       "content_type": "八卦趣事",
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 136,
+        "comments": 1,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.2407,
+        "new_followers": 0,
+        "impressions": 4684,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,
@@ -65,7 +75,17 @@
       "content_type": "转会资讯",
       "column_id": "laoliu-hot-take",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1715,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -97,7 +117,17 @@
       "content_type": "转会资讯",
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 189,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.2012,
+        "new_followers": 0,
+        "impressions": 4413,
+        "follower_reads": 1
+      }
     },
     {
       "index": 4,
@@ -129,7 +159,17 @@
       "content_type": "八卦趣事",
       "column_id": "laoliu-hot-take",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 9,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.25,
+        "new_followers": 0,
+        "impressions": 1969,
+        "follower_reads": 0
+      }
     },
     {
       "index": 5,
@@ -233,7 +273,17 @@
       "content_type": "热点球评",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1721,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -296,7 +346,17 @@
       "content_type": "排行榜",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 187,
+        "comments": 0,
+        "likes": 2,
+        "shares": 0,
+        "retention_rate": 0.3548,
+        "new_followers": 0,
+        "impressions": 6479,
+        "follower_reads": 1
+      }
     },
     {
       "index": 4,
@@ -330,7 +390,17 @@
       "content_type": "紧急球评",
       "column_id": "breaking",
       "column_name": "突发直击",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 6,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.23,
+        "new_followers": 0,
+        "impressions": 1908,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -362,7 +432,17 @@
       "content_type": "热点球评",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 11,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.035,
+        "new_followers": 0,
+        "impressions": 2373,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -394,7 +474,17 @@
       "content_type": "八卦趣事",
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2660,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -426,7 +516,17 @@
       "content_type": "转会资讯",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 181,
+        "comments": 2,
+        "likes": 3,
+        "shares": 0,
+        "retention_rate": 0.1771,
+        "new_followers": 0,
+        "impressions": 4679,
+        "follower_reads": 1
+      }
     }
   ],
   "topics": [

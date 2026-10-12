@@ -35,7 +35,17 @@
       "content_type": "热点球评",
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 3192,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -67,7 +77,17 @@
       "content_type": "转会资讯",
       "column_id": "transfer-radar",
       "column_name": "转会雷达",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 71,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.1973,
+        "new_followers": 0,
+        "impressions": 4570,
+        "follower_reads": 0
+      }
     }
   ],
   "topics": [

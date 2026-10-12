@@ -33,7 +33,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 62,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.4193,
+        "new_followers": 0,
+        "impressions": 4827,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -65,7 +75,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.56,
+        "new_followers": 0,
+        "impressions": 4446,
+        "follower_reads": 1
+      }
     },
     {
       "index": 1,
@@ -97,7 +117,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 16,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0769,
+        "new_followers": 0,
+        "impressions": 4608,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,

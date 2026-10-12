@@ -18,6 +18,7 @@
   F. 标题匹配——命中得到 (日期, slug)，**未匹配与歧义行一律不写库**
   G. 未接入不冒充——表头无法识别时明确报错，不产出 0 值记录
   H. 不串号——同名 index 的两篇不同文章写入互不覆盖
+  J. 绩效源回落——无本地台账时从 metadata.articles[].performance 取数（CI 可用）
 
 告警项（只提示）
   I. 未识别列可见——导出里不认识的列会出现在报告里，不静默丢弃
@@ -385,6 +386,36 @@ def check_selftest() -> dict:
             "detail": ["自检通过 ✅" if rc == 0 else f"自检未通过 ❌ {buf.getvalue()[:120]}"]}
 
 
+def check_ratio_tuner_fallback() -> dict:
+    """绩效源回落（硬项）——无本地台账时也能取到真实观测。
+
+    output/performance_log.json 在 .gitignore 内，而自动调参（ratio-tuner.yml）跑在
+    干净的 CI 检出上，若只认台账则该任务**永远无样本**（结构性缺口）。
+    故 ratio_tuner 必须能回落读 metadata 的 articles[].performance（该字段随仓库提交）。
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "ratio_tuner_probe", PROJECT_ROOT / "scripts" / "ratio_tuner.py")
+    rt = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rt)
+    tmp = Path(tempfile.mkdtemp())
+    d = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    (tmp / d).mkdir(parents=True)
+    (tmp / d / "metadata.json").write_text(json.dumps({"articles": [
+        {"index": 1, "slug": "probe-1", "content_type": "转会资讯", "column_name": "转会雷达",
+         "performance": {"reads": 1234, "retention_rate": 0.4}}]}), encoding="utf-8")
+    old = rt.OUTPUT_DIR
+    rt.OUTPUT_DIR = tmp
+    try:
+        obs = rt.collect_observations(14)
+    finally:
+        rt.OUTPUT_DIR = old
+    ok = len(obs) == 1 and obs[0]["reads"] == 1234 and obs[0]["section"] == "转会动态"
+    return {"item": "绩效源回落（无台账时从 metadata 取数）", "ok": ok, "advisory": False,
+            "detail": [f"无台账时取到 {len(obs)} 条观测（期望 1 条、reads=1234）"
+                       + (" ✅" if ok else " ❌")]}
+
+
 # ------------------------------------------------------------
 # 告警项
 # ------------------------------------------------------------
@@ -409,7 +440,7 @@ def verify() -> dict:
     hard = [check_slug_uniqueness(), check_header_mapping(), check_header_row_detect(),
             check_xlsx_nodep(), check_number_cleaning(),
             check_title_match_and_no_write(), check_no_fake_zero(),
-            check_key_no_collision(), check_selftest()]
+            check_key_no_collision(), check_selftest(), check_ratio_tuner_fallback()]
     soft = [check_unmapped_visible()]
     checks = hard + soft
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),

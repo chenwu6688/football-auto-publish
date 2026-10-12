@@ -36,7 +36,17 @@
       "content_type": "热点球评",
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 786,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -66,7 +76,17 @@
       "content_type": "八卦趣事",
       "column_id": "fan-life",
       "column_name": "球迷众生相",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 823,
+        "follower_reads": 0
+      }
     }
   ],
   "topics": [

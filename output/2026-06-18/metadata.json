@@ -31,7 +31,17 @@
       "content_type": "热点球评",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 1.0,
+        "new_followers": 0,
+        "impressions": 838,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,

@@ -33,7 +33,16 @@
       "content_type": "榜单",
       "column_id": "fan-life",
       "column_name": "战术榜单",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "new_followers": 0,
+        "impressions": 638,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -61,7 +70,16 @@
       "content_type": "热点球评",
       "column_id": "laoliu-hot-take",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "new_followers": 0,
+        "impressions": 570,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -89,7 +107,16 @@
       "content_type": "数据对比",
       "column_id": "fan-life",
       "column_name": "战术榜单",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 18,
+        "comments": 4,
+        "likes": 2,
+        "shares": 0,
+        "new_followers": 0,
+        "impressions": 911,
+        "follower_reads": 0
+      }
     },
     {
       "index": 5,
@@ -117,7 +144,16 @@
       "content_type": "人物故事",
       "column_id": "fan-life",
       "column_name": "人物故事",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "new_followers": 0,
+        "impressions": 580,
+        "follower_reads": 0
+      }
     },
     {
       "index": 6,
@@ -210,7 +246,16 @@
       "column_id": "fan-life",
       "column_name": "战术榜单",
       "batch_name": "午间",
-      "supply_layer": "三级·软性"
+      "supply_layer": "三级·软性",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "new_followers": 0,
+        "impressions": 86,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,

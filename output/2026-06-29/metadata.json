@@ -61,7 +61,17 @@
       "content_type": "八卦趣事",
       "column_id": "hua-ti-lei-tai",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.495,
+        "new_followers": 0,
+        "impressions": 4415,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,

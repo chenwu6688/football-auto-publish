@@ -33,7 +33,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 13,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.388,
+        "new_followers": 0,
+        "impressions": 2554,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -63,7 +73,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.444,
+        "new_followers": 0,
+        "impressions": 2994,
+        "follower_reads": 0
+      }
     }
   ],
   "topics": [

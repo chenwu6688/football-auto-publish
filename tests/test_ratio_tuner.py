@@ -115,6 +115,60 @@ class TestCollectObservations(unittest.TestCase):
         self.assertEqual(obs[0]["reads"], 5000)
 
 
+class TestMetadataFallback(unittest.TestCase):
+    """无本地台账时回落 metadata.articles[].performance（CI 干净检出场景）。"""
+
+    def _mk(self, articles):
+        tmp = Path(tempfile.mkdtemp())
+        d = "2026-10-08"
+        (tmp / d).mkdir(parents=True)
+        (tmp / d / "metadata.json").write_text(
+            json.dumps({"articles": articles}, ensure_ascii=False), encoding="utf-8")
+        return tmp
+
+    def test_fallback_when_no_ledger(self):
+        tmp = self._mk([{"index": 1, "slug": "a-1", "content_type": "转会资讯",
+                         "column_name": "转会雷达",
+                         "performance": {"reads": 1200, "retention_rate": 0.35}}])
+        old = rt.OUTPUT_DIR
+        rt.OUTPUT_DIR = tmp
+        try:
+            obs = rt.collect_observations(14, TODAY)
+        finally:
+            rt.OUTPUT_DIR = old
+        self.assertEqual(len(obs), 1)
+        self.assertEqual(obs[0]["reads"], 1200)
+        self.assertEqual(obs[0]["section"], "转会动态")
+
+    def test_ledger_wins_and_no_double_count(self):
+        tmp = self._mk([{"index": 1, "slug": "a-1", "content_type": "转会资讯",
+                         "column_name": "转会雷达",
+                         "performance": {"reads": 1200, "retention_rate": 0.35}}])
+        (tmp / "performance_log.json").write_text(json.dumps({"articles": {
+            "2026-10-08/a-1": {"date": "2026-10-08", "index": 1, "slug": "a-1",
+                               "reads": 5000, "retention_rate": 0.4}}}), encoding="utf-8")
+        old = rt.OUTPUT_DIR
+        rt.OUTPUT_DIR = tmp
+        try:
+            obs = rt.collect_observations(14, TODAY)
+        finally:
+            rt.OUTPUT_DIR = old
+        self.assertEqual(len(obs), 1, "台账与 metadata 不应重复计数")
+        self.assertEqual(obs[0]["reads"], 5000, "同一篇以台账为准")
+
+    def test_metric_without_reads_skipped(self):
+        tmp = self._mk([{"index": 2, "slug": "b-2", "content_type": "排行榜",
+                         "column_name": "数据盘点",
+                         "performance": {"impressions": 900}}])
+        old = rt.OUTPUT_DIR
+        rt.OUTPUT_DIR = tmp
+        try:
+            obs = rt.collect_observations(14, TODAY)
+        finally:
+            rt.OUTPUT_DIR = old
+        self.assertEqual(obs, [], "缺 reads 的记录不算一条观测（不冒充 0）")
+
+
 class TestSectionMap(unittest.TestCase):
     def test_mapping(self):
         self.assertEqual(rt.resolve_section("转会资讯", None), "转会动态")

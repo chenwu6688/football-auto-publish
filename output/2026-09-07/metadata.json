@@ -29,7 +29,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 12,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.4569,
+        "new_followers": 0,
+        "impressions": 1808,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -61,7 +71,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 1.0,
+        "new_followers": 0,
+        "impressions": 1569,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -93,7 +113,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 0,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1702,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -157,7 +187,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 255,
+        "comments": 0,
+        "likes": 2,
+        "shares": 0,
+        "retention_rate": 0.3124,
+        "new_followers": 0,
+        "impressions": 5286,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -189,7 +229,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 0,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1534,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -221,7 +271,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1576,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -253,7 +313,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 177,
+        "comments": 2,
+        "likes": 2,
+        "shares": 0,
+        "retention_rate": 0.3898,
+        "new_followers": 0,
+        "impressions": 4599,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -283,7 +353,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 201,
+        "comments": 2,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.1122,
+        "new_followers": 0,
+        "impressions": 3209,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -315,7 +395,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 14,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2258,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -345,7 +435,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2167,
+        "follower_reads": 0
+      }
     },
     {
       "index": 5,

@@ -65,7 +65,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 24,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.842,
+        "new_followers": 0,
+        "impressions": 2144,
+        "follower_reads": 7
+      }
     },
     {
       "index": 1,
@@ -97,7 +107,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 107,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.2781,
+        "new_followers": 0,
+        "impressions": 3913,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,
@@ -127,7 +147,17 @@
       "content_type": "热点球评",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 6,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.9975,
+        "new_followers": 0,
+        "impressions": 1947,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -157,7 +187,17 @@
       "content_type": "排行榜",
       "column_id": "",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 92,
+        "comments": 2,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.1352,
+        "new_followers": 0,
+        "impressions": 3365,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -185,7 +225,17 @@
       "content_type": "战术解析",
       "column_id": "",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 7,
+        "comments": 2,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.123,
+        "new_followers": 0,
+        "impressions": 2184,
+        "follower_reads": 0
+      }
     },
     {
       "index": 5,

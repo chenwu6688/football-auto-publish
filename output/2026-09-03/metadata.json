@@ -65,7 +65,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "话题擂台",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 3,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2117,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -97,7 +107,17 @@
       "content_type": "紧急球评",
       "column_id": "",
       "column_name": "",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 8,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.1927,
+        "new_followers": 0,
+        "impressions": 2267,
+        "follower_reads": 2
+      }
     },
     {
       "index": 1,
@@ -129,7 +149,17 @@
       "content_type": "转会资讯",
       "column_id": "",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 6,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -159,7 +189,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 2062,
+        "follower_reads": 1
+      }
     },
     {
       "index": 3,
@@ -220,7 +260,17 @@
       "content_type": "八卦趣事",
       "column_id": "",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 3,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.5,
+        "new_followers": 0,
+        "impressions": 2151,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,

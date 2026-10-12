@@ -61,7 +61,17 @@
       "content_type": "排行榜",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 19,
+        "comments": 9,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0625,
+        "new_followers": 0,
+        "impressions": 1372,
+        "follower_reads": 1
+      }
     },
     {
       "index": 4,
@@ -89,7 +99,17 @@
       "content_type": "数据对比",
       "column_id": "fan-life",
       "column_name": "战术榜单",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 11,
+        "comments": 2,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.3588,
+        "new_followers": 0,
+        "impressions": 1344,
+        "follower_reads": 1
+      }
     },
     {
       "index": 5,
@@ -153,7 +173,17 @@
       "content_type": "八卦趣事",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 18,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.6667,
+        "new_followers": 0,
+        "impressions": 1508,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -183,7 +213,17 @@
       "content_type": "八卦趣事",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1162,
+        "follower_reads": 0
+      }
     },
     {
       "index": 3,
@@ -243,7 +283,17 @@
       "content_type": "人物故事",
       "column_id": "fan-life",
       "column_name": "人物故事",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1049,
+        "follower_reads": 0
+      }
     },
     {
       "index": 5,
@@ -303,7 +353,17 @@
       "content_type": "热点球评",
       "column_id": "laoliu-hot-take",
       "column_name": "老六辣评",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 29,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.3833,
+        "new_followers": 0,
+        "impressions": 1236,
+        "follower_reads": 0
+      }
     },
     {
       "index": 4,
@@ -333,7 +393,17 @@
       "content_type": "数据对比",
       "column_id": "fan-life",
       "column_name": "战术榜单",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 14,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.37,
+        "new_followers": 0,
+        "impressions": 941,
+        "follower_reads": 0
+      }
     },
     {
       "index": 5,

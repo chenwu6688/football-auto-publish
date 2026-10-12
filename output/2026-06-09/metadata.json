@@ -68,7 +68,17 @@
       "content_type": "战术解析",
       "column_id": "shen-shui-qu",
       "column_name": "深水区",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.73,
+        "new_followers": 0,
+        "impressions": 1750,
+        "follower_reads": 1
+      }
     }
   ],
   "topics": [

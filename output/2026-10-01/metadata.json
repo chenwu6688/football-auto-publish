@@ -33,7 +33,17 @@
       "content_type": "转会资讯",
       "column_id": "world-cup-daily",
       "column_name": "世界杯日报",
-      "batch_name": "晚间"
+      "batch_name": "晚间",
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.285,
+        "new_followers": 0,
+        "impressions": 1855,
+        "follower_reads": 1
+      }
     },
     {
       "index": 2,
@@ -99,7 +109,17 @@
       "content_type": "转会资讯",
       "column_id": "chen-du-kuai-xun",
       "column_name": "晨读快讯",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1691,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -137,7 +157,17 @@
       "content_type": "紧急球评",
       "column_id": "breaking",
       "column_name": "突发直击",
-      "batch_name": "晨读"
+      "batch_name": "晨读",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "new_followers": 0,
+        "impressions": 1682,
+        "follower_reads": 0
+      }
     },
     {
       "index": 1,
@@ -169,7 +199,17 @@
       "content_type": "热点球评",
       "column_id": "wu-jian-kuai-xun",
       "column_name": "午间快讯",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 40,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.1317,
+        "new_followers": 0,
+        "impressions": 2172,
+        "follower_reads": 0
+      }
     },
     {
       "index": 2,
@@ -199,7 +239,17 @@
       "content_type": "转会资讯",
       "column_id": "re-dian-su-ping",
       "column_name": "热点速评",
-      "batch_name": "午间"
+      "batch_name": "午间",
+      "performance": {
+        "reads": 105,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "retention_rate": 0.3063,
+        "new_followers": 0,
+        "impressions": 2866,
+        "follower_reads": 1
+      }
     },
     {
       "index": 3,
