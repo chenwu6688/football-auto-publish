@@ -290,6 +290,13 @@ jobs:
         run: |
           python orchestrator.py "${{ steps.params.outputs.today }}" --batch="${{ steps.params.outputs.batch }}"
 
+      - name: 传闻措辞验收（计划 4.1 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」
+          python3 scripts/verify_rumor_wording.py --quiet \
+            || echo "::warning::传闻措辞未达 4.1 验收标准，详见 data/audit/rumor_wording_latest.json"
+
       - name: 回写状态（LLM 用量 + 软性蓄水池）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
@@ -303,6 +310,8 @@ jobs:
           git add -f data/deterministic || true
           # 合规熔断状态（计划第十章：不实违规即熔断，跨运行持久化）
           git add -f data/compliance_state.json || true
+          # 验收审计报告（计划 4.1/7.1/11.4 等：看板与门槛报告随运行留痕）
+          git add -f data/audit || true
           if ! git diff --cached --quiet; then
             git commit -m "chore: 回写 LLM 用量与软性蓄水池"
             for attempt in 1 2 3; do

@@ -26,6 +26,7 @@ from logger import log
 import risk_gate
 import degrade
 import supply_mix
+import rumor_wording
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
@@ -2082,10 +2083,21 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 
     # 事实卡：事件实际比分 + 事件涉及球队（用于一致性校验）
     _det_score = re.search(r"(\d{1,2})[-:：](\d{1,2})", detail or "")
+    _fw_tier = rumor_wording.tier_of(event)   # 计划 4.1：事件若带分级则据此措辞（未知不判定）
     facts = {
         "allowed_scores": [f"{_det_score.group(1)}-{_det_score.group(2)}"] if _det_score else [],
         "allowed_teams": [t for t in _KNOWN_TEAMS if t in (detail or "") or t in (title_hint or "")],
     }
+    if _fw_tier:
+        facts["可信度"] = _fw_tier
+        base_prompt += (
+            f"\n\n⚠️ 该事件分级为「{_fw_tier}」："
+            + ("标题与正文都不得使用肯定语气，须写「传闻」「有消息称」「或将」「据悉」等模糊措辞；"
+               "正文须明确标注消息来源。"
+               if _fw_tier == rumor_wording.CONF_RUMOR else
+               "标题与正文须写明来源（如「据某媒体报道」）。")
+            + "\n"
+        )
 
     last_hint = ""
     max_retries = 2
@@ -2119,9 +2131,10 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 
         # 计划合规·一致性校验（卡外实体/比分即打回）
         cons_ok, cons_issues = check_consistency_plan(article, facts, blocking=True)
-        # 计划合规·标题评分（及格线 60）
+        # 计划合规·标题评分（及格线 60；传闻级断言式标题直接 0 分，计划 4.1）
         sc, sc_pass, sc_reasons = score_title_plan(
-            {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评")
+            {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评",
+            fact_tier=_fw_tier)
         if not (cons_ok and sc_pass):
             if not cons_ok:
                 _note_consistency_reject("; ".join(cons_issues))
@@ -2590,17 +2603,27 @@ _KNOWN_TEAMS = {
 _KNOWN_PLAYERS = {"梅西", "C罗", "姆巴佩", "哈兰德", "内马尔", "贝林厄姆", "凯恩", "萨拉赫"}
 
 
-def score_title_plan(topic, title, content_type, batch_mode=None):
+def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=None):
     """计划合规·标题评分器（及格线 60）。
 
     维度（计划 5.1/3.3/462）：字数、疑问钩子、具体对阵/球队/人物、冲突反差动作、
     板块对齐、自指惩罚。返回 (score:int 0-100, passed:bool, reasons:list[str])。
     reasons 用于在打回时回灌给 LLM 作为 retry_hint。
+
+    传闻硬校验（计划 4.1：严重标题党扣 30 分 →「传闻类标题禁用肯定语气」）：
+    ``fact_tier`` 未显式给出时从 ``topic`` 自动解析（可信度／fact_tier 字段）。
+    命中传闻级断言式标题 → 直接 0 分并打回，不参与其余维度加分。
     """
     title = (title or "").strip()
     reasons = []
     if not title:
         return 0, False, ["标题为空"]
+
+    # 计划 4.1：传闻类标题硬校验（先判，命中即 0 分打回）
+    _tier = fact_tier if fact_tier is not None else rumor_wording.tier_of(topic)
+    _rw = rumor_wording.check(_tier, title, "")
+    if not _rw["ok"]:
+        return 0, False, _rw["hard"] + [_rw["hint"]]
 
     L = len(title)
     lo, hi = _TITLE_LEN_BAND.get(content_type, _TITLE_LEN_DEFAULT)
@@ -2733,6 +2756,13 @@ def check_consistency_plan(article, facts=None, *, blocking=True):
                 if t in content and not any((t in at) or (at in t) for at in allowed_teams):
                     issues.append(f"出现事实卡外的球队实体: {t}")
                     break
+
+    # 计划 4.1：传闻分级措辞系统（失实表述扣 10 分）
+    # 分级由 facts 携带（fact_tier／可信度，或嵌套事实卡），未携带则不判定（不误杀）。
+    _tier = rumor_wording.tier_of(facts)
+    if _tier:
+        _rw = rumor_wording.check(_tier, (article or {}).get("title", ""), content)
+        issues.extend(_rw["hard"])
 
     if not blocking:
         # warn-only：永远放行，但 issues 仍回传供日志
