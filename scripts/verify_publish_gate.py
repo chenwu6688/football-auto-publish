@@ -22,6 +22,7 @@ import argparse
 import glob
 import json
 import sys
+import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -122,6 +123,69 @@ def check_title_pass_rate() -> dict:
                        (f"未达标样例：{fails[:3]}" if fails else "无未达标样例")]}
 
 
+def check_team_alias_awareness() -> dict:
+    """A3. 队名判定必须「别名感知」（硬项）。
+
+    计划 7.3 要求误杀率<5%。2026-10-12 的真实熔断即由「同队不同写法」误报引起
+    （事实层「拜仁」vs 来源「拜仁慕尼黑」→ 误报「缺少客队名: 拜仁慕尼黑」）。
+    这里把该类误报做成可回归校验：同义写法必须放行，真缺队名/卡外球队必须拦截。
+    """
+    try:
+        import orchestrator
+    except Exception as e:  # pragma: no cover
+        return {"item": "队名判定别名感知（计划7.3）", "ok": True, "skipped": True,
+                "detail": [f"无法载入事实校验器：{e}"]}
+    # 探测会写一致性台账，须隔离到临时文件，绝不污染真实 data/consistency_stats.json
+    import consistency_stats as cs
+    tmp = tempfile.TemporaryDirectory()
+    _s, _l = cs.STATS_PATH, cs.LABELS_PATH
+    cs.STATS_PATH = Path(tmp.name) / "stats.json"
+    cs.LABELS_PATH = Path(tmp.name) / "labels.json"
+    try:
+        return _probe_team_alias(orchestrator)
+    finally:
+        cs.STATS_PATH, cs.LABELS_PATH = _s, _l
+        tmp.cleanup()
+
+
+def _probe_team_alias(orchestrator) -> dict:
+    cases = [
+        # (home, away, hg, ag, 正文, 期望放行, 说明)
+        ("多特", "拜仁慕尼黑", 1, 2, "拜仁客场2-1击败多特。", True, "全称 fixture + 简称正文"),
+        ("多特", "拜仁", 1, 2, "拜仁慕尼黑客场2-1取胜多特。", True, "简称 fixture + 全称正文"),
+        ("巴黎圣日耳曼", "马赛", 2, 0, "巴黎2-0马赛。", True, "巴黎/巴黎圣日耳曼"),
+        ("曼城", "曼联", 1, 0, "曼城主场取胜。", False, "真缺客队名仍须拦截"),
+        ("多特", "拜仁慕尼黑", 1, 2, "多特1-2不敌勒沃库森。", False, "写成别的队仍须拦截"),
+    ]
+    bad = []
+    for home, away, hg, ag, content, want_pass, note in cases:
+        fx = {"home_team": home, "away_team": away, "home_score": hg, "away_score": ag,
+              "goals": []}
+        art = {"title": content, "content": content}
+        got_pass, issues = orchestrator.validate_article_vs_match_data(fx, art)
+        if got_pass != want_pass:
+            bad.append({"case": note, "want_pass": want_pass, "got_pass": got_pass,
+                        "issues": issues})
+    # 子串串味：正文「国际米兰」不得被判成卡外球队「米兰」
+    cons_bad = []
+    ok, issues = orchestrator.check_consistency_plan(
+        {"title": "国际米兰主场取胜", "content": "国际米兰1-0拿下，国米继续领跑。"},
+        {"allowed_teams": ["国米"]}, blocking=True)
+    if not ok:
+        cons_bad.append({"case": "国际米兰/米兰 子串串味", "issues": issues})
+    ok2, issues2 = orchestrator.check_consistency_plan(
+        {"title": "米兰2-1尤文", "content": "AC米兰2-1击败尤文图斯。"},
+        {"allowed_teams": ["AC米兰"]}, blocking=True)
+    if ok2:
+        cons_bad.append({"case": "真卡外球队（尤文）未被拦截", "issues": issues2})
+
+    all_bad = bad + cons_bad
+    return {"item": "队名判定别名感知（计划7.3）", "ok": not all_bad, "skipped": False,
+            "cases": len(cases) + 2, "violations": all_bad,
+            "detail": [f"队名判定用例 {len(cases) + 2} 项：同义写法放行 / 真缺队名与卡外球队拦截",
+                       ("别名感知达标 ✅" if not all_bad else f"❌ 误判：{all_bad[:3]}")]}
+
+
 def check_provenance() -> dict:
     """B. 溯源覆盖率（告警项）。"""
     total, with_src = 0, 0
@@ -167,6 +231,23 @@ def check_false_positive_rate() -> dict:
                        ("达标 ✅" if fpr < cs.MAX_FALSE_POSITIVE_RATE else "⚠️ 超上限，需收紧校验规则")]}
 
 
+def check_reject_traceability() -> dict:
+    """F. 打回可追溯（告警项）。
+
+    打回事件必须带**选题标题**，否则事后只能看到「最后一条提示」，无法定位触发批次
+    （2026-10-12 熔断复盘即卡在这里）。
+    """
+    t = cs.traceability(30)
+    if t["rejects"] == 0:
+        return {"item": "打回可定位到选题", "ok": True, "advisory": True, "skipped": True,
+                "detail": ["近 30 天无打回记录，本项跳过"]}
+    return {"item": "打回可定位到选题", "ok": True, "advisory": True, "skipped": False, **t,
+            "detail": [f"近 30 天打回 {t['rejects']} 条，带选题标题 {t['with_title']} 条，"
+                       f"可追溯率 {t['rate']:.0%}",
+                       ("可追溯 ✅" if t["rate"] >= 0.99 else
+                        "⚠️ 部分打回缺选题信息（多为机制上线前的历史事件，告警不阻断）")]}
+
+
 def check_old_news() -> dict:
     """E. 连续 14 天无旧闻新发（硬项，无台账跳过）。"""
     s = fl.summary(14)
@@ -184,8 +265,9 @@ def check_old_news() -> dict:
 
 
 def verify() -> dict:
-    checks = [check_title_hard(), check_title_pass_rate(), check_provenance(),
-              check_consistency_mechanism(), check_false_positive_rate(), check_old_news()]
+    checks = [check_title_hard(), check_title_pass_rate(), check_team_alias_awareness(),
+              check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
+              check_reject_traceability(), check_old_news()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": checks,

@@ -44,6 +44,23 @@ class TestParseNewsTime(unittest.TestCase):
 
 
 class TestFilterFreshNews(unittest.TestCase):
+    """注意：filter_fresh_news 会写时效台账（计划 7.2），故必须隔离到临时文件，
+    否则跑测试会污染真实 data/freshness_ledger.json（使「连续 14 天无旧闻新发」失真）。
+    """
+
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        import freshness_ledger as fl
+        self._d = tempfile.TemporaryDirectory()
+        self._p = fl.LEDGER_PATH
+        fl.LEDGER_PATH = Path(self._d.name) / "ledger.json"
+
+    def tearDown(self):
+        import freshness_ledger as fl
+        fl.LEDGER_PATH = self._p
+        self._d.cleanup()
+
     def test_drops_stale_keeps_fresh(self):
         items = [
             {"url": "https://news.zhibo8.com/zuqiu/2026-10-10/new.htm"},   # 今天

@@ -14,7 +14,9 @@
   - 提供一道「疑似系统性失真」的自动熔断：同一批次内一致性校验被打回次数
     超过阈值，说明事实层可能整体失真，主动熔断并告警（宁停勿错）。
 
-状态文件 data/compliance_state.json 属运行期资产，已 gitignore。
+状态文件 data/compliance_state.json 属运行期资产，但**刻意纳入版本控制**：
+熔断必须跨运行、跨 CI 持续生效（计划第十章「回到人工审核模式直至定位原因」），
+若只存本地则下一次 CI 跑仍是「未熔断」，红线形同虚设。解除需人工显式 `--clear`。
 """
 
 from __future__ import annotations
@@ -76,13 +78,16 @@ def is_suspended(path: Path | None = None) -> bool:
 def status(path: Path | None = None) -> dict:
     """返回当前合规状态摘要（供 orchestrator / 看板 / CI 读取）。"""
     data = _load(path)
-    false_count = sum(1 for h in data.get("history", []) if h.get("kind") == FALSE_CONTENT)
+    hist = data.get("history", [])
+    false_count = sum(1 for h in hist if h.get("kind") == FALSE_CONTENT)
+    # 「解除熔断」是审计记录，不是违规，不能计入违规次数（否则次数虚高）
+    violation_count = sum(1 for h in hist if h.get("kind") != "解除熔断")
     return {
         "suspended": bool(data.get("suspended")),
         "reason": data.get("reason", ""),
         "since": data.get("since", ""),
         "false_content_count": false_count,
-        "total_violations": len(data.get("history", [])),
+        "total_violations": violation_count,
     }
 
 
@@ -119,9 +124,10 @@ def record_violation(kind: str, detail: str, *, date: str = "", evidence: str = 
 
 
 def auto_suspend_if_systemic(reject_count: int, *, detail: str = "",
-                             path: Path | None = None) -> bool:
+                             evidence: str = "", path: Path | None = None) -> bool:
     """疑似系统性失真时的自动熔断：一致性校验同批次打回超阈值。
 
+    ``evidence`` 写入熔断 history，供人工复盘触发批次（哪几篇、各报什么）。
     返回是否触发了熔断。已处于熔断状态时不重复登记。
     """
     if reject_count < AUTO_SUSPEND_REJECT_THRESHOLD:
@@ -131,7 +137,7 @@ def auto_suspend_if_systemic(reject_count: int, *, detail: str = "",
         return False
     record_violation("疑似系统性失真",
                      detail or f"同批次一致性校验打回 {reject_count} 次，疑事实层整体失真",
-                     path=path)
+                     evidence=evidence, path=path)
     return True
 
 

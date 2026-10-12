@@ -136,12 +136,28 @@ class TestCheck(unittest.TestCase):
 
 
 class TestOrchestratorIntegration(unittest.TestCase):
-    """计划 4.1 落到标题评分器与一致性校验（orchestrator）。"""
+    """计划 4.1 落到标题评分器与一致性校验（orchestrator）。
+
+    注意：``check_consistency_plan`` 会写一致性台账（计划 7.3），故必须把台账路径
+    隔离到临时文件，否则跑测试会污染真实的 ``data/consistency_stats.json``。
+    """
 
     @classmethod
     def setUpClass(cls):
         import orchestrator
         cls.o = orchestrator
+
+    def setUp(self):
+        import consistency_stats as cs
+        self._d = tempfile.TemporaryDirectory()
+        self._s, self._l = cs.STATS_PATH, cs.LABELS_PATH
+        cs.STATS_PATH = Path(self._d.name) / "stats.json"
+        cs.LABELS_PATH = Path(self._d.name) / "labels.json"
+
+    def tearDown(self):
+        import consistency_stats as cs
+        cs.STATS_PATH, cs.LABELS_PATH = self._s, self._l
+        self._d.cleanup()
 
     def test_rumor_assertive_title_scores_zero(self):
         sc, passed, reasons = self.o.score_title_plan(

@@ -63,17 +63,42 @@ def _prune(data, today=None):
     return data
 
 
-def record(blocking, passed, issues=(), tier=None, date=None):
-    """追加一条一致性校验事件。返回事件 dict（写入失败也返回，不抛异常）。"""
+def record(blocking, passed, issues=(), tier=None, date=None, title="", subject=""):
+    """追加一条一致性校验事件。返回事件 dict（写入失败也返回，不抛异常）。
+
+    ``title`` / ``subject``：被打回时用于**定位到具体选题**。2026-10-12 的熔断事后
+    无法定位是哪一篇触发（台账只存 issues 摘要），故补上标题与主体。
+    """
     now = _now(date)
     issues = list(issues or [])
     ev = {"ts": now.strftime("%Y-%m-%d %H:%M"), "date": now.strftime("%Y-%m-%d"),
           "blocking": bool(blocking), "passed": bool(passed),
           "n_issues": len(issues), "issues": issues[:5], "tier": tier or ""}
+    if not passed:  # 仅在打回时记录定位信息，通过项不占空间
+        ev["title"] = str(title or "")[:80]
+        ev["subject"] = str(subject or "")[:80]
     data = _prune(_load(STATS_PATH, {"events": []}), now)
     data.setdefault("events", []).append(ev)
     _save(STATS_PATH, data)
     return ev
+
+
+def rejects(days=None, today=None):
+    """打成回事件列表（新→旧），供熔断证据与人工复盘使用。"""
+    evs = [e for e in events() if e.get("blocking") and not e.get("passed")]
+    if days:
+        floor = (_now(today) - timedelta(days=days)).strftime("%Y-%m-%d")
+        evs = [e for e in evs if (e.get("date") or "") >= floor]
+    return list(reversed(evs))
+
+
+def traceability(days=None, today=None):
+    """打回可追溯性：returns {rejects, with_title, rate}（无记录 → rate=None）。"""
+    rs = rejects(days, today)
+    if not rs:
+        return {"rejects": 0, "with_title": 0, "rate": None}
+    with_title = sum(1 for e in rs if (e.get("title") or "").strip())
+    return {"rejects": len(rs), "with_title": with_title, "rate": with_title / len(rs)}
 
 
 def reset():

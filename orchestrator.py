@@ -32,7 +32,8 @@ from data_collector import (collect_real_matches, collect_transfer_news, collect
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
                              build_match_signature, is_event_duplicate,
-                             collect_fixture_topics, gather_fixture_facts)
+                             collect_fixture_topics, gather_fixture_facts,
+                             TEAM_ALIASES)
 
 
 def print_daily_summary(date_str, batch_mode):
@@ -1200,6 +1201,101 @@ def _looks_like_team(name):
     return True
 
 
+# ------------------------------------------------------------
+# 计划 7.3 · 队名「别名感知」判定
+# ------------------------------------------------------------
+# 事实校验必须要求「同一支球队」，而不是「同一个字符串」。事实层队名来自
+# entity_map（规范名，如「拜仁」），而来源/正文可能用全称或俗称（「拜仁慕尼黑」
+# 已作为 entity_map 别名登记）。此前按字面包含判定，一旦两处用不同写法即误报
+# 「缺少客队名」，累积 5 次还会触发第十章自动熔断（2026-10-12 的真实熔断即由
+# 「缺少客队名: 拜仁慕尼黑」这一误报引起）。故这里按**实体等价**判定。
+_ENTITY_TEAM_FORMS_CACHE = None
+
+
+def _load_entity_team_forms():
+    """config/entity_map.json（仅 club）→ {表面形式: frozenset(同实体全部表面形式)}。"""
+    global _ENTITY_TEAM_FORMS_CACHE
+    if _ENTITY_TEAM_FORMS_CACHE is not None:
+        return _ENTITY_TEAM_FORMS_CACHE
+    idx = {}
+    try:
+        data = json.loads((PROJECT_ROOT / "config" / "entity_map.json")
+                          .read_text(encoding="utf-8"))
+        for e in (data.get("entities") or {}).values():
+            if e.get("category") != "club":
+                continue
+            raw = [e.get("name_zh"), e.get("name_en")] + list(e.get("aliases") or [])
+            forms = frozenset(str(x).strip() for x in raw if isinstance(x, str) and len(str(x).strip()) >= 2)
+            if not forms:
+                continue
+            for f in forms:
+                idx.setdefault(f.lower(), set()).update(forms)
+    except Exception:
+        idx = {}
+    _ENTITY_TEAM_FORMS_CACHE = {k: frozenset(v) for k, v in idx.items()}
+    return _ENTITY_TEAM_FORMS_CACHE
+
+
+def _team_forms(name):
+    """返回同一支球队的**全部可接受写法**（规范名 + entity_map 别名 + TEAM_ALIASES 同组）。
+
+    精确到实体：``AC米兰`` 的别名含「米兰」，而 ``国际米兰`` 的别名只有「国米 /
+    国际米兰 / 蓝黑军团」——因此正文写「米兰」不会让「国际米兰」蒙混过关。
+    """
+    if not isinstance(name, str) or not name.strip():
+        return frozenset()
+    name = name.strip()
+    forms = {name}
+    ent = _load_entity_team_forms().get(name.lower())
+    if ent:
+        forms |= set(ent)
+    canon = TEAM_ALIASES.get(name, name)
+    group = {k for k, v in TEAM_ALIASES.items() if v == canon}
+    group.add(canon)
+    forms |= group
+    return frozenset(f for f in forms if isinstance(f, str) and len(f) >= 2)
+
+
+def _team_in_content(name, content):
+    """正文是否提到该球队（任一可接受写法命中即算）。"""
+    if not content:
+        return False
+    return any(f in content for f in _team_forms(name))
+
+
+def _same_team(a, b):
+    """两个队名是否指同一支球队（写法差异不算不同队）。"""
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    return bool(_team_forms(a) & _team_forms(b))
+
+
+def _teams_in_content(content, teams):
+    """正文中出现的球队（**取最长匹配**，消除子串串味）。
+
+    反向补一个真实误报源：``_KNOWN_TEAMS`` 含「米兰」，而正文写「国际米兰」时
+    ``"米兰" in content`` 为真，会被误判成「出现事实卡外的球队实体: 米兰」。
+    这里按跨度取最长匹配，命中「国际米兰」后即不再把其中的「米兰」算作另一队。
+    """
+    spans = []
+    for t in teams:
+        for f in _team_forms(t):
+            start = content.find(f)
+            while start != -1:
+                spans.append((start, start + len(f), t))
+                start = content.find(f, start + 1)
+    spans.sort(key=lambda s: (-(s[1] - s[0]), s[0]))
+    kept, covered = set(), []
+    for a, b, t in spans:
+        if any(a >= x and b <= y for x, y in covered):
+            continue
+        kept.add(t)
+        covered.append((a, b))
+    return kept
+
+
 def _clean_player_name(raw):
     """清理被动作片段污染的球员名（如 '内利上演' -> '内利'）。
 
@@ -1416,10 +1512,10 @@ def validate_article_vs_match_data(source_fixture, rewritten_article, match_cont
     hg = source_fixture.get("home_score")
     ag = source_fixture.get("away_score")
 
-    # 检查1：主客队名出现在文中
-    if ht and ht not in content:
+    # 检查1：主客队名出现在文中（别名感知：全称/简称/俗称视为同一队）
+    if ht and not _team_in_content(ht, content):
         issues.append(f"缺少主队名: {ht}")
-    if at and at not in content:
+    if at and not _team_in_content(at, content):
         issues.append(f"缺少客队名: {at}")
 
     # 检查2：比分一致性（加强版 regex，排除假匹配）
@@ -1536,12 +1632,18 @@ def _downgrade_topic(topic):
 # ── 计划第十章 · 自动熔断钩子 ───────────────────────────────────
 # 同批次一致性校验打回次数是「事实层是否整体失真」的早期信号。
 # 超过阈值即主动熔断（宁停勿错），避免在事实层失真的情况下继续批量产出。
-_CONSISTENCY_REJECTS = {"count": 0, "suspended": False}
+_CONSISTENCY_REJECTS = {"count": 0, "suspended": False, "evidence": []}
 _CONSISTENCY_REJECT_LOCK = threading.Lock()
+#: 熔断证据保留条数（供人工复盘是哪几篇触发）
+_CONSISTENCY_EVIDENCE_MAX = 8
 
 
 def _note_consistency_reject(hint: str) -> None:
-    """登记一次一致性打回；超阈值触发合规自动熔断（计划第十章）。"""
+    """登记一次一致性打回；超阈值触发合规自动熔断（计划第十章）。
+
+    同时累积**打回证据**（选题 + 具体问题）写进熔断 history，避免事后只看到
+    最后一条提示、无法定位触发批次（2026-10-12 熔断即缺此证据）。
+    """
     try:
         import compliance_guard
     except Exception:
@@ -1551,8 +1653,11 @@ def _note_consistency_reject(hint: str) -> None:
             return
         _CONSISTENCY_REJECTS["count"] += 1
         n = _CONSISTENCY_REJECTS["count"]
+        _CONSISTENCY_REJECTS["evidence"].append(str(hint or "")[:120])
+        evidence = list(_CONSISTENCY_REJECTS["evidence"][-_CONSISTENCY_EVIDENCE_MAX:])
     if compliance_guard.auto_suspend_if_systemic(
-            n, detail=f"同批次一致性校验打回 {n} 次，疑事实层失真：{hint[:80]}"):
+            n, detail=f"同批次一致性校验打回 {n} 次，疑事实层失真：{hint[:80]}",
+            evidence="\n".join(f"{i + 1}. {e}" for i, e in enumerate(evidence))):
         _CONSISTENCY_REJECTS["suspended"] = True
         try:
             send_wxpusher("足球自媒体 ⛔ 自动熔断",
@@ -1602,7 +1707,8 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
             match_passed, match_issues = validate_article_vs_match_data(fixture, art, match_context)
             if not match_passed:
                 last_hint = "; ".join(match_issues)
-                _note_consistency_reject(last_hint)
+                _note_consistency_reject(
+                    f"[{(topic.get('title') or topic.get('label') or topic.get('话题') or '未命名选题')[:40]}] {last_hint}")
                 if attempt < max_retries:
                     continue
                 # 计划九·一致性校验打回：降级为低风险板块后重生成一次；仍不过则丢弃
@@ -2138,7 +2244,9 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
             fact_tier=_fw_tier)
         if not (cons_ok and sc_pass):
             if not cons_ok:
-                _note_consistency_reject("; ".join(cons_issues))
+                _note_consistency_reject(
+                    f"[{(article.get('title') or title_hint or '紧急球评')[:40]}] "
+                    + "; ".join(cons_issues))
             if attempt < max_retries:
                 parts = []
                 if cons_issues:
@@ -2746,15 +2854,17 @@ def check_consistency_plan(article, facts=None, *, blocking=True):
         if stray:
             issues.append(f"出现事实卡外的比分: {', '.join(sorted(stray))}")
 
-    allowed_teams = list(facts.get("allowed_teams", []) or [])
+    allowed_teams = [t for t in (facts.get("allowed_teams", []) or []) if t]
     if allowed_teams:
-        hit = any(t and t in content for t in allowed_teams)
+        hit = any(_team_in_content(t, content) for t in allowed_teams)
         if not hit:
             issues.append("未提及任何事实卡内球队（疑似编造对阵/事件）")
-        # strict 实体拦截：仅在 blocking 且来源为中文事实卡时启用，避免跨语言误杀
+        # strict 实体拦截：仅在 blocking 且来源为中文事实卡时启用，避免跨语言误杀。
+        # 别名感知 + 最长匹配：写法差异（拜仁/拜仁慕尼黑）与子串串味（国际米兰/米兰）
+        # 都不再误杀（计划 7.3 误杀率<5%）。
         if blocking:
-            for t in _KNOWN_TEAMS:
-                if t in content and not any((t in at) or (at in t) for at in allowed_teams):
+            for t in sorted(_teams_in_content(content, _KNOWN_TEAMS)):
+                if not any(_same_team(t, at) for at in allowed_teams):
                     issues.append(f"出现事实卡外的球队实体: {t}")
                     break
 
@@ -2773,8 +2883,10 @@ def check_consistency_plan(article, facts=None, *, blocking=True):
     # 计划 7.3：一致性校验台账（拦截率可统计 / 误杀率留待人工标注）。失败不阻断。
     try:
         import consistency_stats
-        consistency_stats.record(blocking=blocking, passed=_res, issues=issues,
-                                 tier=_tier)
+        consistency_stats.record(
+            blocking=blocking, passed=_res, issues=issues, tier=_tier,
+            title=(article or {}).get("title", ""),
+            subject=facts.get("主体") or "、".join(list(allowed_teams)[:3]) or facts.get("subject", ""))
     except Exception:
         pass
     return _res, issues
