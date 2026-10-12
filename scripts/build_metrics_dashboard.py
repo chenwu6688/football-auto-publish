@@ -81,6 +81,7 @@ def collect(days: int, *, now=None) -> dict:
     perf = load_perf_log()
 
     total_articles = 0
+    pred_skipped = 0              # 预测类（晚间赛前预测稿，不发布到头条）剔除数
     traced = 0                     # sources_used / source_post 非空的文章
     batch_done = 0
     days_with_output = 0
@@ -102,7 +103,14 @@ def collect(days: int, *, now=None) -> dict:
         if d < since or d > now.date():
             continue
         meta = _load_json(meta_path) or {}
-        arts = meta.get("articles", []) or []
+        arts_all = meta.get("articles", []) or []
+        # R13 决策④：预测类不发布到头条，发布口径（总篇数/日均/板块/溯源/增长指标）
+        # 一律剔除；历史数据无 is_prediction 标时按 topics 级 _is_prediction 标题对拍兜底
+        pred_titles = {t.get("title") for t in meta.get("topics", []) or []
+                       if t.get("_is_prediction")}
+        arts = [a for a in arts_all
+                if not a.get("is_prediction") and a.get("title") not in pred_titles]
+        pred_skipped += len(arts_all) - len(arts)
         days_with_output += 1
         total_articles += len(arts)
 
@@ -145,6 +153,8 @@ def collect(days: int, *, now=None) -> dict:
         "批次完成率": round(batch_done / expected_batches * 100, 1),
         "溯源覆盖率": round(traced / total_articles * 100, 1) if total_articles else 0.0,
         "板块分布": dict(sorted(columns.items(), key=lambda kv: -kv[1])),
+        # 预测类剔除数（R13 决策④）：晚间赛前预测稿不发布到头条，不入发布口径
+        "预测类剔除": pred_skipped,
     }
 
     growth = {
@@ -236,6 +246,10 @@ def render_markdown(rep: dict) -> str:
           f"- 覆盖天数：{supply['覆盖天数']}　总篇数：{supply['总篇数']}　日均：{supply['日均篇数']} 篇",
           f"- 批次完成率：{supply['批次完成率']}%（期望 3 批/天）",
           f"- 溯源覆盖率：{supply['溯源覆盖率']}%", ""]
+    if supply.get("预测类剔除"):
+        L.append(f"> 已剔除预测类（晚间赛前预测稿，不发布到头条）{supply['预测类剔除']} 篇，"
+                 f"发布口径以头条实际发布为准。")
+        L.append("")
     if supply["板块分布"]:
         L.append("板块分布：" + "、".join(f"{k} {v} 篇" for k, v in supply["板块分布"].items()))
         L.append("")
@@ -268,6 +282,9 @@ def render_html(rep: dict) -> str:
             f"<td class='muted'>{note}</td></tr>")
 
     cols = "".join(f"<li>{k} <b>{v}</b> 篇</li>" for k, v in supply["板块分布"].items()) or "<li>—</li>"
+    pred_note = (f"<p class='hint'>已剔除预测类（晚间赛前预测稿，不发布到头条）"
+                 f"{supply['预测类剔除']} 篇，发布口径以头条实际发布为准。</p>"
+                 if supply.get("预测类剔除") else "")
     hint = ("<p class='hint'>⚠️ 阅读类指标尚未接入：用 "
             "<code>python3 performance_logger.py &lt;日期&gt; &lt;序号&gt; --reads N --followers M --sync</code> "
             "从头条后台回填后，本看板显示真实值。</p>" if rep["growth"]["_data_points"] == 0 else "")
@@ -310,15 +327,16 @@ def render_html(rep: dict) -> str:
    　｜　不实违规次数：<b>{n if n is not None else '—'}</b>（目标 0）
  </div>
 
- <div class="card"><h2>一、内容供给</h2>
-   <div class="kpis">
-     <div class="kpi"><b>{supply['覆盖天数']}</b><span>覆盖天数</span></div>
-     <div class="kpi"><b>{supply['总篇数']}</b><span>总篇数</span></div>
-     <div class="kpi"><b>{supply['日均篇数']}</b><span>日均篇数</span></div>
-     <div class="kpi"><b>{supply['批次完成率']}%</b><span>批次完成率</span></div>
-     <div class="kpi"><b>{supply['溯源覆盖率']}%</b><span>溯源覆盖率</span></div>
-   </div>
-   <ul style="margin-top:14px">{cols}</ul>
+  <div class="card"><h2>一、内容供给</h2>
+  <div class="kpis">
+    <div class="kpi"><b>{supply['覆盖天数']}</b><span>覆盖天数</span></div>
+    <div class="kpi"><b>{supply['总篇数']}</b><span>总篇数</span></div>
+    <div class="kpi"><b>{supply['日均篇数']}</b><span>日均篇数</span></div>
+    <div class="kpi"><b>{supply['批次完成率']}%</b><span>批次完成率</span></div>
+    <div class="kpi"><b>{supply['溯源覆盖率']}%</b><span>溯源覆盖率</span></div>
+  </div>
+  <ul style="margin-top:14px">{cols}</ul>
+  {pred_note}
  </div>
 
  <div class="card"><h2>二、增长指标 · 对照计划目标</h2>

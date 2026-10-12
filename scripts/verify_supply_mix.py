@@ -47,7 +47,14 @@ def _load_day(date_str: str) -> list[dict]:
         meta = json.loads(p.read_text(encoding="utf-8"))
     except Exception:
         return []
-    return [a for a in (meta.get("articles") or []) if isinstance(a, dict)]
+    # 预测类不发布到头条，不进供给配比口径（R13 决策④）：优先成稿级 is_prediction，
+    # 历史数据回落 topics 级 _is_prediction 按标题对拍（与看板/配额验收同口径）
+    pred_titles = {t.get("title") for t in meta.get("topics", []) or []
+                   if t.get("_is_prediction")}
+    return [a for a in (meta.get("articles") or [])
+            if isinstance(a, dict)
+            and not a.get("is_prediction")
+            and a.get("title") not in pred_titles]
 
 
 def collect(days: int, *, today: str | None = None) -> dict:

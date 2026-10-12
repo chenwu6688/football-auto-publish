@@ -199,10 +199,12 @@ def check_actual_batches(days: int) -> dict:
             meta = json.loads(p.read_text(encoding="utf-8"))
         except Exception:
             continue
+        # 预测类剔除：优先成稿级 is_prediction 标（R13 决策④起落 metadata）；
+        # 历史数据无该标，回落 topics 级 _is_prediction 按标题对拍（两种口径并存期）
         pred_titles = {t.get("title") for t in meta.get("topics", []) or []
                        if t.get("_is_prediction")}
         arts = [a for a in meta.get("articles", []) or []
-                if a.get("title") not in pred_titles]
+                if not a.get("is_prediction") and a.get("title") not in pred_titles]
         if not arts:
             continue
         days_seen += 1

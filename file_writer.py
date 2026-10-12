@@ -66,6 +66,10 @@ class FileWriter:
 
         batch_name = article_data.get("batch_name", "")
         batch_time = article_data.get("batch_time", "")
+        # 晚间赛前预测稿标记（R13 决策④）：不发布到头条，publisher.load_articles 据此跳过。
+        # 此前仅靠「预测稿无 batch_name + 批次过滤」间接排除，过滤 0 命中的降级路径会漏发。
+        is_prediction = bool(article_data.get("is_prediction")
+                             or article_data.get("_is_prediction"))
 
         md_content = f"""---
 title: "{title}"
@@ -78,6 +82,7 @@ batch_name: {batch_name}
 batch_time: {batch_time}
 sources_used: [{sources_str}]
 originality_note: "{originality_note}"
+is_prediction: {"true" if is_prediction else "false"}
 ---
 
 # {title}

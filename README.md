@@ -81,11 +81,11 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 > 实时抓取只能覆盖突发层，窗口期内事件密度不足即会断供。供给拆成三层互为缓冲，日更 6-8 篇稳定不断供。
 
-- 🗓️ **一级·确定性（~30%，提前量产入库）**：赛程驱动由 `scripts/fixture_library.py` 生成选题池；转会窗截止日 / 赛季节点 / 开赛倒计时由 `config/season_calendar.yaml` + `deterministic_supply.py` 维护，`scripts/pregen_deterministic.py` 提前 7 天量产入库，发布日直接取用。
+- 🗓️ **一级·确定性（~30%，提前量产入库）**：赛程驱动由 `scripts/fixture_library.py` 生成选题池；转会窗截止日 / 赛季节点 / 开赛倒计时由 `config/season_calendar.yaml` + `deterministic_supply.py` 维护，`scripts/pregen_deterministic.py` 提前 7 天量产入库，发布日直接取用。**与主稿共用单批配额**（先于主稿生成并占槽位，`orchestrator.DETERMINISTIC_DAILY_BUDGET` 限每日 2 篇保 ~30% 配比；改造前追加在末尾不占配额，实际日更冲到 10.5 篇，已按 P0 修法 A 收口）。
 - ⚡ **二级·突发（~50%，当日实时装配）**：source 源文 → 物理隔离抽取 → 事实卡 → 改写（见下）。
 - 🧊 **三级·软性（~20%，蓄水池补位）**：人物故事 / 榜单 / 数据对比 / 历史回顾无时效压力，`reservoir.py` 库存 + `scripts/refill_reservoir.py` 备货，突发日补位、密集日顺延。
 - 📏 **供给占比落实与验收（计划 12.1）**：`supply_mix.py` 给每篇成稿打三级分层标签（`_supply_layer`），`scripts/verify_supply_mix.py` 校验三层齐备与配比偏差（目标 30/50/20，容差 ±15pt）并产出逐日构成报告。
-- 🔢 **单批篇数纪律（策略手册第五章 / 计划 12.1）**：`batch_quota.py` 把「日更 6 至 8 篇」落成单批上限——常态每批 2 篇（日 6 篇），仅周四（`thursday_boost`）或 S 级事件（`s_level_event`，可用环境变量 `FOOTBALL_UPLIFT_REASON` 显式触发）允许单批加到手册上限，加发写 `data/uplift_ledger.json` 留痕且周内 ≤ 2 次；上限值唯一权威来源为 `constants.BATCH_QUOTA`，`orchestrator` 只调用不硬编码。
+- 🔢 **单批篇数纪律（策略手册第五章 / 计划 12.1）**：`batch_quota.py` 把「日更 6 至 8 篇」落成单批上限——常态每批 2 篇（日 6 篇），仅周四（`thursday_boost`）或 S 级事件（`s_level_event`，可用环境变量 `FOOTBALL_UPLIFT_REASON` 显式触发）允许单批加到手册上限，加发写 `data/uplift_ledger.json` 留痕且周内 ≤ 2 次；上限值唯一权威来源为 `constants.BATCH_QUOTA`，`orchestrator` 只调用不硬编码。**三层供给（一级·确定性 / 二级·主稿 / 三级·蓄水池补位）与紧急球评共用该上限**，晚间赛前预测稿不发布到头条、不计入发布口径（metadata 落 `is_prediction` 标，看板与配额验收据此剔除）。
 - 🧾 **赛程落库与接口额度台账（计划 11.4）**：每日批量拉取**未来 14 天**赛程写库（football-data 免费层单次窗口上限 10 天，自动分块），业务侧只读 `data/fixtures/topic_pool.json`；所有外部调用过 `api_budget.py` 台账（按源按日计数，双闸门：单源额度 + 全局 **3 次/日**），超限即拒绝并降级、绝不阻塞。补源联赛按日 4 日轮换，非轮换日只读最近缓存（`api_football.read_cache`），额度可经 `config/api_budget.yaml` 或环境变量覆盖。
 
 ### 反洗稿与合规（计划 4 / 11.3）

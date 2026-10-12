@@ -183,6 +183,13 @@ def load_articles(date_str, batch_filter=None):
                     title = line[2:].strip()
                     break
 
+        # 晚间赛前预测稿不发布到头条（R13 决策④）：frontmatter is_prediction 显式跳过。
+        # 此前仅靠「预测稿无 batch_name + 批次过滤」间接排除——过滤 0 命中的降级
+        # 路径会把它当普通文章发布，突破单批配额；现在显式拦截，两条路径都拦得住。
+        if str(meta.get("is_prediction", "")).strip().lower() in ("true", "1", "yes"):
+            print(f"  🔮 跳过预测稿（不发布到头条）: {title[:50]}")
+            continue
+
         articles.append({
             "title": title,
             "file": str(md_file),

@@ -2053,21 +2053,25 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         # 溯源标注（计划第十章）：从 _source_fixture 派生真实来源，只写元数据、不动正文
         _prov_sources, _prov_post = resolve_provenance(art)
         saved.append({"index": idx, "title": art.get("title", ""), "path": result["article_path"],
-                       "slug": result["slug"], "tags": art.get("keywords", []),
-                       "keywords": art.get("keywords", []), "images": result["image_paths"],
-                       "sources_used": _prov_sources,
-                       "source_post": _prov_post,
-                       "originality_note": art.get("originality_note", ""),
-                       "content_type": art.get("content_type", ""),
-                       "column_id": art.get("_column_id", ""),
-                       "column_name": art.get("_column_name", ""),
-                       "batch_name": art.get("_batch_name", ""),
-                       # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
-                       "supply_layer": supply_mix.tag(art)})
+                      "slug": result["slug"], "tags": art.get("keywords", []),
+                      "keywords": art.get("keywords", []), "images": result["image_paths"],
+                      "sources_used": _prov_sources,
+                      "source_post": _prov_post,
+                      "originality_note": art.get("originality_note", ""),
+                      "content_type": art.get("content_type", ""),
+                      "column_id": art.get("_column_id", ""),
+                      "column_name": art.get("_column_name", ""),
+                      "batch_name": art.get("_batch_name", ""),
+                      # 晚间赛前预测稿：不发布到头条，看板/配额验收按此标剔除（R13 决策④）
+                      "is_prediction": bool(art.get("_is_prediction")),
+                      # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
+                      "supply_layer": supply_mix.tag(art)})
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
-    # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）
-    _supply = supply_mix.summarize(articles)
+    # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）。
+    # 预测稿不发布到头条，不进配比口径（与看板/配额验收同口径，R13 决策④）。
+    _supply = supply_mix.summarize(
+        [a for a in articles if not a.get("_is_prediction")])
     meta["supply_layers"] = _supply
     if _supply["unclassified"]:
         print(f"   ⚠️ 三层供给存在未分层成稿 {_supply['unclassified']} 篇"
@@ -2431,12 +2435,17 @@ def _rank_topics(topics, match_data, date_str, *, use_llm=True):
 
 
 def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
-                                    articles_out, date_str=None, max_workers=3):
+                                    articles_out, date_str=None, max_workers=3,
+                                    index_offset=0):
     """Pipeline A：对每个话题从直播吧/懂球帝源文章改写为老六风格（并行生成以缩短耗时）。
 
     配图优先级：① 源文章战报图片 → ② Unsplash/Wikipedia 搜索。
     生成前先做源文章存在性预检，跳过注定失败的话题（优化②）；
     各话题并行改写，wall-clock 时间随并发数下降（优化③）。
+
+    index_offset：本批文章在最终 articles 列表中的起始位置。P0 修法 A 后
+    确定性供给先于主稿生成并占用配额，主稿必须从 offset 之后编号，
+    否则 images_map / articles 元组索引会与确定性文章相撞（配图错位）。
     """
     selected = topics[:count]
     if not selected:
@@ -2444,7 +2453,7 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
 
     def _gen_one(i, topic):
         ct = topic.get("content_type", "N/A")
-        print(f"\n--- 第{i+1}/{count}篇 [{ct}] ---")
+        print(f"\n--- 第{index_offset + i + 1}/{index_offset + count}篇 [{ct}] ---")
 
         # 优化②：源文章存在性预检，提前跳过注定失败的话题
         if not _has_source_for_topic(topic, match_data):
@@ -2463,7 +2472,7 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
         else:
             imgs = search_images(topic, count=5)
 
-        art, error = generate_article_with_retry(topic, match_data, i + 1,
+        art, error = generate_article_with_retry(topic, match_data, index_offset + i + 1,
                                                   max_retries=2, date_str=date_str)
         return i, (art if not error else None), error, imgs
 
@@ -2477,18 +2486,18 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
     # 按原顺序汇总，保证文章/配图索引一致（main 末尾会按 index 排序，这里顺序不影响最终输出）
     for i in sorted(results.keys()):
         art, error, imgs = results[i]
-        images_map[i] = imgs
+        images_map[index_offset + i] = imgs
         ct = selected[i].get("content_type", "N/A")
         stats["generated"] += 1
         if error:
-            print(f"   ❌ 第{i+1}篇失败: {error}")
+            print(f"   ❌ 第{index_offset + i + 1}篇失败: {error}")
             stats["failed"] += 1
-            stats["issues"].append(f"第{i+1}篇({ct}): {error}")
+            stats["issues"].append(f"第{index_offset + i + 1}篇({ct}): {error}")
         else:
             stats["valid"] += 1
             # P0-3: 信息增量非阻断告警
             warn_if_low_info_increment(art)
-            articles_out.append((i, art))
+            articles_out.append((index_offset + i, art))
 
 
 # ============================================================
@@ -3287,6 +3296,34 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
 # Fixture Article — 确定性供给（赛程冲突点选题）
 # ============================================================
 FIXTURE_PER_BATCH = 1  # 每批最多生成的确定性供给篇数（计划：确定性供给占内容~30%）
+# P0 修法 A 配套（R13）：确定性供给改为**占用批次配额**后，若每批都发 1 篇，
+# 日 6 篇下确定性将占 50%，偏离计划 12.1 的 ~30% 配比。故设每日预算：
+# 日配额 6~8 篇 × 30% ≈ 2 篇/日，先到先得（晨/午优先，晚间预测稿日本身有预测稿）。
+DETERMINISTIC_DAILY_BUDGET = 2
+
+
+def _deterministic_used_today(date_str) -> int:
+    """今日已保存批次中「一级·确定性」供给的篇数（每日预算计数，P0 修法 A 配套）。
+
+    计数口径必须**跨批累计**：CI 的 batch.yml 回写步骤会把当日各批 articles
+    合并进同一份 metadata（批次级 supply_layers 却只留当批），故按**成稿级
+    `supply_layer`** 计数（合并后 articles 即当日累计，可靠）；
+    成稿级标签缺失（改造前数据）时回落批次级汇总。读不到按 0 计——
+    缺数据时放行而非冒充已用满（与「缺失标待接入」同思路）。
+    """
+    try:
+        meta_path = OUTPUT_DIR / date_str / "metadata.json"
+        if not meta_path.exists():
+            return 0
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        n = sum(1 for a in (meta.get("articles") or [])
+                if str(a.get("supply_layer") or "").startswith("一级·确定性"))
+        if n:
+            return n
+        counts = (meta.get("supply_layers") or {}).get("counts") or {}
+        return int(counts.get("一级·确定性", 0) or 0)
+    except Exception:
+        return 0
 
 
 def _fixture_content_type(topic):
@@ -3631,29 +3668,136 @@ def main():
         except Exception as e:
             print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
 
-        # 动态条数：按实际返回的高质量话题数裁剪，单批不超过 max_articles
+        # ============================================================
+        # 一级·确定性供给（赛程冲突点选题 + 节点事件）——占用批次配额（P0 修法 A）
+        # ============================================================
+        # 计划 12.1 / 手册第五章：单批上限由 batch_quota 裁定。此前确定性供给
+        # **追加在 articles 末尾、不占 max_articles**，实际日更冲到 10.5 篇、
+        # 远超手册日 6 篇（R13 评估定为 P0）。现改为**先于主稿生成并占用配额**：
+        # 主稿只填剩余槽位，单批成稿总数（不含未发布的晚间预测稿）永不超过
+        # max_articles。每日预算 DETERMINISTIC_DAILY_BUDGET 篇保计划 ~30% 配比。
+        # 与 Pipeline A 解耦：不依赖直播吧/懂球帝源文章，scraper 失效时也能产出
+        # 真实、时效、有冲突点的内容。
+        _main_topic_count = len(topics)
+        fixture_added = 0
+        det_cap = min(FIXTURE_PER_BATCH,
+                      max(0, DETERMINISTIC_DAILY_BUDGET - _deterministic_used_today(date_str)))
+        if FIXTURE_PER_BATCH > 0 and det_cap <= 0:
+            print(f"   🗓️ 确定性供给本批让位：今日已用满每日预算 "
+                  f"{DETERMINISTIC_DAILY_BUDGET} 篇（计划 12.1 一级·确定性 ~30%），槽位全留给主稿")
+        if FIXTURE_PER_BATCH > 0 and det_cap > 0:
+            try:
+                fixture_topics = collect_fixture_topics(
+                    date_str, batch_mode=batch_mode, max_topics=det_cap,
+                    lookahead_days=5, topic_history=topic_history,
+                    cross_batch_covered=cross_batch_covered)
+                if not fixture_topics:
+                    # 计划九·赛程源不可用：退化为纯新闻流驱动，选题池仅由事实卡装配
+                    degrade.note("赛程源", "本批无可用赛程选题（源不可用或无匹配）",
+                                 action="退化为纯新闻流驱动，选题池仅由事实卡装配")
+                for ft in fixture_topics:
+                    facts = gather_fixture_facts(ft)
+                    f_art = generate_fixture_article(
+                        ft, facts, date_str=date_str,
+                        recent_prefixes=topic_history.get("title_prefixes"),
+                        topic_history=topic_history, batch_mode=batch_mode)
+                    if f_art:
+                        img_topic = {
+                            "title": f_art.get("title", ""),
+                            "keywords_cn": [ft.get("home_zh", ""), ft.get("away_zh", "")],
+                            "keywords": ["football", (ft.get("competition") or "match")],
+                        }
+                        f_imgs = search_images(img_topic, count=3)
+                        images_map[len(articles)] = f_imgs
+                        stats["generated"] += 1
+                        stats["valid"] += 1
+                        warn_if_low_info_increment(f_art)
+                        articles.append((len(articles), f_art))
+                        topics.append({
+                            "title": f_art.get("title", ""),
+                            "content_type": f_art.get("content_type", ""),
+                            "_is_fixture": True,
+                        })
+                        print(f"   🗓️ 确定性供给已追加: {f_art['title'][:50]}")
+                        fixture_added += 1
+                    else:
+                        print("   ℹ️ 确定性供给选题生成跳过（无有效素材或生成失败）")
+            except Exception as e:
+                print(f"   ⚠️ 确定性供给生成异常 (不影响主流程): {e}")
+
+        # 计划 12.1 一级·确定性第二类：节点事件（转会窗截止日/赛季节点/开赛倒计时）。
+        # 由 scripts/pregen_deterministic.py 提前 7 天量产入库；此处直接取用，不再调用 LLM。
+        # 与赛程类共用一级配额与每日预算（det_cap），库存为空即静默跳过（非阻断）。
+        if det_cap > 0 and fixture_added < det_cap:
+            try:
+                import deterministic_supply
+                slots = max(0, det_cap - fixture_added)
+                node_arts = deterministic_supply.fill_gap(slots, date_str=date_str)
+                for na in node_arts:
+                    if not na.get("title") or len(na.get("content", "")) < 200:
+                        continue
+                    n_art = {
+                        "title": na.get("title", ""),
+                        "content": na.get("content", ""),
+                        "summary": na.get("summary", ""),
+                        "keywords": na.get("keywords", []),
+                        "keywords_cn": na.get("keywords_cn", []),
+                        "content_type": na.get("content_type", ""),
+                        "_column_name": na.get("section", ""),
+                        "_title_score": na.get("_title_score"),
+                        "_is_fixture": True,
+                        "_supply_layer": "一级·确定性·节点",
+                    }
+                    img_topic = {
+                        "title": n_art.get("title", ""),
+                        "keywords_cn": n_art.get("keywords_cn", []),
+                        "keywords": n_art.get("keywords", ["football"]),
+                    }
+                    images_map[len(articles)] = search_images(img_topic, count=3)
+                    stats["generated"] += 1
+                    stats["valid"] += 1
+                    articles.append((len(articles), n_art))
+                    topics.append({
+                        "title": n_art.get("title", ""),
+                        "content_type": n_art.get("content_type", ""),
+                        "_is_fixture": True,
+                        "_supply_layer": "一级·确定性·节点",
+                    })
+                    print(f"   🗓️ 一级·确定性节点供给已取用: {n_art['title'][:50]}"
+                          f"（{na.get('node_type', '')}）")
+            except Exception as e:
+                print(f"   ⚠️ 节点确定性供给取用异常 (不影响主流程): {e}")
+
+        # 动态条数：确定性供给已占用配额（P0 修法 A），主稿只填剩余槽位
         # （常态 2 篇；周四或 S 级事件按 batch_quota 加发时上限提高，见本函数开头 quota）
-        article_count = min(len(topics), max_articles)
-        if article_count >= max_articles:
-            print(f"   📈 动态条数：本批生成 {article_count} 篇（已达上限 {max_articles}）")
+        _main_slots = max(0, max_articles - fixture_added)
+        article_count = min(_main_topic_count, _main_slots)
+        if fixture_added:
+            print(f"   🧮 配额分配：单批上限 {max_articles} 篇 = 确定性 {fixture_added} + 主稿槽位 {_main_slots}")
+        if _main_slots > 0 and article_count >= _main_slots:
+            print(f"   📈 动态条数：本批主稿生成 {article_count} 篇（剩余槽位 {_main_slots}）")
         elif article_count > 0:
-            print(f"   📉 动态条数：本批实际高质量话题 {len(topics)} 个，生成 {article_count} 篇（上限 {max_articles}）")
+            print(f"   📉 动态条数：本批实际高质量话题 {_main_topic_count} 个，主稿生成 {article_count} 篇（剩余槽位 {_main_slots}）")
         else:
             print(f"   ⚠️ 动态条数：LLM 未返回可用话题，本批主稿 0 篇（将走应急/空批次兜底）")
 
         # Generate articles: find source article for each topic, rewrite to 老六 style
+        # index_offset：确定性文章已占前 fixture_added 个位置，主稿从其后编号
         _generate_articles_from_topics(topics, article_count, match_data,
-                                       images_map, stats, articles, date_str=date_str)
+                                       images_map, stats, articles, date_str=date_str,
+                                       index_offset=len(articles))
 
         # 加发留痕（策略手册第五章 / 计划 12.1）：只有真正加发才记账，
         # 供验收核查「周内加发 ≤ 2 次、原因可回溯」。失败仅告警，不阻塞发布。
+        # 记账篇数 = 本批实际发布总数（主稿 + 确定性供给；预测稿不发布不计）。
         if quota.get("uplifted"):
             try:
                 import batch_quota
                 batch_quota.record(date_str, batch_mode, quota.get("reason") or "",
-                                   articles=article_count,
+                                   articles=article_count + fixture_added,
                                    note=os.environ.get("FOOTBALL_UPLIFT_NOTE", ""))
-                print(f"   📌 加发留痕：本批 {article_count} 篇（原因 {quota.get('reason')}，"
+                print(f"   📌 加发留痕：本批 {article_count + fixture_added} 篇"
+                      f"（主稿 {article_count} + 确定性 {fixture_added}；原因 {quota.get('reason')}，"
                       f"周内已用 {quota.get('weekly_used')}/{quota.get('weekly_limit')}）")
             except Exception as e:
                 print(f"   ⚠️ 加发留痕失败（不影响发布）: {e}")
@@ -3729,93 +3873,8 @@ def main():
                 print("   ℹ️ 明日无赛程，跳过赛前预测")
 
         # ============================================================
-        # Fixture Pipeline — 确定性供给（赛程冲突点选题，非 scraper 改写）
+        # （一级·确定性供给已移至主稿生成之前，占用批次配额 —— P0 修法 A，见上）
         # ============================================================
-        # 与 Pipeline A 解耦：不依赖直播吧/懂球帝源文章，scraper 失效时也能产出
-        # 真实、时效、有冲突点的内容。每批最多 FIXTURE_PER_BATCH 篇（计划：确定性供给~30%）。
-        fixture_added = 0
-        if FIXTURE_PER_BATCH > 0:
-            try:
-                fixture_topics = collect_fixture_topics(
-                    date_str, batch_mode=batch_mode, max_topics=FIXTURE_PER_BATCH,
-                    lookahead_days=5, topic_history=topic_history,
-                    cross_batch_covered=cross_batch_covered)
-                if not fixture_topics:
-                    # 计划九·赛程源不可用：退化为纯新闻流驱动，选题池仅由事实卡装配
-                    degrade.note("赛程源", "本批无可用赛程选题（源不可用或无匹配）",
-                                 action="退化为纯新闻流驱动，选题池仅由事实卡装配")
-                for ft in fixture_topics:
-                    facts = gather_fixture_facts(ft)
-                    f_art = generate_fixture_article(
-                        ft, facts, date_str=date_str,
-                        recent_prefixes=topic_history.get("title_prefixes"),
-                        topic_history=topic_history, batch_mode=batch_mode)
-                    if f_art:
-                        img_topic = {
-                            "title": f_art.get("title", ""),
-                            "keywords_cn": [ft.get("home_zh", ""), ft.get("away_zh", "")],
-                            "keywords": ["football", (ft.get("competition") or "match")],
-                        }
-                        f_imgs = search_images(img_topic, count=3)
-                        images_map[len(articles)] = f_imgs
-                        stats["generated"] += 1
-                        stats["valid"] += 1
-                        warn_if_low_info_increment(f_art)
-                        articles.append((len(articles), f_art))
-                        topics.append({
-                            "title": f_art.get("title", ""),
-                            "content_type": f_art.get("content_type", ""),
-                            "_is_fixture": True,
-                        })
-                        print(f"   🗓️ 确定性供给已追加: {f_art['title'][:50]}")
-                        fixture_added += 1
-                    else:
-                        print("   ℹ️ 确定性供给选题生成跳过（无有效素材或生成失败）")
-            except Exception as e:
-                print(f"   ⚠️ 确定性供给生成异常 (不影响主流程): {e}")
-
-        # 计划 12.1 一级·确定性第二类：节点事件（转会窗截止日/赛季节点/开赛倒计时）。
-        # 由 scripts/pregen_deterministic.py 提前 7 天量产入库；此处直接取用，不再调用 LLM。
-        # 与赛程类共用一级配额（FIXTURE_PER_BATCH），库存为空即静默跳过（非阻断）。
-        if FIXTURE_PER_BATCH > 0 and fixture_added < FIXTURE_PER_BATCH:
-            try:
-                import deterministic_supply
-                slots = max(0, FIXTURE_PER_BATCH - fixture_added)
-                node_arts = deterministic_supply.fill_gap(slots, date_str=date_str)
-                for na in node_arts:
-                    if not na.get("title") or len(na.get("content", "")) < 200:
-                        continue
-                    n_art = {
-                        "title": na.get("title", ""),
-                        "content": na.get("content", ""),
-                        "summary": na.get("summary", ""),
-                        "keywords": na.get("keywords", []),
-                        "keywords_cn": na.get("keywords_cn", []),
-                        "content_type": na.get("content_type", ""),
-                        "_column_name": na.get("section", ""),
-                        "_title_score": na.get("_title_score"),
-                        "_is_fixture": True,
-                        "_supply_layer": "一级·确定性·节点",
-                    }
-                    img_topic = {
-                        "title": n_art.get("title", ""),
-                        "keywords_cn": n_art.get("keywords_cn", []),
-                        "keywords": n_art.get("keywords", ["football"]),
-                    }
-                    images_map[len(articles)] = search_images(img_topic, count=3)
-                    stats["generated"] += 1
-                    stats["valid"] += 1
-                    articles.append((len(articles), n_art))
-                    topics.append({
-                        "title": n_art.get("title", ""),
-                        "content_type": n_art.get("content_type", ""),
-                        "_is_fixture": True,
-                        "_supply_layer": "一级·确定性·节点",
-                    })
-                    print(f"   🗓️ 一级·确定性节点供给已取用: {n_art['title'][:50]}"
-                          f"（{na.get('node_type', '')}）")
-            except Exception as e:
-                print(f"   ⚠️ 节点确定性供给取用异常 (不影响主流程): {e}")
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
@@ -3826,7 +3885,8 @@ def main():
             major_events = detect_major_events(match_data)
             urgent_events = [e for e in major_events if e["urgency"] >= 70]
             # Only trigger emergency in non-batch mode or morning batch (avoid duplicates)
-            if urgent_events and batch_mode in ("auto", "morning"):
+            # 配额守卫（P0 修法 A）：本批已满则紧急球评让位，不突破单批上限
+            if urgent_events and batch_mode in ("auto", "morning") and len(articles) < max_articles:
                 top_event = urgent_events[0]
                 e_idx = len(articles) + 1
                 e_imgs = search_images({"title": top_event.get("title_hint", ""),
@@ -3849,6 +3909,9 @@ def main():
                     topics.append({"title": top_event.get("title_hint", ""),
                                    "content_type": f"紧急球评-{top_event.get('type', '')}"})
                     print(f"   🚨 紧急球评已生成: [{top_event['type']}] urgency={top_event['urgency']}")
+            elif urgent_events and batch_mode in ("auto", "morning"):
+                print(f"   🚨 紧急球评让位配额：本批已满 {len(articles)}/{max_articles} 篇"
+                      f"（计划 12.1 单批上限，事件 [{urgent_events[0]['type']}] 顺延下批）")
 
         # ============================================================
         # Save all articles
