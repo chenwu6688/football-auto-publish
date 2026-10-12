@@ -22,6 +22,7 @@ from pathlib import Path
 from constants import PROJECT_ROOT
 from utils import CST
 import awareness_gate
+import content_reference
 
 CACHE_PATH = PROJECT_ROOT / "data" / "ranker_cache.json"
 ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
@@ -150,6 +151,14 @@ def l1_prefilter(candidates, ctx=None, *, target_max=DEFAULT_TARGET_MAX):
                 continue
             if dec["requires_anchor"]:
                 c["_requires_anchor"] = True
+        # 计划 13.3 内容参照层：剔除命中排除项的候选（前瞻体 / 中下游球队细节 /
+        # 二线联赛赛事稿 / 三千字深度长文）。只在标题/标签/板块层面保守匹配，
+        # 未命中即放行，绝不对正文全文匹配（避免误杀）。
+        _rv = content_reference.check_topic(c)
+        if _rv:
+            c["_ref_violations"] = _rv
+            dropped.append((c, "内容参照层排除项：" + "；".join(x["key"] for x in _rv)))
+            continue
         kept.append(c)
 
     if len(kept) > target_max:

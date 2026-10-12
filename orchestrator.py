@@ -27,6 +27,7 @@ import risk_gate
 import degrade
 import supply_mix
 import rumor_wording
+import content_reference
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
@@ -2766,8 +2767,17 @@ def check_consistency_plan(article, facts=None, *, blocking=True):
 
     if not blocking:
         # warn-only：永远放行，但 issues 仍回传供日志
-        return True, issues
-    return (len(issues) == 0), issues
+        _res = True
+    else:
+        _res = (len(issues) == 0)
+    # 计划 7.3：一致性校验台账（拦截率可统计 / 误杀率留待人工标注）。失败不阻断。
+    try:
+        import consistency_stats
+        consistency_stats.record(blocking=blocking, passed=_res, issues=issues,
+                                 tier=_tier)
+    except Exception:
+        pass
+    return _res, issues
 
 
 # ------------------------------------------------------------
@@ -3205,6 +3215,11 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
 类型：{angle_type}（建议栏目：{topic.get('suggested_column', '')}）
 核心冲突：{topic.get('conflict', '')}
 写法指引：{angle_guidance}
+
+## 内容参照层（计划 13.3：只抄方法论，不抄选题）
+{content_reference.exclusion_guidance()}
+- 可参照的方法论（借方法、不搬选题）：标题内携带信源（如「罗马诺：」）、
+  信源+动作+数字/人名的信息结构、话题时效判断、固定栏目形态。
 
 今天是 {date_str or '今日'}，比赛在北京时间 {topic.get('kickoff_cst', '')} 开球。
 {prefix_hint}
