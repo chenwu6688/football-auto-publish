@@ -25,6 +25,46 @@ OUTPUT_DIR = Path(os.environ.get("OUTPUT_DIR", PROJECT_ROOT / "output"))
 PERF_LOG_PATH = OUTPUT_DIR / "performance_log.json"
 
 
+# ============================================================
+# 主键与取数（2026-10-12 修复）
+#
+# 旧主键是 f"{date}/article-{index}"，但 index 是「每批从 1 开始」的批内序号，
+# 同一天多批次必然重复（实测 2026-10-12 的 index 2/3 各出现两次），
+# 用它做键会让绩效数据串号写到别的文章上。
+# 新主键改用 slug（同一天内唯一），旧键仅作只读兜底以兼容历史数据。
+# ============================================================
+
+def perf_key(date_str: str, index=None, slug=None) -> str:
+    """绩效记录主键：有 slug 用 slug，否则回退旧键（历史数据兼容）。"""
+    if slug:
+        return f"{date_str}/{slug}"
+    return f"{date_str}/article-{index}"
+
+
+def resolve_performance(log_data: dict, date_str: str, index=None, slug=None) -> dict:
+    """取一条绩效记录：slug 键优先，旧 article-<index> 键兜底；取不到返回 {}。"""
+    arts = (log_data or {}).get("articles", {}) or {}
+    if slug:
+        rec = arts.get(f"{date_str}/{slug}")
+        if isinstance(rec, dict):
+            return rec
+    if index is not None:
+        rec = arts.get(f"{date_str}/article-{index}")
+        if isinstance(rec, dict):
+            return rec
+    return {}
+
+
+def index_occurrences(meta: dict) -> dict:
+    """统计 metadata 当天每个 index 出现次数（用于识别 index 不唯一 → 禁止按 index 回写）。"""
+    counts: dict = {}
+    for a in meta.get("articles", []) or []:
+        i = a.get("index")
+        if i is not None:
+            counts[i] = counts.get(i, 0) + 1
+    return counts
+
+
 def load_performance_log():
     """Load the full performance log."""
     if not PERF_LOG_PATH.exists():
@@ -42,12 +82,13 @@ def save_performance_log(log_data):
     PERF_LOG_PATH.write_text(json.dumps(log_data, ensure_ascii=False, indent=2))
 
 
-def log_article_performance(date_str, article_index, reads=0, comments=0, likes=0, shares=0, retention_rate=0.0, new_followers=0, impressions=0, follower_reads=0):
+def log_article_performance(date_str, article_index=None, reads=0, comments=0, likes=0, shares=0, retention_rate=0.0, new_followers=0, impressions=0, follower_reads=0, slug=None):
     """Record performance metrics for a single article.
 
     Args:
         date_str: "2026-06-02"
-        article_index: 1-based article index
+        article_index: 批内 1-based 序号（**同一天可能重复，故仅作旧键兜底**）
+        slug: metadata.articles[].slug，同一天内唯一；有则用它做主键（推荐）
         reads: 阅读量
         comments: 评论数
         likes: 点赞数
@@ -58,10 +99,11 @@ def log_article_performance(date_str, article_index, reads=0, comments=0, likes=
         follower_reads: 粉丝阅读量（计划第十章：粉丝阅读占比 = follower_reads / reads）
     """
     log_data = load_performance_log()
-    key = f"{date_str}/article-{article_index}"
+    key = perf_key(date_str, index=article_index, slug=slug)
     log_data["articles"][key] = {
         "date": date_str,
         "index": article_index,
+        "slug": slug,
         "reads": reads,
         "comments": comments,
         "likes": likes,
@@ -89,19 +131,29 @@ def update_metadata_performance(date_str):
 
     log_data = load_performance_log()
     meta = json.loads(meta_path.read_text())
+    counts = index_occurrences(meta)
 
     updated = 0
+    skipped_ambiguous = 0
     for article in meta.get("articles", []):
         idx = article.get("index", 0)
-        key = f"{date_str}/article-{idx}"
-        if key in log_data["articles"]:
-            perf = log_data["articles"][key]
+        slug = article.get("slug")
+
+        perf = resolve_performance(log_data, date_str, slug=slug) if slug else {}
+        if not perf:
+            # 旧键兜底：只有当天 index 唯一时才敢按 index 回写，
+            # 否则同一 index 会有多篇文章，写下去就是串号。
+            if counts.get(idx, 0) == 1:
+                perf = resolve_performance(log_data, date_str, index=idx)
+            elif counts.get(idx, 0) > 1:
+                skipped_ambiguous += 1
+        if perf:
             article["performance"] = {
-                "reads": perf["reads"],
-                "comments": perf["comments"],
-                "likes": perf["likes"],
-                "shares": perf["shares"],
-                "retention_rate": perf["retention_rate"],
+                "reads": perf.get("reads", 0),
+                "comments": perf.get("comments", 0),
+                "likes": perf.get("likes", 0),
+                "shares": perf.get("shares", 0),
+                "retention_rate": perf.get("retention_rate", 0.0),
                 "new_followers": perf.get("new_followers", 0),
                 "impressions": perf.get("impressions", 0),
                 "follower_reads": perf.get("follower_reads", 0),
@@ -113,6 +165,8 @@ def update_metadata_performance(date_str):
         print(f"   ✅ 已同步 {updated} 篇文章的性能数据到 metadata.json")
     else:
         print(f"   无新性能数据需要同步 ({date_str})")
+    if skipped_ambiguous:
+        print(f"   ⚠️  {skipped_ambiguous} 篇因 index 当天不唯一且无 slug 匹配被跳过（避免串号）")
 
 
 # ============================================================
@@ -124,7 +178,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="头条性能数据录入")
     parser.add_argument("date", help="日期 (YYYY-MM-DD)")
-    parser.add_argument("index", type=int, help="文章序号 (1-based)")
+    parser.add_argument("index", type=int, nargs="?", default=None,
+                        help="批内序号 (1-based)；同一天可能重复，建议改用 --slug")
+    parser.add_argument("--slug", default=None,
+                        help="文章 slug（metadata.articles[].slug，同一天内唯一，推荐）")
     parser.add_argument("--reads", type=int, default=0, help="阅读量")
     parser.add_argument("--comments", type=int, default=0, help="评论数")
     parser.add_argument("--likes", type=int, default=0, help="点赞数")
@@ -143,7 +200,8 @@ if __name__ == "__main__":
                             retention_rate=args.retention,
                             new_followers=args.followers,
                             impressions=args.impressions,
-                            follower_reads=args.follower_reads)
+                            follower_reads=args.follower_reads,
+                            slug=args.slug)
 
     if args.sync:
         update_metadata_performance(args.date)

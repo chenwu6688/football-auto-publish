@@ -7,6 +7,7 @@ name: 计划结构不变量验收（6.1/6.2/8.1/11.5/12.2/12.4/13.2/13.4/第十�
 #   - 数据源与信源清单（13.2 / 13.4）
 #   - 验收指标与合规熔断（第十章）
 #   - 单批篇数纪律（策略手册第五章 / 计划 12.1）
+#   - 头条后台数据接入（第十章：主键唯一性 / 列名映射 / 标题匹配 / 无依赖 xlsx）
 on:
   schedule:
     - cron: '30 4 * * 1'
@@ -63,6 +64,11 @@ jobs:
         run: |
           python3 scripts/verify_batch_quota.py --quiet \
             || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"
+
+      - name: 头条后台数据接入（计划第十章）
+        run: |
+          python3 scripts/verify_performance_import.py --quiet \
+            || echo "::warning::头条后台数据接入验收未通过（主键唯一性 / 列名映射 / 标题匹配 / 无依赖 xlsx），详见 data/audit/performance_import_latest.json"
 
       - name: 回写验收报告
         if: always()

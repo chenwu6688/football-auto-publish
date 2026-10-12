@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-10-12 13:31",
+  "ok": true,
+  "checks": [
+    {
+      "item": "主键唯一性（slug 每天唯一；index 会重复故不可作键）",
+      "ok": true,
+      "advisory": false,
+      "days": 123,
+      "dup_slug": [],
+      "dup_index_count": 395,
+      "detail": [
+        "扫描 123 天：slug 全部唯一 ✅",
+        "同期 index 重复 395 处（正是本次把主键从 index 换成 slug 的原因）"
+      ]
+    },
+    {
+      "item": "列名映射（含最长匹配与忽略列遮挡）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "12 个中文列名全部映射正确",
+        "「粉丝展现量/点击率/平均阅读时长/收藏量」被识别为忽略列，未污染 impressions/reads ✅"
+      ]
+    },
+    {
+      "item": "表头定位（非首行可探测）",
+      "ok": true,
+      "advisory": false,
+      "header_row": 2,
+      "mapped": 11,
+      "detail": [
+        "表头在第 3 行、识别 11 列✅"
+      ]
+    },
+    {
+      "item": "无依赖解析 .xlsx（标准库；不依赖 openpyxl/pandas）",
+      "ok": true,
+      "advisory": false,
+      "openpyxl_present": false,
+      "detail": [
+        "标准库解出 7 行 × 13 列✅",
+        "本机 openpyxl 存在=False（不影响本项目路径）"
+      ]
+    },
+    {
+      "item": "数值清洗（万/亿、千分位、占位符）与完读率换算",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "单位与千分位换算正确；「--/—/无」判为缺数据而非 0 ✅",
+        "完读率 41.2% → 0.412（百分号只在完读率上换算）✅"
+      ]
+    },
+    {
+      "item": "标题匹配得 (日期, slug)；未匹配/歧义不写库，有时间则消歧",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "命中 2、未匹配 1、非图文 1（均未写库）✅",
+        "跨天同名无时间 → 判歧义不写库；带发布时间 → 消歧为唯一命中 ✅",
+        "标题按规范化比较，标点/破折号差异不影响匹配"
+      ]
+    },
+    {
+      "item": "未接入不冒充（表头无法识别即报错，不产出 0 值）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "明确报错且 records=0：未能识别表头（要求至少含「标题」与另一个指标列）。请确认导出的是头条后台「数据 → 作品数据」表格，或改用规范 CSV/… ✅"
+      ]
+    },
+    {
+      "item": "不串号（同 index 不同 slug 互不覆盖；旧键仍可写）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "同 index 的两篇写入 2 条独立记录（5120 / 3044）✅",
+        "无 slug 时回退旧键 article-<index>，历史数据仍可读 ✅"
+      ]
+    },
+    {
+      "item": "适配层自检（toutiao_import.selftest）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "自检通过 ✅"
+      ]
+    },
+    {
+      "item": "未识别列可见（不静默丢弃）",
+      "ok": true,
+      "advisory": true,
+      "unmapped": [
+        "某个新指标"
+      ],
+      "detail": [
+        "未识别列：['某个新指标']✅"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": []
+}

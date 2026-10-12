@@ -57,9 +57,20 @@ def _load_json(p: Path):
 
 
 def load_perf_log() -> dict:
-    """performance_log.json：{ "2026-10-10/article-1": {reads,...} }（无则空）。"""
+    """performance_log.json：{ "2026-10-10/<slug>": {reads,...} }（无则空）。"""
     data = _load_json(OUTPUT_DIR / "performance_log.json") or {}
     return data.get("articles", {}) if isinstance(data, dict) else {}
+
+
+def _perf_lookup(perf: dict, date_str: str, art: dict) -> dict:
+    """按 slug 主键取绩效记录，旧 article-<index> 键兜底（index 当天会重复，故不作首选）。"""
+    slug = art.get("slug")
+    if slug:
+        rec = perf.get(f"{date_str}/{slug}")
+        if isinstance(rec, dict):
+            return rec
+    rec = perf.get(f"{date_str}/article-{art.get('index')}")
+    return rec if isinstance(rec, dict) else {}
 
 
 def collect(days: int, *, now=None) -> dict:
@@ -106,7 +117,7 @@ def collect(days: int, *, now=None) -> dict:
 
         # 增长指标：优先 metadata.performance，其次 performance_log.json
         for a in arts:
-            rec = a.get("performance") or perf.get(f"{date_str}/article-{a.get('index')}") or {}
+            rec = a.get("performance") or _perf_lookup(perf, date_str, a) or {}
             if rec:
                 if rec.get("reads") is not None:
                     reads.append(int(rec.get("reads", 0)))
@@ -120,7 +131,7 @@ def collect(days: int, *, now=None) -> dict:
         # 当日涨粉（以日为单位去重）
         day_f = 0
         for a in arts:
-            rec = a.get("performance") or perf.get(f"{date_str}/article-{a.get('index')}") or {}
+            rec = a.get("performance") or _perf_lookup(perf, date_str, a) or {}
             day_f += int((rec or {}).get("new_followers", 0) or 0)
         if day_f:
             followers_total += day_f

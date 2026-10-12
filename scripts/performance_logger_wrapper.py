@@ -39,6 +39,18 @@ def save_perf(data):
     PERF_LOG_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2))
 
 
+def _key(date_str, art):
+    """绩效记录键：slug 优先（同一天内唯一），无 slug 时回退旧键。
+
+    index 是「每批从 1 开始」的批内序号，同一天多批次会重复，
+    用它做键会把不同文章的数据写到一起（2026-10-12 实测 index 2/3 各重复一次）。
+    """
+    slug = (art or {}).get("slug")
+    if slug:
+        return f"{date_str}/{slug}"
+    return f"{date_str}/article-{(art or {}).get('index', 0)}"
+
+
 def get_articles_for_date(date_str):
     meta_path = OUTPUT_DIR / date_str / "metadata.json"
     if not meta_path.exists():
@@ -61,7 +73,7 @@ def show_status(date_str):
     for a in articles:
         idx = a.get("index", 0)
         title = a.get("title", "?")[:38]
-        key = f"{date_str}/article-{idx}"
+        key = _key(date_str, a)
         if key in perf.get("articles", {}):
             p = perf["articles"][key]
             reads = p.get("reads", 0)
@@ -91,7 +103,7 @@ def interactive_input(date_str):
     for a in articles:
         idx = a.get("index", 0)
         title = a.get("title", "?")[:40]
-        key = f"{date_str}/article-{idx}"
+        key = _key(date_str, a)
         existing = perf.get("articles", {}).get(key, {})
         default_reads = existing.get("reads", "")
         default_comments = existing.get("comments", "")
@@ -117,7 +129,7 @@ def interactive_input(date_str):
         retention = float(retention) if retention else 0.0
 
         perf.setdefault("articles", {})[key] = {
-            "date": date_str, "index": idx,
+            "date": date_str, "index": idx, "slug": a.get("slug"),
             "reads": reads, "comments": comments,
             "likes": likes, "shares": shares,
             "retention_rate": retention,
@@ -199,7 +211,7 @@ if __name__ == "__main__":
             for a in articles:
                 idx = a.get("index", 0)
                 title = a.get("title", "?")[:40]
-                key = f"{args.date}/article-{idx}"
+                key = _key(args.date, a)
                 print(f"\n--- {idx}. {title} ---")
                 try:
                     reads = input(f"  阅读量: ").strip() or "0"
@@ -207,7 +219,7 @@ if __name__ == "__main__":
                 except (EOFError, KeyboardInterrupt):
                     break
                 perf.setdefault("articles", {})[key] = {
-                    "date": args.date, "index": idx,
+                    "date": args.date, "index": idx, "slug": a.get("slug"),
                     "reads": int(reads), "comments": int(comments),
                     "likes": 0, "shares": 0, "retention_rate": 0.0,
                     "logged_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
