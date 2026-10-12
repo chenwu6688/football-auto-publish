@@ -92,7 +92,8 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🔒 **物理隔离**：抽取器把源文压成结构化事实三元组，生成器物理看不到原文；`assert_no_verbatim` 硬闸门（连续 ≥12 字逐字重合即失效）。
 - 📐 **相似度闸门**：连续重合 >12 字 或 8-gram 重合率 >15% 判洗稿；信息增量要求事实点数 ≥ 最强源文且新增 ≥2。
 - 🧾 **事实卡**：8 字段 + 三级可信度 + 生命周期（进行中 / 已收官 / 已过期），落 `data/facts/`。
-- 🧯 **合规红线熔断**：`compliance_guard.py` —— 不实内容级违规出现一次即暂停自动发布，同批次一致性打回 ≥5 次自动熔断，跨运行持久化到 `data/compliance_state.json`。
+- 🧯 **合规红线熔断**：`compliance_guard.py` —— 不实内容级违规出现一次即暂停自动发布，同批次一致性打回 ≥5 次自动熔断，跨运行持久化到 `data/compliance_state.json`（**刻意纳入版本控制**：否则下一次 CI 跑仍是「未熔断」，红线形同虚设）。熔断时写入 `evidence`（最近 8 次打回的具体选题与问题），避免事后只看到最后一条提示而无法定位触发批次。
+- 🏷️ **队名别名感知判定**：`orchestrator._team_forms/_team_in_content/_teams_in_content` —— 事实校验要求「同一支球队」而非「同一个字符串」：规范名、entity_map 别名（拜仁 / 拜仁慕尼黑）与 TEAM_ALIASES 同组写法互认，并按**最长匹配**消除子串串味（正文「国际米兰」不再被当成卡外球队「米兰」）。2026-10-12 的自动熔断即由「字面包含」误报引起，此法为其根因修复。
 - 🧿 **高风险队列**：伤病 / 合同金额 / 争议指控类事实进 `risk_gate.py` 人工复核队列。
 - 🖼️ **封面绑定**：`cover_binding.py` 强制图片客体与标题实体绑定，删除通用兜底图。
 - 🎯 **择优模型（L1→L4）**：`ranker.py` 规则预筛 → 信号增强 → 五维量表（可走 LLM 打分）→ 缓存降级；无信号 / 模型不可用时自动降级规则排序。L1 预筛统一走认知度门槛。
@@ -115,7 +116,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🈶 **认知度门槛验收**：`scripts/verify_awareness_gate.py` —— 16 条规则用例自检 / 映射表 awareness 与 confidence 合法性 / 供给物零违规（硬项）。
 - 🗣️ **传闻措辞验收**：`scripts/verify_rumor_wording.py` —— 13 条规则用例自检 / 分级常量与 `fact_card` 同源 / 成稿标题零「传闻当官宣」（硬项）。
 - 📚 **内容参照层验收**：`scripts/verify_content_reference.py` —— 排除项规则自检 / 参照层配置完整性 / `ranker` 与生成提示接入（硬项）+ 历史产物零命中排除项（告警项）。
-- 🚦 **发布闸门验收（计划 7.2 / 7.3）**：`scripts/verify_publish_gate.py` —— 成稿标题零硬违规 / 一致性拦截率可统计 / 连续 14 天无旧闻新发（硬项）+ 标题合规率、溯源覆盖率、误杀率（告警项，无标注标「待接入」绝不冒充 0）。台账由 `freshness_ledger.py`（时效闸门）与 `consistency_stats.py`（一致性校验）落 `data/`。
+- 🚦 **发布闸门验收（计划 7.2 / 7.3）**：`scripts/verify_publish_gate.py` —— 成稿标题零硬违规 / **队名判定别名感知**（同义写法放行、真缺队名与卡外球队拦截）/ 一致性拦截率可统计 / 连续 14 天无旧闻新发（硬项）+ 标题合规率、溯源覆盖率、误杀率、**打回可追溯**（告警项，无标注标「待接入」绝不冒充 0）。台账由 `freshness_ledger.py`（时效闸门）与 `consistency_stats.py`（一致性校验，打回事件带选题标题）落 `data/`。
 - ✨ **差异化方向验收**：`scripts/verify_differentiation.py` —— 六方向结构齐备 + 代码 hook 落地（硬项）。
 - 🎛️ **调参纪律与四道防呆验收（计划 8.1 / 11.5）**：`scripts/verify_tuning_discipline.py` —— 六项纪律数值落在计划区间 / 四道防呆代码执行点齐备 / 用 `ratio_tuner.compute_suggestion` 实跑冒烟（样本冻结、死区、幅度≤10 + 探索配额托底、冷静期）（硬项）。
 - 🧱 **事实层与量表验收（计划 6.1 / 6.2 / 12.2 / 12.4）**：`scripts/verify_fact_layer.py` —— 事实卡八字段 / 可信度三级阈值 / 生命周期三态边界（进行中·已收官·已过期）/ 择优五维量表齐备（硬项）。
