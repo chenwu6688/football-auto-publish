@@ -40,9 +40,9 @@
     "total_tokens": 181000
   },
   "deepseek-v4-pro-0813": {
-    "prompt_tokens": 83617,
-    "completion_tokens": 24731,
-    "total_tokens": 166583,
+    "prompt_tokens": 89007,
+    "completion_tokens": 26633,
+    "total_tokens": 173875,
     "fail_streak": 0
   },
   "kimi-k3": {
@@ -52,21 +52,21 @@
     "fail_streak": 1
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 101102,
-    "completion_tokens": 21397,
-    "total_tokens": 167548,
+    "prompt_tokens": 105371,
+    "completion_tokens": 22335,
+    "total_tokens": 172755,
     "fail_streak": 0
   },
   "deepseek-v4-flash-0731": {
-    "prompt_tokens": 90934,
-    "completion_tokens": 29218,
-    "total_tokens": 166079,
+    "prompt_tokens": 99225,
+    "completion_tokens": 32452,
+    "total_tokens": 177604,
     "fail_streak": 0
   },
   "deepseek-v4.1-flash": {
-    "prompt_tokens": 105676,
-    "completion_tokens": 23507,
-    "total_tokens": 165668,
+    "prompt_tokens": 111030,
+    "completion_tokens": 24908,
+    "total_tokens": 172423,
     "fail_streak": 0
   },
   "glm-5.2": {
@@ -76,15 +76,15 @@
     "fail_streak": 1
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 120787,
-    "completion_tokens": 27285,
-    "total_tokens": 163806,
+    "prompt_tokens": 128376,
+    "completion_tokens": 28467,
+    "total_tokens": 172577,
     "fail_streak": 0
   },
   "deepseek-v4-pro-202606": {
-    "prompt_tokens": 72814,
-    "completion_tokens": 17691,
-    "total_tokens": 162505,
+    "prompt_tokens": 81583,
+    "completion_tokens": 22794,
+    "total_tokens": 176377,
     "fail_streak": 0
   },
   "glm-5.3": {
