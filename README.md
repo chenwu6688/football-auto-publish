@@ -101,8 +101,10 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🌏 **洲际赛程**：`api_football.py` 补亚冠 / 欧联 / 欧协联 / 中超（联赛 ID 动态解析、不硬编码），缓存跨日有效并受额度台账管控。
 - 🈶 **中文实体映射与认知度硬门槛（计划 13.1）**：`config/entity_map.json`（`scripts/build_player_map.py` / `scripts/build_team_map.py` 增量维护）+ `awareness_gate.py` —— A 可进新闻流 / B 需配认知锚点或改走故事角度 / C 降权或只进数据类与榜单类 / **未登记实体一律拒绝**（不再与 C 级混同）；C 级 confidence=low 不参与标题生成。新闻流（news）与数据榜单（data_list）两条通道动作不同。
 - 📉 **失败降级**：`degrade.py` 六路径策略表；一致性打回 → 降级低风险板块重生成一次，仍不过即丢弃。
+- 📚 **内容参照层（计划 13.3）**：`config/content_reference.yaml` + `content_reference.py` —— 只借方法论（信源标注规范 / 标题信息结构 / 话题时效判断 / 栏目化与内容分层）与五家媒体侧重；**排除项**（中下游球队转会细节 / 欧战赛前前瞻 / 二线联赛赛事稿 / 三千字深度长文）由 `ranker` L1 预筛与生成提示**双向拦截**。仅在标题/话题标签层保守匹配，未命中即放行（绝不误杀）。
+- ✨ **六个差异化方向（计划 13.5）**：`config/differentiation.yaml` + `differentiation.py` —— 速度 / 地域深耕 / 怀旧与情感 / 数据再加工 / 评论区运营 / 观点增量，逐方向核对代码 hook 落地。
 
-### 验收与审计（计划 4.1 / 7.1 / 10 / 11.3 / 11.4 / 12.1 / 13.1）
+### 验收与审计（计划 4.1 / 7.1 / 7.2 / 7.3 / 10 / 11.3 / 11.4 / 12.1 / 13.1 / 13.3 / 13.5）
 
 - 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区；未接入指标标注「待接入」。
 - ⬆️ **增长指标回填**：`scripts/import_performance.py` 支持 CSV/JSON 批量回填头条后台数据（点击率 = 阅读/展现，粉丝阅读占比 = 粉丝阅读/总阅读）。
@@ -112,6 +114,9 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🧾 **接口额度验收**：`scripts/verify_api_budget.py` —— 台账无超限日 / 14 天窗口落库（硬项）+ 业务侧不直连赛程接口 / 各源缓存新鲜度（告警项）。
 - 🈶 **认知度门槛验收**：`scripts/verify_awareness_gate.py` —— 16 条规则用例自检 / 映射表 awareness 与 confidence 合法性 / 供给物零违规（硬项）。
 - 🗣️ **传闻措辞验收**：`scripts/verify_rumor_wording.py` —— 13 条规则用例自检 / 分级常量与 `fact_card` 同源 / 成稿标题零「传闻当官宣」（硬项）。
+- 📚 **内容参照层验收**：`scripts/verify_content_reference.py` —— 排除项规则自检 / 参照层配置完整性 / `ranker` 与生成提示接入（硬项）+ 历史产物零命中排除项（告警项）。
+- 🚦 **发布闸门验收（计划 7.2 / 7.3）**：`scripts/verify_publish_gate.py` —— 成稿标题零硬违规 / 一致性拦截率可统计 / 连续 14 天无旧闻新发（硬项）+ 标题合规率、溯源覆盖率、误杀率（告警项，无标注标「待接入」绝不冒充 0）。台账由 `freshness_ledger.py`（时效闸门）与 `consistency_stats.py`（一致性校验）落 `data/`。
+- ✨ **差异化方向验收**：`scripts/verify_differentiation.py` —— 六方向结构齐备 + 代码 hook 落地（硬项）。
 
 > 全部验收脚本产出 `data/audit/*_latest.json` + 日期报告，硬项 FAIL 退出码 1；接入 CI 时统一「只告警不阻断发布」（计划九），保证当天少发而非全空。
 
@@ -257,6 +262,10 @@ football-auto-publish/
 ├── fact_card.py             # 事实卡编译/持久化/生命周期（三级可信度）
 ├── rumor_wording.py         # 传闻分级措辞 + 传闻标题硬校验（禁肯定语气）
 ├── awareness_gate.py        # 认知度分级硬门槛（A/B/C/未登记；news 与 data_list 双通道）
+├── content_reference.py     # 内容参照层（13.3：只抄方法论，排除项拦截）
+├── differentiation.py       # 六个差异化方向（13.5：方向与代码 hook 核对）
+├── freshness_ledger.py      # 时效闸门台账（7.2：连续无旧闻新发可审计）
+├── consistency_stats.py     # 一致性校验台账（7.3：拦截率 / 误杀率）
 ├── supply_mix.py            # 三级供给分层打标与配比校验（30/50/20）
 ├── api_budget.py            # 外部接口每日额度台账（按源按日计数 + 全局 3 次/日闸门）
 ├── ranker.py                # 择优模型 L1→L4（含 LLM 打分与降级）
@@ -275,6 +284,8 @@ football-auto-publish/
 ├── config/entity_map.json   # 中文实体映射（球队/球员，人工译名 + 认知度分级）
 ├── config/ratio_config.yaml # 板块配比与调参纪律
 ├── config/api_budget.yaml   # 外部接口每日额度（单源 + 全局 3 次/日，可覆盖）
+├── config/content_reference.yaml # 内容参照层（参照项 / 排除项 / 五家媒体）
+├── config/differentiation.yaml   # 六个差异化方向（13.5）
 ├── prompts/                 # 选题/改写提示词模板
 ├── skills/                  # 公众号爆款探测器
 ├── scripts/                 # 巡检、补发、告警、静态数据导出、看板/审计/维护等
@@ -287,7 +298,7 @@ football-auto-publish/
 
 ## 调度与健康监控
 
-- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/17:30 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。发布前依次执行：合规熔断检查 → 刷新赛程选题池（14 天窗口，接 football-data / juhe / API-Football 三源）+ 7.1 验收 + **11.4 接口额度验收** → 一级节点量产入库 → 三级蓄水池备货；生成后追加 **4.1 传闻措辞验收**。全部验收「只告警不阻断」，产物落 `data/audit/`。`data/fixtures` 通过 Actions 缓存跨运行保留——赛程库是「库」而非一次性产物，否则每次运行都是冷启动、额度必被联赛 ID 解析吃掉。
+- **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/17:30 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。发布前依次执行：合规熔断检查 → 刷新赛程选题池（14 天窗口，接 football-data / juhe / API-Football 三源）+ 7.1 验收 + **11.4 接口额度验收** → 一级节点量产入库 → 三级蓄水池备货；生成后追加 **4.1 传闻措辞验收** + **7.2/7.3 发布闸门验收**，并跑 **13.3 内容参照层验收** 与 **13.5 差异化方向验收**。全部验收「只告警不阻断」，产物落 `data/audit/`。`data/fixtures` 通过 Actions 缓存跨运行保留——赛程库是「库」而非一次性产物，否则每次运行都是冷启动、额度必被联赛 ID 解析吃掉。
 - **`heartbeat.yml`**：午检（仅校验晨读是否完成，避免未到点误报）+ 终检（校验三班全完成），异常经 WxPusher 告警。
 - **`refresh-signals.yml`**：每日 06:30 CST 预热社媒/搜索热度信号（早于早批），产出 `data/signals/external_signals.json`。
 - **`isolation-audit.yml`**：每周日跑物理隔离常态化审计，产出 `data/audit/`。
