@@ -287,6 +287,32 @@ def send_wxpusher(title, content):
         pass
 
 
+def _resolve_batch_quota(batch_mode, date_str):
+    """解析本批篇数上限（策略手册第五章 / 计划 12.1）。
+
+    常态每批 2 篇；仅周四或 S 级事件可加发（加发原因可用环境变量
+    FOOTBALL_UPLIFT_REASON 显式指定，取值须落在白名单内）。
+    非阻断（计划九）：解析异常一律回落到常态上限，绝不中断发布。
+    """
+    fallback = {"batch": batch_mode, "max_articles": 2, "uplifted": False,
+                "reason": None, "requested_reason": None, "normal_max": 2,
+                "uplift_max": 2, "weekly_limit": 0, "weekly_used": 0,
+                "detail": "常态 2 篇（篇数纪律不可用，按保守值继续）", "source": ""}
+    try:
+        import batch_quota
+        reason = (os.environ.get("FOOTBALL_UPLIFT_REASON") or "").strip() or None
+        try:
+            weekday = datetime.strptime(date_str, "%Y-%m-%d").weekday()
+        except Exception:
+            weekday = None
+        return batch_quota.decide(
+            batch_mode, weekday=weekday, uplift_reason=reason,
+            weekly_uplifted=batch_quota.weekly_uplifted(date_str))
+    except Exception as e:
+        print(f"   ⚠️ 篇数纪律解析异常（按常态 {fallback['max_articles']} 篇继续）: {e}")
+        return fallback
+
+
 def get_batch_columns(batch_mode):
     """Get column configs for a given batch from BATCH_CONFIG.
 
@@ -3444,21 +3470,24 @@ def main():
     if batch_mode in BATCH_CONFIG:
         batch_cfg = BATCH_CONFIG[batch_mode]
         slots = batch_cfg["slots"]
-        # 单批生成上限：突破固定 2 篇，按当日实际高质量话题数动态决定（见下方 select_topics 后裁剪）
-        max_articles = batch_cfg.get("max_articles", len(slots))
-        article_count = len(slots)  # 初始值用于打印；select_topics 返回后按实际话题数动态裁剪
+        # 单批篇数纪律（策略手册第五章 / 计划 12.1）：常态 2 篇，
+        # 仅周四或 S 级事件可显式加发；上限由 batch_quota.decide 统一裁定。
+        quota = _resolve_batch_quota(batch_mode, date_str)
+        max_articles = quota["max_articles"]
+        article_count = max_articles  # 初始值用于打印；select_topics 返回后按实际话题数动态裁剪
         # Columns are fixed per batch — no season weight type swapping
         # Season weights only affect topic selection framing, not column identity
         column_names = [s["column_name"] for s in slots]
-        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, 栏目={', '.join(column_names)}, {batch_cfg['name']}·{batch_cfg['time']}, 单批上限={max_articles}篇)\n")
+        print(f"足球自媒体内容自动化 - {date_str} (batch={batch_mode}, 栏目={', '.join(column_names)}, {batch_cfg['name']}·{batch_cfg['time']}, 单批上限={max_articles}篇 · {quota['detail']})\n")
         target_types = None  # Column-driven, not type-driven
     else:
         # auto / 未配置批次：BATCH_CONFIG 里没有 "auto"，
         # 但下游「紧急球评」分支(batch_mode in ("auto","morning")) 会读 batch_cfg["name"]，
         # 不在此绑定会导致 UnboundLocalError（2026-09-27 生成文章 失败根因）。
-        batch_cfg = {"name": "自动", "time": "", "max_articles": 4}
-        max_articles = 4
-        article_count = 2
+        quota = _resolve_batch_quota(batch_mode, date_str)
+        max_articles = quota["max_articles"]
+        batch_cfg = {"name": "自动", "time": "", "max_articles": max_articles}
+        article_count = max_articles
         target_types = None
     start_time = time.time()
     log.info(f"开始执行 — 日期:{date_str} 批次:{batch_mode}")
@@ -3533,7 +3562,7 @@ def main():
                                season_label=season_label,
                                topic_count=max_articles,
                                yesterday_keywords=yesterday_keywords)
-        extra_meta = {"type": "match_analysis"}
+        extra_meta = {"type": "match_analysis", "quota": quota}
         _assign_columns_to_topics(topics, batch_mode)
 
         # 计划 11.2 择优模型：L1（时效/配比/冷门度）→ L2 信号增强（信源前移 + 社媒/搜索）
@@ -3545,7 +3574,8 @@ def main():
         except Exception as e:
             print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
 
-        # 动态条数：按实际返回的高质量话题数裁剪，单批不超过 max_articles（去除固定 2 篇硬限制）
+        # 动态条数：按实际返回的高质量话题数裁剪，单批不超过 max_articles
+        # （常态 2 篇；周四或 S 级事件按 batch_quota 加发时上限提高，见本函数开头 quota）
         article_count = min(len(topics), max_articles)
         if article_count >= max_articles:
             print(f"   📈 动态条数：本批生成 {article_count} 篇（已达上限 {max_articles}）")
@@ -3557,6 +3587,19 @@ def main():
         # Generate articles: find source article for each topic, rewrite to 老六 style
         _generate_articles_from_topics(topics, article_count, match_data,
                                        images_map, stats, articles, date_str=date_str)
+
+        # 加发留痕（策略手册第五章 / 计划 12.1）：只有真正加发才记账，
+        # 供验收核查「周内加发 ≤ 2 次、原因可回溯」。失败仅告警，不阻塞发布。
+        if quota.get("uplifted"):
+            try:
+                import batch_quota
+                batch_quota.record(date_str, batch_mode, quota.get("reason") or "",
+                                   articles=article_count,
+                                   note=os.environ.get("FOOTBALL_UPLIFT_NOTE", ""))
+                print(f"   📌 加发留痕：本批 {article_count} 篇（原因 {quota.get('reason')}，"
+                      f"周内已用 {quota.get('weekly_used')}/{quota.get('weekly_limit')}）")
+            except Exception as e:
+                print(f"   ⚠️ 加发留痕失败（不影响发布）: {e}")
 
         # ============================================================
         # 三级·软性蓄水池补位（计划 12.1）

@@ -74,6 +74,10 @@ images:
 # 注意原 cron 在 Asia/Shanghai 下为 00:00/04:00/09:30（即北京时间 00:00/04:00/17:30），
 # 与三班目标（08:00/12:00/17:30）不符，进一步说明它已非活跃调度。
 # 下方 article_count / columns 为内容配置，仍供参考，但发布不再读取本块时间。
+#
+# 篇数：article_count 已于 2026-10-12 对齐「常态 2 篇」（策略手册第五章 / 计划 12.1）。
+# 运行时唯一硬开关是 constants.BATCH_QUOTA（执行见 batch_quota.py）——本块不生效，
+# 仅作镜像，改动请同步两处，否则 scripts/verify_batch_quota.py 会报硬项失败。
 # ─────────────────────────────────────────────────────────────────────────────
 schedule:
   timezone: Asia/Shanghai
@@ -81,21 +85,21 @@ schedule:
     morning:
       name: 晨读
       cron: 0 0 * * *
-      article_count: 4  # 单批上限（动态条数，实际数量按当日高质量话题决定，不再固定 2 篇）
+      article_count: 2  # 常态上限（加发到 3 篇的裁定见 constants.BATCH_QUOTA）
       columns:
       - 晨读快讯
       - 话题擂台
     noon:
       name: 午间
       cron: 0 4 * * *
-      article_count: 4  # 单批上限（动态条数）
+      article_count: 2  # 常态上限（加发到 3 篇的裁定见 constants.BATCH_QUOTA）
       columns:
       - 午间快讯
       - 热点速评
     evening:
       name: 晚间
       cron: 30 9 * * *
-      article_count: 5  # 单批上限（动态条数）
+      article_count: 2  # 手册对晚间固定 2 篇，不加发
       columns: dynamic
       column_pool:
       - 世界杯日报

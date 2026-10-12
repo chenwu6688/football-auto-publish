@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-10-12 11:35",
+  "ok": true,
+  "checks": [
+    {
+      "item": "常态上限（每批 = 常态值且不超手册）",
+      "ok": true,
+      "advisory": false,
+      "caps": {
+        "morning": 2,
+        "noon": 2,
+        "evening": 2
+      },
+      "normal_max": 2,
+      "manual_cap": {
+        "morning": 3,
+        "noon": 3,
+        "evening": 2
+      },
+      "detail": [
+        "常态 2 篇，运行时 {'morning': 2, 'noon': 2, 'evening': 2}，手册上限 {'morning': 3, 'noon': 3, 'evening': 2} ✅"
+      ]
+    },
+    {
+      "item": "加发上限不超手册（晚间不加发）",
+      "ok": true,
+      "advisory": false,
+      "uplift": {
+        "morning": 3,
+        "noon": 3,
+        "evening": 2
+      },
+      "manual_cap": {
+        "morning": 3,
+        "noon": 3,
+        "evening": 2
+      },
+      "detail": [
+        "加发上限 {'morning': 3, 'noon': 3, 'evening': 2}，晚间按手册固定 2 篇 ✅"
+      ]
+    },
+    {
+      "item": "日合计（常态 =6，全加发 <=8）",
+      "ok": true,
+      "advisory": false,
+      "normal_total": 6,
+      "uplift_total": 8,
+      "detail": [
+        "常态合计 6 篇，全加发合计 8 篇（计划 12.1 区间 6-8）✅"
+      ]
+    },
+    {
+      "item": "加发原因白名单与周四映射",
+      "ok": true,
+      "advisory": false,
+      "reasons": [
+        "thursday_boost",
+        "s_level_event"
+      ],
+      "thursday_weekday": 3,
+      "detail": [
+        "白名单 ['thursday_boost', 's_level_event']，周四 → thursday_boost✅"
+      ]
+    },
+    {
+      "item": "三处口径一致（constants / config / ratio_config）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "constants 常态 2、uplift 合计 8，config.yaml 与 ratio_config 均已对齐 ✅"
+      ]
+    },
+    {
+      "item": "decide() 冒烟（六种情形）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "常态 / 周四加发 / S 级事件 / 白名单外 / 额度用尽 / 晚间不加发 全部正确 ✅"
+      ]
+    },
+    {
+      "item": "加发台账（周内 ≤ 2 次且留痕完整）",
+      "ok": true,
+      "advisory": true,
+      "summary": {
+        "total": 0,
+        "this_week": 0,
+        "weekly_limit": 2,
+        "within_limit": true,
+        "by_reason": {},
+        "incomplete": []
+      },
+      "detail": [
+        "累计 0 条加发，本周 0/2",
+        "按原因：无",
+        "留痕字段完整 ✅"
+      ]
+    },
+    {
+      "item": "窗口内单批实际篇数（14 天，仅提示）",
+      "ok": false,
+      "advisory": true,
+      "violations": [
+        "2026-10-12 晚间 4 篇",
+        "2026-10-11 午间 4 篇",
+        "2026-10-11 晚间 3 篇",
+        "2026-10-10 午间 4 篇",
+        "2026-10-09 晚间 3 篇",
+        "2026-10-09 午间 4 篇",
+        "2026-10-08 晚间 5 篇",
+        "2026-10-06 晚间 5 篇",
+        "2026-10-06 晨读 4 篇",
+        "2026-10-05 晨读 4 篇",
+        "2026-10-05 晚间 5 篇",
+        "2026-10-04 晨读 4 篇",
+        "2026-10-04 晚间 3 篇",
+        "2026-10-03 晚间 3 篇",
+        "2026-10-02 晚间 5 篇",
+        "2026-10-02 晨读 4 篇",
+        "2026-10-01 午间 4 篇",
+        "2026-09-30 晚间 3 篇",
+        "2026-09-30 晨读 4 篇",
+        "2026-09-30 午间 4 篇",
+        "2026-09-29 晚间 3 篇",
+        "2026-09-29 午间 4 篇"
+      ],
+      "detail": [
+        "窗口内 53 个批次；超出手册上限 22 个（多为改造前遗留产出）",
+        "2026-10-12 晚间 4 篇",
+        "2026-10-11 午间 4 篇",
+        "2026-10-11 晚间 3 篇",
+        "2026-10-10 午间 4 篇",
+        "2026-10-09 晚间 3 篇",
+        "2026-10-09 午间 4 篇",
+        "2026-10-08 晚间 5 篇",
+        "2026-10-06 晚间 5 篇",
+        "2026-10-06 晨读 4 篇",
+        "2026-10-05 晨读 4 篇"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": [
+    "窗口内单批实际篇数（14 天，仅提示）"
+  ]
+}

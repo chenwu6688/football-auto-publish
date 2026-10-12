@@ -1,4 +1,4 @@
-name: 计划结构不变量验收（6.1/6.2/8.1/11.5/12.2/12.4/13.2/13.4/第十章）
+name: 计划结构不变量验收（6.1/6.2/8.1/11.5/12.2/12.4/13.2/13.4/第十章/策略手册第五章）
 
 # 补齐计划剩余验收条款的可执行校验：这些条款此前有落地实现但无验证物。
 # 每周一 04:30 UTC = 12:30 CST 校验（只告警不阻断）：
@@ -6,6 +6,7 @@ name: 计划结构不变量验收（6.1/6.2/8.1/11.5/12.2/12.4/13.2/13.4/第十�
 #   - 事实层与量表（6.1 / 6.2 / 12.2 / 12.4）
 #   - 数据源与信源清单（13.2 / 13.4）
 #   - 验收指标与合规熔断（第十章）
+#   - 单批篇数纪律（策略手册第五章 / 计划 12.1）
 on:
   schedule:
     - cron: '30 4 * * 1'
@@ -57,6 +58,11 @@ jobs:
         run: |
           python3 scripts/verify_acceptance_metrics.py --quiet \
             || echo "::warning::验收指标未达第十章标准，详见 data/audit/acceptance_metrics_latest.json"
+
+      - name: 单批篇数纪律（策略手册第五章 / 计划 12.1）
+        run: |
+          python3 scripts/verify_batch_quota.py --quiet \
+            || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"
 
       - name: 回写验收报告
         if: always()

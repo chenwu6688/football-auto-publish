@@ -195,6 +195,23 @@ BATCH_TYPES = {
     "evening": ["战术解析", "八卦趣事"],
 }
 
+# --- 单批篇数纪律（策略手册 第五章 / 完善计划 12.1）---
+# 依据：策略手册第五章「供给收缩」——日更从 8-11 篇压到 6-8 篇
+# （晨读 2-3 篇、午间 2-3 篇、晚间 2 篇）；完善计划 12.1——「日更 6 至 8 篇可稳定不断供」。
+# 落法：常态每批 2 篇（日合计 6 篇），仅在周四或 S 级事件允许单批加到手册上限；
+# 手册对晚间固定 2 篇，故晚间不加发。加发须写明原因并留痕，周内不超过 2 次。
+# 执行细节见 batch_quota.py；本块是唯一权威数值来源，勿在别处硬编码。
+BATCH_QUOTA = {
+    "normal_max": 2,
+    "uplift": {"morning": 3, "noon": 3, "evening": 2},
+    "daily_min": 6,
+    "daily_max": 8,
+    "uplift_reasons": ("thursday_boost", "s_level_event"),
+    "uplift_weekly_limit": 2,
+    "thursday_weekday": 3,          # 0=周一 … 3=周四
+    "source": "策略手册 第五章 / 完善计划 12.1",
+}
+
 # --- Batch Column Configuration (v2: Column System) ---
 # Each batch has 2 unique "columns" (栏目). A column defines the complete
 # reader-facing identity: topic domain, writing format, tone, word count,
@@ -204,13 +221,16 @@ BATCH_TYPES = {
 #   "match_preferred" = try match data first, fall back to GZH
 #   "gzh_preferred"   = try GZH first, enrich with match context if available
 #   "gzh_only"         = always use GZH pool regardless of match availability
+#
+# NOTE: max_articles 为「当日实际高质量话题数」的硬上限，常态取 BATCH_QUOTA.normal_max，
+#       加发时取 BATCH_QUOTA.uplift[批次]；勿再改回固定高值（会突破日更 6-8 篇纪律）。
 
 BATCH_CONFIG = {
     "morning": {
         "name": "晨读",
         "time": "08:00",
-        # 单批生成上限：突破固定 2 篇限制，按当日实际高质量话题数动态决定（栏目循环复用）
-        "max_articles": 4,
+        # 常态 2 篇；周四或 S 级事件可加发到 3 篇（见 BATCH_QUOTA / batch_quota.py）
+        "max_articles": 2,
         "reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
         "overall_tone": "轻快、信息密度高、适合碎片化阅读",
         "slots": [
@@ -247,7 +267,8 @@ BATCH_CONFIG = {
     "noon": {
         "name": "午间",
         "time": "12:00",
-        "max_articles": 4,
+        # 常态 2 篇；周四或 S 级事件可加发到 3 篇（午间为主投时段，手册上限 2-3）
+        "max_articles": 2,
         "reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
         "overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
         "slots": [
@@ -284,7 +305,8 @@ BATCH_CONFIG = {
     "evening": {
         "name": "晚间",
         "time": "17:30",
-        "max_articles": 5,
+        # 常态 2 篇；手册对晚间固定 2 篇，故晚间不加发
+        "max_articles": 2,
         "reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
         "overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
         "slots": [
