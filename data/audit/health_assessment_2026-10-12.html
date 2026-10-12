@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自动化链路健全性评估与周度试运行方案 · 2026-10-12</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1a1d21; --sub:#5b6470; --line:#e3e7ec;
+    --red:#c0392b; --amber:#b7791f; --green:#1e7e46; --blue:#1f5fa8;
+    --redbg:#fdeceb; --amberbg:#fdf6e3; --greenbg:#eaf6ef; --bluebg:#eef4fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.62;font-size:15px}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px}
+  header{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:18px}
+  h1{font-size:22px;margin:0 0 6px}
+  .meta{color:var(--sub);font-size:13px}
+  h2{font-size:18px;margin:26px 0 10px;padding-left:10px;border-left:4px solid var(--blue)}
+  h3{font-size:15px;margin:18px 0 8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#f0f3f7;font-weight:600}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap}
+  .t-red{background:var(--redbg);color:var(--red)}
+  .t-amber{background:var(--amberbg);color:var(--amber)}
+  .t-green{background:var(--greenbg);color:var(--green)}
+  .t-blue{background:var(--bluebg);color:var(--blue)}
+  .kpi{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+  .kpi div{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi b{display:block;font-size:20px}
+  .kpi span{color:var(--sub);font-size:12px}
+  ul,ol{margin:8px 0;padding-left:22px}
+  li{margin:4px 0}
+  code{background:#eef1f5;padding:1px 5px;border-radius:4px;font-size:13px}
+  .callout{border-left:4px solid var(--red);background:var(--redbg);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0}
+  .callout.b{border-color:var(--blue);background:var(--bluebg)}
+  .callout.g{border-color:var(--green);background:var(--greenbg)}
+  .callout.a{border-color:var(--amber);background:var(--amberbg)}
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;overflow-x:auto}
+  .small{font-size:12.5px;color:var(--sub)}
+  .num{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>自动化选题与内容生产 · 健全性评估 &amp; 周度试运行方案</h1>
+  <div class="meta">football-auto-publish ｜ 2026-10-12 ｜ 依据：完善计划（唯一验收依据）+ 策略手册第五章 + 869 条头条真实导出</div>
+</header>
+
+<div class="callout">
+  <b>先说结论：链路已经能无人值守跑起来，但有一个必须在试运行前修掉的硬伤。</b><br>
+  调度、生成质量、合规熔断、绩效闭环都已就位；真正在漏效果的是<b>发文量失控</b>——
+  实际日更 <span class="num">10.5</span> 篇（中位 11），手册口径是日 6 篇，<b>近 14 天有 12 天超上限</b>。
+  而 869 条真实数据早已证明「日更越多单篇越差」（r=-0.102，7+ 篇组阅读中位 3 vs 1-2 篇组 13）。
+  不修它，这一周跑出来的每一个数字都会被这个漏损污染。
+</div>
+
+<h2>一、本轮推进的五项待办</h2>
+<table>
+  <tr><th style="width:30px">#</th><th>事项</th><th>结果</th><th style="width:70px">状态</th></tr>
+  <tr><td>①</td><td>平台 ID 回写 metadata，解决二次导入失配</td>
+      <td>适配层新增 <code>ID</code>/<code>链接</code>列识别；<b>550/793 篇已绑定平台 ID</b>，重跑导入时 <b>550 行全部按 ID 命中</b>——平台之后怎么改标题都不再失配。新增 12 项单测。</td>
+      <td><span class="tag t-green">已闭环</span></td></tr>
+  <tr><td>②</td><td>1-5 月 / 6 月存档缺口</td>
+      <td>量化清楚（见第四节）。结论：<b>不建议补档</b>——本地没有这些成稿，后台 6 月前也无明细，补不出来。建议以 2026-06-09 起为有效统计基线。</td>
+      <td><span class="tag t-amber">待你拍板</span></td></tr>
+  <tr><td>③</td><td>溯源覆盖率仅 2%</td>
+      <td>根因：LLM 生成路径从不写 <code>sources_used</code>。已改成从 <code>_source_fixture</code> 派生真实媒体来源（直播吧/懂球帝），<b>只写元数据、不动正文</b>。历史 793 篇无法回溯（成稿时未记录），新成稿立即生效。7 项单测。</td>
+      <td><span class="tag t-green">已修</span></td></tr>
+  <tr><td>④</td><td>主调度 Cloudflare Worker 静默失效</td>
+      <td>新增 <code>scripts/check_scheduler_health.py</code>：把「是否准点」变成可判读数字，附排障 runbook。近 30 天实测<b>准点 19 / 兜底 4 / 发散 7，判定主调度健康</b>。修掉一个假阳性坑（用新目标 18:00 判读 9 月数据）。7 项单测。</td>
+      <td><span class="tag t-green">已上线</span></td></tr>
+  <tr><td>⑤</td><td>手动录入 CLI 默认值 0 → None</td>
+      <td>不传指标时不再写 0 冒充真实读数；真实的 0 仍保留为 0。单测覆盖。</td>
+      <td><span class="tag t-green">已修</span></td></tr>
+</table>
+<p class="small">全量单测 <span class="num">525</span> 项通过（6 个 error 为本机缺 pytest 的既有文件，与改动无关）；四个验收脚本 exit 0。三个提交已推送，origin/main = <code>adf00af</code>。</p>
+
+<h2>二、链路全景</h2>
+<div class="flow">
+<svg viewBox="0 0 940 300" width="100%" style="min-width:760px" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#5b6470"/></marker></defs>
+  <style>
+    .bx{fill:#eef4fb;stroke:#1f5fa8;stroke-width:1.2}
+    .bxg{fill:#eaf6ef;stroke:#1e7e46;stroke-width:1.2}
+    .bxr{fill:#fdeceb;stroke:#c0392b;stroke-width:1.2}
+    .bxa{fill:#fdf6e3;stroke:#b7791f;stroke-width:1.2}
+    .lb{fill:#1a1d21;font-size:12px;font-weight:600;text-anchor:middle}
+    .sm{fill:#5b6470;font-size:10.5px;text-anchor:middle}
+    .ln{stroke:#5b6470;stroke-width:1.3;fill:none;marker-end:url(#ar)}
+  </style>
+  <!-- 调度 -->
+  <rect class="bxg" x="20" y="30" width="150" height="58" rx="8"/>
+  <text class="lb" x="95" y="52">主调度</text><text class="sm" x="95" y="68">CF Worker 准点</text><text class="sm" x="95" y="81">08/12/18:00</text>
+  <rect class="bxg" x="20" y="108" width="150" height="58" rx="8"/>
+  <text class="lb" x="95" y="130">兜底 cron</text><text class="sm" x="95" y="146">+30/+50 分钟</text><text class="sm" x="95" y="159">GitHub Actions</text>
+  <rect class="bxr" x="20" y="186" width="150" height="58" rx="8"/>
+  <text class="lb" x="95" y="208">死区护栏</text><text class="sm" x="95" y="224">CST 00-06 不发</text><text class="sm" x="95" y="237">+ 幂等跳过</text>
+  <path class="ln" d="M170,59 L206,59"/><path class="ln" d="M170,137 L206,110"/>
+  <path class="ln" d="M170,215 L206,160"/>
+  <!-- 批次 -->
+  <rect class="bx" x="210" y="88" width="120" height="66" rx="8"/>
+  <text class="lb" x="270" y="112">批次执行</text><text class="sm" x="270" y="129">batch.yml</text><text class="sm" x="270" y="142">morning/noon/evening</text>
+  <path class="ln" d="M330,121 L368,121"/>
+  <!-- 供给 -->
+  <rect class="bx" x="372" y="30" width="150" height="58" rx="8"/>
+  <text class="lb" x="447" y="52">二级·突发</text><text class="sm" x="447" y="68">信号/择优/LLM 主稿</text><text class="sm" x="447" y="81">上限 max_articles</text>
+  <rect class="bx" x="372" y="108" width="150" height="58" rx="8"/>
+  <text class="lb" x="447" y="130">一级·确定性</text><text class="sm" x="447" y="146">赛程/节点 FIXTURE_PER_BATCH</text><text class="sm" x="447" y="159">叠加，不占配额 ⚠</text>
+  <rect class="bx" x="372" y="186" width="150" height="58" rx="8"/>
+  <text class="lb" x="447" y="208">三级·软性</text><text class="sm" x="447" y="224">蓄水池补缺口</text><text class="sm" x="447" y="237">受 max_articles 约束 ✅</text>
+  <path class="ln" d="M522,59 L560,100"/><path class="ln" d="M522,137 L560,121"/><path class="ln" d="M522,215 L560,142"/>
+  <!-- 质量闸门 -->
+  <rect class="bx" x="564" y="88" width="128" height="66" rx="8"/>
+  <text class="lb" x="628" y="110">质量闸门</text><text class="sm" x="628" y="127">标题反模式打回</text><text class="sm" x="628" y="140">事实隔离/传闻措辞</text><text class="sm" x="628" y="153">风险闸门/合规熔断</text>
+  <path class="ln" d="M692,121 L730,121"/>
+  <!-- 发布回写 -->
+  <rect class="bxg" x="734" y="30" width="170" height="58" rx="8"/>
+  <text class="lb" x="819" y="52">发布到头条</text><text class="sm" x="819" y="68">Playwright</text><text class="sm" x="819" y="81">预测类不发布</text>
+  <rect class="bxg" x="734" y="108" width="170" height="58" rx="8"/>
+  <text class="lb" x="819" y="130">元数据回写</text><text class="sm" x="819" y="146">output/&lt;date&gt;/metadata.json</text><text class="sm" x="819" y="159">跨批去重 + 幂等</text>
+  <path class="ln" d="M628,154 L628,178 L819,178 L819,166"/>
+  <!-- 周闭环 -->
+  <rect class="bxa" x="210" y="240" width="694" height="48" rx="8"/>
+  <text class="lb" x="557" y="260">周闭环（周日）</text>
+  <text class="sm" x="557" y="277">头条导出 → import_performance（按平台ID匹配）→ build_metrics_dashboard → ratio_tuner（&lt;30 样本冻结交人工）→ 调度巡检 → 周报</text>
+  <path class="ln" d="M819,166 L819,215 L600,215 L600,240" stroke-dasharray="4 3"/>
+</svg>
+</div>
+
+<h2>三、健全性分项评级</h2>
+<table>
+  <tr><th>模块</th><th style="width:64px">评级</th><th>依据</th><th>遗留风险</th></tr>
+  <tr><td>调度（主+兜底+死区）</td><td><span class="tag t-green">绿</span></td>
+      <td>五处口径一致性有硬校验；近 30 天准点 19/30；死区 0 写入</td><td>主调度失效是静默的（已有巡检兜住）</td></tr>
+  <tr><td>选题与供给</td><td><span class="tag t-red">红</span></td>
+      <td>三级供给齐备、择优降级可用；<b>但一级确定性供给叠加在主稿配额之上，不占 <code>max_articles</code></b></td>
+      <td><b>P0：日发文 10.5 篇 vs 手册 6 篇，超配 75%</b></td></tr>
+  <tr><td>生成质量</td><td><span class="tag t-green">绿</span></td>
+      <td>标题反模式（赛果播报式打回，回测零误杀）、事实隔离、传闻措辞、内容参照、六方向差异化均有验收</td><td>规则随平台演化需持续回测</td></tr>
+  <tr><td>合规</td><td><span class="tag t-green">绿</span></td>
+      <td>不实违规即熔断、跨运行持久化；当前未熔断、违规 0</td><td>依赖人工定位后 <code>--clear</code></td></tr>
+  <tr><td>发布</td><td><span class="tag t-amber">黄</span></td>
+      <td>Playwright + 登录态 + 批次过滤；本地无法端到端验证</td><td>登录态过期/改版会整批失败（有失败通知）</td></tr>
+  <tr><td>元数据回写</td><td><span class="tag t-amber">黄</span></td>
+      <td>跨批合并去重、幂等跳过；push 失败有 3 次重试</td><td>push 仍失败会漏回写；本地跑会写当天 metadata</td></tr>
+  <tr><td>绩效闭环</td><td><span class="tag t-green">绿</span></td>
+      <td>本轮打通：550 篇真实绩效 + 平台 ID 主键 + CI 取数回落</td><td>样本仍薄（14 天 106 篇）</td></tr>
+  <tr><td>自动调参</td><td><span class="tag t-amber">黄</span></td>
+      <td>四道防呆（最小样本 30 / 冷静期 14 天 / 单次 ≤10pp / 死区阈值 20%）</td><td>多数板块样本 &lt;30 处于冻结，交人工</td></tr>
+</table>
+
+<h2>四、P0：发文量失控（证据与修法）</h2>
+<div class="kpi">
+  <div><b class="num">10.5</b><span>实际日均可发布篇数（近 15 天）</span></div>
+  <div><b class="num">6</b><span>手册/计划口径（每批 2 篇 × 3 批）</span></div>
+  <div><b class="num">12/14</b><span>近 14 天日合计超上限的天数</span></div>
+  <div><b class="num">30/53</b><span>近 14 天超单批上限的批次数</span></div>
+</div>
+<p><b>根因</b>（<code>orchestrator.py</code>）：</p>
+<ul>
+  <li>主稿被正确限制：<code>article_count = min(len(topics), max_articles)</code>，常态 2 篇。</li>
+  <li><b>一级·确定性供给</b>（<code>FIXTURE_PER_BATCH = 1</code>）与晚间<b>赛前预测稿</b>是<b>追加</b>在 <code>articles</code> 末尾的，<b>不占 <code>max_articles</code></b>。蓄水池补位反而做对了（<code>_supply_gap = max_articles - len(articles)</code>）。</li>
+  <li>于是每批 = 2 主稿 + 1 确定性，晚间再加 1 预测稿 → 日 10-11 篇成稿、其中约 10 篇发布到头条。</li>
+</ul>
+<p><b>为什么必须修</b>：869 条真实数据显示日发 7+ 篇组阅读中位仅 3，1-2 篇组中位 13；点击率与日更量负相关。现在每天多发的 4 篇不是在增收，是在<b>稀释账号的推荐权重</b>。</p>
+
+<h3>三个修法（请你选）</h3>
+<table>
+  <tr><th style="width:34px">方案</th><th>做法</th><th>日发文</th><th>副作用</th></tr>
+  <tr><td><b>A</b><br><span class="tag t-green">推荐</span></td>
+      <td>让确定性供给<b>占用配额</b>：主稿目标 = <code>max_articles − FIXTURE_PER_BATCH</code>，即每批 1 主稿 + 1 确定性</td>
+      <td class="num">6</td>
+      <td>确定性供给占比升到 50%（计划目标 30%）；可用 <code>FIXTURE_PER_BATCH</code> 按 0.6/批 轮换来逼近 30%</td></tr>
+  <tr><td><b>B</b></td>
+      <td>保持主稿 2 篇不变，把确定性供给改为「只填剩余槽位」：<code>slots = max_articles − len(articles)</code>；预测稿本就不发布，单独标记、不计入发布配额</td>
+      <td class="num">6-8</td>
+      <td>确定性供给时有时无（主稿满员时就为 0），结构稳定性差</td></tr>
+  <tr><td><b>C</b></td>
+      <td>把配额本身上调到每批 3 篇（改 <code>constants.BATCH_QUOTA</code>）</td>
+      <td class="num">9</td>
+      <td>违背手册第五章，且与真实数据结论相反。<b>不推荐</b></td></tr>
+</table>
+
+<h2>五、存档缺口诊断（待办②）</h2>
+<table>
+  <tr><th>月份</th><th>平台图文</th><th>本地存档</th><th>覆盖率</th><th>说明</th></tr>
+  <tr><td>2026-01 ~ 05</td><td class="num">42</td><td class="num">0</td><td>0%</td><td>后台仅保留 6 个月明细，指标全为 -1；本地也无成稿。<b>无法补档</b></td></tr>
+  <tr><td>2026-06</td><td class="num">288</td><td class="num">45</td><td>16%</td><td>高频期：最高 <b>35 篇/日</b>，本地仅从 06-09 起按 2 篇/日存档。<b>另一套运行形态</b></td></tr>
+  <tr><td>2026-07</td><td class="num">101</td><td class="num">114</td><td>113%</td><td>本地略多（含未发布内容）</td></tr>
+  <tr><td>2026-08 ~ 10</td><td class="num">438</td><td class="num">634</td><td>145%</td><td>本地每天比平台多 1-3 篇——经抽查是<b>预测类文章</b>（不发布到头条），非发布失败</td></tr>
+</table>
+<div class="callout b">
+  <b>建议：不补档，以 2026-06-09 作为有效统计基线。</b><br>
+  6 月那 243 篇既没有本地成稿、后台也没有指标，补不出真实数据；更值得警惕的是把 6 月「日均 9.6 篇」当成当前产能——那是配额纪律建立前的形态。<br>
+  <span class="small">另注意：8-10 月本地比平台多出的部分是预测类未发布内容，会让看板「总篇数/日均篇数」虚高约 5%（306 → 实际 290）。建议后续在成稿打 <code>is_prediction</code> 标后从发布口径中剔除。</span>
+</div>
+
+<h2>六、周度试运行方案</h2>
+<div class="callout g">
+  <b>我赞成先跑一周，而且现在就是最好的起点。</b> 理由很直接：链路已经闭环，缺的不是功能，是<b>真实反馈</b>；
+  自动调参之所以大面积冻结，就是因为单板块样本 &lt; 30——跑一周就是把样本攒到可决策水位的最快路径。
+  但前提是 <b>P0 配额先修</b>，否则这一周的每个数字都带着同一个系统性偏差，等于白跑。
+</div>
+
+<h3>6.1 一周节奏</h3>
+<table>
+  <tr><th style="width:88px">时间</th><th>动作</th><th>说明</th></tr>
+  <tr><td>每日 3 批</td><td>照常 08:00 / 12:00 / 18:00 发布</td><td>不手动干预、不加发</td></tr>
+  <tr><td>周日 21:00</td><td>数据回收 + 复盘</td><td>见 6.3</td></tr>
+  <tr><td>周三 / 周六</td><td><b>冻结，什么都不改</b></td><td>守住冷静期，避免一周内多次调参导致无法归因</td></tr>
+  <tr><td>任意日</td><td>发现 P0/P1 立即修，但记入周报</td><td>修 P0 不算「调参」，是修漏损</td></tr>
+</table>
+
+<h3>6.2 观察指标与判据</h3>
+<table>
+  <tr><th>指标</th><th>当前值</th><th>一周目标</th><th>触发动作</th></tr>
+  <tr><td>日发布篇数</td><td class="num">10.5</td><td class="num">≤ 8（修 P0 后 6）</td><td>仍 &gt;8 → 继续收紧配额</td></tr>
+  <tr><td>篇均阅读</td><td class="num">90</td><td class="num">≥ 90（不降）</td><td>下降 → 查选题/时段/标题</td></tr>
+  <tr><td>整体点击率</td><td class="num">2.25%</td><td class="num">≥ 2.25%</td><td>下降 → 优先查标题反模式是否漏拦</td></tr>
+  <tr><td>平均完成率</td><td class="num">31.6%</td><td class="num">≥ 31.6%</td><td>下降 → 查开头钩子与篇幅</td></tr>
+  <tr><td>溯源覆盖率（新成稿）</td><td class="num">2%</td><td class="num">≥ 90%</td><td>未达标 → 查 <code>_source_fixture</code> 是否缺失</td></tr>
+  <tr><td>单批超配次数</td><td class="num">15/周</td><td class="num">0</td><td>&gt;0 → 配额执行有洞，回看 6.1 根因</td></tr>
+  <tr><td>死区写入 / 主调度准点率</td><td class="num">0 / 19-of-30</td><td class="num">0 / ≥ 95%</td><td>准点率掉 → 按 runbook 查 Worker</td></tr>
+  <tr><td>加发次数</td><td class="num">0/周</td><td class="num">≤ 2/周</td><td>超 → 违反手册第五章</td></tr>
+  <tr><td>合规熔断</td><td>未触发</td><td>未触发</td><td>触发 → 停发，人工定位</td></tr>
+</table>
+
+<h3>6.3 周日复盘动作（固定四步）</h3>
+<ol>
+  <li><b>收数据</b>：头条后台导出 → <code>scripts/import_performance.py --from-toutiao &lt;文件&gt;</code>（已按平台 ID 匹配，不再怕改标题）。</li>
+  <li><b>出看板</b>：<code>scripts/build_metrics_dashboard.py</code>，与上周基线快照对比。</li>
+  <li><b>要建议</b>：<code>scripts/ratio_tuner.py</code>——样本 &lt;30 的板块会冻结并交人工，<b>不要绕过冻结强行调</b>。</li>
+  <li><b>写周报</b>：本周发布量 / 四项增长指标 / 超配与死区 / 下周只改的那一个变量及理由。</li>
+</ol>
+
+<h3>6.4 这一周明确不做的事</h3>
+<ul>
+  <li><b>不同时改多个变量</b>——一周只动一个（一个板块配比，或一个时段），否则无法归因。</li>
+  <li><b>不在口径修好前比较「总篇数」</b>（含未发布的预测类，虚高约 5%）。</li>
+  <li><b>不为了凑量加发</b>——加发是周四/S 级事件的例外通道，不是日常手段。</li>
+  <li><b>不回溯补 6 月前的数据</b>——没有的内容补出来必然是编的。</li>
+</ul>
+
+<h2>七、待你拍板</h2>
+<ol>
+  <li><b>P0 配额修法选 A / B / C</b>（我推荐 A：既满足手册日 6 篇，又保住确定性供给不断档）。</li>
+  <li><b>6 月前存档是否补档</b>——我建议不补，以 2026-06-09 为基线。</li>
+  <li><b>溯源历史数据是否回溯</b>——我建议不回溯（成稿时未记录来源，回溯只能靠猜）。</li>
+  <li><b>看板口径</b>：是否要给成稿打 <code>is_prediction</code> 标，把未发布内容从「总篇数/日均篇数」中剔除。</li>
+</ol>
+<p class="small">本报告随仓库提交于 <code>data/audit/health_assessment_2026-10-12.html</code>；配套改动含 <code>title_antipattern</code> / <code>publish_schedule</code> / <code>platform_id</code> / <code>provenance</code> / <code>scheduler_health</code> / <code>batch_quota</code> 检测强化，全量单测 525 项通过。</p>
+
+</div>
+</body>
+</html>

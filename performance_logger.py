@@ -82,13 +82,17 @@ def save_performance_log(log_data):
     PERF_LOG_PATH.write_text(json.dumps(log_data, ensure_ascii=False, indent=2))
 
 
-def log_article_performance(date_str, article_index=None, reads=0, comments=0, likes=0, shares=0, retention_rate=0.0, new_followers=0, impressions=0, follower_reads=0, slug=None):
+def log_article_performance(date_str, article_index=None, reads=None, comments=None,
+                            likes=None, shares=None, retention_rate=None,
+                            new_followers=None, impressions=None, follower_reads=None,
+                            slug=None, platform_id=None):
     """Record performance metrics for a single article.
 
     Args:
         date_str: "2026-06-02"
         article_index: 批内 1-based 序号（**同一天可能重复，故仅作旧键兜底**）
         slug: metadata.articles[].slug，同一天内唯一；有则用它做主键（推荐）
+        platform_id: 头条平台作品 ID（跨导出稳定，回写 metadata 后可抗「平台改标题」）
         reads: 阅读量
         comments: 评论数
         likes: 点赞数
@@ -97,6 +101,8 @@ def log_article_performance(date_str, article_index=None, reads=0, comments=0, l
         new_followers: 当日涨粉数（计划 11.6：配比归因必需字段）
         impressions: 展现量/曝光量（计划第十章：点击率 = reads / impressions）
         follower_reads: 粉丝阅读量（计划第十章：粉丝阅读占比 = follower_reads / reads）
+
+    所有指标默认 None = 「未提供 / 待接入」，**不写 key、绝不用 0 冒充**。
     """
     log_data = load_performance_log()
     key = perf_key(date_str, index=article_index, slug=slug)
@@ -105,6 +111,8 @@ def log_article_performance(date_str, article_index=None, reads=0, comments=0, l
         "index": article_index,
         "slug": slug,
     }
+    if platform_id:
+        entry["platform_id"] = str(platform_id).strip()
     # 缺数据的指标（None = 待接入）不写 key，绝不用 0 冒充真实读数
     for field, value in (("reads", reads), ("comments", comments), ("likes", likes),
                          ("shares", shares), ("retention_rate", retention_rate),
@@ -115,7 +123,10 @@ def log_article_performance(date_str, article_index=None, reads=0, comments=0, l
     entry["logged_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_data["articles"][key] = entry
     save_performance_log(log_data)
-    print(f"   性能数据已记录: {key} — 阅读:{reads} 评论:{comments} 点赞:{likes} 涨粉:{new_followers}")
+    # 未提供的指标显示为「–」（待接入），不要把 None 打印成 0 误导
+    dash = lambda v: "–" if v is None else v  # noqa: E731
+    print(f"   性能数据已记录: {key} — 阅读:{dash(reads)} 评论:{dash(comments)} "
+          f"点赞:{dash(likes)} 涨粉:{dash(new_followers)}")
     return log_data
 
 
@@ -151,8 +162,14 @@ def update_metadata_performance(date_str):
             # 只回写台账里真实存在的指标；缺数据的字段不落 0（避免把「无数据」写成 0）
             fields = ("reads", "comments", "likes", "shares", "retention_rate",
                       "new_followers", "impressions", "follower_reads")
-            article["performance"] = {k: perf[k] for k in fields if k in perf}
-            updated += 1
+            metrics = {k: perf[k] for k in fields if k in perf}
+            if metrics:
+                article["performance"] = metrics
+            # 绑定平台作品 ID（跨导出稳定）：下次导出即使平台改了标题，也能按 ID 命中
+            if perf.get("platform_id"):
+                article["platform_id"] = str(perf["platform_id"])
+            if metrics or perf.get("platform_id"):
+                updated += 1
 
     if updated > 0:
         meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2))
@@ -169,6 +186,7 @@ def update_metadata_performance(date_str):
 
 if __name__ == "__main__":
     import argparse
+    import toutiao_import as tti
 
     parser = argparse.ArgumentParser(description="头条性能数据录入")
     parser.add_argument("date", help="日期 (YYYY-MM-DD)")
@@ -176,14 +194,16 @@ if __name__ == "__main__":
                         help="批内序号 (1-based)；同一天可能重复，建议改用 --slug")
     parser.add_argument("--slug", default=None,
                         help="文章 slug（metadata.articles[].slug，同一天内唯一，推荐）")
-    parser.add_argument("--reads", type=int, default=0, help="阅读量")
-    parser.add_argument("--comments", type=int, default=0, help="评论数")
-    parser.add_argument("--likes", type=int, default=0, help="点赞数")
-    parser.add_argument("--shares", type=int, default=0, help="分享数")
-    parser.add_argument("--retention", type=float, default=0.0, help="完读率")
-    parser.add_argument("--followers", type=int, default=0, help="当日涨粉数（计划 11.6）")
-    parser.add_argument("--impressions", type=int, default=0, help="展现量（点击率 = 阅读/展现）")
-    parser.add_argument("--follower-reads", type=int, default=0, help="粉丝阅读量（粉丝阅读占比）")
+    parser.add_argument("--platform-id", default=None,
+                        help="头条平台作品 ID（跨导出稳定，导入时优先于标题匹配）")
+    parser.add_argument("--reads", type=int, default=None, help="阅读量（不填=待接入，不写 0）")
+    parser.add_argument("--comments", type=int, default=None, help="评论数（不填=待接入）")
+    parser.add_argument("--likes", type=int, default=None, help="点赞数（不填=待接入）")
+    parser.add_argument("--shares", type=int, default=None, help="分享数（不填=待接入）")
+    parser.add_argument("--retention", type=float, default=None, help="完读率（不填=待接入）")
+    parser.add_argument("--followers", type=int, default=None, help="当日涨粉数（计划 11.6）")
+    parser.add_argument("--impressions", type=int, default=None, help="展现量（点击率 = 阅读/展现）")
+    parser.add_argument("--follower-reads", type=int, default=None, help="粉丝阅读量（粉丝阅读占比）")
     parser.add_argument("--sync", action="store_true", help="同步到 metadata.json")
 
     args = parser.parse_args()
@@ -195,7 +215,8 @@ if __name__ == "__main__":
                             new_followers=args.followers,
                             impressions=args.impressions,
                             follower_reads=args.follower_reads,
-                            slug=args.slug)
+                            slug=args.slug,
+                            platform_id=tti.normalize_platform_id(args.platform_id) or None)
 
     if args.sync:
         update_metadata_performance(args.date)

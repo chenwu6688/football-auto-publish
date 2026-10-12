@@ -42,8 +42,8 @@ from pathlib import Path
 
 # 规范字段（与 performance_logger.log_article_performance 的入参一致）
 CANONICAL_FIELDS = (
-    "title", "date", "index", "reads", "impressions", "follower_reads",
-    "retention_rate", "likes", "comments", "shares", "new_followers",
+    "title", "date", "index", "platform_id", "reads", "impressions",
+    "follower_reads", "retention_rate", "likes", "comments", "shares", "new_followers",
 )
 
 # 字段 → 别名。匹配时按「别名长度从长到短」逐个试，
@@ -52,6 +52,11 @@ ALIASES = {
     "title": ("标题", "作品标题", "内容标题", "文章标题", "作品名称", "内容名称", "文章名称"),
     "date": ("发布时间", "发布日期", "发表时间", "发文时间", "发布日", "日期"),
     "index": ("序号", "编号"),
+    # 平台作品 ID：头条导出含「ID」列（如 7695627775839846946）与「链接」列
+    # （https://toutiao.com/i7695627775839846946/）。它是**跨导出稳定**的等价主键，
+    # 用来解决「平台侧改标题后，按标题匹配会失配」的问题（计划第十章）。
+    "platform_id": ("作品ID", "作品id", "内容ID", "内容id", "文章ID", "文章id",
+                    "ID", "id", "作品链接", "内容链接", "链接"),
     "reads": ("阅读量", "阅读数", "阅读次数", "阅读"),
     "impressions": ("展现量", "展现数", "曝光量", "曝光数", "推荐量", "展现", "曝光"),
     "follower_reads": ("粉丝阅读量", "粉丝阅读数", "粉丝阅读/播放量", "粉丝阅读"),
@@ -313,8 +318,29 @@ def detect_header(rows: list, max_scan: int = 12) -> tuple:
 
 
 # ============================================================
-# D. 标题 → (日期, slug) 匹配
+# D. 标题 / 平台ID → (日期, slug) 匹配
 # ============================================================
+
+# 头条作品链接形如 https://toutiao.com/i7695627775839846946/ —— 取其中的作品 ID。
+_ID_IN_URL = re.compile(r"/i(\d{6,})")
+
+
+def normalize_platform_id(v) -> str:
+    """平台作品 ID 规范化：链接 → 提取 ID；纯数字 → 原样；其余 → 空串。
+
+    头条 ID 是长数字串（实测 19 位）。**只有纯数字才认**，避免把「-1」「--」
+    之类的占位符当成 ID（那会让两篇不同的文章撞到同一个键）。
+    """
+    s = unicodedata.normalize("NFKC", str(v or "")).strip()
+    if not s:
+        return ""
+    m = _ID_IN_URL.search(s)
+    if m:
+        return m.group(1)
+    digits = re.sub(r"\D", "", s)
+    # 太少位数必定不是作品 ID（如占位符「-1」→「1」），当没有处理
+    return digits if len(digits) >= 6 else ""
+
 
 def normalize_title(s) -> str:
     """标题规范化：NFKC + 只保留字母/数字/汉字 + 小写。
@@ -345,8 +371,32 @@ def build_article_index(output_dir) -> dict:
             index.setdefault(k, []).append({
                 "date": date_str, "slug": a.get("slug"),
                 "index": a.get("index"), "title": title,
+                "platform_id": normalize_platform_id(a.get("platform_id")),
             })
     return index
+
+
+def build_id_index(output_dir) -> dict:
+    """扫描 metadata，建 {平台作品ID: 候选}。
+
+    来源是**上一轮导入时绑定并回写进 metadata 的 `platform_id`**。
+    有了它，即使平台侧改了标题，后续导出仍能按 ID 精确命中（计划第十章）。
+    """
+    idx: dict = {}
+    for mp in sorted(Path(output_dir).glob("*/metadata.json")):
+        date_str = mp.parent.name
+        try:
+            meta = json.loads(mp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for a in meta.get("articles", []) or []:
+            pid = normalize_platform_id(a.get("platform_id"))
+            if not pid:
+                continue
+            idx[pid] = {"date": date_str, "slug": a.get("slug"),
+                        "index": a.get("index"), "title": a.get("title") or "",
+                        "platform_id": pid}
+    return idx
 
 
 _DATE_PAT = re.compile(r"(\d{4})\D(\d{1,2})\D(\d{1,2})")
@@ -363,25 +413,35 @@ def parse_date_like(v) -> str | None:
     return f"{y:04d}-{mo:02d}-{d:02d}"
 
 
-def match_article(title, index_map: dict, date_hint=None) -> tuple:
-    """标题 → 候选文章列表 + 结论。
+def match_article(title, index_map: dict, date_hint=None, *,
+                  platform_id=None, id_index=None) -> tuple:
+    """(平台ID / 标题) → 候选文章列表 + 结论 + 命中途径。
 
-    返回 ([候选…], reason)，reason ∈ matched / unmatched / ambiguous。
-    有 date_hint 时先用它缩候选，解决跨天同名标题的歧义。
+    返回 ([候选…], reason, via)。reason ∈ matched / unmatched / ambiguous；
+    via ∈ "id" / "title" / ""。
+
+    **平台ID 优先于标题**：ID 跨导出稳定，能解决「平台侧改过标题后，
+    按标题匹配会失配」的问题；标题仅在无 ID 可匹配时兜底。
+    有 date_hint 时先用它缩标题候选，解决跨天同名标题的歧义。
     """
+    pid = normalize_platform_id(platform_id)
+    if pid and id_index:
+        c = id_index.get(pid)
+        if c:
+            return [c], "matched", "id"
     k = normalize_title(title)
     if not k:
-        return [], "unmatched"
+        return [], "unmatched", ""
     cands = list(index_map.get(k, []))
     if not cands:
-        return [], "unmatched"
+        return [], "unmatched", ""
     if date_hint:
         same = [c for c in cands if c["date"] == date_hint]
         if same:
             cands = same
     if len(cands) == 1:
-        return cands, "matched"
-    return cands, "ambiguous"
+        return cands, "matched", "title"
+    return cands, "ambiguous", ""
 
 
 _INT_METRICS = ("reads", "impressions", "follower_reads",
@@ -402,12 +462,13 @@ def _fill_metrics(rec: dict, cell) -> None:
 
 
 def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,
-               header_row: int | None = None) -> dict:
+               id_index: dict | None = None, header_row: int | None = None) -> dict:
     """头条导出二维表 → {records, report}。
 
     records 是可直接喂给 validate_row / import_rows 的规范记录；
     report 记录表头位置、列映射、未识别列，以及 matched / unmatched /
     ambiguous / non_article 逐行明细（**未匹配的行不写库**）。
+    匹配优先用平台ID（id_index），无 ID 时回退标题匹配（title_index）。
     """
     rows = pad_rows(rows)
     if header_row is None:
@@ -420,7 +481,8 @@ def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,
                 mapping[f] = j
 
     report = {"header_row": header_row, "mapping": {}, "unmapped": [],
-              "matched": [], "unmatched": [], "ambiguous": [], "non_article": []}
+              "matched": [], "matched_by_id": 0,
+              "unmatched": [], "ambiguous": [], "non_article": []}
 
     if header_row is None or "title" not in mapping:
         report["error"] = (
@@ -440,7 +502,9 @@ def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,
             report["unmapped"].append(str(h).strip())
 
     if title_index is None:
-        title_index = build_article_index(output_dir)
+        title_index = build_article_index(output_dir) if output_dir is not None else {}
+    if id_index is None:
+        id_index = build_id_index(output_dir) if output_dir is not None else {}
 
     records: list = []
     for r_i in range(header_row + 1, len(rows)):
@@ -461,7 +525,9 @@ def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,
             continue
 
         date_hint = parse_date_like(cell("date"))
-        cands, reason = match_article(raw_title, title_index, date_hint)
+        pid = normalize_platform_id(cell("platform_id"))
+        cands, reason, via = match_article(raw_title, title_index, date_hint,
+                                           platform_id=pid, id_index=id_index)
         if reason != "matched":
             report[reason].append({
                 "row": r_i + 1, "title": raw_title, "date": date_hint,
@@ -473,12 +539,16 @@ def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,
         rec = {
             "date": c["date"], "slug": c["slug"], "index": c["index"],
             "title": c["title"], "source_title": raw_title, "__lineno": r_i + 1,
+            # 平台ID：导出里有就记下，回写 metadata 后下次即可按 ID 匹配（改标题也不怕）
+            "platform_id": pid or c.get("platform_id") or "",
         }
         _fill_metrics(rec, cell)
         records.append(rec)
+        if via == "id":
+            report["matched_by_id"] += 1
         report["matched"].append({
             "row": r_i + 1, "title": raw_title,
-            "target": f"{c['date']}/{c['slug']}",
+            "target": f"{c['date']}/{c['slug']}", "via": via,
         })
 
     report["ok"] = True
@@ -510,6 +580,14 @@ def selftest() -> int:
     check(normalize_retention("0.412") == 0.412, "0.412 应保持")
     check(normalize_title("森林1-3崩盘！") == normalize_title("森林13崩盘"),
           "标点差异不应影响标题匹配")
+    check(map_header("ID")[0] == "platform_id", "ID 列应映射到 platform_id")
+    check(map_header("链接")[0] == "platform_id", "链接列应映射到 platform_id")
+    check(normalize_platform_id("7695627775839846946") == "7695627775839846946",
+          "纯数字作品 ID 应原样保留")
+    check(normalize_platform_id("https://toutiao.com/i7695627775839846946/")
+          == "7695627775839846946", "作品链接应能提取出作品 ID")
+    check(normalize_platform_id("-1") == "", "占位符「-1」不应被当成作品 ID")
+    check(normalize_platform_id("") == "", "空值应返回空串")
 
     for f in fails:
         print(f"  ❌ {f}")

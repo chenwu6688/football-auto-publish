@@ -1838,6 +1838,43 @@ def generate_article_with_retry(topic, match_context, index, max_retries=2, date
 # Hupu Data Collection & Article Generation
 # ============================================================
 
+# ── 溯源标注（计划第十章：提高溯源覆盖率）─────────────────────────────
+# LLM 改写路径此前不写 sources_used/source_post，导致溯源覆盖率长期偏低
+# （实测 793 篇仅 38 篇有值）。而真实来源其实一直挂在
+# article["_source_fixture"] 上（直播吧/懂球帝源文），只是没有落成标注。
+# 这里把它显式写进 metadata（**只写元数据，不改正文**，符合「信号/事实不入正文」）。
+_SOURCE_DISPLAY = {
+    "zhibo8": "直播吧 zhibo8.cc",
+    "dongqiudi": "懂球帝 dongqiudi.com",
+}
+
+
+def _source_display_name(key) -> str:
+    k = str(key or "").strip()
+    return _SOURCE_DISPLAY.get(k.lower(), k)
+
+
+def resolve_provenance(art: dict) -> tuple:
+    """从成稿解析可信来源标注，返回 (sources_used, source_post)。
+
+    - sources_used：确定性供给已填则原样保留；否则从 `_source_fixture` 的媒体来源派生。
+    - source_post：源文标题（供 data_collector 跨日同题去重）；取不到就留空，
+      **绝不编造**（诚实原则：没有的来源不冒充）。
+    """
+    used = [str(s).strip() for s in (art.get("sources_used") or [])
+            if s and str(s).strip()]
+    fx = art.get("_source_fixture") or {}
+    if not isinstance(fx, dict):
+        fx = {}
+    media = _source_display_name(fx.get("source"))
+    if media and media not in used:
+        used.append(media)
+    post = str(art.get("source_post") or "").strip()
+    if not post:
+        post = str(fx.get("article_title") or fx.get("title") or "").strip()
+    return used, post
+
+
 def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
                         pre_downloaded_images=None):
     """Save articles directly to filesystem (no Flask dependency).
@@ -2013,11 +2050,13 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                      "batch_name": art.get("_batch_name", ""),
                      "batch_time": art.get("_batch_time", "")}
         result = file_writer.save_article(date_str=date_str, index=idx, article_data=art_data)
+        # 溯源标注（计划第十章）：从 _source_fixture 派生真实来源，只写元数据、不动正文
+        _prov_sources, _prov_post = resolve_provenance(art)
         saved.append({"index": idx, "title": art.get("title", ""), "path": result["article_path"],
                        "slug": result["slug"], "tags": art.get("keywords", []),
                        "keywords": art.get("keywords", []), "images": result["image_paths"],
-                       "sources_used": art.get("sources_used", []),
-                       "source_post": art.get("source_post", ""),
+                       "sources_used": _prov_sources,
+                       "source_post": _prov_post,
                        "originality_note": art.get("originality_note", ""),
                        "content_type": art.get("content_type", ""),
                        "column_id": art.get("_column_id", ""),

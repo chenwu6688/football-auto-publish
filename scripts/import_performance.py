@@ -87,7 +87,8 @@ def validate_row(row: dict, lineno: int) -> tuple[dict | None, str | None]:
     idx = _to_int(row.get("index"), 0)
     if idx <= 0 and not slug:
         return None, f"第 {lineno} 行：index 非法（须 ≥1）且未提供 slug"
-    rec = {"date": d, "index": idx, "slug": slug}
+    pid = tti.normalize_platform_id(row.get("platform_id"))
+    rec = {"date": d, "index": idx, "slug": slug, "platform_id": pid or None}
     for f in INT_FIELDS:
         if f == "index":
             continue
@@ -142,7 +143,7 @@ def import_rows(rows: list[dict], *, dry_run: bool = False, sync: bool = True) -
                 likes=rec["likes"], shares=rec["shares"],
                 retention_rate=rec["retention_rate"], new_followers=rec["new_followers"],
                 impressions=rec["impressions"], follower_reads=rec["follower_reads"],
-                slug=rec.get("slug"))
+                slug=rec.get("slug"), platform_id=rec.get("platform_id"))
             dates.add(rec["date"])
         if sync:
             for d in sorted(dates):
@@ -192,10 +193,13 @@ def render_toutiao_report(res: dict, src: Path, *, dry_run: bool) -> str:
         L += [f"- ⚠️ 未识别列（已忽略）：{'、'.join(rep['unmapped'])}", ""]
 
     L += ["## 匹配结果", "",
-          f"- 命中可回填：**{len(rep['matched'])}** 行",
+          f"- 命中可回填：**{len(rep['matched'])}** 行"
+          f"（其中按平台ID命中 {rep.get('matched_by_id', 0)} 行）",
           f"- 未匹配（不在本地 metadata 中，**未写库**）：{len(rep['unmatched'])} 行",
           f"- 标题歧义（跨天同名，**未写库**）：{len(rep['ambiguous'])} 行",
-          f"- 非图文作品（微头条 / 视频 / 问答，跳过）：{len(rep['non_article'])} 行", ""]
+          f"- 非图文作品（微头条 / 视频 / 问答，跳过）：{len(rep['non_article'])} 行", "",
+          "> 平台ID（导出「ID」/「链接」列）跨导出稳定：命中即回写进 metadata，",
+          "> 之后即使平台改了标题，也能按 ID 精确命中，不再失配。", ""]
 
     for key, label in (("unmatched", "未匹配明细"), ("ambiguous", "标题歧义明细")):
         rows = rep.get(key) or []
@@ -218,7 +222,8 @@ def run_toutiao(path: Path, args) -> int:
         print(f"❌ 解析失败：{type(e).__name__}: {e}")
         return 2
 
-    res = tti.adapt_rows(rows, output_dir=pl.OUTPUT_DIR)
+    id_index = tti.build_id_index(pl.OUTPUT_DIR)
+    res = tti.adapt_rows(rows, output_dir=pl.OUTPUT_DIR, id_index=id_index)
     rep = res["report"]
 
     if rep.get("ok"):
@@ -227,8 +232,9 @@ def run_toutiao(path: Path, args) -> int:
             print(f"   {h}  →  {f}")
         if rep["unmapped"]:
             print(f"   ⚠️ 未识别列（已忽略）：{'、'.join(rep['unmapped'])}")
-        print(f"命中 {len(rep['matched'])}｜未匹配 {len(rep['unmatched'])}｜"
-              f"歧义 {len(rep['ambiguous'])}｜非图文 {len(rep['non_article'])}")
+        print(f"命中 {len(rep['matched'])}（按平台ID命中 {rep.get('matched_by_id', 0)}）｜"
+              f"未匹配 {len(rep['unmatched'])}｜歧义 {len(rep['ambiguous'])}｜"
+              f"非图文 {len(rep['non_article'])}")
         for x in rep["unmatched"][:5]:
             print(f"   · 未匹配：{x['title']}")
         for x in rep["ambiguous"][:5]:

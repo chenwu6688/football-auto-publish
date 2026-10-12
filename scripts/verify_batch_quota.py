@@ -15,7 +15,8 @@
 
 告警项（只提示）
   G. 加发台账——周内加发次数 ≤ 2，留痕字段完整
-  H. 窗口内单批实际篇数——改造前遗留的高单批产出（仅提示，不阻断）
+  H. 窗口内实际产出 vs 配额——单批与日合计分别比对运行时上限 / 手册区间；
+     预测类文章不发布到头条，已剔除；近 7 天仍超配会明确标注「配额正被突破」
 
 用法：python3 scripts/verify_batch_quota.py [--days 14] [--quiet]
 产出：data/audit/batch_quota_<date>.md + data/audit/batch_quota_latest.json
@@ -168,13 +169,27 @@ def check_ledger() -> dict:
 
 
 def check_actual_batches(days: int) -> dict:
-    """窗口内单批实际篇数（改造前遗留会超限，仅提示）。"""
+    """窗口内实际产出 vs 运行时配额（告警项）。
+
+    同时看**单批**与**日合计**；预测类文章不发布到头条，不计入发布篇数
+    （否则会把未发布内容算进配额，既虚增产量又掩盖真实超配）。
+
+    违规按「近 7 天 / 更早」分桶：**近 7 天仍有违规说明配额正在被突破，
+    不是历史遗留**，必须处理。旧版一句「多为改造前遗留产出」曾把
+    「最近 7 天 22/55 个批次超上限」轻描淡写成无害，属错误安抚。
+    """
     today = datetime.now(CST)
-    violations, batches = [], 0
-    # 元数据里的 batch_name 是中文批次名，需映射回手册上限
-    cap_by_name = {"晨读": MANUAL_BATCH_CAP["morning"],
-                   "午间": MANUAL_BATCH_CAP["noon"],
-                   "晚间": MANUAL_BATCH_CAP["evening"]}
+    runtime = _runtime_caps()
+    cap_by_name = {"晨读": runtime.get("morning"), "午间": runtime.get("noon"),
+                   "晚间": runtime.get("evening")}
+    manual_by_name = {"晨读": MANUAL_BATCH_CAP["morning"],
+                      "午间": MANUAL_BATCH_CAP["noon"],
+                      "晚间": MANUAL_BATCH_CAP["evening"]}
+    batch_viol: list[str] = []
+    manual_viol: list[str] = []
+    daily_over: list[str] = []
+    daily_under: list[str] = []
+    batches = days_seen = 0
     for i in range(days):
         ds = (today - timedelta(days=i)).strftime("%Y-%m-%d")
         p = OUTPUT_DIR / ds / "metadata.json"
@@ -184,20 +199,62 @@ def check_actual_batches(days: int) -> dict:
             meta = json.loads(p.read_text(encoding="utf-8"))
         except Exception:
             continue
+        pred_titles = {t.get("title") for t in meta.get("topics", []) or []
+                       if t.get("_is_prediction")}
+        arts = [a for a in meta.get("articles", []) or []
+                if a.get("title") not in pred_titles]
+        if not arts:
+            continue
+        days_seen += 1
         per: dict[str, int] = {}
-        for a in meta.get("articles", []) or []:
+        for a in arts:
             name = a.get("batch_name") or "?"
             per[name] = per.get(name, 0) + 1
-        for name, cnt in per.items():
+        for name, cnt in sorted(per.items()):
             batches += 1
             cap = cap_by_name.get(name)
             if cap is not None and cnt > cap:
-                violations.append(f"{ds} {name} {cnt} 篇")
-    return {"item": f"窗口内单批实际篇数（{days} 天，仅提示）", "ok": not violations,
-            "advisory": True, "violations": violations,
-            "detail": [f"窗口内 {batches} 个批次；超出手册上限 {len(violations)} 个"
-                       + ("（多为改造前遗留产出）" if violations else " ✅"),
-                       *violations[:10]]}
+                batch_viol.append(f"{ds} {name} {cnt} 篇（运行时上限 {cap}）")
+            mcap = manual_by_name.get(name)
+            if mcap is not None and cnt > mcap:
+                manual_viol.append(f"{ds} {name} {cnt} 篇（手册上限 {mcap}）")
+        total = len(arts)
+        if total > MANUAL_DAILY_MAX:
+            daily_over.append(f"{ds} 日合计 {total} 篇（手册区间 "
+                              f"{MANUAL_DAILY_MIN}-{MANUAL_DAILY_MAX}）")
+        elif total < MANUAL_DAILY_MIN:
+            daily_under.append(f"{ds} 日合计 {total} 篇")
+
+    cutoff = (today - timedelta(days=7)).strftime("%Y-%m-%d")
+    recent_batch = [v for v in batch_viol if v[:10] >= cutoff]
+    recent_daily = [v for v in daily_over if v[:10] >= cutoff]
+
+    detail = [f"窗口内 {days_seen} 天 / {batches} 个批次（预测类已剔除）",
+              f"单批超运行时上限：{len(batch_viol)} 个"
+              f"（其中近 7 天 {len(recent_batch)} 个）",
+              f"单批超手册上限：{len(manual_viol)} 个",
+              f"日合计超手册上限：{len(daily_over)} 天"
+              f"（其中近 7 天 {len(recent_daily)} 天）",
+              f"日合计低于下限：{len(daily_under)} 天"]
+    if recent_batch or recent_daily:
+        detail.append("❌ 近 7 天仍在超配——配额正被突破，不是历史遗留，需立即处理")
+    elif batch_viol or daily_over:
+        detail.append("⚠️ 仅更早日期有超配记录（历史遗留）")
+    else:
+        detail.append("✅ 单批与日合计均未超限")
+    for v in (recent_batch[:6] or batch_viol[:6]):
+        detail.append(f"  · {v}")
+    for v in (recent_daily[:4] or daily_over[:4]):
+        detail.append(f"  · {v}")
+
+    # 告警项不改变退出码（只由硬项决定），但 ok 必须反映真实严重度，
+    # 否则报告头部显示 ✅、详情却写 ❌，自相矛盾会误导排障。
+    return {"item": f"窗口内实际产出 vs 配额（{days} 天）",
+            "ok": not (recent_batch or recent_daily),
+            "advisory": True, "batch_violations": batch_viol,
+            "manual_violations": manual_viol, "daily_over": daily_over,
+            "daily_under": daily_under, "recent_batch_violations": recent_batch,
+            "detail": detail}
 
 
 def verify(days: int = 14) -> dict:
