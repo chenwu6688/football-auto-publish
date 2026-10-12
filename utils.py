@@ -586,4 +586,15 @@ def filter_fresh_news(items, max_hours=NEWS_MAX_AGE_HOURS, now=None, label=""):
     if dropped:
         oldest = max((d[1] for d in dropped), default=0)
         print(f"   🚫 时效闸门[{label or 'news'}]：剔除 {len(dropped)} 条超 {max_hours}h 素材（最旧 {oldest}h）")
+    # 计划 4.1 / 7.2：时效闸门台账（可审计「连续 14 天无旧闻新发」）。失败不阻断。
+    try:
+        import freshness_ledger
+        freshness_ledger.note(
+            label=label or "news", checked=len(items or []),
+            dropped_ages=[d[1] for d in dropped], unknown=unknown,
+            kept_ages=[it.get("_age_hours") for it in kept
+                       if isinstance(it.get("_age_hours"), (int, float))],
+            max_hours=max_hours)
+    except Exception:
+        pass
     return kept, dropped, unknown

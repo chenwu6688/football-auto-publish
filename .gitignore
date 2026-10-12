@@ -16,6 +16,11 @@ data/rank_audit/
 # 接口额度台账（运行时状态，计划 11.4）
 data/api_budget.json
 
+# 验收台账（运行时状态，计划 7.2 / 7.3）
+data/freshness_ledger.json
+data/consistency_stats.json
+data/consistency_labels.json
+
 # OpenWolf memory system
 .wolf/
 
