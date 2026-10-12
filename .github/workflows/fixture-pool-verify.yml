@@ -1,0 +1,59 @@
+name: 赛程选题池验收（计划 7.1）
+
+# 计划 7.1 验收标准：五类覆盖 / 单日候选≥6 / 前瞻体为 0（硬项）；
+# 板块配比偏差≤5%（告警项，赛程池板块由赛程决定，配比达标由三层供给混合实现）。
+# 每周一 03:00 UTC = 11:00 CST 刷新赛程池并校验，未过即失败告警。
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Git 推送凭据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 刷新赛程选题池
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          JUHE_API_KEY: ${{ secrets.JUHE_API_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_FOOTBALL_HOST: ${{ secrets.API_FOOTBALL_HOST }}
+        run: |
+          python3 scripts/fixture_library.py \
+            || echo "::warning::赛程池刷新失败，沿用已有 topic_pool"
+
+      - name: 执行 7.1 验收校验
+        run: python3 scripts/verify_fixture_pool.py
+
+      - name: 回写验收报告
+        if: always()
+        run: |
+          git add -f data/audit || true
+          if git diff --cached --quiet; then
+            echo "无报告变更"
+            exit 0
+          fi
+          git commit -m "chore(fixtures): 赛程选题池 7.1 验收报告"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git pull --rebase origin main || true
+          done

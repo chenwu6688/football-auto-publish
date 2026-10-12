@@ -227,6 +227,13 @@ jobs:
         run: |
           python scripts/fixture_library.py || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"
 
+      - name: 赛程选题池验收（计划 7.1 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true'
+        run: |
+          # 五类覆盖 / 单日候选≥6 / 前瞻体为 0 为硬项；不达标仅告警，不阻断发布（计划九）
+          python3 scripts/verify_fixture_pool.py --quiet \
+            || echo "::warning::赛程选题池未达 7.1 验收标准，详见 data/audit/fixture_pool_latest.json"
+
       - name: 补充软性内容蓄水池（三级供给 · 计划 12.1）
         if: steps.params.outputs.skip != 'true'
         env:
