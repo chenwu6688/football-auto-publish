@@ -27,6 +27,7 @@ import risk_gate
 import degrade
 import supply_mix
 import rumor_wording
+import title_antipattern
 import content_reference
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
@@ -2748,6 +2749,10 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     传闻硬校验（计划 4.1：严重标题党扣 30 分 →「传闻类标题禁用肯定语气」）：
     ``fact_tier`` 未显式给出时从 ``topic`` 自动解析（可信度／fact_tier 字段）。
     命中传闻级断言式标题 → 直接 0 分并打回，不参与其余维度加分。
+
+    赛果播报式硬校验（计划 3.3 标题公式 / 第十章内容质量，见 title_antipattern.py）：
+    头条 869 条真实回测显示「以比分/赛果开场 + 无具体人物 + 无悬念钩子」是最典型的
+    亏损形态（该组 0 爆款、最高阅读仅 67）。命中 → 直接 0 分并打回重写。
     """
     title = (title or "").strip()
     reasons = []
@@ -2759,6 +2764,14 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     _rw = rumor_wording.check(_tier, title, "")
     if not _rw["ok"]:
         return 0, False, _rw["hard"] + [_rw["hint"]]
+
+    # 计划 3.3/第十章：赛果播报式硬校验（同前，命中即 0 分打回）
+    _ta = title_antipattern.check(title)
+    _ta_penalty = 0
+    if not _ta["ok"]:
+        _ta_penalty = int(_ta.get("penalty_score") or 0)
+        if _ta_penalty <= 0:
+            return 0, False, list(_ta["reasons"]) + [_ta["hint"]]
 
     L = len(title)
     lo, hi = _TITLE_LEN_BAND.get(content_type, _TITLE_LEN_DEFAULT)
@@ -2822,6 +2835,11 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
             score = 0
             reasons.append("命中禁用模板前缀(老六精准预测)")
             break
+
+    # 赛果播报式（配置判罚分 >0 时按扣分处理；=0 时已在上方硬返回）
+    if _ta_penalty:
+        score -= _ta_penalty
+        reasons.append(f"赛果播报式标题扣{_ta_penalty}：" + str(_ta.get("hint", "")))
 
     score = max(0, min(100, int(score)))
     passed = score >= 60

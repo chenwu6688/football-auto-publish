@@ -58,10 +58,16 @@ def _recent_articles(days=WINDOW_DAYS):
 
 
 def _score_titles(articles):
-    """用项目自身评分器复算，返回 (total, passed, zero_violations, fails)。"""
+    """用项目自身评分器复算，返回 (total, passed, zero_violations, fails, antipattern)。
+
+    zero_violations 只统计「传闻当官宣 / 禁用模板前缀」这类原有硬违规；
+    赛果播报式（title_antipattern，2026-10-12 新增）单独归入 antipattern，
+    避免新规则把历史存量的 A1 硬项拖红——新规则的验收在
+    scripts/verify_title_antipattern.py 独立完成。
+    """
     import orchestrator
     total = passed = 0
-    zero, fails = [], []
+    zero, fails, anti = [], [], []
     for data, a in articles:
         title = (a.get("title") or "").strip()
         if not title:
@@ -71,16 +77,24 @@ def _score_titles(articles):
         if ok:
             passed += 1
         elif sc == 0:
-            zero.append({"date": data.get("date"), "title": title, "reasons": reasons[:2]})
+            row = {"date": data.get("date"), "title": title, "reasons": reasons[:2]}
+            if any("开场" in r for r in reasons):
+                anti.append(row)
+            else:
+                zero.append(row)
         else:
             fails.append({"date": data.get("date"), "title": title, "score": sc,
                           "reasons": reasons[:2]})
-    return total, passed, zero, fails
+    return total, passed, zero, fails, anti
 
 
 def check_title_hard() -> dict:
     """A1. 成稿标题零「硬违规」（硬项）——近 14 天窗口内无 score_title_plan=0 的标题
-    （0 分即传闻当官宣 / 禁用模板前缀等硬违规）。"""
+    （0 分即传闻当官宣 / 禁用模板前缀等硬违规）。
+
+    口径说明：赛果播报式（title_antipattern）属 2026-10-12 新增规则，
+    其存量产出单列为 A4 告警项，不计入本硬项，避免历史存量把 A1 拖红。
+    """
     try:
         import orchestrator  # noqa: F401
     except Exception as e:  # pragma: no cover
@@ -90,7 +104,7 @@ def check_title_hard() -> dict:
     if not arts:
         return {"item": "成稿标题零硬违规（近14天）", "ok": True, "skipped": True,
                 "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    total, _passed, zero, _fails = _score_titles(arts)
+    total, _passed, zero, _fails, _anti = _score_titles(arts)
     return {"item": "成稿标题零硬违规（近14天）", "ok": not zero, "skipped": False,
             "total": total, "violations": zero[:10],
             "detail": [f"近 14 天成稿标题 {total} 条，硬违规（0 分）{len(zero)} 条",
@@ -112,7 +126,7 @@ def check_title_pass_rate() -> dict:
     if not arts:
         return {"item": "标题格式合规通过率≥90%（近14天）", "ok": True, "advisory": True,
                 "skipped": True, "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    total, passed, _zero, fails = _score_titles(arts)
+    total, passed, _zero, fails, _anti = _score_titles(arts)
     rate = passed / total if total else 0.0
     return {"item": "标题格式合规通过率≥90%（近14天）", "ok": True, "advisory": True,
             "skipped": False, "total": total, "passed": passed, "rate": round(rate, 4),
@@ -121,6 +135,33 @@ def check_title_pass_rate() -> dict:
                        ("达标 ✅" if rate >= 0.90 else
                         "⚠️ 未达 90%（存量 + 生成质量滚动值，告警不阻断；新管线成稿≥60 分方发布）"),
                        (f"未达标样例：{fails[:3]}" if fails else "无未达标样例")]}
+
+
+def check_title_antipattern_residue() -> dict:
+    """A4. 赛果播报式存量（告警项）——近 14 天窗口内命中 title_antipattern 的成稿。
+
+    规则 2026-10-12 生效，只对**新生成**的标题打回；此前存量会随时间自然滚出窗口。
+    新规则的完整验收在 scripts/verify_title_antipattern.py（含真实数据回测）。
+    """
+    try:
+        import title_antipattern as ta
+    except Exception as e:  # pragma: no cover
+        return {"item": "赛果播报式存量（近14天，告警）", "ok": True, "advisory": True,
+                "skipped": True, "detail": [f"无法载入反模式闸门：{e}"]}
+    arts = list(_recent_articles())
+    if not arts:
+        return {"item": "赛果播报式存量（近14天，告警）", "ok": True, "advisory": True,
+                "skipped": True, "detail": ["近 14 天无成稿 metadata，本项跳过"]}
+    hits = []
+    for data, a in arts:
+        t = (a.get("title") or "").strip()
+        if t and ta.check(t)["hit"]:
+            hits.append(f"{data.get('date')} {t}")
+    return {"item": "赛果播报式存量（近14天，告警）", "ok": not hits, "advisory": True,
+            "skipped": False, "hits": hits[:10], "total": len(arts),
+            "detail": [f"近 14 天成稿 {len(arts)} 条，命中赛果播报式 {len(hits)} 条"
+                       + ("（规则生效前存量，随窗口滚出）" if hits else " ✅"),
+                       *hits[:5]]}
 
 
 def check_team_alias_awareness() -> dict:
@@ -267,7 +308,7 @@ def check_old_news() -> dict:
 def verify() -> dict:
     checks = [check_title_hard(), check_title_pass_rate(), check_team_alias_awareness(),
               check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
-              check_reject_traceability(), check_old_news()]
+              check_reject_traceability(), check_old_news(), check_title_antipattern_residue()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": checks,
