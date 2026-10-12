@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-10-12 10:13",
+  "ok": true,
+  "checks": [
+    {
+      "item": "台账无超限日（近 7 天）",
+      "ok": true,
+      "rows": [
+        {
+          "date": "2026-10-12",
+          "used": 0,
+          "cap": 3
+        },
+        {
+          "date": "2026-10-11",
+          "used": 0,
+          "cap": 3
+        },
+        {
+          "date": "2026-10-10",
+          "used": 0,
+          "cap": 3
+        },
+        {
+          "date": "2026-10-09",
+          "used": 0,
+          "cap": 3
+        },
+        {
+          "date": "2026-10-08",
+          "used": 0,
+          "cap": 3
+        },
+        {
+          "date": "2026-10-07",
+          "used": 0,
+          "cap": 3
+        },
+        {
+          "date": "2026-10-06",
+          "used": 0,
+          "cap": 3
+        }
+      ],
+      "over": [],
+      "detail": [
+        "近 7 天共 0 次调用，每日上限 3 次",
+        "无超限日 ✅",
+        "（无记录日计为 0 次，属「未运行」而非超限）"
+      ]
+    },
+    {
+      "item": "14 天赛程落库",
+      "ok": true,
+      "skipped": true,
+      "detail": [
+        "未找到 data/fixtures/topic_pool.json（本地/CI 未刷新赛程池），本项跳过"
+      ]
+    },
+    {
+      "item": "业务侧不直连赛程接口（只读库）",
+      "advisory": true,
+      "ok": true,
+      "hits": [],
+      "detail": [
+        "仅 fixture_library / api_football 持有赛程请求入口 ✅（业务侧只读 data/fixtures/topic_pool.json）"
+      ]
+    },
+    {
+      "item": "各源最近调用 ≤7 天",
+      "advisory": true,
+      "ok": true,
+      "rows": [
+        {
+          "source": "api-football",
+          "last_call": null,
+          "age_days": null
+        },
+        {
+          "source": "football-data",
+          "last_call": null,
+          "age_days": null
+        },
+        {
+          "source": "juhe",
+          "last_call": null,
+          "age_days": null
+        }
+      ],
+      "stale": [],
+      "detail": [
+        "台账近 14 天无记录（尚未运行或已裁剪），本项不判定"
+      ]
+    }
+  ],
+  "total_cap": 3,
+  "hard_failed": []
+}

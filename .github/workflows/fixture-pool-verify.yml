@@ -31,6 +31,14 @@ jobs:
       - name: 安装依赖
         run: pip install -r requirements.txt
 
+      - name: 恢复赛程库缓存（计划 11.4 · 落库缓存）
+        uses: actions/cache@v4
+        with:
+          path: data/fixtures
+          key: fixture-library-${{ github.ref_name }}
+          restore-keys: |
+            fixture-library-
+
       - name: 刷新赛程选题池
         env:
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
@@ -38,11 +46,14 @@ jobs:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           API_FOOTBALL_HOST: ${{ secrets.API_FOOTBALL_HOST }}
         run: |
-          python3 scripts/fixture_library.py \
+          python3 scripts/fixture_library.py --days 14 \
             || echo "::warning::赛程池刷新失败，沿用已有 topic_pool"
 
       - name: 执行 7.1 验收校验
         run: python3 scripts/verify_fixture_pool.py
+
+      - name: 执行 11.4 接口额度验收校验
+        run: python3 scripts/verify_api_budget.py --days 14
 
       - name: 回写验收报告
         if: always()

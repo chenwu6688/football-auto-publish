@@ -7,10 +7,14 @@
   3. 认知度分级过滤：A 级进新闻流首选，B 级需搭配冲突点，C 级降权仅用于数据/榜单类。
   4. 时效闸门：每条选题带 expires_at，过期不得进入发布流。
   5. 落库缓存：业务侧只读 data/fixtures/topic_pool.json，不直连 API。
+  6. **14 天窗口 + 每日额度台账**（计划 11.4）：每日一次批量拉取未来 14 天赛程写库；
+     免费额度按日计，缓存后每日调用量控制在 3 次以内 —— 由 api_budget 台账强制把关。
 
-上游数据：football-data.org v4（免费层限制：单次查询窗口 ≤ 10 天，多赛事可合并）+ 聚合数据 juhe.cn（补中超，中文源）
-  用法：python3 scripts/fixture_library.py [--days 10] [--refresh]
+上游数据：football-data.org v4（免费层单次查询窗口 ≤ 10 天，故 14 天窗口拆两块）
+        + 聚合数据 juhe.cn（补中超，中文源）+ API-Football（亚冠/欧联/欧协联/中超）
+  用法：python3 scripts/fixture_library.py [--days 14] [--refresh]
 """
+
 from __future__ import annotations
 
 import argparse
@@ -23,6 +27,8 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+
+import api_budget  # noqa: E402  （计划 11.4 每日接口额度台账）
 
 CST = timezone(timedelta(hours=8))
 
@@ -40,8 +46,19 @@ FIXTURE_COMPETITIONS = {
 # 赛事权重：欧冠 > 五大联赛（决定选题优先级）
 COMPETITION_WEIGHT = {"欧冠": 1.0, "英超": 0.95, "西甲": 0.9, "意甲": 0.85, "德甲": 0.85, "法甲": 0.8, "中超": 0.7}
 
-# 窗口上限：免费层硬限制，超过会返回 400 "Specified period must not exceed 10 days"
-MAX_WINDOW_DAYS = 10
+# 计划 11.4：目标落库窗口 14 天；免费层单次查询硬上限 10 天，故拆块请求。
+TARGET_WINDOW_DAYS = 14
+FD_MAX_WINDOW_DAYS = 10
+MAX_WINDOW_DAYS = FD_MAX_WINDOW_DAYS   # 兼容旧引用（免费层单次上限）
+
+# 计划 11.4：每日调用量 ≤3 次。前两档固定给 football-data（14 天须两块），
+# 第三档按日轮换一个补源，4 日一轮；各源缓存跨日有效，故覆盖不缺口。
+SUPPLEMENTS = (
+    ("api-football", "欧联"),
+    ("juhe", "中超"),
+    ("api-football", "亚冠"),
+    ("api-football", "欧协联"),
+)
 
 FIXTURE_DIR = PROJECT_ROOT / "data" / "fixtures"
 ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
@@ -108,29 +125,28 @@ def resolve_team(name: str, emap: dict, competition: str = "") -> dict | None:
     return None
 
 
-def fetch_window(days: int, emap: dict, refresh: bool = False) -> list[dict]:
-    """拉取 today ~ today+days-1 的赛程，带当日缓存。"""
-    days = min(days, MAX_WINDOW_DAYS)
-    today = datetime.now(CST)
-    date_from = today.strftime("%Y-%m-%d")
-    date_to = (today + timedelta(days=days - 1)).strftime("%Y-%m-%d")
-    cache_path = FIXTURE_DIR / f"raw_{date_from}.json"
+def todays_supplement(today=None) -> tuple:
+    """计划 11.4：第三档额度按日轮换的补源（4 日一轮）。返回 (source, name)。"""
+    t = today or datetime.now(CST).date()
+    return SUPPLEMENTS[t.toordinal() % len(SUPPLEMENTS)]
 
-    if cache_path.exists() and not refresh:
-        with open(cache_path, encoding="utf-8") as f:
-            cached = json.load(f)
-        print(f"📦 使用当日缓存 {cache_path.name}（{cached['resultSet']['count']} 场）")
-        print("   （如需强制刷新加 --refresh）")
-        return cached.get("matches", [])
 
-    key = os.environ.get("FOOTBALL_DATA_KEY", "").strip()
-    if not key or key == "***":
-        raise SystemExit(
-            "❌ 未设置 FOOTBALL_DATA_KEY。\n"
-            "   本地：source scripts/local_env.sh 或 export FOOTBALL_DATA_KEY=...\n"
-            "   CI：GitHub Actions Secrets 注入。"
-        )
+def _fd_chunks(days: int) -> list[tuple[int, int]]:
+    """把 1..days 的窗口按免费层 10 天上限切块，返回 [(offset_start, n_days)]。
 
+    例：14 天 → [(0, 10), (10, 4)]，即第 1~10 天一块、第 11~14 天一块。
+    """
+    days = max(1, int(days))
+    out, off = [], 0
+    while off < days:
+        n = min(FD_MAX_WINDOW_DAYS, days - off)
+        out.append((off, n))
+        off += n
+    return out
+
+
+def _fd_request(key: str, date_from: str, date_to: str) -> dict | None:
+    """单块 football-data 请求（调用方已过额度台账）。失败 → None（降级）。"""
     import requests
 
     url = "https://api.football-data.org/v4/matches"
@@ -147,19 +163,94 @@ def fetch_window(days: int, emap: dict, refresh: bool = False) -> list[dict]:
     if resp.status_code == 429:
         raise SystemExit("❌ 429：超出免费层 10 次/分钟限额，请稍后重试")
     resp.raise_for_status()
-
     payload = resp.json()
-    FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
-    with open(cache_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
     avail = resp.headers.get("x-requests-available-minute", "?")
-    print(f"✅ {payload['resultSet']['count']} 场，已缓存 {cache_path.name}（本分钟剩余额度 {avail}）")
-    return payload.get("matches", [])
+    print(f"✅ {payload.get('resultSet', {}).get('count', '?')} 场（本分钟剩余额度 {avail}）")
+    return payload
 
 
-def build_topic_pool(matches: list[dict], emap: dict) -> dict:
-    """赛程 → 冲突点选题池。刻意不生成「前瞻」类标题。"""
+def fetch_window(days: int, emap: dict, refresh: bool = False) -> list[dict]:
+    """拉取 today ~ today+days-1 赛程（计划 11.4：14 天窗口 + 落库缓存 + 额度台账）。"""
+    return fetch_window_report(days, emap, refresh=refresh)["matches"]
+
+
+def fetch_window_report(days: int, emap: dict, refresh: bool = False) -> dict:
+    """分块拉取窗口赛程，返回 {matches, window_days, granted_calls, refused_calls}。
+
+    免费层单次查询窗口硬上限 10 天，故 14 天窗口拆成多块；
+    每块真实请求前先过 api_budget 台账，被拒绝则跳过该块并告警（降级不阻塞）。
+    """
+    key = os.environ.get("FOOTBALL_DATA_KEY", "").strip()
+    today = datetime.now(CST)
+    stamp = today.strftime("%Y-%m-%d")
+    matches: list[dict] = []
+    seen: set = set()
+    window_days = 0
+    granted = refused = 0
+
+    for i, (off, n) in enumerate(_fd_chunks(days)):
+        d_from = (today + timedelta(days=off)).strftime("%Y-%m-%d")
+        d_to = (today + timedelta(days=off + n - 1)).strftime("%Y-%m-%d")
+        cache_name = f"raw_{stamp}.json" if i == 0 else f"raw_{stamp}_c{i}.json"
+        cpath = FIXTURE_DIR / cache_name
+
+        payload = None
+        if cpath.exists() and not refresh:
+            try:
+                payload = json.loads(cpath.read_text(encoding="utf-8"))
+                print(f"📦 使用当日缓存 {cache_name}"
+                      f"（{payload.get('resultSet', {}).get('count', '?')} 场）")
+            except Exception:
+                payload = None
+
+        if payload is None:
+            if not key or key == "***":
+                if i == 0:
+                    raise SystemExit(
+                        "❌ 未设置 FOOTBALL_DATA_KEY。\n"
+                        "   本地：source scripts/local_env.sh 或 export FOOTBALL_DATA_KEY=...\n"
+                        "   CI：GitHub Actions Secrets 注入。"
+                    )
+                print(f"⚠️ 未设置 FOOTBALL_DATA_KEY，跳过窗口补块 {d_from} ~ {d_to}")
+                break
+            # 计划 11.4：真实外部调用一律先过额度台账
+            grant = api_budget.record("football-data", note=f"{d_from}~{d_to}")
+            if not grant["ok"]:
+                refused += 1
+                print(f"⚠️ 赛程窗口 {d_from} ~ {d_to} 跳过（额度台账拒绝：{grant['reason']}）；"
+                      f"今日全局 {grant['total_used']}/{grant['total_cap']}")
+                continue
+            granted += 1
+            payload = _fd_request(key, d_from, d_to)
+            if payload is None:
+                continue
+            FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
+            with open(cpath, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+
+        for m in (payload.get("matches", []) or []):
+            mid = m.get("id")
+            if mid in seen:
+                continue
+            seen.add(mid)
+            matches.append(m)
+        window_days += n
+
+    print("   （如需强制刷新加 --refresh）")
+    return {"matches": matches, "window_days": window_days,
+            "granted_calls": granted, "refused_calls": refused}
+
+
+def build_topic_pool(matches: list[dict], emap: dict,
+                     window_days: int = TARGET_WINDOW_DAYS) -> dict:
+    """赛程 → 冲突点选题池。刻意不生成「前瞻」类标题。
+
+    计划 11.4 的赛程只能作话题激活器；同时做时效过滤：缓存跨日有效后，
+    已开赛的场次不得再进池（旧闻新发，计划 11.1 时效闸门）。
+    """
     topics, dropped_unmapped, dropped_lowaware = [], [], []
+    dropped_past = 0
+    now = datetime.now(CST)
 
     for m in matches:
         comp_id = str((m.get("competition") or {}).get("id", ""))
@@ -201,6 +292,10 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
         try:
             dt = datetime.fromisoformat(kickoff.replace("Z", "+00:00")).astimezone(CST)
         except Exception:
+            continue
+        # 时效闸门（计划 11.1）：已开赛场次不进池（缓存跨日后尤须过滤，避免旧闻新发）
+        if dt < now:
+            dropped_past += 1
             continue
 
         # 优先级：认知度 + 赛事权重 + 时效
@@ -248,13 +343,16 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
 
     return {
         "generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
-        "window_days": MAX_WINDOW_DAYS,
-        "source": "football-data.org v4 /matches（多赛事合并，单次调用）",
+        "window_days": window_days,
+        "window_target_days": TARGET_WINDOW_DAYS,
+        "source": ("football-data.org v4 /matches（多赛事合并，按 10 天上限分块，"
+                   "覆盖 %d 天）" % window_days),
         "stats": {
             "matches_total": len(matches),
             "topics": len(topics),
             "dropped_unmapped": len(dropped_unmapped),
             "dropped_low_awareness": len(dropped_lowaware),
+            "dropped_past": dropped_past,
             "by_angle": {k: sum(1 for t in topics if t["angle_type"] == k) for k in {r[1] for r in ANGLE_RULES} if any(t["angle_type"] == k for t in topics)},
             "by_weekday": by_weekday,
         },
@@ -266,12 +364,14 @@ def build_topic_pool(matches: list[dict], emap: dict) -> dict:
     }
 
 
-def fetch_juhe_fixtures(refresh: bool = False) -> list[dict]:
+def fetch_juhe_fixtures(refresh: bool = False, allow_network: bool = True) -> list[dict]:
     """聚合数据 juhe.cn 中超赛程（中文源，补 football-data 免费层没有的中超）。
 
     只取「未开赛」的未来赛事；已完赛(status=3)/进行中(status=2)不进前瞻池
     （赛事前瞻已停发，只产冲突点选题）。降级：无 key / 网络错 / error_code!=0
-    → 返回 [] 不崩，不影响主流程。
+    → 返回 [] 不崩，不影响主流程。真实调用由 api_budget 台账把关（计划 11.4）。
+
+    ``allow_network=False`` 用于「非轮换日」：只读缓存，绝不消耗额度。
     """
     cache_path = FIXTURE_DIR / "raw_juhe_csl.json"
     if cache_path.exists() and not refresh:
@@ -283,9 +383,20 @@ def fetch_juhe_fixtures(refresh: bool = False) -> list[dict]:
         except Exception:
             pass
 
+    if not allow_network:
+        print("📦 Juhe 中超：非轮换日且无缓存，跳过（不消耗额度）")
+        return []
+
     key = os.environ.get("JUHE_API_KEY", "").strip()
     if not key or key == "***":
         print("⚠️ 未设置 JUHE_API_KEY，跳过中超赛程（不影响主流程）")
+        return []
+
+    # 先确认可用再记台账，避免无 key 白占额度
+    grant = api_budget.record("juhe", note="中超赛程")
+    if not grant["ok"]:
+        print(f"⚠️ Juhe 中超刷新跳过（额度台账拒绝：{grant['reason']}）；"
+              f"今日全局 {grant['total_used']}/{grant['total_cap']}")
         return []
 
     import urllib.request
@@ -383,7 +494,9 @@ def load_manual_fixtures(path: Path | None = None) -> list[dict]:
 
 def main():
     ap = argparse.ArgumentParser(description="赛程库 + 选题池生成器")
-    ap.add_argument("--days", type=int, default=MAX_WINDOW_DAYS, help=f"向前天数（上限 {MAX_WINDOW_DAYS}）")
+    ap.add_argument("--days", type=int, default=TARGET_WINDOW_DAYS,
+                    help=f"向前天数（计划 11.4 目标 {TARGET_WINDOW_DAYS} 天；"
+                         f"football-data 单块上限 {FD_MAX_WINDOW_DAYS} 天）")
     ap.add_argument("--refresh", action="store_true", help="忽略当日缓存，强制重新拉取")
     args = ap.parse_args()
 
@@ -391,23 +504,54 @@ def main():
     print(f"📖 中文实体映射：{emap['raw']['stats']['total']} 个实体"
           f"（A={emap['raw']['stats']['A']} B={emap['raw']['stats']['B']} C={emap['raw']['stats']['C']}）")
 
-    matches = fetch_window(args.days, emap, refresh=args.refresh)
-    csl = fetch_juhe_fixtures(refresh=args.refresh)
-    manual = load_manual_fixtures()
-    # 计划 13.2：亚冠/欧联/欧协联/中超 由 API-Football 补齐（无 key 自动跳过）
+    # ① football-data：14 天窗口（按 10 天上限分块），每块过额度台账
+    win = fetch_window_report(args.days, emap, refresh=args.refresh)
+    matches = win["matches"]
+
+    # ② 补源：第三档额度按日轮换（计划 11.4：每日调用量 ≤3 次）
+    sup_src, sup_name = todays_supplement()
+    print(f"🔁 今日补源轮换：{sup_src} · {sup_name}"
+          f"（4 日一轮，其余联赛读最近缓存、不消耗额度）")
+    csl = fetch_juhe_fixtures(refresh=args.refresh, allow_network=(sup_src == "juhe"))
+
+    af_refreshed: list[dict] = []
+    if sup_src == "api-football":
+        try:
+            import api_football
+            af_refreshed = api_football.fetch_league_fixtures(sup_name, args.days, refresh=True)
+        except Exception as e:
+            print(f"⚠️ API-Football 刷新异常（跳过）：{str(e)[:80]}")
+
+    # ③ 其余洲际联赛：只读最近缓存（业务侧只读库，绝不消耗额度）
+    af_cached: list[dict] = []
     try:
         import api_football
-        af = api_football.fetch_fixtures(args.days, refresh=args.refresh)
+        af_cached = api_football.fetch_all_cached()
     except Exception as e:
-        print(f"⚠️ API-Football 接入异常（跳过）：{str(e)[:80]}")
-        af = []
+        print(f"⚠️ API-Football 缓存读取异常（跳过）：{str(e)[:80]}")
+
+    af, _seen_af = [], set()
+    for m in af_refreshed + af_cached:
+        if m.get("id") in _seen_af:
+            continue
+        _seen_af.add(m.get("id"))
+        af.append(m)
+
+    manual = load_manual_fixtures()
     all_matches = matches + csl + manual + af
-    if af:
-        print(f"   （其中洲际赛程：{len(af)} 场，来自 API-Football）")
-    pool = build_topic_pool(all_matches, emap)
+    print(f"   （其中洲际赛程：{len(af)} 场，来自 API-Football：当日刷新 {len(af_refreshed)} + 缓存 {len(af_cached)}）")
+    pool = build_topic_pool(all_matches, emap, window_days=win["window_days"])
     print(f"   （其中中超未来赛事：{sum(1 for m in all_matches if m.get('source') == 'juhe')} 场，来自聚合数据 juhe.cn）")
     if manual:
         print(f"   （其中人工赛历：{len(manual)} 场，来自 config/manual_fixtures.yaml）")
+
+    # 计划 11.4：把当日额度使用情况一并落进选题池，便于复盘「每日 ≤3 次」
+    budget_rep = api_budget.summary()
+    pool["window_covered_days"] = win["window_days"]
+    pool["api_budget"] = budget_rep
+    if budget_rep["total_used"] > budget_rep["total_cap"]:
+        print(f"   ❌ 今日接口调用 {budget_rep['total_used']} 次，超出计划 11.4 的 "
+              f"{budget_rep['total_cap']} 次上限！")
 
     FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
     out = FIXTURE_DIR / "topic_pool.json"
@@ -415,12 +559,21 @@ def main():
         json.dump(pool, f, ensure_ascii=False, indent=2)
 
     s = pool["stats"]
+    try:
+        out_disp = out.relative_to(PROJECT_ROOT)
+    except Exception:
+        out_disp = out
     print()
-    print(f"🗂  选题池已生成 → {out.relative_to(PROJECT_ROOT)}")
+    print(f"🗂  选题池已生成 → {out_disp}")
+    print(f"   窗口 {win['window_days']}/{TARGET_WINDOW_DAYS} 天"
+          f"（football-data 实调 {win['granted_calls']} 次，被额度拒绝 {win['refused_calls']} 次）")
     print(f"   赛程 {s['matches_total']} 场 → 选题 {s['topics']} 条"
-          f"（未映射打回 {s['dropped_unmapped']}，低认知过滤 {s['dropped_low_awareness']}）")
+          f"（未映射打回 {s['dropped_unmapped']}，低认知过滤 {s['dropped_low_awareness']}，"
+          f"过期剔除 {s['dropped_past']}）")
     print(f"   分型：{s['by_angle']}")
     print(f"   按星期：{s['by_weekday']}")
+    print(f"   🧾 接口额度：{budget_rep['total_used']}/{budget_rep['total_cap']} 次"
+          f"（计划 11.4 上限 {api_budget.DEFAULT_DAILY_TOTAL_CAP} 次/日）")
     print(f"   ⚠️ 免费层未覆盖：{'、'.join(pool['coverage_gap'])}")
     print()
     print("   Top 8 选题：")

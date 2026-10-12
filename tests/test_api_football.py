@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+import api_budget
 import api_football as af
 
 
@@ -15,13 +16,17 @@ class TestApiFootball(unittest.TestCase):
         self.tmp = Path(tempfile.mkdtemp())
         self._orig_cache = af.LEAGUE_CACHE
         self._orig_dir = af.FIXTURE_DIR
+        self._orig_ledger = api_budget.LEDGER_PATH
         af.FIXTURE_DIR = self.tmp
         af.LEAGUE_CACHE = self.tmp / "af_leagues.json"
+        # 计划 11.4：接口调用计数隔离到临时台账，避免污染真实 data/api_budget.json
+        api_budget.LEDGER_PATH = self.tmp / "api_budget.json"
         os.environ["API_FOOTBALL_KEY"] = "test-key"
 
     def tearDown(self):
         af.LEAGUE_CACHE = self._orig_cache
         af.FIXTURE_DIR = self._orig_dir
+        api_budget.LEDGER_PATH = self._orig_ledger
         os.environ.pop("API_FOOTBALL_KEY", None)
 
     class _R:

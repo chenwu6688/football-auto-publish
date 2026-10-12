@@ -81,6 +81,16 @@ jobs:
         run: |
           python3 tests/test_no_dead_references.py
 
+      - name: 恢复赛程库缓存（计划 11.4 · 落库缓存 / 业务侧只读库）
+        # 赛程库是「库」而非一次性产物：跨运行保留，才能让补源按日轮换（4 日一轮）
+        # 且每日调用量压在 3 次以内；否则每次运行都是冷启动，额度必然被联赛解析吃掉。
+        uses: actions/cache@v4
+        with:
+          path: data/fixtures
+          key: fixture-library-${{ github.ref_name }}
+          restore-keys: |
+            fixture-library-
+
       - name: 写入头条号登录状态
         run: |
           mkdir -p /tmp/auth
@@ -224,8 +234,12 @@ jobs:
         env:
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
           JUHE_API_KEY: ${{ secrets.JUHE_API_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_FOOTBALL_HOST: ${{ secrets.API_FOOTBALL_HOST }}
         run: |
-          python scripts/fixture_library.py || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"
+          # 计划 11.4：14 天窗口落库；全部外部调用过 api_budget 台账（≤3 次/日）
+          python scripts/fixture_library.py --days 14 \
+            || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"
 
       - name: 赛程选题池验收（计划 7.1 · 只告警不阻断）
         if: steps.params.outputs.skip != 'true'
@@ -233,6 +247,13 @@ jobs:
           # 五类覆盖 / 单日候选≥6 / 前瞻体为 0 为硬项；不达标仅告警，不阻断发布（计划九）
           python3 scripts/verify_fixture_pool.py --quiet \
             || echo "::warning::赛程选题池未达 7.1 验收标准，详见 data/audit/fixture_pool_latest.json"
+
+      - name: 接口额度验收（计划 11.4 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true'
+        run: |
+          # 硬项：无超限日 + 14 天窗口落库；不达标仅告警，不阻断发布（计划九）
+          python3 scripts/verify_api_budget.py --days 14 --quiet \
+            || echo "::warning::接口额度台账未达 11.4 验收标准，详见 data/audit/api_budget_latest.json"
 
       - name: 补充软性内容蓄水池（三级供给 · 计划 12.1）
         if: steps.params.outputs.skip != 'true'

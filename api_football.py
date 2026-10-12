@@ -4,12 +4,16 @@
 **中超、亚冠、国联、欧联需 API-Football 补齐**（含伤病与转会字段），
 免费档 100 次/日，必须落库缓存。
 
-三条工程纪律：
+四条工程纪律：
   1. **联赛 ID 不硬编码猜测**：通过 ``/leagues?search=`` 动态解析并缓存到
      data/fixtures/af_leagues.json（可人工覆盖），避免写死错误的 id。
-  2. **额度按日管理 + 落库缓存**：每个联赛每日 1 次 fixtures 查询，结果写
-     data/fixtures/af_<联赛>_<日期>.json；业务侧只读缓存、不直连接口。
-  3. **绝不阻塞**：无 key / 网络失败 / 额度用尽 → 返回空并降级（计划九）。
+  2. **额度按日管理 + 落库缓存**：每次真实 fixtures 查询都过 api_budget 台账
+     （计划 11.4，全局 ≤3 次/日），结果写 data/fixtures/af_<联赛>_<日期>.json；
+     业务侧只读缓存、不直连接口。
+  3. **缓存跨日有效**：读取「最近一次成功结果」（CACHE_MAX_AGE_DAYS 天内），
+     配合 fixture_library 的按日轮换，让每个联赛 4 日内刷新一次即可满足覆盖，
+     从而把每日调用量压进 3 次以内。
+  4. **绝不阻塞**：无 key / 网络失败 / 额度用尽 → 返回空（或旧缓存）并降级（计划九）。
 
 产出的 match dict 与 football-data.org 同构，直接并入 fixture_library 的选题池。
 """
@@ -18,8 +22,11 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+
+import api_budget
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 FIXTURE_DIR = PROJECT_ROOT / "data" / "fixtures"
@@ -36,7 +43,14 @@ LEAGUE_SEARCH = {
 }
 
 _DEFAULT_HOST = "api-football-v1.p.rapidapi.com"
-_MAX_WINDOW_DAYS = 10
+
+# API-Football 的 from/to 无 football-data 那样的 10 天硬限制，可直接覆盖 14 天窗口。
+_MAX_WINDOW_DAYS = 14
+
+# 缓存跨日有效天数：4 日轮换 + 3 天冗余，保证非刷新日仍有可用赛程（业务侧只读库）。
+CACHE_MAX_AGE_DAYS = 7
+
+_CACHE_RE = re.compile(r"^af_(?P<name>.+)_(?P<date>\d{4}-\d{2}-\d{2})\.json$")
 
 
 def _key() -> str:
@@ -85,6 +99,12 @@ def resolve_league_ids(names=None, *, refresh: bool = False, timeout: int = 20) 
         q = LEAGUE_SEARCH.get(name)
         if not q:
             continue
+        # 计划 11.4：真实外部调用一律先过台账（联赛 ID 解析是一次性元数据调用，同样计数）
+        grant = api_budget.record("api-football", note=f"leagues search {name}")
+        if not grant["ok"]:
+            print(f"⚠️ 联赛 ID 解析暂停（额度台账拒绝：{grant['reason']}）；"
+                  f"可稍后单独执行 resolve_league_ids(refresh=True) 或提高 API_DAILY_CAP")
+            break
         try:
             r = _get("leagues", {"search": q, "type": "league"}, timeout=timeout)
             r.raise_for_status()
@@ -130,22 +150,80 @@ def _to_fd(fx: dict, comp_name: str) -> dict:
     }
 
 
+def _latest_cache_path(name: str, max_age_days: int = CACHE_MAX_AGE_DAYS):
+    """返回该联赛「最近一次成功结果」的缓存文件（max_age_days 天内），无则 None。
+
+    业务侧只读库：非刷新日直接吃旧缓存，不消耗额度。
+    """
+    best, best_date = None, None
+    today = datetime.now(CST).date()
+    try:
+        entries = list(FIXTURE_DIR.glob(f"af_{name}_*.json"))
+    except Exception:
+        return None
+    for p in entries:
+        m = _CACHE_RE.match(p.name)
+        if not m or m.group("name") != name:
+            continue
+        try:
+            d = datetime.strptime(m.group("date"), "%Y-%m-%d").date()
+        except Exception:
+            continue
+        if (today - d).days > max_age_days or d > today:
+            continue
+        if best_date is None or d > best_date:
+            best, best_date = p, d
+    return best
+
+
+def read_cache(name: str, max_age_days: int = CACHE_MAX_AGE_DAYS) -> list[dict]:
+    """只读最近缓存（不联网、不计额度）。无缓存 → []。"""
+    p = _latest_cache_path(name, max_age_days)
+    if not p:
+        return []
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        return data if isinstance(data, list) else []
+    except Exception:
+        return []
+
+
 def fetch_league_fixtures(name: str, days: int, *, refresh: bool = False,
                           timeout: int = 20) -> list[dict]:
-    """抓取单个联赛的未来赛程（落库缓存）。失败/无 key → []。"""
+    """抓取单个联赛的未来赛程（落库缓存）。
+
+    - ``refresh=False``：优先吃最近缓存（业务侧只读库），命中即返回，不消耗额度。
+    - ``refresh=True`` 或缓存缺失/过期：先过 api_budget 台账，允许才发起请求；
+      被拒绝（额度超限）→ 告警 + 降级返回旧缓存（无则 []）。
+    失败/无 key → []（绝不阻塞）。
+    """
     info = resolve_league_ids([name]).get(name)
     if not info or not info.get("id"):
         return []
 
     days = min(days, _MAX_WINDOW_DAYS)
     today = datetime.now(CST).date()
-    cache_path = FIXTURE_DIR / f"af_{name}_{today.isoformat()}.json"
-    if cache_path.exists() and not refresh:
-        try:
-            return json.loads(cache_path.read_text(encoding="utf-8"))
-        except Exception:
-            pass
 
+    if not refresh:
+        cached = read_cache(name)
+        if cached:
+            print(f"📦 API-Football {name}：吃最近缓存 {len(cached)} 场（不消耗额度）")
+            return cached
+
+    if not _key():
+        print(f"ℹ️ 未配置 API_FOOTBALL_KEY，跳过 {name} 刷新（不消耗额度）")
+        return read_cache(name, max_age_days=3650)
+
+    # 计划 11.4：真实外部调用必须先记台账，超限即拒绝（降级不阻塞）
+    grant = api_budget.record("api-football", note=f"{name} fixtures")
+    if not grant["ok"]:
+        stale = read_cache(name, max_age_days=3650)
+        print(f"⚠️ API-Football {name} 跳过刷新（额度台账拒绝：{grant['reason']}）"
+              f"{'，降级使用旧缓存' if stale else '，且无缓存可用'}"
+              f"（今日全局 {grant['total_used']}/{grant['total_cap']}）")
+        return stale
+
+    cache_path = FIXTURE_DIR / f"af_{name}_{today.isoformat()}.json"
     date_from = today.isoformat()
     date_to = (today + timedelta(days=days - 1)).isoformat()
     params = {"league": info["id"], "from": date_from, "to": date_to}
@@ -157,24 +235,42 @@ def fetch_league_fixtures(name: str, days: int, *, refresh: bool = False,
         arr = (r.json() or {}).get("response") or []
     except Exception as e:
         print(f"⚠️ API-Football {name} 拉取失败（降级跳过）：{str(e)[:80]}")
-        return []
+        return read_cache(name, max_age_days=3650)
 
     out = [_to_fd(fx, name) for fx in arr]
     FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"✅ API-Football {name}：{len(out)} 场未来赛事（缓存 {cache_path.name}）")
+    print(f"✅ API-Football {name}：{len(out)} 场未来赛事（缓存 {cache_path.name}，"
+          f"今日全局额度 {grant['total_used']}/{grant['total_cap']}）")
     return out
 
 
 def fetch_fixtures(days: int, names=None, *, refresh: bool = False) -> list[dict]:
-    """抓取全部配置联赛；无 key 时安静跳过（返回 []，绝不阻塞）。"""
-    if not _key():
-        print("ℹ️ 未配置 API_FOOTBALL_KEY，跳过洲际赛程补齐（亚冠/欧联/欧协联/中超）")
-        return []
+    """抓取 / 读取配置联赛赛程。
+
+    - 有 key：逐个联赛走 ``fetch_league_fixtures``（优先读库，必要时经台账刷新）。
+    - 无 key：**只读缓存**（业务侧只读库），无缓存则安静跳过（返回 []，绝不阻塞）。
+    """
     names = list(names or LEAGUE_SEARCH.keys())
+    if not _key():
+        cached = [m for n in names for m in read_cache(n)]
+        if not cached:
+            print("ℹ️ 未配置 API_FOOTBALL_KEY，且无缓存，跳过洲际赛程补齐"
+                  "（亚冠/欧联/欧协联/中超）")
+        else:
+            print(f"📦 未配置 API_FOOTBALL_KEY，只读缓存 {len(cached)} 场洲际赛程")
+        return cached
     out: list[dict] = []
     for n in names:
         out.extend(fetch_league_fixtures(n, days, refresh=refresh))
+    return out
+
+
+def fetch_all_cached(days: int = _MAX_WINDOW_DAYS) -> list[dict]:
+    """只读全联赛最近缓存（不联网、不计额度）——业务侧日常取数入口。"""
+    out: list[dict] = []
+    for n in LEAGUE_SEARCH.keys():
+        out.extend(read_cache(n))
     return out
 
 
