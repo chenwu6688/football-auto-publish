@@ -1,0 +1,92 @@
+# 一级·确定性供给 — 赛季节点日历（计划 12.1）
+#
+# 计划 12.1 把供给拆成三层，一级·确定性占 30%，来源四类：
+#   赛程 / 转会窗截止日 / 赛季节点 / 开赛倒计时
+# 特征：可提前 7 天预生成，无时效风险；出稿要求：提前量产入库。
+#
+# 赛程类由 scripts/fixture_library.py → data/fixtures/topic_pool.json 承担；
+# 本日历承担其余三类「节点事件」，由 deterministic_supply.py 前向预生成入库。
+#
+# 维护纪律（硬约束）：
+#   1. 日期以官方公告为准，人工更新；找不到可靠日期就不写，绝不臆测。
+#   2. 每赛季更新一次；过期节点由 expire() 自动回收。
+#   3. lead_days：提前多少天进入可发布窗口（默认 7，对齐计划「提前 7 天预生成」）。
+#   4. template 里的 {days} 由程序替换为剩余天数；{label} 替换为 label。
+
+season: "2026-27"
+
+nodes:
+  # ── 转会窗截止日 ─────────────────────────────────────────
+  - id: winter_window_close_2027
+    type: 转会窗截止日
+    label: 冬季转会窗关闭
+    date: "2027-02-02"
+    lead_days: 7
+    column: 转会动态
+    awareness: A
+    template: "冬窗关闭只剩{days}天，这些交易还没落地，谁最着急？"
+
+  - id: summer_window_close_2027
+    type: 转会窗截止日
+    label: 夏季转会窗关闭
+    date: "2027-09-01"
+    lead_days: 7
+    column: 转会动态
+    awareness: A
+    template: "夏窗进入最后{days}天，往年这时候最容易出大交易"
+
+  # ── 赛季节点 ─────────────────────────────────────────────
+  - id: winter_break_start_2026
+    type: 赛季节点
+    label: 五大联赛冬歇期开始
+    date: "2026-12-23"
+    lead_days: 5
+    column: 战术榜单
+    awareness: B
+    template: "冬歇期还有{days}天，半程格局已经说明了不少问题"
+
+  - id: ucl_round16_draw_2026
+    type: 赛季节点
+    label: 欧冠淘汰赛抽签
+    date: "2026-12-15"
+    lead_days: 5
+    column: 战术榜单
+    awareness: A
+    template: "欧冠淘汰赛抽签剩{days}天，这些签位组合最要命"
+
+  - id: ucl_final_2027
+    type: 赛季节点
+    label: 欧冠决赛
+    date: "2027-05-29"
+    lead_days: 7
+    column: 战术榜单
+    awareness: A
+    template: "欧冠决赛还有{days}天，决战地的一切都在为这一夜铺垫"
+
+  - id: season_end_2027
+    type: 赛季节点
+    label: 五大联赛赛季收官
+    date: "2027-05-23"
+    lead_days: 7
+    column: 战术榜单
+    awareness: B
+    template: "五大联赛收官只剩{days}天，这些悬念还没揭晓"
+
+  # ── 开赛倒计时 ───────────────────────────────────────────
+  - id: season_open_2027
+    type: 开赛倒计时
+    label: 新赛季揭幕
+    date: "2027-08-14"
+    lead_days: 7
+    column: 战术榜单
+    awareness: B
+    template: "新赛季揭幕还有{days}天，转会窗留下的窟窿补上了吗"
+
+  - id: world_cup_2026_anniversary
+    type: 开赛倒计时
+    label: 世界杯揭幕
+    date: "2026-06-11"
+    lead_days: 7
+    column: 人物故事
+    awareness: A
+    template: "世界杯揭幕还有{days}天，那些老将的最后一舞"

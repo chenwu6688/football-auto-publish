@@ -3467,6 +3467,7 @@ def main():
         # ============================================================
         # 与 Pipeline A 解耦：不依赖直播吧/懂球帝源文章，scraper 失效时也能产出
         # 真实、时效、有冲突点的内容。每批最多 FIXTURE_PER_BATCH 篇（计划：确定性供给~30%）。
+        fixture_added = 0
         if FIXTURE_PER_BATCH > 0:
             try:
                 fixture_topics = collect_fixture_topics(
@@ -3501,10 +3502,54 @@ def main():
                             "_is_fixture": True,
                         })
                         print(f"   🗓️ 确定性供给已追加: {f_art['title'][:50]}")
+                        fixture_added += 1
                     else:
                         print("   ℹ️ 确定性供给选题生成跳过（无有效素材或生成失败）")
             except Exception as e:
                 print(f"   ⚠️ 确定性供给生成异常 (不影响主流程): {e}")
+
+        # 计划 12.1 一级·确定性第二类：节点事件（转会窗截止日/赛季节点/开赛倒计时）。
+        # 由 scripts/pregen_deterministic.py 提前 7 天量产入库；此处直接取用，不再调用 LLM。
+        # 与赛程类共用一级配额（FIXTURE_PER_BATCH），库存为空即静默跳过（非阻断）。
+        if FIXTURE_PER_BATCH > 0 and fixture_added < FIXTURE_PER_BATCH:
+            try:
+                import deterministic_supply
+                slots = max(0, FIXTURE_PER_BATCH - fixture_added)
+                node_arts = deterministic_supply.fill_gap(slots, date_str=date_str)
+                for na in node_arts:
+                    if not na.get("title") or len(na.get("content", "")) < 200:
+                        continue
+                    n_art = {
+                        "title": na.get("title", ""),
+                        "content": na.get("content", ""),
+                        "summary": na.get("summary", ""),
+                        "keywords": na.get("keywords", []),
+                        "keywords_cn": na.get("keywords_cn", []),
+                        "content_type": na.get("content_type", ""),
+                        "_column_name": na.get("section", ""),
+                        "_title_score": na.get("_title_score"),
+                        "_is_fixture": True,
+                        "_supply_layer": "一级·确定性·节点",
+                    }
+                    img_topic = {
+                        "title": n_art.get("title", ""),
+                        "keywords_cn": n_art.get("keywords_cn", []),
+                        "keywords": n_art.get("keywords", ["football"]),
+                    }
+                    images_map[len(articles)] = search_images(img_topic, count=3)
+                    stats["generated"] += 1
+                    stats["valid"] += 1
+                    articles.append((len(articles), n_art))
+                    topics.append({
+                        "title": n_art.get("title", ""),
+                        "content_type": n_art.get("content_type", ""),
+                        "_is_fixture": True,
+                        "_supply_layer": "一级·确定性·节点",
+                    })
+                    print(f"   🗓️ 一级·确定性节点供给已取用: {n_art['title'][:50]}"
+                          f"（{na.get('node_type', '')}）")
+            except Exception as e:
+                print(f"   ⚠️ 节点确定性供给取用异常 (不影响主流程): {e}")
 
         # ============================================================
         # Hupu Pipeline (articles 4-6, top 3 hottest posts)
