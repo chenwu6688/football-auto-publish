@@ -1,7 +1,7 @@
 {
   "date": "2026-10-12",
-  "generated_at": "2026-10-12T04:05:44.259061",
-  "total_articles": 8,
+  "generated_at": "2026-10-12T06:21:34.605758",
+  "total_articles": 11,
   "articles": [
     {
       "index": 2,
@@ -246,108 +246,193 @@
       "column_name": "球迷众生相",
       "batch_name": "",
       "supply_layer": "一级·确定性"
+    },
+    {
+      "index": 1,
+      "title": "工体64118人，中国足球的魂没丢",
+      "path": "/home/runner/work/_temp/output/2026-10-12/article-1-工体64118人-f7ce9b.md",
+      "slug": "工体64118人-f7ce9b",
+      "tags": [
+        "Chinese football attendance",
+        "Workers Stadium",
+        "Suoyu Bay",
+        "2025 attendance data"
+      ],
+      "keywords": [
+        "Chinese football attendance",
+        "Workers Stadium",
+        "Suoyu Bay",
+        "2025 attendance data"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-12/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-12/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-12/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读",
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 2,
+      "title": "大罗助攻数不及C罗零头，历史射手榜前十凭啥没他？",
+      "path": "/home/runner/work/_temp/output/2026-10-12/article-2-大罗助攻数不及C-0d9bcf.md",
+      "slug": "大罗助攻数不及C-0d9bcf",
+      "tags": [
+        "football legends",
+        "all-time scorer list",
+        "assist record",
+        "market value",
+        "nostalgia"
+      ],
+      "keywords": [
+        "football legends",
+        "all-time scorer list",
+        "assist record",
+        "market value",
+        "nostalgia"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晨读",
+      "supply_layer": "三级·软性"
+    },
+    {
+      "index": 3,
+      "title": "布鲁日，欧冠冷门窗口真关死了？",
+      "path": "/home/runner/work/_temp/output/2026-10-12/article-3-布鲁日欧冠冷门窗-00e750.md",
+      "slug": "布鲁日欧冠冷门窗-00e750",
+      "tags": [
+        "Inter Milan",
+        "Club Brugge",
+        "UEFA Champions League",
+        "upset",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "Inter Milan",
+        "Club Brugge",
+        "UEFA Champions League",
+        "upset",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-12/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-12/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-12/images/article-3-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "",
+      "supply_layer": "一级·确定性"
     }
   ],
   "topics": [
     {
-      "title": "曼城9年烧27.89亿镑，这钱到底花哪去了？",
-      "angle": "TA披露曼城九年间薪资+转会费+经纪人费用累计27.89亿英镑，把这笔账摊开算，看看金元足球的真实成本结构，以及这套模式对英超格局的深远影响。",
+      "title": "马宁又去亚冠执法了，中国裁判凭啥总被派去吹硬仗？",
+      "angle": "马宁领衔6名中国裁判抵达利雅得执法亚冠，外界总说中国裁判水平不行，但亚足联年年点名要人。这背后是业务能力被认可，还是亚洲裁判荒？老六站马宁这边：能出去吹就是硬本事。",
       "keywords": [
-        "Manchester City",
-        "spending",
-        "Premier League",
-        "financial"
+        "Ma Ning",
+        "AFC Champions League",
+        "referee"
       ],
       "keywords_cn": [
-        "曼城",
-        "支出",
-        "英超",
-        "金元足球"
+        "马宁",
+        "亚冠",
+        "中国裁判"
       ],
-      "content_type": "排行榜",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "老球迷身份认同",
+      "content_type": "八卦趣事",
+      "score": 84,
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "27.89亿镑数字震撼，金元足球话题争议大",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
+      "why_pick": "中国裁判出海执法，反差感强有话题",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
       "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "37岁吴曦还能策动7球，这状态凭啥不进国足？",
-      "angle": "吴曦本赛季策动申花全部7球、5次完成倒数第二传，用数据说话，聊聊老将的价值为何总被低估，以及国足选人标准的老话题。",
+      "title": "国足三连败后，亚洲杯小组出线凭啥成了底线？",
+      "angle": "足球报直言国足三连败需梳理规划，亚洲杯小组出线已是底线目标，亚国联瑞士轮赛制对国足极为不利。老六的观点：把出线当底线，本身就是要求一降再降的信号，这批人到底在练什么。",
       "keywords": [
-        "Wu Xi",
-        "Shanghai Shenhua",
-        "veteran",
-        "Chinese Super League"
+        "China national team",
+        "Asian Cup",
+        "AFC"
       ],
       "keywords_cn": [
-        "吴曦",
-        "上海申花",
-        "老将",
-        "中超"
+        "国足",
+        "亚洲杯",
+        "亚国联"
       ],
       "content_type": "热点球评",
-      "score": 86,
+      "score": 88,
       "controversy_level": "high",
-      "target_emotion": "骄傲",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "老将逆龄数据+国足选人争议，戳中老球迷",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足底线目标引争议，戳中老球迷痛点",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
       "_rank_id": "topic-1"
     },
     {
-      "title": "C罗梅西领跑历史射手榜，但老球迷为何更怀念那个只进68球的人？",
+      "title": "大罗助攻数不及C罗零头，历史射手榜前十凭啥没他？",
       "content_type": "榜单",
       "_column_name": "战术榜单",
       "_from_reservoir": true
     },
     {
-      "title": "巴乔与托蒂数据大比拼，谁才是意大利真正的九号半？",
-      "content_type": "数据对比",
-      "_column_name": "战术榜单",
-      "_from_reservoir": true
-    },
-    {
-      "title": "那不勒斯遇比利亚雷亚尔针对性打法，变数藏哪？",
-      "content_type": "人物故事",
+      "title": "布鲁日，欧冠冷门窗口真关死了？",
+      "content_type": "战术榜单",
       "_is_fixture": true
     }
   ],
@@ -356,13 +441,13 @@
     "total": 3,
     "counts": {
       "一级·确定性": 1,
-      "二级·突发": 0,
-      "三级·软性": 2
+      "二级·突发": 1,
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 33.3,
-      "二级·突发": 0.0,
-      "三级·软性": 66.7
+      "二级·突发": 33.3,
+      "三级·软性": 33.3
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -371,24 +456,14 @@
     },
     "deviations": {
       "一级·确定性": 3.3,
-      "二级·突发": -50.0,
-      "三级·软性": 46.7
+      "二级·突发": -16.7,
+      "三级·软性": 13.3
     },
     "unclassified": 0
   },
-  "pending_review": [
-    {
-      "id": "2026-10-12-1-9f1da1",
-      "index": 1,
-      "title": "C罗梅西领跑历史射手榜，但老球迷为何更怀念那个只进68球的人？",
-      "reasons": [
-        "伤病(命中：重伤)"
-      ]
-    }
-  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "morning",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -400,11 +475,12 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
     "evening",
+    "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-12 12:05:44"
+  "last_batch": "morning",
+  "last_updated": "2026-10-12 14:21:34"
 }
