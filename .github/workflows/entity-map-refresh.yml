@@ -1,0 +1,62 @@
+name: 中文实体映射增量维护
+
+# 计划 13.1：中文词典「此后增量维护」。每月 1 日刷新球队层（+球员层）名单，
+# 套用人工 curated 译名表合并；无译名者进 pending 清单，绝不机器音译。
+on:
+  schedule:
+    - cron: '0 2 1 * *'    # 每月 1 日 02:00 UTC = 10:00 CST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Git 推送凭据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 刷新球队层（football-data + API-Football → curated 译名合并）
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_FOOTBALL_HOST: ${{ secrets.API_FOOTBALL_HOST }}
+        run: |
+          python3 scripts/build_team_map.py \
+            || { echo "::warning::球队层拉取失败，降级为仅合并 curated 译名表"; \
+                 python3 scripts/build_team_map.py --curated-only; }
+
+      - name: 刷新球员层（射手榜 → curated 译名合并）
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+        run: |
+          python3 scripts/build_player_map.py \
+            || echo "::warning::球员层刷新失败（沿用现有映射，非阻断）"
+
+      - name: 提交变更
+        run: |
+          git add -f config/entity_map.json || true
+          git add -f data/team_map_pending.json || true
+          if git diff --cached --quiet; then
+            echo "无映射变更"
+            exit 0
+          fi
+          git commit -m "chore(entities): 月度实体映射增量维护（计划13.1）"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git pull --rebase origin main || true
+          done

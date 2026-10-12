@@ -93,18 +93,16 @@ def resolve_csl_team(name_zh: str) -> dict:
 
 def resolve_team(name: str, emap: dict, competition: str = "") -> dict | None:
     """队名 → 中文实体。
-    - 中超：中文名直接走 resolve_csl_team（不依赖 entity_map）。
-    - 人工赛历等中文权威源：中文名（含 CJK）按 B 级放行（媒体惯用名，人工维护）。
-    - 其它赛事：英文/别名 → entity_map（en→zh）；未登记返回 None（打回，不进生成）。
+    - 先查 entity_map（英文名/别名→中文，含英文队名与中文别名两种键）；
+      这样 API-Football 返回的英文队名（含中超）也能解析（计划 13.1 增量维护）。
+    - 未命中且为中文名（聚合数据/人工赛历等中文源）：按 B 级放行（媒体惯用名，人工维护）。
+    - 仍未命中：返回 None（未登记实体不进生成，计划 13.1）。
     """
     if not name:
         return None
-    if competition == "中超":
-        return resolve_csl_team(name)
     mapped = emap["by_en"].get(name.strip().lower())
-    if mapped:
+    if mapped and mapped.get("name_zh"):
         return mapped
-    # 中文名兜底：来自聚合数据/人工赛历等中文源，按 B 级放行（计划 13.2）
     if any("\u4e00" <= c <= "\u9fff" for c in name):
         return resolve_csl_team(name)
     return None

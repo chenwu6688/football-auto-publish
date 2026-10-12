@@ -1,6 +1,6 @@
 {
  "version": "2.0",
- "generated_at": "2026-10-10 15:45",
+ "generated_at": "2026-10-12 09:44",
  "source": "football-data.org v4 /competitions/{id}/teams（球队） + /competitions/{id}/scorers（球员）",
  "awareness_legend": {
   "A": "认知度高，可进新闻流首选",
@@ -9,12 +9,12 @@
   "player_note": "球员层与球队层共用 A/B/C 分级；confidence=low 的实体（C 级）不进标题生成，只作背景数据。"
  },
  "stats": {
-  "total": 599,
-  "clubs": 111,
+  "total": 639,
+  "clubs": 151,
   "players": 488,
-  "A": 67,
-  "B": 186,
-  "C": 346,
+  "A": 76,
+  "B": 202,
+  "C": 361,
   "low_confidence": 286
  },
  "entities": {
@@ -11008,6 +11008,499 @@
     "欧冠"
    ],
    "season_goals": 1
+  },
+  "club_al_hilal": {
+   "internal_id": "club_al_hilal",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Hilal",
+   "name_zh": "利雅得新月",
+   "aliases": [
+    "希拉尔"
+   ],
+   "awareness": "A"
+  },
+  "club_al_nassr": {
+   "internal_id": "club_al_nassr",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Nassr",
+   "name_zh": "利雅得胜利",
+   "aliases": [
+    "纳斯尔"
+   ],
+   "awareness": "A"
+  },
+  "club_al_ittihad": {
+   "internal_id": "club_al_ittihad",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Ittihad",
+   "name_zh": "吉达联合",
+   "aliases": [
+    "伊蒂哈德"
+   ],
+   "awareness": "B"
+  },
+  "club_al_ahli": {
+   "internal_id": "club_al_ahli",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Ahli",
+   "name_zh": "吉达国民",
+   "aliases": [
+    "阿赫利"
+   ],
+   "awareness": "B"
+  },
+  "club_al_sadd": {
+   "internal_id": "club_al_sadd",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Sadd",
+   "name_zh": "萨德",
+   "aliases": [
+    "阿尔萨德"
+   ],
+   "awareness": "B"
+  },
+  "club_al_duhail": {
+   "internal_id": "club_al_duhail",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Duhail",
+   "name_zh": "杜海勒",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_al_ain": {
+   "internal_id": "club_al_ain",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Ain",
+   "name_zh": "阿尔艾因",
+   "aliases": [
+    "艾因"
+   ],
+   "awareness": "B"
+  },
+  "club_sharjah": {
+   "internal_id": "club_sharjah",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Sharjah",
+   "name_zh": "沙迦",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_al_wasl": {
+   "internal_id": "club_al_wasl",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Al Wasl",
+   "name_zh": "瓦斯尔",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_urawa_red_diamonds": {
+   "internal_id": "club_urawa_red_diamonds",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Urawa Red Diamonds",
+   "name_zh": "浦和红钻",
+   "aliases": [
+    "浦和"
+   ],
+   "awareness": "B"
+  },
+  "club_kawasaki_frontale": {
+   "internal_id": "club_kawasaki_frontale",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Kawasaki Frontale",
+   "name_zh": "川崎前锋",
+   "aliases": [
+    "川崎"
+   ],
+   "awareness": "B"
+  },
+  "club_yokohama_f._marinos": {
+   "internal_id": "club_yokohama_f._marinos",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Yokohama F. Marinos",
+   "name_zh": "横滨水手",
+   "aliases": [
+    "横滨"
+   ],
+   "awareness": "B"
+  },
+  "club_vissel_kobe": {
+   "internal_id": "club_vissel_kobe",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Vissel Kobe",
+   "name_zh": "神户胜利船",
+   "aliases": [
+    "神户"
+   ],
+   "awareness": "B"
+  },
+  "club_sanfrecce_hiroshima": {
+   "internal_id": "club_sanfrecce_hiroshima",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Sanfrecce Hiroshima",
+   "name_zh": "广岛三箭",
+   "aliases": [
+    "广岛"
+   ],
+   "awareness": "C"
+  },
+  "club_jeonbuk_hyundai_motors": {
+   "internal_id": "club_jeonbuk_hyundai_motors",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Jeonbuk Hyundai Motors",
+   "name_zh": "全北现代",
+   "aliases": [
+    "全北"
+   ],
+   "awareness": "B"
+  },
+  "club_ulsan_hd": {
+   "internal_id": "club_ulsan_hd",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Ulsan HD",
+   "name_zh": "蔚山HD",
+   "aliases": [
+    "蔚山现代"
+   ],
+   "awareness": "B"
+  },
+  "club_pohang_steelers": {
+   "internal_id": "club_pohang_steelers",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Pohang Steelers",
+   "name_zh": "浦项制铁",
+   "aliases": [
+    "浦项"
+   ],
+   "awareness": "C"
+  },
+  "club_fc_seoul": {
+   "internal_id": "club_fc_seoul",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "FC Seoul",
+   "name_zh": "首尔FC",
+   "aliases": [
+    "首尔"
+   ],
+   "awareness": "C"
+  },
+  "club_buriram_united": {
+   "internal_id": "club_buriram_united",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Buriram United",
+   "name_zh": "武里南联",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_bg_pathum_united": {
+   "internal_id": "club_bg_pathum_united",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "BG Pathum United",
+   "name_zh": "巴吞联",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_melbourne_city": {
+   "internal_id": "club_melbourne_city",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Melbourne City",
+   "name_zh": "墨尔本城",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_shanghai_port": {
+   "internal_id": "club_shanghai_port",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Shanghai Port",
+   "name_zh": "上海海港",
+   "aliases": [
+    "上港"
+   ],
+   "awareness": "A"
+  },
+  "club_shanghai_shenhua": {
+   "internal_id": "club_shanghai_shenhua",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Shanghai Shenhua",
+   "name_zh": "上海申花",
+   "aliases": [
+    "申花"
+   ],
+   "awareness": "A"
+  },
+  "club_shandong_taishan": {
+   "internal_id": "club_shandong_taishan",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Shandong Taishan",
+   "name_zh": "山东泰山",
+   "aliases": [
+    "鲁能"
+   ],
+   "awareness": "A"
+  },
+  "club_beijing_guoan": {
+   "internal_id": "club_beijing_guoan",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Beijing Guoan",
+   "name_zh": "北京国安",
+   "aliases": [
+    "国安"
+   ],
+   "awareness": "A"
+  },
+  "club_chengdu_rongcheng": {
+   "internal_id": "club_chengdu_rongcheng",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Chengdu Rongcheng",
+   "name_zh": "成都蓉城",
+   "aliases": [
+    "成都兴城"
+   ],
+   "awareness": "A"
+  },
+  "club_wuhan_three_towns": {
+   "internal_id": "club_wuhan_three_towns",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Wuhan Three Towns",
+   "name_zh": "武汉三镇",
+   "aliases": [],
+   "awareness": "A"
+  },
+  "club_zhejiang": {
+   "internal_id": "club_zhejiang",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Zhejiang",
+   "name_zh": "浙江队",
+   "aliases": [
+    "浙江"
+   ],
+   "awareness": "B"
+  },
+  "club_ajax": {
+   "internal_id": "club_ajax",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Ajax",
+   "name_zh": "阿贾克斯",
+   "aliases": [],
+   "awareness": "A"
+  },
+  "club_sl_benfica": {
+   "internal_id": "club_sl_benfica",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "SL Benfica",
+   "name_zh": "本菲卡",
+   "aliases": [],
+   "awareness": "B"
+  },
+  "club_celtic": {
+   "internal_id": "club_celtic",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Celtic",
+   "name_zh": "凯尔特人",
+   "aliases": [],
+   "awareness": "B"
+  },
+  "club_rangers": {
+   "internal_id": "club_rangers",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Rangers",
+   "name_zh": "格拉斯哥流浪者",
+   "aliases": [
+    "流浪者"
+   ],
+   "awareness": "B"
+  },
+  "club_olympiacos": {
+   "internal_id": "club_olympiacos",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Olympiacos",
+   "name_zh": "奥林匹亚科斯",
+   "aliases": [],
+   "awareness": "B"
+  },
+  "club_panathinaikos": {
+   "internal_id": "club_panathinaikos",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Panathinaikos",
+   "name_zh": "帕纳辛奈科斯",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_crvena_zvezda": {
+   "internal_id": "club_crvena_zvezda",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Crvena Zvezda",
+   "name_zh": "贝尔格莱德红星",
+   "aliases": [
+    "红星"
+   ],
+   "awareness": "C"
+  },
+  "club_dinamo_zagreb": {
+   "internal_id": "club_dinamo_zagreb",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Dinamo Zagreb",
+   "name_zh": "萨格勒布迪纳摩",
+   "aliases": [],
+   "awareness": "C"
+  },
+  "club_ac_sparta_praha": {
+   "internal_id": "club_ac_sparta_praha",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "AC Sparta Praha",
+   "name_zh": "布拉格斯巴达",
+   "aliases": [
+    "斯巴达"
+   ],
+   "awareness": "C"
+  },
+  "club_bsc_young_boys": {
+   "internal_id": "club_bsc_young_boys",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "BSC Young Boys",
+   "name_zh": "伯尔尼年轻人",
+   "aliases": [
+    "年轻人"
+   ],
+   "awareness": "C"
+  },
+  "club_fc_basel_1893": {
+   "internal_id": "club_fc_basel_1893",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "FC Basel 1893",
+   "name_zh": "巴塞尔",
+   "aliases": [
+    "Basel",
+    "FC Basel"
+   ],
+   "awareness": "C"
+  },
+  "club_beşiktaş": {
+   "internal_id": "club_beşiktaş",
+   "fd_id": null,
+   "af_id": null,
+   "category": "club",
+   "competitions": [],
+   "name_en": "Beşiktaş",
+   "name_zh": "贝西克塔斯",
+   "aliases": [],
+   "awareness": "B"
   }
  }
 }
