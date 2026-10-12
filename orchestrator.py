@@ -25,6 +25,7 @@ from utils import (retry, call_llm, safe_json_loads, load_prompt_template,
 from logger import log
 import risk_gate
 import degrade
+import supply_mix
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
@@ -1886,9 +1887,17 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                        "content_type": art.get("content_type", ""),
                        "column_id": art.get("_column_id", ""),
                        "column_name": art.get("_column_name", ""),
-                       "batch_name": art.get("_batch_name", "")})
+                       "batch_name": art.get("_batch_name", ""),
+                       # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
+                       "supply_layer": supply_mix.tag(art)})
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
+    # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）
+    _supply = supply_mix.summarize(articles)
+    meta["supply_layers"] = _supply
+    if _supply["unclassified"]:
+        print(f"   ⚠️ 三层供给存在未分层成稿 {_supply['unclassified']} 篇"
+              f"（上游缺来源标志，验收将判失败）")
     _degrade_events = degrade.drain()
     if _degrade_events:
         meta["degrade_events"] = _degrade_events

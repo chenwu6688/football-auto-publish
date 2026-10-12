@@ -169,6 +169,11 @@ originality_note: "{originality_note}"
             "topics": metadata.get("topics", []),
             "data_sources": metadata.get("data_sources", {}),
         }
+        # 透传其余元数据字段（degrade_events / pending_review / supply_layers /
+        # ranker_mode 等）。此前这些字段被静默丢弃，导致第九降级、1.2 高风险队列、
+        # 11.2 择优模式与 12.1 三层供给构成在 metadata 中不可见。
+        for _k, _v in metadata.items():
+            meta_content.setdefault(_k, _v)
 
         meta_path.write_text(json.dumps(meta_content, ensure_ascii=False, indent=2), encoding="utf-8")
         return str(meta_path)

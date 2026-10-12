@@ -1,0 +1,49 @@
+name: 三层供给验收（计划 12.1）
+
+# 计划 12.1：三层供给 一级·确定性 30% / 二级·突发 50% / 三级·软性 20%，
+# 且「日更 6 至 8 篇可稳定不断供」。每周一 04:00 UTC = 12:00 CST 校验：
+#   硬项：分层合法性 / 无断供（不达标即失败告警）
+#   告警：打标覆盖率 / 未分层 / 三层齐备 / 配比偏差 / 日均篇数
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置 Git 推送凭据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 执行三层供给验收
+        run: python3 scripts/verify_supply_mix.py --days 14
+
+      - name: 回写验收报告
+        if: always()
+        run: |
+          git add -f data/audit || true
+          if git diff --cached --quiet; then
+            echo "无报告变更"
+            exit 0
+          fi
+          git commit -m "chore(supply): 三层供给 12.1 验收报告"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git pull --rebase origin main || true
+          done
