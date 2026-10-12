@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-12 09:50",
+  "generated_at": "2026-10-12 12:59",
   "window_days": 30,
   "compliance": {
-    "suspended": true,
-    "reason": "疑似系统性失真：同批次一致性校验打回 5 次，疑事实层失真：缺少客队名: 拜仁慕尼黑",
+    "suspended": false,
+    "reason": "",
     "since": "2026-10-12T00:13:07+08:00",
     "false_content_count": 0,
     "total_violations": 1,
