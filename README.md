@@ -104,7 +104,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 📚 **内容参照层（计划 13.3）**：`config/content_reference.yaml` + `content_reference.py` —— 只借方法论（信源标注规范 / 标题信息结构 / 话题时效判断 / 栏目化与内容分层）与五家媒体侧重；**排除项**（中下游球队转会细节 / 欧战赛前前瞻 / 二线联赛赛事稿 / 三千字深度长文）由 `ranker` L1 预筛与生成提示**双向拦截**。仅在标题/话题标签层保守匹配，未命中即放行（绝不误杀）。
 - ✨ **六个差异化方向（计划 13.5）**：`config/differentiation.yaml` + `differentiation.py` —— 速度 / 地域深耕 / 怀旧与情感 / 数据再加工 / 评论区运营 / 观点增量，逐方向核对代码 hook 落地。
 
-### 验收与审计（计划 4.1 / 7.1 / 7.2 / 7.3 / 10 / 11.3 / 11.4 / 12.1 / 13.1 / 13.3 / 13.5）
+### 验收与审计（计划 4.1 / 6.1 / 6.2 / 7.1 / 7.2 / 7.3 / 8.1 / 10 / 11.3 / 11.4 / 11.5 / 12.1 / 12.2 / 12.4 / 13.1 / 13.2 / 13.3 / 13.4 / 13.5）
 
 - 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区；未接入指标标注「待接入」。
 - ⬆️ **增长指标回填**：`scripts/import_performance.py` 支持 CSV/JSON 批量回填头条后台数据（点击率 = 阅读/展现，粉丝阅读占比 = 粉丝阅读/总阅读）。
@@ -117,6 +117,10 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 📚 **内容参照层验收**：`scripts/verify_content_reference.py` —— 排除项规则自检 / 参照层配置完整性 / `ranker` 与生成提示接入（硬项）+ 历史产物零命中排除项（告警项）。
 - 🚦 **发布闸门验收（计划 7.2 / 7.3）**：`scripts/verify_publish_gate.py` —— 成稿标题零硬违规 / 一致性拦截率可统计 / 连续 14 天无旧闻新发（硬项）+ 标题合规率、溯源覆盖率、误杀率（告警项，无标注标「待接入」绝不冒充 0）。台账由 `freshness_ledger.py`（时效闸门）与 `consistency_stats.py`（一致性校验）落 `data/`。
 - ✨ **差异化方向验收**：`scripts/verify_differentiation.py` —— 六方向结构齐备 + 代码 hook 落地（硬项）。
+- 🎛️ **调参纪律与四道防呆验收（计划 8.1 / 11.5）**：`scripts/verify_tuning_discipline.py` —— 六项纪律数值落在计划区间 / 四道防呆代码执行点齐备 / 用 `ratio_tuner.compute_suggestion` 实跑冒烟（样本冻结、死区、幅度≤10 + 探索配额托底、冷静期）（硬项）。
+- 🧱 **事实层与量表验收（计划 6.1 / 6.2 / 12.2 / 12.4）**：`scripts/verify_fact_layer.py` —— 事实卡八字段 / 可信度三级阈值 / 生命周期三态边界（进行中·已收官·已过期）/ 择优五维量表齐备（硬项）。
+- 🗂️ **数据源与信源清单验收（计划 13.2 / 13.4）**：`scripts/verify_source_roster.py` —— 四源分工齐备 / 原始信源清单 11 项齐备 / 信源只作信号（硬项）+ 不接入商业数据商、无授权媒体边界（告警项）。
+- 📈 **验收指标与合规熔断验收（计划第十章）**：`scripts/verify_acceptance_metrics.py` —— 不实违规即熔断且可解除 / 疑似系统性失真达阈值自动熔断 / 六项指标口径与计划一致 / 未接入一律「待接入」绝不用 0 冒充（硬项，用隔离状态文件不污染真实熔断开关）。
 
 > 全部验收脚本产出 `data/audit/*_latest.json` + 日期报告，硬项 FAIL 退出码 1；接入 CI 时统一「只告警不阻断发布」（计划九），保证当天少发而非全空。
 
@@ -305,6 +309,7 @@ football-auto-publish/
 - **`fixture-pool-verify.yml`**：每周一刷新赛程池并跑 7.1 验收，硬项不过即失败告警。
 - **`metrics-dashboard.yml`**：每周一生成验收指标看板，回写 `data/metrics/`。
 - **`ratio-tuner.yml`**：每月 1/15 日跑配比调参（四道防呆）。
+- **`plan-invariants-verify.yml`**：每周一跑计划结构不变量验收（8.1/11.5 调参防呆、6.1/6.2/12.2/12.4 事实层与量表、13.2/13.4 数据源与信源、第十章验收指标与合规熔断），只告警不阻断，报告回写 `data/audit/`。
 - **`entity-map-refresh.yml`**：每月 1 日增量维护中文实体映射（球队/球员）。
 
 ---

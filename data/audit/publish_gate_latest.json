@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12 10:39",
+  "generated_at": "2026-10-12 10:51",
   "ok": true,
   "checks": [
     {
@@ -136,15 +136,15 @@
       "item": "一致性校验拦截率可统计",
       "ok": true,
       "skipped": false,
-      "events": 6,
-      "blocking_checks": 6,
-      "rejects": 2,
+      "events": 9,
+      "blocking_checks": 9,
+      "rejects": 3,
       "warn_only": 0,
       "reject_rate": 0.3333,
       "reject_rate_display": "33.3%",
       "has_records": true,
       "detail": [
-        "硬校验 6 次，打回 2 次，拦截率 33.3%；warn-only 0 次",
+        "硬校验 9 次，打回 3 次，拦截率 33.3%；warn-only 0 次",
         "拦截率可统计 ✅"
       ]
     },
@@ -163,14 +163,14 @@
       "ok": true,
       "skipped": false,
       "days": 14,
-      "runs": 6,
+      "runs": 9,
       "days_covered": 1,
       "dates": [
         "2026-10-12"
       ],
-      "checked": 14,
-      "dropped": 4,
-      "unknown": 2,
+      "checked": 21,
+      "dropped": 6,
+      "unknown": 3,
       "over_limit_runs": 0,
       "over_limit": [],
       "missing_days": [
@@ -190,7 +190,7 @@
       ],
       "violation_records": [],
       "detail": [
-        "近 14 天闸门运行 6 次，覆盖 1/14 天；剔除超时效 4 条，未知 2 条",
+        "近 14 天闸门运行 9 次，覆盖 1/14 天；剔除超时效 6 条，未知 3 条",
         "台账尚未满 14 天（累计 1 天，持续累积中）",
         "无「已知时效>上限仍保留」✅"
       ]
