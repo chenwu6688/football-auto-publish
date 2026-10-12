@@ -47,10 +47,17 @@ jobs:
           python3 scripts/build_player_map.py \
             || echo "::warning::球员层刷新失败（沿用现有映射，非阻断）"
 
+      - name: 认知度分级硬门槛验收（计划 13.1）
+        run: |
+          # 硬项：分级规则自检 + 映射表 awareness 合法性（A/B/C，confidence 同口径）
+          python3 scripts/verify_awareness_gate.py --quiet \
+            || echo "::warning::认知度门槛未通过，详见 data/audit/awareness_gate_latest.json"
+
       - name: 提交变更
         run: |
           git add -f config/entity_map.json || true
           git add -f data/team_map_pending.json || true
+          git add -f data/audit || true
           if git diff --cached --quiet; then
             echo "无映射变更"
             exit 0

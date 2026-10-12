@@ -21,6 +21,7 @@ from pathlib import Path
 
 from constants import PROJECT_ROOT
 from utils import CST
+import awareness_gate
 
 CACHE_PATH = PROJECT_ROOT / "data" / "ranker_cache.json"
 ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
@@ -46,26 +47,20 @@ _awareness_cache = None
 
 
 def load_awareness_map():
-    """{name_zh: A/B/C}，来自 config/entity_map.json（缺文件则空表）。"""
+    """{name_zh: A/B/C/?}，来自 config/entity_map.json（缺文件则空表）。
+
+    解析口径统一由 awareness_gate 提供（计划 13.1 单一事实来源）。
+    """
     global _awareness_cache
     if _awareness_cache is not None:
         return _awareness_cache
-    m = {}
-    try:
-        data = json.loads(ENTITY_MAP_PATH.read_text(encoding="utf-8"))
-        for v in (data.get("entities") or {}).values():
-            zh = v.get("name_zh")
-            if zh:
-                m[zh] = v.get("awareness", "C")
-    except Exception:
-        pass
-    _awareness_cache = m
-    return m
+    _awareness_cache = awareness_gate.parse_entity_map(ENTITY_MAP_PATH)
+    return _awareness_cache
 
 
 def awareness_of(name):
-    """主体认知度 A/B/C；未登记视为 C（计划 13.1：未登记不得进生成环节）。"""
-    return load_awareness_map().get(name, "C")
+    """主体认知度 A/B/C；**未登记返回 awareness_gate.UNREGISTERED**（不等于 C，计划 13.1）。"""
+    return load_awareness_map().get(name, awareness_gate.UNREGISTERED)
 
 
 # ------------------------------------------------------------
@@ -142,9 +137,19 @@ def l1_prefilter(candidates, ctx=None, *, target_max=DEFAULT_TARGET_MAX):
             dropped.append((c, f"超时效({age:.0f}h>{max_age}h)"))
             continue
         subj = card.get("主体") or c.get("主体") or ""
-        if subj and awareness_of(subj) == "C":
-            dropped.append((c, f"主体冷门度超阈值(C 级:{subj})"))
-            continue
+        if subj:
+            # 计划 13.1 认知度硬门槛：未登记 → 拒绝；C 级不进新闻流；
+            # B 级需配认知锚点或改走故事角度（放行但标记，交由装配层处理）。
+            dec = awareness_gate.decide_level(
+                awareness_of(subj), section, channel="news",
+                has_anchor=bool(card.get("认知锚点") or c.get("认知锚点提示") or c.get("认知锚点")),
+                name=str(subj))
+            c["_awareness"] = dec
+            if not dec["ok"]:
+                dropped.append((c, f"认知度门槛：{dec['reason']}"))
+                continue
+            if dec["requires_anchor"]:
+                c["_requires_anchor"] = True
         kept.append(c)
 
     if len(kept) > target_max:

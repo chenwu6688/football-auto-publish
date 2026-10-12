@@ -24,6 +24,8 @@ from pathlib import Path
 
 import yaml
 
+import awareness_gate
+
 PROJECT_ROOT = Path(__file__).resolve().parent
 CALENDAR_PATH = PROJECT_ROOT / "config" / "season_calendar.yaml"
 STORE_DIR = PROJECT_ROOT / "data" / "deterministic"
@@ -83,13 +85,19 @@ def _save_store(data: dict) -> None:
 
 
 def build_node_topics(today: date | None = None, horizon_days: int | None = DEFAULT_HORIZON_DAYS,
-                      calendar: dict | None = None) -> list[dict]:
+                      calendar: dict | None = None, dropped: list | None = None) -> list[dict]:
     """生成「节点事件」选题（一级·确定性）。
 
     窗口语义（计划 12.1「可提前 7 天预生成」）：
       - 预生成窗口：node_date ∈ [today, today + horizon_days]，即提前 horizon_days 天量产。
       - 可发布窗口：publish_from（node_date - lead_days）~ publish_by（node_date 当日）。
     已过节点（node_date < today）不生成；horizon_days=None 表示不限（仅用于排查）。
+
+    认知度硬门槛（计划 13.1）：节点属于数据/榜单类供给通道，故
+      - ``awareness`` 必须是 A/B/C —— 缺失或非法视为**未登记**，直接剔除，绝不默认放行；
+      - C 级节点只允许落在数据类/榜单类板块，否则剔除；
+      - 决策结果写回 ``awareness_decision``，供下游降权排序。
+    被剔除的节点在传入 ``dropped`` 列表时一并记录（(node, reason)）。
     """
     today = _as_date(today) or _now().date()
     cal = calendar if calendar is not None else load_calendar()
@@ -112,6 +120,16 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
         tmpl = n.get("template") or "{label}还有{days}天"
         conflict = tmpl.format(days=max(days_to, 0), label=label)
         column = n.get("column") or "战术榜单"
+        board = column if column in NODE_COLUMNS else "战术榜单"
+
+        aw = awareness_gate.classify(n.get("awareness"))
+        dec = awareness_gate.decide_level(aw, board, channel="data_list",
+                                          name=str(label))
+        if not dec["ok"]:
+            if dropped is not None:
+                dropped.append((n, f"认知度门槛：{dec['reason']}"))
+            continue
+
         out.append({
             "topic_id": f"node-{n.get('id')}-{nd.isoformat()}",
             "source_layer": "确定性",
@@ -123,8 +141,10 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
             "angle_type": n.get("type", "赛季节点"),
             "conflict": conflict,
             "suggested_column": column,
-            "板块": column if column in NODE_COLUMNS else "战术榜单",
-            "awareness": n.get("awareness", "B"),
+            "板块": board,
+            "awareness": aw,
+            "awareness_decision": dec["action"],
+            "title_allowed": dec["title_allowed"],
             "publish_from": pub_from.isoformat(),
             "publish_by": nd.isoformat(),
             "fact_source": {
@@ -163,6 +183,10 @@ def stock(article: dict, topic: dict, *, now: datetime | None = None) -> str:
         "publish_from": topic.get("publish_from", ""),
         "publish_by": topic.get("publish_by", ""),
         "section": topic.get("板块") or topic.get("suggested_column") or "",
+        # 计划 13.1：把认知度门槛决策随库存留痕，便于验收审计（未登记一律不入库）
+        "awareness": topic.get("awareness", ""),
+        "awareness_decision": topic.get("awareness_decision", ""),
+        "title_allowed": topic.get("title_allowed"),
         "content_type": article.get("content_type", "") or topic.get("node_type", ""),
         "title": article.get("title", ""),
         "content": article.get("content", ""),
