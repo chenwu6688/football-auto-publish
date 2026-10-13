@@ -139,7 +139,13 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🎯 **标题强钩子**：疑问/悬念类占比 ≥60%、反差/冲突类 ≥30%，严控平铺直叙陈述句，提点击率。
 - ⚖️ **内容类型再平衡**：按赛季动态引导球评下限 / 转会八卦上限，避免单一品类霸屏（不改 `config.yaml` 权重，仅在 prompt 层引导 + 非阻断监控）。
 - 🎙️ **调性向 41+ 男球迷对齐**：多用情怀 / 通俗战术 / 国足记忆，少堆年轻网感梗。
-- 🔗 **粉丝沉淀钩子**：每篇自然植入「关注 / 追更」引导，攒粉丝。
+- 🔗 **粉丝沉淀钩子（已升级为硬校验）**：每篇必须同时具备「关注引导」+「互动引导」，
+  缺任一类先在生成侧打回重写（最多 2 次），仍缺则由保存侧按互动类型**模板兜底注入**并复核——
+  提示词里「必须满足」但没有校验 = 等于没写（R11 2026-10-13 建议5）。
+  判据见 [`config/interaction_bait.yaml`](config/interaction_bait.yaml) + `interaction_bait.py`。
+- 📈 **转粉数据通道**：头条「图文数据」导出**不含涨粉列**，故另开一条 `growth_import.py` 通道，
+  承接头条后台「粉丝分析」导出（日期 + 粉丝总数/涨粉数），按相邻已登记日差分得日涨粉；
+  缺失一律留 `None`（待接入）、**绝不用 0 冒充**。接入说明见 [`docs/转粉与互动数据接入.md`](docs/转粉与互动数据接入.md)。
 - 🏷️ **垂直栏目锚点**：按内容类型补齐栏目 / 风格 / 互动字段，强化算法垂直识别，消除元数据空字段。
 - 📊 **非阻断监控**：标题钩子分布、内容类型分布、信息增量、共鸣角度覆盖、系列连载分布均做运行期告警（不阻拦发布），便于 dashboard 闭环复盘。
 
@@ -273,6 +279,9 @@ football-auto-publish/
 ├── awareness_gate.py        # 认知度分级硬门槛（A/B/C/未登记；news 与 data_list 双通道）
 ├── content_reference.py     # 内容参照层（13.3：只抄方法论，排除项拦截）
 ├── differentiation.py       # 六个差异化方向（13.5：方向与代码 hook 核对）
+├── interaction_bait.py      # 互动引导闸门（关注引导 + 互动引导，缺则打回/兜底注入）
+├── growth_import.py         # 转粉数据通道（粉丝分析导出 → data/growth/fans_daily.json）
+├── toutiao_import.py        # 头条后台导出适配层（列名最长匹配 / 平台ID 绑定 / 缺列留 None）
 ├── freshness_ledger.py      # 时效闸门台账（7.2：连续无旧闻新发可审计）
 ├── consistency_stats.py     # 一致性校验台账（7.3：拦截率 / 误杀率）
 ├── supply_mix.py            # 三级供给分层打标与配比校验（30/50/20）

@@ -28,6 +28,7 @@ from zoneinfo import ZoneInfo
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))   # 以便 import compliance_guard 等同级模块
+import growth_import  # noqa: E402  # 转粉通道（R11 建议5）：读 data/growth/fans_daily.json
 OUTPUT_DIR = PROJECT_ROOT / "output"
 DATA_DIR = PROJECT_ROOT / "data"
 SIGNALS_DIR = DATA_DIR / "signals"
@@ -192,6 +193,8 @@ def collect(days: int, *, now=None) -> dict:
     follower_reads_total = 0
     followers_total = 0
     followers_days = 0
+    followers_source = None            # article = 文章级导出；account = 粉丝分析通道
+    window_dates: list[str] = []       # 统计窗口内实际有产出的日期（账号级兜底用）
     cat_stat: dict[str, dict] = {}      # 选题类型 → 分组累加
     title_stat: dict[str, dict] = {}    # 标题特征 → 分组累加
 
@@ -203,6 +206,7 @@ def collect(days: int, *, now=None) -> dict:
             continue
         if d < since or d > now.date():
             continue
+        window_dates.append(date_str)
         meta = _load_json(meta_path) or {}
         arts_all = meta.get("articles", []) or []
         # R13 决策④：预测类不发布到头条，发布口径（总篇数/日均/板块/溯源/增长指标）
@@ -242,14 +246,32 @@ def collect(days: int, *, now=None) -> dict:
                     impressions_days = 1        # 有曝光量即可算点击率
                 if rec.get("follower_reads"):
                     follower_reads_total += int(rec.get("follower_reads", 0) or 0)
-        # 当日涨粉（以日为单位去重）
-        day_f = 0
+        # 当日涨粉（以日为单位去重；R11 建议5 转粉通道）
+        #   ① 文章级：metadata.performance / performance_log 的 new_followers（头条图文导出
+        #      **不含**涨粉列，故这条通常为空）；
+        #   ② 账号级兜底：data/growth/fans_daily.json（头条后台「粉丝分析」导出通道）。
+        #   两者皆无 = 待接入 → 保持 None，**绝不用 0 冒充**（is_missing 纪律）。
+        day_f = None
         for a in arts:
             rec = a.get("performance") or _perf_lookup(perf, date_str, a) or {}
-            day_f += int((rec or {}).get("new_followers", 0) or 0)
-        if day_f:
+            v = (rec or {}).get("new_followers")
+            if v is not None:
+                day_f = (day_f or 0) + int(v)
+        if day_f is not None:
             followers_total += day_f
             followers_days += 1
+            followers_source = "article"
+
+    # 账号级兜底：文章级完全没有转粉数据时，用「粉丝分析」通道在**同一统计窗口内**的日涨粉。
+    # 分母取窗口内所有有粉丝数据的日期（涨粉与该日是否发稿无关），而不是「有产出的日期」。
+    if followers_days == 0 and window_dates:
+        _lo, _hi = since.isoformat(), now.date().isoformat()
+        _acct = {d: v for d, v in growth_import.daily_new_followers().items()
+                 if _lo <= d <= _hi}
+        if _acct:
+            followers_total = sum(_acct.values())
+            followers_days = len(_acct)
+            followers_source = "account"
 
     expected_batches = max(1, days_with_output * len(EXPECTED_BATCHES))
     supply = {
@@ -266,7 +288,12 @@ def collect(days: int, *, now=None) -> dict:
     growth = {
         "篇均阅读": round(sum(reads) / len(reads), 1) if reads else None,
         "平均完成率": round(sum(retentions) / len(retentions) * 100, 1) if retentions else None,
+        # 日均涨粉：文章级（头条图文导出，通常无此列）优先；否则账号级「粉丝分析」通道
+        # （data/growth/fans_daily.json，含由粉丝总数差分出的日涨粉）。两者皆无 → None（待接入）。
         "日均涨粉": round(followers_total / followers_days, 1) if followers_days else None,
+        "涨粉数据来源": ({"article": "文章级导出", "account": "粉丝分析通道"}.get(followers_source)
+                    if followers_source else None),
+        "涨粉样本天数": followers_days or None,
         # 点击率 = 总阅读 / 总展现（需 impressions 回填，未接入则为 None，绝不用 0 冒充）
         "整体点击率": (round(sum(reads) / impressions_total * 100, 2)
                   if impressions_total and reads else None),

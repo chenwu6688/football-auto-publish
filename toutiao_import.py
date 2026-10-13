@@ -492,14 +492,18 @@ def _fill_metrics(rec: dict, cell) -> None:
     for f in _INT_METRICS:
         v = clean_int(cell(f))
         if v is None:
-            rec[f] = 0            # 该列未提供 → schema 约定用 0（不凭空造值）
+            # 该列根本没导出（或为空格）＝「待接入」→ None，**绝不用 0 冒充**。
+            # 2026-10-13 修正：此前这里填 0，导致头条图文导出缺「涨粉数」列时，
+            # 550 篇成稿全部被写成 new_followers=0，看板虚报「日均涨粉 0.0」。
+            # 真实的 0（列存在且值为 0）仍保留为 0；负占位（-1）也是 None。
+            rec[f] = None
         elif v < 0:
             rec[f] = None         # 负占位（头条用 -1）= 该指标无数据 → 「待接入」
         else:
             rec[f] = v
     # 完读率：负占位（-1）与空值都保持 None = 「待接入」，绝不冒充 0
     rec["retention_rate"] = normalize_retention(cell("retention_rate"))
-    # 点击率：同上。**不走 _INT_METRICS 的「列缺失填 0」约定**——0% 是有效值，
+    # 点击率：同上。**不走 _INT_METRICS**——0% 是有效值，
     # 与「该列根本没导出」必须区分，故缺列时留 None（由 performance_logger 用
     # reads/impressions 派生，或保持待接入）。
     rec["click_rate"] = normalize_rate(cell("click_rate"))

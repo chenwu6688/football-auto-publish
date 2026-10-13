@@ -296,15 +296,26 @@ class TestAdaptRows(unittest.TestCase):
         rep = ti.adapt_rows(rows, output_dir=self.outdir)["report"]
         self.assertEqual(rep["unmapped"], ["新指标"])
 
-    def test_missing_metrics_default_zero_not_fabricated(self):
-        # 导出里没有粉丝阅读量列 → 该字段为 0（我们的 schema 用 0 表示未提供），
-        # 但**不会**凭空造出别的值；有列但单元格为「--」也判 0。
+    def test_missing_metrics_default_none_not_zero(self):
+        # 导出里没有的列（如「粉丝阅读量」「涨粉数」）＝「待接入」→ None，
+        # **绝不填 0**（2026-10-13 修正：此前填 0，导致缺「涨粉数」列时 550 篇
+        # 成稿被写成 new_followers=0，看板虚报「日均涨粉 0.0」）。
         res = ti.adapt_rows([["标题", "阅读量"], ["A队三球逆转，老六怎么看？", "100"]],
                             output_dir=self.outdir)
         rec = res["records"][0]
         self.assertEqual(rec["reads"], 100)
-        self.assertEqual(rec["follower_reads"], 0)
-        self.assertEqual(rec["impressions"], 0)
+        self.assertIsNone(rec["follower_reads"])
+        self.assertIsNone(rec["impressions"])
+        self.assertIsNone(rec["new_followers"])
+
+    def test_cell_dash_is_none_not_zero(self):
+        # 有列但单元格为「--」＝无数据 → None（真实的 0 才保留为 0）
+        rows = [["标题", "阅读量", "点赞量"],
+                ["A队三球逆转，老六怎么看？", "100", "--"],
+                ["B队崩盘，教练该不该下课", "50", "0"]]
+        recs = ti.adapt_rows(rows, output_dir=self.outdir)["records"]
+        self.assertIsNone(recs[0]["likes"])
+        self.assertEqual(recs[1]["likes"], 0)
 
 
 class TestSelftest(unittest.TestCase):

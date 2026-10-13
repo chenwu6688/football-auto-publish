@@ -29,6 +29,7 @@ import supply_mix
 import rumor_wording
 import title_antipattern
 import title_positive
+import interaction_bait
 import topic_category
 import content_reference
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
@@ -1704,6 +1705,25 @@ def _note_consistency_reject(hint: str) -> None:
             pass
 
 
+def check_interaction_bait(art: dict) -> dict:
+    """互动引导生成后校验（R11 2026-10-13 建议5 / 计划 13.5 评论区运营）。
+
+    在提示词里「粉丝沉淀钩子·必须满足」已存在，但此前**没有生成后校验**，写了等于没写。
+    本闸门把「关注引导 + 互动引导」变成可打回的门禁项：
+      - 生成侧（_rewrite_with_retry / generate_fixture_article）：未过 → 打回重写（最多 2 次）；
+      - 保存侧（save_articles_local）：仍缺 → 模板兜底注入并复核，**绝不因此丢弃整篇成稿**。
+    配置不可用 → 放行（degraded），不阻塞发布（计划九）。
+    """
+    return interaction_bait.check((art or {}).get("content", ""),
+                                  bait_field=(art or {}).get("interaction_bait", ""))
+
+
+def _bait_retry_hint(res: dict) -> str:
+    return (f"互动引导未达标（缺 {'、'.join(res.get('missing') or [])}）：" +
+            str(res.get("hint") or "") +
+            " 请在正文或文末补足，且不得编造事实。")
+
+
 def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_str):
     """Rewrite a verified source article with retry on fidelity failure.
 
@@ -1787,6 +1807,18 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
                              action="丢弃该选题并由候选池补位")
                 return {}, f"标题评分未过: {last_hint}"
+
+            # 互动引导硬校验（R11 建议5 / 计划 13.5）：缺关注/互动引导 → 打回重写；
+            # 最后一轮仍缺则放行，交由保存侧模板兜底注入（不丢整篇成稿）
+            _ib = check_interaction_bait(art)
+            if not _ib["ok"]:
+                last_hint = _bait_retry_hint(_ib)
+                if attempt < max_retries:
+                    print(f"   🔁 互动引导未达标(attempt {attempt+1}/{max_retries+1})："
+                          f"缺 {'、'.join(_ib['missing'])}")
+                    continue
+                degrade.note("互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
+                             action="保存侧模板兜底注入（不丢弃成稿）")
 
             # 计划合规·AI 生成标注（7.2，发布前强制；改写路径的一致性校验由上方 fidelity 承担）
             append_ai_annotation(art, art.get("ai_perspective"))
@@ -2053,6 +2085,20 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
             art["content"] = f"{art.get('content', '')}\n\n---\n**{prefix}：{bait_clean}**\n👇 评论区见分晓！"
             print(f"   🎣 互动钩子: [{i_type}] {bait_clean[:40]}")
 
+        # 4. 互动引导硬落地复核（R11 建议5 / 计划 13.5）：LLM 没给足关注/互动引导时，
+        #    用模板兜底注入并复核——绝不因此丢弃整篇成稿（正文事实才是主体）。
+        _ib = check_interaction_bait(art)
+        if not _ib["ok"]:
+            _inj = interaction_bait.inject(art)
+            if _inj["changed"]:
+                print(f"   🎣 互动引导兜底注入：缺 {'、'.join(_inj['injected'])}"
+                      f" → {'已达标' if _inj['result']['ok'] else '仍未达标'}")
+                degrade.note("互动引导兜底", f"缺 {'、'.join(_inj['injected'])}",
+                             action="保存侧模板兜底注入")
+            else:
+                degrade.note("互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
+                             action="模板兜底未生效，放行并留痕（不阻塞发布）")
+
         # Save article
         art_data = {**art, "downloaded_images": downloaded,
                      "tags": art.get("keywords", []), "category": "足球",
@@ -2063,27 +2109,31 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         result = file_writer.save_article(date_str=date_str, index=idx, article_data=art_data)
         # 溯源标注（计划第十章）：从 _source_fixture 派生真实来源，只写元数据、不动正文
         _prov_sources, _prov_post = resolve_provenance(art)
-        saved.append({"index": idx, "title": art.get("title", ""), "path": result["article_path"],
-                      "slug": result["slug"], "tags": art.get("keywords", []),
-                      "keywords": art.get("keywords", []), "images": result["image_paths"],
-                      "sources_used": _prov_sources,
-                      "source_post": _prov_post,
-                      "originality_note": art.get("originality_note", ""),
-                      "content_type": art.get("content_type", ""),
-                      # 选题类型（计划 5.1 / R11）：落盘到批次 metadata，供看板按「选题类型」
-                      # 分组统计效果、供 ratio_tuner 以选题类型为调参轴（而非栏目）。
-                      # 形态优先于主题（见 topic_category 模块），判定不了即「未分类」，不猜。
-                      "topic_category": topic_category.classify(
-                          {"title": art.get("title", ""),
-                           "content_type": art.get("content_type", ""),
-                           "keywords_cn": art.get("keywords", [])}),
-                      "column_id": art.get("_column_id", ""),
-                      "column_name": art.get("_column_name", ""),
-                      "batch_name": art.get("_batch_name", ""),
-                      # 晚间赛前预测稿：不发布到头条，看板/配额验收按此标剔除（R13 决策④）
-                      "is_prediction": bool(art.get("_is_prediction")),
-                      # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
-                      "supply_layer": supply_mix.tag(art)})
+        _rec = {"index": idx, "title": art.get("title", ""), "path": result["article_path"],
+                "slug": result["slug"], "tags": art.get("keywords", []),
+                "keywords": art.get("keywords", []), "images": result["image_paths"],
+                "sources_used": _prov_sources,
+                "source_post": _prov_post,
+                "originality_note": art.get("originality_note", ""),
+                "content_type": art.get("content_type", ""),
+                # 选题类型（计划 5.1 / R11）：落盘到批次 metadata，供看板按「选题类型」
+                # 分组统计效果、供 ratio_tuner 以选题类型为调参轴（而非栏目）。
+                # 形态优先于主题（见 topic_category 模块），判定不了即「未分类」，不猜。
+                "topic_category": topic_category.classify(
+                    {"title": art.get("title", ""),
+                     "content_type": art.get("content_type", ""),
+                     "keywords_cn": art.get("keywords", [])}),
+                "column_id": art.get("_column_id", ""),
+                "column_name": art.get("_column_name", ""),
+                "batch_name": art.get("_batch_name", ""),
+                # 晚间赛前预测稿：不发布到头条，看板/配额验收按此标剔除（R13 决策④）
+                "is_prediction": bool(art.get("_is_prediction")),
+                # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
+                "supply_layer": supply_mix.tag(art)}
+        # 互动引导兜底留痕（R11 建议5）：仅当命中模板兜底时才落盘，便于事后统计覆盖率
+        if art.get("interaction_bait_source"):
+            _rec["interaction_bait_source"] = art["interaction_bait_source"]
+        saved.append(_rec)
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
     # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）。
@@ -3564,6 +3614,16 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                     continue
                 stripped = title[6:].lstrip("：:，, -—").strip("：:，, -— ")
                 title = stripped or title
+            # 互动引导硬校验（R11 建议5 / 计划 13.5）：缺关注/互动引导 → 打回重写；
+            # 最后一轮仍缺则放行，交由保存侧模板兜底注入
+            _ib = check_interaction_bait(article)
+            if not _ib["ok"]:
+                if attempt < 2:
+                    print(f"   ⚠️ 确定性供给互动引导未达标（缺 {'、'.join(_ib['missing'])}）"
+                          f"(attempt {attempt + 1}/3)，重生成...")
+                    continue
+                degrade.note("互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
+                             action="保存侧模板兜底注入（不丢弃成稿）")
             article["title"] = title
             article["content_type"] = content_type
             article["板块"] = topic.get("板块", content_type)
