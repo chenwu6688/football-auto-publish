@@ -198,10 +198,12 @@ def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
     growth, supply = data["growth"], data["supply"]
 
     growth_rows = [
-        ("篇均阅读", _fmt(growth["篇均阅读"], " 次"), "需 performance_log 回填"),
+        ("篇均阅读", _fmt(growth["篇均阅读"], " 次"),
+         "已接入" if growth["篇均阅读"] is not None else "需 performance_log 回填"),
         ("整体点击率", _fmt(growth["整体点击率"], "%"),
          "已接入" if growth["整体点击率"] is not None else "需回填 impressions（展现量）"),
-        ("平均完成率", _fmt(growth["平均完成率"], "%"), "需完读率回填"),
+        ("平均完成率", _fmt(growth["平均完成率"], "%"),
+         "已接入" if growth["平均完成率"] is not None else "需完读率回填"),
         ("粉丝阅读占比", _fmt(growth["粉丝阅读占比"], "%"),
          "已接入" if growth["粉丝阅读占比"] is not None else "需回填 follower_reads（粉丝阅读量）"),
         ("溯源覆盖率", _fmt(supply["溯源覆盖率"], "%"), "sources_used/source_post"),
