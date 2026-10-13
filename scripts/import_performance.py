@@ -223,16 +223,34 @@ def render_toutiao_report(res: dict, src: Path, *, dry_run: bool) -> str:
     return "\n".join(L)
 
 
+def ingest_toutiao(path: Path | str, *, dry_run: bool = False, sync: bool = True) -> dict:
+    """头条导出直通入库的**可复用入口**（供 scripts/ingest_exports.py 批量消费）。
+
+    与 run_toutiao 的区别：不打印、不写报告、可 dry_run，只返回结构化结果，便于
+    定时任务串成一条链路（R11 2026-10-13 建议7：绩效回填自动化）。
+
+    返回 {"ok": bool, "res": adapt_rows 结果, "report": 报告, "stats": import_rows 统计|None}
+    """
+    rows = tti.read_table(Path(path))
+    id_index = tti.build_id_index(pl.OUTPUT_DIR)
+    res = tti.adapt_rows(rows, output_dir=pl.OUTPUT_DIR, id_index=id_index)
+    rep = res["report"]
+    stats = None
+    if rep.get("ok") and res["records"]:
+        stats = import_rows(res["records"], dry_run=dry_run, sync=sync)
+    return {"ok": bool(rep.get("ok")) and not (stats or {}).get("errors"),
+            "res": res, "report": rep, "stats": stats}
+
+
 def run_toutiao(path: Path, args) -> int:
     try:
-        rows = tti.read_table(path)
+        out = ingest_toutiao(path, dry_run=bool(args.dry_run or args.map),
+                             sync=not args.no_sync)
     except Exception as e:
         print(f"❌ 解析失败：{type(e).__name__}: {e}")
         return 2
 
-    id_index = tti.build_id_index(pl.OUTPUT_DIR)
-    res = tti.adapt_rows(rows, output_dir=pl.OUTPUT_DIR, id_index=id_index)
-    rep = res["report"]
+    res, rep = out["res"], out["report"]
 
     if rep.get("ok"):
         print(f"表头：第 {rep['header_row'] + 1} 行（1-based）")
@@ -269,12 +287,12 @@ def run_toutiao(path: Path, args) -> int:
         print("（--map / --dry-run：未写库）")
         return 0 if rep.get("ok") else 1
 
-    records = res["records"]
-    if not records:
+    if not res["records"]:
         print("没有可回填的行（未匹配的行不会被写入）")
         return 0 if rep.get("ok") else 1
 
-    stats = import_rows(records, dry_run=False, sync=not args.no_sync)
+    stats = out["stats"] or {"imported": 0, "errors": [], "dates": []}
+
     print(f"✅ 回填 {stats['imported']} 行，涉及 {len(stats['dates'])} 天")
     for e in stats["errors"]:
         print(f"   ⚠️ {e}")

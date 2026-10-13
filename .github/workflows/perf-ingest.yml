@@ -1,0 +1,76 @@
+name: 绩效回填自动化（导出投递箱）
+
+# R11 内容诊断 2026-10-13「建议7」：把「导出 xlsx → 手动导入」串成定时任务，
+# 否则数据永远滞后一周、效果闭环永远慢一拍（实测近 10 月 100 篇只 60 篇有绩效）。
+#
+# 工作方式：把头条后台导出的文件投递到 data/inbox/（本机 push 或 GitHub 网页上传），
+# 本任务每天自动识别类型并入库：
+#   作品数据导出 → output/performance_log.json + 回写各日 metadata.json
+#   粉丝分析导出 → data/growth/fans_daily.json（转粉通道）
+# 随后跑滞后监控，把「滞后天数 / 回填覆盖率」写进 data/audit/。
+#
+# 纪律：识别不出类型的文件**留在 inbox** 并告警，不猜、不导入。
+
+on:
+  schedule:
+    - cron: '10 1 * * *'   # 每天 09:10 CST（低于绩效 T+1 更新节奏，够用）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: perf-ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python3 -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: 消费投递箱（自动识别作品数据 / 粉丝分析）
+        run: |
+          python3 scripts/ingest_exports.py --json > /tmp/ingest.json || \
+            echo "::warning::投递箱有未知/失败文件（留在 data/inbox，需人工确认），详见 /tmp/ingest.json"
+          cat /tmp/ingest.json
+
+      - name: 回填滞后监控
+        run: |
+          python3 scripts/check_perf_lag.py || \
+            echo "::warning::数据回填滞后超阈值（绩效 >3 天 / 转粉 >7 天 / 覆盖率 <50%），详见 data/audit/perf_lag_latest.json"
+
+      - name: 提交回填结果
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/growth data/inbox data/processed data/ingest_state.json data/audit || true
+          git add -f output/performance_log.json || true
+          git add -A output || true
+          if git diff --cached --quiet; then
+            echo "📝 无变化，跳过提交"
+          else
+            git commit -m "chore(perf-ingest): 导出自动入库与滞后监控 $(TZ=Asia/Shanghai date +%F)"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ 已推送"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          fi

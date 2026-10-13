@@ -101,6 +101,11 @@ jobs:
           python3 scripts/verify_growth_loop.py --quiet \
             || echo "::warning::转粉/互动引导闭环验收未通过（转粉通道 / 缺列不冒充 0 / 看板口径 / 生成侧打回与兜底注入），详见 data/audit/growth_loop_latest.json"
 
+      - name: 绩效回填自动化（R11 建议7）
+        run: |
+          python3 scripts/verify_perf_ingest.py --quiet \
+            || echo "::warning::绩效回填自动化验收未通过（投递箱识别 / 幂等归档 / 失败不吞 / 滞后监控 / CI 接线），详见 data/audit/perf_ingest_latest.json"
+
       - name: RedFox 热点数据试点（用户 2026-10-13 授权 · 只读试点）
         run: |
           python3 scripts/verify_redfox_pilot.py --quiet \

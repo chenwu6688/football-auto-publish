@@ -146,6 +146,9 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 📈 **转粉数据通道**：头条「图文数据」导出**不含涨粉列**，故另开一条 `growth_import.py` 通道，
   承接头条后台「粉丝分析」导出（日期 + 粉丝总数/涨粉数），按相邻已登记日差分得日涨粉；
   缺失一律留 `None`（待接入）、**绝不用 0 冒充**。接入说明见 [`docs/转粉与互动数据接入.md`](docs/转粉与互动数据接入.md)。
+- 🔁 **回填自动化**：把后台导出丢进 `data/inbox/` 即自动入库（类型自动识别 + sha256 幂等 +
+  归档 `data/processed/`），CI 每天跑一次并做滞后监控（绩效 >3 天 / 转粉 >7 天 / 覆盖率 <50% 告警），
+  见 `.github/workflows/perf-ingest.yml` + `scripts/ingest_exports.py` + `scripts/check_perf_lag.py`。
 - 🏷️ **垂直栏目锚点**：按内容类型补齐栏目 / 风格 / 互动字段，强化算法垂直识别，消除元数据空字段。
 - 📊 **非阻断监控**：标题钩子分布、内容类型分布、信息增量、共鸣角度覆盖、系列连载分布均做运行期告警（不阻拦发布），便于 dashboard 闭环复盘。
 
