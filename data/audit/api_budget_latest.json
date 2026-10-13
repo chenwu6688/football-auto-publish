@@ -1,11 +1,16 @@
 {
-  "generated_at": "2026-10-12 14:16",
+  "generated_at": "2026-10-13 08:01",
   "ok": true,
   "checks": [
     {
       "item": "台账无超限日（近 7 天）",
       "ok": true,
       "rows": [
+        {
+          "date": "2026-10-13",
+          "used": 1,
+          "cap": 3
+        },
         {
           "date": "2026-10-12",
           "used": 0,
@@ -35,16 +40,11 @@
           "date": "2026-10-07",
           "used": 0,
           "cap": 3
-        },
-        {
-          "date": "2026-10-06",
-          "used": 0,
-          "cap": 3
         }
       ],
       "over": [],
       "detail": [
-        "近 7 天共 0 次调用，每日上限 3 次",
+        "近 7 天共 1 次调用，每日上限 3 次",
         "无超限日 ✅",
         "（无记录日计为 0 次，属「未运行」而非超限）"
       ]
@@ -74,7 +74,7 @@
     {
       "item": "各源最近调用 ≤7 天",
       "advisory": true,
-      "ok": true,
+      "ok": false,
       "rows": [
         {
           "source": "api-football",
@@ -83,8 +83,8 @@
         },
         {
           "source": "football-data",
-          "last_call": null,
-          "age_days": null
+          "last_call": "2026-10-13",
+          "age_days": 0
         },
         {
           "source": "juhe",
@@ -92,9 +92,12 @@
           "age_days": null
         }
       ],
-      "stale": [],
+      "stale": [
+        "api-football",
+        "juhe"
+      ],
       "detail": [
-        "台账近 14 天无记录（尚未运行或已裁剪），本项不判定"
+        "超期源：['api-football', 'juhe']（轮换周期 4 天，应 ≤7 天）"
       ]
     }
   ],
