@@ -1,6 +1,7 @@
 """配比调参四道防呆（计划 8.1 / 11.5）单元测试。
 
 覆盖：样本阈值冻结、死区、单次幅度上限、冷静期、探索配额托底、数据回收 join。
+调参轴 = 选题类型（R11 内容诊断，2026-10-13 起由「四板块」改为「选题类型」）。
 """
 import sys
 import os
@@ -21,75 +22,79 @@ TODAY = datetime(2026, 10, 10)
 def base_cfg():
     return {
         "生效日期": "2026-09-01",
-        "板块配比": {"转会动态": 25, "人物故事": 25, "中国足球": 20, "战术榜单": 30},
+        "选题类型配比": {"转会官宣": 20, "冲突舆情": 20, "中国足球": 20,
+                     "战报比分": 20, "未分类": 20},
         "调整纪律": {"滚动窗口天数": 14, "最小样本": 30, "单次调整上限": 10,
                      "冷静期天数": 14, "死区阈值": 0.20, "探索配额": [0.10, 0.15]},
         "history": [],
     }
 
 
-def obs_for(section, n, reads, day="2026-10-08"):
-    return [{"date": day, "index": i, "section": section, "reads": reads, "retention": 0.3}
+def obs_for(category, n, reads, day="2026-10-08"):
+    return [{"date": day, "index": i, "category": category, "reads": reads, "retention": 0.3}
             for i in range(n)]
 
 
 class TestDiscipline(unittest.TestCase):
     def test_frozen_when_sample_small(self):
         obs = []
-        for sec in rt.PLAN_SECTIONS:
+        for sec in rt.PLAN_CATEGORIES:
             obs += obs_for(sec, 5, 100)
         sug = rt.compute_suggestion(base_cfg(), obs, TODAY)
         self.assertFalse(sug["是否自动执行"])
-        self.assertEqual(set(sug["冻结板块"]), set(rt.PLAN_SECTIONS))
-        self.assertEqual(sug["建议配比"], base_cfg()["板块配比"])
+        self.assertEqual(set(sug["冻结类型"]), set(rt.PLAN_CATEGORIES))
+        self.assertEqual(sug["建议配比"], base_cfg()["选题类型配比"])
 
     def test_dead_zone_no_change(self):
         obs = []
-        for sec in rt.PLAN_SECTIONS:
-            obs += obs_for(sec, 40, 100)   # 各板块篇均一致 → 差异 0
+        for sec in rt.PLAN_CATEGORIES:
+            obs += obs_for(sec, 40, 100)   # 各类型篇均一致 → 差异 0
         sug = rt.compute_suggestion(base_cfg(), obs, TODAY)
         self.assertFalse(sug["是否自动执行"])
-        self.assertEqual(sug["建议配比"], base_cfg()["板块配比"])
+        self.assertEqual(sug["建议配比"], base_cfg()["选题类型配比"])
 
     def test_step_capped_at_10(self):
-        obs = []
-        # 转会动态远高于其他板块
-        obs += obs_for("转会动态", 40, 1000)
-        obs += obs_for("人物故事", 40, 100)
-        obs += obs_for("中国足球", 40, 100)
-        obs += obs_for("战术榜单", 40, 100)
+        cats = rt.PLAN_CATEGORIES
+        obs = obs_for(cats[0], 40, 1000)   # 转会官宣远高于其他类型
+        for sec in cats[1:]:
+            obs += obs_for(sec, 40, 100)
         sug = rt.compute_suggestion(base_cfg(), obs, TODAY)
         self.assertTrue(sug["是否自动执行"])
-        # 25% + 10 = 35%
-        self.assertEqual(sug["建议配比"]["转会动态"], 35)
+        # 20% + 10 = 30%（单次上限 10 个百分点）
+        self.assertEqual(sug["建议配比"][cats[0]], 30)
         self.assertEqual(sum(sug["建议配比"].values()), 100)
 
-    def test_cooldown_skips_section(self):
+    def test_cooldown_skips_category(self):
         cfg = base_cfg()
-        cfg["history"] = [{"生效日期": "2026-10-05",   # 5 天内调整过转会动态
-                           "变更前配比": {"转会动态": 25, "人物故事": 25, "中国足球": 20, "战术榜单": 30},
-                           "变更后配比": {"转会动态": 30, "人物故事": 25, "中国足球": 20, "战术榜单": 25},
+        cats = rt.PLAN_CATEGORIES
+        sec, other = cats[0], cats[1]
+        cur = dict(cfg["选题类型配比"])
+        after = dict(cur)
+        after[sec] = cur[sec] + 5
+        after[other] = cur[other] - 5
+        cfg["history"] = [{"生效日期": "2026-10-05",   # 5 天内调整过该类型
+                           "变更前配比": cur, "变更后配比": after,
                            "变更原因": "测试"}]
-        cfg["板块配比"] = {"转会动态": 30, "人物故事": 25, "中国足球": 20, "战术榜单": 25}
-        obs = []
-        obs += obs_for("转会动态", 40, 1000)
-        obs += obs_for("人物故事", 40, 100)
-        obs += obs_for("中国足球", 40, 100)
-        obs += obs_for("战术榜单", 40, 100)
+        cfg["选题类型配比"] = after
+        obs = obs_for(sec, 40, 1000)
+        for s in cats[1:]:
+            obs += obs_for(s, 40, 100)
         sug = rt.compute_suggestion(cfg, obs, TODAY)
-        self.assertIn("冷静期", sug["板块指标"]["转会动态"]["决策"])
-        self.assertEqual(sug["建议配比"]["转会动态"], 30)   # 未被调整
+        self.assertIn("冷静期", sug["类别指标"][sec]["决策"])
+        self.assertEqual(sug["建议配比"][sec], after[sec])   # 未被调整
 
     def test_explore_quota_floor(self):
         cfg = base_cfg()
-        cfg["板块配比"] = {"转会动态": 10, "人物故事": 40, "中国足球": 20, "战术榜单": 30}
-        obs = []
-        obs += obs_for("转会动态", 40, 100)     # 最差 → 想继续下调
-        obs += obs_for("人物故事", 40, 1000)
-        obs += obs_for("中国足球", 40, 200)
-        obs += obs_for("战术榜单", 40, 200)
+        cats = rt.PLAN_CATEGORIES
+        worst = cats[0]
+        cfg["选题类型配比"] = {worst: 10, cats[1]: 40, cats[2]: 20, cats[3]: 20, cats[4]: 10}
+        obs = obs_for(worst, 40, 100)     # 最差 → 想继续下调
+        obs += obs_for(cats[1], 40, 1000)
+        obs += obs_for(cats[2], 40, 200)
+        obs += obs_for(cats[3], 40, 200)
+        obs += obs_for(cats[4], 40, 200)
         sug = rt.compute_suggestion(cfg, obs, TODAY)
-        self.assertGreaterEqual(sug["建议配比"]["转会动态"], 10)   # 被 10% 托底
+        self.assertGreaterEqual(sug["建议配比"][worst], 10)   # 被 10% 托底
         self.assertEqual(sum(sug["建议配比"].values()), 100)
 
 
@@ -111,7 +116,7 @@ class TestCollectObservations(unittest.TestCase):
         finally:
             rt.OUTPUT_DIR = old
         self.assertEqual(len(obs), 1)
-        self.assertEqual(obs[0]["section"], "转会动态")   # 转会资讯 → 转会动态
+        self.assertEqual(obs[0]["category"], "转会官宣")   # 转会资讯 → 转会类
         self.assertEqual(obs[0]["reads"], 5000)
 
 
@@ -138,7 +143,7 @@ class TestMetadataFallback(unittest.TestCase):
             rt.OUTPUT_DIR = old
         self.assertEqual(len(obs), 1)
         self.assertEqual(obs[0]["reads"], 1200)
-        self.assertEqual(obs[0]["section"], "转会动态")
+        self.assertEqual(obs[0]["category"], "转会官宣")
 
     def test_ledger_wins_and_no_double_count(self):
         tmp = self._mk([{"index": 1, "slug": "a-1", "content_type": "转会资讯",
@@ -169,11 +174,15 @@ class TestMetadataFallback(unittest.TestCase):
         self.assertEqual(obs, [], "缺 reads 的记录不算一条观测（不冒充 0）")
 
 
-class TestSectionMap(unittest.TestCase):
+class TestCategoryMap(unittest.TestCase):
     def test_mapping(self):
-        self.assertEqual(rt.resolve_section("转会资讯", None), "转会动态")
-        self.assertEqual(rt.resolve_section("排行榜", "数据盘点"), "战术榜单")
-        self.assertEqual(rt.resolve_section("未知类型", None), "其他")
+        self.assertEqual(rt.resolve_category(content_type="转会资讯"), "转会官宣")
+        self.assertEqual(rt.resolve_category(topic_category="战报比分"), "战报比分")
+        self.assertEqual(rt.resolve_category(title="皇马官宣签下姆巴佩"), "转会官宣")
+        self.assertEqual(rt.resolve_category(title="国安3-1大胜海港"), "战报比分")
+        self.assertEqual(rt.resolve_category(title="随便一条没有特征的标题"), "未分类")
+        # topic_category 缺失且现场判定失败时，栏目兜底仍归转会类
+        self.assertEqual(rt.resolve_category(column_name="转会雷达"), "转会官宣")
 
 
 if __name__ == "__main__":

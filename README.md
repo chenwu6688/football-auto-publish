@@ -62,7 +62,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 ## 功能特性 / Features
 
 - ✅ **每日三班自动生成**：晨读（08:00）、午间（12:00）、晚间（18:00 CST）。
-- ✅ **动态条数（不再固定 2 篇）**：每批按当日高质量话题数动态生成，晨读/午间上限 4 篇、晚间上限 5 篇；素材少则少发，素材多则多发。
+- ✅ **动态条数（在配额内浮动）**：每批常态 **2 篇**（日 6 篇，计划 12.1 区间 6-8）；周四或 S 级事件可显式加发到手册上限（晨/午 3、晚间 2），加发须留痕且周内 ≤ 2 次。素材少则少发（配额是上限，不是指标）。
 - ✅ **动态栏目池**：晚间从候选栏目中按当日热点智能挑选，内容不僵化。
 - ✅ **多模型轮换 + 免费额度管理**：LLM 调用在 TokenHub 多模型池（hy3 / DeepSeek v4 / GLM-5 / Kimi / Hunyuan / MiniMax 等 20+ 模型）中按序轮换，单模型空响应/解析失败自动切下一个；每个模型免费额度用满前自动切换，避免产生实际费用（用量见 `data/llm_usage.json`）。
 - ✅ **赛季感知选题**：新赛季（8/9 月「新赛季进行期」）多维覆盖赛程赛况、转会动态、球员八卦、比赛分析，避免单一维度堆砌。
@@ -120,7 +120,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 📚 **内容参照层验收**：`scripts/verify_content_reference.py` —— 排除项规则自检 / 参照层配置完整性 / `ranker` 与生成提示接入（硬项）+ 历史产物零命中排除项（告警项）。
 - 🚦 **发布闸门验收（计划 7.2 / 7.3）**：`scripts/verify_publish_gate.py` —— 成稿标题零硬违规 / **队名判定别名感知**（同义写法放行、真缺队名与卡外球队拦截）/ 一致性拦截率可统计 / 连续 14 天无旧闻新发（硬项）+ 标题合规率、溯源覆盖率、误杀率、**打回可追溯**（告警项，无标注标「待接入」绝不冒充 0）。台账由 `freshness_ledger.py`（时效闸门）与 `consistency_stats.py`（一致性校验，打回事件带选题标题）落 `data/`。
 - ✨ **差异化方向验收**：`scripts/verify_differentiation.py` —— 六方向结构齐备 + 代码 hook 落地（硬项）。
-- 🎛️ **调参纪律与四道防呆验收（计划 8.1 / 11.5）**：`scripts/verify_tuning_discipline.py` —— 六项纪律数值落在计划区间 / 四道防呆代码执行点齐备 / 用 `ratio_tuner.compute_suggestion` 实跑冒烟（样本冻结、死区、幅度≤10 + 探索配额托底、冷静期）（硬项）。
+- 🎛️ **调参纪律与四道防呆验收（计划 8.1 / 11.5）**：`scripts/verify_tuning_discipline.py` —— 六项纪律数值落在计划区间 / 四道防呆代码执行点齐备 / 用 `ratio_tuner.compute_suggestion` 实跑冒烟（样本冻结、死区、幅度≤10 + 探索配额托底、冷静期）（硬项）。**调参轴 = 选题类型**（R11 内容诊断：板块维度无区分度、选题类型有；`ratio_tuner.resolve_category` 优先读 metadata `topic_category`，缺失时现场 classify 补齐，栏目映射兜底）；`config/ratio_config.yaml` 的 **板块配比** 保留仅供赛程池构成校验（`verify_fixture_pool`），不再作为调参目标。
 - 🧱 **事实层与量表验收（计划 6.1 / 6.2 / 12.2 / 12.4）**：`scripts/verify_fact_layer.py` —— 事实卡八字段 / 可信度三级阈值 / 生命周期三态边界（进行中·已收官·已过期）/ 择优五维量表齐备（硬项）。
 - 🗂️ **数据源与信源清单验收（计划 13.2 / 13.4）**：`scripts/verify_source_roster.py` —— 四源分工齐备 / 原始信源清单 11 项齐备 / 信源只作信号（硬项）+ 不接入商业数据商、无授权媒体边界（告警项）。
 - 📈 **验收指标与合规熔断验收（计划第十章）**：`scripts/verify_acceptance_metrics.py` —— 不实违规即熔断且可解除 / 疑似系统性失真达阈值自动熔断 / 六项指标口径与计划一致 / 未接入一律「待接入」绝不用 0 冒充（硬项，用隔离状态文件不污染真实熔断开关）。
@@ -291,7 +291,7 @@ football-auto-publish/
 ├── config/config.yaml       # LLM、数据源、输出配置
 ├── config/season_calendar.yaml  # 赛季节点日历（一级确定性供给）
 ├── config/entity_map.json   # 中文实体映射（球队/球员，人工译名 + 认知度分级）
-├── config/ratio_config.yaml # 板块配比与调参纪律
+├── config/ratio_config.yaml # 选题类型配比（调参轴）+ 板块配比（赛程池校验）+ 调参纪律
 ├── config/api_budget.yaml   # 外部接口每日额度（单源 + 全局 3 次/日，可覆盖）
 ├── config/content_reference.yaml # 内容参照层（参照项 / 排除项 / 五家媒体）
 ├── config/differentiation.yaml   # 六个差异化方向（13.5）

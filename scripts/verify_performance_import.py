@@ -414,10 +414,11 @@ def check_ratio_tuner_fallback() -> dict:
         obs = rt.collect_observations(14)
     finally:
         rt.OUTPUT_DIR = old
-    ok = len(obs) == 1 and obs[0]["reads"] == 1234 and obs[0]["section"] == "转会动态"
+    ok = (len(obs) == 1 and obs[0]["reads"] == 1234
+          and obs[0]["category"] == "转会官宣")     # 调参轴=选题类型（R11）
     return {"item": "绩效源回落（无台账时从 metadata 取数）", "ok": ok, "advisory": False,
-            "detail": [f"无台账时取到 {len(obs)} 条观测（期望 1 条、reads=1234）"
-                       + (" ✅" if ok else " ❌")]}
+            "detail": [f"无台账时取到 {len(obs)} 条观测（期望 1 条、reads=1234、"
+                       f"选题类型=转会官宣）" + (" ✅" if ok else " ❌")]}
 
 
 # ------------------------------------------------------------

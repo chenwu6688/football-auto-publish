@@ -36,12 +36,12 @@ import ratio_tuner as rt  # noqa: E402
 AUDIT_DIR = PROJECT_ROOT / "data" / "audit"
 CST = timezone(timedelta(hours=8))
 
-# 计划 8.1 / 11.5 规定的纪律区间（key: (期望值或区间, 说明)）
+# 计划 8.1 / 11.5 规定的纪律区间（key: (期望值或区间, 说明)）；调参轴=选题类型（R11）
 EXPECT = {
     "滚动窗口天数": (14, "计划 8.1：滚动窗口 14 天"),
-    "最小样本": (30, "计划 8.1/11.5：单板块样本 ≥30 篇"),
+    "最小样本": (30, "计划 8.1/11.5：单类型样本 ≥30 篇"),
     "单次调整上限": (10, "计划 8.1/11.5：单次变动 ≤10 个百分点"),
-    "冷静期天数": (14, "计划 8.1/11.5：同一板块 2 周内不重复调整"),
+    "冷静期天数": (14, "计划 8.1/11.5：同一类型 2 周内不重复调整"),
     "死区阈值": (0.20, "计划 11.5：差异不足 20% 不调整"),
     "探索配额": ((0.10, 0.15), "计划 11.5：固定保留 10%-15% 发布位"),
 }
@@ -91,53 +91,59 @@ def check_exec() -> dict:
 # ------------------------------------------------------------
 # C. 四道防呆冒烟（实跑 compute_suggestion）
 # ------------------------------------------------------------
-def _cfg(sections=("转会动态", "人物故事", "中国足球", "战术榜单"), ratio=25):
-    return {"板块配比": {s: ratio for s in sections},
+def _cfg():
+    """五类选题类型近似等权（合计 100）。"""
+    cats = rt.PLAN_CATEGORIES
+    base = 100 // len(cats)
+    d = {c: base for c in cats}
+    d[cats[0]] += 100 - base * len(cats)     # 取整误差补到第一类
+    return {"选题类型配比": d,
             "调整纪律": {"滚动窗口天数": 14, "最小样本": 30, "单次调整上限": 10,
                          "冷静期天数": 14, "死区阈值": 0.20, "探索配额": [0.10, 0.15]}}
 
 
-def _obs(section, n, reads):
-    return [{"date": "2026-10-12", "index": i, "section": section,
+def _obs(category, n, reads):
+    return [{"date": "2026-10-12", "index": i, "category": category,
              "reads": reads, "retention": 0.4} for i in range(n)]
 
 
 def _smoke_freeze() -> dict:
     """样本不足 → 冻结并交人工，绝不自动执行。"""
     cfg = _cfg()
-    obs = _obs("转会动态", 5, 100)  # 其余板块无样本
+    obs = _obs(rt.PLAN_CATEGORIES[0], 5, 100)  # 其余类型无样本
     sug = rt.compute_suggestion(cfg, obs)
-    ok = (sug["是否自动执行"] is False and len(sug["冻结板块"]) == 4
-          and sug["建议配比"] == cfg["板块配比"])
+    ok = (sug["是否自动执行"] is False
+          and len(sug["冻结类型"]) == len(rt.PLAN_CATEGORIES)
+          and sug["建议配比"] == cfg["选题类型配比"])
     return {"case": "样本不足冻结", "ok": ok,
-            "detail": f"自动执行={sug['是否自动执行']}，冻结 {len(sug['冻结板块'])} 板块，配比不变={sug['建议配比'] == cfg['板块配比']}"}
+            "detail": f"自动执行={sug['是否自动执行']}，冻结 {len(sug['冻结类型'])} 类型，配比不变={sug['建议配比'] == cfg['选题类型配比']}"}
 
 
 def _smoke_deadzone() -> dict:
-    """板块差异不足死区（20%）→ 不做任何调整。"""
+    """类型差异不足死区（20%）→ 不做任何调整。"""
     cfg = _cfg()
     obs = []
-    for s, r in (("转会动态", 100), ("人物故事", 105), ("中国足球", 98), ("战术榜单", 102)):
+    for s, r in zip(rt.PLAN_CATEGORIES, (100, 105, 98, 102, 101)):
         obs += _obs(s, 30, r)  # 差异均 < 20%
     sug = rt.compute_suggestion(cfg, obs)
-    ok = (sug["是否自动执行"] is False and sug["建议配比"] == cfg["板块配比"]
-          and all("死区" in sug["板块指标"][s]["决策"] for s in rt.PLAN_SECTIONS))
+    ok = (sug["是否自动执行"] is False and sug["建议配比"] == cfg["选题类型配比"]
+          and all("死区" in sug["类别指标"][s]["决策"] for s in rt.PLAN_CATEGORIES))
     return {"case": "死区不调整", "ok": ok,
-            "detail": f"配比不变={sug['建议配比'] == cfg['板块配比']}，决策={[sug['板块指标'][s]['决策'] for s in rt.PLAN_SECTIONS][:2]}"}
+            "detail": f"配比不变={sug['建议配比'] == cfg['选题类型配比']}，决策={[sug['类别指标'][s]['决策'] for s in rt.PLAN_CATEGORIES][:2]}"}
 
 
 def _smoke_amplitude() -> dict:
-    """存在显著差异 → 变动幅度 ≤10 且各板块不低于探索配额下限，合计仍为 100。"""
+    """存在显著差异 → 变动幅度 ≤10 且各类型不低于探索配额下限，合计仍为 100。"""
     cfg = _cfg()
     obs = []
-    for s, r in (("转会动态", 1000), ("人物故事", 100), ("中国足球", 100), ("战术榜单", 100)):
+    for s, r in zip(rt.PLAN_CATEGORIES, (1000, 100, 100, 100, 100)):
         obs += _obs(s, 30, r)
     sug = rt.compute_suggestion(cfg, obs)
-    prop, cur = sug["建议配比"], cfg["板块配比"]
-    changes = {s: prop[s] - cur[s] for s in rt.PLAN_SECTIONS}
+    prop, cur = sug["建议配比"], cfg["选题类型配比"]
+    changes = {s: prop[s] - cur[s] for s in rt.PLAN_CATEGORIES}
     floor = int(round(0.10 * 100))
     ok = (all(abs(v) <= 10 for v in changes.values())
-          and all(prop[s] >= floor for s in rt.PLAN_SECTIONS)
+          and all(prop[s] >= floor for s in rt.PLAN_CATEGORIES)
           and sum(prop.values()) == 100
           and max(changes.values()) > 0)
     return {"case": "幅度上限 + 探索配额托底", "ok": ok,
@@ -145,22 +151,24 @@ def _smoke_amplitude() -> dict:
 
 
 def _smoke_cooldown() -> dict:
-    """同一板块冷静期内（<14 天）不重复调整。"""
+    """同一类型冷静期内（<14 天）不重复调整。"""
     cfg = _cfg()
-    sec = "转会动态"
+    cats = rt.PLAN_CATEGORIES
+    sec, other = cats[0], cats[1]
     recent = (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d")
-    cur = dict(cfg["板块配比"])
+    cur = dict(cfg["选题类型配比"])
     after = dict(cur)
     after[sec] = cur[sec] + 5
-    after["人物故事"] = cur["人物故事"] - 5
+    after[other] = cur[other] - 5
     cfg["history"] = [{"生效日期": recent, "变更前配比": cur, "变更后配比": after}]
     obs = []
-    for s, r in ((sec, 1000), ("人物故事", 100), ("中国足球", 100), ("战术榜单", 100)):
+    for s, r in zip(cats, (1000, 100, 100, 100, 100)):
         obs += _obs(s, 30, r)
     sug = rt.compute_suggestion(cfg, obs)
-    ok = ("冷静期" in sug["板块指标"][sec]["决策"] and sug["建议配比"][sec] == cfg["板块配比"][sec])
+    ok = ("冷静期" in sug["类别指标"][sec]["决策"]
+          and sug["建议配比"][sec] == cfg["选题类型配比"][sec])
     return {"case": "冷静期内不重复调整", "ok": ok,
-            "detail": f"{sec} 决策={sug['板块指标'][sec]['决策']}，权重不变={sug['建议配比'][sec] == cfg['板块配比'][sec]}"}
+            "detail": f"{sec} 决策={sug['类别指标'][sec]['决策']}，权重不变={sug['建议配比'][sec] == cfg['选题类型配比'][sec]}"}
 
 
 def check_four_guards() -> dict:
@@ -175,8 +183,8 @@ def check_four_guards() -> dict:
 def check_layered_metrics() -> dict:
     """D. 分层指标口径（告警项）。"""
     plan_layers = {"短期/日": "评分器只做及格线，不参与策略调整",
-                   "中期/周": "板块篇均阅读与点击率（调板块配比）",
-                   "长期/月": "粉丝阅读占比与互动率（决定板块增减）"}
+                   "中期/周": "选题类型篇均阅读与点击率（调选题类型配比）",
+                   "长期/月": "粉丝阅读占比与互动率（决定类型增减）"}
     # 代码侧证据：ratio_tuner 使用滚动窗口 + 剔除极值（_trimmed_mean），对齐 8.2 幂律纪律
     src = Path(rt.__file__).read_text(encoding="utf-8")
     trim_ok = "_trimmed_mean" in src

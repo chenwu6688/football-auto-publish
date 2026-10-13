@@ -4,11 +4,15 @@
 把「策略手册」从静态文档变为可版本化配置：回收阅读数据 → 按纪律产出配比建议 →
 满足样本条件时自动升版，否则冻结并产建议交人工确认。
 
+调参轴（R11 内容诊断，2026-10-13 起）：**选题类型**（转会官宣/冲突舆情/中国足球/
+战报比分/未分类）。原「四板块」轴在 R11 回测中无区分度，已在错的轴上停止调参
+（板块配比保留供赛程池构成校验 verify_fixture_pool，非调参目标）。
+
 四道防呆（计划 11.5）：
-  1. 样本阈值：单板块滚动 14 天样本 ≥30 篇才全自动，否则冻结产建议
-  2. 探索配额：任何板块不低于 10%（保留 10%-15% 给当期非最优板块，防反馈回路）
-  3. 死区：板块篇均阅读相对基准差异不足 20% 不调整
-  4. 幅度与冷静期：单次变动 ≤10 个百分点；同一板块 2 周内不重复调整
+  1. 样本阈值：单类型滚动 14 天样本 ≥30 篇才全自动，否则冻结产建议
+  2. 探索配额：任何类型不低于 10%（保留 10%-15% 给当期非最优类型，防反馈回路）
+  3. 死区：类型篇均阅读相对基准差异不足 20% 不调整
+  4. 幅度与冷静期：单次变动 ≤10 个百分点；同一类型 2 周内不重复调整
 
 用法：
   python3 scripts/ratio_tuner.py            # 回收数据 + 产出建议（满足条件则自动升版）
@@ -29,22 +33,50 @@ CONFIG_PATH = PROJECT_ROOT / "config" / "ratio_config.yaml"
 # 建议落档到 data/（随仓库持久化，便于人工查看与留档；output/ 属运行产物不入库）
 SUGGESTION_PATH = PROJECT_ROOT / "data" / "ratio_suggestion.json"
 
-# content_type / column_name → 计划四板块（保守映射，未命中归「其他」，不参与调参）
-_SECTION_MAP = {
-    "转会动态": "转会动态", "转会资讯": "转会动态", "转会密探": "转会动态", "转会雷达": "转会动态",
-    "人物故事": "人物故事", "八卦趣事": "人物故事",
+# 调参轴（R11 内容诊断，2026-10-13 起）：由「四板块」改为「选题类型」。
+#   R11 回测显示板块维度**无区分度**（四板块篇均阅读差异不显著），而选题类型有区分度
+#   （转会官宣 CTR 2.08% / 冲突舆情 1.55% / 中国足球 1.36% / 战报比分 0.49% 且 0 爆款）。
+#   **在错的轴上自动调参，越准越错**——故调参目标改用选题类型。
+#   板块配比仍保留在 config/ratio_config.yaml，供赛程池构成校验
+#   （scripts/verify_fixture_pool.py），不再作为调参目标。
+#   分类口径见 config/topic_category.yaml / topic_category.py（形态优先于主题，
+#   判定不了即「未分类」，不猜）。
+PLAN_CATEGORIES = ["转会官宣", "冲突舆情", "中国足球", "战报比分", "未分类"]
+CATEGORY_FALLBACK = "未分类"
+
+# 栏目 → 选题类型（仅当 topic_category 字段缺失且现场判定失败时的最后兜底）
+_COLUMN_FALLBACK = {
+    "转会动态": "转会官宣", "转会资讯": "转会官宣", "转会密探": "转会官宣", "转会雷达": "转会官宣",
     "中国足球": "中国足球", "中超": "中国足球",
-    "战术榜单": "战术榜单", "战术解析": "战术榜单", "排行榜": "战术榜单", "数据盘点": "战术榜单",
 }
-PLAN_SECTIONS = ["转会动态", "人物故事", "中国足球", "战术榜单"]
 
 
-def resolve_section(content_type, column_name):
-    """把文章的 content_type / 栏目名映射到计划四板块。"""
+def resolve_category(title=None, topic_category=None, content_type=None, column_name=None):
+    """把一篇文章映射到**选题类型**（调参轴，R11）。
+
+    优先级：
+      1) metadata 已落盘的 topic_category（新批次起，由 orchestrator 写入）；
+      2) 现场用 topic_category.classify 判定（历史 metadata 无该字段，现场判定可补齐，
+         避免整段历史数据落「未分类」而让调参失去样本）；
+      3) 栏目兜底映射（转会类栏目 → 转会官宣）；
+      4) 仍不可判 → 未分类（不猜）。
+    """
+    if topic_category and topic_category in PLAN_CATEGORIES:
+        return topic_category
+    try:
+        import topic_category as tc
+        # content_type 缺失时用栏目名顶上：classify 只认 content_type 字段，
+        # 而「转会雷达」这类栏目名经关键词路径同样能判成转会类，避免全落未分类。
+        cat = tc.classify({"title": title or "",
+                           "content_type": content_type or column_name or ""})
+        if cat in PLAN_CATEGORIES:
+            return cat
+    except Exception:
+        pass
     for k in (content_type, column_name):
-        if k and k in _SECTION_MAP:
-            return _SECTION_MAP[k]
-    return "其他"
+        if k and k in _COLUMN_FALLBACK:
+            return _COLUMN_FALLBACK[k]
+    return CATEGORY_FALLBACK
 
 
 def load_config(path=None):
@@ -69,17 +101,19 @@ def _trimmed_mean(values):
     return sum(v) / len(v)
 
 
-def _section_from_meta(meta, idx=None, slug=None):
+def _category_from_meta(meta, idx=None, slug=None):
     for a in (meta.get("articles") or []):
-        if slug is not None and a.get("slug") == slug:
-            return resolve_section(a.get("content_type"), a.get("column_name"))
-        if slug is None and a.get("index") == idx:
-            return resolve_section(a.get("content_type"), a.get("column_name"))
-    return "其他"
+        hit = ((slug is not None and a.get("slug") == slug)
+               or (slug is None and a.get("index") == idx))
+        if hit:
+            return resolve_category(
+                title=a.get("title"), topic_category=a.get("topic_category"),
+                content_type=a.get("content_type"), column_name=a.get("column_name"))
+    return CATEGORY_FALLBACK
 
 
 def collect_observations(window_days=14, today=None):
-    """回收阅读数据：join 绩效源（reads）× metadata.json（板块）。
+    """回收阅读数据：join 绩效源（reads）× metadata.json（选题类型）。
 
     绩效源按优先级：
       1) ``output/performance_log.json``——真导入台账（含最新回流）；
@@ -107,15 +141,15 @@ def collect_observations(window_days=14, today=None):
             continue
         idx = rec.get("index")
         slug = rec.get("slug")
-        section = "其他"
+        category = CATEGORY_FALLBACK
         meta_path = OUTPUT_DIR / date_str / "metadata.json"
         if meta_path.exists():
             try:
                 meta = json.loads(meta_path.read_text(encoding="utf-8"))
-                section = _section_from_meta(meta, idx=idx, slug=slug)
+                category = _category_from_meta(meta, idx=idx, slug=slug)
             except Exception:
                 pass
-        obs.append({"date": date_str, "index": idx, "section": section,
+        obs.append({"date": date_str, "index": idx, "category": category,
                     "reads": rec.get("reads", 0),
                     "retention": rec.get("retention_rate", 0)})
         seen.add((date_str, slug if slug else idx))
@@ -143,7 +177,10 @@ def collect_observations(window_days=14, today=None):
                 if key in seen:
                     continue
                 obs.append({"date": date_str, "index": a.get("index"),
-                            "section": resolve_section(a.get("content_type"), a.get("column_name")),
+                            "category": resolve_category(
+                                title=a.get("title"), topic_category=a.get("topic_category"),
+                                content_type=a.get("content_type"),
+                                column_name=a.get("column_name")),
                             "reads": p.get("reads") or 0,
                             "retention": p.get("retention_rate") or 0})
                 seen.add(key)
@@ -151,15 +188,17 @@ def collect_observations(window_days=14, today=None):
 
 
 def last_adjust_dates(cfg, today=None):
-    """每个板块最近一次「权重发生变化」的日期，用于冷静期判定。
+    """每个选题类型最近一次「权重发生变化」的日期，用于冷静期判定。
 
     兼容两种 history 形态：
       1) 含「变更前配比 / 变更后配比」（apply_suggestion 写入）——直接比对；
-      2) 仅含「板块配比」（变更前状态）——与下一条状态或当前配比比对。
+      2) 仅含「选题类型配比」（变更前状态）——与下一条状态或当前配比比对。
+    与本调参轴无关的历史条目（如只改篇数、或旧「板块配比」轴）一律跳过，
+    避免遗留条目把所有类型误标成「刚调整过」而集体进冷静期。
     由新到旧遍历，先命中者即最近一次。
     """
     hist = cfg.get("history", []) or []
-    cur = cfg.get("板块配比", {}) or {}
+    cur = cfg.get("选题类型配比", {}) or {}
     last = {}
     n = len(hist)
     for i in range(n - 1, -1, -1):
@@ -167,8 +206,10 @@ def last_adjust_dates(cfg, today=None):
         before = entry.get("变更前配比")
         after = entry.get("变更后配比")
         if before is None or after is None:
-            before = entry.get("板块配比") or {}
-            after = (hist[i + 1].get("板块配比") if i + 1 < n else cur) or {}
+            if "选题类型配比" not in entry:
+                continue          # 非本调参轴的历史条目，跳过
+            before = entry.get("选题类型配比") or {}
+            after = (hist[i + 1].get("选题类型配比") if i + 1 < n else cur) or {}
         for sec, w in after.items():
             if before.get(sec) != w and sec not in last:
                 last[sec] = entry.get("生效日期")
@@ -176,9 +217,9 @@ def last_adjust_dates(cfg, today=None):
 
 
 def _rebalance(cur, intents, fixed, max_step, floor):
-    """零和再分配：每板块实际变动 ≤ max_step、合计 100、且不低于 floor。
+    """零和再分配：每类型实际变动 ≤ max_step、合计 100、且不低于 floor。
 
-    fixed（样本冻结 / 冷静期）板块保持原权重不动；其余板块按意向做零和调整，
+    fixed（样本冻结 / 冷静期）类型保持原权重不动；其余类型按意向做零和调整，
     再逐个 1 个百分点修正取整误差，且不得突破 ±max_step 与 floor 边界。
     """
     sections = list(cur.keys())
@@ -216,10 +257,10 @@ def compute_suggestion(cfg, obs, today=None):
     dead_zone = discipline.get("死区阈值", 0.20)
     explore_lo, explore_hi = (discipline.get("探索配额") or [0.10, 0.15])[:2]
 
-    cur = cfg.get("板块配比", {})
-    by_sec = {}
+    cur = cfg.get("选题类型配比", {})
+    by_cat = {}
     for o in obs:
-        by_sec.setdefault(o["section"], []).append(o)
+        by_cat.setdefault(o["category"], []).append(o)
 
     baseline = _trimmed_mean([o["reads"] for o in obs])
     last_adj = last_adjust_dates(cfg, today)
@@ -227,8 +268,8 @@ def compute_suggestion(cfg, obs, today=None):
     metrics, intents = {}, {}
     sample_frozen, cooldown_fixed = set(), set()
     floor = int(round(explore_lo * 100))
-    for sec in PLAN_SECTIONS:
-        recs = by_sec.get(sec, [])
+    for sec in PLAN_CATEGORIES:
+        recs = by_cat.get(sec, [])
         n = len(recs)
         mean = _trimmed_mean([r["reads"] for r in recs])
         diff = (mean - baseline) / baseline if baseline else 0.0
@@ -260,7 +301,7 @@ def compute_suggestion(cfg, obs, today=None):
 
     # 用实际变动刷新决策文案 + 探索配额托底识别
     floored = []
-    for sec in PLAN_SECTIONS:
+    for sec in PLAN_CATEGORIES:
         actual = proposed[sec] - cur.get(sec, 0)
         if actual:
             metrics[sec]["决策"] = f"实调 {actual:+d} 个百分点（差异 {metrics[sec]['差异']:+.1%}）"
@@ -269,13 +310,13 @@ def compute_suggestion(cfg, obs, today=None):
             floored.append(sec)
 
     auto = (len(sample_frozen) == 0) and any(
-        proposed[s] != cur.get(s, 0) for s in PLAN_SECTIONS)
+        proposed[s] != cur.get(s, 0) for s in PLAN_CATEGORIES)
     reasons = []
-    for sec in PLAN_SECTIONS:
+    for sec in PLAN_CATEGORIES:
         if proposed[sec] != cur.get(sec, 0):
             reasons.append(f"{sec} {cur.get(sec,0)}%→{proposed[sec]}%（{metrics[sec]['决策']}）")
     if sample_frozen:
-        reasons.append("冻结板块：" + "、".join(sorted(sample_frozen)))
+        reasons.append("冻结类型：" + "、".join(sorted(sample_frozen)))
     if floored:
         reasons.append("探索配额托底：" + "、".join(floored) + f"（≥{floor}%）")
 
@@ -286,26 +327,26 @@ def compute_suggestion(cfg, obs, today=None):
         "基准篇均阅读": round(baseline, 1),
         "当前配比": cur,
         "建议配比": proposed,
-        "板块指标": metrics,
+        "类别指标": metrics,
         "是否自动执行": bool(auto),
-        "冻结板块": sorted(sample_frozen),
+        "冻结类型": sorted(sample_frozen),
         "探索配额": [explore_lo, explore_hi],
         "变更原因": "；".join(reasons) or "无满足条件的调整（全部落在死区或冷静期）",
     }
 
 
 def apply_suggestion(cfg, suggestion, today=None):
-    """把建议写入配置：更新 板块配比 / 生效日期 / 变更原因，并追加 history。"""
+    """把建议写入配置：更新 选题类型配比 / 生效日期 / 变更原因，并追加 history。"""
     today = today or datetime.now()
     hist = cfg.setdefault("history", [])
     hist.append({
         "生效日期": today.strftime("%Y-%m-%d"),
-        "变更前配比": dict(cfg.get("板块配比", {})),
+        "变更前配比": dict(cfg.get("选题类型配比", {})),
         "变更后配比": dict(suggestion["建议配比"]),
         "变更原因": suggestion["变更原因"],
-        "触发指标": {s: m for s, m in suggestion["板块指标"].items()},
+        "触发指标": {s: m for s, m in suggestion["类别指标"].items()},
     })
-    cfg["板块配比"] = suggestion["建议配比"]
+    cfg["选题类型配比"] = suggestion["建议配比"]
     cfg["生效日期"] = today.strftime("%Y-%m-%d")
     cfg["变更原因"] = suggestion["变更原因"]
     return cfg
