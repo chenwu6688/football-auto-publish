@@ -28,6 +28,7 @@ import degrade
 import supply_mix
 import rumor_wording
 import title_antipattern
+import title_positive
 import topic_category
 import content_reference
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
@@ -2558,9 +2559,8 @@ def warn_if_low_info_increment(article):
 # P1-4 / P1-6 非阻断监控：标题钩子分布 / 内容类型再平衡
 # ============================================================
 _TITLE_Q_RE = re.compile(r"[?？]|(吗|呢|凭什么|凭啥|为啥|为什么|怎么|究竟|到底)[\s，。！!]")
-_TITLE_CONFLICT_KW = ["却", "反而", "逆袭", "惨败", "绝杀", "爆冷", "反转", "下课", "翻盘",
-                      "打脸", "暴跌", "血洗", "横扫", "复仇", "意外", "离谱", "掀翻",
-                      "不过", "然而", "反超", "绝平", "苦涩", "尴尬", "打回原形", "崩盘"]
+# 注意：本文件唯一的 _TITLE_CONFLICT_KW 定义在「计划合规层」(score_title_plan 使用的 29 词版)，
+# 此处为早期 P1-4 监控遗留的 25 词副本，运行期已被下方同名下定义遮蔽，删除为行为无副作用。
 _TITLE_NUM_RE = re.compile(r"\d+")
 
 
@@ -2800,7 +2800,9 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     """计划合规·标题评分器（及格线 60）。
 
     维度（计划 5.1/3.3/462）：字数、疑问钩子、具体对阵/球队/人物、冲突反差动作、
-    板块对齐、自指惩罚。返回 (score:int 0-100, passed:bool, reasons:list[str])。
+    板块对齐、自指惩罚、R11 标题正向规则（悬念词 +87% / 21-30 字最优 / 赛事名词垫底 /
+    情绪词 -15%，见 title_positive.evaluate，只加分减分不阻塞）。返回
+    (score:int 0-100, passed:bool, reasons:list[str])。
     reasons 用于在打回时回灌给 LLM 作为 retry_hint。
 
     传闻硬校验（计划 4.1：严重标题党扣 30 分 →「传闻类标题禁用肯定语气」）：
@@ -2880,6 +2882,14 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
             reasons.append(f"与板块[{content_type}]关键词不匹配")
     else:
         score += 8  # 通用板块（热点球评/紧急球评/八卦）给基础分
+
+    # R11 数据结论：标题正向规则（悬念词 +87% / 21-30 字最优 / 赛事名词垫底 / 情绪词 -15%）
+    # 放在「板块对齐」之后、「自指惩罚/模板前缀」之前：模板前缀规则后续会把 score 归零，
+    # 故本块绝不能把已被模板前缀归零的标题「复活」成通过分。
+    _tp = title_positive.evaluate(title, known_teams=_KNOWN_TEAMS, has_specific=has_specific)
+    if not _tp["degraded"]:
+        score += _tp["bonus"]
+        reasons.extend(_tp["reasons"])
 
     # 自指惩罚
     if any(w in title for w in ("老六", "小编", "我们")):
@@ -3413,6 +3423,18 @@ def score_fixture_title(topic, title, batch_mode="auto"):
     else:
         reasons.append("未含对阵队名")
     score += 15; reasons.append("板块保底")
+
+    # R11 数据结论：标题正向规则（确定性供给同口径；主客队名已知即视为「具体」）
+    _tp = title_positive.evaluate(
+        t,
+        known_teams={x for x in (topic.get("home_zh", ""), topic.get("away_zh", "")) if x},
+        has_specific=bool(topic.get("home_zh", "") and topic.get("home_zh", "") in t)
+                     or bool(topic.get("away_zh", "") and topic.get("away_zh", "") in t),
+    )
+    if not _tp["degraded"]:
+        score += _tp["bonus"]
+        reasons.extend(_tp["reasons"])
+
     return min(100, score), reasons
 
 

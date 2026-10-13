@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-10-13 12:48",
+  "ok": true,
+  "checks": [
+    {
+      "item": "配置结构（config/title_positive.yaml）",
+      "ok": true,
+      "advisory": false,
+      "version": "2026-10-13",
+      "detail": [
+        "配置 v2026-10-13 字段齐备；赛事名词 5 个（不含联赛名）✅",
+        "加分 {'悬念': 12, '最优带': 10}；减分 {'赛事名词': 12, '情绪词': 8} ✅"
+      ]
+    },
+    {
+      "item": "规则冒烟（selftest 全通过）",
+      "ok": true,
+      "advisory": false,
+      "total": 15,
+      "detail": [
+        "15 项冒烟全部通过 ✅"
+      ]
+    },
+    {
+      "item": "回归样例（加分/减分方向）",
+      "ok": true,
+      "advisory": false,
+      "total": 8,
+      "detail": [
+        "8 组标题对方向校验全部通过 ✅"
+      ]
+    },
+    {
+      "item": "生成侧接入（score_title_plan / score_fixture_title）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "排序不变量成立：人名>赛事名词、悬念>中性、模板前缀仍0、赛程悬念加分生效 ✅"
+      ]
+    },
+    {
+      "item": "提示词一致性（21-30 字 / 不再 15-25）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "topic_selector.txt 与 rewrite_article.txt 均已对齐 21-30 字口径 ✅"
+      ]
+    },
+    {
+      "item": "近 14 天成稿 R11 命中分布（告警，仅可观测）",
+      "ok": true,
+      "advisory": true,
+      "total": 153,
+      "event_noun": 5,
+      "emotion": 6,
+      "suspense": 0,
+      "detail": [
+        "近 14 天成稿 153 条：赛事名词命中 5 / 情绪词 6 / 悬念词 0（仅可观测）"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": []
+}

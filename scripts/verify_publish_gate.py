@@ -58,16 +58,20 @@ def _recent_articles(days=WINDOW_DAYS):
 
 
 def _score_titles(articles):
-    """用项目自身评分器复算，返回 (total, passed, zero_violations, fails, antipattern)。
+    """用项目自身评分器复算，返回 (total, passed, zero_violations, fails, antipattern, r11)。
 
     zero_violations 只统计「传闻当官宣 / 禁用模板前缀」这类原有硬违规；
     赛果播报式（title_antipattern，2026-10-12 新增）单独归入 antipattern，
     避免新规则把历史存量的 A1 硬项拖红——新规则的验收在
     scripts/verify_title_antipattern.py 独立完成。
+
+    r11（2026-10-13 新增）：标题正向规则（title_positive）的减分可能把历史存量标题
+    也压到 0 分；这类 0 分带有「R11数据:」前缀理由，须单独归入 r11 桶——
+    既非原有硬违规（zero），也非赛果播报式（anti），避免误拖 A1 红。
     """
     import orchestrator
     total = passed = 0
-    zero, fails, anti = [], [], []
+    zero, fails, anti, r11 = [], [], [], []
     for data, a in articles:
         title = (a.get("title") or "").strip()
         if not title:
@@ -80,12 +84,14 @@ def _score_titles(articles):
             row = {"date": data.get("date"), "title": title, "reasons": reasons[:2]}
             if any("开场" in r for r in reasons):
                 anti.append(row)
+            elif any(r.startswith("R11数据") for r in reasons):
+                r11.append(row)
             else:
                 zero.append(row)
         else:
             fails.append({"date": data.get("date"), "title": title, "score": sc,
                           "reasons": reasons[:2]})
-    return total, passed, zero, fails, anti
+    return total, passed, zero, fails, anti, r11
 
 
 def check_title_hard() -> dict:
@@ -93,7 +99,8 @@ def check_title_hard() -> dict:
     （0 分即传闻当官宣 / 禁用模板前缀等硬违规）。
 
     口径说明：赛果播报式（title_antipattern）属 2026-10-12 新增规则，
-    其存量产出单列为 A4 告警项，不计入本硬项，避免历史存量把 A1 拖红。
+    其存量产出单列为 A4 告警项，不计入本硬项；标题正向规则的减分（R11）若把历史
+    存量压到 0 分，单独归 r11 桶，同样不计入本硬项——避免历史存量把 A1 拖红。
     """
     try:
         import orchestrator  # noqa: F401
@@ -104,11 +111,13 @@ def check_title_hard() -> dict:
     if not arts:
         return {"item": "成稿标题零硬违规（近14天）", "ok": True, "skipped": True,
                 "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    total, _passed, zero, _fails, _anti = _score_titles(arts)
+    total, _passed, zero, _fails, _anti, _r11 = _score_titles(arts)
     return {"item": "成稿标题零硬违规（近14天）", "ok": not zero, "skipped": False,
-            "total": total, "violations": zero[:10],
+            "total": total, "violations": zero[:10], "r11": len(_r11),
             "detail": [f"近 14 天成稿标题 {total} 条，硬违规（0 分）{len(zero)} 条",
-                       ("零硬违规 ✅" if not zero else f"❌ 硬违规：{zero[:3]}")]}
+                       ("零硬违规 ✅" if not zero else f"❌ 硬违规：{zero[:3]}"),
+                       (f"（另有 R11 正向规则减分压到 0 分的存量 {len(_r11)} 条，"
+                        f"已单列 r11 桶不计入硬项）" if _r11 else "")]}
 
 
 def check_title_pass_rate() -> dict:
@@ -126,7 +135,7 @@ def check_title_pass_rate() -> dict:
     if not arts:
         return {"item": "标题格式合规通过率≥90%（近14天）", "ok": True, "advisory": True,
                 "skipped": True, "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    total, passed, _zero, fails, _anti = _score_titles(arts)
+    total, passed, _zero, fails, _anti, _r11 = _score_titles(arts)
     rate = passed / total if total else 0.0
     return {"item": "标题格式合规通过率≥90%（近14天）", "ok": True, "advisory": True,
             "skipped": False, "total": total, "passed": passed, "rate": round(rate, 4),
