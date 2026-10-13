@@ -63,15 +63,32 @@ SUPPLEMENTS = (
 FIXTURE_DIR = PROJECT_ROOT / "data" / "fixtures"
 ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
 
-# 冲突点分型 → (认知度组合, 建议栏目, 角度模板)。
+# 冲突点分型 → (认知度组合, 建议栏目, 角度模板, 人视角叙事要求)。
 # 刻意不含「前瞻」类 —— 前瞻已停发（欧冠 78 篇仅 852 阅读）。
 # 模板占位符：{home} {away} {lower} {higher}
+#
+# R11 数据结论落地（2026-10-13，建议3「换角度不换内容」）：
+#   同一条赛程线索，「写人」比「写事」高 3-10 倍点击；赛事名词/纯对阵式垫底。
+#   故角度一律从**人的处境**（主帅/核心球员/更衣室）切入，并**内嵌悬念词**
+#   （没想到/原来/竟然/居然/反转，回测 +87%），不再做「A队 vs B队」纯战术罗列。
+#   → 产量与选题不变，只换叙事角度（本节改动不改赛程线索本身）。
+#   模板禁用词：前瞻/预览/展望/预测首发/赛前预测（计划 7.1：前瞻体占比为零）。
 ANGLE_RULES = [
-    ("AA", "强强对话", "战术榜单", "{home}与{away}正面对撞，胜负手在细节而非实力差"),
-    ("AB", "强弱反差", "人物故事", "{lower}的针对性打法，是{higher}这场最大的变数"),
-    ("AC", "冷门窗口", "战术榜单", "{higher}的账面优势，掩盖了{lower}的哪些变量"),
-    ("BB", "中游缠斗", "战术榜单", "{home}与{away}的较量，牵动的是排名与赛季走向"),
-    ("BC", "关注度落差", "数据对照", "同一轮次里的两种境遇：{higher}与{lower}"),
+    ("AA", "强强对话", "战术榜单",
+     "{home}对{away}，原来两位主帅才是最大变数",
+     "以两位主帅的处境与选择为切口（谁压力更大、谁敢先变阵），不做纯实力对比。"),
+    ("AB", "强弱反差", "人物故事",
+     "没想到{lower}主帅这场压力比{higher}还大",
+     "聚焦弱势一方主帅/核心球员的处境（他要证明什么、输不起的是什么），有人味、有细节。"),
+    ("AC", "冷门窗口", "战术榜单",
+     "{higher}账面更强，可{lower}主帅手里原来还有牌",
+     "写弱势一方主帅手里的**具体变量**（还有什么牌可打、要赌哪一环），不空喊冷门。"),
+    ("BB", "中游缠斗", "战术榜单",
+     "{home}与{away}缠斗，原来名次之争压在两位核心身上",
+     "把中游排名压力落到两名关键球员身上（谁的状态决定谁先掉队），少讲积分多讲人。"),
+    ("BC", "关注度落差", "数据对照",
+     "同一轮，{higher}被盯着，{lower}主帅原来更想赢",
+     "对照两队在聚光灯下与无人问津下的不同处境，用数据落差讲人，不作纯数据罗列。"),
 ]
 
 
@@ -279,7 +296,7 @@ def build_topic_pool(matches: list[dict], emap: dict,
         if rule is None:
             dropped_lowaware.append({"match_id": m.get("id"), "pair": f"{home['name_zh']} vs {away['name_zh']}", "code": code})
             continue
-        _, angle_type, column, template = rule
+        _, angle_type, column, template, narrative = rule
         # 认知度较低的一方 = lower（A<B<C 认知度递减，取字母序较大的）
         lower = home if home["awareness"] > away["awareness"] else away
         higher = away if lower is home else home
@@ -317,6 +334,8 @@ def build_topic_pool(matches: list[dict], emap: dict,
             "awareness_pair": f"{home['awareness']}/{away['awareness']}",
             "angle_type": angle_type,
             "conflict": conflict,
+            # 人视角叙事要求（R11「写人 > 写事」）：供生成侧提示词据此把角度落在人的处境上
+            "angle_hint": narrative,
             "suggested_column": column,
             # 计划 6.2 固定四板块：转会动态／人物故事／中国足球／战术榜单。
             # 赛程类选题映射：中超→中国足球；人物角度(suggested_column=人物故事)→人物故事；其余战术/数据角度→战术榜单。

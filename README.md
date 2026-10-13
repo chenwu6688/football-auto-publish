@@ -81,7 +81,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 > 实时抓取只能覆盖突发层，窗口期内事件密度不足即会断供。供给拆成三层互为缓冲，日更 6-8 篇稳定不断供。
 
-- 🗓️ **一级·确定性（~30%，提前量产入库）**：赛程驱动由 `scripts/fixture_library.py` 生成选题池；转会窗截止日 / 赛季节点 / 开赛倒计时由 `config/season_calendar.yaml` + `deterministic_supply.py` 维护，`scripts/pregen_deterministic.py` 提前 7 天量产入库，发布日直接取用。**与主稿共用单批配额**（先于主稿生成并占槽位，`orchestrator.DETERMINISTIC_DAILY_BUDGET` 限每日 2 篇保 ~30% 配比；改造前追加在末尾不占配额，实际日更冲到 10.5 篇，已按 P0 修法 A 收口）。
+- 🗓️ **一级·确定性（~30%，提前量产入库）**：赛程驱动由 `scripts/fixture_library.py` 生成选题池；转会窗截止日 / 赛季节点 / 开赛倒计时由 `config/season_calendar.yaml` + `deterministic_supply.py` 维护，`scripts/pregen_deterministic.py` 提前 7 天量产入库，发布日直接取用。**与主稿共用单批配额**（先于主稿生成并占槽位，`orchestrator.DETERMINISTIC_DAILY_BUDGET` 限每日 2 篇保 ~30% 配比；改造前追加在末尾不占配额，实际日更冲到 10.5 篇，已按 P0 修法 A 收口）。**叙事角度 =「人 + 悬念」（R11 内容诊断）**：同一条赛程线索「写人」比「写事」高 3-10 倍点击、悬念词 +87% —— 故 `ANGLE_RULES` 角度模板、`pregen_deterministic` 与生成侧提示词一律要求从**主帅/核心球员的处境**切入并内嵌悬念词，**不写成「A队 vs B队 前瞻/纯对阵」**（产量与选题不变，只换角度；前瞻体仍为零，见 `verify_fixture_pool`）。
 - ⚡ **二级·突发（~50%，当日实时装配）**：source 源文 → 物理隔离抽取 → 事实卡 → 改写（见下）。
 - 🧊 **三级·软性（~20%，蓄水池补位）**：人物故事 / 榜单 / 数据对比 / 历史回顾无时效压力，`reservoir.py` 库存 + `scripts/refill_reservoir.py` 备货，突发日补位、密集日顺延。
 - 📏 **供给占比落实与验收（计划 12.1）**：`supply_mix.py` 给每篇成稿打三级分层标签（`_supply_layer`），`scripts/verify_supply_mix.py` 校验三层齐备与配比偏差（目标 30/50/20，容差 ±15pt）并产出逐日构成报告。
@@ -112,7 +112,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 📈 **效果闭环（R11 内容诊断）**：单篇 `click_rate` 三通道可得——头条导出列直读（`toutiao_import.normalize_rate`）、`performance_logger` 由 `reads/impressions` 自动派生、看板按**选题类型**与**标题特征**分组统计效果；选题类型由 `orchestrator` 落盘到批次 metadata（`topic_category`）。把「选题决定生死、点击率是生死线」从结论变为**可验证数据**（此前 `click_rate` 全缺失、选题类型不落盘，策略对不对无法用数据验证）。验收：`scripts/verify_effect_loop.py`。
 - ⬆️ **增长指标回填（头条后台直通）**：`scripts/import_performance.py` —— `--from-toutiao` 直接吃头条后台「数据 → 作品数据 → 导出 Excel」的下载文件：无依赖解析 `.xlsx/.csv/.tsv/.json`，中文列名自动映射（**最长匹配**，防止「粉丝阅读量」被「阅读量」吃掉），**按标题**对齐 `output/<日期>/metadata.json` 得到唯一键 `slug`（导出里没有我们的日期/序号，且 `index` 是批内序号、同一天会重复，**不可作键**）；未匹配 / 跨天同名歧义的行**一律不写库**，只进 `data/audit/import_performance_<日期>.md`。仍兼容规范 `date,index[,slug]` 的 CSV/JSON 通道与 `--template`。点击率 = 阅读/展现，粉丝阅读占比 = 粉丝阅读/总阅读。
 - 🔍 **隔离常态化审计**：`scripts/audit_isolation.py` —— 模板隔离 / 生成路径静态隔离 / 同天成稿重复自查 / 溯源覆盖率。
-- ✅ **赛程池验收**：`scripts/verify_fixture_pool.py` —— 五类覆盖 / 单日候选 ≥6 / 前瞻体为 0（硬项）+ 板块配比偏差（告警项）。
+- ✅ **赛程池验收**：`scripts/verify_fixture_pool.py` —— 五类覆盖 / 单日候选 ≥6 / **角度模板为「人+悬念」且无前瞻标记**（硬项）+ 板块配比偏差、池内角度含人/悬念占比（告警项）。
 - 📏 **供给分层验收**：`scripts/verify_supply_mix.py` —— 分层合法性 / 无断供日（硬项）+ 三层配比偏差与未分层成稿（告警项）。
 - 🧾 **接口额度验收**：`scripts/verify_api_budget.py` —— 台账无超限日 / 14 天窗口落库（硬项）+ 业务侧不直连赛程接口 / 各源缓存新鲜度（告警项）。
 - 🈶 **认知度门槛验收**：`scripts/verify_awareness_gate.py` —— 16 条规则用例自检 / 映射表 awareness 与 confidence 合法性 / 供给物零违规（硬项）。

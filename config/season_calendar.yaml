@@ -12,6 +12,8 @@
 #   2. 每赛季更新一次；过期节点由 expire() 自动回收。
 #   3. lead_days：提前多少天进入可发布窗口（默认 7，对齐计划「提前 7 天预生成」）。
 #   4. template 里的 {days} 由程序替换为剩余天数；{label} 替换为 label。
+#   5. 角度口径（R11 内容诊断，2026-10-13）：模板一律从「人 + 悬念」切入——
+#      R11 回测「写人」比「写事」高 3-10 倍点击、悬念词 +87%。避免纯节点信息播报。
 
 season: "2026-27"
 
@@ -24,7 +26,7 @@ nodes:
     lead_days: 7
     column: 转会动态
     awareness: A
-    template: "冬窗关闭只剩{days}天，这些交易还没落地，谁最着急？"
+    template: "冬窗只剩{days}天，没想到最坐不住的是这些主帅"
 
   - id: summer_window_close_2027
     type: 转会窗截止日
@@ -33,7 +35,7 @@ nodes:
     lead_days: 7
     column: 转会动态
     awareness: A
-    template: "夏窗进入最后{days}天，往年这时候最容易出大交易"
+    template: "夏窗只剩{days}天，原来最坐不住的是这些主帅"
 
   # ── 赛季节点 ─────────────────────────────────────────────
   - id: winter_break_start_2026
@@ -43,7 +45,7 @@ nodes:
     lead_days: 5
     column: 战术榜单
     awareness: B
-    template: "冬歇期还有{days}天，半程格局已经说明了不少问题"
+    template: "冬歇期还有{days}天，几位主帅的位置原来已经不稳"
 
   - id: ucl_round16_draw_2026
     type: 赛季节点
@@ -52,7 +54,7 @@ nodes:
     lead_days: 5
     column: 战术榜单
     awareness: A
-    template: "欧冠淘汰赛抽签剩{days}天，这些签位组合最要命"
+    template: "欧冠淘汰赛抽签剩{days}天，谁最怕抽到那个对手？"
 
   - id: ucl_final_2027
     type: 赛季节点
@@ -61,7 +63,7 @@ nodes:
     lead_days: 7
     column: 战术榜单
     awareness: A
-    template: "欧冠决赛还有{days}天，决战地的一切都在为这一夜铺垫"
+    template: "欧冠决赛还有{days}天，原来最想赢的是这些老将"
 
   - id: season_end_2027
     type: 赛季节点
@@ -70,7 +72,7 @@ nodes:
     lead_days: 7
     column: 战术榜单
     awareness: B
-    template: "五大联赛收官只剩{days}天，这些悬念还没揭晓"
+    template: "五大联赛收官只剩{days}天，原来冠军悬念压在这些人身上"
 
   # ── 开赛倒计时 ───────────────────────────────────────────
   - id: season_open_2027

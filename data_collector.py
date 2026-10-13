@@ -1389,6 +1389,8 @@ def gather_fixture_facts(topic):
         "away_zh": topic.get("away_zh", ""),
         "conflict": topic.get("conflict", ""),
         "angle_type": topic.get("angle_type", ""),
+        # 人视角叙事要求（R11 写人 > 写事）：随选题透传给生成侧提示词
+        "angle_hint": topic.get("angle_hint", ""),
         "awareness_pair": topic.get("awareness_pair", ""),
         "standings": [],
         "scorers": [],

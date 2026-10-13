@@ -43,6 +43,12 @@ COVERAGE_GROUPS = {
 # 前瞻体判定：计划明确「候选选题中赛事前瞻体占比为零」（欧冠 78 篇仅 852 阅读的根因）
 PREVIEW_MARKERS = ("前瞻", "预览", "展望", "预测首发", "赛前预测", "看点前瞻")
 
+# R11 角度口径（2026-10-13，建议3「换角度不换内容」）：
+#   「写人」比「写事」高 3-10 倍点击、悬念词 +87% → 赛程角度模板必须是「人 + 悬念」，
+#   而不是「A队 vs B队」纯对阵分析。产量与选题不变，只换叙事角度。
+PERSON_WORDS = ("主帅", "教练", "核心", "球员", "更衣室", "老将", "队长", "门将", "前锋", "主帅")
+SUSPENSE_WORDS = ("没想到", "原来", "竟然", "居然", "反转")
+
 
 def _load_ratio_target() -> dict:
     try:
@@ -113,10 +119,55 @@ def check_no_preview(topics: list[dict]) -> dict:
             "detail": ([f"命中前瞻体 {len(hits)} 条：{hits[:3]}"] if hits else ["无前瞻体选题"])}
 
 
+def check_angle_rules() -> dict:
+    """硬项：角度模板必须是「人 + 悬念」（R11），且不得含前瞻标记。
+
+    直接读 `fixture_library.ANGLE_RULES` 这一代码常量——模板是赛程确定性供给
+    （日 2 篇 ≈ 33% 产量）的叙事角度源头，回退到「A队 vs B队」形态会静默拉低点击率。
+    """
+    try:
+        if str(PROJECT_ROOT / "scripts") not in sys.path:
+            sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        import fixture_library as fl
+    except Exception as e:                                    # pragma: no cover
+        return {"item": "赛程角度模板（人 + 悬念，R11）", "ok": False,
+                "detail": [f"❌ 无法导入 fixture_library：{e}"]}
+    bad = []
+    for rule in fl.ANGLE_RULES:
+        tmpl = rule[3] if len(rule) > 3 else ""
+        if any(m in tmpl for m in PREVIEW_MARKERS):
+            bad.append(f"{rule[1]}：模板含前瞻标记「{tmpl}」")
+        if not (any(w in tmpl for w in PERSON_WORDS)
+                or any(w in tmpl for w in SUSPENSE_WORDS)):
+            bad.append(f"{rule[1]}：模板既无人角色词也无悬念词「{tmpl}」")
+    return {"item": "赛程角度模板（人 + 悬念，R11）", "ok": not bad,
+            "n_rules": len(fl.ANGLE_RULES),
+            "detail": ([f"❌ {'；'.join(bad)}"] if bad else
+                       [f"{len(fl.ANGLE_RULES)} 条角度模板均为「人/悬念」角度、"
+                        "且无前瞻标记 ✅"])}
+
+
+def check_angle_person_suspense(topics: list[dict]) -> dict:
+    """告警项：池内选题的 conflict 文本含「人角色词 / 悬念词」的占比。"""
+    n = len(topics)
+    if not n:
+        return {"item": "选题角度含人/悬念占比", "advisory": True, "ok": True,
+                "detail": ["池内无选题"]}
+    hit = sum(1 for t in topics
+              if any(w in (t.get("conflict") or "") for w in PERSON_WORDS + SUSPENSE_WORDS))
+    ratio = hit / n
+    return {"item": "选题角度含人/悬念占比", "advisory": True, "ok": ratio >= 1.0,
+            "ratio": round(ratio, 3), "hit": hit, "total": n,
+            "detail": [f"含人角色词或悬念词的选题 {hit}/{n}（{ratio:.0%}）",
+                       "（告警项：不足 100% 通常是选题池仍由旧版 ANGLE_RULES 生成，"
+                       "重跑 scripts/fixture_library.py 刷新即可）"]}
+
+
 def verify(pool: dict, *, min_per_day: int = 6, ratio_tol: float = 5.0) -> dict:
     topics = pool.get("topics", []) or []
     checks = [check_coverage(topics), check_per_day(topics, min_per_day),
-              check_no_preview(topics), check_ratio(topics, ratio_tol)]
+              check_no_preview(topics), check_angle_rules(),
+              check_ratio(topics, ratio_tol), check_angle_person_suspense(topics)]
     hard = [c for c in checks if not c.get("advisory")]
     ok = all(c["ok"] for c in hard)
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),

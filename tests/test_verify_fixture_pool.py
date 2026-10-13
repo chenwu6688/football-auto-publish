@@ -92,5 +92,31 @@ class TestOverall(unittest.TestCase):
         self.assertIn("告警", md)
 
 
+class TestAngleRules(unittest.TestCase):
+    """R11 角度口径（建议3「换角度不换内容」）：赛程角度模板必须是「人 + 悬念」。"""
+
+    def test_angle_rules_are_person_or_suspense(self):
+        c = vfp.check_angle_rules()
+        self.assertTrue(c["ok"], c.get("detail"))
+        self.assertGreaterEqual(c["n_rules"], 5)
+
+    def test_angle_ratio_advisory_when_old_wording(self):
+        old = [_t("英超", "2026-10-12", "战术榜单",
+                  conflict="{lower}的针对性打法，是{higher}这场最大的变数")]
+        c = vfp.check_angle_person_suspense(old)
+        self.assertTrue(c["advisory"])          # 只告警，不阻断
+        self.assertFalse(c["ok"])
+        self.assertEqual(c["hit"], 0)
+
+    def test_angle_ratio_full_with_new_templates(self):
+        import fixture_library as fl
+        topics = [_t("英超", "2026-10-12", "战术榜单",
+                     conflict=r[3].format(home="A", away="B", lower="B", higher="A"))
+                  for r in fl.ANGLE_RULES]
+        c = vfp.check_angle_person_suspense(topics)
+        self.assertTrue(c["ok"])
+        self.assertEqual(c["ratio"], 1.0)
+
+
 if __name__ == "__main__":
     unittest.main()
