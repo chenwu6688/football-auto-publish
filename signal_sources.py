@@ -103,10 +103,19 @@ def merge_with_forwarded(signals: dict, forwarded: dict | None) -> dict:
 # 抓取（供预热任务调用，主流程不调用）
 # ------------------------------------------------------------
 def fetch_weibo_hot(timeout: int = 8) -> list[dict]:
-    """微博热搜榜：返回 [{"word":..., "num":..., "rank":...}]；失败返回 []。"""
+    """微博热搜榜：返回 [{"word":..., "num":..., "rank":...}]；失败返回 []。
+
+    ⚠️ 必须带 `Referer: https://weibo.com/`：该接口做了防盗链，只发 UA 会返回
+    **HTTP 403**（实测 403/21 字节），本函数会静默吞掉异常返回 []——表现为
+    「微博榜永远为空」而看不出原因。带上 Referer 后实测 200 / 52 条。
+    """
     url = "https://weibo.com/ajax/side/hotSearch"
     try:
-        r = requests.get(url, headers={"User-Agent": _UA}, timeout=timeout)
+        r = requests.get(url, headers={
+            "User-Agent": _UA,
+            "Referer": "https://weibo.com/",
+            "Accept": "application/json, text/plain, */*",
+        }, timeout=timeout)
         r.raise_for_status()
         data = r.json().get("data", {}) or {}
         items = data.get("realtime", []) or []
@@ -176,11 +185,44 @@ def fetch_baidu_hot(timeout: int = 8) -> list[dict]:
 
 
 def fetch_hot(timeout: int = 8) -> list[dict]:
-    """取得可用热搜榜：优先百度热搜，失败再退回微博热搜。"""
-    hot = fetch_baidu_hot(timeout=timeout)
-    if hot:
-        return hot
-    return fetch_weibo_hot(timeout=timeout)
+    """取得可用热搜榜的并集：百度优先排序，微博补充覆盖。
+
+    历史上本函数「优先百度、失败退回微博」，但百度榜几乎每次都能返回数据，
+    导致微博榜（公开接口 weibo.com/ajax/side/hotSearch）永远走不到、成了死代码；
+    实测 external_signals.json 中 72 个实体的「社媒讨论量」全为 0，正是因为微博榜
+    从未被查询（社媒讨论量只由热搜命中产生）。
+
+    现改为并集：先取百度榜全部条目，再追加微博榜中 word 未被前面出现过的条目。
+    去重仅按 word 精确相等（不做包含/模糊匹配，避免误删只被部分包含的词）；
+    合并后按最终顺序重排 rank 为 1..n（不再保留各自榜内原 rank）；
+    每条保留各自的 num 原值，不做归一化或换算。
+
+    两个榜都为空返回 []；百度空、微博有则直接返回微博列表（rank 已重排）。
+    微博接口异常时 fetch_weibo_hot 自身返回 []，此处一并被并集逻辑覆盖。
+
+    排序语义与下游 _social_from_hot 的「百度在前、首个命中即停（break）」天然契合：
+    仍是「百度优先、微博补充」，无需改动下游。
+    """
+    baidu = fetch_baidu_hot(timeout=timeout)
+    weibo = fetch_weibo_hot(timeout=timeout)
+    seen: set = set()
+    merged: list[dict] = []
+    for it in baidu:
+        word = it.get("word")
+        if word in seen:
+            continue
+        seen.add(word)
+        merged.append(it)
+    for it in weibo:
+        word = it.get("word")
+        if word in seen:
+            continue
+        seen.add(word)
+        merged.append(it)
+    # 按最终顺序重排 rank 为 1..n，并保留各自 num 原值
+    for i, it in enumerate(merged):
+        merged[i] = {**it, "rank": i + 1}
+    return merged
 
 
 def _social_from_hot(entities, hot: list[dict]) -> dict:

@@ -113,5 +113,120 @@ class TestRankerIntegration(unittest.TestCase):
         self.assertEqual(out[0]["_signals"]["同题报道条数"], 3)
 
 
+class TestFetchHotUnion(unittest.TestCase):
+    """fetch_hot 改为百度榜 + 微博榜并集（百度优先、微博补充覆盖）。
+
+    全部用 mock 打掉真实网络请求，绝不发真实请求、绝不写 data/ 下任何文件。
+    """
+
+    def test_union_baidu_first_dedup_by_word(self):
+        baidu = [
+            {"word": "曼城", "num": 100, "rank": 1},
+            {"word": "皇马", "num": 90, "rank": 2},
+        ]
+        weibo = [
+            {"word": "皇马", "num": 50, "rank": 1},    # 重合词（百度已有）
+            {"word": "梅西", "num": 80, "rank": 2},    # 微博独有
+        ]
+        with mock.patch.object(ss, "fetch_baidu_hot", return_value=baidu), \
+             mock.patch.object(ss, "fetch_weibo_hot", return_value=weibo):
+            out = ss.fetch_hot()
+
+        # 并集：百度词在前，重合词只出现一次
+        self.assertEqual([d["word"] for d in out], ["曼城", "皇马", "梅西"])
+        # 重合词「皇马」保留百度侧的 num 原值 90（微博侧为 50，未被覆盖/归一化）
+        self.assertEqual(out[1]["word"], "皇马")
+        self.assertEqual(out[1]["num"], 90)
+        # 微博独有的词必须出现在结果里（本次修复核心价值）
+        self.assertIn("梅西", [d["word"] for d in out])
+        # rank 连续 1..n
+        self.assertEqual([d["rank"] for d in out], [1, 2, 3])
+
+    def test_weibo_only_word_present(self):
+        baidu: list[dict] = []
+        weibo = [
+            {"word": "姆巴佩", "num": 70, "rank": 1},
+            {"word": "C罗", "num": 60, "rank": 2},
+        ]
+        with mock.patch.object(ss, "fetch_baidu_hot", return_value=baidu), \
+             mock.patch.object(ss, "fetch_weibo_hot", return_value=weibo):
+            out = ss.fetch_hot()
+
+        # 百度空、微博有 → 返回微博列表（rank 已重排）
+        self.assertEqual([d["word"] for d in out], ["姆巴佩", "C罗"])
+        self.assertEqual([d["rank"] for d in out], [1, 2])
+        self.assertEqual(out[0]["num"], 70)
+        self.assertIn("姆巴佩", [d["word"] for d in out])
+
+    def test_both_empty(self):
+        with mock.patch.object(ss, "fetch_baidu_hot", return_value=[]), \
+             mock.patch.object(ss, "fetch_weibo_hot", return_value=[]):
+            out = ss.fetch_hot()
+        self.assertEqual(out, [])
+
+    def test_weibo_exception_falls_to_empty(self):
+        # 微博接口异常时 fetch_weibo_hot 自身返回 []，并集只含百度
+        baidu = [{"word": "利物浦", "num": 40, "rank": 1}]
+        weibo: list[dict] = []
+        with mock.patch.object(ss, "fetch_baidu_hot", return_value=baidu), \
+             mock.patch.object(ss, "fetch_weibo_hot", return_value=weibo):
+            out = ss.fetch_hot()
+        self.assertEqual([d["word"] for d in out], ["利物浦"])
+        self.assertEqual(out[0]["rank"], 1)
+
+
+class _FakeResp:
+    """最小 requests.Response 替身：只提供本模块用到的接口。"""
+
+    def __init__(self, payload, status=200):
+        self._payload = payload
+        self.status_code = status
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise ss.requests.HTTPError(f"HTTP {self.status_code}")
+
+    def json(self):
+        return self._payload
+
+
+class TestWeiboHotRequest(unittest.TestCase):
+    """微博热搜接口的请求契约：必须带 Referer，否则被防盗链挡成 403。"""
+
+    # 真实响应形如 {"ok":1,"data":{"realtime":[{"word_scheme":"#…#","note":"…","num":…}]}}
+    # 注意：条目**没有** word 字段，纯词在 note 里。
+    PAYLOAD = {"ok": 1, "data": {"realtime": [
+        {"word_scheme": "#曼城绝杀利物浦#", "note": "曼城绝杀利物浦", "num": 1181819},
+        {"word_scheme": "#国足新名单#", "note": "国足新名单", "num": 851789},
+    ]}}
+
+    def test_sends_referer_header(self):
+        captured = {}
+
+        def _fake_get(url, headers=None, timeout=None):
+            captured["url"] = url
+            captured["headers"] = headers or {}
+            return _FakeResp(self.PAYLOAD)
+
+        with mock.patch.object(ss.requests, "get", _fake_get):
+            out = ss.fetch_weibo_hot()
+        self.assertEqual(captured["headers"].get("Referer"), "https://weibo.com/")
+        self.assertIn("User-Agent", captured["headers"])
+        self.assertEqual(len(out), 2)
+
+    def test_parses_note_when_word_absent(self):
+        with mock.patch.object(ss.requests, "get",
+                               lambda *a, **k: _FakeResp(self.PAYLOAD)):
+            out = ss.fetch_weibo_hot()
+        self.assertEqual([d["word"] for d in out], ["曼城绝杀利物浦", "国足新名单"])
+        self.assertEqual([d["rank"] for d in out], [1, 2])
+        self.assertEqual(out[0]["num"], 1181819)
+
+    def test_403_returns_empty(self):
+        with mock.patch.object(ss.requests, "get",
+                               lambda *a, **k: _FakeResp({}, status=403)):
+            self.assertEqual(ss.fetch_weibo_hot(), [])
+
+
 if __name__ == "__main__":
     unittest.main()
