@@ -89,10 +89,16 @@ def load_redfox(path: Path | None = None) -> dict:
 
 
 def merge_with_forwarded(signals: dict, forwarded: dict | None) -> dict:
-    """把预热信号并入，逐字段取较大值（与 source_watch.merge_with_forwarded 同语义）。"""
+    """把预热信号并入，逐字段取较大值。
+
+    只并入双方**真实存在**的字段：新实体不预置默认记录——「未命中」必须能被下游
+    `ranker.l2_enrich` 用 `k not in sig` 识别出来并标记 `_signal_missing`。
+    历史实现在此 `setdefault(_empty_record())`，等于用 0 冒充命中，会让 missing
+    判定整体失效（2026-10-13 修正；与「后台占位符 -1 ≠ 0」同一纪律）。
+    """
     out = {k: dict(v) for k, (v) in (signals or {}).items()}
     for k, v in (forwarded or {}).items():
-        rec = out.setdefault(k, _empty_record())
+        rec = out.setdefault(k, {})
         for f in FIELDS:
             if f in (v or {}):
                 rec[f] = max(rec.get(f, 0), (v or {}).get(f, 0))
