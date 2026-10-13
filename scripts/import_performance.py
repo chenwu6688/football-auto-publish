@@ -17,13 +17,15 @@
    新增：`--map` 只看列映射与匹配结果；`--unmatched-out` 导出未匹配明细。
 
 2) **规范 CSV / JSON（date,index 直填）** —— 已有通道，保持兼容
-   列：date,index,reads,comments,likes,shares,retention_rate,new_followers,impressions,follower_reads
+   列：date,index,reads,comments,likes,shares,retention_rate,new_followers,impressions,follower_reads,click_rate
      - date         YYYY-MM-DD
      - index        批内 1-based 序号（同一天可能重复，建议改填 slug）
      - slug         metadata.articles[].slug，同一天内唯一（**推荐**，与 index 二者其一）
      - retention_rate  完读率，0-1 小数或 0-100 百分数（>1 自动按百分数换算）
      - impressions  展现量（点击率 = reads/impressions）
      - follower_reads  粉丝阅读量（粉丝阅读占比 = follower_reads/reads）
+     - click_rate  单篇点击率，0-1 小数或 0-100 百分数（头条导出为「0.20%」串）；
+                   留空则由 performance_logger 用 reads/impressions 派生
 
 用法：
     python3 scripts/import_performance.py --template > perf.csv
@@ -54,7 +56,8 @@ REQUIRED = ("date",)
 INT_FIELDS = ("index", "reads", "comments", "likes", "shares", "new_followers",
               "impressions", "follower_reads")
 TEMPLATE_HEADER = ["date", "index", "slug", "reads", "comments", "likes", "shares",
-                   "retention_rate", "new_followers", "impressions", "follower_reads"]
+                   "retention_rate", "new_followers", "impressions", "follower_reads",
+                   "click_rate"]
 
 
 def _parse_date(s) -> str | None:
@@ -114,6 +117,10 @@ def validate_row(row: dict, lineno: int) -> tuple[dict | None, str | None]:
         if r > 1.0:
             return None, f"第 {lineno} 行：retention_rate 超出范围（{raw_ret}）"
         rec["retention_rate"] = round(r, 4)
+    # 点击率：头条导出为百分数串（如 "0.20%"），normalize_rate 换算成 0-1 小数；
+    # 缺失/负占位（-1）/无法解析 → None（不冒充 0）。未提供时由 performance_logger
+    # 用 reads/impressions 派生，故此处允许为 None。
+    rec["click_rate"] = tti.normalize_rate(row.get("click_rate"))
     return rec, None
 
 
@@ -143,6 +150,7 @@ def import_rows(rows: list[dict], *, dry_run: bool = False, sync: bool = True) -
                 likes=rec["likes"], shares=rec["shares"],
                 retention_rate=rec["retention_rate"], new_followers=rec["new_followers"],
                 impressions=rec["impressions"], follower_reads=rec["follower_reads"],
+                click_rate=rec.get("click_rate"),
                 slug=rec.get("slug"), platform_id=rec.get("platform_id"))
             dates.add(rec["date"])
         if sync:

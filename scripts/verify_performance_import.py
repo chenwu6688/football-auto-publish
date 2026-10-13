@@ -11,7 +11,8 @@
 
 硬项（不达标退出码 1）
   A. 主键唯一性——真实 metadata 里 slug 每天唯一（index 会重复，故不可作键）
-  B. 列名映射——中文列名与最长匹配、已知但忽略列（粉丝展现量/点击率）不被误映射
+  B. 列名映射——中文列名与最长匹配、已知但忽略列（粉丝展现量/平均阅读时长/收藏量）
+     不被误映射；「点击率」已升为 click_rate 正式字段
   C. 表头定位——表头不在首行也能探测
   D. 无依赖解析——.xlsx 用标准库解出（不依赖 openpyxl/pandas）
   E. 数值清洗——万/亿、千分位、百分号、占位符（--/—/无）
@@ -196,11 +197,13 @@ def check_header_mapping() -> dict:
         ("阅读完成率", "retention_rate"), ("完读率", "retention_rate"),
         ("点赞量", "likes"), ("评论量", "comments"), ("涨粉数", "new_followers"),
         ("分享量", "shares"),
+        # 「点击率」已从忽略列升为正式字段（效果闭环）：头条导出为百分数串，走 normalize_rate
+        ("点击率", "click_rate"), ("点击率(%)", "click_rate"), ("点击率（%）", "click_rate"),
     ]
     bad = [f"{h} → {tti.map_header(h)[0]}（期望 {f}）"
            for h, f in cases if tti.map_header(h)[0] != f]
     # 最长匹配：这些列必须被「已知但忽略」，绝不落到更短的别名上
-    shadow = ["粉丝展现量", "点击率", "平均阅读时长", "收藏量"]
+    shadow = ["粉丝展现量", "平均阅读时长", "收藏量"]
     for h in shadow:
         f, ignored = tti.map_header(h)
         if f is not None or not ignored:
@@ -211,8 +214,9 @@ def check_header_mapping() -> dict:
     return {"item": "列名映射（含最长匹配与忽略列遮挡）", "ok": not bad, "advisory": False,
             "detail": ([f"❌ {'；'.join(bad)}"] if bad else
                        [f"{len(cases)} 个中文列名全部映射正确",
-                        f"「粉丝展现量/点击率/平均阅读时长/收藏量」被识别为忽略列，"
-                        "未污染 impressions/reads ✅"])}
+                        f"「粉丝展现量/平均阅读时长/收藏量」被识别为忽略列，"
+                        "未污染 impressions/reads ✅",
+                        "「点击率」已升为 click_rate 正式字段，不再当遮挡词 ✅"])}
 
 
 def check_header_row_detect() -> dict:

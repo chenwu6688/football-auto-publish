@@ -108,7 +108,8 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 ### 验收与审计（计划 4.1 / 6.1 / 6.2 / 7.1 / 7.2 / 7.3 / 8.1 / 10 / 11.3 / 11.4 / 11.5 / 12.1 / 12.2 / 12.4 / 13.1 / 13.2 / 13.3 / 13.4 / 13.5 / 策略手册第五章）
 
-- 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区；未接入指标标注「待接入」。
+- 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区 + **效果闭环区（按选题类型 / 标题特征分组：篇数 / 篇均阅读 / 篇均点击率 / 爆款数）**；未接入指标标注「待接入」。
+- 📈 **效果闭环（R11 内容诊断）**：单篇 `click_rate` 三通道可得——头条导出列直读（`toutiao_import.normalize_rate`）、`performance_logger` 由 `reads/impressions` 自动派生、看板按**选题类型**与**标题特征**分组统计效果；选题类型由 `orchestrator` 落盘到批次 metadata（`topic_category`）。把「选题决定生死、点击率是生死线」从结论变为**可验证数据**（此前 `click_rate` 全缺失、选题类型不落盘，策略对不对无法用数据验证）。验收：`scripts/verify_effect_loop.py`。
 - ⬆️ **增长指标回填（头条后台直通）**：`scripts/import_performance.py` —— `--from-toutiao` 直接吃头条后台「数据 → 作品数据 → 导出 Excel」的下载文件：无依赖解析 `.xlsx/.csv/.tsv/.json`，中文列名自动映射（**最长匹配**，防止「粉丝阅读量」被「阅读量」吃掉），**按标题**对齐 `output/<日期>/metadata.json` 得到唯一键 `slug`（导出里没有我们的日期/序号，且 `index` 是批内序号、同一天会重复，**不可作键**）；未匹配 / 跨天同名歧义的行**一律不写库**，只进 `data/audit/import_performance_<日期>.md`。仍兼容规范 `date,index[,slug]` 的 CSV/JSON 通道与 `--template`。点击率 = 阅读/展现，粉丝阅读占比 = 粉丝阅读/总阅读。
 - 🔍 **隔离常态化审计**：`scripts/audit_isolation.py` —— 模板隔离 / 生成路径静态隔离 / 同天成稿重复自查 / 溯源覆盖率。
 - ✅ **赛程池验收**：`scripts/verify_fixture_pool.py` —— 五类覆盖 / 单日候选 ≥6 / 前瞻体为 0（硬项）+ 板块配比偏差（告警项）。
@@ -124,7 +125,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🗂️ **数据源与信源清单验收（计划 13.2 / 13.4）**：`scripts/verify_source_roster.py` —— 四源分工齐备 / 原始信源清单 11 项齐备 / 信源只作信号（硬项）+ 不接入商业数据商、无授权媒体边界（告警项）。
 - 📈 **验收指标与合规熔断验收（计划第十章）**：`scripts/verify_acceptance_metrics.py` —— 不实违规即熔断且可解除 / 疑似系统性失真达阈值自动熔断 / 六项指标口径与计划一致 / 未接入一律「待接入」绝不用 0 冒充（硬项，用隔离状态文件不污染真实熔断开关）。
 - 🔢 **单批篇数纪律验收（策略手册第五章 / 计划 12.1）**：`batch_quota.py` + `scripts/verify_batch_quota.py` —— 常态每批 **2 篇**（日 6 篇），仅周四或 S 级事件可显式加发到手册上限（晨读/午间 3、晚间 2——手册对晚间固定 2 篇），加发须留痕且周内 ≤ 2 次；硬项校验「常态不超手册、加发不超手册、日合计 6-8、三处口径一致（`constants.BATCH_QUOTA` / `config.yaml` / `ratio_config.yaml`）、`decide()` 六种情形冒烟」，加发台账 `data/uplift_ledger.json`。改造前运行时上限为 4/4/5（日上限 13 篇）且无验收覆盖，本项即为此设的防漂移闸。
-- 🔌 **头条后台数据接入验收（计划第十章）**：`toutiao_import.py` + `scripts/verify_performance_import.py` —— 硬项校验「真实 `metadata` 里 **slug 每天唯一**（同期 `index` 重复 395 处，正是主键从 `index` 换成 `slug` 的原因）/ 中文列名最长匹配与忽略列遮挡（粉丝展现量·点击率·平均阅读时长·收藏量） / 表头非首行可探测 / **无依赖** `.xlsx` 解析（标准库，不依赖 openpyxl·pandas）/ 数值清洗（万·亿·千分位·占位符）/ 标题匹配得 (日期·slug) 且**未匹配与歧义不写库** / 表头无法识别即报错不产 0 值 / 同 `index` 不同 `slug` 写入互不覆盖」。
+- 🔌 **头条后台数据接入验收（计划第十章）**：`toutiao_import.py` + `scripts/verify_performance_import.py` —— 硬项校验「真实 `metadata` 里 **slug 每天唯一**（同期 `index` 重复 395 处，正是主键从 `index` 换成 `slug` 的原因）/ 中文列名最长匹配与忽略列遮挡（粉丝展现量·平均阅读时长·收藏量；**「点击率」已升为 `click_rate` 正式字段**） / 表头非首行可探测 / **无依赖** `.xlsx` 解析（标准库，不依赖 openpyxl·pandas）/ 数值清洗（万·亿·千分位·占位符）/ 标题匹配得 (日期·slug) 且**未匹配与歧义不写库** / 表头无法识别即报错不产 0 值 / 同 `index` 不同 `slug` 写入互不覆盖」。
 
 > 全部验收脚本产出 `data/audit/*_latest.json` + 日期报告，硬项 FAIL 退出码 1；接入 CI 时统一「只告警不阻断发布」（计划九），保证当天少发而非全空。
 

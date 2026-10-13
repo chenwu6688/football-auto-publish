@@ -44,6 +44,9 @@ from pathlib import Path
 CANONICAL_FIELDS = (
     "title", "date", "index", "platform_id", "reads", "impressions",
     "follower_reads", "retention_rate", "likes", "comments", "shares", "new_followers",
+    # R11 判定的「生死线」指标（爆款 8.2% vs 陪跑 0.14%，差 60 倍）。此前被当作
+    # 「认识但不用」的列丢弃，导致单篇点击率缺失、无法与选题类型/标题特征分组统计。
+    "click_rate",
 )
 
 # 字段 → 别名。匹配时按「别名长度从长到短」逐个试，
@@ -65,6 +68,9 @@ ALIASES = {
     "comments": ("评论量", "评论数", "评论"),
     "shares": ("分享量", "分享数", "转发量", "转发数", "分享", "转发"),
     "new_followers": ("涨粉数", "涨粉量", "粉丝变化数", "净增粉丝", "新增粉丝", "粉丝增长数", "涨粉"),
+    # 单篇点击率（头条导出为百分数串如 "0.20%"，normalize_rate 换算成 0-1 小数）。
+    # 若导出无此列，performance_logger 会用 reads/impressions 派生，不依赖该列存在。
+    "click_rate": ("点击率", "点击率(%)", "点击率（%）"),
 }
 
 # 用于筛选：导出里混有微头条/视频/问答，只有图文才可能对上我们的 metadata
@@ -77,7 +83,8 @@ ARTICLE_TYPES = ("图文", "文章")
 # 例如「粉丝展现量」若不被挡住，会命中「展现量」被当成 impressions。
 IGNORED_ALIASES = (
     "粉丝展现量", "粉丝展现数",
-    "点击率", "互动率", "跳出率",
+    # 「点击率」已升为正式字段（CANONICAL_FIELDS.click_rate），不再当遮挡词
+    "互动率", "跳出率",
     "平均阅读时长", "平均阅读/播放时长", "平均阅读速度",
     "阅读完成率明细", "读完量",
     "收藏量", "收藏数", "收藏",
@@ -188,6 +195,39 @@ def normalize_retention(v):
     if x > 1.0:
         x = x / 100.0
     return round(min(max(x, 0.0), 1.0), 4)
+
+
+def normalize_rate(v):
+    """比率型指标（点击率等）→ 0-1 小数；负数/无法解析 → None。
+
+    与 normalize_retention 的关键差异：**必须在 clean_number 之前检测 `%`**。
+    clean_number 会把 `0.20%` 洗成 `0.20`（百分号信息丢失），此后 `x > 1.0` 的
+    启发式失效——`0.20%` 会被误判成 20%。而点击率恰恰常低于 1%
+    （R11 实测中位 0.20%），所以这个歧义必须在这里解决：
+
+        输入        判读         结果
+        "0.20%"    带 %         0.002
+        "8.2%"     带 %         0.082
+        "8.2"      无 % 但 >1    0.082（按百分数理解）
+        "0.002"    无 % 且 ≤1    0.002（按小数理解）
+        -1 / ""    —            None（后台 -1 占位 = 无数据，不冒充 0）
+
+    返回 6 位小数（点击率量级小，4 位会丢精度）。
+    """
+    if v is None or isinstance(v, bool):
+        return None
+    s = unicodedata.normalize("NFKC", str(v)).strip()
+    if s.lower() in _BLANK_TOKENS:
+        return None
+    has_pct = "%" in s
+    x = clean_number(v)
+    if x is None or x < 0:
+        return None
+    if has_pct or x > 1.0:
+        x = x / 100.0
+    if x > 1.0:
+        return None                     # 换算后仍 >100% 属异常值，不猜
+    return round(min(max(x, 0.0), 1.0), 6)
 
 
 # ============================================================
@@ -459,6 +499,10 @@ def _fill_metrics(rec: dict, cell) -> None:
             rec[f] = v
     # 完读率：负占位（-1）与空值都保持 None = 「待接入」，绝不冒充 0
     rec["retention_rate"] = normalize_retention(cell("retention_rate"))
+    # 点击率：同上。**不走 _INT_METRICS 的「列缺失填 0」约定**——0% 是有效值，
+    # 与「该列根本没导出」必须区分，故缺列时留 None（由 performance_logger 用
+    # reads/impressions 派生，或保持待接入）。
+    rec["click_rate"] = normalize_rate(cell("click_rate"))
 
 
 def adapt_rows(rows: list, *, output_dir=None, title_index: dict | None = None,

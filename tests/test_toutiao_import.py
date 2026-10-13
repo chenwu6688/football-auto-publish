@@ -124,10 +124,17 @@ class TestHeaderMapping(unittest.TestCase):
         self.assertEqual(ti.map_header("粉丝阅读量")[0] != "reads", True)
 
     def test_ignored_columns_shadow(self):
-        for h in ("粉丝展现量", "点击率", "平均阅读时长", "收藏量", "收益"):
+        for h in ("粉丝展现量", "平均阅读时长", "收藏量", "收益"):
             f, ignored = ti.map_header(h)
             self.assertIsNone(f, f"{h} 不该映射到字段")
             self.assertTrue(ignored, f"{h} 应被识别为已知忽略列")
+
+    def test_click_rate_is_mapped(self):
+        # 「点击率」已从忽略列升为正式字段（效果闭环），不再当遮挡词
+        self.assertIn("click_rate", ti.CANONICAL_FIELDS)
+        self.assertEqual(ti.map_header("点击率")[0], "click_rate")
+        self.assertEqual(ti.map_header("点击率(%)")[0], "click_rate")
+        self.assertEqual(ti.map_header("点击率（%）")[0], "click_rate")
 
     def test_unknown_column(self):
         f, ignored = ti.map_header("某某乱列")

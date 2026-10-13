@@ -2070,6 +2070,13 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                       "source_post": _prov_post,
                       "originality_note": art.get("originality_note", ""),
                       "content_type": art.get("content_type", ""),
+                      # 选题类型（计划 5.1 / R11）：落盘到批次 metadata，供看板按「选题类型」
+                      # 分组统计效果、供 ratio_tuner 以选题类型为调参轴（而非栏目）。
+                      # 形态优先于主题（见 topic_category 模块），判定不了即「未分类」，不猜。
+                      "topic_category": topic_category.classify(
+                          {"title": art.get("title", ""),
+                           "content_type": art.get("content_type", ""),
+                           "keywords_cn": art.get("keywords", [])}),
                       "column_id": art.get("_column_id", ""),
                       "column_name": art.get("_column_name", ""),
                       "batch_name": art.get("_batch_name", ""),

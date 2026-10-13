@@ -73,6 +73,16 @@ class TestValidateRow(unittest.TestCase):
         self.assertIsNone(rec)
         self.assertIn("retention_rate", err)
 
+    def test_click_rate_normalized(self):
+        """点击率（头条导出为百分数串）归一化到 0-1；负占位 -1 → None（不冒充 0）。"""
+        rec, err = ip.validate_row(
+            {"date": "2026-10-10", "index": "1", "click_rate": "2.8%"}, 7)
+        self.assertIsNone(err)
+        self.assertAlmostEqual(rec["click_rate"], 0.028)
+        rec_neg, _ = ip.validate_row(
+            {"date": "2026-10-10", "index": "1", "click_rate": "-1"}, 8)
+        self.assertIsNone(rec_neg["click_rate"])
+
 
 class TestLoadRows(unittest.TestCase):
     def setUp(self):
@@ -126,6 +136,14 @@ class TestImportRows(unittest.TestCase):
         # 第 2 篇只给了 reads；缺数据的指标不写 key（绝不用 0 冒充真实读数）
         self.assertNotIn("impressions", log["articles"]["2026-10-10/article-2"])
         self.assertNotIn("follower_reads", log["articles"]["2026-10-10/article-2"])
+
+    def test_click_rate_passthrough(self):
+        """click_rate 透传到台账（导出列直读，不依赖 reads/impressions 派生）。"""
+        rows = [{"date": "2026-10-10", "index": "1", "reads": "200",
+                 "impressions": "10000", "click_rate": "2.5%", "__lineno": 2}]
+        ip.import_rows(rows, dry_run=False, sync=False)
+        log = json.loads((self.tmp / "performance_log.json").read_text(encoding="utf-8"))
+        self.assertAlmostEqual(log["articles"]["2026-10-10/article-1"]["click_rate"], 0.025)
 
     def test_errors_reported_but_valid_imported(self):
         rows = [

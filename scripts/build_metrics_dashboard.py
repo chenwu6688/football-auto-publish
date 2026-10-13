@@ -75,6 +75,82 @@ def _perf_lookup(perf: dict, date_str: str, art: dict) -> dict:
     return rec if isinstance(rec, dict) else {}
 
 
+def _title_bucket(title: str) -> str:
+    """按 R11 标题特征分桶（复用 title_positive.evaluate 的 reasons 文案）。
+
+    桶（互斥，优先级从上到下）：
+      含悬念词 / 赛事名词无具体性 / 其他 / 未判定 / 空标题
+    ——用于看板按标题形态分组统计效果，验证「悬念词 +87%、赛事名词 -56%」是否复现。
+    """
+    t = (title or "").strip()
+    if not t:
+        return "空标题"
+    try:
+        import title_positive
+        res = title_positive.evaluate(t)
+    except Exception:
+        return "未判定"
+    reasons = " ".join(res.get("reasons") or [])
+    if "含悬念词" in reasons:
+        return "含悬念词"
+    if "且无具体人物/球队" in reasons:
+        return "赛事名词无具体性"
+    if reasons.strip():
+        return "其他"
+    return "未判定"
+
+
+def _new_group() -> dict:
+    """分组累加器：篇数 / 有绩效 / 阅读累计 / 篇均点击率累计 / 爆款（≥1000 阅读）。"""
+    return {"n": 0, "pts": 0, "reads_sum": 0,
+            "ctr_sum": 0.0, "ctr_cnt": 0, "hot": 0}
+
+
+def _accumulate_group(g: dict, rec: dict) -> None:
+    """把一条绩效记录累加进分组。rec 为空只计篇数（有绩效才算均值）。
+
+    点击率按**篇**累计取均值（与「篇均阅读」同口径，便于与 R11 基准直接对比）：
+    优先用记录里的 click_rate；缺失时由该篇 reads/impressions 派生。
+    """
+    g["n"] += 1
+    if not rec:
+        return
+    r = rec.get("reads")
+    im = rec.get("impressions")
+    r = int(r) if r is not None else None
+    im = int(im) if im is not None else None
+    if r is not None:
+        g["pts"] += 1
+        g["reads_sum"] += r
+        if r >= 1000:
+            g["hot"] += 1
+    ctr = rec.get("click_rate")
+    if ctr is None and r is not None and im:
+        ctr = r / im
+    try:
+        ctr = float(ctr) if ctr is not None else None
+    except (TypeError, ValueError):
+        ctr = None
+    if ctr is not None:
+        g["ctr_sum"] += ctr
+        g["ctr_cnt"] += 1
+
+
+def _summarize_groups(stat: dict) -> dict:
+    """把分组累加器汇总为可渲染字典（篇数降序）。"""
+    out = {}
+    for k, g in sorted(stat.items(), key=lambda kv: (-kv[1]["n"], kv[0])):
+        out[k] = {
+            "篇数": g["n"],
+            "有绩效": g["pts"],
+            "篇均阅读": round(g["reads_sum"] / g["pts"], 1) if g["pts"] else None,
+            "点击率": (round(g["ctr_sum"] / g["ctr_cnt"] * 100, 2)
+                    if g["ctr_cnt"] else None),
+            "爆款数": g["hot"],
+        }
+    return out
+
+
 def hot_signals_block() -> dict:
     """RedFox 热点信号区（Phase 1 只读试点）——只读预热 JSON，绝不直连 API。
 
@@ -116,6 +192,8 @@ def collect(days: int, *, now=None) -> dict:
     follower_reads_total = 0
     followers_total = 0
     followers_days = 0
+    cat_stat: dict[str, dict] = {}      # 选题类型 → 分组累加
+    title_stat: dict[str, dict] = {}    # 标题特征 → 分组累加
 
     for meta_path in sorted(OUTPUT_DIR.glob("*/metadata.json")):
         date_str = meta_path.parent.name
@@ -149,6 +227,11 @@ def collect(days: int, *, now=None) -> dict:
         # 增长指标：优先 metadata.performance，其次 performance_log.json
         for a in arts:
             rec = a.get("performance") or _perf_lookup(perf, date_str, a) or {}
+            # 按「选题类型」与「标题特征」分组累计（效果闭环：让选题/标题策略有数据可依）
+            _accumulate_group(cat_stat.setdefault(
+                a.get("topic_category") or "未分类", _new_group()), rec)
+            _accumulate_group(title_stat.setdefault(
+                _title_bucket(a.get("title", "")), _new_group()), rec)
             if rec:
                 if rec.get("reads") is not None:
                     reads.append(int(rec.get("reads", 0)))
@@ -192,7 +275,10 @@ def collect(days: int, *, now=None) -> dict:
                    if follower_reads_total and reads else None),
         "_data_points": len(reads),
     }
-    return {"growth": growth, "supply": supply, "hot": hot_signals_block()}
+    return {"growth": growth, "supply": supply, "hot": hot_signals_block(),
+            # 效果闭环（R11）：按选题类型 / 标题特征分组的效果统计
+            "by_category": _summarize_groups(cat_stat),
+            "by_title": _summarize_groups(title_stat)}
 
 
 def compliance_block() -> dict:
@@ -219,6 +305,8 @@ def _fmt(v, unit=""):
 def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
     now = now or datetime.now(CST)
     growth, supply = data["growth"], data["supply"]
+    by_category = data.get("by_category") or {}
+    by_title = data.get("by_title") or {}
 
     growth_rows = [
         ("篇均阅读", _fmt(growth["篇均阅读"], " 次"),
@@ -240,6 +328,8 @@ def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
         "compliance": comp,
         "growth": growth,
         "supply": supply,
+        "by_category": by_category,
+        "by_title": by_title,
         "hot": (data or {}).get("hot") or hot_signals_block(),
         "growth_rows": growth_rows,
         "targets": TARGETS,
@@ -295,13 +385,37 @@ def render_markdown(rep: dict) -> str:
             w = hot["最高互动作品"]
             L.append(f"- 最高互动作品：[{w['互动量']:,}] {w['标题'][:40]}（{w['平台']}）")
         L.append("")
+    # 效果闭环（R11）：按选题类型 / 标题特征分组，验证「选题决定生死」是否在线上复现
+    def _group_table(stat: dict, key_name: str) -> list:
+        if not stat:
+            return []
+        rows = [f"| {key_name} | 篇数 | 有绩效 | 篇均阅读 | 点击率 | 爆款数 |",
+                "| --- | --- | --- | --- | --- | --- |"]
+        for k, v in stat.items():
+            avg = "—" if v["篇均阅读"] is None else str(v["篇均阅读"])
+            ctr = "—" if v["点击率"] is None else f"{v['点击率']}%"
+            rows.append(f"| {k} | {v['篇数']} | {v['有绩效']} | {avg} | {ctr} | {v['爆款数']} |")
+        return rows
+
+    L += ["", "## 五、选题类型与标题效果（R11 效果闭环）", ""]
+    cat_rows = _group_table(rep.get("by_category") or {}, "选题类型")
+    title_rows = _group_table(rep.get("by_title") or {}, "标题特征")
+    if cat_rows:
+        L += ["### 5.1 按选题类型", ""] + cat_rows + [
+            "",
+            "> R11 基准：转会官宣 2.08% / 冲突舆情 1.55% / 中国足球 1.36% / "
+            "战报比分 0.49%（0 爆款）。本表用于验证线上是否复现此排序。", ""]
+    else:
+        L += ["暂无选题类型数据（metadata 缺 topic_category，需新批次落盘后生效）。", ""]
+    if title_rows:
+        L += ["### 5.2 按标题特征", ""] + title_rows + [
+            "", "> R11 基准：悬念词 +87%、赛事名词且无具体性 -56%。", ""]
     if rep["growth"]["_data_points"] == 0:
         L.append("> ⚠️ 阅读类指标尚未接入：请用 "
                  "`python3 scripts/import_performance.py <CSV/JSON>` 批量回填"
                  "（或 `python3 performance_logger.py <日期> <序号> --reads N --sync` 单篇），"
                  "本看板即可显示真实值。")
     return "\n".join(L)
-
 
 def render_html(rep: dict) -> str:
     comp, supply = rep["compliance"], rep["supply"]
@@ -350,6 +464,23 @@ def render_html(rep: dict) -> str:
             f"</div>"
             f"<p class='hint'>信号时间：{hot.get('生成时间')}（只读预热 JSON，不直连 API）</p>"
             f"<ul style='margin-top:10px'>{kws or '<li>—</li>'}</ul>{top_line}")
+
+    def _group_html(stat: dict, key_name: str) -> str:
+        if not stat:
+            return (f"<p class='hint'>暂无{key_name}数据"
+                    "（metadata 缺 topic_category，需新批次落盘后生效）。</p>")
+        head = (f"<tr><th>{key_name}</th><th>篇数</th><th>有绩效</th>"
+                "<th>篇均阅读</th><th>点击率</th><th>爆款数</th></tr>")
+        body = ""
+        for k, v in stat.items():
+            avg = "—" if v["篇均阅读"] is None else v["篇均阅读"]
+            ctr = "—" if v["点击率"] is None else f"{v['点击率']}%"
+            body += (f"<tr><td>{k}</td><td>{v['篇数']}</td><td>{v['有绩效']}</td>"
+                     f"<td>{avg}</td><td>{ctr}</td><td>{v['爆款数']}</td></tr>")
+        return f"<table><thead>{head}</thead><tbody>{body}</tbody></table>"
+
+    cat_html = _group_html(rep.get("by_category") or {}, "选题类型")
+    title_html = _group_html(rep.get("by_title") or {}, "标题特征")
 
     return f"""<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
@@ -408,7 +539,15 @@ def render_html(rep: dict) -> str:
  </div>
 
  <div class="card"><h2>三、热点信号 · RedFox Phase 1 只读试点</h2>
- {hot_html}
+{hot_html}
+ </div>
+
+ <div class="card"><h2>四、选题类型与标题效果 · R11 效果闭环</h2>
+ <h3 style="font-size:13px;color:#374151;margin:2px 0 8px">按选题类型</h3>
+ {cat_html}
+ <h3 style="font-size:13px;color:#374151;margin:16px 0 8px">按标题特征</h3>
+ {title_html}
+ <p class="hint">R11 基准：转会官宣 2.08% / 冲突舆情 1.55% / 中国足球 1.36% / 战报比分 0.49%（0 爆款）；悬念词 +87%、赛事名词无具体性 -56%。本区用于验证线上排序是否复现。</p>
  </div>
 </div></body></html>"""
 

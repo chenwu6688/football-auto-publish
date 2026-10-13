@@ -85,7 +85,7 @@ def save_performance_log(log_data):
 def log_article_performance(date_str, article_index=None, reads=None, comments=None,
                             likes=None, shares=None, retention_rate=None,
                             new_followers=None, impressions=None, follower_reads=None,
-                            slug=None, platform_id=None):
+                            click_rate=None, slug=None, platform_id=None):
     """Record performance metrics for a single article.
 
     Args:
@@ -101,6 +101,9 @@ def log_article_performance(date_str, article_index=None, reads=None, comments=N
         new_followers: 当日涨粉数（计划 11.6：配比归因必需字段）
         impressions: 展现量/曝光量（计划第十章：点击率 = reads / impressions）
         follower_reads: 粉丝阅读量（计划第十章：粉丝阅读占比 = follower_reads / reads）
+        click_rate: 单篇点击率（0-1 小数）。不传时自动由 reads/impressions 派生。
+            R11 判定它是账号「生死线」（爆款 8.2% vs 陪跑 0.14%，差 60 倍），
+            落库后才能与选题类型 / 标题特征做分组统计（此前该字段完全缺失）。
 
     所有指标默认 None = 「未提供 / 待接入」，**不写 key、绝不用 0 冒充**。
     """
@@ -113,11 +116,17 @@ def log_article_performance(date_str, article_index=None, reads=None, comments=N
     }
     if platform_id:
         entry["platform_id"] = str(platform_id).strip()
+    # 点击率（R11「生死线」指标）：未显式提供时用 reads/impressions 派生。
+    # 放在这一层而非导入层，是为了让**所有通道**（头条直通 / 规范 CSV / CLI 手工录入）
+    # 只要有阅读与展现就自动有点击率——不依赖导出文件里是否有「点击率」列。
+    # 展现为 0/None 时不派生（除零无意义，也无区分度）。
+    if click_rate is None and reads is not None and impressions:
+        click_rate = round(reads / impressions, 6)
     # 缺数据的指标（None = 待接入）不写 key，绝不用 0 冒充真实读数
     for field, value in (("reads", reads), ("comments", comments), ("likes", likes),
                          ("shares", shares), ("retention_rate", retention_rate),
                          ("new_followers", new_followers), ("impressions", impressions),
-                         ("follower_reads", follower_reads)):
+                         ("follower_reads", follower_reads), ("click_rate", click_rate)):
         if value is not None:
             entry[field] = value
     entry["logged_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -161,7 +170,7 @@ def update_metadata_performance(date_str):
         if perf:
             # 只回写台账里真实存在的指标；缺数据的字段不落 0（避免把「无数据」写成 0）
             fields = ("reads", "comments", "likes", "shares", "retention_rate",
-                      "new_followers", "impressions", "follower_reads")
+                      "new_followers", "impressions", "follower_reads", "click_rate")
             metrics = {k: perf[k] for k in fields if k in perf}
             if metrics:
                 article["performance"] = metrics
@@ -204,6 +213,8 @@ if __name__ == "__main__":
     parser.add_argument("--followers", type=int, default=None, help="当日涨粉数（计划 11.6）")
     parser.add_argument("--impressions", type=int, default=None, help="展现量（点击率 = 阅读/展现）")
     parser.add_argument("--follower-reads", type=int, default=None, help="粉丝阅读量（粉丝阅读占比）")
+    parser.add_argument("--click-rate", type=float, default=None,
+                        help="单篇点击率（0-1 小数，如 0.002=0.2%%）；不填则按 reads/impressions 自动派生")
     parser.add_argument("--sync", action="store_true", help="同步到 metadata.json")
 
     args = parser.parse_args()
@@ -215,6 +226,7 @@ if __name__ == "__main__":
                             new_followers=args.followers,
                             impressions=args.impressions,
                             follower_reads=args.follower_reads,
+                            click_rate=args.click_rate,
                             slug=args.slug,
                             platform_id=tti.normalize_platform_id(args.platform_id) or None)
 

@@ -91,6 +91,11 @@ jobs:
           python3 scripts/verify_title_positive.py --quiet \
             || echo "::warning::标题正向规则验收未通过（悬念词/21-30字/赛事名词/情绪词），详见 data/audit/title_positive_latest.json"
 
+      - name: 效果闭环（R11 内容诊断 / 计划第十章）
+        run: |
+          python3 scripts/verify_effect_loop.py --quiet \
+            || echo "::warning::效果闭环验收未通过（单篇点击率派生 / 导出列直读 / 选题类型落盘 / 看板分组 / 导入透传），详见 data/audit/effect_loop_latest.json"
+
       - name: RedFox 热点数据试点（用户 2026-10-13 授权 · 只读试点）
         run: |
           python3 scripts/verify_redfox_pilot.py --quiet \
