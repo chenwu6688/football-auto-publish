@@ -5,10 +5,14 @@
 「以比分/赛果开场 + 无具体人物 + 无悬念评价钩子」的赛果播报式标题。本脚本把该规则
 钉死，防止回归到「把比分当标题」的老路。
 
+2026-10-13（R11 内容诊断 · 建议4）追加**规则二「纯赛事名词式」**：同一形态此前只在
+title_positive 里做「减分 12」，而 score_title_plan 及格线 60 → 不扣也及格、采用率 0%，
+即减分是无效约束。R11 已证明该形态（0.47%、0 爆款）稳定垫底，故升级为同级硬打回。
+
 硬项（不达标退出码 1）
-  A. 配置结构——config/title_antipattern.yaml 字段齐备、正则可编译、判罚口径完整
+  A. 配置结构——config/title_antipattern.yaml 字段齐备（含规则二）、正则可编译、判罚口径完整
   B. 规则冒烟——title_antipattern.selftest() 全通过（正例必拦 / 负例必放 / 降级放行）
-  C. 回归样例——用真实数据固化的标题样例集，逐条比对期望判定
+  C. 回归样例——用真实数据固化的标题样例集（规则一 + 规则二），逐条比对期望判定
   D. 生成侧接入——orchestrator.score_title_plan 对正例判 0 分打回，对负例不误判 0 分
   E. 真实数据回测——命中组 0 条百阅读 / 0 爆款（有导出文件时才跑，否则跳过）
 
@@ -44,8 +48,9 @@ DEFAULT_EXPORT_GLOBS = ("/home/chenwu/下载/图文_*.xlsx",)
 
 # 回归样例：取自 2026-10-12 头条真实导出，标注阅读量以固化「零误杀」证据。
 #   hit=True  → 真实命中且实测极低阅读（该拦）
-#   hit=False → 真实有效或含人物/钩子（必放）
+#   hit=False → 真实有效或含人物/钩子/球队（必放）
 REGRESSION_CASES = [
+    # —— 规则一：赛果播报式 ——
     ("亚泰主场1-5惨败，无锡吴钩狂轰5球血洗奥林匹克公园", True, 11),
     ("5-1、2-1、0-1，三场比赛算出世界杯16强数学题", True, 3),
     ("1-0到1-0, 加拿大等了40年", True, 2),
@@ -56,6 +61,14 @@ REGRESSION_CASES = [
     ("西班牙4-1克罗地亚，最动人的却是第81分钟那一幕", False, 26),
     ("别被4比0骗了，韩国队这进攻还没成型", False, 67),
     ("1-5惨败后，费耶诺德后卫说了句大实话，巴萨球迷听了都点头", False, 325),
+    # —— 规则二：纯赛事名词式（2026-10-13 建议4）——
+    ("世界杯4场表现，26岁的他要去法甲了", True, 8),
+    ("世界杯真正的冠军，在义乌的仓库里", True, 6),
+    ("世界杯日报：13场踢完，出线形势不是明朗，是明混", True, 5),
+    ("世界杯前夜，那个不再刷屏的球迷老张", True, 1),
+    ("U17国足集训名单出炉，这阵容能冲世界杯吗？", False, 430),
+    ("世界杯踢一半官宣转会，利物浦是在帮球员还是坑球员？", False, 141),
+    ("2026世界杯最佳阵：梅西领衔，但边角料更抢戏", False, 8),
 ]
 
 
@@ -87,14 +100,40 @@ def check_config() -> dict:
                 problems.append(f"{k} 正则不可编译：{pat}（{e}）")
     if not (raw.get("人物名") or []):
         problems.append("人物名表为空（会导致大量误杀）")
+
+    # 规则二（纯赛事名词式，2026-10-13 建议4）：结构 + 判罚口径同样必须齐备
+    r2 = raw.get("规则二")
+    if not isinstance(r2, dict) or not r2:
+        problems.append("缺规则二（纯赛事名词式）配置块")
+    else:
+        for key in ("规则名", "赛事名词", "判罚"):
+            if r2.get(key) in (None, "", [], {}):
+                problems.append(f"规则二缺字段 {key}")
+        pen2 = r2.get("判罚") or {}
+        if int(pen2.get("分数", -1)) != 0:
+            problems.append(f"规则二判罚分数应 0（硬违规），实为 {pen2.get('分数')}")
+        if "打回" not in str(pen2.get("动作", "")):
+            problems.append(f"规则二判罚动作应含「打回」，实为 {pen2.get('动作')}")
+        if not str(pen2.get("提示", "")).strip():
+            problems.append("规则二判罚提示为空（打回后无重写指引）")
+        # 联赛名刻意不入赛事名词表——中国足球联赛是有效本地类别（与 title_positive 同口径）
+        leaked = [n for n in (r2.get("赛事名词") or [])
+                  if any(lg in str(n) for lg in ("中超", "英超", "西甲", "意甲", "德甲", "法甲"))]
+        if leaked:
+            problems.append(f"规则二赛事名词表混入联赛名（应排除）：{leaked}")
+
     persons = ta.person_names(raw)
     return {"item": "配置结构（config/title_antipattern.yaml）", "ok": not problems,
             "advisory": False, "version": raw.get("版本"),
             "person_names": len(persons),
             "detail": ([f"❌ {'；'.join(problems)}"] if problems
-                       else [f"配置 v{raw.get('版本')} 字段齐备；人物名表 {len(persons)} 个"
+                       else [f"配置 v{raw.get('版本')} 两条规则字段齐备；人物名表 {len(persons)} 个"
                              f"（人工 {len(raw.get('人物名') or [])} + entity_map 球员）✅",
-                             f"判罚：{pen.get('分数')} 分 / {pen.get('动作')} ✅"])}
+                             f"规则一「{raw.get('规则名')}」判罚：{pen.get('分数')} 分 / {pen.get('动作')} ✅",
+                             f"规则二「{(r2 or {}).get('规则名')}」判罚：{(r2 or {}).get('判罚', {}).get('分数')} 分 / "
+                             f"{(r2 or {}).get('判罚', {}).get('动作')}；"
+                             f"赛事名词 {len(ta.tournament_names(raw))} 个"
+                             f"（不含联赛名）、具体球队名 {len(ta.team_names(raw))} 个 ✅"])}
 
 
 def check_selftest() -> dict:
@@ -108,15 +147,26 @@ def check_selftest() -> dict:
 
 def check_regression() -> dict:
     fails = []
+    n_hit = n_pass = 0
+    max_hit_reads = 0
+    max_pass_reads = 0
     for title, expect_hit, reads in REGRESSION_CASES:
         got = ta.check(title)["hit"]
+        if expect_hit:
+            n_hit += 1
+            max_hit_reads = max(max_hit_reads, reads)
+        else:
+            n_pass += 1
+            max_pass_reads = max(max_pass_reads, reads)
         if got != expect_hit:
             fails.append(f"{'应拦' if expect_hit else '应放'}但判定相反（实测 {reads} 阅）：{title}")
     return {"item": "回归样例（真实标题固化）", "ok": not fails, "advisory": False,
             "total": len(REGRESSION_CASES),
             "detail": ([f"❌ {'；'.join(fails)}"] if fails
-                       else [f"{len(REGRESSION_CASES)} 条真实标题判定全部正确 ✅",
-                             "其中应拦 5 条实测阅读 ≤15（最低 1）；应放 5 条含人物/钩子（最高 325）"])}
+                       else [f"{len(REGRESSION_CASES)} 条真实标题判定全部正确 ✅"
+                             f"（应拦 {n_hit} / 应放 {n_pass}，含规则一与规则二）",
+                             f"应拦组实测最高阅读 {max_hit_reads}（全部远低于百阅读）；"
+                             f"应放组最高 {max_pass_reads}（命中有效作品）"])}
 
 
 def check_orchestrator() -> dict:
@@ -126,19 +176,23 @@ def check_orchestrator() -> dict:
         return {"item": "生成侧接入（score_title_plan）", "ok": False, "advisory": False,
                 "detail": [f"❌ 无法载入 orchestrator：{e}"]}
     problems = []
-    for title in ("3-1暴揍中亚狼", "亚泰主场1-5惨败"):
+    # 正例：规则一（赛果播报式）+ 规则二（纯赛事名词式）都必须判 0 分打回
+    for title in ("3-1暴揍中亚狼", "亚泰主场1-5惨败",
+                  "世界杯夺冠赔率榜出炉，豪门集体看衰",
+                  "小组赛第二轮，出线名额争夺进入白热化"):
         sc, ok, _ = orchestrator.score_title_plan({}, title, "热点球评")
         if sc != 0 or ok:
             problems.append(f"「{title}」应判 0 分打回，实为 {sc}/{ok}")
     # 负例不得因本规则被判 0 分（其余维度扣分不受限制）
     for title in ("张玉宁62球追平队史第一！国安残阵逼平领头羊，他才是真大腿",
-                  "1-5惨败后，费耶诺德后卫说了句大实话，巴萨球迷听了都点头"):
+                  "1-5惨败后，费耶诺德后卫说了句大实话，巴萨球迷听了都点头",
+                  "世界杯踢一半官宣转会，利物浦是在帮球员还是坑球员？"):
         sc, _ok, reasons = orchestrator.score_title_plan({}, title, "热点球评")
-        if sc == 0 and any("比分开场" in r or "赛果播报" in r for r in reasons):
+        if sc == 0 and any("开场" in r or "赛果播报" in r or "赛事名词" in r for r in reasons):
             problems.append(f"「{title}」被本规则误判 0 分")
     return {"item": "生成侧接入（score_title_plan）", "ok": not problems, "advisory": False,
             "detail": ([f"❌ {'；'.join(problems)}"] if problems
-                       else ["正例判 0 分打回、负例不误判 ✅"])}
+                       else ["两规则正例均判 0 分打回、负例不误判 ✅"])}
 
 
 def _detect_exports(from_export: str | None) -> list[str]:

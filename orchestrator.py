@@ -2820,6 +2820,11 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     赛果播报式硬校验（计划 3.3 标题公式 / 第十章内容质量，见 title_antipattern.py）：
     头条 869 条真实回测显示「以比分/赛果开场 + 无具体人物 + 无悬念钩子」是最典型的
     亏损形态（该组 0 爆款、最高阅读仅 67）。命中 → 直接 0 分并打回重写。
+
+    纯赛事名词式硬校验（R11 内容诊断 2026-10-13 建议4，同 title_antipattern.check）：
+    同一模块的规则二——「以世界杯/决赛/小组赛等赛事泛指名词开场 + 无具体人物/球队 + 无钩子」
+    此前只在 title_positive 减 12 分（及格线 60 → 不扣也及格、采用率 0%），现升级为同级
+    硬打回（真实回测命中组零百阅读）。两条规则任一命中即 0 分打回。
     """
     title = (title or "").strip()
     reasons = []
