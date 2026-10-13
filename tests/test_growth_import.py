@@ -79,12 +79,16 @@ class TestParseAndDerive(unittest.TestCase):
         self.assertEqual(days["2026-10-03"]["new_followers"], 35)   # 真实值不被覆盖
 
     def test_no_backfill_across_gap(self):
-        # 10-01 与 10-05 之间有缺口：只按相邻已登记日差分，不插值中间的日期
+        # 10-01 与 10-05 之间有缺口：不插值中间的日期，差额也**不得**冒充单日涨粉
         days = {"2026-10-01": {"total_followers": 100, "new_followers": None},
                 "2026-10-05": {"total_followers": 140, "new_followers": None}}
-        gi.derive_deltas(days)
-        self.assertEqual(days["2026-10-05"]["new_followers"], 40)
+        filled = gi.derive_deltas(days)
         self.assertEqual(sorted(days.keys()), ["2026-10-01", "2026-10-05"])
+        self.assertEqual(filled, [])
+        self.assertIsNone(days["2026-10-05"]["new_followers"])
+        self.assertEqual(days["2026-10-05"]["interval_gain"], 40)
+        self.assertEqual(days["2026-10-05"]["interval_span_days"], 4)
+        self.assertEqual(days["2026-10-05"]["interval_from"], "2026-10-01")
 
     def test_merge_does_not_overwrite_with_none(self):
         data = {"days": {"2026-10-01": {"total_followers": 100, "new_followers": 12}}}
@@ -111,6 +115,81 @@ class TestParseAndDerive(unittest.TestCase):
     def test_selftest_all_pass(self):
         bad = [n for n, ok in gi.selftest() if not ok]
         self.assertEqual(bad, [], f"冒烟未通过：{bad}")
+
+
+class TestSpanGuard(unittest.TestCase):
+    """跨度守卫（2026-10-13）：导出粒度决定能不能算「日均涨粉」。
+
+    用户问「一个月导一次行不行」时暴露：相邻已登记日差分**不分间隔天数**，
+    月更导出会把整月净增记在月末那一天 → 日均涨粉直接失真（编造）。
+    守卫：间隔 >1 天 → 只记 interval_gain，不写 new_followers。
+    """
+
+    def test_daily_export_derives_every_day(self):
+        # 每天一行（推荐节奏）→ 间隔全为 1 天，逐日差分可用
+        days = {f"2026-10-{d:02d}": {"total_followers": 1000 + 10 * i, "new_followers": None}
+                for i, d in enumerate(range(1, 6))}
+        filled = gi.derive_deltas(days)
+        self.assertEqual(filled, ["2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05"])
+        self.assertTrue(all(days[d]["new_followers"] == 10 for d in filled))
+        self.assertEqual(gi.interval_gains_from(days), [])
+
+    def test_weekly_export_single_row_per_day_ok(self):
+        # 周更：一次导出 7 天、每天一行 → 等价于日更，只是操作频率低
+        days = {f"2026-10-{d:02d}": {"total_followers": 500 + 3 * i, "new_followers": None}
+                for i, d in enumerate(range(1, 8))}
+        gi.derive_deltas(days)
+        self.assertEqual(gi.daily_new_followers(_save_tmp(days)), 
+                         {f"2026-10-{d:02d}": 3 for d in range(2, 8)})
+
+    def test_monthly_summary_blocked(self):
+        # 月更「汇总一行」→ 3000 是整个 10 月的净增，绝不能记成 10-31 单日涨粉
+        days = {"2026-10-01": {"total_followers": 10000, "new_followers": None},
+                "2026-10-31": {"total_followers": 13000, "new_followers": None}}
+        filled = gi.derive_deltas(days)
+        self.assertEqual(filled, [])
+        self.assertIsNone(days["2026-10-31"]["new_followers"])
+        self.assertEqual(days["2026-10-31"]["interval_gain"], 3000)
+        self.assertEqual(days["2026-10-31"]["interval_span_days"], 30)
+        self.assertEqual(gi.daily_new_followers(_save_tmp(days)), {})
+
+    def test_interval_gains_reports_gaps(self):
+        days = {"2026-10-01": {"total_followers": 100, "new_followers": None},
+                "2026-10-11": {"total_followers": 160, "new_followers": None}}
+        gi.derive_deltas(days)
+        self.assertEqual(gi.interval_gains_from(days),
+                         [{"to": "2026-10-11", "from": "2026-10-01",
+                           "span_days": 10, "gain": 60}])
+
+    def test_later_fine_grained_export_clears_interval_marker(self):
+        # 先月更（被守卫拦下），后补日粒度数据 → 旧区间标记必须撤掉，改写真日涨粉
+        days = {"2026-10-01": {"total_followers": 100, "new_followers": None},
+                "2026-10-31": {"total_followers": 400, "new_followers": None}}
+        gi.derive_deltas(days)
+        self.assertEqual(days["2026-10-31"]["interval_span_days"], 30)
+        days["2026-10-30"] = {"total_followers": 390, "new_followers": None}   # 补一天
+        gi.derive_deltas(days)
+        self.assertEqual(days["2026-10-31"]["new_followers"], 10)
+        self.assertNotIn("interval_span_days", days["2026-10-31"])
+        # 10-01 → 10-30 仍是空档，区间标记保留（诚实地说明这 29 天没有单日数据）
+        self.assertEqual([g["to"] for g in gi.interval_gains_from(days)], ["2026-10-30"])
+
+    def test_real_value_never_touched_by_guard(self):
+        # 后台直接给了「涨粉数」→ 无论间隔多少天，真实值都不动
+        days = {"2026-10-01": {"total_followers": 100, "new_followers": 5},
+                "2026-10-11": {"total_followers": 160, "new_followers": 42}}
+        gi.derive_deltas(days)
+        self.assertEqual(days["2026-10-11"]["new_followers"], 42)
+        self.assertNotIn("interval_gain", days["2026-10-11"])
+
+
+def _save_tmp(days: dict) -> Path:
+    """把 days 落到临时文件，返回路径（供 daily_new_followers 读取）。调用方负责清理。"""
+    import tempfile as _tf
+    td = _tf.mkdtemp()
+    p = Path(td) / "fans_daily.json"
+    gi.save({"days": days}, p)
+    return p
 
 
 class TestToutiaoMissingColumn(unittest.TestCase):

@@ -112,11 +112,20 @@ def report(days: int = 14, perf_lag_max: int = 3, growth_lag_max: int = 7,
     notices = []
     if g_lag is None:
         notices.append("转粉通道尚未接入（请在头条后台导出「粉丝分析」后放入 data/inbox/）")
+    # 导出粒度检查：跨多天的区间净增不计入日均涨粉（月更/断档导出会踩到）
+    gaps = gi.interval_gains()
+    if gaps:
+        worst = max(gaps, key=lambda g: g["span_days"])
+        notices.append(
+            f"粉丝分析有 {len(gaps)} 处跨多天区间差分（最大 {worst['span_days']} 天："
+            f"{worst['from']} → {worst['to']}，净增 {worst['gain']}）；这些值**不计入日均涨粉**，"
+            "请在后台按「每天一行」的粒度重新导出")
 
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"), "today": today,
             "ok": not problems,
             "绩效最新": p_latest, "绩效滞后天数": p_lag, "绩效滞后阈值": perf_lag_max,
             "转粉最新": g_latest, "转粉滞后天数": g_lag, "转粉滞后阈值": growth_lag_max,
+            "转粉跨度守卫命中": gaps,
             "回填覆盖率": cov, "problems": problems, "notices": notices}
 
 

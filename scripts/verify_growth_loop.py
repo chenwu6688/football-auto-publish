@@ -11,7 +11,8 @@
   A. 互动引导配置结构——config/interaction_bait.yaml 字段齐备、正则可编译、判罚 0/打回
   B. 互动引导冒烟——interaction_bait.selftest() 全通过
   C. 生成侧接入——orchestrator 走同一判定，且生成侧打回 / 保存侧兜底注入均已接线
-  D. 转粉通道——growth_import 解析 / 相邻日差分 / 缺失不猜 / 合并写不覆盖真实值
+  D. 转粉通道——growth_import 解析 / 相邻日差分 / **跨度守卫（区间净增≠单日涨粉）** /
+     缺失不猜 / 合并写不覆盖真实值
   E. 缺列不冒充 0——toutiao_import 对「导出里没有的列」必须留 None（不是 0）
   F. 看板口径——文章级优先 / 账号级兜底 / 两者皆无 → None（绝不 0）
 
@@ -161,10 +162,20 @@ def check_growth_channel() -> dict:
             problems.append("差分异常：应仅由粉丝总数补出 2026-10-02 的 25")
         if data["days"]["2026-10-03"]["new_followers"] != 35:
             problems.append("差分不应覆盖已有真实值")
-        # ③ 占位符纪律
+        # ③ 跨度守卫：间隔 >1 天不得写单日涨粉（月更/断档导出不得污染日均涨粉）
+        gaps = {"2026-10-01": {"total_followers": 10000, "new_followers": None},
+                "2026-10-31": {"total_followers": 13000, "new_followers": None}}
+        gi.derive_deltas(gaps)
+        if gaps["2026-10-31"]["new_followers"] is not None:
+            problems.append("跨度守卫失效：跨 30 天的区间净增被写成了单日涨粉（月更导出会失真）")
+        if gaps["2026-10-31"].get("interval_span_days") != 30:
+            problems.append("跨度守卫未登记 interval_span_days")
+        if [g["to"] for g in gi.interval_gains_from(gaps)] != ["2026-10-31"]:
+            problems.append("interval_gains_from 未报出跨天区间")
+        # ④ 占位符纪律
         if gi.normalize_count(-1) is not None or gi.normalize_count("0") != 0:
             problems.append("占位符纪律异常：-1 应为 None、真实 0 应保留")
-        # ④ 合并写不覆盖真实值 + 落盘可读
+        # ⑤ 合并写不覆盖真实值 + 落盘可读
         gi.merge(data, [{"date": "2026-10-01", "total_followers": None, "new_followers": None}])
         if data["days"]["2026-10-01"]["new_followers"] != 12:
             problems.append("合并写异常：None 不应覆盖真实值")
@@ -174,7 +185,7 @@ def check_growth_channel() -> dict:
     real = gi.load()
     detail.append(f"data/growth/fans_daily.json：{len(real.get('days') or {})} 个日期"
                   + ("（空 = 待接入）" if not real.get("days") else ""))
-    detail.append("解析 / 相邻日差分 / 缺失不猜 / 合并写不覆盖真实值 全部通过 ✅")
+    detail.append("解析 / 相邻日差分 / 跨度守卫 / 缺失不猜 / 合并写不覆盖真实值 全部通过 ✅")
     return {"item": "转粉通道（growth_import）", "ok": not problems, "advisory": False,
             "detail": ([f"❌ {'；'.join(problems)}"] + detail if problems else detail)}
 

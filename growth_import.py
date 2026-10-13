@@ -13,8 +13,15 @@
 纪律（与全仓一致）：
   - 占位符 **-1 / -1.00 = 「无数据」→ None（待接入）**，绝不折算成 0（`is_missing`）；
   - 只有「粉丝总数」时按**相邻已登记日**差分得日涨粉；缺失日**不插值、不猜**；
+  - **跨度守卫**：相邻日间隔 >1 天 → 差额只记为 `interval_gain`（区间净增），
+    绝不写进 `new_followers`（区间值冒充单日涨粉 = 编造）；
   - 合并写：不覆盖已有日期的真实值，不拿 None 覆盖真实值；
   - 本模块只搬运数字，不做任何业务口径换算（口径在看板）。
+
+操作节奏（2026-10-13 补充，见 docs/转粉与互动数据接入.md）：
+  导出本身是**按日一行的序列**，一次导出覆盖一段区间 → **不需要每天操作**。
+  推荐**每周一次**（滞后阈值 7 天正是按周更设计）；导出粒度务必是「每天一行」，
+  只给「月末汇总」会让跨度守卫拦下，看板拿不到日均涨粉。
 
 命令行：
   python3 growth_import.py --from /path/to/粉丝分析.xlsx --dry-run
@@ -164,7 +171,16 @@ def parse_rows(rows: list[list]) -> list[dict]:
 
 
 def derive_deltas(days: dict) -> list[str]:
-    """对只有「粉丝总数」的日期，用**相邻已登记日**差分补日涨粉；缺失日不插值。"""
+    """对只有「粉丝总数」的日期，用**相邻已登记日**差分补日涨粉；缺失日不插值。
+
+    ⚠️ 跨度守卫（2026-10-13 加固，用户问「一个月导一次行不行」时暴露的真缺陷）：
+      相邻已登记日**间隔 >1 天**时，差额是「区间净增」，**不是**某一天的涨粉。
+      把它写进 new_followers 就是编造——月更导出 / 区间断档必然踩到。
+      故此时只登记 `interval_gain` + `interval_span_days`，**不写 new_followers**，
+      下游（看板日均涨粉 / 滞后监控）因此不会把区间值当单日值。
+      代价：月更导出的账号拿不到「日均涨粉」——这是**正确的诚实**，
+      解法是改回每日粒度导出（头条「粉丝分析」本身按日一行）。
+    """
     filled: list[str] = []
     dated = sorted((d for d, v in days.items()
                     if isinstance(v, dict) and v.get("total_followers") is not None))
@@ -173,11 +189,45 @@ def derive_deltas(days: dict) -> list[str]:
         if cur.get("new_followers") is not None:
             continue
         delta = int(cur["total_followers"]) - int(days[prev_d]["total_followers"])
-        cur["new_followers"] = delta
-        cur["derived"] = "total_delta"
-        cur["derived_from"] = prev_d
-        filled.append(cur_d)
+        span = _day_span(prev_d, cur_d)
+        if span == 1:
+            cur["new_followers"] = delta
+            cur["derived"] = "total_delta"
+            cur["derived_from"] = prev_d
+            for k in ("interval_gain", "interval_span_days", "interval_from"):
+                cur.pop(k, None)      # 补上细粒度导出后，旧的区间标记必须撤掉
+            filled.append(cur_d)
+        elif span and span > 1:
+            cur["interval_gain"] = delta
+            cur["interval_span_days"] = span
+            cur["interval_from"] = prev_d
     return filled
+
+
+def _day_span(a: str, b: str) -> int | None:
+    """两个 YYYY-MM-DD 的天数差；识别不了返回 None。"""
+    try:
+        da = datetime.strptime(str(a)[:10], "%Y-%m-%d").date()
+        db = datetime.strptime(str(b)[:10], "%Y-%m-%d").date()
+    except Exception:
+        return None
+    return (db - da).days
+
+
+def interval_gains(path: Path | str | None = None) -> list[dict]:
+    """跨多天的区间净增（未能归到某一天，故不进日均）。用于提示「导出粒度太粗」。"""
+    return interval_gains_from(load(path).get("days") or {})
+
+
+def interval_gains_from(days: dict) -> list[dict]:
+    """interval_gains 的纯函数版（不碰文件，便于自检与单测）。"""
+    out = []
+    for d, v in sorted((days or {}).items()):
+        if isinstance(v, dict) and v.get("interval_span_days"):
+            out.append({"to": d, "from": v.get("interval_from"),
+                        "span_days": int(v["interval_span_days"]),
+                        "gain": v.get("interval_gain")})
+    return out
 
 
 def load(path: Path | str | None = None) -> dict:
@@ -272,6 +322,20 @@ def selftest() -> list[tuple[str, bool]]:
     cases.append(("已有真实值的日期不被差分覆盖",
                   days["2026-10-03"]["new_followers"] == 35))
 
+    # 跨度守卫：间隔 >1 天不得写 new_followers（区间净增 ≠ 单日涨粉）
+    gaps = {"2026-10-01": {"total_followers": 100, "new_followers": None},
+            "2026-10-05": {"total_followers": 140, "new_followers": None}}
+    gf = derive_deltas(gaps)
+    cases.append(("跨 4 天不写单日涨粉（跨度守卫）",
+                  gf == [] and gaps["2026-10-05"]["new_followers"] is None))
+    cases.append(("跨天差额转入 interval_gain",
+                  gaps["2026-10-05"]["interval_gain"] == 40
+                  and gaps["2026-10-05"]["interval_span_days"] == 4
+                  and gaps["2026-10-05"]["interval_from"] == "2026-10-01"))
+    cases.append(("跨度守卫下不产生单日涨粉记录",
+                  interval_gains_from(gaps) == [{"to": "2026-10-05", "from": "2026-10-01",
+                                                 "span_days": 4, "gain": 40}]))
+
     # 合并写：None 不覆盖真实值
     data = {"days": {"2026-10-01": {"total_followers": 10000, "new_followers": 12}}}
     merge(data, [{"date": "2026-10-01", "total_followers": None, "new_followers": None}])
@@ -320,7 +384,13 @@ def main() -> int:
     data = load()
     merge(data, list(seen.values()), source=",".join(f.name for f in files))
     filled = [d for d, v in data["days"].items() if isinstance(v, dict) and v.get("derived")]
+    gaps = interval_gains_from(data["days"])
     print(f"共 {len(seen)} 个日期；其中 {len(filled)} 个日期由「粉丝总数」差分补出日涨粉")
+    if gaps:
+        print(f"⚠️ 另有 {len(gaps)} 处**跨多天的区间净增**未计入单日涨粉（导出粒度太粗）：")
+        for g in gaps[:5]:
+            print(f"   {g['from']} → {g['to']}（{g['span_days']} 天，净增 {g['gain']}）")
+        print("   如需「日均涨粉」，请在后台按**每天一行**导出（粉丝分析本身支持日粒度）。")
     if args.write and not args.dry_run:
         path = save(data)
         print(f"✅ 已写入 {path}")
