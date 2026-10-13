@@ -1,10 +1,21 @@
 import json
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 from unittest import mock
+from zoneinfo import ZoneInfo
 
 import ranker
+
+_CST = ZoneInfo("Asia/Shanghai")
+
+
+def _today() -> str:
+    """当天日期（CST）。card 的发生时间取自本日期，保证永远落在 L1 的 72h
+    时效窗内——曾因硬编码 "2026-10-10" 形成时间炸弹：跑测试的日期一旦距其
+    超过 72h，两条候选即被 L1 全剔，LLM 分支根本执行不到（mode 恒为 rule）。"""
+    return datetime.now(_CST).strftime("%Y-%m-%d")
 
 
 class TestRankerLLMWiring(unittest.TestCase):
@@ -41,7 +52,7 @@ class TestRankerLLMWiring(unittest.TestCase):
         topics = self._topics()
         with mock.patch.object(o, "_ranker_llm_call", side_effect=fake_call), \
              mock.patch.object(ranker, "awareness_of", return_value="A"):
-            res = o._rank_topics(topics, {"news_articles": []}, "2026-10-10")
+            res = o._rank_topics(topics, {"news_articles": []}, _today())
         self.assertEqual(res["mode"], "llm")
         self.assertEqual(len(topics), 2)             # 不删题
         self.assertEqual(topics[0]["title"], "B")    # 模型分高的排前
@@ -55,7 +66,7 @@ class TestRankerLLMWiring(unittest.TestCase):
         topics = self._topics()
         with mock.patch.object(o, "_ranker_llm_call", side_effect=boom), \
              mock.patch.object(ranker, "awareness_of", return_value="A"):
-            res = o._rank_topics(topics, {"news_articles": []}, "2026-10-10")
+            res = o._rank_topics(topics, {"news_articles": []}, _today())
         self.assertEqual(res["mode"], "rule")        # 降级规则排序
         self.assertEqual(len(topics), 2)             # 仍不丢题
 
