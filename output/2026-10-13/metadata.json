@@ -1,0 +1,218 @@
+{
+  "date": "2026-10-13",
+  "generated_at": "2026-10-13T00:05:53.071177",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "这套针对性打法，那不勒斯真能扛住？",
+      "path": "/home/runner/work/_temp/output/2026-10-13/article-1-这套针对性打法那-829fa3.md",
+      "slug": "这套针对性打法那-829fa3",
+      "tags": [
+        "Villarreal",
+        "Napoli",
+        "Champions League",
+        "tactical analysis",
+        "targeted approach"
+      ],
+      "keywords": [
+        "Villarreal",
+        "Napoli",
+        "Champions League",
+        "tactical analysis",
+        "targeted approach"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性"
+    },
+    {
+      "index": 2,
+      "title": "梅西C罗世界杯淘汰赛数据大比拼，谁才是真正的大场面先生？",
+      "path": "/home/runner/work/_temp/output/2026-10-13/article-2-梅西C罗世界杯淘-891085.md",
+      "slug": "梅西C罗世界杯淘-891085",
+      "tags": [
+        "Messi",
+        "Ronaldo",
+        "World Cup",
+        "knockout stage",
+        "data comparison"
+      ],
+      "keywords": [
+        "Messi",
+        "Ronaldo",
+        "World Cup",
+        "knockout stage",
+        "data comparison"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "三级·软性"
+    }
+  ],
+  "topics": [
+    {
+      "title": "考文垂4-1血洗纽卡？兰帕德带升班马冲进前14，这剧本谁写的",
+      "angle": "兰帕德执教考文垂把纽卡打成4-1，从当年被嘲的少帅到如今带队踢出理想中的自己，这是教练的翻身仗。立场：别急着给兰帕德盖棺定论，他这波真有点东西。",
+      "keywords": [
+        "Frank Lampard",
+        "Coventry City",
+        "Newcastle United",
+        "Premier League"
+      ],
+      "keywords_cn": [
+        "兰帕德",
+        "考文垂",
+        "纽卡斯尔",
+        "英超"
+      ],
+      "content_type": "人物故事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "兰帕德翻身仗戳中名宿沉浮，4-1数据有冲击力",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "人物故事",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0",
+      "_degraded": true
+    },
+    {
+      "title": "摩根又开炮骂卡拉格是巨婴，C罗这口气到底谁替他咽不下？",
+      "angle": "摩根和卡拉格隔空互怼，翻出C罗当年旧账。立场：这俩人一个蹭流量一个嘴硬，真正被消费的其实是C罗那点陈年恩怨。",
+      "keywords": [
+        "Piers Morgan",
+        "Jamie Carragher",
+        "Cristiano Ronaldo"
+      ],
+      "keywords_cn": [
+        "摩根",
+        "卡拉格",
+        "C罗"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "名嘴互撕有争议，蹭C罗旧账自带流量",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "这套针对性打法，那不勒斯真能扛住？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    },
+    {
+      "title": "梅西C罗世界杯淘汰赛数据大比拼，谁才是真正的大场面先生？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
+    },
+    "ratios": {
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "一致性校验",
+      "原因": "事实验证连续不过: 缺少客队名: 纽卡斯尔联",
+      "处置": "降级为低风险板块（人物故事）后重生成一次",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-13 08:05:53"
+}
