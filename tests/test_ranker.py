@@ -82,6 +82,70 @@ class TestRuleScore(unittest.TestCase):
         self.assertGreater(a, b)
 
 
+class TestSignalBoost(unittest.TestCase):
+    """计划（2026-10-13）：社媒信号真正进入规则五维，且不破坏无信号基线。"""
+
+    def setUp(self):
+        # 内马尔=B（基线 3，有空间验证加分）；曼城=A（基线 5，验证上限不破）
+        ranker._awareness_cache = {"曼城": "A", "内马尔": "B", "科隆": "C"}
+
+    def test_social_boosts_fame_when_high(self):
+        c = card("x", "内马尔")
+        base = ranker._dim_fame(c, {"_signals": {}})
+        boosted = ranker._dim_fame(c, {"_signals": {"社媒讨论量": 200_000}})
+        self.assertEqual(base, 3)                  # B 级基线
+        self.assertEqual(boosted, 4)               # 命中 20万档 +1 → 4（单档，步长 +1）
+
+    def test_boost_is_one_step_even_for_low_baseline(self):
+        """低知名度主体（C 级基线 1）命中阈值也只 +1 → 2，不被抬到 B 级球星的 3。"""
+        c = card("x", "科隆")
+        self.assertEqual(ranker._dim_fame(c, {"_signals": {"社媒讨论量": 1154911}}), 2)
+
+    def test_low_social_equals_baseline(self):
+        c = card("x", "内马尔")
+        self.assertEqual(ranker._dim_fame(c, {"_signals": {"社媒讨论量": 1000}}), 3)
+        # 缺字段（无 _signals）也等于基线
+        self.assertEqual(ranker._dim_fame(c, None), 3)
+
+    def test_search_index_does_not_boost_extensibility(self):
+        """搜索指数实测 97% 恒为 100（百度联想饱和），无区分度 → 明确不参与加分。
+
+        锁死回归：防止后续有人「顺手」把它接回维度打分。
+        """
+        c = card("x", "曼城", angles=["角度1"])    # 角度 1 个 → 基线 3
+        self.assertEqual(ranker._dim_extensibility(c, {"_signals": {"搜索指数": 100}}), 3)
+        self.assertEqual(ranker._dim_extensibility(c, {"_signals": {"搜索指数": 90}}), 3)
+
+    def test_fame_clamp_holds_upper_bound(self):
+        c = card("x", "曼城")                       # A 级基线 5
+        self.assertEqual(ranker._dim_fame(c, {"_signals": {"社媒讨论量": 200_000}}), 5)
+
+    def test_no_signal_baseline_unchanged(self):
+        """无 _signals（或全 0）时五维分与改动前逐维一致（手算基线写死）。"""
+        c = card("m", "曼城")                       # 默认角度 3 个；发生时间=NOW 当天
+        baseline = {"冲突度": 3, "人物知名度": 5, "时效性": 5,
+                    "话题延展性": 5, "粉丝画像匹配度": 3}
+        self.assertEqual(ranker.rule_score(c, None, NOW), baseline)
+        self.assertEqual(
+            ranker.rule_score(c, {"_signals": {"社媒讨论量": 0, "搜索指数": 0,
+                                              "同题报道条数": 0}}, NOW), baseline)
+
+    def test_rank_prefers_strong_signal_end_to_end(self):
+        """两个除信号外完全相同的候选：强信号者 rule_total 更高且排在前。"""
+        cands = [{"card": card("c1", "内马尔", angles=["角度1"]), "板块": "战术榜单"},
+                 {"card": card("c2", "内马尔", angles=["角度1"]), "板块": "战术榜单"}]
+        signals = {"c1": {"社媒讨论量": 200_000, "搜索指数": 90, "同题报道条数": 0}}
+        c1 = {"card": card("c1", "内马尔", angles=["角度1"])}
+        c1["_signals"] = signals["c1"]
+        c2 = {"card": card("c2", "内马尔", angles=["角度1"]), "_signals": {}}
+        self.assertGreater(ranker.rule_total(c1["card"], c1, NOW),
+                           ranker.rule_total(c2["card"], c2, NOW))
+
+        res = ranker.rank_candidates(cands, now=NOW, use_llm=False, signals=signals)
+        self.assertEqual(res["mode"], "rule")
+        self.assertEqual(res["ranking"][0]["id"], "c1")
+
+
 class TestRankFlow(unittest.TestCase):
     def setUp(self):
         ranker._awareness_cache = {"曼城": "A", "哈兰德": "A", "科隆": "C"}

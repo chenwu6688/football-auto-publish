@@ -44,6 +44,13 @@ _SOURCE_WEIGHT = {
 }
 _SOURCE_WEIGHT_DEFAULT = 0.8
 
+# L2 社媒信号 → 维度加分单档阈值（依据 2026-10-13 实测：社媒讨论量 2.07万~115.5万）。
+# 缺信号补 0，故阈值取正数，确保「无信号不加分」。
+# 只设一档 +1（20 万互动 ≈ 抖音爆款量级）：该维度是「知名度」的修正项而非主项，
+# 基线已由 awareness 分层（A5/B3/C1/默认1），再加 2 会把低知名度主体抬到与 B 级球星同级。
+# 注：同源的「搜索指数」实测 97% 恒为 100（百度联想饱和），无区分度，故不参与加分。
+_SOCIAL_FAME_BANDS = ((200_000, 1),)              # 社媒讨论量 → 人物知名度 +1
+
 _awareness_cache = None
 
 
@@ -244,8 +251,26 @@ def _dim_conflict(card):
     return _clamp(1 + hits + (1 if angles >= 3 else 0))
 
 
-def _dim_fame(card):
-    return {"A": 5, "B": 3, "C": 1}.get(awareness_of(card.get("主体", "")), 1)
+def _band_bonus(value, bands):
+    """按 (阈值, 加分) 降序档位查找：命中最高档返回加分，否则 0。
+
+    value 为 0（缺失信号）时任何正数阈值都不命中，保证缺信号不加分。
+    """
+    for threshold, add in bands:
+        if value >= threshold:
+            return add
+    return 0
+
+
+def _dim_fame(card, cand=None):
+    """人物知名度：awareness_of 基线 + 社媒讨论量加分（→ _SOCIAL_FAME_BANDS），夹到 1..5。
+
+    cand 为 None 或 _signals 缺失/为 0 时，结果与改动前完全一致（仅 baseline）。
+    """
+    base = {"A": 5, "B": 3, "C": 1}.get(awareness_of(card.get("主体", "")), 1)
+    sig = (cand or {}).get("_signals") or {}
+    base += _band_bonus(sig.get("社媒讨论量", 0), _SOCIAL_FAME_BANDS)
+    return _clamp(base)
 
 
 def _dim_freshness(card, now=None):
@@ -290,7 +315,7 @@ def rule_score(card, cand=None, now=None):
     """规则版五维打分（L1 排序与 L4 降级共用）。返回 {维度: 分}。"""
     return {
         "冲突度": _dim_conflict(card),
-        "人物知名度": _dim_fame(card),
+        "人物知名度": _dim_fame(card, cand),
         "时效性": _dim_freshness(card, now),
         "话题延展性": _dim_extensibility(card, cand),
         "粉丝画像匹配度": _dim_profile_fit(card),
@@ -315,7 +340,10 @@ def llm_score_batch(candidates, *, now=None, call_llm=None):
               "信号": c.get("_signals", {})} for c in candidates]
     sys_prompt = ("你是头条号足球选题主编。按固定量表给每个选题打分，"
                   "每个维度 1-5 分（5 最高）：" + "、".join(DIMENSIONS) +
-                  "。只输出 JSON：{\"scores\":[{\"id\":\"...\",\"冲突度\":n,\"人物知名度\":n,"
+                  "。候选附带「信号」（如 社媒讨论量）：信号仅作加分参考，"
+                  "社媒讨论量明显偏高才上调「人物知名度」；"
+                  "信号缺失或为 0 时按题目内容本身判断，不得臆造或假设有热度。"
+                  "只输出 JSON：{\"scores\":[{\"id\":\"...\",\"冲突度\":n,\"人物知名度\":n,"
                   "\"时效性\":n,\"话题延展性\":n,\"粉丝画像匹配度\":n}]}")
     messages = [{"role": "system", "content": sys_prompt},
                 {"role": "user", "content": json.dumps({"候选": items}, ensure_ascii=False)}]
