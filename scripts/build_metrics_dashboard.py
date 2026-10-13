@@ -29,6 +29,8 @@ from zoneinfo import ZoneInfo
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))   # 以便 import compliance_guard 等同级模块
 OUTPUT_DIR = PROJECT_ROOT / "output"
+DATA_DIR = PROJECT_ROOT / "data"
+SIGNALS_DIR = DATA_DIR / "signals"
 DEFAULT_OUT = PROJECT_ROOT / "data" / "metrics"
 
 CST = ZoneInfo("Asia/Shanghai")
@@ -71,6 +73,27 @@ def _perf_lookup(perf: dict, date_str: str, art: dict) -> dict:
             return rec
     rec = perf.get(f"{date_str}/article-{art.get('index')}")
     return rec if isinstance(rec, dict) else {}
+
+
+def hot_signals_block() -> dict:
+    """RedFox 热点信号区（Phase 1 只读试点）——只读预热 JSON，绝不直连 API。
+
+    无信号表 → 全部 None（看板显示「待接入」），绝不用 0 冒充。
+    """
+    sig = _load_json(SIGNALS_DIR / "redfox_signals.json") or {}
+    budget = _load_json(DATA_DIR / "redfox_budget.json") or {}
+    signals = sig.get("signals") or {}
+    top = sorted(signals.items(), key=lambda kv: -(kv[1].get("社媒讨论量") or 0))[:3]
+    works = sig.get("works_top") or []
+    return {
+        "生成时间": sig.get("generated_at"),
+        "命中词数": len(signals) if sig else None,
+        "作品数": sig.get("record_count"),
+        "Top命中词": [{"词": k, "互动量": v.get("社媒讨论量")} for k, v in top] or None,
+        "最高互动作品": ({"标题": works[0].get("title"), "互动量": works[0].get("engagement"),
+                        "平台": works[0].get("platform")} if works else None),
+        "今日调用": budget.get(datetime.now(CST).strftime("%Y-%m-%d")),
+    }
 
 
 def collect(days: int, *, now=None) -> dict:
@@ -169,7 +192,7 @@ def collect(days: int, *, now=None) -> dict:
                    if follower_reads_total and reads else None),
         "_data_points": len(reads),
     }
-    return {"growth": growth, "supply": supply}
+    return {"growth": growth, "supply": supply, "hot": hot_signals_block()}
 
 
 def compliance_block() -> dict:
@@ -217,6 +240,7 @@ def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
         "compliance": comp,
         "growth": growth,
         "supply": supply,
+        "hot": (data or {}).get("hot") or hot_signals_block(),
         "growth_rows": growth_rows,
         "targets": TARGETS,
     }
@@ -255,6 +279,22 @@ def render_markdown(rep: dict) -> str:
     if supply["板块分布"]:
         L.append("板块分布：" + "、".join(f"{k} {v} 篇" for k, v in supply["板块分布"].items()))
         L.append("")
+
+    hot = rep.get("hot") or {}
+    L += ["## 四、热点信号（RedFox Phase 1 只读试点）", ""]
+    if not hot.get("生成时间"):
+        L += ["> 暂无信号表（未刷新或本地无 Key）。刷新：`source scripts/local_env.sh && "
+              "python3 redfox_client.py --refresh`。本区只读预热 JSON，不直连 API。", ""]
+    else:
+        L.append(f"- 信号时间：{hot['生成时间']}；命中词 {hot.get('命中词数')} 个 / "
+                 f"作品 {hot.get('作品数')} 条；今日 API 调用 {hot.get('今日调用')} 次")
+        if hot.get("Top命中词"):
+            L.append("- Top 命中词（互动量）：" + "、".join(
+                f"{x['词']} {x['互动量']:,}" for x in hot["Top命中词"]))
+        if hot.get("最高互动作品"):
+            w = hot["最高互动作品"]
+            L.append(f"- 最高互动作品：[{w['互动量']:,}] {w['标题'][:40]}（{w['平台']}）")
+        L.append("")
     if rep["growth"]["_data_points"] == 0:
         L.append("> ⚠️ 阅读类指标尚未接入：请用 "
                  "`python3 scripts/import_performance.py <CSV/JSON>` 批量回填"
@@ -290,6 +330,26 @@ def render_html(rep: dict) -> str:
     hint = ("<p class='hint'>⚠️ 阅读类指标尚未接入：用 "
             "<code>python3 performance_logger.py &lt;日期&gt; &lt;序号&gt; --reads N --followers M --sync</code> "
             "从头条后台回填后，本看板显示真实值。</p>" if rep["growth"]["_data_points"] == 0 else "")
+
+    hot = rep.get("hot") or {}
+    if not hot.get("生成时间"):
+        hot_html = ("<p class='hint'>暂无信号表（未刷新或本地无 Key）。刷新："
+                    "<code>source scripts/local_env.sh && python3 redfox_client.py --refresh</code>。"
+                    "本区只读预热 JSON，不直连 API。</p>")
+    else:
+        kws = "".join(f"<li>{x['词']} <b>{x['互动量']:,}</b></li>"
+                      for x in (hot.get("Top命中词") or []))
+        w = hot.get("最高互动作品") or {}
+        top_line = (f"<p class='hint'>最高互动作品：[{w.get('互动量'):,}] "
+                    f"{str(w.get('标题') or '')[:40]}（{w.get('平台')}）</p>" if w else "")
+        hot_html = (
+            f"<div class='kpis'>"
+            f"<div class='kpi'><b>{hot.get('命中词数')}</b><span>命中词</span></div>"
+            f"<div class='kpi'><b>{hot.get('作品数')}</b><span>作品数</span></div>"
+            f"<div class='kpi'><b>{hot.get('今日调用')}</b><span>今日 API 调用</span></div>"
+            f"</div>"
+            f"<p class='hint'>信号时间：{hot.get('生成时间')}（只读预热 JSON，不直连 API）</p>"
+            f"<ul style='margin-top:10px'>{kws or '<li>—</li>'}</ul>{top_line}")
 
     return f"""<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
@@ -345,6 +405,10 @@ def render_html(rep: dict) -> str:
    <table><thead><tr><th>指标</th><th>当前值</th><th>30 天目标</th><th>90 天目标</th><th>数据来源</th></tr></thead>
    <tbody>{''.join(rows)}</tbody></table>
    {hint}
+ </div>
+
+ <div class="card"><h2>三、热点信号 · RedFox Phase 1 只读试点</h2>
+ {hot_html}
  </div>
 </div></body></html>"""
 

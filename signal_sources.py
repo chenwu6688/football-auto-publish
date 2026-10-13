@@ -8,6 +8,9 @@
     - 社媒讨论量：微博热搜榜命中（公开可得，无需授权）
     - 搜索指数：百度搜索联想词命中度（公开可得，无需授权）
 
+RedFox 预热信号（Phase 1 只读试点，见 redfox_client.py）：抖音足球热榜作品的
+真实互动量折算「社媒讨论量」，与上述信号合并进同一张表（逐字段取较大值）。
+
 两条纪律：
   1. **绝不假装有信号**——只有真实命中才写入字段；未命中一律不写，
      由 ranker.l2_enrich 标记为「缺失信号」，而非用 0 冒充。
@@ -27,6 +30,7 @@ import requests
 PROJECT_ROOT = Path(__file__).resolve().parent
 SIGNALS_DIR = PROJECT_ROOT / "data" / "signals"
 EXTERNAL_PATH = SIGNALS_DIR / "external_signals.json"
+REDFOX_PATH = SIGNALS_DIR / "redfox_signals.json"
 
 FIELDS = ("同题报道条数", "来源媒体权重", "社媒讨论量", "搜索指数")
 
@@ -41,20 +45,47 @@ def _empty_record() -> dict:
     return {"同题报道条数": 0, "来源媒体权重": 0.0, "社媒讨论量": 0, "搜索指数": 0}
 
 
-def load_external(path: Path | None = None) -> dict:
-    """读取预热的社媒/搜索信号；无文件返回空表。
+def load_external(path: Path | None = None, redfox_path: Path | None = None) -> dict:
+    """读取预热的社媒/搜索信号 + RedFox 热点信号；无文件返回空表。
 
-    返回 {实体: {"社媒讨论量": n, "搜索指数": m}}（仅含真实命中项）。
+    返回 {实体: {"社媒讨论量": n, ...}}（仅含真实命中项）。
+    redfox_path: RedFox 信号表路径，默认 REDFOX_PATH；测试传不存在的临时路径
+    以隔离输入（与 external 侧同一纪律）。
     """
     p = Path(path) if path else EXTERNAL_PATH
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
     except Exception:
+        data = None
+    sig = data.get("signals") if isinstance(data, dict) else None
+    out = sig if isinstance(sig, dict) else (data if isinstance(data, dict) else {})
+    # RedFox 预热信号（Phase 1 只读试点）并入同一张表，逐字段取较大值；
+    # 无文件/无命中时返回原表，绝不凭空造信号。
+    redfox = load_redfox(redfox_path)
+    if redfox:
+        out = merge_with_forwarded(out, redfox)
+    return out if isinstance(out, dict) else {}
+
+
+def load_redfox(path: Path | None = None) -> dict:
+    """读取 RedFox 预热信号（Phase 1 只读试点）；无文件返回空表。
+
+    返回 {实体: {"社媒讨论量": n}}（仅含真实命中词；互动量口径见 redfox_client）。
+    与 external_signals 同一纪律：只有真实命中才出现，缺失即不存在，绝不用 0 冒充。
+    """
+    p = Path(path) if path else REDFOX_PATH
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
         return {}
     sig = data.get("signals") if isinstance(data, dict) else None
-    if isinstance(sig, dict):
-        return sig
-    return data if isinstance(data, dict) else {}
+    if not isinstance(sig, dict):
+        return {}
+    out = {}
+    for k, v in sig.items():
+        if isinstance(v, dict) and v.get("社媒讨论量") is not None:
+            out[k] = {"社媒讨论量": int(v["社媒讨论量"])}
+    return out
 
 
 def merge_with_forwarded(signals: dict, forwarded: dict | None) -> dict:

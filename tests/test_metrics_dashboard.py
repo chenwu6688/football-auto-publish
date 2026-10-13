@@ -65,6 +65,27 @@ class TestMetricsDashboard(unittest.TestCase):
         md = m.render_markdown(rep)
         self.assertIn("合规红线", md)
 
+    def test_hot_signals_block_missing_file_is_none(self):
+        # 无 RedFox 信号表 → 全 None（看板显示「待接入」，绝不造假 0）
+        orig = m.SIGNALS_DIR
+        m.SIGNALS_DIR = self.tmp / "no_signals"
+        try:
+            hot = m.hot_signals_block()
+        finally:
+            m.SIGNALS_DIR = orig
+        self.assertIsNone(hot["命中词数"])
+        self.assertIsNone(hot["生成时间"])
+        rep = m.build_report({"growth": {"篇均阅读": None, "平均完成率": None,
+                                         "整体点击率": None, "粉丝阅读占比": None,
+                                         "日均涨粉": None, "_data_points": 0},
+                              "supply": {"覆盖天数": 0, "总篇数": 0, "日均篇数": 0,
+                                         "批次完成率": 0, "溯源覆盖率": 0,
+                                         "板块分布": {}, "预测类剔除": 0},
+                              "hot": hot},
+                             {"suspended": False, "false_content_count": 0}, 1)
+        self.assertIn("暂无信号表", m.render_markdown(rep))
+        self.assertIn("暂无信号表", m.render_html(rep))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-10-13 14:20",
+  "ok": true,
+  "checks": [
+    {
+      "item": "配置结构（config/redfox.yaml）",
+      "ok": true,
+      "advisory": false,
+      "version": "phase1-2026-10-13",
+      "keywords": 12,
+      "detail": [
+        "配置 vphase1-2026-10-13 字段齐备 ✅",
+        "关键词 12 个；日上限 30；TTL 12h；启用端点 ['douyin_works'] ✅"
+      ]
+    },
+    {
+      "item": "规则冒烟（归一化 / 缓存 / 限额硬闸 / 降级路径）",
+      "ok": true,
+      "advisory": false,
+      "total": 18,
+      "detail": [
+        "18 项冒烟全部通过 ✅"
+      ]
+    },
+    {
+      "item": "台账隔离（验收路径全走 tempfile，真实台账零污染）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "真实台账 12 → 12（应不变）；真实缓存内容不变；临时台账已写 True；归一化返回 1 条"
+      ]
+    },
+    {
+      "item": "信号表接入（只读合并 / 隔离不炸 / 编排链路）",
+      "ok": true,
+      "advisory": false,
+      "skipped": false,
+      "detail": [
+        "load_external(隔离路径) 返回空表 ✅",
+        "真实信号表 12 个命中词可读 ✅（Top：曼城）",
+        "orchestrator 未直接持有 signal_sources 引用（_rank_topics 内 import，属预期）"
+      ]
+    },
+    {
+      "item": "实网探测（仅本地有 Key；CI 无 Secret 自动跳过）",
+      "ok": true,
+      "advisory": true,
+      "skipped": true,
+      "detail": [
+        "未配置 REDFOX_API_KEY，跳过实网探测（不算失败）"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": []
+}

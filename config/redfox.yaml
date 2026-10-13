@@ -1,0 +1,59 @@
+# RedFox 热点数据 API 配置 —— Phase 1 只读试点（用户 2026-10-13 授权）
+#
+# 定位：为选题择优（ranker L2「社媒讨论量」）提供真实热度信号——
+#   抖音足球热榜作品 / 公众号足球热文的互动量。**只作输入信号，绝不写入正文**。
+#
+# 计费纪律（按量付费 ¥0.02/次起，试点规模可控）：
+#   - 每次 refresh 对每个关键词调用 1 次搜索；缓存 TTL 内不重复调用；
+#   - daily_call_cap 是硬闸：当日真实调用达到上限后，只用缓存/降级，绝不再烧积分；
+#   - 每次真实调用落 data/redfox_budget.json 台账（测试/verify 前须隔离到 tempfile）。
+#
+# 降级纪律（计划九）：
+#   - 无 REDFOX_API_KEY / 网络失败 / code≠2000 / 超日上限 → 一律返回空，
+#     调用方按「缺失信号」处理，**绝不用 0 或编造数据冒充**。
+
+# API 基础
+base_url: "https://redfox.hk"
+timeout: 15                  # 单次请求超时（秒）
+
+# 端点（POST；请求头 REDFOX_API_KEY + Content-Type: application/json）
+endpoints:
+  douyin_works: "/story/api/dyData/searchArticle"    # 搜索关键词获取抖音作品（优质库）
+  gzh_articles: "/story/api/gzhData/searchArticle"   # 搜索关键词获取公众号作品（优质库）
+# 各端点开关：gzh 优质库文档标注「即将上线」，未实测可用前保持关闭（打开前先手工探测）
+endpoint_enabled:
+  douyin_works: true
+  gzh_articles: false
+
+# 搜索参数
+sort: "_4"                   # _0 相关性 / _2 最新 / _4 最热（试点取最热）
+per_keyword_limit: 20        # 每个关键词保留的前 N 条（按接口返回序）
+
+# 足球关键词集（ Phase 1 核心词；每个词 = 每次 refresh 1 次调用）
+keywords:
+  - 足球
+  - 梅西
+  - C罗
+  - 内马尔
+  - 姆巴佩
+  - 国足
+  - 中超
+  - 欧冠
+  - 世界杯
+  - 皇马
+  - 曼城
+  - 巴萨
+
+# 缓存与额度
+cache_ttl_hours: 12          # 单关键词缓存 TTL；期内直接读缓存不调用
+daily_call_cap: 30           # 单日真实调用硬上限（保护积分）
+
+# 信号表输出（供 signal_sources.load_external 合并，主流程只读）
+signals_path: "data/signals/redfox_signals.json"
+cache_path: "data/redfox_cache.json"
+budget_path: "data/redfox_budget.json"
+
+# 元信息
+版本: "phase1-2026-10-13"
+口径出处: "RedFox 抖音作品搜索优质库（redfox.hk API 文档 2026-10-13 核实）"
+生效日期: "2026-10-13"

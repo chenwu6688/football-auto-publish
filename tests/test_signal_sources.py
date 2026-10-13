@@ -12,15 +12,16 @@ class TestSignalSources(unittest.TestCase):
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
+        self.no_redfox = self.tmp / "no_redfox.json"   # 隔离 RedFox 真实信号表
 
     def test_load_external_missing_returns_empty(self):
-        self.assertEqual(ss.load_external(self.tmp / "nope.json"), {})
+        self.assertEqual(ss.load_external(self.tmp / "nope.json", self.no_redfox), {})
 
     def test_load_external_reads_signals(self):
         p = self.tmp / "ext.json"
         p.write_text(json.dumps({"signals": {"曼城": {"社媒讨论量": 12}}},
                                 ensure_ascii=False), encoding="utf-8")
-        self.assertEqual(ss.load_external(p), {"曼城": {"社媒讨论量": 12}})
+        self.assertEqual(ss.load_external(p, self.no_redfox), {"曼城": {"社媒讨论量": 12}})
 
     def test_build_signals_only_hits(self):
         ents = ["曼城", "不存在的队"]
@@ -50,7 +51,37 @@ class TestSignalSources(unittest.TestCase):
     def test_write_external_roundtrip(self):
         p = ss.write_external({"曼城": {"搜索指数": 30}}, entities=["曼城"],
                               path=self.tmp / "e.json")
-        self.assertEqual(ss.load_external(p), {"曼城": {"搜索指数": 30}})
+        self.assertEqual(ss.load_external(p, self.no_redfox), {"曼城": {"搜索指数": 30}})
+
+    # ---- RedFox 预热信号（Phase 1 只读试点） ----
+    def test_load_redfox_missing_returns_empty(self):
+        self.assertEqual(ss.load_redfox(self.no_redfox), {})
+
+    def test_load_redfox_reads_social_only(self):
+        p = self.tmp / "rf.json"
+        p.write_text(json.dumps({"signals": {"曼城": {"社媒讨论量": 1154911, "作品数": 22}},
+                                 "hot_words": []}, ensure_ascii=False), encoding="utf-8")
+        self.assertEqual(ss.load_redfox(p), {"曼城": {"社媒讨论量": 1154911}})
+
+    def test_load_redfox_skips_non_numeric(self):
+        p = self.tmp / "rf2.json"
+        p.write_text(json.dumps({"signals": {"曼城": {"社媒讨论量": None},
+                                            "皇马": "坏数据"}}, ensure_ascii=False),
+                     encoding="utf-8")
+        self.assertEqual(ss.load_redfox(p), {})
+
+    def test_load_external_merges_redfox_takes_max(self):
+        ext = self.tmp / "ext.json"
+        ext.write_text(json.dumps({"signals": {"曼城": {"社媒讨论量": 12, "搜索指数": 30}}},
+                                  ensure_ascii=False), encoding="utf-8")
+        rf = self.tmp / "rf.json"
+        rf.write_text(json.dumps({"signals": {"曼城": {"社媒讨论量": 1154911},
+                                             "梅西": {"社媒讨论量": 88}}},
+                                 ensure_ascii=False), encoding="utf-8")
+        out = ss.load_external(ext, rf)
+        self.assertEqual(out["曼城"]["社媒讨论量"], 1154911)   # 取较大值
+        self.assertEqual(out["曼城"]["搜索指数"], 30)          # 原表字段保留
+        self.assertEqual(out["梅西"]["社媒讨论量"], 88)        # 新实体并入
 
     def test_fetch_baidu_suggest_parses_nonstandard_json(self):
         # 百度联想返回非标准 JSON（键无引号），必须能正确抽取 s 数组

@@ -11,6 +11,7 @@ name: 计划结构不变量验收（6.1/6.2/8.1/11.5/12.2/12.4/13.2/13.4/第十�
 #   - 标题反模式闸门（3.3 / 第十章：赛果播报式硬规则与生成侧接入）
 #   - 选题分类与类别优先级（5.1 / R11 内容诊断：有效选题优先级与战报比分软上限）
 #   - 标题正向规则（3.3 / R11 内容诊断：悬念词+87% / 21-30字最优 / 赛事名词垫底 / 情绪词-15%）
+#   - RedFox 热点数据试点（用户 2026-10-13 授权：只读/缓存/额度台账/信号只作输入；CI 无 Key 自动跳过实网探测）
 #   - 发布时段纪律（3.3 / 第十章：主调度/兜底 cron 与死区护栏一致性）
 on:
   schedule:
@@ -88,6 +89,11 @@ jobs:
         run: |
           python3 scripts/verify_title_positive.py --quiet \
             || echo "::warning::标题正向规则验收未通过（悬念词/21-30字/赛事名词/情绪词），详见 data/audit/title_positive_latest.json"
+
+      - name: RedFox 热点数据试点（用户 2026-10-13 授权 · 只读试点）
+        run: |
+          python3 scripts/verify_redfox_pilot.py --quiet \
+            || echo "::warning::RedFox 试点验收未通过（配置/冒烟/台账隔离/信号表接入；CI 无 Key 时实网探测自动跳过），详见 data/audit/redfox_pilot_latest.json"
 
       - name: 发布时段纪律（计划 3.3 / 第十章）
         run: |
