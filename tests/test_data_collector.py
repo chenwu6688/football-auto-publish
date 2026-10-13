@@ -79,11 +79,12 @@ def test_load_prompt_template_exists():
     assert "足球" in ts or "评分" in ts or "品类" in ts, \
         "topic_selector template should contain football/scoring/category content"
 
-    # Load article_generator — should return non-empty content
-    ag = load_prompt_template("article_generator.txt")
-    assert len(ag) > 500, f"article_generator.txt too short ({len(ag)} chars)"
-    assert "足球" in ag or "品类" in ag or "写作" in ag, \
-        "article_generator template should contain football/category/writing content"
+    # Load rewrite_article — the canonical generation template since b2a0827
+    # (article_generator.txt was deleted then; this test previously broke on it)
+    rw = load_prompt_template("rewrite_article.txt")
+    assert len(rw) > 500, f"rewrite_article.txt too short ({len(rw)} chars)"
+    assert "足球" in rw or "title" in rw or "写作" in rw, \
+        "rewrite_article template should contain football/title/writing content"
 
     # Missing file returns empty string gracefully
     empty = load_prompt_template("nonexistent.txt")

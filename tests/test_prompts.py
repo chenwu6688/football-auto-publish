@@ -11,35 +11,26 @@ PROJECT_ROOT = Path(__file__).parent.parent
 PROMPT_DIR = PROJECT_ROOT / "prompts"
 
 # Expected checksums (update when prompts change intentionally)
+# 注：article_generator.txt 已于 b2a0827「删除不再使用的文件」移除，
+# 成稿生成现走 rewrite_article.txt（Pipeline A 改写）与内联 prompt。
 EXPECTED_CHECKSUMS = {
-    "article_generator.txt": None,  # set to sha256[:12] to lock
     "topic_selector.txt": None,
+    "rewrite_article.txt": None,
 }
 
 REQUIRED_SECTIONS = {
-    "article_generator.txt": ["品类一", "品类二", "品类三", "品类四", "品类五", "合规红线", "互动引导", "写得像个真人"],
     "topic_selector.txt": ["五大内容品类", "评分体系", "标题公式", "输出格式", "动态调配"],
+    "rewrite_article.txt": ["输出格式", "ai_perspective"],
 }
 
 
 def test_prompt_files_exist():
-    """Both prompt files must exist."""
-    for fname in ["article_generator.txt", "topic_selector.txt"]:
+    """Production prompt files must exist."""
+    for fname in ["topic_selector.txt", "rewrite_article.txt"]:
         path = PROMPT_DIR / fname
         assert path.exists(), f"{fname} not found at {path}"
         assert path.stat().st_size > 500, f"{fname} too small ({path.stat().st_size} bytes)"
     print("  PASS test_prompt_files_exist")
-
-
-def test_article_generator_sections():
-    """article_generator.txt must contain all required sections."""
-    path = PROMPT_DIR / "article_generator.txt"
-    content = path.read_text()
-    for section in REQUIRED_SECTIONS["article_generator.txt"]:
-        assert section in content, f"Missing required section: {section}"
-    # Must have at least 2 ## examples
-    assert content.count("## ") >= 2, "Should have at least 2 markdown headers"
-    print("  PASS test_article_generator_sections")
 
 
 def test_topic_selector_sections():
@@ -67,7 +58,7 @@ def test_prompt_checksums():
 
 def test_no_banned_patterns():
     """Prompts should not contain hardcoded example titles that might leak into output."""
-    path = PROMPT_DIR / "article_generator.txt"
+    path = PROMPT_DIR / "rewrite_article.txt"
     content = path.read_text()
     # Should NOT contain real article titles as fixed examples
     # (This is a sanity check, not strict enforcement)
@@ -86,7 +77,6 @@ if __name__ == "__main__":
 
     all_tests = [
         ("prompts exist & have content", test_prompt_files_exist),
-        ("article_generator: all sections present", test_article_generator_sections),
         ("topic_selector: all sections present", test_topic_selector_sections),
         ("checksums tracked", test_prompt_checksums),
         ("no banned patterns", test_no_banned_patterns),

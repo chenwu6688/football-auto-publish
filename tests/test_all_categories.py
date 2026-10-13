@@ -105,9 +105,13 @@ TEST_CASES = [
 
 
 def load_prompt():
-    """Load the article generator prompt."""
+    """Load the article generation prompt.
+
+    article_generator.txt 已于 b2a0827「删除不再使用的文件」移除，
+    现走 rewrite_article.txt（Pipeline A 改写模板）。
+    """
     prompt_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                               "prompts", "article_generator.txt")
+                               "prompts", "rewrite_article.txt")
     with open(prompt_path) as f:
         return f.read()
 
