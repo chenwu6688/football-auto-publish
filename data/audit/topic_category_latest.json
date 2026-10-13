@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-10-13 12:25",
+  "ok": true,
+  "checks": [
+    {
+      "item": "配置结构（config/topic_category.yaml）",
+      "ok": true,
+      "advisory": false,
+      "version": "1.0",
+      "detail": [
+        "配置 v1.0 字段齐备；优先级 ['转会官宣', '冲突舆情', '中国足球', '未分类', '战报比分'] ✅",
+        "软上限 {'战报比分': 1}；词表 比分 1 / 赛果 1 / 转会 14 / 冲突 21 / 中国足球 15 ✅"
+      ]
+    },
+    {
+      "item": "规则冒烟（五类正例 / 形态优先 / prioritize / 降级）",
+      "ok": true,
+      "advisory": false,
+      "total": 24,
+      "detail": [
+        "24 项冒烟全部通过 ✅"
+      ]
+    },
+    {
+      "item": "回归语料（17 条内嵌选题）",
+      "ok": true,
+      "advisory": false,
+      "total": 17,
+      "detail": [
+        "17 条回归语料分类全部正确 ✅（含形态优先反例与 content_type 路径）"
+      ]
+    },
+    {
+      "item": "编排接入（import / 命名空间 / 真实选题回归）",
+      "ok": true,
+      "advisory": false,
+      "files": 15,
+      "topics": 61,
+      "detail": [
+        "orchestrator 命名空间可见 topic_category ✅",
+        "近 14 天 15 个 metadata、61 条真实选题 classify 全部无异常 ✅"
+      ]
+    },
+    {
+      "item": "近 14 天真实选题分类分布（存量，仅提示）",
+      "ok": true,
+      "advisory": true,
+      "total": 61,
+      "counts": {
+        "中国足球": 13,
+        "战报比分": 9,
+        "未分类": 17,
+        "转会官宣": 9,
+        "冲突舆情": 13
+      },
+      "detail": [
+        "近 14 天真实选题 61 条：未分类 17（28%）、中国足球 13（21%）、冲突舆情 13（21%）、战报比分 9（15%）、转会官宣 9（15%）"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": []
+}

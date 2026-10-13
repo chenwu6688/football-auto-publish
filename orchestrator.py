@@ -28,6 +28,7 @@ import degrade
 import supply_mix
 import rumor_wording
 import title_antipattern
+import topic_category
 import content_reference
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
@@ -714,6 +715,10 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         topics = [topics]  # LLM returned single object instead of array
     if not isinstance(topics, list):
         topics = []
+    # R11 选题分类（类别优先级前置）：判定不了的一律「未分类」，绝不猜
+    for _t in topics:
+        if isinstance(_t, dict):
+            _t["_category"] = topic_category.classify(_t)
     topics, dup_warnings = _check_intra_batch_dedup(topics)
     # Drop topics with >60% keyword overlap (keep higher-scored one)
     if dup_warnings:
@@ -812,8 +817,12 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # Check topic material sufficiency — reject topics that match_data can't support
     topics = _check_topic_material_sufficiency(topics, match_data)
 
+    # R11 结论落地：有效选题（转会官宣/冲突舆情/中国足球）优先，战报比分减产
+    topics, _cat_dropped = topic_category.prioritize(topics)
+
     # ── P1-4 / P1-6 / 维度4 / 维度2: 非阻断监控（标题钩子 / 类型平衡 / 共鸣角度 / 系列连载）──
     warn_title_hook_distribution(topics)
+    topic_category.warn_category_distribution(topics)
     warn_type_balance(topics, season_label=season_label)
     warn_resonance_coverage(topics)
     warn_series_continuity(topics)
