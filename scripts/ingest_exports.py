@@ -187,8 +187,12 @@ def run(*, dry_run: bool = False) -> dict:
     counts: dict[str, int] = {}
     for r in results:
         counts[r["status"]] = counts.get(r["status"], 0) + 1
+    try:
+        inbox_label = str(INBOX.relative_to(PROJECT_ROOT))
+    except ValueError:      # 投递箱被指到仓库外（测试/自定义）→ 记绝对路径
+        inbox_label = str(INBOX)
     return {"at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
-            "inbox": str(INBOX.relative_to(PROJECT_ROOT)),
+            "inbox": inbox_label,
             "files": len(files), "counts": counts, "results": results,
             "dry_run": dry_run}
 

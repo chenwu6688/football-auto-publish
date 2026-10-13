@@ -151,6 +151,8 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 🔁 **回填自动化**：把后台导出丢进 `data/inbox/` 即自动入库（类型自动识别 + sha256 幂等 +
   归档 `data/processed/`），CI 每天跑一次并做滞后监控（绩效 >3 天 / 转粉 >7 天 / 覆盖率 <50% 告警），
   见 `.github/workflows/perf-ingest.yml` + `scripts/ingest_exports.py` + `scripts/check_perf_lag.py`。
+- ⚡ **一键周更**：`python3 scripts/weekly_review.py --from ~/下载 --commit` —— 交文件即可，
+  收文件 → 入库 → 滞后监控 → 刷新看板 → 调参建议（只算不写）→ 汇总报告一条命令跑完。
 - 🏷️ **垂直栏目锚点**：按内容类型补齐栏目 / 风格 / 互动字段，强化算法垂直识别，消除元数据空字段。
 - 📊 **非阻断监控**：标题钩子分布、内容类型分布、信息增量、共鸣角度覆盖、系列连载分布均做运行期告警（不阻拦发布），便于 dashboard 闭环复盘。
 

@@ -12,9 +12,10 @@
   E. 复用入口——perf 走 import_performance.ingest_toutiao（不再各写一份导入逻辑）
   F. 滞后监控——滞后天数计算、无数据 → None（待接入不算滞后）、超阈值告警、覆盖率
   G. CI 接线——perf-ingest.yml 存在且含「消费投递箱 + 滞后监控 + 回写提交」
+  H. 一键周更入口——weekly_review.py 六步接线齐、调参只算不写、dry-run 零副作用
 
 告警项（只提示）
-  H. 当前滞后实况（绩效 / 转粉 / 回填覆盖率）
+  I. 当前滞后实况（绩效 / 转粉 / 回填覆盖率）
 
 用法：
   python3 scripts/verify_perf_ingest.py [--quiet]
@@ -24,6 +25,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import sys
 import tempfile
@@ -37,8 +39,10 @@ sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 import growth_import as gi          # noqa: E402
 import ingest_exports as ie         # noqa: E402
 import check_perf_lag as cpl        # noqa: E402
+import weekly_review as wr          # noqa: E402
 
 AUDIT_DIR = PROJECT_ROOT / "data" / "audit"
+SCRIPTS = PROJECT_ROOT / "scripts"
 CST = timezone(timedelta(hours=8))
 WF = PROJECT_ROOT / ".github" / "workflows" / "perf-ingest.yml"
 
@@ -186,6 +190,70 @@ def check_ci() -> dict:
                        else ["perf-ingest.yml：cron 定时 + 消费投递箱 + 滞后监控 + 回写提交 ✅"])}
 
 
+def check_weekly_entry() -> dict:
+    """一键周更入口（scripts/weekly_review.py）：用户只交文件，剩下全自动。
+
+    校验：入口存在 + 六个步骤接线齐 + 调参只算不写（绝不自动改配比配置）
+    + dry-run 真的不落库。
+    """
+    problems = []
+    src_path = SCRIPTS / "weekly_review.py"
+    if not src_path.exists():
+        return {"item": "一键周更入口（weekly_review.py）", "ok": False, "advisory": False,
+                "detail": ["❌ 缺 scripts/weekly_review.py（用户交文件后没有统一收口入口）"]}
+    src = src_path.read_text(encoding="utf-8")
+    for marker, label in (("collect_from(", "收文件（--from）"),
+                          ("ie.run(", "消费投递箱"),
+                          ("cpl.report(", "滞后监控"),
+                          ("build_metrics_dashboard", "刷新看板"),
+                          ("compute_suggestion", "调参建议")):
+        if marker not in src:
+            problems.append(f"缺「{label}」接线（未见 `{marker}`）")
+    # 调参只算不写：用 AST 查**真实调用**（不靠文本匹配——注释里提到 main() 不算）
+    try:
+        tree = ast.parse(src)
+        banned = [f"{n.func.value.id}.{n.func.attr}"
+                  for n in ast.walk(tree)
+                  if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                  and n.func.attr in ("main", "apply_suggestion", "save_config")
+                  and isinstance(n.func.value, ast.Name)]
+        if banned:
+            problems.append(f"调参建议不得调用 {sorted(set(banned))}（会写配置）")
+    except SyntaxError as e:
+        problems.append(f"语法错误，无法静态核验：{e}")
+    try:
+        import weekly_review as wr
+    except Exception as e:
+        return {"item": "一键周更入口（weekly_review.py）", "ok": False, "advisory": False,
+                "detail": [f"❌ 无法载入 weekly_review：{e}"]}
+    # dry-run 必须零副作用（不写台账 / 不写转粉数据 / 不写汇总报告）
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        saved = (ie.INBOX, ie.STATE_PATH, gi.GROWTH_PATH, wr.AUDIT_DIR, wr.INBOX)
+        try:
+            ie.INBOX = tmp / "inbox"
+            ie.INBOX.mkdir(parents=True, exist_ok=True)
+            ie.STATE_PATH = tmp / "state.json"
+            gi.GROWTH_PATH = tmp / "fans.json"
+            wr.INBOX, wr.AUDIT_DIR = ie.INBOX, tmp / "audit"
+            out = wr.run(dry_run=True, write_dashboard=False, tuner=False)
+        except Exception as e:
+            problems.append(f"dry-run 崩溃：{type(e).__name__}: {e}")
+            out = {}
+        finally:
+            (ie.INBOX, ie.STATE_PATH, gi.GROWTH_PATH, wr.AUDIT_DIR, wr.INBOX) = saved
+        for p, label in ((Path(tmp) / "state.json", "幂等台账"),
+                         (Path(tmp) / "fans.json", "转粉数据"),
+                         (Path(tmp) / "audit", "汇总报告")):
+            if p.exists():
+                problems.append(f"dry-run 不该写{label}")
+    return {"item": "一键周更入口（weekly_review.py）", "ok": not problems, "advisory": False,
+            "detail": ([f"❌ {'；'.join(problems)}"] if problems
+                       else ["收文件 → 入库 → 滞后 → 看板 → 调参建议 → 汇总报告 六步接线齐 ✅",
+                             "调参只算不写（不动 config/ratio_config.yaml）✅",
+                             "dry-run 零副作用（不写台账/转粉/报告）✅"])}
+
+
 def check_live() -> dict:
     rep = cpl.report(days=14)
     detail = [f"绩效最新 {rep['绩效最新']}（滞后 {rep['绩效滞后天数']} 天）；"
@@ -201,7 +269,7 @@ def check_live() -> dict:
 
 def verify() -> dict:
     hard = [check_detect(), check_idempotent_and_archive(), check_fail_stays_in_inbox(),
-            check_shared_entrypoint(), check_lag_monitor(), check_ci()]
+            check_shared_entrypoint(), check_lag_monitor(), check_ci(), check_weekly_entry()]
     soft = [check_live()]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": hard + soft,

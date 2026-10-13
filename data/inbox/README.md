@@ -29,7 +29,13 @@
 ## 用法
 
 ```bash
-# 本机手动跑一次
+# 最省事：一条命令跑完（收文件 → 入库 → 滞后监控 → 看板 → 调参建议 → 汇总报告）
+python3 scripts/weekly_review.py --from ~/下载 --commit
+
+# 只想消费箱里已有的文件
+python3 scripts/weekly_review.py
+
+# 本机手动跑一次（只入库，不做后面几步）
 python3 scripts/ingest_exports.py
 
 # 定时任务（CI）每天自动跑，见 .github/workflows/perf-ingest.yml
