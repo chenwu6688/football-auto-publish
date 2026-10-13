@@ -176,15 +176,27 @@ def check_prompt() -> dict:
             problems.append(f"{fn} 未包含「21-30」字长度指引")
         if "15-25" in text:
             problems.append(f"{fn} 仍残留「15-25」旧长度指引")
-    return {"item": "提示词一致性（21-30 字 / 不再 15-25）", "ok": not problems,
+    # 悬念词指引必须落到两侧（0% 采用率事件后补：仅「优先使用」软建议无效）
+    ts = PROMPTS_DIR / "topic_selector.txt"
+    if ts.exists():
+        t = ts.read_text(encoding="utf-8")
+        if "悬念词配额" not in t or "没想到" not in t:
+            problems.append("topic_selector.txt 缺 R11 悬念词配额（仅软建议时生成侧采用率为 0）")
+    ra = PROMPTS_DIR / "rewrite_article.txt"
+    if ra.exists():
+        t = ra.read_text(encoding="utf-8")
+        if "反转揭示词" not in t or "没想到" not in t:
+            problems.append("rewrite_article.txt 缺反转揭示词要求（改写侧才是最终定标题处）")
+    return {"item": "提示词一致性（21-30 字 / 悬念词配额 / 不再 15-25）", "ok": not problems,
             "advisory": False,
             "detail": ([f"❌ {'；'.join(problems)}"] if problems
-                       else ["topic_selector.txt 与 rewrite_article.txt 均已对齐 21-30 字口径 ✅"])}
+                       else ["topic_selector.txt（批次配额）与 rewrite_article.txt（单篇强偏好）"
+                             "均含反转揭示词要求，21-30 字口径对齐 ✅"])}
 
 
 def check_recent_output(days: int = 14) -> dict:
     floor = (datetime.now(CST) - timedelta(days=days)).strftime("%Y-%m-%d")
-    total = event = emo = sus = 0
+    total = event = emo = sus = band = 0
     for p in sorted(glob.glob(str(OUTPUT_DIR / "**" / "metadata.json"), recursive=True)):
         d = Path(p).parent.name
         if d < floor:
@@ -206,10 +218,32 @@ def check_recent_output(days: int = 14) -> dict:
                     emo += 1
                 elif "悬念词" in reason:
                     sus += 1
-    return {"item": f"近 {days} 天成稿 R11 命中分布（告警，仅可观测）", "ok": True,
+            if tp._in_band(t, tp.load_config() or {}):
+                band += 1
+    cfg = tp.load_config() or {}
+    mon = cfg.get("监控") or {}
+    susp_th = float(mon.get("悬念词采用率阈值", 0.2))
+    band_th = float(mon.get("最优带采用率阈值", 0.5))
+    detail = []
+    ok = True
+    if total:
+        sp, bp = sus / total, band / total
+        detail.append(f"近 {days} 天成稿 {total} 条：悬念词 {sus}（{sp:.0%}，阈值 {susp_th:.0%}）| "
+                      f"21-30字 {band}（{bp:.0%}，阈值 {band_th:.0%}）| "
+                      f"赛事名词 {event} | 情绪词 {emo}")
+        if sp < susp_th:
+            detail.append(f"⚠️ 悬念词采用率 {sp:.0%} 低于阈值——R11 回测悬念词 CTR +87%，"
+                          f"evaluate() 只加分不强制，需从 prompts/topic_selector.txt 强化")
+            ok = False
+        if bp < band_th:
+            detail.append(f"⚠️ 21-30 字采用率 {bp:.0%} 低于阈值——R11 回测该区间为最优长度带")
+            ok = False
+    else:
+        detail.append(f"近 {days} 天无成稿，本项跳过")
+    return {"item": f"近 {days} 天成稿 R11 采用率（告警，仅可观测）", "ok": ok,
             "advisory": True, "total": total, "event_noun": event,
-            "emotion": emo, "suspense": sus,
-            "detail": [f"近 {days} 天成稿 {total} 条：赛事名词命中 {event} / 情绪词 {emo} / 悬念词 {sus}（仅可观测）"]}
+            "emotion": emo, "suspense": sus, "optimal_band": band,
+            "detail": detail}
 
 
 def verify(days: int = 14) -> dict:

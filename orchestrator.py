@@ -824,6 +824,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # ── P1-4 / P1-6 / 维度4 / 维度2: 非阻断监控（标题钩子 / 类型平衡 / 共鸣角度 / 系列连载）──
     warn_title_hook_distribution(topics)
     topic_category.warn_category_distribution(topics)
+    title_positive.warn_adoption(topics)
     warn_type_balance(topics, season_label=season_label)
     warn_resonance_coverage(topics)
     warn_series_continuity(topics)

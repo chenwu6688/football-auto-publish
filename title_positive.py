@@ -164,6 +164,52 @@ def evaluate(title, *, known_teams=None, has_specific=False, cfg=None) -> dict:
     return {"bonus": int(bonus), "reasons": reasons, "detail": detail, "degraded": False}
 
 
+def _has_suspense(title: str, cfg: dict) -> bool:
+    return any(str(w) in (title or "") for w in (cfg.get("悬念词") or []))
+
+
+def _in_band(title: str, cfg: dict) -> bool:
+    band = cfg.get("最优长度带") or [21, 30]
+    try:
+        lo, hi = int(band[0]), int(band[1])
+    except (TypeError, ValueError, IndexError):
+        return False
+    return lo <= len(title or "") <= hi
+
+
+def warn_adoption(topics) -> None:
+    """非阻断：批次级 R11 正向规则采用率监控（悬念词 / 21-30 字最优带）。
+
+    R11 回测：悬念词 CTR +87%、21-30 字为最优区间。但 evaluate() 只加分不强制，
+    采用率过低说明生成侧提示失效——本函数让漂移可见（先告警，不硬禁）。
+    阈值见 config/title_positive.yaml 的「监控」节。
+    """
+    items = [t for t in (topics or [])
+             if isinstance(t, dict) and (t.get("title") or "").strip()]
+    if not items:
+        return
+    cfg = load_config() or _FALLBACK
+    mon = cfg.get("监控") or {}
+    try:
+        susp_th = float(mon.get("悬念词采用率阈值", 0.2))
+        band_th = float(mon.get("最优带采用率阈值", 0.5))
+    except (TypeError, ValueError):
+        susp_th, band_th = 0.2, 0.5
+    n = len(items)
+    susp = sum(1 for t in items if _has_suspense(t["title"], cfg))
+    band = sum(1 for t in items if _in_band(t["title"], cfg))
+    sp, bp = susp / n, band / n
+    print(f"   📊 R11 标题规则采用: 悬念词 {susp}/{n} ({sp:.0%}) | 21-30字 {band}/{n} ({bp:.0%})")
+    if sp < susp_th:
+        print(f"   ⚠️ 悬念词采用率偏低（{sp:.0%} < {susp_th:.0%}）——R11 回测悬念词 CTR +87%，"
+              f"evaluate() 只加分不强制，建议强化 prompts/topic_selector.txt 的标题要求")
+    if bp < band_th:
+        print(f"   ⚠️ 21-30 字采用率偏低（{bp:.0%} < {band_th:.0%}）——R11 回测该区间为最优长度带")
+    if sp >= susp_th and bp >= band_th:
+        print(f"   ✅ R11 标题规则采用达标（悬念词 {sp:.0%} ≥ {susp_th:.0%}，"
+              f"最优带 {bp:.0%} ≥ {band_th:.0%}）")
+
+
 def selftest() -> list[tuple[str, bool]]:
     """冒烟自检：每条规则的方向与数值正确、降级放行。"""
     cases: list[tuple[str, bool]] = []

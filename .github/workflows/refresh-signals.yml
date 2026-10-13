@@ -3,6 +3,8 @@ name: 预热水号热度信号
 # 计划 11.2 L2：社媒讨论量 / 搜索指数。
 # 主流程只读 data/signals/external_signals.json；本任务在每日早批之前预热好该文件。
 # 早批 08:00 CST，本任务 06:30 CST（22:30 UTC 前一日）。
+# RedFox 试点（2026-10-13）：同任务内预热抖音足球热榜信号（redfox_signals.json），
+# 无 REDFOX_API_KEY secret 时自动跳过；刷新失败保留既有信号表不覆盖。
 
 on:
   schedule:
@@ -31,6 +33,13 @@ jobs:
 
       - name: 预热信号（微博/百度热搜 + 百度联想）
         run: python3 scripts/refresh_signals.py --level A --workers 4
+
+      - name: 预热 RedFox 热点信号（Phase 1 试点；无 Key 自动跳过，不覆盖既有表）
+        env:
+          REDFOX_API_KEY: ${{ secrets.REDFOX_API_KEY }}
+        run: |
+          python3 redfox_client.py --refresh \
+            || echo "::notice::RedFox 本轮未刷新（无 Key / 积分不足 / 端点故障），保留既有信号表"
 
       - name: 提交信号缓存
         run: |

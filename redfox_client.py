@@ -510,6 +510,11 @@ def main() -> int:
             return 2
         kws = list(cfg.get("keywords") or [])
         recs = fetch_hot_works(cfg=cfg)
+        if not recs:
+            # 全失败时不覆盖既有信号表：瞬时故障（网络/积分不足）就抹掉真信号，
+            # 会让 ranker 静默丢失「社媒讨论量」维度——保留旧表（stale 真 > 空）。
+            print("⚠️ 本轮未取到任何作品（网络/积分/端点故障），保留既有信号表不覆盖")
+            return 3
         payload = build_signals_payload(recs, kws)
         p = write_signals(payload)
         print(f"刷新完成：{len(recs)} 条作品 / {len(payload['signals'])} 个命中词 → {p}")

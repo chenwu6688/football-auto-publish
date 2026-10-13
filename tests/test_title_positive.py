@@ -202,3 +202,40 @@ class TestPublishGateSeparation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestAdoptionMonitor(unittest.TestCase):
+    """R11 采用率监控：低采用率告警、达标不告警、空输入安静返回。"""
+
+    def _run(self, topics):
+        import io
+        from contextlib import redirect_stdout
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            tp.warn_adoption(topics)
+        return buf.getvalue()
+
+    def test_low_adoption_warns(self):
+        # 全 plain 标题：无悬念词、长度不足 → 两条告警都应出现
+        topics = [{"title": "曼城昨晚比赛结果"}, {"title": "皇马发出邀请"}]
+        out = self._run(topics)
+        self.assertIn("悬念词采用率偏低", out)
+        self.assertIn("21-30 字采用率偏低", out)
+
+    def test_high_adoption_no_warn(self):
+        # 两条都须 ≥21 字且含悬念词（覆盖「悬念词 + 最优带」双达标）
+        topics = [{"title": "没想到曼城竟然能在决赛完成惊天大反转太震撼"},   # 22 字，悬念
+                  {"title": "原来皇马这笔转会的真相竟然是这样子实在太离谱"}]   # 22 字，悬念
+        out = self._run(topics)
+        self.assertIn("采用达标", out)
+        self.assertNotIn("偏低", out)
+
+    def test_empty_and_blank_quiet(self):
+        self.assertEqual(self._run([]), "")
+        self.assertEqual(self._run([{"title": "  "}, {"no_title": 1}]), "")
+
+    def test_band_helper_uses_config(self):
+        cfg = tp.load_config() or {}
+        self.assertTrue(tp._in_band("二" * 25, cfg))
+        self.assertFalse(tp._in_band("二" * 10, cfg))
+        self.assertFalse(tp._in_band("", cfg))

@@ -221,3 +221,30 @@ class TestSelftest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestRefreshGuard(unittest.TestCase):
+    """--refresh 全失败时必须保留既有信号表（瞬时故障不得抹掉真信号）。"""
+
+    def test_refresh_keeps_existing_on_empty(self):
+        import sys as _sys
+        tmp = Path(tempfile.mkdtemp()) / "sig.json"
+        tmp.write_text(json.dumps({"signals": {"曼城": {"社媒讨论量": 1}}},
+                                  ensure_ascii=False), encoding="utf-8")
+        os.environ[rc.ENV_KEY] = "k"
+        try:
+            with mock.patch.object(rc, "fetch_hot_works", return_value=[]), \
+                 mock.patch.object(rc, "SIGNALS_PATH", tmp), \
+                 mock.patch.object(_sys, "argv", ["redfox_client.py", "--refresh"]):
+                code = rc.main()
+        finally:
+            os.environ.pop(rc.ENV_KEY, None)
+        self.assertEqual(code, 3)                                  # 明确「未刷新」退出码
+        kept = json.loads(tmp.read_text(encoding="utf-8"))
+        self.assertEqual(kept["signals"]["曼城"]["社媒讨论量"], 1)   # 旧表原样保留
+
+    def test_refresh_no_key_returns_2(self):
+        import sys as _sys
+        os.environ.pop(rc.ENV_KEY, None)
+        with mock.patch.object(_sys, "argv", ["redfox_client.py", "--refresh"]):
+            self.assertEqual(rc.main(), 2)
