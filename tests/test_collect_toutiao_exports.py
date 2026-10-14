@@ -2,7 +2,9 @@
 
 本地无头条登录态，全部路径用 fake playwright 覆盖：
   无登录态 / 登录过期（且不继续第二个页面）/ 导出成功 / 导出按钮缺失（一个页面失败
-  不阻断另一个）/ 同名同内容判重 / 同名不同内容另存 / dry-run 只探活 / 失败留诊断。
+  不阻断另一个）/ 同名同内容判重 / 同名不同内容另存 / dry-run 只探活 / 失败留诊断 /
+  确认框日期范围三级填写（fill→JS 注入→日历点选）/ 按钮禁用拦截 / 异步导出快速失败 /
+  新标签页证据与 popup 下载回收 / 点击后 toast 采集。
 
 纪律对齐：collector 是「自动投递员」，失败只告警不静默、同名绝不覆盖、
 降级通道（手动 inbox）永远保留。
@@ -34,8 +36,9 @@ class FakeDownload:
 
 
 class _FakeDownloadCtx:
-    def __init__(self, download):
+    def __init__(self, download, fire=None):
         self._download = download
+        self._fire = fire
         self.value = None
 
     def __enter__(self):
@@ -44,12 +47,88 @@ class _FakeDownloadCtx:
         # 测试「通过」但测的不是真路径（2026-10-14 补确认框时抓出来的 fake 缺陷）
         if self._download is not None:
             self.value = self._download
+            if self._fire is not None:
+                # 真实时序：download 事件在下载开始时（点击后、__exit__ 前）触发，
+                # context 级监听此时就能收到（popup 下载靠它回收）
+                self._fire()
         return self
 
     def __exit__(self, *exc):
         if self._download is None and exc[0] is None:
             raise TimeoutError("Timeout exceeded while waiting for download")
         return False
+
+
+class _FakeInput:
+    """日期输入框 / 日历单元格 fake。
+
+    readonly：只读输入框 fill() 抛错（对齐真实 playwright 行为）；
+    js_ok：JS 注入能否写进值（字节系受控组件多为此路）；
+    placeholder：值为空时靠它被认成日期框（对齐 _modal_date_inputs 的提示词判据）；
+    inner_text_value：作为日历单元格时 inner_text 返回的日文本（如「8」），
+    点中后经 page.picker_day_values 把完整日期回填到刚才打开的输入框。
+    """
+
+    def __init__(self, value="", *, readonly=False, visible=True, js_ok=True,
+                 inner_text_value=None, placeholder=""):
+        self._value = value
+        self.readonly = readonly
+        self._visible = visible
+        self.js_ok = js_ok
+        self._inner = inner_text_value
+        self.placeholder = placeholder
+        self.clicks = 0
+        self.fills = []
+        self.page = None
+
+    def is_visible(self):
+        return self._visible
+
+    def get_attribute(self, name):
+        if name == "value":
+            return self._value
+        if name == "readonly":
+            return "true" if self.readonly else None
+        if name == "placeholder":
+            return self.placeholder
+        if name == "aria-label":
+            return ""
+        return None
+
+    def input_value(self):
+        return self._value
+
+    def fill(self, v):
+        if self.readonly:
+            raise RuntimeError("Cannot fill a readonly input")
+        self._value = v
+        self.fills.append(v)
+
+    def click(self):
+        self.clicks += 1
+        if self.page is None:
+            return
+        if self._inner is None:
+            self.page._last_input_clicked = self    # 点开输入框（打开日历选择器）
+        else:
+            # 日历日单元格：把完整日期回填到刚才打开的输入框（真实选择器行为）
+            target = self.page._last_input_clicked
+            full = self.page.picker_day_values.get(self._inner)
+            if target is not None and full:
+                target._value = full
+
+    def evaluate(self, js, arg=None):
+        if self.js_ok and arg is not None:
+            self._value = arg
+        return None
+
+    def inner_text(self):
+        return self._inner if self._inner is not None else self._value
+
+
+class _FakeNewPage:
+    def __init__(self, url):
+        self.url = url
 
 
 class _FakeLocator:
@@ -77,6 +156,15 @@ class _FakeLocator:
         target = self._page._navigate_on_click.get(self._text)
         if target:
             self._page.url = target      # 模拟误点：点了某文案后页面导航跑飞
+        if self._text == "开始下载" and self._page.popup_url and self._page.context:
+            # 模拟：点「开始下载」后新开标签页（导出可能在 popup 里触发）
+            self._page.context.fire("page", _FakeNewPage(self._page.popup_url))
+            if self._page.popup_download is not None:
+                self._page.context.fire("download", self._page.popup_download)
+
+    def evaluate(self, js, arg=None):
+        # 「开始下载」禁用态探测（_is_confirm_disabled 走这里）
+        return self._page.confirm_disabled
 
 
 class _FakeElement:
@@ -85,6 +173,12 @@ class _FakeElement:
 
     def inner_text(self):
         return self._text
+
+    def is_visible(self):
+        return True
+
+    def click(self):
+        pass
 
 
 class _FakeKeyboard:
@@ -103,10 +197,16 @@ class FakePage:
     （2026-10-14 实测：没等待的检测把延迟跳转漏检，误报「登录态有效」）。
     link_texts：`<a>` 链接类控件文本——2026-10-14 实测 perf 页导出控件「下载Excel」
     就是 `<a>` 不是 `<button>`，诊断与点击都要能覆盖到。
+    inputs：确认框里的日期输入框（2026-10-14 三次实测：点「开始下载」仍无下载，
+    改为显式填日期范围）；picker_cells：日历选择器里的日单元格；toast_texts：
+    点击后出现的提示；popup_url/popup_download：点「开始下载」后新开标签页
+    （及从 popup 触发的下载）；confirm_disabled：「开始下载」禁用态。
     """
 
     def __init__(self, *, url_map=None, button_texts=(), link_texts=(), downloads=None,
-                 goto_error=None, login_redirect_after_ms=None, navigate_on_click=None):
+                 goto_error=None, login_redirect_after_ms=None, navigate_on_click=None,
+                 inputs=(), picker_cells=(), toast_texts=(), confirm_disabled=False,
+                 popup_url=None, popup_download=None, picker_day_values=None):
         self._url_map = dict(url_map or {})
         self.button_texts = list(button_texts)
         self.link_texts = list(link_texts)
@@ -121,6 +221,22 @@ class FakePage:
         self._redirect_after = login_redirect_after_ms
         self._waited_ms = 0
         self._navigate_on_click = dict(navigate_on_click or {})
+        self.inputs = [self._link(i) for i in inputs]
+        self.picker_cells = [self._link(c) for c in picker_cells]
+        self.picker_day_values = dict(picker_day_values or {})
+        self._last_input_clicked = None
+        self.toast_texts = list(toast_texts)
+        self.confirm_disabled = confirm_disabled
+        self.popup_url = popup_url
+        self.popup_download = popup_download
+        self.context = None
+        self._handlers = {}
+
+    def _link(self, el):
+        """给输入框/日历单元格挂 page 回引（点中日单元格要能回填输入框）。"""
+        if el.page is None:
+            el.page = self
+        return el
 
     def _maybe_redirect(self):
         """累计等待达标后才执行 url_map 里的跳转（SPA 异步校验的真实时序）。"""
@@ -158,25 +274,45 @@ class FakePage:
             return [_FakeElement(t) for t in self.button_texts]
         if selector == "a":
             return [_FakeElement(t) for t in self.link_texts]
+        if selector == "input":
+            return [i for i in self.inputs if i.is_visible()]
+        if any(k in selector for k in ("calendar", "picker", "date")):
+            return [c for c in self.picker_cells if c.is_visible()]
+        if any(k in selector for k in ("toast", "message", "notice", "feedback", "alert")):
+            return [_FakeElement(t) for t in self.toast_texts if t]
         return []
 
     def expect_download(self, timeout=None):
         download = self._downloads.pop(0) if self._downloads else None
-        return _FakeDownloadCtx(download)
+        fire = (lambda: self.context.fire("download", download)) if download else None
+        return _FakeDownloadCtx(download, fire=fire)
 
     def screenshot(self, path=None, full_page=False):
         self.screenshots.append(path)
 
     def on(self, event, handler):
-        pass
+        self._handlers.setdefault(event, []).append(handler)
+
+    def fire(self, event, payload):
+        for h in self._handlers.get(event, []):
+            h(payload)
 
 
 class FakeContext:
     def __init__(self, page):
         self._page = page
+        page.context = self          # 让 page 的 expect_download 能回发 download 事件
+        self._handlers = {}
 
     def new_page(self):
         return self._page
+
+    def on(self, event, handler):
+        self._handlers.setdefault(event, []).append(handler)
+
+    def fire(self, event, payload):
+        for h in self._handlers.get(event, []):
+            h(payload)
 
 
 class FakeBrowser:
@@ -479,7 +615,8 @@ class TestRealPageControls(CollectorTestBase):
             downloads=[FakeDownload("作品数据.xlsx", b"perf")],
         )
         spec = self._specs()["perf"]
-        _tmp, range_hit = cte._collect_one(page, spec, 60_000, 120_000, days=1)
+        _tmp, range_hit = cte._collect_one(page, FakeContext(page), spec,
+                                           60_000, 120_000, days=1)
         self.assertIsNone(range_hit, "perf 页没有时间范围选择器，不应有点击范围的动作")
         for t in ("昨天", "昨日", "近1天"):
             self.assertNotIn(t, page.clicked, f"perf 页不得点「{t}」（文章标题误触风险）")
@@ -537,6 +674,179 @@ class TestExportModal(CollectorTestBase):
                         f"失败原因必须说清是确认框问题: {result['problems']}")
         self.assertTrue(list(self.diag.glob("perf-diagnostics.txt")),
                         "确认框缺失也要留诊断")
+
+
+class TestModalDateRange(CollectorTestBase):
+    """2026-10-14 四次实测：点「开始下载」仍 120s 无下载。
+
+    修复：确认框日期范围**显式填写**（fill → JS 注入 → 日历点选三级手段，
+    读回值留证）+ 点击后证据采集（新标签页/导出类响应/toast）+ 按钮禁用拦截
+    + 异步导出快速失败。perf 导出行 date 取自「发布时间」列，窗口内作品才会
+    被每日 upsert 刷新，所以窗口至少 7 天、不能缩成「仅昨天」。
+    """
+
+    PERF_URL = "https://mp.toutiao.com/profile_v4/analysis/works-single/article"
+
+    def _page(self, **kw):
+        opts = dict(
+            url_map={"works-single": self.PERF_URL},
+            link_texts=("下载Excel",),
+            button_texts=("开始下载",),
+            downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                       FakeDownload("b.xlsx", b"growth")],
+        )
+        opts.update(kw)
+        return FakePage(**opts)
+
+    def test_range_for_is_at_least_seven_days_ending_today(self):
+        start, end = cte._modal_range_for(
+            1, now=datetime(2026, 10, 14, 6, 0, tzinfo=cte.CST))
+        self.assertEqual((start, end), ("2026-10-08", "2026-10-14"),
+                         "每日模式也填 7 天窗口（窗口外作品永远停在旧值）")
+        start, end = cte._modal_range_for(
+            14, now=datetime(2026, 10, 14, 6, 0, tzinfo=cte.CST))
+        self.assertEqual((start, end), ("2026-10-01", "2026-10-14"))
+
+    def test_readonly_inputs_filled_via_js(self):
+        """只读日期框 → JS 注入写值，读回=目标才算填上，随后照常下载。"""
+        page = self._page(inputs=[
+            _FakeInput("2026-10-01", readonly=True),
+            _FakeInput("2026-10-07", readonly=True),
+        ])
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertEqual([i._value for i in page.inputs],
+                         ["2026-10-08", "2026-10-14"])
+        self.assertIn("开始下载", page.clicked)
+
+    def test_editable_inputs_filled_directly(self):
+        """非只读输入框走 fill()（playwright 原生 setter）。"""
+        page = self._page(inputs=[_FakeInput("", placeholder="开始日期"),
+                                  _FakeInput("", placeholder="结束日期")])
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertEqual([i._value for i in page.inputs],
+                         ["2026-10-08", "2026-10-14"])
+        self.assertEqual([i.fills for i in page.inputs],
+                         [["2026-10-08"], ["2026-10-14"]])
+
+    def test_picker_fallback_when_js_fails(self):
+        """JS 注入无效 → 点开日历选日（点完还要能读到目标值）。"""
+        page = self._page(
+            inputs=[
+                _FakeInput("2026-10-01", readonly=True, js_ok=False),
+                _FakeInput("2026-10-07", readonly=True, js_ok=False),
+            ],
+            picker_cells=[_FakeInput("", inner_text_value="8"),
+                          _FakeInput("", inner_text_value="14")],
+            picker_day_values={"8": "2026-10-08", "14": "2026-10-14"},
+        )
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertEqual([i._value for i in page.inputs],
+                         ["2026-10-08", "2026-10-14"])
+        self.assertGreaterEqual(page.inputs[0].clicks, 1,
+                                "只读且 JS 无效必须点开日历选择器")
+
+    def test_dates_not_settable_recorded_in_evidence(self):
+        """三级手段都失败也要留证（目标 vs 读回），绝不静默按默认范围走。"""
+        page = self._page(inputs=[
+            _FakeInput("2026-10-01", readonly=True, js_ok=False),
+            _FakeInput("2026-10-07", readonly=True, js_ok=False),
+        ])
+        spec = {p.name: p for p in cte.PAGES}["perf"]
+        with mock.patch.object(cte, "_modal_range_for",
+                               return_value=("2026-10-08", "2026-10-14")):
+            ev = cte._confirm_export_modal(page, spec, range_days=7)
+        self.assertEqual(len(ev["dates"]), 2, "起止两个框都要留读回值")
+        self.assertTrue(any("2026-10-08" in d and "2026-10-01" in d
+                            for d in ev["dates"]),
+                        f"读回值必须原样留证: {ev['dates']}")
+
+    def test_confirm_disabled_blocks_before_click(self):
+        """「开始下载」禁用（日期未过校验的典型症状）→ 点击前拦截，不傻等下载。"""
+        page = self._page(confirm_disabled=True, inputs=[
+            _FakeInput("2026-10-01", readonly=True),
+            _FakeInput("2026-10-07", readonly=True),
+        ])
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        self.assertTrue(any("禁用" in p for p in result["problems"]),
+                        f"失败原因必须说清按钮禁用: {result['problems']}")
+        self.assertNotIn("开始下载", page.clicked, "禁用态不应点击")
+
+    def test_no_date_inputs_falls_back_to_default_range(self):
+        """确认框里找不到日期输入框（改版）→ 留证 + 按后台默认范围继续，不崩。"""
+        page = self._page()
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+
+    def test_async_export_toast_fails_fast(self):
+        """点击后出现「导出成功/下载中心」提示 → 立即抛 ExportAsyncRequired，
+        不再干等 120s，且失败消息指明下一步（下载中心链路）。"""
+        page = self._page(downloads=[],
+                          toast_texts=("导出成功，请前往下载中心查看",))
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        joined = ";".join(result["problems"])
+        self.assertIn("下载中心", joined,
+                      f"异步导出必须点名「下载中心」: {joined}")
+
+    def test_benign_toast_does_not_trigger_async_path(self):
+        """普通提示（不含异步关键词）不得误判成异步导出。"""
+        page = self._page(downloads=[], toast_texts=("数据每日14:00更新",))
+        result = self._run(page)
+        self.assertFalse(result["ok"])     # 没排队下载，最终仍超时失败
+        joined = ";".join(result["problems"])
+        self.assertNotIn("异步", joined, f"普通提示不得误判异步导出: {joined}")
+
+    def test_new_tab_recorded_in_failure_message(self):
+        """点击后新开标签页 → 证据留 URL，失败消息不再光秃秃。"""
+        page = self._page(downloads=[],
+                          popup_url="https://mp.toutiao.com/download/center")
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        joined = ";".join(result["problems"])
+        self.assertIn("download/center", joined,
+                      f"新标签页 URL 必须进失败消息: {joined}")
+
+    def test_popup_download_recovered_from_context(self):
+        """下载从新标签页触发：page 级 expect_download 等不到，但 context 级
+        监听已收到 → 照样落袋为安（不把能拿到的数据当失败）。"""
+        calls = {"n": 0}
+
+        class PopupPage(FakePage):
+            def expect_download(self, timeout=None):
+                calls["n"] += 1
+                if calls["n"] == 1:
+                    return _FakeDownloadCtx(None)   # perf：本页等不到（下载在 popup）
+                return _FakeDownloadCtx(FakeDownload("粉丝分析.xlsx", b"growth"))
+
+        page = PopupPage(
+            url_map={"works-single": self.PERF_URL},
+            link_texts=("下载Excel",),
+            button_texts=("开始下载",),
+            downloads=[],
+            popup_url="https://mp.toutiao.com/export/popup",
+            popup_download=FakeDownload("作品数据.xlsx", b"popup-perf"),
+        )
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        saved = [f for f in result["files"] if f["action"] == "saved"]
+        self.assertEqual(len(saved), 2, "perf（popup 下载）+ growth 都应落箱")
+        self.assertTrue(any(f["file"].startswith("作品数据") for f in saved))
+
+    def test_config_perf_modal_range_days(self):
+        """perf 页确认框显式填 7 天；growth 页无确认框不填。"""
+        specs = {p.name: p for p in cte.PAGES}
+        self.assertEqual(specs["perf"].modal_range_days, 7)
+        self.assertEqual(specs["growth"].modal_range_days, 0)
+
+    def test_run_accepts_perf_range_override(self):
+        import inspect
+        sig = inspect.signature(cte.run)
+        self.assertEqual(sig.parameters["perf_range_days"].default, None,
+                         "perf_range_days 默认 None=按页面配置")
 
 
 class TestGrowthNavEntry(CollectorTestBase):
