@@ -1,7 +1,7 @@
 {
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T02:12:58.458161",
-  "total_articles": 2,
+  "generated_at": "2026-10-14T04:05:30.241239",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -71,19 +71,126 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "拉齐奥主帅这场竟比尤文更输不起，他到底在赌什么？",
+      "path": "/home/runner/work/_temp/output/2026-10-14/article-1-拉齐奥主帅这场竟-1c73a2.md",
+      "slug": "拉齐奥主帅这场竟-1c73a2",
+      "tags": [
+        "Lazio",
+        "Juventus",
+        "Serie A",
+        "coach pressure",
+        "tactics"
+      ],
+      "keywords": [
+        "Lazio",
+        "Juventus",
+        "Serie A",
+        "coach pressure",
+        "tactics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-14/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-14/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "没想到国安客场拿下武里南联，法比奥这100球竟然这么有分量",
+      "path": "/home/runner/work/_temp/output/2026-10-14/article-2-没想到国安客场拿-15ad15.md",
+      "slug": "没想到国安客场拿-15ad15",
+      "tags": [
+        "Beijing Guoan",
+        "Fabio",
+        "AFC Champions League",
+        "Buriram United",
+        "100 goal involvements"
+      ],
+      "keywords": [
+        "Beijing Guoan",
+        "Fabio",
+        "AFC Champions League",
+        "Buriram United",
+        "100 goal involvements"
+      ],
+      "images": [],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "中国足球",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
     }
   ],
   "topics": [
     {
-      "title": "没想到亚特兰大主帅这场压力比AC米兰还大，他输不起的到底是什么？",
-      "content_type": "人物故事",
-      "_is_fixture": true
+      "title": "国安亚冠在援建球场踢申花，柴桢这队真不是鱼腩？",
+      "angle": "东体报道申花亚冠比赛在中国援建的球场进行，对手柴桢并非鱼腩。从场地背景到对手实力，聊聊中超球队亚冠客场的不确定性和国安申花的亚冠前景。",
+      "keywords": [
+        "beijing guoan",
+        "shanghai shenhua",
+        "afc champions league",
+        "cambodia"
+      ],
+      "keywords_cn": [
+        "国安",
+        "申花",
+        "亚冠",
+        "柴桢"
+      ],
+      "content_type": "热点球评",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "中超双雄亚冠客场作战，援建球场+神秘对手有话题性",
+      "_category": "中国足球",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
     },
     {
-      "title": "大罗与C罗谁更接近神？生涯数据背后藏着两代人的青春疑问",
-      "content_type": "数据对比",
-      "_column_name": "战术榜单",
-      "_from_reservoir": true
+      "title": "拉齐奥主帅这场竟比尤文更输不起，他到底在赌什么？",
+      "content_type": "人物故事",
+      "_is_fixture": true
     }
   ],
   "data_sources": {},
@@ -91,13 +198,13 @@
     "total": 2,
     "counts": {
       "一级·确定性": 1,
-      "二级·突发": 0,
-      "三级·软性": 1
+      "二级·突发": 1,
+      "三级·软性": 0
     },
     "ratios": {
       "一级·确定性": 50.0,
-      "二级·突发": 0.0,
-      "三级·软性": 50.0
+      "二级·突发": 50.0,
+      "三级·软性": 0.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -106,8 +213,8 @@
     },
     "deviations": {
       "一级·确定性": 20.0,
-      "二级·突发": -50.0,
-      "三级·软性": 30.0
+      "二级·突发": 0.0,
+      "三级·软性": -20.0
     },
     "unclassified": 0
   },
@@ -123,17 +230,11 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
-    },
-    {
-      "环节": "互动引导兜底",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入",
-      "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -147,8 +248,9 @@
   },
   "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-14 10:12:58"
+  "last_batch": "noon",
+  "last_updated": "2026-10-14 12:05:30"
 }
