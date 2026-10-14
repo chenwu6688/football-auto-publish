@@ -50,11 +50,13 @@
      - toast 采集教训：顶部导航的消息徽标「消息 6」也会被
        [class*='message'] 选择器抓进 toasts——只打印导出相关反馈
        （EXPORT_FEEDBACK_HINTS），徽标噪声不进输出（失败诊断里仍保留全量）；
-     - perf 页注明「每日 14:00 更新前一日数据」——06:00 导到的前一天是未结算值，
-       次日 06:00 的导出会自动覆盖为结算值（upsert 自愈，不必等 14:00 再跑）。
+     - perf 页注明「每日 14:00 更新前一日数据」——本脚本 14:05 跑，卡在结算
+       之后，导到的前一天就是**结算值**（早期 06:00 跑拿到的是未结算值，靠次日
+       导出 upsert 覆盖自愈；改 14:05 后这条自愈路径降级为双保险）；
 
-频率：**每天 06:00 CST**（CI cron UTC 22:00，见 .github/workflows/toutiao-collector.yml），
-默认统计**前一天**（days=1）——与 perf-ingest 09:10 消费、绩效台账按日 upsert
+频率：**每天 14:05 CST**（CI cron UTC 06:05，见 .github/workflows/toutiao-collector.yml；
+卡在 perf 页 14:00 结算之后，导到即结算值），
+默认统计**前一天**（days=1）——与 perf-ingest 14:40 消费、绩效台账按日 upsert
 （同 date+slug 覆盖，不重复计数）、转粉日差跨度守卫（相邻登记日间隔 1 天）全部对齐。
 频率仍保持克制：每天一次全量导出，不做高频轮询（风控克制）。
 
@@ -200,7 +202,7 @@ def _safe_name(name: str) -> str:
 
 
 def _yesterday_str(now: datetime | None = None) -> str:
-    """统计目标日 = 前一天（CST）。CI 每天 06:00 跑，统计的是昨天一整天。"""
+    """统计目标日 = 前一天（CST）。CI 每天 14:05 跑，统计的是昨天一整天。"""
     now = now or datetime.now(CST)
     return (now - timedelta(days=1)).strftime("%Y-%m-%d")
 
@@ -783,7 +785,7 @@ def _notify_summary(result: dict, date_tag: str) -> None:
         lines.append(f"{mark} {f['file']}（{note}{rng}）")
     if not result.get("files"):
         lines.append("（无文件投递）")
-    lines.append("perf-ingest 09:10 自动识别入库，看板/调参样本稍后自动更新。")
+    lines.append("perf-ingest 14:40 自动识别入库，看板/调参样本稍后自动更新。")
     send_wxpusher(f"足球自媒体 ✅ 导出回收完成（{date_tag}）", "\n".join(lines))
 
 
@@ -885,7 +887,7 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
 def main() -> int:
     ap = argparse.ArgumentParser(description="头条后台导出自动回收（投递箱自动投递）")
     ap.add_argument("--days", type=int, default=1,
-                    help="导出窗口天数（默认 1 = 统计前一天，与每日 06:00 节奏对齐）")
+                    help="导出窗口天数（默认 1 = 统计前一天，与每日 14:05 节奏对齐）")
     ap.add_argument("--perf-range-days", type=int, default=None,
                     help="作品数据确认框日期窗口天数（至少 7；默认按页面配置=7）")
     ap.add_argument("--auth", default=str(AUTH_FILE), help="登录态文件路径")

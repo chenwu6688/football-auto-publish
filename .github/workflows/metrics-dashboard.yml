@@ -5,7 +5,7 @@ name: 验收指标看板
 
 on:
   schedule:
-    - cron: '15 1 * * 1'   # 周一 09:15 CST
+    - cron: '50 6 * * 1'   # 周一 14:50 CST（UTC 06:50；在 ingest 14:40 之后，周板含最近一天）
   workflow_dispatch:
 
 permissions:

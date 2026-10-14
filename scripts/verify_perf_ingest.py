@@ -279,10 +279,12 @@ def check_collector() -> dict:
                               ("cron:", "定时触发")):
             if marker not in txt:
                 problems.append(f"toutiao-collector.yml 缺「{label}」（未见 `{marker}`）")
-        # 时间契约硬断言：每天 06:00 CST = UTC 22:00（GitHub cron 用 UTC）
-        if "'0 22 * * *'" not in txt:
-            problems.append("toutiao-collector.yml cron 应为每天 06:00 CST"
-                            "（'0 22 * * *'，UTC 22:00）——防误改回低频/错时")
+        # 时间契约硬断言：每天 14:05 CST = UTC 06:05（GitHub cron 用 UTC）
+        # 14:05 卡在 perf 页「每日 14:00 更新前一日数据」之后——导到即结算值，
+        # 不再依赖次日 upsert 自愈；ingest 14:40 同日消费保 T+1
+        if "'5 6 * * *'" not in txt:
+            problems.append("toutiao-collector.yml cron 应为每天 14:05 CST"
+                            "（'5 6 * * *'，UTC 06:05）——防误改回低频/错时")
         if "default: '1'" not in txt:
             problems.append("dispatch days 默认应为 1（统计前一天，与每日节奏对齐）")
     src = script.read_text(encoding="utf-8")
@@ -341,7 +343,7 @@ def check_collector() -> dict:
             problems.append(f"同名不同内容必须另存不得覆盖: {rec}")
     return {"item": "导出自动回收（collector）", "ok": not problems, "advisory": False,
             "detail": ([f"❌ {'；'.join(problems)}"] if problems
-                       else ["toutiao-collector.yml：每天 06:00 CST cron + 登录态注入 + 回写投递箱 ✅",
+                       else ["toutiao-collector.yml：每天 14:05 CST cron + 登录态注入 + 回写投递箱 ✅",
                              "降级告警为真实 Call（登录过期/导出失败/缺登录态三条路径）✅",
                              "落箱同名不覆盖（sha 判重 / 更新另存 _2）✅",
                              "无登录态不启动浏览器 ✅"])}

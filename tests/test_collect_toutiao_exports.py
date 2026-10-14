@@ -991,7 +991,7 @@ class TestGrowthNavEntry(CollectorTestBase):
 
 
 class TestDailyMode(CollectorTestBase):
-    """每日 06:00 模式：默认统计前一天，回执每次运行都发。"""
+    """每日 14:05 模式：默认统计前一天，回执每次运行都发。"""
 
     def test_run_defaults_to_one_day(self):
         import inspect
@@ -1000,8 +1000,8 @@ class TestDailyMode(CollectorTestBase):
                          "每日模式默认 days=1（统计前一天）")
 
     def test_yesterday_is_cst_based(self):
-        # 06:00 CST 跑，统计目标 = 前一天
-        self.assertEqual(cte._yesterday_str(datetime(2026, 10, 15, 6, 0,
+        # 14:05 CST 跑，统计目标 = 前一天
+        self.assertEqual(cte._yesterday_str(datetime(2026, 10, 15, 14, 5,
                                                      tzinfo=cte.CST)), "2026-10-14")
         self.assertEqual(cte._yesterday_str(datetime(2026, 10, 15, 0, 30,
                                                      tzinfo=cte.CST)), "2026-10-14")
@@ -1060,7 +1060,7 @@ class TestDailyMode(CollectorTestBase):
         content = "\n".join(c for _, c in self.notifications)
         self.assertIn("2026-10-13", content)
         self.assertIn("作品数据_2026-10-13.xlsx", content)
-        self.assertIn("perf-ingest 09:10", content)
+        self.assertIn("perf-ingest 14:40", content)
 
     def test_duplicate_also_gets_receipt(self):
         """同内容重复投递（昨天跑过今天又跑）也发回执，标注已跳过。"""

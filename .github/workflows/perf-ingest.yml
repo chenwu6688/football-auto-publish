@@ -13,7 +13,7 @@ name: 绩效回填自动化（导出投递箱）
 
 on:
   schedule:
-    - cron: '10 1 * * *'   # 每天 09:10 CST（低于绩效 T+1 更新节奏，够用）
+    - cron: '40 6 * * *'   # 每天 14:40 CST（UTC 06:40；collector 14:05 投递后 35 分钟消费，保 T+1 同日入库）
   workflow_dispatch:
 
 permissions:
