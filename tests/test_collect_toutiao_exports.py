@@ -2,9 +2,10 @@
 
 本地无头条登录态，全部路径用 fake playwright 覆盖：
   无登录态 / 登录过期（且不继续第二个页面）/ 导出成功 / 导出按钮缺失（一个页面失败
-  不阻断另一个）/ 同名同内容判重 / 同名不同内容另存 / dry-run 只探活 / 失败留诊断 /
-  确认框日期范围三级填写（fill→JS 注入→日历点选）/ 按钮禁用拦截 / 异步导出快速失败 /
-  新标签页证据与 popup 下载回收 / 点击后 toast 采集。
+  不阻断另一个）/ 同名同内容判重（字节同 + 仅 zip 元数据不同的逻辑同）/ 同名不同内容
+  另存 / dry-run 只探活 / 失败留诊断 / 确认框日期范围三级填写（fill→JS 注入→日历点选）/
+  按钮禁用拦截 / 异步导出快速失败 / 新标签页证据与 popup 下载回收 / 点击后 toast 采集
+  （导航徽标噪声不打印、导出反馈才打印）。
 
 纪律对齐：collector 是「自动投递员」，失败只告警不静默、同名绝不覆盖、
 降级通道（手动 inbox）永远保留。
@@ -12,9 +13,12 @@
 
 from __future__ import annotations
 
+import contextlib
+import io
 import sys
 import tempfile
 import unittest
+import zipfile
 from datetime import datetime
 from pathlib import Path
 from unittest import mock
@@ -24,6 +28,31 @@ sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import collect_toutiao_exports as cte   # noqa: E402
+
+
+def _write_xlsx(path: Path, rows: list, zip_date: tuple) -> None:
+    """最小 xlsx 写入器（无 openpyxl 依赖，inlineStr 单元格）。
+
+    zip_date 控制 zip 条目时间戳——用来制造「逻辑内容相同、字节不同」的
+    真实重复导出场景（头条后台每次导出都重新打包，时间戳必变）。
+    """
+    def esc(s) -> str:
+        return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;"))
+
+    body = []
+    for ri, row in enumerate(rows, start=1):
+        cells = "".join(
+            f'<c r="{chr(64 + ci)}{ri}" t="inlineStr"><is><t>{esc(v)}</t></is></c>'
+            for ci, v in enumerate(row, start=1))
+        body.append(f"<row>{cells}</row>")
+    sheet = ('<?xml version="1.0" encoding="UTF-8"?>'
+             '<worksheet xmlns="http://schemas.openxmlformats.org/'
+             'spreadsheetml/2006/main">'
+             f"<sheetData>{''.join(body)}</sheetData></worksheet>")
+    with zipfile.ZipFile(path, "w") as z:
+        z.writestr(zipfile.ZipInfo("xl/worksheets/sheet1.xml", date_time=zip_date),
+                   sheet)
 
 
 class FakeDownload:
@@ -515,6 +544,54 @@ class TestInboxSemantics(CollectorTestBase):
         self.assertEqual((self.inbox / "作品数据.xlsx").read_bytes(), b"old",
                          "绝不静默覆盖箱内已有文件")
 
+    def test_same_name_metadata_only_diff_is_duplicate(self):
+        """后台重复导出：只有 zip 元数据（时间戳）不同，数据行完全一样——
+        2026-10-14 实测 growth 同日重跑两份文件 31 行 0 差异。按字节判重会
+        每天攒一个 _2 冗余文件，故名冲突先比逻辑行，同内容即幂等丢弃。"""
+        rows = [["日期", "粉丝总数"], ["2026-10-13", "11733"]]
+        dl1 = self.td / "dl1"
+        dl1.mkdir()
+        f1 = dl1 / "粉丝趋势.xlsx"
+        _write_xlsx(f1, rows, (2026, 10, 14, 14, 54, 0))
+        self.assertEqual(cte._save_to_inbox(f1, self.inbox)["action"], "saved")
+        dl2 = self.td / "dl2"      # 每次运行的下载临时目录各不相同
+        dl2.mkdir()
+        f2 = dl2 / "粉丝趋势.xlsx"
+        _write_xlsx(f2, rows, (2026, 10, 14, 17, 7, 0))   # 仅 zip 时间戳不同
+        kept = self.inbox / "粉丝趋势.xlsx"
+        self.assertNotEqual(cte.sha256_of(kept), cte.sha256_of(f2),
+                            "前提：字节级 sha 必须不同，否则测不到逻辑判重")
+        r2 = cte._save_to_inbox(f2, self.inbox)
+        self.assertEqual(r2["action"], "duplicate")
+        self.assertEqual(len(list(self.inbox.iterdir())), 1, "不攒 _2 冗余文件")
+
+    def test_same_name_different_rows_still_renamed(self):
+        """逻辑内容真的变了（数据行不同）→ 仍然另存 _2，绝不静默丢弃。"""
+        tmp = self.td / "dl"
+        tmp.mkdir()
+        f1 = tmp / "作品数据.xlsx"
+        _write_xlsx(f1, [["标题", "阅读量"], ["A", "100"]], (2026, 10, 14, 9, 0, 0))
+        cte._save_to_inbox(f1, self.inbox)
+        f2 = tmp / "作品数据.xlsx"
+        _write_xlsx(f2, [["标题", "阅读量"], ["A", "260"]], (2026, 10, 14, 9, 0, 0))
+        r2 = cte._save_to_inbox(f2, self.inbox)
+        self.assertEqual(r2["action"], "saved")
+        self.assertTrue(r2["file"].startswith("作品数据_2"),
+                        f"数据行不同必须另存: {r2}")
+
+    def test_unparseable_files_fall_back_to_byte_compare(self):
+        """解析不了的文件（如旧版 .xls 明确报错）→ 证明不了相同就按不同另存，
+        绝不把「不同」误判成「同内容」而丢弃新文件。"""
+        tmp = self.td / "dl"
+        tmp.mkdir()
+        f = tmp / "旧数据.xls"
+        f.write_bytes(b"\xd0\xcf\x11\xe0old")
+        cte._save_to_inbox(f, self.inbox)
+        f.write_bytes(b"\xd0\xcf\x11\xe0new")
+        r = cte._save_to_inbox(f, self.inbox)
+        self.assertEqual(r["action"], "saved")
+        self.assertTrue(r["file"].startswith("旧数据_2"))
+
     def test_safe_name_strips_paths(self):
         self.assertEqual(cte._safe_name("../../etc/passwd.xlsx"),
                          ".._.._etc_passwd.xlsx")
@@ -799,6 +876,31 @@ class TestModalDateRange(CollectorTestBase):
         self.assertFalse(result["ok"])     # 没排队下载，最终仍超时失败
         joined = ";".join(result["problems"])
         self.assertNotIn("异步", joined, f"普通提示不得误判异步导出: {joined}")
+
+    def test_nav_badge_toast_not_printed_as_feedback(self):
+        """顶部导航的消息徽标（「消息 6」）也会被 message 选择器抓进 toasts——
+        那不是导出反馈，不能打印出来误导（2026-10-14 实测每页都打印）。"""
+        page = self._page(downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                                    FakeDownload("b.xlsx", b"growth")],
+                          toast_texts=("消息", "6"))
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertNotIn("页面提示", buf.getvalue(),
+                         f"导航徽标不是导出反馈，不应打印: {buf.getvalue()[-200:]}")
+
+    def test_real_feedback_toast_is_printed(self):
+        """真正的导出类提示（如排队中）要打印出来，肉眼可见。"""
+        page = self._page(downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                                    FakeDownload("b.xlsx", b"growth")],
+                          toast_texts=("导出排队中，请稍候",))
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertIn("页面提示", buf.getvalue())
+        self.assertIn("导出排队中", buf.getvalue())
 
     def test_new_tab_recorded_in_failure_message(self):
         """点击后新开标签页 → 证据留 URL，失败消息不再光秃秃。"""

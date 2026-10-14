@@ -16,8 +16,9 @@
      wxpusher 告警 + 非零退出 + 诊断截图，绝不静默跳过；
   3. 每次运行都有回执——成功也发 WxPusher 汇总（投递了什么、统计哪一天），
      失败的通知更详细（含恢复指引），用户对投递箱状态始终知情；
-  4. 同名不覆盖——箱内已有同名文件时按 sha256 判重：内容相同 → 丢弃（真重复），
-     内容不同（数据已更新的再次导出）→ 加 _2 后缀，绝不静默覆盖；
+  4. 同名不覆盖——箱内已有同名文件时按内容判重：字节相同 → 丢弃（真重复）；
+     字节不同但数据行完全一样（后台重复导出的 zip 元数据差异）→ 同样丢弃，
+     不攒 _2/_3 冗余；数据行真的变了 → 加 _2 后缀，绝不静默覆盖；
   5. 落盘文件名带统计日期——下载名本身不含日期时补 `_YYYY-MM-DD`（取导出窗口
      最后一天，即默认的「前一天」），箱内一眼可辨是哪天数据；含日期则不重复加；
   6. 选择器集中在本文件 PAGES 配置——头条后台改版时只需改这一处；
@@ -34,13 +35,21 @@
        2026-10-14 三次实测：点了「开始下载」仍 120s 无下载——脚本随后补了
        「点击后证据采集」（新标签页 / 导出类网络响应 / toast 提示 / 日期读回值）
        与「异步导出快速失败」，下次失败一眼可辨是异步导出、新标签页还是按钮禁用；
+       **五次实测（修好后）：显式填日期 + 点「开始下载」→ 立即出文件**
+       （图文_20261008-20261014_1-36.xlsx，36 篇全部命中、0 未匹配）——至此
+       perf 回收链路全通，根因就是「不填日期范围，后台静默不导出」；
      - growth 页（粉丝数据）**深链 URL 直达是白屏**（SPA 不认，内容区整个空白，
        只渲染左侧导航）——必须点左侧导航「粉丝数据」链接走客户端路由进去；
        页面还压着「被关注自动回复」营销弹窗（Escape 关不掉，但只要不遮挡导出
        控件就不管它——绝不点弹窗里的「立即体验」，那会导航跑飞）；
        2026-10-14 四次实测：导航 + 点「昨日」后导出成功（落箱
        粉丝趋势_2026-09-14-2026-10-13.xlsx；文件名跨度 30 天=后台默认区间，
-       「昨日」点击是否真生效待首跑后核对文件内容）；
+       「昨日」点击是否真生效待首跑后核对文件内容）；五次实测复跑成功，
+       且与四次实测的文件**数据行 31 行 0 差异**（仅 zip 时间戳不同）——
+       落箱判重因此加了「逻辑行比较」，同日重跑不再攒 _2 冗余文件；
+     - toast 采集教训：顶部导航的消息徽标「消息 6」也会被
+       [class*='message'] 选择器抓进 toasts——只打印导出相关反馈
+       （EXPORT_FEEDBACK_HINTS），徽标噪声不进输出（失败诊断里仍保留全量）；
      - perf 页注明「每日 14:00 更新前一日数据」——06:00 导到的前一天是未结算值，
        次日 06:00 的导出会自动覆盖为结算值（upsert 自愈，不必等 14:00 再跑）。
 
@@ -74,6 +83,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from playwright.sync_api import sync_playwright   # noqa: E402
 from publisher import send_wxpusher               # noqa: E402
+from toutiao_import import read_table             # noqa: E402
 
 CST = timezone(timedelta(hours=8))
 
@@ -96,6 +106,10 @@ TOAST_SELECTORS = ("[class*='toast']", "[class*='message']", "[class*='notice']"
                    "[class*='feedback']", "[role='alert']")
 # 命中这些关键词 = 导出是异步的（文件进「下载中心」，不会触发浏览器下载事件）
 ASYNC_EXPORT_HINTS = ("下载中心", "导出成功", "导出中", "导出任务", "消息中心", "扫码")
+# 「导出反馈」toast 的判定关键词（只打印这些，过滤导航徽标噪声）——
+# 2026-10-14 实测：顶部导航的消息徽标「消息 6」也会被 [class*='message']
+# 选择器抓进 toasts，每页运行都打印「💬 页面提示: 消息 6」，纯误导
+EXPORT_FEEDBACK_HINTS = ASYNC_EXPORT_HINTS + ("导出", "下载", "成功", "失败", "排队")
 # React 受控输入框万能注入：原生 setter + input/change 事件（只读日历控件用）
 JS_SET_VALUE = (
     "(el, v) => {"
@@ -522,6 +536,11 @@ def _collect_toasts(page) -> list:
     return out
 
 
+def _is_export_feedback(text: str) -> bool:
+    """这条 toast 是不是导出相关反馈（排除消息徽标之类导航噪声）。"""
+    return any(h in text for h in EXPORT_FEEDBACK_HINTS)
+
+
 def _detect_async_export(evidence: dict) -> str | None:
     """证据里有没有「异步导出」提示（命中关键词即返回该提示文本）。"""
     for t in evidence.get("toasts", []):
@@ -543,8 +562,9 @@ def _observe_after_click(page, evidence: dict, observe_ms: int = 4000) -> None:
         evidence["toasts"] = _collect_toasts(page)
         if evidence["toasts"] or evidence["new_pages"] or evidence["download_objs"]:
             break
-    if evidence["toasts"]:
-        print(f"   💬 页面提示: {' | '.join(evidence['toasts'])[:200]}")
+    feedback = [t for t in evidence["toasts"] if _is_export_feedback(t)]
+    if feedback:
+        print(f"   💬 页面提示: {' | '.join(feedback)[:200]}")
     if evidence["new_pages"]:
         print(f"   🗂️ 点击后新开标签页: {evidence['new_pages']}")
     async_hint = _detect_async_export(evidence)
@@ -703,11 +723,29 @@ def _collect_one(page, context, spec: PageSpec, nav_timeout_ms: int,
     return dest, range_hit
 
 
+def _same_table_content(path_a: Path, path_b: Path) -> bool:
+    """两个表格文件的逻辑内容是否一致（数据行完全相同，忽略 zip 元数据）。
+
+    头条后台每次导出都是重新生成的文件：xlsx 的 zip 条目时间戳每次都不同，
+    字节级 sha256 必然不同——但解析出的数据行可以完全一样（2026-10-14 实测：
+    growth 同日重跑，两份文件 31 行 0 差异）。按字节判重会每天攒一个 _2/_3
+    冗余文件，故名冲突先过这一关。解析失败（非表格/损坏/旧版 .xls）返回
+    False——证明不了相同就按「不同」另存，绝不误丢弃。
+    """
+    try:
+        rows_a = read_table(str(path_a))
+        rows_b = read_table(str(path_b))
+    except Exception:
+        return False
+    return bool(rows_a) and rows_a == rows_b
+
+
 def _save_to_inbox(tmp_path: Path, inbox: Path, date_tag: str | None = None) -> dict:
-    """把下载文件投进 inbox；同名按 sha256 判重，绝不静默覆盖。
+    """把下载文件投进 inbox；同名按内容判重，绝不静默覆盖。
 
     date_tag：统计日期（YYYY-MM-DD）。下载名本身不含日期时补进去，箱内一眼可辨；
-    含日期则不重复加。判重按内容 sha256，与文件名无关。
+    含日期则不重复加。判重按内容、与文件名无关：先比字节 sha256，字节不同再比
+    逻辑行（见 _same_table_content）——后台重复导出的同数据文件不攒 _2 冗余。
     """
     inbox.mkdir(parents=True, exist_ok=True)
     name = _dated_name(tmp_path.name, date_tag) if date_tag else tmp_path.name
@@ -718,6 +756,10 @@ def _save_to_inbox(tmp_path: Path, inbox: Path, date_tag: str | None = None) -> 
             tmp_path.unlink(missing_ok=True)
             return {"file": name, "action": "duplicate", "sha256": new_sha[:12],
                     "note": "箱内已有同内容文件，丢弃（幂等）"}
+        if _same_table_content(target, tmp_path):
+            tmp_path.unlink(missing_ok=True)
+            return {"file": name, "action": "duplicate", "sha256": new_sha[:12],
+                    "note": "箱内已有同内容文件（仅导出元数据差异），丢弃（幂等）"}
         stem, suffix = target.stem, target.suffix
         n = 2
         while (inbox / f"{stem}_{n}{suffix}").exists():
