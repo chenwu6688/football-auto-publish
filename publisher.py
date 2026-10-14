@@ -1070,6 +1070,27 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
     Args:
         batch_filter: If set, only publish articles from this batch (morning/noon/evening).
     """
+    # 计划第十章 · 合规红线：熔断中一律不发布（发布边界硬闸）。
+    # 2026-10-13 事故谱系：一致性打回超阈值的熔断在「生成文章」阶段才触发，
+    # 而 batch.yml 此前只在批次开头检查一次 → 当晚批次照常生成并发布，
+    # 故障直到次日批次开头才停下。本检查是发布前的最后一道闸——
+    # 无论被 CI 还是人工调用，熔断即中止，宁停勿错。
+    try:
+        import compliance_guard
+        _cg = compliance_guard.status()
+    except Exception as e:
+        # 计划九：合规检查自身异常不得静默放行，也不得静默拦截——打印后按不熔断继续
+        print(f"   ⚠️ 合规熔断检查异常（按不熔断继续）: {e}")
+        _cg = {"suspended": False}
+    if _cg.get("suspended"):
+        _msg = (f"合规熔断中，发布已中止：{_cg.get('reason', '')}"
+                f"（自 {_cg.get('since', '')}）。人工定位原因后运行 "
+                f"python3 compliance_guard.py --clear 解除，再手动补发本批次。")
+        print(f"   ⛔ {_msg}")
+        send_wxpusher("足球自媒体 ⛔ 合规熔断",
+                      f"{date_str} 发布已中止：{_cg.get('reason', '')}")
+        sys.exit(1)
+
     if not AUTH_FILE.exists():
         print("❌ 未找到登录状态，请先运行: python scripts/publisher.py --login")
         sys.exit(1)

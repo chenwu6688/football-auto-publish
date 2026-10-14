@@ -1747,6 +1747,23 @@ def _note_consistency_reject(hint: str) -> None:
             pass
 
 
+def _breaker_active() -> bool:
+    """当前批次是否已处于合规熔断状态（进程内已触发 or 状态文件已熔断）。
+
+    计划第十章「回到人工审核模式直至定位原因」。2026-10-13 事故谱系：
+    熔断在生成阶段触发，但生成与发布都未停下，当晚照样发文，故障延后一整批。
+    生成侧发现熔断立即中止后续产出——宁停勿错，也省下后续话题的 LLM 额度。
+    """
+    if _CONSISTENCY_REJECTS.get("suspended"):
+        return True
+    try:
+        import compliance_guard
+        return bool(compliance_guard.is_suspended())
+    except Exception:
+        # 状态不可读时不臆断——由发布边界（publisher）与 CI 复核步骤兜底
+        return False
+
+
 def check_interaction_bait(art: dict) -> dict:
     """互动引导生成后校验（R11 2026-10-13 建议5 / 计划 13.5 评论区运营）。
 
@@ -2564,6 +2581,11 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
     def _gen_one(i, topic):
         ct = topic.get("content_type", "N/A")
         print(f"\n--- 第{index_offset + i + 1}/{index_offset + count}篇 [{ct}] ---")
+
+        # 计划第十章：本批已熔断（一致性打回超阈值）→ 不再继续生成（宁停勿错）
+        if _breaker_active():
+            print(f"   ⛔ 合规熔断中，本篇不再生成（待人工定位原因）")
+            return i, None, "合规熔断中，本篇不再生成（计划第十章·宁停勿错）", []
 
         # 优化②：源文章存在性预检，提前跳过注定失败的话题
         if not _has_source_for_topic(topic, match_data):
@@ -4045,7 +4067,9 @@ def main():
             urgent_events = [e for e in major_events if e["urgency"] >= 70]
             # Only trigger emergency in non-batch mode or morning batch (avoid duplicates)
             # 配额守卫（P0 修法 A）：本批已满则紧急球评让位，不突破单批上限
-            if urgent_events and batch_mode in ("auto", "morning") and len(articles) < max_articles:
+            # 熔断守卫（R18）：本批已触发合规熔断则紧急球评同样不生成（宁停勿错）
+            if urgent_events and batch_mode in ("auto", "morning") and len(articles) < max_articles \
+                    and not _breaker_active():
                 top_event = urgent_events[0]
                 e_idx = len(articles) + 1
                 e_imgs = search_images({"title": top_event.get("title_hint", ""),

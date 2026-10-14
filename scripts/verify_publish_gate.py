@@ -10,6 +10,7 @@
   C. 一致性校验可统计（硬项，无记录跳过）—— consistency_stats 台账就绪且能算出拦截率；
   D. 误杀率 <5%（告警项，无人工标注则待接入）—— 绝不把「未标注」当 0；
   E. 连续 14 天无旧闻新发（硬项，无台账跳过）—— 时效闸门台账零「已知时效>上限」保留。
+  G. 熔断须拦住当前批次（硬项）—— 生成阶段触发的熔断同样中止当晚发布（2026-10-13 事故修复）。
 
 产出 data/audit/publish_gate_*.md + publish_gate_latest.json；硬项 FAIL 退出码 1。
 
@@ -326,10 +327,96 @@ def check_old_news() -> dict:
                        ("无「已知时效>上限仍保留」✅" if not v else f"❌ {len(v)} 条超限保留")]}
 
 
+def check_breaker_blocks_current_batch() -> dict:
+    """G. 熔断须拦住当前批次（硬项 · 计划第十章）。
+
+    2026-10-13 事故：一致性打回超阈值的熔断在「生成文章」阶段才触发，
+    而 batch.yml 此前只在批次开头检查一次 → 当晚批次照常发布，故障延后一整批。
+    修复三层，此处逐层验收：
+      1. publisher.publish_all 有发布前熔断检查（AST 查真实 Call 节点——
+         R16c 教训：文本匹配会被 docstring 里的一句说明误报）；
+      2. orchestrator 有 _breaker_active() 且生成侧（_gen_one / main 紧急球评）
+         有调用点——生成侧发现熔断即中止；
+      3. batch.yml「合规熔断复核（生成后）」步骤先于「发布到头条号」且熔断时
+         exit 1；「发布到头条号」与「回写批次状态」均按复核结果跳过
+         （中止的批次不标记完成，解除熔断后手动补发才不会被幂等保护吞掉）。
+    """
+    import ast
+    import yaml
+    problems = []
+
+    # ① publisher 发布边界硬闸（AST：publish_all 函数体内调 compliance_guard 的
+    #    status / is_suspended —— 只看真实 Call 节点，不扫源码文本）
+    try:
+        src = (PROJECT_ROOT / "publisher.py").read_text(encoding="utf-8")
+        tree = ast.parse(src)
+        fn = next((n for n in ast.walk(tree)
+                   if isinstance(n, ast.FunctionDef) and n.name == "publish_all"), None)
+        if fn is None:
+            problems.append("publisher.py 找不到 publish_all")
+        elif not any(isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                     and isinstance(n.func.value, ast.Name)
+                     and n.func.value.id == "compliance_guard"
+                     and n.func.attr in ("status", "is_suspended")
+                     for n in ast.walk(fn)):
+            problems.append("publish_all 无发布前熔断检查（compliance_guard.status/is_suspended）")
+    except Exception as e:
+        problems.append(f"解析 publisher.py 失败：{e}")
+
+    # ② orchestrator 生成侧中止（AST：_breaker_active 定义 + 至少 2 处调用）
+    try:
+        src = (PROJECT_ROOT / "orchestrator.py").read_text(encoding="utf-8")
+        tree = ast.parse(src)
+        defs = [n for n in ast.walk(tree)
+                if isinstance(n, ast.FunctionDef) and n.name == "_breaker_active"]
+        if not defs:
+            problems.append("orchestrator 缺少 _breaker_active()")
+        else:
+            call_sites = [n for n in ast.walk(tree)
+                          if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+                          and n.func.id == "_breaker_active"]
+            if len(call_sites) < 2:
+                problems.append(
+                    f"_breaker_active 调用点不足（现有 {len(call_sites)} 处，"
+                    f"应为生成循环 + 紧急球评至少 2 处）")
+    except Exception as e:
+        problems.append(f"解析 orchestrator.py 失败：{e}")
+
+    # ③ batch.yml 步骤顺序与条件
+    try:
+        wf = yaml.safe_load(
+            (PROJECT_ROOT / ".github" / "workflows" / "batch.yml").read_text(encoding="utf-8"))
+        steps = wf["jobs"]["publish"]["steps"]
+        names = [s.get("name", "") for s in steps]
+        recheck = next((s for s in steps if s.get("id") == "compliance_recheck"), None)
+        if recheck is None:
+            problems.append("batch.yml 缺少「合规熔断复核（生成后）」步骤")
+        else:
+            if steps.index(recheck) >= names.index("发布到头条号"):
+                problems.append("复核步骤必须先于「发布到头条号」")
+            if "exit 1" not in recheck.get("run", ""):
+                problems.append("复核步骤熔断时未 exit 1（任务不会失败，故障通知丢失）")
+        pub_step = steps[names.index("发布到头条号")]
+        if "compliance_recheck" not in str(pub_step.get("if", "")):
+            problems.append("「发布到头条号」未按复核结果跳过")
+        wb_step = steps[names.index("回写批次状态（幂等保护）")]
+        if "compliance_recheck" not in str(wb_step.get("if", "")):
+            problems.append("「回写批次状态」未按复核结果跳过（熔断中止的批次会被误标记完成）")
+    except Exception as e:
+        problems.append(f"解析 batch.yml 失败：{e}")
+
+    return {"item": "熔断拦住当前批次（计划十章）", "ok": not problems, "skipped": False,
+            "violations": problems,
+            "detail": ["生成侧中止（orchestrator._breaker_active）+ 发布边界硬闸"
+                       "（publisher.publish_all）+ CI 生成后复核（batch.yml）三层验收",
+                       ("三层防线齐备 ✅" if not problems else f"❌ 缺口：{problems}")]}
+
+
 def verify() -> dict:
     checks = [check_title_hard(), check_title_pass_rate(), check_team_alias_awareness(),
               check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
-              check_reject_traceability(), check_old_news(), check_title_antipattern_residue()]
+              check_reject_traceability(), check_old_news(), check_title_antipattern_residue(),
+              check_breaker_blocks_current_batch()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": checks,

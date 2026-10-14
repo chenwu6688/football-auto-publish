@@ -473,8 +473,26 @@ jobs:
             /usr/bin/sleep $((attempt * 2))
           done
 
-      - name: 发布到头条号
+      - name: 合规熔断复核（生成后 · 计划第十章：熔断须拦住当前批次）
+        id: compliance_recheck
         if: steps.params.outputs.skip != 'true'
+        run: |
+          # 2026-10-13 事故根因：一致性打回超阈值的熔断在「生成文章」步骤才触发，
+          # 而本工作流此前只在批次开头检查一次 → 当晚批次照常发布，故障延后一整批。
+          # 本步骤在发布前复核：生成阶段触发的熔断同样中止当前批次（宁停勿错）。
+          # 置于「回写状态」之后——彼时 compliance_state.json 已提交落库，复核的是持久化事实。
+          python3 compliance_guard.py --status
+          if python3 compliance_guard.py --status --exit-code-if-suspended; then
+            echo "suspended=false" >> $GITHUB_OUTPUT
+            echo "✅ 合规状态正常，允许发布"
+          else
+            echo "suspended=true" >> $GITHUB_OUTPUT
+            echo "::error::生成阶段已触发合规熔断——本批发布中止（宁停勿错）。请人工定位原因后运行 python3 compliance_guard.py --clear 解除，再手动补发本批次。"
+            exit 1
+          fi
+
+      - name: 发布到头条号
+        if: steps.params.outputs.skip != 'true' && steps.compliance_recheck.outputs.suspended != 'true'
         env:
           HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
@@ -486,7 +504,9 @@ jobs:
           python publisher.py "${{ steps.params.outputs.today }}" --headless --batch="${{ steps.params.outputs.batch }}"
 
       - name: 回写批次状态（幂等保护）
-        if: always() && steps.params.outputs.skip != 'true'
+        # 熔断中止的批次不标记完成：否则解除熔断后手动补发会被幂等保护跳过，
+        # 本批文章永远发不出去（2026-10-13 事故恢复路径验证）。
+        if: always() && steps.params.outputs.skip != 'true' && steps.compliance_recheck.outputs.suspended != 'true'
         env:
           TODAY: ${{ steps.params.outputs.today }}
           BATCH: ${{ steps.params.outputs.batch }}
@@ -554,7 +574,7 @@ jobs:
           done
           echo "ℹ️ 若上方出现推送失败：文章已发布成功，仅仓库元数据回写未成功（下次运行可自动补齐）"
       - name: 导出小程序静态数据
-        if: steps.params.outputs.skip != 'true' && !cancelled()
+        if: steps.params.outputs.skip != 'true' && !cancelled() && steps.compliance_recheck.outputs.suspended != 'true'
         env:
           OUTPUT_DIR: ${{ runner.temp }}/output
         run: |
