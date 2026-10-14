@@ -22,6 +22,14 @@
      最后一天，即默认的「前一天」），箱内一眼可辨是哪天数据；含日期则不重复加；
   6. 选择器集中在本文件 PAGES 配置——头条后台改版时只需改这一处；
   7. 登录态失效与 publisher 同判据（URL 含 /auth/ 或 /login）——复用同一检测口径。
+  8. 2026-10-14 真实后台实测台账（改版时先看这里，别再瞎猜）：
+     - perf 页（作品数据→单篇）导出控件是右上角「⬇ 下载Excel」，是个 `<a>` 链接
+       而不是 `<button>`——诊断脚本首版只抓 button，按钮清单里反而看不到它；
+       该页**没有**时间范围选择器，下载即全量作品快照（按 slug upsert，每日刷新正好）；
+     - perf 页注明「每日 14:00 更新前一日数据」——06:00 导到的前一天是未结算值，
+       次日 06:00 的导出会自动覆盖为结算值（upsert 自愈，不必等 14:00 再跑）；
+     - growth 页（粉丝数据）主内容区渲染慢（3 秒时还是空白）且压着「被关注自动回复」
+       营销弹窗——已加额外等待 + Escape 关弹窗；导出控件文案待首跑成功后才能确认。
 
 频率：**每天 06:00 CST**（CI cron UTC 22:00，见 .github/workflows/toutiao-collector.yml），
 默认统计**前一天**（days=1）——与 perf-ingest 09:10 消费、绩效台账按日 upsert
@@ -43,7 +51,7 @@ import json
 import os
 import re
 import sys
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -71,22 +79,28 @@ class PageSpec:
     name: str                 # perf / growth（与投递箱类型识别对应）
     url: str
     export_texts: tuple       # 导出按钮的候选文案（按序尝试，命中即止）
-    range_texts: tuple        # 时间范围候选文案（找到了就点，找不到不阻断）
+    range_mode: str = "none"  # none=该页无时间范围选择器 / dynamic=按 --days 动态点
+    extra_wait_ms: int = 0    # 登录检测后的额外等待（图表渲染慢的页面用）
 
 
 PAGES = (
     PageSpec(
         name="perf",
         url="https://mp.toutiao.com/profile_v4/analysis/works-single/article",
-        export_texts=("导出数据", "导出"),
-        # 静态兜底文案；实际按 --days 动态生成（见 _range_texts_for），此处仅作无 days 时默认
-        range_texts=("昨天", "昨日", "近1天", "1天"),
+        # 2026-10-14 实测：单篇 tab 的导出控件是右上角「⬇ 下载Excel」（<a> 链接，
+        # 不是 <button>，所以诊断的按钮清单里根本看不到它）
+        export_texts=("下载Excel", "导出数据", "导出Excel", "下载数据", "导出"),
+        # 该页无时间范围选择器（实测截图确认）：下载即全量作品快照。
+        # 绝不点「昨天」之类——文章列表里标题含「昨天」的作品会被误点导航跑飞。
+        range_mode="none",
     ),
     PageSpec(
         name="growth",
         url="https://mp.toutiao.com/profile_v4/analysis/fans",
-        export_texts=("导出数据", "导出"),
-        range_texts=(),
+        # 粉丝页导出控件文案未经真实验证（页面还没渲染出来过）——多放候选，命中即止
+        export_texts=("导出数据", "下载Excel", "导出Excel", "下载数据", "导出"),
+        range_mode="dynamic",      # 若该页有时间范围选择器，按 --days 点（每日模式点「昨天」）
+        extra_wait_ms=7000,        # 实测 3 秒时主内容区还是空白（图表渲染慢）+ 有营销弹窗
     ),
 )
 
@@ -170,28 +184,34 @@ def _click_first(page, texts) -> str | None:
 
 
 def _dump_diagnostics(page, spec: PageSpec, note: str) -> str:
-    """失败现场留证：页面截图 + 可见按钮文本清单（供改版后修选择器）。"""
+    """失败现场留证：页面截图 + 可见控件文本清单（供改版后修选择器）。
+
+    2026-10-14 教训：首版只抓 `<button>`，而 perf 页导出控件「下载Excel」是 `<a>`
+    链接——清单里反而看不到真正的导出按钮。现在 button / a / [role=button] 全抓。
+    """
     DIAG_DIR.mkdir(parents=True, exist_ok=True)
     shot = DIAG_DIR / f"{spec.name}.png"
     try:
         page.screenshot(path=str(shot), full_page=False)
     except Exception:
         shot = None
-    buttons = []
-    try:
-        for el in page.query_selector_all("button"):
-            try:
-                t = (el.inner_text() or "").strip()
-                if t:
-                    buttons.append(t[:40])
-            except Exception:
-                continue
-    except Exception:
-        pass
+    controls, seen = [], set()
+    for selector in ("button", "a", "[role=button]"):
+        try:
+            for el in page.query_selector_all(selector):
+                try:
+                    t = (el.inner_text() or "").strip()
+                except Exception:
+                    continue
+                if t and t not in seen:
+                    seen.add(t)
+                    controls.append(f"{selector}:{t[:40]}")
+        except Exception:
+            continue
     diag = DIAG_DIR / f"{spec.name}-diagnostics.txt"
     diag.write_text(
         f"页面: {spec.name} ({spec.url})\n原因: {note}\nURL: {getattr(page, 'url', '?')}\n"
-        f"可见按钮: {buttons}\n截图: {shot}\n",
+        f"可见控件: {controls}\n截图: {shot}\n",
         encoding="utf-8")
     print(f"   🔍 诊断已留存: {diag}" + (f" + {shot}" if shot else ""))
     return str(diag)
@@ -215,19 +235,38 @@ def _assert_logged_in(page, spec: PageSpec, nav_timeout_ms: int) -> None:
         raise LoginExpired(f"{spec.name} 页面跳转到登录页（{url[:80]}）")
 
 
+def _dismiss_popups(page) -> None:
+    """关掉页面营销弹窗，避免遮挡导出控件或被误点。
+
+    2026-10-14 实测：粉丝页压着「被关注自动回复功能上线」弹窗（内含「立即体验」，
+    点它会被导航到别的页面）。只按 Escape——绝不点弹窗里的行动按钮。
+    """
+    try:
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(500)
+    except Exception:
+        pass
+
+
 def _collect_one(page, spec: PageSpec, nav_timeout_ms: int,
-                 download_timeout_ms: int) -> tuple[Path, str | None]:
+                 download_timeout_ms: int, days: int = 1) -> tuple[Path, str | None]:
     """导航到 spec 页面并触发导出，返回 (下载的临时文件路径, 命中的时间范围文案)。
 
     失败抛 ExportButtonMissing / LoginExpired / 其他异常（含超时）。
     """
     print(f"   🌐 打开 {spec.name} 页面: {spec.url}")
     _assert_logged_in(page, spec, nav_timeout_ms)
+    _dismiss_popups(page)
+    if spec.extra_wait_ms:
+        # 粉丝页图表渲染慢（3 秒时主内容区还是空白），多等一会儿再找导出控件
+        page.wait_for_timeout(spec.extra_wait_ms)
 
-    range_hit = _click_first(page, spec.range_texts)   # 尽力命中导出窗口；找不到不阻断
-    if range_hit:
-        print(f"   📆 已选择时间范围: {range_hit}")
-    page.wait_for_timeout(1000)
+    range_hit = None
+    if spec.range_mode == "dynamic":
+        range_hit = _click_first(page, _range_texts_for(days))   # 找到了就点，找不到不阻断
+        if range_hit:
+            print(f"   📆 已选择时间范围: {range_hit}")
+            page.wait_for_timeout(1000)
 
     tmp_dir = DIAG_DIR / "downloads"
     tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -329,8 +368,6 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
         page.on("dialog", lambda dialog: dialog.accept())
 
         for spec in PAGES:
-            # 时间范围文案按导出窗口动态生成（days=1 → 「昨天」），不写死
-            spec = replace(spec, range_texts=_range_texts_for(days))
             try:
                 if dry_run:
                     print(f"   🌐 [dry-run] 仅检测登录态: {spec.url}")
@@ -338,7 +375,7 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
                     print(f"   ✅ [dry-run] {spec.name} 登录态有效")
                     continue
                 tmp, range_hit = _collect_one(page, spec, nav_timeout_ms,
-                                              download_timeout_ms)
+                                              download_timeout_ms, days=days)
                 rec = _save_to_inbox(tmp, inbox, date_tag=date_tag)
                 rec["range"] = range_hit
                 result["files"].append(rec)

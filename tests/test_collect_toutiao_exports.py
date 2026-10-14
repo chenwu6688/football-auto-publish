@@ -54,7 +54,10 @@ class _FakeLocator:
         self._text = text
 
     def count(self):
-        return 1 if self._text in self._page.button_texts else 0
+        # 真实 playwright 的 get_by_text 匹配任何元素的文本，不限 button——
+        # 「下载Excel」是 <a> 链接，fake 必须 button_texts + link_texts 都认
+        return 1 if (self._text in self._page.button_texts
+                     or self._text in self._page.link_texts) else 0
 
     @property
     def first(self):
@@ -62,6 +65,9 @@ class _FakeLocator:
 
     def click(self):
         self._page.clicked.append(self._text)
+        target = self._page._navigate_on_click.get(self._text)
+        if target:
+            self._page.url = target      # 模拟误点：点了某文案后页面导航跑飞
 
 
 class _FakeElement:
@@ -72,26 +78,40 @@ class _FakeElement:
         return self._text
 
 
+class _FakeKeyboard:
+    def __init__(self, page):
+        self._page = page
+
+    def press(self, key):
+        self._page.pressed.append(key)
+
+
 class FakePage:
     """按脚本的调用顺序模拟 mp.toutiao.com 数据页。
 
     login_redirect_after_ms：模拟 SPA 延迟跳转——goto 时 URL 不变（应用壳先加载），
     累计等待超过阈值后才跳登录页。用于回归 dry-run 竞态误报
     （2026-10-14 实测：没等待的检测把延迟跳转漏检，误报「登录态有效」）。
+    link_texts：`<a>` 链接类控件文本——2026-10-14 实测 perf 页导出控件「下载Excel」
+    就是 `<a>` 不是 `<button>`，诊断与点击都要能覆盖到。
     """
 
-    def __init__(self, *, url_map=None, button_texts=(), downloads=None,
-                 goto_error=None, login_redirect_after_ms=None):
+    def __init__(self, *, url_map=None, button_texts=(), link_texts=(), downloads=None,
+                 goto_error=None, login_redirect_after_ms=None, navigate_on_click=None):
         self._url_map = dict(url_map or {})
         self.button_texts = list(button_texts)
+        self.link_texts = list(link_texts)
         self._downloads = list(downloads or [])
         self.goto_error = goto_error
         self.url = "https://mp.toutiao.com/"
         self.clicked = []
         self.goto_calls = []
         self.screenshots = []
+        self.pressed = []
+        self.keyboard = _FakeKeyboard(self)
         self._redirect_after = login_redirect_after_ms
         self._waited_ms = 0
+        self._navigate_on_click = dict(navigate_on_click or {})
 
     def _maybe_redirect(self):
         """累计等待达标后才执行 url_map 里的跳转（SPA 异步校验的真实时序）。"""
@@ -125,7 +145,11 @@ class FakePage:
         return _FakeLocator(self, text)
 
     def query_selector_all(self, selector):
-        return [_FakeElement(t) for t in self.button_texts]
+        if selector == "button":
+            return [_FakeElement(t) for t in self.button_texts]
+        if selector == "a":
+            return [_FakeElement(t) for t in self.link_texts]
+        return []
 
     def expect_download(self, timeout=None):
         download = self._downloads.pop(0) if self._downloads else None
@@ -410,6 +434,78 @@ class TestDelayedRedirect(CollectorTestBase):
         self.assertEqual(result["status"], "ok")
 
 
+class TestRealPageControls(CollectorTestBase):
+    """2026-10-14 真实头条后台实测回归（用户本地 --headed 跑出的结论）。
+
+    现场：dry-run 与 headed 都不再报登录过期（登录态有效），但两页都
+    ExportButtonMissing——perf 页导出控件是右上角「⬇ 下载Excel」（<a> 链接，
+    候选文案里没有它）；growth 页主内容区 3 秒时还是空白 + 压着营销弹窗。
+    """
+
+    PERF_URL = "https://mp.toutiao.com/profile_v4/analysis/works-single/article"
+    GROWTH_URL = "https://mp.toutiao.com/profile_v4/analysis/fans"
+
+    def _specs(self):
+        return {p.name: p for p in cte.PAGES}
+
+    def test_perf_export_matches_download_excel_link(self):
+        """perf 页导出控件是 <a>「下载Excel」——文案候选必须命中它。"""
+        page = FakePage(
+            url_map={"works-single": self.PERF_URL},
+            button_texts=(), link_texts=("下载Excel",),
+            downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                       FakeDownload("b.xlsx", b"growth")],
+        )
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertIn("下载Excel", page.clicked)
+
+    def test_perf_collect_never_clicks_range_texts(self):
+        """perf 页无时间范围选择器——点了「昨天」可能误点文章标题导航跑飞。"""
+        page = FakePage(
+            url_map={"works-single": self.PERF_URL},
+            button_texts=("导出数据", "昨天", "昨日", "近1天"),
+            downloads=[FakeDownload("作品数据.xlsx", b"perf")],
+        )
+        spec = self._specs()["perf"]
+        _tmp, range_hit = cte._collect_one(page, spec, 60_000, 120_000, days=1)
+        self.assertIsNone(range_hit, "perf 页没有时间范围选择器，不应有点击范围的动作")
+        for t in ("昨天", "昨日", "近1天"):
+            self.assertNotIn(t, page.clicked, f"perf 页不得点「{t}」（文章标题误触风险）")
+        self.assertIn("导出数据", page.clicked)
+
+    def test_popup_dismissed_with_escape_before_export(self):
+        page = FakePage(
+            url_map={"works-single": self.PERF_URL},
+            button_texts=("导出数据",),
+            downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                       FakeDownload("b.xlsx", b"growth")],
+        )
+        self._run(page)
+        self.assertIn("Escape", page.pressed,
+                      "营销弹窗必须先 Escape 关掉，避免遮挡导出控件/被误点")
+
+    def test_growth_page_gets_extra_wait(self):
+        """粉丝页图表渲染慢（3 秒时空白）——必须比 perf 等更久。"""
+        specs = self._specs()
+        self.assertGreater(specs["growth"].extra_wait_ms, 0)
+        self.assertGreater(specs["growth"].extra_wait_ms, specs["perf"].extra_wait_ms)
+
+    def test_growth_range_mode_is_dynamic(self):
+        """粉丝页若有时间范围选择器，每日模式应点「昨天」。"""
+        specs = self._specs()
+        self.assertEqual(specs["growth"].range_mode, "dynamic")
+        self.assertEqual(specs["perf"].range_mode, "none")
+
+    def test_diagnostics_capture_link_controls(self):
+        """诊断必须采到 <a> 链接类控件（首版只抓 button，看不到「下载Excel」）。"""
+        page = FakePage(button_texts=("查看详情",), link_texts=("下载Excel",))
+        spec = self._specs()["perf"]
+        cte._dump_diagnostics(page, spec, "测试留证")
+        txt = (self.diag / "perf-diagnostics.txt").read_text(encoding="utf-8")
+        self.assertIn("下载Excel", txt, "按钮清单必须包含 <a> 链接类导出控件")
+
+
 class TestDailyMode(CollectorTestBase):
     """每日 06:00 模式：默认统计前一天，回执每次运行都发。"""
 
@@ -463,7 +559,8 @@ class TestDailyMode(CollectorTestBase):
         names = sorted(p.name for p in self.inbox.iterdir())
         self.assertEqual(names, ["作品数据_2026-10-13.xlsx", "粉丝分析_2026-10-13.xlsx"])
         ranges = [f.get("range") for f in result["files"]]
-        self.assertEqual(ranges, ["昨天", "昨天"], "回执应记录实际点中的时间范围")
+        self.assertEqual(ranges, [None, "昨天"],
+                         "perf 页无范围选择器（None），growth 页点「昨天」")
 
     def test_success_sends_summary_notification(self):
         with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
@@ -507,6 +604,13 @@ class TestConfig(unittest.TestCase):
         for spec in cte.PAGES:
             self.assertTrue(spec.url.startswith("https://mp.toutiao.com/"), spec.name)
             self.assertTrue(spec.export_texts, spec.name)
+
+    def test_perf_export_texts_include_download_excel(self):
+        """2026-10-14 实测：perf 页导出控件文案是「下载Excel」（<a> 链接）。"""
+        specs = {p.name: p for p in cte.PAGES}
+        self.assertIn("下载Excel", specs["perf"].export_texts)
+        self.assertEqual(specs["perf"].export_texts[0], "下载Excel",
+                         "实测命中的文案排第一，少一次无效尝试")
 
 
 if __name__ == "__main__":
