@@ -13,6 +13,7 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 from unittest import mock
 
@@ -182,7 +183,7 @@ class CollectorTestBase(unittest.TestCase):
         self.addCleanup(self._diag.stop)
 
     def _run(self, page, **kw):
-        opts = dict(auth_file=self.auth, inbox=self.inbox, days=7, headless=True,
+        opts = dict(auth_file=self.auth, inbox=self.inbox, days=1, headless=True,
                     playwright_factory=_factory(page))
         opts.update(kw)
         return cte.run(**opts)
@@ -249,7 +250,7 @@ class TestExportSuccess(CollectorTestBase):
             button_texts=("导出数据", "最近7天"),
             downloads=[FakeDownload("a.xlsx", b"1"), FakeDownload("b.xlsx", b"2")],
         )
-        self._run(page)
+        self._run(page, days=7)
         self.assertIn("最近7天", page.clicked)
 
 
@@ -286,7 +287,8 @@ class TestExportFailure(CollectorTestBase):
         self.assertFalse(result["ok"], "有页面失败则整体不 ok")
         saved = [f for f in result["files"] if f["action"] == "saved"]
         self.assertEqual(len(saved), 1, "成功的页面仍要落袋为安")
-        self.assertEqual(saved[0]["file"], "粉丝分析.xlsx")
+        self.assertTrue(saved[0]["file"].startswith("粉丝分析"),
+                        f"落盘名应带统计日期: {saved[0]['file']}")
         self.assertTrue(any("导出失败" in p for p in result["problems"]))
 
     def test_failure_leaves_diagnostics(self):
@@ -337,6 +339,102 @@ class TestDryRun(CollectorTestBase):
         self.assertEqual(result["files"], [])
         self.assertEqual(page.clicked, [], "dry-run 不得点击导出")
         self.assertEqual(len(page.goto_calls), 2, "dry-run 仍要逐页验证登录态")
+
+    def test_dry_run_sends_no_summary_notification(self):
+        page = FakePage(button_texts=("导出数据",))
+        self._run(page, dry_run=True)
+        self.assertEqual(self.notifications, [],
+                         "dry-run 只探活，不发运行回执（避免噪音）")
+
+
+class TestDailyMode(CollectorTestBase):
+    """每日 06:00 模式：默认统计前一天，回执每次运行都发。"""
+
+    def test_run_defaults_to_one_day(self):
+        import inspect
+        sig = inspect.signature(cte.run)
+        self.assertEqual(sig.parameters["days"].default, 1,
+                         "每日模式默认 days=1（统计前一天）")
+
+    def test_yesterday_is_cst_based(self):
+        # 06:00 CST 跑，统计目标 = 前一天
+        self.assertEqual(cte._yesterday_str(datetime(2026, 10, 15, 6, 0,
+                                                     tzinfo=cte.CST)), "2026-10-14")
+        self.assertEqual(cte._yesterday_str(datetime(2026, 10, 15, 0, 30,
+                                                     tzinfo=cte.CST)), "2026-10-14")
+
+    def test_range_texts_switch_by_days(self):
+        self.assertEqual(cte._range_texts_for(1)[0], "昨天", "每日模式优先「昨天」")
+        self.assertIn("近7天", cte._range_texts_for(7))
+        self.assertIn("近14天", cte._range_texts_for(14))
+
+    def test_daily_mode_clicks_yesterday(self):
+        page = FakePage(
+            button_texts=("导出数据", "昨天", "近7天"),
+            downloads=[FakeDownload("a.xlsx", b"1"), FakeDownload("b.xlsx", b"2")],
+        )
+        self._run(page)   # 默认 days=1
+        self.assertIn("昨天", page.clicked, "每日模式应点「昨天」而非「近7天」")
+        self.assertNotIn("近7天", page.clicked)
+
+    def test_dated_name_appends_date_when_missing(self):
+        self.assertEqual(cte._dated_name("作品数据.xlsx", "2026-10-13"),
+                         "作品数据_2026-10-13.xlsx")
+
+    def test_dated_name_keeps_existing_date(self):
+        self.assertEqual(cte._dated_name("作品数据_2026-10-13.xlsx", "2026-10-13"),
+                         "作品数据_2026-10-13.xlsx")
+        self.assertEqual(cte._dated_name("作品数据_20261013.xlsx", "2026-10-13"),
+                         "作品数据_20261013.xlsx")
+
+    def test_inbox_file_carries_date_tag(self):
+        with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
+            page = FakePage(
+                button_texts=("导出数据", "昨天"),
+                downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                           FakeDownload("粉丝分析.xlsx", b"growth")],
+            )
+            result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(result["date"], "2026-10-13")
+        names = sorted(p.name for p in self.inbox.iterdir())
+        self.assertEqual(names, ["作品数据_2026-10-13.xlsx", "粉丝分析_2026-10-13.xlsx"])
+        ranges = [f.get("range") for f in result["files"]]
+        self.assertEqual(ranges, ["昨天", "昨天"], "回执应记录实际点中的时间范围")
+
+    def test_success_sends_summary_notification(self):
+        with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
+            page = FakePage(
+                button_texts=("导出数据", "昨天"),
+                downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                           FakeDownload("粉丝分析.xlsx", b"growth")],
+            )
+            result = self._run(page)
+        titles = [t for t, _ in self.notifications]
+        self.assertTrue(any("导出回收完成" in t for t in titles),
+                        f"成功也要发回执（用户要求每次运行都有状态反馈）: {titles}")
+        content = "\n".join(c for _, c in self.notifications)
+        self.assertIn("2026-10-13", content)
+        self.assertIn("作品数据_2026-10-13.xlsx", content)
+        self.assertIn("perf-ingest 09:10", content)
+
+    def test_duplicate_also_gets_receipt(self):
+        """同内容重复投递（昨天跑过今天又跑）也发回执，标注已跳过。"""
+        with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
+            for _ in range(2):
+                page = FakePage(
+                    button_texts=("导出数据", "昨天"),
+                    downloads=[FakeDownload("作品数据.xlsx", b"perf"),
+                               FakeDownload("粉丝分析.xlsx", b"growth")],
+                )
+                result = self._run(page)
+        self.assertTrue(result["ok"])
+        self.assertEqual([f["action"] for f in result["files"]],
+                         ["duplicate", "duplicate"])
+        content = "\n".join(c for _, c in self.notifications)
+        self.assertIn("同内容", content, "重复投递的回执要标注「同内容跳过」")
+        self.assertEqual(len(list(self.inbox.iterdir())), 2,
+                         "同内容判重后箱里仍只有 2 个文件")
 
 
 class TestConfig(unittest.TestCase):
