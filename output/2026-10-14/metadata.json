@@ -1,7 +1,7 @@
 {
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T04:05:30.241239",
-  "total_articles": 4,
+  "generated_at": "2026-10-14T10:05:27.667446",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -141,70 +141,192 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "马拉多纳的上帝之手，英格兰到底冤不冤呢",
+      "path": "/home/runner/work/_temp/output/2026-10-14/article-1-马拉多纳的上帝之-6dd6d7.md",
+      "slug": "马拉多纳的上帝之-6dd6d7",
+      "tags": [
+        "Maradona",
+        "Hand of God",
+        "1986 World Cup",
+        "Argentina vs England"
+      ],
+      "keywords": [
+        "Maradona",
+        "Hand of God",
+        "1986 World Cup",
+        "Argentina vs England"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "历史回顾",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "曼城碰巴黎，罗马守得住皇马吗？欧冠夜这8场有说法",
+      "path": "/home/runner/work/_temp/output/2026-10-14/article-3-曼城碰巴黎罗马守-255025.md",
+      "slug": "曼城碰巴黎罗马守-255025",
+      "tags": [
+        "Champions League",
+        "Manchester City",
+        "Real Madrid",
+        "Liverpool",
+        "AC Milan"
+      ],
+      "keywords": [
+        "Champions League",
+        "Manchester City",
+        "Real Madrid",
+        "Liverpool",
+        "AC Milan"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "国安亚冠在援建球场踢申花，柴桢这队真不是鱼腩？",
-      "angle": "东体报道申花亚冠比赛在中国援建的球场进行，对手柴桢并非鱼腩。从场地背景到对手实力，聊聊中超球队亚冠客场的不确定性和国安申花的亚冠前景。",
+      "title": "没想到利马竟被移出首发还要罚款，曼联这更衣室到底谁说了算？",
+      "angle": "利桑德罗·马丁内斯续约可能性微乎其微，还被曝可能被移出首发并罚款——这不是一次普通的状态起伏，而是曼联更衣室权力结构的信号。老六观点：当一个敢拼敢抢的后卫被这样对待，问题往往不在球员，在管理层和主帅谁在真正立规矩。",
       "keywords": [
-        "beijing guoan",
-        "shanghai shenhua",
-        "afc champions league",
-        "cambodia"
+        "Lisandro Martinez",
+        "Manchester United",
+        "contract",
+        "fine",
+        "starting XI"
       ],
       "keywords_cn": [
-        "国安",
-        "申花",
-        "亚冠",
-        "柴桢"
+        "利桑德罗·马丁内斯",
+        "曼联",
+        "续约",
+        "罚款",
+        "首发"
       ],
-      "content_type": "热点球评",
-      "score": 78,
-      "controversy_level": "medium",
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "high",
       "target_emotion": "好奇",
-      "resonance_angle": "国足情结",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "中超双雄亚冠客场作战，援建球场+神秘对手有话题性",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "曼联更衣室权力暗战，老球迷爱看",
+      "_category": "转会官宣",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "拉齐奥主帅这场竟比尤文更输不起，他到底在赌什么？",
-      "content_type": "人物故事",
-      "_is_fixture": true
+      "title": "从崇明基地到喀麦隆混血少年，徐根宝这套青训为啥能熬到今天？",
+      "angle": "崇明基地17、18年龄段组队，队里还有一对喀麦隆血统的中非混血儿。老六观点：中国足球这些年砸钱无数，真正熬下来的还是徐根宝那种笨办法——从孩子抓起。这条线接的是国足情结，也是一代老球迷对青训的执念。",
+      "keywords": [
+        "Chongming",
+        "Xu Genbao",
+        "youth academy",
+        "Cameroon",
+        "mixed-race"
+      ],
+      "keywords_cn": [
+        "崇明基地",
+        "徐根宝",
+        "青训",
+        "喀麦隆",
+        "混血"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "徐根宝青训情怀，戳中老球迷",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "马拉多纳的上帝之手，英格兰到底冤不冤呢",
+      "content_type": "历史回顾",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "梅西C罗生涯数据大PK，到底谁才是真正的球王？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "曼城碰巴黎，罗马守得住皇马吗？欧冠夜这8场有说法",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 1,
-      "三级·软性": 0
+      "一级·确定性": 0,
+      "二级·突发": 0,
+      "三级·软性": 2
     },
     "ratios": {
-      "一级·确定性": 50.0,
-      "二级·突发": 50.0,
-      "三级·软性": 0.0
+      "一级·确定性": 0.0,
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -212,17 +334,17 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
-      "二级·突发": 0.0,
-      "三级·软性": -20.0
+      "一级·确定性": -30.0,
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "互动引导未达标",
+      "环节": "互动引导兜底",
       "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -232,25 +354,36 @@
       "数量": 1
     }
   ],
+  "pending_review": [
+    {
+      "id": "2026-10-14-2-ed34d8",
+      "index": 2,
+      "title": "梅西C罗生涯数据大PK，到底谁才是真正的球王？",
+      "reasons": [
+        "伤病(命中：受伤)"
+      ]
+    }
+  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-14 12:05:30"
+  "last_batch": "evening",
+  "last_updated": "2026-10-14 18:05:27"
 }
