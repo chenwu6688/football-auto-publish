@@ -106,6 +106,64 @@ class TestMatchDataValidationAliasAware(unittest.TestCase):
         self.assertTrue(any("缺少客队名: 拜仁慕尼黑" in i for i in issues), issues)
 
 
+class TestUnregisteredTeamAndDirtyName(_LedgerIsolated):
+    """第二类误杀：**未登记 entity_map 的球队** + **赛程脏队名**。
+
+    背景（真实事故）：2026-10-13 18:04 晚间批触发第十章自动熔断，提示
+    「缺少客队名: 大田市民首发」，同批打回 5 次。与 10-12 的「拜仁慕尼黑」是
+    **同一家族、不同机制**：
+
+      10-12：规范名 vs 全称 → 别名表缺失 → 已由「别名感知」修复；
+      10-13：① 赛程 away_team 粘连了「首发」二字（脏串）；
+             ② 大田市民未登记 entity_map → 别名感知无从发挥。
+
+    别名感知只对**登记过的实体**有效；K/J 联赛等未登记球队若仍按全称字面包含
+    判定，正文按中文习惯写简称必然误判，且会累积到熔断阈值。
+    """
+
+    def test_dirty_team_name_with_lineup_word_skipped(self):
+        # 复现 10-13 熔断现场：队名粘连「首发」
+        fx = _mk_fixture("上海海港", "大田市民首发", 1, 0)
+        art = {"title": "朴规现代表大田首发踢海港？",
+               "content": "朴规现代表大田首发踢海港，1-0的比分背后是节奏差异。"}
+        passed, issues = o.validate_article_vs_match_data(fx, art)
+        self.assertTrue(passed, f"脏队名应被过滤而非拦截，却报: {issues}")
+
+    def test_dirty_token_detected(self):
+        for bad in ("大田市民首发", "曼联首发阵容", "皇马替补席"):
+            self.assertFalse(o._looks_like_team(bad), f"应判为脏数据: {bad}")
+        for good in ("曼联", "巴黎圣日耳曼", "Manchester City FC"):
+            self.assertTrue(o._looks_like_team(good), f"不应误判为脏数据: {good}")
+
+    def test_unregistered_team_abbreviation_relaxed(self):
+        # 干净队名 + 正文写地名简称 → 放宽（未登记别名表）
+        fx = _mk_fixture("上海海港", "大田市民", 1, 0)
+        art = {"title": "朴规现代表大田首发踢海港？",
+               "content": "朴规现代表大田首发踢海港，1-0的比分背后是节奏差异。"}
+        passed, issues = o.validate_article_vs_match_data(fx, art)
+        self.assertTrue(passed, f"未登记队名的简称应放宽，却报: {issues}")
+
+    def test_relaxed_requires_place_core_in_content(self):
+        # 放宽有下限：正文连地名核心都没出现，仍算真缺队名
+        fx = _mk_fixture("上海海港", "大田市民", 1, 0)
+        art = {"title": "海港主场出击", "content": "海港主场出击，重点在中场。"}
+        passed, issues = o.validate_article_vs_match_data(fx, art)
+        self.assertFalse(passed)
+        self.assertTrue(any("缺少客队名: 大田市民" in i for i in issues), issues)
+
+    def test_same_city_prefix_not_relaxed(self):
+        # 上海海港 / 上海申花 地名核心相同 → 不放行，否则真成漏检
+        self.assertFalse(o._relaxed_team_mention("上海申花", "上海德比，海港2-1。", "上海海港"))
+        self.assertTrue(o._relaxed_team_mention("大田市民", "大田主场作战。", "上海海港"))
+
+    def test_registered_team_stays_strict(self):
+        # 已登记球队不走放宽路径：forms > 1
+        self.assertTrue(o._team_registered("拜仁"))
+        self.assertTrue(o._team_registered("AC米兰"))
+        self.assertFalse(o._team_registered("大田市民"))
+        self.assertFalse(o._team_registered("大田市民首发"))
+
+
 class TestConsistencyPlanAliasAware(_LedgerIsolated):
     """check_consistency_plan（事实卡实体校验）."""
 

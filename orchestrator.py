@@ -1215,7 +1215,11 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
 _TEAM_DIRTY_TOKENS = ("胜", "负", "平", "赢", "输", "绝杀", "逆转", "爆冷",
                       "晋级", "淘汰", "出局", "点球", "加时", "帽子戏法",
                       "梅开二度", "上演", "破门", "进球", "十人", "九人",
-                      "八人", "七人", "十一人", "十二人")
+                      "八人", "七人", "十一人", "十二人",
+                      # 阵容/轮换类词：赛程数据常把「首发阵容」粘连进队名
+                      # （2026-10-13 真实熔断：away_team='大田市民首发'）
+                      "首发", "替补", "阵容", "轮换", "出战", "名单",
+                      "报名", "登场", "伤缺", "伤退", "停赛", "复出")
 # 球员名尾部常见的动作/描述词，出现说明抽取到了片段而非纯名字
 _PLAYER_DIRTY_TOKENS = ("上演", "破门", "进球", "帽子戏法", "梅开二度", "独中两元",
                         "绝杀", "助攻", "头球", "远射", "抽射", "推射", "点射",
@@ -1300,6 +1304,35 @@ def _team_in_content(name, content):
     if not content:
         return False
     return any(f in content for f in _team_forms(name))
+
+
+def _team_registered(name) -> bool:
+    """队名是否登记了别名集合（entity_map club ∪ TEAM_ALIASES 同组）。
+
+    未登记 → 我们**无法知道它的合法简称集合**，此时硬性「全称字面包含」判定必然误杀：
+    2026-10-13 的真实熔断即由此引起（赛程 away_team='大田市民首发'，正文按中文习惯
+    写简称「大田」，字面不含全称 → 判「缺少客队名」→ 同批打回 5 次 → 自动熔断）。
+    """
+    return len(_team_forms(name)) > 1
+
+
+def _relaxed_team_mention(name, content, other: str = "") -> bool:
+    """未登记球队的**简称命中**判定（放宽，不拦截）。
+
+    中文队名通常是「地名 + 昵称」（大田市民 = 大田 + 市民），正文写地名简称是正常写法。
+    取队名前 2 字作为地名核心，要求：
+      ① 该核心出现在正文；
+      ② 不与同场另一队的地名核心相同——否则「上海海港 / 上海申花」会互相放行，
+         那就真成了漏检。冲突时返回 False，交回严格判定。
+    """
+    if not content or not isinstance(name, str):
+        return False
+    core = name.strip()[:2]
+    if len(core) < 2 or core not in content:
+        return False
+    if other and isinstance(other, str) and other.strip()[:2] == core:
+        return False
+    return True
 
 
 def _same_team(a, b):
@@ -1552,10 +1585,19 @@ def validate_article_vs_match_data(source_fixture, rewritten_article, match_cont
     ag = source_fixture.get("away_score")
 
     # 检查1：主客队名出现在文中（别名感知：全称/简称/俗称视为同一队）
+    # 未登记别名的球队走「简称放宽」：中文正文写地名简称是正常写法，硬性全称包含
+    # 必然误杀（2026-10-13 熔断根因）。放宽仅豁免「没提到该地名」，不豁免张冠李戴
+    # ——后者由事实卡外球队校验（_teams_in_content）负责。
     if ht and not _team_in_content(ht, content):
-        issues.append(f"缺少主队名: {ht}")
+        if not _team_registered(ht) and _relaxed_team_mention(ht, content, at):
+            print(f"   ⚠️ 主队名 '{ht}' 未登记别名表，正文以简称出现，放宽校验（不拦截）")
+        else:
+            issues.append(f"缺少主队名: {ht}")
     if at and not _team_in_content(at, content):
-        issues.append(f"缺少客队名: {at}")
+        if not _team_registered(at) and _relaxed_team_mention(at, content, ht):
+            print(f"   ⚠️ 客队名 '{at}' 未登记别名表，正文以简称出现，放宽校验（不拦截）")
+        else:
+            issues.append(f"缺少客队名: {at}")
 
     # 检查2：比分一致性（加强版 regex，排除假匹配）
     if hg is not None and ag is not None:
