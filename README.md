@@ -18,6 +18,7 @@
 - 🤖 **AI writing** via a TokenHub / DeepSeek-compatible LLM (DashScope fallback), with a distinct persona per column.
 - 🗓️ **Three daily batches** (Morning / Noon / Evening), 2 differentiated columns each — 6 unique pieces per day.
 - 📡 **Dual-channel auto-publishing**: Toutiao (Playwright browser automation) + WeChat Mini Program (free jsDelivr CDN).
+- 📥 **Closed-loop data**: auto-collects Toutiao backstage exports (works & fans data) every day, ingests them into the performance ledger, and runs a monthly review with data-driven recommendations.
 - 🛡️ **Production-grade**: idempotent re-publish guard, retry fallback, health checks & alerts (WxPusher).
 - 💸 **Near-zero running cost**: free GitHub Actions + free CDN + cheap LLM.
 
@@ -72,6 +73,8 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
   - 球员配图：Wikipedia / Footyrenders
   - 通用配图：Unsplash
 - ✅ **自动发布双端**：头条号（浏览器自动化登录一次后长期复用）+ 微信小程序（静态 JSON 经 jsDelivr CDN 分发）。
+- ✅ **头条后台数据自动回收（闭环）**：`scripts/collect_toutiao_exports.py` 每天 14:05 CST 自动登录后台，把「作品数据」「粉丝分析」两页各导出**前一天**一整天落进 `data/inbox/`（确认框显式填日期范围、只读日历三级手段、点击后证据采集）；14:40 的 perf-ingest 自动识别/幂等/入库。每次运行都发 WxPusher 回执（成功汇总/失败详因+诊断截图）；手动投递通道**永远保留**作兜底。
+- ✅ **月度复盘**：`scripts/monthly_review.py` 每月 1 号 15:00 CST 统计**上一个完整月**全部数据——月度看板（md/html/json，选题类型×标题效果分组）+ 六维度修改建议（合规/增长/供给/选题/标题/数据链路，每条带数据依据、P0-P3 排序）+ 调参建议（**只算不写**，配置改动始终人工确认）+ WxPusher 回执。
 - ✅ **幂等保护**：`metadata.json` 记录已完成批次，重跑不会重复发稿。
 - ✅ **健康监控**：`heartbeat.yml` 午检/终检 + 爬虫健康检查，异常经 WxPusher 推送告警。
 - ✅ **手动/补发通道**：`batch.yml` 支持 `workflow_dispatch` 手动触发与紧急补发（选 morning/noon/evening，可指定日期）。
@@ -108,7 +111,7 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 
 ### 验收与审计（计划 4.1 / 6.1 / 6.2 / 7.1 / 7.2 / 7.3 / 8.1 / 10 / 11.3 / 11.4 / 11.5 / 12.1 / 12.2 / 12.4 / 13.1 / 13.2 / 13.3 / 13.4 / 13.5 / 策略手册第五章）
 
-- 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区 + **效果闭环区（按选题类型 / 标题特征分组：篇数 / 篇均阅读 / 篇均点击率 / 爆款数）**；未接入指标标注「待接入」。
+- 📊 **验收指标看板**：`scripts/build_metrics_dashboard.py` —— 合规红线区 + 增长指标（篇均阅读 / 点击率 / 完成率 / 粉丝阅读占比 / 涨粉，对照 30/90 天目标）+ 供给区 + **效果闭环区（按选题类型 / 标题特征分组：篇数 / 篇均阅读 / 篇均点击率 / 爆款数）**；未接入指标标注「待接入」。`collect` 支持 `since/until` 自定义窗口，周看板与月度复盘（`scripts/monthly_review.py`，每月 1 号 15:00）复用同一统计逻辑。
 - 📈 **效果闭环（R11 内容诊断）**：单篇 `click_rate` 三通道可得——头条导出列直读（`toutiao_import.normalize_rate`）、`performance_logger` 由 `reads/impressions` 自动派生、看板按**选题类型**与**标题特征**分组统计效果；选题类型由 `orchestrator` 落盘到批次 metadata（`topic_category`）。把「选题决定生死、点击率是生死线」从结论变为**可验证数据**（此前 `click_rate` 全缺失、选题类型不落盘，策略对不对无法用数据验证）。验收：`scripts/verify_effect_loop.py`。
 - ⬆️ **增长指标回填（头条后台直通）**：`scripts/import_performance.py` —— `--from-toutiao` 直接吃头条后台「数据 → 作品数据 → 导出 Excel」的下载文件：无依赖解析 `.xlsx/.csv/.tsv/.json`，中文列名自动映射（**最长匹配**，防止「粉丝阅读量」被「阅读量」吃掉），**按标题**对齐 `output/<日期>/metadata.json` 得到唯一键 `slug`（导出里没有我们的日期/序号，且 `index` 是批内序号、同一天会重复，**不可作键**）；未匹配 / 跨天同名歧义的行**一律不写库**，只进 `data/audit/import_performance_<日期>.md`。仍兼容规范 `date,index[,slug]` 的 CSV/JSON 通道与 `--template`。点击率 = 阅读/展现，粉丝阅读占比 = 粉丝阅读/总阅读。
 - 🔍 **隔离常态化审计**：`scripts/audit_isolation.py` —— 模板隔离 / 生成路径静态隔离 / 同天成稿重复自查 / 溯源覆盖率。
@@ -146,10 +149,16 @@ Fork it, configure your Secrets, and you own your own football AI account. See t
 - 📈 **转粉数据通道**：头条「图文数据」导出**不含涨粉列**，故另开一条 `growth_import.py` 通道，
   承接头条后台「粉丝分析」导出（日期 + 粉丝总数/涨粉数），按相邻已登记日差分得日涨粉；
   缺失一律留 `None`（待接入）、**绝不用 0 冒充**；跨多天的**区间净增不算单日涨粉**（跨度守卫）。
-  导出**每周一次即可**（导出本身按日一行，不需要每天操作）。接入说明见
-  [`docs/转粉与互动数据接入.md`](docs/转粉与互动数据接入.md)。
-- 🔁 **回填自动化**：把后台导出丢进 `data/inbox/` 即自动入库（类型自动识别 + sha256 幂等 +
-  归档 `data/processed/`），CI 每天跑一次并做滞后监控（绩效 >3 天 / 转粉 >7 天 / 覆盖率 <50% 告警），
+  接入说明见 [`docs/转粉与互动数据接入.md`](docs/转粉与互动数据接入.md)。
+- 📥 **后台数据自动回收**：`scripts/collect_toutiao_exports.py`（+ `.github/workflows/toutiao-collector.yml`）
+  每天 **14:05 CST** 自动登录头条后台（登录态与 publisher 共用同一 secret），把「作品数据」「粉丝分析」
+  两页各导出**前一天**一整天落进 `data/inbox/`，每次运行发 WxPusher 回执。
+  14:05 卡在 perf 页「每日 14:00 更新前一日数据」**之后**，导到即结算值。
+  页面改版/风控导致失败时只告警不阻塞，诊断截图与控件清单自动留存，
+  **手动投递通道永远保留**（导出两个文件丢进 `data/inbox/` 即可，见 `data/inbox/README.md`）。
+- 🔁 **回填自动化**：投递箱文件即自动入库（类型自动识别 + sha256 幂等——zip 元数据差异
+  再比逻辑行，同日重跑不攒冗余文件 + 归档 `data/processed/`），CI 每天 **14:40** 跑一次并做
+  滞后监控（绩效 >3 天 / 转粉 >7 天 / 覆盖率 <50% 告警），
   见 `.github/workflows/perf-ingest.yml` + `scripts/ingest_exports.py` + `scripts/check_perf_lag.py`。
 - ⚡ **一键周更**：`python3 scripts/weekly_review.py --from ~/下载 --commit` —— 交文件即可，
   收文件 → 入库 → 滞后监控 → 刷新看板 → 调参建议（只算不写）→ 汇总报告一条命令跑完。
@@ -313,7 +322,8 @@ football-auto-publish/
 ├── config/differentiation.yaml   # 六个差异化方向（13.5）
 ├── prompts/                 # 选题/改写提示词模板
 ├── skills/                  # 公众号爆款探测器
-├── scripts/                 # 巡检、补发、告警、静态数据导出、看板/审计/维护等
+├── scripts/                 # 巡检、补发、告警、静态数据导出、看板/审计/维护、
+│                           # 后台数据自动回收（collect_toutiao_exports）、月度复盘（monthly_review）等
 ├── miniprogram/             # 配套微信小程序
 ├── tests/                   # 单元测试
 └── .github/workflows/       # batch / daily / heartbeat / 审计 / 看板 / 维护等
@@ -326,10 +336,13 @@ football-auto-publish/
 - **`batch.yml`**：每日三班**唯一发布管道**。「单一兜底」调度——Cloudflare Worker 在 CST 08:00/12:00/18:00 准点触发，本文件原生 cron 仅在主调度失效时兜底（晚 30 分钟，幂等保护不重复发稿）。手动/补发也走此文件的 `workflow_dispatch`。发布前依次执行：合规熔断检查 → 刷新赛程选题池（14 天窗口，接 football-data / juhe / API-Football 三源）+ 7.1 验收 + **11.4 接口额度验收** → 一级节点量产入库 → 三级蓄水池备货；生成后追加 **4.1 传闻措辞验收** + **7.2/7.3 发布闸门验收** + **策略手册第五章单批篇数纪律验收**，并跑 **13.3 内容参照层验收** 与 **13.5 差异化方向验收**。全部验收「只告警不阻断」，产物落 `data/audit/`。`data/fixtures` 通过 Actions 缓存跨运行保留——赛程库是「库」而非一次性产物，否则每次运行都是冷启动、额度必被联赛 ID 解析吃掉。
 - **`heartbeat.yml`**：午检（仅校验晨读是否完成，避免未到点误报）+ 终检（校验三班全完成），异常经 WxPusher 告警。
 - **`refresh-signals.yml`**：每日 06:30 CST 预热社媒/搜索热度信号（早于早批），产出 `data/signals/external_signals.json`。
+- **`toutiao-collector.yml`**：每日 **14:05 CST** 自动回收头条后台数据（作品数据/粉丝分析两页，统计前一天）落 `data/inbox/`，每次运行发 WxPusher 回执；14:05 卡在 perf 页 14:00 结算之后，导到即结算值。失败只告警不阻塞，手动投递通道兜底。
+- **`perf-ingest.yml`**：每日 **14:40 CST** 消费投递箱（类型自动识别 + 幂等 + 归档），绩效/转粉数据入库 + 滞后监控（绩效 >3 天 / 转粉 >7 天告警），回写提交。
 - **`isolation-audit.yml`**：每周日跑物理隔离常态化审计，产出 `data/audit/`。
 - **`fixture-pool-verify.yml`**：每周一刷新赛程池并跑 7.1 验收，硬项不过即失败告警。
-- **`metrics-dashboard.yml`**：每周一生成验收指标看板，回写 `data/metrics/`。
+- **`metrics-dashboard.yml`**：每周一 **14:50 CST** 生成验收指标看板，回写 `data/metrics/`（排在 perf-ingest 之后，周板不缺最近一天）。
 - **`ratio-tuner.yml`**：每月 1/15 日跑配比调参（四道防呆）。
+- **`monthly-review.yml`**：每月 1 号 **15:00 CST** 月度复盘——统计上一个完整月全部数据，产出月度看板（md/html/json）+ 六维度修改建议（每条带数据依据、P0-P3 排序）+ 调参建议（只算不写）+ 汇总报告，WxPusher 回执。15:00 排在 collector/ingest 之后，1 号当天上月最后一天已入库、窗口完整；支持 `workflow_dispatch` 指定月份补跑。
 - **`plan-invariants-verify.yml`**：每周一跑计划结构不变量验收（8.1/11.5 调参防呆、6.1/6.2/12.2/12.4 事实层与量表、13.2/13.4 数据源与信源、第十章验收指标与合规熔断、策略手册第五章单批篇数纪律），只告警不阻断，报告回写 `data/audit/`。
 - **`entity-map-refresh.yml`**：每月 1 日增量维护中文实体映射（球队/球员）。
 
