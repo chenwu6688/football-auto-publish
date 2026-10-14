@@ -349,6 +349,101 @@ def check_collector() -> dict:
                              "无登录态不启动浏览器 ✅"])}
 
 
+def check_monthly_entry() -> dict:
+    """月度复盘（monthly-review.yml + monthly_review.py，用户 2026-10-14 需求）。
+
+    验收：脚本/workflow 在 + CI 接线（每月 1 号 15:00 CST）+ 月度统计按自然月
+    边界 + 调参只算不写（AST 查真实 Call，防未来误加自动改配置）+ dry-run
+    零副作用。
+    """
+    problems = []
+    script = SCRIPTS / "monthly_review.py"
+    wf = PROJECT_ROOT / ".github" / "workflows" / "monthly-review.yml"
+    if not script.exists():
+        return {"item": "月度复盘（monthly_review）", "ok": False, "advisory": False,
+                "detail": ["❌ 缺 scripts/monthly_review.py"]}
+    if not wf.exists():
+        problems.append("缺 .github/workflows/monthly-review.yml")
+    else:
+        txt = wf.read_text(encoding="utf-8")
+        for marker, label in (("monthly_review.py", "复盘脚本调用"),
+                              ("git push origin main", "回写提交"),
+                              ("cron:", "定时触发")):
+            if marker not in txt:
+                problems.append(f"monthly-review.yml 缺「{label}」（未见 `{marker}`）")
+        # 时间契约硬断言：每月 1 号 15:00 CST = UTC 07:00（GitHub cron 用 UTC）。
+        # 15:00 排在 collector 14:05 / ingest 14:40 之后——上月最后一天已入库，
+        # 窗口完整；ingest 之后 20 分钟，统计读到的是结算值
+        if "'0 7 1 * *'" not in txt:
+            problems.append("monthly-review.yml cron 应为每月 1 号 15:00 CST"
+                            "（'0 7 1 * *'，UTC 07:00）——防误改回低频/错时")
+    src = script.read_text(encoding="utf-8")
+    try:
+        tree = ast.parse(src)
+        funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
+        for fn in ("run", "collect_month", "_monthly_recommendations",
+                   "_tune_suggestion", "_month_bounds", "_default_month",
+                   "render_md", "_notify_summary"):
+            if fn not in funcs:
+                problems.append(f"monthly_review 缺函数 {fn}")
+        # 只算不写：绝不自动套用配比/写配置/跑调参 main（apply_suggestion 会改 yaml）
+        banned = ("apply_suggestion", "save_config", "main")
+        for n in ast.walk(tree):
+            if (isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                    and isinstance(n.func.value, ast.Name)
+                    and n.func.value.id == "rt" and n.func.attr in banned):
+                problems.append(f"monthly_review 不得调用 rt.{n.func.attr}"
+                                "（调参只出建议，配置变更必须人工确认）")
+        # 月度统计必须按自然月边界（collect 带 since/until），不能拿滚动 30 天冒充月度
+        collect_calls = [n for n in ast.walk(tree)
+                         if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                         and n.func.attr == "collect"]
+        if not any(len(n.keywords) >= 2 and
+                   {k.arg for k in n.keywords} >= {"since", "until"}
+                   for n in collect_calls):
+            problems.append("collect_month 未按自然月边界调 collect(since=, until=)"
+                            "（滚动 30 天≠月度）")
+        notify_calls = [n for n in ast.walk(tree)
+                        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+                        and n.func.id == "send_wxpusher"]
+        if not notify_calls:
+            problems.append("monthly_review 未发 WxPusher 回执（状态应始终知情）")
+    except SyntaxError as e:
+        problems.append(f"monthly_review.py 语法错误：{e}")
+
+    # dry-run 零副作用（tempfile 隔离，绝不碰真实 data/）
+    try:
+        import monthly_review as mr
+        import build_metrics_dashboard as bmd
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            metrics, audit = root / "metrics", root / "audit"
+            saved = (mr.METRICS_DIR, mr.AUDIT_DIR, bmd.OUTPUT_DIR)
+            mr.METRICS_DIR, mr.AUDIT_DIR, bmd.OUTPUT_DIR = metrics, audit, root / "output"
+            (root / "output").mkdir(parents=True, exist_ok=True)
+            (root / "output" / "performance_log.json").write_text(
+                '{"articles": {}}', encoding="utf-8")
+            try:
+                out = mr.run("2026-09", dry_run=True, notify=False,
+                             now=datetime(2026, 10, 1, 15, 0, tzinfo=CST))
+            finally:
+                (mr.METRICS_DIR, mr.AUDIT_DIR, bmd.OUTPUT_DIR) = saved
+        if not out.get("ok"):
+            problems.append(f"dry-run 冒烟不 ok：{out.get('failures')}")
+        if metrics.exists() and any(metrics.iterdir()):
+            problems.append("dry-run 不该写看板产物")
+        if audit.exists() and any(audit.iterdir()):
+            problems.append("dry-run 不该写汇总报告")
+    except Exception as e:
+        problems.append(f"dry-run 崩溃：{type(e).__name__}: {e}")
+    return {"item": "月度复盘（monthly_review）", "ok": not problems, "advisory": False,
+            "detail": ([f"❌ {'；'.join(problems)}"] if problems
+                       else ["monthly-review.yml：每月 1 号 15:00 CST cron + 回写提交 ✅",
+                             "月度统计按自然月边界（collect since/until）✅",
+                             "调参只算不写（AST 禁 apply_suggestion/save_config）✅",
+                             "dry-run 零副作用（不写看板/报告）✅"])}
+
+
 def check_live() -> dict:
     rep = cpl.report(days=14)
     detail = [f"绩效最新 {rep['绩效最新']}（滞后 {rep['绩效滞后天数']} 天）；"
@@ -365,7 +460,7 @@ def check_live() -> dict:
 def verify() -> dict:
     hard = [check_detect(), check_idempotent_and_archive(), check_fail_stays_in_inbox(),
             check_shared_entrypoint(), check_lag_monitor(), check_ci(), check_weekly_entry(),
-            check_collector()]
+            check_collector(), check_monthly_entry()]
     soft = [check_live()]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": hard + soft,

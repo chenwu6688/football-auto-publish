@@ -1,6 +1,134 @@
 {
-  "updated_at": null,
-  "source_files": [],
-  "days": {},
-  "_note": "转粉通道（R11 2026-10-13 建议5）：由 growth_import.py 写入。头条「图文数据」导出不含涨粉列，本文件承接头条后台「粉丝分析」导出（日期 + 粉丝总数/涨粉数）。空 = 待接入，绝不用 0 冒充。"
+  "updated_at": "2026-10-14 18:40",
+  "source_files": [
+    "粉丝趋势_2026-09-14-2026-10-13.xlsx"
+  ],
+  "days": {
+    "2026-10-13": {
+      "total_followers": 11733,
+      "new_followers": 1
+    },
+    "2026-10-12": {
+      "total_followers": 11732,
+      "new_followers": 2
+    },
+    "2026-10-11": {
+      "total_followers": 11731,
+      "new_followers": 0
+    },
+    "2026-10-10": {
+      "total_followers": 11731,
+      "new_followers": 1
+    },
+    "2026-10-09": {
+      "total_followers": 11730,
+      "new_followers": 3
+    },
+    "2026-10-08": {
+      "total_followers": 11727,
+      "new_followers": 4
+    },
+    "2026-10-07": {
+      "total_followers": 11723,
+      "new_followers": 2
+    },
+    "2026-10-06": {
+      "total_followers": 11721,
+      "new_followers": 0
+    },
+    "2026-10-05": {
+      "total_followers": 11721,
+      "new_followers": 1
+    },
+    "2026-10-04": {
+      "total_followers": 11720,
+      "new_followers": 0
+    },
+    "2026-10-03": {
+      "total_followers": 11720,
+      "new_followers": 3
+    },
+    "2026-10-02": {
+      "total_followers": 11717,
+      "new_followers": 1
+    },
+    "2026-10-01": {
+      "total_followers": 11716,
+      "new_followers": 1
+    },
+    "2026-09-30": {
+      "total_followers": 11715,
+      "new_followers": 2
+    },
+    "2026-09-29": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-28": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-27": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-26": {
+      "total_followers": 11714,
+      "new_followers": 1
+    },
+    "2026-09-25": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-24": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-23": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-22": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-21": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-20": {
+      "total_followers": 11713,
+      "new_followers": 0
+    },
+    "2026-09-19": {
+      "total_followers": 11713,
+      "new_followers": 1
+    },
+    "2026-09-18": {
+      "total_followers": 11712,
+      "new_followers": 2
+    },
+    "2026-09-17": {
+      "total_followers": 11710,
+      "new_followers": 1
+    },
+    "2026-09-16": {
+      "total_followers": 11709,
+      "new_followers": 1
+    },
+    "2026-09-15": {
+      "total_followers": 11708,
+      "new_followers": 2
+    },
+    "2026-09-14": {
+      "total_followers": 11706,
+      "new_followers": 1
+    }
+  },
+  "_note": "转粉通道（R11 2026-10-13 建议5）：由 growth_import.py 写入。头条「图文数据」导出不含涨粉列，本文件承接头条后台「粉丝分析」导出（日期 + 粉丝总数/涨粉数）。空 = 待接入，绝不用 0 冒充。",
+  "stats": {
+    "days": 30,
+    "added": 30,
+    "updated": 0
+  }
 }

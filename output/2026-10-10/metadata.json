@@ -40,8 +40,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2490,
-        "follower_reads": 0
+        "impressions": 3340,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694702159450882569"
     },
@@ -173,13 +174,14 @@
       "column_name": "晨读快讯",
       "batch_name": "晨读",
       "performance": {
-        "reads": 130,
+        "reads": 186,
         "comments": 0,
         "likes": 2,
         "shares": 0,
-        "retention_rate": 0.2114,
-        "impressions": 4537,
-        "follower_reads": 0
+        "retention_rate": 0.1714,
+        "impressions": 5549,
+        "follower_reads": 0,
+        "click_rate": 0.03
       },
       "platform_id": "7694866837254849039"
     },
@@ -220,8 +222,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.399,
-        "impressions": 2205,
-        "follower_reads": 0
+        "impressions": 3108,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694885317211472399"
     },
@@ -284,13 +287,14 @@
       "column_name": "午间快讯",
       "batch_name": "午间",
       "performance": {
-        "reads": 28,
+        "reads": 32,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.2942,
-        "impressions": 2768,
-        "follower_reads": 0
+        "retention_rate": 0.2368,
+        "impressions": 3682,
+        "follower_reads": 0,
+        "click_rate": 0.01
       },
       "platform_id": "7694885917748544000"
     },

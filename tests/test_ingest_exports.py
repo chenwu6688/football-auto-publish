@@ -161,7 +161,19 @@ class TestPerfLag(unittest.TestCase):
         self.assertIsNone(cpl._latest_date([]))
 
     def test_report_flags_over_threshold(self):
-        rep = cpl.report(days=14, perf_lag_max=3, growth_lag_max=7, today="2026-10-13")
+        # 台账隔离：本用例断言「未接入转粉」分支，绝不依赖真实 data/growth 状态
+        # （2026-10-14：本地跑真实模式 monthly_review 把 30 天粉丝数据写进真实
+        #  台账后，这个隐式假设「台账为空」的用例开始失败——测试必须自备空台账）
+        with tempfile.TemporaryDirectory() as td:
+            empty = Path(td) / "fans.json"
+            empty.write_text(json.dumps({"days": {}}), encoding="utf-8")
+            saved = gi.GROWTH_PATH
+            gi.GROWTH_PATH = empty
+            try:
+                rep = cpl.report(days=14, perf_lag_max=3, growth_lag_max=7,
+                                 today="2026-10-13")
+            finally:
+                gi.GROWTH_PATH = saved
         # 未接入转粉 → 只是 notice，不算 problem
         self.assertTrue(any("转粉通道尚未接入" in n for n in rep["notices"]))
         # 用伪造的滞后直接验证告警分支

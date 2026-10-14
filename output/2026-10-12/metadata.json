@@ -39,8 +39,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 638,
-        "follower_reads": 0
+        "retention_rate": 0.5,
+        "impressions": 2762,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7695444367607104035"
     },
@@ -76,8 +78,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 570,
-        "follower_reads": 0
+        "retention_rate": 0.0,
+        "impressions": 2649,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7695444648470249999"
     },
@@ -109,12 +113,14 @@
       "column_name": "战术榜单",
       "batch_name": "晚间",
       "performance": {
-        "reads": 18,
-        "comments": 4,
-        "likes": 2,
+        "reads": 51,
+        "comments": 7,
+        "likes": 5,
         "shares": 0,
-        "impressions": 911,
-        "follower_reads": 0
+        "retention_rate": 0.316,
+        "impressions": 3365,
+        "follower_reads": 0,
+        "click_rate": 0.02
       },
       "platform_id": "7695444794994999823"
     },
@@ -146,12 +152,14 @@
       "column_name": "人物故事",
       "batch_name": "晚间",
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 580,
-        "follower_reads": 0
+        "retention_rate": 0.0,
+        "impressions": 2674,
+        "follower_reads": 1,
+        "click_rate": 0.0
       },
       "platform_id": "7695444894873043496"
     },
@@ -248,12 +256,14 @@
       "batch_name": "午间",
       "supply_layer": "三级·软性",
       "performance": {
-        "reads": 0,
-        "comments": 0,
+        "reads": 42,
+        "comments": 1,
         "likes": 0,
         "shares": 0,
-        "impressions": 86,
-        "follower_reads": 0
+        "retention_rate": 0.0543,
+        "impressions": 2644,
+        "follower_reads": 0,
+        "click_rate": 0.02
       },
       "platform_id": "7695627775839846946"
     },

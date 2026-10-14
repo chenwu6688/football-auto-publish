@@ -76,6 +76,27 @@ def _perf_lookup(perf: dict, date_str: str, art: dict) -> dict:
     return rec if isinstance(rec, dict) else {}
 
 
+def _resolve_category(art: dict) -> str:
+    """选题类型：优先 metadata 的 topic_category；缺失时按标题/内容类型/栏目推导
+    （与 ratio_tuner.resolve_category 同口径）。
+
+    2026-10-14 月度看板实测：历史 metadata 普遍没有 topic_category 字段，若只看该字段，
+    「按选题类型」表会整表落「未分类」（R11 效果闭环失真），而调参侧却能推导出类别——
+    两侧口径必须统一，否则看板白给。
+    """
+    cat = art.get("topic_category")
+    if cat:
+        return cat
+    try:
+        import ratio_tuner
+        return ratio_tuner.resolve_category(
+            title=art.get("title"), topic_category=None,
+            content_type=art.get("content_type"),
+            column_name=art.get("column_name"))
+    except Exception:
+        return "未分类"
+
+
 def _title_bucket(title: str) -> str:
     """按 R11 标题特征分桶（复用 title_positive.evaluate 的 reasons 文案）。
 
@@ -173,10 +194,18 @@ def hot_signals_block() -> dict:
     }
 
 
-def collect(days: int, *, now=None) -> dict:
-    """汇总时间窗内的内容与合规数据。"""
+def collect(days: int, *, now=None, since=None, until=None) -> dict:
+    """汇总时间窗内的内容与合规数据。
+
+    since/until：显式窗口边界（date 对象）。月度看板传自然月边界
+    （上月 1 号~月末，见 scripts/monthly_review.py），此时 days 仅作记录；
+    不传则维持「近 days 天」滚动窗口（默认行为不变，向后兼容）。
+    """
     now = now or datetime.now(CST)
-    since = (now - timedelta(days=days)).date()
+    if since is None:
+        since = (now - timedelta(days=days)).date()
+    if until is None:
+        until = now.date()
 
     perf = load_perf_log()
 
@@ -204,7 +233,7 @@ def collect(days: int, *, now=None) -> dict:
             d = datetime.strptime(date_str, "%Y-%m-%d").date()
         except Exception:
             continue
-        if d < since or d > now.date():
+        if d < since or d > until:
             continue
         window_dates.append(date_str)
         meta = _load_json(meta_path) or {}
@@ -233,7 +262,7 @@ def collect(days: int, *, now=None) -> dict:
             rec = a.get("performance") or _perf_lookup(perf, date_str, a) or {}
             # 按「选题类型」与「标题特征」分组累计（效果闭环：让选题/标题策略有数据可依）
             _accumulate_group(cat_stat.setdefault(
-                a.get("topic_category") or "未分类", _new_group()), rec)
+                _resolve_category(a), _new_group()), rec)
             _accumulate_group(title_stat.setdefault(
                 _title_bucket(a.get("title", "")), _new_group()), rec)
             if rec:
@@ -265,7 +294,7 @@ def collect(days: int, *, now=None) -> dict:
     # 账号级兜底：文章级完全没有转粉数据时，用「粉丝分析」通道在**同一统计窗口内**的日涨粉。
     # 分母取窗口内所有有粉丝数据的日期（涨粉与该日是否发稿无关），而不是「有产出的日期」。
     if followers_days == 0 and window_dates:
-        _lo, _hi = since.isoformat(), now.date().isoformat()
+        _lo, _hi = since.isoformat(), until.isoformat()
         _acct = {d: v for d, v in growth_import.daily_new_followers().items()
                  if _lo <= d <= _hi}
         if _acct:
@@ -329,7 +358,8 @@ def _fmt(v, unit=""):
     return f"{v}{unit}"
 
 
-def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
+def build_report(data: dict, comp: dict, days: int, *, now=None,
+                 period_label: str | None = None) -> dict:
     now = now or datetime.now(CST)
     growth, supply = data["growth"], data["supply"]
     by_category = data.get("by_category") or {}
@@ -352,6 +382,7 @@ def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
     return {
         "generated_at": now.strftime("%Y-%m-%d %H:%M"),
         "window_days": days,
+        "period_label": period_label,
         "compliance": comp,
         "growth": growth,
         "supply": supply,
@@ -365,7 +396,9 @@ def build_report(data: dict, comp: dict, days: int, *, now=None) -> dict:
 
 def render_markdown(rep: dict) -> str:
     comp, supply = rep["compliance"], rep["supply"]
-    L = [f"# 验收指标看板（近 {rep['window_days']} 天）", "",
+    # period_label：月度看板传「2026-09 月度」等显式周期标签；缺省沿用滚动天数
+    _label = rep.get("period_label") or f"近 {rep['window_days']} 天"
+    L = [f"# 验收指标看板（{_label}）", "",
          f"生成时间：{rep['generated_at']}　|　计划第十章", ""]
 
     L += ["## 一、合规红线（硬门槛，不达标即暂停自动发布）", ""]

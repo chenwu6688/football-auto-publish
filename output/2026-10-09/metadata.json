@@ -35,13 +35,14 @@
       "column_name": "世界杯日报",
       "batch_name": "晚间",
       "performance": {
-        "reads": 78,
+        "reads": 79,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.2269,
-        "impressions": 3200,
-        "follower_reads": 1
+        "impressions": 3367,
+        "follower_reads": 1,
+        "click_rate": 0.02
       },
       "platform_id": "7694335164108800553"
     },
@@ -84,8 +85,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.25,
-        "impressions": 2106,
-        "follower_reads": 1
+        "impressions": 2264,
+        "follower_reads": 1,
+        "click_rate": 0.0
       },
       "platform_id": "7694335463645889066"
     },
@@ -126,8 +128,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.84,
-        "impressions": 2613,
-        "follower_reads": 0
+        "impressions": 2774,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694335759641264681"
     },
@@ -199,13 +202,14 @@
       "column_name": "晨读快讯",
       "batch_name": "晨读",
       "performance": {
-        "reads": 8,
+        "reads": 9,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.1,
-        "impressions": 3700,
-        "follower_reads": 0
+        "retention_rate": 0.0909,
+        "impressions": 3905,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694453877155922447"
     },
@@ -246,8 +250,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.99,
-        "impressions": 2586,
-        "follower_reads": 0
+        "impressions": 3017,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694454193209328168"
     },
@@ -288,8 +293,9 @@
         "likes": 2,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2788,
-        "follower_reads": 0
+        "impressions": 3304,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694454461091168802"
     },
@@ -422,8 +428,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2605,
-        "follower_reads": 0
+        "impressions": 3181,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7694516620349260331"
     }

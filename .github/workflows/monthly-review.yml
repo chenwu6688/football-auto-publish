@@ -1,0 +1,117 @@
+name: 月度复盘（看板 + 修改建议）
+
+# ============================================================
+# 用户 2026-10-14 需求：每个月 1 号 15:00 统计上个月全部数据，
+# 做一个月度看板，并根据数据提出修改建议。
+#
+# 数据链时序（CST）：
+#   每天 14:05  collector 投递前一天后台导出 → 14:40 perf-ingest 入库
+#   每月 1 号 15:00  本任务统计「上一个完整月」整月数据：
+#     此时上个月最后一天的数据已由 1 号当天 14:05/14:40 入库，窗口完整。
+#
+# 产物（全部提交回仓库，历史可追溯）：
+#   data/metrics/monthly_YYYY-MM.{md,html} + monthly_latest.json  月度看板
+#   data/audit/monthly_review_YYYY-MM.md                           汇总报告+修改建议
+#
+# 纪律（与全仓一致）：
+#   - 调参只出建议、不自动改配置（ratio_config 变更必须人工确认）；
+#   - 缺失指标一律「待接入」，绝不用 0 冒充；
+#   - 任何一步失败不阻断其余步骤，失败项进报告 + WxPusher 告警；
+#   - 不需要头条登录态（只消费已入库数据，不直连后台）。
+# ============================================================
+
+on:
+  schedule:
+    - cron: '0 7 1 * *'   # 每月 1 号 15:00 CST（UTC 07:00，GitHub cron 用 UTC）
+  workflow_dispatch:
+    inputs:
+      month:
+        description: '统计月份 YYYY-MM（留空 = 上一个完整月）'
+        required: false
+        default: ''
+        type: string
+
+concurrency:
+  group: monthly-review
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 月度复盘（统计 + 看板 + 修改建议）
+        id: review
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          MONTH="${{ inputs.month }}"
+          if [ -n "$MONTH" ]; then
+            python3 scripts/monthly_review.py --month "$MONTH"
+          else
+            python3 scripts/monthly_review.py
+          fi
+
+      - name: 提交月度产物（看板 + 报告 + 入库数据）
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/metrics/ data/audit/ data/growth/ data/ingest_state.json data/processed/ || true
+          if git diff --cached --quiet; then
+            echo "📝 无产物变更，跳过提交"
+          else
+            git commit -m "chore(monthly-review): 月度复盘 $(TZ=Asia/Shanghai date +%Y-%m 01)"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ 月度产物已提交"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)，合并远端后重试..."
+              git pull --no-rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          fi
+
+      - name: 上传月度产物（看板 + 报告）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-review-${{ github.run_id }}
+          path: |
+            data/metrics/monthly_*.md
+            data/metrics/monthly_*.html
+            data/audit/monthly_review_*.md
+          if-no-files-found: ignore
+
+      - name: 失败通知（CI 层兜底；业务回执由脚本内发送）
+        if: failure()
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          python -c "
+          import requests
+          requests.post('https://wxpusher.zjiecode.com/api/send/message',
+            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ 月度复盘运行失败（统计/看板/推送之一）\n本月无看板与建议产出，请手动跑：python3 scripts/monthly_review.py\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
+          "

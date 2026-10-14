@@ -63,13 +63,14 @@
       "column_name": "晨读快讯",
       "batch_name": "晨读",
       "performance": {
-        "reads": 19,
-        "comments": 9,
+        "reads": 28,
+        "comments": 10,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.0625,
-        "impressions": 1372,
-        "follower_reads": 1
+        "retention_rate": 0.2143,
+        "impressions": 2422,
+        "follower_reads": 1,
+        "click_rate": 0.01
       },
       "platform_id": "7695195401778954779"
     },
@@ -101,13 +102,14 @@
       "column_name": "战术榜单",
       "batch_name": "晨读",
       "performance": {
-        "reads": 11,
+        "reads": 14,
         "comments": 2,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.3588,
-        "impressions": 1344,
-        "follower_reads": 1
+        "retention_rate": 0.2392,
+        "impressions": 2717,
+        "follower_reads": 1,
+        "click_rate": 0.01
       },
       "platform_id": "7695195183746466355"
     },
@@ -175,13 +177,14 @@
       "column_name": "午间快讯",
       "batch_name": "午间",
       "performance": {
-        "reads": 18,
+        "reads": 23,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.6667,
-        "impressions": 1508,
-        "follower_reads": 0
+        "retention_rate": 0.5875,
+        "impressions": 2929,
+        "follower_reads": 0,
+        "click_rate": 0.01
       },
       "platform_id": "7695256778073850410"
     },
@@ -220,8 +223,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1162,
-        "follower_reads": 0
+        "impressions": 2728,
+        "follower_reads": 0,
+        "click_rate": 0.0
       },
       "platform_id": "7695257005027508755"
     },
@@ -285,13 +289,14 @@
       "column_name": "人物故事",
       "batch_name": "午间",
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1049,
-        "follower_reads": 0
+        "impressions": 2646,
+        "follower_reads": 1,
+        "click_rate": 0.0
       },
       "platform_id": "7695257432389435958"
     },
@@ -355,13 +360,14 @@
       "column_name": "老六辣评",
       "batch_name": "晚间",
       "performance": {
-        "reads": 29,
+        "reads": 30,
         "comments": 0,
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.3833,
-        "impressions": 1236,
-        "follower_reads": 0
+        "impressions": 3197,
+        "follower_reads": 0,
+        "click_rate": 0.01
       },
       "platform_id": "7695341887493849640"
     },
@@ -395,13 +401,14 @@
       "column_name": "战术榜单",
       "batch_name": "晚间",
       "performance": {
-        "reads": 14,
-        "comments": 0,
-        "likes": 0,
+        "reads": 42,
+        "comments": 4,
+        "likes": 1,
         "shares": 0,
-        "retention_rate": 0.37,
-        "impressions": 941,
-        "follower_reads": 0
+        "retention_rate": 0.2178,
+        "impressions": 3371,
+        "follower_reads": 0,
+        "click_rate": 0.01
       },
       "platform_id": "7695342014636655144"
     },
