@@ -73,10 +73,15 @@ class _FakeElement:
 
 
 class FakePage:
-    """按脚本的调用顺序模拟 mp.toutiao.com 数据页。"""
+    """按脚本的调用顺序模拟 mp.toutiao.com 数据页。
+
+    login_redirect_after_ms：模拟 SPA 延迟跳转——goto 时 URL 不变（应用壳先加载），
+    累计等待超过阈值后才跳登录页。用于回归 dry-run 竞态误报
+    （2026-10-14 实测：没等待的检测把延迟跳转漏检，误报「登录态有效」）。
+    """
 
     def __init__(self, *, url_map=None, button_texts=(), downloads=None,
-                 goto_error=None):
+                 goto_error=None, login_redirect_after_ms=None):
         self._url_map = dict(url_map or {})
         self.button_texts = list(button_texts)
         self._downloads = list(downloads or [])
@@ -85,20 +90,36 @@ class FakePage:
         self.clicked = []
         self.goto_calls = []
         self.screenshots = []
+        self._redirect_after = login_redirect_after_ms
+        self._waited_ms = 0
+
+    def _maybe_redirect(self):
+        """累计等待达标后才执行 url_map 里的跳转（SPA 异步校验的真实时序）。"""
+        if (self._redirect_after is not None and self._waited_ms >= self._redirect_after
+                and not any(m in self.url for m in ("/auth/", "/login"))):
+            for key, val in self._url_map.items():
+                if key in self.url:
+                    self.url = val
+                    break
 
     def goto(self, url, **kw):
         if self.goto_error:
             raise self.goto_error
         self.goto_calls.append(url)
-        final = url
-        for key, val in self._url_map.items():
-            if key in url:
-                final = val
-                break
-        self.url = final
+        if self._redirect_after is None:
+            final = url
+            for key, val in self._url_map.items():
+                if key in url:
+                    final = val
+                    break
+            self.url = final
+        else:
+            self.url = url      # 延迟模式：初始不跳，等 wait_for_timeout 累计达标
+            self._maybe_redirect()
 
     def wait_for_timeout(self, ms):
-        pass
+        self._waited_ms += ms or 0
+        self._maybe_redirect()
 
     def get_by_text(self, text, exact=False):
         return _FakeLocator(self, text)
@@ -345,6 +366,48 @@ class TestDryRun(CollectorTestBase):
         self._run(page, dry_run=True)
         self.assertEqual(self.notifications, [],
                          "dry-run 只探活，不发运行回执（避免噪音）")
+
+
+class TestDelayedRedirect(CollectorTestBase):
+    """SPA 延迟跳转竞态回归（2026-10-14 实测事故）。
+
+    真实时序：goto 后 domcontentloaded 时 URL 未变，客户端 session 校验几秒后
+    才跳登录页。曾因 dry-run 分支没等待 → 漏检误报「登录态有效」。
+    """
+
+    LOGIN_URL = "https://mp.toutiao.com/auth/page/login/?redirect=x"
+
+    def _delayed_page(self, **kw):
+        opts = dict(
+            url_map={"works-single": self.LOGIN_URL, "/fans": self.LOGIN_URL},
+            button_texts=("导出数据",),
+            downloads=[FakeDownload("a.xlsx", b"1"), FakeDownload("b.xlsx", b"2")],
+            login_redirect_after_ms=3000,   # 3 秒后才跳（SPA 真实时延）
+        )
+        opts.update(kw)
+        return FakePage(**opts)
+
+    def test_dry_run_detects_delayed_login_redirect(self):
+        """修复前：dry-run 立即查 URL → 漏检 → ok=True 误报；修复后必须抓到。"""
+        page = self._delayed_page()
+        result = self._run(page, dry_run=True)
+        self.assertFalse(result["ok"], "dry-run 必须能抓到延迟跳转的过期登录态")
+        self.assertEqual(result["status"], "login_expired")
+
+    def test_collect_mode_detects_delayed_login_redirect(self):
+        page = self._delayed_page()
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "login_expired")
+        self.assertEqual(result["files"], [])
+        self.assertEqual(len(page.goto_calls), 1, "过期即中止，不继续第二个页面")
+
+    def test_no_redirect_not_false_positive(self):
+        """没有跳转时不能误杀（判据不能矫枉过正）。"""
+        page = self._delayed_page(login_redirect_after_ms=999_999)
+        result = self._run(page, dry_run=True)
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(result["status"], "ok")
 
 
 class TestDailyMode(CollectorTestBase):

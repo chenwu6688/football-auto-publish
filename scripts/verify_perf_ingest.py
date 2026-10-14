@@ -295,9 +295,17 @@ def check_collector() -> dict:
             problems.append(f"降级告警调用过少（send_wxpusher 仅 {len(calls)} 处，"
                             "至少覆盖登录过期/导出失败两条路径）")
         funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
-        for fn in ("run", "_save_to_inbox", "_collect_one"):
+        for fn in ("run", "_save_to_inbox", "_collect_one", "_assert_logged_in"):
             if fn not in funcs:
                 problems.append(f"collector 缺函数 {fn}")
+        # 登录判据必须单一来源：_assert_logged_in 至少被 _collect_one 与 dry-run
+        # 分支两处调用（2026-10-14：dry-run 曾内联一份无等待的检测 → 竞态误报）
+        assert_calls = [n for n in ast.walk(tree)
+                        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+                        and n.func.id == "_assert_logged_in"]
+        if len(assert_calls) < 2:
+            problems.append(f"登录判据未统一：_assert_logged_in 仅 {len(assert_calls)} 处调用"
+                            "（dry-run 与正式回收必须共用同一判据）")
         run_fn = next((n for n in ast.walk(tree)
                        if isinstance(n, ast.FunctionDef) and n.name == "run"), None)
         if run_fn is not None:

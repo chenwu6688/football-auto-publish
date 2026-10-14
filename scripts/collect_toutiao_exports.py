@@ -197,6 +197,24 @@ def _dump_diagnostics(page, spec: PageSpec, note: str) -> str:
     return str(diag)
 
 
+def _assert_logged_in(page, spec: PageSpec, nav_timeout_ms: int) -> None:
+    """登录态检测——dry-run 与正式回收共用的**唯一判据**。
+
+    头条后台是 SPA：`domcontentloaded` 时应用壳已加载、URL 尚未变化，要等几秒
+    客户端 session 校验（或风控挑战）后才可能跳登录页。2026-10-14 实测事故：
+    dry-run 分支曾漏了这段等待，goto 后立即查 URL → 延迟跳转被漏检 →
+    dry-run 两页全绿误报「登录态有效」，紧接的 headed 实跑第一页就跳登录页。
+
+    判据只保留这一处：等 3 秒（与页面异步校验的典型时延对齐）后查 URL，
+    两个模式共用，杜绝再次分叉。登录过期抛 LoginExpired。
+    """
+    page.goto(spec.url, wait_until="domcontentloaded", timeout=nav_timeout_ms)
+    page.wait_for_timeout(3000)
+    url = (page.url or "").lower()
+    if any(m in url for m in LOGIN_MARKERS):
+        raise LoginExpired(f"{spec.name} 页面跳转到登录页（{url[:80]}）")
+
+
 def _collect_one(page, spec: PageSpec, nav_timeout_ms: int,
                  download_timeout_ms: int) -> tuple[Path, str | None]:
     """导航到 spec 页面并触发导出，返回 (下载的临时文件路径, 命中的时间范围文案)。
@@ -204,11 +222,7 @@ def _collect_one(page, spec: PageSpec, nav_timeout_ms: int,
     失败抛 ExportButtonMissing / LoginExpired / 其他异常（含超时）。
     """
     print(f"   🌐 打开 {spec.name} 页面: {spec.url}")
-    page.goto(spec.url, wait_until="domcontentloaded", timeout=nav_timeout_ms)
-    page.wait_for_timeout(3000)
-    url = (page.url or "").lower()
-    if any(m in url for m in LOGIN_MARKERS):
-        raise LoginExpired(f"{spec.name} 页面跳转到登录页（{url[:80]}）")
+    _assert_logged_in(page, spec, nav_timeout_ms)
 
     range_hit = _click_first(page, spec.range_texts)   # 尽力命中导出窗口；找不到不阻断
     if range_hit:
@@ -320,11 +334,7 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
             try:
                 if dry_run:
                     print(f"   🌐 [dry-run] 仅检测登录态: {spec.url}")
-                    page.goto(spec.url, wait_until="domcontentloaded",
-                              timeout=nav_timeout_ms)
-                    url = (page.url or "").lower()
-                    if any(m in url for m in LOGIN_MARKERS):
-                        raise LoginExpired(f"{spec.name} 页面跳转到登录页")
+                    _assert_logged_in(page, spec, nav_timeout_ms)
                     print(f"   ✅ [dry-run] {spec.name} 登录态有效")
                     continue
                 tmp, range_hit = _collect_one(page, spec, nav_timeout_ms,
