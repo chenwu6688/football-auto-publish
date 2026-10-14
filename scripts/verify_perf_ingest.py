@@ -13,6 +13,8 @@
   F. 滞后监控——滞后天数计算、无数据 → None（待接入不算滞后）、超阈值告警、覆盖率
   G. CI 接线——perf-ingest.yml 存在且含「消费投递箱 + 滞后监控 + 回写提交」
   H. 一键周更入口——weekly_review.py 六步接线齐、调参只算不写、dry-run 零副作用
+  I. 导出自动回收——toutiao-collector.yml 与 collector 脚本在、CI 接线齐、
+     降级告警是真实 Call、落箱同名不覆盖、无登录态不启动浏览器
 
 告警项（只提示）
   I. 当前滞后实况（绩效 / 转粉 / 回填覆盖率）
@@ -254,6 +256,82 @@ def check_weekly_entry() -> dict:
                              "dry-run 零副作用（不写台账/转粉/报告）✅"])}
 
 
+def check_collector() -> dict:
+    """头条导出自动回收（toutiao-collector.yml + collect_toutiao_exports.py）。
+
+    验收：脚本/workflow 在 + CI 接线（cron/登录态/回写）+ 降级告警是真实 Call
+    （AST，不信文本）+ 落箱同名不覆盖 + 无登录态不启动浏览器。
+    自动化是增量不是替换——手动 inbox 通道永远保留，collector 失败只告警。
+    """
+    problems = []
+    script = SCRIPTS / "collect_toutiao_exports.py"
+    wf = PROJECT_ROOT / ".github" / "workflows" / "toutiao-collector.yml"
+    if not script.exists():
+        return {"item": "导出自动回收（collector）", "ok": False, "advisory": False,
+                "detail": ["❌ 缺 scripts/collect_toutiao_exports.py"]}
+    if not wf.exists():
+        problems.append("缺 .github/workflows/toutiao-collector.yml")
+    else:
+        txt = wf.read_text(encoding="utf-8")
+        for marker, label in (("collect_toutiao_exports.py", "回收脚本调用"),
+                              ("TOUTIAO_AUTH_GZ", "登录态注入（与 publisher 共用 secret）"),
+                              ("git push origin main", "回写提交"),
+                              ("cron:", "定时触发")):
+            if marker not in txt:
+                problems.append(f"toutiao-collector.yml 缺「{label}」（未见 `{marker}`）")
+    src = script.read_text(encoding="utf-8")
+    try:
+        tree = ast.parse(src)
+        calls = [n for n in ast.walk(tree)
+                 if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+                 and n.func.id == "send_wxpusher"]
+        if len(calls) < 2:
+            problems.append(f"降级告警调用过少（send_wxpusher 仅 {len(calls)} 处，"
+                            "至少覆盖登录过期/导出失败两条路径）")
+        funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
+        for fn in ("run", "_save_to_inbox", "_collect_one"):
+            if fn not in funcs:
+                problems.append(f"collector 缺函数 {fn}")
+        run_fn = next((n for n in ast.walk(tree)
+                       if isinstance(n, ast.FunctionDef) and n.name == "run"), None)
+        if run_fn is not None:
+            argnames = [a.arg for a in run_fn.args.args] + [a.arg for a in run_fn.args.kwonlyargs]
+            if "dry_run" not in argnames:
+                problems.append("run() 缺 dry_run 参数（无法只探活不导出）")
+    except SyntaxError as e:
+        problems.append(f"语法错误，无法静态核验：{e}")
+    try:
+        import collect_toutiao_exports as cte
+    except Exception as e:
+        problems.append(f"无法载入 collector：{e}")
+        return {"item": "导出自动回收（collector）", "ok": False, "advisory": False,
+                "detail": [f"❌ {'；'.join(problems)}"]}
+    with tempfile.TemporaryDirectory() as td:
+        def exploding_factory():
+            raise AssertionError("无登录态不应启动浏览器")
+        r = cte.run(auth_file=Path(td) / "none.json", inbox=Path(td) / "inbox",
+                    playwright_factory=exploding_factory)
+        if r.get("ok") or r.get("status") != "no_auth":
+            problems.append(f"无登录态路径异常: status={r.get('status')}")
+        inbox = Path(td) / "inbox"
+        inbox.mkdir(parents=True, exist_ok=True)
+        tmp = Path(td) / "dl"
+        tmp.mkdir()
+        f = tmp / "作品数据.xlsx"
+        f.write_bytes(b"old")
+        cte._save_to_inbox(f, inbox)
+        f.write_bytes(b"updated")
+        rec = cte._save_to_inbox(f, inbox)
+        if rec["action"] != "saved" or (inbox / "作品数据.xlsx").read_bytes() != b"old":
+            problems.append(f"同名不同内容必须另存不得覆盖: {rec}")
+    return {"item": "导出自动回收（collector）", "ok": not problems, "advisory": False,
+            "detail": ([f"❌ {'；'.join(problems)}"] if problems
+                       else ["toutiao-collector.yml：周一 09:00 cron + 登录态注入 + 回写投递箱 ✅",
+                             "降级告警为真实 Call（登录过期/导出失败两条路径）✅",
+                             "落箱同名不覆盖（sha 判重 / 更新另存 _2）✅",
+                             "无登录态不启动浏览器 ✅"])}
+
+
 def check_live() -> dict:
     rep = cpl.report(days=14)
     detail = [f"绩效最新 {rep['绩效最新']}（滞后 {rep['绩效滞后天数']} 天）；"
@@ -269,7 +347,8 @@ def check_live() -> dict:
 
 def verify() -> dict:
     hard = [check_detect(), check_idempotent_and_archive(), check_fail_stays_in_inbox(),
-            check_shared_entrypoint(), check_lag_monitor(), check_ci(), check_weekly_entry()]
+            check_shared_entrypoint(), check_lag_monitor(), check_ci(), check_weekly_entry(),
+            check_collector()]
     soft = [check_live()]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": hard + soft,

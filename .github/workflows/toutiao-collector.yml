@@ -1,0 +1,114 @@
+name: 头条导出自动回收（投递箱自动投递）
+
+# ============================================================
+# 给 perf-ingest 投递箱当「自动投递员」：
+#   每周一 09:00 CST 登录头条后台（复用 publisher 同款登录态 secret），
+#   在「作品数据」「粉丝分析」两页各点一次导出，xlsx 落 data/inbox/；
+#   09:10 的 perf-ingest 照常识别/幂等/入库——本任务只负责投递。
+#
+# 与既有链路的关系：
+#   - 增量不是替换：data/inbox/ 手动投递通道永远保留，本任务失败只告警不阻塞；
+#   - 登录态与 publisher 共用 TOUTIAO_AUTH_GZ（同一份 storage_state，不新增 secret）；
+#   - 下游零改动：sha256 幂等、识别不出留箱告警等纪律全部由 ingest_exports 负责。
+#
+# 时间契约：本任务 09:00 跑完（目标 3-5 分钟）→ perf-ingest 09:10 能读到文件；
+#   若偶尔慢过 10 分钟，文件已入库 git，次日 09:10 补扫自愈，不会丢数据。
+# ============================================================
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 每周一 09:00 CST（UTC 01:00）
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '导出窗口（天）'
+        required: false
+        default: '7'
+        type: string
+
+concurrency:
+  group: toutiao-collector
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: 写入头条号登录态（与 publisher 共用同一 secret）
+        run: |
+          mkdir -p /tmp/auth
+          echo "${{ secrets.TOUTIAO_AUTH_GZ }}" | base64 -d | python3 -c "import sys,gzip; sys.stdout.buffer.write(gzip.decompress(sys.stdin.buffer.read()))" > /tmp/auth/toutiao_auth.json
+          test -s /tmp/auth/toutiao_auth.json || { echo "::error::登录态解压结果为空，请检查 TOUTIAO_AUTH_GZ secret"; exit 1; }
+
+      - name: 回收后台导出（作品数据 + 粉丝分析）
+        id: collector
+        env:
+          TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+          COLLECTOR_DIAG_DIR: ${{ runner.temp }}/collector-diag
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          DAYS="${{ inputs.days }}"
+          python3 scripts/collect_toutiao_exports.py --days "${DAYS:-7}" --headless
+
+      - name: 提交到投递箱（供 perf-ingest 09:10 消费）
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/inbox || true
+          if git diff --cached --quiet; then
+            echo "📝 投递箱无新文件（可能回收失败或全部重复），跳过提交"
+          else
+            git commit -m "chore(collector): 头条后台自动导出投递 $(TZ=Asia/Shanghai date +%F)"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ 导出文件已投递 data/inbox/"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          fi
+
+      - name: 上传诊断产物（截图 / 按钮清单，改版排障用）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: collector-diag-${{ github.run_id }}
+          path: ${{ runner.temp }}/collector-diag/
+          if-no-files-found: ignore
+
+      - name: 失败通知（CI 层兜底；业务失败通知由脚本内发送）
+        if: failure()
+        env:
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          python -c "
+          import requests
+          requests.post('https://wxpusher.zjiecode.com/api/send/message',
+            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ 头条导出自动回收运行失败（登录过期/页面改版/推送失败之一）\n本周请手动导出投递 data/inbox/ 兜底\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
+          "
