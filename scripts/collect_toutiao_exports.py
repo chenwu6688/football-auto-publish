@@ -25,11 +25,17 @@
   8. 2026-10-14 真实后台实测台账（改版时先看这里，别再瞎猜）：
      - perf 页（作品数据→单篇）导出控件是右上角「⬇ 下载Excel」，是个 `<a>` 链接
        而不是 `<button>`——诊断脚本首版只抓 button，按钮清单里反而看不到它；
-       该页**没有**时间范围选择器，下载即全量作品快照（按 slug upsert，每日刷新正好）；
+       点「下载Excel」**不直接下载**，而是弹确认框（发布时间范围 + 作品总数 +
+       取消/开始下载），必须再点「**开始下载**」才真正触发下载（2026-10-14 二次
+       实测：不点它就是干等 120 秒超时）；确认框里的日期输入框是只读日历控件，
+       本脚本不碰——后台默认范围「近 7 天」必然含前一天，且每日 upsert 覆盖
+       旧值，填日期纯属 fragility；
+     - growth 页（粉丝数据）**深链 URL 直达是白屏**（SPA 不认，内容区整个空白，
+       只渲染左侧导航）——必须点左侧导航「粉丝数据」链接走客户端路由进去；
+       页面还压着「被关注自动回复」营销弹窗（Escape 关不掉，但只要不遮挡导出
+       控件就不管它——绝不点弹窗里的「立即体验」，那会导航跑飞）；
      - perf 页注明「每日 14:00 更新前一日数据」——06:00 导到的前一天是未结算值，
-       次日 06:00 的导出会自动覆盖为结算值（upsert 自愈，不必等 14:00 再跑）；
-     - growth 页（粉丝数据）主内容区渲染慢（3 秒时还是空白）且压着「被关注自动回复」
-       营销弹窗——已加额外等待 + Escape 关弹窗；导出控件文案待首跑成功后才能确认。
+       次日 06:00 的导出会自动覆盖为结算值（upsert 自愈，不必等 14:00 再跑）。
 
 频率：**每天 06:00 CST**（CI cron UTC 22:00，见 .github/workflows/toutiao-collector.yml），
 默认统计**前一天**（days=1）——与 perf-ingest 09:10 消费、绩效台账按日 upsert
@@ -81,6 +87,8 @@ class PageSpec:
     export_texts: tuple       # 导出按钮的候选文案（按序尝试，命中即止）
     range_mode: str = "none"  # none=该页无时间范围选择器 / dynamic=按 --days 动态点
     extra_wait_ms: int = 0    # 登录检测后的额外等待（图表渲染慢的页面用）
+    confirm_modal: bool = False   # 点了导出按钮后是否还有确认框（需再点「开始下载」）
+    nav_text: str = ""        # 非空=深链白屏，改点左侧导航该文案进入（客户端路由）
 
 
 PAGES = (
@@ -90,23 +98,33 @@ PAGES = (
         # 2026-10-14 实测：单篇 tab 的导出控件是右上角「⬇ 下载Excel」（<a> 链接，
         # 不是 <button>，所以诊断的按钮清单里根本看不到它）
         export_texts=("下载Excel", "导出数据", "导出Excel", "下载数据", "导出"),
-        # 该页无时间范围选择器（实测截图确认）：下载即全量作品快照。
-        # 绝不点「昨天」之类——文章列表里标题含「昨天」的作品会被误点导航跑飞。
+        # 该页无独立时间范围选择器（范围在导出确认框里，用后台默认近 7 天）——
+        # 绝不点「昨天」之类：文章列表里标题含「昨天」的作品会被误点导航跑飞。
         range_mode="none",
+        # 点「下载Excel」后弹确认框（发布时间范围 + 作品总数 + 取消/开始下载），
+        # 必须再点「开始下载」才真正下载（2026-10-14 实测：不点=干等 120s 超时）
+        confirm_modal=True,
     ),
     PageSpec(
         name="growth",
         url="https://mp.toutiao.com/profile_v4/analysis/fans",
-        # 粉丝页导出控件文案未经真实验证（页面还没渲染出来过）——多放候选，命中即止
+        # 粉丝页导出控件文案未经真实验证（深链白屏，从没渲染出来过）——多放候选，命中即止
         export_texts=("导出数据", "下载Excel", "导出Excel", "下载数据", "导出"),
         range_mode="dynamic",      # 若该页有时间范围选择器，按 --days 点（每日模式点「昨天」）
-        extra_wait_ms=7000,        # 实测 3 秒时主内容区还是空白（图表渲染慢）+ 有营销弹窗
+        extra_wait_ms=10000,       # 深链白屏 + 图表渲染慢，多等一会儿再找导出控件
+        # 2026-10-14 实测：直接 goto 该 URL 内容区整个空白（SPA 不认深链），
+        # 必须点左侧导航「粉丝数据」链接走客户端路由，页面才真正渲染
+        nav_text="粉丝数据",
     ),
 )
 
 
 class ExportButtonMissing(Exception):
     """页面上找不到导出按钮（后台改版/风控页）。"""
+
+
+class ExportModalMissing(Exception):
+    """点了导出按钮但没弹出确认框（或框里没有「开始下载」）。"""
 
 
 class LoginExpired(Exception):
@@ -248,18 +266,46 @@ def _dismiss_popups(page) -> None:
         pass
 
 
+def _confirm_export_modal(page, spec: PageSpec) -> None:
+    """导出确认框：等它出现 → 点「开始下载」→ 真正触发下载。
+
+    2026-10-14 实测：perf 页点「下载Excel」后不直接下载，而是弹确认框
+    （发布时间范围 + 作品总数 + 取消/开始下载）。不点「开始下载」就是
+    干等 expect_download 120 秒超时——首次实测就这么炸的。
+
+    日期范围不碰：框里两个输入框是只读日历控件，后台默认「近 7 天」必然含
+    前一天，且每日 upsert 会覆盖旧值——填日期纯属 fragility，不做。
+    """
+    try:
+        page.get_by_text("开始下载", exact=False).first.wait_for(
+            state="visible", timeout=20_000)
+    except Exception:
+        _dump_diagnostics(page, spec, "导出确认框未出现（点了导出按钮但没弹框）")
+        raise ExportModalMissing(f"{spec.name} 页导出确认框未出现")
+    page.get_by_text("开始下载", exact=False).first.click()
+    print("   🖱️ 已点击「开始下载」")
+
+
 def _collect_one(page, spec: PageSpec, nav_timeout_ms: int,
                  download_timeout_ms: int, days: int = 1) -> tuple[Path, str | None]:
     """导航到 spec 页面并触发导出，返回 (下载的临时文件路径, 命中的时间范围文案)。
 
-    失败抛 ExportButtonMissing / LoginExpired / 其他异常（含超时）。
+    失败抛 ExportButtonMissing / ExportModalMissing / LoginExpired / 其他异常（含超时）。
     """
     print(f"   🌐 打开 {spec.name} 页面: {spec.url}")
     _assert_logged_in(page, spec, nav_timeout_ms)
     _dismiss_popups(page)
+
+    if spec.nav_text:
+        # 深链白屏页（growth 实测）：SPA 不认直达 URL，内容区整个空白——
+        # 改点左侧导航链接走客户端路由，页面才真正渲染
+        print(f"   🧭 改走左侧导航进入: {spec.nav_text}")
+        if not _try_click(page, (spec.nav_text,)):
+            print(f"   ⚠️ 未找到导航项「{spec.nav_text}」，沿用直达 URL 的结果")
     if spec.extra_wait_ms:
-        # 粉丝页图表渲染慢（3 秒时主内容区还是空白），多等一会儿再找导出控件
+        # 粉丝页图表渲染慢（深链时 3 秒内容区还是空白），多等一会儿再找导出控件
         page.wait_for_timeout(spec.extra_wait_ms)
+    _dismiss_popups(page)   # 导航后营销弹窗可能再次出现
 
     range_hit = None
     if spec.range_mode == "dynamic":
@@ -274,6 +320,8 @@ def _collect_one(page, spec: PageSpec, nav_timeout_ms: int,
         with page.expect_download(timeout=download_timeout_ms) as dl_info:
             if not _try_click(page, spec.export_texts):
                 raise ExportButtonMissing(f"{spec.name} 页未找到导出按钮")
+            if spec.confirm_modal:
+                _confirm_export_modal(page, spec)
         download = dl_info.value
     except ExportButtonMissing:
         _dump_diagnostics(page, spec, "未找到导出按钮（后台改版或风控页）")
@@ -320,7 +368,8 @@ def _save_to_inbox(tmp_path: Path, inbox: Path, date_tag: str | None = None) -> 
 
 def _notify_summary(result: dict, date_tag: str) -> None:
     """运行回执：成功时汇总投递了什么、统计哪一天（用户要求每次运行都有状态反馈）。"""
-    lines = [f"统计日期: {date_tag}（前一天）　导出窗口: {result.get('days', 1)} 天"]
+    lines = [f"统计日期: {date_tag}（前一天）",
+             "作品数据按后台导出确认框默认范围（近 7 天，必含前一天；旧篇每日 upsert 刷新）"]
     for f in result.get("files", []):
         mark = "✅" if f["action"] == "saved" else "♻️"
         note = f.get("note") or ("已投递" if f["action"] == "saved" else "同内容重复，已跳过")

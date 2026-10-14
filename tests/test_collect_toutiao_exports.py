@@ -39,12 +39,16 @@ class _FakeDownloadCtx:
         self.value = None
 
     def __enter__(self):
-        if self._download is None:
-            raise TimeoutError("Timeout exceeded while waiting for download")
-        self.value = self._download
+        # 真实 playwright：__enter__ 只开始监听，超时在 __exit__ 才抛——
+        # 之前 fake 在 __enter__ 就抛，导致 with 块里的点击/确认框逻辑根本没跑，
+        # 测试「通过」但测的不是真路径（2026-10-14 补确认框时抓出来的 fake 缺陷）
+        if self._download is not None:
+            self.value = self._download
         return self
 
     def __exit__(self, *exc):
+        if self._download is None and exc[0] is None:
+            raise TimeoutError("Timeout exceeded while waiting for download")
         return False
 
 
@@ -62,6 +66,11 @@ class _FakeLocator:
     @property
     def first(self):
         return self
+
+    def wait_for(self, state=None, timeout=None):
+        """模拟 locator.wait_for——文案不存在就抛 TimeoutError（确认框没弹出来）。"""
+        if self.count() == 0:
+            raise TimeoutError(f"wait_for({state}) 超时: 未找到「{self._text}」")
 
     def click(self):
         self._page.clicked.append(self._text)
@@ -275,7 +284,7 @@ class TestExportSuccess(CollectorTestBase):
                 "works-single": "https://mp.toutiao.com/profile_v4/analysis/works-single/article",
                 "/fans": "https://mp.toutiao.com/profile_v4/analysis/fans",
             },
-            button_texts=("导出数据", "近7天"),
+            button_texts=("导出数据", "开始下载", "近7天"),
             downloads=[
                 FakeDownload("作品数据_2026-10-08至2026-10-14.xlsx", b"perf-content"),
                 FakeDownload("粉丝分析_2026-10-08至2026-10-14.xlsx", b"growth-content"),
@@ -288,11 +297,11 @@ class TestExportSuccess(CollectorTestBase):
         names = sorted(p.name for p in self.inbox.iterdir())
         self.assertEqual(len(names), 2)
         self.assertIn("导出数据", page.clicked)
-        self.assertNotIn("导出数据\n\n", page.clicked)
+        self.assertIn("开始下载", page.clicked, "确认框必须点「开始下载」才真下载")
 
     def test_range_text_clicked_when_present(self):
         page = FakePage(
-            button_texts=("导出数据", "最近7天"),
+            button_texts=("导出数据", "开始下载", "最近7天"),
             downloads=[FakeDownload("a.xlsx", b"1"), FakeDownload("b.xlsx", b"2")],
         )
         self._run(page, days=7)
@@ -327,7 +336,7 @@ class TestExportFailure(CollectorTestBase):
                     raise TimeoutError("Timeout exceeded while waiting for download")
                 return _FakeDownloadCtx(FakeDownload("粉丝分析.xlsx", b"growth"))
 
-        page = SelectivePage(button_texts=("导出数据",))
+        page = SelectivePage(button_texts=("导出数据", "开始下载"))
         result = self._run(page)
         self.assertFalse(result["ok"], "有页面失败则整体不 ok")
         saved = [f for f in result["files"] if f["action"] == "saved"]
@@ -452,19 +461,21 @@ class TestRealPageControls(CollectorTestBase):
         """perf 页导出控件是 <a>「下载Excel」——文案候选必须命中它。"""
         page = FakePage(
             url_map={"works-single": self.PERF_URL},
-            button_texts=(), link_texts=("下载Excel",),
+            button_texts=("开始下载",), link_texts=("下载Excel",),
             downloads=[FakeDownload("作品数据.xlsx", b"perf"),
                        FakeDownload("b.xlsx", b"growth")],
         )
         result = self._run(page)
         self.assertTrue(result["ok"], result)
         self.assertIn("下载Excel", page.clicked)
+        self.assertIn("开始下载", page.clicked,
+                      "点「下载Excel」只是弹确认框，必须再点「开始下载」")
 
     def test_perf_collect_never_clicks_range_texts(self):
         """perf 页无时间范围选择器——点了「昨天」可能误点文章标题导航跑飞。"""
         page = FakePage(
             url_map={"works-single": self.PERF_URL},
-            button_texts=("导出数据", "昨天", "昨日", "近1天"),
+            button_texts=("导出数据", "开始下载", "昨天", "昨日", "近1天"),
             downloads=[FakeDownload("作品数据.xlsx", b"perf")],
         )
         spec = self._specs()["perf"]
@@ -506,6 +517,67 @@ class TestRealPageControls(CollectorTestBase):
         self.assertIn("下载Excel", txt, "按钮清单必须包含 <a> 链接类导出控件")
 
 
+class TestExportModal(CollectorTestBase):
+    """2026-10-14 三次实测：点「下载Excel」只弹确认框，必须再点「开始下载」才真下载。"""
+
+    PERF_URL = "https://mp.toutiao.com/profile_v4/analysis/works-single/article"
+
+    def test_modal_missing_fails_loudly_with_diagnostics(self):
+        """确认框没弹出来 → 明确失败 + 留诊断，绝不傻等超时还被当成普通失败。"""
+        page = FakePage(
+            url_map={"works-single": self.PERF_URL},
+            link_texts=("下载Excel",),      # 有导出按钮，但弹不出确认框
+            button_texts=(),
+            downloads=[],
+        )
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "export_failed")
+        self.assertTrue(any("确认框" in p for p in result["problems"]),
+                        f"失败原因必须说清是确认框问题: {result['problems']}")
+        self.assertTrue(list(self.diag.glob("perf-diagnostics.txt")),
+                        "确认框缺失也要留诊断")
+
+
+class TestGrowthNavEntry(CollectorTestBase):
+    """growth 页深链白屏——必须点左侧导航「粉丝数据」走客户端路由（2026-10-14 实测）。"""
+
+    def test_growth_enters_via_nav_link(self):
+        page = FakePage(
+            url_map={
+                "works-single": "https://mp.toutiao.com/profile_v4/analysis/works-single/article",
+                "/fans": "https://mp.toutiao.com/profile_v4/analysis/fans",
+            },
+            button_texts=("导出数据", "开始下载", "粉丝数据"),
+            downloads=[FakeDownload("作品数据.xlsx", b"p"), FakeDownload("粉丝分析.xlsx", b"g")],
+        )
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertIn("粉丝数据", page.clicked,
+                      "growth 页必须点左侧导航进入（深链白屏）")
+
+    def test_growth_nav_missing_still_attempts_export(self):
+        """导航项找不到（改版）→ 告警但继续按直达 URL 试，不静默放弃。"""
+        page = FakePage(
+            url_map={
+                "works-single": "https://mp.toutiao.com/profile_v4/analysis/works-single/article",
+                "/fans": "https://mp.toutiao.com/profile_v4/analysis/fans",
+            },
+            button_texts=("导出数据", "开始下载"),
+            downloads=[FakeDownload("作品数据.xlsx", b"p"), FakeDownload("粉丝分析.xlsx", b"g")],
+        )
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        self.assertNotIn("粉丝数据", page.clicked)
+
+    def test_config_growth_nav_and_perf_modal(self):
+        specs = {p.name: p for p in cte.PAGES}
+        self.assertEqual(specs["growth"].nav_text, "粉丝数据")
+        self.assertEqual(specs["perf"].nav_text, "", "perf 页直达 URL 正常，不走导航")
+        self.assertTrue(specs["perf"].confirm_modal, "perf 导出有点「开始下载」的确认框")
+        self.assertFalse(specs["growth"].confirm_modal)
+
+
 class TestDailyMode(CollectorTestBase):
     """每日 06:00 模式：默认统计前一天，回执每次运行都发。"""
 
@@ -529,7 +601,7 @@ class TestDailyMode(CollectorTestBase):
 
     def test_daily_mode_clicks_yesterday(self):
         page = FakePage(
-            button_texts=("导出数据", "昨天", "近7天"),
+            button_texts=("导出数据", "开始下载", "昨天", "近7天"),
             downloads=[FakeDownload("a.xlsx", b"1"), FakeDownload("b.xlsx", b"2")],
         )
         self._run(page)   # 默认 days=1
@@ -549,7 +621,7 @@ class TestDailyMode(CollectorTestBase):
     def test_inbox_file_carries_date_tag(self):
         with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
             page = FakePage(
-                button_texts=("导出数据", "昨天"),
+                button_texts=("导出数据", "开始下载", "昨天"),
                 downloads=[FakeDownload("作品数据.xlsx", b"perf"),
                            FakeDownload("粉丝分析.xlsx", b"growth")],
             )
@@ -565,7 +637,7 @@ class TestDailyMode(CollectorTestBase):
     def test_success_sends_summary_notification(self):
         with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
             page = FakePage(
-                button_texts=("导出数据", "昨天"),
+                button_texts=("导出数据", "开始下载", "昨天"),
                 downloads=[FakeDownload("作品数据.xlsx", b"perf"),
                            FakeDownload("粉丝分析.xlsx", b"growth")],
             )
@@ -583,7 +655,7 @@ class TestDailyMode(CollectorTestBase):
         with mock.patch.object(cte, "_yesterday_str", return_value="2026-10-13"):
             for _ in range(2):
                 page = FakePage(
-                    button_texts=("导出数据", "昨天"),
+                    button_texts=("导出数据", "开始下载", "昨天"),
                     downloads=[FakeDownload("作品数据.xlsx", b"perf"),
                                FakeDownload("粉丝分析.xlsx", b"growth")],
                 )

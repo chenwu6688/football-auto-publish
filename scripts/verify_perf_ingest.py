@@ -295,7 +295,8 @@ def check_collector() -> dict:
             problems.append(f"降级告警调用过少（send_wxpusher 仅 {len(calls)} 处，"
                             "至少覆盖登录过期/导出失败两条路径）")
         funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
-        for fn in ("run", "_save_to_inbox", "_collect_one", "_assert_logged_in"):
+        for fn in ("run", "_save_to_inbox", "_collect_one", "_assert_logged_in",
+                   "_confirm_export_modal", "_dismiss_popups"):
             if fn not in funcs:
                 problems.append(f"collector 缺函数 {fn}")
         # 登录判据必须单一来源：_assert_logged_in 至少被 _collect_one 与 dry-run
