@@ -1,7 +1,7 @@
 {
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T04:04:57.392111",
-  "total_articles": 4,
+  "generated_at": "2026-10-13T10:04:48.410189",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -126,72 +126,223 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "三级·软性"
+    },
+    {
+      "index": 1,
+      "title": "广州球迷联盟喊出70年，李璇10月13日这番话到底戳中了谁？",
+      "path": "/home/runner/work/_temp/output/2026-10-13/article-1-广州球迷联盟喊出-a3452d.md",
+      "slug": "广州球迷联盟喊出-a3452d",
+      "tags": [
+        "Guangzhou football",
+        "Li Xuan",
+        "Guangzhou Fan Alliance",
+        "Guangdong Guangzhou Leopard",
+        "70 years"
+      ],
+      "keywords": [
+        "Guangzhou football",
+        "Li Xuan",
+        "Guangzhou Fan Alliance",
+        "Guangdong Guangzhou Leopard",
+        "70 years"
+      ],
+      "images": [],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 2,
+      "title": "盖德穆勒只排第三？历史射手榜第一竟是这位远古大神？",
+      "path": "/home/runner/work/_temp/output/2026-10-13/article-2-盖德穆勒只排第三-340e5b.md",
+      "slug": "盖德穆勒只排第三-340e5b",
+      "tags": [
+        "football",
+        "all-time top scorer",
+        "assist leader",
+        "transfer value",
+        "nostalgia"
+      ],
+      "keywords": [
+        "football",
+        "all-time top scorer",
+        "assist leader",
+        "transfer value",
+        "nostalgia"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "曼城碰巴黎、罗马扛皇马，欧冠这夜谁先崩？",
+      "path": "/home/runner/work/_temp/output/2026-10-13/article-3-曼城碰巴黎罗马扛-2f99b4.md",
+      "slug": "曼城碰巴黎罗马扛-2f99b4",
+      "tags": [
+        "Champions League",
+        "Manchester City",
+        "Real Madrid",
+        "Arsenal",
+        "Inter Milan",
+        "Atletico Madrid",
+        "Barcelona",
+        "Bayern Munich"
+      ],
+      "keywords": [
+        "Champions League",
+        "Manchester City",
+        "Real Madrid",
+        "Arsenal",
+        "Inter Milan",
+        "Atletico Madrid",
+        "Barcelona",
+        "Bayern Munich"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "标价超2亿镑？昔日英超冠军莱斯特城跌进英甲还被挂牌出售",
-      "angle": "从英超奇迹冠军到英甲挂牌甩卖，莱斯特城这十年走完了一个完整的足球童话破灭史，老球迷看的就是这种江湖起落",
+      "title": "一生一队？广州豹冲超了，老球迷却为何不认这个新广州队？",
+      "angle": "广州豹提前四轮冲超，成了中冠起步冲超的第7支球队，但广州球迷联盟公开表态'不认它是广州队替代者'。站在老球迷立场，理解这份'一生一队'的执念——球队可以换名字换老板，但那份陪恒大走过亚冠之夜的记忆换不掉。新广州队想赢得人心，比冲超难十倍。",
       "keywords": [
-        "Leicester City",
-        "League One",
-        "club sale"
+        "Guangzhou FC",
+        "Chinese Super League",
+        "promotion",
+        "fan identity"
       ],
       "keywords_cn": [
-        "莱斯特城",
-        "英甲",
-        "挂牌出售"
+        "广州豹",
+        "冲超",
+        "广州球迷联盟",
+        "一生一队"
       ],
-      "content_type": "转会资讯",
-      "score": 92,
-      "controversy_level": "medium",
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "high",
       "target_emotion": "怀旧",
       "resonance_angle": "老球迷身份认同",
       "series_id": "old-fan-night",
-      "why_pick": "冠军陨落故事性强，老球迷共情拉满",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "冲超喜讯撞上球迷不认账，情怀冲突拉满",
+      "_category": "冲突舆情",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "专克强队？那不勒斯这趟客场，悬了？",
+      "title": "曾脚踩熊猫杯的朴规现，如今竟代表大田首发踢海港？",
+      "angle": "2019年熊猫杯踩奖杯事件，中国球迷记了整整七年。如今这位韩国球员朴规现出现在亚冠赛场，代表大田市民首发对阵上海海港。不煽动对立，但那股'憋着劲'的情绪，老球迷都懂——竞技体育最好的回击从来在场上。",
+      "keywords": [
+        "Park Kyu-hyun",
+        "Panda Cup",
+        "Shanghai Port",
+        "AFC Champions League"
+      ],
+      "keywords_cn": [
+        "朴规现",
+        "熊猫杯",
+        "上海海港",
+        "亚冠"
+      ],
       "content_type": "人物故事",
-      "_is_fixture": true
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "踩杯旧账遇上亚冠重逢，情绪记忆点强",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "人物故事",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-1",
+      "_degraded": true
     },
     {
-      "title": "马拉多纳30年前上帝之手，为何至今让老球迷争论不休？",
-      "content_type": "历史回顾",
-      "_column_name": "人物故事",
+      "title": "盖德穆勒只排第三？历史射手榜第一竟是这位远古大神？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
       "_from_reservoir": true
+    },
+    {
+      "title": "曼城碰巴黎、罗马扛皇马，欧冠这夜谁先崩？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 0,
+      "一级·确定性": 0,
+      "二级·突发": 1,
       "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 50.0,
-      "二级·突发": 0.0,
+      "一级·确定性": 0.0,
+      "二级·突发": 50.0,
       "三级·软性": 50.0
     },
     "targets": {
@@ -200,31 +351,58 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
-      "二级·突发": -50.0,
+      "一级·确定性": -30.0,
+      "二级·突发": 0.0,
       "三级·软性": 30.0
     },
     "unclassified": 0
   },
+  "degrade_events": [
+    {
+      "环节": "一致性校验",
+      "原因": "事实验证连续不过: 缺少客队名: 大田市民首发",
+      "处置": "降级为低风险板块（人物故事）后重生成一次",
+      "数量": 1
+    },
+    {
+      "环节": "一致性校验",
+      "原因": "降级后仍不过: 缺少客队名: 大田市民首发",
+      "处置": "丢弃该选题，交由候选池补位",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-13 12:04:57"
+  "last_batch": "evening",
+  "last_updated": "2026-10-13 18:04:48"
 }
