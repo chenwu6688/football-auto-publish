@@ -1,0 +1,321 @@
+{
+  "date": "2026-10-15",
+  "generated_at": "2026-10-15T00:05:47.680024",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "拉齐奥主帅居然比尤文还慌？16分背后他输不起的是什么？",
+      "path": "/home/runner/work/_temp/output/2026-10-15/article-1-拉齐奥主帅居然比-83bcc3.md",
+      "slug": "拉齐奥主帅居然比-83bcc3",
+      "tags": [
+        "Lazio",
+        "Serie A",
+        "Juventus",
+        "coach pressure",
+        "underdog"
+      ],
+      "keywords": [
+        "Lazio",
+        "Serie A",
+        "Juventus",
+        "coach pressure",
+        "underdog"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-15/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "马拉多纳的上帝之手与连过五人，哪个才是真正的世纪进球？",
+      "path": "/home/runner/work/_temp/output/2026-10-15/article-2-马拉多纳的上帝之-2c89cb.md",
+      "slug": "马拉多纳的上帝之-2c89cb",
+      "tags": [
+        "Maradona",
+        "Hand of God",
+        "Goal of the Century",
+        "1986 World Cup",
+        "Argentina vs England"
+      ],
+      "keywords": [
+        "Maradona",
+        "Hand of God",
+        "Goal of the Century",
+        "1986 World Cup",
+        "Argentina vs England"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "历史回顾",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "当年那个追风少年曲波，如今在基层默默带娃，他到底图个啥？",
+      "path": "/home/runner/work/_temp/output/2026-10-15/article-3-当年那个追风少年-cc542c.md",
+      "slug": "当年那个追风少年-cc542c",
+      "tags": [
+        "Qu Bo",
+        "Chinese football",
+        "youth training",
+        "nostalgia"
+      ],
+      "keywords": [
+        "Qu Bo",
+        "Chinese football",
+        "youth training",
+        "nostalgia"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    }
+  ],
+  "topics": [
+    {
+      "title": "B费不信任曼联未来规划？这续约僵局比输球还让人心凉",
+      "angle": "英媒爆料B费续约陷入停滞，他已不信任曼联未来规划。卡里克帅位也不稳，新帅候选许尔策勒、纳帅、孔蒂。曼联这艘船到底谁在掌舵？一个队长用脚投票，比任何战术分析都说明问题。",
+      "keywords": [
+        "Bruno Fernandes",
+        "Man United",
+        "contract"
+      ],
+      "keywords_cn": [
+        "B费",
+        "曼联",
+        "续约"
+      ],
+      "content_type": "转会资讯",
+      "score": 86,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "曼联队长续约危机+帅位动荡，双重爆点",
+      "_category": "转会官宣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "恩里克赛后说曼城靠运气？这话怎么越听越不对劲呢",
+      "angle": "巴黎4-2终结曼城，恩里克赛后说'半场3-0领先人们以为稳赢，但若运气差点可能会输'。杜加里直接开炮说曼城靠作弊引援。这场球背后的财务案阴影比比分更有嚼头——赢了球还要阴阳对手，恩里克这话到底在说谁？",
+      "keywords": [
+        "Enrique",
+        "Man City",
+        "PSG",
+        "financial rules"
+      ],
+      "keywords_cn": [
+        "恩里克",
+        "曼城",
+        "巴黎",
+        "财务案"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "恩里克言论+财务案争议，话题性极强",
+      "_category": "冲突舆情",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "没想到穆氏皇马8分钟连进3球，这逆转剧本谁写的？",
+      "angle": "皇马4-3罗马，穆里尼奥式绝境翻盘重现江湖。老球迷看这种比赛最上头——不是因为技术多华丽，而是那股不认命的劲儿。当年他带波尔图、国米也是这么赢的，8分钟3球不是运气，是骨子里的东西。",
+      "keywords": [
+        "Mourinho",
+        "Real Madrid",
+        "comeback"
+      ],
+      "keywords_cn": [
+        "穆里尼奥",
+        "皇马",
+        "逆转"
+      ],
+      "content_type": "热点球评",
+      "score": 93,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "穆氏逆转自带名帅弧光，老球迷共鸣拉满",
+      "_category": "战报比分",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "拉齐奥主帅居然比尤文还慌？16分背后他输不起的是什么？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    },
+    {
+      "title": "马拉多纳的上帝之手与连过五人，哪个才是真正的世纪进球？",
+      "content_type": "历史回顾",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "当年那个追风少年曲波，如今在基层默默带娃，他到底图个啥？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 3,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 2
+    },
+    "ratios": {
+      "一级·确定性": 33.3,
+      "二级·突发": 0.0,
+      "三级·软性": 66.7
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 3.3,
+      "二级·突发": -50.0,
+      "三级·软性": 46.7
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 3,
+    "uplifted": true,
+    "reason": "thursday_boost",
+    "requested_reason": "thursday_boost",
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 1,
+    "detail": "加发 3 篇（原因 thursday_boost，周内 1/2）",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-15 08:05:47"
+}
