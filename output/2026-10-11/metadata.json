@@ -68,7 +68,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.2143,
-        "impressions": 2422,
+        "impressions": 2827,
         "follower_reads": 1,
         "click_rate": 0.01
       },
@@ -102,14 +102,14 @@
       "column_name": "战术榜单",
       "batch_name": "晨读",
       "performance": {
-        "reads": 14,
+        "reads": 15,
         "comments": 2,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.2392,
-        "impressions": 2717,
+        "retention_rate": 0.2892,
+        "impressions": 3180,
         "follower_reads": 1,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7695195183746466355"
     },
@@ -182,7 +182,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.5875,
-        "impressions": 2929,
+        "impressions": 3559,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -223,7 +223,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2728,
+        "impressions": 3412,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -294,7 +294,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2646,
+        "impressions": 3396,
         "follower_reads": 1,
         "click_rate": 0.0
       },
@@ -365,7 +365,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.3833,
-        "impressions": 3197,
+        "impressions": 3959,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -401,12 +401,12 @@
       "column_name": "战术榜单",
       "batch_name": "晚间",
       "performance": {
-        "reads": 42,
+        "reads": 45,
         "comments": 4,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.2178,
-        "impressions": 3371,
+        "retention_rate": 0.2326,
+        "impressions": 4173,
         "follower_reads": 0,
         "click_rate": 0.01
       },

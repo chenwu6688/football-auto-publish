@@ -40,7 +40,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 3340,
+        "impressions": 3475,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -178,8 +178,8 @@
         "comments": 0,
         "likes": 2,
         "shares": 0,
-        "retention_rate": 0.1714,
-        "impressions": 5549,
+        "retention_rate": 0.1708,
+        "impressions": 5698,
         "follower_reads": 0,
         "click_rate": 0.03
       },
@@ -222,7 +222,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.399,
-        "impressions": 3108,
+        "impressions": 3443,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -287,12 +287,12 @@
       "column_name": "午间快讯",
       "batch_name": "午间",
       "performance": {
-        "reads": 32,
+        "reads": 33,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.2368,
-        "impressions": 3682,
+        "impressions": 4016,
         "follower_reads": 0,
         "click_rate": 0.01
       },

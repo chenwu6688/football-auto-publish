@@ -65,12 +65,12 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "performance": {
-        "reads": 24,
+        "reads": 29,
         "comments": 1,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.3286,
-        "impressions": 1712,
+        "retention_rate": 0.2435,
+        "impressions": 3589,
         "follower_reads": 1,
         "click_rate": 0.01
       },
@@ -138,13 +138,13 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "performance": {
-        "reads": 3,
+        "reads": 7,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 1167,
-        "follower_reads": 1,
+        "retention_rate": 0.0475,
+        "impressions": 3047,
+        "follower_reads": 2,
         "click_rate": 0.0
       },
       "platform_id": "7695998602505765403"
@@ -182,12 +182,12 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 169,
-        "comments": 3,
-        "likes": 0,
+        "reads": 439,
+        "comments": 6,
+        "likes": 1,
         "shares": 0,
-        "retention_rate": 0.0847,
-        "impressions": 3619,
+        "retention_rate": 0.1433,
+        "impressions": 8489,
         "follower_reads": 1,
         "click_rate": 0.05
       },
