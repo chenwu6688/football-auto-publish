@@ -271,6 +271,7 @@ def check_collector() -> dict:
                 "detail": ["❌ 缺 scripts/collect_toutiao_exports.py"]}
     if not wf.exists():
         problems.append("缺 .github/workflows/toutiao-collector.yml")
+        txt = ""
     else:
         txt = wf.read_text(encoding="utf-8")
         for marker, label in (("collect_toutiao_exports.py", "回收脚本调用"),
@@ -288,6 +289,21 @@ def check_collector() -> dict:
         if "default: '1'" not in txt:
             problems.append("dispatch days 默认应为 1（统计前一天，与每日节奏对齐）")
     src = script.read_text(encoding="utf-8")
+    # 参数契约硬断言：workflow run 命令里每个 --flag 都必须被 argparse 注册
+    # （2026-10-15 CI 首跑事故：workflow 从创建起传 --headless，argparse 只有
+    # --headed → 首次 schedule 真跑 argparse exit 2，脚本根本没启动、无业务
+    # 回执、投递箱空，只剩 CI 兜底告警。本地只验证过 --headed 调用形式）
+    import re as _re
+    collector_step = ""
+    for line in txt.splitlines():
+        if "collect_toutiao_exports.py" in line:
+            collector_step += line + "\n"
+    for flag in sorted(set(_re.findall(r"(?<![\w-])(--[a-z0-9][a-z0-9-]*)",
+                                      collector_step))):
+        if f'"{flag}"' not in src:
+            problems.append(f"toutiao-collector.yml 传了 {flag} 但 collector "
+                            "argparse 未注册——CI 会 argparse exit 2 秒挂"
+                            "（2026-10-15 首跑事故形态）")
     try:
         tree = ast.parse(src)
         calls = [n for n in ast.walk(tree)
@@ -344,6 +360,7 @@ def check_collector() -> dict:
     return {"item": "导出自动回收（collector）", "ok": not problems, "advisory": False,
             "detail": ([f"❌ {'；'.join(problems)}"] if problems
                        else ["toutiao-collector.yml：每天 14:05 CST cron + 登录态注入 + 回写投递箱 ✅",
+                             "workflow 参数契约（run 命令 --flag 均已被 argparse 注册）✅",
                              "降级告警为真实 Call（登录过期/导出失败/缺登录态三条路径）✅",
                              "落箱同名不覆盖（sha 判重 / 更新另存 _2）✅",
                              "无登录态不启动浏览器 ✅"])}

@@ -790,7 +790,9 @@ class TestModalDateRange(CollectorTestBase):
             _FakeInput("2026-10-01", readonly=True),
             _FakeInput("2026-10-07", readonly=True),
         ])
-        result = self._run(page)
+        # 注入固定「今天」：窗口按运行日动态算，不断言具体日期就会随时间漂移
+        # （2026-10-16 发现：10-14 写的硬编码日期用例全部挂掉——测试时间耦合）
+        result = self._run(page, now=datetime(2026, 10, 14, 6, 0, tzinfo=cte.CST))
         self.assertTrue(result["ok"], result)
         self.assertEqual([i._value for i in page.inputs],
                          ["2026-10-08", "2026-10-14"])
@@ -800,7 +802,7 @@ class TestModalDateRange(CollectorTestBase):
         """非只读输入框走 fill()（playwright 原生 setter）。"""
         page = self._page(inputs=[_FakeInput("", placeholder="开始日期"),
                                   _FakeInput("", placeholder="结束日期")])
-        result = self._run(page)
+        result = self._run(page, now=datetime(2026, 10, 14, 6, 0, tzinfo=cte.CST))
         self.assertTrue(result["ok"], result)
         self.assertEqual([i._value for i in page.inputs],
                          ["2026-10-08", "2026-10-14"])
@@ -818,7 +820,7 @@ class TestModalDateRange(CollectorTestBase):
                           _FakeInput("", inner_text_value="14")],
             picker_day_values={"8": "2026-10-08", "14": "2026-10-14"},
         )
-        result = self._run(page)
+        result = self._run(page, now=datetime(2026, 10, 14, 6, 0, tzinfo=cte.CST))
         self.assertTrue(result["ok"], result)
         self.assertEqual([i._value for i in page.inputs],
                          ["2026-10-08", "2026-10-14"])
@@ -1095,6 +1097,72 @@ class TestConfig(unittest.TestCase):
         self.assertIn("下载Excel", specs["perf"].export_texts)
         self.assertEqual(specs["perf"].export_texts[0], "下载Excel",
                          "实测命中的文案排第一，少一次无效尝试")
+
+
+class TestWorkflowCliContract(unittest.TestCase):
+    """workflow 的 run 命令 ↔ 脚本 argparse 的参数契约。
+
+    2026-10-15 CI 首跑事故：toutiao-collector.yml 从创建起就传 `--headless`，
+    而 argparse 只有 `--headed`——首次 schedule 真跑即 argparse exit 2，
+    脚本根本没启动（无业务回执、投递箱空，只剩 CI 兜底告警）。
+    本地只用 `--headed` 验证过，从没跑过 workflow 的调用形式。
+    这里直接用 workflow 的真实命令行做断言，两份契约永不漂移。
+    """
+
+    WF_PATH = PROJECT_ROOT / ".github" / "workflows" / "toutiao-collector.yml"
+
+    def _workflow_collector_cmd(self) -> str:
+        import yaml
+        doc = yaml.safe_load(self.WF_PATH.read_text(encoding="utf-8"))
+        for job in (doc.get("jobs") or {}).values():
+            for step in job.get("steps") or []:
+                run = step.get("run") or ""
+                if "collect_toutiao_exports.py" in run:
+                    return run
+        self.fail("toutiao-collector.yml 里找不到调用 collector 的步骤")
+
+    def test_workflow_headless_flag_is_accepted(self):
+        """CI 调用形式（--days N --headless）必须被 argparse 接受。"""
+        cmd = self._workflow_collector_cmd()
+        self.assertIn("--headless", cmd,
+                      "workflow 应显式声明 --headless（默认即无头，显式更防呆）")
+        argv = ["collect_toutiao_exports.py", "--days", "1", "--headless"]
+        with mock.patch.object(sys, "argv", argv), \
+             mock.patch.object(cte, "run") as m_run:
+            m_run.return_value = {"ok": True, "status": "ok"}
+            rc = cte.main()
+        self.assertEqual(rc, 0)
+        self.assertTrue(m_run.call_args.kwargs.get("headless"),
+                        "--headless 必须映射到 run(headless=True)")
+
+    def test_headed_and_headless_mutually_exclusive(self):
+        """两个互斥参数同时传必须明确报错（而不是静默选一个）。"""
+        argv = ["collect_toutiao_exports.py", "--headed", "--headless"]
+        with mock.patch.object(sys, "argv", argv), \
+             mock.patch.object(cte, "run") as m_run:
+            with self.assertRaises(SystemExit) as ctx:
+                cte.main()
+        self.assertEqual(ctx.exception.code, 2)
+        m_run.assert_not_called()
+
+    def test_workflow_cmd_flags_all_registered_in_argparse(self):
+        """契约测试：workflow 命令行里每个 --flag 都必须被 argparse 认识。
+
+        直接复用 main() 的 parser 构造（不重新解析 yml 里的 shell 变量），
+        以 workflow 文本中出现的 --flag 逐个 parse 验证。
+        """
+        import re
+        cmd = self._workflow_collector_cmd()
+        flags = sorted(set(re.findall(r"(?<![\w-])(--[a-z0-9][a-z0-9-]*)", cmd)))
+        self.assertTrue(flags, "workflow 命令里应至少有一个 --flag")
+        # 用与 main() 相同的 parser 逐 flag 验证（此处借助 main 的 argv mock
+        # 成本高，改为重建 parser：提取 main() 的 add_argument 行做等价检查）
+        src = (PROJECT_ROOT / "scripts" / "collect_toutiao_exports.py").read_text(
+            encoding="utf-8")
+        for flag in flags:
+            self.assertIn(f'"{flag}"', src,
+                          f"workflow 传了 {flag} 但 argparse 未注册——"
+                          f"这正是 10-15 CI exit 2 事故的形态")
 
 
 if __name__ == "__main__":

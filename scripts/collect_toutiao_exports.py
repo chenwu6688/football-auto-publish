@@ -60,8 +60,19 @@
 （同 date+slug 覆盖，不重复计数）、转粉日差跨度守卫（相邻登记日间隔 1 天）全部对齐。
 频率仍保持克制：每天一次全量导出，不做高频轮询（风控克制）。
 
+   9. 2026-10-15 CI 首跑事故（ workflow 与 argparse 的参数契约，改 workflow 前先看）：
+      toutiao-collector.yml 从创建第一天起就传 `--headless`，而 argparse 只有
+      `--headed`——本地从未跑过 workflow 的调用形式，直到 10-15 首次 schedule
+      真跑才炸：argparse 报错 exit 2，脚本根本没启动（无业务回执、投递箱空、
+      只剩 CI 兜底告警），且失败极快（52 秒）——「快失败 + 无业务回执」是
+      参数级事故的特征，别按页面改版方向排查。现已补 `--headless` 合法参数
+      （与 `--headed` 互斥校验），并用单测锁死 workflow 的调用形式。
+      教训：**workflow 的 run 命令与脚本 CLI 是两份契约，必须至少跑通一次
+      dispatch 冒烟**，不能只靠本地 --headed 验证。
+
 用法：
   python3 scripts/collect_toutiao_exports.py                 # CI 模式（headless，默认统计前一天）
+  python3 scripts/collect_toutiao_exports.py --headless      # 显式无头（CI 调用形式）
   python3 scripts/collect_toutiao_exports.py --headed        # 本地调试（看得见浏览器）
   python3 scripts/collect_toutiao_exports.py --dry-run       # 只检测登录态，不导出
   python3 scripts/collect_toutiao_exports.py --days 14       # 导出窗口（天）
@@ -596,7 +607,8 @@ def _evidence_brief(ev: dict | None) -> str:
     return " ".join(parts)
 
 
-def _confirm_export_modal(page, spec: PageSpec, range_days: int = 0) -> dict:
+def _confirm_export_modal(page, spec: PageSpec, range_days: int = 0,
+                          now: datetime | None = None) -> dict:
     """导出确认框：等它出现 →（可选）填日期范围 → 点「开始下载」。
 
     返回本次确认框的现场证据（日期输入框数量、目标值 vs 读回值）。
@@ -614,7 +626,7 @@ def _confirm_export_modal(page, spec: PageSpec, range_days: int = 0) -> dict:
         raise ExportModalMissing(f"{spec.name} 页导出确认框未出现")
 
     if range_days > 0:
-        start, end = _modal_range_for(range_days)
+        start, end = _modal_range_for(range_days, now=now)
         inputs = _modal_date_inputs(page)
         evidence["date_inputs_found"] = len(inputs)
         if len(inputs) >= 2:
@@ -656,7 +668,8 @@ def _confirm_export_modal(page, spec: PageSpec, range_days: int = 0) -> dict:
 
 def _collect_one(page, context, spec: PageSpec, nav_timeout_ms: int,
                  download_timeout_ms: int, days: int = 1,
-                 range_days: int = 0) -> tuple[Path, str | None]:
+                 range_days: int = 0,
+                 now: datetime | None = None) -> tuple[Path, str | None]:
     """导航到 spec 页面并触发导出，返回 (下载的临时文件路径, 命中的时间范围文案)。
 
     失败抛 ExportButtonMissing / ExportModalMissing / ExportAsyncRequired /
@@ -695,7 +708,8 @@ def _collect_one(page, context, spec: PageSpec, nav_timeout_ms: int,
                 raise ExportButtonMissing(f"{spec.name} 页未找到导出按钮")
             if spec.confirm_modal:
                 evidence.update(_confirm_export_modal(page, spec,
-                                                     range_days=range_days))
+                                                     range_days=range_days,
+                                                     now=now))
             _observe_after_click(page, evidence)
         download = dl_info.value
     except Exception as e:
@@ -793,10 +807,12 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
         headless: bool = True, nav_timeout_ms: int = DEFAULT_NAV_TIMEOUT_MS,
         download_timeout_ms: int = DEFAULT_DOWNLOAD_TIMEOUT_MS, dry_run: bool = False,
         perf_range_days: int | None = None,
+        now: datetime | None = None,
         playwright_factory=sync_playwright) -> dict:
     """执行一轮回收。返回汇总 dict；ok=False 时调用方应非零退出。
 
     perf_range_days：覆盖作品数据确认框的日期窗口天数（None=按页面配置默认 7）。
+    now：注入「当前时间」（CST），供测试固定日期窗口；None=真实当前时间。
     """
     result = {"ok": False, "status": "unknown", "files": [], "problems": [],
               "days": days, "dry_run": dry_run}
@@ -838,7 +854,8 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
                 tmp, range_hit = _collect_one(page, context, spec, nav_timeout_ms,
                                               download_timeout_ms, days=days,
                                               range_days=(perf_range_days if perf_range_days is not None
-                                                          else spec.modal_range_days))
+                                                          else spec.modal_range_days),
+                                              now=now)
                 rec = _save_to_inbox(tmp, inbox, date_tag=date_tag)
                 rec["range"] = range_hit
                 result["files"].append(rec)
@@ -893,10 +910,17 @@ def main() -> int:
     ap.add_argument("--auth", default=str(AUTH_FILE), help="登录态文件路径")
     ap.add_argument("--inbox", default=str(INBOX), help="投递箱目录")
     ap.add_argument("--headed", action="store_true", help="有头模式（本地调试用）")
+    ap.add_argument("--headless", action="store_true",
+                    help="无头模式（默认；显式声明供 CI 调用，与 --headed 互斥）")
     ap.add_argument("--dry-run", action="store_true", help="只检测登录态，不导出")
     ap.add_argument("--nav-timeout", type=int, default=60, help="页面导航超时（秒）")
     ap.add_argument("--download-timeout", type=int, default=120, help="导出等待超时（秒）")
     args = ap.parse_args()
+    if args.headed and args.headless:
+        # 2026-10-15 CI 首跑事故的防线：workflow 一直传 --headless，而 argparse
+        # 只有 --headed，首次真跑即 argparse exit 2（脚本根本没启动，业务回执
+        # 都没发，只剩 CI 兜底告警）。现在两个都是合法参数，但同时传=自相矛盾
+        ap.error("--headed 与 --headless 互斥，只能选一个（默认就是 headless）")
 
     result = run(
         auth_file=Path(args.auth),
