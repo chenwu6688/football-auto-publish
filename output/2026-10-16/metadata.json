@@ -1,7 +1,7 @@
 {
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T04:05:38.499667",
-  "total_articles": 3,
+  "generated_at": "2026-10-16T10:05:23.102232",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -104,119 +104,227 @@
       "is_prediction": false,
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "老马一个人干翻整条英格兰后防，那年你几岁？",
+      "path": "/home/runner/work/_temp/output/2026-10-16/article-1-老马一个人干翻整-a7aad4.md",
+      "slug": "老马一个人干翻整-a7aad4",
+      "tags": [
+        "Maradona",
+        "1986 World Cup",
+        "Argentina vs England",
+        "Hand of God",
+        "Goal of the Century"
+      ],
+      "keywords": [
+        "Maradona",
+        "1986 World Cup",
+        "Argentina vs England",
+        "Hand of God",
+        "Goal of the Century"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "历史回顾",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "那个曾让国足头疼的日本中场，如今在街头踢野球，你还能认出他吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-16/article-2-那个曾让国足头疼-ac04a0.md",
+      "slug": "那个曾让国足头疼-ac04a0",
+      "tags": [
+        "Japanese midfielder",
+        "Chinese football",
+        "memories",
+        "retired star",
+        "street football"
+      ],
+      "keywords": [
+        "Japanese midfielder",
+        "Chinese football",
+        "memories",
+        "retired star",
+        "street football"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "中国足球",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "曼城这对手摆大巴？拜仁莱比锡对攻战，贝蒂斯巴萨有冷",
+      "path": "/home/runner/work/_temp/output/2026-10-16/article-3-曼城这对手摆大巴-5d64fe.md",
+      "slug": "曼城这对手摆大巴-5d64fe",
+      "tags": [
+        "Manchester City",
+        "Bayern Munich",
+        "Barcelona",
+        "Arsenal",
+        "Inter Milan",
+        "Premier League",
+        "Bundesliga",
+        "La Liga"
+      ],
+      "keywords": [
+        "Manchester City",
+        "Bayern Munich",
+        "Barcelona",
+        "Arsenal",
+        "Inter Milan",
+        "Premier League",
+        "Bundesliga",
+        "La Liga"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-16/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-16/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "申花这伤病名单有多惨？阿苏埃简单包扎就上，技术流路线还能坚持多久",
-      "angle": "从申花伤病潮切入，聊中超争冠球队在赛季末段的体能和人员管理。阿苏埃带伤上阵的画面很有冲击力，结合东体'技术流路线值得坚持'的观点，讨论申花在残阵下是否该调整打法。",
+      "title": "37岁艾克森退役一年半，这身材比踢球时还壮，他后悔过吗？",
+      "angle": "归化一代的缩影。当年被寄予厚望的艾克森如今淡出视野，晒照身材反而更好，写归化潮退去后这批人的处境，落到老球迷对国足那段折腾岁月的复杂情绪上。",
       "keywords": [
-        "Shanghai Shenhua",
-        "injury crisis",
-        "CSL title race",
-        "Asue"
+        "Elkeson",
+        "naturalized player",
+        "China national team"
       ],
       "keywords_cn": [
-        "上海申花",
-        "伤病潮",
-        "中超争冠",
-        "阿苏埃"
+        "艾克森",
+        "归化球员",
+        "国足"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "归化潮退潮后的人物弧光，戳老球迷",
+      "_category": "中国足球",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "国足时隔7年重返广州天体，最强阵出战，这次能赢一场吗？",
+      "angle": "从广州承办国足A级赛这个细节切入，讲这7年国足和球迷各自经历了什么，11月热身对手巴林、马来西亚并非鱼腩，别急着喊赢，先看能不能踢出点样子。",
+      "keywords": [
+        "China national team",
+        "Guangzhou",
+        "friendly match"
+      ],
+      "keywords_cn": [
+        "国足",
+        "广州",
+        "热身赛"
       ],
       "content_type": "热点球评",
-      "score": 78,
+      "score": 85,
       "controversy_level": "medium",
-      "target_emotion": "感动",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "申花争冠关键期伤病话题有共鸣，阿苏埃带伤细节有画面感，避开已覆盖球队",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "广州7年之约，国足情怀天然共鸣",
       "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "曼联这操作没想到吧，利马场外风波竟然影响续约谈判了",
-      "angle": "罗马诺确认利马不会被内部禁赛，但这事已经影响到续约。从更衣室管理的角度切入，聊曼联管理层处理球员纪律问题的尺度，以及这种'不罚但记着'的做法对球队氛围的长期影响。",
-      "keywords": [
-        "Lisandro Martinez",
-        "Man United",
-        "contract renewal",
-        "discipline"
-      ],
-      "keywords_cn": [
-        "利马",
-        "曼联",
-        "续约",
-        "更衣室管理"
-      ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "罗马诺独家消息，曼联队内管理话题有讨论度，且避开已覆盖的曼联比赛话题",
-      "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "没想到莱比锡主帅压力比拜仁还大，9分对上11分，他输不起什么？",
-      "content_type": "人物故事",
-      "_is_fixture": true
-    },
-    {
-      "title": "德国战车七比一碾碎五星巴西，那夜谁还记得桑巴足球的魂？",
+      "title": "老马一个人干翻整条英格兰后防，那年你几岁？",
       "content_type": "历史回顾",
       "_column_name": "人物故事",
       "_from_reservoir": true
+    },
+    {
+      "title": "那个曾让国足头疼的日本中场，如今在街头踢野球，你还能认出他吗？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "曼城这对手摆大巴？拜仁莱比锡对攻战，贝蒂斯巴萨有冷",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
+      "一级·确定性": 0,
       "二级·突发": 0,
-      "三级·软性": 1
+      "三级·软性": 2
     },
     "ratios": {
-      "一级·确定性": 50.0,
+      "一级·确定性": 0.0,
       "二级·突发": 0.0,
-      "三级·软性": 50.0
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -224,17 +332,23 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
+      "一级·确定性": -30.0,
       "二级·突发": -50.0,
-      "三级·软性": 30.0
+      "三级·软性": 80.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "互动引导未达标",
+      "环节": "互动引导兜底",
       "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -244,35 +358,26 @@
       "数量": 1
     }
   ],
-  "pending_review": [
-    {
-      "id": "2026-10-16-2-a17c26",
-      "index": 2,
-      "title": "德国战车七比一碾碎五星巴西，那夜谁还记得桑巴足球的魂？",
-      "reasons": [
-        "伤病(命中：伤退)"
-      ]
-    }
-  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-16 12:05:38"
+  "last_batch": "evening",
+  "last_updated": "2026-10-16 18:05:23"
 }
