@@ -36,8 +36,12 @@
     {
       "at": "2026-10-14 18:42",
       "files": []
+    },
+    {
+      "at": "2026-10-15 20:04",
+      "files": []
     }
   ],
-  "updated_at": "2026-10-14 18:42",
+  "updated_at": "2026-10-15 20:04",
   "_note": "导出投递箱幂等台账（建议7）：key = 文件 sha256，value = {kind, file, at, status}；history 保留最近 60 次投递。由 scripts/ingest_exports.py 维护。"
 }
