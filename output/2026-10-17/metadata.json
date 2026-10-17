@@ -1,7 +1,7 @@
 {
   "date": "2026-10-17",
-  "generated_at": "2026-10-17T00:04:33.512249",
-  "total_articles": 2,
+  "generated_at": "2026-10-17T04:05:14.744530",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -71,18 +71,217 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "欧冠射手榜第三，斯图加特主帅竟然比西蒙尼还愁？",
+      "path": "/home/runner/work/_temp/output/2026-10-17/article-1-欧冠射手榜第三斯-9a6fa2.md",
+      "slug": "欧冠射手榜第三斯-9a6fa2",
+      "tags": [
+        "VfB Stuttgart",
+        "Atletico Madrid",
+        "Champions League",
+        "Demirovic",
+        "Simeone"
+      ],
+      "keywords": [
+        "VfB Stuttgart",
+        "Atletico Madrid",
+        "Champions League",
+        "Demirovic",
+        "Simeone"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-17/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-17/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "当年欧冠决赛扑出点球的托尔多，为啥现在只能在酒吧看球？",
+      "path": "/home/runner/work/_temp/output/2026-10-17/article-2-当年欧冠决赛扑出-99ecd4.md",
+      "slug": "当年欧冠决赛扑出-99ecd4",
+      "tags": [
+        "Toldo",
+        "Euro 2000",
+        "veteran footballers",
+        "nostalgia",
+        "fan memory"
+      ],
+      "keywords": [
+        "Toldo",
+        "Euro 2000",
+        "veteran footballers",
+        "nostalgia",
+        "fan memory"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "斯图加特主帅压力竟比马竞还大，他输不起什么？",
+      "title": "佩工带贝蒂斯成西甲劲旅，为啥至今还没拿到续约？",
+      "angle": "阿斯报披露佩莱格里尼把贝蒂斯带成西甲劲旅，却迟迟没续约。老六态度：足球江湖最不讲情面，功勋教头也逃不过'成绩说话'，这是名帅沉浮的典型样本。",
+      "keywords": [
+        "Pellegrini",
+        "Real Betis",
+        "La Liga",
+        "contract"
+      ],
+      "keywords_cn": [
+        "佩莱格里尼",
+        "贝蒂斯",
+        "西甲",
+        "续约"
+      ],
+      "content_type": "转会资讯",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "功勋教头续约悬念，人物弧光强",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "刘建宏说中国该接2027亚洲杯，这话你信几分？",
+      "angle": "刘建宏公开表态沙特若办不了2027亚洲杯，中国接替挺合适。老六态度：接办是面子，但更该问的是我们拿什么去踢——别又办成主场三场游，戳中老球迷对国足爱恨交织的复杂心态。",
+      "keywords": [
+        "2027 Asian Cup",
+        "Liu Jianhong",
+        "China football",
+        "Saudi Arabia"
+      ],
+      "keywords_cn": [
+        "2027亚洲杯",
+        "刘建宏",
+        "国足",
+        "沙特"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "接办亚洲杯+国足情结，天然争议话题",
+      "_category": "冲突舆情",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "于根伟说泪点没那么低，津门虎四连胜保级背后藏着啥？",
+      "angle": "津门虎四连胜基本保级，门将发文'上岸'，于根伟却说'我的泪点没那么低'。老六角度：一支被看衰的球队靠血性和主帅个人魅力翻身，这才是中国足球少见的纯粹故事，比喊口号动人。",
+      "keywords": [
+        "Yu Genwei",
+        "Tianjin Jinmen Tiger",
+        "relegation battle",
+        "CSL"
+      ],
+      "keywords_cn": [
+        "于根伟",
+        "津门虎",
+        "保级",
+        "中超"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "主帅人物弧光+保级逆袭，有人味",
+      "_category": "中国足球",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "欧冠射手榜第三，斯图加特主帅竟然比西蒙尼还愁？",
       "content_type": "人物故事",
       "_is_fixture": true
     },
     {
-      "title": "C罗梅西生涯进球远超传奇，但射手榜前五里谁最让你意难平？",
-      "content_type": "榜单",
-      "_column_name": "战术榜单",
+      "title": "当年欧冠决赛扑出点球的托尔多，为啥现在只能在酒吧看球？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
       "_from_reservoir": true
     }
   ],
@@ -119,6 +318,12 @@
       "数量": 1
     },
     {
+      "环节": "评分连续不过",
+      "原因": "标题评分未过(48分)",
+      "处置": "丢弃该选题并由候选池补位",
+      "数量": 1
+    },
+    {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
@@ -133,7 +338,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -147,8 +352,9 @@
   },
   "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-17 08:04:33"
+  "last_batch": "noon",
+  "last_updated": "2026-10-17 12:05:14"
 }
