@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-17",
+  "generated_at": "2026-10-17T00:04:33.512249",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "斯图加特主帅压力竟比马竞还大，他输不起什么？",
+      "path": "/home/runner/work/_temp/output/2026-10-17/article-1-斯图加特主帅压力-f0f321.md",
+      "slug": "斯图加特主帅压力-f0f321",
+      "tags": [
+        "Stuttgart",
+        "Atletico Madrid",
+        "Champions League",
+        "Demirovic",
+        "pressure"
+      ],
+      "keywords": [
+        "Stuttgart",
+        "Atletico Madrid",
+        "Champions League",
+        "Demirovic",
+        "pressure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-17/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "C罗梅西生涯进球远超传奇，但射手榜前五里谁最让你意难平？",
+      "path": "/home/runner/work/_temp/output/2026-10-17/article-2-C罗梅西生涯进球-c5581f.md",
+      "slug": "C罗梅西生涯进球-c5581f",
+      "tags": [
+        "Cristiano Ronaldo",
+        "Lionel Messi",
+        "all-time top scorers",
+        "football history",
+        "Chinese football"
+      ],
+      "keywords": [
+        "Cristiano Ronaldo",
+        "Lionel Messi",
+        "all-time top scorers",
+        "football history",
+        "Chinese football"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    }
+  ],
+  "topics": [
+    {
+      "title": "斯图加特主帅压力竟比马竞还大，他输不起什么？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    },
+    {
+      "title": "C罗梅西生涯进球远超传奇，但射手榜前五里谁最让你意难平？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
+    },
+    "ratios": {
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-17 08:04:33"
+}
