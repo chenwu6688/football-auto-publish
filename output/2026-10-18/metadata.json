@@ -1,7 +1,7 @@
 {
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T04:11:06.211040",
-  "total_articles": 3,
+  "generated_at": "2026-10-18T10:09:51.118188",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -104,33 +104,136 @@
       "is_prediction": false,
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "C罗梅西领跑射手榜，老球迷却想起那个用脚后跟进球的人？",
+      "path": "/home/runner/work/_temp/output/2026-10-18/article-1-C罗梅西领跑射手-4764e4.md",
+      "slug": "C罗梅西领跑射手-4764e4",
+      "tags": [
+        "Cristiano Ronaldo",
+        "Lionel Messi",
+        "All-time top scorers",
+        "Assists leaders",
+        "World Cup"
+      ],
+      "keywords": [
+        "Cristiano Ronaldo",
+        "Lionel Messi",
+        "All-time top scorers",
+        "Assists leaders",
+        "World Cup"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "大罗三次决赛进球碾压梅西？外星人效率真比球王高吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-18/article-2-大罗三次决赛进球-f67a44.md",
+      "slug": "大罗三次决赛进球-f67a44",
+      "tags": [
+        "Ronaldo",
+        "Messi",
+        "World Cup",
+        "Finals",
+        "Stats"
+      ],
+      "keywords": [
+        "Ronaldo",
+        "Messi",
+        "World Cup",
+        "Finals",
+        "Stats"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "利兹联打曼联这场，我劝红魔球迷别抱幻想",
+      "path": "/home/runner/work/_temp/output/2026-10-18/article-3-利兹联打曼联这场-d26036.md",
+      "slug": "利兹联打曼联这场-d26036",
+      "tags": [
+        "Leeds United vs Manchester United",
+        "Real Madrid vs Sevilla",
+        "AC Milan vs Atalanta",
+        "Arsenal vs Nottingham Forest"
+      ],
+      "keywords": [
+        "Leeds United vs Manchester United",
+        "Real Madrid vs Sevilla",
+        "AC Milan vs Atalanta",
+        "Arsenal vs Nottingham Forest"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-18/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "没想到诺丁汉森林主帅这场压力比阿森纳还大？",
-      "content_type": "人物故事",
-      "_is_fixture": true
-    },
-    {
-      "title": "梅西C罗进球数甩开传奇，老球迷的青春真被他们偷走了吗？",
+      "title": "C罗梅西领跑射手榜，老球迷却想起那个用脚后跟进球的人？",
       "content_type": "榜单",
       "_column_name": "战术榜单",
       "_from_reservoir": true
+    },
+    {
+      "title": "大罗三次决赛进球碾压梅西？外星人效率真比球王高吗？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "利兹联打曼联这场，我劝红魔球迷别抱幻想",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
+      "一级·确定性": 0,
       "二级·突发": 0,
-      "三级·软性": 1
+      "三级·软性": 2
     },
     "ratios": {
-      "一级·确定性": 50.0,
+      "一级·确定性": 0.0,
       "二级·突发": 0.0,
-      "三级·软性": 50.0
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -138,17 +241,23 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
+      "一级·确定性": -30.0,
       "二级·突发": -50.0,
-      "三级·软性": 30.0
+      "三级·软性": 80.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "互动引导未达标",
+      "环节": "互动引导兜底",
       "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -158,35 +267,26 @@
       "数量": 1
     }
   ],
-  "pending_review": [
-    {
-      "id": "2026-10-18-2-0404ac",
-      "index": 2,
-      "title": "梅西C罗进球数甩开传奇，老球迷的青春真被他们偷走了吗？",
-      "reasons": [
-        "合同金额(命中：转会费；含金额量词)"
-      ]
-    }
-  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-18 12:11:06"
+  "last_batch": "evening",
+  "last_updated": "2026-10-18 18:09:51"
 }
