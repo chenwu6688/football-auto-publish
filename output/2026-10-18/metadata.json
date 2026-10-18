@@ -1,7 +1,7 @@
 {
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T00:06:20.539594",
-  "total_articles": 2,
+  "generated_at": "2026-10-18T04:11:06.211040",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -67,181 +67,53 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "没想到诺丁汉森林主帅这场压力比阿森纳还大？",
+      "path": "/home/runner/work/_temp/output/2026-10-18/article-1-没想到诺丁汉森林-797020.md",
+      "slug": "没想到诺丁汉森林-797020",
+      "tags": [
+        "Nottingham Forest",
+        "Arsenal",
+        "Premier League",
+        "manager pressure",
+        "underdog"
+      ],
+      "keywords": [
+        "Nottingham Forest",
+        "Arsenal",
+        "Premier League",
+        "manager pressure",
+        "underdog"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-18/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "拜仁6-1血洗莱比锡，凯恩这只老狐狸到底还能火几年？",
-      "angle": "拜仁主场6-1血洗莱比锡，凯恩依旧是锋线核心。老球迷视角：30+中锋的保质期到底有多长，凯恩用进球回击所有质疑。",
-      "keywords": [
-        "Bayern Munich",
-        "Harry Kane",
-        "Bundesliga"
-      ],
-      "keywords_cn": [
-        "拜仁",
-        "凯恩",
-        "德甲"
-      ],
-      "content_type": "人物故事",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "6-1惨案+凯恩年龄话题，老球迷天然关心前锋保质期",
-      "_category": "战报比分",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "人物故事",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-3",
-      "_degraded": true
-    },
-    {
-      "title": "曼联又盯上巴萨巴尔德？这笔转会到底谁在算计谁？",
-      "angle": "罗马诺爆料曼联仍对巴尔德感兴趣，但巴萨只接受永久转会且要价很高。曼联的边卫补强计划，和巴萨的财政算盘，谁更着急？",
-      "keywords": [
-        "Manchester United",
-        "Alejandro Balde",
-        "Barcelona"
-      ],
-      "keywords_cn": [
-        "曼联",
-        "巴尔德",
-        "巴萨"
-      ],
-      "content_type": "转会资讯",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "罗马诺爆料+两大豪门博弈，转会窗流量密码",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "1亿英镑！伯恩茅斯敢给斯科特标这个价，谁给的底气？",
-      "angle": "罗马诺报道伯恩茅斯愿冬窗出售斯科特，但要价至少1亿英镑。一个中游球队给自家球员标天价，是自信还是虚张声势？",
-      "keywords": [
-        "Bournemouth",
-        "Alex Scott",
-        "transfer"
-      ],
-      "keywords_cn": [
-        "伯恩茅斯",
-        "斯科特",
-        "转会"
-      ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "1亿英镑标价太离谱，评论区必炸",
-      "_category": "转会官宣",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-1"
-    },
-    {
-      "title": "大马丁下颌手术成功，门将的命门竟然在脸上？",
-      "angle": "奥莱报报道大马丁下颌手术成功，将接受医学观察。门将这个位置，脸就是最后的防线，老球迷聊聊那些年被球砸脸的门神。",
-      "keywords": [
-        "Emiliano Martinez",
-        "surgery",
-        "Aston Villa"
-      ],
-      "keywords_cn": [
-        "大马丁",
-        "手术",
-        "维拉"
-      ],
-      "content_type": "八卦趣事",
-      "score": 80,
-      "controversy_level": "low",
-      "target_emotion": "感动",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "门将伤病+职业风险，老球迷有共鸣",
-      "_category": "未分类",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-2"
-    },
-    {
-      "title": "诺丁汉森林主帅这场比阿尔特塔还难熬？",
+      "title": "没想到诺丁汉森林主帅这场压力比阿森纳还大？",
       "content_type": "人物故事",
       "_is_fixture": true
     },
     {
-      "title": "国足锋无力？看看李惠堂和郝海东，他们比现在差在哪？",
+      "title": "梅西C罗进球数甩开传奇，老球迷的青春真被他们偷走了吗？",
       "content_type": "榜单",
       "_column_name": "战术榜单",
       "_from_reservoir": true
@@ -280,27 +152,25 @@
       "数量": 1
     },
     {
-      "环节": "一致性校验",
-      "原因": "事实验证连续不过: 比分不一致: 比赛数据 拜仁 6-1 莱比锡暂居榜，但文中未出现该比分",
-      "处置": "降级为低风险板块（人物故事）后重生成一次",
-      "数量": 1
-    },
-    {
-      "环节": "互动引导兜底",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入",
-      "数量": 1
-    },
-    {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
     }
   ],
+  "pending_review": [
+    {
+      "id": "2026-10-18-2-0404ac",
+      "index": 2,
+      "title": "梅西C罗进球数甩开传奇，老球迷的青春真被他们偷走了吗？",
+      "reasons": [
+        "合同金额(命中：转会费；含金额量词)"
+      ]
+    }
+  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -312,10 +182,11 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-18 08:06:20"
+  "last_batch": "noon",
+  "last_updated": "2026-10-18 12:11:06"
 }
