@@ -35,13 +35,13 @@
       "column_name": "战术榜单",
       "batch_name": "晚间",
       "performance": {
-        "reads": 1,
+        "reads": 2,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.5,
-        "impressions": 3840,
-        "follower_reads": 0,
+        "impressions": 4556,
+        "follower_reads": 1,
         "click_rate": 0.0
       },
       "platform_id": "7695444367607104035"
@@ -79,7 +79,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 3728,
+        "impressions": 4428,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -113,12 +113,12 @@
       "column_name": "战术榜单",
       "batch_name": "晚间",
       "performance": {
-        "reads": 64,
+        "reads": 69,
         "comments": 8,
         "likes": 5,
         "shares": 0,
-        "retention_rate": 0.2975,
-        "impressions": 4729,
+        "retention_rate": 0.2726,
+        "impressions": 5536,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -157,7 +157,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 3975,
+        "impressions": 4701,
         "follower_reads": 1,
         "click_rate": 0.0
       },
@@ -256,12 +256,12 @@
       "batch_name": "午间",
       "supply_layer": "三级·软性",
       "performance": {
-        "reads": 65,
-        "comments": 1,
+        "reads": 76,
+        "comments": 2,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.1546,
-        "impressions": 4564,
+        "retention_rate": 0.1111,
+        "impressions": 5420,
         "follower_reads": 2,
         "click_rate": 0.01
       },

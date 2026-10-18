@@ -140,7 +140,18 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "impressions": 1147,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7697483060597506594"
     },
     {
       "index": 2,
