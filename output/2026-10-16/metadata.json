@@ -69,14 +69,14 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 13,
+        "reads": 14,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.2233,
-        "impressions": 2360,
+        "retention_rate": 0.1914,
+        "impressions": 3364,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7697049955936076324"
     },
@@ -121,9 +121,9 @@
         "likes": 3,
         "shares": 0,
         "retention_rate": 0.1862,
-        "impressions": 4609,
+        "impressions": 5586,
         "follower_reads": 0,
-        "click_rate": 0.06
+        "click_rate": 0.05
       },
       "platform_id": "7697112085255324194"
     },
@@ -164,7 +164,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.316,
-        "impressions": 1885,
+        "impressions": 2869,
         "follower_reads": 0,
         "click_rate": 0.0
       },

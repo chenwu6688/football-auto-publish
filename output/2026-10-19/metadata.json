@@ -67,7 +67,17 @@
       "batch_name": "晨读",
       "is_prediction": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 503,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7698163595422581311"
     },
     {
       "index": 1,
@@ -137,7 +147,17 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 373,
+        "follower_reads": 2,
+        "click_rate": 0.01
+      },
+      "platform_id": "7698226085842813494"
     },
     {
       "index": 1,
@@ -169,7 +189,17 @@
       "batch_name": "晚间",
       "is_prediction": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 192,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7698317914725777955"
     },
     {
       "index": 2,
