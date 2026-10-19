@@ -289,9 +289,11 @@ def test_preseded_fail_streak_keeps_unreliable_at_back(tmp_path, monkeypatch):
 
 
 def test_call_llm_downgrades_on_400(monkeypatch):
-    """HTTP 400 时应用「最小参数集」重试一次（实测 glm-5.3 拒绝 thinking 参数）。
+    """HTTP 400 时应用「最小参数集」重试一次。
 
-    用假 requests.post 模拟：第一次（含 thinking）返回 400，降级重试返回 200。
+    用假 requests.post 模拟：第一次返回 400，降级重试返回 200。
+    注意（2026-10-19 修正）：glm-5.3 首次请求**不再带 thinking**——
+    传了不报 400 而是把推理回显进 content，JSON 解析必失败（见下条回归）。
     """
     import requests as _rq
 
@@ -309,13 +311,94 @@ def test_call_llm_downgrades_on_400(monkeypatch):
     def fake_post(url, json=None, headers=None, timeout=None):
         calls.append(dict(json or {}))
         if len(calls) == 1:
-            return FakeResp(400, '{"error":"unknown parameter: thinking"}')
+            return FakeResp(400, '{"error":"unsupported parameter"}')
         return FakeResp(200, "")
 
     monkeypatch.setattr(utils.requests, "post", fake_post)
     out = utils.call_llm("https://x/v1", "k", "glm-5.3", [{"role": "user", "content": "hi"}])
     assert out == '{"ok": true}'
     assert len(calls) == 2, "400 后应降级重试一次"
-    assert "thinking" in calls[0], "首次应带 thinking 参数"
+    assert "thinking" not in calls[0], "glm- 模型首次就不应带 thinking（修复项）"
+    assert "temperature" in calls[0], "glm- 模型首次应带 temperature"
     assert "thinking" not in calls[1], "降级重试应去掉 thinking"
     assert "temperature" not in calls[1], "降级重试应去掉 temperature"
+
+
+def test_glm_models_never_receive_thinking_param(monkeypatch):
+    """回归保护（2026-10-19 事故）：glm- 系列绝不传 thinking 参数。
+
+    根因：utils._build_body 曾给 glm- 传 thinking={"type":"disabled"}，TokenHub 不报错，
+    而是 HTTP 200 把推理过程回显进 content（"The user is asking me to output only JSON..."），
+    call_llm_json 的 JSON 解析必然失败 → 判「无法解析」沉底 fail_streak，满额模型白白闲置。
+    实测 glm-5.3/5.3-flash/5.3-flashx/5.2 最小参数集均返回干净 JSON。
+    """
+    import requests as _rq
+
+    calls = []
+    class FakeResp:
+        status_code = 200
+        text = ""
+        def raise_for_status(self):
+            pass
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}], "usage": {}}
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        calls.append(dict(json or {}))
+        return FakeResp()
+
+    monkeypatch.setattr(utils.requests, "post", fake_post)
+    for m in ["glm-5.3", "glm-5.3-flash", "glm-5.3-flashx", "glm-5.2"]:
+        calls.clear()
+        out = utils.call_llm("https://x/v1", "k", m, [{"role": "user", "content": "hi"}])
+        assert out == '{"ok": true}'
+        assert len(calls) == 1, f"{m} 首次请求应直接成功（无需 400 降级）"
+        assert "thinking" not in calls[0], f"{m} 请求体绝不应含 thinking"
+        assert calls[0].get("temperature") == 0.7, f"{m} 应保留 temperature"
+
+
+def test_deepseek_still_gets_thinking_disabled(monkeypatch):
+    """配套保护：deepseek/qwen3 推理模型的 thinking 关断适配不能丢。
+
+    与 glm- 修复互斥——deepseek 不关 thinking 时 reasoning 吃掉大量 token 且输出不稳。
+    """
+    calls = []
+    class FakeResp:
+        status_code = 200
+        text = ""
+        def raise_for_status(self):
+            pass
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}], "usage": {}}
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        calls.append(dict(json or {}))
+        return FakeResp()
+
+    monkeypatch.setattr(utils.requests, "post", fake_post)
+    for m in ["deepseek-v4-flash-202605", "deepseek/deepseek-flash", "qwen3-max"]:
+        calls.clear()
+        utils.call_llm("https://x/v1", "k", m, [{"role": "user", "content": "hi"}])
+        assert calls[0].get("thinking") == {"type": "disabled"}, \
+            f"{m} 应带 thinking disabled（防 reasoning 吃 token）"
+
+
+def test_kimi_temperature_pinned_to_one(monkeypatch):
+    """配套保护：kimi 系列 temperature 固定 1.0 的适配不能丢。"""
+    calls = []
+    class FakeResp:
+        status_code = 200
+        text = ""
+        def raise_for_status(self):
+            pass
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}], "usage": {}}
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        calls.append(dict(json or {}))
+        return FakeResp()
+
+    monkeypatch.setattr(utils.requests, "post", fake_post)
+    utils.call_llm("https://x/v1", "k", "kimi-k3", [{"role": "user", "content": "hi"}])
+    assert calls[0].get("temperature") == 1.0, "kimi 只接受 temperature=1"
+    assert "thinking" not in calls[0], "kimi 不应带 thinking"

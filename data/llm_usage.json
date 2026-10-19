@@ -1,5 +1,5 @@
 {
-  "_calibration_note": "2026-10-08 全量对齐 TokenHub 后台截图（后台=唯一真值，已用=1000000-剩余）。本地值取 max(截图已用, CI累计已用) 作为保守下限（宁可高估消耗、早切换，也不超额扣费）。hy3/deepseek-v4-pro 已停止，不列入。",
+  "_calibration_note": "2026-10-19 按 TokenHub 后台三张截图全量校准（后台=唯一真值，已用=1,000,000-剩余%；本地 total 取 max(后台, CI累计) + 本地探针消耗）。prompt/completion 仅 CI 累计，不与 total 强一致。glm-5.2/5.3/5.3-flash/5.3-flashx fail_streak 清零：根因为客户端传 thinking 参数使模型把推理回显进 content、JSON 解析失败（utils._build_body 已修），非模型故障，实测四型号最小参数集均返回干净 JSON。deepseek-v4-flash(403,000)与 glm-5.2-flash(9,000) 后台有消耗但不在轮换列表，记录备查（疑历史/他端消耗）。deepseek-v4-flash-0731 后台标记「模型待下线」，留意轮换替换。hy3/deepseek-v4-pro 已停止未列入。",
   "hy4-preview": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
@@ -9,61 +9,61 @@
   "deepseek-v4-flash-202605": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 575000,
+    "total_tokens": 591000,
     "fail_streak": 2
   },
   "kimi-k2.8-preview": {
     "prompt_tokens": 6481,
     "completion_tokens": 5734,
-    "total_tokens": 519000,
+    "total_tokens": 583000,
     "fail_streak": 3
   },
   "mimo-v2.6-pro": {
     "prompt_tokens": 41536,
     "completion_tokens": 19043,
-    "total_tokens": 390000,
+    "total_tokens": 409000,
     "fail_streak": 3
   },
   "mimo-v2.6-flash": {
     "prompt_tokens": 49609,
     "completion_tokens": 26291,
-    "total_tokens": 373000,
+    "total_tokens": 393000,
     "fail_streak": 2
   },
   "step-5-preview": {
     "prompt_tokens": 26491,
     "completion_tokens": 26050,
-    "total_tokens": 319000,
+    "total_tokens": 338000,
     "fail_streak": 3
   },
   "kimi-k2.7-code-highspeed": {
     "prompt_tokens": 30916,
     "completion_tokens": 40406,
-    "total_tokens": 181000,
+    "total_tokens": 202000,
     "fail_streak": 3
   },
   "deepseek-v4-pro-0813": {
     "prompt_tokens": 247155,
     "completion_tokens": 81040,
-    "total_tokens": 386430,
+    "total_tokens": 445102,
     "fail_streak": 0
   },
   "kimi-k3": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 117000,
+    "total_tokens": 121000,
     "fail_streak": 3
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
     "prompt_tokens": 140018,
     "completion_tokens": 34148,
-    "total_tokens": 219215,
+    "total_tokens": 276000,
     "fail_streak": 3
   },
   "deepseek-v4-flash-0731": {
     "prompt_tokens": 219729,
     "completion_tokens": 71182,
-    "total_tokens": 336838,
+    "total_tokens": 431000,
     "fail_streak": 2
   },
   "deepseek-v4.1-flash": {
@@ -75,43 +75,53 @@
   "glm-5.2": {
     "prompt_tokens": 68411,
     "completion_tokens": 9578,
-    "total_tokens": 123735,
-    "fail_streak": 3
+    "total_tokens": 156000,
+    "fail_streak": 0
   },
   "deepseek/deepseek-flash": {
     "prompt_tokens": 168101,
     "completion_tokens": 41528,
-    "total_tokens": 225363,
+    "total_tokens": 331000,
     "fail_streak": 3
   },
   "deepseek-v4-pro-202606": {
     "prompt_tokens": 113744,
     "completion_tokens": 33499,
-    "total_tokens": 219243,
+    "total_tokens": 292000,
     "fail_streak": 3
   },
   "glm-5.3": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 0,
-    "fail_streak": 3
+    "total_tokens": 128503,
+    "fail_streak": 0
   },
   "glm-5.3-flash": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 0,
-    "fail_streak": 3
+    "fail_streak": 0
   },
   "glm-5.3-flashx": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 0,
-    "fail_streak": 3
+    "total_tokens": 9031,
+    "fail_streak": 0
   },
   "qwen-plus": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 0,
     "disabled": true
+  },
+  "deepseek-v4-flash": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 403000
+  },
+  "glm-5.2-flash": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 9000
   }
 }

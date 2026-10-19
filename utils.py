@@ -87,15 +87,19 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
             "model": m, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False
         }
-        # TokenHub 模型参数适配（2026-08-28 实测确认，2026-09-14 扩充）：
+        # TokenHub 模型参数适配（2026-08-28 实测确认，2026-10-19 修正）：
         # - kimi 系列只接受 temperature=1，传 0.7 会 400
-        # - deepseek/glm/qwen3 为推理模型，不关 thinking 时 reasoning 吃掉大量 token
-        #   且 glm 甚至可能 content 为空；关掉后 token 省一半以上且输出稳定
+        # - deepseek/qwen3 为推理模型，不关 thinking 时 reasoning 吃掉大量 token；
+        #   关掉后 token 省一半以上且输出稳定
         #   注意：deepseek 前缀用 "deepseek"（不带连字符），以同时覆盖
         #   "deepseek-v4-..." 与 "deepseek/..."(如 deepseek/deepseek-flash) 两种命名
+        # - **glm- 系列绝不传 thinking**（2026-10-19 实测）：传了不报 400，而是 HTTP 200
+        #   把推理过程回显进 content（如 "The user is asking me to output only JSON..."），
+        #   JSON 解析必失败 → call_llm_json 判「无法解析」沉底 fail_streak，满额模型白白闲置。
+        #   实测 minimal/temperature-only 参数集均返回干净 JSON（glm-5.3/5.3-flash/5.3-flashx/5.2）。
         if m.startswith("kimi-"):
             body["temperature"] = 1.0
-        elif m.startswith(("deepseek", "glm-", "qwen3")):
+        elif m.startswith(("deepseek", "qwen3")):
             body["thinking"] = {"type": "disabled"}
         return body
 

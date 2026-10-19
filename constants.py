@@ -86,7 +86,9 @@ _HY3_ROTATION_MODELS = os.environ.get(
     # 以下实测易失灵（空响应/400），下调靠后兜底
     "kimi-k2.8-preview,step-5-preview,mimo-v2.6-pro,hy4-preview,"
     "glm-5.2,"
-    # GLM 5.3 系列：TokenHub 侧稳定 400，压到最末尾
+    # GLM 5.3 系列：2026-10-19 实测全部在线且 minimal 参数可返回干净 JSON；
+    # 此前的 fail_streak 是客户端传 thinking 参数导致推理回显进 content（见 utils._build_body），
+    # 非模型故障，已修复并校准清零。仍压末尾作深储备（剩余额度最高，真耗尽时顶上）。
     "glm-5.3-flash,glm-5.3-flashx,glm-5.3"
 ).split(",")
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
