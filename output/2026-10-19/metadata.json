@@ -1,7 +1,7 @@
 {
   "date": "2026-10-19",
-  "generated_at": "2026-10-19T00:06:09.439681",
-  "total_articles": 2,
+  "generated_at": "2026-10-19T04:08:45.853479",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -68,63 +68,131 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "斯图加特排第四主帅却比西蒙尼还慌？德米罗维奇这脚感能救他吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-19/article-1-斯图加特排第四主-803203.md",
+      "slug": "斯图加特排第四主-803203",
+      "tags": [
+        "Stuttgart",
+        "Atletico Madrid",
+        "Champions League",
+        "Demirovic",
+        "coach pressure"
+      ],
+      "keywords": [
+        "Stuttgart",
+        "Atletico Madrid",
+        "Champions League",
+        "Demirovic",
+        "coach pressure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-19/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "梅西C罗数据对比，谁才是真球王？老球迷你服谁？",
+      "path": "/home/runner/work/_temp/output/2026-10-19/article-2-梅西C罗数据对比-c8c210.md",
+      "slug": "梅西C罗数据对比-c8c210",
+      "tags": [
+        "Messi",
+        "Ronaldo",
+        "Data Comparison",
+        "Football",
+        "GOAT"
+      ],
+      "keywords": [
+        "Messi",
+        "Ronaldo",
+        "Data Comparison",
+        "Football",
+        "GOAT"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "曼联1-1利兹联，卡里克半场就换下利马，他到底在怕什么？",
-      "angle": "一场本该拿下利兹联的比赛踢成1-1，卡里克半场换下利马的理由是大腿不适，但结合利马赛前炮轰管理层、内维尔说这等于骂队友，这换人更像更衣室危机的信号。曼联的麻烦不在战术板，在人心。",
+      "title": "尤文主场0-3惨败拉齐奥，阿莱格里时代是不是该翻篇了？",
+      "angle": "尤文图斯主场被拉齐奥3球血洗，这不是一场普通失利，而是一次体系性崩塌。从阿莱格里的排兵布阵到球员执行，全队像没睡醒。老六直接开炮：这支尤文已经配不上豪门二字，管理层还在等什么？",
       "keywords": [
-        "manchester united",
-        "leeds united",
-        "carrick",
-        "lisandro martinez",
-        "dressing room"
+        "juventus",
+        "lazio",
+        "serie a",
+        "allegri"
       ],
       "keywords_cn": [
-        "曼联",
-        "利兹联",
-        "卡里克",
-        "利马",
-        "更衣室"
+        "尤文图斯",
+        "拉齐奥",
+        "意甲",
+        "阿莱格里"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 98,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "愤怒",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "内维尔爆料利马炮轰管理层等于骂队友，更衣室裂痕比1-1的比分更值得挖，卡里克处境微妙。",
+      "why_pick": "豪门主场惨败，主帅下课压力拉满，争议性极强。",
       "_category": "战报比分",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "的欧冠压力居然比西蒙尼还大？",
+      "title": "斯图加特排第四主帅却比西蒙尼还慌？德米罗维奇这脚感能救他吗？",
       "content_type": "人物故事",
       "_is_fixture": true
     },
     {
-      "title": "马拉多纳一人扛起那不勒斯，小城逆袭北方豪门凭的是什么？",
-      "content_type": "历史回顾",
-      "_column_name": "人物故事",
+      "title": "梅西C罗数据对比，谁才是真球王？老球迷你服谁？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
       "_from_reservoir": true
     }
   ],
@@ -175,7 +243,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -189,8 +257,9 @@
   },
   "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-19 08:06:09"
+  "last_batch": "noon",
+  "last_updated": "2026-10-19 12:08:45"
 }
