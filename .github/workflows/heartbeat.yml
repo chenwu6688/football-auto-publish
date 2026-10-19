@@ -1,7 +1,9 @@
 name: 调度健康检查
 # cron reactivation after repo went public 2026-06-11
 
-# 午检（12:37 CST，实际可能延迟）：仅检查晨读(morning)是否完成
+# 午检（12:37 CST，实际可能延迟）：仅检查晨读(morning)是否完成；
+#   另做「周一校准推送值守」——核对今日 calibration-reminder 是否真的被触发
+#   （2026-10-19 GitHub 整次丢弃 schedule 触发，见 scripts/check_calibration_push.py）
 # 终检（22:17 CST）：检查全部三个批次(morning/noon/evening)是否完成
 # 如有遗漏，通过 WxPusher 发送告警
 on:
@@ -9,6 +11,10 @@ on:
     - cron: '17 14 * * *'  # 22:17 CST — 终检，检查全部三个批次（offset to avoid stampede）
     - cron: '37 4 * * *'  # 12:37 CST — 午检，仅检查晨读是否完成，未完成则告警
   workflow_dispatch:
+
+permissions:
+  contents: read   # actions/checkout 拉代码
+  actions: read    # 读取校准提醒工作流的运行记录（值守用）
 
 jobs:
   heartbeat:
@@ -40,6 +46,19 @@ jobs:
             echo "period=final" >> $GITHUB_OUTPUT
             echo "expect=morning noon evening" >> $GITHUB_OUTPUT
           fi
+
+      - name: 周一校准推送值守（防 GitHub 丢调度）
+        if: steps.period.outputs.period == 'midday'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
+          WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+        run: |
+          # 仅周一实际检查；非周一脚本自行跳过。已触发（含 queued/in_progress）不告警，
+          # 只在一整天都没有任何运行记录时提醒手动补跑。
+          python3 scripts/check_calibration_push.py
 
       - name: 检查今日批次完成情况
         id: check
