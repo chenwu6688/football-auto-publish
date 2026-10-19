@@ -1,7 +1,7 @@
 {
   "date": "2026-10-19",
-  "generated_at": "2026-10-19T04:08:45.853479",
-  "total_articles": 4,
+  "generated_at": "2026-10-19T10:04:50.362504",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -138,76 +138,179 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "卡卡与内德维德同为金球却数据差一截，到底谁带队更硬？",
+      "path": "/home/runner/work/_temp/output/2026-10-19/article-1-卡卡与内德维德同-b94584.md",
+      "slug": "卡卡与内德维德同-b94584",
+      "tags": [
+        "Kaka",
+        "Nedved",
+        "Ballon d'Or",
+        "Serie A",
+        "football comparison"
+      ],
+      "keywords": [
+        "Kaka",
+        "Nedved",
+        "Ballon d'Or",
+        "Serie A",
+        "football comparison"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "巴乔94年踢飞点球，真是他一个人的错吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-19/article-2-巴乔94年踢飞点-2719da.md",
+      "slug": "巴乔94年踢飞点-2719da",
+      "tags": [
+        "Roberto Baggio",
+        "1994 World Cup",
+        "penalty shootout",
+        "Italy",
+        "Brazil"
+      ],
+      "keywords": [
+        "Roberto Baggio",
+        "1994 World Cup",
+        "penalty shootout",
+        "Italy",
+        "Brazil"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "历史回顾",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "热刺战考文垂别翻车，欧冠夜大巴黎死磕巴萨",
+      "path": "/home/runner/work/_temp/output/2026-10-19/article-3-热刺战考文垂别翻-ded84f.md",
+      "slug": "热刺战考文垂别翻-ded84f",
+      "tags": [
+        "Tottenham",
+        "Champions League",
+        "PSG vs Barcelona",
+        "Liverpool",
+        "Napoli"
+      ],
+      "keywords": [
+        "Tottenham",
+        "Champions League",
+        "PSG vs Barcelona",
+        "Liverpool",
+        "Napoli"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "尤文主场0-3惨败拉齐奥，阿莱格里时代是不是该翻篇了？",
-      "angle": "尤文图斯主场被拉齐奥3球血洗，这不是一场普通失利，而是一次体系性崩塌。从阿莱格里的排兵布阵到球员执行，全队像没睡醒。老六直接开炮：这支尤文已经配不上豪门二字，管理层还在等什么？",
+      "title": "尤文主场0-3惨败拉齐奥，莫塔的帅位竟然比想象中更悬？",
+      "angle": "尤文图斯在主场0-3完败拉齐奥，这不是一场普通的失利。从比赛过程看，尤文中场完全失控，防线被拉齐奥的反击打得七零八落。莫塔执教以来球队始终没有建立起清晰的进攻体系，这场惨败把问题彻底暴露在台面上。老球迷都清楚，尤文这种体量的俱乐部，主场被灌三个意味着什么。",
       "keywords": [
-        "juventus",
-        "lazio",
-        "serie a",
-        "allegri"
+        "Juventus",
+        "Lazio",
+        "Thiago Motta",
+        "Serie A"
       ],
       "keywords_cn": [
         "尤文图斯",
         "拉齐奥",
-        "意甲",
-        "阿莱格里"
+        "莫塔",
+        "意甲"
       ],
       "content_type": "热点球评",
-      "score": 98,
+      "score": 96,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "target_emotion": "震惊",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "豪门主场惨败，主帅下课压力拉满，争议性极强。",
+      "why_pick": "尤文主场惨败是今日最大爆点，莫塔帅位危机引发广泛讨论",
       "_category": "战报比分",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "斯图加特排第四主帅却比西蒙尼还慌？德米罗维奇这脚感能救他吗？",
-      "content_type": "人物故事",
-      "_is_fixture": true
-    },
-    {
-      "title": "梅西C罗数据对比，谁才是真球王？老球迷你服谁？",
+      "title": "卡卡与内德维德同为金球却数据差一截，到底谁带队更硬？",
       "content_type": "数据对比",
       "_column_name": "战术榜单",
       "_from_reservoir": true
+    },
+    {
+      "title": "巴乔94年踢飞点球，真是他一个人的错吗？",
+      "content_type": "历史回顾",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "热刺战考文垂别翻车，欧冠夜大巴黎死磕巴萨",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
+      "一级·确定性": 0,
       "二级·突发": 0,
-      "三级·软性": 1
+      "三级·软性": 2
     },
     "ratios": {
-      "一级·确定性": 50.0,
+      "一级·确定性": 0.0,
       "二级·突发": 0.0,
-      "三级·软性": 50.0
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -215,17 +318,17 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
+      "一级·确定性": -30.0,
       "二级·突发": -50.0,
-      "三级·软性": 30.0
+      "三级·软性": 80.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "互动引导未达标",
+      "环节": "互动引导兜底",
       "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -243,23 +346,24 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-19 12:08:45"
+  "last_batch": "evening",
+  "last_updated": "2026-10-19 18:04:50"
 }
