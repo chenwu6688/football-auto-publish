@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-19 12:08",
-  "ok": true,
+  "generated_at": "2026-10-19 18:04",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 126,
+      "total": 128,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 126 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 128 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 126,
-      "passed": 116,
-      "rate": 0.9206,
+      "total": 128,
+      "passed": 118,
+      "rate": 0.9219,
       "fails": [
         {
           "date": "2026-10-05",
@@ -116,7 +116,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 126 条，合规（≥60 分）116 条，通过率 92.1%（目标≥90%）",
+        "近 14 天成稿 128 条，合规（≥60 分）118 条，通过率 92.2%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-05', 'title': 'U23主力中卫被4S店试驾撞伤，这块铜牌他永远错过了', 'score': 57, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-06', 'title': '15岁门将跟着成年队训练，奥尼尔这步棋是不是下早了', 'score': 51, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-06', 'title': '36岁复出按住17岁天才，斯科尔斯认账了', 'score': 47, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}]"
       ]
@@ -137,20 +137,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 834,
-      "with_src": 55,
-      "rate": 0.0659,
+      "total": 836,
+      "with_src": 56,
+      "rate": 0.067,
       "detail": [
-        "成稿 834 条，带来源 55 条，覆盖率 6.6%（目标 100%）",
+        "成稿 836 条，带来源 56 条，覆盖率 6.7%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -182,7 +190,7 @@
       "dates": [
         "2026-10-19"
       ],
-      "checked": 21,
+      "checked": 18,
       "dropped": 0,
       "unknown": 0,
       "over_limit_runs": 0,
@@ -215,9 +223,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 126,
+      "total": 128,
       "detail": [
-        "近 14 天成稿 126 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 128 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -231,5 +239,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }

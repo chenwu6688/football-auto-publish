@@ -43,9 +43,9 @@
     "fail_streak": 3
   },
   "deepseek-v4-pro-0813": {
-    "prompt_tokens": 278138,
-    "completion_tokens": 91644,
-    "total_tokens": 486689,
+    "prompt_tokens": 305956,
+    "completion_tokens": 100229,
+    "total_tokens": 523092,
     "fail_streak": 0
   },
   "kimi-k3": {
