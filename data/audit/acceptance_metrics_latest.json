@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12 20:14",
+  "generated_at": "2026-10-19 18:05",
   "ok": true,
   "checks": [
     {
@@ -64,12 +64,14 @@
         "篇均阅读": null,
         "平均完成率": null,
         "日均涨粉": null,
+        "涨粉数据来源": null,
+        "涨粉样本天数": null,
         "整体点击率": null,
         "粉丝阅读占比": null,
         "_data_points": 0
       },
       "detail": [
-        "无数据时六项增长指标均为 None（非 0）：{'篇均阅读': None, '平均完成率': None, '日均涨粉': None, '整体点击率': None, '粉丝阅读占比': None, '_data_points': 0} ✅",
+        "无数据时六项增长指标均为 None（非 0）：{'篇均阅读': None, '平均完成率': None, '日均涨粉': None, '涨粉数据来源': None, '涨粉样本天数': None, '整体点击率': None, '粉丝阅读占比': None, '_data_points': 0} ✅",
         "空值渲染为「—（待接入）」✅"
       ]
     },

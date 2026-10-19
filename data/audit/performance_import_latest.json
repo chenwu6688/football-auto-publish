@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-10-12 20:14",
+  "generated_at": "2026-10-19 18:05",
   "ok": true,
   "checks": [
     {
       "item": "主键唯一性（slug 每天唯一；index 会重复故不可作键）",
       "ok": true,
       "advisory": false,
-      "days": 123,
+      "days": 130,
       "dup_slug": [],
-      "dup_index_count": 397,
+      "dup_index_count": 422,
       "detail": [
-        "扫描 123 天：slug 全部唯一 ✅",
-        "同期 index 重复 397 处（正是本次把主键从 index 换成 slug 的原因）"
+        "扫描 130 天：slug 全部唯一 ✅",
+        "同期 index 重复 422 处（正是本次把主键从 index 换成 slug 的原因）"
       ]
     },
     {
@@ -19,8 +19,9 @@
       "ok": true,
       "advisory": false,
       "detail": [
-        "12 个中文列名全部映射正确",
-        "「粉丝展现量/点击率/平均阅读时长/收藏量」被识别为忽略列，未污染 impressions/reads ✅"
+        "15 个中文列名全部映射正确",
+        "「粉丝展现量/平均阅读时长/收藏量」被识别为忽略列，未污染 impressions/reads ✅",
+        "「点击率」已升为 click_rate 正式字段，不再当遮挡词 ✅"
       ]
     },
     {
@@ -28,9 +29,9 @@
       "ok": true,
       "advisory": false,
       "header_row": 2,
-      "mapped": 11,
+      "mapped": 12,
       "detail": [
-        "表头在第 3 行、识别 11 列✅"
+        "表头在第 3 行、识别 12 列✅"
       ]
     },
     {
@@ -94,7 +95,7 @@
       "ok": true,
       "advisory": false,
       "detail": [
-        "无台账时取到 1 条观测（期望 1 条、reads=1234） ✅"
+        "无台账时取到 1 条观测（期望 1 条、reads=1234、选题类型=转会官宣） ✅"
       ]
     },
     {

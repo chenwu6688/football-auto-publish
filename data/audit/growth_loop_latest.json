@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-10-19 18:05",
+  "ok": true,
+  "checks": [
+    {
+      "item": "互动引导配置（config/interaction_bait.yaml）",
+      "ok": true,
+      "advisory": false,
+      "version": "1.0",
+      "detail": [
+        "配置 v1.0 字段齐备；关注引导 4 条、互动引导 8 条 ✅",
+        "判罚：0 分 / 打回重写 ✅"
+      ]
+    },
+    {
+      "item": "互动引导冒烟（缺任一类必拦 / 事实用词不误判 / 降级放行）",
+      "ok": true,
+      "advisory": false,
+      "total": 10,
+      "detail": [
+        "10 项冒烟全部通过 ✅"
+      ]
+    },
+    {
+      "item": "生成侧接入（打回 + 保存侧兜底）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "check_interaction_bait 判定同源 ✅",
+        "两条生成链路打回 + 保存侧兜底注入均已接线 ✅"
+      ]
+    },
+    {
+      "item": "转粉通道（growth_import）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "data/growth/fans_daily.json：34 个日期",
+        "解析 / 相邻日差分 / 跨度守卫 / 缺失不猜 / 合并写不覆盖真实值 全部通过 ✅"
+      ]
+    },
+    {
+      "item": "缺列不冒充 0（含存量清理核对）",
+      "ok": true,
+      "advisory": false,
+      "legacy_zero": 0,
+      "detail": [
+        "缺列 → None ✅；真实 0 → 0 ✅",
+        "存量伪造 0 残留：0 条（应为 0）"
+      ]
+    },
+    {
+      "item": "看板涨粉口径（文章级 → 账号级 → None）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "无数据 → None（待接入）✅",
+        "账号级兜底：同窗口均值 15.0、来源标「粉丝分析通道」✅"
+      ]
+    },
+    {
+      "item": "近 14 天成稿互动引导覆盖率",
+      "ok": true,
+      "advisory": true,
+      "skipped": true,
+      "account_days": 13,
+      "detail": [
+        "本地无成稿正文（CI 环境），本项跳过；涨粉通道近 14 天有 13 天数据"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "advisory_failed": []
+}
