@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-20",
+  "generated_at": "2026-10-20T00:05:41.705445",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "德米罗维奇追平哈兰德，斯图加特主帅反而更慌了？",
+      "path": "/home/runner/work/_temp/output/2026-10-20/article-1-德米罗维奇追平哈-c3d8c7.md",
+      "slug": "德米罗维奇追平哈-c3d8c7",
+      "tags": [
+        "Stuttgart",
+        "Atletico Madrid",
+        "Demirovic",
+        "Champions League",
+        "Haaland"
+      ],
+      "keywords": [
+        "Stuttgart",
+        "Atletico Madrid",
+        "Demirovic",
+        "Champions League",
+        "Haaland"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-20/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-20/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-20/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    }
+  ],
+  "topics": [
+    {
+      "title": "尤文0-3惨败拉齐奥，阿莱格里这锅背定了吗？",
+      "angle": "从尤文图斯主场0-3完败拉齐奥切入，把镜头对准主帅阿莱格里的战术选择与更衣室控制力。不写两队强弱对比，写一个老派教练在现代足球里的挣扎——他的防守反击哲学是不是彻底失灵了。",
+      "keywords": [
+        "juventus",
+        "lazio",
+        "allegri",
+        "serie a"
+      ],
+      "keywords_cn": [
+        "尤文图斯",
+        "拉齐奥",
+        "阿莱格里",
+        "意甲"
+      ],
+      "content_type": "热点球评",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "尤文惨败引发主帅下课讨论，争议性强且符合人设",
+      "_category": "战报比分",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "卡里克下课赔率仅7/4，曼联旧将却喊基恩进教练组，更衣室要变天？",
+      "angle": "从太阳报盘点的英超主帅下课热门切入，把卡里克的处境和曼联旧将呼吁基恩入阁两件事并置——一个被董事会支持但被要求改战术，一个被球迷呼唤回归的铁血队长。写曼联教练席的尴尬与撕裂。",
+      "keywords": [
+        "carrick",
+        "manchester united",
+        "roy keane",
+        "premier league"
+      ],
+      "keywords_cn": [
+        "卡里克",
+        "曼联",
+        "罗伊基恩",
+        "英超"
+      ],
+      "content_type": "八卦趣事",
+      "score": 86,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "曼联教练席争议+基恩回归呼声，话题性极强且未在7天内报道",
+      "_category": "转会官宣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "德米罗维奇追平哈兰德，斯图加特主帅反而更慌了？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    },
+    {
+      "title": "马拉多纳与英格兰：一场复仇之战为何让老球迷记了四十年？",
+      "content_type": "历史回顾",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
+    },
+    "ratios": {
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-10-20-2-ed010e",
+      "index": 2,
+      "title": "马拉多纳与英格兰：一场复仇之战为何让老球迷记了四十年？",
+      "reasons": [
+        "争议指控(命中：禁赛)"
+      ]
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-20 08:05:41"
+}
