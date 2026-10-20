@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-20 12:05",
-  "ok": true,
+  "generated_at": "2026-10-20 18:04",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 120,
+      "total": 121,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 120 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 121 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 120,
-      "passed": 111,
-      "rate": 0.925,
+      "total": 121,
+      "passed": 112,
+      "rate": 0.9256,
       "fails": [
         {
           "date": "2026-10-06",
@@ -107,7 +107,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 120 条，合规（≥60 分）111 条，通过率 92.5%（目标≥90%）",
+        "近 14 天成稿 121 条，合规（≥60 分）112 条，通过率 92.6%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-06', 'title': '15岁门将跟着成年队训练，奥尼尔这步棋是不是下早了', 'score': 51, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-06', 'title': '36岁复出按住17岁天才，斯科尔斯认账了', 'score': 47, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-07', 'title': '金特尔续约弗赖堡，32岁老将的归宿让人想起世界杯那年', 'score': 47, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}]"
       ]
@@ -128,20 +128,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 840,
-      "with_src": 57,
-      "rate": 0.0679,
+      "total": 841,
+      "with_src": 58,
+      "rate": 0.069,
       "detail": [
-        "成稿 840 条，带来源 57 条，覆盖率 6.8%（目标 100%）",
+        "成稿 841 条，带来源 58 条，覆盖率 6.9%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -206,9 +214,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 120,
+      "total": 121,
       "detail": [
-        "近 14 天成稿 120 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 121 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -222,5 +230,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }
