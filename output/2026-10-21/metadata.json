@@ -1,7 +1,7 @@
 {
   "date": "2026-10-21",
-  "generated_at": "2026-10-21T04:04:12.948039",
-  "total_articles": 3,
+  "generated_at": "2026-10-21T10:03:57.144820",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -115,107 +115,186 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "16:30还是21:30？国足亚洲杯开球时间竟然留了悬念",
+      "path": "/home/runner/work/_temp/output/2026-10-21/article-1-1630还是21-0b8aab.md",
+      "slug": "1630还是21-0b8aab",
+      "tags": [
+        "AFC Asian Cup 2027",
+        "China national football team",
+        "kickoff time",
+        "AFC Executive Committee"
+      ],
+      "keywords": [
+        "AFC Asian Cup 2027",
+        "China national football team",
+        "kickoff time",
+        "AFC Executive Committee"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-21/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-21/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-21/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 3,
+      "title": "皇马拜仁国米三场欧冠，谁可能阴沟翻船？",
+      "path": "/home/runner/work/_temp/output/2026-10-21/article-3-皇马拜仁国米三场-8800ed.md",
+      "slug": "皇马拜仁国米三场-8800ed",
+      "tags": [
+        "Champions League",
+        "Real Madrid",
+        "Bayern Munich",
+        "Arsenal",
+        "Manchester United",
+        "Inter Milan",
+        "Juventus",
+        "AC Milan"
+      ],
+      "keywords": [
+        "Champions League",
+        "Real Madrid",
+        "Bayern Munich",
+        "Arsenal",
+        "Manchester United",
+        "Inter Milan",
+        "Juventus",
+        "AC Milan"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "蓉城今年到底得罪了多少人？媒体人这句评价竟然没人反驳",
-      "angle": "从媒体人'职业化历史上没有哪支球队树立起那么多敌人'切入，结合马德兴'走势让人无法理解'，聊蓉城本赛季从争冠到众矢之的的落差，给老球迷一个'看这支球队怎么了'的复盘角度。",
+      "title": "韦世豪情绪管理再被点名，李玮锋这话到底扎了谁的心？",
+      "angle": "李玮锋作为老国脚公开点评韦世豪的情绪问题，表面是认可能力，实际是点出国足球员的老毛病。这个话题能引出老球迷对国足几代人的'恨铁不成钢'记忆。",
       "keywords": [
-        "chengdu rongcheng",
-        "chinese super league"
+        "Wei Shihao",
+        "Li Weifeng",
+        "emotional management",
+        "Chinese football"
       ],
       "keywords_cn": [
-        "成都蓉城",
-        "中超",
-        "媒体人"
+        "韦世豪",
+        "李玮锋",
+        "情绪管理",
+        "国足"
       ],
       "content_type": "热点球评",
-      "score": 82,
+      "score": 88,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "中超话题有流量，蓉城从黑马到众矢之的的反差故事性强",
+      "series_id": "guozu-chronicle",
+      "why_pick": "老国脚点评现役国脚情绪问题，戳中国足球员老毛病，评论区必吵起来",
       "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "法比奥今晚启程回欧洲康复，国安第一阶段静养到底意味着什么？",
+      "angle": "国安官方确认法比奥回欧洲康复，第一阶段以静养为核心。这个话题可以深挖归化/外援球员伤病后的职业选择，以及俱乐部在赛季关键阶段的应对策略，带出老球迷对中超外援生存状态的关注。",
+      "keywords": [
+        "Fabio",
+        "Beijing Guoan",
+        "injury recovery",
+        "CSL foreign player"
+      ],
+      "keywords_cn": [
+        "法比奥",
+        "北京国安",
+        "伤病康复",
+        "中超外援"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "外援伤病回欧洲康复的细节能挖出俱乐部管理和球员职业规划的内幕，老球迷爱看",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "陈申吉没握手还骂人？足协这2场停赛罚得到底冤不冤",
-      "angle": "从官方罚单'未参加握手仪式并用辱骂性语言'切入，聊中超赛场情绪管理和足协处罚尺度，给老球迷一个'这球换成你当裁判怎么判'的讨论空间。",
-      "keywords": [
-        "chen shenji",
-        "chinese football association",
-        "discipline"
-      ],
-      "keywords_cn": [
-        "陈申吉",
-        "足协罚单",
-        "中超纪律"
-      ],
-      "content_type": "八卦趣事",
-      "score": 75,
-      "controversy_level": "medium",
-      "target_emotion": "愤怒",
-      "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "罚单事件具体有细节，能引发对中超纪律尺度的讨论",
-      "_category": "冲突舆情",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "国际米兰欧冠主场稳了？矿工主帅这场的压力竟然比小因扎吉还大？",
-      "content_type": "人物故事",
-      "_is_fixture": true
+      "title": "皇马拜仁国米三场欧冠，谁可能阴沟翻船？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 1,
+      "一级·确定性": 0,
+      "二级·突发": 2,
       "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 50.0,
-      "二级·突发": 50.0,
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
       "三级·软性": 0.0
     },
     "targets": {
@@ -224,19 +303,13 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
-      "二级·突发": 0.0,
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
       "三级·软性": -20.0
     },
     "unclassified": 0
   },
   "degrade_events": [
-    {
-      "环节": "互动引导未达标",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
-      "数量": 1
-    },
     {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
@@ -244,25 +317,36 @@
       "数量": 1
     }
   ],
+  "pending_review": [
+    {
+      "id": "2026-10-21-2-10a943",
+      "index": 2,
+      "title": "法比奥这一伤，国安锋线竟然要指望一个19岁的孩子？",
+      "reasons": [
+        "伤病(命中：赛季报销、骨折、脚踝)"
+      ]
+    }
+  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-21 12:04:12"
+  "last_batch": "evening",
+  "last_updated": "2026-10-21 18:03:57"
 }
