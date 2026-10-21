@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-21 12:04",
-  "ok": true,
+  "generated_at": "2026-10-21 18:03",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 114,
+      "total": 116,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 114 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 116 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 114,
-      "passed": 107,
-      "rate": 0.9386,
+      "total": 116,
+      "passed": 109,
+      "rate": 0.9397,
       "fails": [
         {
           "date": "2026-10-07",
@@ -89,7 +89,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 114 条，合规（≥60 分）107 条，通过率 93.9%（目标≥90%）",
+        "近 14 天成稿 116 条，合规（≥60 分）109 条，通过率 94.0%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-07', 'title': '金特尔续约弗赖堡，32岁老将的归宿让人想起世界杯那年', 'score': 47, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-08', 'title': '16岁身价5000万！这榜单看得我血压高', 'score': 49, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-09', 'title': '37岁还在签新合同？达米安这履历，够写一本意甲生存指南了', 'score': 51, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}]"
       ]
@@ -110,20 +110,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 845,
-      "with_src": 59,
-      "rate": 0.0698,
+      "total": 847,
+      "with_src": 61,
+      "rate": 0.072,
       "detail": [
-        "成稿 845 条，带来源 59 条，覆盖率 7.0%（目标 100%）",
+        "成稿 847 条，带来源 61 条，覆盖率 7.2%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -155,7 +163,7 @@
       "dates": [
         "2026-10-21"
       ],
-      "checked": 18,
+      "checked": 15,
       "dropped": 0,
       "unknown": 0,
       "over_limit_runs": 0,
@@ -188,9 +196,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 114,
+      "total": 116,
       "detail": [
-        "近 14 天成稿 114 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 116 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -204,5 +212,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }
