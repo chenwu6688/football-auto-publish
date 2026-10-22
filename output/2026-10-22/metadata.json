@@ -1,7 +1,7 @@
 {
   "date": "2026-10-22",
-  "generated_at": "2026-10-22T04:06:56.698862",
-  "total_articles": 5,
+  "generated_at": "2026-10-22T10:08:02.457910",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -173,119 +173,183 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "37岁王大雷竟然刷新个人纪录？这次靠的不是扑救是钓鱼",
+      "path": "/home/runner/work/_temp/output/2026-10-22/article-1-37岁王大雷竟然-827076.md",
+      "slug": "37岁王大雷竟然-827076",
+      "tags": [
+        "Wang Dalei",
+        "Shandong Taishan",
+        "fishing",
+        "goalkeeper",
+        "Chinese Super League"
+      ],
+      "keywords": [
+        "Wang Dalei",
+        "Shandong Taishan",
+        "fishing",
+        "goalkeeper",
+        "Chinese Super League"
+      ],
+      "images": [],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "未分类",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 3,
+      "title": "阿森纳碰埃弗顿别以为稳了，曼城客战维拉才是真修罗场",
+      "path": "/home/runner/work/_temp/output/2026-10-22/article-3-阿森纳碰埃弗顿别-d2a233.md",
+      "slug": "阿森纳碰埃弗顿别-d2a233",
+      "tags": [
+        "UEFA Europa League",
+        "Aston Villa vs Man City",
+        "Arsenal vs Everton",
+        "Juventus vs Rennes",
+        "Saudi Pro League"
+      ],
+      "keywords": [
+        "UEFA Europa League",
+        "Aston Villa vs Man City",
+        "Arsenal vs Everton",
+        "Juventus vs Rennes",
+        "Saudi Pro League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-22/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "曼联1-4惨败科莫，滕哈赫的帅位竟然还能撑多久？",
-      "angle": "曼联欧冠客场1-4被科莫血洗，这不是爆冷是耻辱。从比赛过程看，滕哈赫的战术体系彻底失灵，球员在场上像无头苍蝇。老六不绕弯子：这不是某一场发挥失常，是整支球队的心气散了。科莫在意甲都不算强队，曼联输成这样，管理层还能忍到什么时候？",
+      "title": "王大雷钓上37斤大青鱼，原来门将的手除了扑救还能干这个",
+      "angle": "从王大雷刷新个人垂钓纪录切入，聊中国球员场外生活的一地鸡毛与真实感——老球迷就爱看这种不带包装的活人，而不是官方通稿里的机器人。",
       "keywords": [
-        "manchester united",
-        "como",
-        "champions league",
-        "ten hag"
+        "Wang Dalei",
+        "fishing",
+        "Chinese Super League"
       ],
       "keywords_cn": [
-        "曼联",
+        "王大雷",
+        "钓鱼",
+        "中超"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "old-fan-night",
+      "why_pick": "国足球员罕见的生活化趣事，反差感强，适合老球迷夜话调性。",
+      "_category": "中国足球",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "没想到科莫4-1曼联，意甲升班马竟把英超豪门打成筛子",
+      "angle": "从曼联客场惨败科莫切入，聊英超豪门在欧战的傲慢与代价，点出滕哈赫式困境——阵容身价碾压却踢不出内容，老球迷最烦这种'花钱买罪受'。",
+      "keywords": [
+        "Como",
+        "Manchester United",
+        "UEFA Champions League"
+      ],
+      "keywords_cn": [
         "科莫",
-        "欧冠",
-        "滕哈赫"
+        "曼联",
+        "欧冠"
       ],
       "content_type": "热点球评",
-      "score": 96,
+      "score": 92,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "名帅名宿沉浮",
+      "target_emotion": "震惊",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "曼联惨败是最大爆点，滕哈赫去留争议拉满，老球迷最恨豪门摆烂",
+      "why_pick": "豪门翻车+比分悬殊，天然带争议和讨论度，曼联流量大。",
       "_category": "战报比分",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "邓卓翔含泪反问：事情发生了再痛苦，之前到底在干什么？",
-      "angle": "邓卓翔赛后含泪的这段话，戳中的不只是三镇球迷。当年那个横空出世的天才少年，如今作为教练面对球队困境，问的是管理层折腾教练的问题。李玮锋也说了，三镇人员配置还行，但总折腾教练换来换去。这支球队的问题从来不在场上，而在场外的短视和浮躁。",
-      "keywords": [
-        "deng zhuoxiang",
-        "wuhan three towns",
-        "li weifeng",
-        "coach turmoil"
-      ],
-      "keywords_cn": [
-        "邓卓翔",
-        "武汉三镇",
-        "李玮锋",
-        "教练更迭"
-      ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "感慨",
-      "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "邓卓翔含泪反问有情绪张力，三镇折腾教练是典型中国足球病灶",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "法兰克福主帅竟比多特还慌？埃布努塔利卜这5球能救他吗",
-      "content_type": "人物故事",
-      "_is_fixture": true
-    },
-    {
-      "title": "盖德穆勒那些上古纪录，哈兰德姆巴佩真能追上吗？",
-      "content_type": "榜单",
+      "title": "范尼和克洛泽都是禁区之王，为何他辈子没踢过世界杯？",
+      "content_type": "数据对比",
       "_column_name": "战术榜单",
       "_from_reservoir": true
+    },
+    {
+      "title": "阿森纳碰埃弗顿别以为稳了，曼城客战维拉才是真修罗场",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
-    "total": 3,
+    "total": 2,
     "counts": {
-      "一级·确定性": 1,
+      "一级·确定性": 0,
       "二级·突发": 1,
       "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 33.3,
-      "二级·突发": 33.3,
-      "三级·软性": 33.3
+      "一级·确定性": 0.0,
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -293,19 +357,13 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 3.3,
-      "二级·突发": -16.7,
-      "三级·软性": 13.3
+      "一级·确定性": -30.0,
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
-    {
-      "环节": "互动引导未达标",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
-      "数量": 1
-    },
     {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
@@ -315,33 +373,34 @@
   ],
   "pending_review": [
     {
-      "id": "2026-10-22-3-7c51e3",
-      "index": 3,
-      "title": "盖德穆勒那些上古纪录，哈兰德姆巴佩真能追上吗？",
+      "id": "2026-10-22-2-bbde26",
+      "index": 2,
+      "title": "范尼和克洛泽都是禁区之王，为何他辈子没踢过世界杯？",
       "reasons": [
-        "合同金额(命中：转会费；含金额量词)"
+        "伤病(命中：受伤)"
       ]
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
-    "max_articles": 3,
-    "uplifted": true,
-    "reason": "thursday_boost",
+    "batch": "evening",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
     "requested_reason": "thursday_boost",
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "加发 3 篇（原因 thursday_boost，周内 2/2）",
+    "detail": "常态 2 篇（周内加发已用满 2/2）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-22 12:06:56"
+  "last_batch": "evening",
+  "last_updated": "2026-10-22 18:08:02"
 }
