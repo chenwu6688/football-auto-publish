@@ -1,7 +1,7 @@
 {
   "date": "2026-10-22",
-  "generated_at": "2026-10-22T00:06:30.000259",
-  "total_articles": 3,
+  "generated_at": "2026-10-22T04:06:56.698862",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -98,147 +98,179 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "法兰克福主帅竟比多特还慌？埃布努塔利卜这5球能救他吗",
+      "path": "/home/runner/work/_temp/output/2026-10-22/article-1-法兰克福主帅竟比-0b7e22.md",
+      "slug": "法兰克福主帅竟比-0b7e22",
+      "tags": [
+        "Eintracht Frankfurt",
+        "Dortmund",
+        "Ebnoutalib",
+        "Bundesliga",
+        "coach pressure"
+      ],
+      "keywords": [
+        "Eintracht Frankfurt",
+        "Dortmund",
+        "Ebnoutalib",
+        "Bundesliga",
+        "coach pressure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-22/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-22/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-22/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "武汉三镇1-3申花，李玮锋那句人员还行，原来藏着保级最扎心的真相",
+      "path": "/home/runner/work/_temp/output/2026-10-22/article-2-武汉三镇13申花-35be91.md",
+      "slug": "武汉三镇13申花-35be91",
+      "tags": [
+        "Wuhan Three Towns",
+        "Shanghai Shenhua",
+        "Li Weifeng",
+        "relegation",
+        "CSL"
+      ],
+      "keywords": [
+        "Wuhan Three Towns",
+        "Shanghai Shenhua",
+        "Li Weifeng",
+        "relegation",
+        "CSL"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-22/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-22/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-22/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
     }
   ],
   "topics": [
     {
-      "title": "曼联1-4惨败科莫后更衣室炸了？贝巴这话太狠了",
-      "angle": "曼联欧冠惨败科莫，贝巴说'像大人和小孩踢球'，小舒梅切尔暗示更衣室矛盾。老六角度：这不是一场输球，是曼联体系的彻底崩塌。",
+      "title": "曼联1-4惨败科莫，滕哈赫的帅位竟然还能撑多久？",
+      "angle": "曼联欧冠客场1-4被科莫血洗，这不是爆冷是耻辱。从比赛过程看，滕哈赫的战术体系彻底失灵，球员在场上像无头苍蝇。老六不绕弯子：这不是某一场发挥失常，是整支球队的心气散了。科莫在意甲都不算强队，曼联输成这样，管理层还能忍到什么时候？",
       "keywords": [
-        "Manchester United",
-        "Como",
-        "Champions League"
+        "manchester united",
+        "como",
+        "champions league",
+        "ten hag"
       ],
       "keywords_cn": [
         "曼联",
         "科莫",
-        "欧冠惨败"
+        "欧冠",
+        "滕哈赫"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 96,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "曼联惨败+更衣室不和，话题性拉满，老球迷看曼联沉沦最有共鸣",
+      "why_pick": "曼联惨败是最大爆点，滕哈赫去留争议拉满，老球迷最恨豪门摆烂",
       "_category": "战报比分",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-2"
-    },
-    {
-      "title": "凯恩说巴黎是欧冠夺冠热门，他凭什么这么判断？",
-      "angle": "凯恩赛后公开说巴黎是欧冠夺冠热门，这话从英格兰队长嘴里说出来，背后是对各队实力的真实判断。老六角度：凯恩不是随便说说，他刚跟阿森纳交过手。",
-      "keywords": [
-        "Harry Kane",
-        "PSG",
-        "Champions League"
-      ],
-      "keywords_cn": [
-        "凯恩",
-        "巴黎圣日耳曼",
-        "欧冠热门"
-      ],
-      "content_type": "热点球评",
-      "score": 78,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "凯恩评价欧冠格局，有信息增量，引发球迷对夺冠形势的讨论",
-      "_category": "未分类",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-1"
     },
     {
-      "title": "阿莫林说深爱过曼联却专注米兰，这反转没想到吧？",
-      "angle": "阿莫林在曼联下课后的公开表态，从'深爱'到'专注米兰'，名帅沉浮的人情冷暖。老六角度：足球世界没有永远的家，只有下一份合同。",
+      "title": "邓卓翔含泪反问：事情发生了再痛苦，之前到底在干什么？",
+      "angle": "邓卓翔赛后含泪的这段话，戳中的不只是三镇球迷。当年那个横空出世的天才少年，如今作为教练面对球队困境，问的是管理层折腾教练的问题。李玮锋也说了，三镇人员配置还行，但总折腾教练换来换去。这支球队的问题从来不在场上，而在场外的短视和浮躁。",
       "keywords": [
-        "Ruben Amorim",
-        "Manchester United",
-        "AC Milan"
+        "deng zhuoxiang",
+        "wuhan three towns",
+        "li weifeng",
+        "coach turmoil"
       ],
       "keywords_cn": [
-        "阿莫林",
-        "曼联",
-        "AC米兰"
+        "邓卓翔",
+        "武汉三镇",
+        "李玮锋",
+        "教练更迭"
       ],
-      "content_type": "八卦趣事",
-      "score": 85,
+      "content_type": "热点球评",
+      "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "名帅下课后的真情流露，戳中老球迷对足球江湖人情冷暖的共鸣",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "感慨",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "邓卓翔含泪反问有情绪张力，三镇折腾教练是典型中国足球病灶",
+      "_category": "中国足球",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "没想到罗马主帅这场压力比那不勒斯还大？",
+      "title": "法兰克福主帅竟比多特还慌？埃布努塔利卜这5球能救他吗",
       "content_type": "人物故事",
       "_is_fixture": true
     },
     {
-      "title": "齐达内谢顶后销声匿迹，当年马赛回旋的秃顶男人为何不再执教？",
-      "content_type": "人物故事",
-      "_column_name": "人物故事",
-      "_from_reservoir": true
-    },
-    {
-      "title": "克洛泽从空翻少年到安静教头，K神何时再演空翻？",
-      "content_type": "人物故事",
-      "_column_name": "人物故事",
+      "title": "盖德穆勒那些上古纪录，哈兰德姆巴佩真能追上吗？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
       "_from_reservoir": true
     }
   ],
@@ -247,13 +279,13 @@
     "total": 3,
     "counts": {
       "一级·确定性": 1,
-      "二级·突发": 0,
-      "三级·软性": 2
+      "二级·突发": 1,
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 33.3,
-      "二级·突发": 0.0,
-      "三级·软性": 66.7
+      "二级·突发": 33.3,
+      "三级·软性": 33.3
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -262,8 +294,8 @@
     },
     "deviations": {
       "一级·确定性": 3.3,
-      "二级·突发": -50.0,
-      "三级·软性": 46.7
+      "二级·突发": -16.7,
+      "三级·软性": 13.3
     },
     "unclassified": 0
   },
@@ -279,23 +311,21 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
-    },
+    }
+  ],
+  "pending_review": [
     {
-      "环节": "互动引导兜底",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入",
-      "数量": 1
-    },
-    {
-      "环节": "互动引导兜底",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入",
-      "数量": 1
+      "id": "2026-10-22-3-7c51e3",
+      "index": 3,
+      "title": "盖德穆勒那些上古纪录，哈兰德姆巴佩真能追上吗？",
+      "reasons": [
+        "合同金额(命中：转会费；含金额量词)"
+      ]
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 3,
     "uplifted": true,
     "reason": "thursday_boost",
@@ -303,14 +333,15 @@
     "normal_max": 2,
     "uplift_max": 3,
     "weekly_limit": 2,
-    "weekly_used": 1,
-    "detail": "加发 3 篇（原因 thursday_boost，周内 1/2）",
+    "weekly_used": 2,
+    "detail": "加发 3 篇（原因 thursday_boost，周内 2/2）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-22 08:06:30"
+  "last_batch": "noon",
+  "last_updated": "2026-10-22 12:06:56"
 }
