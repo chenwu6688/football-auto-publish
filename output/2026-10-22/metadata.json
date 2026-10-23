@@ -65,7 +65,18 @@
       "batch_name": "晨读",
       "is_prediction": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 13,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.2812,
+        "impressions": 1537,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7699276978599281206"
     },
     {
       "index": 3,
@@ -97,7 +108,18 @@
       "batch_name": "晨读",
       "is_prediction": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "impressions": 1339,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7699277104050979371"
     },
     {
       "index": 1,
@@ -205,7 +227,18 @@
       "column_name": "世界杯日报",
       "batch_name": "晚间",
       "is_prediction": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 1.0,
+        "impressions": 1134,
+        "follower_reads": 1,
+        "click_rate": 0.0
+      },
+      "platform_id": "7699432012200919552"
     },
     {
       "index": 3,

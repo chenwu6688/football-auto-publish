@@ -140,7 +140,17 @@
       "column_name": "午间快讯",
       "batch_name": "午间",
       "is_prediction": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 15,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 17710,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7699709478878413338"
     },
     {
       "index": 1,
@@ -173,7 +183,17 @@
       "column_name": "世界杯日报",
       "batch_name": "晚间",
       "is_prediction": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 0,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 67,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7699802196573045283"
     },
     {
       "index": 3,

@@ -116,13 +116,14 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 20,
+        "reads": 37,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 532,
+        "retention_rate": 0.5525,
+        "impressions": 2456,
         "follower_reads": 0,
-        "click_rate": 0.04
+        "click_rate": 0.02
       },
       "platform_id": "7698967158415491593"
     },
@@ -161,13 +162,14 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 0,
+        "reads": 14,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 56,
+        "retention_rate": 0.0133,
+        "impressions": 1926,
         "follower_reads": 0,
-        "click_rate": 0.0
+        "click_rate": 0.01
       },
       "platform_id": "7699059836051964452"
     },
