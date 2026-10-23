@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-23 12:04",
-  "ok": true,
+  "generated_at": "2026-10-23 18:04",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 110,
+      "total": 112,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 110 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 112 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 110,
-      "passed": 105,
-      "rate": 0.9545,
+      "total": 112,
+      "passed": 107,
+      "rate": 0.9554,
       "fails": [
         {
           "date": "2026-10-09",
@@ -71,7 +71,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 110 条，合规（≥60 分）105 条，通过率 95.5%（目标≥90%）",
+        "近 14 天成稿 112 条，合规（≥60 分）107 条，通过率 95.5%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-09', 'title': '37岁还在签新合同？达米安这履历，够写一本意甲生存指南了', 'score': 51, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-10', 'title': '多打一人还差点输？河南这8轮不胜，看得老球迷直拍大腿', 'score': 57, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}, {'date': '2026-10-10', 'title': '拉倒送点还换球衣？这帮U23小伙的江湖气，老球迷看懂了', 'score': 57, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}]"
       ]
@@ -92,20 +92,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 858,
-      "with_src": 67,
-      "rate": 0.0781,
+      "total": 860,
+      "with_src": 69,
+      "rate": 0.0802,
       "detail": [
-        "成稿 858 条，带来源 67 条，覆盖率 7.8%（目标 100%）",
+        "成稿 860 条，带来源 69 条，覆盖率 8.0%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -170,9 +178,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 110,
+      "total": 112,
       "detail": [
-        "近 14 天成稿 110 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 112 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -186,5 +194,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }
