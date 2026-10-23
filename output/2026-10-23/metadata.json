@@ -1,7 +1,7 @@
 {
   "date": "2026-10-23",
-  "generated_at": "2026-10-23T04:04:47.191449",
-  "total_articles": 4,
+  "generated_at": "2026-10-23T10:04:37.481384",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -141,150 +141,185 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "成都蓉城5次错失冠军点，没想到最后竟被大连英博补时绝杀",
+      "path": "/home/runner/work/_temp/output/2026-10-23/article-1-成都蓉城5次错失-5636a7.md",
+      "slug": "成都蓉城5次错失-5636a7",
+      "tags": [
+        "Chengdu Rongcheng",
+        "Dalian Yingbo",
+        "CSL",
+        "title race",
+        "Dong Fangzhuo"
+      ],
+      "keywords": [
+        "Chengdu Rongcheng",
+        "Dalian Yingbo",
+        "CSL",
+        "title race",
+        "Dong Fangzhuo"
+      ],
+      "images": [],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术解析",
+      "topic_category": "战报比分",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 3,
+      "title": "曼城客场碰维拉，切尔西热刺谁先掉链子？",
+      "path": "/home/runner/work/_temp/output/2026-10-23/article-3-曼城客场碰维拉切-d3b905.md",
+      "slug": "曼城客场碰维拉切-d3b905",
+      "tags": [
+        "football",
+        "prediction",
+        "Premier League",
+        "Serie A",
+        "Bundesliga"
+      ],
+      "keywords": [
+        "football",
+        "prediction",
+        "Premier League",
+        "Serie A",
+        "Bundesliga"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "女足主帅又下课了，这次选帅凭啥还是没人敢接？",
-      "angle": "米利西奇下课被京媒称'亡羊补牢'，但媒体人一针见血：走的不是背锅者，来的也不是拯救者。足协选聘新帅国籍不限、原则上55岁以下，目标2027世界杯+洛杉矶奥运——可中国女足的问题从来不是换一个教练能解决的。老球迷看女足从孙雯那代看到现在，最痛的不是输球，是每次都在同一个坑里摔。",
+      "title": "董方卓说的没错，蓉城这高位逼抢真能压死英博？",
+      "angle": "董方卓点出蓉城若降低高位逼抢强度，对擅长防反的英博反而更难打。这话有道理——高位逼抢是把双刃剑，压不住就是给对手送反击空间。老球迷都懂，逼抢不是越凶越好，得看对手吃不吃这套。",
       "keywords": [
-        "chinese women's football",
-        "coach sacking",
-        "milicevic"
+        "Dong Fangzhuo",
+        "high press",
+        "counter attack",
+        "Chengdu Rongcheng"
       ],
       "keywords_cn": [
-        "中国女足",
-        "米利西奇",
-        "选帅"
+        "董方卓",
+        "高位逼抢",
+        "防守反击",
+        "成都蓉城"
       ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "女足换帅+选帅标准争议，戳国足情结痛点",
-      "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "赖斯当年差点和吉马良斯打起来，如今竟要当队友了？",
-      "angle": "吉马良斯亲口爆料：即将加盟阿森纳时，赖斯给他发消息说'以后我们别打架了'。球场上互怼的两个人，转眼要穿同一件球衣。足球江湖就是这么奇妙——昨天的死对头，今天的更衣室兄弟。这种场外小故事比转会费数字有意思多了，老球迷最懂这种'不打不相识'的江湖气。",
-      "keywords": [
-        "bruno guimaraes",
-        "declan rice",
-        "arsenal transfer"
-      ],
-      "keywords_cn": [
-        "吉马良斯",
-        "赖斯",
-        "阿森纳转会"
-      ],
-      "content_type": "八卦趣事",
-      "score": 85,
+      "content_type": "战术解析",
+      "score": 78,
       "controversy_level": "medium",
       "target_emotion": "好奇",
       "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "球星场外趣闻，反差感强，有画面有故事",
-      "_category": "转会官宣",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "董方卓观点犀利，逼抢战术通俗解读有讨论度",
+      "_category": "中国足球",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "没想到科莫4-1血洗曼联，这支意甲升班马凭什么？",
+      "angle": "科莫4-1大胜曼联，这不是冷门是警钟——一支刚升上意甲的球队把曼联打成这样，说明问题不在运气。老球迷得说句实话，曼联这套阵容的防守组织已经烂到根子上了。",
+      "keywords": [
+        "Como",
+        "Manchester United",
+        "Serie A",
+        "upset"
+      ],
+      "keywords_cn": [
+        "科莫",
+        "曼联",
+        "意甲",
+        "冷门"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "曼联惨败升班马，反差极大自带争议话题",
+      "_category": "战报比分",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "唐田私下竟是个书虫？助教里藏着个爱读书的狠角色",
-      "angle": "东体爆料唐田私下非常好学、热衷研究甚至酷爱读书。中超助教圈里，能沉下心读书研究的人不多。这种'反差人设'比战术板上的箭头更让人好奇——一个爱读书的教练，脑子里装的到底是什么足球哲学？老球迷最欣赏这种有脑子、不浮躁的足球人。",
-      "keywords": [
-        "tang tian",
-        "chinese super league",
-        "coach"
-      ],
-      "keywords_cn": [
-        "唐田",
-        "中超",
-        "助教"
-      ],
-      "content_type": "八卦趣事",
-      "score": 72,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "教练反差人设，有细节有温度",
-      "_category": "冲突舆情",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-2"
+      "title": "亨利范尼德罗巴排历史射手座，怎么老球迷一提鲁尼就掐？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     },
     {
-      "title": "罗马主帅没想到压力比那不勒斯还大，这场他输不起？",
-      "content_type": "人物故事",
-      "_is_fixture": true
+      "title": "曼城客场碰维拉，切尔西热刺谁先掉链子？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
+      "一级·确定性": 0,
       "二级·突发": 1,
-      "三级·软性": 0
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 50.0,
+      "一级·确定性": 0.0,
       "二级·突发": 50.0,
-      "三级·软性": 0.0
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -292,19 +327,13 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
+      "一级·确定性": -30.0,
       "二级·突发": 0.0,
-      "三级·软性": -20.0
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
-    {
-      "环节": "互动引导未达标",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
-      "数量": 1
-    },
     {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
@@ -312,25 +341,36 @@
       "数量": 1
     }
   ],
+  "pending_review": [
+    {
+      "id": "2026-10-23-2-bae82b",
+      "index": 2,
+      "title": "亨利范尼德罗巴排历史射手座，怎么老球迷一提鲁尼就掐？",
+      "reasons": [
+        "合同金额(命中：转会费；含金额量词)"
+      ]
+    }
+  ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-23 12:04:47"
+  "last_batch": "evening",
+  "last_updated": "2026-10-23 18:04:37"
 }
