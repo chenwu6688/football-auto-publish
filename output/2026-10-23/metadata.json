@@ -1,7 +1,7 @@
 {
   "date": "2026-10-23",
-  "generated_at": "2026-10-23T00:05:14.271250",
-  "total_articles": 2,
+  "generated_at": "2026-10-23T04:04:47.191449",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -74,199 +74,88 @@
       "is_prediction": false,
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "罗马主帅没想到压力比那不勒斯还大，这场他输不起？",
+      "path": "/home/runner/work/_temp/output/2026-10-23/article-1-罗马主帅没想到压-a7caf2.md",
+      "slug": "罗马主帅没想到压-a7caf2",
+      "tags": [
+        "Serie A",
+        "Roma",
+        "Napoli",
+        "Malen",
+        "coach pressure"
+      ],
+      "keywords": [
+        "Serie A",
+        "Roma",
+        "Napoli",
+        "Malen",
+        "coach pressure"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "中国女足0-8英格兰后换帅，米利西奇这两年到底练了啥？",
+      "path": "/home/runner/work/_temp/output/2026-10-23/article-2-中国女足08英格-cd19c7.md",
+      "slug": "中国女足08英格-cd19c7",
+      "tags": [
+        "Chinese Women's Football",
+        "coach change",
+        "Milicic",
+        "FIFA ranking",
+        "2027 World Cup"
+      ],
+      "keywords": [
+        "Chinese Women's Football",
+        "coach change",
+        "Milicic",
+        "FIFA ranking",
+        "2027 World Cup"
+      ],
+      "images": [],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
     }
   ],
   "topics": [
     {
-      "title": "曼联如果真请埃迪·豪接手，这步棋到底是妙手还是昏招？",
-      "angle": "皮尤放话曼联请埃迪·豪会是非常合适的选择。结合阿莫林执教曼联2平2负、进5球丢11球的惨淡数据，曼联的帅位问题又被摆上台面。埃迪·豪在纽卡的建队能力有目共睹，但曼联这摊子他真能收拾？老球迷聊聊曼联这些年换帅的教训。",
+      "title": "女足主帅又下课了，这次选帅凭啥还是没人敢接？",
+      "angle": "米利西奇下课被京媒称'亡羊补牢'，但媒体人一针见血：走的不是背锅者，来的也不是拯救者。足协选聘新帅国籍不限、原则上55岁以下，目标2027世界杯+洛杉矶奥运——可中国女足的问题从来不是换一个教练能解决的。老球迷看女足从孙雯那代看到现在，最痛的不是输球，是每次都在同一个坑里摔。",
       "keywords": [
-        "Manchester United",
-        "Eddie Howe",
-        "manager",
-        "Premier League"
+        "chinese women's football",
+        "coach sacking",
+        "milicevic"
       ],
       "keywords_cn": [
-        "曼联",
-        "埃迪·豪",
-        "主帅",
-        "英超"
-      ],
-      "content_type": "热点球评",
-      "score": 86,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "曼联换帅话题+埃迪·豪适配性争议，讨论价值高",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "利物浦竟然想提前召回外租小将，恩杜奎在西甲踢出了什么名堂？",
-      "angle": "回声报报道利物浦考虑提前召回恩杜奎，这背后是球员在西甲的出色表现打动了教练组。从外租练级到被母队急着收回，这种故事老球迷最爱看——当年多少球星就是这么一步步熬出来的。聊聊外租球员的生存法则和利物浦的用人逻辑。",
-      "keywords": [
-        "Liverpool",
-        "Enduque",
-        "La Liga",
-        "loan recall"
-      ],
-      "keywords_cn": [
-        "利物浦",
-        "恩杜奎",
-        "西甲",
-        "外租召回"
-      ],
-      "content_type": "转会资讯",
-      "score": 82,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "外租小将逆袭被召回，有故事有增量",
-      "_category": "转会官宣",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-1"
-    },
-    {
-      "title": "邓肯·弗格森喊话卡里克赶走B费和利马，曼联更衣室这是要变天？",
-      "angle": "邓肯·弗格森公开建议卡里克清洗B费和利马，换上愿意为他而战的球员。这话够狠，但细想有道理——曼联这些年更衣室问题不断，到底是球员不行还是教练镇不住？从弗格森的曼联到现在的曼联，铁血传统丢在哪了？",
-      "keywords": [
-        "Manchester United",
-        "Bruno Fernandes",
-        "Lisandro Martinez",
-        "Carrick",
-        "Duncan Ferguson"
-      ],
-      "keywords_cn": [
-        "曼联",
-        "B费",
-        "利马",
-        "卡里克",
-        "邓肯·弗格森"
-      ],
-      "content_type": "八卦趣事",
-      "score": 84,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "名宿公开喊话清洗核心，更衣室话题爆点足",
-      "_category": "冲突舆情",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-3"
-    },
-    {
-      "title": "阿莫林10天4赛被迫轮换，西塞比卡马达更适合当中锋原来是因为这个？",
-      "angle": "阿莫林亲口说10天4场必须轮换，还点名西塞比卡马达更适合踢中锋。这话里有话——是战术选择还是对卡马达不满意？结合米兰0-3惨败伯恩茅斯的背景，阿莫林的轮换逻辑和用人偏好值得深挖。老球迷都懂，教练公开夸一个贬一个，更衣室那点事就藏不住了。",
-      "keywords": [
-        "Amorim",
-        "AC Milan",
-        "Cisse",
-        "Camarda",
-        "rotation"
-      ],
-      "keywords_cn": [
-        "阿莫林",
-        "AC米兰",
-        "西塞",
-        "卡马达",
-        "轮换"
-      ],
-      "content_type": "热点球评",
-      "score": 85,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "阿莫林公开点名用人偏好，更衣室话题有争议",
-      "_category": "冲突舆情",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-2"
-    },
-    {
-      "title": "U16国足3-3被巴林绝平，彭显宸送点染红这小子到底冤不冤？",
-      "angle": "从U16国足3-3被巴林扳平这场球切入，聚焦彭显宸送点+两黄变一红的争议瞬间。老球迷都懂，青年队比赛最怕的就是这种最后时刻崩盘，这不是技术问题，是心理和经验的学费。但送点那下到底该不该吹？评论区肯定吵翻天。",
-      "keywords": [
-        "China U16",
-        "Bahrain U16",
-        "red card",
-        "penalty"
-      ],
-      "keywords_cn": [
-        "U16国足",
-        "巴林U17",
-        "彭显宸",
-        "红牌"
+        "中国女足",
+        "米利西奇",
+        "选帅"
       ],
       "content_type": "热点球评",
       "score": 88,
@@ -274,38 +163,114 @@
       "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
       "series_id": "guozu-chronicle",
-      "why_pick": "国足青年队被绝平+红牌争议，老球迷DNA动了",
-      "_category": "战报比分",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "女足换帅+选帅标准争议，戳国足情结痛点",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-4"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
     },
     {
-      "title": "罗马主帅没想到：积分净胜球占优，为啥这场输不起？",
+      "title": "赖斯当年差点和吉马良斯打起来，如今竟要当队友了？",
+      "angle": "吉马良斯亲口爆料：即将加盟阿森纳时，赖斯给他发消息说'以后我们别打架了'。球场上互怼的两个人，转眼要穿同一件球衣。足球江湖就是这么奇妙——昨天的死对头，今天的更衣室兄弟。这种场外小故事比转会费数字有意思多了，老球迷最懂这种'不打不相识'的江湖气。",
+      "keywords": [
+        "bruno guimaraes",
+        "declan rice",
+        "arsenal transfer"
+      ],
+      "keywords_cn": [
+        "吉马良斯",
+        "赖斯",
+        "阿森纳转会"
+      ],
+      "content_type": "八卦趣事",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "球星场外趣闻，反差感强，有画面有故事",
+      "_category": "转会官宣",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "唐田私下竟是个书虫？助教里藏着个爱读书的狠角色",
+      "angle": "东体爆料唐田私下非常好学、热衷研究甚至酷爱读书。中超助教圈里，能沉下心读书研究的人不多。这种'反差人设'比战术板上的箭头更让人好奇——一个爱读书的教练，脑子里装的到底是什么足球哲学？老球迷最欣赏这种有脑子、不浮躁的足球人。",
+      "keywords": [
+        "tang tian",
+        "chinese super league",
+        "coach"
+      ],
+      "keywords_cn": [
+        "唐田",
+        "中超",
+        "助教"
+      ],
+      "content_type": "八卦趣事",
+      "score": 72,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "教练反差人设，有细节有温度",
+      "_category": "冲突舆情",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "罗马主帅没想到压力比那不勒斯还大，这场他输不起？",
       "content_type": "人物故事",
       "_is_fixture": true
-    },
-    {
-      "title": "盖德穆勒数据没悬念，莱万C罗谁更像纯射手？",
-      "content_type": "榜单",
-      "_column_name": "战术榜单",
-      "_from_reservoir": true
     }
   ],
   "data_sources": {},
@@ -313,13 +278,13 @@
     "total": 2,
     "counts": {
       "一级·确定性": 1,
-      "二级·突发": 0,
-      "三级·软性": 1
+      "二级·突发": 1,
+      "三级·软性": 0
     },
     "ratios": {
       "一级·确定性": 50.0,
-      "二级·突发": 0.0,
-      "三级·软性": 50.0
+      "二级·突发": 50.0,
+      "三级·软性": 0.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -328,8 +293,8 @@
     },
     "deviations": {
       "一级·确定性": 20.0,
-      "二级·突发": -50.0,
-      "三级·软性": 30.0
+      "二级·突发": 0.0,
+      "三级·软性": -20.0
     },
     "unclassified": 0
   },
@@ -345,17 +310,11 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
-    },
-    {
-      "环节": "互动引导兜底",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入",
-      "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -367,10 +326,11 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-23 08:05:14"
+  "last_batch": "noon",
+  "last_updated": "2026-10-23 12:04:47"
 }
