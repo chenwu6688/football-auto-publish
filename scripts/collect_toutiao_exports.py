@@ -70,6 +70,26 @@
       教训：**workflow 的 run 命令与脚本 CLI 是两份契约，必须至少跑通一次
       dispatch 冒烟**，不能只靠本地 --headed 验证。
 
+   10. 2026-10-22 perf 页导出失败（10-17 同款，两次都是「只有作品数据没投递」）——
+       「秒判改版」的误诊，根因是**资源加载失败**而非页面改版：
+       perf 页（作品数据）的内容区由路由级 JS chunk 异步装载
+       （pgc_web_v4_analysis/.../index），chunk/XHR 一旦超时，页面只剩外壳 +
+       左侧导航 + Tab，文章表格区整片空白，「下载Excel」根本不存在。旧代码在
+       固定 3 秒登录检测之后立刻找按钮，约 4 秒就抛 ExportButtonMissing，
+       消息写「未找到导出按钮」——看起来像改版，实际是可恢复的 CDN 抖动；
+       而且单页只试一次，一次抖动=当天断档（次日 7 天窗口才补回，10-22 的行
+       确实靠 10-23 的导出补齐）。
+       2026-10-23 本地复现确认：沙箱把 CDN 解析到 IPv6 但没有 IPv6 路由 →
+       chunk 报 net::ERR_TIMED_OUT，60 秒轮询后表格仍是空的；强制 IPv4 后
+       2 秒就渲染出 31 行表格 + 「下载Excel」。**同一现象，证据闭合。**
+       修法（最小面）：① 先等控件就绪（默认 20s 轮询）再判缺失；② 单页重载
+       重试一次（只对 ExportButtonMissing / ExportModalMissing / 超时；异步导出
+       与登录过期不重试）；③ 诊断与失败消息带 requestfailed 明细，一眼分清
+       「资源没加载」和「真的改版」；④ 顺手修真 bug：playwright 的 TimeoutError
+       不是内置 TimeoutError 的子类（mro: Error→Exception），旧代码
+       `isinstance(e, TimeoutError)` 让 popup 下载回收分支从未在真实环境生效。
+       **教训：页面「只剩空壳」时先看 requestfailed，再谈改版。**
+
 用法：
   python3 scripts/collect_toutiao_exports.py                 # CI 模式（headless，默认统计前一天）
   python3 scripts/collect_toutiao_exports.py --headless      # 显式无头（CI 调用形式）
@@ -95,6 +115,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from playwright.sync_api import sync_playwright   # noqa: E402
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError   # noqa: E402
 from publisher import send_wxpusher               # noqa: E402
 from toutiao_import import read_table             # noqa: E402
 
@@ -107,6 +128,13 @@ DIAG_DIR = Path(os.environ.get("COLLECTOR_DIAG_DIR", "/tmp/toutiao-collector-dia
 LOGIN_MARKERS = ("/auth/", "/login")
 DEFAULT_NAV_TIMEOUT_MS = 60_000
 DEFAULT_DOWNLOAD_TIMEOUT_MS = 120_000
+# 单页最多尝试次数（首跑 + 一次重载重试）——见 10-22 事故台账第 10 条
+EXPORT_ATTEMPTS = 2
+# 导出控件就绪等待：perf 页表格由路由级异步 chunk + XHR 渲染，控件出现前就找=误诊
+EXPORT_READY_TIMEOUT_MS = 20_000
+# 可重试异常：这一趟没赶上（渲染慢/chunk 抖动/等待超时），不是「后台改版」定论。
+# 不可重试：ExportAsyncRequired（模式性问题）、LoginExpired（重试只会再撞一次）。
+RETRYABLE_ERRORS = (TimeoutError, PlaywrightTimeoutError)
 
 # 确认框日期输入框：值为单个日期或日期区间（2026-10-08 / 2026/10/8 ~ 2026-10-14）
 SINGLE_DATE_RE = re.compile(r"^\d{4}[-/]\d{1,2}[-/]\d{1,2}$")
@@ -266,6 +294,70 @@ def _click_first(page, texts) -> str | None:
         except Exception:
             continue
     return None
+
+
+def _export_control_ready(page, spec: PageSpec) -> bool:
+    """页面上是否已渲染出导出控件（任一候选文案可见）。"""
+    for text in spec.export_texts:
+        try:
+            if page.get_by_text(text, exact=False).count() > 0:
+                return True
+        except Exception:
+            continue
+    return False
+
+
+def _wait_export_ready(page, spec: PageSpec,
+                       timeout_ms: int = EXPORT_READY_TIMEOUT_MS,
+                       poll_ms: int = 500) -> bool:
+    """等导出控件真正渲染出来，超时才放弃（返回 False）。
+
+    2026-10-22 事故：perf 页的路由级 JS chunk（pgc_web_v4_analysis）加载超时，
+    页面只剩外壳 + 导航，文章表格区整片空白，「下载Excel」根本不存在。
+    旧代码在 `_assert_logged_in`（固定 3 秒）之后立刻找按钮，等于「秒判改版」——
+    把一次可恢复的资源抖动写成「页面改版」，当天数据直接断档。
+    现在先等（默认 20s），等不到由 run() 重载重试一次，仍等不到才判失败。
+    """
+    waited = 0
+    while True:
+        if _export_control_ready(page, spec):
+            return True
+        if waited >= timeout_ms:
+            return False
+        page.wait_for_timeout(poll_ms)
+        waited += poll_ms
+
+
+def _is_retryable(e: BaseException) -> bool:
+    """这个异常值不值得重载重试一次。
+
+    可重试 = 「这一趟没赶上」：控件没渲染出来 / 确认框没弹 / 等待超时。
+    不可重试 = ExportAsyncRequired（异步导出是模式问题，重试必然一样）、
+    LoginExpired（登录态问题，重试只会再撞一次）。
+    """
+    return isinstance(e, RETRYABLE_ERRORS + (ExportButtonMissing, ExportModalMissing))
+
+
+def _register_request_failures(page) -> list:
+    """采集资源加载失败（chunk/图片/CDN 超时），失败诊断里直接指向真正的原因。
+
+    10-22 只留下「未找到导出按钮」，看不出是改版还是资源没加载——加这条以后，
+    诊断文件里会写「资源加载失败 3 条: GET .../pgc_web_v4_analysis/... ERR_TIMED_OUT」。
+    """
+    failed: list = []
+
+    def _on_failed(req):
+        try:
+            # 失败码放最前面：诊断消息会截断 URL，但「ERR_TIMED_OUT」必须留住
+            failed.append(f"{req.failure} {req.method} {str(req.url)[:120]}")
+        except Exception:
+            return
+
+    try:
+        page.on("requestfailed", _on_failed)
+    except Exception:
+        pass
+    return failed
 
 
 def _dump_diagnostics(page, spec: PageSpec, note: str,
@@ -604,6 +696,9 @@ def _evidence_brief(ev: dict | None) -> str:
         parts.append("页面提示:" + " | ".join(ev["toasts"]))
     if ev.get("downloads"):
         parts.append("下载事件:" + ",".join(ev["downloads"]))
+    if ev.get("requestfailed"):
+        parts.append(f"资源加载失败{len(ev['requestfailed'])}条:"
+                     + ev["requestfailed"][0][:120])
     return " ".join(parts)
 
 
@@ -677,6 +772,7 @@ def _collect_one(page, context, spec: PageSpec, nav_timeout_ms: int,
     由 run() 写进问题消息，超时不再是「干等 120s 什么都没留下」。
     """
     print(f"   🌐 打开 {spec.name} 页面: {spec.url}")
+    request_failures = _register_request_failures(page)
     _assert_logged_in(page, spec, nav_timeout_ms)
     _dismiss_popups(page)
 
@@ -699,10 +795,17 @@ def _collect_one(page, context, spec: PageSpec, nav_timeout_ms: int,
             page.wait_for_timeout(1000)
 
     evidence = _watch_export_events(page, context)
+    evidence["requestfailed"] = request_failures[-5:]
     tmp_dir = DIAG_DIR / "downloads"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     download = None
     try:
+        # 先等控件就绪，再进下载等待——否则渲染慢的页面会白占 120s 下载超时
+        if not _wait_export_ready(page, spec):
+            evidence["requestfailed"] = request_failures[-5:]   # 等待期间又失败的也要带上
+            raise ExportButtonMissing(
+                f"{spec.name} 页未找到导出按钮（表格区未渲染："
+                f"资源加载失败 {len(request_failures)} 条 / 或后台改版）")
         with page.expect_download(timeout=download_timeout_ms) as dl_info:
             if not _try_click(page, spec.export_texts):
                 raise ExportButtonMissing(f"{spec.name} 页未找到导出按钮")
@@ -713,11 +816,15 @@ def _collect_one(page, context, spec: PageSpec, nav_timeout_ms: int,
             _observe_after_click(page, evidence)
         download = dl_info.value
     except Exception as e:
+        evidence["requestfailed"] = request_failures[-5:]
         try:
             e.evidence = evidence      # type: ignore[attr-defined]
         except Exception:
             pass
-        if isinstance(e, TimeoutError) and evidence.get("download_objs"):
+        # playwright 的超时不是内置 TimeoutError 的子类（2026-10-23 实测：
+        # mro 只有 Error→Exception），旧代码只判内置 TimeoutError，等于这条
+        # popup 下载回收分支从来没在真实环境生效过
+        if isinstance(e, (TimeoutError, PlaywrightTimeoutError)) and evidence.get("download_objs"):
             # 下载是从新标签页触发的：page 级 expect_download 等不到，
             # 但 context 级监听已经收到——直接用，照样落袋为安。
             # 只认 TimeoutError：禁用/异步/按钮缺失这类「导出根本没触发」的
@@ -803,6 +910,17 @@ def _notify_summary(result: dict, date_tag: str) -> None:
     send_wxpusher(f"足球自媒体 ✅ 导出回收完成（{date_tag}）", "\n".join(lines))
 
 
+def _record_login_expired(result: dict, spec: PageSpec, e: Exception) -> None:
+    """登录过期统一处理：记状态 + 告警（dry-run 与正式回收共用，文案只此一处）。"""
+    msg = f"头条登录态已过期（{spec.name} 页）：{e}"
+    print(f"   ⛔ {msg}")
+    result["status"] = "login_expired"
+    result["problems"].append(msg)
+    send_wxpusher("足球自媒体 ⚠️ 导出回收跳过（登录态过期）",
+                  f"{msg}。请重新登录更新 TOUTIAO_AUTH_GZ secret，"
+                  f"或今天手动导出投递 data/inbox/")
+
+
 def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
         headless: bool = True, nav_timeout_ms: int = DEFAULT_NAV_TIMEOUT_MS,
         download_timeout_ms: int = DEFAULT_DOWNLOAD_TIMEOUT_MS, dry_run: bool = False,
@@ -844,39 +962,58 @@ def run(auth_file: Path = AUTH_FILE, inbox: Path = INBOX, days: int = 1,
         page = context.new_page()
         page.on("dialog", lambda dialog: dialog.accept())
 
+        login_expired = False
         for spec in PAGES:
-            try:
-                if dry_run:
+            if dry_run:
+                try:
                     print(f"   🌐 [dry-run] 仅检测登录态: {spec.url}")
                     _assert_logged_in(page, spec, nav_timeout_ms)
                     print(f"   ✅ [dry-run] {spec.name} 登录态有效")
                     continue
-                tmp, range_hit = _collect_one(page, context, spec, nav_timeout_ms,
-                                              download_timeout_ms, days=days,
-                                              range_days=(perf_range_days if perf_range_days is not None
-                                                          else spec.modal_range_days),
-                                              now=now)
-                rec = _save_to_inbox(tmp, inbox, date_tag=date_tag)
-                rec["range"] = range_hit
-                result["files"].append(rec)
-            except LoginExpired as e:
-                msg = f"头条登录态已过期（{spec.name} 页）：{e}"
-                print(f"   ⛔ {msg}")
-                result["status"] = "login_expired"
-                result["problems"].append(msg)
-                send_wxpusher("足球自媒体 ⚠️ 导出回收跳过（登录态过期）",
-                              f"{msg}。请重新登录更新 TOUTIAO_AUTH_GZ secret，"
-                              f"或今天手动导出投递 data/inbox/")
+                except LoginExpired as e:
+                    login_expired = True
+                    _record_login_expired(result, spec, e)
+                    break
+
+            attempt = 0
+            while True:
+                attempt += 1
+                try:
+                    tmp, range_hit = _collect_one(page, context, spec, nav_timeout_ms,
+                                                  download_timeout_ms, days=days,
+                                                  range_days=(perf_range_days if perf_range_days is not None
+                                                              else spec.modal_range_days),
+                                                  now=now)
+                    rec = _save_to_inbox(tmp, inbox, date_tag=date_tag)
+                    rec["range"] = range_hit
+                    result["files"].append(rec)
+                    break
+                except LoginExpired as e:
+                    login_expired = True
+                    _record_login_expired(result, spec, e)
+                    break
+                except Exception as e:
+                    # 单页重载重试一次：10-22 事故里 perf 页只失败一次就整天断档，
+                    # 而失败原因是路由 chunk 加载超时（可恢复）——重载通常就能拿到。
+                    if attempt < EXPORT_ATTEMPTS and _is_retryable(e):
+                        print(f"   🔁 {spec.name} 页第 {attempt} 次失败"
+                              f"（{type(e).__name__}），重载重试…")
+                        try:
+                            page.wait_for_timeout(2000)
+                        except Exception:
+                            pass
+                        continue
+                    msg = f"{spec.name} 页导出失败: {type(e).__name__}: {e}"
+                    brief = _evidence_brief(getattr(e, "evidence", None))
+                    if brief:
+                        msg = f"{msg}；{brief}"
+                    print(f"   ❌ {msg}")
+                    result["status"] = "export_failed"
+                    result["problems"].append(msg)
+                    # 一个页面失败不阻断另一个（尽力投递）；但最终 ok=False
+                    break
+            if login_expired:
                 break
-            except Exception as e:
-                msg = f"{spec.name} 页导出失败: {type(e).__name__}: {e}"
-                brief = _evidence_brief(getattr(e, "evidence", None))
-                if brief:
-                    msg = f"{msg}；{brief}"
-                print(f"   ❌ {msg}")
-                result["status"] = "export_failed"
-                result["problems"].append(msg)
-                # 一个页面失败不阻断另一个（尽力投递）；但最终 ok=False
         browser.close()
 
     saved = [f for f in result["files"] if f["action"] == "saved"]
@@ -933,6 +1070,14 @@ def main() -> int:
         perf_range_days=args.perf_range_days,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
+    # 落一份状态文件：CI 的失败兜底告警要读它，否则只能发「登录过期/改版/推送失败之一」
+    # 这种看不出真实原因的通告（10-22 就是被这条通告卡住排查的）
+    try:
+        DIAG_DIR.mkdir(parents=True, exist_ok=True)
+        (DIAG_DIR / "collector-status.json").write_text(
+            json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
     return 0 if result["ok"] else 1
 
 

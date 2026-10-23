@@ -6,6 +6,12 @@ name: 调度健康检查
 #   （2026-10-19 GitHub 整次丢弃 schedule 触发，见 scripts/check_calibration_push.py）
 # 终检（22:17 CST）：检查全部三个批次(morning/noon/evening)是否完成
 # 如有遗漏，通过 WxPusher 发送告警
+#
+# 目标日期/时段必须按「触发它的 cron」算，不能按运行时刻算：
+#   GitHub 定时任务每天稳定延迟 4~5 小时，22:17 的终检常常次日 02:3x 才跑，
+#   12:37 的午检常常 17:3x 才跑。按运行时刻算会报「今天晨读全部缺失」
+#   （其实今天还没开始）和「evening 缺失」（其实是午检）。见
+#   scripts/resolve_check_slot.py（2026-10-23 假警事故）。
 on:
   schedule:
     - cron: '17 14 * * *'  # 22:17 CST — 终检，检查全部三个批次（offset to avoid stampede）
@@ -33,22 +39,28 @@ jobs:
           python3 scripts/health_check_scraper.py --alert
           echo "status=$?" >> $GITHUB_OUTPUT
 
-      - name: 检测当前检查时段（午检/终检）
-        id: period
+      - name: 解析本次调度对应的目标日期（防延迟跨日假警）
+        id: slot
         run: |
-          HOUR=$(TZ='Asia/Shanghai' date +%H)
-          if [ "$HOUR" -lt 15 ]; then
-            # 午检：此时只应完成晨读，午间可能仍在跑、晚间尚未开始
-            echo "period=midday" >> $GITHUB_OUTPUT
-            echo "expect=morning" >> $GITHUB_OUTPUT
+          # 2026-10-23 事故：22:17 的终检被 GitHub 拖到次日 02:33 才跑，旧逻辑拿
+          # 「运行日」当今天 → 报「2026-10-23 晨读全部缺失」，而晨读 07:00 才开始。
+          # 12:37 的午检拖到 17:3x 时又会被判成终检 → 误报 evening 缺失。
+          # 现在按「触发它的 cron」反推应触发时刻（scripts/resolve_check_slot.py）。
+          SLOT=$(python3 scripts/resolve_check_slot.py --schedule '${{ github.event.schedule }}')
+          TARGET=${SLOT%% *}
+          PERIOD=${SLOT##* }
+          if [ "$PERIOD" = "midday" ]; then
+            EXPECT="morning"
           else
-            # 终检（22:17 CST）：三个批次都应已完成
-            echo "period=final" >> $GITHUB_OUTPUT
-            echo "expect=morning noon evening" >> $GITHUB_OUTPUT
+            EXPECT="morning noon evening"
           fi
+          echo "target=$TARGET" >> $GITHUB_OUTPUT
+          echo "period=$PERIOD" >> $GITHUB_OUTPUT
+          echo "expect=$EXPECT" >> $GITHUB_OUTPUT
+          echo "📅 本次调度对应: ${TARGET}（时段 ${PERIOD}，应完成: ${EXPECT}）"
 
       - name: 周一校准推送值守（防 GitHub 丢调度）
-        if: steps.period.outputs.period == 'midday'
+        if: steps.slot.outputs.period == 'midday'
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,20 +72,20 @@ jobs:
           # 只在一整天都没有任何运行记录时提醒手动补跑。
           python3 scripts/check_calibration_push.py
 
-      - name: 检查今日批次完成情况
+      - name: 检查批次完成情况
         id: check
         run: |
-          TODAY=$(TZ='Asia/Shanghai' date +%Y-%m-%d)
+          TODAY="${{ steps.slot.outputs.target }}"
           META="output/${TODAY}/metadata.json"
-          EXPECTED="${{ steps.period.outputs.expect }}"
+          EXPECTED="${{ steps.slot.outputs.expect }}"
           echo "today=$TODAY" >> $GITHUB_OUTPUT
           echo "expect=$EXPECTED" >> $GITHUB_OUTPUT
 
-          echo "📋 调度健康检查 — ${TODAY}（时段: ${{ steps.period.outputs.period }}，应完成: ${EXPECTED}）"
+          echo "📋 调度健康检查 — ${TODAY}（时段: ${{ steps.slot.outputs.period }}，应完成: ${EXPECTED}）"
           echo ""
 
           if [ ! -f "$META" ]; then
-            echo "❌ 今日无任何批次记录"
+            echo "❌ ${TODAY} 无任何批次记录"
             echo "status=all_missing" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -103,12 +115,14 @@ jobs:
           TODAY="${{ steps.check.outputs.today }}"
           STATUS="${{ steps.check.outputs.status }}"
           MISSING="${{ steps.check.outputs.missing }}"
-          PERIOD="${{ steps.period.outputs.period }}"
+          PERIOD="${{ steps.slot.outputs.period }}"
           EXPECTED="${{ steps.check.outputs.expect }}"
 
+          # 日期可能不是今天（GitHub 延迟跨日时的终检查的是前一天），
+          # 所以文案里不再写「今日」，直接给目标日期
           if [ "$STATUS" = "all_missing" ]; then
             TITLE="🚨 调度告警"
-            BODY="${TODAY} 今日应完成批次（${EXPECTED}）全部缺失！请检查 GitHub Actions 状态。"
+            BODY="${TODAY} 应完成批次（${EXPECTED}）全部缺失！请检查 GitHub Actions 状态。"
           elif [ "$PERIOD" = "midday" ]; then
             TITLE="⚠️ 午检告警"
             BODY="${TODAY} 晨读批次可能未完成（缺失: ${MISSING}）。请检查 GitHub Actions，必要时手动触发 workflow_dispatch。"

@@ -497,13 +497,15 @@ class TestExportFailure(CollectorTestBase):
         class SelectivePage(FakePage):
             def expect_download(self, timeout=None):
                 calls["n"] += 1
-                if calls["n"] == 1:
+                # perf 页两次尝试都超时（重试也救不回来），growth 页正常
+                if calls["n"] <= 2:
                     raise TimeoutError("Timeout exceeded while waiting for download")
                 return _FakeDownloadCtx(FakeDownload("粉丝分析.xlsx", b"growth"))
 
         page = SelectivePage(button_texts=("导出数据", "开始下载"))
         result = self._run(page)
         self.assertFalse(result["ok"], "有页面失败则整体不 ok")
+        self.assertEqual(calls["n"], 3, "perf 页应先重试一次，仍失败才记问题")
         saved = [f for f in result["files"] if f["action"] == "saved"]
         self.assertEqual(len(saved), 1, "成功的页面仍要落袋为安")
         self.assertTrue(saved[0]["file"].startswith("粉丝分析"),
@@ -1163,6 +1165,125 @@ class TestWorkflowCliContract(unittest.TestCase):
             self.assertIn(f'"{flag}"', src,
                           f"workflow 传了 {flag} 但 argparse 未注册——"
                           f"这正是 10-15 CI exit 2 事故的形态")
+
+
+class TestTransientRetry(CollectorTestBase):
+    """2026-10-22 perf 页导出失败：资源抖动被当成「页面改版」，且没有重试。
+
+    现场：perf 页的路由级 JS chunk 加载超时 → 页面只剩外壳，文章表格区空白，
+    「下载Excel」不存在。旧代码固定 3 秒后立刻找按钮，约 4 秒就抛
+    ExportButtonMissing，唯一一次机会用完 → 当天作品数据断档。
+    现在：先等控件就绪（20s），仍不在则重载重试一次，并记录 requestfailed。
+    """
+
+    PERF_URL = "https://mp.toutiao.com/profile_v4/analysis/works-single/article"
+
+    def _page(self, **kw):
+        opts = dict(url_map={"works-single": self.PERF_URL},
+                    link_texts=("下载Excel",),
+                    button_texts=("开始下载",),
+                    downloads=[FakeDownload("图文_20261015-20261021.xlsx", b"perf"),
+                               FakeDownload("粉丝趋势.xlsx", b"growth")])
+        opts.update(kw)
+        return FakePage(**opts)
+
+    def test_retries_once_when_export_control_missing(self):
+        """首趟表格区空白 → 重载后恢复正常（10-22 的真实现场）。"""
+        def fake_ready(page, spec):
+            # 首趟导航（perf 第一次）始终没就绪；重载后（goto_calls>1）恢复
+            return len(page.goto_calls) > 1
+
+        page = self._page()
+        buf = io.StringIO()
+        with mock.patch.object(cte, "_export_control_ready", fake_ready), \
+             contextlib.redirect_stdout(buf):
+            result = self._run(page)
+
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(len(page.goto_calls), 3,
+                         "perf 重载一次 + growth 一次 = 3 次导航")
+        self.assertIn("重载重试", buf.getvalue())
+        self.assertEqual(len(result["problems"]), 0, "重试成功就不该记问题")
+
+    def test_gives_up_after_one_retry(self):
+        """重试也没救回来 → 记一条问题（不是两条），且不再无脑重试。"""
+        page = self._page(link_texts=(), button_texts=())
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        self.assertEqual(len(result["problems"]), 2, "两页各一条问题（重试不重复记账）")
+        self.assertEqual(len(page.goto_calls), 4,
+                         "两页 × 两次尝试 = 4 次导航")
+
+    def test_async_export_is_not_retried(self):
+        """异步导出是模式问题，重试必然一样——不该浪费第二趟。"""
+        page = self._page(toast_texts=("导出成功，请前往下载中心查看",))
+        result = self._run(page)
+        self.assertFalse(result["ok"])
+        self.assertEqual(len(page.goto_calls), 2, "两页各只尝试一次，不重试")
+        self.assertTrue(any("异步" in p for p in result["problems"]))
+
+    def test_wait_export_ready_detects_control(self):
+        ready_page = self._page()
+        self.assertTrue(cte._wait_export_ready(ready_page, cte.PAGES[0],
+                                               timeout_ms=1000))
+        blank_page = FakePage(button_texts=(), link_texts=())
+        self.assertFalse(cte._wait_export_ready(blank_page, cte.PAGES[0],
+                                               timeout_ms=1000, poll_ms=500))
+
+    def test_request_failures_land_in_failure_evidence(self):
+        """诊断里必须能看出「资源没加载」——否则只会被当成后台改版。"""
+        page = FakePage()
+
+        class _Req:
+            method = "GET"
+            url = ("https://lf6-cdn2-tos.bytegoofy.com/gftar/toutiao/pgcfe/"
+                   "pgc_web_v4_analysis/1.0.0.944/index.js")
+            failure = "net::ERR_TIMED_OUT"
+
+        failed = cte._register_request_failures(page)
+        page.fire("requestfailed", _Req())
+        self.assertEqual(len(failed), 1)
+        brief = cte._evidence_brief({"requestfailed": failed})
+        self.assertIn("资源加载失败1条", brief)
+        self.assertIn("ERR_TIMED_OUT", brief)
+
+    def test_playwright_timeout_recovers_popup_download(self):
+        """回归：playwright 的 TimeoutError 不是内置 TimeoutError 子类。
+
+        旧代码 `isinstance(e, TimeoutError)` 只认内置类型，这条 popup 下载回收
+        分支在真实环境从未生效过（单测用内置 TimeoutError 假通过）。
+        """
+        from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+
+        calls = {"n": 0}
+
+        class _PwCtx:
+            value = None
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                if exc[0] is None:
+                    raise PlaywrightTimeoutError("Timeout 120000ms exceeded")
+                return False
+
+        class PwPage(FakePage):
+            def expect_download(self, timeout=None):
+                calls["n"] += 1
+                if calls["n"] == 1:
+                    return _PwCtx()
+                return _FakeDownloadCtx(FakeDownload("粉丝趋势.xlsx", b"growth"))
+
+        page = PwPage(url_map={"works-single": self.PERF_URL},
+                      link_texts=("下载Excel",), button_texts=("开始下载",),
+                      downloads=[],
+                      popup_url="https://mp.toutiao.com/export/popup",
+                      popup_download=FakeDownload("图文.xlsx", b"popup-perf"))
+        result = self._run(page)
+        self.assertTrue(result["ok"], result)
+        saved = [f for f in result["files"] if f["action"] == "saved"]
+        self.assertEqual(len(saved), 2, "popup 下载 + growth 都应落箱")
 
 
 if __name__ == "__main__":

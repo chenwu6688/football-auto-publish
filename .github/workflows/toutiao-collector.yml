@@ -112,8 +112,32 @@ jobs:
           WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
           WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
         run: |
-          python -c "
-          import requests
-          requests.post('https://wxpusher.zjiecode.com/api/send/message',
-            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ 头条导出自动回收运行失败（登录过期/页面改版/推送失败之一）\n今天请手动导出投递 data/inbox/ 兜底\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
-          "
+          # 10-22 教训：旧文案只写「登录过期/页面改版/推送失败之一」，
+          # 实际原因（perf 页表格未渲染）藏在脚本输出里，手机上根本看不到，
+          # 只能翻 Actions 日志。现在从脚本落的状态文件里取真实原因。
+          REASON=""
+          STATUS_FILE="${RUNNER_TEMP}/collector-diag/collector-status.json"
+          if [ -f "$STATUS_FILE" ]; then
+            REASON=$(python3 - "$STATUS_FILE" <<'PY'
+          import json, sys
+          d = json.load(open(sys.argv[1], encoding="utf-8"))
+          problems = "; ".join(d.get("problems") or [])[:300]
+          print(f"{d.get('status', '?')} — {problems}" if problems else d.get("status", "?"))
+          PY
+            )
+          fi
+          if [ -z "$REASON" ]; then
+            REASON="脚本未产出状态文件（可能在启动阶段就崩了，如依赖/登录态解压）"
+          fi
+          MSG=$(printf '⚠️ 头条导出自动回收运行失败\n原因: %s\n今天请手动导出投递 data/inbox/ 兜底\n查看: https://github.com/%s/actions/runs/%s' \
+            "$REASON" "${{ github.repository }}" "${{ github.run_id }}")
+          MSG="$MSG" python3 - <<'PY'
+          import os, requests
+          requests.post(
+              "https://wxpusher.zjiecode.com/api/send/message",
+              json={"appToken": os.environ["WXPUSHER_APPTOKEN"],
+                    "content": os.environ["MSG"],
+                    "contentType": 1,
+                    "uids": [os.environ["WXPUSHER_UID"]]},
+              timeout=20)
+          PY
