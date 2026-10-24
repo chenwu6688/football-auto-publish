@@ -1,7 +1,7 @@
 {
   "date": "2026-10-24",
-  "generated_at": "2026-10-24T04:04:39.751988",
-  "total_articles": 4,
+  "generated_at": "2026-10-24T10:04:55.246481",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -144,150 +144,261 @@
       "batch_name": "午间",
       "is_prediction": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "武汉三镇3-5输球降级，贺惯拼满90分钟却等来这个结局",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-1-武汉三镇35输球-ba8144.md",
+      "slug": "武汉三镇35输球-ba8144",
+      "tags": [
+        "Wuhan Three Towns",
+        "relegation",
+        "CSL",
+        "He Guan",
+        "Shandong Taishan"
+      ],
+      "keywords": [
+        "Wuhan Three Towns",
+        "relegation",
+        "CSL",
+        "He Guan",
+        "Shandong Taishan"
+      ],
+      "images": [],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "战报比分",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 2,
+      "title": "齐达内和皮尔洛数据总差口气，老球迷真能分高下？",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-2-齐达内和皮尔洛数-a6f4e9.md",
+      "slug": "齐达内和皮尔洛数-a6f4e9",
+      "tags": [
+        "Zidane",
+        "Pirlo",
+        "midfield comparison",
+        "World Cup",
+        "football data"
+      ],
+      "keywords": [
+        "Zidane",
+        "Pirlo",
+        "midfield comparison",
+        "World Cup",
+        "football data"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "国家德比撞车米兰双雄 这一夜谁先崩盘？",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-3-国家德比撞车米兰-796e94.md",
+      "slug": "国家德比撞车米兰-796e94",
+      "tags": [
+        "El Clasico",
+        "Barcelona vs Real Madrid",
+        "Inter Milan",
+        "AC Milan",
+        "Liverpool",
+        "Chelsea vs Tottenham",
+        "Bayern Munich",
+        "Manchester United"
+      ],
+      "keywords": [
+        "El Clasico",
+        "Barcelona vs Real Madrid",
+        "Inter Milan",
+        "AC Milan",
+        "Liverpool",
+        "Chelsea vs Tottenham",
+        "Bayern Munich",
+        "Manchester United"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "32年等一回，成都这座城原来把冠军藏得这么深？",
-      "angle": "成都蓉城主场冲击西部首个顶级联赛冠军，32年等待——不写赛程对阵，写一座城市和一代球迷的执念。从1994年甲A全兴的黄色狂飙讲到现在，这是老球迷身份认同的活标本。",
+      "title": "蓉城领先3分却输球，原来这队真到了关键时刻就腿软？",
+      "angle": "蓉城0-1不敌英博、领先优势缩水，媒体人直言「落后就不会踢球」，这不是偶然——一支从没拿过冠军的球队，缺的从来不是实力而是那股子狠劲。老球迷看中超二十年，这种「临门一脚软」的剧本太熟了。",
       "keywords": [
-        "Chengdu Rongcheng",
-        "CSL title",
-        "western China football"
+        "chengdu rongcheng",
+        "csl title race",
+        "dalian yingbo"
       ],
       "keywords_cn": [
         "成都蓉城",
-        "中超冠军",
-        "32年等待"
+        "中超争冠",
+        "大连英博"
       ],
-      "content_type": "热点球评",
-      "score": 93,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "guozu-chronicle",
-      "why_pick": "一座城32年的等待比单场胜负更戳老球迷",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-2"
-    },
-    {
-      "title": "赫内斯说利物浦花5亿只排第5，这话凭啥这么扎心？",
-      "angle": "拜仁名誉主席赫内斯公开炮轰利物浦5亿投入只换联赛第5，还称奥利塞强过亚马尔。站队：钱砸得多不等于踢得好，但赫内斯这话说的时机和对象都值得琢磨——豪门烧钱与青训哲学的正面碰撞。",
-      "keywords": [
-        "Hoeness",
-        "Liverpool spending",
-        "Olise Yamal"
-      ],
-      "keywords_cn": [
-        "赫内斯",
-        "利物浦5亿",
-        "奥利塞亚马尔"
-      ],
-      "content_type": "八卦趣事",
+      "content_type": "人物故事",
       "score": 88,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
+      "target_emotion": "愤怒",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "名宿开炮+烧钱争议，评论区必吵翻",
-      "_category": "冲突舆情",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "争冠软脚的老剧本最戳老球迷",
+      "_category": "中国足球",
+      "_column_id": "world-cup-daily",
+      "_column_name": "人物故事",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-0",
+      "_degraded": true
     },
     {
-      "title": "詹俊都站凯恩了，下周一金球奖难道真没悬念了？",
-      "angle": "金球奖颁奖在即，詹俊公开表态支持凯恩，德泽尔比也力挺。站队：凯恩这赛季的数据和荣誉配得上，但金球从来不只是看数据。聊金球评选的历史争议，戳老球迷对'该给谁'的集体记忆。",
+      "title": "从中超降级到深夜发文感谢球迷，贺惯这句话让人鼻子一酸",
+      "angle": "贺惯谈降级「大家都努力了，未来还有很多路要走」——职业足球最残酷的一面，不是输球，是眼睁睁看着一支队沉下去，还得体面地说再见。写球员的处境与体面，不写比分。",
       "keywords": [
-        "Ballon d'Or",
-        "Kane",
-        "Zhan Jun"
+        "he guan",
+        "relegation",
+        "csl"
       ],
       "keywords_cn": [
-        "金球奖",
-        "凯恩",
-        "詹俊"
+        "贺惯",
+        "降级",
+        "中超"
       ],
-      "content_type": "排行榜",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "金球悬念+名嘴站队，天然讨论场",
-      "_category": "冲突舆情",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "感动",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "降级告别的人文一面有共情",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "帅压力比那不勒斯还大，17分净胜球13的队怎么了？",
-      "content_type": "人物故事",
-      "_is_fixture": true
+      "title": "戴伟浚韦斯利破门，深圳2-1申花——这场球凭啥让老球迷坐直了？",
+      "angle": "深圳新鹏城主场收官2-1拿下上海申花，戴伟浚、韦斯利双双破门。豪门翻车、小球队收官战掀翻大牌，这种「不按剧本走」的比赛，才是中超最好看的地方。",
+      "keywords": [
+        "shenzhen",
+        "shenhua",
+        "dai weijun"
+      ],
+      "keywords_cn": [
+        "深圳新鹏城",
+        "上海申花",
+        "戴伟浚"
+      ],
+      "content_type": "热点球评",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "震惊",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "豪门翻车小球队逆袭有戏剧性",
+      "_category": "战报比分",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "齐达内和皮尔洛数据总差口气，老球迷真能分高下？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "国家德比撞车米兰双雄 这一夜谁先崩盘？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
+      "一级·确定性": 0,
       "二级·突发": 1,
-      "三级·软性": 0
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 50.0,
+      "一级·确定性": 0.0,
       "二级·突发": 50.0,
-      "三级·软性": 0.0
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -295,17 +406,29 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
+      "一级·确定性": -30.0,
       "二级·突发": 0.0,
-      "三级·软性": -20.0
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "互动引导未达标",
+      "环节": "一致性校验",
+      "原因": "事实验证连续不过: 比分不一致: 比赛数据 蓉城 0-1 英博，但文中未出现该比分",
+      "处置": "降级为低风险板块（人物故事）后重生成一次",
+      "数量": 1
+    },
+    {
+      "环节": "一致性校验",
+      "原因": "降级后仍不过: 比分不一致: 比赛数据 蓉城 0-1 英博，但文中未出现该比分",
+      "处置": "丢弃该选题，交由候选池补位",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
       "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -317,23 +440,24 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-24 12:04:39"
+  "last_batch": "evening",
+  "last_updated": "2026-10-24 18:04:55"
 }
