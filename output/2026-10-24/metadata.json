@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-24",
+  "generated_at": "2026-10-24T00:04:34.905979",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "到？积分榜首的争夺竟比那不勒斯还焦虑？",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-1-到积分榜首的争夺-151475.md",
+      "slug": "到积分榜首的争夺-151475",
+      "tags": [
+        "Serie A",
+        "Roma",
+        "Napoli",
+        "coach pressure",
+        "Malen"
+      ],
+      "keywords": [
+        "Serie A",
+        "Roma",
+        "Napoli",
+        "coach pressure",
+        "Malen"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "萨拉赫今夏要走？12场10球5助攻的人，利物浦真舍得放？",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-2-萨拉赫今夏要走1-c8b632.md",
+      "slug": "萨拉赫今夏要走1-c8b632",
+      "tags": [
+        "Salah",
+        "Liverpool",
+        "transfer",
+        "Ferdinand",
+        "Premier League"
+      ],
+      "keywords": [
+        "Salah",
+        "Liverpool",
+        "transfer",
+        "Ferdinand",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-24/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-24/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-24/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "topic_category": "转会官宣",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
+    }
+  ],
+  "topics": [
+    {
+      "title": "利物浦竟然打算不续麦卡利斯特？球员感到失望这事闹大了",
+      "angle": "记者爆料利物浦倾向不续约麦卡利斯特、明年签新中场，球员本人失望。老六观点：这不是省钱，是俱乐部在赌一个还没影的替代者，把一个正在当打之年的中场当消耗品。28年合同到期前这么处理，寒的是全队的心。",
+      "keywords": [
+        "Liverpool",
+        "Mac Allister",
+        "contract",
+        "midfielder"
+      ],
+      "keywords_cn": [
+        "利物浦",
+        "麦卡利斯特",
+        "续约",
+        "中场"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "续约风波+球员失望，转会窗最扎心的续约悬念",
+      "_category": "转会官宣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "到？积分榜首的争夺竟比那不勒斯还焦虑？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 1,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 50.0,
+      "二级·突发": 50.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 20.0,
+      "二级·突发": 0.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-24 08:04:34"
+}
