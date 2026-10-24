@@ -67,9 +67,9 @@
     "fail_streak": 2
   },
   "deepseek-v4.1-flash": {
-    "prompt_tokens": 355673,
-    "completion_tokens": 93583,
-    "total_tokens": 485741,
+    "prompt_tokens": 382542,
+    "completion_tokens": 100898,
+    "total_tokens": 519925,
     "fail_streak": 0
   },
   "glm-5.2": {
