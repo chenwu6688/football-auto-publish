@@ -72,7 +72,17 @@
       "column_name": "晨读快讯",
       "batch_name": "晨读",
       "is_prediction": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 477,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7700018633707241984"
     },
     {
       "index": 1,
@@ -143,7 +153,17 @@
       "column_name": "午间快讯",
       "batch_name": "午间",
       "is_prediction": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 423,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7700080510231462410"
     },
     {
       "index": 1,

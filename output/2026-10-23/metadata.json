@@ -142,11 +142,12 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 15,
+        "reads": 50,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 17710,
+        "retention_rate": 0.6881,
+        "impressions": 36718,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -185,11 +186,12 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 0,
+        "reads": 3,
         "comments": 1,
         "likes": 0,
         "shares": 0,
-        "impressions": 67,
+        "retention_rate": 1.0,
+        "impressions": 962,
         "follower_reads": 0,
         "click_rate": 0.0
       },
