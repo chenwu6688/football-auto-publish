@@ -1,7 +1,7 @@
 {
   "date": "2026-10-24",
-  "generated_at": "2026-10-24T00:04:34.905979",
-  "total_articles": 2,
+  "generated_at": "2026-10-24T04:04:39.751988",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -73,54 +73,205 @@
       "batch_name": "晨读",
       "is_prediction": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "帅压力比那不勒斯还大，17分净胜球13的队怎么了？",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-1-帅压力比那不勒斯-51c63f.md",
+      "slug": "帅压力比那不勒斯-51c63f",
+      "tags": [
+        "Napoli",
+        "Roma",
+        "Serie A",
+        "coach pressure",
+        "Malen"
+      ],
+      "keywords": [
+        "Napoli",
+        "Roma",
+        "Serie A",
+        "coach pressure",
+        "Malen"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "10月24日15:30，成都蓉城对大连英博海发，老球迷的下午茶来了",
+      "path": "/home/runner/work/_temp/output/2026-10-24/article-2-10月24日15-9a58e5.md",
+      "slug": "10月24日15-9a58e5",
+      "tags": [
+        "CSL",
+        "Chengdu Rongcheng",
+        "Dalian Yingbo",
+        "football",
+        "old fans"
+      ],
+      "keywords": [
+        "CSL",
+        "Chengdu Rongcheng",
+        "Dalian Yingbo",
+        "football",
+        "old fans"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-24/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-24/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-24/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "supply_layer": "二级·突发"
     }
   ],
   "topics": [
     {
-      "title": "利物浦竟然打算不续麦卡利斯特？球员感到失望这事闹大了",
-      "angle": "记者爆料利物浦倾向不续约麦卡利斯特、明年签新中场，球员本人失望。老六观点：这不是省钱，是俱乐部在赌一个还没影的替代者，把一个正在当打之年的中场当消耗品。28年合同到期前这么处理，寒的是全队的心。",
+      "title": "32年等一回，成都这座城原来把冠军藏得这么深？",
+      "angle": "成都蓉城主场冲击西部首个顶级联赛冠军，32年等待——不写赛程对阵，写一座城市和一代球迷的执念。从1994年甲A全兴的黄色狂飙讲到现在，这是老球迷身份认同的活标本。",
       "keywords": [
-        "Liverpool",
-        "Mac Allister",
-        "contract",
-        "midfielder"
+        "Chengdu Rongcheng",
+        "CSL title",
+        "western China football"
       ],
       "keywords_cn": [
-        "利物浦",
-        "麦卡利斯特",
-        "续约",
-        "中场"
+        "成都蓉城",
+        "中超冠军",
+        "32年等待"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "content_type": "热点球评",
+      "score": 93,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
       "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "续约风波+球员失望，转会窗最扎心的续约悬念",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "series_id": "guozu-chronicle",
+      "why_pick": "一座城32年的等待比单场胜负更戳老球迷",
+      "_category": "中国足球",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "赫内斯说利物浦花5亿只排第5，这话凭啥这么扎心？",
+      "angle": "拜仁名誉主席赫内斯公开炮轰利物浦5亿投入只换联赛第5，还称奥利塞强过亚马尔。站队：钱砸得多不等于踢得好，但赫内斯这话说的时机和对象都值得琢磨——豪门烧钱与青训哲学的正面碰撞。",
+      "keywords": [
+        "Hoeness",
+        "Liverpool spending",
+        "Olise Yamal"
+      ],
+      "keywords_cn": [
+        "赫内斯",
+        "利物浦5亿",
+        "奥利塞亚马尔"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "名宿开炮+烧钱争议，评论区必吵翻",
+      "_category": "冲突舆情",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "到？积分榜首的争夺竟比那不勒斯还焦虑？",
+      "title": "詹俊都站凯恩了，下周一金球奖难道真没悬念了？",
+      "angle": "金球奖颁奖在即，詹俊公开表态支持凯恩，德泽尔比也力挺。站队：凯恩这赛季的数据和荣誉配得上，但金球从来不只是看数据。聊金球评选的历史争议，戳老球迷对'该给谁'的集体记忆。",
+      "keywords": [
+        "Ballon d'Or",
+        "Kane",
+        "Zhan Jun"
+      ],
+      "keywords_cn": [
+        "金球奖",
+        "凯恩",
+        "詹俊"
+      ],
+      "content_type": "排行榜",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "金球悬念+名嘴站队，天然讨论场",
+      "_category": "冲突舆情",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "帅压力比那不勒斯还大，17分净胜球13的队怎么了？",
       "content_type": "人物故事",
       "_is_fixture": true
     }
@@ -166,7 +317,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -180,8 +331,9 @@
   },
   "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-24 08:04:34"
+  "last_batch": "noon",
+  "last_updated": "2026-10-24 12:04:39"
 }
