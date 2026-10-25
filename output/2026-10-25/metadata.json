@@ -1,0 +1,198 @@
+{
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25T10:04:54.049619",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "马拉多纳一个凡人凭什么扛着阿根廷连过五人夺冠？",
+      "path": "/home/runner/work/_temp/output/2026-10-25/article-1-马拉多纳一个凡人-5b65e4.md",
+      "slug": "马拉多纳一个凡人-5b65e4",
+      "tags": [
+        "Maradona",
+        "1986 World Cup",
+        "Argentina",
+        "nostalgia",
+        "football history"
+      ],
+      "keywords": [
+        "Maradona",
+        "1986 World Cup",
+        "Argentina",
+        "nostalgia",
+        "football history"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "历史回顾",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "齐达内一头撞飞冠军梦，法国为何输掉柏林之夜？",
+      "path": "/home/runner/work/_temp/output/2026-10-25/article-2-齐达内一头撞飞冠-8af95f.md",
+      "slug": "齐达内一头撞飞冠-8af95f",
+      "tags": [
+        "Zidane",
+        "2006 World Cup final",
+        "France Italy",
+        "Materazzi",
+        "red card"
+      ],
+      "keywords": [
+        "Zidane",
+        "2006 World Cup final",
+        "France Italy",
+        "Materazzi",
+        "red card"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "历史回顾",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "国家德比+利物浦曼联，这夜能睡算我输",
+      "path": "/home/runner/work/_temp/output/2026-10-25/article-3-国家德比利物浦曼-f2f7ec.md",
+      "slug": "国家德比利物浦曼-f2f7ec",
+      "tags": [
+        "El Clasico",
+        "Liverpool",
+        "Manchester United",
+        "Bayern Munich",
+        "Serie A",
+        "Ligue 1"
+      ],
+      "keywords": [
+        "El Clasico",
+        "Liverpool",
+        "Manchester United",
+        "Bayern Munich",
+        "Serie A",
+        "Ligue 1"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-25/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "",
+      "is_prediction": true,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
+    }
+  ],
+  "topics": [
+    {
+      "title": "马拉多纳一个凡人凭什么扛着阿根廷连过五人夺冠？",
+      "content_type": "历史回顾",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "齐达内一头撞飞冠军梦，法国为何输掉柏林之夜？",
+      "content_type": "历史回顾",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "国家德比+利物浦曼联，这夜能睡算我输",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 0,
+      "三级·软性": 2
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "赛程源",
+      "原因": "本批无可用赛程选题（源不可用或无匹配）",
+      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "evening",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 2,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇（该批次不加发）",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "batches_completed": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-10-25 18:04:54"
+}
