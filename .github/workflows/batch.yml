@@ -54,6 +54,7 @@ jobs:
     timeout-minutes: 25
     permissions:
       contents: write
+      actions: read    # 失败兜底：查本 run 的分步结论，定位是哪一步失败（告警带原因）
     env:
       # 确保 Python stdout/stderr 实时 flush，避免超时被杀时日志空白
       PYTHONUNBUFFERED: "1"
@@ -621,6 +622,17 @@ jobs:
           echo "请检查仓库 Settings → Branches → main 是否开启了"
           echo "'Require a pull request before merging'（该保护会禁止 GITHUB_TOKEN 直接推送）。"
           echo "如开启，请关闭该保护，或为 GITHUB_TOKEN 添加绕过规则。"
+
+      - name: 失败原因兜底（定位失败步骤）
+        # 合规熔断两处中止点会写精确原因；其余失败（生成/发布/登录/git push）由此处
+        # 从 API 反查失败步骤名，保证告警正文永远有「原因」而不是「详见日志」。
+        if: failure()
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: python3 scripts/write_failure_reason.py --from-run-api
 
       - name: 失败通知
         if: failure()

@@ -491,10 +491,12 @@ def check_failure_alert_diagnosable() -> dict:
     链接」。手机上看不到日志，人无法判断是合规熔断、登录过期还是发布失败，只能回
     电脑翻 40 秒的运行记录——告警等于只报了「出事了」，没报「出什么事」。
 
-    验收三层：
+    验收四层：
       1. 两处合规中止点都写结构化原因（write_failure_reason.py）；
       2. 失败通知步骤调用 notify_failure.py（而不是内联固定文案）；
-      3. 正文拼装器在「原因为空」时给明确占位，绝不出现空白「原因: 」。
+      3. 正文拼装器在「原因为空」时给明确占位，绝不出现空白「原因: 」；
+      4. 非合规失败（生成/发布/登录/git push）有通用兜底：失败后查本 run 分步结论，
+         定位到具体失败步骤写进原因（否则这些失败仍然只说「详见日志」）。
     """
     problems = []
     try:
@@ -518,6 +520,15 @@ def check_failure_alert_diagnosable() -> dict:
                 problems.append("失败通知未走 notify_failure.py（原因拼不进告警）")
             if notify.get("if", "") != "failure()":
                 problems.append("失败通知未绑定 failure()")
+        # 通用兜底：非合规失败也要能定位到步骤名
+        fallback = next((s for s in steps if "失败原因兜底" in s.get("name", "")), None)
+        if fallback is None:
+            problems.append("batch.yml 缺少「失败原因兜底」步骤（非合规失败仍无原因）")
+        elif "--from-run-api" not in fallback.get("run", ""):
+            problems.append("失败原因兜底未走 --from-run-api（定位不到失败步骤）")
+        perms = (wf["jobs"]["publish"].get("permissions") or {})
+        if fallback is not None and perms.get("actions") != "read":
+            problems.append("缺少 actions: read 权限，兜底步骤查不到分步结论")
     except Exception as e:
         problems.append(f"解析 batch.yml 失败：{e}")
 
@@ -534,7 +545,7 @@ def check_failure_alert_diagnosable() -> dict:
     return {"item": "失败告警可诊断（带原因）", "ok": not problems, "skipped": False,
             "violations": problems,
             "detail": ["两处合规中止写结构化原因 + 失败通知走 notify_failure.py + "
-                       "原因为空时给占位",
+                       "原因为空时给占位 + 非合规失败按分步结论兜底",
                        ("告警可诊断 ✅" if not problems else f"❌ 缺口：{problems}")]}
 
 

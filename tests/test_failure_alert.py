@@ -14,6 +14,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -83,6 +84,55 @@ class TestComplianceReason(unittest.TestCase):
         self.assertIn("2026-10-24 18:04", r)
         self.assertIn("比分不一致", r)
         self.assertIn("未解除", r)
+
+
+class TestRunApiFallback(unittest.TestCase):
+    """通用兜底：非合规失败也要能说出「哪一步挂了」（2026-10-25 三条无原因告警）。"""
+
+    def setUp(self):
+        self._d = tempfile.TemporaryDirectory()
+        self.path = Path(self._d.name) / "wb_fail_reason.txt"
+        self._orig_path = wfr.reason_path
+        wfr.reason_path = lambda: self.path
+
+    def tearDown(self):
+        wfr.reason_path = self._orig_path
+        self._d.cleanup()
+
+    def _fake_get(self, steps):
+        class R:
+            status_code = 200
+
+            def json(self_inner):
+                return {"jobs": [{"steps": steps}]}
+
+        return lambda *a, **k: R()
+
+    def test_api_locates_failed_step(self):
+        steps = [{"name": "检出代码", "conclusion": "success"},
+                 {"name": "生成文章", "conclusion": "failure"}]
+        env = {"GITHUB_REPOSITORY": "o/r", "GITHUB_RUN_ID": "123", "GITHUB_TOKEN": "t"}
+        with mock.patch.dict("os.environ", env), \
+             mock.patch("requests.get", self._fake_get(steps)):
+            self.assertEqual(wfr.main(["x", "--from-run-api"]), 0)
+        self.assertIn("失败步骤: 生成文章", self.path.read_text(encoding="utf-8"))
+
+    def test_api_does_not_overwrite_specific_reason(self):
+        wfr.write("合规熔断（未解除）：比分不一致", self.path)
+        steps = [{"name": "生成文章", "conclusion": "failure"}]
+        env = {"GITHUB_REPOSITORY": "o/r", "GITHUB_RUN_ID": "123", "GITHUB_TOKEN": "t"}
+        with mock.patch.dict("os.environ", env), \
+             mock.patch("requests.get", self._fake_get(steps)):
+            wfr.main(["x", "--from-run-api"])
+        self.assertIn("合规熔断", self.path.read_text(encoding="utf-8"))
+        self.assertNotIn("失败步骤", self.path.read_text(encoding="utf-8"))
+
+    def test_api_failure_keeps_explicit_placeholder(self):
+        env = {"GITHUB_REPOSITORY": "o/r", "GITHUB_RUN_ID": "123", "GITHUB_TOKEN": "t"}
+        with mock.patch.dict("os.environ", env), \
+             mock.patch("requests.get", side_effect=RuntimeError("boom")):
+            wfr.main(["x", "--from-run-api"])
+        self.assertIn("未知原因", self.path.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

@@ -2012,6 +2012,33 @@ def resolve_provenance(art: dict) -> tuple:
     return used, post
 
 
+def ensure_batch_attribution(articles, batch_name, batch_time=""):
+    """给漏写批次归属的成稿补齐 batch_name / batch_time（就地修改）。
+
+    为什么必须补：publisher.py 用 ``--batch`` 过滤文章，而过滤依据是 frontmatter
+    的 batch_name。任何追加路径（突发球评/确定性供给/节点事件/赛前预测）只要漏写
+    这一项，文章就会被当成「其他批次」静默跳过——生成了、入库了，却永远发不出去
+    （2026-10-25 晚间预测稿实证：batch_name 为空、is_prediction 也没落，纯靠
+    「空值被过滤」意外挡住）。
+
+    ⚠️ 预测稿同样补归属，但保留 ``_is_prediction``：publisher 会显式跳过预测稿
+    （R13 决策④），所以补 batch_name 不会让它被发出去；反而消除了「批次过滤 0
+    命中 → 降级发布全部 → 预测稿漏发」这条隐患。
+
+    返回补齐的篇数（供调用方打日志/验收）。
+    """
+    filled = 0
+    for a in articles or []:
+        if not isinstance(a, dict):
+            continue
+        if not a.get("_batch_name") and batch_name:
+            a["_batch_name"] = batch_name
+            filled += 1
+        if not a.get("_batch_time") and batch_time:
+            a["_batch_time"] = batch_time
+    return filled
+
+
 def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
                         pre_downloaded_images=None):
     """Save articles directly to filesystem (no Flask dependency).
@@ -2421,10 +2448,12 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 只输出JSON。"""
 
     # 事实卡：事件实际比分 + 事件涉及球队（用于一致性校验）
-    _det_score = re.search(r"(\d{1,2})[-:：](\d{1,2})", detail or "")
+    # 口径与正文判定共用 _extract_scores：事件文本可能是「蓉城0比1英博」或全角写法，
+    # 旧正则只认 ASCII「-」「:」，会把 allowed_scores 抽成空 → 事实卡失去比分约束。
+    _det_scores = _extract_scores(detail or "")
     _fw_tier = rumor_wording.tier_of(event)   # 计划 4.1：事件若带分级则据此措辞（未知不判定）
     facts = {
-        "allowed_scores": [f"{_det_score.group(1)}-{_det_score.group(2)}"] if _det_score else [],
+        "allowed_scores": [f"{_det_scores[0][0]}-{_det_scores[0][1]}"] if _det_scores else [],
         "allowed_teams": [t for t in _KNOWN_TEAMS if t in (detail or "") or t in (title_hint or "")],
     }
     if _fw_tier:
@@ -4077,6 +4106,15 @@ def main():
                     stats["valid"] += 1
                     # P0-3: 信息增量非阻断告警（预测稿同样检查）
                     warn_if_low_info_increment(pred_art)
+                    # 预测稿必须自带「不发布」标记与批次归属：publisher 靠 frontmatter
+                    # 的 is_prediction 显式跳过（R13 决策④）。此前标记只写进 topics、
+                    # 没落到文章对象，靠「batch_name 为空被批次过滤」意外挡住——一旦
+                    # 该批过滤 0 命中，publisher 会降级发布全部文章，预测稿就被当真稿
+                    # 发出去（2026-10-25 晚间实证：metadata 里 is_prediction=false、
+                    # batch_name 为空，只差这一步就漏发）。
+                    pred_art["_is_prediction"] = True
+                    pred_art["_batch_name"] = batch_cfg["name"]
+                    pred_art["_batch_time"] = batch_cfg["time"]
                     articles.append((len(articles), pred_art))
                     topics.append({"title": pred_art.get("title", ""),
                                    "content_type": "热点球评",
@@ -4143,6 +4181,15 @@ def main():
             return
 
         articles_sorted = [a for _, a in sorted(articles, key=lambda x: x[0])]
+        # 批次归属兜底：任何追加路径（突发/确定性/节点/预测）漏写 _batch_name 时，
+        # publisher 的 --batch 过滤会把它当「其他批次」静默跳过——文章生成了却永远
+        # 发不出去（2026-10-25 预测稿实证）。这里统一补齐，预测稿仍由 is_prediction
+        # 显式跳过，不会因补归属而被发布。
+        _filled = ensure_batch_attribution(articles_sorted, batch_cfg.get("name", ""),
+                                           batch_cfg.get("time", ""))
+        if _filled:
+            print(f"   🏷️ 批次归属兜底：{_filled} 篇漏写 batch_name，"
+                  f"已按「{batch_cfg.get('name', '')}」补齐（否则发布器会静默跳过）")
         result = save_articles_local(date_str, articles_sorted, images_map, topics, match_data,
                                      extra=extra_meta)
 

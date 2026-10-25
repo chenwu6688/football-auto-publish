@@ -682,11 +682,14 @@ class SportsScraper:
 
         # 规范化比分周围空格：新版zhibo8首页<a>标签内用子div渲染队名和比分，
         # get_text(strip=True) 会保留元素间的空格，得到 "阿根廷3 - 2埃及"(空格导致正则失败)
-        text = re.sub(r'\s*([-–:—])\s*', r'\1', text)
-        # 也处理 "3 - 2" 中 dash 前后都有空格的情况(上一步已覆盖此case)
+        # 口径与 orchestrator._extract_scores 对齐：中文「比」、全角冒号/破折号、全角
+        # 数字都算比分。采集层若先抽不到比分，事实层就根本没有比分可比——10-24 熔断
+        # 的同源上游问题。
+        text = text.translate(str.maketrans("０１２３４５６７８９", "0123456789"))
+        text = re.sub(r'\s*([-–—－:：比])\s*', r'\1', text)
 
-        # 尝试提取比分 (X-Y 格式)
-        score_m = re.search(r"(\d+)[-–:](\d+)", text)
+        # 尝试提取比分 (X-Y / X比Y / X：Y 格式)
+        score_m = re.search(r"(?<!\d)(\d{1,2})[-–—－:：比](\d{1,2})(?!\d)", text)
         home_score = away_score = None
         status = "PRE"
 
@@ -838,10 +841,11 @@ class SportsScraper:
         if not content:
             return None
 
-        # 从标题中提取比分
+        # 从标题中提取比分（与 _extract_scores 同口径：0-1 / 0比1 / ０：１ 均可）
         home_team = away_team = ""
         home_score = away_score = None
-        score_m = re.search(r"(\d+)[-–:](\d+)", title)
+        _title_norm = title.translate(str.maketrans("０１２３４５６７８９", "0123456789"))
+        score_m = re.search(r"(?<!\d)(\d{1,2})[-–—－:：比](\d{1,2})(?!\d)", _title_norm)
         if score_m:
             home_score = int(score_m.group(1))
             away_score = int(score_m.group(2))

@@ -58,6 +58,40 @@ def write(reason: str, path: Path | None = None) -> str:
     return reason
 
 
+def failed_step_from_api(repo: str, run_id: str, token: str, timeout: int = 15) -> str:
+    """查当前运行的 jobs/steps，返回第一个失败步骤名（拿不到返回空串）。
+
+    为什么需要：原因文件此前只在两处「合规熔断」中止点写入，其他失败（生成、发布、
+    登录态、git push）仍然只说「详见日志」——手机上看不到日志，等于没告警。
+    任何步骤失败后本函数都能从 API 反查出是哪一步，作为通用兜底。
+    """
+    if not (repo and run_id and token):
+        return ""
+    try:
+        import requests
+
+        resp = requests.get(
+            f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/jobs",
+            headers={"Authorization": f"Bearer {token}",
+                     "Accept": "application/vnd.github+json",
+                     "X-GitHub-Api-Version": "2022-11-28"},
+            timeout=timeout,
+        )
+        if resp.status_code != 200:
+            return ""
+        jobs = resp.json().get("jobs", []) or []
+    except Exception:
+        return ""
+
+    for job in jobs:
+        for step in job.get("steps", []) or []:
+            if step.get("conclusion") == "failure":
+                name = (step.get("name") or "").strip()
+                if name:
+                    return f"失败步骤: {name}"
+    return ""
+
+
 def read(path: Path | None = None) -> str:
     """读原因文件；不存在则给出明确占位（不冒充「没有原因」）。"""
     p = path or reason_path()
@@ -67,7 +101,29 @@ def read(path: Path | None = None) -> str:
         return "详见运行日志（未捕获到结构化原因）"
 
 
+def has_reason(path: Path | None = None) -> bool:
+    """原因文件是否已有具体原因（用于「兜底不覆盖精确原因」）。"""
+    p = path or reason_path()
+    try:
+        return bool(p.read_text(encoding="utf-8").strip())
+    except Exception:
+        return False
+
+
 def main(argv: list[str]) -> int:
+    if "--from-run-api" in argv:
+        # 兜底路径：具体原因（合规/登录）已写过就不覆盖，避免把精确原因降级成步骤名
+        if has_reason():
+            print(f"已存在具体失败原因，保留：{read()}")
+            return 0
+        env = os.environ
+        step = failed_step_from_api(env.get("GITHUB_REPOSITORY", ""),
+                                    env.get("GITHUB_RUN_ID", ""),
+                                    env.get("GITHUB_TOKEN", ""))
+        reason = f"{step}（详见运行日志）" if step else "未知原因（详见运行日志）"
+        print(f"已记录失败原因：{write(reason)}")
+        return 0
+
     prefix = " ".join(argv[1:]).strip()
     print(f"已记录失败原因：{write(compliance_reason(prefix))}")
     return 0
