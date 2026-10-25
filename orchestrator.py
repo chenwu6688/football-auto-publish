@@ -1368,6 +1368,51 @@ def _teams_in_content(content, teams):
     return kept
 
 
+# ── 比分口径归一化（2026-10-24 晚间熔断根因）────────────────────────
+# 正文写比分的写法不止「0-1」：0比1 / 0：1 / 0—1 / ０－１ 说的都是同一件事。
+# 旧实现三个判定点各写各的正则（check_rewrite_fidelity /
+# validate_article_vs_match_data / check_consistency_plan），且都只认 ASCII
+# 的「-」「:」，于是「蓉城0比1英博」被判成「文中未出现该比分」，单篇改写反复
+# 打回 5 次触发自动熔断。这里统一成一个抽取器：先剔除日期 / 时间 / 轮次（避免
+# 「2026-10-1」「15:30」被误认成比分），再做全角→半角归一，最后抽数字对。
+_DATE_LIKE = re.compile(r"\d{2,4}\s*[-–—－/.]\s*\d{1,2}\s*[-–—－/.]\s*\d{1,2}")
+_TIME_LIKE = re.compile(r"\d{1,2}\s*[:：]\s*\d{2}")
+_ROUND_LIKE = re.compile(r"第\s*\d+\s*轮")
+_SCORE_RE = re.compile(
+    r"(?<![\d.])(\d{1,2})\s*(?:-|–|—|－|~|～|:|：|比|vs\.?)\s*(\d{1,2})(?![\d.])")
+_FULLWIDTH_DIGITS = str.maketrans("０１２３４５６７８９", "0123456789")
+
+
+def _normalize_score_text(text):
+    """归一成适合抽比分的形态：去日期/时间/轮次，全角数字转半角。"""
+    if not isinstance(text, str):
+        return ""
+    s = text.translate(_FULLWIDTH_DIGITS)
+    s = _DATE_LIKE.sub(" ", s)
+    s = _TIME_LIKE.sub(" ", s)
+    s = _ROUND_LIKE.sub(" ", s)
+    return s
+
+
+def _extract_scores(text):
+    """抽出文中所有比分形态的数字对（去重保序）。"""
+    out = []
+    for a, b in _SCORE_RE.findall(_normalize_score_text(text)):
+        pair = (int(a), int(b))
+        if pair not in out:
+            out.append(pair)
+    return out
+
+
+def _score_mentioned(content, hg, ag):
+    """正文是否写出了该比分（主客顺序可颠倒，写法不限）。"""
+    try:
+        hg, ag = int(hg), int(ag)
+    except (TypeError, ValueError):
+        return True
+    return any(pair in ((hg, ag), (ag, hg)) for pair in _extract_scores(content))
+
+
 def _clean_player_name(raw):
     """清理被动作片段污染的球员名（如 '内利上演' -> '内利'）。
 
@@ -1446,20 +1491,15 @@ def check_rewrite_fidelity(source_fixture, rewritten_article, match_context=None
     source_text = source_fixture.get("article_text", "")
 
     # 检查1：比分一致
-    # 注意：用 any() 而非 all()，因为内容中可能包含日期"2026-07-03"等
-    # 会被 (\d+)[:-](\d+) 误匹配为假比分。只要正确比分出现一次即通过。
+    # 注意：正文可能含日期「2026-07-03」、时间「15:30」，抽取器已先剔除这些形态。
+    # 只在「文中出现了比分但都不对」时判不一致——前瞻类内容可以完全不写比分，
+    # 不出现不等于失真（是否必须写由 validate_article_vs_match_data 按文种要求）。
     expected_hg = source_fixture.get("home_score")
     expected_ag = source_fixture.get("away_score")
     if expected_hg is not None and expected_ag is not None:
-        found_scores = re.findall(r'(\d+)[:-](\d+)', content)
-        if found_scores:
-            score_ok = any(
-                (int(a) == expected_hg and int(b) == expected_ag) or
-                (int(a) == expected_ag and int(b) == expected_hg)
-                for a, b in found_scores
-            )
-            if not score_ok:
-                issues.append(f"比分不一致: 来源 {expected_hg}-{expected_ag}")
+        found_scores = _extract_scores(content)
+        if found_scores and not _score_mentioned(content, expected_hg, expected_ag):
+            issues.append(f"比分不一致: 来源 {expected_hg}-{expected_ag}")
 
     # 检查2：球员名出现在改写文中（多渠道校准：自身清理 + 兄弟源干净名）
     ref = _build_match_reference(source_fixture, match_context) if match_context else None
@@ -1599,18 +1639,13 @@ def validate_article_vs_match_data(source_fixture, rewritten_article, match_cont
         else:
             issues.append(f"缺少客队名: {at}")
 
-    # 检查2：比分一致性（加强版 regex，排除假匹配）
+    # 检查2：比分一致性
+    # 口径统一到 _score_mentioned：0-1 / 0比1 / 0：1 / 0—1 / ０－１ 等价，
+    # 主客顺序可颠倒；日期、时间、轮次不会被误认成比分（2026-10-24 熔断根因）。
     if hg is not None and ag is not None:
-        score_found = False
-        for m in re.finditer(r'(\d+)\s*[-–:]\s*(\d+)', content):
-            a, b = int(m.group(1)), int(m.group(2))
-            if (a == hg and b == ag) or (a == ag and b == hg):
-                score_found = True
-                break
-        if not score_found:
-            # 宽松检查：检查是否有单数字比分表示
-            if f"{hg}-{ag}" not in content.replace(" ", "").replace(" ", ""):
-                issues.append(f"比分不一致: 比赛数据 {ht} {hg}-{ag} {at}，但文中未出现该比分")
+        if not _score_mentioned(content, hg, ag):
+            issues.append(f"比分不一致: 比赛数据 {ht} {hg}-{ag} {at}，但文中未出现该比分"
+                          f"（正文需写出比分，0-1／0比1／0：1 均可）")
 
     # 检查3：结构化进球数据的球员断言验证
     from collections import defaultdict
@@ -3086,8 +3121,8 @@ def check_consistency_plan(article, facts=None, *, blocking=True):
 
     allowed_scores = set(facts.get("allowed_scores", []) or [])
     if allowed_scores:
-        found = re.findall(r"(?<!\d)(\d{1,2})[-:：](\d{1,2})(?!\d)", content)
-        norm = {f"{a}-{b}" for a, b in found}
+        # 与事实层校验共用同一比分口径（0-1 / 0比1 / 0：1 等价，日期时间不算比分）
+        norm = {f"{a}-{b}" for a, b in _extract_scores(content)}
         stray = norm - allowed_scores
         if stray:
             issues.append(f"出现事实卡外的比分: {', '.join(sorted(stray))}")

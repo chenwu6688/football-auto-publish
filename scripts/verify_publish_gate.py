@@ -11,6 +11,7 @@
   D. 误杀率 <5%（告警项，无人工标注则待接入）—— 绝不把「未标注」当 0；
   E. 连续 14 天无旧闻新发（硬项，无台账跳过）—— 时效闸门台账零「已知时效>上限」保留。
   G. 熔断须拦住当前批次（硬项）—— 生成阶段触发的熔断同样中止当晚发布（2026-10-13 事故修复）。
+  A5. 比分判定口径归一（硬项）—— 0-1／0比1／0：1 等价，日期时间不算比分（2026-10-24 熔断修复）。
 
 产出 data/audit/publish_gate_*.md + publish_gate_latest.json；硬项 FAIL 退出码 1。
 
@@ -249,6 +250,76 @@ def _probe_team_alias(orchestrator) -> dict:
                        ("别名感知达标 ✅" if not all_bad else f"❌ 误判：{all_bad[:3]}")]}
 
 
+def check_score_caliber_awareness() -> dict:
+    """A5. 比分判定「口径归一」（硬项）。
+
+    计划 7.3 的误杀率<5%。2026-10-24 晚间的真实熔断即由「比分写法不同」误报引起：
+    数据是「蓉城 0-1 英博」，正文写「0比1」——三个判定点各自的正则只认 ASCII
+    「-」「:」，于是被判「文中未出现该比分」，同一篇连续打回 5 次触发熔断，
+    次日中午批次直接失败。这里把该类误报做成可回归校验：等价写法必须放行，
+    真不一致/真卡外比分必须拦截，日期时间不得被当成比分。
+    """
+    try:
+        import orchestrator
+    except Exception as e:  # pragma: no cover
+        return {"item": "比分判定口径归一（计划7.3）", "ok": True, "skipped": True,
+                "detail": [f"无法载入事实校验器：{e}"]}
+    import consistency_stats as _cs
+    tmp = tempfile.TemporaryDirectory()
+    _s, _l = _cs.STATS_PATH, _cs.LABELS_PATH
+    _cs.STATS_PATH = Path(tmp.name) / "stats.json"
+    _cs.LABELS_PATH = Path(tmp.name) / "labels.json"
+    try:
+        return _probe_score_caliber(orchestrator)
+    finally:
+        _cs.STATS_PATH, _cs.LABELS_PATH = _s, _l
+        tmp.cleanup()
+
+
+def _probe_score_caliber(orchestrator) -> dict:
+    cases = [
+        # (正文, 期望放行, 说明)；数据固定为 蓉城 0-1 英博
+        ("蓉城主场0-1不敌英博。", True, "ASCII 横线"),
+        ("蓉城0比1负于英博。", True, "中文「比」（本次熔断的真实写法）"),
+        ("蓉城0：1负于英博。", True, "全角冒号"),
+        ("蓉城0—1英博。", True, "破折号"),
+        ("成都蓉城０－１大连英博。", True, "全角数字+全角横线"),
+        ("英博1-0拿下蓉城。", True, "主客顺序颠倒"),
+        ("蓉城主场0比2不敌英博。", False, "真不一致（0比2）仍须拦截"),
+        ("蓉城2-0英博。", False, "真不一致（2-0）仍须拦截"),
+        ("蓉城主场不敌英博，全场没进球。", False, "真没写比分仍须拦截"),
+        ("2026-10-24 15:30 蓉城对英博，赛前前瞻。", False,
+         "只有日期时间不得被当成比分放行"),
+    ]
+    bad = []
+    for content, want_pass, note in cases:
+        fx = {"home_team": "蓉城", "away_team": "英博", "home_score": 0,
+              "away_score": 1, "goals": []}
+        got_pass, issues = orchestrator.validate_article_vs_match_data(
+            fx, {"title": content, "content": content})
+        if got_pass != want_pass:
+            bad.append({"case": note, "want_pass": want_pass, "got_pass": got_pass,
+                        "issues": issues})
+    # 卡外比分：同一口径，不许把等价写法误判成卡外
+    ok1, is1 = orchestrator.check_consistency_plan(
+        {"title": "蓉城0比1英博", "content": "2026-10-24 蓉城0比1不敌英博。"},
+        {"allowed_scores": ["0-1"], "allowed_teams": ["蓉城", "英博"]}, blocking=True)
+    if any("卡外" in i for i in is1):
+        bad.append({"case": "等价写法被误判成卡外比分", "issues": is1})
+    ok2, is2 = orchestrator.check_consistency_plan(
+        {"title": "蓉城3比2英博", "content": "蓉城3比2绝杀英博。"},
+        {"allowed_scores": ["0-1"], "allowed_teams": ["蓉城", "英博"]}, blocking=True)
+    if not any("卡外" in i for i in is2):
+        bad.append({"case": "真卡外比分（3比2）未被拦截", "issues": is2})
+
+    return {"item": "比分判定口径归一（计划7.3）", "ok": not bad, "skipped": False,
+            "cases": len(cases) + 2, "violations": bad,
+            "detail": [f"比分口径用例 {len(cases) + 2} 项：0-1／0比1／0：1／0—1／全角"
+                       f"等价放行，主客颠倒放行，真不一致与卡外比分拦截，"
+                       f"日期时间不算比分",
+                       ("口径归一达标 ✅" if not bad else f"❌ 误判：{bad[:3]}")]}
+
+
 def check_provenance() -> dict:
     """B. 溯源覆盖率（告警项）。"""
     total, with_src = 0, 0
@@ -414,6 +485,7 @@ def check_breaker_blocks_current_batch() -> dict:
 
 def verify() -> dict:
     checks = [check_title_hard(), check_title_pass_rate(), check_team_alias_awareness(),
+              check_score_caliber_awareness(),
               check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
               check_reject_traceability(), check_old_news(), check_title_antipattern_residue(),
               check_breaker_blocks_current_batch()]
