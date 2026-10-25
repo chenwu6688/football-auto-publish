@@ -284,31 +284,32 @@ def test_end_to_end_cross_batch_simulation():
     print("  PASS test_end_to_end_cross_batch_simulation")
 
 
-def test_batch_types_imported_not_redefined():
-    """#2 bugfix: BATCH_TYPES must be imported from constants, not locally redefined.
+def test_batch_config_single_source():
+    """批次配置必须只有一个来源（constants.BATCH_CONFIG），orchestrator 不得复制。
 
-    Prior bug: BATCH_TYPES was imported at the top of orchestrator.py but then
-    immediately shadowed by an identical local dict inside main(). The import
-    was dead code. Fix removes the local shadow and uses the imported constant.
+    历史 bug：旧的 BATCH_TYPES 在 orchestrator 顶部 import 后又被 main() 里的同名
+    字典遮蔽，import 成了死代码。90a9b29 精简架构后，批次定义只保留
+    constants.BATCH_CONFIG（name/time/max_articles/reader_scenario/overall_tone/
+    slots），而 BATCH_TYPES 已无任何使用点、沦为死常量 —— 所以本用例守住现役
+    的那份，且认**对象身份**不认内容相等：复制一份内容相同的 dict 同样会被抓住。
     """
     import orchestrator as orch
-    # Should be importable from the module level (not just inside main())
-    assert hasattr(orch, 'BATCH_TYPES') or True  # Check via source that no local redef exists
-
-    # Verify orchestrator doesn't redefine BATCH_TYPES inside main()
+    import constants
     import inspect
+
+    assert hasattr(orch, "BATCH_CONFIG"), "orchestrator 应能拿到批次配置"
+    assert orch.BATCH_CONFIG is constants.BATCH_CONFIG, \
+        "BATCH_CONFIG 必须是 constants.BATCH_CONFIG 的同一对象（不得复制一份）"
+    assert set(orch.BATCH_CONFIG) >= {"morning", "noon", "evening"}, \
+        f"批次配置缺时段: {sorted(orch.BATCH_CONFIG)}"
+
     src = inspect.getsource(orch.main)
-    # Local redefinition in main() should NOT exist after fix
+    assert "BATCH_CONFIG = {" not in src, \
+        "main() 里不得本地重定义 BATCH_CONFIG — 用 constants 的单一来源"
     assert "BATCH_TYPES = {" not in src, \
-        "BATCH_TYPES local redefinition found in main() — use the imported constant instead"
+        "main() 里不得本地重定义 BATCH_TYPES"
 
-    # Verify the import exists at module level
-    with open(orch.__file__) as f:
-        full = f.read()
-    assert "BATCH_TYPES" in full.split("def main")[0], \
-        "BATCH_TYPES must be imported at module level"
-
-    print("  PASS test_batch_types_imported_not_redefined")
+    print("  PASS test_batch_config_single_source")
 
 
 def test_generate_articles_from_topics_exists():
@@ -334,13 +335,11 @@ def test_fallback_map_imported_not_redefined():
     print("  PASS test_fallback_map_imported_not_redefined")
 
 
-def test_hupu_pipeline_extracted():
-    """#4 bugfix: Hupu pipeline extracted as _run_hupu_pipeline function."""
-    import orchestrator as orch
-    fn = getattr(orch, '_run_hupu_pipeline', None)
-    assert fn is not None, "_run_hupu_pipeline function missing"
-    assert callable(fn)
-    print("  PASS test_hupu_pipeline_extracted")
+# 已删除用例：test_hupu_pipeline_extracted
+# 它断言 orchestrator 里存在内部函数 `_run_hupu_pipeline`。90a9b29「彻底简化架构，
+# 只保留 Pipeline A」把虎扑独立管线并入主改写路径，该函数整体移除，全仓已无定义
+# 也无调用点。这条测的是「某个内部函数被抽出来」这一实现细节，不对应任何业务行为，
+# 继续保留等于把已废弃的结构锁死，故直接删除（不是功能退化）。
 
 
 def test_gzh_no_hardcoded_tmp():
@@ -414,10 +413,9 @@ if __name__ == "__main__":
         ("cross_batch + season weights: prefers high-weight alt", test_cross_batch_with_season_weights),
         ("import: functions are importable", test_get_cross_batch_covered_real_import),
         ("e2e: morning→noon→evening simulation", test_end_to_end_cross_batch_simulation),
-        ("#2 bugfix: BATCH_TYPES imported, not redefined", test_batch_types_imported_not_redefined),
+        ("#2 bugfix: 批次配置单一来源", test_batch_config_single_source),
         ("#3 bugfix: shared article-gen helper exists", test_generate_articles_from_topics_exists),
         ("#5 bugfix: FALLBACK_MAP imported, not redefined", test_fallback_map_imported_not_redefined),
-        ("#4 bugfix: Hupu pipeline extracted", test_hupu_pipeline_extracted),
         ("#7 bugfix: GZH cache dir, not /tmp/", test_gzh_no_hardcoded_tmp),
         ("#8 bugfix: 配图 markers stripped before re-inject", test_image_marker_cleanup),
     ]

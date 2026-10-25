@@ -235,26 +235,54 @@ def test_orchestrator_function_exists():
     print("  PASS test_orchestrator_function_exists")
 
 
+def _expected_weights_for_month(month):
+    """从真实 config/config.yaml 读出该月份应得的权重与标签（不写死数值）。
+
+    写死倍数的断言在每次调参后都会变红，逼人去改测试——真正该锁的是
+    「按月份匹配到正确的季节段」这个逻辑，而不是某个具体倍数。
+    """
+    cfg_path = Path(__file__).parent.parent / "config" / "config.yaml"
+    cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
+    for period in cfg.get("season_weights", []):
+        if month in period.get("months", []):
+            return dict(period.get("weights", {})), period.get("label", "")
+    return ({"热点球评": 1.0, "转会资讯": 1.0, "排行榜": 1.0,
+             "八卦趣事": 1.0, "战术解析": 1.0}, "常规赛季")
+
+
 def test_orchestrator_real_config():
-    """Test load_season_weights against the real config.yaml file."""
+    """load_season_weights 必须按月份匹配到 config.yaml 里正确的季节段。
+
+    两个坑：
+    1. 它内部会调 `_apply_performance_boost()`，后者读 output/performance_log.json
+       对权重做 ±0.3 微调。真实台账一旦有数据，这里「config 原值」的断言必然红
+       （2026-10-25 现场：八卦趣事 1.0 → 0.8，测试假红一整周）。必须把
+       OUTPUT_DIR 隔离到空目录。
+    2. 断言别写死具体倍数——调参是日常操作。改成与 config.yaml 同月份配置动态
+       对照，验证「选对季节段」这个逻辑本身。
+    """
+    import orchestrator as orch
     from orchestrator import load_season_weights
 
-    # Test with real config
-    weights_june, label_june = load_season_weights("2026-06-02")
-    assert weights_june is not None, "Should load weights from real config.yaml"
-    assert weights_june["八卦趣事"] == 1.0
-    assert weights_june["热点球评"] == 2.5
+    orig_dir = orch.OUTPUT_DIR
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            orch.OUTPUT_DIR = Path(tmpdir)      # 空目录 → 绩效调权原样返回
 
-    weights_aug, label_aug = load_season_weights("2026-08-15")
-    assert weights_aug["转会资讯"] == 2.0
+            for date_str, month in (("2026-06-02", 6), ("2026-08-15", 8),
+                                    ("2026-03-01", 3), ("2026-12-25", 12)):
+                exp_w, exp_label = _expected_weights_for_month(month)
+                got_w, got_label = load_season_weights(date_str)
+                assert got_w is not None, f"{date_str} 应能从真实 config.yaml 读到权重"
+                assert got_w == exp_w, f"{date_str}(月{month}) 权重不符: {got_w} != {exp_w}"
+                assert got_label == exp_label, f"{date_str} 标签不符: {got_label} != {exp_label}"
 
-    weights_mar, label_mar = load_season_weights("2026-03-01")
-    assert weights_mar["热点球评"] == 2.0
-
-    # Default period
-    weights_feb, label_feb = load_season_weights("2026-12-25")
-    assert weights_feb["热点球评"] == 1.0  # Default (Feb is not in any season config)
-    assert weights_feb["转会资讯"] == 1.0
+            # 分段必须真的生效：6 月（世界杯月）与 8 月（新赛季）权重不能一样
+            w_june, _ = load_season_weights("2026-06-02")
+            w_aug, _ = load_season_weights("2026-08-15")
+            assert w_june != w_aug, "6 月与 8 月权重相同——季节分段可能失效或 config 被压平"
+    finally:
+        orch.OUTPUT_DIR = orig_dir
 
     print("  PASS test_orchestrator_real_config")
 

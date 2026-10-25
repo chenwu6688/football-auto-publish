@@ -1,0 +1,71 @@
+name: 单元测试
+
+# 为什么需要这个工作流
+# ------------------------------------------------------------------
+# 仓库原有 CI 门禁只有 scripts/verify_*.py（契约/产物/调度验收），
+# **没有任何 pytest 步骤**。后果是 tests/ 下 22 项失败长期无人知晓：
+# 每次改代码只能靠人工比对「失败数量和上次一样吗、按文件分布一样吗」
+# 来判断有没有引入回归——这种判断方式极不可靠，真回归很容易混在
+# 「已知的 22 项」里被放过。
+#
+# 2026-10-25 清理时查明：那 22 项全是 90a9b29「彻底简化架构，只保留
+# Pipeline A」留下的僵尸测试（测已删除的函数、已搬走的常量、已改写的
+# prompt），不是功能缺失。清理后全量 1021 passed / 0 failed。
+# 现在把它们变成硬门禁：红了就别合。
+
+on:
+  push:
+    branches: [main]
+    # 只跑代码变更。CI 每天回写 data/output/audit 的 chore 提交不该触发
+    # 单测，否则一天几十次运行全是噪音。
+    paths:
+      - '**.py'
+      - 'tests/**'
+      - 'config/**'
+      - 'prompts/**'
+      - '.github/workflows/unit-tests.yml'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unit-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    name: pytest（全量单测）
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: 安装测试依赖
+        run: |
+          python -m pip install --upgrade pip
+          # playwright 只需可 import（相关用例全部 mock 掉浏览器），
+          # 不装 chromium 二进制，省 1~2 分钟
+          pip install pytest pyyaml requests pillow playwright
+
+      - name: 跑全量单测
+        # tests/test_video_pipeline.py 排除在外：它 import edge_tts/ffmpeg
+        # 链路，属本地未装的重型可选依赖。若要纳入，需在 CI 装 edge-tts
+        # 与 ffmpeg（目前 video_pipeline 不在发布主链路，暂不纳入）。
+        run: |
+          python -m pytest tests/ -q -p no:cacheprovider \
+            --ignore=tests/test_video_pipeline.py
+
+      - name: 失败摘要（便于在 Actions 页面直接看清）
+        if: failure()
+        run: |
+          echo "::error::单元测试失败。请在本地复跑："
+          echo "::error::PYTHONPATH=. python -m pytest tests/ -q --ignore=tests/test_video_pipeline.py"

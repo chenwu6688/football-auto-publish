@@ -1,266 +1,246 @@
 #!/usr/bin/env python3
-"""Unit tests for performance feedback loop (Task #11).
+"""绩效反馈调权单测 —— 对准**现役实现** `orchestrator._apply_performance_boost()`。
 
-Tests:
-  1. analyze_content_performance() aggregates metadata correctly
-  2. get_performance_boost() computes correct boost multipliers
-  3. Performance + season weights integration
-  4. Empty data handling
+历史背景（重要，别按「旧测试红了就删」处理）：
+
+本文件原名测 `analyze_content_performance()` 与 `get_performance_boost()`，那属于
+**旧乘数制**设计（各内容类型算一个乘数、clamp 到 1.5，并附带 top_keywords /
+top_teams / top_players 关键词追踪）。这两个函数在
+`90a9b29 refactor: 彻底简化架构，只保留 Pipeline A` 中被整体移除，现役链路改为
+`_apply_performance_boost()` 的**加减制**：
+
+    ratio = 该类型平均阅读 / 全局平均
+    ratio > 1.2 → 权重 +0.3      ratio < 0.8 → 权重 -0.2
+    结果 clamp 到 [0.3, 3.0]，且只调 weights 里已存在的类型
+
+由 `load_season_weights()` 读完季节权重后当场叠加。旧测试因此长期 10 项全红——
+是「测试还在测已删除的接口」，**不是功能缺失**。现在直接测现役规则，覆盖的仍是
+同一个意图（历史效果 → 选题权重），覆盖面不降反升。
+
+关键词追踪（top_keywords）在新架构里已无对应实现，属精简重构的取舍，不再断言。
+
+⚠️ `_apply_performance_boost` 读写 `orchestrator.OUTPUT_DIR`。所有用例必须把它
+patch 到临时目录——否则会读到真实的 output/performance_log.json 污染断言
+（2026-10-25 的 test_season_weights 就是这么红的）。
 """
 
-import sys, os, json, tempfile
-from datetime import datetime, timedelta
+import sys
+import json
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+BASE_WEIGHTS = {"热点球评": 1.0, "转会资讯": 1.0, "战术解析": 1.0}
 
-def create_metadata_with_performance(output_dir, date_str, articles):
-    """Create metadata.json files with performance data."""
+
+# ============================================================
+# 测试夹具
+# ============================================================
+
+def _write_metadata(output_dir, date_str, types_by_index):
+    """在 output_dir/date_str/metadata.json 写 index → content_type 映射。"""
     date_dir = Path(output_dir) / date_str
     date_dir.mkdir(parents=True, exist_ok=True)
-    meta = {"total_articles": len(articles), "articles": articles}
-    meta_path = date_dir / "metadata.json"
-    meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2))
-    return meta_path
+    articles = [{"index": idx, "title": f"文章{idx}", "content_type": ct}
+                for idx, ct in types_by_index.items()]
+    (date_dir / "metadata.json").write_text(
+        json.dumps({"total_articles": len(articles), "articles": articles},
+                   ensure_ascii=False), encoding="utf-8")
 
 
-def test_analyze_performance_empty():
-    """No metadata → empty results."""
+def _write_perf_log(output_dir, rows):
+    """rows: [(date, index, reads)] → output_dir/performance_log.json"""
+    articles = {}
+    for date_str, idx, reads in rows:
+        articles[f"{date_str}/slug-{idx}"] = {"date": date_str, "index": idx,
+                                              "reads": reads, "comments": 0, "likes": 0}
+    (Path(output_dir) / "performance_log.json").write_text(
+        json.dumps({"articles": articles}, ensure_ascii=False), encoding="utf-8")
+
+
+def _boost(rows, types_by_index, weights=None):
+    """在临时 OUTPUT_DIR 里跑一次现役调权，返回调整后的权重。"""
     import orchestrator as orch
-    orig = orch.OUTPUT_DIR
+
+    weights = dict(weights if weights is not None else BASE_WEIGHTS)
+    orig_dir = orch.OUTPUT_DIR
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             orch.OUTPUT_DIR = Path(tmpdir)
-            result = orch.analyze_content_performance("2026-06-02", lookback_days=30)
-            assert result["performance"] == {}
-            assert result["type_stats"] == {}
-            assert result["top_keywords"] == []
+            _write_perf_log(tmpdir, rows)
+            if types_by_index:
+                by_date = {}
+                for date_str, idx, _ in rows:
+                    by_date.setdefault(date_str, {})[idx] = types_by_index.get(idx, "")
+                for date_str, mapping in by_date.items():
+                    _write_metadata(tmpdir, date_str, mapping)
+            return orch._apply_performance_boost(weights)
     finally:
-        orch.OUTPUT_DIR = orig
-    print("  PASS test_analyze_performance_empty")
+        orch.OUTPUT_DIR = orig_dir
 
 
-def test_analyze_performance_basic():
-    """Articles with no performance data → base score 1.0 each."""
+# ============================================================
+# 无数据 / 数据不足：权重必须原样返回
+# ============================================================
+
+def test_no_perf_log_keeps_weights():
+    """performance_log.json 不存在 → 不动任何权重。"""
     import orchestrator as orch
-    orig = orch.OUTPUT_DIR
+    orig_dir = orch.OUTPUT_DIR
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             orch.OUTPUT_DIR = Path(tmpdir)
-            date_str = "2026-06-01"
-            articles = [
-                {"title": "阿森纳点球输巴黎", "content_type": "热点球评",
-                 "keywords": ["Arsenal", "PSG"], "tags": ["UCL"]},
-                {"title": "姆巴佩转会最新", "content_type": "转会资讯",
-                 "keywords": ["Mbappe", "transfer"], "tags": ["transfer"]},
-                {"title": "战术分析巴黎", "content_type": "战术解析",
-                 "keywords": ["tactics", "PSG"], "tags": ["analysis"]},
-                {"title": "又一条转会消息", "content_type": "转会资讯",
-                 "keywords": ["transfer2"], "tags": ["transfer"]},
-            ]
-            create_metadata_with_performance(tmpdir, date_str, articles)
-
-            result = orch.analyze_content_performance("2026-06-02", lookback_days=30)
-            perf = result["performance"]
-            assert len(perf) == 3  # 3 content types
-            # All base score = 1.0 (no reads/comments)
-            assert perf["热点球评"] == 1.0
-            assert perf["战术解析"] == 1.0
-            # 转会资讯 has 2 articles, avg = 2.0/2 = 1.0
-            assert perf["转会资讯"] == 1.0
-            # type_stats counts
-            assert result["type_stats"]["转会资讯"]["count"] == 2
-            assert result["type_stats"]["热点球评"]["count"] == 1
+            out = orch._apply_performance_boost(dict(BASE_WEIGHTS))
     finally:
-        orch.OUTPUT_DIR = orig
-    print("  PASS test_analyze_performance_basic")
+        orch.OUTPUT_DIR = orig_dir
+    assert out == BASE_WEIGHTS, f"无台账时不应改权重: {out}"
+    print("  PASS test_no_perf_log_keeps_weights")
 
 
-def test_analyze_performance_with_reads():
-    """Articles with performance data → weighted scores."""
+def test_empty_articles_keeps_weights():
+    """articles 为空字典 → 不动权重。"""
+    out = _boost([], {})
+    assert out == BASE_WEIGHTS, f"空台账不应改权重: {out}"
+    print("  PASS test_empty_articles_keeps_weights")
+
+
+def test_zero_reads_keeps_weights():
+    """reads 全为 0（导出了但后台还没结算）→ 视为无数据，不动权重。
+
+    后台未结算时导出全是 0。若把 0 当真实低绩效，会把所有类型一起下调，
+    既是无意义抖动，也违反「缺失不得当 0 用」的口径。
+    """
+    rows = [("2026-06-01", 1, 0), ("2026-06-01", 2, 0), ("2026-06-01", 3, 0)]
+    out = _boost(rows, {1: "热点球评", 2: "转会资讯", 3: "战术解析"})
+    assert out == BASE_WEIGHTS, f"全 0 阅读不应改权重: {out}"
+    print("  PASS test_zero_reads_keeps_weights")
+
+
+# ============================================================
+# 加减制核心规则
+# ============================================================
+
+def test_high_reads_boosted_low_reads_penalised():
+    """ratio>1.2 → +0.3；ratio<0.8 → -0.2。"""
+    # 类型均值 5000 / 1000 / 1000，全局均值 2333.3：
+    #   热点球评 ratio 2.14 → +0.3，另两个 ratio 0.43 → -0.2
+    rows = [("2026-06-01", 1, 5000), ("2026-06-01", 2, 1000), ("2026-06-01", 3, 1000)]
+    out = _boost(rows, {1: "热点球评", 2: "转会资讯", 3: "战术解析"})
+    assert abs(out["热点球评"] - 1.3) < 1e-9, f"高阅读应 +0.3，实际 {out['热点球评']}"
+    assert abs(out["转会资讯"] - 0.8) < 1e-9, f"低阅读应 -0.2，实际 {out['转会资讯']}"
+    assert abs(out["战术解析"] - 0.8) < 1e-9
+    print("  PASS test_high_reads_boosted_low_reads_penalised")
+
+
+def test_mid_range_ratio_untouched():
+    """0.8 <= ratio <= 1.2 是死区，权重不变。"""
+    # 均值 1000 / 1000 / 1200，全局 1066.7：ratio 0.94 / 0.94 / 1.13 全在死区
+    rows = [("2026-06-01", 1, 1000), ("2026-06-01", 2, 1000), ("2026-06-01", 3, 1200)]
+    out = _boost(rows, {1: "热点球评", 2: "转会资讯", 3: "战术解析"})
+    assert out == BASE_WEIGHTS, f"死区内不应调整: {out}"
+    print("  PASS test_mid_range_ratio_untouched")
+
+
+def test_clamped_at_upper_bound():
+    """权重已在上限 3.0，即使高阅读也不得超过 3.0。"""
+    rows = [("2026-06-01", 1, 9000), ("2026-06-01", 2, 100), ("2026-06-01", 3, 100)]
+    out = _boost(rows, {1: "热点球评", 2: "转会资讯", 3: "战术解析"},
+                 weights={"热点球评": 3.0, "转会资讯": 1.0, "战术解析": 1.0})
+    assert out["热点球评"] == 3.0, f"应被 clamp 在 3.0，实际 {out['热点球评']}"
+    print("  PASS test_clamped_at_upper_bound")
+
+
+def test_clamped_at_lower_bound():
+    """权重已在下限 0.3，即使低阅读也不得低于 0.3。"""
+    rows = [("2026-06-01", 1, 200), ("2026-06-01", 2, 900), ("2026-06-01", 3, 900)]
+    out = _boost(rows, {1: "热点球评", 2: "转会资讯", 3: "战术解析"},
+                 weights={"热点球评": 0.3, "转会资讯": 1.0, "战术解析": 1.0})
+    assert out["热点球评"] == 0.3, f"应被 clamp 在 0.3，实际 {out['热点球评']}"
+    print("  PASS test_clamped_at_lower_bound")
+
+
+def test_unknown_content_type_not_added():
+    """台账里出现 weights 之外的内容类型 → 不新增 key（不凭空造权重项）。"""
+    rows = [("2026-06-01", 1, 5000), ("2026-06-01", 2, 1000), ("2026-06-01", 3, 1000)]
+    out = _boost(rows, {1: "热点球评", 2: "转会资讯", 3: "排行榜"})
+    assert "排行榜" not in out, f"不应凭空新增未配置的类型: {out}"
+    assert set(out) == set(BASE_WEIGHTS), f"键集合不应变化: {out}"
+    print("  PASS test_unknown_content_type_not_added")
+
+
+def test_aggregates_multiple_articles_per_type():
+    """同一类型多篇取平均（不是求和——否则高产类型的篇数会冒充质量）。"""
+    # 热点球评 [1000, 3000] → 均值 2000；转会 1000；战术 1000
+    # 全局均值 1333.3 → 热点球评 ratio 1.5 → +0.3
+    rows = [("2026-06-01", 1, 1000), ("2026-06-01", 2, 3000),
+            ("2026-06-01", 3, 1000), ("2026-06-01", 4, 1000)]
+    out = _boost(rows, {1: "热点球评", 2: "热点球评", 3: "转会资讯", 4: "战术解析"})
+    assert abs(out["热点球评"] - 1.3) < 1e-9, f"应按均值 +0.3，实际 {out['热点球评']}"
+    print("  PASS test_aggregates_multiple_articles_per_type")
+
+
+# ============================================================
+# 容错：脏台账不能把主流程带崩
+# ============================================================
+
+def test_missing_metadata_keeps_weights():
+    """有 performance_log 但同日 metadata 缺失 → 跳过，不崩不改。"""
+    rows = [("2026-06-01", 1, 5000)]
+    out = _boost(rows, {})      # types_by_index 为空 → 不写 metadata
+    assert out == BASE_WEIGHTS, f"metadata 缺失时应原样返回: {out}"
+    print("  PASS test_missing_metadata_keeps_weights")
+
+
+def test_corrupt_metadata_keeps_weights():
+    """metadata.json 是坏 JSON → 异常吞掉，权重不变，不抛给调用方。"""
     import orchestrator as orch
-    orig = orch.OUTPUT_DIR
+    orig_dir = orch.OUTPUT_DIR
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             orch.OUTPUT_DIR = Path(tmpdir)
-            date_str = "2026-06-01"
-            articles = [
-                {"title": "热点文章", "content_type": "热点球评", "keywords": [],
-                 "performance": {"reads": 5000, "comments": 50}},
-                {"title": "转会文章", "content_type": "转会资讯", "keywords": [],
-                 "performance": {"reads": 1000, "comments": 5}},
-            ]
-            create_metadata_with_performance(tmpdir, date_str, articles)
-
-            result = orch.analyze_content_performance("2026-06-02", lookback_days=30)
-            perf = result["performance"]
-
-            # 热点球评: 1 + 5000/1000 + 50/10 = 1 + 5 + 5 = 11.0
-            assert perf["热点球评"] == 11.0, f"Expected 11.0, got {perf['热点球评']}"
-            # 转会资讯: 1 + 1000/1000 + 5/10 = 1 + 1 + 0.5 = 2.5
-            assert perf["转会资讯"] == 2.5, f"Expected 2.5, got {perf['转会资讯']}"
+            _write_perf_log(tmpdir, [("2026-06-01", 1, 5000)])
+            d = Path(tmpdir) / "2026-06-01"
+            d.mkdir(parents=True, exist_ok=True)
+            (d / "metadata.json").write_text("{not json", encoding="utf-8")
+            out = orch._apply_performance_boost(dict(BASE_WEIGHTS))
     finally:
-        orch.OUTPUT_DIR = orig
-    print("  PASS test_analyze_performance_with_reads")
+        orch.OUTPUT_DIR = orig_dir
+    assert out == BASE_WEIGHTS, f"坏 metadata 不应改权重: {out}"
+    print("  PASS test_corrupt_metadata_keeps_weights")
 
 
-def test_get_performance_boost_balanced():
-    """Equal performance → neutral boosts (1.0)."""
-    import orchestrator as orch
-    perf_data = {
-        "performance": {"热点球评": 1.0, "转会资讯": 1.0, "战术解析": 1.0},
-        "type_stats": {"热点球评": {"count": 1}, "转会资讯": {"count": 1}, "战术解析": {"count": 1}},
-    }
-    boosts = orch.get_performance_boost(perf_data)
-    for ct, b in boosts.items():
-        assert abs(b - 1.0) < 0.01, f"{ct}: expected ~1.0, got {b}"
-    print("  PASS test_get_performance_boost_balanced")
+# ============================================================
+# 集成：确实现役链路真的调了它
+# ============================================================
 
+def test_load_season_weights_applies_boost():
+    """load_season_weights 必须真正调用 _apply_performance_boost。
 
-def test_get_performance_boost_uneven():
-    """Uneven performance → boosts reflect ratios."""
-    import orchestrator as orch
-    perf_data = {
-        "performance": {"热点球评": 11.0, "转会资讯": 2.5},
-        "type_stats": {"热点球评": {"count": 1}, "转会资讯": {"count": 1}},
-    }
-    boosts = orch.get_performance_boost(perf_data)
-    # avg = (11 + 2.5) / 2 = 6.75
-    # 热点球评: 11/6.75 = 1.63 → clamped to 1.5
-    # 转会资讯: 2.5/6.75 = 0.37 → clamped to 0.5
-    assert boosts["热点球评"] >= 1.4, f"Expected high boost for 热点球评, got {boosts}"
-    assert boosts["转会资讯"] <= 0.6, f"Expected low boost for 转会资讯, got {boosts}"
-    print(f"  PASS test_get_performance_boost_uneven (热点球评:{boosts['热点球评']}, 转会资讯:{boosts['转会资讯']})")
-
-
-def test_get_performance_boost_empty():
-    """Empty performance → empty boosts."""
-    import orchestrator as orch
-    boosts = orch.get_performance_boost({"performance": {}, "type_stats": {}})
-    assert boosts == {}
-    print("  PASS test_get_performance_boost_empty")
-
-
-def test_performance_season_weights_merge():
-    """Performance boost should combine with season weights."""
-    season_weights = {"热点球评": 2.0, "转会资讯": 0.8, "排行榜": 1.0, "八卦趣事": 0.8, "战术解析": 1.5}
-    performance_boost = {"热点球评": 1.2, "转会资讯": 0.6, "战术解析": 1.0}  # 排行榜 and 八卦趣事 not in perf data
-
-    # Merge: effective = season_weight * performance_boost
-    effective = dict(season_weights)
-    for ct, boost in performance_boost.items():
-        if ct in effective:
-            effective[ct] = round(effective[ct] * boost, 2)
-
-    assert effective["热点球评"] == 2.4   # 2.0 * 1.2
-    assert effective["转会资讯"] == 0.48  # 0.8 * 0.6
-    assert effective["战术解析"] == 1.5   # 1.5 * 1.0
-    assert effective["排行榜"] == 1.0     # unchanged (not in boost)
-    assert effective["八卦趣事"] == 0.8   # unchanged (not in boost)
-    print("  PASS test_performance_season_weights_merge")
-
-
-def test_analyze_performance_keyword_tracking():
-    """Performance analysis should track keyword/team/player frequency."""
-    import orchestrator as orch
-    orig = orch.OUTPUT_DIR
-    try:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            orch.OUTPUT_DIR = Path(tmpdir)
-            date_str = "2026-06-01"
-            articles = [
-                {"title": "阿森纳逆转巴黎夺欧冠", "content_type": "热点球评",
-                 "keywords": ["Arsenal", "PSG", "comeback"], "tags": ["UCL", "final"]},
-                {"title": "姆巴佩帽子戏法震惊世界", "content_type": "热点球评",
-                 "keywords": ["Mbappe", "hattrick", "PSG"], "tags": ["Ligue1"]},
-                {"title": "阿森纳防线崩溃的三大原因", "content_type": "战术解析",
-                 "keywords": ["Arsenal", "defense", "tactics"], "tags": ["analysis"]},
-            ]
-            create_metadata_with_performance(tmpdir, date_str, articles)
-
-            result = orch.analyze_content_performance("2026-06-02", lookback_days=30)
-
-            # Keyword frequency (lowercase)
-            assert ("arsenal", 2) in result["top_keywords"] or ("arsenal", 3) in result["top_keywords"]
-            # Teams in titles
-            assert ("阿森纳", 2) in result["top_teams"] or ("阿森纳", 3) in result["top_teams"]
-            assert ("巴黎", 1) in result["top_teams"]
-            # Players in titles
-            assert ("姆巴佩", 1) in result["top_players"]
-    finally:
-        orch.OUTPUT_DIR = orig
-    print("  PASS test_analyze_performance_keyword_tracking")
-
-
-def test_performance_boost_initialized_before_batch_mode():
-    """#1 bugfix: performance_boost must be initialized before the batch-mode block.
-
-    In the prior code, performance_boost was referenced at ~L1211 but assigned
-    later at ~L1245 inside the try block. When season_weights was truthy and
-    batch_mode was a named batch, this caused NameError. The fix initializes
-    performance_boost = {} before the BATCH_TYPES check, so the name always
-    resolves regardless of which code path runs.
+    只断言「读到了 config」不够：调权这一步一旦被悄悄摘掉，绩效反馈就整条
+    断链，而季节权重测试照样全绿——那才是最危险的静默失效。
     """
     import orchestrator as orch
-    # Verify the fix exists: performance_boost dict is defaulted before it's checked
-    src = orch.__file__
-    with open(src) as f:
-        content = f.read()
+    calls = []
+    real = orch._apply_performance_boost
 
-    # The initialization of performance_boost must appear before the
-    # "if season_weights:" block that references it inside BATCH_TYPES check
-    # We verify by checking that performance_boost = {} is near the top of main()
-    init_pos = content.find("performance_boost = {}")
-    assert init_pos > 0, "performance_boost = {} initialization missing"
+    def spy(weights):
+        calls.append(dict(weights))
+        return real(weights)
 
-    # The performance_boost is assigned right after analyze_content_performance
-    assign_pos = content.find("performance_boost = get_performance_boost(")
-    assert assign_pos > 0, "performance_boost = get_performance_boost() assignment maintained"
-    assert init_pos < assign_pos, \
-        f"performance_boost init ({init_pos}) must precede assignment ({assign_pos})"
-    print("  PASS test_performance_boost_initialized_before_batch_mode")
-
-
-def test_import_functions():
-    """All performance functions should be importable."""
-    from orchestrator import analyze_content_performance, get_performance_boost
-    assert callable(analyze_content_performance)
-    assert callable(get_performance_boost)
-    print("  PASS test_import_functions")
-
-
-def test_performance_lookback_respected():
-    """Only articles within lookback window should be counted."""
-    import orchestrator as orch
-    orig = orch.OUTPUT_DIR
+    orig_dir, orig_fn = orch.OUTPUT_DIR, orch._apply_performance_boost
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
-            orch.OUTPUT_DIR = Path(tmpdir)
-            # Create article from 40 days ago (outside 30-day lookback)
-            old_date = (datetime.strptime("2026-06-02", "%Y-%m-%d") - timedelta(days=40)).strftime("%Y-%m-%d")
-            articles_old = [
-                {"title": "旧文章", "content_type": "八卦趣事", "keywords": ["old"],
-                 "performance": {"reads": 100000, "comments": 1000}},
-            ]
-            create_metadata_with_performance(tmpdir, old_date, articles_old)
-
-            # Create article from 5 days ago (inside 30-day lookback)
-            recent_date = (datetime.strptime("2026-06-02", "%Y-%m-%d") - timedelta(days=5)).strftime("%Y-%m-%d")
-            articles_recent = [
-                {"title": "新文章", "content_type": "热点球评", "keywords": ["new"]},
-            ]
-            create_metadata_with_performance(tmpdir, recent_date, articles_recent)
-
-            result = orch.analyze_content_performance("2026-06-02", lookback_days=30)
-            perf = result["performance"]
-
-            # Only 热点球评 (recent) should appear; 八卦趣事 (40 days ago) should be excluded
-            assert "热点球评" in perf
-            assert "八卦趣事" not in perf
+            orch.OUTPUT_DIR = Path(tmpdir)     # 空目录：调权原样返回，但能被观测到
+            orch._apply_performance_boost = spy
+            weights, label = orch.load_season_weights("2026-06-02")
     finally:
-        orch.OUTPUT_DIR = orig
-    print("  PASS test_performance_lookback_respected")
+        orch.OUTPUT_DIR, orch._apply_performance_boost = orig_dir, orig_fn
+
+    assert weights is not None, "应能从真实 config.yaml 读到季节权重"
+    assert label, "应返回季节标签"
+    assert calls, "load_season_weights 未调用 _apply_performance_boost，绩效反馈断链"
+    print(f"  PASS test_load_season_weights_applies_boost (label={label})")
 
 
 # ============================================================
@@ -269,43 +249,38 @@ def test_performance_lookback_respected():
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("Task #11 Unit Tests: 头条数据反馈闭环")
+    print("绩效反馈调权测试（现役 _apply_performance_boost）")
     print("=" * 60)
 
     all_tests = [
-        ("analyze: empty metadata → empty results", test_analyze_performance_empty),
-        ("analyze: basic articles → base scores 1.0", test_analyze_performance_basic),
-        ("analyze: with reads/comments → weighted scores", test_analyze_performance_with_reads),
-        ("analyze: keyword/team/player frequency tracking", test_analyze_performance_keyword_tracking),
-        ("analyze: lookback window respected", test_performance_lookback_respected),
-        ("boost: equal performance → neutral 1.0", test_get_performance_boost_balanced),
-        ("boost: uneven performance → reflects ratios", test_get_performance_boost_uneven),
-        ("boost: empty data → empty dict", test_get_performance_boost_empty),
-        ("merge: performance + season weights combined", test_performance_season_weights_merge),
-        ("#1 bugfix: performance_boost init before batch-mode", test_performance_boost_initialized_before_batch_mode),
-        ("import: functions importable", test_import_functions),
+        ("no perf_log → 权重不变", test_no_perf_log_keeps_weights),
+        ("空 articles → 权重不变", test_empty_articles_keeps_weights),
+        ("全 0 阅读 → 权重不变", test_zero_reads_keeps_weights),
+        ("高阅读 +0.3 / 低阅读 -0.2", test_high_reads_boosted_low_reads_penalised),
+        ("死区 0.8~1.2 不变", test_mid_range_ratio_untouched),
+        ("clamp 上限 3.0", test_clamped_at_upper_bound),
+        ("clamp 下限 0.3", test_clamped_at_lower_bound),
+        ("未配置类型不新增", test_unknown_content_type_not_added),
+        ("同类型多篇取均值", test_aggregates_multiple_articles_per_type),
+        ("metadata 缺失 → 不改", test_missing_metadata_keeps_weights),
+        ("metadata 损坏 → 不崩", test_corrupt_metadata_keeps_weights),
+        ("load_season_weights 真调调权", test_load_season_weights_applies_boost),
     ]
 
-    passed = 0
-    failed = 0
-    for name, test_fn in all_tests:
+    passed = failed = 0
+    for name, fn in all_tests:
         try:
-            test_fn()
+            fn()
             passed += 1
         except AssertionError as e:
             print(f"  FAIL {name}: {e}")
             failed += 1
         except Exception as e:
-            print(f"  ERROR {name}: {e}")
+            print(f"  ERROR {name}: {type(e).__name__}: {e}")
             import traceback
             traceback.print_exc()
             failed += 1
 
     print(f"\n{'=' * 60}")
     print(f"Results: {passed} passed, {failed} failed, {passed + failed} total")
-    if failed > 0:
-        print("SOME TESTS FAILED!")
-        sys.exit(1)
-    else:
-        print("ALL TESTS PASSED!")
-        sys.exit(0)
+    sys.exit(1 if failed else 0)

@@ -80,8 +80,12 @@ def test_dedup_prompt_has_core_subject_rule():
     import orchestrator as orch
     import inspect
     src = inspect.getsource(orch.select_topics)
-    assert "不同核心主题" in src, "Prompt must require different core subjects"
-    assert "核心关键词集合" in src, "Prompt must mention keyword set non-overlap"
+    # 现役文案是「N 个话题必须是 N 个不同的事件」+「核心关键词集合交集必须为空」。
+    # 旧断言写的「不同核心主题」在 90a9b29 精简 prompt 时被改写，检测的是同一意图。
+    assert "不同的事件" in src, "Prompt 必须要求每篇是不同事件（不能是同一场比赛的多个角度）"
+    assert "核心关键词集合" in src, "Prompt 必须要求核心关键词集合交集为空"
+    # 光写提示词不算数：批内去重必须真的在代码里跑一遍（LLM 不一定听话）
+    assert "_check_intra_batch_dedup(" in src, "select_topics 必须真正调用批内去重函数"
     print("  PASS test_dedup_prompt_has_core_subject_rule")
 
 

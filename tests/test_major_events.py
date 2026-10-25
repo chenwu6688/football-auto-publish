@@ -16,8 +16,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
-def make_fixture(home, away, hg, ag, league="英超"):
-    return {"home_team": home, "away_team": away, "home_score": hg, "away_score": ag}
+def make_fixture(home, away, hg, ag, league="英超", status="FT"):
+    """构造一条赛果 fixture。
+
+    ``status`` 必须显式给出：``detect_major_events`` 只统计已结束的比赛
+    （status in FT/AET/PEN），进行中的比分不能当最终结果算「进球大战」
+    （2026-10 新增的保护规则）。此前工厂不产出 status 字段，导致所有
+    用例的 fixture 被该规则整体跳过、断言全红——是测试工厂滞后于业务规则，
+    不是检测逻辑退化。
+    """
+    return {"home_team": home, "away_team": away, "home_score": hg,
+            "away_score": ag, "status": status, "league": league}
 
 
 def make_match_data(fixtures_by_league):
@@ -94,6 +103,34 @@ def test_no_events_unplayed_match():
     events = detect_major_events(data)
     assert len(events) == 0
     print("  PASS test_no_events_unplayed_match")
+
+
+def test_no_events_in_play_match():
+    """In-progress matches must NOT be treated as final results.
+
+    进行中的比赛同样有比分（70 分钟 4-0 很常见），若无条件按比分判「惨案」，
+    就会在比赛还没结束时生成紧急球评——标题写着「血洗」，结果对手连追三球，
+    属于实打实的错误内容。故 detect_major_events 只认 status in FT/AET/PEN。
+    """
+    from orchestrator import detect_major_events
+    for st in ("1H", "2H", "HT", "LIVE", ""):
+        data = make_match_data({"英超": [
+            make_fixture("利物浦", "热刺", 4, 3, status=st),
+            make_fixture("皇马", "巴拉多利德", 7, 0, status=st),
+        ]})
+        events = detect_major_events(data)
+        assert events == [], f"status={st!r} 的进行中比赛不得产出事件，实际 {events}"
+    print("  PASS test_no_events_in_play_match")
+
+
+def test_finished_status_variants_accepted():
+    """FT / AET / PEN 都应视为已结束（含加时与点球）。"""
+    from orchestrator import detect_major_events
+    for st in ("FT", "AET", "PEN"):
+        data = make_match_data({"英超": [make_fixture("利物浦", "热刺", 4, 3, status=st)]})
+        events = detect_major_events(data)
+        assert len(events) >= 1, f"status={st!r} 已结束，应检出进球大战"
+    print("  PASS test_finished_status_variants_accepted")
 
 
 def test_event_deduplication():
@@ -217,6 +254,8 @@ if __name__ == "__main__":
         ("detect: 3-0+ shutout → 碾压局", test_detect_shutout_blowout),
         ("detect: normal 1-0 → no events", test_no_events_normal_match),
         ("detect: unplayed match → no events", test_no_events_unplayed_match),
+        ("detect: in-progress match → no events", test_no_events_in_play_match),
+        ("detect: FT/AET/PEN accepted", test_finished_status_variants_accepted),
         ("detect: deduplication works", test_event_deduplication),
         ("detect: urgency ordering (desc)", test_event_urgency_ordering),
         ("detect: GZH breaking news keywords", test_detect_gzh_breaking_news),

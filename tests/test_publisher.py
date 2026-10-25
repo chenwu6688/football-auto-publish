@@ -64,14 +64,20 @@ def test_convert_md_to_text():
 
 
 def test_load_articles():
-    """Should load articles from output directory."""
+    """应从给定日期目录加载文章。
+
+    ⚠️ 不能靠改环境变量 ``OUTPUT_DIR``：``publisher.OUTPUT_BASE`` 在 import 时
+    就已固化成 Path，之后再改 env 完全无效 —— 测试会去读真实 output/ 目录，
+    目录不存在时 ``load_articles`` 直接 ``sys.exit(1)``；而 SystemExit 不是
+    Exception 子类，旧写法的 ``except Exception`` 兜不住，于是整脚本 exit 1。
+    必须 patch 模块属性。
+    """
+    import publisher
     from publisher import load_articles
+    from unittest import mock
     try:
         # Create temp article structure
         with tempfile.TemporaryDirectory() as tmpdir:
-            orig_output = os.environ.get("OUTPUT_DIR")
-            os.environ["OUTPUT_DIR"] = tmpdir
-
             date_dir = Path(tmpdir) / "2026-06-02"
             date_dir.mkdir(parents=True)
 
@@ -96,18 +102,18 @@ date: 2026-06-02
 正文内容。"""
             (date_dir / "article-1-test.md").write_text(article_content)
 
-            articles = load_articles("2026-06-02")
+            with mock.patch.object(publisher, "OUTPUT_BASE", Path(tmpdir)):
+                articles = load_articles("2026-06-02")
             assert articles is not None
             assert len(articles) > 0
-
-            if orig_output:
-                os.environ["OUTPUT_DIR"] = orig_output
-            else:
-                del os.environ["OUTPUT_DIR"]
+            assert articles[0].get("title") == "测试文章"
 
             print(f"  PASS test_load_articles ({len(articles)} articles)")
+    except AssertionError:
+        raise
     except Exception as e:
-        print(f"  SKIP test_load_articles (Playwright or env issue): {e}")
+        # 原来是 print("SKIP ...")——SKIP 会把真回归藏起来，改成实打实失败
+        raise AssertionError(f"load_articles 加载失败: {type(e).__name__}: {e}") from e
 
 
 def test_extract_images():
