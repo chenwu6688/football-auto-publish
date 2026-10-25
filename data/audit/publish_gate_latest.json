@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25 17:45",
+  "generated_at": "2026-10-25 17:55",
   "ok": true,
   "checks": [
     {
@@ -147,6 +147,16 @@
       "detail": [
         "生成侧中止（orchestrator._breaker_active）+ 发布边界硬闸（publisher.publish_all）+ CI 生成后复核（batch.yml）三层验收",
         "三层防线齐备 ✅"
+      ]
+    },
+    {
+      "item": "失败告警可诊断（带原因）",
+      "ok": true,
+      "skipped": false,
+      "violations": [],
+      "detail": [
+        "两处合规中止写结构化原因 + 失败通知走 notify_failure.py + 原因为空时给占位",
+        "告警可诊断 ✅"
       ]
     }
   ],

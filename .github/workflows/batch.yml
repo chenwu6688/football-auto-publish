@@ -285,6 +285,9 @@ jobs:
         run: |
           python3 compliance_guard.py --status
           if ! python3 compliance_guard.py --status --exit-code-if-suspended; then
+            # 结构化失败原因落到固定路径，由「失败通知」步骤读走——
+            # 手机端只看到「批次发布失败」等于没告警（2026-10-25 连收三次无原因告警）
+            python3 scripts/write_failure_reason.py "合规熔断（未解除）" || true
             echo "::error::合规熔断中，自动发布已暂停；请人工定位原因后执行 python3 compliance_guard.py --clear"
             exit 1
           fi
@@ -486,6 +489,7 @@ jobs:
             echo "suspended=false" >> $GITHUB_OUTPUT
             echo "✅ 合规状态正常，允许发布"
           else
+            python3 scripts/write_failure_reason.py "生成阶段触发合规熔断" || true
             echo "suspended=true" >> $GITHUB_OUTPUT
             echo "::error::生成阶段已触发合规熔断——本批发布中止（宁停勿错）。请人工定位原因后运行 python3 compliance_guard.py --clear 解除，再手动补发本批次。"
             exit 1
@@ -623,9 +627,9 @@ jobs:
         env:
           WXPUSHER_APPTOKEN: ${{ secrets.WXPUSHER_APPTOKEN }}
           WXPUSHER_UID: ${{ secrets.WXPUSHER_UID }}
+          WB_BATCH: ${{ steps.params.outputs.batch }}
+          WB_TODAY: ${{ steps.params.outputs.today }}
+          WB_REPO: ${{ github.repository }}
+          WB_RUN_ID: ${{ github.run_id }}
         run: |
-          python -c "
-          import requests
-          requests.post('https://wxpusher.zjiecode.com/api/send/message',
-            json={'appToken':'$WXPUSHER_APPTOKEN','content':'⚠️ ${{ steps.params.outputs.batch }} 批次发布失败\n日期: ${{ steps.params.outputs.today }}\n查看: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}','contentType':1,'uids':['$WXPUSHER_UID']})
-          "
+          python3 scripts/notify_failure.py

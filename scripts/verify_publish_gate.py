@@ -12,6 +12,7 @@
   E. 连续 14 天无旧闻新发（硬项，无台账跳过）—— 时效闸门台账零「已知时效>上限」保留。
   G. 熔断须拦住当前批次（硬项）—— 生成阶段触发的熔断同样中止当晚发布（2026-10-13 事故修复）。
   A5. 比分判定口径归一（硬项）—— 0-1／0比1／0：1 等价，日期时间不算比分（2026-10-24 熔断修复）。
+  H. 失败告警必须带原因（硬项）—— 告警正文含「原因」行，手机端可判断熔断/登录/发布（2026-10-25 修复）。
 
 产出 data/audit/publish_gate_*.md + publish_gate_latest.json；硬项 FAIL 退出码 1。
 
@@ -483,12 +484,66 @@ def check_breaker_blocks_current_batch() -> dict:
                        ("三层防线齐备 ✅" if not problems else f"❌ 缺口：{problems}")]}
 
 
+def check_failure_alert_diagnosable() -> dict:
+    """H. 失败告警必须带原因（硬项）。
+
+    2026-10-25 事故：一天连收三条 WxPusher 告警，正文只有「批次发布失败 / 日期 /
+    链接」。手机上看不到日志，人无法判断是合规熔断、登录过期还是发布失败，只能回
+    电脑翻 40 秒的运行记录——告警等于只报了「出事了」，没报「出什么事」。
+
+    验收三层：
+      1. 两处合规中止点都写结构化原因（write_failure_reason.py）；
+      2. 失败通知步骤调用 notify_failure.py（而不是内联固定文案）；
+      3. 正文拼装器在「原因为空」时给明确占位，绝不出现空白「原因: 」。
+    """
+    problems = []
+    try:
+        import yaml
+        wf = yaml.safe_load(
+            (PROJECT_ROOT / ".github" / "workflows" / "batch.yml").read_text(encoding="utf-8"))
+        steps = wf["jobs"]["publish"]["steps"]
+        names = [s.get("name", "") for s in steps]
+        gate = next((s for s in steps if s.get("name", "").startswith("合规熔断检查")), None)
+        recheck = next((s for s in steps if s.get("id") == "compliance_recheck"), None)
+        notify = next((s for s in steps if s.get("name") == "失败通知"), None)
+        for step, label in ((gate, "批次开头合规检查"), (recheck, "生成后合规复核")):
+            if step is None:
+                problems.append(f"batch.yml 缺少{label}步骤")
+            elif "write_failure_reason.py" not in step.get("run", ""):
+                problems.append(f"{label}中止时未写结构化失败原因")
+        if notify is None:
+            problems.append("batch.yml 缺少「失败通知」步骤")
+        else:
+            if "notify_failure.py" not in notify.get("run", ""):
+                problems.append("失败通知未走 notify_failure.py（原因拼不进告警）")
+            if notify.get("if", "") != "failure()":
+                problems.append("失败通知未绑定 failure()")
+    except Exception as e:
+        problems.append(f"解析 batch.yml 失败：{e}")
+
+    # 正文拼装：原因为空时必须有占位，不许出现空的「原因: 」
+    try:
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        import notify_failure
+        body = notify_failure.build_content("noon", "2026-10-25", "", "o/r", "1")
+        if "原因: 详见运行日志" not in body:
+            problems.append("原因缺失时告警正文未给占位（会出现空白「原因: 」）")
+    except Exception as e:
+        problems.append(f"载入 notify_failure 失败：{e}")
+
+    return {"item": "失败告警可诊断（带原因）", "ok": not problems, "skipped": False,
+            "violations": problems,
+            "detail": ["两处合规中止写结构化原因 + 失败通知走 notify_failure.py + "
+                       "原因为空时给占位",
+                       ("告警可诊断 ✅" if not problems else f"❌ 缺口：{problems}")]}
+
+
 def verify() -> dict:
     checks = [check_title_hard(), check_title_pass_rate(), check_team_alias_awareness(),
               check_score_caliber_awareness(),
               check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
               check_reject_traceability(), check_old_news(), check_title_antipattern_residue(),
-              check_breaker_blocks_current_batch()]
+              check_breaker_blocks_current_batch(), check_failure_alert_diagnosable()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": checks,
