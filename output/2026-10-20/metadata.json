@@ -46,9 +46,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.2332,
-        "impressions": 4236,
+        "impressions": 4611,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7698534558777475638"
     },
@@ -91,7 +91,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.1233,
-        "impressions": 3790,
+        "impressions": 4176,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -134,7 +134,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.22,
-        "impressions": 3730,
+        "impressions": 4542,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -172,12 +172,12 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 17,
+        "reads": 18,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.224,
-        "impressions": 4163,
+        "retention_rate": 0.3071,
+        "impressions": 5028,
         "follower_reads": 0,
         "click_rate": 0.0
       },
