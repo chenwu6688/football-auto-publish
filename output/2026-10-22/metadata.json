@@ -72,7 +72,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.2812,
-        "impressions": 3288,
+        "impressions": 4115,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -115,7 +115,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.99,
-        "impressions": 3049,
+        "impressions": 3876,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -229,12 +229,12 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 5,
+        "reads": 6,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.62,
-        "impressions": 2886,
+        "retention_rate": 0.465,
+        "impressions": 3898,
         "follower_reads": 1,
         "click_rate": 0.0
       },
