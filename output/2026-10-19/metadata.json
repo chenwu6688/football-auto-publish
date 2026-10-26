@@ -74,7 +74,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 3762,
+        "impressions": 4141,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -155,7 +155,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.4883,
-        "impressions": 3888,
+        "impressions": 4267,
         "follower_reads": 3,
         "click_rate": 0.0
       },
@@ -193,12 +193,12 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 17,
+        "reads": 18,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.0776,
-        "impressions": 4243,
+        "retention_rate": 0.0709,
+        "impressions": 4634,
         "follower_reads": 0,
         "click_rate": 0.0
       },

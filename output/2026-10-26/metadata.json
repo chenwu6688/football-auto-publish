@@ -1,0 +1,321 @@
+{
+  "date": "2026-10-26",
+  "generated_at": "2026-10-26T00:05:04.564628",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "没想到里昂主帅这场压力比巴黎还大，14分净胜8球他输不起？",
+      "path": "/home/runner/work/_temp/output/2026-10-26/article-1-没想到里昂主帅这-8da9aa.md",
+      "slug": "没想到里昂主帅这-8da9aa",
+      "tags": [
+        "Lyon",
+        "PSG",
+        "Ligue 1",
+        "coach pressure",
+        "goal difference"
+      ],
+      "keywords": [
+        "Lyon",
+        "PSG",
+        "Ligue 1",
+        "coach pressure",
+        "goal difference"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "卡卡从金童到牧师之后，米兰球迷还认得出那个追风少年吗",
+      "path": "/home/runner/work/_temp/output/2026-10-26/article-2-卡卡从金童到牧师-4b8917.md",
+      "slug": "卡卡从金童到牧师-4b8917",
+      "tags": [
+        "Kaka",
+        "AC Milan",
+        "Champions League",
+        "football nostalgia"
+      ],
+      "keywords": [
+        "Kaka",
+        "AC Milan",
+        "Champions League",
+        "football nostalgia"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    }
+  ],
+  "topics": [
+    {
+      "title": "曼联0-3输球后更衣室放话：卡里克这回真要走人了？",
+      "angle": "曼联主场0-3惨败伯恩茅斯，英媒爆料更衣室内部人士预计卡里克将下课，但高层还没告知决定——换帅已成定局却卡在继任者谈不拢，这锅到底该谁背。",
+      "keywords": [
+        "Manchester United",
+        "Carrick",
+        "sack race",
+        "Bournemouth"
+      ],
+      "keywords_cn": [
+        "曼联",
+        "卡里克",
+        "下课",
+        "伯恩茅斯"
+      ],
+      "content_type": "热点球评",
+      "score": 94,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "豪门换帅悬念+更衣室爆料，冲突拉满",
+      "_category": "战报比分",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-3"
+    },
+    {
+      "title": "埃迪·豪赔率反超成曼联新帅热门，这剧本你没想到吧？",
+      "angle": "邮报称按最新赔率埃迪·豪最可能接曼联，球迷却在喊请孔蒂、甚至自嘲下赛季英冠曼市德比——曼联这选帅逻辑，老球迷看了直摇头。",
+      "keywords": [
+        "Eddie Howe",
+        "Manchester United",
+        "next manager",
+        "odds"
+      ],
+      "keywords_cn": [
+        "埃迪·豪",
+        "曼联",
+        "新帅",
+        "赔率"
+      ],
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "赔率反转+球迷自嘲，蹭换帅热度另一面",
+      "_category": "转会官宣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "内维尔说这铲球1984年后就没见过，海文到底干了啥？",
+      "angle": "内维尔直言海文双脚离地飞铲是自己1984年以来没见过的那种——一个犯规让名宿当场破防，这判罚尺度值得掰扯。",
+      "keywords": [
+        "Gary Neville",
+        "two-footed tackle",
+        "red card",
+        "Haven"
+      ],
+      "keywords_cn": [
+        "内维尔",
+        "双脚离地飞铲",
+        "红牌",
+        "海文"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "名宿金句+判罚争议，天然评论区战场",
+      "_category": "冲突舆情",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "五大联赛已无全胜队！曼城巴萨接连翻车说明了啥？",
+      "angle": "曼城几天前遭首败，巴萨国家德比告负，五大联赛再无全胜球队——不是豪门变弱了，是这赛季的竞争密度真上来了。",
+      "keywords": [
+        "unbeaten run",
+        "Manchester City",
+        "Barcelona",
+        "top five leagues"
+      ],
+      "keywords_cn": [
+        "全胜",
+        "曼城",
+        "巴萨",
+        "五大联赛"
+      ],
+      "content_type": "排行榜",
+      "score": 79,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "数据反差叙事，豪门集体失守有讨论度",
+      "_category": "未分类",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "没想到里昂主帅这场压力比巴黎还大，14分净胜8球他输不起？",
+      "content_type": "人物故事",
+      "_is_fixture": true
+    },
+    {
+      "title": "卡卡从金童到牧师之后，米兰球迷还认得出那个追风少年吗",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
+    },
+    "ratios": {
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-26 08:05:04"
+}
