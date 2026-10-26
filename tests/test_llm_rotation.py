@@ -12,6 +12,7 @@
 
 import json
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -22,6 +23,13 @@ sys.path.insert(0, str(ROOT))
 
 from constants import LLM_JSON_CANDIDATES  # noqa: E402
 import utils  # noqa: E402
+
+CST = timezone(timedelta(hours=8))
+
+
+def _now_iso(hours_ago=0.0):
+    """失败时间戳：默认「刚刚」，负值向前推（用于验证 24h 时效衰减）。"""
+    return (datetime.now(CST) - timedelta(hours=hours_ago)).isoformat(timespec="seconds")
 
 
 # 用一组可控的候选（带假 key，避免被 url/key 空值筛掉）
@@ -215,13 +223,17 @@ def test_global_candidate_list_is_nonempty():
 def test_failing_model_sinks_to_back(tmp_path, monkeypatch):
     """连续失败的模型应沉底——避免每次都先浪费一轮超时（实测 23 分钟长跑根因）。
 
-    kimi-k3 剩余最多（全新）但失败 3 次；deepseek-v4-pro 剩余较少但从未失败。
-    失败优先沉底：应优先尝试 deepseek-v4-pro，而非剩余更多但老失败的 kimi-k3。
+    kimi-k3 剩余最多（全新）但**刚刚**失败 3 次；deepseek-v4-pro 剩余较少但从未失败。
+    失败优先沉底：应优先尝试 deepseek-v4-pro / glm-5.3，而非剩余更多但老失败的 kimi-k3。
+
+    2026-10-26 补充：失败记录带 24h 时效（见 utils._fail_streak），
+    所以本用例必须写 `last_fail_at`＝现在，才算「近期失败」。
     """
     usage_file = tmp_path / "usage.json"
     usage_file.write_text(json.dumps(_usage_with(**{
         "deepseek-v4-pro": {"total_tokens": 500_000},      # 剩余 50 万，稳定
-        "kimi-k3": {"total_tokens": 0, "fail_streak": 3},  # 剩余 100 万，老失败
+        "kimi-k3": {"total_tokens": 0, "fail_streak": 3,
+                    "last_fail_at": _now_iso()},           # 剩余 100 万，刚刚失败 3 次
         "glm-5.3": {"total_tokens": 0},                    # 剩余 100 万，稳定
     })))
     monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
@@ -258,17 +270,19 @@ def test_fail_streak_increments_and_resets(tmp_path, monkeypatch):
 
 
 def test_preseded_fail_streak_keeps_unreliable_at_back(tmp_path, monkeypatch):
-    """回归保护：已预置 fail_streak 的失灵模型，即便剩余额度最高，也不排到健康模型前。
+    """回归保护：**近期**已失灵的模型，即便剩余额度最高，也不排到健康模型前。
 
     对应修复：data/llm_usage.json 给 known-unreliable 模型预置 fail_streak=1，
     避免全新 clone / reset --purge 后它们因剩余额度偏高被排到前面、白等超时。
+    （2026-10-26：失败计数带 24h 时效，预置时必须同时写 last_fail_at，否则视为陈旧。）
     """
     usage_file = tmp_path / "usage.json"
-    # unreliable 剩余最多（全新），但已预置 fail_streak=1；healthy 已用 50 万、fail_streak=0
+    # unreliable 剩余最多（全新），但刚刚失败过；healthy 已用 50 万、fail_streak=0
     usage_file.write_text(json.dumps(_usage_with(**{
         "deepseek-v4-pro": {"total_tokens": 500_000},                 # 剩余 50 万，健康
         "kimi-k3": {"total_tokens": 0},                               # 剩余 100 万，健康
-        "glm-5.3": {"total_tokens": 0, "fail_streak": 1},             # 剩余 100 万，已失灵
+        "glm-5.3": {"total_tokens": 0, "fail_streak": 1,
+                    "last_fail_at": _now_iso()},                      # 剩余 100 万，刚失灵
     })))
     monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
     monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
@@ -402,3 +416,173 @@ def test_kimi_temperature_pinned_to_one(monkeypatch):
     utils.call_llm("https://x/v1", "k", "kimi-k3", [{"role": "user", "content": "hi"}])
     assert calls[0].get("temperature") == 1.0, "kimi 只接受 temperature=1"
     assert "thinking" not in calls[0], "kimi 不应带 thinking"
+
+
+# ============================================================
+# 2026-10-26 新增：免费额度「到期时间近→远」切换 + 失败记录时效衰减
+# 背景：后台截图里 19 个模型各有到期时间；原来只按「剩余额度」排序，
+# 快到期但剩余多的模型会被排到后面，白放到期作废。
+# ============================================================
+
+def _usage_with_expiry(spec):
+    """spec: {model: (total_tokens, expires_at)} → usage 字典。"""
+    usage = {}
+    for m, (used, exp) in spec.items():
+        usage[m] = {"prompt_tokens": 0, "completion_tokens": 0,
+                    "total_tokens": used, "free_quota_expires_at": exp}
+    return usage
+
+
+def test_earlier_expiry_wins_over_more_remaining(tmp_path, monkeypatch):
+    """到期早的先用——哪怕它剩余额度更少。
+
+    kimi-k3 剩 87.8 万、2027-08-11 到期；minimax-m3.1-flash 剩 100 万、2027-10-26 到期。
+    正确顺序是先烧 kimi-k3（快到期的额度不用就作废）。
+    """
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with_expiry({
+        "kimi-k3": (122_000, "2027-08-11 11:04:10"),        # 剩余 87.8 万，最早到期
+        "minimax-m3.1-flash": (0, "2027-10-26 09:32:41"),   # 剩余 100 万，最晚到期
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    calls = []
+    monkeypatch.setattr(utils, "call_llm",
+                        lambda url, key, model, messages, **kw: (calls.append(model), '{"ok": true}')[1])
+
+    cand = [("https://fake/v1", "k", "minimax-m3.1-flash"),
+            ("https://fake/v1", "k", "kimi-k3")]   # 候选列表顺序故意反过来
+    _parsed, used = utils.call_llm_json([{"role": "user", "content": "x"}],
+                                        candidates=cand, usage_file=usage_file)
+    assert used == "kimi-k3", f"应先烧最早到期的额度，实际 {used}"
+    assert calls == ["kimi-k3"], f"只应调用一次且是 kimi-k3，实际 {calls}"
+
+
+def test_same_expiry_breaks_tie_by_remaining_desc(tmp_path, monkeypatch):
+    """同到期日 → 先花剩余最多的，避免单个模型先超额。"""
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with_expiry({
+        "glm-5.3": (34_000, "2027-09-14 09:24:30"),                  # 剩余 96.6 万
+        "deepseek/deepseek-flash": (331_000, "2027-09-14 09:24:30"), # 剩余 66.9 万
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+    cand = [("https://fake/v1", "k", "deepseek/deepseek-flash"),
+            ("https://fake/v1", "k", "glm-5.3")]
+    _p, used = utils.call_llm_json([{"role": "user", "content": "x"}],
+                                   candidates=cand, usage_file=usage_file)
+    assert used == "glm-5.3", f"同到期日应先用剩余最多的，实际 {used}"
+
+
+def test_model_without_expiry_sinks_behind_known_expiry(tmp_path, monkeypatch):
+    """没记录到期时间的模型排最后——不给它抢在「快过期额度」前面的机会。"""
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with_expiry({
+        "kimi-k3": (500_000, "2027-08-11 11:04:10"),   # 只剩 50 万，但最早到期
+        "minimax-m3.1-flash": (0, ""),                  # 满额，无到期信息
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+    cand = [("https://fake/v1", "k", "minimax-m3.1-flash"),
+            ("https://fake/v1", "k", "kimi-k3")]
+    _p, used = utils.call_llm_json([{"role": "user", "content": "x"}],
+                                   candidates=cand, usage_file=usage_file)
+    assert used == "kimi-k3", f"无到期信息的模型不应抢在已知到期前面，实际 {used}"
+
+
+def test_sort_by_expiry_can_be_disabled(tmp_path, monkeypatch):
+    """开关关掉 → 退回「仅按剩余额度降序」（保留给排障用）。"""
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with_expiry({
+        "kimi-k3": (122_000, "2027-08-11 11:04:10"),
+        "minimax-m3.1-flash": (0, "2027-10-26 09:32:41"),
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+    cand = [("https://fake/v1", "k", "kimi-k3"),
+            ("https://fake/v1", "k", "minimax-m3.1-flash")]
+    _p, used = utils.call_llm_json([{"role": "user", "content": "x"}],
+                                   candidates=cand, usage_file=usage_file,
+                                   sort_by_expiry=False)
+    assert used == "minimax-m3.1-flash", f"关闭到期排序后应退回剩余降序，实际 {used}"
+
+
+def test_stale_fail_streak_decays_after_ttl(tmp_path, monkeypatch):
+    """超过 24h 的失败记录自动失效——否则一次性故障 = 永久拉黑。
+
+    实测事故：19 个模型里有 15 个背着 3~4 次历史 fail_streak，被永久沉底，
+    整整一个月没被调用过（其中多数是已修复的 glm thinking bug 留下的）。
+    """
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with(**{
+        "kimi-k3": {"total_tokens": 100_000, "fail_streak": 4,
+                    "last_fail_at": _now_iso(48)},          # 两天前失败 → 应视为健康
+        "glm-5.3": {"total_tokens": 500_000},                # 健康但剩余更少
+    })))
+    monkeypatch.setattr(utils, "_save_llm_usage", lambda *a, **k: None)
+    monkeypatch.setattr(utils, "call_llm", lambda *a, **k: '{"ok": true}')
+    cand = [("https://fake/v1", "k", "glm-5.3"),
+            ("https://fake/v1", "k", "kimi-k3")]
+    _p, used = utils.call_llm_json([{"role": "user", "content": "x"}],
+                                   candidates=cand, usage_file=usage_file)
+    # 若衰减失效，kimi-k3 会因 4 次失败被沉底，此时会选到 glm-5.3
+    assert used == "kimi-k3", f"48h 前的失败不该继续沉底，实际 {used}"
+
+
+def test_fail_streak_without_timestamp_is_treated_stale(tmp_path, monkeypatch):
+    """老账本没有 last_fail_at → 按陈旧处理（宁可再试一次）。"""
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps(_usage_with(**{
+        "kimi-k3": {"total_tokens": 0, "fail_streak": 3},   # 无时间戳
+    })))
+    assert utils._fail_streak("kimi-k3", utils._load_llm_usage(usage_file)) == 0
+
+
+def test_fail_streak_ttl_boundary():
+    """TTL 边界：23h 内仍沉底，25h 外视为失效。"""
+    base = {"m": {"total_tokens": 0, "fail_streak": 2, "last_fail_at": _now_iso(23)}}
+    assert utils._fail_streak("m", base) == 2
+    base2 = {"m": {"total_tokens": 0, "fail_streak": 2, "last_fail_at": _now_iso(25)}}
+    assert utils._fail_streak("m", base2) == 0
+
+
+def test_bump_fail_streak_writes_timestamp():
+    """失败必须落时间戳，否则 TTL 衰减永远拿不到参照。"""
+    usage = {}
+    utils._bump_fail_streak(usage, "m")
+    assert usage["m"]["fail_streak"] == 1
+    assert usage["m"].get("last_fail_at"), "应写入 last_fail_at"
+    utils._bump_fail_streak(usage, "m", reset=True)
+    assert usage["m"]["fail_streak"] == 0
+
+
+def test_quota_expiry_parsing():
+    """到期时间解析：缺失/坏值→inf（排最后），合法值→可比时间戳。"""
+    usage = {
+        "a": {"free_quota_expires_at": "2027-08-11 11:04:10"},
+        "b": {"free_quota_expires_at": "2027/10/26 09:32:41"},
+        "c": {},
+        "d": {"free_quota_expires_at": "不是日期"},
+    }
+    ta, tb = utils._quota_expiry_ts("a", usage), utils._quota_expiry_ts("b", usage)
+    assert ta < tb, "2027-08-11 应早于 2027-10-26"
+    assert utils._quota_expiry_ts("c", usage) == float("inf")
+    assert utils._quota_expiry_ts("d", usage) == float("inf")
+
+
+def test_rotation_list_matches_ledger_models():
+    """轮换列表与账本必须对得上：列表里每个模型都要有到期时间。
+
+    否则「按到期时间切换」对它是空操作（永远排最后），额度白放。
+    """
+    usage = utils._load_llm_usage()
+    missing = [m for _u, _k, m in LLM_JSON_CANDIDATES
+               if m in usage and not usage[m].get("free_quota_expires_at")]
+    assert not missing, f"这些模型缺 free_quota_expires_at：{missing}"
+
+
+def test_rotation_list_excludes_non_free_models():
+    """后台免费体验列表里没有的模型不得进轮换（用它们＝按量计费，最贵的一类错）。"""
+    models = [m for _u, _k, m in LLM_JSON_CANDIDATES]
+    for bad in ("glm-5.2", "kimi-k2.7-code-highspeed", "deepseek-v4-pro-202606",
+                "hy3", "deepseek-v4-pro"):
+        assert bad not in models, f"{bad} 无免费额度/已停止，不应出现在轮换列表"

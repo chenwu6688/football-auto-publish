@@ -56,40 +56,36 @@ API_FOOTBALL_HOST = os.environ.get("API_FOOTBALL_HOST", "api-football-v1.p.rapid
 INTERCONTINENTAL_COMPETITIONS = ("亚冠", "欧联", "欧协联", "中超")
 
 # --- 多模型轮换（JSON 依赖型调用，如话题筛选）---
-# 候选顺序：按中文语义质量 deepseek > kimi > hy/mimo/step > glm，
-# 同品牌内优先更省 token 的 flash/lite/code 变体。
+# 排序口径（2026-10-26 起）：**按免费额度到期时间从近到远**——先用快到期的额度，
+# 避免「明明有免费流量却在到期日作废」。运行时的实际次序由 utils.call_llm_json
+# 依据 data/llm_usage.json 的 free_quota_expires_at 动态重排，本列表只是
+# 「无到期字段时的兜底顺序」，两者保持同向，便于人工核对。
 #
-# ⚠️ 2026-10-08 实测校正（依据 CI 运行日志）：
-#   - glm-5.3 / glm-5.3-flash / glm-5.3-flashx 在 TokenHub 侧稳定返回
-#     HTTP 400（code 400001「internal MaaS component 拒绝请求」），
-#     无论是否带 thinking/temperature 都失败 → 降级到列表**最末尾**
-#     （仅在前面的模型全部不可用时才兜底尝试，避免每次白跑 3 轮 ~30s）。
-#   - hy4-preview / kimi-k2.8-preview / step-5-preview / mimo-v2.6-pro
-#     实测稳定「返回空内容」→ 也下调靠后。
-#   - 实测稳定可用的主力：deepseek 系、kimi-k3/k2.7-code-highspeed、
-#     mimo-v2.6-flash。
+# 2026-10-26 依据 TokenHub「免费体验」三张截图全量重建（同截图校准 data/llm_usage.json）：
+#   ❗ 剔除「后台无免费体验额度」：glm-5.2 / kimi-k2.7-code-highspeed /
+#     deepseek-v4-pro-202606 —— 这三个模型在 /v1/models 里存在，但免费体验列表里
+#     没有它们，继续用等于**按量计费**（实测不报错、直接扣钱，最危险的一类）。
+#   ❌ 剔除「已停止 / 剩余 0%」：hy3、deepseek-v4-pro。
+#   ✅ 新增 4 个满额（剩余 100%）免费模型：kimi-k3.1-pro / kimi-k3.1-pro-highspeed /
+#     minimax-m3.1-flash / deepseek-v4.1-flash-1017（均 2027-10-26 到期，压末尾储备）。
+#   ⚠️ deepseek-v4-flash-0731 后台标「模型待下线」，保留但仅作末位备援。
 #
-# 2026-09-27 依据 TokenHub 后台截图重建本列表（后台共 20 个模型）：
-#   ❌ 剔除「已停止 / 剩余 0%」：hy3、deepseek-v4-pro
-#   ⚠️ 后台截图未出现、疑似下架：kimi-k2.7-code、kimi-k2.5、qwen3.5-flash、qwen3.5-plus
+# 2026-10-19 复核：glm 家族「稳定 400」的旧结论不成立——2026-10-08 那次是客户端
+# 传 thinking 参数导致推理回显进 content（见 utils._build_body），已修复。
 # 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
 _HY3_ROTATION_MODELS = os.environ.get(
     "HY3_ROTATION_MODELS",
-    # DeepSeek（推理模型，utils.call_llm 已自动关 thinking）—— 实战主力，排最前
-    "deepseek-v4-flash-202605,deepseek/deepseek-flash,deepseek-v4-flash-0731,"
-    "deepseek-v4.1-flash,deepseek/deepseek-v4-flash-vision-exp,"
-    "deepseek-v4-pro-202606,deepseek-v4-pro-0813,"
-    # Kimi（仅接受 temperature=1.0，已适配）
-    "kimi-k3,kimi-k2.7-code-highspeed,"
-    # MiMo（小米，标准对话）—— 实测可用的稳定替补
-    "mimo-v2.6-flash,"
-    # 以下实测易失灵（空响应/400），下调靠后兜底
-    "kimi-k2.8-preview,step-5-preview,mimo-v2.6-pro,hy4-preview,"
-    "glm-5.2,"
-    # GLM 5.3 系列：2026-10-19 实测全部在线且 minimal 参数可返回干净 JSON；
-    # 此前的 fail_streak 是客户端传 thinking 参数导致推理回显进 content（见 utils._build_body），
-    # 非模型故障，已修复并校准清零。仍压末尾作深储备（剩余额度最高，真耗尽时顶上）。
-    "glm-5.3-flash,glm-5.3-flashx,glm-5.3"
+    # ── 2027-08-11 到期（最早，先用；同组剩余多的在前）──
+    "kimi-k3,deepseek-v4-flash-202605,"
+    # ── 2027-08-27 到期 ──
+    "glm-5.3-flash,"
+    # ── 2027-09-14 到期 ──
+    "glm-5.3,deepseek/deepseek-v4-flash-vision-exp,deepseek/deepseek-flash,"
+    "deepseek-v4-flash-0731,kimi-k2.8-preview,hy4-preview,deepseek-v4-pro-0813,"
+    # ── 2027-09-27 到期 ──
+    "glm-5.3-flashx,step-5-preview,mimo-v2.6-flash,mimo-v2.6-pro,deepseek-v4.1-flash,"
+    # ── 2027-10-26 到期（一年后，满额储备，正式额度耗尽时才顶上）──
+    "kimi-k3.1-pro,kimi-k3.1-pro-highspeed,minimax-m3.1-flash,deepseek-v4.1-flash-1017"
 ).split(",")
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
 
@@ -103,18 +99,27 @@ LLM_JSON_CANDIDATES = [
 )
 
 # --- LLM 免费额度管理 ---
-# 多模型轮换的额度规则（2026-09-27 调整）：
+# 多模型轮换的额度规则（2026-10-26 调整）：
 #   1) 阈值 THRESHOLD：某模型已用 >= 阈值（默认 0.90 = 剩余 <=10%）时跳过，切下一个。
 #   2) 硬上限 HARD_CAP：本地累计到该 tokens 数即视为耗尽（保险丝，防本地计数失真导致超额）。
-# 切换顺序改为「剩余额度降序，同分按原候选顺序」，优先用剩余最多的模型。
+#   3) 切换顺序：先按**免费额度到期时间近→远**（快的先用完，别让它作废），
+#      同到期日按剩余额度降序；「近期连续失败」的模型一律沉底（见 LLM_FAIL_STREAK_TTL_HOURS）。
+# 到期时间写在 data/llm_usage.json 的 free_quota_expires_at（人工按后台截图校准）。
 LLM_USAGE_FILE = PROJECT_ROOT / "data" / "llm_usage.json"
 LLM_FREE_QUOTA_TOKENS = int(os.environ.get("LLM_FREE_QUOTA_TOKENS", "1000000"))
 LLM_USAGE_THRESHOLD = float(os.environ.get("LLM_USAGE_THRESHOLD", "0.90"))
 # 单模型本地累计硬上限（tokens）：到线即切走（默认 80 万 = 80%）。
 # 设得比 threshold 略低，作为「本地计数与后台对不上」时的保险丝。
 LLM_HARD_CAP_TOKENS = int(os.environ.get("LLM_HARD_CAP_TOKENS", "800000"))
-# 切换排序：True=按剩余额度降序（同分按原顺序）；False=保持原候选顺序。
+# 切换排序：True=按「到期时间近→远，同到期日剩余降序」；False=保持原候选顺序。
 LLM_SORT_BY_REMAINING = os.environ.get("LLM_SORT_BY_REMAINING", "1").lower() not in ("0", "false", "no")
+# 到期时间优先排序（2026-10-26 新增）：关掉则退回「仅按剩余额度降序」。
+LLM_SORT_BY_EXPIRY = os.environ.get("LLM_SORT_BY_EXPIRY", "1").lower() not in ("0", "false", "no")
+# 失败沉底的时效：只有最近 N 小时内的失败才计入排序惩罚，超期自动失效。
+# 理由（2026-10-26 实测）：TokenHub 19 个候选当天全部能返回干净 JSON，但账本里
+# 15 个模型背着 3~4 次历史 fail_streak 被永久沉底、一个月没被调用过。
+# 不设期限的失败记录 = 把一次性故障变成永久拉黑。
+LLM_FAIL_STREAK_TTL_HOURS = float(os.environ.get("LLM_FAIL_STREAK_TTL_HOURS", "24"))
 
 # --- WxPusher ---
 WXPUSHER_APPTOKEN = os.environ.get("WXPUSHER_APPTOKEN", "")

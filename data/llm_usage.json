@@ -1,127 +1,155 @@
 {
-  "_calibration_note": "2026-10-19 按 TokenHub 后台三张截图全量校准（后台=唯一真值，已用=1,000,000-剩余%；本地 total 取 max(后台, CI累计) + 本地探针消耗）。prompt/completion 仅 CI 累计，不与 total 强一致。glm-5.2/5.3/5.3-flash/5.3-flashx fail_streak 清零：根因为客户端传 thinking 参数使模型把推理回显进 content、JSON 解析失败（utils._build_body 已修），非模型故障，实测四型号最小参数集均返回干净 JSON。deepseek-v4-flash(403,000)与 glm-5.2-flash(9,000) 后台有消耗但不在轮换列表，记录备查（疑历史/他端消耗）。deepseek-v4-flash-0731 后台标记「模型待下线」，留意轮换替换。hy3/deepseek-v4-pro 已停止未列入。",
-  "hy4-preview": {
+  "_calibration_note": "2026-10-26 按 TokenHub「免费体验」三张截图全量校准（后台=唯一真值：total_tokens 记「已用」= 1,000,000×(100-剩余%)，free_quota_pct / free_quota_expires_at 原样落账，供 utils.call_llm_json 按「到期时间近→远」排序切换）。同日实测 19 个候选模型全部能返回干净 JSON，故 fail_streak 统一清零：那批 3~4 次计数来自 ① 10-19 前 glm 系客户端传 thinking 导致推理回显、JSON 解析必败，② 用 max_tokens=20 探针时推理链（reasoning_content）先吃掉额度、content 为空被误判「空响应」——实测这些模型都先吐 100~280 tokens 推理才出正文，max_tokens 需 ≥300 才稳。2026-10-26 已给 _bump_fail_streak 加 last_fail_at + 24h 衰减（LLM_FAIL_STREAK_TTL_HOURS），今后失败记录不再永久拉黑模型。新增 4 个满额免费模型：kimi-k3.1-pro / kimi-k3.1-pro-highspeed / minimax-m3.1-flash / deepseek-v4.1-flash-1017（均 2027-10-26 到期，压末位储备）。移除：glm-5.2 / kimi-k2.7-code-highspeed / deepseek-v4-pro-202606（/v1/models 里存在但免费体验列表无它们 = 按量计费，绝非「免费额度」）；hy3 / deepseek-v4-pro（已停止，剩余 0%）；deepseek-v4-flash(403,000) / glm-5.2-flash(9,000) （后台已无免费入口，疑额度用尽或下线）。deepseek-v4-flash-0731 后台标「模型待下线」，保留但仅作末位备援。",
+  "kimi-k3": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 612000,
-    "fail_streak": 4
+    "total_tokens": 122000,
+    "fail_streak": 0,
+    "free_quota_pct": 87.8,
+    "free_quota_expires_at": "2027-08-11 11:04:10"
   },
   "deepseek-v4-flash-202605": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 591000,
-    "fail_streak": 3
+    "fail_streak": 0,
+    "free_quota_pct": 40.9,
+    "free_quota_expires_at": "2027-08-11 11:04:10"
   },
-  "kimi-k2.8-preview": {
-    "prompt_tokens": 6481,
-    "completion_tokens": 5734,
-    "total_tokens": 583000,
-    "fail_streak": 4
-  },
-  "mimo-v2.6-pro": {
-    "prompt_tokens": 41536,
-    "completion_tokens": 19043,
-    "total_tokens": 409000,
-    "fail_streak": 4
-  },
-  "mimo-v2.6-flash": {
-    "prompt_tokens": 49609,
-    "completion_tokens": 26291,
-    "total_tokens": 393000,
-    "fail_streak": 3
-  },
-  "step-5-preview": {
-    "prompt_tokens": 26491,
-    "completion_tokens": 26050,
-    "total_tokens": 338000,
-    "fail_streak": 4
-  },
-  "kimi-k2.7-code-highspeed": {
-    "prompt_tokens": 30916,
-    "completion_tokens": 40406,
-    "total_tokens": 202000,
-    "fail_streak": 4
-  },
-  "deepseek-v4-pro-0813": {
-    "prompt_tokens": 521233,
-    "completion_tokens": 168817,
-    "total_tokens": 806957,
-    "fail_streak": 0
-  },
-  "kimi-k3": {
+  "glm-5.3-flash": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 121000,
-    "fail_streak": 4
+    "total_tokens": 21000,
+    "fail_streak": 0,
+    "free_quota_pct": 97.9,
+    "free_quota_expires_at": "2027-08-27 13:40:03"
+  },
+  "glm-5.3": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 34000,
+    "fail_streak": 0,
+    "free_quota_pct": 96.6,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
     "prompt_tokens": 140018,
     "completion_tokens": 34148,
     "total_tokens": 276000,
-    "fail_streak": 4
-  },
-  "deepseek-v4-flash-0731": {
-    "prompt_tokens": 219729,
-    "completion_tokens": 71182,
-    "total_tokens": 431000,
-    "fail_streak": 3
-  },
-  "deepseek-v4.1-flash": {
-    "prompt_tokens": 425263,
-    "completion_tokens": 112725,
-    "total_tokens": 574473,
-    "fail_streak": 0
-  },
-  "glm-5.2": {
-    "prompt_tokens": 68411,
-    "completion_tokens": 9578,
-    "total_tokens": 156000,
-    "fail_streak": 3
+    "fail_streak": 0,
+    "free_quota_pct": 72.4,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
   },
   "deepseek/deepseek-flash": {
     "prompt_tokens": 168101,
     "completion_tokens": 41528,
     "total_tokens": 331000,
-    "fail_streak": 4
+    "fail_streak": 0,
+    "free_quota_pct": 66.9,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
   },
-  "deepseek-v4-pro-202606": {
-    "prompt_tokens": 113744,
-    "completion_tokens": 33499,
-    "total_tokens": 292000,
-    "fail_streak": 4
+  "deepseek-v4-flash-0731": {
+    "prompt_tokens": 219729,
+    "completion_tokens": 71182,
+    "total_tokens": 431000,
+    "fail_streak": 0,
+    "free_quota_pct": 56.9,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
   },
-  "glm-5.3": {
+  "kimi-k2.8-preview": {
+    "prompt_tokens": 6481,
+    "completion_tokens": 5734,
+    "total_tokens": 523000,
+    "fail_streak": 0,
+    "free_quota_pct": 47.7,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
+  },
+  "hy4-preview": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 128503,
-    "fail_streak": 3
+    "total_tokens": 641000,
+    "fail_streak": 0,
+    "free_quota_pct": 35.9,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
   },
-  "glm-5.3-flash": {
-    "prompt_tokens": 0,
-    "completion_tokens": 0,
-    "total_tokens": 0,
-    "fail_streak": 3
+  "deepseek-v4-pro-0813": {
+    "prompt_tokens": 521233,
+    "completion_tokens": 168817,
+    "total_tokens": 864000,
+    "fail_streak": 0,
+    "free_quota_pct": 13.6,
+    "free_quota_expires_at": "2027-09-14 09:24:30"
   },
   "glm-5.3-flashx": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 9031,
-    "fail_streak": 3
+    "total_tokens": 28000,
+    "fail_streak": 0,
+    "free_quota_pct": 97.2,
+    "free_quota_expires_at": "2027-09-27 10:07:07"
   },
-  "qwen-plus": {
+  "step-5-preview": {
+    "prompt_tokens": 26491,
+    "completion_tokens": 26050,
+    "total_tokens": 338000,
+    "fail_streak": 0,
+    "free_quota_pct": 66.2,
+    "free_quota_expires_at": "2027-09-27 10:07:07"
+  },
+  "mimo-v2.6-flash": {
+    "prompt_tokens": 49609,
+    "completion_tokens": 26291,
+    "total_tokens": 393000,
+    "fail_streak": 0,
+    "free_quota_pct": 60.7,
+    "free_quota_expires_at": "2027-09-27 10:07:07"
+  },
+  "mimo-v2.6-pro": {
+    "prompt_tokens": 41536,
+    "completion_tokens": 19043,
+    "total_tokens": 409000,
+    "fail_streak": 0,
+    "free_quota_pct": 59.1,
+    "free_quota_expires_at": "2027-09-27 10:07:07"
+  },
+  "deepseek-v4.1-flash": {
+    "prompt_tokens": 425263,
+    "completion_tokens": 112725,
+    "total_tokens": 715000,
+    "fail_streak": 0,
+    "free_quota_pct": 28.5,
+    "free_quota_expires_at": "2027-09-27 10:07:07"
+  },
+  "kimi-k3.1-pro": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 0,
-    "disabled": true
+    "fail_streak": 0,
+    "free_quota_pct": 100.0,
+    "free_quota_expires_at": "2027-10-26 09:32:41"
   },
-  "deepseek-v4-flash": {
+  "kimi-k3.1-pro-highspeed": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 403000
+    "total_tokens": 0,
+    "fail_streak": 0,
+    "free_quota_pct": 100.0,
+    "free_quota_expires_at": "2027-10-26 09:32:41"
   },
-  "glm-5.2-flash": {
+  "minimax-m3.1-flash": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "total_tokens": 9000
+    "total_tokens": 0,
+    "fail_streak": 0,
+    "free_quota_pct": 100.0,
+    "free_quota_expires_at": "2027-10-26 09:32:41"
+  },
+  "deepseek-v4.1-flash-1017": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "fail_streak": 0,
+    "free_quota_pct": 100.0,
+    "free_quota_expires_at": "2027-10-26 09:32:41"
   }
 }

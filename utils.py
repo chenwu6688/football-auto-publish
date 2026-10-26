@@ -14,6 +14,8 @@ from constants import (
     LLM_USAGE_THRESHOLD,
     LLM_HARD_CAP_TOKENS,
     LLM_SORT_BY_REMAINING,
+    LLM_SORT_BY_EXPIRY,
+    LLM_FAIL_STREAK_TTL_HOURS,
 )
 
 PROMPT_DIR = Path(__file__).parent / "prompts"
@@ -232,13 +234,42 @@ def _remaining_tokens(model, usage, quota=LLM_FREE_QUOTA_TOKENS):
     return max(0, quota - _model_used_tokens(model, usage))
 
 
-def _fail_streak(model, usage):
-    """Return the current consecutive-failure count for a model (0 if none).
+def _fail_streak(model, usage, *, ttl_hours=None, now=None):
+    """Return the current *effective* consecutive-failure count for a model.
 
     用于把「稳定失灵」的模型（空响应/400/超时）沉到候选末尾，避免每次都先
     浪费一轮超时。成功后清零。持久化在 llm_usage.json 的 fail_streak 字段。
+
+    2026-10-26 起带**时效衰减**：只有 `last_fail_at` 落在 TTL（默认 24h）内的
+    失败才计入，超期或缺失时间戳一律视为 0（健康）。
+
+    为什么必须衰减：TokenHub 19 个候选模型当天实测全部能返回干净 JSON，但账本
+    里 15 个模型背着 3~4 次历史 fail_streak（10-19 前的 glm thinking bug、以及
+    「max_tokens 太小被 reasoning_content 吃满 → content 为空」的误判），它们
+    因此被永久沉底，整整一个月没被调用过。不设期限的失败记录 = 把一次性故障
+    变成永久拉黑。
     """
-    return usage.get(model, {}).get("fail_streak", 0)
+    rec = usage.get(model, {}) or {}
+    streak = rec.get("fail_streak", 0) or 0
+    if not streak:
+        return 0
+    ttl = LLM_FAIL_STREAK_TTL_HOURS if ttl_hours is None else ttl_hours
+    if not ttl or ttl <= 0:
+        return streak
+    raw = rec.get("last_fail_at")
+    if not raw:
+        # 老账本没有时间戳 → 无法判断新旧，按「陈旧」处理（宁可试一次再沉底）
+        return 0
+    try:
+        dt = datetime.fromisoformat(str(raw).strip().replace("/", "-"))
+    except Exception:
+        return 0
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=CST)
+    now = now or datetime.now(CST)
+    if (now - dt).total_seconds() > ttl * 3600:
+        return 0
+    return streak
 
 
 def _bump_fail_streak(usage, model, *, reset=False):
@@ -248,7 +279,28 @@ def _bump_fail_streak(usage, model, *, reset=False):
         rec["fail_streak"] = 0
     else:
         rec["fail_streak"] = rec.get("fail_streak", 0) + 1
+        # 时间戳供 _fail_streak 做 TTL 衰减；没有它，失败记录永不过期
+        rec["last_fail_at"] = datetime.now(CST).isoformat(timespec="seconds")
     return usage
+
+
+def _quota_expiry_ts(model, usage):
+    """Return the free-quota expiry as a POSIX timestamp; unknown ⇒ +inf (last).
+
+    读 llm_usage.json 的 `free_quota_expires_at`（按 TokenHub 后台截图人工校准，
+    形如 "2027-08-11 11:04:10"）。缺失/解析失败一律当作「最晚到期」，排在最后，
+    避免无到期信息的模型抢在「快过期的额度」前面被用掉。
+    """
+    raw = (usage.get(model, {}) or {}).get("free_quota_expires_at")
+    if not raw:
+        return float("inf")
+    try:
+        dt = datetime.fromisoformat(str(raw).strip().replace("/", "-"))
+    except Exception:
+        return float("inf")
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=CST)
+    return dt.timestamp()
 
 
 def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM_USAGE_THRESHOLD,
@@ -292,16 +344,18 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
                   threshold=LLM_USAGE_THRESHOLD,
                   hard_cap=LLM_HARD_CAP_TOKENS,
                   sort_by_remaining=LLM_SORT_BY_REMAINING,
+                  sort_by_expiry=LLM_SORT_BY_EXPIRY,
                   max_per_provider=None, max_candidates=18, llm_max_retries=1):
     """Try LLM candidates sequentially until one returns parseable JSON.
 
-    Rotation policy (2026-09-27 免费额度规则 I+II):
+    Rotation policy (2026-10-26 免费额度规则):
     - skips models whose free quota is below threshold (default used >=90%)
     - skips models whose local usage hit the hard cap (default 800k tokens)
     - skips models marked disabled (e.g. returned 401/403)
-    - if sort_by_remaining: order candidates by remaining tokens DESC
-      (tie broken by original candidate order) → always spend the
-      least-used model first, so no single model burns to over-quota
+    - if sort_by_remaining: order candidates by
+        (近期失败次数 ↑, 免费额度到期时间 ↑, 剩余额度 ↓)
+      i.e. 先用「快过期且剩余多」的免费额度，别让免费流量到期作废；
+      近期连续失败的模型沉底（失败记录 24h 后自动失效，见 _fail_streak）。
     - single HTTP attempt per candidate (fail-fast)
 
     Args:
@@ -309,7 +363,8 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         candidates: list of (url, api_key, model_name) tuples.
         parser: function(text) -> parsed object or None.
         hard_cap: local token cap; usage >= hard_cap ⇒ treat as exhausted.
-        sort_by_remaining: True = sort available by remaining desc.
+        sort_by_remaining: True = 启用排序（关闭则保持原候选顺序）。
+        sort_by_expiry: True = 到期时间优先；False = 仅按剩余额度降序。
         max_per_provider: legacy per-provider cap; default None = no limit
                           (sequential calls never fan out per provider).
         max_candidates: max number of available candidates to actually call.
@@ -351,21 +406,29 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             continue
         available.append((url, key, model))
 
-    # 方案 II：按剩余额度降序（同分按原候选顺序）——优先用剩余最多的模型，
-    # 避免单个模型被反复命中而先行超额。list.sort 是稳定排序，天然保持同分原顺序。
-    #
-    # 同时把「连续失败」的模型沉底：某些模型会稳定地返回空/400/超时
-    # （实测 hy4-preview 空响应、glm-5.3 系列 400），若一直排在候选最前，
-    # 每次都要先浪费一轮 60s 超时，导致整跑耗时 20+ 分钟。失败次数越多越靠后，
-    # 成功后清零（见下方 _bump_fail_streak）。
+    # 排序（2026-10-26 起）：
+    #   第 1 键 近期失败次数升序 —— 失灵模型沉底，避免每次先白等一轮 60s 超时
+    #          （实测 hy4-preview 空响应、glm 系列 400 曾把整跑拖到 20+ 分钟）。
+    #          注意：这里用**带 TTL 衰减**的有效失败数，超期的历史失败不再计入。
+    #   第 2 键 免费额度到期时间升序 —— 先用快到期的免费额度，别让它到期作废。
+    #   第 3 键 剩余额度降序 —— 同到期日内先花剩余最多的，避免单个模型先超额。
+    # list.sort 稳定，完全同分时保持原候选顺序。
     if sort_by_remaining and len(available) > 1:
-        available.sort(key=lambda c: (
-            _fail_streak(c[2], usage),               # 失败次数升序：少的优先（沉底失灵模型）
-            -_remaining_tokens(c[2], usage, quota),  # 其次按剩余额度降序
-        ))
+        if sort_by_expiry:
+            available.sort(key=lambda c: (
+                _fail_streak(c[2], usage),
+                _quota_expiry_ts(c[2], usage),
+                -_remaining_tokens(c[2], usage, quota),
+            ))
+        else:
+            available.sort(key=lambda c: (
+                _fail_streak(c[2], usage),
+                -_remaining_tokens(c[2], usage, quota),
+            ))
         top = available[0][2]
+        _exp = usage.get(top, {}).get("free_quota_expires_at") or "未记录"
         print(f"   🧮 候选排序：首位 {top}（失败次数 {_fail_streak(top, usage)}，"
-              f"剩余 {_remaining_tokens(top, usage, quota)} tokens）")
+              f"额度到期 {_exp}，剩余 {_remaining_tokens(top, usage, quota)} tokens）")
 
     if not available:
         reasons = []
