@@ -57,6 +57,20 @@ def _as_date(x) -> date | None:
         return None
 
 
+def _as_dt(x) -> datetime | None:
+    """解析 "YYYY-MM-DD HH:MM"（CST）→ aware datetime；失败返回 None。
+
+    只给 reveal_at 用：节点日只到「天」，但有些节点有精确的揭晓时刻
+    （颁奖礼 20:00 伦敦 = 次日 03:00 北京），必须能比到分钟。
+    """
+    if isinstance(x, datetime):
+        return x if x.tzinfo else x.replace(tzinfo=CST)
+    try:
+        return datetime.strptime(str(x).strip(), "%Y-%m-%d %H:%M").replace(tzinfo=CST)
+    except Exception:
+        return None
+
+
 def load_calendar(path: Path | None = None) -> dict:
     """读取赛季节点日历；文件缺失或损坏返回 {"nodes": []}（不阻塞）。"""
     p = Path(path) if path else CALENDAR_PATH
@@ -85,7 +99,8 @@ def _save_store(data: dict) -> None:
 
 
 def build_node_topics(today: date | None = None, horizon_days: int | None = DEFAULT_HORIZON_DAYS,
-                      calendar: dict | None = None, dropped: list | None = None) -> list[dict]:
+                      calendar: dict | None = None, dropped: list | None = None,
+                      now: datetime | None = None) -> list[dict]:
     """生成「节点事件」选题（一级·确定性）。
 
     窗口语义（计划 12.1「可提前 7 天预生成」）：
@@ -98,10 +113,18 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
       - C 级节点只允许落在数据类/榜单类板块，否则剔除；
       - 决策结果写回 ``awareness_decision``，供下游降权排序。
     被剔除的节点在传入 ``dropped`` 列表时一并记录（(node, reason)）。
+
+    两个可选字段（2026-10-26 新增，金球奖节点暴露的缺口）：
+      - ``reveal_at``（"YYYY-MM-DD HH:MM"，CST）：事件揭晓的精确时刻。过点即不再生成——
+        结果已出还写「谁该拿」就是旧闻新发，宁可空着。
+      - ``facts``（字符串列表）：**已人工核实**的事实，随选题带给生成侧当唯一事实源。
+        节点稿「空泛得像信息播报」的根因是预生成只敢写赛制常识、不敢碰具体数字；
+        有 facts 才能既具体又不编造。来源写 ``fact_source_url``，缺来源的不许进 facts。
     """
     today = _as_date(today) or _now().date()
     cal = calendar if calendar is not None else load_calendar()
     end = today + timedelta(days=horizon_days) if horizon_days is not None else None
+    now_dt = _now(now)
     out: list[dict] = []
     for n in cal.get("nodes", []) or []:
         if not isinstance(n, dict):
@@ -113,6 +136,11 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
             continue
         if end is not None and nd > end:
             continue
+        reveal_at = _as_dt(n.get("reveal_at"))
+        if reveal_at and now_dt >= reveal_at:
+            if dropped is not None:
+                dropped.append((n, f"已过揭晓时刻 {n.get('reveal_at')}：赛前角度失效，不再生成"))
+            continue
         lead = int(n.get("lead_days", DEFAULT_LEAD_DAYS) or DEFAULT_LEAD_DAYS)
         pub_from = nd - timedelta(days=lead)
         days_to = (nd - today).days
@@ -121,6 +149,8 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
         conflict = tmpl.format(days=max(days_to, 0), label=label)
         column = n.get("column") or "战术榜单"
         board = column if column in NODE_COLUMNS else "战术榜单"
+        # 事实只搬日历里人工核实过的，不在这里补、不猜、不派生
+        facts = [str(f).strip() for f in (n.get("facts") or []) if str(f).strip()]
 
         aw = awareness_gate.classify(n.get("awareness"))
         dec = awareness_gate.decide_level(aw, board, channel="data_list",
@@ -147,9 +177,12 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
             "title_allowed": dec["title_allowed"],
             "publish_from": pub_from.isoformat(),
             "publish_by": nd.isoformat(),
+            "reveal_at": n.get("reveal_at") or "",
+            "facts": facts,
             "fact_source": {
                 "api": "config/season_calendar.yaml",
                 "node_id": n.get("id"),
+                "url": n.get("fact_source_url") or "",
                 "note": "赛季节点为公开日历事实，人工维护、官方公告为准",
             },
         })

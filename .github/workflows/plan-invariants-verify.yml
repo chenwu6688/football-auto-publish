@@ -87,6 +87,13 @@ jobs:
           # （26 篇赛程稿中 19 篇同一句式），是「推文全是人物故事」的直接来源。
           python3 scripts/verify_title_templates.py --quiet
 
+      - name: 赛季节点日历可信度（事实可追 / 揭晓时刻 / 生成侧接入）
+        run: |
+          # 硬项，不加 || echo 软化。起因：写金球奖节点时发现日历里的事实没有来源约束，
+          # 查证时就撞到把「1996 萨默尔」算成「44 年金球荒」的稿子（实际 30 年）——
+          # 单源事实不可信。故有 facts 必须有 fact_source_url，且过了 reveal_at 不许再生成。
+          python3 scripts/verify_season_calendar.py --quiet
+
       - name: 选题分类与类别优先级（计划 5.1 / R11 内容诊断）
         run: |
           python3 scripts/verify_topic_category.py --quiet \

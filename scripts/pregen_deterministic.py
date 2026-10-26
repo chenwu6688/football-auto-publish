@@ -33,10 +33,11 @@ CST = timezone(timedelta(hours=8))
 HARD_MAX_GEN = 4
 
 _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上男性老球迷。
-现在要写一篇【{node_type}】类的确定性内容（无时效压力，提前备好、到点发）。
-节点事件：{label}（日期 {node_date}，距今约 {days_to} 天）
+现在要写一篇【{node_type}】类的确定性内容（提前备好、到点发；正文不要出现「还剩 X 天」
+这类会过期的表述，也不要写成过期旧闻）。
+节点事件：{label}（节点日期 {node_date}）
 看点提示：{conflict}
-
+{facts_block}
 硬性要求：
 - 标题 26-30 字，套用公式「**具体的人或球队** + **悬念词**（没想到／原来／竟然／居然／反转）
   + 疑问收尾」——R11 回测：悬念词点击率 +87%；「写人」比「写事」高 3-10 倍点击
@@ -45,6 +46,9 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
 - 正文 600-900 字，含 ≥2 个 ## 小标题，口语化、像老球迷喝酒聊球
 - 必须围绕该节点本身展开（时间节点、窗口/赛程的意义、球迷该盯什么）
 - 严禁编造可核查的具体比分、转会金额、伤停名单等硬事实；只用公认常识与赛制规则
+- **若无【已核实事实】区块**：一律不写具体数字/比分/名单，只用赛制规则与公认常识表达
+- **若有【已核实事实】区块**：数字、比分、名单必须与区块**完全一致**，不得改写、不得四舍五入、
+  不得「顺手加一句」区块里没有的荣誉或数据；区块里没提到的人，不要给他安任何战绩
 - 严禁在正文写死「还剩 X 天」这类具体天数（发布日与撰写日可能不同），
   改用「即将到来」「进入最后阶段」「离得不远了」等表述
 - 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
@@ -57,6 +61,25 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
  "ai_perspective": "一句独立判断(≤40字,犀利有态度)"}}"""
 
 
+def _facts_block(topic: dict) -> str:
+    """把日历里人工核实的事实渲染成提示词区块；没有就返回空串（行为与旧版一致）。
+
+    为什么需要这个：预生成长期只敢写「窗口还剩几天」这类赛制常识，因为一旦碰具体
+    数字就有编造风险。结果是节点稿空泛得像信息播报。把**人工核实过**的事实作为
+    唯一可用事实源喂进去，才能既具体又不编造——边界写死「区块之外一律不许出现」。
+    """
+    facts = [str(f).strip() for f in (topic.get("facts") or []) if str(f).strip()]
+    if not facts:
+        return ""
+    lines = "\n".join(f"  {i}. {f}" for i, f in enumerate(facts, 1))
+    src = (topic.get("fact_source") or {}).get("url") or ""
+    return (
+        "\n【已核实事实（只能用下面这些；区块之外的具体数字/比分/名单一律不许出现）】\n"
+        f"{lines}\n"
+        + (f"（来源：{src}，已人工交叉核对）\n" if src else "")
+    )
+
+
 def _make_one(topic: dict) -> dict:
     label = topic.get("conflict", "") or topic.get("node_type", "")
     msgs = [
@@ -65,6 +88,7 @@ def _make_one(topic: dict) -> dict:
             node_type=topic.get("node_type", "赛季节点"),
             label=label, node_date=topic.get("node_date", ""),
             days_to=topic.get("days_to", 0), conflict=topic.get("conflict", ""),
+            facts_block=_facts_block(topic),
             content_type=topic.get("content_type") or topic.get("node_type", "赛季节点"))},
     ]
     obj, _model = call_llm_json(msgs, LLM_JSON_CANDIDATES, temperature=0.9, max_tokens=3000)
