@@ -51,6 +51,20 @@ TARGET_WINDOW_DAYS = 14
 FD_MAX_WINDOW_DAYS = 10
 MAX_WINDOW_DAYS = FD_MAX_WINDOW_DAYS   # 兼容旧引用（免费层单次上限）
 
+# 2026-10-26 P0-1：赛程窗口向前多拉 1 天，专门收集「已完赛」赛果生成隔夜战报。
+# 背景：赛程池只收未开赛场次（build_topic_pool 里 `if dt < now: continue`），
+# 已完赛比分**没有任何入口** → 08:00 晨读批永远没战报可发，只能软性补位
+# （10-12~10-25 实测：晨读 14 篇里 12 篇软性、0 篇战报）。而足球媒体里
+# 「今晨刚结束的比赛」是最硬的二级·突发供给。
+# 不增加请求次数：首块区间从 [today, +9] 扩为 [today-1, +8]，仍是 10 天上限内；
+# 第二块顺延。额度台账（api_budget）看到的总调用量不变。
+RECAP_LOOKBACK_DAYS = 1
+# 战报时效窗口（小时）：晨读 08:00 发布 → 需覆盖「前一天 02:00 之后结束」的场次。
+RECAP_LOOKBACK_HOURS = 30
+# 战报可发布窗口（小时）：赛果出来后可挂多久。跨夜战报到中午仍有效，
+# 但不能像赛程稿那样挂几天（旧闻新发，计划 11.1 时效闸门）。
+RECAP_PUBLISH_WINDOW_HOURS = 14
+
 # 计划 11.4：每日调用量 ≤3 次。前两档固定给 football-data（14 天须两块），
 # 第三档按日轮换一个补源，4 日一轮；各源缓存跨日有效，故覆盖不缺口。
 SUPPLEMENTS = (
@@ -63,7 +77,7 @@ SUPPLEMENTS = (
 FIXTURE_DIR = PROJECT_ROOT / "data" / "fixtures"
 ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
 
-# 冲突点分型 → (认知度组合, 建议栏目, 角度模板, 人视角叙事要求)。
+# 冲突点分型 → (认知度组合, 建议栏目, 角度模板列表, 人视角叙事要求)。
 # 刻意不含「前瞻」类 —— 前瞻已停发（欧冠 78 篇仅 852 阅读）。
 # 模板占位符：{home} {away} {lower} {higher}
 #
@@ -73,23 +87,62 @@ ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
 #   （没想到/原来/竟然/居然/反转，回测 +87%），不再做「A队 vs B队」纯战术罗列。
 #   → 产量与选题不变，只换叙事角度（本节改动不改赛程线索本身）。
 #   模板禁用词：前瞻/预览/展望/预测首发/赛前预测（计划 7.1：前瞻体占比为零）。
+#
+# ⚠️ 2026-10-26 P0-3：**每型 3 条模板 + 按日轮换**。
+# 病根：原来每型只有 1 条模板，而 A/B（一强一弱）是赛程里最常见的组合，
+# 于是「没想到XX主帅这场压力比YY还大」成了固定产物——近 14 天 26 篇赛程稿里
+# 19 篇标题都是这个句式，读者看到的就是「全是主帅苦情故事」。
+# 发赛程稿＝发同款标题，这是结构必然，不是模型偷懒。
+# 轮换规则见 _pick_template：按 (日期序数 + 同型计数) 取模，跨天起点不同。
 ANGLE_RULES = [
     ("AA", "强强对话", "战术榜单",
-     "{home}对{away}，原来两位主帅才是最大变数",
+     ["{home}对{away}，原来两位主帅才是最大变数",
+      "{home}撞上{away}，两队核心谁先把对手拖垮",
+      "{home}和{away}都不敢输，先慌的会是哪位主帅"],
      "以两位主帅的处境与选择为切口（谁压力更大、谁敢先变阵），不做纯实力对比。"),
-    ("AB", "强弱反差", "人物故事",
-     "没想到{lower}主帅这场压力比{higher}还大",
+    ("AB", "强弱反差", "战术榜单",
+     ["没想到{lower}主帅这场压力比{higher}还大",
+      "{lower}碰上{higher}，弱队那位前锋反而更不想输",
+      "{higher}以为稳了，{lower}队长憋着的到底是什么"],
      "聚焦弱势一方主帅/核心球员的处境（他要证明什么、输不起的是什么），有人味、有细节。"),
     ("AC", "冷门窗口", "战术榜单",
-     "{higher}账面更强，可{lower}主帅手里原来还有牌",
+     ["{higher}账面更强，可{lower}手里原来还有牌",
+      "{lower}杀到{higher}门口，这回被看轻的是哪位核心",
+      "{higher}这一场最怕的不是对手，是自己更衣室"],
      "写弱势一方主帅手里的**具体变量**（还有什么牌可打、要赌哪一环），不空喊冷门。"),
     ("BB", "中游缠斗", "战术榜单",
-     "{home}与{away}缠斗，原来名次之争压在两位核心身上",
+     ["{home}与{away}缠斗，原来名次之争压在两位核心身上",
+      "{home}和{away}都在中游打转，谁先掉队看两位核心的腿",
+      "{home}对{away}，同分的两队哪位队长更怕输这场"],
      "把中游排名压力落到两名关键球员身上（谁的状态决定谁先掉队），少讲积分多讲人。"),
     ("BC", "关注度落差", "数据对照",
-     "同一轮，{higher}被盯着，{lower}主帅原来更想赢",
+     ["同一轮，{higher}被盯着，{lower}主帅原来更想赢",
+      "{higher}在聚光灯下，{lower}的老将悄悄攒着劲",
+      "{lower}没人关注，可他队里那位门将的算盘比{higher}精"],
      "对照两队在聚光灯下与无人问津下的不同处境，用数据落差讲人，不作纯数据罗列。"),
 ]
+
+# P0-3：AB（强弱反差）从「人物故事」改判「战术榜单」。
+# 原因：人物故事在近 14 天占 45.6%（33/90），而赛程稿是它最大的来源（26 篇里 25 篇）。
+# 强弱反差的实质是「弱队怎么打」，落点在战术选择，不该整型归到人物故事。
+# 真人物故事应当来自蓄水池（有时间沉淀的人物稿），而不是每天现编赛前苦情。
+
+
+def _pick_template(code: str, templates, day_ordinal: int, nth: int = 0) -> str:
+    """按日轮换取模板（P0-3）。
+
+    day_ordinal：当天序数（date.toordinal()）——保证跨天起点不同，
+                 不会出现「每天第 1 场都用同一句」；
+    nth：同一型当天第几条（0 开始）——保证同一天同型的多场选题也分散。
+
+    两者相加取模，既是确定性的（可复现、可单测），又不会天天撞同一句。
+    """
+    if not templates:
+        return ""
+    if isinstance(templates, str):
+        return templates
+    idx = (int(day_ordinal) + int(nth)) % len(templates)
+    return templates[idx]
 
 
 def load_entity_map() -> dict:
@@ -148,13 +201,15 @@ def todays_supplement(today=None) -> tuple:
     return SUPPLEMENTS[t.toordinal() % len(SUPPLEMENTS)]
 
 
-def _fd_chunks(days: int) -> list[tuple[int, int]]:
-    """把 1..days 的窗口按免费层 10 天上限切块，返回 [(offset_start, n_days)]。
+def _fd_chunks(days: int, lookback: int = 0) -> list[tuple[int, int]]:
+    """把窗口按免费层 10 天上限切块，返回 [(offset_start, n_days)]。
 
+    lookback>0 时首块起点前移（P0-1 隔夜战报：要拿到昨天已完赛的比分）。
     例：14 天 → [(0, 10), (10, 4)]，即第 1~10 天一块、第 11~14 天一块。
+    例：14 天 + 回看 1 天 → [(-1, 10), (9, 5)]，覆盖 -1~13 共 15 天。
     """
     days = max(1, int(days))
-    out, off = [], 0
+    out, off = [], -max(0, int(lookback))
     while off < days:
         n = min(FD_MAX_WINDOW_DAYS, days - off)
         out.append((off, n))
@@ -191,11 +246,15 @@ def fetch_window(days: int, emap: dict, refresh: bool = False) -> list[dict]:
     return fetch_window_report(days, emap, refresh=refresh)["matches"]
 
 
-def fetch_window_report(days: int, emap: dict, refresh: bool = False) -> dict:
+def fetch_window_report(days: int, emap: dict, refresh: bool = False,
+                        lookback: int = RECAP_LOOKBACK_DAYS) -> dict:
     """分块拉取窗口赛程，返回 {matches, window_days, granted_calls, refused_calls}。
 
     免费层单次查询窗口硬上限 10 天，故 14 天窗口拆成多块；
     每块真实请求前先过 api_budget 台账，被拒绝则跳过该块并告警（降级不阻塞）。
+
+    lookback>0 时窗口向前多覆盖 N 天（P0-1：隔夜战报需要昨天的已完赛比分）。
+    该回看天数**不计入** window_days（那是「未来赛程覆盖天数」，验收口径不变）。
     """
     key = os.environ.get("FOOTBALL_DATA_KEY", "").strip()
     today = datetime.now(CST)
@@ -205,7 +264,7 @@ def fetch_window_report(days: int, emap: dict, refresh: bool = False) -> dict:
     window_days = 0
     granted = refused = 0
 
-    for i, (off, n) in enumerate(_fd_chunks(days)):
+    for i, (off, n) in enumerate(_fd_chunks(days, lookback=lookback)):
         d_from = (today + timedelta(days=off)).strftime("%Y-%m-%d")
         d_to = (today + timedelta(days=off + n - 1)).strftime("%Y-%m-%d")
         cache_name = f"raw_{stamp}.json" if i == 0 else f"raw_{stamp}_c{i}.json"
@@ -251,7 +310,8 @@ def fetch_window_report(days: int, emap: dict, refresh: bool = False) -> dict:
                 continue
             seen.add(mid)
             matches.append(m)
-        window_days += n
+        # 回看天数不计入「未来赛程覆盖天数」（验收口径：window_covered_days ≥ 14）
+        window_days += n - (max(0, int(lookback)) if i == 0 else 0)
 
     print("   （如需强制刷新加 --refresh）")
     return {"matches": matches, "window_days": window_days,
@@ -268,6 +328,8 @@ def build_topic_pool(matches: list[dict], emap: dict,
     topics, dropped_unmapped, dropped_lowaware = [], [], []
     dropped_past = 0
     now = datetime.now(CST)
+    day_ordinal = now.date().toordinal()
+    angle_counter: dict[str, int] = {}     # 同型当日已用条数（P0-3 轮换用）
 
     for m in matches:
         comp_id = str((m.get("competition") or {}).get("id", ""))
@@ -296,10 +358,14 @@ def build_topic_pool(matches: list[dict], emap: dict,
         if rule is None:
             dropped_lowaware.append({"match_id": m.get("id"), "pair": f"{home['name_zh']} vs {away['name_zh']}", "code": code})
             continue
-        _, angle_type, column, template, narrative = rule
+        _, angle_type, column, templates, narrative = rule
         # 认知度较低的一方 = lower（A<B<C 认知度递减，取字母序较大的）
         lower = home if home["awareness"] > away["awareness"] else away
         higher = away if lower is home else home
+        # P0-3：同型模板按 (日期序数 + 同型计数) 轮换，避免天天同一句式
+        _nth = angle_counter.get(code, 0)
+        angle_counter[code] = _nth + 1
+        template = _pick_template(code, templates, day_ordinal, _nth)
         conflict = template.format(
             home=home["name_zh"], away=away["name_zh"],
             lower=lower["name_zh"], higher=higher["name_zh"],
@@ -333,6 +399,9 @@ def build_topic_pool(matches: list[dict], emap: dict,
             "away_zh": away["name_zh"],
             "awareness_pair": f"{home['awareness']}/{away['awareness']}",
             "angle_type": angle_type,
+            # 用了该型第几条模板（0 起）——供 scripts/verify_title_templates.py 追溯
+            # 「同句式 14 天 ≤2 篇」是否达标，也让复盘能定位是哪条模板在复读
+            "angle_template_no": _nth % max(1, len(templates) if isinstance(templates, list) else 1),
             "conflict": conflict,
             # 人视角叙事要求（R11「写人 > 写事」）：供生成侧提示词据此把角度落在人的处境上
             "angle_hint": narrative,
@@ -356,6 +425,10 @@ def build_topic_pool(matches: list[dict], emap: dict,
 
     topics.sort(key=lambda t: -t["priority"])
 
+    # P0-1：同一批 matches 的第二路产出——已完赛 → 隔夜战报（二级·突发）。
+    # 赛程池必须排除已开赛场次（旧闻新发），但赛果本身是硬新闻，不该被一起丢掉。
+    recaps = build_recap_topics(matches, emap)
+
     by_weekday: dict[str, int] = {}
     for t in topics:
         by_weekday[t["kickoff_weekday"]] = by_weekday.get(t["kickoff_weekday"], 0) + 1
@@ -365,10 +438,11 @@ def build_topic_pool(matches: list[dict], emap: dict,
         "window_days": window_days,
         "window_target_days": TARGET_WINDOW_DAYS,
         "source": ("football-data.org v4 /matches（多赛事合并，按 10 天上限分块，"
-                   "覆盖 %d 天）" % window_days),
+                   "覆盖 %d 天 + 回看 %d 天取赛果）" % (window_days, RECAP_LOOKBACK_DAYS)),
         "stats": {
             "matches_total": len(matches),
             "topics": len(topics),
+            "recaps": len(recaps),
             "dropped_unmapped": len(dropped_unmapped),
             "dropped_low_awareness": len(dropped_lowaware),
             "dropped_past": dropped_past,
@@ -379,8 +453,205 @@ def build_topic_pool(matches: list[dict], emap: dict,
         # 国足：年度赛事少，由人工赛历 config/manual_fixtures.yaml 兜底（计划 11.4）。
         "coverage_gap": ["国足（人工赛历兜底）"],
         "topics": topics,
+        # 已完赛场次（隔夜战报来源，P0-1）。与 topics 分开存放：
+        # topics 是「开赛前可发」的确定性选题，recaps 是「已完赛可复盘」的突发选题，
+        # 两者的时效闸门方向相反，混在一起会互相污染。
+        "recaps": recaps,
         "_dropped": {"unmapped": dropped_unmapped[:20], "low_awareness": dropped_lowaware[:20]},
     }
+
+
+# ---------------------------------------------------------------- 隔夜战报（P0-1）
+# 已完赛状态白名单：**只有真正终场**的场次才能当赛果写进战报。
+# IN_PLAY / PAUSED / SUSPENDED 一律不算——把进行中比分当最终结果是重大事实错误
+# （10-25 major_events 已立过同款反向用例）。
+FINISHED_STATUSES = {"FINISHED", "AWARDED"}
+
+PLAYER_NAMES_PATH = PROJECT_ROOT / "config" / "player_names.json"
+
+
+def _norm_player_key(name: str) -> str:
+    """球员名归一化：小写 + 去重音 + 压空白。
+
+    API 返回 'Kylian Mbappé'、'Kevin De Bruyne'、'Vinícius Júnior' 等带重音/大小写混排，
+    映射表里不可能穷举所有写法，故统一去掉变音符后比对。
+    """
+    import unicodedata
+
+    s = unicodedata.normalize("NFKD", str(name or ""))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return " ".join(s.lower().split())
+
+
+def load_player_names() -> dict:
+    """球员英文名（归一化）→ 中文译名。缺失/损坏返回 {}（不阻塞）。
+
+    覆盖不到很常见（每季新秀太多），**命中不到就保留原文**，绝不自行音译——
+    编一个中文球员名比写出英文原文更糟。表可增量维护。
+    """
+    if not PLAYER_NAMES_PATH.exists():
+        return {}
+    try:
+        raw = json.loads(PLAYER_NAMES_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for k, v in (raw.get("players") or {}).items():
+        if isinstance(v, str) and v.strip():
+            out[_norm_player_key(k)] = v.strip()
+    return out
+
+
+def _finished_at(m: dict) -> datetime | None:
+    """由开球时间 + 2 小时估比赛结束时刻（football-data 不返回终场时间）。
+
+    仅用于排序与发布窗口计算，**不对外表述**（战报正文写「今晨」，不写精确终场钟点）。
+    """
+    try:
+        dt = datetime.fromisoformat(str(m.get("utcDate", "")).replace("Z", "+00:00"))
+    except Exception:
+        return None
+    return (dt + timedelta(hours=2)).astimezone(CST)
+
+
+def build_recap_topics(matches: list[dict], emap: dict, now: datetime | None = None,
+                       lookback_hours: int = RECAP_LOOKBACK_HOURS) -> list[dict]:
+    """已完赛场次 → 隔夜战报选题（二级·突发）。
+
+    与 build_topic_pool 的关系：同一个窗口、同一批 matches，两路产出——
+      - 未开赛 → 冲突点赛程选题（一级·确定性，占 30%）
+      - 已完赛且 30h 内 → 隔夜战报（二级·突发，硬新闻）
+    此前只有前者，「今晨刚踢完的比赛」完全没有入口，晨读批只能拿软性内容补位。
+
+    事实层只取 API 原值（比分/半场比分/进球明细/进球时间），不做任何推断；
+    比分缺失（fullTime 任一为 None）直接丢弃，不用 0 代替。
+    """
+    now = now or datetime.now(CST)
+    cutoff = now - timedelta(hours=max(1, int(lookback_hours)))
+    players = load_player_names()
+    recaps: list[dict] = []
+    dropped_unmapped = during_play = too_old = no_score = 0
+
+    for m in matches:
+        status = str(m.get("status") or "").upper()
+        if status not in FINISHED_STATUSES:
+            # 进行中 / 未开赛 / 腰斩：都不是赛果
+            if status in {"IN_PLAY", "PAUSED", "LIVE", "SUSPENDED"}:
+                during_play += 1
+            continue
+        score = m.get("score") or {}
+        ft = score.get("fullTime") or {}
+        hg, ag = ft.get("home"), ft.get("away")
+        if hg is None or ag is None:
+            no_score += 1
+            continue
+        fin = _finished_at(m)
+        if fin is None or fin < cutoff or fin > now:
+            too_old += 1
+            continue
+
+        home = resolve_team(m.get("homeTeam", {}).get("name", ""), emap)
+        away = resolve_team(m.get("awayTeam", {}).get("name", ""), emap)
+        if not home or not away:
+            dropped_unmapped += 1
+            continue
+
+        comp_id = str((m.get("competition") or {}).get("id", ""))
+        comp_name = next((v for k, v in FIXTURE_COMPETITIONS.items() if k == comp_id), "") \
+            or (m.get("competition") or {}).get("name", "")
+        comp_w = COMPETITION_WEIGHT.get(comp_name, 0.5)
+
+        ht = score.get("halfTime") or {}
+        goals = []
+        for g in (m.get("goals") or []):
+            raw = ((g.get("scorer") or {}).get("name") or "").strip()
+            if not raw:
+                continue
+            team_raw = (g.get("team") or {}).get("name", "")
+            team_zh = home["name_zh"] if team_raw == m.get("homeTeam", {}).get("name") \
+                else (away["name_zh"] if team_raw == m.get("awayTeam", {}).get("name") else "")
+            goals.append({
+                "minute": g.get("minute"),
+                "injury_time": g.get("injuryTime"),
+                "type": g.get("type") or "REGULAR",     # REGULAR/OWN/PENALTY
+                # 命中映射给中文；未命中保留原文（下游提示词禁止自行音译）
+                "scorer_zh": players.get(_norm_player_key(raw), raw),
+                "has_zh_name": _norm_player_key(raw) in players,
+                "team_zh": team_zh,
+            })
+
+        diff = abs(int(hg) - int(ag))
+        late_goals = [g for g in goals if isinstance(g.get("minute"), int)
+                      and (g["minute"] + (g.get("injury_time") or 0)) >= 85]
+        winner = home["name_zh"] if hg > ag else (away["name_zh"] if ag > hg else None)
+
+        if winner:
+            conflict = f"{home['name_zh']}{hg}-{ag}{away['name_zh']}，{winner}取胜"
+        else:
+            conflict = f"{home['name_zh']}{hg}-{ag}{away['name_zh']}，双方打平"
+
+        awareness_score = {"A": 40, "B": 22, "C": 8}
+        base = (awareness_score.get(home["awareness"], 8)
+                + awareness_score.get(away["awareness"], 8)) / 2
+        hours_since = max(0.0, (now - fin).total_seconds() / 3600)
+        recency = max(0.0, 12 - hours_since / 2)      # 越新的赛果越热
+        drama = 0.0
+        if diff == 1:
+            drama += 5.0
+        if late_goals:
+            drama += 6.0                              # 85 分钟后的进球＝绝杀/绝平
+        if hg + ag >= 5:
+            drama += 4.0                              # 大比分
+        priority = round(base * 1.5 + comp_w * 22 + recency + drama, 1)
+
+        recaps.append({
+            "topic_id": f"recap-{m.get('id')}",
+            "kind": "recap",
+            "source_layer": "突发",
+            "match_id": m.get("id"),
+            "competition": comp_name,
+            "kickoff_cst": datetime.fromisoformat(
+                str(m.get("utcDate", "")).replace("Z", "+00:00")).astimezone(CST).strftime("%Y-%m-%d %H:%M"),
+            "final_at_cst": fin.strftime("%Y-%m-%d %H:%M"),
+            "home_zh": home["name_zh"],
+            "away_zh": away["name_zh"],
+            # 别名随选题下发：下游按标题去重时必须别名感知
+            # （标题写「皇马2-1巴萨」，队名全称是「皇家马德里／巴塞罗那」，
+            #  纯子串匹配必然漏掉 —— 队名判定一律别名感知，这是老纪律）
+            "home_aliases": [a for a in (home.get("aliases") or [])
+                             if any("\u4e00" <= c <= "\u9fff" for c in a)],
+            "away_aliases": [a for a in (away.get("aliases") or [])
+                             if any("\u4e00" <= c <= "\u9fff" for c in a)],
+            "awareness_pair": f"{home['awareness']}/{away['awareness']}",
+            "score": {
+                "home": int(hg), "away": int(ag),
+                "ht_home": ht.get("home"), "ht_away": ht.get("away"),
+            },
+            "goals": goals,
+            "winner_zh": winner,
+            "goal_diff": diff,
+            "late_goal": bool(late_goals),
+            "angle_type": "隔夜战报",
+            "conflict": conflict,
+            "angle_hint": ("赛后复盘：讲清这场比赛为什么是这个比分（谁改了什么、哪个换人/失误"
+                           "决定了结果），落点在人的选择，不做流水账式的进球过程罗列。"),
+            # 板块：战报归「战术榜单」。计划 6.2 四板块里没有「赛事战报」，
+            # 而战报的实质是「结果 + 为什么」的战术复盘，不是人物故事——
+            # 归人物故事正是要修的病（近 14 天人物故事占 45.6%）。
+            "suggested_column": "战术榜单",
+            "板块": "中国足球" if comp_name == "中超" else "战术榜单",
+            "priority": priority,
+            "publish_by": (fin + timedelta(hours=RECAP_PUBLISH_WINDOW_HOURS)).strftime("%Y-%m-%d %H:%M"),
+            "fact_source": {"api": "football-data.org/v4", "match_id": m.get("id"),
+                            "fd_comp_id": (m.get("competition") or {}).get("id"),
+                            "kind": "recap"},
+        })
+
+    recaps.sort(key=lambda r: -r["priority"])
+    if recaps or during_play or no_score:
+        print(f"   📰 隔夜战报：{len(recaps)} 条可写"
+              f"（进行中不计 {during_play}、无比分 {no_score}、超 30h {too_old}、未映射 {dropped_unmapped}）")
+    return recaps
 
 
 def fetch_juhe_fixtures(refresh: bool = False, allow_network: bool = True) -> list[dict]:
@@ -590,6 +861,12 @@ def main():
           f"（未映射打回 {s['dropped_unmapped']}，低认知过滤 {s['dropped_low_awareness']}，"
           f"过期剔除 {s['dropped_past']}）")
     print(f"   分型：{s['by_angle']}")
+    print(f"   📰 隔夜战报（已完赛，二级·突发）：{s.get('recaps', 0)} 条")
+    for r in (pool.get("recaps") or [])[:5]:
+        sc = r.get("score") or {}
+        print(f"      [{r['priority']:5.1f}] {r['competition']:3s} "
+              f"{r['home_zh']} {sc.get('home')}-{sc.get('away')} {r['away_zh']}"
+              f"  发布截止 {r['publish_by']}")
     print(f"   按星期：{s['by_weekday']}")
     print(f"   🧾 接口额度：{budget_rep['total_used']}/{budget_rep['total_cap']} 次"
           f"（计划 11.4 上限 {api_budget.DEFAULT_DAILY_TOTAL_CAP} 次/日）")

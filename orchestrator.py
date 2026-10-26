@@ -32,11 +32,13 @@ import title_positive
 import interaction_bait
 import topic_category
 import content_reference
+import template_gate
 from data_collector import (collect_real_matches, collect_transfer_news, collect_future_matches,
                              search_images, search_wikipedia, search_footyrenders,
                              extract_search_entities, get_topic_history,
                              build_match_signature, is_event_duplicate,
                              collect_fixture_topics, gather_fixture_facts,
+                             collect_recap_topics,
                              TEAM_ALIASES)
 
 
@@ -2249,8 +2251,15 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 "batch_name": art.get("_batch_name", ""),
                 # 晚间赛前预测稿：不发布到头条，看板/配额验收按此标剔除（R13 决策④）
                 "is_prediction": bool(art.get("_is_prediction")),
+                # 隔夜战报（P0-1）：跨批 match_id 去重的唯一依据，也是
+                # 14 天后定向观测「这条通道值不值得留」的标记。
+                # 必须落进 metadata —— 只在文章对象上留着下划线标记，
+                # 一旦保存层挑字段就丢，导致同一场比赛被写两遍（同 10-25 预测稿漏标）。
+                "is_recap": bool(art.get("_is_recap")),
                 # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
                 "supply_layer": supply_mix.tag(art)}
+        if art.get("_recap_match_id") not in (None, ""):
+            _rec["recap_match_id"] = str(art["_recap_match_id"])
         # 互动引导兜底留痕（R11 建议5）：仅当命中模板兜底时才落盘，便于事后统计覆盖率
         if art.get("interaction_bait_source"):
             _rec["interaction_bait_source"] = art["interaction_bait_source"]
@@ -3511,6 +3520,19 @@ FIXTURE_PER_BATCH = 1  # 每批最多生成的确定性供给篇数（计划：�
 # 日配额 6~8 篇 × 30% ≈ 2 篇/日，先到先得（晨/午优先，晚间预测稿日本身有预测稿）。
 DETERMINISTIC_DAILY_BUDGET = 2
 
+# ---- 隔夜战报（P0-1，二级·突发）----
+# 每批最多 1 篇；只允许晨读与午间批产出（晚间批已有「明日赛前预测」占位，
+# 再塞一篇战报会把晚报做成「早上那场球的复盘」，选题更闷）。
+# 晨读批必发：赛果是晨读最硬的供给，赛事少就照常降级为「无战报」，
+# 但**不允许**再拿蓄水池软性内容顶替（P0-2，见 supply_gap 处批次守卫）。
+RECAP_PER_BATCH = 1
+RECAP_BATCHES = ("auto", "morning", "noon")
+
+# ---- 软性内容（三级）日上限（P0-2）----
+# 计划 12.1 目标 20%，日 6 篇下约 1.2 篇。给 2 篇上限是留余量，
+# 但晨读批硬性 0 篇（早晨必须吃隔夜赛果/硬新闻）。
+SOFT_DAILY_LIMIT = 2
+
 
 def _deterministic_used_today(date_str) -> int:
     """今日已保存批次中「一级·确定性」供给的篇数（每日预算计数，P0 修法 A 配套）。
@@ -3536,9 +3558,45 @@ def _deterministic_used_today(date_str) -> int:
         return 0
 
 
+def _soft_used_today(date_str) -> int:
+    """今日已发「三级·软性」成稿篇数（跨批累计，P0-2 单日上限判定）。
+
+    口径同 `_deterministic_used_today`：读当日 metadata 的**成稿级** supply_layer，
+    而不是批次级汇总（批次汇总只留当批，跨批会重复或漏算）。
+    """
+    try:
+        meta_path = OUTPUT_DIR / date_str / "metadata.json"
+        if not meta_path.exists():
+            return 0
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        return sum(1 for a in (meta.get("articles") or [])
+                   if str(a.get("supply_layer") or "").startswith("三级·软性"))
+    except Exception:
+        return 0
+
+
 def _fixture_content_type(topic):
     """赛程分型 → 板块 content_type（计划 6.2 固定四板块：转会动态／人物故事／中国足球／战术榜单）。"""
     return topic.get("板块", "战术榜单")
+
+
+def _recap_sent_today(date_str) -> set:
+    """今日已发隔夜战报的 match_id 集合（P0-1 跨批去重）。
+
+    战报的发布窗口是「完赛 + 14h」，凌晨结束的比赛会横跨晨读与午间两批；
+    若不用 match_id 去重，同一场国家德比会被写两遍。
+    赛程稿按球队去重、战报按 match_id 去重 —— 两套口径**不能混用**
+    （赛前分析 + 赛后复盘是两篇文章，不是重复）。
+    """
+    try:
+        meta_path = OUTPUT_DIR / date_str / "metadata.json"
+        if not meta_path.exists():
+            return set()
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        return {str(a.get("recap_match_id")) for a in (meta.get("articles") or [])
+                if a.get("recap_match_id")}
+    except Exception:
+        return set()
 
 
 def _build_fixture_fact_card(facts):
@@ -3576,6 +3634,58 @@ def _build_fixture_fact_card(facts):
             lines.append(f"  {facts['away_zh']}：{ats['player_zh']} {ats['goals']}球")
     if not standings and not scorers:
         lines.append("\n（注：积分榜/射手榜接口暂不可用，仅基于赛程与认知度冲突点创作，禁止编造数据）")
+    return "\n".join(lines)
+
+
+def _build_recap_fact_card(topic):
+    """隔夜战报事实卡：比分 / 半场 / 进球明细，全部来自 football-data 原值。
+
+    **比分口径唯一**：卡里写「主队 2 - 1 客队」这一种顺序（football-data 的
+    score.fullTime.home/away），下游校验（_extract_scores / _score_mentioned）
+    已统一支持「2-1」「2比1」「2：1」等写法，但方向必须与卡一致。
+    """
+    sc = topic.get("score") or {}
+    hg, ag = sc.get("home"), sc.get("away")
+    lines = [
+        f"赛事：{topic.get('competition', '')}",
+        f"比赛（北京时间）：{topic.get('kickoff_cst', '')} 开球",
+        f"对阵：{topic.get('home_zh', '')}（主队） vs {topic.get('away_zh', '')}（客队）",
+        "",
+        f"★ 最终比分：{topic.get('home_zh', '')} {hg} - {ag} {topic.get('away_zh', '')}",
+    ]
+    ht_h, ht_a = sc.get("ht_home"), sc.get("ht_away")
+    if ht_h is not None and ht_a is not None:
+        lines.append(f"半场比分：{topic.get('home_zh', '')} {ht_h} - {ht_a} {topic.get('away_zh', '')}")
+    else:
+        lines.append("半场比分：接口未提供（不得自行编造）")
+    if topic.get("winner_zh"):
+        lines.append(f"结果：{topic['winner_zh']}取胜，净胜 {topic.get('goal_diff')} 球")
+    else:
+        lines.append("结果：双方打平")
+
+    goals = topic.get("goals") or []
+    if goals:
+        lines.append("")
+        lines.append("进球明细（按发生顺序，全部为接口原值）：")
+        for g in goals:
+            minute = g.get("minute")
+            inj = g.get("injury_time")
+            mtxt = f"第 {minute} 分钟" if minute is not None else "补时阶段"
+            if inj:
+                mtxt = f"第 {minute}+{inj} 分钟"
+            kind = {"OWN": "乌龙球", "PENALTY": "点球"}.get(g.get("type"), "")
+            name = g.get("scorer_zh") or ""
+            if not g.get("has_zh_name"):
+                # 无中文译名：原样给出，并在共享提示里要求正文照抄，禁止自行音译
+                lines.append(f"  {mtxt} {name}（{g.get('team_zh', '')}）{kind}"
+                             f"  ← 该球员无中文译名，正文请照抄此原文写法")
+                continue
+            lines.append(f"  {mtxt} {name}（{g.get('team_zh', '')}）{kind}")
+    else:
+        lines.append("")
+        lines.append("进球明细：接口未提供（只能写比分与走势，不得虚构进球者）")
+    lines.append("")
+    lines.append("数据来源：football-data.org v4（赛果接口）")
     return "\n".join(lines)
 
 
@@ -3629,7 +3739,7 @@ def score_fixture_title(topic, title, batch_mode="auto"):
     return min(100, score), reasons
 
 
-def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None, batch_mode="auto"):
+def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None, batch_mode="auto", avoid_signatures=None):
     """确定性供给文章：基于赛程冲突点 + 积分榜/射手榜事实层，由 LLM 生成表达层。
 
     事实层/表达层隔离：LLM 只能基于下方事实卡表达，禁止编造任何具体数据
@@ -3729,6 +3839,17 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                     continue
                 return None
             title = (article.get("title", "") or "").strip()
+            # 句式闸门（P0-3）：近 14 天某句式已满额 → 不许再写同款。
+            # 源头已改成「每型 3 条模板按日轮换」，这里再兜一层出口检查：
+            # 模型仍可能自己收敛回「主帅压力体」，那种标题读者一眼就腻。
+            _sig = template_gate.signature_of(title)
+            if _sig and avoid_signatures and _sig in avoid_signatures:
+                if attempt < 2:
+                    print(f"   ⚠️ 确定性供给标题命中已满句式「{_sig}」（14天≥"
+                          f"{template_gate.MAX_PER_SIGNATURE}篇），重生成 (attempt {attempt + 1}/3)...")
+                    continue
+                degrade.note("标题句式满额", f"{_sig} 已用满 {template_gate.MAX_PER_SIGNATURE} 篇",
+                             action="兜底放行，记入待复盘（不阻塞发布）")
             # 评分器及格线（计划 5.1/7.2）：低于 60 分打回重生成，最多两次（attempt 0,1 重试，第 3 次兜底放行）
             s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
             if s_score < 60:
@@ -3767,6 +3888,182 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                 print(f"   ⚠️ 确定性供给生成异常 (attempt {attempt + 1}/3): {e}")
                 continue
             print(f"   ❌ 确定性供给生成失败: {e}")
+            return None
+
+
+def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mode="auto",
+                           avoid_signatures=None):
+    """隔夜战报：已完赛赛果 → 赛后复盘稿（二级·突发，P0-1）。
+
+    与 generate_fixture_article 的根本区别：
+      - fixture 是**赛前**（未开赛，讲「会发生什么」），事实层只有积分榜/射手榜；
+      - recap 是**赛后**（已完赛，讲「为什么是这个结果」），事实层有确切比分与进球。
+    两者共用配额与评分器，但提示词、事实卡、板块都不同，不能合并。
+
+    事实层/表达层隔离：比分、半场、进球者、进球时间只能来自事实卡；
+    卡里没有的（控球率、射门数、伤停、红黄牌、教练发言）一律不写。
+    """
+    if not topic:
+        return None
+    sc = topic.get("score") or {}
+    if sc.get("home") is None or sc.get("away") is None:
+        print("   ⚠️ 战报选题缺比分，跳过（不用 0 冒充）")
+        return None
+    content_type = topic.get("板块") or "战术榜单"
+    fact_card = _build_recap_fact_card(topic)
+
+    prefix_hint = ""
+    if recent_prefixes:
+        sample = list(recent_prefixes)[:12]
+        prefix_hint = (
+            "\n⚠️ 标题防重铁律：\n"
+            f"- 近7天已用过的标题开头（前6字）不可再用：{sample}\n"
+            "- 特别注意：本报近期赛前稿大量使用「XX主帅这场压力/输不起/没想到XX主帅」句式，"
+            "战报**一律不得**再用这类句式开头（同一句式 14 天内最多 2 篇）。\n"
+        )
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝，犀利、有数据感、不骑墙。
+
+今天要写一篇**赛后复盘**——比赛已经踢完了，读者要的是「为什么会是这个结果」，
+而不是赛前预测、也不是流水账式复述进球过程。
+
+## 事实卡（唯一事实来源，严禁编造卡外数据）
+{fact_card}
+
+## 选题角度
+核心：{topic.get('conflict', '')}
+角度要求：{topic.get('angle_hint', '')}
+
+## 内容参照层（计划 13.3：只抄方法论，不抄选题）
+{content_reference.exclusion_guidance()}
+
+比赛在北京时间 {topic.get('kickoff_cst', '')} 开球，今晨已经结束。
+{prefix_hint}
+写作硬规则（严格按计划 v1.0 第三章/第五章/第七章）：
+1. 标题：**一律不带比分、不写「A队2-1B队」这类赛果式开头**。
+   R11 回测（869 条真实导出）里，比分/赛果式标题产量占 23.9%、CTR 仅 0.49%、0 爆款，
+   是全部形态里最差的一类——标题可以写「谁绝杀」，但不能写「2-1」。
+   正确做法：从**人的处境或选择**切入（谁在第 87 分钟那一下做了错的选择、谁被换下场后
+   比赛才转向、谁扛下了那个点球），26~30 字（含标点），以疑问『？』收尾，
+   必须出现至少一支球队名或一名当事人。比分的交代放到正文第一段。
+   禁止「XX前瞻」「赛后分析」「复盘：」这类模板前缀，禁止与近期赛前稿同句式。
+2. 比分唯一口径：全文出现比分时必须与事实卡「最终比分」完全一致（主队在前、客队在后）。
+   可写「2-1」，也可写「2比1」，但**方向和数字不得改动**，不得出现第二个互相矛盾的比分。
+3. 进球信息只写事实卡列出的（分钟、球员、所属球队、点球/乌龙属性）；卡里没有的
+   控球率、射门数、传球成功率、红黄牌、伤停、教练发言一律不写。
+   球员名严格照抄事实卡写法（含标注为「无中文译名」的拉丁字母原名，禁止自行音译）。
+4. 复盘要落到**人的选择**：谁换上了谁、谁在第几个球前后改变了踢法、谁承担了后果。
+   不要逐分钟复述进球，要解释「这个比分是怎么被做出来的」。
+5. 语气像老球迷喝酒聊天，有明确立场和情绪，不套模板；可对结果下判断、可批评。
+6. 依板块落栏：{content_type}（计划 6.2 板块：转会动态／人物故事／中国足球／战术榜单）。
+   **战报归「战术榜单」，不要写成人物故事**——本篇的价值是「结果为什么这样」，不是某人的生平。
+7. 文末必须包含两类固定内容：
+   (a) 互动钩子，引评论区讨论；
+   (b) 一段「老六视角」——基于上述事实卡给出的独立判断（只做判断、不编造任何卡外数据）。
+8. 文末另须显式标注（计划 4.1 失实表述对策、4.2 反向利好）：
+   「⚠️ 本文由 AI 生成，数据来源：football-data.org，赛果与数据以官方为准；文中观点为基于公开数据的独立分析，仅供参考。」
+
+输出纯JSON:
+{{"title": "标题(26-30字，赛果反差+具体的人，必须以疑问？收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+只输出JSON。"""
+
+    messages = [
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，犀利、有数据感。事实层/表达层隔离：只基于给定事实卡表达，比分与进球不得编造或改动。标题必须自然不套模板。只输出JSON。"},
+        {"role": "user", "content": prompt}
+    ]
+
+    for attempt in range(3):
+        try:
+            article, _model = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                            temperature=0.7, max_tokens=4096)
+            if not isinstance(article, dict) or not article.get("title"):
+                if attempt < 2:
+                    print(f"   ⚠️ 战报解析失败 (attempt {attempt + 1}/3)，重试...")
+                    continue
+                return None
+            content = article.get("content", "")
+            if len(content) < 200:
+                if attempt < 2:
+                    print(f"   ⚠️ 战报正文仅{len(content)}字 (attempt {attempt + 1}/3)")
+                    continue
+                return None
+            title = (article.get("title", "") or "").strip()
+
+            # 句式闸门（P0-3）：赛前稿已经把「主帅压力体」写满了，战报绝不能接着写
+            _sig = template_gate.signature_of(title)
+            if _sig and avoid_signatures and _sig in avoid_signatures:
+                if attempt < 2:
+                    print(f"   ⚠️ 战报标题命中已满句式「{_sig}」，重生成 (attempt {attempt + 1}/3)...")
+                    continue
+                degrade.note("战报标题句式满额", f"{_sig} 已用满",
+                             action="兜底放行，记入待复盘")
+
+            # R11 硬数据：比分/赛果式标题产量占 23.9%、CTR 仅 0.49%、0 爆款。
+            # 战报是最容易滑回这种形态的体裁（「皇马2-1巴萨」最顺手），
+            # 故标题出现比分一律打回——比分放正文第一段，标题写人。
+            if _extract_scores(title):
+                if attempt < 2:
+                    print(f"   ⚠️ 战报标题含比分（R11：比分式标题 0 爆款），重生成 "
+                          f"(attempt {attempt + 1}/3)...")
+                    continue
+                degrade.note("战报标题含比分", f"「{title[:20]}」",
+                             action="兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）")
+
+            # 比分一致性硬校验：正文里出现的比分只能是「本场全场比分」或「本场半场比分」
+            # （各自允许主客颠倒写法）。挡住三类事故：① 把 2-1 写成 3-1（编造）；
+            # ② 编造历史交锋比分；③ 编造单场进球数。宁缺勿错——战报的核心事实就是比分。
+            # 半场比分必须在白名单里：事实卡给了它，正文必然会写「半场 1-0」，
+            # 只允许全场比分会把它当卡外数据打回，等于自己给自己制造熔断。
+            hg, ag = int(sc["home"]), int(sc["away"])
+            _allowed_scores = {(hg, ag), (ag, hg)}
+            if sc.get("ht_home") is not None and sc.get("ht_away") is not None:
+                _th, _ta = int(sc["ht_home"]), int(sc["ht_away"])
+                _allowed_scores |= {(_th, _ta), (_ta, _th)}
+            bad_scores = [s for s in _extract_scores(title + "\n" + content)
+                          if s not in _allowed_scores]
+            if bad_scores:
+                if attempt < 2:
+                    print(f"   ⚠️ 战报出现卡外比分 {bad_scores}（本场 {hg}-{ag}），重生成 (attempt {attempt + 1}/3)")
+                    continue
+                print(f"   ❌ 战报仍出现卡外比分 {bad_scores}，丢弃（宁缺勿错）")
+                return None
+
+            s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
+            if s_score < 60:
+                if attempt < 2:
+                    print(f"   ⚠️ 战报标题评分 {s_score} 未过及格线(60) [{','.join(s_reasons)}]，重生成...")
+                    continue
+                print(f"   ⚠️ 战报标题评分 {s_score} 仍不过，兜底放行")
+            if recent_prefixes and title[:6] in recent_prefixes:
+                if attempt < 2:
+                    print(f"   ⚠️ 战报标题前缀复读「{title[:6]}」，重试...")
+                    continue
+            _ib = check_interaction_bait(article)
+            if not _ib["ok"]:
+                if attempt < 2:
+                    print(f"   ⚠️ 战报互动引导未达标（缺 {'、'.join(_ib['missing'])}），重生成...")
+                    continue
+                degrade.note("战报互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
+                             action="保存侧模板兜底注入（不丢弃成稿）")
+
+            article["title"] = title
+            article["content_type"] = content_type
+            article["板块"] = content_type
+            # 层级标签必须显式：供 supply_mix.classify 判定（显式标签优先）。
+            # 战报是二级·突发（硬新闻），**不是**一级·确定性——若漏填会被
+            # `_is_fixture` 推断成一级，一级每日预算与配比就全乱了。
+            article["_supply_layer"] = "二级·突发"
+            article["_is_recap"] = True
+            article["_recap_match_id"] = topic.get("match_id")
+            article["sources_used"] = ["football-data.org/v4 (赛果)"]
+            article["topic_id"] = topic.get("topic_id", "")
+            print(f"   ✅ 战报生成成功(score={s_score}): {article['title'][:50]} ({len(content)}字)")
+            return article
+        except Exception as e:
+            if attempt < 2:
+                print(f"   ⚠️ 战报生成异常 (attempt {attempt + 1}/3): {e}")
+                continue
+            print(f"   ❌ 战报生成失败: {e}")
             return None
 
 
@@ -3914,6 +4211,69 @@ def main():
             print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
 
         # ============================================================
+        # 标题句式闸门（P0-3）：算出「近 14 天已用满」的句式，供生成侧打回
+        # ============================================================
+        # 供给侧已改成「每型 3 条模板 + 按日轮换」，但模型仍会自己收敛回同一句式，
+        # 所以在出口再拦一次：命中已满句式的标题打回重写（最多 3 轮，兜底放行并留痕）。
+        _avoid_sigs: set = set()
+        try:
+            _avoid_sigs = template_gate.saturated_signatures(
+                template_gate.recent_titles(OUTPUT_DIR, date_str))
+            if _avoid_sigs:
+                print(f"   🚧 标题句式闸门：近 {template_gate.DEFAULT_WINDOW_DAYS} 天已用满 "
+                      f"{sorted(_avoid_sigs)}（阈值 {template_gate.MAX_PER_SIGNATURE} 篇）")
+        except Exception as e:
+            print(f"   ⚠️ 句式闸门计算异常（跳过，不影响发布）: {e}")
+
+        # ============================================================
+        # 隔夜战报（P0-1，二级·突发）——先于赛程选题取用
+        # ============================================================
+        # 病根：赛程池只收未开赛场次（旧闻新发红线），已完赛比分**没有入口**，
+        # 08:00 晨读批只能拿蓄水池软性内容补位（10-12~10-25 晨读 14 篇里
+        # 12 篇软性、0 篇战报）。而「今晨刚踢完的比赛」是晨读最硬的供给。
+        # 战报不占一级·确定性预算（det_cap），它是突发层；批内仍受 max_articles 约束。
+        recap_added = 0
+        if batch_mode in RECAP_BATCHES and len(articles) < max_articles:
+            try:
+                _sent_ids = _recap_sent_today(date_str)
+                _recaps = collect_recap_topics(
+                    date_str, max_topics=RECAP_PER_BATCH,
+                    sent_match_ids=_sent_ids,
+                    covered_titles=(cross_batch_covered or {}).get("titles"))
+                for rc in _recaps:
+                    r_art = generate_recap_article(
+                        rc, date_str=date_str,
+                        recent_prefixes=topic_history.get("title_prefixes"),
+                        batch_mode=batch_mode,
+                        avoid_signatures=_avoid_sigs)
+                    if not r_art:
+                        degrade.note("隔夜战报", f"{rc.get('home_zh')} vs {rc.get('away_zh')} 生成失败",
+                                     action="本批不补战报，不拿软性内容顶替")
+                        continue
+                    img_topic = {
+                        "title": r_art.get("title", ""),
+                        "keywords_cn": [rc.get("home_zh", ""), rc.get("away_zh", "")],
+                        "keywords": ["football", (rc.get("competition") or "match")],
+                    }
+                    images_map[len(articles)] = search_images(img_topic, count=3)
+                    r_art["_batch_name"] = batch_cfg["name"]
+                    r_art["_batch_time"] = batch_cfg["time"]
+                    stats["generated"] += 1
+                    stats["valid"] += 1
+                    warn_if_low_info_increment(r_art)
+                    articles.append((len(articles), r_art))
+                    topics.append({
+                        "title": r_art.get("title", ""),
+                        "content_type": r_art.get("content_type", ""),
+                        "_supply_layer": "二级·突发",
+                        "_is_recap": True,
+                    })
+                    print(f"   📰 隔夜战报已追加: {r_art['title'][:50]}")
+                    recap_added += 1
+            except Exception as e:
+                print(f"   ⚠️ 隔夜战报生成异常 (不影响主流程): {e}")
+
+        # ============================================================
         # 一级·确定性供给（赛程冲突点选题 + 节点事件）——占用批次配额（P0 修法 A）
         # ============================================================
         # 计划 12.1 / 手册第五章：单批上限由 batch_quota 裁定。此前确定性供给
@@ -3926,10 +4286,16 @@ def main():
         _main_topic_count = len(topics)
         fixture_added = 0
         det_cap = min(FIXTURE_PER_BATCH,
-                      max(0, DETERMINISTIC_DAILY_BUDGET - _deterministic_used_today(date_str)))
+                      max(0, DETERMINISTIC_DAILY_BUDGET - _deterministic_used_today(date_str)),
+                      # 为「主稿」保留至少 1 个槽位：战报占位后（晨读批 1 战报 + 1 主稿）
+                      # 确定性供给必须让位，否则晨读会变成「1 战报 + 1 赛程稿」，
+                      # 把本批唯一的主稿位挤掉，热点球评反而更少（正是要治的病）。
+                      max(0, max_articles - len(articles) - 1))
         if FIXTURE_PER_BATCH > 0 and det_cap <= 0:
-            print(f"   🗓️ 确定性供给本批让位：今日已用满每日预算 "
-                  f"{DETERMINISTIC_DAILY_BUDGET} 篇（计划 12.1 一级·确定性 ~30%），槽位全留给主稿")
+            _why = ("今日已用满每日预算 %d 篇（计划 12.1 一级·确定性 ~30%%）" % DETERMINISTIC_DAILY_BUDGET
+                    if _deterministic_used_today(date_str) >= DETERMINISTIC_DAILY_BUDGET
+                    else "本批槽位需留给主稿与战报，确定性供给让位")
+            print(f"   🗓️ 确定性供给本批让位：{_why}")
         if FIXTURE_PER_BATCH > 0 and det_cap > 0:
             try:
                 fixture_topics = collect_fixture_topics(
@@ -3945,7 +4311,8 @@ def main():
                     f_art = generate_fixture_article(
                         ft, facts, date_str=date_str,
                         recent_prefixes=topic_history.get("title_prefixes"),
-                        topic_history=topic_history, batch_mode=batch_mode)
+                        topic_history=topic_history, batch_mode=batch_mode,
+                        avoid_signatures=_avoid_sigs)
                     if f_art:
                         img_topic = {
                             "title": f_art.get("title", ""),
@@ -4015,7 +4382,7 @@ def main():
 
         # 动态条数：确定性供给已占用配额（P0 修法 A），主稿只填剩余槽位
         # （常态 2 篇；周四或 S 级事件按 batch_quota 加发时上限提高，见本函数开头 quota）
-        _main_slots = max(0, max_articles - fixture_added)
+        _main_slots = max(0, max_articles - fixture_added - recap_added)
         article_count = min(_main_topic_count, _main_slots)
         if fixture_added:
             print(f"   🧮 配额分配：单批上限 {max_articles} 篇 = 确定性 {fixture_added} + 主稿槽位 {_main_slots}")
@@ -4052,8 +4419,23 @@ def main():
         # ============================================================
         # 主稿供给不足（LLM 少选/源文缺失）时，由备货池中的软性内容补位，
         # 保证突发日不断供；突发密集时池中内容自然顺延（当日用不到即留库）。
+        #
+        # P0-2（2026-10-26）：**晨读批禁止软性补位**。
+        # 实测 10-12~10-25 晨读 14 篇里 12 篇是蓄水池软性内容、0 篇战报——
+        # 早晨本该吃「隔夜赛果 + 通勤时段硬新闻」，结果天天端人物故事/历史回顾，
+        # 这是「推文全是人物故事」最直接的来源之一。软性只进午间/晚间，
+        # 且单日不超过 SOFT_DAILY_LIMIT 篇（晚间最多，午间 1 篇）。
         _supply_gap = max_articles - len(articles)
-        if _supply_gap > 0:
+        _soft_reason = ""
+        if batch_cfg["name"] == "晨读":
+            _soft_reason = "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）"
+        elif _soft_used_today(date_str) >= SOFT_DAILY_LIMIT:
+            _soft_reason = f"今日软性已用满 {SOFT_DAILY_LIMIT} 篇（P0-2 单日上限）"
+        if _supply_gap > 0 and _soft_reason:
+            print(f"   🗄️ 蓄水池补位跳过：{_soft_reason}；本批缺口 {_supply_gap} 篇不补")
+            degrade.note("软性补位跳过", _soft_reason,
+                         action="本批篇数不足，按实际成稿发布（不拿软性顶替）")
+        elif _supply_gap > 0:
             try:
                 import reservoir
                 reservoir.expire()

@@ -109,13 +109,29 @@ class TestAngleRules(unittest.TestCase):
         self.assertEqual(c["hit"], 0)
 
     def test_angle_ratio_full_with_new_templates(self):
+        """**每一条**模板都必须含人角色词或悬念词（P0-3 后每型多条，逐条校验）。
+
+        模板从单条改成每型 3 条后，只校验「第一条」会漏掉新加的两条；
+        这里把全部模板都格式化成 conflict，占比必须仍是 100%。
+        """
         import fixture_library as fl
-        topics = [_t("英超", "2026-10-12", "战术榜单",
-                     conflict=r[3].format(home="A", away="B", lower="B", higher="A"))
-                  for r in fl.ANGLE_RULES]
+        topics = []
+        for r in fl.ANGLE_RULES:
+            templates = r[3] if isinstance(r[3], (list, tuple)) else [r[3]]
+            for tmpl in templates:
+                topics.append(_t("英超", "2026-10-12", "战术榜单",
+                                 conflict=tmpl.format(home="A", away="B",
+                                                      lower="B", higher="A")))
         c = vfp.check_angle_person_suspense(topics)
-        self.assertTrue(c["ok"])
+        self.assertTrue(c["ok"], f"这些模板缺人/悬念词：{c.get('detail')}")
         self.assertEqual(c["ratio"], 1.0)
+
+    def test_every_angle_type_has_multiple_templates(self):
+        """每型 ≥3 条模板——单一模板正是「19/26 篇同一句式」的结构性病根。"""
+        import fixture_library as fl
+        thin = [r[1] for r in fl.ANGLE_RULES
+                if not isinstance(r[3], (list, tuple)) or len(r[3]) < 3]
+        self.assertEqual(thin, [], f"这些分型模板不足 3 条：{thin}")
 
 
 if __name__ == "__main__":

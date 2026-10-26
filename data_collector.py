@@ -1374,6 +1374,76 @@ def _within_horizon(t, now, horizon):
     return now < pub_by <= horizon
 
 
+def collect_recap_topics(date_str, max_topics=1, sent_match_ids=None,
+                         covered_titles=None):
+    """隔夜战报：从选题池 `recaps` 取「已完赛且赛果还新鲜」的场次（P0-1）。
+
+    为什么单独一条通道：赛程池只收未开赛场次（旧闻新发红线），已完赛比分
+    **没有任何入口** → 08:00 晨读批只能拿蓄水池软性内容补位（10-12~10-25：
+    晨读 14 篇里 12 篇软性、0 篇战报），而「今晨刚踢完的比赛」本该是晨读最硬的一块。
+
+    与 collect_fixture_topics 的去重口径**不同**，别混用：
+      - 赛程稿按「近 7 天写过这两队就跳过」（同一场比赛不重复做前瞻）；
+      - 战报按 **match_id** 去重（赛前分析 + 赛后复盘是两篇文章，不是重复）。
+        用球队去重会把「昨天刚前瞻过的德比」这最值钱的战报直接枪毙。
+
+    Returns:
+        list[dict]: 战报选题（含 score/goals/winner_zh/goal_diff/late_goal 等事实层）。
+    """
+    if not FIXTURE_POOL_PATH.exists():
+        print("   ℹ️ 赛程选题池不存在，跳过隔夜战报")
+        return []
+    try:
+        pool = json.loads(FIXTURE_POOL_PATH.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"   ⚠️ 赛程选题池解析失败（隔夜战报跳过）: {e}")
+        return []
+
+    recaps = pool.get("recaps") or []
+    if not recaps:
+        print("   ℹ️ 选题池无已完赛场次（窗口内没有昨天的赛果），跳过隔夜战报")
+        return []
+
+    now = datetime.now(CST)
+    sent_ids = set(str(x) for x in (sent_match_ids or ()))
+    titles = [t for t in (covered_titles or ()) if t]
+
+    picked_pool = []
+    for r in recaps:
+        mid = str(r.get("match_id") or "")
+        if mid and mid in sent_ids:
+            continue
+        try:
+            pub_by = datetime.strptime(r.get("publish_by", ""), "%Y-%m-%d %H:%M").replace(tzinfo=CST)
+        except Exception:
+            continue
+        # 战报只能「赛后不久」发：过期即旧闻（计划 11.1 时效闸门）
+        if pub_by <= now:
+            continue
+        # 同一对阵不重复做战报（同日多批次的兜底）。**别名感知**：
+        # 标题常写「皇马2-1巴萨」，而队名全称是「皇家马德里／巴塞罗那」，
+        # 纯子串匹配会漏掉，等于这道防线形同虚设。
+        h_forms = [r.get("home_zh", "")] + list(r.get("home_aliases") or [])
+        a_forms = [r.get("away_zh", "")] + list(r.get("away_aliases") or [])
+        if any(any(h and h in ti for h in h_forms) and any(a and a in ti for a in a_forms)
+               for ti in titles):
+            continue
+        picked_pool.append(r)
+
+    picked_pool.sort(key=lambda x: -x.get("priority", 0))
+    picked = picked_pool[:max_topics]
+    if picked:
+        print(f"   📰 隔夜战报候选（{len(picked)}/{len(picked_pool)} 通过时效/去重）:")
+        for r in picked:
+            sc = r.get("score") or {}
+            print(f"      [{r['priority']:5.1f}] {r['competition']} "
+                  f"{r['home_zh']} {sc.get('home')}-{sc.get('away')} {r['away_zh']}"
+                  f"（{len(r.get('goals') or [])} 个进球，发布截止 {r['publish_by']}）")
+    else:
+        print(f"   ℹ️ 隔夜战报：{len(recaps)} 场赛果中无可用（已发/过期/同对阵去重）")
+    return picked
+
+
 def gather_fixture_facts(topic):
     """为赛程选题采集事实层（积分榜 + 射手榜），全部来自 football-data.org。
 

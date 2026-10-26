@@ -81,6 +81,12 @@ jobs:
           python3 scripts/verify_title_antipattern.py --quiet \
             || echo "::warning::标题反模式闸门验收未通过（赛果播报式硬规则 / 生成侧接入），详见 data/audit/title_antipattern_latest.json"
 
+      - name: 标题句式多样性（P0-3：同句式 14 天 ≤2 篇）
+        run: |
+          # 硬项，不加 || echo 软化：实测近 14 天 68 篇里「主帅压力体」16 次
+          # （26 篇赛程稿中 19 篇同一句式），是「推文全是人物故事」的直接来源。
+          python3 scripts/verify_title_templates.py --quiet
+
       - name: 选题分类与类别优先级（计划 5.1 / R11 内容诊断）
         run: |
           python3 scripts/verify_topic_category.py --quiet \

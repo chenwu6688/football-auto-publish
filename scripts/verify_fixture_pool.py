@@ -134,17 +134,24 @@ def check_angle_rules() -> dict:
                 "detail": [f"❌ 无法导入 fixture_library：{e}"]}
     bad = []
     for rule in fl.ANGLE_RULES:
-        tmpl = rule[3] if len(rule) > 3 else ""
-        if any(m in tmpl for m in PREVIEW_MARKERS):
-            bad.append(f"{rule[1]}：模板含前瞻标记「{tmpl}」")
-        if not (any(w in tmpl for w in PERSON_WORDS)
-                or any(w in tmpl for w in SUSPENSE_WORDS)):
-            bad.append(f"{rule[1]}：模板既无人角色词也无悬念词「{tmpl}」")
+        raw = rule[3] if len(rule) > 3 else ""
+        # 2026-10-26 P0-3：模板从「单条字符串」改为「每型多条列表」。
+        # 若仍按单条处理，`"前瞻" in [模板1, 模板2]` 是**元素相等**而不是子串匹配，
+        # 这道硬项会静默通过（检查形同虚设）——必须逐条展开。
+        templates = raw if isinstance(raw, (list, tuple)) else [raw]
+        for tmpl in templates:
+            if any(m in tmpl for m in PREVIEW_MARKERS):
+                bad.append(f"{rule[1]}：模板含前瞻标记「{tmpl}」")
+            if not (any(w in tmpl for w in PERSON_WORDS)
+                    or any(w in tmpl for w in SUSPENSE_WORDS)):
+                bad.append(f"{rule[1]}：模板既无人角色词也无悬念词「{tmpl}」")
+    n_templates = sum(len(r[3]) if isinstance(r[3], (list, tuple)) else 1
+                      for r in fl.ANGLE_RULES)
     return {"item": "赛程角度模板（人 + 悬念，R11）", "ok": not bad,
             "n_rules": len(fl.ANGLE_RULES),
             "detail": ([f"❌ {'；'.join(bad)}"] if bad else
-                       [f"{len(fl.ANGLE_RULES)} 条角度模板均为「人/悬念」角度、"
-                        "且无前瞻标记 ✅"])}
+                       [f"{len(fl.ANGLE_RULES)} 个分型共 {n_templates} 条角度模板均为"
+                        "「人/悬念」角度、且无前瞻标记 ✅"])}
 
 
 def check_angle_person_suspense(topics: list[dict]) -> dict:
