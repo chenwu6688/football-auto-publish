@@ -70,6 +70,11 @@ nodes:
     column: 人物故事
     awareness: A
     reveal_at: "2026-10-27 03:00"
+    # 结果期：揭晓后 12h 内改发「结果稿」（谁拿了），事实靠 event_result 现场多源取证。
+    # 赛前稿（谁该拿）在 reveal_at 后自动失效，不再生成。
+    result_window_hours: 12
+    result_min_sources: 2
+    result_keywords: ["金球奖", "金球", "Ballon d'Or", "Ballon dOr"]
     template: "金球奖要揭晓了，凯恩这份数据和亚马尔的世界杯，评奖更认哪一个"
     fact_source_url: "https://www.thenational.ae/sport/football/2026/10/21/ballon-dor-2026-nominees-favourites-ceremony-date-and-how-to-watch"
     facts:

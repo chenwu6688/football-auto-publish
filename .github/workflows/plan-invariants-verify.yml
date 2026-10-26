@@ -94,6 +94,14 @@ jobs:
           # 单源事实不可信。故有 facts 必须有 fact_source_url，且过了 reveal_at 不许再生成。
           python3 scripts/verify_season_calendar.py --quiet
 
+      - name: 揭晓型事件结果稿通道（多源交叉验证 / 时间闸门）
+        run: |
+          # 硬项，不加 || echo 软化。起因：金球奖开奖后全网都会出消息，不需要人工通报，
+          # 但「抓来就写」＝把外媒预测当结论（10-26 10:28 懂球帝就有《【CBS Sports】姆巴佩夺金球》，
+          # 而开奖在 10-27 03:00）。五道闸门任一被拆都会让这条通道变成编造入口，
+          # 故时间闸门/多源门槛/冲突判定/生成侧接入/审计落盘全部按硬项验收。
+          python3 scripts/verify_event_result.py --quiet
+
       - name: 选题分类与类别优先级（计划 5.1 / R11 内容诊断）
         run: |
           python3 scripts/verify_topic_category.py --quiet \

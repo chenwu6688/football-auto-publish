@@ -2260,6 +2260,14 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 "supply_layer": supply_mix.tag(art)}
         if art.get("_recap_match_id") not in (None, ""):
             _rec["recap_match_id"] = str(art["_recap_match_id"])
+        # 事件结果稿（揭晓型节点）：跨批/跨天去重的唯一依据。
+        # 与战报同理——只在文章对象上留 `_event_result_key`，一旦保存层挑字段就丢，
+        # 结果就是同一场颁奖被写两遍（10-25 预测稿漏标是同款事故）。
+        if art.get("_event_result_key"):
+            _rec["is_event_result"] = True
+            _rec["event_result_key"] = str(art["_event_result_key"])
+            _rec["event_winner"] = art.get("_event_winner", "")
+            _rec["event_sources"] = art.get("_event_sources") or []
         # 互动引导兜底留痕（R11 建议5）：仅当命中模板兜底时才落盘，便于事后统计覆盖率
         if art.get("interaction_bait_source"):
             _rec["interaction_bait_source"] = art["interaction_bait_source"]
@@ -3599,6 +3607,91 @@ def _recap_sent_today(date_str) -> set:
         return set()
 
 
+def _event_result_sent(date_str) -> set:
+    """已发过的「事件结果稿」key 集合（node_id|获奖者）。
+
+    结果窗可跨天（03:00 揭晓 → 12h 窗），所以当天与前一天都要查，
+    否则跨日的两道批次会把同一场颁奖写成两篇。
+    """
+    keys = set()
+    try:
+        base = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except Exception:
+        return keys
+    for delta in (0, -1):
+        d = (base + timedelta(days=delta)).strftime("%Y-%m-%d")
+        p = OUTPUT_DIR / d / "metadata.json"
+        if not p.exists():
+            continue
+        try:
+            meta = json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for a in meta.get("articles") or []:
+            if a.get("event_result_key"):
+                keys.add(str(a["event_result_key"]))
+    return keys
+
+
+def _add_event_result_articles(*, articles, topics, images_map, stats, added, det_cap,
+                               date_str, batch_mode, topic_history, avoid_sigs):
+    """取用「揭晓型事件结果稿」并追加进本批，返回新增篇数。
+
+    独立成函数而不是内嵌进 poc，理由很直接：这是全链路里唯一一处
+    **机器自己认定事实**的地方（谁获奖是它从两家媒体的标题里对出来的），
+    错一次就是编造 —— 把预测当结果，或把 A 写成 B。
+    埋在 4000 行的 poc 里既没法单测，也没法在 code review 时被看见。
+
+    门槛全部前置在这里，任一条不过就只是「本次不发」，不阻塞发布主流程：
+      · 已发过同节点（跨批/跨天去重）→ 跳过；
+      · event_result.resolve 未通过（时间/句式/多源/冲突任一）→ 跳过；
+      · 生成稿不点名获奖者 → generate_event_result_article 内部已丢弃。
+    """
+    import event_result
+    import deterministic_supply
+
+    n = 0
+    sent_keys = _event_result_sent(date_str)
+    for rt in deterministic_supply.result_topics():
+        if added + n >= det_cap:
+            break
+        node_prefix = f"{rt.get('node_id')}|"
+        if any(k.startswith(node_prefix) for k in sent_keys):
+            print(f"   🔁 结果稿已发过（{rt.get('node_label')}），跳过")
+            continue
+        verdict = event_result.resolve(rt, min_sources=int(rt.get("min_sources", 2)))
+        if not verdict.get("ok"):
+            print(f"   ⏳ 结果稿取证未通过（{rt.get('node_label')}）：{verdict.get('reason')}")
+            continue
+        print(f"   ✅ 结果稿取证通过：{verdict['winner']}"
+              f"（源 {len(verdict['sources'])} 个：{'/'.join(verdict['sources'])}）")
+        art = generate_event_result_article(
+            rt, verdict, date_str=date_str,
+            recent_prefixes=(topic_history or {}).get("title_prefixes"),
+            batch_mode=batch_mode, avoid_signatures=avoid_sigs)
+        if not art:
+            continue
+        img_topic = {
+            "title": art.get("title", ""),
+            "keywords_cn": art.get("keywords", []),
+            "keywords": art.get("keywords", ["football"]),
+        }
+        images_map[len(articles)] = search_images(img_topic, count=3)
+        stats["generated"] += 1
+        stats["valid"] += 1
+        articles.append((len(articles), art))
+        topics.append({
+            "title": art.get("title", ""),
+            "content_type": art.get("content_type", ""),
+            "_is_fixture": True,
+            "_supply_layer": "一级·确定性·事件结果",
+        })
+        sent_keys.add(art.get("_event_result_key", ""))
+        n += 1
+        print(f"   🏆 事件结果稿已追加: {art['title'][:50]}")
+    return n
+
+
 def _build_fixture_fact_card(facts):
     """事实层：把积分榜/射手榜/站位组装成 LLM 唯一可引用的事实卡（中文）。"""
     lines = [
@@ -4067,6 +4160,166 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
             return None
 
 
+def _build_event_result_fact_card(topic, verdict):
+    """揭晓型事件的「结果稿」事实卡。
+
+    两张皮必须分开写，因为它们的确信等级不同：
+      - 【已揭晓结果】来自 ≥2 个独立站点的交叉验证（event_result.verify），
+        姓名一个字都不许改；
+      - 【背景数据】来自日历里人工多源核实过的事实，用来解释「为什么是他」。
+        没有这块，结果稿只能写「XX 获奖了」，撑不住 600 字，模型就会开始编。
+    """
+    lines = ["【事件】", f"- {topic.get('node_label', '')}（揭晓 {topic.get('reveal_at', '')}）", ""]
+
+    lines.append("【已揭晓结果】（多源交叉验证，姓名一字不得改动）")
+    lines.append(f"- 获奖者：{verdict.get('winner', '')}")
+    label = {"zhibo8": "直播吧", "dongqiudi": "懂球帝", "sina": "新浪体育", "netease": "网易体育"}
+    for r in (verdict.get("kept") or [])[:4]:
+        lines.append(f"  · {label.get(r.get('source'), r.get('source'))}"
+                     f"（{r.get('published_at', '')}）《{r.get('title', '')}》")
+    lines.append("- 以上仅为「谁获奖」这一条事实；**得票数、排名顺序、第二名是谁，"
+                 "卡里没有，一律不得写**。")
+    lines.append("")
+
+    facts = [str(f).strip() for f in (topic.get("facts") or []) if str(f).strip()]
+    if facts:
+        lines.append("【背景数据】（人工多源核实；用于解释评选逻辑与竞争格局）")
+        for f in facts:
+            lines.append(f"- {f}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes=None,
+                                  batch_mode="auto", avoid_signatures=None):
+    """揭晓型事件结果稿（一次事件一篇，实时生成，**不能预生成**）。
+
+    与赛前节点稿的区别：赛前稿讲「谁该拿」（悬念），结果稿讲「为什么是他、意味着什么」
+    （判断）。事实来源也不同——获奖者在揭晓前根本不存在，只能靠 event_result
+    现场多源取证，所以这条链路走不了 pregen 预生成。
+    """
+    if not topic or not verdict or not verdict.get("ok") or not verdict.get("winner"):
+        return None
+    winner = verdict["winner"]
+    content_type = topic.get("板块") or "人物故事"
+    fact_card = _build_event_result_fact_card(topic, verdict)
+
+    prefix_hint = ""
+    if recent_prefixes:
+        sample = list(recent_prefixes)[:12]
+        prefix_hint = f"\n⚠️ 标题防重：近7天已用过的开头（前6字）不可再用：{sample}\n"
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝，犀利、有数据感、不骑墙。
+
+{fact_card}
+
+## 这件事已经发生了
+颁奖礼已经结束，结果已经公布。读者点进来要的是"为什么是他、这个结果说明了什么"，
+**不是**再猜一遍谁会赢，也**不是**一份生平履历。
+
+{prefix_hint}
+写作硬规则：
+1. 标题：从**人**切入——他的处境、他这次赢下的是什么、这个结果为什么值得争。
+   26~30 字（含标点），以疑问『？』收尾，必须出现获奖者姓名或所属球队/国家。
+   禁止「XX加冕」「官宣：」这类通报式前缀，禁止「谁该拿」「你看好谁」这类赛前句式
+   （结果已经出了，再问就是装傻）。
+2. 获奖者姓名严格照抄事实卡「已揭晓结果」，一个字都不能改、不能加译名。
+3. **得票数、排名次序、第二名是谁、各洲记者投票分布，事实卡没有，一律不得写。**
+   这是结果稿最容易翻车的地方——最常见的编造就是"以 XXX 分之差险胜"。
+4. 可以用「背景数据」里的数字（进球数、冠军数、决赛比分等），但必须原样引用，
+   不得四舍五入、不得顺手加一个荣誉。背景数据之外的数字一律不写。
+5. 要有判断和立场：这个结果符合评选逻辑吗？哪一类球员的处境被它改变了？
+   不要写"实至名归"这种谁都能说的空话。
+6. 依板块落栏：{content_type}。这是**有硬事实支撑**的人物稿，
+   不是回忆录——每一段都要能落回具体数据或这个结果本身。
+7. 文末必须包含：
+   (a) 互动钩子，问一个只有看了结果才能吵起来的问题，别问"你觉得呢"；
+   (b) 一段「老六视角」——基于事实卡的独立判断，只做判断、不编造卡外数据；
+   (c) 显式标注：「⚠️ 本文由 AI 生成，开奖结果经多源交叉核实，数据以官方公布为准；文中观点为基于公开信息的独立分析，仅供参考。」
+
+输出纯JSON:
+{{"title": "标题(26-30字，人切入，以疑问？收尾)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+只输出JSON。"""
+
+    messages = [
+        {"role": "system", "content": "你是头条号足球博主'球评人老六'，犀利、有数据感。"
+                                     "事实层/表达层隔离：获奖者姓名与所有数字只能来自事实卡，"
+                                     "卡外数据一律不写。只输出JSON。"},
+        {"role": "user", "content": prompt},
+    ]
+
+    for attempt in range(3):
+        try:
+            article, _model = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                            temperature=0.7, max_tokens=4096)
+            if not isinstance(article, dict) or not article.get("title"):
+                if attempt < 2:
+                    print(f"   ⚠️ 结果稿解析失败 (attempt {attempt+1}/3)，重试...")
+                    continue
+                return None
+            content = article.get("content", "") or ""
+            if len(content) < 200:
+                if attempt < 2:
+                    print(f"   ⚠️ 结果稿正文仅{len(content)}字 (attempt {attempt+1}/3)")
+                    continue
+                return None
+            title = (article.get("title", "") or "").strip()
+
+            # 硬校验：正文必须点名获奖者。名字没进正文，说明模型换了说法或另指他人，
+            # 结果稿的核心事实就丢了 —— 一条都不许放行。
+            if winner not in (title + content):
+                if attempt < 2:
+                    print(f"   ⚠️ 结果稿正文未出现获奖者「{winner}」，重生成 (attempt {attempt+1}/3)")
+                    continue
+                print(f"   ❌ 结果稿仍未点名「{winner}」，丢弃（宁缺勿错）")
+                return None
+
+            # 赛前句式闸门：结果已出还问「谁该拿」＝装傻，且与今晨赛前稿撞车
+            _sig = template_gate.signature_of(title)
+            if _sig and avoid_signatures and _sig in avoid_signatures:
+                if attempt < 2:
+                    print(f"   ⚠️ 结果稿标题命中已满句式「{_sig}」，重生成...")
+                    continue
+                degrade.note("结果稿标题句式满额", _sig, action="兜底放行，记入待复盘")
+
+            s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
+            if s_score < 60:
+                if attempt < 2:
+                    print(f"   ⚠️ 结果稿标题评分 {s_score} 未过线 [{','.join(s_reasons)}]，重生成...")
+                    continue
+                print(f"   ⚠️ 结果稿标题评分 {s_score} 仍不过，兜底放行")
+
+            _ib = check_interaction_bait(article)
+            if not _ib["ok"]:
+                if attempt < 2:
+                    print(f"   ⚠️ 结果稿互动引导未达标（缺 {'、'.join(_ib['missing'])}），重生成...")
+                    continue
+                degrade.note("结果稿互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
+                             action="保存侧模板兜底注入（不丢弃成稿）")
+
+            article["title"] = title
+            article["content_type"] = content_type
+            article["板块"] = content_type
+            # 一级·确定性：事件节点属于可预期的日历类供给（与赛程/节点同档），
+            # 但它**只在揭晓后**才成立，故同时打事件结果标记，供去重与验收识别。
+            article["_supply_layer"] = "一级·确定性·事件结果"
+            article["_is_event_result"] = True
+            article["_event_result_key"] = f"{topic.get('node_id')}|{winner}"
+            article["_event_winner"] = winner
+            article["_event_sources"] = [r.get("url", "") for r in (verdict.get("kept") or [])]
+            article["sources_used"] = [f"{r.get('source')}（{r.get('published_at', '')}）"
+                                       for r in (verdict.get("kept") or [])]
+            article["topic_id"] = topic.get("topic_id", "")
+            print(f"   ✅ 结果稿生成成功(score={s_score}): {title[:50]} ({len(content)}字)")
+            return article
+        except Exception as e:
+            if attempt < 2:
+                print(f"   ⚠️ 结果稿生成异常 (attempt {attempt+1}/3): {e}")
+                continue
+            print(f"   ❌ 结果稿生成失败: {e}")
+            return None
+
+
 def main():
     # Parse args: python orchestrator.py [YYYY-MM-DD] [--batch=morning|noon|evening]
     date_str = None
@@ -4336,6 +4589,18 @@ def main():
                         print("   ℹ️ 确定性供给选题生成跳过（无有效素材或生成失败）")
             except Exception as e:
                 print(f"   ⚠️ 确定性供给生成异常 (不影响主流程): {e}")
+
+        # 一级·确定性·事件结果（揭晓型节点：金球奖/抽签/官宣结果）。
+        # 放在节点稿之前：一旦结果稿成立，它比库存里的常规节点稿更值钱。
+        if det_cap > 0 and fixture_added < det_cap:
+            try:
+                fixture_added += _add_event_result_articles(
+                    articles=articles, topics=topics, images_map=images_map,
+                    stats=stats, added=fixture_added, det_cap=det_cap,
+                    date_str=date_str, batch_mode=batch_mode,
+                    topic_history=topic_history, avoid_sigs=_avoid_sigs)
+            except Exception as e:
+                print(f"   ⚠️ 事件结果稿生成异常 (不影响主流程): {e}")
 
         # 计划 12.1 一级·确定性第二类：节点事件（转会窗截止日/赛季节点/开赛倒计时）。
         # 由 scripts/pregen_deterministic.py 提前 7 天量产入库；此处直接取用，不再调用 LLM。

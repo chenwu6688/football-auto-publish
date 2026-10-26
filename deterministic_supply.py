@@ -36,6 +36,13 @@ CST = timezone(timedelta(hours=8))
 DEFAULT_LEAD_DAYS = 7
 DEFAULT_HORIZON_DAYS = 7
 
+# 揭晓型事件的「结果期」默认窗口（小时）：过了揭晓时刻，赛前稿失效、结果稿登场。
+# 12h 的由来：金球奖 03:00 CST 开奖，早批 08:00、午间 12:00 两批都还在窗内，
+# 到晚间批（18:00+）就该收手了 —— 那时再说「今晨谁拿奖」已是旧闻。
+DEFAULT_RESULT_WINDOW_HOURS = 12
+# 结果稿的独立源门槛：≥2 个站点指认同一人才发（单源=可能只是互相转载）
+DEFAULT_RESULT_MIN_SOURCES = 2
+
 # 一级·确定性涵盖的板块（计划 6.2 固定四板块之一）
 NODE_COLUMNS = ("转会动态", "战术榜单", "人物故事", "中国足球")
 
@@ -187,6 +194,84 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
             },
         })
     out.sort(key=lambda t: (t["node_date"], -{"A": 3, "B": 2, "C": 1}.get(t["awareness"], 1)))
+    return out
+
+
+def result_topics(now: datetime | None = None, calendar: dict | None = None,
+                  dropped: list | None = None) -> list[dict]:
+    """处于「结果期」的节点选题（赛前稿已失效、结果稿该出场）。
+
+    与 ``build_node_topics`` 的分工：
+      - 赛前稿（谁该拿/窗口还剩几天）走 ``build_node_topics`` + pregen **提前**量产；
+      - 结果稿（谁拿了）**不能预生成**——事实在揭晓后才存在，只能实时抓+交叉验证。
+        所以这里只产出「元信息」，事实由 ``event_result.resolve`` 现场取证。
+
+    窗口：``reveal_at <= now < reveal_at + result_window_hours``（默认 12h）。
+    过窗口即不再产出——结果稿的时效极短，隔天再发就是旧闻。
+
+    注意 ``node_date < today`` 是**允许**的：金球奖 10-26 开奖、北京时间 10-27 03:00，
+    晨读批跑到时节点日已经是「昨天」，按节点日过滤会把最值钱的这一篇直接漏掉。
+    """
+    now_dt = _now(now)
+    cal = calendar if calendar is not None else load_calendar()
+    out: list[dict] = []
+    for n in cal.get("nodes", []) or []:
+        if not isinstance(n, dict):
+            continue
+        reveal_at = _as_dt(n.get("reveal_at"))
+        if reveal_at is None:
+            continue                                  # 没有精确揭晓时刻 = 不是揭晓型事件
+        window_h = float(n.get("result_window_hours", DEFAULT_RESULT_WINDOW_HOURS)
+                         or DEFAULT_RESULT_WINDOW_HOURS)
+        if now_dt < reveal_at:
+            continue                                  # 还没揭晓，走赛前稿
+        if now_dt >= reveal_at + timedelta(hours=window_h):
+            if dropped is not None:
+                dropped.append((n, f"结果窗已关（揭晓 {n.get('reveal_at')}，"
+                                   f"窗口 {window_h:g}h）"))
+            continue
+
+        keywords = [str(k).strip() for k in (n.get("result_keywords") or []) if str(k).strip()]
+        if not keywords:
+            if dropped is not None:
+                dropped.append((n, "揭晓型节点缺 result_keywords（无法取证）"))
+            continue
+
+        column = n.get("column") or "战术榜单"
+        board = column if column in NODE_COLUMNS else "战术榜单"
+        aw = awareness_gate.classify(n.get("awareness"))
+        dec = awareness_gate.decide_level(aw, board, channel="data_list",
+                                          name=str(n.get("label") or ""))
+        if not dec["ok"]:
+            if dropped is not None:
+                dropped.append((n, f"认知度门槛：{dec['reason']}"))
+            continue
+
+        nd = _as_date(n.get("date"))
+        label = n.get("label") or n.get("type") or "赛季节点"
+        out.append({
+            "topic_id": f"result-{n.get('id')}-{reveal_at:%Y%m%d%H%M}",
+            "phase": "result",
+            "source_layer": "确定性",
+            "node_id": n.get("id"),
+            "node_type": n.get("type", "赛季节点"),
+            "node_label": label,
+            "node_date": nd.isoformat() if nd else "",
+            "reveal_at": reveal_at.strftime("%Y-%m-%d %H:%M"),
+            "result_window_hours": window_h,
+            "result_keywords": keywords,
+            "min_sources": int(n.get("result_min_sources", DEFAULT_RESULT_MIN_SOURCES)
+                               or DEFAULT_RESULT_MIN_SOURCES),
+            # 背景数据：解释「为什么是他」要靠它，否则 600 字只能靠编
+            "facts": [str(f).strip() for f in (n.get("facts") or []) if str(f).strip()],
+            "conflict": f"{label}结果已出，为什么是他",
+            "suggested_column": column,
+            "板块": board,
+            "awareness": aw,
+            "awareness_decision": dec["action"],
+            "title_allowed": dec["title_allowed"],
+        })
+    out.sort(key=lambda t: (t["reveal_at"], -{"A": 3, "B": 2, "C": 1}.get(t["awareness"], 1)))
     return out
 
 

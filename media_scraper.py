@@ -294,7 +294,8 @@ class SportsScraper:
         返回文章标题和URL，正文通过 scrape_dongqiudi_article 懒加载。
         """
         try:
-            html = self._http_get(f"{self.DQ_BASE}/", referer=self.DQ_BASE)
+            # 懂球帝被 EdgeOne 前置，必须走最小头通道（详见 _http_get_plain 注释）
+            html = self._http_get_plain(f"{self.DQ_BASE}/", referer=self.DQ_BASE)
             soup = BeautifulSoup(html, "html.parser")
             articles = []
             seen_urls = set()
@@ -347,11 +348,59 @@ class SportsScraper:
                 if len(articles) >= max_articles:
                     break
 
+            # 2026-10-26 实测：HTML 的 /articles/ 链接只覆盖「文章」，
+            # 而 SSR payload（内联 JSON）里还有一批**外媒实时快讯**
+            # （如「【CBS Sports】姆巴佩夺金球」，带精确到秒的时间戳）。
+            # 两条路径内容不重叠，所以是**合并去重**，不是「HTML 空了才兜底」——
+            # 只取 HTML 会漏掉最有时效价值的那一类。
+            payload_rows = self._parse_dq_nuxt_payload(html, max_articles)
+            if payload_rows:
+                seen = {a.get("url") for a in articles}
+                for r in payload_rows:
+                    if r["url"] in seen:
+                        continue
+                    seen.add(r["url"])
+                    articles.append(r)
+            articles = articles[:max_articles]
+
             print(f"   📰 懂球帝文章: {len(articles)} 篇")
             return articles
         except Exception as e:
             print(f"   ⚠️ 懂球帝首页解析异常: {e}")
             return []
+
+    # 懂球帝 SSR payload 里的一条 feed：
+    #   ...,"【CBS Sports】姆巴佩夺金球","https:\u002F\u002Fn.dongqiudi.com\u002Fwebapp\u002Ffeed.html
+    #   ?articleId=6558344&...","60","2026-10-26 10:28:14",1792981694,...
+    # 注意 JSON 里是 \u002F 转义的斜杠，正则必须按转义形态写，别写死普通 /。
+    _DQ_PAYLOAD_RE = re.compile(
+        r'"([^"\\]{8,90})",\s*"https:\\u002F\\u002Fn\.dongqiudi\.com\\u002Fwebapp\\u002Ffeed\.html'
+        r'\?articleId=(\d+)[^"]*"'
+        r'(?:,\s*[^,]*)?,\s*"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})"'
+    )
+
+    def _parse_dq_nuxt_payload(self, html: str, max_articles: int = 20) -> list[dict]:
+        """从懂球帝 SSR payload（内联 JSON）抽 feed 列表。
+
+        只取带**精确发布时间**的条目：时效闸门要靠它，缺时间的宁可不收。
+        """
+        out, seen = [], set()
+        for title, aid, pub in self._DQ_PAYLOAD_RE.findall(html or ""):
+            title = title.strip()
+            if not title or aid in seen:
+                continue
+            seen.add(aid)
+            out.append({
+                "source": "dongqiudi",
+                "title": title[:80],
+                "url": f"{self.DQ_BASE}/articles/{aid}.html",
+                "article_text": "",
+                "published_at": pub,
+                "raw_text": title[:120],
+            })
+            if len(out) >= max_articles:
+                break
+        return out
 
     def scrape_dongqiudi_article(self, article_url: str) -> Optional[dict]:
         """从懂球帝获取文章内容（备源）。
@@ -365,7 +414,7 @@ class SportsScraper:
         if not article_url or "dongqiudi" not in article_url:
             return None
         try:
-            html = self._http_get(article_url, referer="https://www.dongqiudi.com/")
+            html = self._http_get_plain(article_url, referer="https://www.dongqiudi.com/")
             soup = BeautifulSoup(html, "html.parser")
             title_el = soup.find("h1") or soup.find(class_=re.compile(r"title", re.I))
             content_el = self._select_one_fallback(soup, self.DQ_ARTICLE_SELS)
@@ -392,6 +441,38 @@ class SportsScraper:
         except Exception as e:
             print(f"   ⚠️ 懂球帝文章解析异常: {e}")
         return None
+
+    def _http_get_plain(self, url: str, referer: str = None, timeout: int = None) -> str:
+        """朴素请求：只带 UA（+Referer），用于被 EdgeOne 前置的站点（懂球帝）。
+
+        2026-10-26 实测现场：懂球帝首页过了腾讯 EdgeOne，``_http_get`` 那套
+        「Accept 带 image/webp + Connection: keep-alive + Cache-Control: no-cache」
+        组合会被判成爬虫，返回 **HTTP 567 挑战页**（7KB 空壳，正文全无）；
+        换成最小头同样 URL 稳定 200、318KB。
+
+        而 567 不在旧 ``_http_get`` 的 403/429/404 分支里 → 走完循环
+        ``return ""`` → 备源**静默失效**，日志只报「懂球帝文章: 0 篇」，
+        看不出是被反爬拦了。这类「看起来没数据、其实是被拦」最难查。
+
+        故此处单开一条最小头通道，只给懂球帝用，不动已跑通的直播吧路径。
+        """
+        import urllib.request
+
+        headers = {"User-Agent": self._current_ua}
+        if referer:
+            headers["Referer"] = referer
+        req = urllib.request.Request(url, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout or self.TIMEOUT) as r:
+                raw = r.read()
+                charset = "utf-8"
+                enc = (r.headers.get("Content-Type") or "").lower()
+                m = re.search(r"charset=([\w-]+)", enc)
+                if m:
+                    charset = m.group(1)
+                return raw.decode(charset, "ignore")
+        except Exception as e:
+            raise requests.RequestException(f"plain GET {url} failed: {e}")
 
     def check_available(self) -> bool:
         """检查直播吧是否可访问。"""
