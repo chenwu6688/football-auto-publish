@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-26 12:05",
-  "ok": true,
+  "generated_at": "2026-10-26 18:03",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 92,
+      "total": 94,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 92 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 94 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 92,
-      "passed": 90,
-      "rate": 0.9783,
+      "total": 94,
+      "passed": 92,
+      "rate": 0.9787,
       "fails": [
         {
           "date": "2026-10-12",
@@ -44,7 +44,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 92 条，合规（≥60 分）90 条，通过率 97.8%（目标≥90%）",
+        "近 14 天成稿 94 条，合规（≥60 分）92 条，通过率 97.9%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-12', 'title': '布鲁日，欧冠冷门窗口真关死了？', 'score': 53, 'reasons': ['标题偏短(15字<18)', '缺具体对阵/球队/人物']}, {'date': '2026-10-24', 'title': '10月24日15:30，成都蓉城对大连英博海发，老球迷的下午茶来了', 'score': 58, 'reasons': ['标题偏长(33字>30)', '缺疑问钩子(建议以？/吗收尾)']}]"
       ]
@@ -76,20 +76,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 874,
-      "with_src": 76,
-      "rate": 0.087,
+      "total": 876,
+      "with_src": 77,
+      "rate": 0.0879,
       "detail": [
-        "成稿 874 条，带来源 76 条，覆盖率 8.7%（目标 100%）",
+        "成稿 876 条，带来源 77 条，覆盖率 8.8%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -154,9 +162,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 92,
+      "total": 94,
       "detail": [
-        "近 14 天成稿 92 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 94 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -180,5 +188,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }
