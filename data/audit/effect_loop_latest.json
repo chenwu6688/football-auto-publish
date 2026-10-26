@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19 18:05",
+  "generated_at": "2026-10-26 18:19",
   "ok": true,
   "checks": [
     {
@@ -49,12 +49,12 @@
       "item": "近 14 天真实数据字段覆盖（存量，仅提示）",
       "ok": true,
       "advisory": true,
-      "total": 131,
-      "with_category": 42,
-      "with_click_rate": 48,
+      "total": 95,
+      "with_category": 80,
+      "with_click_rate": 39,
       "detail": [
-        "近 14 天 131 篇：topic_category 覆盖 42 篇（32%）",
-        "click_rate 覆盖 48 篇（37%）",
+        "近 14 天 95 篇：topic_category 覆盖 80 篇（84%）",
+        "click_rate 覆盖 39 篇（41%）",
         "存量 metadata 缺字段属正常（历史未落盘）；新批次起 topic_category 自动落盘，绩效回填后 click_rate 同步可得。"
       ]
     }

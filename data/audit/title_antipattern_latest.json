@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19 18:05",
+  "generated_at": "2026-10-26 18:19",
   "ok": true,
   "checks": [
     {
@@ -54,11 +54,11 @@
       "item": "近 14 天成稿命中（存量，仅提示）",
       "ok": true,
       "advisory": true,
-      "total": 131,
+      "total": 95,
       "hits": 0,
       "samples": [],
       "detail": [
-        "近 14 天成稿 131 条，命中 0 条 ✅"
+        "近 14 天成稿 95 条，命中 0 条 ✅"
       ]
     }
   ],

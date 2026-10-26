@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19 18:05",
+  "generated_at": "2026-10-26 18:19",
   "ok": true,
   "checks": [
     {
@@ -61,28 +61,35 @@
           "content_reference.py",
           "content_reference.yaml",
           "data_collector.py",
+          "event_result.py",
           "health_check_scraper.py",
           "image_service.py",
           "media_scraper.py",
           "orchestrator.py",
-          "utils.py"
+          "utils.py",
+          "verify_event_result.py"
         ],
         "直播吧": [
           "content_reference.py",
           "content_reference.yaml",
           "data_collector.py",
+          "event_result.py",
           "health_check_scraper.py",
           "media_scraper.py",
-          "orchestrator.py"
+          "orchestrator.py",
+          "season_calendar.yaml"
         ],
         "虎扑": [
           "content_reference.yaml"
+        ],
+        "雷速": [
+          "season_calendar.yaml"
         ]
       },
       "detail": [
         "计划 13.2：懂球帝/直播吧/虎扑/雷速 接口无授权，只能用其名提取实体中文名、",
         "可作新闻流素材，但**正文不得进生成器**（由 11.3 物理隔离与相似度闸门兜底）。",
-        "当前命中文件：{'懂球帝': ['content_reference.py', 'content_reference.yaml', 'data_collector.py', 'health_check_scraper.py', 'image_service.py', 'media_scraper.py', 'orchestrator.py', 'utils.py'], '直播吧': ['content_reference.py', 'content_reference.yaml', 'data_collector.py', 'health_check_scraper.py', 'media_scraper.py', 'orchestrator.py'], '虎扑': ['content_reference.yaml']}",
+        "当前命中文件：{'懂球帝': ['content_reference.py', 'content_reference.yaml', 'data_collector.py', 'event_result.py', 'health_check_scraper.py', 'image_service.py', 'media_scraper.py', 'orchestrator.py', 'utils.py', 'verify_event_result.py'], '直播吧': ['content_reference.py', 'content_reference.yaml', 'data_collector.py', 'event_result.py', 'health_check_scraper.py', 'media_scraper.py', 'orchestrator.py', 'season_calendar.yaml'], '虎扑': ['content_reference.yaml'], '雷速': ['season_calendar.yaml']}",
         "（本项为边界提示，不作硬断言）"
       ]
     }
