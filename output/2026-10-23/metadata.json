@@ -142,12 +142,12 @@
       "is_prediction": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 67,
+        "reads": 68,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.7561,
-        "impressions": 54688,
+        "impressions": 55451,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -191,7 +191,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 1.0,
-        "impressions": 2814,
+        "impressions": 3573,
         "follower_reads": 0,
         "click_rate": 0.0
       },

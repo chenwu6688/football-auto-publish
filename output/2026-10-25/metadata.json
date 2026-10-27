@@ -40,7 +40,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1072,
+        "impressions": 2015,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -78,12 +78,12 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 1124,
+        "retention_rate": 0.476,
+        "impressions": 2124,
         "follower_reads": 0,
         "click_rate": 0.0
       },
