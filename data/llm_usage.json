@@ -10,9 +10,9 @@
     "last_fail_at": "2026-10-27T12:03:42+08:00"
   },
   "deepseek-v4-flash-202605": {
-    "prompt_tokens": 132388,
-    "completion_tokens": 41134,
-    "total_tokens": 764522,
+    "prompt_tokens": 159950,
+    "completion_tokens": 50444,
+    "total_tokens": 801394,
     "fail_streak": 0,
     "free_quota_pct": 40.9,
     "free_quota_expires_at": "2027-08-11 11:04:10"
@@ -21,22 +21,24 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 21000,
-    "fail_streak": 0,
+    "fail_streak": 1,
     "free_quota_pct": 97.9,
-    "free_quota_expires_at": "2027-08-27 13:40:03"
+    "free_quota_expires_at": "2027-08-27 13:40:03",
+    "last_fail_at": "2026-10-27T18:14:38+08:00"
   },
   "glm-5.3": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 34000,
-    "fail_streak": 0,
+    "fail_streak": 1,
     "free_quota_pct": 96.6,
-    "free_quota_expires_at": "2027-09-14 09:24:30"
+    "free_quota_expires_at": "2027-09-14 09:24:30",
+    "last_fail_at": "2026-10-27T18:15:39+08:00"
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 140018,
-    "completion_tokens": 34148,
-    "total_tokens": 276000,
+    "prompt_tokens": 146878,
+    "completion_tokens": 36078,
+    "total_tokens": 284790,
     "fail_streak": 0,
     "free_quota_pct": 72.4,
     "free_quota_expires_at": "2027-09-14 09:24:30"
