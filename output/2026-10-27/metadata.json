@@ -1,7 +1,7 @@
 {
   "date": "2026-10-27",
-  "generated_at": "2026-10-27T00:04:34.923178",
-  "total_articles": 1,
+  "generated_at": "2026-10-27T04:05:00.208705",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -40,70 +40,185 @@
       "is_recap": false,
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "半场零封巴黎，里昂下半场到底哪一步走错了？",
+      "path": "/home/runner/work/_temp/output/2026-10-27/article-1-半场零封巴黎里昂-6f4806.md",
+      "slug": "半场零封巴黎里昂-6f4806",
+      "tags": [
+        "PSG",
+        "Lyon",
+        "Ligue 1",
+        "match report",
+        "tactical review"
+      ],
+      "keywords": [
+        "PSG",
+        "Lyon",
+        "Ligue 1",
+        "match report",
+        "tactical review"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "559648",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "那个曾让国足头疼的伊朗马达，退役后竟在德黑兰开出租车？",
+      "path": "/home/runner/work/_temp/output/2026-10-27/article-2-那个曾让国足头疼-77feef.md",
+      "slug": "那个曾让国足头疼-77feef",
+      "tags": [
+        "Ali Daei",
+        "Iran football",
+        "retired star",
+        "taxi driver",
+        "nostalgia"
+      ],
+      "keywords": [
+        "Ali Daei",
+        "Iran football",
+        "retired star",
+        "taxi driver",
+        "nostalgia"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "中国足球",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "卡里克被曼联解雇，埃迪·豪真能收拾这个烂摊子吗？",
-      "angle": "曼联0-3惨败伯恩茅斯后卡里克下课成定局，拉爵倾向埃迪·豪。犀利点出：换帅治不了根，曼联问题在更衣室不在教练席。",
+      "title": "曼联0-3输伯恩茅斯，杰拉德那句谷底论为啥听着这么耳熟？",
+      "angle": "曼联惨败后杰拉德说'已在谷底不会更糟'，这话从一位经历过利物浦沉浮的名宿嘴里说出来，味道完全不一样——老球迷都记得他当年怎么熬过来的。",
       "keywords": [
-        "Manchester United",
-        "Carrick",
-        "Eddie Howe",
-        "sacking"
+        "manchester united",
+        "steven gerrard",
+        "bournemouth"
       ],
       "keywords_cn": [
         "曼联",
-        "卡里克",
-        "埃迪·豪",
-        "下课"
+        "杰拉德",
+        "伯恩茅斯"
       ],
       "content_type": "热点球评",
-      "score": 90,
+      "score": 88,
       "controversy_level": "high",
       "target_emotion": "愤怒",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "豪门换帅争议大，评论区必吵",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "豪门惨败+名宿发声，争议与情怀双钩子",
+      "_category": "战报比分",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "凯恩拿金球了，那个被笑了十年的胖男孩终于把伤心地变成主场？",
+      "angle": "凯恩从'冠军绝缘体'到金球先生，重点不在奖杯本身，而在于他熬过的那些年被反复调侃的尴尬——这是个关于'慢热型人生'的故事，老球迷最懂这种迟到十年的正名。",
+      "keywords": [
+        "harry kane",
+        "ballon d'or",
+        "bayern munich"
+      ],
+      "keywords_cn": [
+        "凯恩",
+        "金球奖",
+        "拜仁"
+      ],
+      "content_type": "热点球评",
+      "score": 93,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "金球加冕+冠军绝缘体反差，人物弧光最戳阅历读者",
+      "_category": "未分类",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "米兰德比谁先崩？国米22分压着米兰，两位主帅的底牌竟然差在这？",
+      "title": "半场零封巴黎，里昂下半场到底哪一步走错了？",
       "content_type": "战术榜单",
-      "_is_fixture": true
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    },
+    {
+      "title": "那个曾让国足头疼的伊朗马达，退役后竟在德黑兰开出租车？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
-    "total": 1,
+    "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 0,
-      "三级·软性": 0
+      "一级·确定性": 0,
+      "二级·突发": 1,
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 100.0,
-      "二级·突发": 0.0,
-      "三级·软性": 0.0
+      "一级·确定性": 0.0,
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -111,35 +226,23 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 70.0,
-      "二级·突发": -50.0,
-      "三级·软性": -20.0
+      "一级·确定性": -30.0,
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「半场0-0到2-0，巴黎靠换人终结里昂，」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
-      "数量": 1
-    },
-    {
-      "环节": "隔夜战报",
-      "原因": "巴黎圣日耳曼 vs 里昂 生成失败",
-      "处置": "本批不补战报，不拿软性内容顶替",
-      "数量": 1
-    },
-    {
-      "环节": "互动引导未达标",
+      "环节": "战报互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
       "数量": 1
     },
     {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -151,7 +254,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -165,8 +268,9 @@
   },
   "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-27 08:04:34"
+  "last_batch": "noon",
+  "last_updated": "2026-10-27 12:05:00"
 }
