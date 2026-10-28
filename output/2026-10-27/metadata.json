@@ -41,13 +41,14 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 252,
+        "reads": 431,
         "comments": 2,
         "likes": 0,
         "shares": 0,
-        "impressions": 4620,
-        "follower_reads": 1,
-        "click_rate": 0.05
+        "retention_rate": 0.2396,
+        "impressions": 6249,
+        "follower_reads": 2,
+        "click_rate": 0.07
       },
       "platform_id": "7701131890845975075"
     },
@@ -91,7 +92,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 321,
+        "retention_rate": 0.0,
+        "impressions": 1296,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -130,11 +132,12 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 0,
+        "reads": 2,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 315,
+        "retention_rate": 0.0,
+        "impressions": 1301,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -178,11 +181,12 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 0,
+        "reads": 5,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 106,
+        "retention_rate": 0.4314,
+        "impressions": 1135,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -225,7 +229,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 63,
+        "retention_rate": 0.0,
+        "impressions": 1042,
         "follower_reads": 0,
         "click_rate": 0.0
       },
