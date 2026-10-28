@@ -1,7 +1,7 @@
 {
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T00:03:17.802249",
-  "total_articles": 2,
+  "generated_at": "2026-10-28T04:03:14.450636",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -80,56 +80,134 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "半场就丢四个，萨索洛到底哪一步走错了？",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-1-半场就丢四个萨索-e0c542.md",
+      "slug": "半场就丢四个萨索-e0c542",
+      "tags": [
+        "Sassuolo",
+        "Lazio",
+        "Serie A",
+        "match report",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "Sassuolo",
+        "Lazio",
+        "Serie A",
+        "match report",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "558556",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "从曼联到勒沃库森，滕哈赫执教3次被解雇，名帅光环怎么碎的？",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-2-从曼联到勒沃库森-5f64a1.md",
+      "slug": "从曼联到勒沃库森-5f64a1",
+      "tags": [
+        "Ten Hag",
+        "Bayer Leverkusen",
+        "Manchester United",
+        "sacking",
+        "Carrick",
+        "Schmeichel"
+      ],
+      "keywords": [
+        "Ten Hag",
+        "Bayer Leverkusen",
+        "Manchester United",
+        "sacking",
+        "Carrick",
+        "Schmeichel"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "未分类",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "二级·突发"
     }
   ],
   "topics": [
     {
-      "title": "曼联又被英乙门将拿来当反面教材，这回脸往哪搁？",
-      "angle": "福利特伍德门将直言去年曼联被英乙淘汰给了他们底气，曼联成了低级别球队的心理按摩师。这不是段子，是豪门尊严的持续贬值。",
+      "title": "没想到舒梅切尔这番话，竟把滕哈赫的曼联旧账全翻出来了？",
+      "angle": "舒梅切尔直言滕哈赫在曼联不成功、在勒沃库森3场就下课，这话扎心但公道。老球迷都懂：曼联那两年不是没给时间，是给了时间也没长出体系。名宿开口，等于替球迷把憋着的话说了。",
       "keywords": [
+        "Schmeichel",
+        "Ten Hag",
         "Manchester United",
-        "Fleetwood Town",
-        "goalkeeper",
-        "giant-killing",
-        "EFL Cup"
+        "Leverkusen"
       ],
       "keywords_cn": [
+        "舒梅切尔",
+        "滕哈赫",
         "曼联",
-        "福利特伍德",
-        "门将",
-        "巨人杀手",
-        "联赛杯"
+        "勒沃库森"
       ],
       "content_type": "八卦趣事",
-      "score": 86,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
       "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "曼联被当反面教材，豪门尊严贬值的戏剧性角度",
-      "_category": "未分类",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "series_id": "old-fan-night",
+      "why_pick": "名宿开炮+名帅沉浮，老球迷最有话说",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "罗马主场狂轰4球，卡利亚里到底哪一步走错了？",
+      "title": "半场就丢四个，萨索洛到底哪一步走错了？",
       "content_type": "战术榜单",
       "_supply_layer": "二级·突发",
       "_is_recap": true
@@ -176,7 +254,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -188,10 +266,11 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-28 08:03:17"
+  "last_batch": "noon",
+  "last_updated": "2026-10-28 12:03:14"
 }
