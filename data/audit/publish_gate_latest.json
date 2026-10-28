@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-28 12:03",
-  "ok": true,
+  "generated_at": "2026-10-28 18:05",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 85,
+      "total": 87,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 85 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 87 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 85,
-      "passed": 84,
-      "rate": 0.9882,
+      "total": 87,
+      "passed": 86,
+      "rate": 0.9885,
       "fails": [
         {
           "date": "2026-10-24",
@@ -35,7 +35,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 85 条，合规（≥60 分）84 条，通过率 98.8%（目标≥90%）",
+        "近 14 天成稿 87 条，合规（≥60 分）86 条，通过率 98.9%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-24', 'title': '10月24日15:30，成都蓉城对大连英博海发，老球迷的下午茶来了', 'score': 58, 'reasons': ['标题偏长(33字>30)', '缺疑问钩子(建议以？/吗收尾)']}]"
       ]
@@ -67,20 +67,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 885,
-      "with_src": 82,
-      "rate": 0.0927,
+      "total": 887,
+      "with_src": 84,
+      "rate": 0.0947,
       "detail": [
-        "成稿 885 条，带来源 82 条，覆盖率 9.3%（目标 100%）",
+        "成稿 887 条，带来源 84 条，覆盖率 9.5%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -112,7 +120,7 @@
       "dates": [
         "2026-10-28"
       ],
-      "checked": 24,
+      "checked": 18,
       "dropped": 0,
       "unknown": 0,
       "over_limit_runs": 0,
@@ -145,9 +153,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 85,
+      "total": 87,
       "detail": [
-        "近 14 天成稿 85 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 87 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -171,5 +179,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }
