@@ -1,7 +1,7 @@
 {
   "date": "2026-10-28",
-  "generated_at": "2026-10-28T04:03:14.450636",
-  "total_articles": 4,
+  "generated_at": "2026-10-28T10:04:59.210182",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -160,71 +160,237 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "AC米兰落后国米3分，米兰德比谁先变阵谁先慌？",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-1-AC米兰落后国米-94d2f2.md",
+      "slug": "AC米兰落后国米-94d2f2",
+      "tags": [
+        "AC Milan",
+        "Inter Milan",
+        "Serie A",
+        "derby",
+        "tactics"
+      ],
+      "keywords": [
+        "AC Milan",
+        "Inter Milan",
+        "Serie A",
+        "derby",
+        "tactics"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-001.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "梅西C罗霸榜世界杯射手榜，姆巴佩真能追上他们吗？",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-2-梅西C罗霸榜世界-4cc397.md",
+      "slug": "梅西C罗霸榜世界-4cc397",
+      "tags": [
+        "World Cup",
+        "top scorers",
+        "Messi",
+        "Mbappé",
+        "Klose"
+      ],
+      "keywords": [
+        "World Cup",
+        "top scorers",
+        "Messi",
+        "Mbappé",
+        "Klose"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "谁先掉链子？曼城主场迎硬茬",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-3-谁先掉链子曼城主-d21d12.md",
+      "slug": "谁先掉链子曼城主-d21d12",
+      "tags": [
+        "Liverpool",
+        "Chelsea",
+        "ManCity",
+        "Brighton",
+        "InterMilan",
+        "Juventus",
+        "Bayern",
+        "Prediction"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Chelsea",
+        "ManCity",
+        "Brighton",
+        "InterMilan",
+        "Juventus",
+        "Bayern",
+        "Prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-28/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": true,
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "没想到舒梅切尔这番话，竟把滕哈赫的曼联旧账全翻出来了？",
-      "angle": "舒梅切尔直言滕哈赫在曼联不成功、在勒沃库森3场就下课，这话扎心但公道。老球迷都懂：曼联那两年不是没给时间，是给了时间也没长出体系。名宿开口，等于替球迷把憋着的话说了。",
+      "title": "马德兴说女足危机超男足，这话到底是危言耸听还是戳到痛处？",
+      "angle": "敢说女足危机比男足还重，还喊出不能只换帅要追责。站在老球迷视角：我们骂了男足二十年，女足这块遮羞布要是也塌了，才是真没得聊。给明确判断，不骑墙。",
       "keywords": [
-        "Schmeichel",
-        "Ten Hag",
-        "Manchester United",
-        "Leverkusen"
+        "Ma Dexing",
+        "China women's football",
+        "coaching change",
+        "crisis"
       ],
       "keywords_cn": [
-        "舒梅切尔",
-        "滕哈赫",
-        "曼联",
-        "勒沃库森"
+        "马德兴",
+        "中国女足",
+        "换帅",
+        "追责"
       ],
-      "content_type": "八卦趣事",
-      "score": 88,
+      "content_type": "热点球评",
+      "score": 90,
       "controversy_level": "high",
       "target_emotion": "愤怒",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "名宿开炮+名帅沉浮，老球迷最有话说",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "女足危机论争议大，国足情结戳心",
       "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "半场就丢四个，萨索洛到底哪一步走错了？",
+      "title": "37岁王刚创国安多项最年长纪录，这身板凭啥还能在亚冠硬扛？",
+      "angle": "亚冠官博专门发文祝贺，说明这不是普通老将混日子。37岁还能在亚冠级别对抗里站住脚，靠的是自律和位置感，不是情怀。写老将如何用脑子踢球，戳中同龄老球迷的身份认同。",
+      "keywords": [
+        "Wang Gang",
+        "Beijing Guoan",
+        "AFC Champions League",
+        "veteran player"
+      ],
+      "keywords_cn": [
+        "王刚",
+        "北京国安",
+        "亚冠",
+        "老将"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "37岁老将破纪录，同龄人共情强",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "AC米兰落后国米3分，米兰德比谁先变阵谁先慌？",
       "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "_is_fixture": true
+    },
+    {
+      "title": "梅西C罗霸榜世界杯射手榜，姆巴佩真能追上他们吗？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "谁先掉链子？曼城主场迎硬茬",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 0,
-      "二级·突发": 2,
-      "三级·软性": 0
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -232,17 +398,29 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报互动引导未达标",
+      "环节": "互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -254,23 +432,24 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-28 12:03:14"
+  "last_batch": "evening",
+  "last_updated": "2026-10-28 18:04:59"
 }
