@@ -1,0 +1,197 @@
+{
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T00:03:17.802249",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "罗马主场狂轰4球，卡利亚里到底哪一步走错了？",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-1-罗马主场狂轰4球-a2a91a.md",
+      "slug": "罗马主场狂轰4球-a2a91a",
+      "tags": [
+        "Roma",
+        "Cagliari",
+        "Serie A",
+        "match report",
+        "substitution"
+      ],
+      "keywords": [
+        "Roma",
+        "Cagliari",
+        "Serie A",
+        "match report",
+        "substitution"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "558555",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "阿尔特塔这回真栽了？道曼红牌背后，阿森纳竟被福利特伍德掀翻",
+      "path": "/home/runner/work/_temp/output/2026-10-28/article-2-阿尔特塔这回真栽-16c948.md",
+      "slug": "阿尔特塔这回真栽-16c948",
+      "tags": [
+        "Arsenal",
+        "Fleetwood",
+        "Arteta",
+        "red card",
+        "League Cup"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Fleetwood",
+        "Arteta",
+        "red card",
+        "League Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-10-28/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "未分类",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "二级·突发"
+    }
+  ],
+  "topics": [
+    {
+      "title": "曼联又被英乙门将拿来当反面教材，这回脸往哪搁？",
+      "angle": "福利特伍德门将直言去年曼联被英乙淘汰给了他们底气，曼联成了低级别球队的心理按摩师。这不是段子，是豪门尊严的持续贬值。",
+      "keywords": [
+        "Manchester United",
+        "Fleetwood Town",
+        "goalkeeper",
+        "giant-killing",
+        "EFL Cup"
+      ],
+      "keywords_cn": [
+        "曼联",
+        "福利特伍德",
+        "门将",
+        "巨人杀手",
+        "联赛杯"
+      ],
+      "content_type": "八卦趣事",
+      "score": 86,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "曼联被当反面教材，豪门尊严贬值的戏剧性角度",
+      "_category": "未分类",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "罗马主场狂轰4球，卡利亚里到底哪一步走错了？",
+      "content_type": "战术榜单",
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0
+  },
+  "degrade_events": [
+    {
+      "环节": "战报互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-10-28 08:03:17"
+}
