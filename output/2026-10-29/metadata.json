@@ -1,7 +1,7 @@
 {
   "date": "2026-10-29",
-  "generated_at": "2026-10-29T00:05:53.367244",
-  "total_articles": 2,
+  "generated_at": "2026-10-29T04:03:55.185510",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -75,72 +75,229 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "蒙扎半场顶住那不勒斯，下半场谁的选择让比赛崩了？",
+      "path": "/home/runner/work/_temp/output/2026-10-29/article-1-蒙扎半场顶住那不-af7e46.md",
+      "slug": "蒙扎半场顶住那不-af7e46",
+      "tags": [
+        "Monza",
+        "Napoli",
+        "Serie A",
+        "match report",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "Monza",
+        "Napoli",
+        "Serie A",
+        "match report",
+        "tactical analysis"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "558554",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "尤文那不勒斯都输不起，谁先变阵谁先慌？两位主帅的底牌原来藏在这？",
+      "path": "/home/runner/work/_temp/output/2026-10-29/article-2-尤文那不勒斯都输-7f23f8.md",
+      "slug": "尤文那不勒斯都输-7f23f8",
+      "tags": [
+        "Juventus",
+        "Napoli",
+        "Serie A",
+        "tactics",
+        "coach decision"
+      ],
+      "keywords": [
+        "Juventus",
+        "Napoli",
+        "Serie A",
+        "tactics",
+        "coach decision"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "C罗梅西数据对比：38岁还在进球，谁才是真球王？",
+      "path": "/home/runner/work/_temp/output/2026-10-29/article-3-C罗梅西数据对比-5c4476.md",
+      "slug": "C罗梅西数据对比-5c4476",
+      "tags": [
+        "C罗",
+        "梅西",
+        "数据对比",
+        "足球",
+        "老球迷"
+      ],
+      "keywords": [
+        "C罗",
+        "梅西",
+        "数据对比",
+        "足球",
+        "老球迷"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "19岁尼奥尼当选利物浦队内最佳，这批小将真能接班吗？",
-      "angle": "利物浦淘汰切尔西，19岁的尼奥尼当选队内最佳。我的态度：别急着吹，但利物浦这套青训+轮换的路子确实走对了，杯赛给小将机会，赢了球还练了人，这才是豪门该有的底气。",
+      "title": "5年亏3.4亿镑，曼联这笔账到底该算在谁头上？",
+      "angle": "太阳报统计曼联近5年转会净亏3.4亿镑成欧洲最差，但锅不能只让教练背——从引援决策链到球探体系，这是十年管理混乱的总账。",
       "keywords": [
-        "Liverpool",
-        "Nyoni",
-        "Chelsea",
-        "Carabao Cup",
-        "youth academy"
+        "manchester united",
+        "transfer",
+        "sun",
+        "net spend"
       ],
       "keywords_cn": [
-        "利物浦",
-        "尼奥尼",
-        "切尔西",
-        "联赛杯",
-        "青训"
+        "曼联",
+        "转会亏损",
+        "太阳报",
+        "引援"
       ],
-      "content_type": "八卦趣事",
-      "score": 78,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "content_type": "转会资讯",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "小将冒头有故事性，豪门青训话题",
-      "_category": "未分类",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "3.4亿镑硬数据+曼联话题度，争议拉满",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "尤文那不勒斯谁先慌？两位主帅一个不敢换人一个不敢不换，你猜谁先动手？",
+      "title": "奥斯卡说爱上海却被外媒批评，他这番话到底戳到了谁？",
+      "angle": "奥斯卡公开回应外界对中国的不了解与批评，一个在中国踢了多年的外援说出这话，比任何辩解都有分量，立场给足。",
+      "keywords": [
+        "oscar",
+        "shanghai",
+        "china",
+        "foreign players"
+      ],
+      "keywords_cn": [
+        "奥斯卡",
+        "上海",
+        "外援",
+        "中超"
+      ],
+      "content_type": "八卦趣事",
+      "score": 78,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "外援真情表态，中超老球迷有代入感",
+      "_category": "冲突舆情",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "蒙扎半场顶住那不勒斯，下半场谁的选择让比赛崩了？",
+      "content_type": "战术榜单",
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    },
+    {
+      "title": "尤文那不勒斯都输不起，谁先变阵谁先慌？两位主帅的底牌原来藏在这？",
       "content_type": "战术榜单",
       "_is_fixture": true
+    },
+    {
+      "title": "C罗梅西数据对比：38岁还在进球，谁才是真球王？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
-    "total": 2,
+    "total": 3,
     "counts": {
       "一级·确定性": 1,
       "二级·突发": 1,
-      "三级·软性": 0
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 50.0,
-      "二级·突发": 50.0,
-      "三级·软性": 0.0
+      "一级·确定性": 33.3,
+      "二级·突发": 33.3,
+      "三级·软性": 33.3
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -148,23 +305,23 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
-      "二级·突发": 0.0,
-      "三级·软性": -20.0
+      "一级·确定性": 3.3,
+      "二级·突发": -16.7,
+      "三级·软性": 13.3
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「半场还1-1，蒙扎下半场到底被谁打崩了？」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "环节": "战报互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
       "数量": 1
     },
     {
-      "环节": "隔夜战报",
-      "原因": "蒙扎 vs 那不勒斯 生成失败",
-      "处置": "本批不补战报，不拿软性内容顶替",
+      "环节": "标题句式满额",
+      "原因": "主帅压力体 已用满 2 篇",
+      "处置": "兜底放行，记入待复盘（不阻塞发布）",
       "数量": 1
     },
     {
@@ -174,9 +331,15 @@
       "数量": 1
     },
     {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -188,7 +351,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 3,
     "uplifted": true,
     "reason": "thursday_boost",
@@ -196,14 +359,15 @@
     "normal_max": 2,
     "uplift_max": 3,
     "weekly_limit": 2,
-    "weekly_used": 1,
-    "detail": "加发 3 篇（原因 thursday_boost，周内 1/2）",
+    "weekly_used": 2,
+    "detail": "加发 3 篇（原因 thursday_boost，周内 2/2）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-10-29 08:05:53"
+  "last_batch": "noon",
+  "last_updated": "2026-10-29 12:03:55"
 }
