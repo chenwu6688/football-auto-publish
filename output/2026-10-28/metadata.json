@@ -43,11 +43,12 @@
       "recap_match_id": "558555",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 9,
+        "reads": 14,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 751,
+        "retention_rate": 0.499,
+        "impressions": 1751,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -95,9 +96,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 632,
+        "retention_rate": 0.495,
+        "impressions": 1609,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7701502925701153320"
     },
@@ -141,11 +143,12 @@
       "recap_match_id": "558556",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 6,
+        "reads": 10,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 493,
+        "retention_rate": 0.0867,
+        "impressions": 1493,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -191,13 +194,14 @@
       "is_recap": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 18,
+        "reads": 61,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 748,
-        "follower_reads": 1,
-        "click_rate": 0.02
+        "retention_rate": 0.3054,
+        "impressions": 2035,
+        "follower_reads": 3,
+        "click_rate": 0.03
       },
       "platform_id": "7701564780791824931"
     },
@@ -238,13 +242,14 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 1,
+        "reads": 15,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 212,
+        "retention_rate": 0.2379,
+        "impressions": 1327,
         "follower_reads": 0,
-        "click_rate": 0.0
+        "click_rate": 0.01
       },
       "platform_id": "7701657717617721906"
     },
@@ -285,9 +290,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 116,
+        "retention_rate": 1.0,
+        "impressions": 1109,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7701657825759609382"
     },

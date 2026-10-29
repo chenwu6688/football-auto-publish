@@ -74,7 +74,17 @@
       "batch_name": "晨读",
       "is_prediction": false,
       "is_recap": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 8,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 674,
+        "follower_reads": 1,
+        "click_rate": 0.01
+      },
+      "platform_id": "7701874470365135396"
     },
     {
       "index": 1,
@@ -110,7 +120,17 @@
       "is_recap": true,
       "supply_layer": "二级·突发",
       "recap_match_id": "558554",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 401,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7701935748957733411"
     },
     {
       "index": 2,
@@ -178,7 +198,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 942,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7701935970253390370"
     },
     {
       "index": 1,
@@ -214,7 +244,17 @@
       "batch_name": "晚间",
       "is_prediction": false,
       "is_recap": false,
-      "supply_layer": "三级·软性"
+      "supply_layer": "三级·软性",
+      "performance": {
+        "reads": 88,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 1226,
+        "follower_reads": 0,
+        "click_rate": 0.07
+      },
+      "platform_id": "7702028729182962216"
     },
     {
       "index": 2,
@@ -247,7 +287,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 113,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7702028896283230760"
     },
     {
       "index": 3,
