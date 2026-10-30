@@ -1,7 +1,7 @@
 {
   "date": "2026-10-30",
-  "generated_at": "2026-10-30T04:03:30.720105",
-  "total_articles": 3,
+  "generated_at": "2026-10-30T10:03:31.226673",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -118,113 +118,187 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "这场，谁先变阵谁就先输？两位主帅的处境比积分榜更扎心",
+      "path": "/home/runner/work/_temp/output/2026-10-30/article-1-这场谁先变阵谁就-27b997.md",
+      "slug": "这场谁先变阵谁就-27b997",
+      "tags": [
+        "Juventus",
+        "Napoli",
+        "Serie A",
+        "tactics",
+        "coach"
+      ],
+      "keywords": [
+        "Juventus",
+        "Napoli",
+        "Serie A",
+        "tactics",
+        "coach"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 3,
+      "title": "拜仁多特对轰，米兰德比谁先怂？",
+      "path": "/home/runner/work/_temp/output/2026-10-30/article-3-拜仁多特对轰米兰-c7ea06.md",
+      "slug": "拜仁多特对轰米兰-c7ea06",
+      "tags": [
+        "Bundesliga",
+        "Serie A",
+        "Premier League",
+        "La Liga",
+        "Der Klassiker",
+        "Derby della Madonnina"
+      ],
+      "keywords": [
+        "Bundesliga",
+        "Serie A",
+        "Premier League",
+        "La Liga",
+        "Der Klassiker",
+        "Derby della Madonnina"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-10-30/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-10-30/images/article-3-img-002.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": true,
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "申花输给町田半数主力，中日足球的差距原来藏在这90分钟里？",
-      "angle": "沪媒直言申花不敌町田真实反映中日足球实力差距。别光骂球员，日本球队轮换一半还能赢，这说明差距不在球星，在体系和底子。",
+      "title": "凯恩续约背后的真相：拜仁不签哈兰德，原来留了一手",
+      "angle": "从凯恩续约无解约条款切入，揭示拜仁未来锋线布局的深意，带出对德甲霸主策略的犀利点评。",
       "keywords": [
-        "shenhua",
-        "machida zelvia",
-        "afc champions league",
-        "china japan football gap"
+        "Harry Kane",
+        "Bayern Munich",
+        "Haaland"
       ],
       "keywords_cn": [
-        "上海申花",
-        "町田泽维亚",
-        "亚冠",
-        "中日足球差距"
+        "凯恩",
+        "拜仁",
+        "哈兰德"
       ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "国足情结",
+      "content_type": "转会资讯",
+      "score": 93,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "中日对比天然带情绪，老球迷最有话讲",
-      "_category": "战报比分",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "凯恩续约与哈兰德传闻交织，转会暗流引发球迷站队。",
+      "_category": "转会官宣",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "21年没拿过全国冠军，大连英博这次双线争冠能圆老球迷的梦吗？",
-      "angle": "东体点出大连球队21年无缘成年男足全国冠军。大连足球曾经的辉煌是一代人的记忆，如今英博双线冲冠，这不只是一座奖杯的事。",
+      "title": "没想到阿诺德一心想在皇马成功，利物浦后防要变天了",
+      "angle": "从阿诺德个人的职业选择切入，剖析利物浦后防未来走向，带出老球迷对英超黄金一代的感慨。",
       "keywords": [
-        "dalian",
-        "yingbo",
-        "chinese football",
-        "domestic title"
+        "Trent Alexander-Arnold",
+        "Real Madrid",
+        "Liverpool"
       ],
       "keywords_cn": [
-        "大连英博",
-        "全国冠军",
-        "大连足球",
-        "双线争冠"
+        "阿诺德",
+        "皇马",
+        "利物浦"
       ],
-      "content_type": "八卦趣事",
-      "score": 85,
-      "controversy_level": "low",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "大连足球情怀+21年空白，老球迷DNA动了",
-      "_category": "未分类",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "content_type": "转会资讯",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "皇马挖角英超旗帜，转会风波戳中老球迷痛点，争议拉满。",
+      "_category": "转会官宣",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "半场两球领先，弗罗西诺内下半场凭什么敢跟莱切对攻？",
+      "title": "这场，谁先变阵谁就先输？两位主帅的处境比积分榜更扎心",
       "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "_is_fixture": true
+    },
+    {
+      "title": "拜仁多特对轰，米兰德比谁先怂？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 0,
-      "二级·突发": 2,
+      "一级·确定性": 1,
+      "二级·突发": 1,
       "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 0.0,
-      "二级·突发": 100.0,
+      "一级·确定性": 50.0,
+      "二级·突发": 50.0,
       "三级·软性": 0.0
     },
     "targets": {
@@ -233,15 +307,15 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
-      "二级·突发": 50.0,
+      "一级·确定性": 20.0,
+      "二级·突发": 0.0,
       "三级·软性": -20.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报互动引导未达标",
+      "环节": "互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
       "数量": 1
@@ -251,27 +325,44 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-10-30-2-bb7731",
+      "index": 2,
+      "title": "凯恩续约到2029？拜仁这波操作，老球迷看完心里有数",
+      "reasons": [
+        "合同金额(命中：合同、续约；含金额量词)"
+      ]
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-10-30 12:03:30"
+  "last_batch": "evening",
+  "last_updated": "2026-10-30 18:03:31"
 }
