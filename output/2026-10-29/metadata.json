@@ -76,11 +76,12 @@
       "is_recap": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 8,
+        "reads": 10,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 674,
+        "retention_rate": 0.3143,
+        "impressions": 1640,
         "follower_reads": 1,
         "click_rate": 0.01
       },
@@ -122,11 +123,12 @@
       "recap_match_id": "558554",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 1,
+        "reads": 3,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 401,
+        "retention_rate": 0.4017,
+        "impressions": 1353,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -200,11 +202,12 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 3,
+        "reads": 4,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 942,
+        "retention_rate": 0.0,
+        "impressions": 2074,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -246,13 +249,14 @@
       "is_recap": false,
       "supply_layer": "三级·软性",
       "performance": {
-        "reads": 88,
-        "comments": 0,
-        "likes": 1,
+        "reads": 480,
+        "comments": 5,
+        "likes": 2,
         "shares": 0,
-        "impressions": 1226,
+        "retention_rate": 0.1701,
+        "impressions": 4542,
         "follower_reads": 0,
-        "click_rate": 0.07
+        "click_rate": 0.11
       },
       "platform_id": "7702028729182962216"
     },
@@ -289,13 +293,14 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 0,
-        "comments": 0,
+        "reads": 6,
+        "comments": 1,
         "likes": 0,
         "shares": 0,
-        "impressions": 113,
+        "retention_rate": 0.0,
+        "impressions": 1076,
         "follower_reads": 0,
-        "click_rate": 0.0
+        "click_rate": 0.01
       },
       "platform_id": "7702028896283230760"
     },
