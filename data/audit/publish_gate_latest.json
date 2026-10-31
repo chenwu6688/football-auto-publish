@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-31 12:03",
-  "ok": true,
+  "generated_at": "2026-10-31 18:03",
+  "ok": false,
   "checks": [
     {
       "item": "成稿标题零硬违规（近14天）",
       "ok": true,
       "skipped": false,
-      "total": 85,
+      "total": 87,
       "violations": [],
       "r11": 0,
       "detail": [
-        "近 14 天成稿标题 85 条，硬违规（0 分）0 条",
+        "近 14 天成稿标题 87 条，硬违规（0 分）0 条",
         "零硬违规 ✅",
         ""
       ]
@@ -20,9 +20,9 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 85,
-      "passed": 82,
-      "rate": 0.9647,
+      "total": 87,
+      "passed": 84,
+      "rate": 0.9655,
       "fails": [
         {
           "date": "2026-10-24",
@@ -53,7 +53,7 @@
         }
       ],
       "detail": [
-        "近 14 天成稿 85 条，合规（≥60 分）82 条，通过率 96.5%（目标≥90%）",
+        "近 14 天成稿 87 条，合规（≥60 分）84 条，通过率 96.6%（目标≥90%）",
         "达标 ✅",
         "未达标样例：[{'date': '2026-10-24', 'title': '10月24日15:30，成都蓉城对大连英博海发，老球迷的下午茶来了', 'score': 58, 'reasons': ['标题偏长(33字>30)', '缺疑问钩子(建议以？/吗收尾)']}, {'date': '2026-10-28', 'title': '谁先掉链子？曼城主场迎硬茬', 'score': 49, 'reasons': ['标题偏短(13字<18)', '缺疑问钩子(建议以？/吗收尾)']}, {'date': '2026-10-30', 'title': '这场，谁先变阵谁就先输？两位主帅的处境比积分榜更扎心', 'score': 57, 'reasons': ['缺疑问钩子(建议以？/吗收尾)', '缺具体对阵/球队/人物']}]"
       ]
@@ -85,20 +85,28 @@
       "ok": true,
       "advisory": true,
       "skipped": false,
-      "total": 905,
-      "with_src": 96,
-      "rate": 0.1061,
+      "total": 907,
+      "with_src": 98,
+      "rate": 0.108,
       "detail": [
-        "成稿 905 条，带来源 96 条，覆盖率 10.6%（目标 100%）",
+        "成稿 907 条，带来源 98 条，覆盖率 10.8%（目标 100%）",
         "⚠️ 未达标（存量缺口，告警不阻断；口径与 audit_isolation D 一致）"
       ]
     },
     {
       "item": "一致性校验拦截率可统计",
-      "ok": true,
-      "skipped": true,
+      "ok": false,
+      "skipped": false,
+      "events": 1,
+      "blocking_checks": 0,
+      "rejects": 0,
+      "warn_only": 1,
+      "reject_rate": null,
+      "reject_rate_display": "未接入",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 0 次，打回 0 次，拦截率 未接入；warn-only 1 次",
+        "❌ 有事件但无 blocking 记录，拦截率不可算"
       ]
     },
     {
@@ -130,7 +138,7 @@
       "dates": [
         "2026-10-31"
       ],
-      "checked": 24,
+      "checked": 18,
       "dropped": 0,
       "unknown": 0,
       "over_limit_runs": 0,
@@ -163,9 +171,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 85,
+      "total": 87,
       "detail": [
-        "近 14 天成稿 85 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 87 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {
@@ -189,5 +197,7 @@
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "一致性校验拦截率可统计"
+  ]
 }
