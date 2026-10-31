@@ -47,7 +47,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 560,
+        "retention_rate": 0.362,
+        "impressions": 1472,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -95,9 +96,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 364,
+        "retention_rate": 0.0,
+        "impressions": 1240,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7702306741697937929"
     },
@@ -139,11 +141,12 @@
       "is_recap": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 215,
-        "comments": 1,
+        "reads": 350,
+        "comments": 2,
         "likes": 1,
         "shares": 0,
-        "impressions": 3772,
+        "retention_rate": 0.269,
+        "impressions": 5726,
         "follower_reads": 0,
         "click_rate": 0.06
       },
@@ -188,7 +191,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 105,
+        "retention_rate": 0.0,
+        "impressions": 977,
         "follower_reads": 0,
         "click_rate": 0.0
       },
