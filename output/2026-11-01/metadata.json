@@ -1,7 +1,7 @@
 {
   "date": "2026-11-01",
-  "generated_at": "2026-11-01T00:05:16.962414",
-  "total_articles": 2,
+  "generated_at": "2026-11-01T04:07:00.721711",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -79,114 +79,187 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "二级·突发"
+    },
+    {
+      "index": 1,
+      "title": "谁先慌：两位主帅90分钟里谁敢先动第一张牌",
+      "path": "/home/runner/work/_temp/output/2026-11-01/article-1-谁先慌两位主帅9-4a9e1b.md",
+      "slug": "谁先慌两位主帅9-4a9e1b",
+      "tags": [
+        "juventus",
+        "napoli",
+        "serie a",
+        "tactics",
+        "coach"
+      ],
+      "keywords": [
+        "juventus",
+        "napoli",
+        "serie a",
+        "tactics",
+        "coach"
+      ],
+      "images": [],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "当年那个追风少年曲波，如今白发苍苍，他还能跑得动吗？",
+      "path": "/home/runner/work/_temp/output/2026-11-01/article-2-当年那个追风少年-8694b1.md",
+      "slug": "当年那个追风少年-8694b1",
+      "tags": [
+        "Qu Bo",
+        "Chinese football",
+        "youth memory",
+        "retired player",
+        "World Cup"
+      ],
+      "keywords": [
+        "Qu Bo",
+        "Chinese football",
+        "youth memory",
+        "retired player",
+        "World Cup"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "1.1亿身价却要7000万甩卖？曼联冬窗这笔账，老球迷越算越糊涂",
-      "angle": "曼联盯上费尔明要花7000万镑，可自家利马被电讯报骂成'被切了脑前额叶'、格拉利什夜店宿醉被弃用——买人和卖人的逻辑对不上，这钱花得让人心里没底。",
+      "title": "9轮7分创38年最差，曼联更衣室到底听谁的",
+      "angle": "曼联9轮7分、38年来首次各项9场不胜，这是队史英超最差开局。别急着骂球员，问题在主帅权威和更衣室秩序——卡里克这种临时工镇不住场子，队里没人怕他，这才是真麻烦。",
       "keywords": [
-        "Manchester United",
-        "Fermin Lopez",
-        "Lisandro Martinez",
-        "winter transfer"
+        "manchester united",
+        "worst start",
+        "premier league",
+        "dressing room"
       ],
       "keywords_cn": [
         "曼联",
-        "费尔明",
-        "利马",
-        "冬窗转会"
+        "最差开局",
+        "英超",
+        "更衣室"
       ],
-      "content_type": "转会资讯",
-      "score": 88,
+      "content_type": "热点球评",
+      "score": 93,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "愤怒",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "买人卖人逻辑打架，争议足有增量",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "队史最差纪录+更衣室失控，老球迷最痛",
+      "_category": "未分类",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "连续2天夜店宿醉还旷训，格拉利什这是把天赋喝没了？",
-      "angle": "太阳报爆料格拉利什连续两天夜店宿醉、旷训后被弃用。当年亿元先生，如今靠花边上新闻——足球江湖最不讲情面的就是时间，天赋这东西，糟蹋起来比谁都快。",
+      "title": "阿扎尔重回斯坦福桥，看台上那一眼比当年还动人",
+      "angle": "阿扎尔重返斯坦福桥观赛，还与帕尔默交流、约好明年3月传奇赛见。当年那个把英超后卫晃到怀疑人生的比利时人，如今坐在看台上，这才是老球迷心里的蓝军记忆。",
       "keywords": [
-        "Jack Grealish",
-        "nightclub",
-        "discipline",
-        "Manchester City"
+        "eden hazard",
+        "stamford bridge",
+        "chelsea",
+        "legends match"
       ],
       "keywords_cn": [
-        "格拉利什",
-        "夜店",
-        "旷训",
-        "亿元先生"
+        "阿扎尔",
+        "斯坦福桥",
+        "切尔西",
+        "传奇赛"
       ],
       "content_type": "八卦趣事",
-      "score": 86,
-      "controversy_level": "high",
+      "score": 88,
+      "controversy_level": "low",
       "target_emotion": "怀旧",
-      "resonance_angle": "名帅名宿沉浮",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "old-fan-night",
-      "why_pick": "亿元先生堕落弧光，戳老球迷阅历感",
-      "_category": "冲突舆情",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "why_pick": "蓝军传奇回归，情怀拉满戳老球迷",
+      "_category": "未分类",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-1"
     },
     {
-      "title": "米兰半场定死国米，小因扎吉的换人到底错在哪？",
+      "title": "谁先慌：两位主帅90分钟里谁敢先动第一张牌",
       "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "_is_fixture": true
+    },
+    {
+      "title": "当年那个追风少年曲波，如今白发苍苍，他还能跑得动吗？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 0,
-      "二级·突发": 2,
-      "三级·软性": 0
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -194,17 +267,29 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报互动引导未达标",
+      "环节": "隔夜战报",
+      "原因": "拜仁 vs 多特蒙德 生成失败",
+      "处置": "本批不补战报，不拿软性内容顶替",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -216,7 +301,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -230,8 +315,9 @@
   },
   "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-01 08:05:16"
+  "last_batch": "noon",
+  "last_updated": "2026-11-01 12:07:00"
 }
