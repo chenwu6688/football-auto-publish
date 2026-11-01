@@ -29,6 +29,7 @@ import supply_mix
 import rumor_wording
 import title_antipattern
 import title_positive
+import title_gate
 import interaction_bait
 import topic_category
 import content_reference
@@ -1894,15 +1895,29 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
 
             # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
             _ct = topic.get("content_type", "热点球评")
-            _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct, date_str or "")
+            _recent = recent_titles_for_gate(date_str or "")
+            _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct,
+                                                          date_str or "", recent_titles=_recent)
             if not _sc_pass:
-                last_hint = (f"标题未达及格线({_sc}分): " + "; ".join(_sc_reasons) +
-                             "。请按公式重拟：具体球队/球员+冲突反差动作+疑问收尾，字数18-30。")
-                if attempt < max_retries:
-                    continue
-                degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
-                             action="丢弃该选题并由候选池补位")
-                return {}, f"标题评分未过: {last_hint}"
+                # P0-1 打回策略：**先只重写标题**（正文已过忠实度/反洗稿/一致性三道闸门，
+                # 重跑整篇既费额度又会重新掷骰子），标题修好了就不动正文
+                _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+                                          recent_titles=_recent)
+                if _new_title:
+                    art["title"] = _new_title
+                    _sc, _sc_pass, _sc_reasons = score_title_plan(
+                        topic, _new_title, _ct, date_str or "", recent_titles=_recent)
+                if not _sc_pass:
+                    last_hint = (f"标题未达及格线({_sc}分): " + "; ".join(_sc_reasons) +
+                                 "。请按公式重拟：具体球队/球员+过程锚点（第几分钟/连进几球/"
+                                 "谁被换下）+冲突反差，字数18-30，不要以疑问句收尾。")
+                    if attempt < max_retries:
+                        continue
+                    degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
+                                 action="丢弃该选题并由候选池补位")
+                    return {}, f"标题评分未过: {last_hint}"
+            note_generated_title(art.get("title", ""))
+
 
             # 互动引导硬校验（R11 建议5 / 计划 13.5）：缺关注/互动引导 → 打回重写；
             # 最后一轮仍缺则放行，交由保存侧模板兜底注入（不丢整篇成稿）
@@ -2770,11 +2785,17 @@ def _classify_title_hook(title):
 
 
 def warn_title_hook_distribution(topics):
-    """非阻断：检查选题标题的钩子分布（P1-4 提点击率，目标 疑问≥60% / 冲突≥30%）。"""
+    """非阻断：检查选题标题的钩子分布。
+
+    ▼ 2026-11-01 头部对标后改为「锚点优先」：
+    原目标「疑问 ≥60%」正是把 85.5% 标题做成「他到底图个啥」的直接推手——头部 4 个
+    足球号的疑问句只占 0%~20.2%，靠的是过程锚点（让我方中位阅读停在 8 的那一维）。
+    现在：锚点 ≥40% 为好，疑问收尾超过 30% 反而告警（与 title_gate 的硬限额同向）。
+    """
     if not topics:
         return
     n = len(topics)
-    q = c = num = 0
+    q = c = num = anchor = 0
     for t in topics:
         is_q, has_conflict, has_num = _classify_title_hook(t.get("title", ""))
         if is_q:
@@ -2783,13 +2804,21 @@ def warn_title_hook_distribution(topics):
             c += 1
         if has_num:
             num += 1
+        if title_gate.has_anchor(t.get("title", "")):
+            anchor += 1
     qp, cp, np_ = q / n, c / n, num / n
-    print(f"   📊 标题钩子分布: 疑问 {q}/{n} ({qp:.0%}) | 冲突 {c}/{n} ({cp:.0%}) | 数据 {num}/{n} ({np_:.0%})")
-    if qp < 0.6:
-        print(f"   ⚠️ 疑问钩子偏低（{qp:.0%} < 60%）——点击率风险↑，建议增加「？/吗/凭什么」类标题")
+    ap = anchor / n
+    print(f"   📊 标题钩子分布: 锚点 {anchor}/{n} ({ap:.0%}) | 疑问 {q}/{n} ({qp:.0%}) "
+          f"| 冲突 {c}/{n} ({cp:.0%}) | 数据 {num}/{n} ({np_:.0%})")
+    if ap < 0.4:
+        print(f"   ⚠️ 过程锚点偏低（{ap:.0%} < 40%）——标题缺「过程反常」，"
+              f"建议写第几分钟/连进几球/谁被换下（头部覆盖 7.2%~35.7%，我方长期 2.6%）")
     if cp < 0.3:
         print(f"   ⚠️ 冲突钩子偏低（{cp:.0%} < 30%）——缺乏戏剧张力，建议增加反差/爆冷/绝杀类标题")
-    if qp >= 0.6 and cp >= 0.3:
+    if qp > 0.3:
+        print(f"   ⚠️ 疑问句式过多（{qp:.0%} > 30%）——头部只占 0%~20.2%，"
+              f"疑问收尾 14 天硬限额 2 篇，超限会被打回")
+    if ap >= 0.4 and cp >= 0.3 and qp <= 0.3:
         print(f"   ✅ 标题钩子分布达标")
 
 
@@ -2961,7 +2990,8 @@ def fill_article_defaults(art):
 # 计划合规层（评分器 / AI 标注 / 一致性校验）
 # 来源：《足球自媒体自动化选题与内容生产完善计划》v1.0
 #   - 5.1 评分器是「及格线」(60分)：低于打回重生成，高于放行，不做择优漏斗
-#   - 3.3 / 462 标题公式：具体人名或球队 + 冲突/反差动作 + 疑问收尾 + 字数 26-30
+#   - 3.3 / 462 标题公式：具体人名或球队 + 冲突/反差动作 + 字数 26-30
+#     （「疑问收尾」于 2026-11-01 头部对标后改为限额：见 title_gate 与计划 P0-1）
 #   - 7.2 发布前强制加入 AI 生成标注
 #   - 7.3 一致性校验：成稿专有名词/数字比对事实卡，卡外实体即打回
 # 覆盖：主稿 Pipeline A（改写）、突发层（紧急球评）、预测层（赛前预测）
@@ -2972,6 +3002,35 @@ _TITLE_LEN_BAND = {
     "紧急球评": (12, 28),
 }
 _TITLE_LEN_DEFAULT = (18, 30)
+
+# 本进程内已生成的标题（含尚未落盘的）——疑问收尾限额必须在**批内**也累计，
+# 否则同一批两篇都写成「他到底图个啥？」时，第二篇查磁盘看不到第一篇，限额形同虚设。
+_SESSION_TITLES: list[str] = []
+
+
+def note_generated_title(title: str) -> None:
+    """记一条本进程已生成标题（供 title_gate 限额累计）。"""
+    t = (title or "").strip()
+    if t and t not in _SESSION_TITLES:
+        _SESSION_TITLES.append(t)
+
+
+def reset_session_titles() -> None:
+    """清空进程内标题记录（单测与调试用）。"""
+    _SESSION_TITLES.clear()
+
+
+def recent_titles_for_gate(date_str: str = "") -> list[str]:
+    """近 14 天已发标题 + 本进程已生成标题；读不到历史就只返回本进程的。
+
+    读盘失败返回空列表（不猜、不补），闸门据此只按进程内累计判限额，不阻塞。
+    """
+    try:
+        hist = title_gate.recent_titles(OUTPUT_DIR, date_str or None)
+    except Exception:
+        hist = []
+    return list(hist) + list(_SESSION_TITLES)
+
 
 # 冲突/反差动作词（计划 3.3：冲突或反差动作）
 _TITLE_CONFLICT_KW = ["却", "反而", "逆袭", "惨败", "绝杀", "爆冷", "反转", "下课", "翻盘",
@@ -2992,10 +3051,11 @@ _KNOWN_TEAMS = {
 _KNOWN_PLAYERS = {"梅西", "C罗", "姆巴佩", "哈兰德", "内马尔", "贝林厄姆", "凯恩", "萨拉赫"}
 
 
-def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=None):
+def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=None,
+                     recent_titles=None):
     """计划合规·标题评分器（及格线 60）。
 
-    维度（计划 5.1/3.3/462）：字数、疑问钩子、具体对阵/球队/人物、冲突反差动作、
+    维度（计划 5.1/3.3/462）：字数、过程锚点、疑问钩子、具体对阵/球队/人物、冲突反差动作、
     板块对齐、自指惩罚、R11 标题正向规则（悬念词 +87% / 21-30 字最优 / 赛事名词垫底 /
     情绪词 -15%，见 title_positive.evaluate，只加分减分不阻塞）。返回
     (score:int 0-100, passed:bool, reasons:list[str])。
@@ -3013,6 +3073,16 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     同一模块的规则二——「以世界杯/决赛/小组赛等赛事泛指名词开场 + 无具体人物/球队 + 无钩子」
     此前只在 title_positive 减 12 分（及格线 60 → 不扣也及格、采用率 0%），现升级为同级
     硬打回（真实回测命中组零百阅读）。两条规则任一命中即 0 分打回。
+
+    ▼ 2026-11-01 头部对标后的口径调整（P0-1，见 docs/benchmark/2026-11-01-…md）
+    原公式把「疑问收尾」当第一优先级（+20 分，且 prompt 里写死「必须以？收尾」），
+    实测把我方 85.5% 的标题做成了「他到底图个啥」这类**没有过程的空问**，中位阅读 8；
+    而头部 4 个账号疑问句只占 0%～20.2%，靠的是「让3追4」「第94分钟」这种**过程锚点**。
+    故：
+      - 新增「过程锚点」维度 +15（唯一口径 title_features，命中即给，**不设必要条件**）；
+      - 疑问钩子从 +20 降为 +5，不再是最优解；
+      - ``recent_titles`` 给出时启用**疑问收尾限额**（title_gate：14 天 ≤2 篇），
+        超限即以疑问收尾 → 直接 0 分打回。
     """
     title = (title or "").strip()
     reasons = []
@@ -3033,6 +3103,11 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
         if _ta_penalty <= 0:
             return 0, False, list(_ta["reasons"]) + [_ta["hint"]]
 
+    # P0-1 疑问收尾限额（title_gate，14 天 ≤2 篇）：给 history 才判，不给不判
+    _tg = title_gate.check(title, recent_titles)
+    if not _tg["ok"]:
+        return 0, False, [_tg["reason"], _tg["hint"]]
+
     L = len(title)
     lo, hi = _TITLE_LEN_BAND.get(content_type, _TITLE_LEN_DEFAULT)
     if lo <= L <= hi:
@@ -3044,14 +3119,23 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
         score = max(0, 25 - (L - hi) * 2)
         reasons.append(f"标题偏长({L}字>{hi})")
 
-    # 疑问钩子（计划公式：疑问收尾）
+    # 过程锚点（P0-1 新增）：标题里有「过程反常」就给分——不设必要条件，
+    # 因为头部 4.2 万阅读爆款就没有锚点（「11战仅2胜」是战绩不是过程）。
+    _kinds = title_gate.anchor_kinds(title)
+    if _kinds:
+        score += 15
+        reasons.append(f"过程锚点：{'、'.join(_kinds)}")
+    else:
+        reasons.append("无过程锚点(建议写第几分钟/连进几球/谁被换下)")
+
+    # 疑问钩子（原优先级第一，现降为次要：头部疑问句占比 0%~20%，空问是最大垫底形态）
     has_q = bool(re.search(r"[?？]$", title)) or any(
         w in title for w in ("吗", "呢", "凭什么", "凭啥", "为啥", "为什么", "怎么", "究竟", "到底"))
     if has_q:
-        score += 20
-    else:
         score += 5
-        reasons.append("缺疑问钩子(建议以？/吗收尾)")
+        reasons.append("疑问句式(头部占比 0%~20%，不宜作为主力)")
+    else:
+        score += 8
 
     # 具体对阵/球队/人物
     has_specific = bool(re.search(r"(vs|VS|对阵|大战|德比|\b:\b|：)", title)) or any(
@@ -3114,6 +3198,80 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     if not passed and not reasons:
         reasons.append("综合得分未达60及格线")
     return score, passed, reasons
+
+
+def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
+                 max_try=2, temperature=0.6):
+    """**只重写标题**，正文一字不动（P0-1 计划的打回策略）。
+
+    为什么单独做一条链路：标题没过闸门时重跑整篇是三重浪费——
+      · 额度：正文 600-900 字要几千 token，标题只要几十；
+      · 风险：正文本来已经过了忠实度/反洗稿/一致性三道闸门，重跑会重新掷一次骰子，
+        有概率越改越差甚至被判不忠实，把一篇能用的稿子改废；
+      · 时间：整篇重生成是最慢的一步。
+
+    事实边界（硬）：标题只能重排**原标题与选题里已有**的人名/球队/数字，
+    不得引入新的比分、进球者、时间点——标题编造比正文编造更危险，因为它不带上下文。
+
+    返回新标题字符串；重拟失败或新标题仍不过闸门时返回 None（调用方按原逻辑兜底）。
+    """
+    old = (article or {}).get("title", "") or ""
+    if not old:
+        return None
+    # 调用方没给历史时自己读——否则「限额满了」这个打回原因会在重拟环节被忘掉，
+    # 模型随手又给一个空问标题，而这一版还会因为其他维度够分被采用。
+    if recent_titles is None:
+        recent_titles = recent_titles_for_gate(date_str or "")
+    topic_hint = " / ".join(str(x) for x in (
+        topic.get("home_zh"), topic.get("away_zh"), topic.get("conflict"),
+        topic.get("title"), topic.get("label")) if x)
+    reason_txt = "；".join(str(r) for r in (reasons or []) if str(r).strip()) or "标题未达及格线"
+
+    prompt = f"""你是头条号足球博主"球评人老六"的标题编辑。下面这条标题被打回，**只重写标题，正文不动**。
+
+原标题：{old}
+选题信息（可用的既有事实，不得超出）：{topic_hint or '（无）'}
+打回原因：{reason_txt}
+今天是 {date_str or '今日'}。
+
+硬要求：
+1. 26~30 字（含标点）。
+2. 必须含具体的人（球员/教练）或具体球队名。
+3. 必须含「过程锚点」——第几分钟、连进/连丢几球、谁被换下、补时读秒、红牌罚下、
+   替补建功之类；**只能取原标题与选题里已有的信息，不得编造新的比分/进球/时间**。
+4. 配一个数字或感叹号，或写清冲突/反差动作。
+5. **不要以疑问句（？/吗/呢）收尾**；要设问就放中段。
+6. 不得以比分或「大胜/血洗/绝杀/爆冷」这类赛果词开场（会命中硬规则被打回）。
+7. 不得用固定栏目前缀（「老六前瞻：」「赛前分析：」）。
+
+只输出 JSON：{{"title": "..."}}"""
+
+    messages = [
+        {"role": "system", "content": "你是体育媒体标题编辑，只输出 JSON，不解释。"},
+        {"role": "user", "content": prompt},
+    ]
+    for attempt in range(max(1, int(max_try))):
+        try:
+            data, _model = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                         temperature=temperature, max_tokens=200)
+        except QuotaExhaustedError:
+            print("   ⚠️ 标题重拟跳过：LLM 额度已耗尽")
+            return None
+        except Exception as e:
+            print(f"   ⚠️ 标题重拟异常 (attempt {attempt + 1}/{max_try}): {e}")
+            continue
+        new = (data or {}).get("title", "") if isinstance(data, dict) else ""
+        new = (new or "").strip().strip("《》").strip()
+        if not new or new == old:
+            continue
+        # 新标题必须自己过闸门，否则等于把问题原样搬回来
+        sc, ok, why = score_title_plan(topic, new, topic.get("content_type", "热点球评"),
+                                       date_str or "", recent_titles=recent_titles)
+        if ok:
+            print(f"   ✏️ 标题已单独重拟（{sc}分）：{new[:40]}")
+            return new
+        print(f"   ⚠️ 重拟标题仍未过闸门（{sc}分：{'；'.join(why)[:60]}）")
+    return None
 
 
 def append_ai_annotation(article, perspective=None):
@@ -3489,7 +3647,8 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
             if not _p_sc_pass:
                 if attempt < 2:
                     _hint = (f"标题未过及格线({_p_sc}分): " + "; ".join(_p_sc_reasons) +
-                             "。按公式重拟：具体对阵+冲突反差动作+疑问收尾。")
+                             "。按公式重拟：具体对阵+过程锚点（第几分钟/连进几球/谁被换下）"
+                             "+冲突反差，不要以疑问句收尾。")
                     messages[1]["content"] += f"\n⚠️ {_hint}\n"
                     print(f"   🔁 预测标题未过及格线({_p_sc}分): {'; '.join(_p_sc_reasons)}，重试换标题...")
                     continue
@@ -3685,6 +3844,118 @@ def _add_event_result_articles(*, articles, topics, images_map, stats, added, de
     return n
 
 
+def _add_event_angle_articles(*, articles, topics, images_map, stats, added, cap,
+                              date_str, batch_mode, topic_history, avoid_sigs):
+    """S 级事件的多切口编排（P0-2）：同一事件出 3 篇不同角度，返回新增篇数。
+
+    为什么单独成函数：这段逻辑要能被单测，也要在 code review 时一眼看清
+    「今天为什么同一个事件会出 3 篇」——埋在 4000 行 poc 里没人看得见。
+
+    与「事件结果稿」的区别：
+      - 结果稿是**取证**（谁获奖必须两家媒体对得上），一次事件只有一篇；
+      - 多切口是**编排**（同一批已核实事实，换 3 个切口各写一篇）。
+
+    四条硬约束（缺一不可，任一不满足就只是「本批不多切口」，不阻塞主流程）：
+      1. 仅 ``level: S`` 事件（event_cluster.s_events 判定，A 级不算）；
+      2. 事件必须有已核实 facts（没事实的多角度＝三个角度说三遍空话）；
+      3. 占用批次配额 ``cap``，不额外超发（10 月超发的教训）；
+      4. 同事件各篇标题句式/开头互不重复（event_cluster.distinct_enough）。
+    """
+    import event_cluster
+
+    n = 0
+    plan_log: list[dict] = []
+    try:
+        events = event_cluster.s_events(date_str)
+    except Exception as e:
+        print(f"   ⚠️ S 级事件识别异常（跳过，不影响发布）: {e}")
+        return 0
+    if not events:
+        return 0
+    if cap <= 0:
+        print(f"   🎯 S 级事件 {len(events)} 个，但本批无配额（cap={cap}），不做多切口")
+        return 0
+
+    for ev in events:
+        if added + n >= cap:
+            break
+        # 本事件当日已发/本批已生成的标题：用于避开已用角度 + 保证句式不撞
+        sibling_titles: list[str] = []
+        try:
+            sibling_titles = [t.get("title", "") for t in topics
+                              if event_cluster.event_key_of(t) == ev["event_key"]]
+        except Exception:
+            sibling_titles = []
+        plan = event_cluster.plan_angles(ev, sibling_titles,
+                                        max_angles=min(event_cluster.MAX_ANGLES_PER_EVENT,
+                                                       cap - added - n))
+        if not plan:
+            print(f"   🎯 S 级事件「{ev['label']}」角度已用尽或事实不足，不再多切口")
+            plan_log.append({"event": ev["label"], "planned": [], "reason": "角度已用尽/事实不足"})
+            continue
+
+        gen_titles: list[str] = []
+        for p in plan:
+            if added + n >= cap:
+                break
+            art = generate_node_angle_article(
+                {**ev, **p}, date_str=date_str,
+                recent_prefixes=(topic_history or {}).get("title_prefixes"),
+                batch_mode=batch_mode, avoid_signatures=avoid_sigs,
+                sibling_titles=sibling_titles + gen_titles)
+            if not art:
+                continue
+            # 硬约束 4：同事件各篇标题句式/开头不得重复，撞了就丢这一篇重排
+            chk = event_cluster.distinct_enough(gen_titles + [art.get("title", "")])
+            if not chk["ok"]:
+                print(f"   ⚠️ 多切口标题撞车（{chk['dups'] or chk['heads']}），丢弃本篇")
+                degrade.note("多切口", f"{ev['label']}·{p['angle']} 标题与同事件其他篇撞车",
+                             action="丢弃该角度，本批少发一篇（绝不改标题凑数）")
+                continue
+            # 首图也必须错开：同事件三篇用同一张图，读者一眼看出来是同一篇
+            img_topic = {
+                "title": art.get("title", ""),
+                "keywords_cn": [ev["label"], p["angle"]] + list(art.get("keywords_cn") or [])[:2],
+                "keywords": ["football", ev["node_id"] or "event"],
+            }
+            images_map[len(articles)] = search_images(img_topic, count=3)
+            art["_batch_name"] = batch_cfg_name(batch_mode)
+            stats["generated"] += 1
+            stats["valid"] += 1
+            warn_if_low_info_increment(art)
+            articles.append((len(articles), art))
+            topics.append({
+                "title": art.get("title", ""),
+                "content_type": art.get("content_type", ""),
+                "_is_fixture": True,
+                "_supply_layer": "一级·确定性·事件多切口",
+                "node_id": ev["node_id"],
+                "_event_key": ev["event_key"],
+            })
+            gen_titles.append(art.get("title", ""))
+            n += 1
+            print(f"   🎯 多切口已追加[{p['angle']}]: {art['title'][:46]}")
+        plan_log.append({"event": ev["label"], "event_key": ev["event_key"],
+                         "planned": [p["angle"] for p in plan], "generated": len(gen_titles)})
+
+    if plan_log:
+        try:
+            event_cluster.audit({"generated_at": datetime.now().isoformat(timespec="seconds"),
+                                 "date": date_str, "cap": cap, "added": n,
+                                 "events": plan_log})
+        except Exception:
+            pass
+    return n
+
+
+def batch_cfg_name(batch_mode):
+    """批次显示名（供留痕字段用；取不到就原样返回 batch_mode）。"""
+    try:
+        return (BATCH_CONFIG.get(batch_mode) or {}).get("name", batch_mode)
+    except Exception:
+        return batch_mode
+
+
 def _build_fixture_fact_card(facts):
     """事实层：把积分榜/射手榜/站位组装成 LLM 唯一可引用的事实卡（中文）。"""
     lines = [
@@ -3775,33 +4046,47 @@ def _build_recap_fact_card(topic):
     return "\n".join(lines)
 
 
-def score_fixture_title(topic, title, batch_mode="auto"):
+def score_fixture_title(topic, title, batch_mode="auto", *, recent_titles=None):
     """管道内规则评分器（计划 5.1/7.2）：及格线 60 分，低于阈值打回重生成。
 
-    评分维度（计划 5.1：字数、问号、板块、时段 —— 只判格式合规，不作择优漏斗）：
-      - 字数 30 分：26~30 字达标；22~34 字给 20；其余 0（计划 3.3：字数落在 26 至 30 字）。
-      - 疑问收尾 30 分：以『？』收尾满分；含疑问词（吗/呢/为何/凭什么/怎么/谁更）给 18；否则 0
-        （计划 3.3：以疑问收尾）。
-      - 具体对阵 25 分：标题含主客队双方各 25；含一方 15；否则 0（计划 3.3：具体人名或球队+冲突反差）。
+    评分维度（计划 5.1：字数、板块、时段 —— 只判格式合规，不作择优漏斗）：
+      - 字数 25 分：26~30 字达标；22~34 字给 18；其余 0（计划 3.3：字数落在 26 至 30 字）。
+      - 过程锚点 30 分：命中 title_features 的 13 类过程锚点给满分；无锚点但含具体数字给 12。
+        **不设必要条件**——头部 4.2 万阅读爆款没有锚点（「11战仅2胜」是战绩不是过程），
+        按必要条件判会误杀整类战绩型标题。
+      - 具体对阵 25 分：标题含主客队双方各 25；含一方 15；否则 0。
       - 板块保底 15 分：赛程确定性选题默认给到（避免误杀）。
+    疑问收尾不再计分（原为 30 分，权重最高的一维）：2026-11-01 对标显示那是我方
+    85.5% 标题变成「他到底图个啥」空问的直接成因，头部只占 0%~20%。
+    ``recent_titles`` 给出时启用疑问收尾限额（title_gate，14 天 ≤2 篇），超限即 0 分。
     返回 (score 0~100, reasons)。
     """
     t = (title or "").strip()
     n = len(t)
     reasons = []
     score = 0
+
+    # P0-1 疑问收尾限额（先判，命中即 0 分打回，不吃后续加分）
+    _tg = title_gate.check(t, recent_titles)
+    if not _tg["ok"]:
+        return 0, [_tg["reason"], _tg["hint"]]
+
     if 26 <= n <= 30:
-        score += 30; reasons.append("字数达标")
+        score += 25; reasons.append("字数达标")
     elif 22 <= n <= 34:
-        score += 20; reasons.append(f"字数略偏({n})")
+        score += 18; reasons.append(f"字数略偏({n})")
     else:
         reasons.append(f"字数偏差({n})")
-    if t.endswith("？") or t.endswith("?"):
-        score += 30; reasons.append("疑问收尾")
-    elif any(k in t for k in ("吗", "呢", "为何", "凭什么", "怎么", "为啥", "谁更", "究竟")):
-        score += 18; reasons.append("含疑问词")
+
+    # 过程锚点（P0-1 新增，替代原「疑问收尾 30 分」的位置）
+    _kinds = title_gate.anchor_kinds(t)
+    if _kinds:
+        score += 30; reasons.append(f"过程锚点：{'、'.join(_kinds)}")
+    elif re.search(r"\d", t):
+        score += 12; reasons.append("无锚点但含具体数字")
     else:
-        reasons.append("无疑问收尾")
+        reasons.append("无过程锚点(建议写第几分钟/连进几球/谁被换下)")
+
     home, away = topic.get("home_zh", ""), topic.get("away_zh", "")
     if home and home in t and away and away in t:
         score += 25; reasons.append("含主客队")
@@ -3810,6 +4095,7 @@ def score_fixture_title(topic, title, batch_mode="auto"):
     else:
         reasons.append("未含对阵队名")
     score += 15; reasons.append("板块保底")
+
 
     # R11 数据结论：标题正向规则（确定性供给同口径；主客队名已知即视为「具体」）
     _tp = title_positive.evaluate(
@@ -3823,6 +4109,26 @@ def score_fixture_title(topic, title, batch_mode="auto"):
         reasons.extend(_tp["reasons"])
 
     return min(100, score), reasons
+
+
+def ensure_fixture_title(topic, article, date_str="", *, batch_mode="auto"):
+    """确定性/战报/结果稿共用的标题处理：算分 → 不过 60 就先只重写标题再复算。
+
+    返回 (title, score, reasons)。**不改变失败处理策略**——是否打回、兜底还是丢弃，
+    仍由各调用方自己的 attempt 循环决定；这里只负责「尽量在不重跑正文的前提下把标题修好」。
+    正文（content）一律不动。
+    """
+    recent = recent_titles_for_gate(date_str or "")
+    title = (article or {}).get("title", "") or ""
+    score, reasons = score_fixture_title(topic, title, batch_mode, recent_titles=recent)
+    if score >= 60:
+        return title, score, reasons
+    new = repick_title(topic, article, reasons, date_str or "", recent_titles=recent)
+    if not new:
+        return title, score, reasons
+    article["title"] = new
+    score2, reasons2 = score_fixture_title(topic, new, batch_mode, recent_titles=recent)
+    return new, score2, reasons2
 
 
 def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None, batch_mode="auto", avoid_signatures=None):
@@ -3884,8 +4190,13 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
 今天是 {date_str or '今日'}，比赛在北京时间 {topic.get('kickoff_cst', '')} 开球。
 {prefix_hint}
 写作硬规则（严格按计划 v1.0 第三章/第五章/第七章）：
-1. 标题公式（R11 回测口径）：以**具体的人或球队** + **悬念词**（没想到／原来／竟然／居然／反转，
-   回测点击率 +87%）开头，以疑问『？』收尾；字数严格落在 26~30 字（含标点）。
+1. 标题公式（2026-11-01 头部对标口径，已覆盖旧「疑问收尾」公式）：
+   以**具体的人或球队** + **过程锚点**开头——第几分钟、连进/连丢几球、谁被换下、
+   补时读秒、红牌罚下、替补建功（头部 4 个账号锚点覆盖 7.2%~35.7%，我方此前 2.6%）；
+   配一个数字或感叹号。字数严格落在 26~30 字（含标点）。
+   **不要以疑问句收尾**：近 14 天「？/吗/呢」收尾限额仅 2 篇，超限即打回重写。
+   我方旧标题有 85.5% 是「他到底图个啥？」这类没有过程的空问，中位阅读 8；
+   头部疑问句只占 0%~20.2%。要用设问就放中段，别拿它当句尾。
    **严禁写成「A队 vs B队」的对阵前瞻或纯战术罗列**——同一条赛程线索「写人」比「写事」
    高 3-10 倍点击；把镜头对准主帅/核心球员的处境与选择，而不是两队的强弱对比。
    严禁『XX前瞻』『赛前分析』等模板化标题（赛事前瞻已停发，计划 7.1 验收：前瞻体占比为零）。
@@ -3901,7 +4212,7 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
    「⚠️ 本文由 AI 生成，数据来源：football-data.org / 聚合数据，赛程与数据以官方为准；文中观点为基于公开数据的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(26-30字，具体对阵/人名+冲突反差开头，必须以疑问？收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，具体人名/对阵+过程锚点+数字或感叹，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -3937,7 +4248,8 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                 degrade.note("标题句式满额", f"{_sig} 已用满 {template_gate.MAX_PER_SIGNATURE} 篇",
                              action="兜底放行，记入待复盘（不阻塞发布）")
             # 评分器及格线（计划 5.1/7.2）：低于 60 分打回重生成，最多两次（attempt 0,1 重试，第 3 次兜底放行）
-            s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
+            title, s_score, s_reasons = ensure_fixture_title(topic, article, date_str,
+                                                             batch_mode=batch_mode)
             if s_score < 60:
                 if attempt < 2:
                     print(f"   ⚠️ 确定性供给标题评分 {s_score} 未过及格线(60) [{','.join(s_reasons)}] (attempt {attempt + 1}/3)，重生成...")
@@ -3960,6 +4272,7 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
                 degrade.note("互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
                              action="保存侧模板兜底注入（不丢弃成稿）")
             article["title"] = title
+            note_generated_title(title)
             article["content_type"] = content_type
             article["板块"] = topic.get("板块", content_type)
             article["_is_fixture"] = True
@@ -4029,9 +4342,11 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
 1. 标题：**一律不带比分、不写「A队2-1B队」这类赛果式开头**。
    R11 回测（869 条真实导出）里，比分/赛果式标题产量占 23.9%、CTR 仅 0.49%、0 爆款，
    是全部形态里最差的一类——标题可以写「谁绝杀」，但不能写「2-1」。
-   正确做法：从**人的处境或选择**切入（谁在第 87 分钟那一下做了错的选择、谁被换下场后
-   比赛才转向、谁扛下了那个点球），26~30 字（含标点），以疑问『？』收尾，
-   必须出现至少一支球队名或一名当事人。比分的交代放到正文第一段。
+   正确做法：从**过程**切入（谁在第 87 分钟那一下做了错的选择、第几分钟连丢两球后
+   比赛才转向、谁被换下场后局势才变），把那个「过程反常」直接写进标题，
+   配上具体数字或感叹号，26~30 字（含标点）。
+   **不要以疑问句收尾**（近 14 天「？/吗/呢」收尾限额 2 篇，超限即打回）；
+   要设问就放中段。必须出现至少一支球队名或一名当事人。比分的交代放到正文第一段。
    禁止「XX前瞻」「赛后分析」「复盘：」这类模板前缀，禁止与近期赛前稿同句式。
 2. 比分唯一口径：全文出现比分时必须与事实卡「最终比分」完全一致（主队在前、客队在后）。
    可写「2-1」，也可写「2比1」，但**方向和数字不得改动**，不得出现第二个互相矛盾的比分。
@@ -4050,7 +4365,7 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
    「⚠️ 本文由 AI 生成，数据来源：football-data.org，赛果与数据以官方为准；文中观点为基于公开数据的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(26-30字，赛果反差+具体的人，必须以疑问？收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，赛果反差+具体的人+过程锚点，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -4114,7 +4429,8 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
                 print(f"   ❌ 战报仍出现卡外比分 {bad_scores}，丢弃（宁缺勿错）")
                 return None
 
-            s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
+            title, s_score, s_reasons = ensure_fixture_title(topic, article, date_str,
+                                                             batch_mode=batch_mode)
             if s_score < 60:
                 if attempt < 2:
                     print(f"   ⚠️ 战报标题评分 {s_score} 未过及格线(60) [{','.join(s_reasons)}]，重生成...")
@@ -4133,6 +4449,7 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
                              action="保存侧模板兜底注入（不丢弃成稿）")
 
             article["title"] = title
+            note_generated_title(title)
             article["content_type"] = content_type
             article["板块"] = content_type
             # 层级标签必须显式：供 supply_mix.classify 判定（显式标签优先）。
@@ -4213,7 +4530,8 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
 {prefix_hint}
 写作硬规则：
 1. 标题：从**人**切入——他的处境、他这次赢下的是什么、这个结果为什么值得争。
-   26~30 字（含标点），以疑问『？』收尾，必须出现获奖者姓名或所属球队/国家。
+   26~30 字（含标点），**不要以疑问句收尾**（近 14 天「？/吗/呢」收尾限额 2 篇，
+   超限即打回；要设问就放中段），必须出现获奖者姓名或所属球队/国家。
    禁止「XX加冕」「官宣：」这类通报式前缀，禁止「谁该拿」「你看好谁」这类赛前句式
    （结果已经出了，再问就是装傻）。
 2. 获奖者姓名严格照抄事实卡「已揭晓结果」，一个字都不能改、不能加译名。
@@ -4231,7 +4549,7 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
    (c) 显式标注：「⚠️ 本文由 AI 生成，开奖结果经多源交叉核实，数据以官方公布为准；文中观点为基于公开信息的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(26-30字，人切入，以疑问？收尾)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，人切入，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -4275,7 +4593,8 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
                     continue
                 degrade.note("结果稿标题句式满额", _sig, action="兜底放行，记入待复盘")
 
-            s_score, s_reasons = score_fixture_title(topic, title, batch_mode)
+            title, s_score, s_reasons = ensure_fixture_title(topic, article, date_str,
+                                                             batch_mode=batch_mode)
             if s_score < 60:
                 if attempt < 2:
                     print(f"   ⚠️ 结果稿标题评分 {s_score} 未过线 [{','.join(s_reasons)}]，重生成...")
@@ -4291,6 +4610,7 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
                              action="保存侧模板兜底注入（不丢弃成稿）")
 
             article["title"] = title
+            note_generated_title(title)
             article["content_type"] = content_type
             article["板块"] = content_type
             # 一级·确定性：事件节点属于可预期的日历类供给（与赛程/节点同档），
@@ -4311,6 +4631,132 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
                 continue
             print(f"   ❌ 结果稿生成失败: {e}")
             return None
+
+
+def generate_node_angle_article(topic, date_str=None, recent_prefixes=None,
+                                batch_mode="auto", avoid_signatures=None,
+                                sibling_titles=None):
+    """S 级事件的多切口稿（P0-2）：同一批已核实事实，按指定角度独立成一篇。
+
+    事实边界（硬）：只用 ``topic['facts']``（season_calendar 里人工多源核实过的条目）
+    与本题角度指令；卡外的数字、比分、引语一律不得出现。
+
+    ``sibling_titles``：同事件已生成的兄弟篇标题。提示模型**不得复述**它们的角度，
+    这是「多切口」不变成「同一篇写三遍」的关键——比事后去重更省额度。
+    """
+    if not topic:
+        return None
+    angle = topic.get("angle") or ""
+    facts = [str(f).strip() for f in (topic.get("facts") or []) if str(f).strip()]
+    if not angle or not facts:
+        return None
+    content_type = topic.get("column") or "战术榜单"
+    hint = topic.get("angle_hint") or ""
+
+    fact_lines = "\n".join(f"- {f}" for f in facts)
+    siblings = [t for t in (sibling_titles or []) if (t or "").strip()]
+    sibling_block = ""
+    if siblings:
+        sibling_block = (
+            "\n## 同事件已发的其他角度（**严禁复述、严禁换个说法重写**）\n"
+            + "\n".join(f"- {t}" for t in siblings[:5])
+            + "\n每一篇只回答自己那个角度的问题，读者连着看不能觉得是同一篇。\n"
+        )
+
+    prefix_hint = ""
+    if recent_prefixes:
+        sample = list(recent_prefixes)[:12]
+        prefix_hint = (f"\n⚠️ 近 7 天已用过的标题开头（前 6 字）不可再用：{sample}\n")
+
+    prompt = f"""你是头条号足球博主"球评人老六"，10万粉丝，犀利、有数据感、不骑墙。
+
+今天发生了一个大事件：{topic.get('label', '')}（{topic.get('node_date', '')}）。
+我们要围绕它写**多篇不同切口**的稿子，你这一篇只负责「{angle}」这个角度。
+
+## 事实卡（唯一事实来源，严禁编造卡外数据）
+{fact_lines}
+{sibling_block}
+## 你的角度：{angle}
+{hint}
+
+## 写作要求
+1. 标题：以**具体的人或事 + 过程锚点**（第几分钟/连进几球/谁被换下/等了几年/连输几场）
+   开头，配数字或感叹号，26~30 字（含标点）。
+   **不要以疑问句（？/吗/呢）收尾**——近 14 天这类收尾限额 2 篇，超限即打回；要设问放中段。
+2. 全文只能使用上方事实卡里的信息；卡里没有的数字、比分、引语、时间点一律不写，
+   宁可不提也不编造。观点可以鲜明，事实必须来自卡。
+3. 正文 600~900 字，Markdown，含 2~3 个 ## 小标题，开头 2 句内进入角度，不要写导语式背景。
+4. 只写这一个角度。别人已写的角度（见上）不要复述，也不要写「全景式总结」。
+5. 文末必须包含：
+   (a) 一句引评论区讨论的互动引导（自然口语，不要模板腔）；
+   (b) 一段「老六视角」——基于事实卡的独立判断。
+6. 文末另须标注：「⚠️ 本文由 AI 生成，事实来源：见文中所引公开报道；观点仅供参考。」
+{prefix_hint}
+输出纯JSON:
+{{"title": "标题(26-30字，过程锚点+具体的人，禁止疑问句收尾)", "content": "Markdown正文", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+只输出JSON。"""
+
+    messages = [
+        {"role": "system", "content": "你是体育评论作者，只基于给定事实卡写作，不编造卡外数据。只输出JSON。"},
+        {"role": "user", "content": prompt},
+    ]
+
+    for attempt in range(3):
+        try:
+            article, _model = call_llm_json(messages, LLM_JSON_CANDIDATES,
+                                            temperature=0.7, max_tokens=4096)
+            if not isinstance(article, dict) or not article.get("title"):
+                if attempt < 2:
+                    continue
+                return None
+            content = article.get("content", "") or ""
+            if len(content) < 200:
+                if attempt < 2:
+                    continue
+                return None
+            title = (article.get("title", "") or "").strip()
+
+            _sig = template_gate.signature_of(title)
+            if _sig and avoid_signatures and _sig in avoid_signatures:
+                if attempt < 2:
+                    print(f"   ⚠️ 多切口标题命中已满句式「{_sig}」，重生成...")
+                    continue
+                degrade.note("标题句式满额", f"{_sig} 已用满", action="兜底放行")
+
+            title, s_score, s_reasons = ensure_fixture_title(
+                {**topic, "home_zh": "", "away_zh": ""}, article, date_str,
+                batch_mode=batch_mode)
+            if s_score < 60:
+                if attempt < 2:
+                    print(f"   ⚠️ 多切口标题评分 {s_score} 未过线 [{','.join(s_reasons)}]，重生成...")
+                    continue
+                print(f"   ⚠️ 多切口标题评分 {s_score} 仍不过，兜底放行")
+
+            _ib = check_interaction_bait(article)
+            if not _ib["ok"]:
+                if attempt < 2:
+                    continue
+                degrade.note("多切口互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
+                             action="保存侧模板兜底注入（不丢弃成稿）")
+
+            article["title"] = title
+            note_generated_title(title)
+            article["content_type"] = content_type
+            article["板块"] = content_type
+            article["_is_fixture"] = True
+            article["_supply_layer"] = "一级·确定性·事件多切口"
+            article["_event_key"] = topic.get("event_key", "")
+            article["_event_angle"] = angle
+            article["node_id"] = topic.get("node_id", "")
+            article["sources_used"] = [topic.get("fact_source_url") or "season_calendar（人工核）"]
+            print(f"   ✅ 多切口生成成功[{angle}](score={s_score}): {title[:46]} ({len(content)}字)")
+            return article
+        except Exception as e:
+            if attempt < 2:
+                continue
+            print(f"   ❌ 多切口生成失败[{angle}]: {e}")
+            return None
+    return None
 
 
 def main():
@@ -4637,6 +5083,35 @@ def main():
                           f"（{na.get('node_type', '')}）")
             except Exception as e:
                 print(f"   ⚠️ 节点确定性供给取用异常 (不影响主流程): {e}")
+
+        # ============================================================
+        # S 级事件多切口（P0-2，2026-11-01 头部对标）
+        # ============================================================
+        # 病根：金球奖当天我爱英超发了 15 条、我方 1 条。不是写得少，是**一个事件
+        # 只写一个角度**。六类角度（结果/冲突/人物情绪/影响/历史对比/数据）各写一篇，
+        # 读者不会觉得重复，而只写一篇就等于拿 1 条去跟 15 条抢流量。
+        #
+        # 三条边界（见 event_cluster.py）：
+        #   · 只对 level: S 且有已核实 facts 的事件启用（A 级不算，没事实不写空话）；
+        #   · 占批次配额、给主稿留 1 位，绝不额外超发（10 月超发的教训）；
+        #   · 单日上限 MAX_ANGLES_PER_DAY 篇，多事件同日也不放大。
+        # 事件日允许一级·确定性单批超出日常 det_cap——它顶替的是当天的低价值选题，
+        # 不是凭空加量；次日 det_cap 会因当日用量回落，自然回归常态。
+        if max_articles - len(articles) > 1:
+            try:
+                import event_cluster
+                _angle_cap = min(event_cluster.MAX_ANGLES_PER_DAY,
+                                 max(0, max_articles - len(articles) - 1))
+                angle_added = _add_event_angle_articles(
+                    articles=articles, topics=topics, images_map=images_map,
+                    stats=stats, added=0, cap=_angle_cap, date_str=date_str,
+                    batch_mode=batch_mode, topic_history=topic_history,
+                    avoid_sigs=_avoid_sigs)
+                if angle_added:
+                    print(f"   🎯 本批多切口 {angle_added} 篇（上限 {_angle_cap}）："
+                          f"S 级事件多角度覆盖，占批次配额不超发")
+            except Exception as e:
+                print(f"   ⚠️ 多切口编排异常 (不影响主流程): {e}")
 
         # 动态条数：确定性供给已占用配额（P0 修法 A），主稿只填剩余槽位
         # （常态 2 篇；周四或 S 级事件按 batch_quota 加发时上限提高，见本函数开头 quota）

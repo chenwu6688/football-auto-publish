@@ -32,10 +32,12 @@ def test_classify_plain_title_no_false_hook():
 
 
 def test_warn_title_hook_distribution_balanced(capsys):
+    # 2026-11-01 头部对标后，达标口径从「疑问≥60%」改为「过程锚点≥40% + 冲突≥30% + 疑问≤30%」。
+    # 三条都是带锚点、非疑问收尾的真实头部风格标题。
     topics = [
-        {"title": "今年的转会窗是不是变味了？", "content_type": "转会资讯"},
-        {"title": "没了梅西巴萨反而更强？", "content_type": "战术解析"},
-        {"title": "51血洗！马竞遭遇史上最大惨败", "content_type": "热点球评"},
+        {"title": "让3追4！拜仁30分钟连轰4球完成大逆转", "content_type": "热点球评"},
+        {"title": "第94分钟丢球，阿森纳遭读秒绝杀", "content_type": "热点球评"},
+        {"title": "主场0-3大败，利物浦近7轮输了6场彻底崩盘", "content_type": "热点球评"},
     ]
     oc.warn_title_hook_distribution(topics)
     out = capsys.readouterr().out
@@ -43,7 +45,8 @@ def test_warn_title_hook_distribution_balanced(capsys):
     assert "达标" in out
 
 
-def test_warn_title_hook_distribution_low_question(capsys):
+def test_warn_title_hook_distribution_no_anchor(capsys):
+    # 无锚点即告警——这是我方 76 篇（中位阅读 8）的真实形态：全是空问与平铺直叙
     topics = [
         {"title": "曼联战胜切尔西", "content_type": "热点球评"},
         {"title": "拜仁击败多特", "content_type": "热点球评"},
@@ -51,7 +54,20 @@ def test_warn_title_hook_distribution_low_question(capsys):
     ]
     oc.warn_title_hook_distribution(topics)
     out = capsys.readouterr().out
-    assert "疑问钩子偏低" in out
+    assert "过程锚点偏低" in out
+
+
+def test_warn_title_hook_distribution_too_many_questions(capsys):
+    # 旧口径下「疑问 67%」叫达标；新口径下这是被对标证伪的形态，必须告警
+    topics = [
+        {"title": "今年的转会窗是不是变味了？", "content_type": "转会资讯"},
+        {"title": "没了梅西巴萨反而更强？", "content_type": "战术解析"},
+        {"title": "他到底图个啥呢", "content_type": "人物故事"},
+    ]
+    oc.warn_title_hook_distribution(topics)
+    out = capsys.readouterr().out
+    assert "疑问句式过多" in out
+    assert "达标" not in out
 
 
 def test_warn_type_balance_newseason_floor(capsys):
