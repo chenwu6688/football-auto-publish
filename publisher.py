@@ -1143,12 +1143,17 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
     fail = sum(1 for r in records if r.get("status") == "failed")
     skip = sum(1 for r in records if r.get("status") == "skipped_prediction")
     no_pid = sum(1 for r in records if r.get("status") == "published" and not r.get("platform_id"))
+    # 无封面发布篇数：头条「封面模式」在 0 图时被主动设成「无封面」，
+    # 而这条路径的聚合点击率只有有封面篇的 1/4（2026-11-01 体检）。
+    no_cover = sum(1 for r in records
+                   if r.get("status") == "published" and not (r.get("images") or 0))
     payload = {
         "date": date_str,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "batch_filter": batch_filter or "",
         "counts": {"total": len(records), "published": ok, "failed": fail,
-                   "skipped_prediction": skip, "published_without_id": no_pid},
+                   "skipped_prediction": skip, "published_without_id": no_pid,
+                   "published_without_cover": no_cover},
         "platform_id_binding": binding or {},
         "records": records,
         "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
@@ -1249,10 +1254,14 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
                 result = publish_article(page, article, date_str, draft_mode)
                 title_short = article['title'][:35]
                 _pid = str(result.get("pgc_id") or "").strip()
+                # 正文内嵌图数量 = 头条「封面模式」的判定依据：0 张 → 发布时主动选「无封面」。
+                # 2026-11-01 体检：10 月已发布篇里 37% 走的就是这条路，这类篇的聚合点击率
+                # 0.52%，有封面的 2.07%（差 4 倍）。这个数字必须进台账，否则无封面率永远是黑的。
+                _img_n = len(extract_images(article.get("body") or ""))
                 _rec = {"title": article["title"],
                         "slug": (article.get("meta") or {}).get("slug") or "",
                         "batch_name": article.get("batch_name") or "",
-                        "platform_id": _pid, "reason": ""}
+                        "platform_id": _pid, "reason": "", "images": _img_n}
                 if result.get("ok"):
                     print(f"  ✅ [{article['index']}] {title_short}")
                     publish_ok += 1
@@ -1283,7 +1292,8 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
                 records.append({"status": "failed", "title": article["title"],
                                 "slug": (article.get("meta") or {}).get("slug") or "",
                                 "batch_name": article.get("batch_name") or "",
-                                "platform_id": "", "reason": f"异常: {e}"[:200]})
+                                "platform_id": "", "reason": f"异常: {e}"[:200],
+                                "images": len(extract_images(article.get("body") or ""))})
 
         browser.close()
 

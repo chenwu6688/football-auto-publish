@@ -1122,6 +1122,18 @@ def search_wikipedia(entity_name, lang="en"):
 
 
 def search_footyrenders(keywords, count=5):
+    """footyrenders 球员图（**已停用**，见 search_images 注释）。
+
+    ▼ 2026-11-01 查实：`/cdn/players/<slug>.png` 返回的是 **50×50、约 2KB** 的占位缩略图，
+    而保存侧 `ImageService.download_image` 要求 min 800×600 / 51200 字节 —— 候选进了池子
+    也必然在下载环节被全部丢弃。历史上前端「有 3 张候选图，最后 0 张落盘」就是这么来的。
+
+    同时修掉一处相关性 bug：原来抓 `?s=<slug>` 页面里的**全部** png，其中含站点侧栏的
+    「热门球员」推荐位，代码直接 `[:count]` 取前几张 → 查 Messi 第一个返回 C 罗。
+    现在按 slug 与检索词匹配后才收（万一以后换图源重启用，也不会再把无关球员当封面）。
+
+    函数保留（多处 import 与单测引用），但 search_images 不再调用它。
+    """
     images = []
     search_terms = set()
     for kw in keywords:
@@ -1141,12 +1153,92 @@ def search_footyrenders(keywords, count=5):
                 for png in pngs:
                     if "1x1-pixel" in png:
                         continue
+                    # 只收与检索词对得上的那张：页面里混着侧栏「热门球员」，不过滤就会
+                    # 给「梅西」配上「C 罗」的图（实测发生过）。
+                    if term not in png:
+                        continue
                     url = f"https://www.footyrenders.com{png}"
                     if url not in [img["url"] for img in images]:
-                        images.append({"url": url, "source": "footyrenders", "alt": term.replace("-", " ").title()})
+                        images.append({"url": url, "source": "footyrenders",
+                                       "alt": term.replace("-", " ").title()})
         except Exception:
             pass
     return images[:count]
+
+
+def _title_matches(name, title):
+    """维基条目名与查询实体是否指同一件事（够用的粗判，不用消歧义库）。
+
+    判据：去掉「足球俱乐部/俱乐部」这类通名后缀后，一方包含另一方即算匹配。
+    这样 `国际米兰 → 国际米兰足球俱乐部`（重定向）能过，
+    而 `国际米兰 → 2021年国际冠军杯`（搜索飘了）、`米兰 → 米兰`（城市条目）能拦住。
+    """
+    core = (name or "").strip().replace("足球俱乐部", "").replace("俱乐部", "")
+    t = (title or "").strip()
+    if not core or not t:
+        return False
+    return core in t or t in core
+
+
+def search_wikipedia_entity(name, langs=("zh", "en"), timeout=6):
+    """按任意实体名取维基配图（精确页 → 搜索兜底），返回至多 1 张。
+
+    为什么需要它：原来只认 `WIKI_PLAYERS`(18 人) / `WIKI_TEAMS`(15 队) 两张手工表，
+    实体不在表里就一路 0 图。而 `config/entity_map.json` 里有几百个中英文实体——
+    拿它去搜维基，等于把图源覆盖率从「33 个实体」扩到「整个实体词典」。
+
+    返回的 image dict 带 `source="wikipedia"` 与 `alt=<解析到的页名>`，供 cover_binding 判定；
+    解析到的页名与查询名完全无关时（维基搜索会飘）直接丢弃，避免又造出「图文不符」。
+    """
+    if not name:
+        return None
+    for lang in langs:
+        base = f"https://{lang}.wikipedia.org"
+        headers = {"User-Agent": "WusongShuru/1.0 (football-auto-publish)"}
+        title = None
+        # 1) 先按精确页名试（中文实体多半能直接命中）
+        try:
+            resp = requests.get(f"{base}/api/rest_v1/page/summary/"
+                                f"{requests.utils.quote(name)}",
+                                headers=headers, timeout=timeout)
+            if resp.status_code == 200:
+                d = resp.json()
+                if not d.get("disambiguation"):
+                    title = d.get("title") or None
+                    img = (d.get("originalimage") or d.get("thumbnail") or {}).get("source")
+                    # 精确页也要校验页名相关性：维基里「米兰」可能是城市条目，
+                    # 拿到的是大教堂照片而不是球队。重定向（国际米兰→国际米兰足球俱乐部）
+                    # 因为核心名被包含，仍然放行。
+                    if img and _title_matches(name, title or ""):
+                        return {"url": img, "source": "wikipedia",
+                                "alt": title or name, "query": name}
+        except Exception:
+            pass
+        # 2) 精确页取不到图 → 搜索 API 拿最相关条目再取摘要
+        try:
+            sr = requests.get(f"{base}/w/api.php", params={
+                "action": "query", "list": "search", "srsearch": name,
+                "format": "json", "srlimit": 1}, headers=headers, timeout=timeout)
+            hits = ((sr.json().get("query") or {}).get("search") or []) if sr.status_code == 200 else []
+            if not hits:
+                continue
+            cand = hits[0].get("title") or ""
+            # 搜索会飘（拿队名搜到「某赛季」条目），页名与实体不沾边就不收
+            if not _title_matches(name, cand):
+                continue
+            ss = requests.get(f"{base}/api/rest_v1/page/summary/"
+                              f"{requests.utils.quote(cand)}",
+                              headers=headers, timeout=timeout)
+            if ss.status_code != 200:
+                continue
+            d = ss.json()
+            img = (d.get("originalimage") or d.get("thumbnail") or {}).get("source")
+            if img:
+                return {"url": img, "source": "wikipedia",
+                        "alt": d.get("title") or cand, "query": name}
+        except Exception:
+            continue
+    return None
 
 
 def extract_search_entities(topic):
@@ -1172,26 +1264,56 @@ def extract_search_entities(topic):
 
 
 def search_images(topic, count=5):
+    """按正文实体找配图。顺序＝精确度从高到低，任一层凑够就停。
+
+    2026-11-01 重构（体检结论：10 月已发布篇里 37% 是「无封面」发出的，无封面组聚合
+    点击率 0.52%，有封面组 2.07%，差 4 倍）。原来图源只有三条，每条都断：
+      ① WIKI_PLAYERS(18 人) / WIKI_TEAMS(15 队) 精确页 —— 覆盖面只有 33 个实体；
+      ② footyrenders —— 实际返回 50×50 占位图，下载端 800×600 闸门必拒；
+      ③ Unsplash / DuckDuckGo —— 前者无 Key、后者在 CI 出口 IP 常被挡。
+    三者叠加 → 绝大多数文章「找不到图 → 不配图 → 无封面发布」。
+
+    现在第 ① 层扩成「实体词典 → 维基搜索」，实体来源换成 cover_binding.article_entities
+    （读 config/entity_map.json，几百个条目），footyrenders 停用。
+    「宁可不配图也不放随机图库图」这条仍然守：只从实体出发，绝不用 football/stadium 这类通用词。
+    """
     images = []
     keywords = list(topic.get("keywords", [])) if isinstance(topic, dict) else ["football"]
-    en_keywords = [k for k in keywords if isinstance(k, str) and not any('一' <= c <= '鿿' for c in k)]
+    en_keywords = [k for k in keywords if isinstance(k, str)
+                   and not any("\u4e00" <= c <= "\u9fff" for c in k)]
     players, teams, _ = extract_search_entities(topic) if isinstance(topic, dict) else ([], [], "")
 
+    def _push(img):
+        if img and img.get("url") and img["url"] not in [i["url"] for i in images]:
+            images.append(img)
+
+    # ① 手工表的精确页名（最高精度，命中即用）
     for p in players[:2]:
         for img in search_wikipedia(p["wiki"]):
-            if img["url"] not in [i["url"] for i in images]:
-                images.append(img)
+            _push(img)
     for t in teams[:2]:
         for img in search_wikipedia(t["wiki"]):
-            if img["url"] not in [i["url"] for i in images]:
-                images.append(img)
-    if players:
-        for img in search_footyrenders(keywords, count=3):
-            if img["url"] not in [i["url"] for i in images]:
-                images.append(img)
+            _push(img)
 
     ents = _cb.article_entities(topic) if isinstance(topic, dict) else []
     _title_terms = _cb.title_terms(topic.get("title", "")) if isinstance(topic, dict) else []
+
+    # ② 实体词典 → 维基搜索（扩展面最大的那一层）
+    # tried 只装「已经真的取到图」的实体：精确页查空的那个实体还要靠这一层补，
+    # 否则「手工表里有名字但维基页没图」的实体就被白跳过了。
+    if len(images) < count:
+        got = [i for i in images]
+        tried = set() if not got else {e for e in ents if any(e in (i.get("alt") or "") or e in (i.get("query") or "") for i in got)}
+        for ent in ents:
+            if len(images) >= count:
+                break
+            if ent in tried:
+                continue
+            _push(search_wikipedia_entity(ent))
+            tried.add(ent)
+
+    # ③ 不做「标题词兜底」：没有实体时拿标题词去搜维基，几乎必然搜到无关条目
+    #    （维基不是图库）。计划 2.2 的「宁可不配图也不放随机图」在这里优先于覆盖率。
 
     # 图库检索：query 必须绑定正文（实体优先，其次标题词）；不构成绑定则跳过。
     # 计划 2.2 / 4.1：禁用随机图库配图，故不再使用 football / stadium 这类通用词。
