@@ -481,8 +481,12 @@
           "status": "ok"
         }
       ]
+    },
+    {
+      "at": "2026-11-01 22:09",
+      "files": []
     }
   ],
-  "updated_at": "2026-11-01 21:45",
+  "updated_at": "2026-11-01 22:09",
   "_note": "导出投递箱幂等台账（建议7）：key = 文件 sha256，value = {kind, file, at, status}；history 保留最近 60 次投递。由 scripts/ingest_exports.py 维护。"
 }
