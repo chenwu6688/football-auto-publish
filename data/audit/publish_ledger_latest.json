@@ -1,13 +1,14 @@
 {
   "date": "2026-11-01",
-  "generated_at": "2026-11-01 04:08:06",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-01 10:05:46",
+  "batch_filter": "evening",
   "counts": {
-    "total": 2,
+    "total": 3,
     "published": 2,
     "failed": 0,
-    "skipped_prediction": 0,
-    "published_without_id": 0
+    "skipped_prediction": 1,
+    "published_without_id": 0,
+    "published_without_cover": 2
   },
   "platform_id_binding": {
     "bound": 2,
@@ -16,19 +17,29 @@
   },
   "records": [
     {
-      "title": "谁先慌：两位主帅90分钟里谁敢先动第一张牌",
+      "status": "skipped_prediction",
+      "title": "曼市德比遇上国家德比，这八场你熬不熬？",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7703049788165587510",
+      "batch_name": "晚间",
+      "platform_id": "",
+      "reason": "预测稿不发布到头条（R13 决策④）"
+    },
+    {
+      "title": "阿莱格里先变阵还是孔蒂先慌？尤文那不勒斯谁先被换下",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7703141973745549864",
       "reason": "",
+      "images": 0,
       "status": "published"
     },
     {
-      "title": "当年那个追风少年曲波，如今白发苍苍，他还能跑得动吗？",
+      "title": "巴乔从忧郁王子变成农场老汉，你还记得那脚射飞的点球吗？",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7703049907082396203",
+      "batch_name": "晚间",
+      "platform_id": "7703142080327025167",
       "reason": "",
+      "images": 0,
       "status": "published"
     }
   ],
