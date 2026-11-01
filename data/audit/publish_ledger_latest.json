@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-01",
+  "generated_at": "2026-11-01 04:08:06",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "published_without_id": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "谁先慌：两位主帅90分钟里谁敢先动第一张牌",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7703049788165587510",
+      "reason": "",
+      "status": "published"
+    },
+    {
+      "title": "当年那个追风少年曲波，如今白发苍苍，他还能跑得动吗？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7703049907082396203",
+      "reason": "",
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
