@@ -46,7 +46,8 @@
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 500,
+        "retention_rate": 0.0,
+        "impressions": 1463,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -203,11 +204,12 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 74,
+        "retention_rate": 0.0,
+        "impressions": 1029,
         "follower_reads": 0,
         "click_rate": 0.0
       },

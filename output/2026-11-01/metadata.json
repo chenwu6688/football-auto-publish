@@ -40,7 +40,17 @@
       "is_recap": true,
       "supply_layer": "二级·突发",
       "recap_match_id": "558548",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 14,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 724,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7702987493407064576"
     },
     {
       "index": 2,
@@ -78,7 +88,17 @@
       "batch_name": "晨读",
       "is_prediction": false,
       "is_recap": false,
-      "supply_layer": "二级·突发"
+      "supply_layer": "二级·突发",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 525,
+        "follower_reads": 1,
+        "click_rate": 0.0
+      },
+      "platform_id": "7702987670322758144"
     },
     {
       "index": 1,
@@ -113,7 +133,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "一级·确定性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 395,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7703049788165587510"
     },
     {
       "index": 2,
@@ -146,7 +176,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 355,
+        "follower_reads": 1,
+        "click_rate": 0.0
+      },
+      "platform_id": "7703049907082396203"
     },
     {
       "index": 1,
@@ -181,7 +221,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "一级·确定性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 155,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7703141973745549864"
     },
     {
       "index": 2,
@@ -212,7 +262,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "三级·软性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 125,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7703142080327025167"
     },
     {
       "index": 3,
