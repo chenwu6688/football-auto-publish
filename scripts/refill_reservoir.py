@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """三级·软性内容蓄水池 · 备货作业（计划 12.1）。
 
-三级内容（人物故事 / 榜单 / 数据对比 / 历史回顾）无时效压力，可提前量产入库。
+三级内容（人物故事 / 榜单 / 数据对比）无时效压力，可提前量产入库。
 本作业把蓄水池补到水位线（TARGET）；只生成缺口数量，控制 LLM 成本。
 调度：随批次发布前运行（非阻断），或由独立 workflow 定期运行。
+
+「历史回顾」2026-11-01 起禁发（实测 9 篇篇均 4.7 阅读、最高 15），已从轮换池移除。
+判据唯一权威在 reservoir.BANNED_TYPES，本文件只是消费它，不要再自己写一份。
 
 用法:
   python scripts/refill_reservoir.py            # 补到默认水位（8）
@@ -25,7 +28,9 @@ from utils import call_llm_json  # noqa: E402
 DEFAULT_TARGET = 8
 HARD_MAX_GEN = 6
 
-# 软性选题轮换池（计划 12.1：人物故事 / 榜单 / 数据对比 / 历史回顾）
+# 软性选题轮换池（计划 12.1：人物故事 / 榜单 / 数据对比）
+# 注意：这里只能放 reservoir.SOFT_TYPES 里的类型。「历史回顾」已进 BANNED_TYPES，
+# 放进来会「生成后又被取用侧过滤」，白烧额度。判据唯一权威在 reservoir.py。
 SOFT_ANGLES = [
     {"content_type": "人物故事", "section": "人物故事",
      "brief": "退役或暮年球星的现状与情怀，落点在『爷青回』式的记忆与感慨"},
@@ -33,9 +38,16 @@ SOFT_ANGLES = [
      "brief": "一份历史射手榜/助攻榜/身价榜的榜单，含名次与数据对比"},
     {"content_type": "数据对比", "section": "战术榜单",
      "brief": "两位球星或两支球队的数据对比，用数字说明谁更强、强在哪"},
-    {"content_type": "历史回顾", "section": "人物故事",
-     "brief": "一场经典战役或世界杯名局的历史回顾，带时代背景"},
 ]
+
+# 启动即校验：轮换池一旦混入禁发类型，宁可当场报错，也不要「生成完再被过滤」白烧额度。
+# 用 raise 而非 assert —— assert 在 python -O 下会被优化掉，等于没写。
+_banned_in_pool = [a["content_type"] for a in SOFT_ANGLES if reservoir.is_banned(a["content_type"])]
+if _banned_in_pool:
+    raise SystemExit(
+        f"❌ 软性轮换池含禁发类型 {_banned_in_pool}；"
+        f"禁发清单见 reservoir.BANNED_TYPES={reservoir.BANNED_TYPES}。"
+        f"要恢复请先拿新的绩效证据改那份清单，不要只改这里。")
 
 _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上男性老球迷。
 请写一篇【{content_type}】类的软性内容（无时效压力）：{brief}。
@@ -47,6 +59,11 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
 - 不要编造可核查的具体比分/转会金额等硬事实；用公认的历史数据与常识
 - 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
+**粉丝沉淀钩子（生成后会校验，缺了直接打回）**：
+- 正文里必须有一句自然的「关注」引导，融在收尾段落里，例如「关注老六，这类老故事我还存着一柜子」
+- 必须有一个读者能直接回答的问题（评论区/你怎么看/你站哪边）
+- **禁止**写「👇 评论区见分晓」「各位老铁」这类套话，也不要加分隔线堆在文末——要像人说话
+
 只输出纯 JSON：
 {{"title": "标题(26-30字,疑问收尾)", "content": "Markdown正文(600-900字,含≥2个##小标题)",
  "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"],
@@ -56,11 +73,33 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
 
 
 def _make_one(angle: dict, index: int) -> dict:
-    msgs = [
-        {"role": "system", "content": "你是足球自媒体作者，只输出 JSON，不输出任何额外文字。"},
-        {"role": "user", "content": _TMPL.format(content_type=angle["content_type"], brief=angle["brief"])},
-    ]
-    obj, _model = call_llm_json(msgs, LLM_JSON_CANDIDATES, temperature=0.9, max_tokens=3000)
+    """生成一条软性备货，并按互动引导闸门自检（不过就重试一次）。
+
+    2026-11-01 补：此前这里生成完直接入库，**完全不过闸门**。结果软性稿必然
+    缺关注引导，等到保存侧才被兜底强插模板句——10 月的 249 次「缺关注引导」
+    几乎全部来自这条路。治本要在生产端就要求，而不是在末端贴膏药。
+    """
+    import interaction_bait
+
+    base = _TMPL.format(content_type=angle["content_type"], brief=angle["brief"])
+    last_hint = ""
+    obj: dict = {}
+    for _attempt in range(2):
+        user = base + (f"\n\n⚠️ 上一版被退回：{last_hint}\n这次务必修正。\n" if last_hint else "")
+        msgs = [
+            {"role": "system", "content": "你是足球自媒体作者，只输出 JSON，不输出任何额外文字。"},
+            {"role": "user", "content": user},
+        ]
+        obj, _model = call_llm_json(msgs, LLM_JSON_CANDIDATES, temperature=0.9, max_tokens=3000)
+        res = interaction_bait.check((obj or {}).get("content", ""),
+                                     bait_field=(obj or {}).get("interaction_bait", ""))
+        if res.get("ok") or res.get("degraded"):
+            break
+        last_hint = (f"缺 {'、'.join(res.get('missing') or [])}：" + str(res.get("hint") or "")
+                     + "。请把引导自然融进收尾段落，不要堆套话。")
+        print(f"   🔁 [{angle['content_type']}] 互动引导未达标，重试一次："
+              f"缺 {'、'.join(res.get('missing') or [])}")
+
     obj["content_type"] = angle["content_type"]
     obj["_column_name"] = angle["section"]
     try:

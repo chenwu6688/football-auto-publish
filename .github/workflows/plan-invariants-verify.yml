@@ -102,6 +102,14 @@ jobs:
           # 故时间闸门/多源门槛/冲突判定/生成侧接入/审计落盘全部按硬项验收。
           python3 scripts/verify_event_result.py --quiet
 
+      - name: 内容类型配比（2026-11-01 月度分析：禁发类型 / 目标表自洽）
+        run: |
+          # 硬项，不加 || echo 软化。起因：10 月实测（按实际发布 93 篇口径）
+          # 历史回顾篇均 0.9 阅读、榜单 0.5，仍在产出；而最能打的热点球评
+          # 篇均 48.1 只占 16%，战术榜单 40% 却只有 21.2 —— 配比与绩效是反的。
+          # 禁发类型再产出、或目标表与 reservoir 禁发清单漂移，都按硬项拦。
+          python3 scripts/verify_content_mix.py --days 7 --quiet
+
       - name: 选题分类与类别优先级（计划 5.1 / R11 内容诊断）
         run: |
           python3 scripts/verify_topic_category.py --quiet \

@@ -5,7 +5,7 @@
 
     一级·确定性  30%   赛程 / 转会窗截止日 / 赛季节点 / 开赛倒计时（可提前 7 天预生成）
     二级·突发    50%   转会、伤停、处罚、表态（受时效闸门管控，24h 内出稿）
-    三级·软性    20%   人物故事、榜单、数据对比、历史回顾（蓄水池库存补充）
+    三级·软性    20%   人物故事、榜单、数据对比（蓄水池库存补充；历史回顾已禁发）
 
 「把供给拆成三层，各层互为缓冲，日更 6 至 8 篇可稳定不断供。」
 
@@ -44,8 +44,15 @@ DAILY_MAX = 8
 # 配比偏差容差（百分点）——三层互相缓冲，允许一定摆动；超容差仅告警
 RATIO_TOL_PCT = 15.0
 
-# 三级·软性涵盖的内容类型 / 板块（与 reservoir.SOFT_TYPES 同源）
-_SOFT_CONTENT_TYPES = ("人物故事", "榜单", "数据对比", "历史回顾")
+# 三级·软性涵盖的内容类型 / 板块。
+# 注意这里有**两个不同口径**，别混：
+#   生成/取用口径 = reservoir.SOFT_TYPES（现在允许产出的）
+#   打标口径     = SOFT_TYPES + BANNED_TYPES（曾属于软性层的都要能归对层）
+# 若打标只认 SOFT_TYPES，「历史回顾」禁发前的存量成稿会被打成「未分层」，
+# 反而污染 supply_layer 统计。所以这里显式取两者的并集，且不在本文件写死清单。
+import reservoir as _reservoir
+
+_SOFT_CONTENT_TYPES = tuple(_reservoir.SOFT_TYPES) + tuple(_reservoir.BANNED_TYPES)
 _SOFT_SECTIONS = ("人物故事", "战术榜单")
 # 实际内容类型 → 三级·软性（榜单/数据/人物类）
 _SOFT_BY_CONTENT_TYPE = {"排行榜"}

@@ -389,6 +389,14 @@ jobs:
           python3 scripts/verify_batch_quota.py --quiet \
             || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"
 
+      - name: 内容类型配比复核（2026-11-01 月度分析 · 禁发类型硬拦）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入
+          # 告警项（不影响退出码）：热点球评占比低于目标 —— 配比是慢变量，按天卡死会逼出凑数稿
+          # 刻意不加 `|| echo`：禁发类型还在产出就不该放行发布
+          python3 scripts/verify_content_mix.py --days 7 --quiet
+
       - name: 回写状态（LLM 用量 + 软性蓄水池）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
@@ -558,6 +566,10 @@ jobs:
           " || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }
 
           git add -f "output/${TODAY}/metadata.json" || true
+          # 发布结果台账（2026-11-01）：成稿数 ≠ 发布数，不落库就永远是黑箱。
+          # 10 月成稿 242 / 实际发布 93，这个 62% 的漏斗一个月都没人发现。
+          git add -f "data/audit/publish_ledger_${TODAY}.json" || true
+          git add -f "data/audit/publish_ledger_latest.json" || true
 
           if git diff --cached --quiet; then
             echo "📝 无变化，跳过提交"

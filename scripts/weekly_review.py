@@ -49,6 +49,7 @@ import growth_import as gi                # noqa: E402
 
 CST = timezone(timedelta(hours=8))
 AUDIT_DIR = PROJECT_ROOT / "data" / "audit"
+OUTPUT_DIR = PROJECT_ROOT / "output"
 INBOX = ie.INBOX
 SSH_KEY = os.environ.get("GIT_SSH_KEY", "/home/chenwu/.ssh/id_ed25519")
 
@@ -117,6 +118,9 @@ def run(days: int = 30, *, src: Path | str | None = None, dry_run: bool = False,
     if tuner:
         out["tuner"] = _safe("调参建议", lambda: _tune_suggestion(), failures)
 
+    # 5.5) 发布漏斗（成稿 ≠ 发布；台账 2026-11-01 起才有）
+    out["funnel"] = _safe("发布漏斗", lambda: _publish_funnel(7), failures)
+
     # 6) 落汇总报告
     if not dry_run:
         AUDIT_DIR.mkdir(parents=True, exist_ok=True)
@@ -152,6 +156,49 @@ def _build_dashboard(days: int, *, dry_run: bool) -> dict:
         (out / "latest.json").write_text(
             __import__("json").dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
     return rep
+
+
+def _publish_funnel(days: int = 7) -> dict:
+    """近 N 天「成稿 → 发布 → 有作品 ID」漏斗（2026-11-01 月度分析新增）。
+
+    为什么要这个：10 月成稿 242 篇、实际发布只有 93 篇（38%），而这个 62% 的
+    漏斗连续一个月没人发现——因为发布结果从来没落过库。台账 2026-11-01 才建，
+    所以这里只统计**有台账之后**的日子；没台账的日期明确标 missing，不拿 0 冒充。
+    """
+    import json as _json
+    output_dir = OUTPUT_DIR
+    out: dict = {"days": days, "rows": [], "totals": {}, "missing_days": []}
+    for i in range(days):
+        d = (now_cst() - timedelta(days=i)).strftime("%Y-%m-%d")
+        p = AUDIT_DIR / f"publish_ledger_{d}.json"
+        if not p.exists():
+            out["missing_days"].append(d)
+            continue
+        try:
+            led = _json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            out["missing_days"].append(d)
+            continue
+        c = led.get("counts") or {}
+        # 成稿数取当天 metadata（真实产出量），台账里只有「尝试发布」的记录
+        draft = 0
+        mp = output_dir / d / "metadata.json"
+        if mp.exists():
+            try:
+                draft = len(_json.loads(mp.read_text(encoding="utf-8")).get("articles") or [])
+            except Exception:
+                draft = 0
+        out["rows"].append({"date": d, "draft": draft,
+                            "published": c.get("published", 0),
+                            "failed": c.get("failed", 0),
+                            "skipped": c.get("skipped_prediction", 0),
+                            "no_id": c.get("published_without_id", 0)})
+    tot = {k: sum(r[k] for r in out["rows"])
+           for k in ("draft", "published", "failed", "skipped", "no_id")}
+    tot["publish_rate"] = (round(100.0 * tot["published"] / tot["draft"], 1)
+                           if tot["draft"] else None)
+    out["totals"] = tot
+    return out
 
 
 def _tune_suggestion() -> dict:
@@ -244,6 +291,27 @@ def render_md(out: dict) -> str:
                  f"自动执行={sug.get('是否自动执行')}；{sug.get('变更原因')}")
         if sug.get("建议配比"):
             L.append(f"  - 建议配比：{sug.get('建议配比')}")
+
+    fun = out.get("funnel") or {}
+    if fun and fun.get("rows"):
+        t = fun.get("totals") or {}
+        L.append("")
+        L.append(f"- 发布漏斗（近 {fun.get('days')} 天）：成稿 {t.get('draft')} → "
+                 f"发布 {t.get('published')}（{t.get('publish_rate')}%）"
+                 f"｜失败 {t.get('failed')}｜预测稿跳过 {t.get('skipped')}")
+        if t.get("no_id"):
+            L.append(f"  > ⚠️ {t['no_id']} 篇发布成功但无作品 ID —— 绩效只能靠导出回填，"
+                     f"超 7 天窗口永久缺失")
+        for r in fun["rows"]:
+            if r["draft"] and r["published"] < r["draft"]:
+                L.append(f"  - {r['date']}：成稿 {r['draft']} / 发布 {r['published']}"
+                         f"（差 {r['draft'] - r['published']}）")
+    elif fun is not None:
+        miss = fun.get("missing_days") or []
+        if miss:
+            L.append("")
+            L.append(f"- 发布漏斗：近 7 天无台账（{len(miss)} 天），"
+                     f"2026-11-01 前的历史批次从未落库，无法回溯")
 
     if out.get("failures"):
         L.append("")

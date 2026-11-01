@@ -12,6 +12,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -55,12 +56,12 @@ class TempEnv:
         self._saved = dict(
             ie_inbox=ie.INBOX, ie_processed=ie.PROCESSED, ie_state=ie.STATE_PATH,
             gi_growth=gi.GROWTH_PATH, cpl_perf=cpl.PERF_LOG, cpl_out=cpl.OUTPUT_DIR,
-            wr_inbox=wr.INBOX, wr_audit=wr.AUDIT_DIR,
+            wr_inbox=wr.INBOX, wr_audit=wr.AUDIT_DIR, wr_output=wr.OUTPUT_DIR,
         )
         ie.INBOX, ie.PROCESSED, ie.STATE_PATH = self.inbox, self.processed, self.state
         gi.GROWTH_PATH = self.growth
         cpl.PERF_LOG, cpl.OUTPUT_DIR = self.perf_log, self.output
-        wr.INBOX, wr.AUDIT_DIR = self.inbox, self.audit
+        wr.INBOX, wr.AUDIT_DIR, wr.OUTPUT_DIR = self.inbox, self.audit, self.output
         return self
 
     def __exit__(self, *exc):
@@ -68,7 +69,7 @@ class TempEnv:
         ie.INBOX, ie.PROCESSED, ie.STATE_PATH = s["ie_inbox"], s["ie_processed"], s["ie_state"]
         gi.GROWTH_PATH = s["gi_growth"]
         cpl.PERF_LOG, cpl.OUTPUT_DIR = s["cpl_perf"], s["cpl_out"]
-        wr.INBOX, wr.AUDIT_DIR = s["wr_inbox"], s["wr_audit"]
+        wr.INBOX, wr.AUDIT_DIR, wr.OUTPUT_DIR = s["wr_inbox"], s["wr_audit"], s["wr_output"]
         self._td.cleanup()
         return False
 
@@ -191,6 +192,56 @@ class TestSafeGuards(unittest.TestCase):
         self.assertEqual(cfg_path.read_text(encoding="utf-8"), before,
                          "周更闭环不得自动改配比配置")
         self.assertIn("tuner", out)
+
+
+class TestPublishFunnel(unittest.TestCase):
+    """发布漏斗（2026-11-01）：成稿数 ≠ 发布数，且没台账不许拿 0 冒充。"""
+
+    def test_no_ledger_reports_missing_not_zero(self):
+        """负向核心：没有台账时必须报 missing_days，不能渲染成「发布 0 篇」。"""
+        with TempEnv() as env:
+            f = wr._publish_funnel(3)
+            self.assertEqual(f["rows"], [])
+            self.assertEqual(len(f["missing_days"]), 3)
+            self.assertIsNone(f["totals"]["publish_rate"])
+            md = wr.render_md({"generated_at": "x", "funnel": f})
+            self.assertIn("无台账", md)
+
+    def test_counts_and_rate(self):
+        with TempEnv() as env:
+            today = wr.now_cst().strftime("%Y-%m-%d")
+            (env.audit).mkdir(parents=True, exist_ok=True)
+            (env.audit / f"publish_ledger_{today}.json").write_text(json.dumps({
+                "counts": {"total": 8, "published": 5, "failed": 2,
+                           "skipped_prediction": 1, "published_without_id": 1}}),
+                encoding="utf-8")
+            d = env.output / today
+            d.mkdir(parents=True)
+            (d / "metadata.json").write_text(json.dumps(
+                {"articles": [{"title": f"t{i}"} for i in range(10)]}), encoding="utf-8")
+            f = wr._publish_funnel(1)
+            self.assertEqual(len(f["rows"]), 1)
+            self.assertEqual(f["totals"]["draft"], 10)
+            self.assertEqual(f["totals"]["published"], 5)
+            self.assertEqual(f["totals"]["publish_rate"], 50.0)
+            md = wr.render_md({"generated_at": "x", "funnel": f})
+            self.assertIn("50.0%", md)
+            self.assertIn("无作品 ID", md, "published_without_id 必须单独点名")
+
+    def test_broken_ledger_goes_to_missing(self):
+        """台账损坏当作缺失，不静默当 0。"""
+        with TempEnv() as env:
+            env.audit.mkdir(parents=True, exist_ok=True)
+            today = wr.now_cst().strftime("%Y-%m-%d")
+            (env.audit / f"publish_ledger_{today}.json").write_text("{坏 json", encoding="utf-8")
+            f = wr._publish_funnel(1)
+            self.assertEqual(f["rows"], [])
+            self.assertIn(today, f["missing_days"])
+
+    def test_run_includes_funnel_key(self):
+        with TempEnv():
+            out = wr.run(write_dashboard=False, tuner=False)
+            self.assertIn("funnel", out)
 
 
 if __name__ == "__main__":

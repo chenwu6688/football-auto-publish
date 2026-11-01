@@ -2189,23 +2189,16 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 content += golden_block
             art["content"] = content
 
-        # 3. 互动钩子注入：在文末追加 interaction_bait
+        # 3. 互动钩子注入：把 LLM 自己写的 interaction_bait 落到文末
         bait = art.get("interaction_bait", "")
         if bait and len(bait) > 5 and bait not in art.get("content", ""):
             bait_clean = bait.strip().strip('"').strip('"')
-            # 根据 interaction_type 添加不同的前缀表情
             i_type = art.get("interaction_type", "")
-            prefix_map = {
-                "站队式": "🗣️ 说说你的看法",
-                "投票式": "📊 来投个票",
-                "预测式": "🔮 你的预测是",
-                "共鸣式": "💬 有没有同感的",
-                "挑战式": "🤔 不服来辩",
-                "调侃式": "😏 你们说呢",
-                "": "💬 各位老铁",
-            }
-            prefix = prefix_map.get(i_type, "💬")
-            art["content"] = f"{art.get('content', '')}\n\n---\n**{prefix}：{bait_clean}**\n👇 评论区见分晓！"
+            # 2026-11-01：**不再套模板外壳**。此前一律包成
+            #   `---\n**💬 各位老铁：{bait}**\n👇 评论区见分晓！`
+            # 每篇结尾一模一样，读者一眼看出是机器在收尾，比没有钩子更伤信任。
+            # 现在只追加 LLM 自己写的那句话，让收尾读起来像人写的。
+            art["content"] = f"{art.get('content', '')}\n\n{bait_clean}"
             print(f"   🎣 互动钩子: [{i_type}] {bait_clean[:40]}")
 
         # 4. 互动引导硬落地复核（R11 建议5 / 计划 13.5）：LLM 没给足关注/互动引导时，
@@ -4708,6 +4701,16 @@ def main():
                 for _it in _picked:
                     _art = _it.get("article") or {}
                     if not _art:
+                        continue
+                    # 禁发类型二次防线（2026-11-01）：fill_gap 已过滤，这里再拦一次。
+                    # 目的不是冗余，而是保证「将来谁绕过 fill_gap 改逻辑」也不会把
+                    # 历史回顾这类实测天花板已被证明的类型发出去。
+                    if reservoir.is_banned(_art.get("content_type") or ""):
+                        print(f"   ⛔ 蓄水池条目属禁发类型，丢弃："
+                              f"{_art.get('content_type')}｜{(_art.get('title') or '')[:30]}")
+                        degrade.note("禁发类型拦截",
+                                     f"蓄水池条目 {_art.get('content_type')} 在禁发清单内",
+                                     action="丢弃该条目，不占本批篇数")
                         continue
                     _art["_from_reservoir"] = True
                     _art["_batch_name"] = batch_cfg["name"]

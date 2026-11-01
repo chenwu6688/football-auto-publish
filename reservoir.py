@@ -1,11 +1,13 @@
 """三级·软性内容蓄水池（计划 12.1）。
 
 计划 12.1 把供给拆成三层：一级·确定性 30% / 二级·突发 50% / 三级·软性 20%。
-三级（人物故事、榜单、数据对比、历史回顾）无时效压力、可提前备货，
+三级（人物故事、榜单、数据对比）无时效压力、可提前备货，
 角色是「内容蓄水池」：突发日供给不足时由池中补位，突发密集时池中内容顺延。
 
 本模块只管库存：备货入库（stock）、取用补位（fill_gap）、过期回收（expire）。
 备货作业见 scripts/refill_reservoir.py（提前量产入库）。
+
+「历史回顾」已于 2026-11-01 禁发（见 BANNED_TYPES），不再属于软性类型。
 """
 
 from __future__ import annotations
@@ -21,8 +23,22 @@ RESERVOIR_DIR = PROJECT_ROOT / "data" / "reservoir"
 ITEMS_PATH = RESERVOIR_DIR / "items.json"
 
 # 三级·软性涵盖的板块/内容类型（计划 12.1）
-SOFT_TYPES = ("人物故事", "榜单", "数据对比", "历史回顾")
+SOFT_TYPES = ("人物故事", "榜单", "数据对比")
 SOFT_SECTIONS = ("人物故事", "战术榜单")
+
+# 禁发的内容类型（2026-11-01 月度分析结论，不是拍脑袋）：
+# 「历史回顾」9 篇实测总阅读 42、篇均 4.7、最高 15 —— 天花板已被自己证明，不是写得
+# 差，是没人看。此前只降权仍在发，10 月还占 5%，纯烧额度。这里改禁发：
+#   - SOFT_TYPES 移除，备货侧不再补
+#   - available()/fill_gap() 过滤，**存量条目不参与补位**（否则禁了还会被旧库存顶出来）
+# 要恢复必须同时改这里 + scripts/refill_reservoir.py 的轮换池，并给出新的绩效证据。
+BANNED_TYPES = ("历史回顾",)
+
+
+def is_banned(content_type: str) -> bool:
+    """该内容类型是否禁发。生成侧与库存侧共用同一份判据，避免两处口径漂移。"""
+    return (content_type or "").strip() in BANNED_TYPES
+
 
 DEFAULT_TTL_DAYS = 14
 
@@ -86,11 +102,13 @@ def expire(today: datetime | None = None) -> int:
 
 
 def available(today: datetime | None = None) -> list[dict]:
-    """返回当前可用（未用且未过期）的备货条目。"""
+    """返回当前可用（未用且未过期、未被禁发）的备货条目。"""
     today = today or _now()
     out = []
     for it in _load().get("items", []):
         if it.get("status") != "stocked":
+            continue
+        if is_banned(it.get("content_type")):      # 禁发类型即使有存量也不放出来
             continue
         try:
             if datetime.fromisoformat(it.get("expires_at", "")) < today:
@@ -102,7 +120,11 @@ def available(today: datetime | None = None) -> list[dict]:
 
 
 def fill_gap(n: int, today: datetime | None = None) -> list[dict]:
-    """供给不足时从池中取 n 条补位（先进先出），标记 used，返回条目列表。"""
+    """供给不足时从池中取 n 条补位（先进先出），标记 used，返回条目列表。
+
+    禁发类型（BANNED_TYPES）不参与补位，且**不标记 used** —— 留在池里由 expire
+    自然回收，避免「悄悄消耗库存却从不产出」这种看不见的漏斗。
+    """
     if n <= 0:
         return []
     today = today or _now()
@@ -112,6 +134,8 @@ def fill_gap(n: int, today: datetime | None = None) -> list[dict]:
         if len(picked) >= n:
             break
         if it.get("status") != "stocked":
+            continue
+        if is_banned(it.get("content_type")):
             continue
         try:
             if datetime.fromisoformat(it.get("expires_at", "")) < today:

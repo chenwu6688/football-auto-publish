@@ -20,6 +20,7 @@ from playwright.sync_api import sync_playwright
 PROJECT_ROOT = Path(__file__).parent
 OUTPUT_BASE = Path(os.environ.get("OUTPUT_DIR", PROJECT_ROOT / "output"))
 AUTH_FILE = Path(os.environ.get("TOUTIAO_AUTH_FILE", PROJECT_ROOT / "toutiao_auth.json"))
+AUDIT_DIR = Path(os.environ.get("AUDIT_DIR", PROJECT_ROOT / "data" / "audit"))
 
 # Toutiao URLs
 TOUTIAO_LOGIN = "https://mp.toutiao.com/auth/page/login/"
@@ -127,13 +128,15 @@ def login_and_save_auth():
         print("\n❌ 保存失败，请重试")
 
 
-def load_articles(date_str, batch_filter=None):
+def load_articles(date_str, batch_filter=None, skip_report=None):
     """Load generated articles from output directory. Optionally filter by batch.
 
     Args:
         date_str: Date string YYYY-MM-DD
         batch_filter: If set, only load articles whose batch_name matches (e.g. 'morning').
                       If None or empty, load all articles (backward compatible).
+        skip_report: 可选的 list；预测稿等被显式跳过的条目会 append 到这里，
+                     供发布台账记录「没发的原因」（默认 None，不影响既有调用方）。
     """
     date_dir = OUTPUT_BASE / date_str
     if not date_dir.exists():
@@ -188,6 +191,11 @@ def load_articles(date_str, batch_filter=None):
         # 路径会把它当普通文章发布，突破单批配额；现在显式拦截，两条路径都拦得住。
         if str(meta.get("is_prediction", "")).strip().lower() in ("true", "1", "yes"):
             print(f"  🔮 跳过预测稿（不发布到头条）: {title[:50]}")
+            if skip_report is not None:
+                skip_report.append({"status": "skipped_prediction", "title": title,
+                                    "slug": meta.get("slug") or "",
+                                    "batch_name": meta.get("batch_name", ""),
+                                    "platform_id": "", "reason": "预测稿不发布到头条（R13 决策④）"})
             continue
 
         articles.append({
@@ -569,6 +577,20 @@ def dismiss_overlays(page):
         page.wait_for_timeout(300)
     except Exception:
         pass
+
+
+def _first_pgc_id(results) -> str:
+    """从发布响应/请求记录里取第一个有效 pgc_id（= 头条作品 ID，即 platform_id）。
+
+    2026-11-01 月度分析查出的洞：`publish_article` 只回 `{"ok": True}`，把响应里
+    现成的 pgc_id 丢掉了 → 成稿的 platform_id 只能靠「下次导出按标题反查」补，
+    而导出只回溯 7 天，跨期就永久补不回来。这里把 ID 直接带出来，发布即可绑定。
+    """
+    for r in results or []:
+        pid = str(r.get("pgc_id") or "").strip()
+        if pid and pid not in ("0", "-1", "None", "null"):
+            return pid
+    return ""
 
 
 def publish_article(page, article, date_str, draft_mode=False):
@@ -981,13 +1003,13 @@ def publish_article(page, article, date_str, draft_mode=False):
                 # After clicking confirm, poll briefly for new responses but accept any Code:0.
                 all_results_ok = any(r["code"] == 0 for r in publish_results)
                 if all_results_ok:
-                    return {"ok": True}
+                    return {"ok": True, "pgc_id": _first_pgc_id(publish_results)}
 
                 # Poll for new publish result after confirmation (up to 15s).
                 for _ in range(15):
                     page.wait_for_timeout(1000)
                     if any(r["code"] == 0 for r in publish_results):
-                        return {"ok": True}
+                        return {"ok": True, "pgc_id": _first_pgc_id(publish_results)}
 
                 # Timed out — try direct API call as fallback
                 # First API response already saved the draft; extract pgc_id and submit
@@ -1031,7 +1053,8 @@ def publish_article(page, article, date_str, draft_mode=False):
                             result = r.json()
                             if result.get('code') == 0:
                                 print(f"  ✅ API直调发布成功!")
-                                return {"ok": True}
+                                _pid = _first_pgc_id(publish_results) or str(pgc_id).strip()
+                                return {"ok": True, "pgc_id": _pid}
                             else:
                                 print(f"  ⚠️ API返回: {result.get('message', 'unknown')}")
                         else:
@@ -1043,11 +1066,12 @@ def publish_article(page, article, date_str, draft_mode=False):
                     msg = "发布超时: 无API响应"
                     print(f"  ❌ {msg}")
                     debug_dump_page(page, f"publish_timeout_{article['index']}")
-                    return {"ok": False, "error": msg}
+                    return {"ok": False, "error": msg, "pgc_id": ""}
                 codes = [(r["code"], r.get("message", "")[:30]) for r in publish_results]
                 msg = f"发布失败, 响应: {codes}"
                 print(f"  ❌ {msg}")
-                return {"ok": False, "error": msg}
+                # 失败也带出 pgc_id：草稿已建时 ID 是存在的，留着才能人工补发/定位
+                return {"ok": False, "error": msg, "pgc_id": _first_pgc_id(publish_results)}
 
         except Exception as e:
             print(f"  ❌ 发布失败: {e}")
@@ -1061,7 +1085,80 @@ def publish_article(page, article, date_str, draft_mode=False):
             except Exception:
                 pass
 
-    return {"ok": False, "error": "发布流程异常终止"}
+    return {"ok": False, "error": "发布流程异常终止", "pgc_id": ""}
+
+
+def bind_platform_ids(date_str: str, bindings: list[dict]) -> dict:
+    """把发布时拿到的 pgc_id 写回 `output/<date>/metadata.json` 的对应成稿。
+
+    匹配优先 slug（批内唯一、跨平台稳定），其次标题。**匹配不上不猜**——记为
+    unmatched 返回给调用方，宁可留着让导出回填，也不要按 index 乱绑（index 会重复）。
+
+    返回 {"bound": n, "unmatched": [...], "missing_meta": bool}
+    """
+    out = {"bound": 0, "unmatched": [], "missing_meta": False}
+    meta_path = OUTPUT_BASE / date_str / "metadata.json"
+    if not meta_path.exists():
+        out["missing_meta"] = True
+        out["unmatched"] = [b.get("slug") or b.get("title") for b in bindings]
+        return out
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        out["missing_meta"] = True
+        out["unmatched"] = [f"metadata 解析失败: {e}"]
+        return out
+
+    arts = meta.get("articles") or []
+    by_slug = {a.get("slug"): a for a in arts if a.get("slug")}
+    by_title = {str(a.get("title") or "").strip(): a for a in arts}
+    changed = False
+    for b in bindings:
+        pid = str(b.get("platform_id") or "").strip()
+        if not pid:
+            continue
+        art = by_slug.get(b.get("slug")) or by_title.get(str(b.get("title") or "").strip())
+        if not art:
+            out["unmatched"].append(b.get("slug") or b.get("title"))
+            continue
+        art["platform_id"] = pid
+        art["platform_id_source"] = b.get("source") or "publish_response"
+        out["bound"] += 1
+        changed = True
+    if changed:
+        meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+    return out
+
+
+def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: str | None = None,
+                         binding: dict | None = None) -> Path:
+    """落发布结果台账：每篇成稿的归宿（published / failed / skipped_prediction）。
+
+    2026-11-01 之前这件事**完全没做**：`publish_all` 只把结果拼成一段人话发
+    WxPusher，不落库。后果是「成稿 242 篇、实际发布 93 篇」这种 62% 的漏斗
+    谁都不知道，月度分析只能靠导出文件反推。台账补齐后，覆盖率的分母才有意义。
+    """
+    AUDIT_DIR.mkdir(parents=True, exist_ok=True)
+    ok = sum(1 for r in records if r.get("status") == "published")
+    fail = sum(1 for r in records if r.get("status") == "failed")
+    skip = sum(1 for r in records if r.get("status") == "skipped_prediction")
+    no_pid = sum(1 for r in records if r.get("status") == "published" and not r.get("platform_id"))
+    payload = {
+        "date": date_str,
+        "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "batch_filter": batch_filter or "",
+        "counts": {"total": len(records), "published": ok, "failed": fail,
+                   "skipped_prediction": skip, "published_without_id": no_pid},
+        "platform_id_binding": binding or {},
+        "records": records,
+        "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
+                 "这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"),
+    }
+    p = AUDIT_DIR / f"publish_ledger_{date_str}.json"
+    p.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    (AUDIT_DIR / "publish_ledger_latest.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return p
 
 
 def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
@@ -1095,13 +1192,15 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
         print("❌ 未找到登录状态，请先运行: python scripts/publisher.py --login")
         sys.exit(1)
 
-    articles = load_articles(date_str, batch_filter=batch_filter)
+    _skip_records: list[dict] = []
+    articles = load_articles(date_str, batch_filter=batch_filter, skip_report=_skip_records)
     print(f"📰 加载 {len(articles)} 篇文章, headless={headless}")
     print(f"🚀 启动浏览器...")
 
     publish_ok = 0
     publish_fail = 0
     publish_details = []
+    records: list[dict] = list(_skip_records)
 
     with sync_playwright() as p:
         launch_args = []
@@ -1149,15 +1248,30 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
             try:
                 result = publish_article(page, article, date_str, draft_mode)
                 title_short = article['title'][:35]
+                _pid = str(result.get("pgc_id") or "").strip()
+                _rec = {"title": article["title"],
+                        "slug": (article.get("meta") or {}).get("slug") or "",
+                        "batch_name": article.get("batch_name") or "",
+                        "platform_id": _pid, "reason": ""}
                 if result.get("ok"):
                     print(f"  ✅ [{article['index']}] {title_short}")
                     publish_ok += 1
                     publish_details.append(f"✅ {title_short}")
+                    _rec["status"] = "published"
+                    if not _pid:
+                        # 发布成功但平台没返回作品 ID：这篇的数据以后只能靠导出标题反查，
+                        # 过 7 天窗口就永久缺失。**必须点名**，不能只报「发布成功」。
+                        print(f"       ⚠️ 未取得 platform_id，该篇绩效将依赖导出回填")
+                        _rec["reason"] = "平台未返回 pgc_id，需靠导出回填"
+                    records.append(_rec)
                 else:
                     err = result.get("error", "未知错误")
                     print(f"  ⚠️  [{article['index']}] 跳过: {title_short} — {err}")
                     publish_fail += 1
                     publish_details.append(f"⚠️ {title_short}: {err}")
+                    _rec["status"] = "failed"
+                    _rec["reason"] = str(err)[:200]
+                    records.append(_rec)
                 # Longer delay between articles to ensure clean state
                 print(f"  ⏳ 等待页面稳定...")
                 time.sleep(5)
@@ -1166,10 +1280,48 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
                 print(f"     跳过: {article['title'][:40]}")
                 publish_fail += 1
                 publish_details.append(f"❌ {article['title'][:35]}: {e}")
+                records.append({"status": "failed", "title": article["title"],
+                                "slug": (article.get("meta") or {}).get("slug") or "",
+                                "batch_name": article.get("batch_name") or "",
+                                "platform_id": "", "reason": f"异常: {e}"[:200]})
 
         browser.close()
 
-    summary = f"发布 {publish_ok}/{publish_ok + publish_fail} 篇\n" + "\n".join(publish_details)
+    # ============================================================
+    # 发布台账 + platform_id 绑定（2026-11-01 新增）
+    # ============================================================
+    # 此前这里什么都不落：结果只拼成一段人话发 WxPusher，然后就没了。
+    # 结果是「成稿 242 篇 / 实际发布 93 篇」这种 62% 漏斗一个月都没人发现。
+    # 现在每篇都留归宿（published / failed / skipped_prediction）并当场绑 ID。
+    _binding: dict = {}
+    _ledger_path = None
+    try:
+        _bind_list = [{"slug": r.get("slug"), "title": r.get("title"),
+                       "platform_id": r.get("platform_id"),
+                       "source": "publish_response"}
+                      for r in records
+                      if r.get("status") == "published" and r.get("platform_id")]
+        if _bind_list:
+            _binding = bind_platform_ids(date_str, _bind_list)
+            print(f"  🔗 platform_id 绑定：成功 {_binding.get('bound', 0)} 篇"
+                  + (f"，未匹配 {len(_binding.get('unmatched') or [])} 篇"
+                     if _binding.get("unmatched") else ""))
+        _ledger_path = write_publish_ledger(date_str, records,
+                                            batch_filter=batch_filter, binding=_binding)
+        try:
+            _shown = _ledger_path.relative_to(PROJECT_ROOT)
+        except ValueError:      # 审计目录被指到仓库外（测试/冒烟）→ 记绝对路径，别误报失败
+            _shown = _ledger_path
+        print(f"  📒 发布台账已落盘：{_shown}")
+    except Exception as e:
+        # 台账写失败不得影响发布结论，但必须可见——否则又会变成「悄悄丢掉」
+        print(f"  ⚠️ 发布台账写入失败（不影响已发布结果）: {e}")
+
+    _no_id = sum(1 for r in records if r.get("status") == "published" and not r.get("platform_id"))
+    _id_warn = (f"\n⚠️ {_no_id} 篇发布成功但未取得作品 ID（绩效需靠导出回填，超 7 天永久缺失）"
+                if _no_id else "")
+
+    summary = f"发布 {publish_ok}/{publish_ok + publish_fail} 篇\n" + "\n".join(publish_details) + _id_warn
 
     print(f"\n{'='*60}")
     print(f"发布完成! {summary}")

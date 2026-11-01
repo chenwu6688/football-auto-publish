@@ -159,7 +159,17 @@ def fallback_texts(interaction_type: str = "", *, cfg: dict | None = None) -> tu
 
 
 def inject(art: dict, *, cfg: dict | None = None) -> dict:
-    """保存侧兜底：把缺失的那一类互动引导模板化注入正文（不编造事实、不覆盖已有引导）。
+    """保存侧兜底：把缺失的那一类互动引导补进正文（不编造事实、不覆盖已有引导）。
+
+    2026-11-01 改：**去掉模板外壳**。此前一律拼成
+      `---\n**💬 各位老铁：{话术}**\n👇 评论区见分晓！`
+    结果全站每篇结尾一模一样，读者一眼看出机器味（10 月 249 篇命中，等于每篇都贴）。
+    现在只把话术本身接到结尾，不加分隔线、不加 emoji 前缀、不加固定感叹句。
+
+    **注意**：本函数是兜底，不是主路径。真正的根治在生成侧 prompt（见
+    scripts/refill_reservoir.py 的 _make_one 自检 + prompts/rewrite_article.txt）。
+    若某类内容长期高频命中这里，说明它的生产 prompt 没写要求，要去补 prompt，
+    而不是把兜底话术改得更花。
 
     返回 {"changed": bool, "injected": ["关注引导", ...]}；不改动 art 之外的任何状态。
     """
@@ -174,15 +184,11 @@ def inject(art: dict, *, cfg: dict | None = None) -> dict:
     if "关注引导" in need:
         block.append(follow_txt)
     if "互动引导" in need:
-        prefix = {"站队式": "🗣️ 说说你的看法", "投票式": "📊 来投个票",
-                  "预测式": "🔮 你的预测是", "共鸣式": "💬 有没有同感的",
-                  "挑战式": "🤔 不服来辩", "调侃式": "😏 你们说呢"}
-        p = prefix.get(art.get("interaction_type", ""), "💬 各位老铁")
-        block.append(f"**{p}：{comment_txt}**\n👇 评论区见分晓！")
+        block.append(comment_txt)
     if not block:
         return {"changed": False, "injected": [], "result": res}
 
-    art["content"] = content.rstrip() + "\n\n---\n" + "\n".join(block) + "\n"
+    art["content"] = content.rstrip() + "\n\n" + " ".join(block) + "\n"
     art["interaction_bait_source"] = "template_fallback"
     art["interaction_bait_gate"] = {"injected": need, "before": res["hits"]}
     after = check(art["content"], bait_field=art.get("interaction_bait", ""), cfg=cfg)
