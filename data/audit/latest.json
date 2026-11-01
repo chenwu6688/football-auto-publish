@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25 15:18",
+  "generated_at": "2026-11-01 16:45",
   "window_days": 7,
   "ok": true,
   "checks": [
@@ -30,10 +30,10 @@
       "ok": true,
       "warn": true,
       "detail": [
-        "23/43 = 53.5%（计划第十章目标 100%）"
+        "27/44 = 61.4%（计划第十章目标 100%）"
       ],
-      "rate": 53.5,
-      "total": 43
+      "rate": 61.4,
+      "total": 44
     }
   ]
 }
