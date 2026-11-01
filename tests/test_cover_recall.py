@@ -26,6 +26,14 @@ import data_collector as dc  # noqa: E402
 import verify_cover_coverage as vcc  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def _reset_wiki_breaker():
+    """维基熔断是进程级状态，用例之间必须重置，否则前面的失败会把后面全带成 None。"""
+    dc.reset_wiki_breaker()
+    yield
+    dc.reset_wiki_breaker()
+
+
 class _Resp:
     def __init__(self, status=200, payload=None, text=""):
         self.status_code = status
@@ -227,3 +235,32 @@ def test_source_chain_detects_unwired_entity_layer(monkeypatch, tmp_path):
     rep = vcc.check_source_chain()
     assert rep["ok"] is False
     assert any("没有被调用" in d for d in rep["detail"])
+
+
+# ============================================================
+# 5. 维基熔断（防批次超时）
+# ============================================================
+
+def test_wiki_breaker_trips_after_repeated_timeouts(monkeypatch):
+    """连不上维基时不能每篇都白等：连续 2 次异常后就整进程跳过。"""
+    calls = {"n": 0}
+
+    def _boom(*a, **k):
+        calls["n"] += 1
+        raise TimeoutError("wikipedia unreachable")
+
+    monkeypatch.setattr(dc.requests, "get", _boom)
+    assert dc.search_wikipedia_entity("哈兰德") is None
+    assert dc.search_wikipedia_entity("曼城") is None
+    before = calls["n"]
+    # 第三次开始不再发请求
+    assert dc.search_wikipedia_entity("阿森纳") is None
+    assert calls["n"] == before
+
+
+def test_wiki_breaker_does_not_trip_on_empty_result(monkeypatch):
+    """「搜不到」不是故障——不能让 404/无图把图源整体关掉。"""
+    monkeypatch.setattr(dc.requests, "get", lambda *a, **k: _Resp(404, None))
+    for _ in range(3):
+        assert dc.search_wikipedia_entity("哈兰德") is None
+    assert dc._wiki_available() is True

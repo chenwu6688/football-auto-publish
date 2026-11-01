@@ -1180,6 +1180,34 @@ def _title_matches(name, title):
     return core in t or t in core
 
 
+# 维基熔断：某些出口网络（如本地/部分 CI 区域）根本连不上维基，而 search_images
+# 每篇要试 3 个实体 × 2 种语言 × 2 次请求 —— 每个请求 6s 超时，一篇就能白等一分多钟。
+# 连续 2 次网络异常就整进程跳过维基，避免把批次拖到超时。
+_WIKI_DOWN = {"fails": 0, "down": False}
+WIKI_TRIP_AFTER = 2
+
+
+def _wiki_note_fail():
+    _WIKI_DOWN["fails"] += 1
+    if _WIKI_DOWN["fails"] >= WIKI_TRIP_AFTER and not _WIKI_DOWN["down"]:
+        _WIKI_DOWN["down"] = True
+        print("   🖼️ 维基图源连续超时，本批次起跳过该图源（不影响其余链路）")
+
+
+def _wiki_note_ok():
+    _WIKI_DOWN["fails"] = 0
+
+
+def _wiki_available():
+    return not _WIKI_DOWN["down"]
+
+
+def reset_wiki_breaker():
+    """给测试与每批次开头重置用。"""
+    _WIKI_DOWN["fails"] = 0
+    _WIKI_DOWN["down"] = False
+
+
 def search_wikipedia_entity(name, langs=("zh", "en"), timeout=6):
     """按任意实体名取维基配图（精确页 → 搜索兜底），返回至多 1 张。
 
@@ -1190,7 +1218,7 @@ def search_wikipedia_entity(name, langs=("zh", "en"), timeout=6):
     返回的 image dict 带 `source="wikipedia"` 与 `alt=<解析到的页名>`，供 cover_binding 判定；
     解析到的页名与查询名完全无关时（维基搜索会飘）直接丢弃，避免又造出「图文不符」。
     """
-    if not name:
+    if not name or not _wiki_available():
         return None
     for lang in langs:
         base = f"https://{lang}.wikipedia.org"
@@ -1210,10 +1238,11 @@ def search_wikipedia_entity(name, langs=("zh", "en"), timeout=6):
                     # 拿到的是大教堂照片而不是球队。重定向（国际米兰→国际米兰足球俱乐部）
                     # 因为核心名被包含，仍然放行。
                     if img and _title_matches(name, title or ""):
+                        _wiki_note_ok()
                         return {"url": img, "source": "wikipedia",
                                 "alt": title or name, "query": name}
         except Exception:
-            pass
+            _wiki_note_fail()
         # 2) 精确页取不到图 → 搜索 API 拿最相关条目再取摘要
         try:
             sr = requests.get(f"{base}/w/api.php", params={
