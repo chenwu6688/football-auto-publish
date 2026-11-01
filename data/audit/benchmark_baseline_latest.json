@@ -1,0 +1,760 @@
+{
+ "generated_at": "2026-11-01T11:11:35+08:00",
+ "peers": {
+  "我爱英超": {
+   "n": 84,
+   "buckets": {
+    "锚点+感叹": {
+     "n": 8,
+     "median": 1091.5,
+     "mean": 1314.9,
+     "over1000_rate": 50.0,
+     "thin": false
+    },
+    "仅锚点": {
+     "n": 3,
+     "median": 1346,
+     "mean": 1776,
+     "over1000_rate": 100.0,
+     "thin": true
+    },
+    "数字+感叹": {
+     "n": 58,
+     "median": 1147.5,
+     "mean": 1724.4,
+     "over1000_rate": 56.9,
+     "thin": false
+    },
+    "数字+情绪": {
+     "n": 2,
+     "median": 1502.0,
+     "mean": 1502,
+     "over1000_rate": 50.0,
+     "thin": true
+    },
+    "感叹无数字": {
+     "n": 3,
+     "median": 1916,
+     "mean": 3369,
+     "over1000_rate": 66.7,
+     "thin": true
+    },
+    "数字无感叹无情绪": {
+     "n": 10,
+     "median": 838.5,
+     "mean": 1397.3,
+     "over1000_rate": 40.0,
+     "thin": false
+    }
+   },
+   "features": {
+    "has_number": {
+     "n": 81,
+     "median": 1075,
+     "mean": 1640.0,
+     "over1000_rate": 55.6,
+     "thin": false,
+     "miss_median": 1916,
+     "lift": 0.56
+    },
+    "has_exclaim": {
+     "n": 69,
+     "median": 1189,
+     "mean": 1748.4,
+     "over1000_rate": 56.5,
+     "thin": false,
+     "miss_median": 1002,
+     "lift": 1.19
+    },
+    "has_question": {
+     "n": 17,
+     "median": 894,
+     "mean": 1324.1,
+     "over1000_rate": 41.2,
+     "thin": false,
+     "miss_median": 1305,
+     "lift": 0.69
+    },
+    "has_anchor": {
+     "n": 11,
+     "median": 1346,
+     "mean": 1440.6,
+     "over1000_rate": 63.6,
+     "thin": false,
+     "miss_median": 1075,
+     "lift": 1.25
+    },
+    "is_bookish": {
+     "n": 6,
+     "median": 1287.5,
+     "mean": 1200,
+     "over1000_rate": 66.7,
+     "thin": false,
+     "miss_median": 1090.5,
+     "lift": 1.18
+    },
+    "has_top_name": {
+     "n": 58,
+     "median": 970.5,
+     "mean": 1798.7,
+     "over1000_rate": 48.3,
+     "thin": false,
+     "miss_median": 1411.5,
+     "lift": 0.69
+    }
+   },
+   "overall": {
+    "n": 84,
+    "median": 1090.5,
+    "mean": 1701.7,
+    "over1000_rate": 56.0,
+    "thin": false
+   },
+   "anchor_coverage": 13.1,
+   "question_rate": 20.2,
+   "unit": "阅读",
+   "mixed_units": false,
+   "followers": 103000,
+   "top3": [
+    {
+     "title": "亚马尔叔叔炮轰金球奖：我侄子世界第1！凯恩啥都没干只是进球多",
+     "views": 7787,
+     "unit": "阅读",
+     "comments": 183,
+     "when": "5天前"
+    },
+    {
+     "title": "央视：要求姆巴佩+皇马书面道歉，否则免谈！中国足协已严正交涉",
+     "views": 7568,
+     "unit": "阅读",
+     "comments": 22,
+     "when": "5天前"
+    },
+    {
+     "title": "19岁亚马尔黯然神伤！包机带家人助阵却排第3 无缘金球奖憾失5纪录",
+     "views": 7227,
+     "unit": "阅读",
+     "comments": 46,
+     "when": "5天前"
+    }
+   ],
+   "bottom3": [
+    {
+     "title": "C罗申请减轻处罚 列举4项理由：为国进146球+5夺金球奖 葡足协认可",
+     "views": 11,
+     "unit": "阅读",
+     "comments": 1,
+     "when": "10月20日"
+    },
+    {
+     "title": "严重违规？C罗等于没受罚 30天禁赛已执行19天 39秒工资就能交罚款",
+     "views": 19,
+     "unit": "阅读",
+     "comments": 0,
+     "when": "10月20日"
+    },
+    {
+     "title": "擅自退出集训 C罗遭官宣禁赛30天+罚款255欧 可入选下月葡萄牙名单",
+     "views": 38,
+     "unit": "阅读",
+     "comments": 1,
+     "when": "10月20日"
+    }
+   ]
+  },
+  "英超那些事": {
+   "n": 14,
+   "buckets": {
+    "锚点+感叹": {
+     "n": 4,
+     "median": 14000.0,
+     "mean": 13236.8,
+     "over1000_rate": 100.0,
+     "thin": true
+    },
+    "仅锚点": {
+     "n": 1,
+     "median": 4227,
+     "mean": 4227,
+     "over1000_rate": 100.0,
+     "thin": true
+    },
+    "数字+感叹": {
+     "n": 9,
+     "median": 5438,
+     "mean": 9237.4,
+     "over1000_rate": 100.0,
+     "thin": false
+    }
+   },
+   "features": {
+    "has_number": {
+     "n": 14,
+     "median": 5526.0,
+     "mean": 10022.2,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": null,
+     "lift": null
+    },
+    "has_exclaim": {
+     "n": 13,
+     "median": 5614,
+     "mean": 10468,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 4227,
+     "lift": 1.33
+    },
+    "has_question": {
+     "n": 0,
+     "median": null,
+     "mean": null,
+     "over1000_rate": null,
+     "thin": true,
+     "miss_median": 5526.0,
+     "lift": null
+    },
+    "has_anchor": {
+     "n": 5,
+     "median": 10000,
+     "mean": 11434.8,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 5438,
+     "lift": 1.84
+    },
+    "is_bookish": {
+     "n": 1,
+     "median": 1174,
+     "mean": 1174,
+     "over1000_rate": 100.0,
+     "thin": true,
+     "miss_median": 5614,
+     "lift": 0.21
+    },
+    "has_top_name": {
+     "n": 10,
+     "median": 5333.0,
+     "mean": 7934.7,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 7488.5,
+     "lift": 0.71
+    }
+   },
+   "overall": {
+    "n": 14,
+    "median": 5526.0,
+    "mean": 10022.2,
+    "over1000_rate": 100.0,
+    "thin": false
+   },
+   "anchor_coverage": 35.7,
+   "question_rate": 0.0,
+   "unit": "阅读",
+   "mixed_units": false,
+   "followers": 150000,
+   "top3": [
+    {
+     "title": "主场0-3大败！意甲劲旅彻底拉胯，11战仅2胜，头号球星带头反水！",
+     "views": 42000,
+     "unit": "阅读",
+     "comments": 0,
+     "when": "2025年11月09日"
+    },
+    {
+     "title": "主场0-3大败，利物浦彻底崩盘！近7轮输了6场，球迷第80分钟退场",
+     "views": 22000,
+     "unit": "阅读",
+     "comments": 0,
+     "when": "2025年11月23日"
+    },
+    {
+     "title": "让3追4！拜仁史诗级大逆转，30分钟连轰4球，凯恩替补完成绝杀！",
+     "views": 18000,
+     "unit": "阅读",
+     "comments": 27,
+     "when": "04月25日"
+    }
+   ],
+   "bottom3": [
+    {
+     "title": "神剧情！曼联时隔10年双杀利物浦，锁定欧冠门票，中场大将绝杀!",
+     "views": 1174,
+     "unit": "阅读",
+     "comments": 4,
+     "when": "05月04日"
+    },
+    {
+     "title": "英超最新积分榜：阿森纳小胜3分领跑，利物浦赢球攀升第4！",
+     "views": 1452,
+     "unit": "阅读",
+     "comments": 2,
+     "when": "04月26日"
+    },
+    {
+     "title": "意甲最新积分榜：国米豪取7连胜10分领跑，尤文3轮不胜仍旧第5！",
+     "views": 2947,
+     "unit": "阅读",
+     "comments": 3,
+     "when": "02月22日"
+    }
+   ]
+  },
+  "西甲二人转": {
+   "n": 83,
+   "buckets": {
+    "锚点+感叹": {
+     "n": 2,
+     "median": 23.5,
+     "mean": 23.5,
+     "over1000_rate": 0.0,
+     "thin": true
+    },
+    "仅锚点": {
+     "n": 4,
+     "median": 25.5,
+     "mean": 29,
+     "over1000_rate": 0.0,
+     "thin": true
+    },
+    "数字+感叹": {
+     "n": 9,
+     "median": 501,
+     "mean": 787.2,
+     "over1000_rate": 22.2,
+     "thin": false
+    },
+    "数字+情绪": {
+     "n": 3,
+     "median": 16,
+     "mean": 24.7,
+     "over1000_rate": 0.0,
+     "thin": true
+    },
+    "感叹无数字": {
+     "n": 5,
+     "median": 173,
+     "mean": 158.4,
+     "over1000_rate": 0.0,
+     "thin": false
+    },
+    "数字无感叹无情绪": {
+     "n": 29,
+     "median": 113,
+     "mean": 911.7,
+     "over1000_rate": 10.3,
+     "thin": false
+    },
+    "书面语": {
+     "n": 5,
+     "median": 216,
+     "mean": 1384,
+     "over1000_rate": 20.0,
+     "thin": false
+    },
+    "三者都没有": {
+     "n": 26,
+     "median": 74.5,
+     "mean": 2258.4,
+     "over1000_rate": 7.7,
+     "thin": false
+    }
+   },
+   "features": {
+    "has_number": {
+     "n": 43,
+     "median": 106,
+     "mean": 782.5,
+     "over1000_rate": 11.6,
+     "thin": false,
+     "miss_median": 74.5,
+     "lift": 1.42
+    },
+    "has_exclaim": {
+     "n": 16,
+     "median": 146.0,
+     "mean": 495.2,
+     "over1000_rate": 12.5,
+     "thin": false,
+     "miss_median": 72,
+     "lift": 2.03
+    },
+    "has_question": {
+     "n": 7,
+     "median": 97,
+     "mean": 1804.9,
+     "over1000_rate": 14.3,
+     "thin": false,
+     "miss_median": 76.5,
+     "lift": 1.27
+    },
+    "has_anchor": {
+     "n": 6,
+     "median": 25.5,
+     "mean": 27.2,
+     "over1000_rate": 0.0,
+     "thin": false,
+     "miss_median": 97,
+     "lift": 0.26
+    },
+    "is_bookish": {
+     "n": 14,
+     "median": 38.5,
+     "mean": 747.6,
+     "over1000_rate": 14.3,
+     "thin": false,
+     "miss_median": 77,
+     "lift": 0.5
+    },
+    "has_top_name": {
+     "n": 72,
+     "median": 77.0,
+     "mean": 1340.7,
+     "over1000_rate": 11.1,
+     "thin": false,
+     "miss_median": 26,
+     "lift": 2.96
+    }
+   },
+   "overall": {
+    "n": 83,
+    "median": 77,
+    "mean": 1207.1,
+    "over1000_rate": 9.6,
+    "thin": false
+   },
+   "anchor_coverage": 7.2,
+   "question_rate": 8.4,
+   "unit": "阅读",
+   "mixed_units": false,
+   "followers": 230000,
+   "top3": [
+    {
+     "title": "西甲主席特巴斯斥责姆巴佩并公开致歉：绝不容许个人行为损害大局",
+     "views": 54000,
+     "unit": "阅读",
+     "comments": 127,
+     "when": "5天前"
+    },
+    {
+     "title": "贝纳蒂亚公开质疑2026金球奖排名：梅西凭什么位列第五？",
+     "views": 12000,
+     "unit": "阅读",
+     "comments": 231,
+     "when": "4天前"
+    },
+    {
+     "title": "皇马迎魔鬼赛程：6天连战3个客场，为办NFL比赛主动奔波",
+     "views": 8148,
+     "unit": "阅读",
+     "comments": 29,
+     "when": "3天前"
+    }
+   ],
+   "bottom3": [
+    {
+     "title": "联赛杯大冷门：阿森纳点球大战负于英乙球队，爆冷止步第四轮",
+     "views": 4,
+     "unit": "阅读",
+     "comments": 0,
+     "when": "4天前"
+    },
+    {
+     "title": "2026金球奖揭晓：凯恩凭73球夺魁，终结英格兰25年奖项荒",
+     "views": 4,
+     "unit": "阅读",
+     "comments": 0,
+     "when": "5天前"
+    },
+    {
+     "title": "拒绝金钱诱惑选择绿茵场：揭秘C罗成名前的豪门争夺战",
+     "views": 5,
+     "unit": "阅读",
+     "comments": 0,
+     "when": "3天前"
+    }
+   ]
+  },
+  "足球记忆FM": {
+   "n": 80,
+   "buckets": {
+    "仅锚点": {
+     "n": 2,
+     "median": 23000.0,
+     "mean": 23000,
+     "over1000_rate": 100.0,
+     "thin": true
+    },
+    "数字+感叹": {
+     "n": 6,
+     "median": 19500.0,
+     "mean": 38214.3,
+     "over1000_rate": 100.0,
+     "thin": false
+    },
+    "数字+情绪": {
+     "n": 1,
+     "median": 15000,
+     "mean": 15000,
+     "over1000_rate": 100.0,
+     "thin": true
+    },
+    "感叹无数字": {
+     "n": 12,
+     "median": 5891.5,
+     "mean": 29693,
+     "over1000_rate": 100.0,
+     "thin": false
+    },
+    "数字无感叹无情绪": {
+     "n": 25,
+     "median": 15000,
+     "mean": 68967.0,
+     "over1000_rate": 100.0,
+     "thin": false
+    },
+    "书面语": {
+     "n": 2,
+     "median": 9266.5,
+     "mean": 9266.5,
+     "over1000_rate": 100.0,
+     "thin": true
+    },
+    "三者都没有": {
+     "n": 32,
+     "median": 5866.5,
+     "mean": 33884.0,
+     "over1000_rate": 96.9,
+     "thin": false
+    }
+   },
+   "features": {
+    "has_number": {
+     "n": 33,
+     "median": 15000,
+     "mean": 60135.2,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 5891,
+     "lift": 2.55
+    },
+    "has_exclaim": {
+     "n": 18,
+     "median": 12000.0,
+     "mean": 32533.4,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 8764.0,
+     "lift": 1.37
+    },
+    "has_question": {
+     "n": 18,
+     "median": 13500.0,
+     "mean": 60495.1,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 8073.5,
+     "lift": 1.67
+    },
+    "has_anchor": {
+     "n": 2,
+     "median": 23000.0,
+     "mean": 23000,
+     "over1000_rate": 100.0,
+     "thin": true,
+     "miss_median": 8764.0,
+     "lift": 2.62
+    },
+    "is_bookish": {
+     "n": 3,
+     "median": 16000,
+     "mean": 42844.3,
+     "over1000_rate": 100.0,
+     "thin": true,
+     "miss_median": 9015,
+     "lift": 1.77
+    },
+    "has_top_name": {
+     "n": 31,
+     "median": 14000,
+     "mean": 66531.2,
+     "over1000_rate": 100.0,
+     "thin": false,
+     "miss_median": 7532,
+     "lift": 1.86
+    }
+   },
+   "overall": {
+    "n": 80,
+    "median": 10007.5,
+    "mean": 43420.0,
+    "over1000_rate": 98.8,
+    "thin": false
+   },
+   "anchor_coverage": 2.5,
+   "question_rate": 22.5,
+   "unit": "播放",
+   "mixed_units": false,
+   "followers": 307000,
+   "top3": [
+    {
+     "title": "美加墨26大巨星——“养成系男主”拉明·亚马尔 #世界杯懂球大会",
+     "views": 430000,
+     "unit": "播放",
+     "comments": 328,
+     "when": "07月14日"
+    },
+    {
+     "title": "美加墨26大巨星——“大英帝星”哈里·凯恩 #美加墨世界杯",
+     "views": 370000,
+     "unit": "播放",
+     "comments": 189,
+     "when": "07月02日"
+    },
+    {
+     "title": "如今的巴萨，有没有十几年前那味儿了？ #巴萨 #拉菲尼亚 #亚马尔",
+     "views": 340000,
+     "unit": "播放",
+     "comments": 306,
+     "when": "09月20日"
+    }
+   ],
+   "bottom3": [
+    {
+     "title": "铭记山河之殇，砥砺复兴新程",
+     "views": 851,
+     "unit": "播放",
+     "comments": 2,
+     "when": "09月18日"
+    },
+    {
+     "title": "足球人都怎么“送礼”？ #YSL香水礼盒 #YSL自由之水",
+     "views": 1392,
+     "unit": "播放",
+     "comments": 1,
+     "when": "07月31日"
+    },
+    {
+     "title": "冠军中场佩德里，见证孩子们的“世界杯决赛” #CHFL #佩德里",
+     "views": 1535,
+     "unit": "播放",
+     "comments": 1,
+     "when": "07月29日"
+    }
+   ]
+  }
+ },
+ "ours": {
+  "n": 76,
+  "buckets": {
+   "仅锚点": {
+    "n": 2,
+    "median": 2.0,
+    "mean": 2,
+    "over1000_rate": 0.0,
+    "thin": true
+   },
+   "数字+感叹": {
+    "n": 1,
+    "median": 30,
+    "mean": 30,
+    "over1000_rate": 0.0,
+    "thin": true
+   },
+   "数字+情绪": {
+    "n": 3,
+    "median": 4,
+    "mean": 146.3,
+    "over1000_rate": 0.0,
+    "thin": true
+   },
+   "数字无感叹无情绪": {
+    "n": 33,
+    "median": 15,
+    "mean": 72.6,
+    "over1000_rate": 0.0,
+    "thin": false
+   },
+   "三者都没有": {
+    "n": 37,
+    "median": 3,
+    "mean": 12.8,
+    "over1000_rate": 0.0,
+    "thin": false
+   }
+  },
+  "features": {
+   "has_number": {
+    "n": 37,
+    "median": 15,
+    "mean": 77.5,
+    "over1000_rate": 0.0,
+    "thin": false,
+    "miss_median": 3,
+    "lift": 5.0
+   },
+   "has_exclaim": {
+    "n": 1,
+    "median": 30,
+    "mean": 30,
+    "over1000_rate": 0.0,
+    "thin": true,
+    "miss_median": 8,
+    "lift": 3.75
+   },
+   "has_question": {
+    "n": 65,
+    "median": 8,
+    "mean": 40.0,
+    "over1000_rate": 0.0,
+    "thin": false,
+    "miss_median": 10,
+    "lift": 0.8
+   },
+   "has_anchor": {
+    "n": 2,
+    "median": 2.0,
+    "mean": 2,
+    "over1000_rate": 0.0,
+    "thin": true,
+    "miss_median": 9.5,
+    "lift": 0.21
+   },
+   "is_bookish": {
+    "n": 1,
+    "median": 19,
+    "mean": 19,
+    "over1000_rate": 0.0,
+    "thin": true,
+    "miss_median": 8,
+    "lift": 2.38
+   },
+   "has_top_name": {
+    "n": 31,
+    "median": 10,
+    "mean": 42.4,
+    "over1000_rate": 0.0,
+    "thin": false,
+    "miss_median": 7,
+    "lift": 1.43
+   }
+  },
+  "overall": {
+   "n": 76,
+   "median": 8.5,
+   "mean": 44.0,
+   "over1000_rate": 0.0,
+   "thin": false
+  },
+  "anchor_coverage": 2.6,
+  "question_rate": 85.5
+ },
+ "caveats": [
+  "主页显示的是当前累计阅读，我方后台是统计窗口内阅读，口径不完全对齐；倍数只代表方向",
+  "抓取样本是账号主页滚动窗口（约近 1~7 天），不是我方自然月口径",
+  "跨账号比较会骗人：全样本「含顶流人名」实测 0.32x（负相关），控制账号后 3.53x（正相关）——结论必须账号内验证",
+  "没有曝光量，无法区分「标题不行」与「根本没进推荐池」，这是最大盲区"
+ ]
+}
