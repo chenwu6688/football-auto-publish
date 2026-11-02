@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-11-02 20:42",
+  "window_days": 14,
+  "since": "2026-11-02",
+  "ok": true,
+  "checks": [
+    {
+      "item": "无封面发布占比",
+      "ok": true,
+      "advisory": true,
+      "detail": [
+        "⚠️ 2026-11-02~2026-11-02 已发布样本仅 0 篇（<5），不下结论；上限 5%"
+      ]
+    },
+    {
+      "item": "图源链路",
+      "ok": true,
+      "detail": [
+        "✅ 实体词典 → 维基搜索已接入 search_images",
+        "✅ footyrenders 已退出候选链"
+      ]
+    },
+    {
+      "item": "尺寸闸门",
+      "ok": true,
+      "detail": [
+        "✅ 下载尺寸闸门 800×600（≥800×600）"
+      ]
+    },
+    {
+      "item": "负向验证",
+      "ok": true,
+      "detail": [
+        "✅ 负向验证：10 篇全零配图 → 严格阈值(5%)判 FAIL、放松阈值(100%)判 PASS，指标确实在起作用"
+      ]
+    }
+  ],
+  "hard_failed": []
+}
