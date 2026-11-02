@@ -39,7 +39,17 @@
       "is_prediction": false,
       "is_recap": false,
       "supply_layer": "一级·确定性",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 15,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1045,
+        "follower_reads": 2,
+        "click_rate": 0.01
+      },
+      "platform_id": "7703359115308876326"
     },
     {
       "index": 1,
@@ -75,7 +85,17 @@
       "is_recap": true,
       "supply_layer": "二级·突发",
       "recap_match_id": "560631",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 526,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7703420416957760015"
     },
     {
       "index": 1,

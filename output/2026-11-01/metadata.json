@@ -46,9 +46,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 724,
+        "retention_rate": 0.241,
+        "impressions": 1844,
         "follower_reads": 0,
-        "click_rate": 0.02
+        "click_rate": 0.01
       },
       "platform_id": "7702987493407064576"
     },
@@ -94,7 +95,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 525,
+        "retention_rate": 0.0,
+        "impressions": 1589,
         "follower_reads": 1,
         "click_rate": 0.0
       },
@@ -135,11 +137,12 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 1,
+        "reads": 5,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 395,
+        "retention_rate": 0.2,
+        "impressions": 1471,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -182,7 +185,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 355,
+        "retention_rate": 1.0,
+        "impressions": 1413,
         "follower_reads": 1,
         "click_rate": 0.0
       },
@@ -223,13 +227,14 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 3,
+        "reads": 7,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 155,
+        "retention_rate": 0.165,
+        "impressions": 1266,
         "follower_reads": 0,
-        "click_rate": 0.02
+        "click_rate": 0.01
       },
       "platform_id": "7703141973745549864"
     },
@@ -264,11 +269,12 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 125,
+        "retention_rate": 0.0,
+        "impressions": 1210,
         "follower_reads": 0,
         "click_rate": 0.0
       },
