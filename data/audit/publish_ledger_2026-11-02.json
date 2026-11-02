@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-02",
+  "generated_at": "2026-11-02 00:08:27",
+  "batch_filter": "morning",
+  "counts": {
+    "total": 1,
+    "published": 1,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 1,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "巴萨更衣室还在笑，维拉队长赛前加练到凌晨憋的到底是什么",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7703359115308876326",
+      "reason": "",
+      "images": 2,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
