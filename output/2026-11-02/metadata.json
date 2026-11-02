@@ -1,7 +1,7 @@
 {
   "date": "2026-11-02",
-  "generated_at": "2026-11-02T04:05:05.808542",
-  "total_articles": 2,
+  "generated_at": "2026-11-02T10:04:13.411744",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -76,75 +76,188 @@
       "supply_layer": "二级·突发",
       "recap_match_id": "560631",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "费耶诺德主帅场边站满90分钟，国际米兰还没换人他先动了三次",
+      "path": "/home/runner/work/_temp/output/2026-11-02/article-1-费耶诺德主帅场边-c24e30.md",
+      "slug": "费耶诺德主帅场边-c24e30",
+      "tags": [
+        "Feyenoord",
+        "Inter Milan",
+        "Champions League",
+        "tactics",
+        "coach pressure"
+      ],
+      "keywords": [
+        "Feyenoord",
+        "Inter Milan",
+        "Champions League",
+        "tactics",
+        "coach pressure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-02/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-02/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-02/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "德尔加多挥拳染红致歉，大连九人苦撑3-4，绝无冒犯更刺耳！",
+      "path": "/home/runner/work/_temp/output/2026-11-02/article-2-德尔加多挥拳染红-6856b5.md",
+      "slug": "德尔加多挥拳染红-6856b5",
+      "tags": [
+        "Dalian Yingbo",
+        "Delgado",
+        "red card",
+        "VAR",
+        "Yunnan Yukun"
+      ],
+      "keywords": [
+        "Dalian Yingbo",
+        "Delgado",
+        "red card",
+        "VAR",
+        "Yunnan Yukun"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-02/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-02/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-02/images/article-2-img-003.jpg"
+      ],
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "战报比分",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "二级·突发"
+    },
+    {
+      "index": 3,
+      "title": "欧冠大戏巴萨曼联拜仁全来了，这四场不熬夜真亏",
+      "path": "/home/runner/work/_temp/output/2026-11-02/article-3-欧冠大戏巴萨曼联-0bbac5.md",
+      "slug": "欧冠大戏巴萨曼联-0bbac5",
+      "tags": [
+        "Champions League",
+        "Barcelona",
+        "Bayern Munich",
+        "Manchester United",
+        "prediction"
+      ],
+      "keywords": [
+        "Champions League",
+        "Barcelona",
+        "Bayern Munich",
+        "Manchester United",
+        "prediction"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-02/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": true,
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "阿森纳1亿先生又刷全场最佳，赖斯这份35万周薪续约到底值不值",
-      "angle": "枪手1-0拿下利物浦，赖斯助攻+全场最佳，俱乐部酝酿35万镑周薪续约——从1亿身价到队内顶薪，这钱花得明明白白。",
+      "title": "德尔加多致歉了，可那句“绝无冒犯”为什么听着更刺耳",
+      "angle": "德尔加多发声道歉，措辞工整得像公关稿。老六观点：道歉不是念稿，球迷要的是他真明白自己踩了哪条线，而不是“吸取经验教训”六个字打包走人。",
       "keywords": [
-        "declan rice",
-        "arsenal",
-        "contract extension"
+        "delgado",
+        "apology",
+        "controversy",
+        "player statement"
       ],
       "keywords_cn": [
-        "赖斯",
-        "阿森纳",
-        "续约"
+        "德尔加多",
+        "致歉",
+        "争议",
+        "球员声明"
       ],
-      "content_type": "转会资讯",
-      "score": 85,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "content_type": "八卦趣事",
+      "score": 84,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "顶薪续约争议+当场最佳数据，双增量",
-      "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "道歉措辞争议，评论区必吵翻",
+      "_category": "冲突舆情",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "利物浦主场哑火吞零蛋，阿森纳这次把悬念提前掐灭",
+      "title": "费耶诺德主帅场边站满90分钟，国际米兰还没换人他先动了三次",
       "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "_is_fixture": true
     },
     {
-      "title": "梅西C罗领跑射手榜，老球迷却独爱巴蒂？这榜单你服吗？",
-      "content_type": "榜单",
-      "_column_name": "战术榜单",
-      "_from_reservoir": true
+      "title": "欧冠大戏巴萨曼联拜仁全来了，这四场不熬夜真亏",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 0,
+      "一级·确定性": 1,
       "二级·突发": 1,
-      "三级·软性": 1
+      "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 0.0,
+      "一级·确定性": 50.0,
       "二级·突发": 50.0,
-      "三级·软性": 50.0
+      "三级·软性": 0.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -152,15 +265,15 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
+      "一级·确定性": 20.0,
       "二级·突发": 0.0,
-      "三级·软性": 30.0
+      "三级·软性": -20.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报互动引导未达标",
+      "环节": "互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
       "数量": 1
@@ -170,37 +283,34 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
-    }
-  ],
-  "pending_review": [
+    },
     {
-      "id": "2026-11-02-2-691119",
-      "index": 2,
-      "title": "梅西C罗领跑射手榜，老球迷却独爱巴蒂？这榜单你服吗？",
-      "reasons": [
-        "伤病(命中：脚踝)"
-      ]
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-02 12:05:05"
+  "last_batch": "evening",
+  "last_updated": "2026-11-02 18:04:13"
 }
