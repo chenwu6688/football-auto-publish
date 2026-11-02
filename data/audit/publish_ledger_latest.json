@@ -1,14 +1,14 @@
 {
   "date": "2026-11-02",
-  "generated_at": "2026-11-02 00:08:27",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-02 04:05:50",
+  "batch_filter": "noon",
   "counts": {
     "total": 1,
     "published": 1,
     "failed": 0,
     "skipped_prediction": 0,
     "published_without_id": 0,
-    "published_without_cover": 0
+    "published_without_cover": 1
   },
   "platform_id_binding": {
     "bound": 1,
@@ -17,12 +17,12 @@
   },
   "records": [
     {
-      "title": "巴萨更衣室还在笑，维拉队长赛前加练到凌晨憋的到底是什么",
+      "title": "利物浦主场哑火吞零蛋，阿森纳这次把悬念提前掐灭",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7703359115308876326",
+      "batch_name": "午间",
+      "platform_id": "7703420416957760015",
       "reason": "",
-      "images": 2,
+      "images": 0,
       "status": "published"
     }
   ],
