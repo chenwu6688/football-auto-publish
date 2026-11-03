@@ -51,9 +51,38 @@ def _load_cache() -> dict:
 
 
 def collect_records(days: int) -> tuple[list[dict], str]:
-    """收集近 days 天的打分记录。返回 (records, source)。"""
+    """收集近 days 天的打分记录。返回 (records, source)。
+
+    优先级（2026-11-03 调整）：
+      1. `data/rank_audit/l3_scores.jsonl` —— **L3 模型真实打分的留证台账**；
+      2. `data/ranker_cache.json` —— L4 当日缓存（只活一天，常为空）；
+      3. `output/*/metadata.json` —— 规则分兜底。
+
+    以前只有 2 和 3，而 2 按日重置 → 周审计几乎永远落到 3（来源=rule）。
+    那份 2026-10-10 的「量表校准」其实是**规则降级抽样**，却被当成模型量表
+    存档，维度均值 冲突度 1.1 / 知名度 1.0 就是这么来的：不是模型偏好，
+    是规则公式在这两维恒给 1。来源必须标清楚，否则校准结论整个是错的。
+    """
     since = datetime.now() - timedelta(days=days)
     recs, src = [], "none"
+
+    # 台账路径跟随本模块的 AUDIT_DIR（测试改 AUDIT_DIR 即自动隔离），
+    # 不直接用 ranker.ledger_path()——那个跟随 ranker.CACHE_PATH，两处独立性不同步。
+    ledger = AUDIT_DIR / "l3_scores.jsonl"
+    for rec in ranker.load_l3_ledger(days, path=ledger):
+        dims = rec.get("维度") or {}
+        recs.append({
+            "id": rec.get("key") or rec.get("id", ""),
+            "来源": "model",
+            "打分时间": str(rec.get("at", ""))[:16],
+            "维度": {d: dims.get(d) for d in DIMENSIONS},
+            "总分": rec.get("总分") if rec.get("总分") is not None
+                    else sum(v for v in dims.values() if isinstance(v, int)),
+            "标题": rec.get("标题", ""),
+            "板块": rec.get("板块", ""),
+        })
+    if recs:
+        return recs, "l3_ledger"
 
     cache = _load_cache()
     judged = cache.get("judged") or {}

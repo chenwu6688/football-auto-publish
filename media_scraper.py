@@ -44,9 +44,24 @@ from typing import Optional
 import requests
 from bs4 import BeautifulSoup
 
+import scraper_diagnostics as diag
+
 
 class ScraperBlockedError(Exception):
     """Raised when the source blocks our requests."""
+    pass
+
+
+class ScraperChallengeError(ScraperBlockedError):
+    """Raised when the response is an anti-bot challenge page, not real content.
+
+    单独开一类（继承 ScraperBlockedError 以兼容既有 except 分支）是因为处置不同：
+    被拦是「换 IP / 降频」，挑战页是「这套请求特征已被识别，得换通道」（如
+    `_http_get_plain` 那条最小头通道就是为 EdgeOne 567 单开的）。
+
+    2026-10-26 教训：567 挑战页不在 403/429/404 分支里 → 循环走完 `return ""`，
+    备源静默归零。这类「看起来没数据、其实是被拦」最难查，必须能抛出来。
+    """
     pass
 
 
@@ -244,11 +259,13 @@ class SportsScraper:
             if matches:
                 self._consecutive_blocks = 0
                 return matches
-        except ScraperBlockedError:
+        except ScraperBlockedError as e:
             self._consecutive_blocks += 1
+            self._note_exc("zhibo8", f"{self.ZHIBO8_BASE}/", e)
             if self._consecutive_blocks >= self.BLOCK_THRESHOLD:
                 raise
         except Exception as e:
+            self._note_exc("zhibo8", f"{self.ZHIBO8_BASE}/", e)
             print(f"   ⚠️ 直播吧首页解析异常: {e}")
 
         # 降级：从比赛战报页反推（尝试搜索当天文章）
@@ -272,6 +289,7 @@ class SportsScraper:
         except ScraperBlockedError:
             raise
         except Exception as e:
+            self._note_exc("zhibo8", match_url, e)
             print(f"   ⚠️ 战报解析异常 ({match_url[:60]}): {e}")
             return None
 
@@ -284,6 +302,7 @@ class SportsScraper:
             html = self._http_get(f"{self.ZHIBO8_BASE}/")
             return self._parse_zhibo8_news(html)
         except Exception as e:
+            self._note_exc("zhibo8", f"{self.ZHIBO8_BASE}/", e)
             print(f"   ⚠️ 新闻解析异常: {e}")
             return []
 
@@ -364,8 +383,20 @@ class SportsScraper:
             articles = articles[:max_articles]
 
             print(f"   📰 懂球帝文章: {len(articles)} 篇")
+            if not articles:
+                # 页面拿到了却一条不中：要么今天真没内容，要么改版把选择器打穿了。
+                # 台账留页面体积，事后能一眼分清（318KB 却 0 条 = 改版）。
+                self._note_empty("dongqiudi", f"{self.DQ_BASE}/",
+                                 f"页面 {len(html)} 字符但解析 0 条", count=0)
             return articles
+        except ScraperBlockedError as e:
+            # 挑战页/被拦：以前走 `except Exception` 统一 print 后 return []，
+            # 于是「备源 0 篇」既可能是没内容也可能是被拦。现在必须能区分。
+            self._note_exc("dongqiudi", f"{self.DQ_BASE}/", e)
+            print(f"   ⛔ 懂球帝被拦截（{type(e).__name__}）: {e}")
+            return []
         except Exception as e:
+            self._note_exc("dongqiudi", f"{self.DQ_BASE}/", e)
             print(f"   ⚠️ 懂球帝首页解析异常: {e}")
             return []
 
@@ -438,7 +469,14 @@ class SportsScraper:
                 content = "\n".join(lines[body_start:])
             if title and content:
                 return {"source": "dongqiudi", "title": title, "article_text": content}
+            # 页面正常但没有正文容器：改版或删稿，必须留痕（否则等同「看不见的空」）
+            self._note_empty("dongqiudi", article_url,
+                             f"title={'有' if title else '无'} content={'有' if content else '无'}")
+        except ScraperBlockedError as e:
+            self._note_exc("dongqiudi", article_url, e)
+            print(f"   ⛔ 懂球帝文章被拦截（{type(e).__name__}）: {e}")
         except Exception as e:
+            self._note_exc("dongqiudi", article_url, e)
             print(f"   ⚠️ 懂球帝文章解析异常: {e}")
         return None
 
@@ -455,7 +493,13 @@ class SportsScraper:
         看不出是被反爬拦了。这类「看起来没数据、其实是被拦」最难查。
 
         故此处单开一条最小头通道，只给懂球帝用，不动已跑通的直播吧路径。
+
+        **2026-11-03 补：拿到状态码必须归类，不能统一包成 RequestException。**
+        `urlopen` 对 4xx/5xx 抛 `HTTPError`（带 `.code`），旧实现一把 `except
+        Exception` 包成 `RequestException` → 567 与「DNS 挂了」在调用方看来一样。
+        现在按 code 分出 challenge / blocked / empty / http_error。
         """
+        import urllib.error
         import urllib.request
 
         headers = {"User-Agent": self._current_ua}
@@ -470,9 +514,31 @@ class SportsScraper:
                 m = re.search(r"charset=([\w-]+)", enc)
                 if m:
                     charset = m.group(1)
-                return raw.decode(charset, "ignore")
-        except Exception as e:
+                text = raw.decode(charset, "ignore")
+                # 200 也可能是挑战页壳子（EdgeOne 有时就返 200 + JS 挑战）
+                if diag.looks_like_challenge(text):
+                    diag.record("dongqiudi", url, diag.KIND_CHALLENGE, status=200,
+                                detail=f"挑战页壳子 {len(raw)} 字节")
+                    raise ScraperChallengeError(f"挑战页壳子（{len(raw)} 字节）")
+                diag.record("dongqiudi", url, diag.KIND_OK, status=200,
+                            count=len(text), detail=f"{len(raw)} 字节")
+                return text
+        except urllib.error.HTTPError as e:
+            code = e.code
+            kind = diag.classify_status(code)
+            diag.record("dongqiudi", url, kind, status=code, detail=f"HTTP {code}")
+            if kind == diag.KIND_CHALLENGE:
+                raise ScraperChallengeError(f"HTTP {code}（反爬挑战页）")
+            if kind == diag.KIND_BLOCKED:
+                raise ScraperBlockedError(f"HTTP {code}")
+            if kind == diag.KIND_EMPTY:
+                return ""
+            raise requests.RequestException(f"plain GET {url} failed: HTTP {code}")
+        except (urllib.error.URLError, OSError) as e:
+            diag.record("dongqiudi", url, diag.KIND_NETWORK, detail=type(e).__name__)
             raise requests.RequestException(f"plain GET {url} failed: {e}")
+        except ScraperBlockedError:
+            raise
 
     def check_available(self) -> bool:
         """检查直播吧是否可访问。"""
@@ -481,6 +547,23 @@ class SportsScraper:
             return "直播吧" in html or "zhibo8" in html
         except Exception:
             return False
+
+    def _note_exc(self, source: str, url: str, exc: BaseException) -> str:
+        """异常归类落台账，返回 kind 供日志使用。永不抛——观测层不带崩主流程。"""
+        kind = diag.classify_exception(exc)
+        try:
+            diag.record(source, url, kind,
+                        detail=f"{type(exc).__name__}: {exc}")
+        except Exception:
+            pass
+        return kind
+
+    def _note_empty(self, source: str, url: str, why: str, count: int = 0) -> None:
+        """「拿到了页面但确实没有目标内容」——与「被拦」必须分开记。"""
+        try:
+            diag.record(source, url, diag.KIND_EMPTY, count=count, detail=why)
+        except Exception:
+            pass
 
     def scrape_football_news(self, date_str: str = None, max_articles: int = 20) -> list[dict]:
         """获取直播吧足球新闻/文章列表（非比赛战报）。
@@ -544,6 +627,7 @@ class SportsScraper:
             return articles
 
         except Exception as e:
+            self._note_exc("zhibo8", f"{self.ZHIBO8_NEWS}/zuqiu/", e)
             print(f"   ⚠️ 直播吧新闻解析异常: {e}")
             return []
 
@@ -585,6 +669,7 @@ class SportsScraper:
             self._consecutive_blocks += 1
             raise
         except Exception as e:
+            self._note_exc("zhibo8", f"{self.ZHIBO8_BASE}/", e)
             print(f"   ⚠️ 获取赛程异常: {e}")
             return []
 
@@ -1135,12 +1220,26 @@ class SportsScraper:
     # ------------------------------------------------------------------
 
     def _http_get(self, url: str, referer: str = None, check_block: bool = False) -> str:
-        """带反爬措施的 HTTP GET 请求。"""
+        """带反爬措施的 HTTP GET 请求。
+
+        返回值语义（2026-11-03 收紧）：
+          - 200 且拿到正常页面 → 返回正文，记 ``ok``
+          - 404 → 返回 ``""``，记 ``empty``（页面真没了，不是被拦，两者必须分开）
+          - 其余一律**抛异常**，绝不再 ``return ""`` 冒充「没数据」
+
+        参数 ``check_block`` 是历史命名，语义为「跳过封禁词扫描」：
+        ``check_block=True`` → **不**扫描（用于只探测站点是否可达的场景）。
+        命名与语义相反，改了会影响两个既有调用点，这里只加说明不动签名。
+
+        注意 429 与 567 都归 challenge：处置动作一致（停手 + 告警），但成因可查。
+        """
         elapsed = time.time() - self._last_request_time
         if elapsed < self.REQUEST_DELAY:
             time.sleep(self.REQUEST_DELAY - elapsed)
 
         last_error = None
+        last_kind = None
+        last_status = None
         for attempt in range(1, self.MAX_RETRIES + 1):
             try:
                 headers = {
@@ -1163,33 +1262,74 @@ class SportsScraper:
                         resp.encoding = resp.apparent_encoding or "utf-8"
                     text = resp.text
                     if not check_block:
+                        # 判据沿用 2026-10 的既有口径（三个词命中即判拦截），
+                        # **不趁机放宽**——这套口径已跑通两个站点，改动会牵动
+                        # 「直播吧正文偶尔含『验证』」的旧账。本次只做归类：
+                        # 薄壳 + 厂商特征串 → challenge，否则 → blocked。
                         block_indicators = ["验证", "访问频率", "captcha"]
                         for ind in block_indicators:
                             if ind in text:
+                                kind = (diag.KIND_CHALLENGE if diag.looks_like_challenge(text)
+                                        else diag.KIND_BLOCKED)
+                                diag.record("http", url, kind, status=200,
+                                            detail=f"命中封禁词: {ind}")
+                                if kind == diag.KIND_CHALLENGE:
+                                    raise ScraperChallengeError(f"挑战页（200 但命中 {ind}）")
                                 raise ScraperBlockedError(f"触发封禁: {ind}")
+                        # 挑战页不一定带中文关键词：EdgeOne / Cloudflare 的壳子常是
+                        # 「EdgeOne + Just a moment」这类英文串。只认三个中文词会漏。
+                        # 这里用「薄壳 + 厂商特征串」兜一层，长文误伤由字节数阈值挡住。
+                        if diag.looks_like_challenge(text):
+                            diag.record("http", url, diag.KIND_CHALLENGE, status=200,
+                                        detail=f"挑战页壳子 {len(text)} 字符")
+                            raise ScraperChallengeError(f"挑战页壳子（{len(text)} 字符）")
+                    diag.record("http", url, diag.KIND_OK, status=200,
+                                count=len(text), detail=f"{len(text)} 字符")
                     return text
                 elif resp.status_code == 403:
+                    diag.record("http", url, diag.KIND_BLOCKED, status=403,
+                                detail=f"HTTP 403")
                     raise ScraperBlockedError(f"HTTP 403")
                 elif resp.status_code == 429:
                     wait = int(resp.headers.get("Retry-After", str(self.BACKOFF_BASE ** attempt)))
+                    diag.record("http", url, diag.KIND_CHALLENGE, status=429,
+                                detail=f"限流，等待 {wait}s 后重试")
                     time.sleep(wait)
+                    last_error, last_kind, last_status = f"HTTP 429", diag.KIND_CHALLENGE, 429
                     continue
                 elif resp.status_code == 404:
+                    diag.record("http", url, diag.KIND_EMPTY, status=404,
+                                detail="页面不存在（不是被拦）")
                     return ""
+                else:
+                    # 567（EdgeOne）与各 5xx 都落这里。以前这里什么都不做，
+                    # 重试耗尽后 return "" —— 就是这次要修的病根。
+                    code = resp.status_code
+                    kind = diag.classify_status(code)
+                    detail = f"HTTP {code}"
+                    if kind == diag.KIND_CHALLENGE:
+                        detail += "（反爬挑战）"
+                    diag.record("http", url, kind, status=code, detail=detail)
+                    last_error, last_kind, last_status = detail, kind, code
 
             except requests.Timeout:
-                last_error = f"timeout after {self.TIMEOUT}s"
+                last_error, last_kind = f"timeout after {self.TIMEOUT}s", diag.KIND_NETWORK
             except requests.ConnectionError as e:
-                last_error = f"connection error: {e}"
+                last_error, last_kind = f"connection error: {e}", diag.KIND_NETWORK
             except ScraperBlockedError:
                 raise
             except Exception as e:
-                last_error = str(e)
+                last_error, last_kind = str(e), diag.KIND_PARSE
 
             if attempt < self.MAX_RETRIES:
                 time.sleep(self.BACKOFF_BASE ** attempt + random.uniform(0, 0.5))
                 self._rotate_ua()
 
+        # 重试耗尽：按最后一次失败的成因抛出对应异常，不再静默返回空串。
+        if last_kind == diag.KIND_CHALLENGE:
+            raise ScraperChallengeError(last_error or f"HTTP {last_status}")
+        if last_kind == diag.KIND_BLOCKED:
+            raise ScraperBlockedError(last_error or "blocked")
         if last_error:
             raise requests.RequestException(last_error)
         return ""

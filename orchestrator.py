@@ -5360,6 +5360,18 @@ def main():
         import traceback
         traceback.print_exc()
 
+    # 采集台账落盘（计划九）：成功失败都留证。
+    # 「今天为什么只有 1 篇」的答案常在采集层，不在发布层——以前这一层只 print，
+    # 于是「被 EdgeOne 拦了」和「今天真没新闻」在事后完全分不开。
+    try:
+        import scraper_diagnostics as _diag
+        _p = _diag.flush()
+        _s = _diag.summary()
+        if _p and not _s.get("ok"):
+            print(f"   ⚠️ 采集异常来源：{_s.get('attention_sources')}（台账 {_p.name}）")
+    except Exception:
+        pass
+
     # Notify on generation result
     if success and stats["valid"] > 0:
         send_wxpusher("足球自媒体 📝", f"{date_str} 文章生成完成\n\n{result_msg}")

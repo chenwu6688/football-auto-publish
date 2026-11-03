@@ -16,6 +16,8 @@
 """
 import os
 import json
+import hashlib
+import re
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -30,6 +32,8 @@ ENTITY_MAP_PATH = PROJECT_ROOT / "config" / "entity_map.json"
 JUDGE_TTL_HOURS = 24
 DEFAULT_DAILY_TOKEN_BUDGET = int(os.environ.get("RANKER_DAILY_TOKEN_BUDGET", "200000"))
 DEFAULT_TARGET_MAX = 20          # L1 预筛后目标条数上限（计划 11.2：15~20）
+L3_LEDGER_KEEP_DAYS = 90         # L3 留证台账保留天数
+L3_LEDGER_MAX_BYTES = 1_000_000  # 超过就顺手剪枝，避免无限膨胀
 
 # 五维度量表（计划 12.4）
 DIMENSIONS = ["冲突度", "人物知名度", "时效性", "话题延展性", "粉丝画像匹配度"]
@@ -90,6 +94,108 @@ def _load_cache(now=None):
 def _save_cache(cache):
     CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
     CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+# ------------------------------------------------------------
+# 稳定主键与 L3 留证（2026-11-03）
+#
+# 两个老问题，都是「看不见的失败」：
+#   1. 缓存键用的是 `topic-{i}`（批内序号）。同一天第二批的 topic-0 会命中
+#      第一批 topic-0 的 24h 缓存 → 直接复用**别的选题**的分数，而且因为
+#      「命中缓存不花 token」，日志上完全看不出来。与 perf_key 用 index 串号
+#      是同一个教训。
+#   2. 缓存按日重置（date 变了就 return 空 judged）→ L3 分数每天被覆盖丢弃 →
+#      weekly_rank_audit 永远读不到「本周模型样本」，只能退回规则分，
+#      于是一份「规则降级」的抽样被当成「模型量表校准」存档（10-10 那份就是这样）。
+#      表现为「L3 从来没留证」，实际是留了又扔。
+# ------------------------------------------------------------
+_TOPIC_SEQ_RE = re.compile(r"^topic-\d+$")
+
+
+def stable_topic_key(card: dict | None, cand: dict | None = None) -> str:
+    """跨批稳定的选题主键（用于 L4 缓存与 L3 留证，不改变对外 ranking 的 id）。
+
+    优先级：事实卡自带稳定 ID → 候选 ID（非序号形态）→ 主体|动作|发生时间 哈希。
+    序号形态（``topic-3``）**永不**当主键——那是批内位置，不是身份。
+    """
+    card = card or {}
+    cand = cand or {}
+    for k in ("fact_id", "slug", "match_id"):
+        v = card.get(k) or cand.get(k)
+        if v:
+            return str(v)
+    cid = str(cand.get("id") or card.get("id") or "")
+    if cid and not _TOPIC_SEQ_RE.match(cid):
+        return cid
+    parts = [str(card.get(k) or cand.get(k) or "") for k in ("主体", "动作", "发生时间")]
+    raw = "|".join(p for p in parts if p)
+    if not raw:
+        raw = json.dumps(card, ensure_ascii=False, sort_keys=True, default=str)
+    return "k_" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
+
+
+def ledger_path() -> Path:
+    """L3 留证台账路径。
+
+    跟随 `CACHE_PATH` 的父目录推导，而不是写死：测试/verify 只要把
+    `ranker.CACHE_PATH` 指到 tempfile，台账就自动隔离，不会污染真实数据。
+    """
+    return Path(CACHE_PATH).parent / "rank_audit" / "l3_scores.jsonl"
+
+
+def _prune_ledger(path: Path) -> None:
+    """超过阈值就按保留天数剪枝（尽力而为，失败不抛）。"""
+    try:
+        if not path.exists() or path.stat().st_size <= L3_LEDGER_MAX_BYTES:
+            return
+        cutoff = (datetime.now(CST) - timedelta(days=L3_LEDGER_KEEP_DAYS)).strftime("%Y-%m-%d")
+        kept = [ln for ln in path.read_text(encoding="utf-8").splitlines()
+                if ln.strip() and ln[:10] >= cutoff]
+        path.write_text("\n".join(kept) + ("\n" if kept else ""), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def append_l3_ledger(rows: list[dict]) -> Path | None:
+    """追加写 L3 分数留证（JSONL，永不覆盖、永不抛）。
+
+    只记分数与选题标识，不记正文——留证是为了回答「模型到底怎么打的分」，
+    不是把内容二次落盘。
+    """
+    if not rows:
+        return None
+    p = ledger_path()
+    try:
+        p.parent.mkdir(parents=True, exist_ok=True)
+        _prune_ledger(p)
+        with p.open("a", encoding="utf-8") as f:
+            for r in rows:
+                f.write(json.dumps(r, ensure_ascii=False, default=str) + "\n")
+        return p
+    except Exception:
+        return None
+
+
+def load_l3_ledger(days: int = 7, *, now=None, path=None) -> list[dict]:
+    """读回近 days 天的 L3 留证（供 weekly_rank_audit 用）。坏行跳过，不抛。"""
+    p = Path(path) if path else ledger_path()
+    now = now or datetime.now(CST)
+    since = (now - timedelta(days=days)).strftime("%Y-%m-%d")
+    out = []
+    try:
+        for ln in p.read_text(encoding="utf-8").splitlines():
+            ln = ln.strip()
+            if not ln:
+                continue
+            try:
+                rec = json.loads(ln)
+            except Exception:
+                continue
+            if str(rec.get("at", ""))[:10] >= since:
+                out.append(rec)
+    except Exception:
+        return []
+    return out
 
 
 def _cache_hit(cache, fact_id, now):
@@ -385,21 +491,49 @@ def rank_candidates(candidates, ctx=None, signals=None, *, use_llm=True,
     scores = {}
     mode = "rule"
     if use_llm and call_llm and budget_ok:
-        to_judge = [c for c in kept if not _cache_hit(cache, (c.get("card") or c).get("id", ""), now)]
-        for c in kept:                       # 命中缓存的直接复用
-            cid = (c.get("card") or c).get("id", "")
-            hit = _cache_hit(cache, cid, now)
+        # (候选, 批内 id, 稳定键)。批内 id 只用于本次调用的对账（LLM 要读得懂），
+        # 缓存与留证一律走稳定键——否则第二批的 topic-0 会吃到第一批的分。
+        keyed = []
+        for c in kept:
+            card = c.get("card") or c
+            cid = card.get("id") or card.get("主体") or ""
+            keyed.append((c, cid, stable_topic_key(card, c)))
+
+        to_judge = [(c, cid, k) for c, cid, k in keyed if not _cache_hit(cache, k, now)]
+        for c, cid, k in keyed:                       # 命中缓存的直接复用
+            hit = _cache_hit(cache, k, now)
             if hit:
                 scores[cid] = {d: hit["scores"][d] for d in DIMENSIONS if d in hit.get("scores", {})}
         if to_judge:
-            new_scores, llm_notes = llm_score_batch(to_judge, now=now, call_llm=call_llm)
+            new_scores, llm_notes = llm_score_batch([t[0] for t in to_judge], now=now, call_llm=call_llm)
             notes += llm_notes
+            key_by_cid = {cid: k for _c, cid, k in to_judge}
             for cid, sc in new_scores.items():
                 scores[cid] = sc
-                cache["judged"][cid] = {"scores": sc, "at": now.strftime("%Y-%m-%d %H:%M"),
-                                        "total": sum(sc.values())}
+                k = key_by_cid.get(cid, stable_topic_key({}, {"id": cid}))
+                cache["judged"][k] = {"scores": sc, "at": now.strftime("%Y-%m-%d %H:%M"),
+                                      "total": sum(sc.values())}
             cache["tokens_used"] = cache.get("tokens_used", 0) + len(to_judge) * 300
             _save_cache(cache)
+            # L3 留证：缓存按日重置会把分数丢掉，这里追加写一份，供周审计用
+            rows = []
+            for c, cid, k in to_judge:
+                sc = new_scores.get(cid) or scores.get(cid)
+                if not sc:
+                    continue
+                card = c.get("card") or c
+                rows.append({
+                    "at": now.strftime("%Y-%m-%d %H:%M:%S"),
+                    "key": k,
+                    "id": cid,
+                    "主体": card.get("主体") or "",
+                    "标题": (c.get("title") or card.get("标题") or "")[:80],
+                    "板块": c.get("板块") or card.get("板块") or "",
+                    "维度": sc,
+                    "总分": sum(sc.values()),
+                    "mode": "llm",
+                })
+            append_l3_ledger(rows)
         if scores:
             mode = "llm"
             notes.append(f"L4 缓存：本次直接判定 {len(to_judge)} 条，命中缓存 {len(kept)-len(to_judge)} 条")

@@ -189,6 +189,24 @@ jobs:
           python3 scripts/verify_signal_saturation.py --quiet \
             || echo "::warning::信号饱和度体检未通过（饱和字段被接回维度加分 / 缺失被 0 冒充），详见 data/audit/signal_saturation_latest.json"
 
+      - name: 采集失败分类（真空数据 ≠ 被拦）
+        run: |
+          # 硬项，不加 || echo 软化。起因：2026-10-26 懂球帝过腾讯 EdgeOne 返 HTTP 567
+          # 挑战页，567 不在 403/429/404 分支里 → 重试耗尽 return "" → 备源静默归零，
+          # 日志只报「懂球帝文章: 0 篇」。查了半天以为是没内容。
+          # 现在：567/5xx 静默返回空、404 被记成 blocked、200 挑战壳未识别、
+          # 台账被篡改而校验器不报错，一律硬拦。
+          python3 scripts/verify_scraper_diagnostics.py --quiet
+
+      - name: L3 打分留证（周审计的前提）
+        run: |
+          # 硬项，不加 || echo 软化。起因：data/rank_audit 里 2026-10-10 那份「量表校准」
+          # 10 条样本全是 来源=rule（冲突度 1.1 / 知名度 1.0 是规则公式恒给 1，不是模型偏好）。
+          # 根因两条：① L4 缓存键用 topic-{i} 批内序号 → 同一天第二批 topic-0 复用第一批
+          # 的分（命中缓存不花 token，日志看不出来）；② 缓存按日重置 → L3 分数每天被覆盖丢弃。
+          # 现在：跨批串号、同题不命中缓存、留证被覆盖、周审计不读台账、缺维检不出，一律硬拦。
+          python3 scripts/verify_rank_audit_persistence.py --quiet
+
       - name: 回写验收报告
         if: always()
         run: |
