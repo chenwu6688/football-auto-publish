@@ -1,23 +1,24 @@
 {
-  "generated_at": "2026-11-03 12:06",
+  "generated_at": "2026-11-03 18:03",
   "summary": {
-    "total": 51,
+    "total": 65,
     "by_kind": {
-      "ok": 32,
+      "ok": 53,
       "empty": 0,
       "blocked": 0,
-      "challenge": 19,
+      "challenge": 12,
       "network": 0,
       "http_error": 0,
       "parse": 0
     },
     "by_source": {
       "http": {
-        "ok": 32,
-        "challenge": 13
+        "ok": 34,
+        "challenge": 10
       },
       "dongqiudi": {
-        "challenge": 6
+        "ok": 19,
+        "challenge": 2
       }
     },
     "attention_sources": {
@@ -28,25 +29,25 @@
   },
   "records": [
     {
-      "at": "2026-11-03 12:01:00",
+      "at": "2026-11-03 18:01:01",
       "source": "http",
       "url": "https://www.zhibo8.cc/",
       "kind": "ok",
       "status": 200,
-      "count": 617353,
-      "detail": "617353 字符"
+      "count": 613840,
+      "detail": "613840 字符"
     },
     {
-      "at": "2026-11-03 12:01:02",
+      "at": "2026-11-03 18:01:02",
       "source": "http",
       "url": "https://www.zhibo8.cc/",
       "kind": "ok",
       "status": 200,
-      "count": 617353,
-      "detail": "617353 字符"
+      "count": 613840,
+      "detail": "613840 字符"
     },
     {
-      "at": "2026-11-03 12:01:03",
+      "at": "2026-11-03 18:01:04",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172383v.htm",
       "kind": "ok",
@@ -55,7 +56,7 @@
       "detail": "34746 字符"
     },
     {
-      "at": "2026-11-03 12:01:04",
+      "at": "2026-11-03 18:01:05",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172390v.htm",
       "kind": "ok",
@@ -64,7 +65,7 @@
       "detail": "34759 字符"
     },
     {
-      "at": "2026-11-03 12:01:05",
+      "at": "2026-11-03 18:01:06",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172393v.htm",
       "kind": "ok",
@@ -73,7 +74,7 @@
       "detail": "34755 字符"
     },
     {
-      "at": "2026-11-03 12:01:06",
+      "at": "2026-11-03 18:01:07",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172445v.htm",
       "kind": "ok",
@@ -82,7 +83,7 @@
       "detail": "34772 字符"
     },
     {
-      "at": "2026-11-03 12:01:08",
+      "at": "2026-11-03 18:01:08",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172313v.htm",
       "kind": "ok",
@@ -91,7 +92,7 @@
       "detail": "34751 字符"
     },
     {
-      "at": "2026-11-03 12:01:09",
+      "at": "2026-11-03 18:01:10",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272785v.htm",
       "kind": "ok",
@@ -100,7 +101,7 @@
       "detail": "34749 字符"
     },
     {
-      "at": "2026-11-03 12:01:10",
+      "at": "2026-11-03 18:01:11",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272817v.htm",
       "kind": "ok",
@@ -109,7 +110,7 @@
       "detail": "34734 字符"
     },
     {
-      "at": "2026-11-03 12:01:11",
+      "at": "2026-11-03 18:01:12",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172345v.htm",
       "kind": "ok",
@@ -118,7 +119,7 @@
       "detail": "34751 字符"
     },
     {
-      "at": "2026-11-03 12:01:12",
+      "at": "2026-11-03 18:01:13",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272639v.htm",
       "kind": "ok",
@@ -127,7 +128,7 @@
       "detail": "34730 字符"
     },
     {
-      "at": "2026-11-03 12:01:14",
+      "at": "2026-11-03 18:01:14",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272643v.htm",
       "kind": "ok",
@@ -136,7 +137,7 @@
       "detail": "34734 字符"
     },
     {
-      "at": "2026-11-03 12:01:15",
+      "at": "2026-11-03 18:01:16",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272650v.htm",
       "kind": "ok",
@@ -145,7 +146,7 @@
       "detail": "34741 字符"
     },
     {
-      "at": "2026-11-03 12:01:16",
+      "at": "2026-11-03 18:01:17",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272663v.htm",
       "kind": "ok",
@@ -154,7 +155,7 @@
       "detail": "34751 字符"
     },
     {
-      "at": "2026-11-03 12:01:17",
+      "at": "2026-11-03 18:01:18",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272728v.htm",
       "kind": "ok",
@@ -163,7 +164,7 @@
       "detail": "34710 字符"
     },
     {
-      "at": "2026-11-03 12:01:18",
+      "at": "2026-11-03 18:01:19",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272763v.htm",
       "kind": "ok",
@@ -172,7 +173,7 @@
       "detail": "34730 字符"
     },
     {
-      "at": "2026-11-03 12:01:20",
+      "at": "2026-11-03 18:01:20",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272824v.htm",
       "kind": "ok",
@@ -181,7 +182,7 @@
       "detail": "34743 字符"
     },
     {
-      "at": "2026-11-03 12:01:21",
+      "at": "2026-11-03 18:01:22",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172372v.htm",
       "kind": "ok",
@@ -190,7 +191,7 @@
       "detail": "34749 字符"
     },
     {
-      "at": "2026-11-03 12:01:22",
+      "at": "2026-11-03 18:01:23",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2172363v.htm",
       "kind": "ok",
@@ -199,7 +200,7 @@
       "detail": "34758 字符"
     },
     {
-      "at": "2026-11-03 12:01:23",
+      "at": "2026-11-03 18:01:24",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2275006v.htm",
       "kind": "ok",
@@ -208,7 +209,7 @@
       "detail": "34731 字符"
     },
     {
-      "at": "2026-11-03 12:01:24",
+      "at": "2026-11-03 18:01:25",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272607v.htm",
       "kind": "ok",
@@ -217,7 +218,7 @@
       "detail": "34752 字符"
     },
     {
-      "at": "2026-11-03 12:01:26",
+      "at": "2026-11-03 18:01:26",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272672v.htm",
       "kind": "ok",
@@ -226,7 +227,7 @@
       "detail": "34724 字符"
     },
     {
-      "at": "2026-11-03 12:01:27",
+      "at": "2026-11-03 18:01:28",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272625v.htm",
       "kind": "ok",
@@ -235,7 +236,7 @@
       "detail": "34737 字符"
     },
     {
-      "at": "2026-11-03 12:01:28",
+      "at": "2026-11-03 18:01:29",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272632v.htm",
       "kind": "ok",
@@ -244,7 +245,7 @@
       "detail": "34724 字符"
     },
     {
-      "at": "2026-11-03 12:01:29",
+      "at": "2026-11-03 18:01:30",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272772v.htm",
       "kind": "ok",
@@ -253,7 +254,7 @@
       "detail": "34721 字符"
     },
     {
-      "at": "2026-11-03 12:01:30",
+      "at": "2026-11-03 18:01:31",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272777v.htm",
       "kind": "ok",
@@ -262,7 +263,7 @@
       "detail": "34739 字符"
     },
     {
-      "at": "2026-11-03 12:01:32",
+      "at": "2026-11-03 18:01:32",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272794v.htm",
       "kind": "ok",
@@ -271,7 +272,7 @@
       "detail": "34727 字符"
     },
     {
-      "at": "2026-11-03 12:01:33",
+      "at": "2026-11-03 18:01:34",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272825v.htm",
       "kind": "ok",
@@ -280,7 +281,7 @@
       "detail": "34708 字符"
     },
     {
-      "at": "2026-11-03 12:01:34",
+      "at": "2026-11-03 18:01:35",
       "source": "http",
       "url": "https://www.zhibo8.cc/zhibo/zuqiu/2026/match2272826v.htm",
       "kind": "ok",
@@ -289,16 +290,25 @@
       "detail": "34735 字符"
     },
     {
-      "at": "2026-11-03 12:01:36",
+      "at": "2026-11-03 18:01:37",
       "source": "http",
-      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/6ae9457e1a0c9native.htm",
+      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/match2172336date2026vnative.htm",
       "kind": "challenge",
       "status": 200,
       "count": 0,
-      "detail": "挑战页壳子 18132 字符"
+      "detail": "挑战页壳子 17952 字符"
     },
     {
-      "at": "2026-11-03 12:01:37",
+      "at": "2026-11-03 18:01:38",
+      "source": "http",
+      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/6ae9a9a42185fnative.htm",
+      "kind": "challenge",
+      "status": 200,
+      "count": 0,
+      "detail": "挑战页壳子 17733 字符"
+    },
+    {
+      "at": "2026-11-03 18:01:39",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-03/match2067783date2026vnative.htm",
       "kind": "challenge",
@@ -307,7 +317,7 @@
       "detail": "挑战页壳子 16647 字符"
     },
     {
-      "at": "2026-11-03 12:01:39",
+      "at": "2026-11-03 18:01:40",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-02/match2172310date2026vnative.htm",
       "kind": "challenge",
@@ -316,7 +326,7 @@
       "detail": "挑战页壳子 17503 字符"
     },
     {
-      "at": "2026-11-03 12:01:40",
+      "at": "2026-11-03 18:01:42",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-02/match1862988date2026vnative.htm",
       "kind": "challenge",
@@ -325,7 +335,7 @@
       "detail": "挑战页壳子 16937 字符"
     },
     {
-      "at": "2026-11-03 12:01:41",
+      "at": "2026-11-03 18:01:43",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-02/match2057481date2026vnative.htm",
       "kind": "challenge",
@@ -334,7 +344,7 @@
       "detail": "挑战页壳子 16893 字符"
     },
     {
-      "at": "2026-11-03 12:01:42",
+      "at": "2026-11-03 18:01:44",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-02/match2067781date2026vnative.htm",
       "kind": "challenge",
@@ -343,7 +353,7 @@
       "detail": "挑战页壳子 16797 字符"
     },
     {
-      "at": "2026-11-03 12:01:43",
+      "at": "2026-11-03 18:01:45",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-02/match2075512date2026vnative.htm",
       "kind": "challenge",
@@ -352,7 +362,7 @@
       "detail": "挑战页壳子 15783 字符"
     },
     {
-      "at": "2026-11-03 12:01:45",
+      "at": "2026-11-03 18:01:46",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-01/match2057475date2026vnative.htm",
       "kind": "challenge",
@@ -361,7 +371,7 @@
       "detail": "挑战页壳子 17198 字符"
     },
     {
-      "at": "2026-11-03 12:01:46",
+      "at": "2026-11-03 18:01:48",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/2026-11-01/match2285003date2026vnative.htm",
       "kind": "challenge",
@@ -370,121 +380,238 @@
       "detail": "挑战页壳子 18066 字符"
     },
     {
-      "at": "2026-11-03 12:01:48",
+      "at": "2026-11-03 18:01:49",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/",
       "kind": "ok",
       "status": 200,
-      "count": 317333,
-      "detail": "317333 字符"
+      "count": 317728,
+      "detail": "317728 字符"
     },
     {
-      "at": "2026-11-03 12:01:48",
+      "at": "2026-11-03 18:01:51",
       "source": "dongqiudi",
       "url": "https://www.dongqiudi.com/",
+      "kind": "ok",
+      "status": 200,
+      "count": 341506,
+      "detail": "348882 字节"
+    },
+    {
+      "at": "2026-11-03 18:01:51",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600253.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 277256,
+      "detail": "297520 字节"
+    },
+    {
+      "at": "2026-11-03 18:01:54",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6599424.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 214300,
+      "detail": "235283 字节"
+    },
+    {
+      "at": "2026-11-03 18:01:55",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600329.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 82478,
+      "detail": "97815 字节"
+    },
+    {
+      "at": "2026-11-03 18:01:57",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600355.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 67654,
+      "detail": "78116 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:00",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600178.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 56083,
+      "detail": "62122 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:01",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600183.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 58540,
+      "detail": "66965 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:01",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600323.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 60489,
+      "detail": "62861 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:02",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600193.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 66072,
+      "detail": "72789 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:03",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600304.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 56831,
+      "detail": "61373 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:03",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600191.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 57075,
+      "detail": "64764 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:03",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600296.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 71673,
+      "detail": "75908 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:04",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600293.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 51091,
+      "detail": "52627 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:04",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6600274.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 52762,
+      "detail": "56164 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:05",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6595109.html",
       "kind": "challenge",
-      "status": 567,
+      "status": 200,
       "count": 0,
-      "detail": "HTTP 567"
+      "detail": "挑战页壳子 56969 字节"
     },
     {
-      "at": "2026-11-03 12:01:48",
+      "at": "2026-11-03 18:02:05",
       "source": "dongqiudi",
-      "url": "https://www.dongqiudi.com/",
+      "url": "https://www.dongqiudi.com/articles/6595109.html",
       "kind": "challenge",
       "status": null,
       "count": 0,
-      "detail": "ScraperChallengeError: HTTP 567（反爬挑战页）"
+      "detail": "ScraperChallengeError: 挑战页壳子（56969 字节）"
     },
     {
-      "at": "2026-11-03 12:01:50",
+      "at": "2026-11-03 18:02:06",
+      "source": "dongqiudi",
+      "url": "https://www.dongqiudi.com/articles/6595064.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 52037,
+      "detail": "54615 字节"
+    },
+    {
+      "at": "2026-11-03 18:02:08",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/",
       "kind": "ok",
       "status": 200,
-      "count": 317333,
-      "detail": "317333 字符"
+      "count": 317728,
+      "detail": "317728 字符"
     },
     {
-      "at": "2026-11-03 12:01:50",
+      "at": "2026-11-03 18:02:08",
       "source": "dongqiudi",
       "url": "https://www.dongqiudi.com/",
-      "kind": "challenge",
-      "status": 567,
-      "count": 0,
-      "detail": "HTTP 567"
+      "kind": "ok",
+      "status": 200,
+      "count": 341506,
+      "detail": "348882 字节"
     },
     {
-      "at": "2026-11-03 12:01:50",
+      "at": "2026-11-03 18:02:09",
       "source": "dongqiudi",
-      "url": "https://www.dongqiudi.com/",
-      "kind": "challenge",
-      "status": null,
-      "count": 0,
-      "detail": "ScraperChallengeError: HTTP 567（反爬挑战页）"
+      "url": "https://www.dongqiudi.com/articles/6600274.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 52762,
+      "detail": "56164 字节"
     },
     {
-      "at": "2026-11-03 12:01:52",
+      "at": "2026-11-03 18:02:10",
       "source": "http",
       "url": "https://news.zhibo8.com/zuqiu/",
       "kind": "ok",
       "status": 200,
-      "count": 317333,
-      "detail": "317333 字符"
+      "count": 317728,
+      "detail": "317728 字符"
     },
     {
-      "at": "2026-11-03 12:01:52",
+      "at": "2026-11-03 18:02:10",
       "source": "dongqiudi",
       "url": "https://www.dongqiudi.com/",
-      "kind": "challenge",
-      "status": 567,
-      "count": 0,
-      "detail": "HTTP 567"
+      "kind": "ok",
+      "status": 200,
+      "count": 341506,
+      "detail": "348882 字节"
     },
     {
-      "at": "2026-11-03 12:01:52",
+      "at": "2026-11-03 18:02:11",
       "source": "dongqiudi",
-      "url": "https://www.dongqiudi.com/",
-      "kind": "challenge",
-      "status": null,
-      "count": 0,
-      "detail": "ScraperChallengeError: HTTP 567（反爬挑战页）"
+      "url": "https://www.dongqiudi.com/articles/6600274.html",
+      "kind": "ok",
+      "status": 200,
+      "count": 52762,
+      "detail": "56164 字节"
     },
     {
-      "at": "2026-11-03 12:06:15",
+      "at": "2026-11-03 18:03:38",
       "source": "http",
-      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/6ae93c12f0160native.htm",
-      "kind": "challenge",
+      "url": "https://www.zhibo8.cc/",
+      "kind": "ok",
       "status": 200,
-      "count": 0,
-      "detail": "挑战页壳子 22027 字符"
+      "count": 613840,
+      "detail": "613840 字符"
     },
     {
-      "at": "2026-11-03 12:06:16",
+      "at": "2026-11-03 18:03:39",
       "source": "http",
-      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/6ae93b22c6412native.htm",
-      "kind": "challenge",
+      "url": "https://www.zhibo8.cc/",
+      "kind": "ok",
       "status": 200,
-      "count": 0,
-      "detail": "挑战页壳子 18071 字符"
-    },
-    {
-      "at": "2026-11-03 12:06:17",
-      "source": "http",
-      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/6ae93c12f0160native.htm",
-      "kind": "challenge",
-      "status": 200,
-      "count": 0,
-      "detail": "挑战页壳子 22027 字符"
-    },
-    {
-      "at": "2026-11-03 12:06:18",
-      "source": "http",
-      "url": "https://news.zhibo8.com/zuqiu/2026-11-03/6ae93b22c6412native.htm",
-      "kind": "challenge",
-      "status": 200,
-      "count": 0,
-      "detail": "挑战页壳子 18071 字符"
+      "count": 613840,
+      "detail": "613840 字符"
     }
   ]
 }
