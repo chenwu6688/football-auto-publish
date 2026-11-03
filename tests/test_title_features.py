@@ -61,6 +61,61 @@ class TestAnchor(unittest.TestCase):
                 self.assertFalse(tf.extract(t).has_anchor)
 
 
+class TestAnchorVocabularyWidened20261103(unittest.TestCase):
+    """2026-11-03 复盘补的四类缺口：同一语义、不同写法。
+
+    背景：`scripts/verify_title_anchor.py` 首次实跑判出 0/5，逐条核对发现 4 篇其实写了过程，
+    是词表认不出（docs/audit/2026-11-03-标题锚点验收失败复盘.md）。
+    正例全部取自 11-02/11-03 真实成稿；反例是放宽词表最容易误伤的四种写法。
+    """
+
+    def test_chinese_numeral_with_predicate(self):
+        """「九人苦撑」= 少打一人。旧词表只认 ASCII 的 `9人`，中文数字全漏。"""
+        f = tf.extract("德尔加多挥拳染红致歉，大连九人苦撑3-4，绝无冒犯更刺耳！")
+        self.assertIn("红牌/罚下", f.anchor_kinds)
+        self.assertTrue(f.has_anchor)
+
+    def test_chinese_numeral_needs_predicate(self):
+        """「九人轮换」是正常轮换，不是少打一人 —— 中文数字必须跟谓词。"""
+        self.assertFalse(tf.extract("转会窗最后一天九人轮换，曼联中场大洗牌").has_anchor)
+
+    def test_bare_duration_with_action_verb(self):
+        """「场边站满90分钟」有过程；旧词表只认「第N分钟」。"""
+        f = tf.extract("费耶诺德主帅场边站满90分钟，国际米兰还没换人他先动了三次")
+        self.assertIn("第N分钟", f.anchor_kinds)
+        self.assertIn("换人时机", f.anchor_kinds)
+
+    def test_bare_duration_needs_action_verb(self):
+        """裸「满90分钟」只是时长描述，没有动作词不算锚点。"""
+        self.assertFalse(tf.extract("满90分钟的比赛强度，他早就习惯了").has_anchor)
+
+    def test_substitution_failure_is_anchor(self):
+        """换人做错也是过程 —— 旧「换人见效」只收见效/奏效/改变/翻盘。"""
+        self.assertIn("换人时机",
+                      tf.extract("半场零封后崩盘，纽卡换人失误葬送好局，埃弗顿一箭封喉").anchor_kinds)
+
+    def test_substitution_timing_is_anchor(self):
+        """「还没换人」= 临场迟疑，同样是读者不知道结局的过程信息。"""
+        self.assertIn("换人时机", tf.extract("对手连换两人，主教练还迟迟不换人").anchor_kinds)
+
+    def test_pre_match_process_is_anchor(self):
+        """赛前加练到凌晨：赛场外过程，旧 13 类里没有归属。"""
+        self.assertIn("赛前异动",
+                      tf.extract("巴萨更衣室还在笑，维拉队长赛前加练到凌晨憋的到底是什么").anchor_kinds)
+
+    def test_bare_stay_up_late_is_not_anchor(self):
+        """「这四场不熬夜真亏」是劝读者别熬夜，不是球队的过程。
+
+        这条是放宽词表时真踩到的误报：初版把裸「熬夜」收进词表，这句被判成有锚点。
+        """
+        self.assertFalse(tf.extract("欧冠大戏巴萨曼联拜仁全来了，这四场不熬夜真亏").has_anchor)
+
+    def test_dawn_needs_reason(self):
+        """「凌晨」必须跟加练/训练/抵达/开会才算赛场外过程。"""
+        self.assertFalse(tf.extract("凌晨三点的机场，他一个人默默发了条动态").has_anchor)
+        self.assertTrue(tf.extract("凌晨抵达训练基地，他连夜看完了对手三场录像").has_anchor)
+
+
 class TestBucket(unittest.TestCase):
     """档位划分必须与 2026-11-01 报告里的表一一对应。"""
 

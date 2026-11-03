@@ -15,8 +15,10 @@
      配置声明的类别与代码里的类别**一一对应**（防两处口径漂移）
   B. 事实层能提供锚点（硬项）—— 锚点不能靠模型编。事实卡必须能给出「第几分钟」，
      否则生成侧只能写空泛标题。用合成战报 topic 跑纯函数验证，不需要网络
-  C. 锚点覆盖率（硬项）—— 生效日后近 7 天成稿锚点覆盖率 ≥40%；样本 <5 篇时跳过
-     （改造首日没有足够样本，拿它判＝必然假警）
+  C. 锚点覆盖率（硬项，**三态**）—— 生效日后近 7 天成稿锚点覆盖率 ≥40%。
+     样本 <5 篇 → `ok=None`「未判定」，**既不算通过也不算失败**（改造首日没样本，判＝假警）；
+     5~9 篇 → 照判但标「样本偏薄」，结论只用于看趋势；
+     生效日累计 ≥30 篇且从未达标 → 直接 FAIL（堵「永远样本不足」的自我豁免）。
   D. 疑问收尾限额（硬项）—— 生效日后 14 天窗口内疑问收尾 ≤2 篇
   E. 已接入生成侧（硬项）—— 两个评分器都真的调用 title_gate、存在「只重写标题」
      的 repick_title、且 prompt 里已经不再硬性要求「以疑问收尾」。
@@ -55,8 +57,16 @@ TITLE_SINCE = "2026-11-02"
 TARGET_ANCHOR_COVERAGE = 40.0
 # 疑问收尾限额（计划 P0-1 第 3 条原文：任意 14 天内 ≤2 篇）
 MAX_QUESTION_PER_WINDOW = 2
-# 样本下限：少于这个数就不下结论（避免「改造首日 1 篇没锚点 → FAIL」）
+# 样本下限：少于这个数就**不下结论**（不是「判通过」——见 check_anchor_coverage 的三态）
 MIN_SAMPLE = 5
+# 低于此数仍判，但结论标「样本偏薄」：n=5 时 40% 目标对应「至少 2 篇」，
+# 单篇翻转 20 个百分点；若真实达标率恰好 40%，n=5 仍有 0.6^5≈7.8% 概率零命中被判失败，
+# n=10 降到 0.6%。所以 n<10 的结论只用于看趋势，不用于下判断。
+ROBUST_SAMPLE = 10
+# 累计硬线：生效日起累计样本达此数、且**从未达标过一次** → 直接 FAIL。
+# 这条是为了堵住「窗口内永远样本不足 → 永久豁免」的自我豁免路径。
+# 依据：3.9 篇/天 × 7 天 ≈ 27 篇，30 篇即「至少跑满一周还没达标」。
+CUM_MIN_SAMPLE = 30
 
 
 def _today() -> str:
@@ -177,54 +187,93 @@ def check_fact_layer() -> dict:
     return {"item": "事实层可提供锚点", "ok": ok, "detail": detail}
 
 
+def _cumulative_titles(until: str) -> list[str]:
+    """生效日 ~ until 的**全部**成稿标题（不受窗口天数限制）。"""
+    try:
+        span = (datetime.strptime(until, "%Y-%m-%d").date()
+                - datetime.strptime(TITLE_SINCE, "%Y-%m-%d").date()).days + 1
+    except Exception:
+        return []
+    if span <= 0:
+        return []
+    return title_gate.recent_titles(OUTPUT_DIR, until, days=span, since=TITLE_SINCE)
+
+
 def check_anchor_coverage(days: int) -> dict:
-    """C. 生效日后近 N 天成稿的锚点覆盖率。"""
+    """C. 生效日后近 N 天成稿的锚点覆盖率。
+
+    三态判定（2026-11-03 复盘修正）：
+      - ``ok is False`` → 硬项失败；
+      - ``ok is None``  → **样本不足，未判定**（既不是通过也不是失败）；
+      - ``ok is True``  → 达标。
+
+    为什么必须区分 None 与 True：旧实现样本不足时返回 ``ok=True``，而 ``verify()`` 把
+    advisory 项整个排除，于是「4 篇 → 判通过、5 篇 → 判失败」——同一份真相，判定方向随
+    样本量翻转。这种不单调会让门禁变成噪音，也会让人误以为「没报错就是没问题」。
+    """
     win = _window(days)
     if win is None:
-        return {"item": "锚点覆盖率", "ok": True, "advisory": True,
-                "detail": [f"⚠️ 生效日 {TITLE_SINCE} 尚未到，暂无生效后样本；"
+        return {"item": "锚点覆盖率", "ok": None, "pending": True,
+                "detail": [f"⏸ 生效日 {TITLE_SINCE} 尚未到，无生效后样本（未判定，非通过）；"
                            f"目标 {TARGET_ANCHOR_COVERAGE:.0f}%"]}
     since, until = win
     try:
         titles = title_gate.recent_titles(OUTPUT_DIR, until, days=days, since=TITLE_SINCE)
+        cum_titles = _cumulative_titles(until)
     except Exception as e:
-        return {"item": "锚点覆盖率", "ok": True, "advisory": True,
-                "detail": [f"⚠️ 读取成稿标题失败（{e}），跳过判定"]}
+        return {"item": "锚点覆盖率", "ok": None, "pending": True,
+                "detail": [f"⏸ 读取成稿标题失败（{e}），未判定（非通过）"]}
     cov = title_gate.coverage(titles)
+    cum = title_gate.coverage(cum_titles)
     head = f"窗口 {since} ~ {until}（生效日 {TITLE_SINCE} 起）"
+
+    # 累计硬线：样本够了却一次都没达标 → 失败。放在窗口判定之前，
+    # 否则窗口内样本永远 <MIN_SAMPLE 时，这条检查会永远「未判定」。
+    if (cum["n"] or 0) >= CUM_MIN_SAMPLE and (cum["anchor_coverage"] or 0) < TARGET_ANCHOR_COVERAGE:
+        return {"item": "锚点覆盖率", "ok": False,
+                "detail": [f"❌ 生效日累计 {cum['n']} 篇，锚点覆盖仅 {cum['anchor_coverage']}%"
+                           f"（目标 ≥{TARGET_ANCHOR_COVERAGE:.0f}%）——样本已足够，是真没达标，"
+                           f"不能再以「窗口样本不足」搁置",
+                           f"   {head}：{cov['anchors']}/{cov['n']} = {cov['anchor_coverage']}%"],
+                "value": cum["anchor_coverage"], "target": TARGET_ANCHOR_COVERAGE}
+
     if cov["n"] < MIN_SAMPLE:
-        return {"item": "锚点覆盖率", "ok": True, "advisory": True,
-                "detail": [f"⚠️ {head}：生效后样本仅 {cov['n']} 篇（<{MIN_SAMPLE}），"
-                           f"暂不下结论；目标 {TARGET_ANCHOR_COVERAGE:.0f}%"]}
+        return {"item": "锚点覆盖率", "ok": None, "pending": True,
+                "detail": [f"⏸ {head}：样本仅 {cov['n']} 篇（<{MIN_SAMPLE}），**未判定（非通过）**；"
+                           f"目标 {TARGET_ANCHOR_COVERAGE:.0f}%，"
+                           f"累计已 {cum['n']}/{CUM_MIN_SAMPLE} 篇（累计达标线）"]}
+
     pct = cov["anchor_coverage"]
     detail = [f"样本 {cov['n']} 篇，锚点覆盖 {cov['anchors']}/{cov['n']} = {pct}%"
               f"（目标 ≥{TARGET_ANCHOR_COVERAGE:.0f}%，对标英超那些事 35.7%）"]
     if cov["anchor_kinds"]:
         top = sorted(cov["anchor_kinds"].items(), key=lambda kv: -kv[1])
         detail.append("命中类别：" + "、".join(f"{k}×{v}" for k, v in top))
+    if cov["n"] < ROBUST_SAMPLE:
+        detail.append(f"⚠️ 样本偏薄（{cov['n']} < {ROBUST_SAMPLE}）：单篇即翻转 "
+                      f"{round(100 / cov['n'], 1)} 个百分点，本结论仅供趋势，不足以定论")
     ok = pct >= TARGET_ANCHOR_COVERAGE
-    detail.insert(0, "✅" if ok else "❌")
     return {"item": "锚点覆盖率", "ok": ok, "detail": detail,
-            "value": pct, "target": TARGET_ANCHOR_COVERAGE}
+            "value": pct, "target": TARGET_ANCHOR_COVERAGE, "thin": cov["n"] < ROBUST_SAMPLE}
 
 
 def check_question_quota() -> dict:
     """D. 生效日后 14 天窗口内疑问收尾 ≤2 篇。"""
     win = _window(title_gate.WINDOW_DAYS)
     if win is None:
-        return {"item": "疑问收尾限额", "ok": True, "advisory": True,
-                "detail": [f"⚠️ 生效日 {TITLE_SINCE} 尚未到，暂无生效后样本；"
+        return {"item": "疑问收尾限额", "ok": None, "pending": True,
+                "detail": [f"⏸ 生效日 {TITLE_SINCE} 尚未到，无生效后样本（未判定，非通过）；"
                            f"限额 {MAX_QUESTION_PER_WINDOW} 篇"]}
     since, until = win
     try:
         titles = title_gate.recent_titles(OUTPUT_DIR, until,
                                          days=title_gate.WINDOW_DAYS, since=TITLE_SINCE)
     except Exception as e:
-        return {"item": "疑问收尾限额", "ok": True, "advisory": True,
-                "detail": [f"⚠️ 读取成稿标题失败（{e}），跳过判定"]}
+        return {"item": "疑问收尾限额", "ok": None, "pending": True,
+                "detail": [f"⏸ 读取成稿标题失败（{e}），未判定（非通过）"]}
     if not titles:
-        return {"item": "疑问收尾限额", "ok": True, "advisory": True,
-                "detail": [f"⚠️ 窗口 {since} ~ {until}：生效后无成稿，跳过"]}
+        return {"item": "疑问收尾限额", "ok": None, "pending": True,
+                "detail": [f"⏸ 窗口 {since} ~ {until}：生效后无成稿，未判定（非通过）"]}
     used = title_gate.count_question_endings(titles)
     ok = used <= MAX_QUESTION_PER_WINDOW
     detail = [f"窗口 {since} ~ {until}：样本 {len(titles)} 篇，"
@@ -232,7 +281,6 @@ def check_question_quota() -> dict:
     if used:
         qs = [t for t in titles if title_gate.is_question_ending(t)][:3]
         detail += [f"  · {t[:40]}" for t in qs]
-    detail.insert(0, "✅" if ok else "❌")
     return {"item": "疑问收尾限额", "ok": ok, "detail": detail,
             "value": used, "limit": MAX_QUESTION_PER_WINDOW}
 
@@ -281,22 +329,36 @@ def check_wired() -> dict:
 def verify(days: int = 7) -> dict:
     checks = [check_wordlist(), check_fact_layer(), check_anchor_coverage(days),
               check_question_quota(), check_wired()]
+    # 三态：ok is False → 失败；ok is None → 未判定（非通过）；ok is True → 通过。
+    # 旧实现用 advisory 把「未判定」整个排除，结果样本不足被当成通过——
+    # 于是 4 篇判通过、5 篇判失败（同一份真相，方向随样本量翻转）。
     hard = [c for c in checks if not c.get("advisory")]
+    failed = [c["item"] for c in hard if c["ok"] is False]
+    pending = [c["item"] for c in hard if c["ok"] is None]
+    status = "fail" if failed else ("pending" if pending else "pass")
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "window_days": days, "since": TITLE_SINCE,
-            "ok": all(c["ok"] for c in hard), "checks": checks,
-            "hard_failed": [c["item"] for c in hard if not c["ok"]]}
+            "ok": not failed, "status": status, "checks": checks,
+            "hard_failed": failed, "pending": pending}
+
+
+def _mark(ok) -> str:
+    return "✅" if ok is True else ("❌" if ok is False else "⏸")
 
 
 def render_md(rep: dict) -> str:
+    verdict = {"pass": "通过 ✅", "fail": "未通过 ❌",
+               "pending": "部分未判定 ⏸（未判定 ≠ 通过）"}[rep.get("status", "pass")]
     L = ["# 标题锚点验收（P0-1）", "",
          f"- 生成时间：{rep['generated_at']}｜窗口 {rep['window_days']} 天｜生效日 {rep['since']}",
-         f"- 验收结论：**{'通过 ✅' if rep['ok'] else '未通过 ❌'}**",
+         f"- 验收结论：**{verdict}**",
          "- 口径出处：docs/benchmark/2026-11-01-头部账号对标与综合改进计划.md（P0-1）", ""]
     if rep.get("hard_failed"):
         L += [f"> 未通过硬项：{'、'.join(rep['hard_failed'])}", ""]
+    if rep.get("pending"):
+        L += [f"> 未判定硬项（样本不足，非通过，不计为达标）：{'、'.join(rep['pending'])}", ""]
     for c in rep["checks"]:
-        L.append(f"## {c['item']}：{'✅' if c['ok'] else '❌'}"
+        L.append(f"## {c['item']}：{_mark(c['ok'])}"
                  + ("（跳过/告警）" if c.get("advisory") else ""))
         L += [f"- {d}" for d in c.get("detail", [])]
         L.append("")
@@ -316,6 +378,9 @@ def main() -> int:
         json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
     if not args.quiet:
         print(render_md(rep))
+    if rep.get("pending"):
+        # 未判定 ≠ 通过：在 CI 日志里显式留痕，避免「绿色=已验收」的误读。
+        print(f"::warning::标题锚点验收有未判定硬项（样本不足，非通过）：{'、'.join(rep['pending'])}")
     return 0 if rep["ok"] else 1
 
 
