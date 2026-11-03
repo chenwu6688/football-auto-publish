@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "generated_at": "2026-11-03T00:03:57.105699",
-  "total_articles": 1,
+  "generated_at": "2026-11-03T04:06:19.803119",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -40,71 +40,197 @@
       "supply_layer": "二级·突发",
       "recap_match_id": "560622",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "第70分钟换人后连丢2球，萨索洛2-4佛罗伦萨好局崩盘",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-1-第70分钟换人后-e4e80a.md",
+      "slug": "第70分钟换人后-e4e80a",
+      "tags": [
+        "Sassuolo",
+        "Fiorentina",
+        "Serie A",
+        "tactical analysis",
+        "substitution"
+      ],
+      "keywords": [
+        "Sassuolo",
+        "Fiorentina",
+        "Serie A",
+        "tactical analysis",
+        "substitution"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "558541",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "梅西与C罗生涯数据大PK，谁才是真正的球王，数字真能说明一切吗？",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-2-梅西与C罗生涯数-499f7e.md",
+      "slug": "梅西与C罗生涯数-499f7e",
+      "tags": [
+        "Messi",
+        "Ronaldo",
+        "stats",
+        "goals",
+        "assists"
+      ],
+      "keywords": [
+        "Messi",
+        "Ronaldo",
+        "stats",
+        "goals",
+        "assists"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "纽卡4天内被埃弗顿双杀掉到第13，夏窗大换血原来换掉了魂",
-      "angle": "纽卡近7场5负、4天内被埃弗顿连杀两次，主帅赛后说球员'从一开始就缺乏自信'——这话比输球更扎心。夏窗大换血买来的是一堆好球员，丢掉的却是那股子狠劲。钱能买人，买不来更衣室那股气。",
+      "title": "41岁C罗合同年还没续，凯恩B费也上榜，这份名单藏着多少算计",
+      "angle": "TNT列合同年球员名单，C罗41岁领衔、凯恩B费利马在列。我的判断：名单里最急的不是球员而是俱乐部，合同年就是一场谁先眨眼的博弈，C罗这年纪反而最不怕拖。",
       "keywords": [
-        "Newcastle",
-        "Everton",
-        "Premier League",
+        "contract year",
+        "C罗",
+        "Kane",
+        "Bruno Fernandes",
         "transfer"
       ],
       "keywords_cn": [
-        "纽卡斯尔",
-        "埃弗顿",
-        "英超",
-        "换血"
+        "合同年",
+        "C罗",
+        "凯恩",
+        "B费",
+        "续约"
       ],
-      "content_type": "热点球评",
+      "content_type": "转会资讯",
       "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "震惊",
+      "target_emotion": "好奇",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "双杀+排名暴跌，人物处境比比分有味道",
-      "_category": "未分类",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "合同年名单自带博弈悬念，41岁C罗是最大钩子",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "半场零封后崩盘，纽卡换人失误葬送好局，埃弗顿一箭封喉",
+      "title": "格拉斯纳宁可下课也要动刀子，森林高层这一手反着来有点意思",
+      "angle": "天空与邮报双料报道：格拉斯纳宁愿下课也要改革，甚至罚球员野地跑步，森林高层却欢迎并继续信任。我的态度：教练敢跟更衣室硬碰硬，在如今球员权力过大的英超是稀有物种，森林这步棋赌的是长期。",
+      "keywords": [
+        "Glasner",
+        "Nottingham Forest",
+        "manager",
+        "dressing room",
+        "Premier League"
+      ],
+      "keywords_cn": [
+        "格拉斯纳",
+        "诺丁汉森林",
+        "主帅",
+        "更衣室",
+        "英超"
+      ],
+      "content_type": "八卦趣事",
+      "score": 86,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "教练与更衣室权力对撞，人物弧光强，反差足",
+      "_category": "转会官宣",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "第70分钟换人后连丢2球，萨索洛2-4佛罗伦萨好局崩盘",
       "content_type": "战术榜单",
       "_supply_layer": "二级·突发",
       "_is_recap": true
+    },
+    {
+      "title": "梅西与C罗生涯数据大PK，谁才是真正的球王，数字真能说明一切吗？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
-    "total": 1,
+    "total": 2,
     "counts": {
       "一级·确定性": 0,
       "二级·突发": 1,
-      "三级·软性": 0
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -113,12 +239,18 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
+    {
+      "环节": "战报标题含比分",
+      "原因": "「萨索洛2-4佛罗伦萨，谁在第70分钟的换」",
+      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "数量": 1
+    },
     {
       "环节": "战报互动引导未达标",
       "原因": "缺 关注引导",
@@ -126,9 +258,9 @@
       "数量": 1
     },
     {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -140,7 +272,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -152,10 +284,11 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-03 08:03:57"
+  "last_batch": "noon",
+  "last_updated": "2026-11-03 12:06:19"
 }
