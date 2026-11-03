@@ -36,9 +36,12 @@ def _resolve_api_key(default, *env_names):
 
 HY3_API_KEY = _resolve_api_key(_HY3_DEFAULT_KEY, "HY3_API_KEY", "DEEPSEEK_API_KEY")
 HY3_BASE_URL = "https://tokenhub.tencentmaas.com/v1/chat/completions"
-# 模型映射（可经环境变量覆盖）：TokenHub 仅 hy3 一个模型，flash/pro 均映射为 hy3
-HY3_MODEL_FLASH = os.environ.get("HY3_MODEL_FLASH", "hy3")   # 对应原 deepseek-v4-flash
-HY3_MODEL_PRO = os.environ.get("HY3_MODEL_PRO", "hy3")         # 对应原 deepseek-v4-pro
+# ⚠️ 2026-11-03 后台确认：hy3 **已停止 + 免费额度 0% + 计费开关未启用**。
+# 这两个常量已无任何真实调用点（orchestrator 曾 import 但全部生成调用都走
+# LLM_JSON_CANDIDATES 轮换），保留仅为兼容外部环境变量。**不要再用它们调模型**——
+# 真要单点调用请从 data/llm_quota_snapshot.json 里挑 enabled=true 且剩余够的模型。
+HY3_MODEL_FLASH = os.environ.get("HY3_MODEL_FLASH", "hy3")   # 已停止，勿用
+HY3_MODEL_PRO = os.environ.get("HY3_MODEL_PRO", "hy3")       # 已停止，勿用
 
 # DASHSCOPE（通义千问）作为 hy3 配额耗尽时的兜底，同样需要跳过占位符
 DASHSCOPE_KEY = _resolve_api_key("", "DASHSCOPE_API_KEY")
@@ -69,6 +72,18 @@ INTERCONTINENTAL_COMPETITIONS = ("亚冠", "欧联", "欧协联", "中超")
 #   ✅ 新增 4 个满额（剩余 100%）免费模型：kimi-k3.1-pro / kimi-k3.1-pro-highspeed /
 #     minimax-m3.1-flash / deepseek-v4.1-flash-1017（均 2027-10-26 到期，压末尾储备）。
 #   ⚠️ deepseek-v4-flash-0731 后台标「模型待下线」，保留但仅作末位备援。
+#
+# 2026-11-03 复核（20 个模型全量同步，见 data/llm_quota_snapshot.json + scripts/sync_llm_quota.py）：
+#   1) **后台 UI 名 ≠ API ID**：截图显示 `mimo-v2.5-pro`，/v1/models 里实际是
+#      `mimo-v2.6-pro` —— 拿 UI 名去调用必 404。本列表一律写 API ID，
+#      账本里用 `ui_name` 字段记 UI 名以便下次对账。
+#   2) hy3 已确认「已停止 + 剩余 0% + 未启用」，任何情况下都不得进入本列表。
+#   3) 实际停用线是 **80%** 不是 90%：LLM_HARD_CAP_TOKENS(80 万) 比
+#      LLM_USAGE_THRESHOLD(90%) 更严，谁先到谁生效。下表里
+#      deepseek-v4-flash-202605(剩 19.8%) 与 deepseek-v4-pro-0813(剩 13.5%)
+#      已越过该线，运行期会被自动跳过（仍保留在列表里，等额度重置后自动复活）。
+#   4) 一周(10-26→11-03)总消耗约 38 万 tokens / 1900 万总池 —— **额度不是瓶颈**，
+#      最紧的几个是 vision-exp(-31.3pt)、deepseek-flash(-24.6pt)、202605(-21.1pt)。
 #
 # 2026-10-19 复核：glm 家族「稳定 400」的旧结论不成立——2026-10-08 那次是客户端
 # 传 thinking 参数导致推理回显进 content（见 utils._build_body），已修复。

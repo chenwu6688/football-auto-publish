@@ -132,6 +132,16 @@ jobs:
           # 现在零配图率回潮 / 实体→维基那层被摘掉 / 尺寸闸门被放松，一律硬拦。
           python3 scripts/verify_cover_coverage.py --days 14 --quiet
 
+      - name: LLM 免费额度账本（2026-11-03 后台截图全量同步）
+        run: |
+          # 硬项，不加 || echo 软化。起因：TokenHub 无额度查询 API，账本靠人工截图填。
+          # 手填有两个静默失败模式：① 本地少记 total_tokens → 运行期以为还有额度，
+          # 继续往快用完的模型上打请求 → 直接按量计费（不报 402、直接扣钱）；
+          # ② 拿后台 UI 名去调用（截图 mimo-v2.5-pro，真实 ID mimo-v2.6-pro）→ 必 404。
+          # 现在：账本 total/剩余%/到期与快照对不上、轮换列表含按量计费或已停模型
+          # （如 hy3「已停止 + 0%」），一律硬拦。
+          python3 scripts/verify_llm_quota.py --quiet
+
       - name: 单事件多切口编排（2026-11-01 头部对标 P0-2）
         run: |
           # 硬项，不加 || echo 软化。起因：金球奖当天我爱英超发了 15 条、我方 1 条——

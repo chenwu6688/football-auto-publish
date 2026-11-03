@@ -14,7 +14,9 @@ from collections import defaultdict
 from file_writer import FileWriter
 from image_service import ImageService
 from constants import (PROJECT_ROOT, OUTPUT_DIR,
-                       HY3_API_KEY, HY3_BASE_URL, HY3_MODEL_FLASH, HY3_MODEL_PRO,
+                       HY3_API_KEY, HY3_BASE_URL,
+                       # HY3_MODEL_FLASH/PRO 已于 2026-11-03 移除：hy3 后台「已停止」，
+                       # 且这两个常量本就没有调用点（生成全走 LLM_JSON_CANDIDATES）。
                        DASHSCOPE_KEY, UNSPLASH_KEY, FOOTBALL_DATA_KEY,
                        DASHSCOPE_URL, FOOTBALL_DATA_BASE,
                        WXPUSHER_APPTOKEN, WXPUSHER_UID,
