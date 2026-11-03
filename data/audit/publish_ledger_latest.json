@@ -1,28 +1,37 @@
 {
   "date": "2026-11-03",
-  "generated_at": "2026-11-03 00:04:49",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-03 04:08:10",
+  "batch_filter": "noon",
   "counts": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "failed": 0,
     "skipped_prediction": 0,
     "published_without_id": 0,
-    "published_without_cover": 0
+    "published_without_cover": 1
   },
   "platform_id_binding": {
-    "bound": 1,
+    "bound": 2,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "半场零封后崩盘，纽卡换人失误葬送好局，埃弗顿一箭封喉",
+      "title": "第70分钟换人后连丢2球，萨索洛2-4佛罗伦萨好局崩盘",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7703729190364807720",
+      "batch_name": "午间",
+      "platform_id": "7703791800137450034",
       "reason": "",
-      "images": 1,
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "梅西与C罗生涯数据大PK，谁才是真正的球王，数字真能说明一切吗？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7703792113841865225",
+      "reason": "",
+      "images": 0,
       "status": "published"
     }
   ],
