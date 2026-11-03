@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-02",
+  "generated_at": "2026-11-02 10:06:46",
+  "batch_filter": "evening",
+  "counts": {
+    "total": 3,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 1,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "status": "skipped_prediction",
+      "title": "欧冠大戏巴萨曼联拜仁全来了，这四场不熬夜真亏",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "",
+      "reason": "预测稿不发布到头条（R13 决策④）"
+    },
+    {
+      "title": "费耶诺德主帅场边站满90分钟，国际米兰还没换人他先动了三次",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7703512957817848354",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "德尔加多挥拳染红致歉，大连九人苦撑3-4，绝无冒犯更刺耳！",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7703513258971496994",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}

@@ -48,9 +48,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.499,
-        "impressions": 2756,
+        "impressions": 3121,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7701502653313876495"
     },
@@ -97,7 +97,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.495,
-        "impressions": 2710,
+        "impressions": 3072,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -148,7 +148,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0867,
-        "impressions": 2586,
+        "impressions": 3038,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -194,12 +194,12 @@
       "is_recap": false,
       "supply_layer": "二级·突发",
       "performance": {
-        "reads": 73,
+        "reads": 85,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.3019,
-        "impressions": 3426,
+        "retention_rate": 0.3208,
+        "impressions": 3983,
         "follower_reads": 3,
         "click_rate": 0.02
       },
@@ -247,9 +247,9 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.2379,
-        "impressions": 2847,
+        "impressions": 3484,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7701657717617721906"
     },
@@ -291,7 +291,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.25,
-        "impressions": 2857,
+        "impressions": 3566,
         "follower_reads": 0,
         "click_rate": 0.0
       },

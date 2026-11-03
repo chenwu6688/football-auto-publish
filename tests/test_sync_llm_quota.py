@@ -314,3 +314,91 @@ def test_real_snapshot_sync_matches_ledger_shape():
         assert "total_tokens" in rec
         assert "free_quota_pct" in rec
         assert "free_quota_expires_at" in rec
+
+
+# ============================================================
+# 8. 验收脚本的一致性判定必须带方向性（少记才危险，多记只是账本更新）
+# ============================================================
+
+_vspec = importlib.util.spec_from_file_location(
+    "verify_llm_quota", ROOT / "scripts" / "verify_llm_quota.py")
+vq = importlib.util.module_from_spec(_vspec)
+_vspec.loader.exec_module(vq)
+
+
+def _ledger(**models):
+    """账本片段：name=(total_tokens, pct, 到期)。"""
+    return {n: {"total_tokens": t, "free_quota_pct": p, "free_quota_expires_at": e}
+            for n, (t, p, e) in models.items()}
+
+
+def _one_snapshot(pct=41.1, exp="2027-09-14 09:24:30"):
+    return {"captured_at": "2026-11-03 10:29:34", "quota_total_tokens": QUOTA,
+            "models": {"m": {"remaining_pct": pct, "expires_at": exp,
+                             "status": "运行中", "enabled": True}}}
+
+
+def test_verify_passes_when_ledger_equals_snapshot():
+    rep = vq.check_ledger_matches_snapshot(_one_snapshot(), _ledger(m=(589_000, 41.1, "2027-09-14 09:24:30")))
+    assert rep["ok"] is True
+
+
+def test_verify_passes_when_ledger_grew_after_snapshot():
+    """快照是 10:29 的时点值，之后 CI 又跑了批次 —— 账本变大是正常的，不许判红。
+
+    如果这里判红，每次批次结束这条硬项都会失败，最后只能加 || echo 软化，
+    等于把「防按量计费」的唯一检查废掉。
+    """
+    rep = vq.check_ledger_matches_snapshot(_one_snapshot(),
+                                          _ledger(m=(620_000, 41.1, "2027-09-14 09:24:30")))
+    assert rep["ok"] is True
+    assert any("校准后又消耗" in d for d in rep["detail"])
+
+
+def test_verify_fails_when_ledger_undercounts():
+    """本地少记 = 以为还有额度 = 直接按量扣钱 —— 这是唯一必须硬拦的方向。"""
+    rep = vq.check_ledger_matches_snapshot(_one_snapshot(),
+                                          _ledger(m=(276_000, 41.1, "2027-09-14 09:24:30")))
+    assert rep["ok"] is False
+    assert any("少记" in d or "按量计费" in d for d in rep["detail"])
+
+
+def test_verify_fails_when_pct_drifted():
+    """剩余%与快照不一致 → 说明有人在手改账本或没跑同步。"""
+    rep = vq.check_ledger_matches_snapshot(_one_snapshot(),
+                                          _ledger(m=(589_000, 72.4, "2027-09-14 09:24:30")))
+    assert rep["ok"] is False
+
+
+def test_verify_fails_when_expiry_drifted():
+    rep = vq.check_ledger_matches_snapshot(_one_snapshot(),
+                                          _ledger(m=(589_000, 41.1, "2027-01-01 00:00:00")))
+    assert rep["ok"] is False
+
+
+def test_verify_fails_when_stopped_model_has_total():
+    """停用模型写 total 会把 hy3 顶到用量第一（纯噪音），必须拦住。"""
+    snap = {"captured_at": "x", "quota_total_tokens": QUOTA,
+            "models": {"hy3": {"remaining_pct": 0.0, "expires_at": "2027-08-11 11:04:10",
+                               "status": "已停止", "enabled": False}}}
+    rep = vq.check_ledger_matches_snapshot(
+        snap, {"hy3": {"total_tokens": 1_000_000, "free_quota_pct": 0.0,
+                       "free_quota_expires_at": "2027-08-11 11:04:10", "disabled": True}})
+    assert rep["ok"] is False
+
+
+def test_verify_usable_pool_counts_correctly():
+    snap = {"captured_at": "x", "quota_total_tokens": QUOTA,
+            "models": {f"m{i}": {"remaining_pct": p, "expires_at": "2027-01-01 00:00:00",
+                                 "status": "运行中", "enabled": True}
+                       for i, p in enumerate([90, 80, 50, 30, 5])}}
+    rep = vq.check_usable_pool(snap)
+    # 剩 5% 和 80%（已用 20% → 正好 80% 是停用线，仍算可用）要按实际口径数
+    assert "可用" in rep["detail"][0]
+    assert rep["ok"] is True
+
+
+def test_verify_stop_line_is_80pct():
+    """报表/告警/验收三处必须用同一个实际停用线，否则「报表说能用、运行期已跳过」。"""
+    assert vq._stop_line() == pytest.approx(0.80)
+    assert sq._skip_line(QUOTA) == pytest.approx(0.80)

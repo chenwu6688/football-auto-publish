@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-03",
+  "generated_at": "2026-11-03 00:04:49",
+  "batch_filter": "morning",
+  "counts": {
+    "total": 1,
+    "published": 1,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 1,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "半场零封后崩盘，纽卡换人失误葬送好局，埃弗顿一箭封喉",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7703729190364807720",
+      "reason": "",
+      "images": 1,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}

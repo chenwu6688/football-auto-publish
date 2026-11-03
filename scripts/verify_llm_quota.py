@@ -15,9 +15,12 @@ TokenHub **没有额度查询 API**，后台「模型信息」页是唯一真值
 
 硬项（FAIL → 退出码 1）
 ----------------------
-  A. 账本与快照逐项一致：`total_tokens == round(quota × (100-剩余%))`，
+  A. 账本不低于快照：`total_tokens >= round(quota × (100-剩余%))`，
      `free_quota_pct` / `free_quota_expires_at` 与快照完全相同；
-     停用模型不写 total（写 100 万会把 hy3 顶到用量排行第一）
+     停用模型不写 total（写 100 万会把 hy3 顶到用量排行第一）。
+     **方向性**：快照是时点值，之后 CI 还会继续消耗，账本只会变大 ——
+     要求严格相等会让每批跑完都判红，最后被迫软化。少记才危险（按量扣钱），
+     多记只是账本更新。
   B. 轮换列表 ⊆ 快照：任何轮换模型在快照里查不到 = 按量计费/已下架，直接 FAIL；
      在快照里但已停止/未启用/额度 0% 也 FAIL（hy3 就是这种）
   C. 可用池容量：扣掉停用 + 已过实际停用线的模型后，剩余可用 ≥ 4 个；
@@ -104,7 +107,7 @@ def check_ledger_matches_snapshot(snapshot=None, usage=None):
                 "detail": ["⚠️ 无快照，跳过（先按后台截图填 data/llm_quota_snapshot.json）"]}
 
     q = float(snapshot.get("quota_total_tokens") or LLM_FREE_QUOTA_TOKENS)
-    bad, ok_n, stopped_n = [], 0, 0
+    bad, ok_n, stopped_n, detail_extra = [], 0, 0, []
     for name, meta in snapshot["models"].items():
         pct = meta.get("remaining_pct")
         rec = usage.get(name)
@@ -121,10 +124,17 @@ def check_ledger_matches_snapshot(snapshot=None, usage=None):
                            f"（现值 {rec.get('total_tokens'):,}，会污染用量排行）")
             continue
         expect = int(round(q * (100.0 - float(pct)) / 100.0))
-        if rec.get("total_tokens") != expect:
-            got = rec.get("total_tokens")
-            bad.append(f"{name}: total_tokens {got} ≠ 后台推算 {expect}"
-                       f"（剩余 {pct}%）")
+        got = int(rec.get("total_tokens") or 0)
+        # 只判「不能少于后台推算值」。快照是 **10:29 的时点值**，之后 CI 还会继续
+        # 消耗，账本必然越跑越大 —— 要求严格相等会让每次批次结束后这条硬项都红，
+        # 最后被迫加 || echo 软化，等于没检查。
+        # 方向性很重要：少记 = 以为还有额度 = 按量扣钱；多记 = 只是账本更新。
+        if got < expect:
+            bad.append(f"{name}: total_tokens {got:,} < 后台推算 {expect:,}"
+                       f"（剩余 {pct}%）—— 本地少记，会按量计费")
+        elif got > expect + int(q * 0.005):      # 超过 0.5% 才提，避免 round 误差刷屏
+            detail_extra.append(f"{name}: 账本 {got:,} > 快照推算 {expect:,}"
+                                f"（校准后又消耗了 {got - expect:,}，正常）")
         if float(rec.get("free_quota_pct", -1)) != float(pct):
             bad.append(f"{name}: free_quota_pct {rec.get('free_quota_pct')} ≠ {pct}")
         if rec.get("free_quota_expires_at") != meta.get("expires_at"):
@@ -132,7 +142,9 @@ def check_ledger_matches_snapshot(snapshot=None, usage=None):
                        f"≠ {meta.get('expires_at')}")
         ok_n += 1
 
-    detail = [f"✅ {ok_n} 个在用模型四项字段全对；{stopped_n} 个停用模型已标 disabled"]
+    detail = [f"✅ {ok_n} 个在用模型：total 不低于后台推算值、剩余%与到期时间一致；"
+              f"{stopped_n} 个停用模型已标 disabled"]
+    detail += [f"  · {d}" for d in detail_extra[:8]]
     if bad:
         detail = [f"❌ {len(bad)} 处不一致"] + [f"  · {b}" for b in bad[:12]]
     return {"item": "账本与快照一致", "ok": not bad, "detail": detail}

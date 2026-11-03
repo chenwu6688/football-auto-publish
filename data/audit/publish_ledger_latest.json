@@ -1,34 +1,28 @@
 {
-  "date": "2026-11-01",
-  "generated_at": "2026-11-01 04:08:06",
-  "batch_filter": "noon",
+  "date": "2026-11-03",
+  "generated_at": "2026-11-03 00:04:49",
+  "batch_filter": "morning",
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 1,
+    "published": 1,
     "failed": 0,
     "skipped_prediction": 0,
-    "published_without_id": 0
+    "published_without_id": 0,
+    "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 2,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "谁先慌：两位主帅90分钟里谁敢先动第一张牌",
+      "title": "半场零封后崩盘，纽卡换人失误葬送好局，埃弗顿一箭封喉",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7703049788165587510",
+      "batch_name": "晨读",
+      "platform_id": "7703729190364807720",
       "reason": "",
-      "status": "published"
-    },
-    {
-      "title": "当年那个追风少年曲波，如今白发苍苍，他还能跑得动吗？",
-      "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7703049907082396203",
-      "reason": "",
+      "images": 1,
       "status": "published"
     }
   ],
