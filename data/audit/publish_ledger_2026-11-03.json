@@ -1,12 +1,12 @@
 {
   "date": "2026-11-03",
-  "generated_at": "2026-11-03 04:08:10",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-03 10:05:41",
+  "batch_filter": "evening",
   "counts": {
-    "total": 2,
+    "total": 3,
     "published": 2,
     "failed": 0,
-    "skipped_prediction": 0,
+    "skipped_prediction": 1,
     "published_without_id": 0,
     "published_without_cover": 1
   },
@@ -17,19 +17,27 @@
   },
   "records": [
     {
-      "title": "第70分钟换人后连丢2球，萨索洛2-4佛罗伦萨好局崩盘",
+      "status": "skipped_prediction",
+      "title": "马竞主场硬刚拜仁，巴萨碰维拉，欧冠夜谁先掉链子？",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7703791800137450034",
+      "batch_name": "晚间",
+      "platform_id": "",
+      "reason": "预测稿不发布到头条（R13 决策④）"
+    },
+    {
+      "title": "费耶诺德那位前锋第90分钟还在追抢，国米后防得先想清楚一件事",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7703883919154610697",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "梅西与C罗生涯数据大PK，谁才是真正的球王，数字真能说明一切吗？",
+      "title": "梅西C罗数据大对比，进球助攻谁更强？到底谁才是真球王？",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7703792113841865225",
+      "batch_name": "晚间",
+      "platform_id": "7703884220573286962",
       "reason": "",
       "images": 0,
       "status": "published"
