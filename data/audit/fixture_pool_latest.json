@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-02 18:47",
-  "topics": 54,
-  "pool_generated_at": "2026-11-02 18:47",
+  "generated_at": "2026-11-03 08:00",
+  "topics": 51,
+  "pool_generated_at": "2026-11-03 08:00",
   "ok": false,
   "checks": [
     {
@@ -23,14 +23,12 @@
     },
     {
       "item": "有赛程日候选≥6",
-      "ok": false,
-      "days": 6,
-      "thin_days": {
-        "2026-11-03": 3
-      },
+      "ok": true,
+      "days": 5,
+      "thin_days": {},
       "detail": [
-        "共 6 个有赛程日",
-        "不足 6 条：{'2026-11-03': 3}"
+        "共 5 个有赛程日",
+        "全部达标"
       ]
     },
     {
@@ -72,16 +70,15 @@
       "advisory": true,
       "ok": true,
       "ratio": 1.0,
-      "hit": 54,
-      "total": 54,
+      "hit": 51,
+      "total": 51,
       "detail": [
-        "含人角色词或悬念词的选题 54/54（100%）",
+        "含人角色词或悬念词的选题 51/51（100%）",
         "（告警项：不足 100% 通常是选题池仍由旧版 ANGLE_RULES 生成，重跑 scripts/fixture_library.py 刷新即可）"
       ]
     }
   ],
   "hard_failed": [
-    "五类赛程覆盖",
-    "有赛程日候选≥6"
+    "五类赛程覆盖"
   ]
 }
