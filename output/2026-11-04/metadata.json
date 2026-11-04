@@ -40,7 +40,17 @@
       "is_recap": true,
       "supply_layer": "二级·突发",
       "recap_match_id": "575381",
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 51,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1078,
+        "follower_reads": 1,
+        "click_rate": 0.05
+      },
+      "platform_id": "7704100634164789779"
     },
     {
       "index": 1,
@@ -111,7 +121,17 @@
       "batch_name": "午间",
       "is_prediction": false,
       "is_recap": false,
-      "supply_layer": "三级·软性"
+      "supply_layer": "三级·软性",
+      "performance": {
+        "reads": 3,
+        "comments": 2,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 417,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7704162883977888290"
     }
   ],
   "topics": [
