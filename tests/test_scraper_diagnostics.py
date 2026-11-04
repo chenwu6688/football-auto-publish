@@ -42,6 +42,30 @@ class TestClassify(unittest.TestCase):
         self.assertFalse(diag.looks_like_challenge(""))
         self.assertFalse(diag.looks_like_challenge(None))
 
+    def test_video_player_is_not_a_challenge(self):
+        """直播吧文章页引用 `video-player2.js`，而 `video-` 里含子串 `eo-`。
+
+        2026-11-04 事故现场：`"eo-"` 在特征串里时，每篇正常比赛稿（20~30KB，
+        低于薄壳阈值）都被判成挑战页 → 抛 ScraperChallengeError → 文章被丢。
+        当天台账 19 次 challenge 里 **17 次是误报**，进而得出「25% 采集失败」
+        这个假结论，还差点据此去引 TLS 指纹库。判据里的短串比漏报更危险：
+        漏报是「没抓到」，误报是「抓到了却当成没抓到」。
+        """
+        page = ('<html><head><title>让二追三！曼城3-2绝杀，库里尼亚3分钟2球</title>'
+                '<script src="//static4style.duoduocdn.com/news/js/video-player2.js">'
+                '</script></head><body><p>正文……</p></body></html>')
+        self.assertFalse(diag.looks_like_challenge(page))
+
+    def test_real_edgeone_challenge_still_caught(self):
+        """修误报不能引进漏报：真实 EdgeOne 挑战页必须仍然命中。
+
+        样本取自 2026-11-04 懂球帝 567 页（7,351 字节）的真实文案。
+        """
+        page = ('<!doctype html><html><body><p>请求 ID: </p>'
+                '<p>若您是网站拥有者，请参阅 EdgeOne Web 安全分析官方文档，'
+                '了解如何筛选请求 ID 查看样本日志与命中规则。</p></body></html>')
+        self.assertTrue(diag.looks_like_challenge(page))
+
     def test_exception_mapping(self):
         self.assertEqual(diag.classify_exception(ms.ScraperChallengeError("x")),
                          diag.KIND_CHALLENGE)
