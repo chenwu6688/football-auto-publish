@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-02 20:42",
-  "ok": true,
+  "generated_at": "2026-11-04 14:01",
+  "ok": false,
   "checks": [
     {
       "item": "配置结构（config/title_antipattern.yaml）",
@@ -35,10 +35,10 @@
     },
     {
       "item": "生成侧接入（score_title_plan）",
-      "ok": true,
+      "ok": false,
       "advisory": false,
       "detail": [
-        "两规则正例均判 0 分打回、负例不误判 ✅"
+        "❌ 无法载入 orchestrator：unterminated string literal (detected at line 281) (title_elements.py, line 281)"
       ]
     },
     {
@@ -54,14 +54,16 @@
       "item": "近 14 天成稿命中（存量，仅提示）",
       "ok": true,
       "advisory": true,
-      "total": 89,
+      "total": 86,
       "hits": 0,
       "samples": [],
       "detail": [
-        "近 14 天成稿 89 条，命中 0 条 ✅"
+        "近 14 天成稿 86 条，命中 0 条 ✅"
       ]
     }
   ],
-  "hard_failed": [],
+  "hard_failed": [
+    "生成侧接入（score_title_plan）"
+  ],
   "advisory_failed": []
 }
