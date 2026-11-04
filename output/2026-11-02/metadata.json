@@ -41,11 +41,12 @@
       "supply_layer": "一级·确定性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 15,
+        "reads": 26,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 1045,
+        "retention_rate": 0.328,
+        "impressions": 2106,
         "follower_reads": 2,
         "click_rate": 0.01
       },
@@ -87,13 +88,14 @@
       "recap_match_id": "560631",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 3,
+        "reads": 4,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 526,
+        "retention_rate": 0.0,
+        "impressions": 1486,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7703420416957760015"
     },

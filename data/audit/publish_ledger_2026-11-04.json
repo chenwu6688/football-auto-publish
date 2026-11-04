@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-04",
+  "generated_at": "2026-11-04 00:06:04",
+  "batch_filter": "morning",
+  "counts": {
+    "total": 1,
+    "published": 1,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 1,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "马竞铁血防线连丢两球崩盘，拜仁0-2带走胜利，谁该背锅",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7704100634164789779",
+      "reason": "",
+      "images": 2,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}

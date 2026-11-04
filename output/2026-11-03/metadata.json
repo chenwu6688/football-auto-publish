@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "generated_at": "2026-11-03T00:03:57.105699",
-  "total_articles": 1,
+  "generated_at": "2026-11-03T10:03:50.806131",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -39,72 +39,346 @@
       "is_recap": true,
       "supply_layer": "二级·突发",
       "recap_match_id": "560622",
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 691,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7703729190364807720"
+    },
+    {
+      "index": 1,
+      "title": "第70分钟换人后连丢2球，萨索洛2-4佛罗伦萨好局崩盘",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-1-第70分钟换人后-e4e80a.md",
+      "slug": "第70分钟换人后-e4e80a",
+      "tags": [
+        "Sassuolo",
+        "Fiorentina",
+        "Serie A",
+        "tactical analysis",
+        "substitution"
+      ],
+      "keywords": [
+        "Sassuolo",
+        "Fiorentina",
+        "Serie A",
+        "tactical analysis",
+        "substitution"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "558541",
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 560,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7703791800137450034"
+    },
+    {
+      "index": 2,
+      "title": "梅西与C罗生涯数据大PK，谁才是真正的球王，数字真能说明一切吗？",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-2-梅西与C罗生涯数-499f7e.md",
+      "slug": "梅西与C罗生涯数-499f7e",
+      "tags": [
+        "Messi",
+        "Ronaldo",
+        "stats",
+        "goals",
+        "assists"
+      ],
+      "keywords": [
+        "Messi",
+        "Ronaldo",
+        "stats",
+        "goals",
+        "assists"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "费耶诺德那位前锋第90分钟还在追抢，国米后防得先想清楚一件事",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-1-费耶诺德那位前锋-70bda8.md",
+      "slug": "费耶诺德那位前锋-70bda8",
+      "tags": [
+        "Feyenoord",
+        "Inter Milan",
+        "Champions League",
+        "tactics",
+        "pressing"
+      ],
+      "keywords": [
+        "Feyenoord",
+        "Inter Milan",
+        "Champions League",
+        "tactics",
+        "pressing"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-03/images/article-1-img-003.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 99,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1048,
+        "follower_reads": 2,
+        "click_rate": 0.09
+      },
+      "platform_id": "7703883919154610697"
+    },
+    {
+      "index": 2,
+      "title": "梅西C罗数据大对比，进球助攻谁更强？到底谁才是真球王？",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-2-梅西C罗数据大对-fdfd88.md",
+      "slug": "梅西C罗数据大对-fdfd88",
+      "tags": [
+        "Messi",
+        "Ronaldo",
+        "goals",
+        "assists",
+        "comparison"
+      ],
+      "keywords": [
+        "Messi",
+        "Ronaldo",
+        "goals",
+        "assists",
+        "comparison"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 219,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7703884220573286962"
+    },
+    {
+      "index": 3,
+      "title": "马竞主场硬刚拜仁，巴萨碰维拉，欧冠夜谁先掉链子？",
+      "path": "/home/runner/work/_temp/output/2026-11-03/article-3-马竞主场硬刚拜仁-24ebbd.md",
+      "slug": "马竞主场硬刚拜仁-24ebbd",
+      "tags": [
+        "Champions League",
+        "Atletico Madrid",
+        "Bayern Munich",
+        "Barcelona",
+        "Manchester United"
+      ],
+      "keywords": [
+        "Champions League",
+        "Atletico Madrid",
+        "Bayern Munich",
+        "Barcelona",
+        "Manchester United"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-03/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": true,
+      "is_recap": false,
+      "supply_layer": "二级·突发",
       "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "纽卡4天内被埃弗顿双杀掉到第13，夏窗大换血原来换掉了魂",
-      "angle": "纽卡近7场5负、4天内被埃弗顿连杀两次，主帅赛后说球员'从一开始就缺乏自信'——这话比输球更扎心。夏窗大换血买来的是一堆好球员，丢掉的却是那股子狠劲。钱能买人，买不来更衣室那股气。",
+      "title": "亚洲杯推迟到2028，国足这次能抓住纠错的机会吗",
+      "angle": "亚洲杯推迟至2028年1月，与东亚杯、奥预赛撞车，国足迎来难得的纠错整改时间，但同时也背负持续战绩考核压力。从国足情结出发，分析这是机遇还是更大的考验。",
       "keywords": [
-        "Newcastle",
-        "Everton",
-        "Premier League",
-        "transfer"
+        "Asian Cup",
+        "China national team",
+        "2028",
+        "postponement"
       ],
       "keywords_cn": [
-        "纽卡斯尔",
-        "埃弗顿",
-        "英超",
-        "换血"
+        "亚洲杯",
+        "国足",
+        "2028",
+        "推迟"
       ],
       "content_type": "热点球评",
-      "score": 88,
+      "score": 91,
       "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "双杀+排名暴跌，人物处境比比分有味道",
-      "_category": "未分类",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足赛程变动牵动老球迷心弦，纠错时间与考核压力并存，话题性强。",
+      "_category": "中国足球",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
       "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-0"
     },
     {
-      "title": "半场零封后崩盘，纽卡换人失误葬送好局，埃弗顿一箭封喉",
+      "title": "没想到奥斯卡中国9年100球，这数字比多少外援都硬",
+      "angle": "奥斯卡在中国俱乐部各项赛事打进100球，效力9年，用数据说话，肯定其对中超的贡献，同时对比其他大牌外援的来去匆匆，突出他的坚守与职业态度。",
+      "keywords": [
+        "Oscar",
+        "China",
+        "100 goals",
+        "CSL"
+      ],
+      "keywords_cn": [
+        "奥斯卡",
+        "中超",
+        "百球",
+        "外援"
+      ],
+      "content_type": "排行榜",
+      "score": 88,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "外援百球里程碑，戳中老球迷对中超黄金时代的怀念与认同。",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "费耶诺德那位前锋第90分钟还在追抢，国米后防得先想清楚一件事",
       "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "_is_fixture": true
+    },
+    {
+      "title": "梅西C罗数据大对比，进球助攻谁更强？到底谁才是真球王？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "马竞主场硬刚拜仁，巴萨碰维拉，欧冠夜谁先掉链子？",
+      "content_type": "热点球评",
+      "_batch_name": "晚间",
+      "_is_prediction": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
-    "total": 1,
+    "total": 2,
     "counts": {
-      "一级·确定性": 0,
-      "二级·突发": 1,
-      "三级·软性": 0
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 1
     },
     "ratios": {
-      "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "一级·确定性": 50.0,
+      "二级·突发": 0.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -112,23 +386,29 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "一级·确定性": 20.0,
+      "二级·突发": -50.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报互动引导未达标",
+      "环节": "互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
       "数量": 1
     },
     {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
       "数量": 1
     },
     {
@@ -140,22 +420,24 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batches_completed": [
-    "morning"
+    "evening",
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-03 08:03:57"
+  "last_batch": "evening",
+  "last_updated": "2026-11-03 18:03:50"
 }
