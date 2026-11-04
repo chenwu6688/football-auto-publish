@@ -73,6 +73,17 @@ jobs:
           python3 scripts/verify_tuning_discipline.py --quiet \
             || echo "::warning::调参纪律未达 8.1/11.5 验收标准，详见 data/audit/tuning_discipline_latest.json"
 
+      - name: 图源合规（维基共享 / 图库白名单）（告警）
+        run: |
+          # 判据是**误配率**不是配图率：错图是事实错误（配错球场/配成哲学家），
+          # 比无图更糟（无图有数据卡兜底）。许可是硬约束，CC BY 要求署名。
+          # 本机 *.wikimedia.org 全超时，GitHub runner 上才可判定；
+          # 未判定（返回 2）也在这里告警一次，避免「没跑成 = 看起来绿」。
+          python3 scripts/verify_wiki_media.py --quiet \
+            || echo "::warning::维基共享图源未达标或未判定，详见 data/audit/wiki_media_latest.json"
+          python3 scripts/verify_gallery_entities.py --quiet \
+            || echo "::warning::图库白名单未达标或未判定，详见 data/audit/gallery_entities_latest.json"
+
       - name: 汇总元验收结论
         if: always()
         run: |

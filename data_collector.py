@@ -19,6 +19,7 @@ from utils import retry, filter_fresh_news, NEWS_MAX_AGE_HOURS, CST
 
 import cover_binding as _cb  # 计划 2.2/4.1：封面与正文绑定（禁用随机图库配图）
 import scraper_diagnostics as _diag  # 图源失败必须留痕（2026-11-04：401 静默吞掉过久）
+import wiki_media as _wm  # 维基共享：足球领域唯一免费真人图源（许可+署名由模块内保证）
 import gallery_query as _gq  # 图库是英文标签索引，中文 query 会配出饺子/欧元（2026-11-04）
 
 
@@ -1476,6 +1477,33 @@ def search_images(topic, count=5):
             _push(search_wikipedia_entity(ent))
             tried.add(ent)
 
+    # ②' 维基共享（Commons）—— 与上面的 zh.wikipedia 是**两个不同的源**：
+    #     wikipedia 取「条目页首图」（33 个手工实体 + 实体词典能命中才有），
+    #     commons  按**文件**检索（球场、比赛现场、球员，量级大一个数量级）。
+    #     它是足球领域唯一「免费 + 有真人照 + 可商用 + 有 API」的源（2026-11-04 实测：
+    #     Pexels/Pixabay 是英文标签索引的通用图库，球员肖像根本不在库里，
+    #     中文 query 还会返回酱油饺子）。详见 wiki_media.py 模块 docstring。
+    #     合规由模块保证：只收 CC0/PD/CC BY/CC BY-SA、必须有作者（能署名）、
+    #     ≥800×600、文件名/描述/分类命中实体；球员类还必须在 football 分类下。
+    #     熔断：本机 *.wikimedia.org 全超时，连不上就停，别每篇白等 12 秒。
+    if len(images) < count and _wiki_available():
+        for ent in ents[:2]:
+            if len(images) >= count or not _wiki_available():
+                break
+            try:
+                got_c = _wm.search_for_entity(ent, count - len(images))
+            except Exception as e:      # 模块内已 fail-closed，这里只兜未知异常
+                _diag.record("wikimedia", "search_for_entity", kind="parse",
+                             detail=f"{type(e).__name__}: {str(e)[:80]}")
+                got_c = []
+            if got_c:
+                _wiki_note_ok()
+            elif _wm.LAST.get("network"):
+                # 区分「真没图」与「连不上」：连不上才熔断，取空不熔断
+                _wiki_note_fail()
+            for img in got_c:
+                _push(img)
+
     # ③ 不做「标题词兜底」：没有实体时拿标题词去搜维基，几乎必然搜到无关条目
     #    （维基不是图库）。计划 2.2 的「宁可不配图也不放随机图」在这里优先于覆盖率。
 
@@ -1493,11 +1521,13 @@ def search_images(topic, count=5):
             _diag.record("gallery", "skipped", kind="empty", count=len(images),
                          detail=f"实体不在图库白名单 {ents[:3]}，不查英文图库 → 走数据卡")
         else:
-            for img in _gallery_pixabay(gal["query"], count - len(images), accept=gal["accept"]):
+            # Pixabay 停用（2026-11-04）：它的元数据只有 tags（"football, stadium, ball"），
+            # 不含球场名/队名 → accept 校验必然全挂，等于每次都白花一个请求还永远取不到图。
+            # 留着它只会让「配图率」看起来有一条链路，实际贡献 0。
+            _diag.record("pixabay", "skipped", kind="empty",
+                         detail="元数据只有 tags、无法做 alt 校验，2026-11-04 停用（函数保留）")
+            for img in _gallery_pexels(gal["query"], count - len(images), accept=gal["accept"]):
                 _push(img)
-            if len(images) < count:
-                for img in _gallery_pexels(gal["query"], count - len(images), accept=gal["accept"]):
-                    _push(img)
 
     if len(images) < count and UNSPLASH_KEY:
         # 同样只走白名单（Unsplash 也是英文索引）；校验字段是 description，
@@ -1543,47 +1573,13 @@ def search_images(topic, count=5):
                         break
 
     # DuckDuckGo 图片搜索兜底。它和上面三家不同：**是中文可用的网页图片搜索**，
-    # 所以这里仍然用中文 query，但必须过一道实体校验——返回结果的标题里要出现
-    # 正文实体（「皇马」「巴萨」这类），否则一律丢弃。
-    # 不校验的后果：拿标题词去搜会返回任意中文站点的图，既是版权风险也是配错图；
-    # 而它恰好是「没有图库里那支球队」时唯一还能出图的一层，所以不能简单删掉。
-    if len(images) < count:
-        core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
-        # 没有实体就不查：标题词搜图必然返回任意站点的图，而这一层的校验全靠「标题命中实体」，
-        # 没有实体可命中时它 100% 会被全量拒绝 —— 那就别浪费一次请求。
-        if core and ents:
-            try:
-                from urllib.parse import quote_plus as qp
-                import re as _re
-                ddg = requests.get("https://duckduckgo.com/", params={"q": core}, timeout=10)
-                vqd_match = _re.search(r'vqd=([\d-]+)', ddg.text)
-                if vqd_match:
-                    vqd = vqd_match.group(1)
-                    resp = requests.get(
-                        f"https://duckduckgo.com/i.js?q={qp(core)}&vqd={vqd}&o=json", timeout=10)
-                    if resp.status_code == 200:
-                        _got = _rej = 0
-                        for item in resp.json().get("results", [])[:count * 3]:
-                            if len(images) >= count:
-                                break
-                            title = item.get("title", "") or ""
-                            # 实体校验：标题必须点名正文里的某个实体，否则无法确认图文一致
-                            if not any(e and e in title for e in ents):
-                                _rej += 1
-                                continue
-                            url = item.get("image", "")
-                            if url and url not in [i["url"] for i in images]:
-                                images.append({"url": url, "source": "duckduckgo",
-                                               "alt": title[:120], "query": core})
-                                _got += 1
-                        _diag.record("duckduckgo", "https://duckduckgo.com/i.js", status=200,
-                                     count=_got,
-                                     detail=f"query={core[:40]}" +
-                                            (f"；标题未命中实体 {_rej} 张" if _rej else ""))
-            except Exception as e:
-                _diag.record("duckduckgo", "https://duckduckgo.com/i.js",
-                             kind=_diag.classify_exception(e),
-                             detail=f"{type(e).__name__}: {str(e)[:80]}")
+    # DuckDuckGo 图片层已删除（2026-11-04）：
+    #   ① 本机走代理时 duckduckgo.com 直接超时（实测），CI 上也拿不到 vqd，
+    #      等于每次白等 20 秒；
+    #   ② 它返回的是任意中文站点的图，只有「标题命中实体」一道弱校验，
+    #      既是版权风险也是配错图的主通道；
+    #   ③ 同样是「拿不到正确图」的层，Commons 的精度和合规性都更好，保留它没有意义。
+    #   若将来要恢复，必须先解决许可与校验两个问题，不能只把代码贴回来。
 
     # 绑定复核：剔除未与正文绑定的配图（随机图库配图在此被拦下）
     bound = _cb.filter_bound_images(images, ents, _title_terms + en_keywords)

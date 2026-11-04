@@ -16,6 +16,7 @@ query="欧冠" 是欧元纸币，query="Haaland" 是奥地利的一个村庄。
 
 import sys
 import unittest
+from unittest import mock
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -218,51 +219,41 @@ class TestSearchImagesNeverSendsChinese(unittest.TestCase):
         self.assertEqual(self.queries, [])
 
 
-class TestDuckDuckGoEntityGate(unittest.TestCase):
-    """DDG 是唯一用中文 query 的一层，所以必须靠「标题命中正文实体」兜住图文一致。"""
+class TestDeadLayersRemoved(unittest.TestCase):
+    """DDG / Pixabay 两层已删除（2026-11-04），这里守的是「不许悄悄贴回来」。
 
-    def setUp(self):
-        import data_collector
-        self.dc = data_collector
-        self._orig_get = data_collector.requests.get
-        self._orig_key = data_collector.PEXELS_KEY
-        self._orig_wiki = (data_collector.search_wikipedia,
-                           data_collector.search_wikipedia_entity)
-        data_collector.search_wikipedia = lambda *a, **k: []
-        data_collector.search_wikipedia_entity = lambda *a, **k: []
-        data_collector.PEXELS_KEY = ""      # 让图库层先空，逼出 DDG 那一层
+    原来的 `TestDuckDuckGoEntityGate` 测的是「中文 query 必须靠标题命中实体兜住」——
+    但那一层整个删掉了（本机代理超时、CI 拿不到 vqd、返回任意中文站点的图、
+    零许可校验），测试也就失去了被测对象：那是一条僵尸测试。
+    删除的理由必须可回归，所以改成守删除本身。
+    """
 
-    def tearDown(self):
-        self.dc.requests.get = self._orig_get
-        self.dc.PEXELS_KEY = self._orig_key
-        (self.dc.search_wikipedia, self.dc.search_wikipedia_entity) = self._orig_wiki
-
-    def _patch(self, titles):
-        def fake_get(url, params=None, headers=None, timeout=None):
-            if url.rstrip("/").endswith("duckduckgo.com"):
-                return _FakeResp({}, text="... vqd=4-1234567890 ...")
-            return _FakeResp({"results": [{"title": t, "image": f"https://x.example/{i}.jpg"}
-                                          for i, t in enumerate(titles)]})
-        self.dc.requests.get = fake_get
-
-    def test_title_must_name_the_entity(self):
-        self._patch(["皇马更衣室风波现场图", "一张足球壁纸", "巴萨球员训练"])
-        imgs = self.dc.search_images({"title": "皇马更衣室矛盾升级", "keywords": []}, count=3)
-        self.assertEqual(len(imgs), 1, [i.get("alt") for i in imgs])
-        self.assertIn("皇马", imgs[0]["alt"])
-        self.assertNotIn("壁纸", imgs[0]["alt"])
-
-    def test_no_entity_no_request(self):
-        """没有实体可校验时，这一层 100% 会被全量拒绝 → 不该发请求。"""
+    def test_no_request_to_dead_sources(self):
+        import data_collector as dc
         calls = []
-
-        def fake_get(url, params=None, headers=None, timeout=None):
-            calls.append(url)
-            return _FakeResp({}, text="vqd=1-1")
-
-        self.dc.requests.get = fake_get
-        self.dc.search_images({"title": "昨夜足坛发生了什么", "keywords": []}, count=3)
+        orig = dc.requests.get
+        dc.reset_wiki_breaker()
+        try:
+            def fake_get(url, params=None, headers=None, timeout=None):
+                calls.append(url)
+                return _FakeResp({})
+            dc.requests.get = fake_get
+            with mock.patch.object(dc, "search_wikipedia", return_value=[]), \
+                 mock.patch.object(dc, "search_wikipedia_entity", return_value=None), \
+                 mock.patch.object(dc, "_gallery_pexels", return_value=[]), \
+                 mock.patch.object(dc._wm, "search_for_entity", return_value=[]):
+                dc.search_images({"title": "皇马更衣室矛盾升级", "keywords": []}, count=3)
+        finally:
+            dc.requests.get = orig
+            dc.reset_wiki_breaker()
         self.assertEqual([c for c in calls if "duckduckgo" in c], [])
+        self.assertEqual([c for c in calls if "pixabay" in c], [])
+
+    def test_call_sites_gone(self):
+        import inspect
+        src = inspect.getsource(__import__("data_collector").search_images)
+        self.assertNotIn("duckduckgo.com/i.js", src)
+        self.assertNotIn("_gallery_pixabay(gal", src)
 
 
 class TestInvalidConfigIsLoud(unittest.TestCase):

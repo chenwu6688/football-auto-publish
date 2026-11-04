@@ -36,6 +36,7 @@ import title_gate
 import title_elements
 import title_brief
 import source_images
+import wiki_media as _wmedia  # 维基共享署名（CC BY 要求写进正文）
 import content_stats
 import cover_card
 import interaction_bait
@@ -2162,6 +2163,9 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 downloaded.append(img_info)
         else:
             # Download images from URLs
+            _attr_by_url = {img["url"]: img.get("attribution")
+                            for img in (images_map.get(i) or [])
+                            if isinstance(img, dict) and img.get("attribution")}
             img_urls = [img["url"] for img in images_map.get(i, [])[:5]]
             for j, url in enumerate(img_urls):
                 if len(downloaded) >= 3:
@@ -2173,6 +2177,10 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                                                       existing_hashes=all_hashes)
                 if result:
                     all_hashes.add(result["md5"])
+                    # 署名信息随下载结果透传：只有真的落盘的图才署名。
+                    # 在 metadata 里记 attribution 而正文不写 = 许可违规（CC BY 要求署名）。
+                    if _attr_by_url.get(url):
+                        result["attribution"] = _attr_by_url[url]
                     downloaded.append(result)
 
         if not downloaded:
@@ -2229,6 +2237,19 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                             content = parts[0] + "\n" + rest + img_ref
                     else:
                         content = content + img_ref
+        # —— 图片来源署名（合规硬要求，2026-11-04 补）——
+        # 此前维基配图**完全没有署名**，而 CC BY / CC BY-SA 要求署名作者+许可，
+        # 只在 metadata 里记一笔等于没署名。这里只署"真的进了正文的图"：
+        # 从 downloaded 读 attribution（下载环节已透传），不署未落盘的候选。
+        _credit_lines = []
+        for _d in downloaded:
+            _a = _d.get("attribution") if isinstance(_d, dict) else None
+            _ln = _wmedia.credit_line(_a) if _a else ""
+            if _ln and _ln not in _credit_lines:
+                _credit_lines.append(_ln)
+        if _credit_lines:
+            content = _wmedia.append_credit(content, _credit_lines[:2])
+
         art["content"] = content
 
         # ————————————————————————————————————————————

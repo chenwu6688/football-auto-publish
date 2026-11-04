@@ -107,7 +107,7 @@ def image_is_bound(image: dict, entities, fallback_terms=None) -> bool:
     """判断一张候选图是否与正文绑定。
 
     绑定条件（满足其一）：
-    - 来源为实体/事件站点（wikipedia/footyrenders/news_source），即按实体或按那场比赛
+    - 来源为实体/事件站点（wikipedia/wikimedia/footyrenders/news_source），即按实体或按那场比赛
       精确抓取——news_source 是直播吧战报正文里的原图，与本文描述的是同一场比赛，
       精度高于任何检索结果，不该被「query 是否通用」这条检索侧规则误杀；
     - 检索 query 绑定正文（非通用词，由实体或标题词派生）；
@@ -115,7 +115,7 @@ def image_is_bound(image: dict, entities, fallback_terms=None) -> bool:
     """
     if not isinstance(image, dict):
         return False
-    if image.get("source") in ("wikipedia", "footyrenders", "news_source"):
+    if image.get("source") in ("wikipedia", "wikimedia", "footyrenders", "news_source"):
         return True
     # query 层面绑定：只要检索词非通用、且由正文派生，即视为绑定
     q = str(image.get("query", "")).strip()

@@ -265,6 +265,17 @@ items:
     kind: advisory
     why: ranker 社媒信号接线——此前 CI 从不调用它
     negative: null
+  wiki_media:
+    tiers: [code-change, weekly]
+    kind: advisory
+    why: 维基共享（Wikimedia Commons）—— 足球领域唯一「免费 + 有真人照 + 可商用 + 有 API」
+      的图源。判据不是配图率而是**合规与误配**：只收 CC0/PD/CC BY/CC BY-SA、
+      必须有作者（能署名）、≥800×600、文件名/描述/分类命中实体、球员类必须在 football
+      分类下。2026-11-04 之前维基配图**完全没有署名**，那是实际的许可违规。
+      联网实测项在本机必然 skip（*.wikimedia.org 全超时），返回 2 不算通过。
+    negative: "把许可白名单改宽（放行 Fair use）/ 去掉「必须有作者」/ 在 search_images 里
+      绕过 _wiki_available() 熔断 / 把 Pixabay 或 DDG 贴回来，A/B/C 三项必红；
+      负向单测在 tests/test_wiki_media.py"
   gallery_entities:
     tiers: [code-change, weekly]
     kind: advisory
