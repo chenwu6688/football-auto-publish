@@ -1,0 +1,113 @@
+name: 采集反爬归因探针（TLS/HTTP 栈 A/B）
+
+# 用途：在真正出问题的那台机器（GitHub runner，海外机房 IP）上，交错跑
+# requests / curl_cffi / urllib 三条通道，判断 challenge 是「请求栈指纹」
+# 还是「IP/ASN 被风控」——这两种成因的处置方式完全相反。
+#
+# 2026-11-04 本机（国内 IP）已证：同一 IP、同一 URL、同一套最小头，
+# 懂球帝 requests 6/6 被 EdgeOne 拦（567, 7.3KB），urllib 6/6 通过（316KB），
+# Fisher p=0.0022。但直播吧本机三通道全过，25% 的 challenge 只在 CI 复现，
+# 所以必须在这个 runner 上测。
+
+on:
+  workflow_dispatch:
+    inputs:
+      n:
+        description: '每组请求次数'
+        required: false
+        default: '50'
+      url:
+        description: '被测 URL（直播吧）'
+        required: false
+        default: 'https://www.zhibo8.cc/'
+      gap:
+        description: '两次请求间隔（秒）'
+        required: false
+        default: '1.2'
+  # 探针逻辑或本文件一变更就自动跑一次：这类归因数据拿一次就要拿来定方案，
+  # 不该卡在「等人去网页点按钮」上。paths 只匹配这两处，回写 data/audit 不会自触发。
+  push:
+    paths:
+      - '.github/workflows/fingerprint-probe.yml'
+      - 'scripts/ab_fingerprint_probe.py'
+
+permissions:
+  contents: write        # 回写结果需要；只写 data/audit 下的探针报告
+
+env:
+  PROBE_N: ${{ inputs.n || '50' }}
+  PROBE_URL: ${{ inputs.url || 'https://www.zhibo8.cc/' }}
+  PROBE_GAP: ${{ inputs.gap || '1.2' }}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest          # 与 batch.yml 同环境，这是关键：换 runner 就换了 IP
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'    # 与生产一致
+
+      - name: 安装依赖
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install requests curl_cffi
+          python3 -c "import curl_cffi; print('curl_cffi', curl_cffi.__version__)"
+
+      - name: 探针 · 直播吧（生产主通道，全头）
+        run: |
+          set +e
+          echo '### 直播吧 zhibo8.cc（`_http_get` 全头）' >> $GITHUB_STEP_SUMMARY
+          python3 scripts/ab_fingerprint_probe.py \
+            --url "$PROBE_URL" --n "$PROBE_N" --gap "$PROBE_GAP" \
+            --json data/audit/fp_probe_zhibo8.json | tee probe_zhibo8.txt
+          rc=${PIPESTATUS[0]}
+          { echo '```'; cat probe_zhibo8.txt; echo '```'; echo; } >> $GITHUB_STEP_SUMMARY
+          # 退出码语义：0=有结论 / 2=未判定（环境不复现或缺依赖）。两者都不算 CI 失败，
+          # 因为「测不出问题」本身也是结果，不该把整条流水线判红。1=参数/运行错误才失败。
+          if [ "$rc" = "1" ]; then exit 1; fi
+
+      - name: 探针 · 懂球帝（EdgeOne 前置，最小头）
+        run: |
+          set +e
+          echo '### 懂球帝 dongqiudi.com（`_http_get_plain` 最小头）' >> $GITHUB_STEP_SUMMARY
+          python3 scripts/ab_fingerprint_probe.py \
+            --url "https://www.dongqiudi.com/" --headers plain \
+            --n "$PROBE_N" --gap "$PROBE_GAP" \
+            --json data/audit/fp_probe_dongqiudi.json | tee probe_dq.txt
+          rc=${PIPESTATUS[0]}
+          { echo '```'; cat probe_dq.txt; echo '```'; echo; } >> $GITHUB_STEP_SUMMARY
+          if [ "$rc" = "1" ]; then exit 1; fi
+
+      - name: 回写结果（供本机 pull 查看）
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]" || true
+          git config user.email "github-actions[bot]@users.noreply.github.com" || true
+          git add -f data/audit/fp_probe_*.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: 回写采集反爬归因探针结果"
+            for attempt in 1 2 3; do
+              if git push origin main; then
+                echo "✅ 探针结果已回写"
+                break
+              fi
+              echo "⚠️  推送失败 (attempt $attempt/3)，重试..."
+              git pull --rebase origin main || true
+              sleep $((attempt * 2))
+            done
+          else
+            echo "📝 无结果文件，跳过提交"
+          fi
+
+      - name: 上传结果
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fingerprint-probe-${{ github.run_id }}
+          path: |
+            data/audit/fp_probe_*.json
+            probe_*.txt
+          retention-days: 90
