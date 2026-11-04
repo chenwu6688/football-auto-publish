@@ -33,6 +33,8 @@ meta:
   # 一次性要求 39/39 会让这条线立刻变红，红久了就会被 `|| echo` 软化（11-03 的坑）。
   # 2026-11-04 夜：batch_mix 补了「目标漂移必红」的负向用例，债务 31 → 30，
   # 基线同降（基线必须等于当前实际债务，否则「元层负向自检」那条会失效）。
+  # 2026-11-04 傍晚：新增 gallery_entities 时**自带负向用例**，41 项/11 项有负向
+  # → 债务仍是 30，基线不动。基线必须等于当前实际债务，否则「元层负向自检」会失效。
   baseline_negative_debt: 30
   debt_must_not_grow: true
   # 每日层的最小集合：可以加项，不许悄悄删项（否则「每日结果门禁」会被慢慢掏空）
@@ -263,3 +265,12 @@ items:
     kind: advisory
     why: ranker 社媒信号接线——此前 CI 从不调用它
     negative: null
+  gallery_entities:
+    tiers: [code-change, weekly]
+    kind: advisory
+    why: 图库白名单（Pexels/Pixabay）——英文标签索引收到中文 query 会配出饺子/欧元，
+      球员名会配出陌生人，球队召回只有一半能对上（实测 16 队里 6 队为 0）。
+      本项守的是「不许配错图」而不是「提高配图率」：白名单外一律不查，走数据卡。
+      联网实测项在无 PEXELS_KEY 时 skip（返回 2），不算通过。
+    negative: "把某条 accept 置空 / query 写中文 / 白名单文件删掉，check_config 必须报红；
+      负向单测在 tests/test_gallery_query.py::TestInvalidConfigIsLoud"

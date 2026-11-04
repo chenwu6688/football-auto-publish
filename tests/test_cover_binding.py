@@ -58,6 +58,13 @@ class TestSearchImagesBinding(unittest.TestCase):
         self.assertEqual(out, [])
 
     def test_entity_topic_uses_bound_query(self):
+        """图库 query 必须绑定正文实体，但**必须是英文**。
+
+        2026-11-04 拿到 Pexels Key 后实测：图库是英文标签索引，
+        query="皇家马德里" 返回酱油饺子、query="欧冠" 返回欧元纸币。
+        所以旧契约「query 里要出现中文实体曼城」本身就是 bug 的成因，
+        新契约是「query 必须是该实体的英文名，且任何情况下不得出现中文」。
+        """
         dc = self._import()
         captured = []
 
@@ -76,9 +83,10 @@ class TestSearchImagesBinding(unittest.TestCase):
                         with mock.patch.object(dc.requests, "get", side_effect=fake_get):
                             out = dc.search_images({"title": "曼城主场能否啃下铁桶阵？",
                                                     "keywords": []}, count=3)
-        # 检索 query 必须含正文实体「曼城」，且不含通用词 football 之外的随机词
         qs = [str(p.get("query", "")) for p in captured]
-        self.assertTrue(any("曼城" in q for q in qs), qs)
+        self.assertTrue(any("Manchester City" in q for q in qs), qs)
+        # 负向：任何一条 query 都不许出现中文字符
+        self.assertFalse([q for q in qs if any("\u4e00" <= c <= "\u9fff" for c in q)], qs)
         # 结果因 query 绑定而保留
         self.assertTrue(all(img.get("source") != "unsplash" or not cb.is_generic_query(img.get("query", ""))
                             for img in out))

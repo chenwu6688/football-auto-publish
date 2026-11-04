@@ -19,6 +19,7 @@ from utils import retry, filter_fresh_news, NEWS_MAX_AGE_HOURS, CST
 
 import cover_binding as _cb  # 计划 2.2/4.1：封面与正文绑定（禁用随机图库配图）
 import scraper_diagnostics as _diag  # 图源失败必须留痕（2026-11-04：401 静默吞掉过久）
+import gallery_query as _gq  # 图库是英文标签索引，中文 query 会配出饺子/欧元（2026-11-04）
 
 
 # ============================================================
@@ -1293,12 +1294,18 @@ def extract_search_entities(topic):
     return players, teams, specific_query
 
 
-def _gallery_pixabay(core: str, need: int, *, timeout: int = 12) -> list:
+def _gallery_pixabay(core: str, need: int, *, timeout: int = 12, accept=None) -> list:
     """Pixabay 图库检索（免费 5000 次/小时，注册即用**无需审核**）。
 
     只接受横向、且原始尺寸已过 800×600 的图——下载端有该闸门，尺寸不够的图
     取回来也会被拒，白白占用一次请求。``safesearch`` 固定 true：这是自媒体发布链路，
     不能出现任何需要人工复核的素材。
+
+    ``accept`` 非空时还要过 alt 校验，但 **Pixabay 的元数据只有 tags**（"football,
+    stadium, ball" 这类通用词，几乎不含球场名），所以带 accept 的检索通常一张都过不了。
+    这不是 bug，是这条链路**校验不了**的诚实结论：Pixabay 只能当氛围图库，
+    而计划 2.2 明确禁用随机图库配图 —— 所以它在实体图这条路上基本是死路，
+    留给「Key 到手后实测 tags 到底装了什么」再定（当前 ⏸）。
     """
     if need <= 0:
         return []
@@ -1308,6 +1315,7 @@ def _gallery_pixabay(core: str, need: int, *, timeout: int = 12) -> list:
                      detail="未配置 PIXABAY_KEY（pixabay.com/account/api-key 注册即用，无需审核）")
         return []
     out = []
+    rejected = 0
     try:
         resp = requests.get(url, params={
             "key": PIXABAY_KEY, "q": core, "image_type": "photo",
@@ -1326,16 +1334,26 @@ def _gallery_pixabay(core: str, need: int, *, timeout: int = 12) -> list:
             break
         if int(h.get("imageWidth") or 0) < 800 or int(h.get("imageHeight") or 0) < 600:
             continue
+        alt = (h.get("tags") or "")[:80]
+        if accept and not _gq.is_accepted(alt, accept):
+            rejected += 1
+            continue
         u = h.get("largeImageURL") or h.get("webformatURL") or ""
         if u:
-            out.append({"url": u, "source": "pixabay",
-                        "alt": (h.get("tags") or "")[:80], "query": core})
-    _diag.record("pixabay", url, status=200, count=len(out), detail=f"query={core[:50]}")
+            out.append({"url": u, "source": "pixabay", "alt": alt, "query": core})
+    _diag.record("pixabay", url, status=200, count=len(out),
+                 detail=f"query={core[:50]}" + (f"；alt 未过校验 {rejected} 张" if rejected else ""))
     return out
 
 
-def _gallery_pexels(core: str, need: int, *, timeout: int = 12) -> list:
-    """Pexels 图库检索（免费 200 次/小时，注册即用**无需审核**）。"""
+def _gallery_pexels(core: str, need: int, *, timeout: int = 12, accept=None) -> list:
+    """Pexels 图库检索（免费 200 次/小时，注册即用**无需审核**，2026-11-04 实测可用）。
+
+    ``accept`` 是必须的：Pexels 对球队的召回只有一半能对上（16 支主流球队里
+    alt 命中主场名的比率 0%~77%），而且失败方式是「看起来合理但是错的」——
+    查国米返回诺坎普、查马竞返回阿根廷的球场。所以只放行 alt 里明确写了
+    **该队主场名**的图（重音折叠后比对，``Bernabéu`` 要能被 ``bernabeu`` 命中）。
+    """
     if need <= 0:
         return []
     url = "https://api.pexels.com/v1/search"
@@ -1344,9 +1362,10 @@ def _gallery_pexels(core: str, need: int, *, timeout: int = 12) -> list:
                      detail="未配置 PEXELS_KEY（pexels.com/api 注册即用，无需审核）")
         return []
     out = []
+    rejected = 0
     try:
-        resp = requests.get(url, params={"query": core, "per_page": max(3, need * 3),
-                                         "orientation": "landscape"},
+        resp = requests.get(url, params={"query": core, "per_page": max(5, need * 4),
+                                         "orientation": "landscape", "size": "large"},
                             headers={"Authorization": PEXELS_KEY}, timeout=timeout)
     except Exception as e:
         _diag.record("pexels", url, kind=_diag.classify_exception(e),
@@ -1361,12 +1380,16 @@ def _gallery_pexels(core: str, need: int, *, timeout: int = 12) -> list:
             break
         if int(p.get("width") or 0) < 800 or int(p.get("height") or 0) < 600:
             continue
+        alt = (p.get("alt") or "")[:120]
+        if accept and not _gq.is_accepted(alt, accept):
+            rejected += 1
+            continue
         src = (p.get("src") or {})
         u = src.get("large2x") or src.get("original") or src.get("large") or ""
         if u:
-            out.append({"url": u, "source": "pexels",
-                        "alt": (p.get("alt") or "")[:80], "query": core})
-    _diag.record("pexels", url, status=200, count=len(out), detail=f"query={core[:50]}")
+            out.append({"url": u, "source": "pexels", "alt": alt, "query": core})
+    _diag.record("pexels", url, status=200, count=len(out),
+                 detail=f"query={core[:50]}" + (f"；alt 未过校验 {rejected} 张" if rejected else ""))
     return out
 
 
@@ -1456,29 +1479,40 @@ def search_images(topic, count=5):
     # ③ 不做「标题词兜底」：没有实体时拿标题词去搜维基，几乎必然搜到无关条目
     #    （维基不是图库）。计划 2.2 的「宁可不配图也不放随机图」在这里优先于覆盖率。
 
-    # 图库检索：query 必须绑定正文（实体优先，其次标题词）；不构成绑定则跳过。
-    # 计划 2.2 / 4.1：禁用随机图库配图，故不再使用 football / stadium 这类通用词。
+    # 图库检索：Pixabay / Pexels / Unsplash 三家都是**英文标签索引**，中文 query 会
+    # 返回完全无关的图（2026-11-04 实测：query="皇家马德里" 第一条是酱油饺子，
+    # query="欧冠" 是欧元纸币，query="Haaland" 是奥地利的一个村庄）。
+    # 所以这里不再用 build_bound_query 的中文结果，改走 gallery_query：
+    #   · 只有登记在 config/gallery_entities.yaml、且实测确有该球场照片的球队才查；
+    #   · 用英文队名/球场名检索，返回图还要 alt 命中该队主场名（重音折叠后比对）；
+    #   · 不在白名单（球员 / 未登记球队 / 无实体）→ 不查，交给 cover_card 数据卡。
+    # 「查了没结果」和「不该查」必须分开记，否则又变成没人能解释的黑箱。
     if len(images) < count:
-        core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
-        if core:
-            for img in _gallery_pixabay(core, count - len(images)):
+        gal = _gq.resolve(ents)
+        if not gal:
+            _diag.record("gallery", "skipped", kind="empty", count=len(images),
+                         detail=f"实体不在图库白名单 {ents[:3]}，不查英文图库 → 走数据卡")
+        else:
+            for img in _gallery_pixabay(gal["query"], count - len(images), accept=gal["accept"]):
                 _push(img)
             if len(images) < count:
-                for img in _gallery_pexels(core, count - len(images)):
+                for img in _gallery_pexels(gal["query"], count - len(images), accept=gal["accept"]):
                     _push(img)
 
     if len(images) < count and UNSPLASH_KEY:
-        core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
-        if core:
-            for suffix in ("football match action", "soccer"):
+        # 同样只走白名单（Unsplash 也是英文索引）；校验字段是 description，
+        # 两者都空 = 无法校验 = 不放行（与 Pexels 的口径一致）。
+        gal = _gq.resolve(ents)
+        if gal:
+            for suffix in ("stadium", "football match"):
                 if len(images) >= count:
                     break
-                q = f"{core} {suffix}".strip()
+                q = f"{gal['query']} {suffix}".strip()
                 _un_url = "https://api.unsplash.com/search/photos"
                 try:
                     resp = requests.get(_un_url, params={
-                        "query": q, "per_page": count - len(images), "orientation": "landscape",
-                        "client_id": UNSPLASH_KEY}, timeout=10)
+                        "query": q, "per_page": max(5, (count - len(images)) * 4),
+                        "orientation": "landscape", "client_id": UNSPLASH_KEY}, timeout=10)
                 except Exception as e:
                     # 此前是 `except: pass` —— 图源静默死亡，没人知道。
                     # 2026-11-04 加 Key 时才发现 401 已经被吞了很久。
@@ -1486,13 +1520,19 @@ def search_images(topic, count=5):
                                  detail=f"{type(e).__name__}: {str(e)[:100]}")
                     break
                 if resp.status_code == 200:
-                    _got = 0
+                    _got = _rej = 0
                     for r in resp.json().get("results", []):
+                        alt = f"{r.get('description') or ''} {r.get('alt_description') or ''}".strip()
+                        if not _gq.is_accepted(alt, gal["accept"]):
+                            _rej += 1
+                            continue
                         images.append({"url": r["urls"]["regular"], "source": "unsplash",
-                                       "alt": r.get("description") or "", "query": q})
+                                       "alt": alt[:120], "query": q})
                         _got += 1
+                        if len(images) >= count:
+                            break
                     _diag.record("unsplash", _un_url, status=200, count=_got,
-                                 detail=f"query={q[:50]}")
+                                 detail=f"query={q[:50]}" + (f"；alt 未过校验 {_rej} 张" if _rej else ""))
                 else:
                     _diag.record("unsplash", _un_url,
                                  kind=_diag.classify_status(resp.status_code),
@@ -1502,10 +1542,16 @@ def search_images(topic, count=5):
                         # 401/403 = Key 无效或无权限，换 suffix 只会再浪费一次配额
                         break
 
-    # DuckDuckGo 兜底：同样必须绑定正文（无绑定 query 则不放图）
+    # DuckDuckGo 图片搜索兜底。它和上面三家不同：**是中文可用的网页图片搜索**，
+    # 所以这里仍然用中文 query，但必须过一道实体校验——返回结果的标题里要出现
+    # 正文实体（「皇马」「巴萨」这类），否则一律丢弃。
+    # 不校验的后果：拿标题词去搜会返回任意中文站点的图，既是版权风险也是配错图；
+    # 而它恰好是「没有图库里那支球队」时唯一还能出图的一层，所以不能简单删掉。
     if len(images) < count:
         core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
-        if core:
+        # 没有实体就不查：标题词搜图必然返回任意站点的图，而这一层的校验全靠「标题命中实体」，
+        # 没有实体可命中时它 100% 会被全量拒绝 —— 那就别浪费一次请求。
+        if core and ents:
             try:
                 from urllib.parse import quote_plus as qp
                 import re as _re
@@ -1516,13 +1562,28 @@ def search_images(topic, count=5):
                     resp = requests.get(
                         f"https://duckduckgo.com/i.js?q={qp(core)}&vqd={vqd}&o=json", timeout=10)
                     if resp.status_code == 200:
-                        for item in resp.json().get("results", [])[:count]:
+                        _got = _rej = 0
+                        for item in resp.json().get("results", [])[:count * 3]:
+                            if len(images) >= count:
+                                break
+                            title = item.get("title", "") or ""
+                            # 实体校验：标题必须点名正文里的某个实体，否则无法确认图文一致
+                            if not any(e and e in title for e in ents):
+                                _rej += 1
+                                continue
                             url = item.get("image", "")
                             if url and url not in [i["url"] for i in images]:
                                 images.append({"url": url, "source": "duckduckgo",
-                                               "alt": item.get("title", ""), "query": core})
-            except Exception:
-                pass
+                                               "alt": title[:120], "query": core})
+                                _got += 1
+                        _diag.record("duckduckgo", "https://duckduckgo.com/i.js", status=200,
+                                     count=_got,
+                                     detail=f"query={core[:40]}" +
+                                            (f"；标题未命中实体 {_rej} 张" if _rej else ""))
+            except Exception as e:
+                _diag.record("duckduckgo", "https://duckduckgo.com/i.js",
+                             kind=_diag.classify_exception(e),
+                             detail=f"{type(e).__name__}: {str(e)[:80]}")
 
     # 绑定复核：剔除未与正文绑定的配图（随机图库配图在此被拦下）
     bound = _cb.filter_bound_images(images, ents, _title_terms + en_keywords)

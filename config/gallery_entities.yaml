@@ -1,0 +1,82 @@
+# 图库（Pexels / Pixabay）可用实体白名单
+#
+# 这份名单是**实测出来的**，不是照着实体的知名度排的。2026-11-04 用 Pexels 对
+# entity_map 里 16 支主流球队各检索 per_page=30（landscape），只统计「alt 里出现
+# 该队主场球场名」的图（重音折叠后比对，`Bernabéu` 要能用 `bernabeu` 命中）：
+#
+#   巴萨 18/30   阿森纳 23/30   拜仁 11/30   皇马 9/30   曼城 9/30
+#   利物浦 6/30  曼联 3/30      多特 3/30    AC米兰 2/30  国米 2/30(改查球场名)
+#   尤文 0   热刺 0   马竞 0   纽卡 0   巴黎 1   切尔西 1
+#
+# 为什么这么严：图库对球队的召回**极不稳定**，而且失败方式是「看起来合理但是错的」——
+#   · query="FC Internazionale Milano" → 返回诺坎普（巴萨主场）
+#   · query="Club Atlético de Madrid"  → 返回阿根廷的 Estadio Libertadores de América
+#   · query="Paris Saint-Germain"      → 返回巴黎街景
+# 配错球场和配错人脸一样是事实错误，比「无图」更糟（无图还有数据卡兜底）。
+# 所以只登记 **verified ≥ 2** 的实体；命中 0 的一律不登记，那些稿子走数据卡。
+#
+# 命中 < 2 却又登记的例外只有一种情况：两队共用同一座球场（米兰双雄都查 San Siro，
+# 图上就是那座球场，对两队都成立）。
+#
+# 字段：
+#   query   —— 实际发给图库的英文检索词（英文队名或球场名，**绝不能是中文**）
+#   accept  —— alt 必须命中其中之一（小写、重音折叠后比对）；空列表 = 配置非法
+#
+# 新增实体前先在本地跑：
+#   PYTHONPATH=. python3 scripts/verify_gallery_entities.py --measure 皇马 巴萨
+# 拿不到 ≥2 张就别登记 —— 登记了也只是把「无图」换成「错图」。
+
+version: 1
+measured_at: "2026-11-04"
+
+clubs:
+  巴萨:
+    query: FC Barcelona
+    accept: [camp nou]
+    verified: 18
+
+  阿森纳:
+    query: Arsenal FC
+    accept: [emirates stadium]
+    verified: 23
+
+  拜仁:
+    query: FC Bayern München
+    accept: [allianz arena]
+    verified: 11
+
+  皇马:
+    query: Real Madrid CF
+    accept: [bernabeu]
+    verified: 9
+
+  曼城:
+    query: Manchester City FC
+    accept: [etihad]
+    verified: 9
+
+  利物浦:
+    query: Liverpool FC
+    accept: [anfield]
+    verified: 6
+
+  曼联:
+    query: Manchester United FC
+    accept: [old trafford]
+    verified: 3
+
+  多特蒙德:
+    query: Borussia Dortmund
+    accept: [signal iduna, westfalenstadion]
+    verified: 3
+
+  # 米兰双雄共用圣西罗：图上就是那座球场，对两队都成立
+  AC米兰:
+    query: AC Milan
+    accept: [san siro, giuseppe meazza]
+    verified: 2
+
+  国际米兰:
+    query: San Siro
+    accept: [san siro, giuseppe meazza]
+    verified: 2
