@@ -59,6 +59,9 @@ DELTA_MIN = 0.20      # A 组 challenge 率至少比 B 组高这么多，才算�
 B_MAX = 0.10          # B 组（curl_cffi）challenge 率上限
 HIGH = 0.30           # 两组都 ≥ 这个值 → 不是指纹问题
 ALPHA = 0.05          # 统计显著性
+
+# 通道成本序：数字小的优先（同分时先试零成本的）
+COST_RANK = {"urllib": 0, "curl_cffi": 1}
 LOW = 0.05            # 两组都 ≤ 这个值 → 该环境不复现
 
 DEFAULT_URL = "https://www.zhibo8.cc/"
@@ -120,7 +123,10 @@ def verdict(a: dict, others: dict | None) -> tuple[str, str, int]:
     """
     if not others or a["n"] == 0:
         return ("未判定", "只有基线通道有数据（缺 curl_cffi 或未启用），无法比较", 2)
-    best_name, bg = min(others.items(), key=lambda kv: kv[1]["challenge_rate"])
+    # 同分必须优先零成本通道：两条都能过时，「不装新依赖」本身就是优势。
+    # 只看 challenge_rate 会按字典顺序挑到 curl_cffi，等于白引一个依赖。
+    best_name, bg = min(others.items(),
+                        key=lambda kv: (kv[1]["challenge_rate"], COST_RANK.get(kv[0], 9)))
     ar, br = a["challenge_rate"], bg["challenge_rate"]
     p = fisher_p(a["challenge"], a["n"], bg["challenge"], bg["n"])
 
@@ -366,7 +372,7 @@ def main() -> int:
         print("❌ n < 5，样本太小无法判断")
         return 1
     with_cffi = (not args.no_cffi) and _has_cffi()
-    channels = ["requests", "urllib"] + (["curl_cffi"] if with_cffi else [])
+    channels = ["requests"] + (["curl_cffi"] if with_cffi else []) + ["urllib"]
     if not args.no_cffi and not with_cffi:
         print("⚠️ 未安装 curl_cffi → 跳过该通道（requests vs urllib 仍然有意义）")
 

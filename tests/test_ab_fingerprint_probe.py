@@ -68,6 +68,17 @@ class TestVerdict:
         assert "零成本" in why
         assert rc == 0
 
+    def test_tie_prefers_zero_cost_channel(self):
+        """两条通道都能过（都 0%）时必须推荐 urllib，而不是 curl_cffi。
+
+        本机实测就是这种情况：urllib 0/6、curl_cffi 0/6。若按字典顺序取，
+        会推荐「需要装一个新依赖」的那条，等于白引依赖。
+        """
+        v, why, _rc = ab.verdict(_grp(50, 20), {"curl_cffi": _grp(50, 0),
+                                                "urllib": _grp(50, 0)})
+        assert v == "最优通道 urllib", v
+        assert "零成本" in why
+
     def test_not_fingerprint_when_both_high(self):
         """两组都高 → 换库无用，别浪费时间引依赖。"""
         v, why, rc = ab.verdict(_grp(50, 20), {"curl_cffi": _grp(50, 18)})
