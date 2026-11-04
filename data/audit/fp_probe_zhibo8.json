@@ -13,7 +13,7 @@
       "challenge": 0,
       "challenge_rate": 0.0,
       "ok_rate": 1.0,
-      "bytes_median": 615781,
+      "bytes_median": 620582,
       "challenge_at_index": [],
       "ok_server": {
         "nginx/1.8.0": 50
@@ -29,7 +29,7 @@
       "challenge": 0,
       "challenge_rate": 0.0,
       "ok_rate": 1.0,
-      "bytes_median": 615781,
+      "bytes_median": 620582,
       "challenge_at_index": [],
       "ok_server": {
         "nginx/1.8.0": 50
@@ -45,7 +45,7 @@
       "challenge": 0,
       "challenge_rate": 0.0,
       "ok_rate": 1.0,
-      "bytes_median": 615781,
+      "bytes_median": 620582,
       "challenge_at_index": [],
       "ok_server": {
         "nginx/1.8.0": 50
@@ -54,9 +54,9 @@
       "errors": []
     }
   },
-  "at": "2026-11-04T10:03:00",
+  "at": "2026-11-04T10:21:12",
   "verdict": "该环境不复现",
   "explain": "所有通道 challenge 率都 ≤5%（基线 0%）——这个网络位置本来就打不进去，**不能据此宣称「修好了」**。要在真正出问题的那台机器（CI runner）上再测",
   "exit_code": 2,
-  "elapsed_s": 268.2
+  "elapsed_s": 275.9
 }
