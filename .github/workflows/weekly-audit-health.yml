@@ -84,6 +84,17 @@ jobs:
           python3 scripts/verify_gallery_entities.py --quiet \
             || echo "::warning::图库白名单未达标或未判定，详见 data/audit/gallery_entities_latest.json"
 
+      - name: 选题漏斗台账（S2 前置度量）（告警）
+        run: |
+          # 四套配额同时在决定「写什么类型」，但没人知道是哪一层吃掉了篇数。
+          # 本项只验「8 层埋点接没接上」，不设阈值、不挡发布；
+          # 台账为空时返回 2（未判定）——空台账不等于零损失，照样告警一次。
+          python3 scripts/verify_topic_funnel.py --quiet \
+            || echo "::warning::漏斗台账未接线或尚未有数据，详见 data/audit/topic_funnel_latest.json"
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          python3 scripts/verify_topic_funnel.py --report --days 7 >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
       - name: 汇总元验收结论
         if: always()
         run: |

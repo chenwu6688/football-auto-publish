@@ -35,6 +35,9 @@ meta:
   # 基线同降（基线必须等于当前实际债务，否则「元层负向自检」那条会失效）。
   # 2026-11-04 傍晚：新增 gallery_entities 时**自带负向用例**，41 项/11 项有负向
   # → 债务仍是 30，基线不动。基线必须等于当前实际债务，否则「元层负向自检」会失效。
+  # 2026-11-04 夜：新增 topic_funnel（S2 前置度量）同样自带负向（内置「改坏源码必须
+  # 报红」的负向检查）→ 43 项/13 项有负向，债务仍 30，基线不动。
+  # 记账提醒：项数会涨，债务不许涨。**不要为了「项数好看」把没有负向的东西登记进来。**
   baseline_negative_debt: 30
   debt_must_not_grow: true
   # 每日层的最小集合：可以加项，不许悄悄删项（否则「每日结果门禁」会被慢慢掏空）
@@ -285,3 +288,17 @@ items:
       联网实测项在无 PEXELS_KEY 时 skip（返回 2），不算通过。
     negative: "把某条 accept 置空 / query 写中文 / 白名单文件删掉，check_config 必须报红；
       负向单测在 tests/test_gallery_query.py::TestInvalidConfigIsLoud"
+  topic_funnel:
+    tiers: [code-change, weekly]
+    kind: advisory
+    why: |
+      选题漏斗台账（2026-11-04）—— 全仓四套配额（supply_mix 三层 / content_mix 七类 /
+      batch_mix 两槽 / topic_category 类别优先级）同时在回答「今天写什么类型」，
+      但没有任何记录能回答「这一篇是被哪一层挡掉的」。S2 要把配额收成一套，
+      没有这张表就只能凭直觉删闸门（10-25 清僵尸测试的教训）。
+      本项**不是闸门**：只验「8 层埋点接没接上」，不设任何阈值，
+      不要把它挪进 pre-publish —— 把「不发这批」绑在一个纯观测项上是倒退。
+      结果项在台账为空时 skip（返回 2），那是「未判定」，不是「零损失」。
+    negative: "把 orchestrator 里任一层 `_funnel(\"<key>\")` 改名/换变量后，
+      check_wiring 必须报红（verify 内置负向：check_negative 会真的改源码再验一次，
+      两条负向都过才算通过）"

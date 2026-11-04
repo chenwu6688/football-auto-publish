@@ -29,6 +29,7 @@ import risk_gate
 import degrade
 import supply_mix
 import batch_mix
+import topic_funnel  # 选题漏斗台账（S2 前置度量）：只记录每层剩多少，不判定不阻断
 import rumor_wording
 import title_antipattern
 import title_positive
@@ -50,6 +51,19 @@ from data_collector import (collect_real_matches, collect_transfer_news, collect
                              collect_fixture_topics, gather_fixture_facts,
                              collect_recap_topics,
                              TEAM_ALIASES)
+
+
+def _funnel(key, remaining, **detail):
+    """漏斗埋点（非阻断）：记录「走完 key 这一层还剩多少候选」。
+
+    为什么要包一层：`topic_funnel.stage()` 对拼错的层级名**故意抛 ValueError**
+    （静默忽略拼写错误正是 11-04「假接线」的成因），但埋点绝不能因此让发布中断。
+    所以这里捕获异常并**大声**打出来——日志里看得见，稿子照发。
+    """
+    try:
+        topic_funnel.stage(key, remaining, detail=detail or None)
+    except Exception as e:
+        print(f"   ⚠️ 漏斗埋点异常（{key}，不影响发布）: {e}")
 
 
 def print_daily_summary(date_str, batch_mode):
@@ -733,6 +747,10 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     for _t in topics:
         if isinstance(_t, dict):
             _t["_category"] = topic_category.classify(_t)
+    # 漏斗第 1 层：LLM 原始候选（去重之前的口径 —— 去重吃掉多少要能单独看见）
+    _funnel("llm", len(topics))
+    _dd: dict = {}          # 去重各分支的剔除数，供漏斗 detail 归因
+    _n_before = len(topics)
     topics, dup_warnings = _check_intra_batch_dedup(topics)
     # Drop topics with >60% keyword overlap (keep higher-scored one)
     if dup_warnings:
@@ -751,6 +769,8 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         if to_drop:
             topics = [t for idx, t in enumerate(topics) if idx not in to_drop]
             print(f"   🗑️ 自动去重: 移除 {len(to_drop)} 个重复话题，保留 {len(topics)} 个")
+    if len(topics) < _n_before:
+        _dd["批内"] = _n_before - len(topics)
 
     # Cross-batch keyword overlap check
     if cross_batch_covered and topics:
@@ -771,6 +791,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                 filtered.append(t)
         if len(filtered) < len(topics):
             print(f"   跨批次去重: {len(topics)} → {len(filtered)} 个话题")
+            _dd["跨批次"] = len(topics) - len(filtered)
         topics = filtered
 
     # Cross-day dedup: hard filter against yesterday's keywords (overlap >= 40% → drop)
@@ -786,6 +807,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                 filtered.append(t)
         if len(filtered) < len(topics):
             print(f"   跨天去重: {len(topics)} → {len(filtered)} 个话题")
+            _dd["昨日关键词"] = len(topics) - len(filtered)
         topics = filtered
 
     # ── P0-1: 语义去重（事件指纹硬去重）──
@@ -802,6 +824,7 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                 filtered.append(t)
         if len(filtered) < len(topics):
             print(f"   事件指纹去重: {len(topics)} → {len(filtered)} 个话题")
+            _dd["事件指纹"] = len(topics) - len(filtered)
         topics = filtered
 
     # ── P0-1: 跨天关键词去重（7 天窗口，>=50% 重叠即丢弃）──
@@ -822,17 +845,26 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
                 filtered.append(t)
         if len(filtered) < len(topics):
             print(f"   跨天去重(7天): {len(topics)} → {len(filtered)} 个话题")
+            _dd["近7天关键词"] = len(topics) - len(filtered)
         topics = filtered
+
+    # 漏斗第 2 层：去重之后（detail 拆四个分支，否则「去重吃掉一半」查不出是哪一支）
+    _funnel("dedup", len(topics), **_dd)
 
     print(f"   筛选出 {len(topics)} 个话题:")
     for i, t in enumerate(topics):
         print(f"   {i+1}. [{t.get('content_type', 'N/A')}] {t['title'][:50]}")
 
     # Check topic material sufficiency — reject topics that match_data can't support
+    _n_mat = len(topics)
     topics = _check_topic_material_sufficiency(topics, match_data)
+    # 漏斗第 3 层：素材充分性（事实层）
+    _funnel("material", len(topics), 剔除=max(0, _n_mat - len(topics)))
 
     # R11 结论落地：有效选题（转会官宣/冲突舆情/中国足球）优先，战报比分减产
     topics, _cat_dropped = topic_category.prioritize(topics)
+    # 漏斗第 4 层：topic_category 的单批软上限（只删战报比分，其他类别不在这一层丢）
+    _funnel("category", len(topics), 战报比分软上限=len(_cat_dropped or []))
 
     # ── P1-4 / P1-6 / 维度4 / 维度2: 非阻断监控（标题钩子 / 类型平衡 / 共鸣角度 / 系列连载）──
     warn_title_hook_distribution(topics)
@@ -5136,6 +5168,14 @@ def main():
         article_count = max_articles
         target_types = None
     start_time = time.time()
+    # 选题漏斗台账（2026-11-04）：本批从这里开始记「候选在每一层还剩多少」。
+    # 不是闸门，没有阈值、不阻断任何流程；它存在的唯一目的是让 S2（把四套配额
+    # 收成一套）有数据可依 —— 否则「删哪一层」只能靠猜。
+    try:
+        topic_funnel.begin(date_str, batch=batch_cfg.get("name", ""),
+                           max_articles=max_articles, quota=quota.get("detail", ""))
+    except Exception as e:
+        print(f"   ⚠️ 漏斗台账初始化异常（不影响发布）: {e}")
     log.info(f"开始执行 — 日期:{date_str} 批次:{batch_mode}")
     success = False
     result_msg = ""
@@ -5196,6 +5236,9 @@ def main():
         if match_data.get("data_source") not in ("zhibo8", "dongqiudi"):
             result_msg = f"无直播吧/懂球帝源文章，Pipeline B已禁用 (data_source={match_data.get('data_source')})"
             print(f"   ❌ {result_msg}")
+            # 漏斗留痕：这一批是「源文章根本没到手」，不是「选题被某层吃掉」——
+            # 不落这条，事后看台账会以为选题层出了问题。
+            topic_funnel.flush(status="aborted")
             send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
             return
 
@@ -5228,6 +5271,7 @@ def main():
         # 修法：按「1 篇热点球评 + 1 篇数据型」的**结构**重排，只在候选不足时降级并留痕。
         # 放在 ranker 之后：ranker 决定「哪条线索更好」，这里只决定「本批写哪几型」，
         # 同类型内部不动顺序（否则会把 L3 选出来的最好线索换掉）。
+        _mix_n = len(topics)      # batch_mix 之前的候选数（异常时退回它，不虚构数字）
         try:
             _day_arts = []
             _mp = OUTPUT_DIR / date_str / "metadata.json"
@@ -5236,6 +5280,12 @@ def main():
             topics, _mix_rep = batch_mix.assign(
                 topics, article_count, day_counts=batch_mix.day_type_counts(_day_arts))
             extra_meta["batch_mix"] = _mix_rep
+            # 漏斗第 5 层：batch_mix（结构槽位只留这么多条，其余进 skipped）
+            _funnel("batch_mix", _mix_rep.get("selected", len(topics)),
+                    请求=_mix_rep.get("requested", article_count),
+                    降级=len(_mix_rep.get("degraded") or []),
+                    未选=len(_mix_rep.get("skipped") or []))
+            _mix_n = len(topics)          # 供 slot 层按「结构后剩余」算损失
             print("   🎯 批次类型结构：" + " + ".join(
                 f"{p['slot']}·{p['type']}" for p in _mix_rep["picked"])
                 + f"（选 {_mix_rep['selected']}/{_mix_rep['requested']}）")
@@ -5469,11 +5519,21 @@ def main():
         else:
             print(f"   ⚠️ 动态条数：LLM 未返回可用话题，本批主稿 0 篇（将走应急/空批次兜底）")
 
+        # 漏斗第 6 层：确定性供给/战报/多切口占位后，主稿真正拿到的槽位数。
+        # 这一层的损失 = supply_mix 那一套配额吃掉的篇数 —— S2 要判断「三层供给
+        # 30/50/20 到底是保障还是挤占」，看的就是这里，而不是去读配额配置。
+        _funnel("slot", min(_mix_n, _main_slots),
+                单批上限=max_articles, 确定性=fixture_added, 战报=recap_added)
+
         # Generate articles: find source article for each topic, rewrite to 老六 style
         # index_offset：确定性文章已占前 fixture_added 个位置，主稿从其后编号
+        _before_main = len(articles)
         _generate_articles_from_topics(topics, article_count, match_data,
                                        images_map, stats, articles, date_str=date_str,
                                        index_offset=len(articles))
+        # 漏斗第 7 层：主稿实际成稿数（差额 = 源文章预检跳过 + 生成失败 + 熔断）
+        _funnel("generated", max(0, len(articles) - _before_main),
+                主稿请求=article_count, 失败=stats.get("failed", 0))
 
         # 加发留痕（策略手册第五章 / 计划 12.1）：只有真正加发才记账，
         # 供验收核查「周内加发 ≤ 2 次、原因可回溯」。失败仅告警，不阻塞发布。
@@ -5645,6 +5705,14 @@ def main():
         # ============================================================
         # Save all articles
         # ============================================================
+        # 漏斗第 8 层：本批成稿（**不含预测稿**——它不发布，进了口径就会把
+        # 「成稿数」虚高，与「成稿数 ≠ 发布数」那条老账重复踩一遍）。
+        _final_arts = len([1 for _, _a in articles if not (_a or {}).get("_is_prediction")])
+        _funnel("final", _final_arts, 蓄水池等补位=len(articles) - _final_arts)
+        # 落盘（成功与 0 篇都落）：0 篇的批次恰恰是最该看的那条记录。
+        topic_funnel.flush(status="empty" if not _final_arts else "ok")
+        if topic_funnel.LAST.get("ok") is False:
+            print(f"   ⚠️ 漏斗台账落盘失败（不影响发布）: {topic_funnel.LAST.get('reason')}")
         if not articles:
             result_msg = "未能生成任何文章（所有话题改写失败）"
             print(f"ERROR: {result_msg}")
@@ -5705,6 +5773,14 @@ def main():
         log.error(f"执行异常: {e}", exc_info=True)
         import traceback
         traceback.print_exc()
+
+    # 漏斗台账兜底落盘（2026-11-04）：异常退出时上面的 flush 没跑到，
+    # 这里补一次。走正常路径时状态已被清空，flush 是 no-op，不会重复写。
+    # 不补这一条，「本批在哪一层炸了」就永远只能靠翻日志猜。
+    try:
+        topic_funnel.flush(status="error")
+    except Exception:
+        pass
 
     # 采集台账落盘（计划九）：成功失败都留证。
     # 「今天为什么只有 1 篇」的答案常在采集层，不在发布层——以前这一层只 print，
