@@ -194,6 +194,27 @@ class TestOrchestratorIntegration(unittest.TestCase):
             {}, "世界杯踢一半官宣转会，利物浦是在帮球员还是坑球员？", "热点球评")
         self.assertFalse(any("赛事名词" in r for r in reasons))
 
+    def test_score_lead_with_process_anchor_not_blocked(self):
+        """比分开头但含过程锚点 → 不算赛果播报式（2026-11-04 豁免）。
+
+        规则一的定义是「只报结果、不报过程」。此前「比分在起首 + 无人物名 +
+        钩子词表没命中」就判 0 分，把「皇马3-1巴萨，第70分钟换人后连丢2球」
+        这种数字/专名/过程俱全的好标题也打回了。
+        """
+        sc, ok, reasons = self.o.score_title_plan(
+            {}, "皇马3-1巴萨，第70分钟换人后连丢2球", "热点球评")
+        self.assertFalse(any("开场" in r for r in reasons), "含过程锚点不应按播报式打回")
+        self.assertGreater(sc, 0)
+        self.assertTrue(ok)
+
+    def test_score_lead_pure_result_still_blocked(self):
+        """对照组：纯播报（无比分之外的过程）必须照旧拦——豁免不许把尺子放太松。"""
+        for t in ("皇马3-1巴萨", "3-1！皇马赢球"):
+            sc, ok, reasons = self.o.score_title_plan({}, t, "热点球评")
+            self.assertEqual(sc, 0, t)
+            self.assertFalse(ok)
+            self.assertTrue(any("开场" in r for r in reasons), t)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

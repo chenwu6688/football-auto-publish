@@ -52,6 +52,18 @@ def _iter_articles():
 
 WINDOW_DAYS = 14            # 计划 7.2/7.3 与 8.1 一致的滚动窗口口径
 
+# 验收器补 recent_titles 的生效日（2026-11-04 修复 _score_titles）。
+#
+# 为什么必须设生效日：修复前这个脚本从不传历史标题，疑问收尾限额**从未触发过**，
+# 于是它一直报「零硬违规」。修好后一次性冒出 56 条存量违规（86 条里），其中绝大多数
+# 来自 9 月底~10 月那段我们自己把 prompt 写歪的日子（疑问收尾占比冲到 84%）。
+# 那是真实的历史违规，不是误杀 —— 但它们不该让 CI 永久挂红：按既往教训，
+# 红超过两周就一定被人加 `|| echo` 软化，等于把刚修好的尺子又做松。
+#
+# 处置：硬项只判生效日之后的稿（如实拦真违规），存量数字在报告里照实写出来
+# （不许隐瞒），并在 A1 的 detail 里点名「这是修复前口径漏检的存量」。
+GATE_SINCE = "2026-11-05"
+
 
 def _recent_articles(days=WINDOW_DAYS):
     floor = (datetime.now(CST) - timedelta(days=days)).strftime("%Y-%m-%d")
@@ -75,20 +87,52 @@ def _score_titles(articles):
     elements（2026-11-04 新增）：三要素硬闸门（title_elements）同理——它是新规则，
     旧口径产出的历史成稿天然不满足（实测 86 条里 35 条缺项），单列 elem 桶，
     验收在 ``check_title_elements_residue`` 里按覆盖率趋势看，不拖 A1 硬项。
+
+    **recent_titles 必须传（2026-11-04 修复）**：此前复算时不传历史，疑问收尾限额这条
+    规则**永远不触发**，与生成侧判出两个相反结论。硬证据——11-04 午间那篇
+    「大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？」：
+      · 不传 recent_titles → 74 分，通过（旧复算口径，A1 判「零硬违规」）
+      · 传 recent_titles   →  0 分，违规（近 14 天疑问收尾已 2 篇）
+    而那篇当天真的发布出去了。验收器丢上下文＝假绿灯，比没有验收更糟：
+    它会让人以为这条规则在工作。
+
+    历史口径与运行期一致但**不读盘**：对每篇取其日期之前 ``WINDOW_DAYS-1`` 天内的标题
+    （不含当日），再把同日已判过的标题按顺序补进去——运行期 ``_SESSION_TITLES`` 做的
+    正是这件事。不调 ``recent_titles_for_gate``，因为它掺了进程状态和"今天"，复算历史
+    某一天时会算出错的窗口。
     """
     import orchestrator
+    rows = [(data, a) for data, a in articles]
+    dated = []
+    for data, a in rows:
+        title = (a.get("title") or "").strip()
+        if title:
+            dated.append(((data.get("date") or "").strip(), title, a))
+
+    def _hist_before(day: str) -> list[str]:
+        try:
+            cur = datetime.strptime(day, "%Y-%m-%d").date()
+        except Exception:
+            return []
+        lo = (cur - timedelta(days=WINDOW_DAYS - 1)).strftime("%Y-%m-%d")
+        return [t for d, t, _ in dated if lo <= d < day]
+
     total = passed = 0
     zero, fails, anti, r11, elem = [], [], [], [], []
-    for data, a in articles:
-        title = (a.get("title") or "").strip()
-        if not title:
-            continue
+    hist_cache: dict[str, list[str]] = {}
+    used_today: dict[str, list[str]] = {}
+    for day, title, a in dated:
+        if day not in hist_cache:
+            hist_cache[day] = _hist_before(day)
+        recent = hist_cache[day] + used_today.get(day, [])
         total += 1
-        sc, ok, reasons = orchestrator.score_title_plan({}, title, a.get("content_type", ""))
+        sc, ok, reasons = orchestrator.score_title_plan(
+            {}, title, a.get("content_type", ""), recent_titles=recent)
+        used_today.setdefault(day, []).append(title)
         if ok:
             passed += 1
         elif sc == 0:
-            row = {"date": data.get("date"), "title": title, "reasons": reasons[:2]}
+            row = {"date": day, "title": title, "reasons": reasons[:2]}
             if any(r.startswith("[三要素]") for r in reasons):
                 elem.append(row)
             elif any("开场" in r for r in reasons):
@@ -98,35 +142,53 @@ def _score_titles(articles):
             else:
                 zero.append(row)
         else:
-            fails.append({"date": data.get("date"), "title": title, "score": sc,
+            fails.append({"date": day, "title": title, "score": sc,
                           "reasons": reasons[:2]})
     return total, passed, zero, fails, anti, r11, elem
 
 
 def check_title_hard() -> dict:
-    """A1. 成稿标题零「硬违规」（硬项）——近 14 天窗口内无 score_title_plan=0 的标题
-    （0 分即传闻当官宣 / 禁用模板前缀等硬违规）。
+    """A1. 成稿标题零「硬违规」（硬项）——**生效日后**成稿里无 score_title_plan=0 的标题
+    （0 分即传闻当官宣 / 疑问收尾超限 / 三要素不足 / 禁用模板前缀等硬违规）。
 
     口径说明：赛果播报式（title_antipattern）属 2026-10-12 新增规则，
     其存量产出单列为 A4 告警项，不计入本硬项；标题正向规则的减分（R11）若把历史
     存量压到 0 分，单独归 r11 桶，同样不计入本硬项——避免历史存量把 A1 拖红。
+
+    生效日 ``GATE_SINCE``（见常量注释）：本项此前是**假绿灯**——复算不传
+    ``recent_titles``，疑问收尾限额永不触发。修复后暴露的 56 条存量单列在
+    ``legacy_violations``，照实报数、不隐瞒，但不参与退出码。
     """
+    item = "成稿标题零硬违规（生效日起）"
     try:
         import orchestrator  # noqa: F401
     except Exception as e:  # pragma: no cover
-        return {"item": "成稿标题零硬违规（近14天）", "ok": True, "skipped": True,
+        return {"item": item, "ok": True, "skipped": True,
                 "detail": [f"无法载入评分器：{e}"]}
     arts = list(_recent_articles())
     if not arts:
-        return {"item": "成稿标题零硬违规（近14天）", "ok": True, "skipped": True,
+        return {"item": item, "ok": True, "skipped": True,
                 "detail": ["近 14 天无成稿 metadata，本项跳过"]}
     total, _passed, zero, _fails, _anti, _r11, _elem = _score_titles(arts)
-    return {"item": "成稿标题零硬违规（近14天）", "ok": not zero, "skipped": False,
-            "total": total, "violations": zero[:10], "r11": len(_r11),
-            "detail": [f"近 14 天成稿标题 {total} 条，硬违规（0 分）{len(zero)} 条",
-                       ("零硬违规 ✅" if not zero else f"❌ 硬违规：{zero[:3]}"),
-                       (f"（另有 R11 正向规则减分压到 0 分的存量 {len(_r11)} 条，"
-                        f"已单列 r11 桶不计入硬项）" if _r11 else "")]}
+    live = [z for z in zero if (z.get("date") or "") >= GATE_SINCE]
+    legacy = [z for z in zero if (z.get("date") or "") < GATE_SINCE]
+    live_total = sum(1 for data, a in arts
+                     if (data.get("date") or "") >= GATE_SINCE
+                     and (a.get("title") or "").strip())
+    base = [f"近 14 天成稿标题 {total} 条；生效日（{GATE_SINCE}）后 {live_total} 条，"
+            f"硬违规 {len(live)} 条"]
+    if legacy:
+        base.append(f"· 修复前存量 0 分 {len(legacy)} 条（旧复算不传历史，限额从未触发；"
+                    f"如实留证，不参与退出码）")
+    if live_total == 0:
+        return {"item": item, "ok": None, "pending": True, "total": total,
+                "legacy_violations": len(legacy), "detail": base + [
+                    f"⏸ 生效日后暂无成稿，未判定（不等于通过）"]}
+    return {"item": item, "ok": not live, "skipped": False,
+            "total": total, "violations": live[:10],
+            "legacy_violations": len(legacy), "r11": len(_r11),
+            "detail": base + [("零硬违规 ✅" if not live
+                               else f"❌ 硬违规：{live[:3]}")]}
 
 
 def check_title_pass_rate() -> dict:
@@ -599,20 +661,32 @@ def verify() -> dict:
               check_title_elements_residue(),
               check_breaker_blocks_current_batch(), check_failure_alert_diagnosable()]
     hard = [c for c in checks if not c.get("advisory")]
+    # 三态：True 通过 / False 未通过 / None 未判定。未判定不算通过，也不算失败——
+    # 它是「样本还没到」，混进 hard_failed 会让报告在生效日前天天报红。
+    failed = [c["item"] for c in hard if c.get("ok") is False]
+    pending = [c["item"] for c in hard if c.get("ok") is None]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
-            "ok": all(c["ok"] for c in hard), "checks": checks,
-            "hard_failed": [c["item"] for c in hard if not c["ok"]]}
+            "ok": (False if failed else (None if pending else True)),
+            "checks": checks, "hard_failed": failed, "hard_pending": pending}
 
 
 def render_md(rep: dict) -> str:
+    verdict = {True: "通过 ✅", False: "未通过 ❌", None: "部分通过 ⏸"}[rep["ok"]]
     L = ["# 发布闸门验收报告（计划 7.2 / 7.3）", "",
          f"- 生成时间：{rep['generated_at']}",
-         f"- 验收结论：**{'通过 ✅' if rep['ok'] else '未通过 ❌'}**", ""]
+         f"- 验收结论：**{verdict}**", ""]
     if rep.get("hard_failed"):
         L += [f"> 未通过硬项：{'、'.join(rep['hard_failed'])}", ""]
+    if rep.get("hard_pending"):
+        L += [f"> 未判定（不等于通过，等在效日后样本）：{'、'.join(rep['hard_pending'])}", ""]
     for c in rep["checks"]:
         tag = "告警" if c.get("advisory") else "硬项"
-        status = "跳过" if c.get("skipped") else ("✅" if c["ok"] else "❌")
+        if c.get("skipped"):
+            status = "跳过"
+        elif c.get("ok") is None:
+            status = "⏸ 未判定"
+        else:
+            status = "✅" if c["ok"] else "❌"
         L.append(f"## {c['item']}（{tag}）：{status}")
         for d in c.get("detail", []):
             L.append(f"- {d}")
@@ -633,6 +707,13 @@ def main() -> int:
         json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
     if not args.quiet:
         print(render_md(rep))
+    if rep["ok"] is None:
+        # 未判定不阻断，但必须留痕：CI 里变黄点，本地能看见。
+        # 直接 return 0 会让「样本还没到」看起来跟「全过」一样。
+        pend = "、".join(rep.get("hard_pending") or [])
+        print(f"::warning::发布闸门 {len(rep.get('hard_pending') or [])} 项未判定"
+              f"（{pend}）——不等于通过", file=sys.stderr)
+        return 0
     return 0 if rep["ok"] else 1
 
 

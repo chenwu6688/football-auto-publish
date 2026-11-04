@@ -516,6 +516,14 @@ jobs:
         run: |
           python publisher.py "${{ steps.params.outputs.today }}" --headless --batch="${{ steps.params.outputs.batch }}"
 
+      - name: 发布结果验收（发布成功率 · 只告警不阻断）
+        # 稿子已经发出去了，这里阻断没有意义；存在的目的是把「发失败了」变成可见的告警。
+        # 2026-11-04 午间 1 篇发布超时失败，台账如实写了原因，但当时没有任何环节在读它。
+        if: always() && steps.params.outputs.skip != 'true'
+        run: |
+          python3 scripts/verify_publish_success.py --days 7 --quiet \
+            || echo "::warning::发布成功率未达 85% / 出现连续失败 / 失败无原因，详见 data/audit/publish_success_latest.json"
+
       - name: 回写批次状态（幂等保护）
         # 熔断中止的批次不标记完成：否则解除熔断后手动补发会被幂等保护跳过，
         # 本批文章永远发不出去（2026-10-13 事故恢复路径验证）。
@@ -568,8 +576,8 @@ jobs:
           git add -f "output/${TODAY}/metadata.json" || true
           # 发布结果台账（2026-11-01）：成稿数 ≠ 发布数，不落库就永远是黑箱。
           # 10 月成稿 242 / 实际发布 93，这个 62% 的漏斗一个月都没人发现。
-          git add -f "data/audit/publish_ledger_${TODAY}.json" || true
-          git add -f "data/audit/publish_ledger_latest.json" || true
+          # 台账三层：批次明细 + 当天聚合 + latest（见 publisher.write_publish_ledger）
+          git add -f data/audit/publish_ledger_*.json || true
 
           if git diff --cached --quiet; then
             echo "📝 无变化，跳过提交"

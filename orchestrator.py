@@ -2239,17 +2239,19 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         backup = art.get("backup_title", "")
         if title and backup and backup != title:
             def _title_score(t):
-                s = 0
-                if re.search(r'\d', t): s += 3           # 含数字 → 具体
-                for team in ("巴西", "阿根廷", "葡萄牙", "西班牙", "英格兰", "法国", "德国",
-                             "荷兰", "意大利", "比利时", "梅西", "C罗", "姆巴佩", "哈兰德",
-                             "内马尔", "贝林厄姆", "凯恩", "萨拉赫"):
-                    if team in t: s += 2                  # 含巨星/豪门
-                if any(w in t for w in ("?", "！", "…")): s += 2   # 情绪符号
-                if ":" in t or "：" in t: s += 1           # 解释结构
-                if len(t) < 12: s -= 2                    # 太短 → 信息不足
-                if any(w in t for w in ("老六", "小编", "我们")): s -= 1  # 自指 → 弱
-                return s
+                # 用闸门自己的尺子比 title / backup。
+                #
+                # 此前这里是**第七套**独立启发式：含数字 +3、含巨星 +2、
+                # **含「?」+2**、含冒号 +1…… 而 title_gate 明令禁止疑问收尾。
+                # 两套规则直接对撞：保存侧在奖励加问号，闸门在拦问号，
+                # 谁赢取决于 backup_title 有没有问号 —— 这正是「闸门说违规、
+                # 稿子还是疑问收尾发出去」的一条隐蔽通路。
+                # 标题体系宁可少一套尺子，也不要两套相反的。
+                try:
+                    return score_title_plan({}, t, art.get("content_type", ""),
+                                            recent_titles=recent_titles_for_gate(""))[0]
+                except Exception:
+                    return 0
             score_t, score_b = _title_score(title), _title_score(backup)
             if score_b > score_t:
                 art["title"] = backup
@@ -2343,6 +2345,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 # 标题三要素留证（P0-1）：发布后 CTR 回流要能按「数字/对比/专名」分层归因。
                 # 只落判据结果，不落「合格与否」——合格线会随复盘调整，判据不会。
                 "title_elements": title_elements.extract(art.get("title", "")).to_row(),
+                # 标题闸门判据留证：分数 + 是否疑问收尾 + 走的哪条兜底
+                "title_gate": _title_gate_row(art),
                 # 正文摘要指标（P1-2 观测基础）：正文 .md 只在 CI 临时目录，
                 # 不落这几项，「压字数到 300-500」这类建议永远无法复算。
                 "content_stats": content_stats.summarize(art.get("content") or "")}
@@ -3116,12 +3120,24 @@ def recent_titles_for_gate(date_str: str = "") -> list[str]:
     """近 14 天已发标题 + 本进程已生成标题；读不到历史就只返回本进程的。
 
     读盘失败返回空列表（不猜、不补），闸门据此只按进程内累计判限额，不阻塞。
+
+    读盘结果按 (产物目录, 日期) 缓存：保存阶段的标题优选每篇要问一次历史，
+    86 篇就是 86 次 glob 14 个 metadata.json，实测把全量单测从 42 秒拖到 4 分钟。
+    本进程新增的标题由 ``_SESSION_TITLES`` 补上，所以缓存不会漏当天的新稿。
     """
+    key = f"{OUTPUT_DIR}|{date_str or time.strftime('%Y-%m-%d')}"
+    if key in _HIST_CACHE:
+        return list(_HIST_CACHE[key]) + list(_SESSION_TITLES)
     try:
         hist = title_gate.recent_titles(OUTPUT_DIR, date_str or None)
     except Exception:
         hist = []
+    _HIST_CACHE[key] = list(hist)
     return list(hist) + list(_SESSION_TITLES)
+
+
+# 标题历史缓存（见 recent_titles_for_gate 说明）；键含产物目录，测试 patch 即隔离
+_HIST_CACHE: dict[str, list[str]] = {}
 
 
 # 冲突/反差动作词（计划 3.3：冲突或反差动作）
@@ -3140,6 +3156,31 @@ _TITLE_ELEMENTS_RULE = """标题（2026-11-04 三要素口径，命中不足会�
   不要用「很惨/太强」这类形容词代替；
 - 专名用球队/球员/教练/赛事，**不要用「豪门/劲旅/这支球队」代称**；
 - 不以疑问句（？/吗/呢）收尾，不用「XX前瞻」这类固定栏目前缀。"""
+
+
+def _title_gate_row(art: dict) -> dict:
+    """把标题闸门判定落进 metadata —— 让「这批稿子为什么过 / 没过」事后可查。
+
+    2026-11-04 复盘暴露的洞：metadata 里落了三要素判据（数字/对比/专名），
+    却没有闸门分数。于是 11-03/11-04 那 4 篇疑问收尾稿的 score 全空，
+    复盘时只能按「今天的历史标题」重算 —— 输入跟当时不一致，
+    同一标题能算出 74 分（过）和 0 分（不过）两个结论。
+
+    ``question_ending`` 是独立于历史的客观事实，必须落：
+    近 14 天发了几篇疑问收尾，一眼就该看得出来。
+    """
+    t = (art.get("title") or "").strip()
+    if not t:
+        return {}
+    row = {"question_ending": title_gate.is_question_ending(t),
+           "fallback": art.get("_title_fallback") or ""}
+    try:
+        sc, ok, reasons = score_title_plan({}, t, art.get("content_type", ""))
+        row.update({"score": int(sc), "pass": bool(ok),
+                    "reasons": [r[:60] for r in reasons[:2]]})
+    except Exception:
+        pass
+    return row
 
 
 def _title_block(topic, facts=None) -> str:

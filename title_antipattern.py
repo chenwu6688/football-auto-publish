@@ -181,6 +181,22 @@ def _first_literal_on_open(title: str, names: set[str], window: int):
     return best
 
 
+def _has_process_anchor(title: str) -> bool:
+    """标题里是否含「过程锚点」（第几分钟 / 连进几球 / 被换下 / 补时扳平…）。
+
+    复用 title_features 的唯一口径，不在这里另立词表——否则就是第 N 把尺子。
+    异常时返回 False（维持原有判定，宁可拦下也不放松）。
+    """
+    try:
+        import title_features
+        # has_anchor 是 @property，不是方法：写成 has_anchor() 会抛 TypeError
+        # 并被这里的 except 吞掉 —— 豁免静默失效、看起来"加了却没用"。
+        v = title_features.extract(title).has_anchor
+        return bool(v() if callable(v) else v)
+    except Exception:
+        return False
+
+
 def _exemptions(title: str, cfg: dict, hook_pats: list[re.Pattern],
                 *, with_teams: bool) -> tuple[list, list, list]:
     """返回 (人物命中, 球队命中, 钩子命中)；任一非空即「有具体性」，放行不拦。"""
@@ -208,6 +224,15 @@ def _hit_rule1(title: str, cfg: dict, hook_pats: list[re.Pattern]) -> dict | Non
 
     who, _teams, hooks = _exemptions(title, cfg, hook_pats, with_teams=False)
     if who or hooks:                          # 条件二/三成立 → 放行
+        return None
+    # 2026-11-04 补第四个豁免：过程锚点。
+    #
+    # 规则一的定义是「**只报结果、不报过程**」，那过程锚点天生就该豁免。
+    # 实例：「皇马3-1巴萨，第70分钟换人后连丢2球」——比分开头、无人物名、
+    # 钩子词表也没命中，此前被判 0 分打回重写。可它数字、专名、过程俱全，
+    # 是标准的好标题。这不是"尺子松了"，是原来那把尺子量错了对象。
+    # 纯播报（「皇马3-1巴萨」）仍然照样拦，判别标志就是有没有过程。
+    if _has_process_anchor(title):
         return None
 
     penalty = cfg.get("判罚") or {}

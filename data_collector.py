@@ -18,6 +18,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
 from utils import retry, filter_fresh_news, NEWS_MAX_AGE_HOURS, CST
 
 import cover_binding as _cb  # 计划 2.2/4.1：封面与正文绑定（禁用随机图库配图）
+import scraper_diagnostics as _diag  # 图源失败必须留痕（2026-11-04：401 静默吞掉过久）
 
 
 # ============================================================
@@ -1353,16 +1354,33 @@ def search_images(topic, count=5):
                 if len(images) >= count:
                     break
                 q = f"{core} {suffix}".strip()
+                _un_url = "https://api.unsplash.com/search/photos"
                 try:
-                    resp = requests.get("https://api.unsplash.com/search/photos", params={
+                    resp = requests.get(_un_url, params={
                         "query": q, "per_page": count - len(images), "orientation": "landscape",
                         "client_id": UNSPLASH_KEY}, timeout=10)
-                    if resp.status_code == 200:
-                        for r in resp.json().get("results", []):
-                            images.append({"url": r["urls"]["regular"], "source": "unsplash",
-                                           "alt": r.get("description") or "", "query": q})
-                except Exception:
-                    pass
+                except Exception as e:
+                    # 此前是 `except: pass` —— 图源静默死亡，没人知道。
+                    # 2026-11-04 加 Key 时才发现 401 已经被吞了很久。
+                    _diag.record("unsplash", _un_url, kind=_diag.classify_exception(e),
+                                 detail=f"{type(e).__name__}: {str(e)[:100]}")
+                    break
+                if resp.status_code == 200:
+                    _got = 0
+                    for r in resp.json().get("results", []):
+                        images.append({"url": r["urls"]["regular"], "source": "unsplash",
+                                       "alt": r.get("description") or "", "query": q})
+                        _got += 1
+                    _diag.record("unsplash", _un_url, status=200, count=_got,
+                                 detail=f"query={q[:50]}")
+                else:
+                    _diag.record("unsplash", _un_url,
+                                 kind=_diag.classify_status(resp.status_code),
+                                 status=resp.status_code,
+                                 detail=f"HTTP {resp.status_code}: {resp.text[:120]}")
+                    if resp.status_code in _diag.BLOCKED_STATUS:
+                        # 401/403 = Key 无效或无权限，换 suffix 只会再浪费一次配额
+                        break
 
     # DuckDuckGo 兜底：同样必须绑定正文（无绑定 query 则不放图）
     if len(images) < count:

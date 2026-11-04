@@ -1130,6 +1130,86 @@ def bind_platform_ids(date_str: str, bindings: list[dict]) -> dict:
     return out
 
 
+def _day_batch_files(date_str: str) -> list[Path]:
+    """当天各批次的台账文件（按批次名排序，便于复现）。"""
+    return sorted(AUDIT_DIR.glob(f"publish_ledger_{date_str}_*.json"))
+
+
+def _merge_day(date_str: str, current: dict) -> dict:
+    """把当天各批次台账合成一份「当天」视图。
+
+    2026-11-04 修复：此前 ``publish_ledger_{date}.json`` 是**直接覆盖写**，
+    而一天有晨/午/晚三个批次 —— 后一批把前一批的记录整份盖掉。
+    11-04 就是这样：晨间那篇发布记录消失，只剩午间 2 条，
+    「今天实际发出几篇」从台账上永远算不对。
+
+    兼容旧数据：旧格式文件（无 ``version`` 字段）当作一个未知批次并入，
+    新格式（``version >= 2``）本身就是聚合结果，不再二次合并（否则翻倍）。
+    """
+    rows: list[dict] = []
+    seen: set[tuple] = set()
+
+    def _add(rec: dict, batch: str) -> None:
+        key = (rec.get("title") or "", rec.get("status") or "", batch)
+        if key in seen:
+            return
+        seen.add(key)
+        r = dict(rec)
+        r.setdefault("batch", batch)
+        rows.append(r)
+
+    legacy_batches: list[str] = []
+    for p in _day_batch_files(date_str):
+        batch = p.stem[len(f"publish_ledger_{date_str}_"):]
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for rec in d.get("records") or []:
+            _add(rec, batch)
+        legacy_batches.append(batch)
+
+    for rec in current.get("records") or []:
+        _add(rec, current.get("batch_filter") or "all")
+
+    # 旧格式（无 version）单文件：并入，避免历史当天记录丢失
+    old = AUDIT_DIR / f"publish_ledger_{date_str}.json"
+    if old.exists():
+        try:
+            d = json.loads(old.read_text(encoding="utf-8"))
+        except Exception:
+            d = {}
+        if not d.get("version"):
+            b = (d.get("batch_filter") or "legacy") + "(legacy)"
+            for rec in d.get("records") or []:
+                _add(rec, b)
+            legacy_batches.append(b)
+
+    ok = sum(1 for r in rows if r.get("status") == "published")
+    fail = sum(1 for r in rows if r.get("status") == "failed")
+    skip = sum(1 for r in rows if r.get("status") == "skipped_prediction")
+    return {
+        "version": 2,
+        "date": date_str,
+        "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "batch_filter": "+".join(sorted(set(legacy_batches))) or "all",
+        "batches": sorted(set(legacy_batches)),
+        "counts": {
+            "total": len(rows), "published": ok, "failed": fail,
+            "skipped_prediction": skip,
+            "published_without_id": sum(1 for r in rows if r.get("status") == "published"
+                                        and not r.get("platform_id")),
+            "published_without_cover": sum(1 for r in rows if r.get("status") == "published"
+                                           and not (r.get("images") or 0)),
+        },
+        "platform_id_binding": current.get("platform_id_binding") or {},
+        "records": rows,
+        "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
+                 "这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+                 "本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。"),
+    }
+
+
 def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: str | None = None,
                          binding: dict | None = None) -> Path:
     """落发布结果台账：每篇成稿的归宿（published / failed / skipped_prediction）。
@@ -1137,8 +1217,14 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
     2026-11-01 之前这件事**完全没做**：`publish_all` 只把结果拼成一段人话发
     WxPusher，不落库。后果是「成稿 242 篇、实际发布 93 篇」这种 62% 的漏斗
     谁都不知道，月度分析只能靠导出文件反推。台账补齐后，覆盖率的分母才有意义。
+
+    2026-11-04 改为三层写入（此前按天单文件，多批次互相覆盖）：
+      ① ``publish_ledger_{date}_{batch}.json`` —— 本批次，不覆盖兄弟批次
+      ② ``publish_ledger_{date}.json``         —— 当天聚合（version=2）
+      ③ ``publish_ledger_latest.json``         —— 本次批次，兼容既有读取方
     """
     AUDIT_DIR.mkdir(parents=True, exist_ok=True)
+    batch = (batch_filter or "all").strip() or "all"
     ok = sum(1 for r in records if r.get("status") == "published")
     fail = sum(1 for r in records if r.get("status") == "failed")
     skip = sum(1 for r in records if r.get("status") == "skipped_prediction")
@@ -1148,9 +1234,10 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
     no_cover = sum(1 for r in records
                    if r.get("status") == "published" and not (r.get("images") or 0))
     payload = {
+        "version": 2,
         "date": date_str,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "batch_filter": batch_filter or "",
+        "batch_filter": batch,
         "counts": {"total": len(records), "published": ok, "failed": fail,
                    "skipped_prediction": skip, "published_without_id": no_pid,
                    "published_without_cover": no_cover},
@@ -1159,8 +1246,12 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
         "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
                  "这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"),
     }
+    (AUDIT_DIR / f"publish_ledger_{date_str}_{batch}.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    # 当天聚合必须在「本批次文件」落盘之后再算，否则会漏掉自己
     p = AUDIT_DIR / f"publish_ledger_{date_str}.json"
-    p.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    p.write_text(json.dumps(_merge_day(date_str, payload), ensure_ascii=False, indent=2),
+                 encoding="utf-8")
     (AUDIT_DIR / "publish_ledger_latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return p

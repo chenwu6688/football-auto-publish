@@ -115,10 +115,15 @@ class TestVerifyPublishGate(unittest.TestCase):
         cs.LABELS_PATH = Path(self.d.name) / "cl.json"
         fl.LEDGER_PATH = Path(self.d.name) / "fl.json"
         self.vg = _load("verify_publish_gate", "scripts/verify_publish_gate.py")
+        # 此前没隔离产物目录：测试实际跑在仓库真实 output 上，CI 与本地结论会不一样，
+        # 且新加的「生效日起」口径会把空环境判成未判定（ok=None）而不是通过。
+        self._o = self.vg.OUTPUT_DIR
+        self.vg.OUTPUT_DIR = Path(self.d.name) / "output"
 
     def tearDown(self):
         cs.STATS_PATH, cs.LABELS_PATH = self._s, self._l
         fl.LEDGER_PATH = self._f
+        self.vg.OUTPUT_DIR = self._o
         self.d.cleanup()
 
     def test_report_shape_and_ok(self):

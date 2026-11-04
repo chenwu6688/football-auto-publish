@@ -186,7 +186,9 @@ class TestPublishGateSeparation(unittest.TestCase):
         # score_title_plan 的基础分 ≥22，R11 减分（-12/-8）自然不会把标题压到 0；
         # 此处直接验证分桶路由逻辑：若某标题 score==0 且理由含「R11数据:」前缀，
         # _score_titles 必须把它归入 r11 桶，而非原有硬违规 zero 桶或赛果播报式 anti 桶。
-        def fake(topic, title, content_type, batch_mode=None, *, fact_tier=None):
+        # _score_titles 现在会传 recent_titles（修 11-04 假绿灯），桩必须同步收下
+        def fake(topic, title, content_type, batch_mode=None, *, fact_tier=None,
+                 recent_titles=None):
             return 0, False, [
                 "R11数据:标题含赛事名词「世界杯」且无具体人物/球队，"
                 "回测 CTR 0.47% 垫底，请把具体的人/队提到最前"]
