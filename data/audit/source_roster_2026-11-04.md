@@ -1,6 +1,6 @@
 # 数据源与信源清单验收报告（计划 13.2 / 13.4）
 
-- 生成时间：2026-11-04 15:57
+- 生成时间：2026-11-04 17:58
 - 验收结论：**通过 ✅**
 
 ## 四源分工齐备（13.2）（硬项）：✅
@@ -21,5 +21,5 @@
 ## 无授权媒体接口边界（13.2）（告警）：✅
 - 计划 13.2：懂球帝/直播吧/虎扑/雷速 接口无授权，只能用其名提取实体中文名、
 - 可作新闻流素材，但**正文不得进生成器**（由 11.3 物理隔离与相似度闸门兜底）。
-- 当前命中文件：{'懂球帝': ['audit_tiers.yaml', 'content_reference.py', 'content_reference.yaml', 'data_collector.py', 'event_result.py', 'health_check_scraper.py', 'image_service.py', 'media_scraper.py', 'orchestrator.py', 'scraper_diagnostics.py', 'utils.py', 'verify_event_result.py', 'verify_scraper_diagnostics.py'], '直播吧': ['content_reference.py', 'content_reference.yaml', 'cover_binding.py', 'data_collector.py', 'event_result.py', 'health_check_scraper.py', 'media_scraper.py', 'orchestrator.py', 'season_calendar.yaml', 'source_images.py'], '虎扑': ['content_reference.yaml'], '雷速': ['season_calendar.yaml']}
+- 当前命中文件：{'懂球帝': ['ab_fingerprint_probe.py', 'audit_tiers.yaml', 'content_reference.py', 'content_reference.yaml', 'data_collector.py', 'event_result.py', 'health_check_scraper.py', 'image_service.py', 'media_scraper.py', 'orchestrator.py', 'scraper_diagnostics.py', 'utils.py', 'verify_event_result.py', 'verify_scraper_diagnostics.py'], '直播吧': ['ab_fingerprint_probe.py', 'content_reference.py', 'content_reference.yaml', 'cover_binding.py', 'data_collector.py', 'event_result.py', 'health_check_scraper.py', 'media_scraper.py', 'orchestrator.py', 'season_calendar.yaml', 'source_images.py'], '虎扑': ['content_reference.yaml'], '雷速': ['season_calendar.yaml']}
 - （本项为边界提示，不作硬断言）
