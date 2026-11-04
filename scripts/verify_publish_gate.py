@@ -61,9 +61,9 @@ def _recent_articles(days=WINDOW_DAYS):
 
 
 def _score_titles(articles):
-    """用项目自身评分器复算，返回 (total, passed, zero_violations, fails, antipattern, r11)。
+    """用项目自身评分器复算，返回 (total, passed, zero, fails, antipattern, r11, elements)。
 
-    zero_violations 只统计「传闻当官宣 / 禁用模板前缀」这类原有硬违规；
+    zero 只统计「传闻当官宣 / 禁用模板前缀」这类原有硬违规；
     赛果播报式（title_antipattern，2026-10-12 新增）单独归入 antipattern，
     避免新规则把历史存量的 A1 硬项拖红——新规则的验收在
     scripts/verify_title_antipattern.py 独立完成。
@@ -71,10 +71,14 @@ def _score_titles(articles):
     r11（2026-10-13 新增）：标题正向规则（title_positive）的减分可能把历史存量标题
     也压到 0 分；这类 0 分带有「R11数据:」前缀理由，须单独归入 r11 桶——
     既非原有硬违规（zero），也非赛果播报式（anti），避免误拖 A1 红。
+
+    elements（2026-11-04 新增）：三要素硬闸门（title_elements）同理——它是新规则，
+    旧口径产出的历史成稿天然不满足（实测 86 条里 35 条缺项），单列 elem 桶，
+    验收在 ``check_title_elements_residue`` 里按覆盖率趋势看，不拖 A1 硬项。
     """
     import orchestrator
     total = passed = 0
-    zero, fails, anti, r11 = [], [], [], []
+    zero, fails, anti, r11, elem = [], [], [], [], []
     for data, a in articles:
         title = (a.get("title") or "").strip()
         if not title:
@@ -85,7 +89,9 @@ def _score_titles(articles):
             passed += 1
         elif sc == 0:
             row = {"date": data.get("date"), "title": title, "reasons": reasons[:2]}
-            if any("开场" in r for r in reasons):
+            if any(r.startswith("[三要素]") for r in reasons):
+                elem.append(row)
+            elif any("开场" in r for r in reasons):
                 anti.append(row)
             elif any(r.startswith("R11数据") for r in reasons):
                 r11.append(row)
@@ -94,7 +100,7 @@ def _score_titles(articles):
         else:
             fails.append({"date": data.get("date"), "title": title, "score": sc,
                           "reasons": reasons[:2]})
-    return total, passed, zero, fails, anti, r11
+    return total, passed, zero, fails, anti, r11, elem
 
 
 def check_title_hard() -> dict:
@@ -114,7 +120,7 @@ def check_title_hard() -> dict:
     if not arts:
         return {"item": "成稿标题零硬违规（近14天）", "ok": True, "skipped": True,
                 "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    total, _passed, zero, _fails, _anti, _r11 = _score_titles(arts)
+    total, _passed, zero, _fails, _anti, _r11, _elem = _score_titles(arts)
     return {"item": "成稿标题零硬违规（近14天）", "ok": not zero, "skipped": False,
             "total": total, "violations": zero[:10], "r11": len(_r11),
             "detail": [f"近 14 天成稿标题 {total} 条，硬违规（0 分）{len(zero)} 条",
@@ -138,7 +144,7 @@ def check_title_pass_rate() -> dict:
     if not arts:
         return {"item": "标题格式合规通过率≥90%（近14天）", "ok": True, "advisory": True,
                 "skipped": True, "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    total, passed, _zero, fails, _anti, _r11 = _score_titles(arts)
+    total, passed, _zero, fails, _anti, _r11, _elem = _score_titles(arts)
     rate = passed / total if total else 0.0
     return {"item": "标题格式合规通过率≥90%（近14天）", "ok": True, "advisory": True,
             "skipped": False, "total": total, "passed": passed, "rate": round(rate, 4),
@@ -174,6 +180,42 @@ def check_title_antipattern_residue() -> dict:
             "detail": [f"近 14 天成稿 {len(arts)} 条，命中赛果播报式 {len(hits)} 条"
                        + ("（规则生效前存量，随窗口滚出）" if hits else " ✅"),
                        *hits[:5]]}
+
+
+def check_title_elements_residue() -> dict:
+    """A5. 标题三要素覆盖率（告警项，2026-11-04 生效）。
+
+    为什么单列而不是并进 A1：三要素是新规则，**旧口径产出的历史成稿天然不满足**
+    （实测近 14 天 86 条里 35 条缺项），并进 A1 会让硬项红满 14 天，
+    然后就等着被 `|| echo` 软化——11-03 已经踩过这个坑。
+    本项只报覆盖率与趋势；尺子本身的松紧由 scripts/verify_title_elements.py
+    用「我方单调性 + 头部不误杀」两组数据硬判。
+    """
+    try:
+        import title_elements as te
+    except Exception as e:  # pragma: no cover
+        return {"item": "标题三要素覆盖率（近14天，告警）", "ok": True, "advisory": True,
+                "skipped": True, "detail": [f"无法载入三要素口径：{e}"]}
+    arts = list(_recent_articles())
+    if not arts:
+        return {"item": "标题三要素覆盖率（近14天，告警）", "ok": True, "advisory": True,
+                "skipped": True, "detail": ["近 14 天无成稿 metadata，本项跳过"]}
+    titles = [(a.get("title") or "").strip() for _d, a in arts]
+    titles = [t for t in titles if t]
+    cov = te.coverage(titles)
+    if not cov["n"]:
+        return {"item": "标题三要素覆盖率（近14天，告警）", "ok": True, "advisory": True,
+                "skipped": True, "detail": ["近 14 天成稿标题为空，本项跳过"]}
+    ok = (cov["pass_rate"] or 0) >= 50.0
+    return {"item": "标题三要素覆盖率（近14天，告警）", "ok": ok, "advisory": True,
+            "skipped": False, "coverage": cov,
+            "detail": [f"近 14 天成稿标题 {cov['n']} 条：数字 {cov['number']}% / "
+                       f"对比 {cov['contrast']}% / 专名 {cov['proper']}% / "
+                       f"三项全过 {cov['all_three']}%",
+                       f"达下限（≥{te.MIN_ELEMENTS} 项且含专名）通过率 {cov['pass_rate']}%"
+                       + ("（目标 ≥50%）" + (" ✅" if ok else " ⚠️ 存量旧口径产出，随窗口滚出")),
+                       "尺子松紧由 scripts/verify_title_elements.py 硬判"
+                       "（我方单调性 + 头部不误杀 + 压力带）"]}
 
 
 def check_team_alias_awareness() -> dict:
@@ -554,6 +596,7 @@ def verify() -> dict:
               check_score_caliber_awareness(),
               check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
               check_reject_traceability(), check_old_news(), check_title_antipattern_residue(),
+              check_title_elements_residue(),
               check_breaker_blocks_current_batch(), check_failure_alert_diagnosable()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),

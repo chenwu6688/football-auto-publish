@@ -4,7 +4,7 @@
 Usage: python orchestrator.py [YYYY-MM-DD]
 """
 
-import os, json, sys, subprocess, requests, time, re, signal, threading, yaml
+import os, json, sys, subprocess, requests, time, re, signal, threading, yaml, hashlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -28,10 +28,15 @@ from logger import log
 import risk_gate
 import degrade
 import supply_mix
+import batch_mix
 import rumor_wording
 import title_antipattern
 import title_positive
 import title_gate
+import title_elements
+import title_brief
+import content_stats
+import cover_card
 import interaction_bait
 import topic_category
 import content_reference
@@ -1177,6 +1182,9 @@ def rewrite_article(topic, match_context, index, temperature=0.5, retry_hint="",
     prompt = prompt + _build_resonance_hint(topic)
     # 维度2：系列连载闭环——选题锁定的 series_id，改写时注入追更引导
     prompt = prompt + _build_series_hint(topic)
+    # P1-2 标题三要素（2026-11-04）：把本条选题已有的数字/专名/对照摊给模型，再让它组句。
+    # 追加在末尾而不是改模板：模板文件是 prompts/*.txt，改模板要同步 4 个占位符，易漏。
+    prompt = prompt + "\n\n" + _title_block(topic)
 
     # 维度1：品牌手册注入系统提示（单一事实源，避免无魂/偷懒）
     system_content = ("你是一个足球文章改写助手。你必须保留所有事实（比分、球员、事件），只改变文风和叙述角度。\n")
@@ -1911,13 +1919,31 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                         topic, _new_title, _ct, date_str or "", recent_titles=_recent)
                 if not _sc_pass:
                     last_hint = (f"标题未达及格线({_sc}分): " + "; ".join(_sc_reasons) +
-                                 "。请按公式重拟：具体球队/球员+过程锚点（第几分钟/连进几球/"
-                                 "谁被换下）+冲突反差，字数18-30，不要以疑问句收尾。")
+                                 "。请按公式重拟：具体球队/球员 + 一个可核对数字 + 一处对比/落差，"
+                                 "字数18-30，不要以疑问句收尾，不要用「豪门/劲旅」这类代称。")
                     if attempt < max_retries:
                         continue
-                    degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
-                                 action="丢弃该选题并由候选池补位")
-                    return {}, f"标题评分未过: {last_hint}"
+                    # 重试用尽后的分流（项目纪律：只影响增量的缺失不丢整篇）。
+                    # 三要素不足是「信息量」问题，用事实字段机械拼一个合规标题保底；
+                    # 其余失败（传闻断言/赛果播报/疑问限额）照旧丢弃，绝不放过硬违规。
+                    _cur = art.get("title", "")
+                    if not title_elements.check(_cur)["ok"]:
+                        _fb = [c for c in title_brief.candidates(topic)
+                               if title_elements.check(c)["ok"]]
+                        if _fb:
+                            art["title"] = _fb[0]
+                            art["_title_fallback"] = "elements"
+                            degrade.note("标题三要素",
+                                         f"重拟失败，标题改用事实字段拼接（{_sc}分）",
+                                         action="保留成稿，不新增事实（候选只含选题已有数字/队名）")
+                        else:
+                            degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
+                                         action="丢弃该选题并由候选池补位")
+                            return {}, f"标题评分未过: {last_hint}"
+                    else:
+                        degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
+                                     action="丢弃该选题并由候选池补位")
+                        return {}, f"标题评分未过: {last_hint}"
             note_generated_title(art.get("title", ""))
 
 
@@ -2087,6 +2113,29 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         # P2-7: 补全栏目/风格/互动字段，避免 metadata 出现空字段（垂直锚点缺失）
         fill_article_defaults(art)
 
+        # 出口最后一道（P0-1）：三要素在**所有**生成路径上都要生效。
+        # 各条生成路径都有自己的「重试几次后兜底放行」，口子就留在这里——11-04 那篇
+        # 「大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？」正是这样出去的。
+        # 这里用 title_brief.candidates（纯本地、只用事实卡已有数字）兜一道；
+        # 拼不出来就如实留证，不丢整篇：三要素只影响「增量」（这篇大概率没人点），
+        # 硬违规才影响「存量」（伤信任），两者不能同等处置。
+        _tel_now = title_elements.check(art.get("title", ""))
+        if not _tel_now["ok"]:
+            _fixed = next((c for c in title_brief.candidates(art)
+                           if title_elements.check(c)["ok"]), "")
+            if _fixed:
+                art["original_title"] = art.get("title", "")
+                art["_title_fallback"] = "save_side"
+                print(f"   🔧 三要素出口兜底：{art['original_title'][:26]} → {_fixed[:26]}")
+                art["title"] = _fixed
+                degrade.note("标题三要素", "出口兜底换机械模板",
+                             action="只换标题，正文不动")
+            else:
+                print(f"   ⚠️ 三要素不足且拼不出模板标题，保留原题并留证："
+                      f"{art.get('title', '')[:30]}")
+                degrade.note("标题三要素", "缺可用数字/专名，拼不出兜底标题",
+                             action="保留原题发布，metadata 记 title_elements.count")
+
         # 计划 1.2 / 4.1 高风险内容人工确认：涉及伤病/合同金额/争议指控的成稿
         # 转入人工确认队列（data/pending_review.json），确认前不进入发布集合。
         _risk = risk_gate.assess(art)
@@ -2124,6 +2173,29 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 if result:
                     all_hashes.add(result["md5"])
                     downloaded.append(result)
+
+        if not downloaded:
+            # —— P0-3 封面兜底（2026-11-04）——
+            # 图源全断时（维基超时熔断 / Unsplash 无 Key / DuckDuckGo 被挡 / footyrenders 停用）
+            # 即使实体识别 100% 正确也是 0 图，而 0 图 ⇒ 头条主动点「无封面」⇒ 聚合 CTR
+            # 0.52%（有封面 2.07%）。数据卡是原创信息图（标题 + 标题里已有的数字 + 来源标注），
+            # 不引版权素材，也不碰计划 2.2 禁用的「随机图库图文不符」红线。
+            _card = cover_card.render({"title": art.get("title", "")},
+                                      out_dir=images_dir,
+                                      filename=f"{prefix}-{1:03d}.jpg")
+            if _card:
+                _cpath = Path(_card)
+                _cmd5 = hashlib.md5(_cpath.read_bytes()).hexdigest()
+                all_hashes.add(_cmd5)
+                downloaded.append({"local_path": _card, "filename": _cpath.name,
+                                   "url": "", "md5": _cmd5,
+                                   "width": cover_card.W, "height": cover_card.H,
+                                   "description": "数据卡"})
+                degrade.note("封面兜底", "图源全断，改用标题数据卡",
+                             action="已配图发布；数据卡只兜底观感，不替代真实图")
+            else:
+                degrade.note("封面兜底", "数据卡生成失败（字体/PIL 不可用）",
+                             action="照旧不配图发布，该篇计入无封面台账")
 
         content = art.get("content", "")
         # Strip auto-generated markers first to sync with actual downloaded count
@@ -2267,9 +2339,22 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 # 一旦保存层挑字段就丢，导致同一场比赛被写两遍（同 10-25 预测稿漏标）。
                 "is_recap": bool(art.get("_is_recap")),
                 # 计划 12.1：三层供给打标（一级·确定性 / 二级·突发 / 三级·软性）
-                "supply_layer": supply_mix.tag(art)}
+                "supply_layer": supply_mix.tag(art),
+                # 标题三要素留证（P0-1）：发布后 CTR 回流要能按「数字/对比/专名」分层归因。
+                # 只落判据结果，不落「合格与否」——合格线会随复盘调整，判据不会。
+                "title_elements": title_elements.extract(art.get("title", "")).to_row(),
+                # 正文摘要指标（P1-2 观测基础）：正文 .md 只在 CI 临时目录，
+                # 不落这几项，「压字数到 300-500」这类建议永远无法复算。
+                "content_stats": content_stats.summarize(art.get("content") or "")}
         if art.get("_recap_match_id") not in (None, ""):
             _rec["recap_match_id"] = str(art["_recap_match_id"])
+        # 标题兜底留痕（P0-1）：elements=评分侧 / gate=结构侧 / save_side=出口侧。
+        # 不落这项，复盘时看不出「有多少篇标题是被机器换过的」，也就无法判断
+        # 闸门是不是变成了「批量改标题」的流水线。
+        if art.get("_title_fallback"):
+            _rec["title_fallback"] = str(art["_title_fallback"])
+            if art.get("original_title"):
+                _rec["original_title"] = str(art["original_title"])
         # 事件结果稿（揭晓型节点）：跨批/跨天去重的唯一依据。
         # 与战报同理——只在文章对象上留 `_event_result_key`，一旦保存层挑字段就丢，
         # 结果就是同一场颁奖被写两遍（10-25 预测稿漏标是同款事故）。
@@ -2463,10 +2548,13 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 结构：开篇事件核心（一句话出态度）→ 快速分析为什么重要 → 收尾观点（抛给读者讨论）
 
 硬性规范：
+- 标题按三要素写（下方规则），**不要用「震惊/炸了」这类无信息形容词**撑标题
 - 正文 300-500 字（快评，不要求长文，但要够犀利）
 - 必须包含 ≥2 个 ## 二级标题
 - 文末至少1张配图标记：![配图1](images/article-{index}-img-001.jpg)
 - 态度要鲜明，不要骑墙
+
+{_TITLE_ELEMENTS_RULE}
 
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
@@ -2527,9 +2615,11 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         # 计划合规·一致性校验（卡外实体/比分即打回）
         cons_ok, cons_issues = check_consistency_plan(article, facts, blocking=True)
         # 计划合规·标题评分（及格线 60；传闻级断言式标题直接 0 分，计划 4.1）
+        # recent_titles 必须传：不传就等于这条路径不判疑问收尾限额（14 天 ≤2 篇），
+        # 而紧急球评是会发布的——漏传就是限额在它身上完全失效。
         sc, sc_pass, sc_reasons = score_title_plan(
             {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评",
-            fact_tier=_fw_tier)
+            fact_tier=_fw_tier, recent_titles=recent_titles_for_gate(""))
         if not (cons_ok and sc_pass):
             if not cons_ok:
                 _note_consistency_reject(
@@ -3040,6 +3130,25 @@ _TITLE_CONFLICT_KW = ["却", "反而", "逆袭", "惨败", "绝杀", "爆冷", "
                        "不过", "然而", "反超", "绝平", "苦涩", "尴尬", "崩盘", "硬仗",
                        "生死战", "点球", "红牌", "德比", "逆转", "翻车"]
 
+# 三要素口径的统一 prompt 片段（P1-2：先把事实卡里的数字摊出来，再让模型组句）。
+# 生成侧有 6 处 prompt 各自写标题要求，这里收敛成一份，避免「三处各写各的」旧病。
+_TITLE_ELEMENTS_RULE = """标题（2026-11-04 三要素口径，命中不足会被闸门打回重写）：
+- **先从「标题素材」里挑 1 个数字 + 1 个专名（有对照再加 1 个），再组句**；
+  三项至少落地 2 项，且**必须含专名**。
+- 数字只能用素材里给出的（比分/积分/排名/轮次/出场数/进球数），**不得自己造**；
+- 对比写成「A 分对 B 分」「近 N 轮 X 胜」「从第 3 掉到第 9」「甩开一倍」，
+  不要用「很惨/太强」这类形容词代替；
+- 专名用球队/球员/教练/赛事，**不要用「豪门/劲旅/这支球队」代称**；
+- 不以疑问句（？/吗/呢）收尾，不用「XX前瞻」这类固定栏目前缀。"""
+
+
+def _title_block(topic, facts=None) -> str:
+    """标题要求 + 本条的可用素材（数字/专名/对照），供各生成 prompt 直接插入。"""
+    try:
+        return _TITLE_ELEMENTS_RULE + "\n\n" + title_brief.brief_text(topic, facts)
+    except Exception:
+        return _TITLE_ELEMENTS_RULE
+
 # 知名球队/国家队（一致性校验「卡外实体」候选识别，仅球队；误漏不误杀）
 _KNOWN_TEAMS = {
     "曼城", "曼联", "利物浦", "切尔西", "阿森纳", "热刺", "纽卡", "埃弗顿", "西汉姆", "维拉",
@@ -3109,6 +3218,15 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     _tg = title_gate.check(title, recent_titles)
     if not _tg["ok"]:
         return 0, False, [_tg["reason"], _tg["hint"]]
+
+    # P0-1 三要素硬闸门（2026-11-04 阅读量诊断）：数字 / 对比 / 专名，命中 <2 项或
+    # 无专名 → 0 分打回。判据唯一口径在 title_elements（回测与阈值见该模块 docstring）。
+    # 打回原因固定加「[三要素]」前缀：调用方据此区分「只因信息量不足」与硬违规
+    # （传闻断言/赛果播报），后者不能走兜底保留。
+    _tel = title_elements.check(title)
+    if not _tel["ok"]:
+        return 0, False, ["[三要素] " + _tel["hint"]] + \
+            ["[三要素] " + d for d in _tel["detail"]]
 
     L = len(title)
     lo, hi = _TITLE_LEN_BAND.get(content_type, _TITLE_LEN_DEFAULT)
@@ -3228,6 +3346,9 @@ def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
         topic.get("home_zh"), topic.get("away_zh"), topic.get("conflict"),
         topic.get("title"), topic.get("label")) if x)
     reason_txt = "；".join(str(r) for r in (reasons or []) if str(r).strip()) or "标题未达及格线"
+    # P1-2 供给侧：先把事实卡里**现成的**数字摊出来，让模型「挑两个」而不是「想两个」。
+    # 重拟时最容易发生的编造是「从记忆里补一个比分」，所以可用数字必须显式限定。
+    brief = title_brief.brief_text(topic)
 
     prompt = f"""你是头条号足球博主"球评人老六"的标题编辑。下面这条标题被打回，**只重写标题，正文不动**。
 
@@ -3236,12 +3357,15 @@ def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
 打回原因：{reason_txt}
 今天是 {date_str or '今日'}。
 
-硬要求：
-1. 26~30 字（含标点）。
-2. 必须含具体的人（球员/教练）或具体球队名。
-3. 必须含「过程锚点」——第几分钟、连进/连丢几球、谁被换下、补时读秒、红牌罚下、
-   替补建功之类；**只能取原标题与选题里已有的信息，不得编造新的比分/进球/时间**。
-4. 配一个数字或感叹号，或写清冲突/反差动作。
+{brief}
+
+硬要求（按顺序执行，不要先写句子再塞数字）：
+1. **先从上面「可引用数字」里挑 1 个、从「可检索专名」里挑 1 个**，有「可写对照」就再加 1 个；
+   三项里至少落地 2 项，且专名必须有。
+2. 26~30 字（含标点）。数字只能来自上方素材，**不得编造新的比分/进球/时间/身价**。
+3. 必须含具体的人（球员/教练）或具体球队名——不要用「豪门/劲旅/这支球队」这类代称。
+4. 必须写出一处**对比或落差**（A 分 vs B 分、近 5 轮 1 胜、从第 3 掉到第 9、甩开一倍）；
+   没有可比数据就写「A vs B」明示对阵，不要用形容词替代。
 5. **不要以疑问句（？/吗/呢）收尾**；要设问就放中段。
 6. 不得以比分或「大胜/血洗/绝杀/爆冷」这类赛果词开场（会命中硬规则被打回）。
 7. 不得用固定栏目前缀（「老六前瞻：」「赛前分析：」）。
@@ -3273,6 +3397,17 @@ def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
             print(f"   ✏️ 标题已单独重拟（{sc}分）：{new[:40]}")
             return new
         print(f"   ⚠️ 重拟标题仍未过闸门（{sc}分：{'；'.join(why)[:60]}）")
+
+    # LLM 重拟失败后的机械兜底（P1-2）：用选题里**已有**的积分/排名拼一个合规标题，
+    # 保证「正文已经过关、只是标题没写好」的稿子不被丢掉。候选全部来自 title_brief
+    # 的机械模板，不新增事实；一个都拼不出来才返回 None。
+    for cand in title_brief.candidates(topic):
+        sc, ok, why = score_title_plan(topic, cand, topic.get("content_type", "热点球评"),
+                                       date_str or "", recent_titles=recent_titles)
+        if ok:
+            print(f"   🧩 标题走机械兜底（{sc}分）：{cand[:40]}")
+            return cand
+        print(f"   ⚠️ 兜底标题仍未过闸门（{sc}分：{'；'.join(why)[:40]}）")
     return None
 
 
@@ -3575,7 +3710,10 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
 {matches_text}
 {prefix_hint}
 写作要求：
-1. 标题必须自然、有信息量（例如用具体对阵/看点开头，如"曼城主场能否啃下铁桶阵？""欧冠夜这三场最值得熬夜"），严禁任何固定栏目前缀模板
+{_TITLE_ELEMENTS_RULE}
+1. 标题按上面的三要素写：具体对阵/队名（专名）+ 一个可核对数字（近 5 轮战绩、积分差、
+   伤停人数）+ 一处对比；严禁任何固定栏目前缀模板，**不要用疑问句收尾**
+   （旧示例「曼城主场能否啃下铁桶阵？」这类空问正是要淘汰的写法）
 2. 为每场选中的比赛写 2-3 句话分析，给出明确预测结果（XX胜/平局/谁赢面大）
 3. 语气要自信但不狂妄，像老球迷在群里吹水
 4. 文末带互动引导：🔥 评论区下注，明天赛后回来打我脸！
@@ -3644,8 +3782,11 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
             if _cons_issues:
                 print(f"   ⚠️ 预测一致性软告警: {'; '.join(_cons_issues)}")
             # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
+            # 预测稿不发布，但标题仍要过闸门：否则它会以「已用过」的身份进
+            # template_gate 的句式池与进程内标题表，把真正要发的稿子挤掉。
             _p_sc, _p_sc_pass, _p_sc_reasons = score_title_plan(
-                {"content_type": "热点球评"}, article.get("title", ""), "热点球评")
+                {"content_type": "热点球评"}, article.get("title", ""), "热点球评",
+                recent_titles=recent_titles_for_gate(date_str or ""))
             if not _p_sc_pass:
                 if attempt < 2:
                     _hint = (f"标题未过及格线({_p_sc}分): " + "; ".join(_p_sc_reasons) +
@@ -4073,6 +4214,11 @@ def score_fixture_title(topic, title, batch_mode="auto", *, recent_titles=None):
     if not _tg["ok"]:
         return 0, [_tg["reason"], _tg["hint"]]
 
+    # P0-1 三要素硬闸门（同 score_title_plan；口径唯一在 title_elements）
+    _tel = title_elements.check(t)
+    if not _tel["ok"]:
+        return 0, ["[三要素] " + _tel["hint"]] + ["[三要素] " + d for d in _tel["detail"]]
+
     if 26 <= n <= 30:
         score += 25; reasons.append("字数达标")
     elif 22 <= n <= 34:
@@ -4113,6 +4259,28 @@ def score_fixture_title(topic, title, batch_mode="auto", *, recent_titles=None):
     return min(100, score), reasons
 
 
+def _swap_to_template_title(topic, article, current, recent, batch_mode="auto"):
+    """结构违规的最后一招：换成本地模板标题（只换标题、正文不动、不花额度）。
+
+    只对「疑问收尾超限 / 无过程锚点空问式」这类**结构违规**生效。分数不够不换——
+    那是内容信息量的问题，换个标题治不好，只会让标题和正文脱节。
+    返回 (title, score, reasons)；拼不出候选返回 None，调用方据此保留原稿。
+    """
+    if not current or title_gate.check(current, recent)["ok"]:
+        return None
+    for cand in title_brief.candidates(topic):
+        if not (title_gate.check(cand, recent)["ok"] and title_elements.check(cand)["ok"]):
+            continue
+        article["original_title"] = current
+        article["title"] = cand
+        article["_title_fallback"] = "gate"
+        degrade.note("标题结构兜底", "疑问收尾超限/结构违规，换机械模板",
+                     action="只换标题，正文不动")
+        s, r = score_fixture_title(topic, cand, batch_mode, recent_titles=recent)
+        return cand, s, r
+    return None
+
+
 def ensure_fixture_title(topic, article, date_str="", *, batch_mode="auto"):
     """确定性/战报/结果稿共用的标题处理：算分 → 不过 60 就先只重写标题再复算。
 
@@ -4127,10 +4295,19 @@ def ensure_fixture_title(topic, article, date_str="", *, batch_mode="auto"):
         return title, score, reasons
     new = repick_title(topic, article, reasons, date_str or "", recent_titles=recent)
     if not new:
-        return title, score, reasons
+        # 重拟失败（LLM 不可用 / 返回空）时不能直接放行：原题若是疑问收尾超限，
+        # 放行就等于限额从未存在。先试本地模板，再退回原题。
+        return (_swap_to_template_title(topic, article, title, recent, batch_mode)
+                or (title, score, reasons))
     article["title"] = new
     score2, reasons2 = score_fixture_title(topic, new, batch_mode, recent_titles=recent)
-    return new, score2, reasons2
+    if score2 >= 60:
+        return new, score2, reasons2
+    # 「重试几次不过就兜底放行」是个真实的口子：11-04 那篇
+    # 「大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？」就是从这类放行里漏出去的——
+    # 它不是分数不够，是结构违规（疑问收尾超限）。这类不该放行，而是换一个陈述式模板标题。
+    return (_swap_to_template_title(topic, article, new, recent, batch_mode)
+            or (new, score2, reasons2))
 
 
 def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, topic_history=None, batch_mode="auto", avoid_signatures=None):
@@ -4178,6 +4355,8 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
 ## 事实卡（唯一事实来源，严禁编造卡外数据）
 {fact_card}
 
+{title_brief.brief_text(topic, facts)}
+
 ## 选题角度
 类型：{angle_type}（建议栏目：{topic.get('suggested_column', '')}）
 核心冲突：{topic.get('conflict', '')}
@@ -4192,13 +4371,13 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
 今天是 {date_str or '今日'}，比赛在北京时间 {topic.get('kickoff_cst', '')} 开球。
 {prefix_hint}
 写作硬规则（严格按计划 v1.0 第三章/第五章/第七章）：
-1. 标题公式（2026-11-01 头部对标口径，已覆盖旧「疑问收尾」公式）：
-   以**具体的人或球队** + **过程锚点**开头——第几分钟、连进/连丢几球、谁被换下、
-   补时读秒、红牌罚下、替补建功（头部 4 个账号锚点覆盖 7.2%~35.7%，我方此前 2.6%）；
-   配一个数字或感叹号。字数严格落在 26~30 字（含标点）。
-   **不要以疑问句收尾**：近 14 天「？/吗/呢」收尾限额仅 2 篇，超限即打回重写。
-   我方旧标题有 85.5% 是「他到底图个啥？」这类没有过程的空问，中位阅读 8；
-   头部疑问句只占 0%~20.2%。要用设问就放中段，别拿它当句尾。
+1. 标题（2026-11-04 三要素口径，已覆盖旧的「疑问收尾」与「过程锚点」公式）：
+   **先从上方「标题素材」里挑 1 个数字 + 1 个专名（有对照再加 1 个），再组句**；
+   三项至少落地 2 项且必须含专名，否则会被闸门打回重写。
+   - 数字：比分、积分、排名、轮次、出场数、进球数（只能取素材里的）；
+   - 对比：A 分 vs B 分、近 N 轮 X 胜、第 3 掉到第 9、净胜球差距；
+   - 专名：球队/球员/教练/赛事，**不要用「豪门/劲旅/这支球队」代称**。
+   字数严格落在 26~30 字（含标点）。**不要以疑问句收尾**：近 14 天「？/吗/呢」收尾限额仅 2 篇。
    **严禁写成「A队 vs B队」的对阵前瞻或纯战术罗列**——同一条赛程线索「写人」比「写事」
    高 3-10 倍点击；把镜头对准主帅/核心球员的处境与选择，而不是两队的强弱对比。
    严禁『XX前瞻』『赛前分析』等模板化标题（赛事前瞻已停发，计划 7.1 验收：前瞻体占比为零）。
@@ -4331,6 +4510,8 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
 ## 事实卡（唯一事实来源，严禁编造卡外数据）
 {fact_card}
 
+{_title_block(topic)}
+
 ## 选题角度
 核心：{topic.get('conflict', '')}
 角度要求：{topic.get('angle_hint', '')}
@@ -4341,14 +4522,14 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
 比赛在北京时间 {topic.get('kickoff_cst', '')} 开球，今晨已经结束。
 {prefix_hint}
 写作硬规则（严格按计划 v1.0 第三章/第五章/第七章）：
-1. 标题：**一律不带比分、不写「A队2-1B队」这类赛果式开头**。
-   R11 回测（869 条真实导出）里，比分/赛果式标题产量占 23.9%、CTR 仅 0.49%、0 爆款，
-   是全部形态里最差的一类——标题可以写「谁绝杀」，但不能写「2-1」。
-   正确做法：从**过程**切入（谁在第 87 分钟那一下做了错的选择、第几分钟连丢两球后
-   比赛才转向、谁被换下场后局势才变），把那个「过程反常」直接写进标题，
-   配上具体数字或感叹号，26~30 字（含标点）。
+1. 标题（2026-11-04 三要素口径）：**不以比分或赛果词开场**——R11 回测（869 条真实导出）
+   里比分/赛果式标题 CTR 仅 0.49%、0 爆款；但**数字不能少**，改用「过程数字」：
+   第 87 分钟、半场 0-2、近 7 轮 6 负、赛季第 12 球、替补登场 3 分钟就破门。
+   组句顺序：**先定「谁 + 哪个数字」，再写句子**，另加一处对比（半场 0-2 vs 终场 3-2 /
+   近 7 轮 6 负 / 主队 22 分对客队 19 分）；专名（球员/球队/教练）必须有，
+   **不许用「豪门/劲旅/这支球队」代称**。26~30 字（含标点）。
    **不要以疑问句收尾**（近 14 天「？/吗/呢」收尾限额 2 篇，超限即打回）；
-   要设问就放中段。必须出现至少一支球队名或一名当事人。比分的交代放到正文第一段。
+   要设问就放中段。比分的交代放到正文第一段。
    禁止「XX前瞻」「赛后分析」「复盘：」这类模板前缀，禁止与近期赛前稿同句式。
 2. 比分唯一口径：全文出现比分时必须与事实卡「最终比分」完全一致（主队在前、客队在后）。
    可写「2-1」，也可写「2比1」，但**方向和数字不得改动**，不得出现第二个互相矛盾的比分。
@@ -4525,15 +4706,19 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
 
 {fact_card}
 
+{_title_block(topic)}
+
 ## 这件事已经发生了
 颁奖礼已经结束，结果已经公布。读者点进来要的是"为什么是他、这个结果说明了什么"，
 **不是**再猜一遍谁会赢，也**不是**一份生平履历。
 
 {prefix_hint}
 写作硬规则：
-1. 标题：从**人**切入——他的处境、他这次赢下的是什么、这个结果为什么值得争。
+1. 标题（三要素口径）：从**人**切入——他的处境、他这次赢下的是什么、这个结果为什么值得争。
+   先定「谁 + 哪个数字（第几次获奖/多少票/多少球/多少岁）+ 什么对比（对手几票、与他上赛季
+   相比）」再组句，至少落地 2 项且必含专名（获奖者姓名/球队/国家），不许用「这位老将」代称。
    26~30 字（含标点），**不要以疑问句收尾**（近 14 天「？/吗/呢」收尾限额 2 篇，
-   超限即打回；要设问就放中段），必须出现获奖者姓名或所属球队/国家。
+   超限即打回；要设问就放中段）。
    禁止「XX加冕」「官宣：」这类通报式前缀，禁止「谁该拿」「你看好谁」这类赛前句式
    （结果已经出了，再问就是装傻）。
 2. 获奖者姓名严格照抄事实卡「已揭晓结果」，一个字都不能改、不能加译名。
@@ -4678,12 +4863,14 @@ def generate_node_angle_article(topic, date_str=None, recent_prefixes=None,
 ## 事实卡（唯一事实来源，严禁编造卡外数据）
 {fact_lines}
 {sibling_block}
+{_title_block(topic)}
+
 ## 你的角度：{angle}
 {hint}
 
 ## 写作要求
-1. 标题：以**具体的人或事 + 过程锚点**（第几分钟/连进几球/谁被换下/等了几年/连输几场）
-   开头，配数字或感叹号，26~30 字（含标点）。
+1. 标题（三要素口径）：先定「具体的人/队 + 一个可核对数字（第几分钟/多少年/连输几场/多少球）
+   + 一处对比」，至少落地 2 项且必含专名，再组句；26~30 字（含标点）。
    **不要以疑问句（？/吗/呢）收尾**——近 14 天这类收尾限额 2 篇，超限即打回；要设问放中段。
 2. 全文只能使用上方事实卡里的信息；卡里没有的数字、比分、引语、时间点一律不写，
    宁可不提也不编造。观点可以鲜明，事实必须来自卡。
@@ -4903,6 +5090,30 @@ def main():
             extra_meta["ranker_mode"] = _rank_res.get("mode", "rule")
         except Exception as e:
             print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
+
+        # ============================================================
+        # 每批内容类型结构（P1-1，2026-11-04 阅读量诊断）
+        # ============================================================
+        # 病根：占比目标（content_mix.TARGET_PCT）管不住单批——LLM 给 3 个候选、谁排前写谁，
+        # 战术榜单一路涨到 44%（近 10 日 27/61），而它中位阅读 1。
+        # 修法：按「1 篇热点球评 + 1 篇数据型」的**结构**重排，只在候选不足时降级并留痕。
+        # 放在 ranker 之后：ranker 决定「哪条线索更好」，这里只决定「本批写哪几型」，
+        # 同类型内部不动顺序（否则会把 L3 选出来的最好线索换掉）。
+        try:
+            _day_arts = []
+            _mp = OUTPUT_DIR / date_str / "metadata.json"
+            if _mp.exists():
+                _day_arts = (json.loads(_mp.read_text(encoding="utf-8")).get("articles") or [])
+            topics, _mix_rep = batch_mix.assign(
+                topics, article_count, day_counts=batch_mix.day_type_counts(_day_arts))
+            extra_meta["batch_mix"] = _mix_rep
+            print("   🎯 批次类型结构：" + " + ".join(
+                f"{p['slot']}·{p['type']}" for p in _mix_rep["picked"])
+                + f"（选 {_mix_rep['selected']}/{_mix_rep['requested']}）")
+            for _d in _mix_rep["degraded"]:
+                print(f"      ⚠️ {_d}")
+        except Exception as e:
+            print(f"   ⚠️ 批次类型结构异常（跳过，不影响发布）: {e}")
 
         # ============================================================
         # 标题句式闸门（P0-3）：算出「近 14 天已用满」的句式，供生成侧打回

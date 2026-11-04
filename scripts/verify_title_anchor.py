@@ -52,6 +52,13 @@ CST = timezone(timedelta(hours=8))
 # 改造生效日：从这一天起生成的成稿才按新口径验收（此前的稿是旧公式产物）。
 TITLE_SINCE = "2026-11-02"
 
+# 疑问收尾限额的判定生效日——比 TITLE_SINCE 晚，因为闸门本身晚了三天才补全：
+# 11-02~11-04 那 3 篇疑问收尾稿是从**根本没接限额的生成路径**漏出去的
+# （紧急球评/预测稿没传 recent_titles；独立生成路径「重试几次后兜底放行」不复判）。
+# 2026-11-04 已补上这几处，所以从 11-05 起判才对应「规则在生成侧真的能生效」。
+# 旧样本在报告里单列留证——不删、不藏，也不让它们把新链路永远判红。
+QUESTION_CAP_SINCE = "2026-11-05"
+
 # 目标锚点覆盖率。对标对象是英超那些事（35.7%），取 40% 略高——因为它的样本只有 14 条，
 # 且我方起点是 2.6%，需要一个有压力的目标而不是「差不多就行」。
 TARGET_ANCHOR_COVERAGE = 40.0
@@ -73,7 +80,7 @@ def _today() -> str:
     return datetime.now(CST).strftime("%Y-%m-%d")
 
 
-def _window(days: int):
+def _window(days: int, since_str: str | None = None):
     """返回 (since, until)；若生效日还没到（since > today）返回 None。
 
     直接拿 max(生效日, 窗口起点) 会在生效日尚未到时算出一个**倒置窗口**
@@ -81,7 +88,7 @@ def _window(days: int):
     """
     today = datetime.now(CST).date()
     start = today - timedelta(days=days - 1)
-    since = max(datetime.strptime(TITLE_SINCE, "%Y-%m-%d").date(), start)
+    since = max(datetime.strptime(since_str or TITLE_SINCE, "%Y-%m-%d").date(), start)
     if since > today:
         return None
     return since.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d")
@@ -257,23 +264,43 @@ def check_anchor_coverage(days: int) -> dict:
             "value": pct, "target": TARGET_ANCHOR_COVERAGE, "thin": cov["n"] < ROBUST_SAMPLE}
 
 
+def _legacy_question_titles() -> list[str]:
+    """限额生效日之前的疑问收尾篇：只留证，不参与判定。"""
+    end = (datetime.strptime(QUESTION_CAP_SINCE, "%Y-%m-%d").date()
+           - timedelta(days=1)).strftime("%Y-%m-%d")
+    if end < TITLE_SINCE:
+        return []
+    try:
+        ts = title_gate.recent_titles(OUTPUT_DIR, end, days=title_gate.WINDOW_DAYS,
+                                      since=TITLE_SINCE)
+    except Exception:
+        return []
+    return [t for t in ts if title_gate.is_question_ending(t)]
+
+
 def check_question_quota() -> dict:
-    """D. 生效日后 14 天窗口内疑问收尾 ≤2 篇。"""
-    win = _window(title_gate.WINDOW_DAYS)
+    """D. 限额生效日后 14 天窗口内疑问收尾 ≤2 篇。"""
+    legacy = _legacy_question_titles()
+    pre_note = (f"留证：限额补全前（{TITLE_SINCE} 起）疑问收尾 {len(legacy)} 篇，"
+                f"均出自未接限额的生成路径，不计入判据" if legacy else "")
+    win = _window(title_gate.WINDOW_DAYS, QUESTION_CAP_SINCE)
     if win is None:
         return {"item": "疑问收尾限额", "ok": None, "pending": True,
-                "detail": [f"⏸ 生效日 {TITLE_SINCE} 尚未到，无生效后样本（未判定，非通过）；"
-                           f"限额 {MAX_QUESTION_PER_WINDOW} 篇"]}
+                "detail": ([f"⏸ 限额生效日 {QUESTION_CAP_SINCE} 尚未到，无生效后样本"
+                            f"（未判定，非通过）；限额 {MAX_QUESTION_PER_WINDOW} 篇"]
+                           + ([pre_note] if pre_note else []))}
     since, until = win
     try:
         titles = title_gate.recent_titles(OUTPUT_DIR, until,
-                                         days=title_gate.WINDOW_DAYS, since=TITLE_SINCE)
+                                         days=title_gate.WINDOW_DAYS,
+                                         since=QUESTION_CAP_SINCE)
     except Exception as e:
         return {"item": "疑问收尾限额", "ok": None, "pending": True,
                 "detail": [f"⏸ 读取成稿标题失败（{e}），未判定（非通过）"]}
     if not titles:
         return {"item": "疑问收尾限额", "ok": None, "pending": True,
-                "detail": [f"⏸ 窗口 {since} ~ {until}：生效后无成稿，未判定（非通过）"]}
+                "detail": ([f"⏸ 窗口 {since} ~ {until}：生效后无成稿，未判定（非通过）"]
+                           + ([pre_note] if pre_note else []))}
     used = title_gate.count_question_endings(titles)
     ok = used <= MAX_QUESTION_PER_WINDOW
     detail = [f"窗口 {since} ~ {until}：样本 {len(titles)} 篇，"
@@ -281,6 +308,8 @@ def check_question_quota() -> dict:
     if used:
         qs = [t for t in titles if title_gate.is_question_ending(t)][:3]
         detail += [f"  · {t[:40]}" for t in qs]
+    if pre_note:
+        detail.append(pre_note)
     return {"item": "疑问收尾限额", "ok": ok, "detail": detail,
             "value": used, "limit": MAX_QUESTION_PER_WINDOW}
 

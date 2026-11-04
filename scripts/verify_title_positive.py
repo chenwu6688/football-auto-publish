@@ -127,17 +127,23 @@ def check_orchestrator() -> dict:
                 "advisory": False, "detail": [f"❌ 无法载入 orchestrator：{e}"]}
     problems = []
 
-    # 1) 含具体人名版本应高于仅赛事名词版本
-    ev = "世界杯" + "某" * 14
-    pe = "世界杯梅西" + "某" * 12
-    s_ev, _, _ = orchestrator.score_title_plan({}, ev, "热点球评")
+    # 1) 仅赛事名词版本（无人物）必须被判 0。
+    #    注意口径已变：11-03 起「赛事名词开场且全文无人物」是 title_antipattern 的硬拒，
+    #    不再是旧的「-12 分扣分」；所以这里比较的是「0 vs 有分」，不是「低分 vs 高分」。
+    #    11-04 起两条样例都带数字——否则会被三要素闸门先判 0，测到的就不是这条规则了。
+    ev = "世界杯5球3助攻" + "某" * 14       # 22 字，数字齐但无具体人物
+    pe = "世界杯梅西5球" + "某" * 14        # 21 字，只多一个人名
+    s_ev, ok_ev, _ = orchestrator.score_title_plan({}, ev, "热点球评")
     s_pe, _, _ = orchestrator.score_title_plan({}, pe, "热点球评")
+    if not (s_ev == 0 and not ok_ev):
+        problems.append(f"仅赛事名词版本应判 0（无具体人物），实为 {s_ev}/{ok_ev}")
     if not (s_pe > s_ev):
         problems.append(f"含人名版本({s_pe})应 > 仅赛事名词版本({s_ev})")
 
     # 2) 悬念+最优带版本应高于纯中性版本
-    plain = "这场较量" + "某" * 22      # 26 字（最优带内），无悬念
-    susp = "没想到" + "某" * 23         # 26 字，含悬念
+    #    两条都必须先过三要素（专名 + 数字），否则一起被判 0，「>」恒不成立。
+    plain = "皇马5球" + "某" * 19        # 23 字，有专名+数字，无悬念
+    susp = "没想到皇马5球" + "某" * 16     # 23 字，同长度，多一个悬念词
     s_p, _, _ = orchestrator.score_title_plan({}, plain, "热点球评")
     s_s, _, _ = orchestrator.score_title_plan({}, susp, "热点球评")
     if not (s_s > s_p):

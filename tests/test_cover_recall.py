@@ -186,7 +186,8 @@ def test_no_cover_counts_only_published(tmp_path, monkeypatch):
         {"title": "无封面没发", "platform_id": None, "images": []},
     ])
     monkeypatch.setattr(vcc, "OUTPUT_DIR", tmp_path)
-    monkeypatch.setattr(vcc, "_window", lambda days: ("2026-11-03", "2026-11-03"))
+    monkeypatch.setattr(vcc, "_window",
+                        lambda days, since=None: ("2026-11-03", "2026-11-03"))
     rows = vcc._load_published("2026-11-03", "2026-11-03")
     assert [r["title"] for r in rows] == ["有封面", "无封面已发"]
 
@@ -201,16 +202,19 @@ def test_no_cover_respects_since_date(tmp_path, monkeypatch):
 
 
 def test_no_cover_skips_when_window_not_open(monkeypatch):
-    monkeypatch.setattr(vcc, "_window", lambda days: None)
+    # 签名多了 since_str（A 项改按兜底生效日判），lambda 必须跟着改
+    monkeypatch.setattr(vcc, "_window", lambda days, since=None: None)
     rep = vcc.check_no_cover(14)
-    assert rep["ok"] is True and rep["advisory"] is True
+    # 三态：窗口未开是「未判定」，不是「通过」（样本不足不能当绿灯）
+    assert rep["ok"] is None and rep["advisory"] is True
 
 
 def test_no_cover_fails_when_rate_too_high(tmp_path, monkeypatch):
     arts = [{"title": f"t{i}", "platform_id": str(i), "images": []} for i in range(10)]
     _write_meta(tmp_path, "2026-11-03", arts)
     monkeypatch.setattr(vcc, "OUTPUT_DIR", tmp_path)
-    monkeypatch.setattr(vcc, "_window", lambda days: ("2026-11-03", "2026-11-03"))
+    monkeypatch.setattr(vcc, "_window",
+                        lambda days, since=None: ("2026-11-03", "2026-11-03"))
     rep = vcc.check_no_cover(14)
     assert rep["ok"] is False
     assert any("零配图" in d for d in rep["detail"])

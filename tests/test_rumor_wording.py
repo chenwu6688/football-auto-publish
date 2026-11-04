@@ -180,7 +180,9 @@ class TestOrchestratorIntegration(unittest.TestCase):
         self.assertFalse(passed)
 
     def test_no_tier_no_rumor_penalty(self):
-        sc, _, _ = self.o.score_title_plan({}, "曼城官宣签下哈兰德", "转会资讯")
+        # 带上数字（5年）+ 专名（曼城/哈兰德）以通过 2026-11-04 的三要素闸门；
+        # 本用例测的是「无 fact_tier 时不因传闻规则扣分」，不是标题信息量。
+        sc, _, _ = self.o.score_title_plan({}, "曼城官宣签下哈兰德，5年合同", "转会资讯")
         self.assertGreater(sc, 0)
 
     def test_confirmed_tier_declarative_allowed(self):

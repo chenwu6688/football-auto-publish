@@ -130,16 +130,19 @@ class TestOrchestratorIntegration(unittest.TestCase):
         cls.o = orchestrator
 
     def test_event_noun_lower_than_person_version(self):
-        # 同一核心，含具体人名的版本应严格高于仅赛事名词的版本
-        base_event = "世界杯" + "某" * 14            # 赛事名词无具体性 → 被减分
-        base_person = "世界杯梅西" + "某" * 12       # 含具体人名 → 豁免
+        # 同一核心，含具体人名的版本应严格高于仅赛事名词的版本。
+        # 2026-11-04 起 score_title_plan 增加了三要素硬闸门（数字/对比/专名，缺项即 0 分），
+        # 所以两个版本都要带数字与专名，否则双双被判 0，比较失去意义（测的是赛事名词减分）。
+        base_event = "世界杯第3轮" + "某" * 8         # 赛事名词无具体性 → 被减分
+        base_person = "世界杯梅西第3轮" + "某" * 6    # 含具体人名 → 豁免
         s_ev, _, _ = self.o.score_title_plan({}, base_event, "热点球评")
         s_pe, _, _ = self.o.score_title_plan({}, base_person, "热点球评")
         self.assertLess(s_ev, s_pe, "含赛事名词无具体性应低于含具体人名版本")
 
     def test_suspense_optimal_higher_than_plain(self):
-        plain = "这场较量" + "某" * 21               # 仅命中最优带 +10
-        suspense = "没想到" + "某" * 23              # 悬念 + 最优带 = +22
+        # 同上：两组都必须先过三要素闸门，否则比较的是「谁被判 0 分」而不是悬念加分。
+        plain = "曼城第3轮这场较量" + "某" * 14        # 仅命中最优带 +10
+        suspense = "没想到曼城第3轮较量" + "某" * 14   # 悬念 + 最优带 = +22
         s_p, _, _ = self.o.score_title_plan({}, plain, "热点球评")
         s_s, _, _ = self.o.score_title_plan({}, suspense, "热点球评")
         self.assertLess(s_p, s_s, "悬念+最优带版本应高于纯中性版本")
@@ -191,13 +194,14 @@ class TestPublishGateSeparation(unittest.TestCase):
         try:
             arts = [({"date": "2026-10-13"},
                      {"title": "世界杯来了", "content_type": "热点球评"})]
-            total, passed, zero, fails, anti, r11 = vg._score_titles(arts)
+            total, passed, zero, fails, anti, r11, elem = vg._score_titles(arts)
         finally:
             orchestrator.score_title_plan = orig
         self.assertEqual(total, 1)
         self.assertEqual(len(r11), 1, "R11 理由的 0 分应落入 r11 桶")
         self.assertEqual(len(zero), 0, "不应误判为原有硬违规 zero 桶")
         self.assertEqual(len(anti), 0, "不应误判为赛果播报式 anti 桶")
+        self.assertEqual(len(elem), 0, "不应误判为三要素桶")
 
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@
 
 本脚本把「封面配得上没」变成可验收的硬项：
 
-  A. 无封面发布占比（硬项）—— 生效日后近 14 天已发布篇里零配图 ≤5%；
+  A. 无封面发布占比（硬项）—— 兜底生效日后近 14 天已发布篇里零配图 ≤5%；
      样本 <5 篇跳过（改造首日就判＝必然假警）
   B. 图源链路（硬项）—— search_images 已接入「实体词典 → 维基搜索」，
      且 footyrenders 已退出候选（它只会贡献 50×50）；用 AST 查真实调用，
@@ -26,9 +26,16 @@
   C. 尺寸闸门（硬项）—— 保存侧的下载器仍要求 ≥800×600，否则「占位图当封面」会回来
   D. 负向验证（硬项）—— 把阈值人为放松到 100%，判定必须变成「通过」，
      说明这个指标真的在参与判定，而不是恒真
+  E. 零配图兜底（硬项，2026-11-04 起）—— 图源全断时 `orchestrator.save_articles_local`
+     必须在「0 图」分支生成数据卡，且文件名要落在 `publisher.extract_images` 的正则里。
+     **只加图源不加兜底是治不好的**：维基本机与 CI 出口都可能超时，Unsplash 无 Key，
+     DuckDuckGo 挡出口 IP，footyrenders 已停用——四条全断时实体识别 100% 正确也是 0 图。
 
-生效日 ``COVER_SINCE``：改造前的篇是旧图源的产物，拿它判新链路等于永远 FAIL
-（同 title_gate.TITLE_SINCE / content_mix.MIX_SINCE 的处理）。
+生效日两段：
+  - ``COVER_SINCE``    图源改造（实体词典 / 维基搜索）生效日；
+  - ``FALLBACK_SINCE`` 数据卡兜底生效日——**A 项按这个判**。11-02~11-04 的零配图篇
+    发生在兜底接入之前，属旧链路样本：报告里单列留证，但不计判据
+    （不靠删样本让指标变绿，也不让历史样本把新链路永远判红）。
 
 产出 ``data/audit/cover_coverage_<date>.md`` + ``cover_coverage_latest.json``；硬项 FAIL 退出码 1。
 
@@ -53,6 +60,9 @@ CST = timezone(timedelta(hours=8))
 
 # 封面链路改造生效日（此前的篇是旧图源产物，不进判定）
 COVER_SINCE = "2026-11-02"
+# 数据卡兜底（P0-3）生效日：从这天起「零配图」才算违规。
+# 11-02~11-04 的零配图篇发生在兜底接入之前，单列留证、不计判据。
+FALLBACK_SINCE = "2026-11-05"
 
 # 已发布篇里「零配图」的允许占比。留 5% 是给「实体全不在词典、维基也搜不到」的极端篇，
 # 不是给偷懒用的——基线是 37%。
@@ -68,11 +78,11 @@ def _today():
     return datetime.now(CST).date()
 
 
-def _window(days):
+def _window(days, since_str=None):
     """返回 (since, until)；生效日未到返回 None（避免倒置窗口空转）。"""
     today = _today()
     start = today - timedelta(days=days - 1)
-    since = max(datetime.strptime(COVER_SINCE, "%Y-%m-%d").date(), start)
+    since = max(datetime.strptime(since_str or COVER_SINCE, "%Y-%m-%d").date(), start)
     if since > today:
         return None
     return since.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d")
@@ -108,19 +118,41 @@ def _load_published(since, until):
     return rows
 
 
+def _pre_fallback_rows():
+    """兜底接入之前（COVER_SINCE ~ 兜底生效日前一天）的已发布样本。
+
+    只作说明、不参与判定：既不能让历史样本把新链路永远判红，
+    也不能假装这些零配图篇不存在（那就是靠删样本让指标变绿）。
+    """
+    start = datetime.strptime(COVER_SINCE, "%Y-%m-%d").date()
+    end = min(_today(), datetime.strptime(FALLBACK_SINCE, "%Y-%m-%d").date() - timedelta(days=1))
+    if end < start:
+        return []
+    return _load_published(start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"))
+
+
 def check_no_cover(days):
-    """A. 生效日后已发布篇的零配图占比。"""
-    win = _window(days)
+    """A. 兜底生效日后已发布篇的零配图占比。"""
+    pre = _pre_fallback_rows()
+    pre_zero = [r for r in pre if r["images"] == 0]
+    pre_note = (f"留证：兜底接入前（{COVER_SINCE} 起）已发布 {len(pre)} 篇，零配图 {len(pre_zero)} 篇"
+                f"——旧链路样本，不计入判据，待兜底生效后在窗口内重新观察"
+                if pre else "")
+    win = _window(days, FALLBACK_SINCE)
     if win is None:
-        return {"item": "无封面发布占比", "ok": True, "advisory": True,
-                "detail": [f"⚠️ 生效日 {COVER_SINCE} 尚未到，暂无生效后样本；"
-                           f"上限 {MAX_NO_COVER_PCT:.0f}%"]}
+        detail = [f"⏸ 兜底生效日 {FALLBACK_SINCE} 尚未到，暂无生效后样本；"
+                  f"上限 {MAX_NO_COVER_PCT:.0f}%（未判定 ≠ 通过）"]
+        if pre_note:
+            detail.append(pre_note)
+        return {"item": "无封面发布占比", "ok": None, "advisory": True, "detail": detail}
     since, until = win
     rows = _load_published(since, until)
     if len(rows) < MIN_SAMPLE:
-        return {"item": "无封面发布占比", "ok": True, "advisory": True,
-                "detail": [f"⚠️ {since}~{until} 已发布样本仅 {len(rows)} 篇（<{MIN_SAMPLE}），"
-                           f"不下结论；上限 {MAX_NO_COVER_PCT:.0f}%"]}
+        detail = [f"⏸ {since}~{until} 已发布样本仅 {len(rows)} 篇（<{MIN_SAMPLE}），"
+                  f"不下结论；上限 {MAX_NO_COVER_PCT:.0f}%（未判定 ≠ 通过）"]
+        if pre_note:
+            detail.append(pre_note)
+        return {"item": "无封面发布占比", "ok": None, "advisory": True, "detail": detail}
     zero = [r for r in rows if r["images"] == 0]
     pct = 100.0 * len(zero) / len(rows)
     ok = pct <= MAX_NO_COVER_PCT
@@ -130,6 +162,8 @@ def check_no_cover(days):
               "该路径聚合点击率 0.52% vs 有封面 2.07%（2026-11-01 体检）"]
     if not ok:
         detail.append("❌ 零配图篇举例：" + "；".join(r["title"][:24] for r in zero[:3]))
+    if pre_note:
+        detail.append(pre_note)
     return {"item": "无封面发布占比", "ok": ok, "detail": detail}
 
 
@@ -240,26 +274,91 @@ def check_negative(rows_pct=100.0):
     return {"item": "负向验证", "ok": ok, "detail": detail}
 
 
+def check_fallback_wired():
+    """E. 零配图兜底：0 图分支必须真的生成数据卡，且名字能被发布端抓到。"""
+    detail, ok = [], True
+    try:
+        tree = ast.parse(ORCHESTRATOR.read_text(encoding="utf-8"))
+    except Exception as e:
+        return {"item": "零配图兜底", "ok": False,
+                "detail": [f"❌ orchestrator 解析失败：{e}"]}
+    fn = next((n for n in ast.walk(tree)
+               if isinstance(n, ast.FunctionDef) and n.name == "save_articles_local"), None)
+    if fn is None:
+        ok = False
+        detail.append("❌ 找不到 save_articles_local")
+    else:
+        calls = [n for n in ast.walk(fn)
+                 if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Attribute)
+                 and n.func.attr == "render"
+                 and isinstance(n.func.value, ast.Name)
+                 and n.func.value.id == "cover_card"]
+        if not calls:
+            ok = False
+            detail.append("❌ 零配图分支没接 cover_card.render —— "
+                          "图源一断仍然走「无封面」（CTR 0.52%）")
+        else:
+            kws = {k.arg for k in calls[0].keywords}
+            if "filename" not in kws:
+                ok = False
+                detail.append("❌ 调了 render 但没传 filename → 生成 card-*.jpg，"
+                              "publisher.extract_images 抓不到，台账照样记 0 图")
+            else:
+                detail.append("✅ 零配图分支已生成数据卡，且用发布端可识别的文件名")
+    try:
+        import cover_card
+        import degrade
+    except Exception as e:
+        return {"item": "零配图兜底", "ok": False,
+                "detail": detail + [f"❌ 导入失败：{e}"]}
+    if cover_card.W < MIN_WIDTH or cover_card.H < MIN_HEIGHT:
+        ok = False
+        detail.append(f"❌ 数据卡尺寸 {cover_card.W}×{cover_card.H} 不过闸门")
+    else:
+        detail.append(f"✅ 数据卡尺寸 {cover_card.W}×{cover_card.H}"
+                      f"（≥{MIN_WIDTH}×{MIN_HEIGHT}）")
+    if "封面兜底" not in degrade.DEGRADE_POLICY:
+        ok = False
+        detail.append("❌ degrade 策略表缺「封面兜底」—— 出问题时没有留痕口径")
+    else:
+        detail.append("✅ 降级策略含「封面兜底」（不阻塞发布，但必须留痕）")
+    return {"item": "零配图兜底", "ok": ok, "detail": detail}
+
+
 def verify(days=14):
-    checks = [check_no_cover(days), check_source_chain(),
-              check_size_gate(), check_negative()]
+    checks = [check_no_cover(days), check_source_chain(), check_size_gate(),
+              check_negative(), check_fallback_wired()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
-            "window_days": days, "since": COVER_SINCE,
-            "ok": all(c["ok"] for c in hard), "checks": checks,
-            "hard_failed": [c["item"] for c in hard if not c["ok"]]}
+            "window_days": days, "since": COVER_SINCE, "fallback_since": FALLBACK_SINCE,
+            # 三态：ok=None 表示「未判定」，既不算通过也不算失败（样本不足）
+            "ok": all(c["ok"] is not False for c in hard),
+            "checks": checks,
+            "hard_failed": [c["item"] for c in hard if c["ok"] is False],
+            "undetermined": [c["item"] for c in checks if c["ok"] is None]}
 
 
 def render_md(rep):
+    # 有未判定项时不能笼统写「通过」：样本不足既不是绿也不是红
+    _verdict = "通过 ✅" if rep["ok"] else "未通过 ❌"
+    if rep["ok"] and rep.get("undetermined"):
+        _verdict = f"部分通过 ⏸（{len(rep['undetermined'])} 项样本不足未判定，不等于通过）"
     L = ["# 封面覆盖率验收（2026-11-01 体系体检）", "",
-         f"- 生成时间：{rep['generated_at']}｜窗口 {rep['window_days']} 天｜生效日 {rep['since']}",
-         f"- 验收结论：**{'通过 ✅' if rep['ok'] else '未通过 ❌'}**",
+         f"- 生成时间：{rep['generated_at']}｜窗口 {rep['window_days']} 天"
+         f"｜图源改造生效 {rep['since']}｜兜底生效 {rep.get('fallback_since', '-')}",
+         f"- 验收结论：**{_verdict}**",
          "- 口径出处：docs/audit/2026-11-01-体系体检与14天观察窗.md（无封面 0.52% vs 有封面 2.07%）",
+         "- A 项按**兜底生效日**判：图源改造后仍零配图的篇（11-02~11-04）发生在兜底接入前，"
+         "单列留证、不计判据",
          ""]
     if rep.get("hard_failed"):
         L += [f"> 未通过硬项：{'、'.join(rep['hard_failed'])}", ""]
+    if rep.get("undetermined"):
+        L += [f"> 未判定（样本不足，不等于通过）：{'、'.join(rep['undetermined'])}", ""]
     for c in rep["checks"]:
-        L.append(f"## {c['item']}：{'✅' if c['ok'] else '❌'}"
+        _mark = {True: "✅", False: "❌", None: "⏸"}[c["ok"]]
+        L.append(f"## {c['item']}：{_mark}"
                  + ("（跳过/告警）" if c.get("advisory") else ""))
         L += [f"- {d}" for d in c.get("detail", [])]
         L.append("")
@@ -279,6 +378,8 @@ def main():
         json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
     if not args.quiet:
         print(render_md(rep))
+    for item in rep.get("undetermined") or []:
+        print(f"::warning::封面验收「{item}」样本不足，本次未判定（不等于通过）")
     return 0 if rep["ok"] else 1
 
 

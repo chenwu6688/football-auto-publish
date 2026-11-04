@@ -25,14 +25,27 @@ _ENTITY_TERMS: set[str] | None = None
 
 
 def _entity_terms() -> set[str]:
-    """复用抽取器的实体词典（config/entity_map.json）。"""
+    """复用抽取器的实体词典（config/entity_map.json）。
+
+    2026-11-04 补一层「顶流/传奇/名帅」：entity_map 的 558 名球员来自五大联赛射手榜，
+    梅西/C罗/马拉多纳/巴乔全都不在里面，于是「梅西C罗数据大对比」这类稿子
+    实体为空 → 0 图 → 发布时判「无封面」（无封面组 CTR 0.52% vs 有封面 2.07%）。
+    名单唯一来源是 ``title_elements.top_people()``，避免两处各写一份「谁算名人」。
+    """
     global _ENTITY_TERMS
     if _ENTITY_TERMS is None:
+        terms: set[str] = set()
         try:
             from extractor import _entity_names
-            _ENTITY_TERMS = _entity_names()
+            terms = set(_entity_names())
         except Exception:
-            _ENTITY_TERMS = set()
+            terms = set()
+        try:
+            import title_elements
+            terms |= set(title_elements.top_people())
+        except Exception:
+            pass
+        _ENTITY_TERMS = terms
     return _ENTITY_TERMS
 
 
