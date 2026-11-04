@@ -35,9 +35,12 @@ permissions:
   contents: write        # 回写结果需要；只写 data/audit 下的探针报告
 
 env:
-  PROBE_N: ${{ inputs.n || '50' }}
-  PROBE_URL: ${{ inputs.url || 'https://www.zhibo8.cc/' }}
-  PROBE_GAP: ${{ inputs.gap || '1.2' }}
+  # 必须用 `github.event.inputs` 而不是 `inputs`：顶层 env 里 `inputs` 上下文只在
+  # workflow_dispatch/workflow_call 中存在，push 触发时引用它会让整个 workflow
+  # 直接报 "Unrecognized named-value: 'inputs'" 而跑不起来（首版就是这么挂的）。
+  PROBE_N: ${{ github.event.inputs.n || '50' }}
+  PROBE_URL: ${{ github.event.inputs.url || 'https://www.zhibo8.cc/' }}
+  PROBE_GAP: ${{ github.event.inputs.gap || '1.2' }}
 
 jobs:
   probe:
