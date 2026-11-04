@@ -1,45 +1,28 @@
 {
-  "date": "2026-11-03",
-  "generated_at": "2026-11-03 10:05:41",
-  "batch_filter": "evening",
+  "date": "2026-11-04",
+  "generated_at": "2026-11-04 00:06:04",
+  "batch_filter": "morning",
   "counts": {
-    "total": 3,
-    "published": 2,
+    "total": 1,
+    "published": 1,
     "failed": 0,
-    "skipped_prediction": 1,
+    "skipped_prediction": 0,
     "published_without_id": 0,
-    "published_without_cover": 1
+    "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 2,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "status": "skipped_prediction",
-      "title": "马竞主场硬刚拜仁，巴萨碰维拉，欧冠夜谁先掉链子？",
+      "title": "马竞铁血防线连丢两球崩盘，拜仁0-2带走胜利，谁该背锅",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "",
-      "reason": "预测稿不发布到头条（R13 决策④）"
-    },
-    {
-      "title": "费耶诺德那位前锋第90分钟还在追抢，国米后防得先想清楚一件事",
-      "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7703883919154610697",
+      "batch_name": "晨读",
+      "platform_id": "7704100634164789779",
       "reason": "",
-      "images": 3,
-      "status": "published"
-    },
-    {
-      "title": "梅西C罗数据大对比，进球助攻谁更强？到底谁才是真球王？",
-      "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7703884220573286962",
-      "reason": "",
-      "images": 0,
+      "images": 2,
       "status": "published"
     }
   ],
