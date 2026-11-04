@@ -1,7 +1,7 @@
 {
   "date": "2026-11-04",
-  "generated_at": "2026-11-04T00:04:55.311794",
-  "total_articles": 1,
+  "generated_at": "2026-11-04T04:05:06.167430",
+  "total_articles": 3,
   "articles": [
     {
       "index": 1,
@@ -41,71 +41,232 @@
       "supply_layer": "二级·突发",
       "recap_match_id": "575381",
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "曼联半场两球落后还能翻盘，换人后罗马彻底崩了",
+      "path": "/home/runner/work/_temp/output/2026-11-04/article-1-曼联半场两球落后-a51af0.md",
+      "slug": "曼联半场两球落后-a51af0",
+      "tags": [
+        "Manchester United",
+        "Roma",
+        "Champions League",
+        "comeback",
+        "substitution"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Roma",
+        "Champions League",
+        "comeback",
+        "substitution"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-04/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-04/images/article-1-img-002.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "recap_match_id": "575383",
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？",
+      "path": "/home/runner/work/_temp/output/2026-11-04/article-2-大罗VSC罗巅峰-7196e8.md",
+      "slug": "大罗VSC罗巅峰-7196e8",
+      "tags": [
+        "Ronaldo",
+        "Cristiano Ronaldo",
+        "data comparison",
+        "football legends",
+        "World Cup goals"
+      ],
+      "keywords": [
+        "Ronaldo",
+        "Cristiano Ronaldo",
+        "data comparison",
+        "football legends",
+        "World Cup goals"
+      ],
+      "images": [],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性"
     }
   ],
   "topics": [
     {
-      "title": "维拉欧冠3连胜进12球，碰上巴萨却0-3完败，差距原来在这",
-      "angle": "维拉前三轮欧冠3连胜狂进12球，对上巴萨却被打回原形，这不是状态问题而是硬实力和比赛层级的差距；高端局和普通局是两码事，别拿连胜数据骗自己。",
+      "title": "国安亚冠被打成筛子，斯帕吉奇道歉背后防守烂到根了",
+      "angle": "4-7惨败泰港不是偶然，国安防守体系松散早被亚冠惨案敲过警钟，光靠进攻华丽遮不住后防的窟窿，斯帕吉奇道歉也只是第一步。",
       "keywords": [
-        "Aston Villa",
-        "Barcelona",
-        "Champions League",
-        "reality check"
+        "beijing guo'an",
+        "afc champions league",
+        "defensive collapse",
+        "spajic"
       ],
       "keywords_cn": [
-        "维拉",
-        "巴萨",
-        "欧冠",
-        "高端局"
+        "北京国安",
+        "亚冠",
+        "防守崩盘",
+        "斯帕吉奇"
       ],
       "content_type": "热点球评",
-      "score": 86,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
+      "score": 88,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "连胜数据被强队戳破，反差感强",
-      "_category": "战报比分",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "中超球队亚冠惨案戳中老球迷恨铁不成钢的情结",
+      "_category": "冲突舆情",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "马竞铁血防线连丢两球崩盘，拜仁0-2带走胜利，谁该背锅",
+      "title": "斯卢茨基见到中国女生就紧张，前申花助教爆的这料够劲",
+      "angle": "前申花助教爆料斯卢茨基曾被中国女生跟踪、见女生就紧张，这种教练场外轶事比战术板更能让人看清一个名帅的另一面。",
+      "keywords": [
+        "slutsky",
+        "shenhua",
+        "coach anecdote"
+      ],
+      "keywords_cn": [
+        "斯卢茨基",
+        "申花",
+        "教练轶事"
+      ],
+      "content_type": "八卦趣事",
+      "score": 76,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "old-fan-night",
+      "why_pick": "名帅场外冷知识，老球迷夜话的天然素材",
+      "_category": "冲突舆情",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "安佩姆从水货到4场6球，穆斯卡特赛后却避谈未来",
+      "angle": "安佩姆亚冠4场6球打脸当初喊水货的人，球迷高喊留下他，可穆斯卡特偏偏避谈未来——这背后是海港留人还是放人的算盘。",
+      "keywords": [
+        "amper",
+        "muscat",
+        "shanghai port",
+        "afc champions league"
+      ],
+      "keywords_cn": [
+        "安佩姆",
+        "穆斯卡特",
+        "上海海港",
+        "亚冠"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "水货逆袭+主帅避谈未来，反差和悬念都够",
+      "_category": "中国足球",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "曼联半场两球落后还能翻盘，换人后罗马彻底崩了",
       "content_type": "战术榜单",
       "_supply_layer": "二级·突发",
       "_is_recap": true
+    },
+    {
+      "title": "大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
   "supply_layers": {
-    "total": 1,
+    "total": 2,
     "counts": {
       "一级·确定性": 0,
       "二级·突发": 1,
-      "三级·软性": 0
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -114,28 +275,16 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「马竞主场0-2完败拜仁，铁血防线一夜崩塌」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
-      "数量": 1
-    },
-    {
       "环节": "战报互动引导未达标",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入（不丢弃成稿）",
-      "数量": 1
-    },
-    {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
       "数量": 1
     },
     {
@@ -147,7 +296,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -159,10 +308,11 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-04 08:04:55"
+  "last_batch": "noon",
+  "last_updated": "2026-11-04 12:05:06"
 }
