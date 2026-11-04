@@ -31,7 +31,9 @@ meta:
   # 2026-11-04 盘点：39 项里只有 8 项有真负向用例，其余 31 项「恒真风险」。
   # 这个数字是**实测**得来的，不是估计。硬门禁只要求它不增长——
   # 一次性要求 39/39 会让这条线立刻变红，红久了就会被 `|| echo` 软化（11-03 的坑）。
-  baseline_negative_debt: 31
+  # 2026-11-04 夜：batch_mix 补了「目标漂移必红」的负向用例，债务 31 → 30，
+  # 基线同降（基线必须等于当前实际债务，否则「元层负向自检」那条会失效）。
+  baseline_negative_debt: 30
   debt_must_not_grow: true
   # 每日层的最小集合：可以加项，不许悄悄删项（否则「每日结果门禁」会被慢慢掏空）
   required_daily:
@@ -111,7 +113,7 @@ items:
     tiers: [daily]
     kind: hard
     why: 每批结构决定单批能不能出爆款（配比是月度口径，管不住单批）
-    negative: null
+    negative: "把排行榜目标改到 45%，「结构隐含份额 vs 配比目标」硬项必须报红（-28.3pp）；另见 selftest「只有低效类型时不凑数」"
   effect_loop:
     tiers: [daily]
     kind: hard

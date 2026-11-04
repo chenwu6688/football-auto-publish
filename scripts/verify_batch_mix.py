@@ -55,9 +55,21 @@ MIN_SAMPLE = 8
 CUM_MIN_SAMPLE = 20
 
 # 结构与实测支撑的目标
-TARGET_MAIN_MIN = 35.0        # 热点球评下限
-TARGET_TACTICAL_MAX = 25.0    # 战术榜单上限
-TARGET_DATA_MIN = 20.0        # 数据型（数据对比+排行榜）下限
+#
+# ▼ 2026-11-04 夜间：这三个数字**不再单独手写**，改为由「配比目标 ± 容差」派生。
+#   此前是 35 / 25 / 20 三个孤立常量，和 content_mix.TARGET_PCT（40/25/15/10）各写各的：
+#   同一个「战术榜单该占多少」，配比表说 10%、结构验收说上限 25% —— 两把尺子相差 15pp，
+#   按哪把都能说合格。派生之后，改目标即改验收，改一处必须改另一处（否则本文件红）。
+_TOL = content_mix.TOL_PCT
+TARGET_MAIN_MIN = round(content_mix.TARGET_PCT["热点球评"] - _TOL, 1)
+TARGET_TACTICAL_MAX = round(content_mix.TARGET_PCT["战术榜单"] + _TOL, 1)
+TARGET_DATA_MIN = round(content_mix.TARGET_PCT["数据对比"]
+                        + content_mix.TARGET_PCT["排行榜"] - _TOL, 1)
+
+# 模拟用的池子规模（每类型给多少条候选）。够大即可，只关心稳态份额。
+_SIM_PER_TYPE = 30
+_SIM_BATCHES_PER_DAY = 3      # 晨读/午间/晚间
+_SIM_PER_BATCH = 2            # constants.BATCH_QUOTA.normal_max
 
 
 def _today() -> str:
@@ -199,9 +211,67 @@ def _check_config_consistency() -> dict:
                        "自洽 ✅" if not issues else "❌ " + "；".join(issues)]}
 
 
+def _simulate(days: int = 7) -> tuple[dict, int]:
+    """用真实 ``batch_mix.assign`` 模拟 N 天的产出结构（候选充足、无降级）。
+
+    **为什么用模拟而不是只统计历史**：历史批次里「候选不足」会触发补位，
+    测出来的份额混着供给侧噪声；而「结构本身会不会跟配比目标打架」是个纯逻辑问题，
+    用满候选池跑一遍就能定论（同 `verify_rule_consistency` 的思路：先证伪再谈数据）。
+    """
+    types = ("热点球评", "数据对比", "排行榜", "战术榜单", "八卦趣事", "人物故事", "转会资讯")
+    counts: dict[str, int] = {}
+    for _d in range(days):
+        day: dict[str, int] = {}
+        for _b in range(_SIM_BATCHES_PER_DAY):
+            pool = [{"content_type": ct, "title": f"{ct}-{i}"}
+                    for ct in types for i in range(_SIM_PER_TYPE)]
+            picked, _rep = batch_mix.assign(pool, _SIM_PER_BATCH, day_counts=day)
+            for t in picked:
+                ct = content_mix.normalize(t.get("content_type"))
+                counts[ct] = counts.get(ct, 0) + 1
+                day[ct] = day.get(ct, 0) + 1
+    total = sum(counts.values())
+    pct = {k: round(100.0 * v / total, 1) for k, v in counts.items()} if total else {}
+    return pct, total
+
+
+def _check_structure_matches_target() -> dict:
+    """D. 结构隐含份额 vs 配比目标（硬项）——防两处各写各的。
+
+    这条是 2026-11-04「规则与阈值相斥」的可回归化：改动 `batch_mix.STRUCTURE`、
+    `SLOT_TYPES`、`_progress` 或 `TARGET_PCT` 任一处而不同步另一处，这里必红。
+    判据用配比表自己的容差（`content_mix.TOL_PCT`），不另立第三套阈值。
+    """
+    implied, total = _simulate()
+    if not total:
+        return {"item": "结构隐含份额 vs 配比目标", "ok": False,
+                "detail": ["❌ 模拟没有产出任何篇目（batch_mix.assign 空转）"]}
+    checks, issues = [], []
+    for ct in ("热点球评", "数据对比", "排行榜"):
+        tgt = content_mix.TARGET_PCT.get(ct, 0.0)
+        got = implied.get(ct, 0.0)
+        dev = round(got - tgt, 1)
+        bad = abs(dev) > _TOL
+        checks.append(f"{ct} 结构 {got}% / 目标 {tgt}% / 偏差 {dev:+.1f}pp"
+                      + (" ❌ 超容差" if bad else " ✅"))
+        if bad:
+            issues.append(f"{ct} 偏差 {dev:+.1f}pp 超容差 {_TOL}pp")
+    # 战术榜单上限：结构隐含值不能突破目标 + 容差（它在结构里只该做补位）
+    tac = implied.get("战术榜单", 0.0)
+    if tac > TARGET_TACTICAL_MAX:
+        issues.append(f"战术榜单结构隐含 {tac}% > 上限 {TARGET_TACTICAL_MAX}%")
+    checks.append(f"战术榜单 结构 {tac}%（上限 {TARGET_TACTICAL_MAX}%）"
+                  + (" ❌" if tac > TARGET_TACTICAL_MAX else " ✅"))
+    checks.append(f"模拟口径：{_SIM_BATCHES_PER_DAY} 批/天 × {_SIM_PER_BATCH} 篇 × 7 天，"
+                  f"每类型 {_SIM_PER_TYPE} 条候选（候选充足、无降级）")
+    return {"item": "结构隐含份额 vs 配比目标", "ok": not issues,
+            "implied": implied, "issues": issues,
+            "detail": checks + (["自洽 ✅"] if not issues else ["❌ " + "；".join(issues)])}
+
+
 def verify(days: int = 7) -> dict:
     checks = [_check_selftest(), _check_wiring(), _check_config_consistency(),
-              _check_structure(days)]
+              _check_structure_matches_target(), _check_structure(days)]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "since": MIX_SINCE, "ok": all(c["ok"] is not False for c in hard),

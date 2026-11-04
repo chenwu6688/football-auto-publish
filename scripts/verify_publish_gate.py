@@ -64,6 +64,18 @@ WINDOW_DAYS = 14            # 计划 7.2/7.3 与 8.1 一致的滚动窗口口径
 # （不许隐瞒），并在 A1 的 detail 里点名「这是修复前口径漏检的存量」。
 GATE_SINCE = "2026-11-05"
 
+# 三要素覆盖率（A5）的生效日与判定线（2026-11-04 夜间，修「规则与阈值相斥」）。
+#   生效日：三要素硬闸门是 11-04 下午进的主干，之前产出的标题**没有跑过这条闸门**，
+#           拿它们算通过率是在给新规则判旧账。
+#   判定线 85%：三要素不达标会被 score_title_plan 直接打回并重拟标题，真按硬闸门执行
+#           应当接近 100%；留 15pp 是给 `ensure_fixture_title` 里「重拟 + 模板兜底
+#           都失败 → 保留原题发布」（有 degrade 留痕）这一条唯一的口子。
+#   旧版是不分新旧一律 ≥50% —— 一条硬闸门配一个「一半违规也算达标」的阈值，
+#   等于自己承认闸门可以不做，这是这轮排查里最典型的一处规则相斥。
+ELEM_SINCE = "2026-11-05"
+ELEM_PASS_MIN = 85.0
+ELEM_MIN_SAMPLE = 5
+
 
 def _recent_articles(days=WINDOW_DAYS):
     floor = (datetime.now(CST) - timedelta(days=days)).strftime("%Y-%m-%d")
@@ -245,13 +257,20 @@ def check_title_antipattern_residue() -> dict:
 
 
 def check_title_elements_residue() -> dict:
-    """A5. 标题三要素覆盖率（告警项，2026-11-04 生效）。
+    """A5. 标题三要素覆盖率（2026-11-04 生效，告警项）。
 
     为什么单列而不是并进 A1：三要素是新规则，**旧口径产出的历史成稿天然不满足**
     （实测近 14 天 86 条里 35 条缺项），并进 A1 会让硬项红满 14 天，
     然后就等着被 `|| echo` 软化——11-03 已经踩过这个坑。
-    本项只报覆盖率与趋势；尺子本身的松紧由 scripts/verify_title_elements.py
-    用「我方单调性 + 头部不误杀」两组数据硬判。
+
+    ▼ 2026-11-04 夜间修「规则与阈值相斥」：原来不分新旧，一律「通过率 ≥50% 算达标」。
+      这对一条**硬闸门**是不成立的——`score_title_plan` 里三要素不达标直接 0 分打回，
+      真按硬闸门执行，通过率应当接近 100%；50% 等于书面承认「一半违规也能发」。
+      现在按生效日分口径：
+        · 存量（< ``ELEM_SINCE``）：只报数、不判定，随窗口滚出；
+        · 生效日后：通过率 ≥ ``ELEM_PASS_MIN``（85%，留给「重拟全失败→保留原题」的兜底）；
+        · 生效日后样本 < ``ELEM_MIN_SAMPLE`` → ``ok=None``（未判定，不是通过）。
+      这样「硬闸门」与「告警阈值」说的是同一件事，而不是两句互相拆台的话。
     """
     try:
         import title_elements as te
@@ -262,22 +281,39 @@ def check_title_elements_residue() -> dict:
     if not arts:
         return {"item": "标题三要素覆盖率（近14天，告警）", "ok": True, "advisory": True,
                 "skipped": True, "detail": ["近 14 天无成稿 metadata，本项跳过"]}
-    titles = [(a.get("title") or "").strip() for _d, a in arts]
-    titles = [t for t in titles if t]
-    cov = te.coverage(titles)
-    if not cov["n"]:
-        return {"item": "标题三要素覆盖率（近14天，告警）", "ok": True, "advisory": True,
-                "skipped": True, "detail": ["近 14 天成稿标题为空，本项跳过"]}
-    ok = (cov["pass_rate"] or 0) >= 50.0
-    return {"item": "标题三要素覆盖率（近14天，告警）", "ok": ok, "advisory": True,
-            "skipped": False, "coverage": cov,
-            "detail": [f"近 14 天成稿标题 {cov['n']} 条：数字 {cov['number']}% / "
-                       f"对比 {cov['contrast']}% / 专名 {cov['proper']}% / "
-                       f"三项全过 {cov['all_three']}%",
-                       f"达下限（≥{te.MIN_ELEMENTS} 项且含专名）通过率 {cov['pass_rate']}%"
-                       + ("（目标 ≥50%）" + (" ✅" if ok else " ⚠️ 存量旧口径产出，随窗口滚出")),
-                       "尺子松紧由 scripts/verify_title_elements.py 硬判"
-                       "（我方单调性 + 头部不误杀 + 压力带）"]}
+
+    legacy_t, live_t = [], []
+    for data, a in arts:
+        t = (a.get("title") or "").strip()
+        if not t:
+            continue
+        (live_t if (data.get("date") or "") >= ELEM_SINCE else legacy_t).append(t)
+
+    cov = te.coverage(live_t) if live_t else {"n": 0, "pass_rate": None,
+                                              "number": 0, "contrast": 0,
+                                              "proper": 0, "all_three": 0}
+    legacy = te.coverage(legacy_t) if legacy_t else {"n": 0, "pass_rate": None}
+    base = [f"生效日前存量 {legacy['n']} 条（三要素通过率 {legacy['pass_rate']}%，"
+            f"只留证不判定，随 14 天窗口滚出）"
+            if legacy_t else "生效日前无存量样本"]
+
+    if cov["n"] < ELEM_MIN_SAMPLE:
+        return {"item": "标题三要素覆盖率（生效日起，告警）", "ok": None, "advisory": True,
+                "pending": True, "coverage": cov, "legacy": legacy,
+                "detail": base + [f"⏸ 生效日（{ELEM_SINCE}）后样本 {cov['n']} 条 "
+                                  f"< {ELEM_MIN_SAMPLE}，未判定（不等于通过）"]}
+
+    ok = (cov["pass_rate"] or 0) >= ELEM_PASS_MIN
+    return {"item": "标题三要素覆盖率（生效日起，告警）", "ok": ok, "advisory": True,
+            "skipped": False, "coverage": cov, "legacy": legacy,
+            "detail": base + [
+                f"生效日后 {cov['n']} 条：数字 {cov['number']}% / 对比 {cov['contrast']}% / "
+                f"专名 {cov['proper']}% / 三项全过 {cov['all_three']}%",
+                f"达下限（≥{te.MIN_ELEMENTS} 项且含专名）通过率 {cov['pass_rate']}%"
+                f"（目标 ≥{ELEM_PASS_MIN:.0f}%，与硬闸门语义一致）"
+                + (" ✅" if ok else " ⚠️ 说明重拟+模板兜底没接住，属真实漏出"),
+                "尺子松紧由 scripts/verify_title_elements.py 硬判"
+                "（我方单调性 + 头部不误杀 + 压力带）"]}
 
 
 def check_team_alias_awareness() -> dict:

@@ -39,7 +39,7 @@ class TestTargetTable(unittest.TestCase):
         """负向：目标表合计改了 → 硬项 A 必须 FAIL。"""
         orig = dict(content_mix.TARGET_PCT)
         try:
-            content_mix.TARGET_PCT["热点球评"] = 34.0      # 合计变 99
+            content_mix.TARGET_PCT["热点球评"] -= 1.0       # 合计变 99（不写死具体值）
             r = vcm.check_target_table()
             self.assertFalse(r["ok"])
             self.assertTrue(any("合计" in d for d in r["detail"]))

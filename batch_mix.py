@@ -17,6 +17,11 @@ LLM 一次给 3 个候选，谁排前面就写谁，于是战术榜单一路涨�
     slot A（main）  热点球评 / 紧急球评   —— 唯一稳定过百的类型
     slot B（data）  数据对比 / 排行榜      —— 数据型，可复用事实卡，成本低
 
+**槽位内先取哪个类型，不按固定顺序，按「相对目标的缺口」**（2026-11-04 修规则相斥）：
+`data` 槽原本恒定先取数据对比，排行榜永远轮不到，而 `content_mix.TARGET_PCT`
+又给排行榜留着 15% 份额 —— 规则与阈值互相排斥，表现是配比告警天天亮且无法消除。
+现在按 `(已用篇数 / 目标份额)` 从小到大取，稳态收敛到 25:15 = 5:3。
+
 战术榜单只在 A/B 都无候选时补位（并记 degraded），低效类型（人物故事/转会/八卦）
 不再进主结构，只允许「当日还没出现过」时补第 3 篇以后的空位。
 
@@ -95,8 +100,23 @@ def assign(topics, count: int, *, day_counts: dict | None = None) -> tuple[list[
             return True
         return day.get(ct, 0) + used.get(ct, 0) < cap
 
+    def _progress(ct: str) -> float:
+        """该类型「相对目标已用掉的比例」，越小越该写。
+
+        为什么不用固定的 `SLOT_TYPES` 顺序：data 槽原来恒定先取「数据对比」，
+        于是「排行榜」永远轮不到 —— 而 TARGET_PCT 又给排行榜留着 15% 的份额。
+        **规则（槽位顺序）与阈值（目标份额）相斥**的结果不是谁报错，而是每天
+        都产出一条「排行榜占比 0%，偏差 -15pp」的告警，久了就被当成噪声。
+        改成按目标缺口选，两处就不会再打架（2026-11-04 规则相斥排查）。
+        """
+        tgt = float(content_mix.TARGET_PCT.get(ct) or 0.0)
+        if tgt <= 0:
+            return 1e9                       # 无目标/禁发：排最后
+        return (day.get(ct, 0) + used.get(ct, 0)) / tgt
+
     def _take(cands, slot: str) -> bool:
-        for t in cands:
+        # 稳定排序：同类型的相对顺序（ranker 的 L3 序）不变，跨类型按缺口取
+        for t in sorted(cands, key=lambda x: _progress(_norm(x))):
             if t in chosen:
                 continue
             ct = _norm(t)
@@ -186,7 +206,38 @@ def selftest() -> list[tuple[str, bool]]:
     # 3 篇 = main + data + main
     cases.append(("3 篇槽位 main/data/main", plan_slots(3) == ("main", "data", "main")))
     cases.append(("空候选不抛", assign([], 2)[0] == []))
+
+    # ---- 槽位内按目标缺口选型（2026-11-04 修「规则与阈值相斥」）----
+    # 两种数据型都充足时，一天 3 个 data 槽不能全给数据对比（否则排行榜目标不可达）
+    day: dict = {}
+    seen: list[str] = []
+    for _ in range(3):
+        pool = [T("数据对比", f"数{i}") for i in range(5)] + \
+               [T("排行榜", f"榜{i}") for i in range(5)] + \
+               [T("热点球评", f"热{i}") for i in range(5)]
+        picked, _rep = assign(pool, 2, day_counts=day)
+        types = [content_mix.normalize(t["content_type"]) for t in picked]
+        seen.append(types[1])                    # 第 2 个槽是 data 槽
+        day = content_mix_day(day, types)
+    cases.append(("data 槽按缺口分给两种数据型（不再恒定数据对比）",
+                  set(seen) == {"数据对比", "排行榜"}))
+    cases.append(("data 槽 3 篇收敛到 2:1（25:15 方向）",
+                  seen.count("数据对比") == 2 and seen.count("排行榜") == 1))
+
+    # 数据对比当天已用满目标 → 下一批该轮到排行榜
+    picked7, _ = assign([T("数据对比", "数"), T("排行榜", "榜")], 2,
+                        day_counts={"热点球评": 99, "数据对比": 90})
+    cases.append(("缺口驱动：数据对比已超前 → 取排行榜",
+                  content_mix.normalize(picked7[-1]["content_type"]) == "排行榜"))
     return cases
+
+
+def content_mix_day(day: dict, types) -> dict:
+    """把一批已选类型累加进 day_counts（selftest 与调用方共用的记账口径）。"""
+    out = dict(day or {})
+    for ct in types:
+        out[ct] = out.get(ct, 0) + 1
+    return out
 
 
 def main() -> int:

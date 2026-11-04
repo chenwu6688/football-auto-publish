@@ -358,9 +358,128 @@ def check_fallback_wired():
     return {"item": "零配图兜底", "ok": ok, "detail": detail}
 
 
+def check_img_topic_wiring():
+    """B3. 六处生成路径必须**真能拿到**新闻源正文图（功能级 + 接线级双查）。
+
+    2026-11-04 的教训分两层，缺一层都查不出来：
+
+    ① **接线层**：`_img_topic` 存在且被 6 处调用点使用，但它是「哑透传」——
+       找的是 `c["source_images"]`，而字段实际长在 `c["fixture"]["source_images"]`
+       （`_find_source_article` 读的就是这一层）。函数在、调用在、测试也绿，
+       结果一张图都没取到。所以这里**不数调用点**，而是直接喂一个嵌套结构看它出不出图。
+    ② **数据层**：事件稿/赛程稿/预测稿手里只有选题，身上没有图。它们在结构上要
+       按队名二元组去 `match_data` 里找那场比赛的战报图，且**两支队缺一不可**
+       （只命中一支就会把同城对手的图配上来）。
+
+    负向同样必查：没有图时必须返回空，而不是硬塞一张占位图。
+    """
+    detail, ok = [], True
+    try:
+        import orchestrator as o
+    except Exception as e:
+        return {"item": "六处路径真能取到正文图", "ok": False,
+                "detail": [f"❌ 无法载入 orchestrator：{type(e).__name__}: {e}"]}
+
+    # ① 嵌套字段
+    nested = o._img_topic({"title": "验收"}, {"fixture": {
+        "source_images": [{"url": "https://example.invalid/n.jpg"}]}})
+    if nested.get("source_images"):
+        detail.append("✅ _img_topic 能取到 fixture.source_images（此前漏的就是这一层）")
+    else:
+        ok = False
+        detail.append("❌ _img_topic 取不到 fixture.source_images —— 又变回哑透传了")
+
+    # ② 按队名二元组关联
+    md = {"all_fixtures": [{"home_team": "皇家马德里", "away_team": "巴塞罗那",
+                            "source_images": [{"url": "https://example.invalid/m.jpg"}]}]}
+    hit = o._img_topic({"title": "皇马3-1巴萨，第70分钟换人后连丢2球",
+                        "keywords_cn": ["皇马", "巴萨"]}, {}, match_data=md)
+    if hit.get("source_images"):
+        detail.append("✅ 只在选题里的稿件也能按队名二元组找回那场比赛的正文图")
+    else:
+        ok = False
+        detail.append("❌ 事件稿/赛程稿拿不到本批已抓到的战报图（关联没接上）")
+
+    # ③ 负向：只命中一支队 → 必须不配图（配错图是事实错误，无图有数据卡兜底）
+    miss = o._img_topic({"title": "曼联又输了", "keywords_cn": ["曼联"]}, {},
+                        match_data=md)
+    if miss.get("source_images"):
+        ok = False
+        detail.append("❌ 只命中一支队就配了图 —— 会把同城/无关比赛的图配上来")
+    else:
+        detail.append("✅ 负向：只命中一支队时不配图")
+
+    # ④ 负向：纯占位图/相对路径必须被丢（否则等于没抓）
+    dirty = o._img_topic({"title": "验收"}, {
+        "source_images": ["/img/a.jpg", "data:image/png;base64,xx",
+                          "https://x.invalid/loading.gif"]})
+    if dirty.get("source_images"):
+        ok = False
+        detail.append("❌ 相对路径/占位图被当成可用图源传下去了")
+    else:
+        detail.append("✅ 负向：相对路径 / data: / loading 占位图都被丢弃")
+
+    # ⑤ 接线层：orchestrator 里所有 search_images 调用都必须吃 _img_topic 的产出，
+    #    否则又会出现「这条路径自己拼 topic、拿不到 source_images」的老问题。
+    #
+    #    判据是**作用域内的数据流**，不是字符串匹配：先在同一个函数里找出
+    #    `xxx = _img_topic(...)` 的变量名，再看 `search_images(xxx, ...)` 的实参是不是它。
+    #    只按「实参是不是 Call」判会全判失败——真实写法是先把结果赋给 img_topic 再传，
+    #    这一点是本次实现时踩到的（首版报 8/8 处绕过，实际全部合规）。
+    try:
+        tree = ast.parse(ORCHESTRATOR.read_text(encoding="utf-8"))
+    except Exception as e:      # pragma: no cover
+        return {"item": "六处路径真能取到正文图", "ok": False,
+                "detail": detail + [f"❌ orchestrator 解析失败：{e}"]}
+
+    def _fed_names(scope) -> set:
+        names = set()
+        for n in ast.walk(scope):
+            if isinstance(n, ast.Assign) and isinstance(n.value, ast.Call) \
+                    and getattr(n.value.func, "id", None) == "_img_topic":
+                for t in n.targets:
+                    if isinstance(t, ast.Name):
+                        names.add(t.id)
+        return names
+
+    global_fed = _fed_names(tree)
+    total = wired = 0
+    loose = []
+
+    def _scan(node, fed: set):
+        nonlocal total, wired
+        for ch in ast.iter_child_nodes(node):
+            if isinstance(ch, ast.FunctionDef):
+                _scan(ch, _fed_names(ch))
+                continue
+            if isinstance(ch, ast.Call) and getattr(ch.func, "id", None) == "search_images":
+                total += 1
+                args = list(ch.args)
+                ok_arg = bool(args) and (
+                    (isinstance(args[0], ast.Call)
+                     and getattr(args[0].func, "id", None) == "_img_topic")
+                    or (isinstance(args[0], ast.Name) and args[0].id in fed))
+                # `a or search_images(b, ...)` 这种写法里 b 也在同一作用域，照常判
+                if ok_arg:
+                    wired += 1
+                else:
+                    loose.append(getattr(ch, "lineno", 0))
+            _scan(ch, fed)
+
+    _scan(tree, global_fed)
+    if total and wired == total:
+        detail.append(f"✅ {total}/{total} 处 search_images 都由 _img_topic 供料")
+    else:
+        ok = False
+        detail.append(f"❌ {total - wired}/{total} 处 search_images 绕过 _img_topic"
+                      f"（行号 {loose[:5]}）—— 这些路径拿不到 source_images")
+    return {"item": "六处路径真能取到正文图", "ok": ok, "detail": detail}
+
+
 def verify(days=14):
     checks = [check_no_cover(days), check_source_chain(), check_news_source(),
-              check_size_gate(), check_negative(), check_fallback_wired()]
+              check_img_topic_wiring(), check_size_gate(), check_negative(),
+              check_fallback_wired()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "window_days": days, "since": COVER_SINCE, "fallback_since": FALLBACK_SINCE,

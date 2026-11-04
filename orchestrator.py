@@ -35,6 +35,7 @@ import title_positive
 import title_gate
 import title_elements
 import title_brief
+import source_images
 import content_stats
 import cover_card
 import interaction_bait
@@ -2778,16 +2779,17 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
 
         # 优先用源文章的配图（比赛相关，不重复）
         source_imgs = []
+        source = None
         if match_data and match_data.get("data_source") in ("zhibo8", "dongqiudi"):
             source = _find_source_article(topic, match_data)
-            if source and source.get("fixture", {}).get("source_images"):
-                source_imgs = source["fixture"]["source_images"][:3]
+            source_imgs = source_images.images_of(source or {})
+            if source_imgs:
                 print(f"   📷 使用源文章配图: {len(source_imgs)} 张")
 
-        if source_imgs:
-            imgs = source_imgs
-        else:
-            imgs = search_images(topic, count=5)
+        # 配图统一走 _img_topic：源文图取不到时，它还会按队名二元组去本批采集结果里
+        # 找「这场比赛」的战报正文图（2026-11-04 起），再取不到才落到图库。
+        img_topic = _img_topic(topic, source if source_imgs else {}, match_data=match_data)
+        imgs = source_imgs or search_images(img_topic, count=5)
 
         art, error = generate_article_with_retry(topic, match_data, index_offset + i + 1,
                                                   max_retries=2, date_str=date_str)
@@ -3183,27 +3185,66 @@ def _title_gate_row(art: dict) -> dict:
     return row
 
 
-def _img_topic(topic, *cands):
+def _img_text(topic, *cands) -> str:
+    """把一段配图 topic 拼成「用于队名二元组匹配」的文本。
+
+    只收**结构化字段**（标题 / 关键词 / 主客队 / 赛事），不做整段正文——
+    正文里「下轮对阵皇马」这种句子会让图配到别的比赛上去。
+    """
+    parts: list[str] = []
+    t = topic if isinstance(topic, dict) else {}
+    if t.get("title"):
+        parts.append(str(t["title"]))
+    for k in ("keywords_cn", "keywords", "teams"):
+        v = t.get(k)
+        if isinstance(v, (list, tuple)):
+            parts.extend(str(x) for x in v if x)
+        elif isinstance(v, str) and v:
+            parts.append(v)
+    for c in cands:
+        if not isinstance(c, dict):
+            continue
+        for k in ("title", "title_hint", "label", "name", "event", "home_zh", "away_zh",
+                  "home_team", "away_team", "competition", "league"):
+            v = c.get(k)
+            if isinstance(v, str) and v.strip():
+                parts.append(v.strip())
+        for k in ("keywords_cn", "keywords", "teams"):
+            v = c.get(k)
+            if isinstance(v, (list, tuple)):
+                parts.extend(str(x) for x in v if x)
+    return " ".join(parts)
+
+
+def _img_topic(topic, *cands, match_data=None):
     """构造配图 topic，并把「新闻源正文图」透传进去。
 
     media_scraper 抓直播吧战报时已经把正文 `<img>` 抽成 ``source_images``，但 2026-11-04
     之前只有 `_find_source_article` 那一条路径用过它，其余 6 处 `img_topic` 都是从 LLM
-    产出里重建的、根本拿不到这个字段 —— 抓了等于没抓。这里把候选对象里的
-    ``source_images`` 找出来带上，`data_collector.search_images` 会把它当作最高精度的
-    一层（比任何图库都准：就是那场比赛的图）。
+    产出里重建的、根本拿不到这个字段 —— 抓了等于没抓。
+
+    两步走（**顺序不能反**）：
+      ① 直接取——候选对象自己身上就有正文图（fixture / source 结构 / facts 嵌套）；
+      ② 关联取——候选只是选题（事件节点 / 赛程稿 / 预测稿），身上没有图，但它说的
+         就是本批抓过的某场比赛，于是按**队名二元组**去 `match_data` 里找回那场的图。
+         两支队缺一不可，只命中一支就不配（配错图是事实错误，无图有 cover_card 兜底）。
+
+    `search_images` 拿到 ``source_images`` 后会用 `news_source` 层（零网络、零 Key、
+    图文天然一致）并排在所有图库之前，所以这里只管把字段带上。
     """
     out = dict(topic or {})
     for c in cands:
-        if not isinstance(c, dict):
-            continue
-        imgs = c.get("source_images")
-        if not imgs:
-            # facts 在部分路径上是 list（原始事实行），不能无条件 .get
-            facts = c.get("facts")
-            imgs = facts.get("source_images") if isinstance(facts, dict) else None
+        imgs = source_images.images_of(c)
         if imgs:
-            out["source_images"] = list(imgs)[:3]
+            out["source_images"] = imgs
             break
+
+    if not out.get("source_images") and isinstance(match_data, dict):
+        idx = source_images.get_index(match_data)
+        if idx:
+            hit = source_images.lookup(idx, _img_text(topic, *cands), _team_forms)
+            if hit:
+                out["source_images"] = hit
     return out
 
 
@@ -3994,7 +4035,8 @@ def _event_result_sent(date_str) -> set:
 
 
 def _add_event_result_articles(*, articles, topics, images_map, stats, added, det_cap,
-                               date_str, batch_mode, topic_history, avoid_sigs):
+                               date_str, batch_mode, topic_history, avoid_sigs,
+                               match_data=None):
     """取用「揭晓型事件结果稿」并追加进本批，返回新增篇数。
 
     独立成函数而不是内嵌进 poc，理由很直接：这是全链路里唯一一处
@@ -4035,7 +4077,7 @@ def _add_event_result_articles(*, articles, topics, images_map, stats, added, de
             "title": art.get("title", ""),
             "keywords_cn": art.get("keywords", []),
             "keywords": art.get("keywords", ["football"]),
-        }, rt, art)
+        }, rt, art, match_data=match_data)
         images_map[len(articles)] = search_images(img_topic, count=3)
         stats["generated"] += 1
         stats["valid"] += 1
@@ -4053,7 +4095,8 @@ def _add_event_result_articles(*, articles, topics, images_map, stats, added, de
 
 
 def _add_event_angle_articles(*, articles, topics, images_map, stats, added, cap,
-                              date_str, batch_mode, topic_history, avoid_sigs):
+                              date_str, batch_mode, topic_history, avoid_sigs,
+                              match_data=None):
     """S 级事件的多切口编排（P0-2）：同一事件出 3 篇不同角度，返回新增篇数。
 
     为什么单独成函数：这段逻辑要能被单测，也要在 code review 时一眼看清
@@ -4125,7 +4168,7 @@ def _add_event_angle_articles(*, articles, topics, images_map, stats, added, cap
                 "title": art.get("title", ""),
                 "keywords_cn": [ev["label"], p["angle"]] + list(art.get("keywords_cn") or [])[:2],
                 "keywords": ["football", ev["node_id"] or "event"],
-            }, ev, p, art)
+            }, ev, p, art, match_data=match_data)
             images_map[len(articles)] = search_images(img_topic, count=3)
             art["_batch_name"] = batch_cfg_name(batch_mode)
             stats["generated"] += 1
@@ -5224,7 +5267,7 @@ def main():
                         "title": r_art.get("title", ""),
                         "keywords_cn": [rc.get("home_zh", ""), rc.get("away_zh", "")],
                         "keywords": ["football", (rc.get("competition") or "match")],
-                    }, rc)
+                    }, rc, match_data=match_data)
                     images_map[len(articles)] = search_images(img_topic, count=3)
                     r_art["_batch_name"] = batch_cfg["name"]
                     r_art["_batch_time"] = batch_cfg["time"]
@@ -5288,7 +5331,7 @@ def main():
                             "title": f_art.get("title", ""),
                             "keywords_cn": [ft.get("home_zh", ""), ft.get("away_zh", "")],
                             "keywords": ["football", (ft.get("competition") or "match")],
-                        }, ft, facts)
+                        }, ft, facts, match_data=match_data)
                         f_imgs = search_images(img_topic, count=3)
                         images_map[len(articles)] = f_imgs
                         stats["generated"] += 1
@@ -5315,7 +5358,8 @@ def main():
                     articles=articles, topics=topics, images_map=images_map,
                     stats=stats, added=fixture_added, det_cap=det_cap,
                     date_str=date_str, batch_mode=batch_mode,
-                    topic_history=topic_history, avoid_sigs=_avoid_sigs)
+                    topic_history=topic_history, avoid_sigs=_avoid_sigs,
+                    match_data=match_data)
             except Exception as e:
                 print(f"   ⚠️ 事件结果稿生成异常 (不影响主流程): {e}")
 
@@ -5346,7 +5390,7 @@ def main():
                         "title": n_art.get("title", ""),
                         "keywords_cn": n_art.get("keywords_cn", []),
                         "keywords": n_art.get("keywords", ["football"]),
-                    }, n_art, ev)
+                    }, n_art, ev, match_data=match_data)
                     images_map[len(articles)] = search_images(img_topic, count=3)
                     stats["generated"] += 1
                     stats["valid"] += 1
@@ -5384,7 +5428,7 @@ def main():
                     articles=articles, topics=topics, images_map=images_map,
                     stats=stats, added=0, cap=_angle_cap, date_str=date_str,
                     batch_mode=batch_mode, topic_history=topic_history,
-                    avoid_sigs=_avoid_sigs)
+                    avoid_sigs=_avoid_sigs, match_data=match_data)
                 if angle_added:
                     print(f"   🎯 本批多切口 {angle_added} 篇（上限 {_angle_cap}）："
                           f"S 级事件多角度覆盖，占批次配额不超发")
@@ -5503,7 +5547,7 @@ def main():
                     img_topic = _img_topic({"title": pred_art.get("title", "明日足球预测"),
                                  "keywords_cn": league_names[:3] + team_names[:4],
                                  "keywords": ["football", "prediction"] + [t for t in team_names[:4] if t]},
-                                pred_art, topic)
+                                pred_art, topic, match_data=match_data)
                     p_imgs = search_images(img_topic, count=3)
                     images_map[len(articles)] = p_imgs
                     stats["generated"] += 1
@@ -5549,8 +5593,12 @@ def main():
                     and not _breaker_active():
                 top_event = urgent_events[0]
                 e_idx = len(articles) + 1
-                e_imgs = search_images({"title": top_event.get("title_hint", ""),
-                                        "keywords_cn": [top_event.get("league", "足球")]}, count=3)
+                # 紧急球评同样走 _img_topic：它的标题/事件提示里就带着两支球队，
+                # 能按队名二元组拿回本批抓到的这场比赛的战报图（2026-11-04）。
+                e_img_topic = _img_topic({"title": top_event.get("title_hint", ""),
+                                          "keywords_cn": [top_event.get("league", "足球")]},
+                                         top_event, match_data=match_data)
+                e_imgs = search_images(e_img_topic, count=3)
                 images_map[len(articles)] = e_imgs
                 e_art, e_err = generate_article_with_retry(
                     {"title": top_event.get("title_hint", ""),

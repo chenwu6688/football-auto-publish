@@ -139,6 +139,42 @@ class TestVerifyPublishGate(unittest.TestCase):
         # 隔离环境（无产物/无台账）应全部跳过并通过
         self.assertTrue(self.vg.verify()["ok"])
 
+    # ---- A5 三要素覆盖率：生效日分口径 + 三态（2026-11-04 修规则相斥）----
+    def _fake(self, rows):
+        """rows: [(日期, 标题)] → 替换 _recent_articles（隔离真实 output）。"""
+        self.vg._recent_articles = lambda days=14: iter(
+            [({"date": d}, {"title": t}) for d, t in rows])
+
+    GOOD = "皇马3-1巴萨，第70分钟换人后连丢2球"
+    BAD = "曼联又输了"                      # 只有专名，缺数字/对比 → 三要素不足
+
+    def test_elements_live_sample_passes(self):
+        self._fake([("2026-11-06", self.GOOD)] * 5 + [("2026-11-02", self.BAD)] * 3)
+        r = self.vg.check_title_elements_residue()
+        self.assertIs(r["ok"], True, r)
+        self.assertEqual(r["coverage"]["n"], 5)          # 存量不混进生效日口径
+        self.assertTrue(any("存量" in d for d in r["detail"]))
+
+    def test_elements_live_violations_fail(self):
+        """硬闸门语义：生效日后 3/5 不过 → 必须判不达标（旧版 50% 阈值会放行）。"""
+        self._fake([("2026-11-06", self.BAD)] * 3 + [("2026-11-06", self.GOOD)] * 2)
+        r = self.vg.check_title_elements_residue()
+        self.assertIs(r["ok"], False, r)
+        self.assertLess(r["coverage"]["pass_rate"], self.vg.ELEM_PASS_MIN)
+
+    def test_elements_legacy_only_is_undetermined(self):
+        """全是生效日前的旧稿 → 未判定（不是通过）。"""
+        self._fake([("2026-11-02", self.BAD)] * 6)
+        r = self.vg.check_title_elements_residue()
+        self.assertIsNone(r["ok"])
+        self.assertTrue(r.get("pending"))
+
+    def test_elements_small_sample_is_undetermined(self):
+        """生效日后样本 <5 → 未判定，绝不因为「2 篇全过」就报绿。"""
+        self._fake([("2026-11-06", self.GOOD)] * 2)
+        r = self.vg.check_title_elements_residue()
+        self.assertIsNone(r["ok"])
+
 
 if __name__ == "__main__":
     unittest.main()

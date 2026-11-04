@@ -55,7 +55,26 @@ import reservoir as _reservoir
 _SOFT_CONTENT_TYPES = tuple(_reservoir.SOFT_TYPES) + tuple(_reservoir.BANNED_TYPES)
 _SOFT_SECTIONS = ("人物故事", "战术榜单")
 # 实际内容类型 → 三级·软性（榜单/数据/人物类）
-_SOFT_BY_CONTENT_TYPE = {"排行榜"}
+#
+# ▼ 2026-11-04 补「战术榜单」（此前只在 `_SOFT_SECTIONS` 里按**栏目名**兜底）：
+#   `content_type="战术榜单"` 的成稿在没有显式 `_supply_layer` 时会落到「未分层」，
+#   而「未分层」在验收里是**硬失败** —— 生成侧最常产的类型（10 月占 44%）
+#   一旦哪天少写了标签，红的是验收，不是标签。同一份清单里
+#   `_SOFT_SECTIONS` 认它、`_SOFT_CONTENT_TYPES` 不认它，这本身就是自相矛盾。
+_SOFT_BY_CONTENT_TYPE = {"排行榜", "战术榜单"}
+
+# 三级·软性里「由 P1-1 每批结构**要求**产出」的数据型。拆这一刀的理由见 summarize()。
+_DATA_TYPES = ("数据对比", "排行榜")
+
+
+def _type_of(article: dict) -> str:
+    """内容类型归一（唯一口径在 content_mix，延迟导入避免模块级循环依赖）。"""
+    ct = (article or {}).get("content_type")
+    try:
+        import content_mix
+        return content_mix.normalize(ct)
+    except Exception:
+        return ct or ""
 
 
 def _norm_layer(value: str | None) -> str | None:
@@ -97,7 +116,7 @@ def classify(article: dict) -> str:
     if article.get("_is_fixture"):
         return L1
 
-    ctype = (article.get("content_type") or "").strip()
+    ctype = _type_of(article).strip()
     section = (article.get("_column_name") or article.get("column_name")
                or article.get("section") or "").strip()
 
@@ -130,10 +149,20 @@ def summarize(articles) -> dict:
     items = [a for a in (articles or []) if isinstance(a, dict)]
     counts = {layer: 0 for layer in LAYERS}
     unclassified = 0
+    l3_data = l3_other = 0
     for a in items:
         layer = classify(a)
         if layer in counts:
             counts[layer] += 1
+            if layer == L3:
+                # 三级内部再拆一刀：数据型是 P1-1 每批结构**要求**产的，
+                # 战术榜单/人物故事才是这轮要压的。不拆开的话，「三级 48%」这个
+                # 数字永远说不清是结构要求还是旧病复发（2026-11-04 规则相斥排查）。
+                ct = _type_of(a)
+                if ct in _DATA_TYPES:
+                    l3_data += 1
+                else:
+                    l3_other += 1
         else:
             unclassified += 1
 
@@ -149,6 +178,8 @@ def summarize(articles) -> dict:
         "targets": {layer: round(TARGET_RATIO[layer] * 100, 1) for layer in LAYERS},
         "deviations": deviations,
         "unclassified": unclassified,
+        "l3_breakdown": {"data_driven": l3_data, "other": l3_other,
+                         "data_types": list(_DATA_TYPES)},
     }
 
 
@@ -183,10 +214,19 @@ def check(summary: dict, *, tol_pct: float = RATIO_TOL_PCT,
     # 告警项：配比偏差
     dev = summary.get("deviations", {})
     over = {k: v for k, v in dev.items() if abs(v) > tol_pct}
+    detail = [f"实际：{summary.get('ratios')}", f"目标：{summary.get('targets')}",
+              f"偏差：{dev}"]
+    lb = summary.get("l3_breakdown") or {}
+    if lb:
+        # 三级偏高有两种完全不同的成因，混在一起报等于没报：
+        #   · 数据型（数据对比/排行榜）—— P1-1 每批结构要求产的，属预期偏离；
+        #   · 其他（战术榜单/人物故事等）—— 这轮要压的头号目标，属旧病复发。
+        detail.append(
+            f"三级·软性 {summary['counts'].get(L3, 0)} 篇拆解：数据型 {lb.get('data_driven', 0)} 篇"
+            f"（结构要求，计划 12.1 未计入的三级来源）/ 其他 {lb.get('other', 0)} 篇（应压缩）")
     checks.append({
         "item": f"层级配比偏差≤{tol_pct:.0f}pct", "ok": not over, "advisory": True,
-        "detail": [f"实际：{summary.get('ratios')}", f"目标：{summary.get('targets')}",
-                   f"偏差：{dev}"],
+        "detail": detail,
     })
 
     # 告警项：日更篇数

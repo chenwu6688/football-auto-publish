@@ -108,6 +108,48 @@ class TestCheck(unittest.TestCase):
         checks = sm.check(sm.summarize([]))
         self.assertTrue(all(c["ok"] for c in checks if not c["advisory"]))
 
+    def test_production_types_never_unclassified(self):
+        """生成侧真会产的类型不得落到「未分层」——那是硬失败，不是数据质量问题。
+
+        2026-11-04 排查出的相斥：`战术榜单` 只在 `_SOFT_SECTIONS`（按栏目名）里认，
+        `紧急球评`/`战术解析` 又没做别名归一 —— 三者一旦缺显式 `_supply_layer`
+        就会被判「未分层」，红的是验收而不是标签。
+        """
+        for ct in ("热点球评", "紧急球评", "数据对比", "排行榜", "榜单",
+                   "战术榜单", "战术解析", "八卦趣事", "转会资讯", "人物故事"):
+            self.assertNotEqual(sm.classify({"content_type": ct}), sm.UNCLASSIFIED, ct)
+
+
+class TestL3Breakdown(unittest.TestCase):
+    """三级·软性偏高必须能分清「结构要求」与「旧病复发」（2026-11-04 规则相斥排查）。
+
+    计划 12.1 给三级的 20%，P1-1 的每批结构却**要求**每批产 1 篇数据型，稳态
+    三级会到 ~48%。两个数字不可能同时满足，所以报告里必须能看出这 48% 是谁贡献的，
+    否则这条告警天天亮、且没人能判断该不该动它。
+    """
+
+    def test_data_types_counted_as_structure_driven(self):
+        arts = [{"content_type": "数据对比"}, {"content_type": "排行榜"},
+                {"content_type": "战术榜单"}, {"content_type": "人物故事"}]
+        lb = sm.summarize(arts)["l3_breakdown"]
+        self.assertEqual(lb["data_driven"], 2)
+        self.assertEqual(lb["other"], 2)          # 战术榜单/人物故事 归「应压缩」一侧
+
+    def test_alias_normalized(self):
+        """榜单 → 排行榜（归一后仍算数据型），否则同一类被拆成两半互相「合格」。"""
+        lb = sm.summarize([{"content_type": "榜单"}])["l3_breakdown"]
+        self.assertEqual(lb["data_driven"], 1)
+
+    def test_ratio_check_reports_breakdown(self):
+        s = sm.summarize([{"content_type": "数据对比"}] * 4 +
+                         [{"content_type": "战术榜单"}] * 2 +
+                         [{"content_type": "热点球评"}] * 4)
+        ratio = next(c for c in sm.check(s) if c["item"].startswith("层级配比偏差"))
+        self.assertTrue(any("拆解" in d for d in ratio["detail"]), ratio["detail"])
+        line = next(d for d in ratio["detail"] if "拆解" in d)
+        self.assertIn("数据型 4 篇", line)
+        self.assertIn("其他 2 篇", line)
+
 
 class _FakeOut:
     """临时 output 目录上下文，并接管 verify 脚本的 OUTPUT_DIR。"""
