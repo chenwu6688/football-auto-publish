@@ -1,0 +1,111 @@
+name: 审核机制元验收（L4 · 审「审核本身」）
+
+# 2026-11-04 重构的第四层。它不审内容，审**审核机制自己有没有失真**：
+#
+#   · 有没有验收写了却从没被 CI 跑过（当前 3 个：check_slot / ranker_signals / test_gate）
+#   · 有没有验收恒真（没有负向用例 = 不知道自己会不会报红）
+#   · 有没有声明为硬项、却在调用行带着 `|| echo`（FAIL 了稿子照样发）
+#   · 每日层最小集有没有被悄悄删项
+#
+# 起因：11-04 午间一篇疑问收尾超限的稿子穿过三道审核发出去了。查下来发现
+# `verify_publish_gate` 复算标题时不传 `recent_titles`，那条规则**从来没触发过**，
+# 它每次都在判「合规 ✅」。恒真的判定比没有判定更危险——它顶着绿灯把真违规掩掉。
+#
+# 所以本 workflow 的判据是「**能不能报红**」，不是「当前是不是绿」。
+on:
+  schedule:
+    - cron: '20 4 * * 1'      # 周一 12:20 CST，紧跟口径层 12:30 之后
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置 Git 推送凭据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python3 -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: 审核机制元验收（硬项）
+        run: |
+          # 硬项：清单双向一致 / 负向债务不增长 / 硬项真被调用且发布前不被软化 /
+          # 每日层最小集未被删空 / 元层负向自检
+          # **刻意不加 || echo**：这条线要是也被软化，就等于没有任何人在看审核机制。
+          python3 scripts/verify_audit_health.py --quiet
+
+      - name: 单测门禁是否真的挡住合并（硬项）
+        run: |
+          # 此前 CI 从不调用它——「有单测门禁」只是个说法。硬项，不加 || echo。
+          python3 scripts/verify_test_gate.py --quiet
+
+      - name: 调度检查口径与告警可信度（告警）
+        run: |
+          # 10-22 / 10-23 两次假警的防回归。此前 CI 从不调用它。
+          python3 scripts/verify_check_slot.py --quiet \
+            || echo "::warning::调度检查口径未达标，详见 data/audit/check_slot_latest.json"
+
+      - name: ranker 社媒信号接线（告警）
+        run: |
+          # 此前 CI 从不调用它。信号只作输入、缺失标 missing 的纪律靠它守。
+          python3 scripts/verify_ranker_signals.py --quiet \
+            || echo "::warning::ranker 信号接线未达标，详见 data/audit/ranker_signals_latest.json"
+
+      - name: 调参纪律与四道防呆（告警）
+        run: |
+          python3 scripts/verify_tuning_discipline.py --quiet \
+            || echo "::warning::调参纪律未达 8.1/11.5 验收标准，详见 data/audit/tuning_discipline_latest.json"
+
+      - name: 汇总元验收结论
+        if: always()
+        run: |
+          echo "### 审核机制元验收" >> $GITHUB_STEP_SUMMARY
+          python3 - <<'PY' >> $GITHUB_STEP_SUMMARY
+          import json, pathlib
+          p = pathlib.Path("data/audit/audit_health_latest.json")
+          if not p.exists():
+              print("无产物")
+          else:
+              d = json.loads(p.read_text(encoding="utf-8"))
+              print(f"| 项 | 结论 |")
+              print("|---|---|")
+              for c in d.get("checks") or []:
+                  ok = c.get("ok")
+                  mark = "⏸" if ok is None else ("✅" if ok else "❌")
+                  tag = "（告警）" if c.get("advisory") else ""
+                  print(f"| {c['item']}{tag} | {mark} |")
+              if d.get("hard_failed"):
+                  print()
+                  print("> 未通过硬项：" + "、".join(d["hard_failed"]))
+          PY
+
+      - name: 回写元验收报告
+        if: always()
+        run: |
+          git add -f data/audit || true
+          if git diff --cached --quiet; then
+            echo "无报告变更"
+            exit 0
+          fi
+          git commit -m "chore(audit): 审核机制元验收报告（清单一致性/负向债务/阻断有效性）"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git pull --rebase origin main || true
+          done

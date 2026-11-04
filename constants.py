@@ -46,6 +46,14 @@ HY3_MODEL_PRO = os.environ.get("HY3_MODEL_PRO", "hy3")       # 已停止，勿�
 # DASHSCOPE（通义千问）作为 hy3 配额耗尽时的兜底，同样需要跳过占位符
 DASHSCOPE_KEY = _resolve_api_key("", "DASHSCOPE_API_KEY")
 UNSPLASH_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
+# 图库备选源（2026-11-04 实测：api.pixabay.com / api.pexels.com 从本机与 CI 均可达，
+# 而 unsplash 应用还在「In review」、维基与 Openverse 直接超时）。
+#   Pixabay：免费 5000 次/小时，注册即用**无需审核**，CC0 类许可允许商用；
+#   Pexels ：免费 200 次/小时，同样免审核。
+# 两者都只在「新闻源图 + 实体维基」都没凑够时才用，且 query 必须绑定正文实体
+# （计划 2.2 禁用随机图库配图）。没有 Key 就走 diagnose 落账，不再静默跳过。
+PIXABAY_KEY = os.environ.get("PIXABAY_KEY", "")
+PEXELS_KEY = os.environ.get("PEXELS_KEY", "")
 FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
 
 DASHSCOPE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"

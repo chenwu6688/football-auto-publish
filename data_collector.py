@@ -13,7 +13,7 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR, GZH_SCRIPT,
                        FOOTBALL_DATA_KEY, FOOTBALL_DATA_BASE,
                        COMPETITION_IDS, GZH_KEYWORD_GROUPS, GZH_TRANSFER_KEYWORDS,
                        GZH_NOISE_PATTERNS, WIKI_PLAYERS, WIKI_TEAMS, FOOTYRENDERS_PLAYERS,
-                       UNSPLASH_KEY)
+                       UNSPLASH_KEY, PIXABAY_KEY, PEXELS_KEY)
 
 from utils import retry, filter_fresh_news, NEWS_MAX_AGE_HOURS, CST
 
@@ -1293,6 +1293,83 @@ def extract_search_entities(topic):
     return players, teams, specific_query
 
 
+def _gallery_pixabay(core: str, need: int, *, timeout: int = 12) -> list:
+    """Pixabay 图库检索（免费 5000 次/小时，注册即用**无需审核**）。
+
+    只接受横向、且原始尺寸已过 800×600 的图——下载端有该闸门，尺寸不够的图
+    取回来也会被拒，白白占用一次请求。``safesearch`` 固定 true：这是自媒体发布链路，
+    不能出现任何需要人工复核的素材。
+    """
+    if need <= 0:
+        return []
+    url = "https://pixabay.com/api/"
+    if not PIXABAY_KEY:
+        _diag.record("pixabay", url, kind="empty",
+                     detail="未配置 PIXABAY_KEY（pixabay.com/account/api-key 注册即用，无需审核）")
+        return []
+    out = []
+    try:
+        resp = requests.get(url, params={
+            "key": PIXABAY_KEY, "q": core, "image_type": "photo",
+            "orientation": "horizontal", "per_page": max(3, need * 3),
+            "safesearch": "true", "order": "popular"}, timeout=timeout)
+    except Exception as e:
+        _diag.record("pixabay", url, kind=_diag.classify_exception(e),
+                     detail=f"{type(e).__name__}: {str(e)[:100]}")
+        return []
+    if resp.status_code != 200:
+        _diag.record("pixabay", url, kind=_diag.classify_status(resp.status_code),
+                     status=resp.status_code, detail=f"HTTP {resp.status_code}: {resp.text[:120]}")
+        return []
+    for h in (resp.json() or {}).get("hits", []):
+        if len(out) >= need:
+            break
+        if int(h.get("imageWidth") or 0) < 800 or int(h.get("imageHeight") or 0) < 600:
+            continue
+        u = h.get("largeImageURL") or h.get("webformatURL") or ""
+        if u:
+            out.append({"url": u, "source": "pixabay",
+                        "alt": (h.get("tags") or "")[:80], "query": core})
+    _diag.record("pixabay", url, status=200, count=len(out), detail=f"query={core[:50]}")
+    return out
+
+
+def _gallery_pexels(core: str, need: int, *, timeout: int = 12) -> list:
+    """Pexels 图库检索（免费 200 次/小时，注册即用**无需审核**）。"""
+    if need <= 0:
+        return []
+    url = "https://api.pexels.com/v1/search"
+    if not PEXELS_KEY:
+        _diag.record("pexels", url, kind="empty",
+                     detail="未配置 PEXELS_KEY（pexels.com/api 注册即用，无需审核）")
+        return []
+    out = []
+    try:
+        resp = requests.get(url, params={"query": core, "per_page": max(3, need * 3),
+                                         "orientation": "landscape"},
+                            headers={"Authorization": PEXELS_KEY}, timeout=timeout)
+    except Exception as e:
+        _diag.record("pexels", url, kind=_diag.classify_exception(e),
+                     detail=f"{type(e).__name__}: {str(e)[:100]}")
+        return []
+    if resp.status_code != 200:
+        _diag.record("pexels", url, kind=_diag.classify_status(resp.status_code),
+                     status=resp.status_code, detail=f"HTTP {resp.status_code}: {resp.text[:120]}")
+        return []
+    for p in (resp.json() or {}).get("photos", []):
+        if len(out) >= need:
+            break
+        if int(p.get("width") or 0) < 800 or int(p.get("height") or 0) < 600:
+            continue
+        src = (p.get("src") or {})
+        u = src.get("large2x") or src.get("original") or src.get("large") or ""
+        if u:
+            out.append({"url": u, "source": "pexels",
+                        "alt": (p.get("alt") or "")[:80], "query": core})
+    _diag.record("pexels", url, status=200, count=len(out), detail=f"query={core[:50]}")
+    return out
+
+
 def search_images(topic, count=5):
     """按正文实体找配图。顺序＝精确度从高到低，任一层凑够就停。
 
@@ -1306,6 +1383,25 @@ def search_images(topic, count=5):
     现在第 ① 层扩成「实体词典 → 维基搜索」，实体来源换成 cover_binding.article_entities
     （读 config/entity_map.json，几百个条目），footyrenders 停用。
     「宁可不配图也不放随机图库图」这条仍然守：只从实体出发，绝不用 football/stadium 这类通用词。
+
+    ▼ 2026-11-04 再重构（「国内的免费图源」调研结论，见 docs/audit/2026-11-04-图源替代与审核分层.md）
+    实测四条链路（本机直连 + 走代理各一次）：
+      · zh.wikipedia / commons.wikimedia —— 超时（连不上，不是慢）
+      · api.openverse.org —— 超时
+      · api.unsplash.com —— 可达，但应用状态 In review，Access Key 401
+      · api.pixabay.com 400（Key 无效＝域名通）/ api.pexels.com 401（同上）**两条都可达**
+    结论：**国内没有对外开放 API 的免费正版图库**（图虫/沙沙野/百度图片都没有公开检索接口，
+    爬取有版权与稳定性双重风险，不做）。真正可用的是下面这条，而且它原本就在手上：
+
+    ⓿ **新闻源正文图**：media_scraper 抓直播吧战报时已经把正文 `<img>` 抽成了
+      `fixture["source_images"]`，但只有 `_find_source_article` 那一条路径用过，
+      其余 6 条生成路径全部丢弃 → 抓了等于没抓。这一层零网络、零 Key、图文天然一致
+      （就是那场比赛的图），精度高于任何图库，所以排在最前。
+      版权口径：引用新闻源配图＝转述性使用，与「随便找张足球图」性质不同；仍按
+      `cover_binding.filter_bound_images` 做正文绑定复核。
+
+    图库层顺序：Pixabay（5000/h 免审核）→ Pexels（200/h 免审核）→ Unsplash（等审核）。
+    三家都要求 query 绑定正文实体，且都不在无 Key 时静默跳过——落 scraper_diagnostics。
     """
     images = []
     keywords = list(topic.get("keywords", [])) if isinstance(topic, dict) else ["football"]
@@ -1316,6 +1412,21 @@ def search_images(topic, count=5):
     def _push(img):
         if img and img.get("url") and img["url"] not in [i["url"] for i in images]:
             images.append(img)
+
+    # ⓿ 新闻源正文图（零网络、零 Key、图文天然一致）
+    src_imgs = topic.get("source_images") if isinstance(topic, dict) else None
+    if src_imgs:
+        for it in src_imgs:
+            url = it if isinstance(it, str) else (it or {}).get("url", "")
+            if not url or not str(url).startswith("http"):
+                continue
+            _push({"url": url, "source": "news_source",
+                   "alt": (it or {}).get("alt", "") if isinstance(it, dict) else "",
+                   "query": "source_article"})
+            if len(images) >= count:
+                break
+        _diag.record("news_source", "zhibo8_report", status=200, count=len(images),
+                     detail=f"复用战报正文图 {len(images)} 张")
 
     # ① 手工表的精确页名（最高精度，命中即用）
     for p in players[:2]:
@@ -1347,6 +1458,15 @@ def search_images(topic, count=5):
 
     # 图库检索：query 必须绑定正文（实体优先，其次标题词）；不构成绑定则跳过。
     # 计划 2.2 / 4.1：禁用随机图库配图，故不再使用 football / stadium 这类通用词。
+    if len(images) < count:
+        core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
+        if core:
+            for img in _gallery_pixabay(core, count - len(images)):
+                _push(img)
+            if len(images) < count:
+                for img in _gallery_pexels(core, count - len(images)):
+                    _push(img)
+
     if len(images) < count and UNSPLASH_KEY:
         core = _cb.build_bound_query(ents, (en_keywords or _title_terms), suffix="")
         if core:

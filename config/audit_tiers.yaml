@@ -1,0 +1,263 @@
+# 审核机制分层清单（2026-11-04 重构）
+#
+# 为什么需要这份清单：此前 39 个 `scripts/verify_*.py` 一视同仁地每周一跑一次，
+# 结果是**口径类（代码接没接）每周重复，结果类（发没发成/有没有人看）一次没有**，
+# 而且 8 个发布前验收里 7 个带 `|| echo`，FAIL 了稿子照样往下走到发布。
+# 清单把「什么时候跑」「FAIL 了挡什么」这两件事显式化，并由
+# `scripts/verify_audit_health.py` 反过来检查本文档本身有没有失真。
+#
+# 四层的语义：
+#   pre-publish  每批发布前跑。hard=不通过就**不发这一批**；advisory=只告警，稿子照发。
+#   daily        每天 09:10 CST 跑（daily-result.yml）。看「昨天真的发生了什么」，
+#                不通过 = 有人今天必须处理，但不回滚已发布的稿。
+#   code-change  代码/Prompt/配置变更时跑（口径类：接线、常量自洽、禁用词表）。
+#                这类结论只在改代码时才会变，每天重跑纯属浪费。
+#   weekly       每周一跑（慢变指标 + 元验收）。
+#
+# negative 字段：该脚本里**能证明判定真的在判定**的负向用例（把阈值放松/数据弄坏后
+# 必须报红）。填 null = 承认没有，计入 debt；debt 只许减少，不许增加（见 meta 段）。
+#
+# kind 的语义只有一条：**FAIL 时挡不挡本批发布**。
+#   hard     = 不通过就不发这一批（当前只保留 content_mix 一项：禁发类型不可撤回）
+#   advisory = 只告警，稿子照发（其余全部）
+# 它**不表示**「CI 里会不会红」——每日门禁（daily-result.yml）里的步骤都不带 `|| echo`，
+# 红了就是红了，但那不等于要停发；两件事混在一起谈，就会得出「7/8 只告警所以没人管」
+# 这种既对又不解决问题的结论。
+
+version: 2
+updated: "2026-11-04"
+
+meta:
+  # 2026-11-04 盘点：39 项里只有 8 项有真负向用例，其余 31 项「恒真风险」。
+  # 这个数字是**实测**得来的，不是估计。硬门禁只要求它不增长——
+  # 一次性要求 39/39 会让这条线立刻变红，红久了就会被 `|| echo` 软化（11-03 的坑）。
+  baseline_negative_debt: 31
+  debt_must_not_grow: true
+  # 每日层的最小集合：可以加项，不许悄悄删项（否则「每日结果门禁」会被慢慢掏空）
+  required_daily:
+    - publish_success      # 实际发出去没有（在此之前 39 个验收没有一个看这个）
+    - cover_coverage       # 无封面率（无封面组 CTR 0.52% vs 2.07%）
+    - batch_mix            # 每批结构（热点球评 + 数据型）
+    - content_mix          # 内容类型配比（按实际发布口径）
+    - publish_gate         # 成稿标题硬违规
+    - effect_loop          # 阅读/点击率有没有回升
+
+items:
+
+  # ── pre-publish：每批发布前 ────────────────────────────────────────────────
+  batch_quota:
+    tiers: [pre-publish]
+    kind: advisory
+    why: |
+      原打算做成硬阻断（超发＝违反计划配额），但它内部含「decide 冒烟」等 5 个子项，
+      任一抖动就会把当天剩下所有批次全部停掉——收益（少发 1 篇）远小于代价（当天 0 篇）。
+      篇数上限在 orchestrator 里由 constants.BATCH_QUOTA 直接约束，这里是事后复算，
+      所以只告警。**发布前真正的硬阻断只保留 content_mix 一项**（禁发类型不可撤回）。
+    negative: null
+  content_mix:
+    tiers: [pre-publish, daily]
+    kind: hard
+    why: |
+      禁发类型（历史回顾）一旦发出去就是违规内容且不可撤回，所以进 pre-publish；
+      配额配比又必须每天看（成稿口径会系统性高估弱类型），所以同时进 daily。
+    negative: null
+  publish_gate:
+    tiers: [pre-publish, daily]
+    kind: advisory
+    why: |
+      硬违规标题必须拦，但**不能阻断发布**：稿子已经生成完，卡在发布前等于白烧额度；
+      而且本项有过「连续多年份存量染红」的历史（11-04 修假绿灯后一次暴露 56 条），
+      做成硬阻断会把一个验收器的 bug 放大成「全天零发布」。真正的拦截在生成侧
+      （score_title_plan），这里是事后复算。
+    negative: null
+  fixture_pool:
+    tiers: [pre-publish]
+    kind: advisory
+    why: 赛程池不足时退化到新闻流即可，不影响已生成的稿（计划九）
+    negative: null
+  api_budget:
+    tiers: [pre-publish]
+    kind: advisory
+    why: 额度告警与发布解耦（计划 11.4）
+    negative: null
+  rumor_wording:
+    tiers: [pre-publish]
+    kind: advisory
+    why: 传闻措辞是生成侧闸门的复算，命中即已打回（计划 4.1）
+    negative: null
+  content_reference:
+    tiers: [pre-publish]
+    kind: advisory
+    why: 参照层（抄方法论不抄选题，计划 13.3）
+    negative: null
+  differentiation:
+    tiers: [pre-publish]
+    kind: advisory
+    why: 六个差异化方向（计划 13.5）
+    negative: null
+
+  # ── daily：每天看「昨天真的发生了什么」 ───────────────────────────────────
+  publish_success:
+    tiers: [daily]
+    kind: hard
+    why: 38 个验收全在审「该不该发」，没有一个看「发出去没有」；11-04 一天失败 1/2 零告警
+    negative: null
+  cover_coverage:
+    tiers: [daily]
+    kind: hard
+    why: 无封面是最差路径（CTR 0.52% vs 2.07%）
+    negative: "把阈值人为放松到 100%，判定必须变成「通过」（D 项）"
+  batch_mix:
+    tiers: [daily]
+    kind: hard
+    why: 每批结构决定单批能不能出爆款（配比是月度口径，管不住单批）
+    negative: null
+  effect_loop:
+    tiers: [daily]
+    kind: hard
+    why: 改了 40 多天规则，效果闭环是唯一能证明「改对了」的东西
+    negative: null
+  growth_loop:
+    tiers: [daily]
+    kind: advisory
+    why: 转粉/互动引导，慢变量
+    negative: null
+  perf_ingest:
+    tiers: [daily]
+    kind: advisory
+    why: 绩效回填自动化（导出→台账），断了会让所有效果类验收变成无源之水
+    negative: null
+  performance_import:
+    tiers: [daily]
+    kind: advisory
+    why: 头条后台数据接入（主键唯一性 / 列名最长匹配）
+    negative: null
+  llm_quota:
+    tiers: [daily]
+    kind: hard
+    why: 额度账本少记 = 按量扣钱；免费额度用完当天就停摆
+    negative: "把某个模型的 pct 改 1 个点，A 项必须变 FAIL（D 项）"
+  scraper_diagnostics:
+    tiers: [daily]
+    kind: advisory
+    why: 「返回空」必须区分「真没数据」与「被拦」（懂球帝 567 事故）
+    negative: "台账被篡改（kind 未知/缺字段）时必须报错（D 项）"
+  acceptance_metrics:
+    tiers: [daily]
+    kind: advisory
+    why: 目标 vs 实际（注意：它验的是「目标表与计划一致」，不是「实际值达标」）
+    negative: null
+
+  # ── code-change：只在代码/配置/Prompt 变更时跑 ────────────────────────────
+  title_elements:
+    tiers: [code-change]
+    kind: hard
+    why: 三要素口径 + 尺子校准（含 181 条头部样本的单调性判据）
+    negative: null
+  title_anchor:
+    tiers: [code-change]
+    kind: hard
+    why: 疑问收尾限额 + 锚点覆盖
+    negative: "词表清空后「锚点可识别」必须失败（否则说明判定走的是别的路径）"
+  title_positive:
+    tiers: [code-change]
+    kind: advisory
+    why: 正向规则的采用率趋势
+    negative: null
+  title_antipattern:
+    tiers: [code-change]
+    kind: hard
+    why: 赛果播报式硬规则（含「比分+过程」豁免，防止误杀好标题）
+    negative: null
+  title_templates:
+    tiers: [code-change]
+    kind: advisory
+    why: 句式多样性
+    negative: null
+  event_cluster:
+    tiers: [code-change]
+    kind: advisory
+    why: 单事件多切口
+    negative: "把角度表清空必须 FAIL（docstring 已写明）"
+  event_result:
+    tiers: [code-change]
+    kind: advisory
+    why: 揭晓型事件结果稿通道
+    negative: "用固定的「揭晓时刻」做负向验证"
+  topic_category:
+    tiers: [code-change]
+    kind: advisory
+    why: 选题分类与类别优先级
+    negative: null
+  publish_schedule:
+    tiers: [code-change]
+    kind: advisory
+    why: 发布时段纪律（cron 与死区护栏一致性）
+    negative: null
+  source_roster:
+    tiers: [code-change]
+    kind: advisory
+    why: 数据源与信源清单
+    negative: null
+  season_calendar:
+    tiers: [code-change]
+    kind: advisory
+    why: 赛季节点可信度（有 facts 必须有 fact_source_url）
+    negative: "塞一条无来源的假节点必须被抓到（B 项）"
+  fact_layer:
+    tiers: [code-change]
+    kind: advisory
+    why: 事实层与量表
+    negative: null
+  rank_audit_persistence:
+    tiers: [code-change]
+    kind: advisory
+    why: L3 打分留证（量表校准的前提）
+    negative: "删掉一条记录的某个维度，coverage_ok 必须报缺维（E 项）"
+  signal_saturation:
+    tiers: [code-change]
+    kind: advisory
+    why: 防止「往无区分度信号上写规则」重演
+    negative: null
+  redfox_pilot:
+    tiers: [code-change]
+    kind: advisory
+    why: RedFox 试点（CI 无 Key 自动跳过实网探测）
+    negative: null
+  supply_mix:
+    tiers: [code-change]
+    kind: advisory
+    why: 三层供给占比与充足性
+    negative: null
+  awareness_gate:
+    tiers: [code-change]
+    kind: advisory
+    why: 认知度分级硬门槛
+    negative: null
+
+  # ── weekly：慢变指标 + 元验收 ─────────────────────────────────────────────
+  audit_health:
+    tiers: [weekly]
+    kind: hard
+    why: 元验收——检查这份清单本身有没有失真（漏登记/幽灵项/debt 增长/阻断层被软化）
+    negative: "把 baseline_negative_debt 调低 1，债务检查必须 FAIL（F 项，跑在该脚本内部）"
+  test_gate:
+    tiers: [weekly]
+    kind: hard
+    why: 单测是否真的被 CI 挡在合并前（门禁不得软化）——此前 CI 从不调用它
+    negative: null
+  tuning_discipline:
+    tiers: [weekly]
+    kind: advisory
+    why: 自动调参纪律与四道防呆
+    negative: null
+  check_slot:
+    tiers: [weekly]
+    kind: advisory
+    why: 调度检查口径与告警可信度（10-22/10-23 两次假警）——此前 CI 从不调用它
+    negative: null
+  ranker_signals:
+    tiers: [weekly]
+    kind: advisory
+    why: ranker 社媒信号接线——此前 CI 从不调用它
+    negative: null

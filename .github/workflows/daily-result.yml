@@ -1,0 +1,163 @@
+name: 每日结果门禁（L3 · 看「昨天真的发生了什么」）
+
+# 2026-11-04 重构。为什么新建这一层：
+#
+# 此前 39 个验收全部塞在「每周一 04:30」跑一次，而它们绝大多数在验
+# 「代码接没接 / 口径自洽不自洽」——这是开发期一次性的事，却每周重复一遍。
+# 真正该天天看的四个数（发出去几篇 / 失败了没有 / 有没有封面 / 有没有人点）
+# **一个硬门禁都没有**：11-04 午间 2 篇发布 1 成 1 败（发布超时: 无API响应），
+# 没有任何告警；零配图率 33%，同样没人看。
+#
+# 所以频率要反过来：
+#   本 workflow（每天 09:10 CST） = 结果类，看真实产出与绩效
+#   plan-invariants-verify.yml    = 口径类，改成「代码变了才跑」+ 每周兜底
+#   weekly-audit-health.yml       = 元验收，审审核本身（每周）
+#
+# 判定纪律：硬项不带 `|| echo`（FAIL 就必须红）；告警项带 `|| echo` 但必须写清原因。
+on:
+  schedule:
+    # 00:10 UTC = 08:10 CST：晚于 06:00 的导出收集、早于 09:20 的 perf-ingest
+    - cron: '10 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-result-gate
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置 Git 推送凭据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python3 -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # ── 硬项（不带 || echo）：这几项红了就是「昨天真的出事了」，必须有人看 ──
+
+      - name: 发布成功率（7 天窗口）
+        run: |
+          # 硬项口径：成功率 ≥85% / 连续 2 篇失败即拦 / 失败必须带原因 / 台账覆盖
+          # 「连续 2 篇失败」与比率无关，是链路断掉的信号——11-04 一天 1/2 失败零告警。
+          python3 scripts/verify_publish_success.py --days 7 --quiet
+
+      - name: 封面覆盖率（14 天窗口）
+        run: |
+          # 硬项：兜底生效日后零配图率 ≤5%（无封面组 CTR 0.52% vs 有封面 2.07%）
+          python3 scripts/verify_cover_coverage.py --days 14 --quiet
+
+      - name: 每批内容结构（7 天窗口）
+        run: |
+          # 硬项：热点球评 ≥35% / 战术榜单 ≤25% / 数据型 ≥20% / 禁发类型 0
+          # 样本 <8 篇判「未判定」（⏸ + warning），不算通过
+          python3 scripts/verify_batch_mix.py --days 7 --quiet
+
+      - name: 内容类型配比（7 天窗口）
+        run: |
+          # 硬项：目标表自洽 + 生效日后禁发类型零产出；占比属慢变量只告警
+          python3 scripts/verify_content_mix.py --days 7 --quiet
+
+      - name: 发布闸门（成稿标题硬违规）
+        run: |
+          # 硬项：生效日后成稿标题零硬违规（GATE_SINCE=2026-11-05）
+          python3 scripts/verify_publish_gate.py --quiet
+
+      - name: 效果闭环
+        run: |
+          # 硬项：阅读/点击率趋势可统计；改了 40 多天规则，这里是唯一能证明「改对了」的地方
+          python3 scripts/verify_effect_loop.py --quiet
+
+      - name: LLM 免费额度账本
+        run: |
+          # 硬项：账本少记 = 按量扣钱；免费额度用完当天就停摆
+          python3 scripts/verify_llm_quota.py --quiet
+
+      # ── 告警项（带 || echo）：红了要在日志里显眼，但不该让人以为「今天不能发」 ──
+
+      - name: 转粉与互动闭环（告警）
+        run: |
+          python3 scripts/verify_growth_loop.py --quiet \
+            || echo "::warning::转粉闭环未达标（慢变量，不影响当日发布），详见 data/audit/growth_loop_latest.json"
+
+      - name: 绩效回填自动化（告警）
+        run: |
+          # 它断了会让所有效果类验收变成无源之水，所以必须天天看，但不阻断
+          python3 scripts/verify_perf_ingest.py --quiet \
+            || echo "::warning::绩效回填未自动化，详见 data/audit/perf_ingest_latest.json"
+
+      - name: 头条后台数据接入（告警）
+        run: |
+          python3 scripts/verify_performance_import.py --quiet \
+            || echo "::warning::后台数据接入未达标，详见 data/audit/performance_import_latest.json"
+
+      - name: 采集失败分类（告警）
+        run: |
+          # 「返回空」必须能区分「真没数据」与「被拦」
+          python3 scripts/verify_scraper_diagnostics.py --quiet \
+            || echo "::warning::采集失败分类未达标，详见 data/audit/scraper_diagnostics_latest.json"
+
+      - name: 验收指标与熔断（告警）
+        run: |
+          # 注意：本项验的是「目标表与计划一致」，不是「实际值达标」
+          python3 scripts/verify_acceptance_metrics.py --quiet \
+            || echo "::warning::验收指标表与计划不一致，详见 data/audit/acceptance_metrics_latest.json"
+
+      - name: 汇总当日结论
+        if: always()
+        run: |
+          echo "### 每日结果门禁" >> $GITHUB_STEP_SUMMARY
+          python3 - <<'PY' >> $GITHUB_STEP_SUMMARY
+          import json, pathlib
+          rows = [
+              ("publish_success", "发布成功率"),
+              ("cover_coverage", "封面覆盖率"),
+              ("batch_mix", "每批结构"),
+              ("content_mix", "内容配比"),
+              ("publish_gate", "发布闸门"),
+              ("effect_loop", "效果闭环"),
+              ("llm_quota", "LLM 额度"),
+          ]
+          print("| 项 | 结论 | 硬项失败 |")
+          print("|---|---|---|")
+          for key, label in rows:
+              p = pathlib.Path(f"data/audit/{key}_latest.json")
+              if not p.exists():
+                  print(f"| {label} | 无产物 | - |")
+                  continue
+              d = json.loads(p.read_text(encoding="utf-8"))
+              ok = d.get("ok")
+              mark = "⏸ 未判定" if ok is None else ("✅" if ok else "❌")
+              print(f"| {label} | {mark} | {'、'.join(d.get('hard_failed') or []) or '-'} |")
+          PY
+
+      - name: 回写门禁报告
+        if: always()
+        run: |
+          git add -f data/audit || true
+          if git diff --cached --quiet; then
+            echo "无报告变更"
+            exit 0
+          fi
+          git commit -m "chore(audit): 每日结果门禁报告（发布成功率/封面/结构/配比/效果）"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git pull --rebase origin main || true
+          done

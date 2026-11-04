@@ -227,6 +227,38 @@ def check_source_chain():
     return {"item": "图源链路", "ok": ok, "detail": detail}
 
 
+def check_news_source():
+    """B2. 新闻源正文图：零成本、精度最高的那一层，必须真的被消费。
+
+    功能级验证而不是文本匹配：直接喂一张假图给 `search_images`，看它有没有被当成
+    候选返回。2026-11-04 之前 `media_scraper` 已经把战报正文 `<img>` 抽成
+    `source_images`，但**只有一条路径用过它**，抓了等于没抓；文本匹配查不出这种事。
+    """
+    detail = []
+    try:
+        import data_collector as dc
+        got = dc.search_images(
+            {"title": "覆盖验收", "source_images": [{"url": "https://example.invalid/a.jpg"}]},
+            count=1)
+    except Exception as e:
+        return {"item": "新闻源正文图", "ok": False,
+                "detail": [f"❌ 调用 search_images 失败：{type(e).__name__}: {e}"]}
+    used = [g for g in got if isinstance(g, dict) and g.get("source") == "news_source"]
+    ok = bool(used)
+    detail.append(("✅ search_images 会消费 topic['source_images']（喂 1 张假图返回了 "
+                   f"{len(used)} 张）") if ok else
+                  "❌ search_images 没有消费 topic['source_images']（战报正文图抓了等于没抓）")
+    # 图库层（Pixabay / Pexels）也要在候选链里，且失败不再静默
+    src = DATA_COLLECTOR.read_text(encoding="utf-8")
+    for name in ("_gallery_pixabay", "_gallery_pexels"):
+        if name not in src:
+            ok = False
+            detail.append(f"❌ data_collector 缺 {name}（图库备选层缺失）")
+        else:
+            detail.append(f"✅ {name} 已定义")
+    return {"item": "新闻源正文图", "ok": ok, "detail": detail}
+
+
 def check_size_gate():
     """C. 保存侧下载器仍要求 ≥800×600，避免占位图混进来。"""
     detail, ok = [], True
@@ -327,8 +359,8 @@ def check_fallback_wired():
 
 
 def verify(days=14):
-    checks = [check_no_cover(days), check_source_chain(), check_size_gate(),
-              check_negative(), check_fallback_wired()]
+    checks = [check_no_cover(days), check_source_chain(), check_news_source(),
+              check_size_gate(), check_negative(), check_fallback_wired()]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "window_days": days, "since": COVER_SINCE, "fallback_since": FALLBACK_SINCE,

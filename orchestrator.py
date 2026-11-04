@@ -3183,6 +3183,30 @@ def _title_gate_row(art: dict) -> dict:
     return row
 
 
+def _img_topic(topic, *cands):
+    """构造配图 topic，并把「新闻源正文图」透传进去。
+
+    media_scraper 抓直播吧战报时已经把正文 `<img>` 抽成 ``source_images``，但 2026-11-04
+    之前只有 `_find_source_article` 那一条路径用过它，其余 6 处 `img_topic` 都是从 LLM
+    产出里重建的、根本拿不到这个字段 —— 抓了等于没抓。这里把候选对象里的
+    ``source_images`` 找出来带上，`data_collector.search_images` 会把它当作最高精度的
+    一层（比任何图库都准：就是那场比赛的图）。
+    """
+    out = dict(topic or {})
+    for c in cands:
+        if not isinstance(c, dict):
+            continue
+        imgs = c.get("source_images")
+        if not imgs:
+            # facts 在部分路径上是 list（原始事实行），不能无条件 .get
+            facts = c.get("facts")
+            imgs = facts.get("source_images") if isinstance(facts, dict) else None
+        if imgs:
+            out["source_images"] = list(imgs)[:3]
+            break
+    return out
+
+
 def _title_block(topic, facts=None) -> str:
     """标题要求 + 本条的可用素材（数字/专名/对照），供各生成 prompt 直接插入。"""
     try:
@@ -4007,11 +4031,11 @@ def _add_event_result_articles(*, articles, topics, images_map, stats, added, de
             batch_mode=batch_mode, avoid_signatures=avoid_sigs)
         if not art:
             continue
-        img_topic = {
+        img_topic = _img_topic({
             "title": art.get("title", ""),
             "keywords_cn": art.get("keywords", []),
             "keywords": art.get("keywords", ["football"]),
-        }
+        }, rt, art)
         images_map[len(articles)] = search_images(img_topic, count=3)
         stats["generated"] += 1
         stats["valid"] += 1
@@ -4097,11 +4121,11 @@ def _add_event_angle_articles(*, articles, topics, images_map, stats, added, cap
                              action="丢弃该角度，本批少发一篇（绝不改标题凑数）")
                 continue
             # 首图也必须错开：同事件三篇用同一张图，读者一眼看出来是同一篇
-            img_topic = {
+            img_topic = _img_topic({
                 "title": art.get("title", ""),
                 "keywords_cn": [ev["label"], p["angle"]] + list(art.get("keywords_cn") or [])[:2],
                 "keywords": ["football", ev["node_id"] or "event"],
-            }
+            }, ev, p, art)
             images_map[len(articles)] = search_images(img_topic, count=3)
             art["_batch_name"] = batch_cfg_name(batch_mode)
             stats["generated"] += 1
@@ -5196,11 +5220,11 @@ def main():
                         degrade.note("隔夜战报", f"{rc.get('home_zh')} vs {rc.get('away_zh')} 生成失败",
                                      action="本批不补战报，不拿软性内容顶替")
                         continue
-                    img_topic = {
+                    img_topic = _img_topic({
                         "title": r_art.get("title", ""),
                         "keywords_cn": [rc.get("home_zh", ""), rc.get("away_zh", "")],
                         "keywords": ["football", (rc.get("competition") or "match")],
-                    }
+                    }, rc)
                     images_map[len(articles)] = search_images(img_topic, count=3)
                     r_art["_batch_name"] = batch_cfg["name"]
                     r_art["_batch_time"] = batch_cfg["time"]
@@ -5260,11 +5284,11 @@ def main():
                         topic_history=topic_history, batch_mode=batch_mode,
                         avoid_signatures=_avoid_sigs)
                     if f_art:
-                        img_topic = {
+                        img_topic = _img_topic({
                             "title": f_art.get("title", ""),
                             "keywords_cn": [ft.get("home_zh", ""), ft.get("away_zh", "")],
                             "keywords": ["football", (ft.get("competition") or "match")],
-                        }
+                        }, ft, facts)
                         f_imgs = search_images(img_topic, count=3)
                         images_map[len(articles)] = f_imgs
                         stats["generated"] += 1
@@ -5318,11 +5342,11 @@ def main():
                         "_is_fixture": True,
                         "_supply_layer": "一级·确定性·节点",
                     }
-                    img_topic = {
+                    img_topic = _img_topic({
                         "title": n_art.get("title", ""),
                         "keywords_cn": n_art.get("keywords_cn", []),
                         "keywords": n_art.get("keywords", ["football"]),
-                    }
+                    }, n_art, ev)
                     images_map[len(articles)] = search_images(img_topic, count=3)
                     stats["generated"] += 1
                     stats["valid"] += 1
@@ -5476,9 +5500,10 @@ def main():
                     for m in future_matches[:6]:
                         team_names.append(m.get("home_team", ""))
                         team_names.append(m.get("away_team", ""))
-                    img_topic = {"title": pred_art.get("title", "明日足球预测"),
+                    img_topic = _img_topic({"title": pred_art.get("title", "明日足球预测"),
                                  "keywords_cn": league_names[:3] + team_names[:4],
-                                 "keywords": ["football", "prediction"] + [t for t in team_names[:4] if t]}
+                                 "keywords": ["football", "prediction"] + [t for t in team_names[:4] if t]},
+                                pred_art, topic)
                     p_imgs = search_images(img_topic, count=3)
                     images_map[len(articles)] = p_imgs
                     stats["generated"] += 1

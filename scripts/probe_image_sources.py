@@ -46,6 +46,103 @@ def _ms(t0: float) -> int:
     return int((time.time() - t0) * 1000)
 
 
+def probe_pixabay() -> dict:
+    """Pixabay：免费 5000 次/小时，注册即用**无需审核**（2026-11-04 实测域名可达）。"""
+    api = "https://pixabay.com/api/"
+    key = os.environ.get("PIXABAY_KEY", "")
+    t0 = time.time()
+    if not key:
+        return {"name": "Pixabay API", "ok": False, "ms": 0, "status": None,
+                "detail": "未配置 PIXABAY_KEY",
+                "action": "pixabay.com/account/api-key 注册即拿 Key（无需审核，5 分钟）"}
+    try:
+        r = requests.get(api, params={"key": key, "q": "football", "per_page": 3,
+                                      "image_type": "photo", "orientation": "horizontal"},
+                         timeout=TIMEOUT)
+    except Exception as e:
+        return {"name": "Pixabay API", "ok": False, "ms": _ms(t0), "status": None,
+                "detail": f"{type(e).__name__}: {str(e)[:90]}",
+                "action": "域名不通：本机/CI 出口被挡，改用新闻源正文图 + 数据卡兜底"}
+    if r.status_code == 200:
+        hits = (r.json() or {}).get("hits", [])
+        return {"name": "Pixabay API", "ok": bool(hits), "ms": _ms(t0), "status": 200,
+                "detail": f"命中 {len(hits)} 张（含原图尺寸信息）",
+                "action": "" if hits else "200 但无结果：换检索词；图库层不是实体精确源"}
+    return {"name": "Pixabay API", "ok": False, "ms": _ms(t0), "status": r.status_code,
+            "detail": f"HTTP {r.status_code}: {r.text[:100]}",
+            "action": ("400 = Key 格式不对或未生效；429 = 超 5000 次/小时配额。"
+                       "注意：pixabay.com **网页**从本机 403，但 api 域名是通的，别据此判断不通")}
+
+
+def probe_pexels() -> dict:
+    """Pexels：免费 200 次/小时，注册即用**无需审核**。"""
+    api = "https://api.pexels.com/v1/search"
+    key = os.environ.get("PEXELS_KEY", "")
+    t0 = time.time()
+    if not key:
+        return {"name": "Pexels API", "ok": False, "ms": 0, "status": None,
+                "detail": "未配置 PEXELS_KEY",
+                "action": "pexels.com/api 注册即拿 Key（无需审核）；额度比 Pixabay 小，作备选"}
+    try:
+        r = requests.get(api, params={"query": "football", "per_page": 3},
+                         headers={"Authorization": key}, timeout=TIMEOUT)
+    except Exception as e:
+        return {"name": "Pexels API", "ok": False, "ms": _ms(t0), "status": None,
+                "detail": f"{type(e).__name__}: {str(e)[:90]}", "action": "域名不通，跳过"}
+    if r.status_code == 200:
+        photos = (r.json() or {}).get("photos", [])
+        return {"name": "Pexels API", "ok": bool(photos), "ms": _ms(t0), "status": 200,
+                "detail": f"命中 {len(photos)} 张", "action": ""}
+    return {"name": "Pexels API", "ok": False, "ms": _ms(t0), "status": r.status_code,
+            "detail": f"HTTP {r.status_code}: {r.text[:100]}",
+            "action": "401 = Key 未生效；psxels 网页 403 但 api 域名可达，别混淆"}
+
+
+def probe_news_source() -> dict:
+    """新闻源正文图：零网络、零 Key，精度最高的一层（就是那场比赛的图）。
+
+    两层验证：① 代码链路——`search_images` 是否真的消费 ``topic["source_images"]``；
+    ② 实绩——最近 7 天成稿里有没有真用上（没战报的批次为 0 属正常，不算故障）。
+    """
+    t0 = time.time()
+    try:
+        import data_collector as dc
+        got = dc.search_images(
+            {"title": "测试", "source_images": [{"url": "https://example.invalid/a.jpg"}]},
+            count=1)
+        linked = bool(got) and got[0].get("source") == "news_source"
+    except Exception as e:
+        return {"name": "新闻源正文图", "ok": False, "ms": _ms(t0), "status": None,
+                "detail": f"{type(e).__name__}: {str(e)[:90]}",
+                "action": "链路调用异常，检查 data_collector.search_images 的 ⓿ 层"}
+    if not linked:
+        return {"name": "新闻源正文图", "ok": False, "ms": _ms(t0), "status": None,
+                "detail": "search_images 没有消费 topic['source_images']（链路断了）",
+                "action": "检查 data_collector.search_images 的 ⓿ 层与 cover_binding 白名单"}
+
+    used = 0
+    out = PROJECT_ROOT / "output"
+    if out.exists():
+        from datetime import datetime, timedelta, timezone
+        today = datetime.now(timezone(timedelta(hours=8))).date()
+        for i in range(7):
+            d = out / (today - timedelta(days=i)).strftime("%Y-%m-%d")
+            mp = d / "metadata.json"
+            if not mp.exists():
+                continue
+            try:
+                meta = json.loads(mp.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            for a in meta.get("articles") or []:
+                used += sum(1 for im in (a.get("images") or [])
+                            if isinstance(im, dict) and im.get("source") == "news_source")
+    return {"name": "新闻源正文图", "ok": True, "ms": _ms(t0), "status": None,
+            "detail": (f"链路已接上；近 7 天成稿里用到 {used} 张"
+                       + ("" if used else "（没有战报的批次为 0 属正常）")),
+            "action": "" if used else "若连续多日仍为 0，查 media_scraper 的战报正文 img 抽取"}
+
+
 def probe_wikipedia() -> dict:
     """维基：用「皇家马德里」查条目 → 再查该条目有没有图。"""
     api = "https://zh.wikipedia.org/w/api.php"
@@ -158,10 +255,14 @@ def run() -> dict:
     uns = probe_unsplash_api()
     cdn = probe_unsplash_cdn()
     ddg = probe_duckduckgo()
-    probes = [wiki, uns, cdn, ddg]
+    pix = probe_pixabay()
+    pex = probe_pexels()
+    news = probe_news_source()
+    probes = [news, wiki, pix, pex, uns, cdn, ddg]
     usable = [p for p in probes if p["ok"]]
-    # 「有图源」不是「随便哪条通」：Unsplash 必须 API 与 CDN 同时通才能真拿到图。
-    has_source = wiki["ok"] or (uns["ok"] and cdn["ok"]) or ddg["ok"]
+    # 「有图源」不是「随便哪条通」：图库必须 API 与 CDN 同时通才能真拿到图。
+    has_source = (news["ok"] or wiki["ok"] or pix["ok"] or pex["ok"]
+                  or (uns["ok"] and cdn["ok"]) or ddg["ok"])
     return {"probes": probes, "usable": len(usable),
             "total": len(probes), "has_source": has_source,
             "proxy_hint": _proxy_hint()}
