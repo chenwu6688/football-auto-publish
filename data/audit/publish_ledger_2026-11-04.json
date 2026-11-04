@@ -1,14 +1,14 @@
 {
   "date": "2026-11-04",
-  "generated_at": "2026-11-04 00:06:04",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-04 04:07:07",
+  "batch_filter": "noon",
   "counts": {
-    "total": 1,
+    "total": 2,
     "published": 1,
-    "failed": 0,
+    "failed": 1,
     "skipped_prediction": 0,
     "published_without_id": 0,
-    "published_without_cover": 0
+    "published_without_cover": 1
   },
   "platform_id_binding": {
     "bound": 1,
@@ -17,12 +17,21 @@
   },
   "records": [
     {
-      "title": "马竞铁血防线连丢两球崩盘，拜仁0-2带走胜利，谁该背锅",
+      "title": "曼联半场两球落后还能翻盘，换人后罗马彻底崩了",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7704100634164789779",
-      "reason": "",
+      "batch_name": "午间",
+      "platform_id": "",
+      "reason": "发布超时: 无API响应",
       "images": 2,
+      "status": "failed"
+    },
+    {
+      "title": "大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704162883977888290",
+      "reason": "",
+      "images": 0,
       "status": "published"
     }
   ],
