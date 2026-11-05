@@ -2118,6 +2118,49 @@ def ensure_batch_attribution(articles, batch_name, batch_time=""):
     return filled
 
 
+# ——————————————————————————————————————————————
+# 配图下限（2026-11-05 用户要求：单篇至少 3 张相关配图）
+# ——————————————————————————————————————————————
+MIN_ARTICLE_IMAGES = 3
+
+# 生效日：验收只对这一天（含）之后生成的批次判「每篇 3 张」。
+# 存量批次是 0~1 张，拿来判等于天生 FAIL，真正的退化反而看不见。
+IMAGE_FLOOR_SINCE = "2026-11-05"
+
+# 正文插图的尺寸闸门比封面宽：头条正文渲染宽度 ~640px，600×400 已经够清晰；
+# 封面（第一张）必须 800×600。混用同一个闸门会把新闻源图床的 720×480 整批拒掉
+# （2026-11-05 实测：那条链路本来能拿 3 张，却因为闸门一张都落不了盘）。
+BODY_IMG_MIN_W, BODY_IMG_MIN_H = 600, 400
+
+
+def _inject_images(content: str, downloaded: list) -> str:
+    """把已下载的图按 `## ` 分节插进正文，**一张都不丢**。
+
+    旧实现是 `if si < len(downloaded)`：稿子只有 2 节、图有 3 张时，第 3 张既不进正文
+    也不报错——图下载了，读者看不见，台账却记了 3 张。这正是「配图数上去了、观感没变」
+    的典型形态。现在多出来的图追加到文末，保证「下载了几张，正文里就有几张」。
+    """
+    if not downloaded:
+        return content
+    refs = [f"\n![{img.get('description') or f'配图{i + 1}'}](images/{img['filename']})\n"
+            for i, img in enumerate(downloaded)]
+
+    sections = content.split("\n## ")
+    if len(sections) > 1:
+        head, secs = sections[0], sections[1:]
+        parts = [head]
+        for si, sec in enumerate(secs):
+            parts.append("## " + sec)
+            if si < len(refs):
+                parts.append(refs[si])
+        out = "\n".join(parts)
+        rest = refs[len(secs):]
+        if rest:
+            out = out.rstrip() + "\n" + "".join(rest)
+        return out
+    return content.rstrip() + "\n" + "".join(refs)
+
+
 def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
                         pre_downloaded_images=None):
     """Save articles directly to filesystem (no Flask dependency).
@@ -2198,21 +2241,34 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
             _attr_by_url = {img["url"]: img.get("attribution")
                             for img in (images_map.get(i) or [])
                             if isinstance(img, dict) and img.get("attribution")}
+            _fallback_by_url = {img["url"]: img.get("fallback")
+                                for img in (images_map.get(i) or [])
+                                if isinstance(img, dict) and img.get("fallback")}
+            _source_by_url = {img["url"]: img.get("source")
+                              for img in (images_map.get(i) or [])
+                              if isinstance(img, dict) and img.get("source")}
             img_urls = [img["url"] for img in images_map.get(i, [])[:5]]
             for j, url in enumerate(img_urls):
-                if len(downloaded) >= 3:
+                if len(downloaded) >= MIN_ARTICLE_IMAGES:
                     break
                 if not url or not url.startswith("http"):
                     continue
-                result = image_service.download_image(url=url, target_dir=images_dir,
-                                                      prefix=prefix, index=len(downloaded)+1,
-                                                      existing_hashes=all_hashes)
+                # 第一张会被头条选作封面 → 走 800×600；其余是正文插图 → 600×400
+                _is_cover = not downloaded
+                result = image_service.download_image(
+                    url=url, target_dir=images_dir,
+                    prefix=prefix, index=len(downloaded)+1,
+                    existing_hashes=all_hashes,
+                    min_width=800 if _is_cover else BODY_IMG_MIN_W,
+                    min_height=600 if _is_cover else BODY_IMG_MIN_H,
+                    fallback_url=_fallback_by_url.get(url))
                 if result:
                     all_hashes.add(result["md5"])
                     # 署名信息随下载结果透传：只有真的落盘的图才署名。
                     # 在 metadata 里记 attribution 而正文不写 = 许可违规（CC BY 要求署名）。
                     if _attr_by_url.get(url):
                         result["attribution"] = _attr_by_url[url]
+                    result["source"] = _source_by_url.get(url, "")
                     downloaded.append(result)
 
         if not downloaded:
@@ -2232,7 +2288,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 downloaded.append({"local_path": _card, "filename": _cpath.name,
                                    "url": "", "md5": _cmd5,
                                    "width": cover_card.W, "height": cover_card.H,
-                                   "description": "数据卡"})
+                                   "description": "原创信息图·数据卡",
+                                   "source": "card:title"})
                 degrade.note("封面兜底", "图源全断，改用标题数据卡",
                              action="已配图发布；数据卡只兜底观感，不替代真实图")
             else:
@@ -2241,37 +2298,40 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 degrade.note("封面兜底", f"数据卡生成失败：{cover_card.LAST_ERROR or '未知原因'}",
                              action="照旧不配图发布，该篇计入无封面台账")
 
+        # —— 每篇至少 3 张（2026-11-05 用户要求）——
+        # 真实图源（新闻站爬取 / Commons / 图库）能拿几张就拿几张，缺口用**原创信息图**
+        # 补：要点卡（正文小标题 + 首句）、数字卡（标题里最关键的数字）、标题卡。
+        # 三种版式都从这篇稿子自己的内容派生，所以「相关」是结构性的，不是检索碰运气；
+        # 同版式不会重复（skip_variants），避免「3 张配图 = 同一张复制三遍」。
+        if len(downloaded) < MIN_ARTICLE_IMAGES:
+            _used_variants = tuple(
+                str(d.get("source", "")).split(":", 1)[1]
+                for d in downloaded
+                if isinstance(d, dict) and str(d.get("source", "")).startswith("card:"))
+            _cards = cover_card.fill(
+                art, out_dir=images_dir, prefix=prefix,
+                start_index=len(downloaded) + 1,
+                need=MIN_ARTICLE_IMAGES - len(downloaded),
+                used_hashes=all_hashes,
+                skip_variants=_used_variants)
+            if _cards:
+                # 真实图源的张数要在 extend 之前数，而且要排除信息图自己——
+                # 否则文案会变成「真实图源拿到 1 张」，而那张其实是刚刚的封面兜底卡
+                _real = sum(1 for d in downloaded
+                            if not str(d.get("source", "")).startswith("card:"))
+                downloaded.extend(_cards)
+                degrade.note("配图补齐", f"真实图源只拿到 {_real} 张",
+                             action=f"用 {len(_cards)} 张原创信息图补到 {len(downloaded)} 张")
+            elif len(downloaded) < MIN_ARTICLE_IMAGES:
+                degrade.note("配图不足",
+                             f"仅 {len(downloaded)} 张（目标 {MIN_ARTICLE_IMAGES}）",
+                             action=f"信息图也补不上：{cover_card.LAST_ERROR or '未知原因'}")
+
         content = art.get("content", "")
         # Strip auto-generated markers first to sync with actual downloaded count
         content = re.sub(r'!\[配图\d+\]\(images/article-\d+-img-\d+\.jpg\)\n?', '', content)
-        if downloaded:
-            # Inject downloaded images into content as fallback
-            # For articles with ## sections, place one image after each section
-            sections = content.split("\n## ")
-            if len(sections) > 1 and len(downloaded) >= 2:
-                new_parts = [sections[0]]
-                for si, sec in enumerate(sections[1:]):
-                    sec_text = ("## " + sec) if si == 0 else ("## " + sec)
-                    new_parts.append(sec_text)
-                    if si < len(downloaded):
-                        img = downloaded[si]
-                        new_parts.append(
-                            f"\n![{img.get('description', f'配图{si+1}')}](images/{img['filename']})\n")
-                content = "\n".join(new_parts)
-            else:
-                # Old logic: proportional insertion
-                for j, img in enumerate(downloaded):
-                    img_ref = f"\n![{img.get('description', f'配图{j+1}')}](images/{img['filename']})\n"
-                    parts = content.split("\n## ", 1)
-                    if len(parts) == 2:
-                        rest = "## " + parts[1]
-                        insert_pos = rest.find("\n\n", len(rest) // (j + 2) + len(rest) // 3)
-                        if insert_pos > 0:
-                            content = parts[0] + "\n" + rest[:insert_pos] + img_ref + rest[insert_pos:]
-                        else:
-                            content = parts[0] + "\n" + rest + img_ref
-                    else:
-                        content = content + img_ref
+        # 按节均匀插入；节数少于图数时多出来的图补到文末（`_inject_images` 里说明）
+        content = _inject_images(content, downloaded)
         # —— 图片来源署名（合规硬要求，2026-11-04 补）——
         # 此前维基配图**完全没有署名**，而 CC BY / CC BY-SA 要求署名作者+许可，
         # 只在 metadata 里记一笔等于没署名。这里只署"真的进了正文的图"：
@@ -2430,6 +2490,10 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         saved.append(_rec)
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
+    # 配图下限的生效日（2026-11-05）：验收脚本据此区分「老批次不达标」与「新批次退化」。
+    # 不写这一项，`verify_article_images` 就只能对全部历史产物判 FAIL——那等于把
+    # 「改动之前就是这样」当成「改动之后坏了」，没人会看第二次。
+    meta["image_floor"] = {"since": IMAGE_FLOOR_SINCE, "min_per_article": MIN_ARTICLE_IMAGES}
     # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）。
     # 预测稿不发布到头条，不进配比口径（与看板/配额验收同口径，R13 决策④）。
     _supply = supply_mix.summarize(

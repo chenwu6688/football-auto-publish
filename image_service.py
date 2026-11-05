@@ -124,13 +124,38 @@ class ImageService:
         return hex(int(bits, 2))[2:]
 
     def download_image(self, url: str, target_dir: Path, prefix: str, index: int,
-                       existing_hashes: set) -> Optional[dict]:
+                       existing_hashes: set, min_width: Optional[int] = None,
+                       min_height: Optional[int] = None,
+                       fallback_url: Optional[str] = None) -> Optional[dict]:
         """
         下载并处理单张图片
+
+        min_width/min_height: 覆盖实例默认闸门。**封面还是正文图，闸门不一样**：
+            封面（`article-N-img-001.jpg`）头条会拿去做封面，必须 800×600；
+            正文插图渲染宽度只有 ~640px，新闻源图床的 720×480 / 644×476 完全够用，
+            用 800 去卡会把「新闻源正文图」这条精度最高的链路整批拒掉
+            （2026-11-05 实测：直播吧正文图 `_1280` 版本 1280×853 过闸门，
+            但「无尺寸后缀」的原图只有 644×476，一拒就是 0 图）。
+        fallback_url: 主 URL 失败时回退用的地址（新闻图床的 `_720` 版本）。
 
         Returns:
             {local_path, url, hash, width, height} or None on failure
         """
+        got = self._download_one(url, target_dir, prefix, index, existing_hashes,
+                                 min_width, min_height)
+        if got is None and fallback_url and fallback_url != url:
+            got = self._download_one(fallback_url, target_dir, prefix, index,
+                                     existing_hashes, min_width, min_height)
+            if got is not None:
+                got["url"] = url                   # 台账记原始地址，可回溯到出处
+        return got
+
+    def _download_one(self, url: str, target_dir: Path, prefix: str, index: int,
+                      existing_hashes: set, min_width: Optional[int],
+                      min_height: Optional[int]) -> Optional[dict]:
+        """单次下载（不含回退），供 `download_image` 调用。"""
+        min_w = self.min_width if min_width is None else int(min_width)
+        min_h = self.min_height if min_height is None else int(min_height)
         try:
             resp = self.session.get(url, timeout=15, stream=True)
             resp.raise_for_status()
@@ -170,7 +195,7 @@ class ImageService:
 
             # 检查尺寸
             width, height = img.size
-            if width < self.min_width or height < self.min_height:
+            if width < min_w or height < min_h:
                 return None
 
             # 检查格式，转 JPEG

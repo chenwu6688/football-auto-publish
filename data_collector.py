@@ -1426,12 +1426,23 @@ def search_images(topic, count=5):
 
     图库层顺序：Pixabay（5000/h 免审核）→ Pexels（200/h 免审核）→ Unsplash（等审核）。
     三家都要求 query 绑定正文实体，且都不在无 Key 时静默跳过——落 scraper_diagnostics。
+
+    ▼ 2026-11-05 再改（用户要求「单篇文章至少 3 张相关配图」）
+    上面这些层加起来，一篇稿子实测只能拿 0~1 张：Commons 本机不通、图库白名单只有
+    10 支球队、球员零覆盖。所以新增一层**爬取**：
+      ⓿' `news_images`：爬「标题命中正文实体」的新闻站报道，取正文容器里的图。
+          实测 6 篇相关报道可稳定拿到 3 张 1280×853 的图，且图文天然同源。
+    同时把 Commons 的实体遍历从 2 个放宽到 4 个（每实体只取还差的张数）。
+    仍然守「宁可不配图也不放随机图」：没有实体就**不爬**，绝不会按标题词乱爬。
     """
     images = []
     keywords = list(topic.get("keywords", [])) if isinstance(topic, dict) else ["football"]
     en_keywords = [k for k in keywords if isinstance(k, str)
                    and not any("\u4e00" <= c <= "\u9fff" for c in k)]
     players, teams, _ = extract_search_entities(topic) if isinstance(topic, dict) else ([], [], "")
+    # 实体在 ⓿'（新闻图爬取）就要用，提前到这里算；下面各层共用同一份
+    ents = _cb.article_entities(topic) if isinstance(topic, dict) else []
+    _title_terms = _cb.title_terms(topic.get("title", "")) if isinstance(topic, dict) else []
 
     def _push(img):
         if img and img.get("url") and img["url"] not in [i["url"] for i in images]:
@@ -1452,6 +1463,19 @@ def search_images(topic, count=5):
         _diag.record("news_source", "zhibo8_report", status=200, count=len(images),
                      detail=f"复用战报正文图 {len(images)} 张")
 
+    # ⓿' 相关新闻正文图（**爬取层**，2026-11-05 用户要求「单篇至少 3 张」）
+    # 为什么排在图库前面：一篇报道本身就是「图 + 文」成套产出的，图与题材天然同源，
+    # 精度高于任何通用图库；而免费图库在足球题材上根本没有球员肖像（行业结构问题）。
+    # 边界收在 `news_images` 里：只爬「标题命中正文实体」的报道、只取正文容器里的图。
+    if len(images) < count:
+        try:
+            import news_images as _nimg
+            for img in _nimg.fetch(ents, need=count - len(images)):
+                _push(img)
+        except Exception as e:                 # 图源不是发布前置条件，绝不抛出
+            _diag.record("news_body", "zhibo8", kind="parse",
+                         detail=f"{type(e).__name__}: {str(e)[:100]}")
+
     # ① 手工表的精确页名（最高精度，命中即用）
     for p in players[:2]:
         for img in search_wikipedia(p["wiki"]):
@@ -1459,9 +1483,6 @@ def search_images(topic, count=5):
     for t in teams[:2]:
         for img in search_wikipedia(t["wiki"]):
             _push(img)
-
-    ents = _cb.article_entities(topic) if isinstance(topic, dict) else []
-    _title_terms = _cb.title_terms(topic.get("title", "")) if isinstance(topic, dict) else []
 
     # ② 实体词典 → 维基搜索（扩展面最大的那一层）
     # tried 只装「已经真的取到图」的实体：精确页查空的那个实体还要靠这一层补，
@@ -1487,7 +1508,10 @@ def search_images(topic, count=5):
     #     ≥800×600、文件名/描述/分类命中实体；球员类还必须在 football 分类下。
     #     熔断：本机 *.wikimedia.org 全超时，连不上就停，别每篇白等 12 秒。
     if len(images) < count and _wiki_available():
-        for ent in ents[:2]:
+        # 2026-11-05：原来只查前 2 个实体，一篇「队 + 球员 + 教练」的稿子只能拿到 1~2 张。
+        # 改成最多 4 个实体，每个只取「还差的张数」——多查实体是为了覆盖率，
+        # 不是为了让同一支球队堆三张一样的球场照（need 会自动收窄）。
+        for ent in ents[:4]:
             if len(images) >= count or not _wiki_available():
                 break
             try:
