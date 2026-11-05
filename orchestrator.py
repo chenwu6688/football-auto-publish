@@ -2059,8 +2059,12 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
 
         except Exception as e:
             last_hint = f"异常: {e}"
+            # 打印完整栈：原先只留一句 str(e)，2026-11-05 晚间「'int' object has
+            # no attribute 'get'」因此完全无法定位（日志里只有这一句）。
+            import traceback
+            traceback.print_exc()
             if attempt >= max_retries:
-                degrade.note("标题评分", f"改写异常: {str(e)[:60]}",
+                degrade.note("标题评分", f"改写异常: {type(e).__name__}: {str(e)[:60]}",
                              action="按上一版配比直接生成，不阻塞发布")
                 return {}, f"改写异常: {e}"
 
@@ -5902,7 +5906,7 @@ def main():
                     img_topic = _img_topic({"title": pred_art.get("title", "明日足球预测"),
                                  "keywords_cn": league_names[:3] + team_names[:4],
                                  "keywords": ["football", "prediction"] + [t for t in team_names[:4] if t]},
-                                pred_art, topic, match_data=match_data)
+                                pred_art, match_data=match_data)
                     p_imgs = search_images(img_topic, count=3)
                     images_map[len(articles)] = p_imgs
                     stats["generated"] += 1

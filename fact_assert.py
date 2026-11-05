@@ -216,6 +216,10 @@ def verify(article: dict, fixture: dict, match_context=None, *, expected=None) -
     # ── 2. 比分：方向 + 数值（这是原实现最容易漏的一处）
     if hg is not None and ag is not None:
         hit_fixture_score = False
+        # 本场比分对不上的那些，先攒着、循环结束后再定性：
+        # 只要**有一个**比分与本场一致，其余的很可能是在讲历史交锋
+        # （「上赛季科莫1-0朗斯」），不能算矛盾；一个都对不上才是把本场写错了。
+        _mismatched = []
         universe = list(fixture_teams)
         if hasattr(o, "_KNOWN_TEAMS"):
             universe = list(dict.fromkeys(universe + list(o._KNOWN_TEAMS)))
@@ -235,42 +239,36 @@ def verify(article: dict, fixture: dict, match_context=None, *, expected=None) -
                 if (a, b) not in ((int(hg), int(ag)), (int(ag), int(hg))):
                     suspicious.append(f"无法归因的比分 {a}-{b}（事实 {hg}-{ag}）")
                 continue
-            # 只有左队识别出来时，按左队的角色校验单侧数值
+            # 单侧归因：只认出左边或右边一支队。数值不符**不拦**——
+            # 「他上轮进了 2 球」「客队上次丢了 3 个」这类历史陈述，
+            # 单侧无法确认是不是在讲本场，判成矛盾就是误杀。
             if left and not right:
                 if o._same_team(left, home):
                     if a == int(hg):
                         hit_fixture_score = True
                     else:
-                        contradictions.append({
-                            "type": "score_value",
-                            "detail": f"{left} 进球写作 {a}，事实卡是 {hg}",
-                        })
+                        suspicious.append(
+                            f"{left} 进球写作 {a}（事实 {hg}），单侧归因疑为历史数据")
                 elif o._same_team(left, away):
                     if a == int(ag):
                         hit_fixture_score = True
                     else:
-                        contradictions.append({
-                            "type": "score_value",
-                            "detail": f"{left} 进球写作 {a}，事实卡是 {ag}",
-                        })
+                        suspicious.append(
+                            f"{left} 进球写作 {a}（事实 {ag}），单侧归因疑为历史数据")
                 continue
             if not left and right:
                 if o._same_team(right, home):
                     if b == int(hg):
                         hit_fixture_score = True
                     else:
-                        contradictions.append({
-                            "type": "score_value",
-                            "detail": f"{right} 失球写作 {b}，事实卡是 {hg}",
-                        })
+                        suspicious.append(
+                            f"{right} 失球写作 {b}（事实 {hg}），单侧归因疑为历史数据")
                 elif o._same_team(right, away):
                     if b == int(ag):
                         hit_fixture_score = True
                     else:
-                        contradictions.append({
-                            "type": "score_value",
-                            "detail": f"{right} 失球写作 {b}，事实卡是 {ag}",
-                        })
+                        suspicious.append(
+                            f"{right} 失球写作 {b}（事实 {ag}），单侧归因疑为历史数据")
                 continue
             # 两侧都识别出来 → 严格按「左队是主还是客」比对方向
             if o._same_team(left, right):
@@ -282,12 +280,23 @@ def verify(article: dict, fixture: dict, match_context=None, *, expected=None) -
             if (a, b) == want:
                 hit_fixture_score = True
             else:
-                contradictions.append({
+                _mismatched.append({
                     "type": "score_direction",
                     "detail": f"{left} {a}-{b} {right}，事实卡是 {home} {hg}-{ag} {away}",
                 })
         if not hit_fixture_score:
-            missing.append(f"未写出比分 {hg}-{ag}")
+            if _mismatched:
+                # 通篇没有一个比分与本场对得上 → 把本场写成了别的比分，真矛盾。
+                contradictions.extend(_mismatched)
+            else:
+                missing.append(f"未写出比分 {hg}-{ag}")
+        elif _mismatched:
+            # 本场比分已正确写出，另有对不上的比分 → 记 suspicious 不拦。
+            # 2026-11-05 晚间实证：正文同时写了「朗斯1-9科莫」（本场）与
+            # 「科莫1-0朗斯」（历史交锋），旧规则把后者判成矛盾、整篇丢弃。
+            suspicious.extend(
+                f"另有比分 {m['detail']}（本场比分已正确写出，疑为历史交锋）"
+                for m in _mismatched)
 
     # ── 3. 进球数断言：高 precision，超过实际即矛盾
     players = []
@@ -373,6 +382,10 @@ def _selftest() -> int:
          "皇马2-1巴萨，姆巴佩梅开二度。", False),
         ("编造对阵", fx("蓉城", "英博", 0, 1),
          "皇马3-0大胜巴萨，姆巴佩独造3球。", False),
+        # 2026-11-05 晚间实证：正文同时写本场与历史交锋，旧规则把历史比分
+        # 当成「本场矛盾」→ 整篇被丢弃。本场比分写对时，其余只能记 suspicious。
+        ("本场比分+历史交锋", fx("朗斯", "科莫", 1, 9),
+         "朗斯主场1-9被科莫血洗。上赛季两队交手，科莫1-0朗斯。", True),
         # 缺失：不拦，只记 coverage
         ("通篇不提队名", fx("蓉城", "英博", 0, 1),
          "这场比赛的过程比比分更难看，主队上半场就乱了。", True),
