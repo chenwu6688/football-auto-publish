@@ -1,0 +1,448 @@
+{
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05T04:07:24.301353",
+  "total_articles": 3,
+  "articles": [
+    {
+      "index": 1,
+      "title": "瓦伦西亚主帅先动还是姆巴佩先冷，皇马27分这趟客场不好踢",
+      "path": "/home/runner/work/_temp/output/2026-11-05/article-1-瓦伦西亚主帅先动-d40e0a.md",
+      "slug": "瓦伦西亚主帅先动-d40e0a",
+      "tags": [
+        "Valencia",
+        "Real Madrid",
+        "La Liga",
+        "tactics",
+        "Mbappe"
+      ],
+      "keywords": [
+        "Valencia",
+        "Real Madrid",
+        "La Liga",
+        "tactics",
+        "Mbappe"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-001.jpg"
+      ],
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "瓦伦西亚",
+          "姆巴佩",
+          "皇马"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1274,
+        "han_len": 953,
+        "paragraphs": 15,
+        "headings": 5,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 1,
+        "degraded": []
+      },
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "当年那个追风少年如今发福谢顶，你的青春还能找回吗？",
+      "path": "/home/runner/work/_temp/output/2026-11-05/article-2-当年那个追风少年-83452e.md",
+      "slug": "当年那个追风少年-83452e",
+      "tags": [
+        "veteran footballer",
+        "nostalgia",
+        "amateur football",
+        "Chinese football memory",
+        "aging athletes"
+      ],
+      "keywords": [
+        "veteran footballer",
+        "nostalgia",
+        "amateur football",
+        "Chinese football memory",
+        "aging athletes"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-05/images/article-2-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [],
+        "proper_nouns": [],
+        "has_number": false,
+        "has_contrast": false,
+        "has_proper": false,
+        "count": 0
+      },
+      "title_gate": {
+        "question_ending": true,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 0/3，下限 2 项且须含专名）。缺：一个可核对的具体数字（比分/第几轮/第几",
+          "[三要素] 三要素 0/3 未达下限（需 ≥2 项且含专名）"
+        ]
+      },
+      "content_stats": {
+        "chars": 1054,
+        "han_len": 840,
+        "paragraphs": 9,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": false,
+        "images": 1,
+        "degraded": []
+      }
+    },
+    {
+      "index": 3,
+      "title": "老六心中的历史射手榜：巴蒂C罗领跑，谁才是你眼中的最强？",
+      "path": "/home/runner/work/_temp/output/2026-11-05/article-3-老六心中的历史射-d0b1b6.md",
+      "slug": "老六心中的历史射-d0b1b6",
+      "tags": [
+        "historical strikers",
+        "goal scorers",
+        "Bati",
+        "Ronaldo",
+        "C罗"
+      ],
+      "keywords": [
+        "historical strikers",
+        "goal scorers",
+        "Bati",
+        "Ronaldo",
+        "C罗"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-05/images/article-3-img-001.jpg"
+      ],
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [],
+        "proper_nouns": [
+          "C罗"
+        ],
+        "has_number": false,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 1
+      },
+      "title_gate": {
+        "question_ending": true,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字（比分/第几轮/第几",
+          "[三要素] 三要素 1/3 未达下限（需 ≥2 项且含专名）"
+        ]
+      },
+      "content_stats": {
+        "chars": 1496,
+        "han_len": 1134,
+        "paragraphs": 15,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 11,
+        "tags": [],
+        "cta": false,
+        "images": 1,
+        "degraded": []
+      }
+    }
+  ],
+  "topics": [
+    {
+      "title": "利物浦主场2-3被费内巴切翻盘，补时那球到底谁漏了人",
+      "angle": "利物浦领先到被逆转，问题不在锋线而在最后十分钟的防线站位，老球迷看得血压上来：这支队伍领先后的心态比战术更该复盘。",
+      "keywords": [
+        "Liverpool",
+        "Fenerbahce",
+        "Champions League",
+        "comeback"
+      ],
+      "keywords_cn": [
+        "利物浦",
+        "费内巴切",
+        "欧冠",
+        "逆转"
+      ],
+      "content_type": "热点球评",
+      "score": 93,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "豪门主场被逆转，补时丢球画面感强",
+      "_category": "战报比分",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "索博今夏刚续约周薪32万全队第2，开季10场只进3球这账怎么算",
+      "angle": "高薪续约后表现低迷，不是简单骂球员，而是拆解球队给他换位置后角色变化，合同与产出不匹配才是真问题。",
+      "keywords": [
+        "Szoboszlai",
+        "contract",
+        "wages",
+        "form"
+      ],
+      "keywords_cn": [
+        "索博斯洛伊",
+        "续约",
+        "周薪",
+        "低迷"
+      ],
+      "content_type": "转会资讯",
+      "score": 85,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "薪资与产出落差，自带对比数据",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "瓦伦西亚主帅先动还是姆巴佩先冷，皇马27分这趟客场不好踢",
+      "content_type": "战术榜单",
+      "_is_fixture": true
+    },
+    {
+      "title": "当年那个追风少年如今发福谢顶，你的青春还能找回吗？",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "老六心中的历史射手榜：巴蒂C罗领跑，谁才是你眼中的最强？",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "supply_layers": {
+    "total": 3,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 0,
+      "三级·软性": 2
+    },
+    "ratios": {
+      "一级·确定性": 33.3,
+      "二级·突发": 0.0,
+      "三级·软性": 66.7
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 3.3,
+      "二级·突发": -50.0,
+      "三级·软性": 46.7
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 1,
+      "other": 1,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "战报标题含比分",
+      "原因": "「半场0-1到2-3，莱比锡对曼城这口气断」",
+      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "数量": 1
+    },
+    {
+      "环节": "隔夜战报",
+      "原因": "莱比锡 vs 曼城 生成失败",
+      "处置": "本批不补战报，不拿软性内容顶替",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    },
+    {
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "数量": 1
+    },
+    {
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "数量": 1
+    },
+    {
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "数量": 1
+    },
+    {
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "noon",
+    "max_articles": 3,
+    "uplifted": true,
+    "reason": "thursday_boost",
+    "requested_reason": "thursday_boost",
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 1,
+    "detail": "加发 3 篇（原因 thursday_boost，周内 1/2）",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data",
+      "main"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "利物浦主场2-3被费内巴切翻盘，补时那球到底谁漏了人"
+      },
+      {
+        "slot": "extra",
+        "type": "转会资讯",
+        "title": "索博今夏刚续约周薪32万全队第2，开季10场只进3球这账"
+      }
+    ],
+    "degraded": [
+      "data 槽无可用候选（不凑数，本批少写 1 篇）",
+      "main 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 3
+  },
+  "batches_completed": [
+    "noon"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-11-05 12:07:24"
+}
