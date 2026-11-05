@@ -93,6 +93,41 @@ def _fact_assert():
     return fact_assert
 
 
+# ── 新判据首日的保险丝 ────────────────────────────────────────────────
+# `fact_assert` 是 2026-11-05 才接进生产的新判据，单测覆盖了 4 个历史熔断现场与
+# 4 类真矛盾，但生产数据比单测脏。若它把一整批的正常稿都判成「矛盾」，
+# 后果和旧熔断一样：全批停发。
+#
+# 所以加一条**批内配额**：本批被判矛盾的不同选题达到 ``MAX_CONFLICT_SUBJECTS``
+# 篇后，剩余稿子改「记分不拦」并在 metadata 留 ``fail_open`` 原因。
+# 依据：同一批 3 篇独立选题同时臆造，比「判据系统性误报」的概率低得多；
+# 而误报的代价是全批归零，两者不对等。
+#
+# 注意：**只在 v2 下生效**。GATE_MODE=strict 回滚时保持旧行为（该停就停）。
+MAX_CONFLICT_SUBJECTS = 3
+
+_conflict_subjects: list[str] = []
+
+
+def reset_batch() -> None:
+    """开批时清空批内计数（CI 里每批一个新进程，这里是给同进程多批的调用方用）。"""
+    _conflict_subjects.clear()
+
+
+def conflict_subjects() -> list[str]:
+    return list(_conflict_subjects)
+
+
+def _quota_exhausted(subject: str) -> bool:
+    """记一次矛盾选题；返回 True 表示本批配额已用尽（应改记分）。"""
+    key = str(subject or "").strip() or "(无选题)"
+    if key not in _conflict_subjects:
+        _conflict_subjects.append(key)
+    # 严格大于：阈值是「已经拦下的篇数」。第 MAX 篇仍要拦，第 MAX+1 篇才放。
+    # 写成 >= 会让第 3 篇（也就是阈值本身那篇）被放过，保险丝提前一道生效。
+    return len(_conflict_subjects) > MAX_CONFLICT_SUBJECTS
+
+
 def fact_gate(article: dict, fixture: dict, match_context=None, *,
               subject: str = "", legacy=None) -> dict:
     """事实闸门：v2 用「矛盾校验」，strict 用旧判据。
@@ -114,6 +149,8 @@ def fact_gate(article: dict, fixture: dict, match_context=None, *,
     rec = {"mode": mode(), "judged": False, "contradictions": [],
            "suspicious": [], "missing": [], "coverage": None,
            "legacy_issues": []}
+    if subject:
+        rec["subject"] = str(subject)[:60]
     if legacy:
         passed, issues = legacy
         rec["legacy_issues"] = list(issues or []) if not passed else []
@@ -135,8 +172,12 @@ def fact_gate(article: dict, fixture: dict, match_context=None, *,
     if mode() == "strict":
         if rec["legacy_issues"]:
             block, hint = True, "；".join(rec["legacy_issues"][:3])
-        elif not hint and res is not None and res.get("ok") is False:
-            block = True
+        else:
+            # 旧判据过了也不算完：新判据仍可拦（回滚只恢复旧口径的严格度，
+            # 不是关掉事实校验）。此前写成 `elif not hint` 是错的——
+            # fact_assert 有矛盾时 hint 已非空，那个分支永远进不去，等于漏拦。
+            block = bool(rec["contradictions"]) or (
+                res is not None and res.get("ok") is False)
     else:
         block = bool(rec["contradictions"])
         # 旧判据里的矛盾类措辞（卡外比分/进球数造假…）在 v2 下仍是硬闸门。
@@ -147,11 +188,19 @@ def fact_gate(article: dict, fixture: dict, match_context=None, *,
         if rec["legacy_conflicts"] and not block:
             block = True
             hint = "；".join(rec["legacy_conflicts"][:3])
+        # 新判据首日保险丝：本批矛盾选题已满额 → 改记分，交人工复盘
+        if block and _quota_exhausted(rec.get("subject", "")):
+            block = False
+            rec["fail_open"] = (
+                f"本批事实矛盾已涉及 {len(_conflict_subjects)} 篇选题"
+                f"（阈值 {MAX_CONFLICT_SUBJECTS}），疑判据误报，本篇改记分不拦截")
+            try:
+                print(f"   ⚠️ {rec['fail_open']}：{hint[:60]}")
+            except Exception:
+                pass
 
     if block and not hint:
         hint = "事实与本场数据冲突"
-    if subject:
-        rec["subject"] = str(subject)[:60]
     return {"block": block, "hint": hint, "record": rec}
 
 

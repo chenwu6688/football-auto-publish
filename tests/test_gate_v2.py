@@ -100,6 +100,40 @@ class TestFactGateV2(unittest.TestCase):
         self.assertIn("boom", g["record"]["error"])
 
 
+class TestConflictQuota(unittest.TestCase):
+    """新判据首日保险丝：同批矛盾选题满额后改记分，不再停批。"""
+
+    def setUp(self):
+        os.environ.pop("GATE_MODE", None)
+        gate_v2.reset_batch()
+
+    def tearDown(self):
+        gate_v2.reset_batch()
+
+    def test_quota_stops_blocking_after_threshold(self):
+        bad = {"title": "利物浦2-1曼城", "content": "利物浦在客场2-1赢了曼城。"}
+        blocked = [gate_v2.fact_gate(bad, FX, None, subject=f"选题{i}",
+                                     legacy=(True, []))["block"]
+                   for i in range(gate_v2.MAX_CONFLICT_SUBJECTS)]
+        self.assertTrue(all(blocked))
+        after = gate_v2.fact_gate(bad, FX, None, subject="选题X", legacy=(True, []))
+        self.assertFalse(after["block"])
+        self.assertIn("fail_open", after["record"])
+
+    def test_same_subject_counted_once(self):
+        bad = {"title": "利物浦2-1曼城", "content": "利物浦在客场2-1赢了曼城。"}
+        for _ in range(10):   # 同一篇重试 10 次也只算 1 篇
+            gate_v2.fact_gate(bad, FX, None, subject="同一选题", legacy=(True, []))
+        self.assertEqual(gate_v2.conflict_subjects(), ["同一选题"])
+
+    def test_strict_mode_ignores_quota(self):
+        os.environ["GATE_MODE"] = "strict"
+        bad = {"title": "利物浦2-1曼城", "content": "利物浦在客场2-1赢了曼城。"}
+        for i in range(gate_v2.MAX_CONFLICT_SUBJECTS + 2):
+            g = gate_v2.fact_gate(bad, FX, None, subject=f"选题{i}", legacy=(True, []))
+            self.assertTrue(g["block"], f"strict 第 {i} 篇不该被配额放过")
+
+
 class TestRecordAndSummary(unittest.TestCase):
     def setUp(self):
         os.environ.pop("GATE_MODE", None)

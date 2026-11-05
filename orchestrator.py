@@ -3053,6 +3053,11 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
     selected = topics[:count]
     if not selected:
         return
+    # 开批清空闸门 v2 的批内矛盾配额（同进程连跑多批时不能互相累计）
+    try:
+        gate_v2.reset_batch()
+    except Exception:
+        pass
 
     def _gen_one(i, topic):
         ct = topic.get("content_type", "N/A")

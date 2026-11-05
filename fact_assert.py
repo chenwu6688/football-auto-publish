@@ -322,10 +322,20 @@ def verify(article: dict, fixture: dict, match_context=None, *, expected=None) -
         covered += 1
     coverage = (covered / total) if total else 0.0
 
+    # 去重：标题与正文拼接后同一条比分会被扫两次（同一事实报两条），
+    # 会让人误以为「一篇稿子犯了两个错」——矛盾计数是复盘依据，不能虚高。
+    _seen, _uniq = set(), []
+    for c in contradictions:
+        k = (c.get("type"), c.get("detail"))
+        if k in _seen:
+            continue
+        _seen.add(k)
+        _uniq.append(c)
+
     return {
-        "ok": not contradictions,
+        "ok": not _uniq,
         "judged": True,
-        "contradictions": contradictions,
+        "contradictions": _uniq,
         "suspicious": suspicious,
         "missing": missing,
         "coverage": round(coverage, 2),
