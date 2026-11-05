@@ -75,7 +75,17 @@
         "images": 1,
         "degraded": []
       },
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 733,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 5778,
+        "follower_reads": 1,
+        "click_rate": 0.13
+      },
+      "platform_id": "7704534235729773082"
     },
     {
       "index": 2,
@@ -140,7 +150,17 @@
         "cta": false,
         "images": 1,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 404,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7704534440403419658"
     },
     {
       "index": 3,
@@ -207,7 +227,17 @@
         "cta": false,
         "images": 1,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 14,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 591,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7704534606535524874"
     },
     {
       "index": 1,
@@ -511,7 +541,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 196,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7704652077519225384"
     },
     {
       "index": 3,

@@ -42,13 +42,14 @@
       "recap_match_id": "575381",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 51,
+        "reads": 61,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 1078,
+        "retention_rate": 0.1445,
+        "impressions": 2186,
         "follower_reads": 1,
-        "click_rate": 0.05
+        "click_rate": 0.03
       },
       "platform_id": "7704100634164789779"
     },
@@ -123,13 +124,14 @@
       "is_recap": false,
       "supply_layer": "三级·软性",
       "performance": {
-        "reads": 3,
+        "reads": 6,
         "comments": 2,
         "likes": 0,
         "shares": 0,
-        "impressions": 417,
+        "retention_rate": 0.0,
+        "impressions": 1437,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7704162883977888290"
     }

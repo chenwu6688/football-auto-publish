@@ -239,6 +239,18 @@
       "file": "粉丝趋势_2026-10-05-2026-11-03.xlsx",
       "at": "2026-11-04 22:51",
       "status": "ok"
+    },
+    "70dd8b0d93bb36960443cf8ed7d210726351ba412e4d19aac80878cc3ff67e5c": {
+      "kind": "perf",
+      "file": "图文_20261030-20261105_1-24_2026-11-04.xlsx",
+      "at": "2026-11-05 22:57",
+      "status": "ok"
+    },
+    "8223f44cd8c66122187f1f8e3e031a2f57b5fca97a806a061b578f3cb51ce81e": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-06-2026-11-04.xlsx",
+      "at": "2026-11-05 22:57",
+      "status": "ok"
     }
   },
   "history": [
@@ -566,8 +578,23 @@
           "status": "ok"
         }
       ]
+    },
+    {
+      "at": "2026-11-05 22:57",
+      "files": [
+        {
+          "file": "图文_20261030-20261105_1-24_2026-11-04.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-06-2026-11-04.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
     }
   ],
-  "updated_at": "2026-11-04 22:51",
+  "updated_at": "2026-11-05 22:57",
   "_note": "导出投递箱幂等台账（建议7）：key = 文件 sha256，value = {kind, file, at, status}；history 保留最近 60 次投递。由 scripts/ingest_exports.py 维护。"
 }
