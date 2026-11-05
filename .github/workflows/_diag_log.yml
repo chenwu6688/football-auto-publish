@@ -42,11 +42,11 @@ jobs:
           ls -la
           : > /tmp/out.txt
           for KEY in 生成文章 发布到头条号; do
-            FILE=$(ls | grep -i "$KEY" | head -1 || true)
+            FILE=$(find /tmp/logs -name "*${KEY}*" | head -1 || true)
             echo "### KEY=$KEY FILE=$FILE" >> /tmp/out.txt
             if [ -n "$FILE" ]; then
               echo "===== $FILE =====" >> /tmp/out.txt
-              tail -c 30000 "/tmp/logs/$FILE" >> /tmp/out.txt || true
+              cat "$FILE" >> /tmp/out.txt || true
             fi
             echo >> /tmp/out.txt
           done
@@ -55,7 +55,7 @@ jobs:
             grep -rnE 'Traceback|AttributeError|NameError|Error:|exit code' /tmp/logs/ 2>/dev/null | tail -80 || true
             echo
             echo "===== 生成文章步骤里 int/topic 相关行 ====="
-            grep -rnE "'int' object|topic|改写异常|失败" /tmp/logs/*生成文章* 2>/dev/null | tail -40 || true
+            grep -rnE "'int' object|改写异常" /tmp/logs/ 2>/dev/null | tail -20 || true
           } >> /tmp/out.txt
           wc -c /tmp/out.txt
           mkdir -p "$GITHUB_WORKSPACE/data/audit"
