@@ -28,6 +28,9 @@ from utils import call_llm_json  # noqa: E402
 DEFAULT_TARGET = 8
 HARD_MAX_GEN = 6
 
+# 当日已发标题缓存（疑问收尾限额要看 14 天真实历史，见 _recent_titles）
+_RECENT_CACHE = None
+
 # 软性选题轮换池（计划 12.1：人物故事 / 榜单 / 数据对比）
 # 注意：这里只能放 reservoir.SOFT_TYPES 里的类型。「历史回顾」已进 BANNED_TYPES，
 # 放进来会「生成后又被取用侧过滤」，白烧额度。判据唯一权威在 reservoir.py。
@@ -53,7 +56,9 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
 请写一篇【{content_type}】类的软性内容（无时效压力）：{brief}。
 
 硬性要求：
-- 标题 26-30 字，套用公式「具体人名或球队 + 冲突或反差 + 疑问收尾」
+- 标题 18-30 字，套用公式「具体人名或球队 + 一个可核对数字/过程锚点 + 一处冲突或落差」
+- **标题不要以疑问句收尾**（不要「…吗？」「…凭什么？」）：2026-11 实测头部账号疑问句只占 0~20%，
+  空问标题中位阅读 8。把「过程」写进标题——第几分钟、连过几人、第几次夺冠
 - 正文 600-900 字，含 ≥2 个 ## 小标题，口语化、像老球迷喝酒聊球
 - 用情怀、通俗战术、国足记忆或世界杯经典时刻引发共鸣
 - 不要编造可核查的具体比分/转会金额等硬事实；用公认的历史数据与常识
@@ -65,19 +70,57 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
 - **禁止**写「👇 评论区见分晓」「各位老铁」这类套话，也不要加分隔线堆在文末——要像人说话
 
 只输出纯 JSON：
-{{"title": "标题(26-30字,疑问收尾)", "content": "Markdown正文(600-900字,含≥2个##小标题)",
+{{"title": "标题(18-30字,陈述句,含具体数字或过程锚点)", "content": "Markdown正文(600-900字,含≥2个##小标题)",
  "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"],
  "golden_lines": ["金句1", "金句2"], "interaction_type": "共鸣式",
  "interaction_bait": "互动问题", "content_type": "{content_type}",
  "ai_perspective": "一句独立判断(≤40字,犀利有态度)"}}"""
 
 
+def _recent_titles() -> list[str]:
+    """当日已发/已成稿的标题（疑问收尾限额要用真历史，否则限额永不触发）。"""
+    global _RECENT_CACHE
+    if _RECENT_CACHE is None:
+        try:
+            from orchestrator import recent_titles_for_gate
+            _RECENT_CACHE = list(recent_titles_for_gate(datetime.now().strftime("%Y-%m-%d")))
+        except Exception:
+            _RECENT_CACHE = []
+    return _RECENT_CACHE
+
+
+def _title_gate(obj: dict, content_type: str) -> tuple[bool, str]:
+    """入库前过标题闸门（含疑问收尾限额）。
+
+    2026-11-05：此前这里调 `score_title_plan` **不传 recent_titles**，靠「疑问收尾限额」
+    判的那条规则永远不会触发，分数看着及格、标题却全是「…凭什么？」的空问；再加上
+    转正环节完全不过闸门，这些 10 月存进来的标题就直接发出去了（当天两篇把
+    verify_publish_gate 刷红）。现在两处都堵：入库要过、转正要过。
+    """
+    try:
+        from orchestrator import score_title_plan
+        s, passed, reasons = score_title_plan({"content_type": content_type},
+                                              obj.get("title", ""), content_type,
+                                              recent_titles=_recent_titles())
+    except Exception as e:
+        obj["_title_passed"] = False
+        return False, f"标题评分不可用（{type(e).__name__}），按不合格处理"
+    obj["_title_score"] = s
+    obj["_title_passed"] = passed
+    if passed:
+        return True, ""
+    return False, (f"标题未达及格线（{s} 分）：{'；'.join(reasons)[:120]}。"
+                   "请重拟：具体人名/球队 + 一个可核对数字或过程锚点 + 一处对比落差，"
+                   "18-30 字，**不要以疑问句收尾**。")
+
+
 def _make_one(angle: dict, index: int) -> dict:
-    """生成一条软性备货，并按互动引导闸门自检（不过就重试一次）。
+    """生成一条软性备货，按互动引导与标题两道闸门自检（不过就重试一次）。
 
     2026-11-01 补：此前这里生成完直接入库，**完全不过闸门**。结果软性稿必然
     缺关注引导，等到保存侧才被兜底强插模板句——10 月的 249 次「缺关注引导」
     几乎全部来自这条路。治本要在生产端就要求，而不是在末端贴膏药。
+    2026-11-05 再加标题闸门（同上：治本在生产端）。
     """
     import interaction_bait
 
@@ -91,24 +134,28 @@ def _make_one(angle: dict, index: int) -> dict:
             {"role": "user", "content": user},
         ]
         obj, _model = call_llm_json(msgs, LLM_JSON_CANDIDATES, temperature=0.9, max_tokens=3000)
-        res = interaction_bait.check((obj or {}).get("content", ""),
-                                     bait_field=(obj or {}).get("interaction_bait", ""))
-        if res.get("ok") or res.get("degraded"):
+        obj = obj or {}
+        bait = interaction_bait.check(obj.get("content", ""),
+                                      bait_field=obj.get("interaction_bait", ""))
+        bait_ok = bool(bait.get("ok") or bait.get("degraded"))
+        title_ok, title_hint = _title_gate(obj, angle["content_type"])
+        if bait_ok and title_ok:
             break
-        last_hint = (f"缺 {'、'.join(res.get('missing') or [])}：" + str(res.get("hint") or "")
-                     + "。请把引导自然融进收尾段落，不要堆套话。")
-        print(f"   🔁 [{angle['content_type']}] 互动引导未达标，重试一次："
-              f"缺 {'、'.join(res.get('missing') or [])}")
+        hints = []
+        if not bait_ok:
+            hints.append("缺 " + "、".join(bait.get("missing") or []) + "："
+                         + str(bait.get("hint") or "")
+                         + "。请把引导自然融进收尾段落，不要堆套话。")
+        if not title_ok:
+            hints.append(title_hint)
+        last_hint = "；".join(hints)
+        print(f"   🔁 [{angle['content_type']}] 备货未过闸门，重试一次：{last_hint[:60]}")
 
     obj["content_type"] = angle["content_type"]
     obj["_column_name"] = angle["section"]
     try:
-        from orchestrator import append_ai_annotation, score_title_plan
+        from orchestrator import append_ai_annotation
         append_ai_annotation(obj, obj.get("ai_perspective", ""))
-        s, passed, reasons = score_title_plan({"content_type": angle["content_type"]},
-                                              obj.get("title", ""), angle["content_type"])
-        obj["_title_score"] = s
-        obj["_title_passed"] = passed
     except Exception:
         pass
     return obj
@@ -143,6 +190,12 @@ def main() -> int:
             break
         if not art or not art.get("title") or len(art.get("content", "")) < 200:
             print(f"   ⚠️ 备货内容不合格，跳过（{angle['content_type']}）")
+            continue
+        if not art.get("_title_passed"):
+            # 入库即合规：标题过不了闸门的条目**不入库**。此前是「入库再说」，
+            # 结果 10 月那批空问标题在 11-05 转正后直接发布，当天就刷红发布闸门。
+            print(f"   ⛔ 标题不过闸门，不入库（{angle['content_type']}）："
+                  f"{art['title'][:30]}（{art.get('_title_score', '-')} 分）")
             continue
         rid = reservoir.stock(art, section=angle["section"], date_str=datetime.now().strftime("%Y-%m-%d"))
         stocked += 1

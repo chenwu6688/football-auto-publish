@@ -159,6 +159,31 @@ def _score_titles(articles):
     return total, passed, zero, fails, anti, r11, elem
 
 
+def _stocked_before_gate() -> set[str]:
+    """标题**入库日**早于生效日的蓄水池条目标题。
+
+    2026-11-05：noon 批次转正的两篇软性稿（「…还能找回吗？」「…谁才是你眼中的最强？」）
+    是 10-11 存进蓄水池的旧标题，发布时落在生效日之后，被本项判成硬违规。它们既不是
+    新管线的产出、也改不回来（已发布），要按「标题什么时候生成的」判，而不是「什么时候
+    发出去的」——与封面台账「按兜底生效日判、旧链路样本单列留证」是同一口径。
+    证据来自 conftest 保护下的蓄水池台账（stocked_at），不搞手写豁免名单。
+    """
+    out: set[str] = set()
+    p = PROJECT_ROOT / "data" / "reservoir" / "items.json"
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return out
+    for it in data.get("items", []) or []:
+        stocked = str(it.get("stocked_at") or "")[:10]
+        if not stocked or stocked >= GATE_SINCE:
+            continue
+        t = (it.get("title") or (it.get("article") or {}).get("title") or "").strip()
+        if t:
+            out.add(t)
+    return out
+
+
 def check_title_hard() -> dict:
     """A1. 成稿标题零「硬违规」（硬项）——**生效日后**成稿里无 score_title_plan=0 的标题
     （0 分即传闻当官宣 / 疑问收尾超限 / 三要素不足 / 禁用模板前缀等硬违规）。
@@ -184,6 +209,10 @@ def check_title_hard() -> dict:
     total, _passed, zero, _fails, _anti, _r11, _elem = _score_titles(arts)
     live = [z for z in zero if (z.get("date") or "") >= GATE_SINCE]
     legacy = [z for z in zero if (z.get("date") or "") < GATE_SINCE]
+    # 蓄水池存量：标题入库早于生效日，发布晚于生效日。留证、不计退出码。
+    _old_stock = _stocked_before_gate()
+    carried = [z for z in live if (z.get("title") or "").strip() in _old_stock]
+    live = [z for z in live if (z.get("title") or "").strip() not in _old_stock]
     live_total = sum(1 for data, a in arts
                      if (data.get("date") or "") >= GATE_SINCE
                      and (a.get("title") or "").strip())
@@ -192,6 +221,9 @@ def check_title_hard() -> dict:
     if legacy:
         base.append(f"· 修复前存量 0 分 {len(legacy)} 条（旧复算不传历史，限额从未触发；"
                     f"如实留证，不参与退出码）")
+    if carried:
+        base.append(f"· 蓄水池旧标题 {len(carried)} 条（入库早于生效日，转正后发布；"
+                    f"根因已修：备货 prompt + 入库闸门 + 转正准入，不参与退出码）")
     if live_total == 0:
         return {"item": item, "ok": None, "pending": True, "total": total,
                 "legacy_violations": len(legacy), "detail": base + [

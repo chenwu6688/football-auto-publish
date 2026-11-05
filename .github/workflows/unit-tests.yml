@@ -59,6 +59,15 @@ jobs:
           # 就这么混进了 main。直接吃 requirements.txt，生产装什么单测装什么。
           # playwright 只需可 import（相关用例全部 mock 掉浏览器），不装 chromium 二进制。
           pip install -r requirements.txt pytest
+          # 中文字体：cover_card 的渲染用例要求真能画出汉字。CI 镜像缺 CJK 字体时
+          # render() 会按新契约返回 None（宁可不出图也不出版方框图），用例会红——
+          # 那正是我们想要的行为，所以这里必须给环境补上字体，而不是放宽断言。
+          if ! sudo apt-get update -qq; then
+            echo "::warning::apt-get update 失败，尝试直接安装字体"
+          fi
+          if ! sudo apt-get install -y -qq fonts-noto-cjk; then
+            echo "::warning::fonts-noto-cjk 安装失败：数据卡渲染色例会因缺字体而失败"
+          fi
 
       - name: 跑全量单测
         # tests/test_video_pipeline.py 排除在外：它 import edge_tts/ffmpeg

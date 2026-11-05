@@ -81,6 +81,19 @@ jobs:
           pip install -r requirements.txt
           playwright install chromium
           playwright install-deps chromium
+          # 中文字体（2026-11-05）：封面兜底数据卡用 PIL 画中文，runner 镜像里没有
+          # CJK 字体时 Pillow 退化到位图字体，卡片上的汉字全成方框，而代码认为成功。
+          # 这里装 Noto CJK；装失败不阻断发布（数据卡会返回 None 并写进 degrade 台账），
+          # 但要用 ::warning:: 说出来，不许静默。
+          if ! sudo apt-get update -qq; then
+            echo "::warning::apt-get update 失败，尝试直接安装字体"
+          fi
+          if ! sudo apt-get install -y -qq fonts-noto-cjk; then
+            echo "::warning::fonts-noto-cjk 安装失败 —— 本批封面数据卡会跳过（不会出版方框图）"
+          fi
+          if ! python3 cover_card.py --fontstatus; then
+            echo "::warning::数据卡无中文字体可用，本批封面将退回「无封面」并留痕"
+          fi
 
       - name: 静态分析 — 检查无未定义的函数引用
         run: |

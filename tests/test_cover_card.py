@@ -118,5 +118,78 @@ class TestSaveFallbackWiring(unittest.TestCase):
         self.assertFalse(degrade.DEGRADE_POLICY["封面兜底"]["阻塞发布"])
 
 
+class TestNoCJKFontContract(unittest.TestCase):
+    """2026-11-05 方框事故的防回归：没有中文字体时**不许出图**。
+
+    CI（ubuntu-latest）上没有 CJK 字体，`_font()` 退回 Pillow 位图字体，卡片上的
+    「球评人老六」「老六心中的历史射手榜」全被画成一排 .notdef 方框，而 `render()`
+    照常返回路径、台账照常记 1 张图、发布照常成功——用户看到的就是「封面是一堆方块」。
+    """
+
+    def setUp(self):
+        self._saved = (cover_card._FONT_PATH_CACHE, cover_card.LAST_ERROR)
+        cover_card._FONT_PATH_CACHE = ""
+
+    def tearDown(self):
+        cover_card._FONT_PATH_CACHE, cover_card.LAST_ERROR = self._saved
+
+    def test_font_raises_instead_of_bitmap_fallback(self):
+        with self.assertRaises(cover_card.NoCJKFont):
+            cover_card._font(40)
+
+    def test_render_returns_none_and_keeps_reason(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = cover_card.render({"title": TITLE}, out_dir=d)
+            self.assertIsNone(p, "没有中文字体却仍生成图片 → 会发布方框封面")
+            self.assertIn("中文字体", cover_card.LAST_ERROR)
+            self.assertEqual(list(Path(d).glob("*.jpg")), [], "不许留下半张图")
+
+    def test_font_status_reports_missing(self):
+        ok, detail = cover_card.font_status()
+        self.assertFalse(ok)
+        self.assertIn("字体", detail)
+
+
+class TestCIFontInstall(unittest.TestCase):
+    """根因在环境：CI 必须装中文字体，否则上面的 None 分支就是常态。"""
+
+    def test_batch_workflow_installs_cjk_font(self):
+        wf = (ROOT / ".github" / "workflows" / "batch.yml").read_text(encoding="utf-8")
+        self.assertIn("fonts-noto-cjk", wf,
+                      "batch.yml 没装中文字体 → 每批封面数据卡都会跳成无封面")
+        self.assertIn("--fontstatus", wf, "装完字体应当场自检，别等出图才发现")
+
+    def test_unit_test_workflow_installs_cjk_font(self):
+        wf = (ROOT / ".github" / "workflows" / "unit-tests.yml").read_text(encoding="utf-8")
+        self.assertIn("fonts-noto-cjk", wf,
+                      "单测环境缺中文字体 → 渲染用例会红，而红的原因是环境不是代码")
+
+    def test_font_candidates_have_no_latin_only_fallback(self):
+        """候选表里不许出现 DejaVu 这类「能打开、画不出汉字」的字体。"""
+        for p in cover_card._FONT_CANDIDATES:
+            self.assertNotIn("DejaVu", p, f"{p} 没有汉字字形，不能当兜底字体")
+
+
+class TestReservoirImages(unittest.TestCase):
+    """蓄水池补位的软性稿也必须走配图检索（2026-11-05：2/3 篇封面是数据卡）。"""
+
+    def test_reservoir_branch_calls_search_images(self):
+        src = (ROOT / "orchestrator.py").read_text(encoding="utf-8")
+        self.assertNotIn(
+            "images_map[len(articles) - 1] = []", src,
+            "蓄水池分支又被硬编码成「不配图」了 —— 软性稿会 100% 落到数据卡")
+        tree = ast.parse(src)
+        # 找到含 reservoir.fill_gap 的那段（所在函数体），确认里面有 search_images 调用
+        target = None
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef):
+                seg = ast.get_source_segment(src, node) or ""
+                if "reservoir.fill_gap" in seg:
+                    target = seg
+                    break
+        self.assertIsNotNone(target, "找不到蓄水池补位代码")
+        self.assertIn("search_images(", target, "蓄水池条目没有检索配图")
+
+
 if __name__ == "__main__":
     unittest.main()

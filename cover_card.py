@@ -20,6 +20,21 @@
 只有标题、标题里的数字、一句来源标注，不存在版权与「图文不符」问题。
 它也不是「好看」的图——它的作用是把「无封面」这条最差路径堵掉。
 
+## 2026-11-05 事故：CI 上没有中文字体，卡片全是方框
+
+noon 批次两篇软性稿零配图走了兜底，用户看到的封面是「黑底 + 一排 □□□□」。
+根因不是绘制逻辑，而是 `_font()` 的退化路径：候选字体在 `ubuntu-latest` 上一个都不存在，
+于是 `ImageFont.load_default()`（Pillow 内置位图字体）顶上来，它**没有汉字字形**，
+`draw.text("老六")` 画出来就是一排 .notdef 方框——而代码认为「成功生成了」。
+
+三条修法（缺一不可）：
+  1. **不认位图字体当成功**：找不到能画中文的字体时抛 `NoCJKFont`，`render()` 返回 None，
+     宁可回到「无封面」并留痕，也不发布一张方框图；
+  2. **字体发现不写死路径**：候选表之外再用 `fc-match :lang=zh` 问系统，CI 装完
+     `fonts-noto-cjk` 就能命中，将来换 runner 镜像也不用改代码；
+  3. **CI 装字体**：`batch.yml` 安装 `fonts-noto-cjk`；单测里静态断言这行存在，
+     否则「本地有字体、CI 没字体」这种差异会再次静默复发。
+
 ## 纪律
 
 - 只用**标题里已有的**数字（`title_elements.extract(...).numbers` 的匹配文本由本模块
@@ -29,6 +44,7 @@
 
 命令行：
     python3 cover_card.py --selftest
+    python3 cover_card.py --fontstatus
     python3 cover_card.py --title "1平2负只拿0.33分，中超这根独苗还能撑到2028吗？"
 """
 
@@ -36,7 +52,9 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import re
+import subprocess
 import tempfile
 from pathlib import Path
 
@@ -46,13 +64,26 @@ CARD_DIR = PROJECT_ROOT / "output" / "_cards"
 W, H = 1200, 675            # 1200×675 ≥ 下载端 800×600 闸门
 MARGIN = 72
 
-# 中文黑体优先；找不到就退回 DejaVu（只影响观感，不影响可用性）
+# 中文黑体优先；找不到就用 fc-match 问系统（CI 装 fonts-noto-cjk 后靠这条命中）。
+# 注意：这里**不能**放 DejaVuSans 之类无汉字字形的字体当兜底——那正是 2026-11-05
+# 方框事故的成因（文件存在、能打开、画不出汉字，还静默「成功」）。
 _FONT_CANDIDATES = (
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
     "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/arphic/uming.ttc",
+    "/usr/share/fonts/truetype/arphic/ukai.ttc",
 )
+
+# 最近一次失败原因（调用方拿去写 degrade.note，避免「有结论没证据」）
+LAST_ERROR = ""
+
+_FONT_PATH_CACHE: str | None = None
+
+
+class NoCJKFont(RuntimeError):
+    """系统里找不到能画汉字的字体——宁可不出图，也不出版方框。"""
+
 
 # 标题里可上卡的数字（比分 / 名次 / 度量），只取已有文本，不重算。
 # 顺序有讲究：「战绩组合」必须排在单度量之前，否则「1平2负」会被切成「2负」。
@@ -64,15 +95,75 @@ _RE_NUM_TOKEN = re.compile(
     r"|[一二三四五六七八九十]{1,3}\s*(?:球|分|场|轮|人|次|年)")
 
 
-def _font(size: int):
-    from PIL import ImageFont
+def _has_han_glyph(path: str) -> bool:
+    """粗判字体是否真有汉字字形：比对「中」与「〇」的位图。
+
+    DejaVu 这类西文字体两个字符都会渲染成同一个 .notdef 方框（位图完全相同），
+    真正的中文字体两者不同。只用于 fc-match 的返回值，候选表里的字体默认可信。
+    """
+    try:
+        from PIL import ImageFont
+        f = ImageFont.truetype(path, 40)
+        a = bytes(f.getmask("中"))
+        b = bytes(f.getmask("〇"))
+        return len(a) > 0 and a != b
+    except Exception:
+        return False
+
+
+def _cjk_font_path() -> str:
+    """返回一个**能画汉字**的字体文件路径；找不到返回空串。
+
+    顺序：环境变量（`COVER_CARD_FONT`）→ 内置候选表 → `fc-match :lang=zh`。
+    `fc-match` 是 2026-11-05 之后加的那条：CI 镜像里字体路径会变，写死路径必然
+    再次「本地有、CI 没有」（这正是方框事故的形态）。
+    """
+    global _FONT_PATH_CACHE
+    if _FONT_PATH_CACHE is not None:
+        return _FONT_PATH_CACHE
+
+    env = (os.environ.get("COVER_CARD_FONT") or "").strip()
+    if env and Path(env).exists():
+        _FONT_PATH_CACHE = env
+        return _FONT_PATH_CACHE
+
     for p in _FONT_CANDIDATES:
         if Path(p).exists():
-            try:
-                return ImageFont.truetype(p, size)
-            except Exception:
-                continue
-    return ImageFont.load_default()
+            _FONT_PATH_CACHE = p
+            return _FONT_PATH_CACHE
+
+    try:
+        out = subprocess.run(["fc-match", "-f", "%{file}", ":lang=zh"],
+                             capture_output=True, text=True, timeout=5)
+        cand = (out.stdout or "").strip()
+        if cand and Path(cand).exists() and _has_han_glyph(cand):
+            _FONT_PATH_CACHE = cand
+            return _FONT_PATH_CACHE
+    except Exception:
+        pass
+
+    _FONT_PATH_CACHE = ""
+    return ""
+
+
+def _font(size: int):
+    """取字体。找不到能画汉字的字体时抛 NoCJKFont（绝不退化成位图字体）。"""
+    p = _cjk_font_path()
+    if not p:
+        raise NoCJKFont("系统里没有可画汉字的中文字体（候选路径与 fc-match 均未命中）")
+    from PIL import ImageFont
+    try:
+        return ImageFont.truetype(p, size)
+    except Exception as e:                      # 字体文件坏了也不能静默降级
+        raise NoCJKFont(f"字体无法加载: {p} ({type(e).__name__})")
+
+
+def font_status() -> tuple[bool, str]:
+    """给验收脚本/单测用：当前环境能不能画中文卡。"""
+    p = _cjk_font_path()
+    if not p:
+        return False, "未找到中文字体（CI 未装 fonts-noto-cjk？）"
+    return True, p
 
 
 def _wrap(draw, text: str, font, max_width: int, max_lines: int) -> list[str]:
@@ -108,6 +199,19 @@ def _key_numbers(title: str, limit: int = 3) -> list[str]:
     return out
 
 
+def _gradient(size: tuple[int, int], top: tuple[int, int, int],
+              bottom: tuple[int, int, int]):
+    """竖渐变底。逐行画，1200×675 只需 675 次，比引 numpy 轻。"""
+    from PIL import Image
+    w, h = size
+    img = Image.new("RGB", (1, h))
+    px = img.load()
+    for y in range(h):
+        t = y / max(1, h - 1)
+        px[0, y] = tuple(int(top[i] + (bottom[i] - top[i]) * t) for i in range(3))
+    return img.resize((w, h))
+
+
 def render(topic: dict, out_dir: Path | str | None = None,
            filename: str | None = None) -> str | None:
     """生成一张数据卡，返回文件路径；失败返回 None（不抛）。
@@ -116,45 +220,85 @@ def render(topic: dict, out_dir: Path | str | None = None,
     因为 publisher.extract_images 只认 `images/article-\\d+-img-\\d+\\.jpg`。
     不传则按标题 hash 命名（debug 用）。
     """
-    title = str((topic or {}).get("title") or "").strip()
+    global LAST_ERROR
+    LAST_ERROR = ""
+    topic = topic or {}
+    title = str(topic.get("title") or "").strip()
     if not title:
+        LAST_ERROR = "标题为空"
         return None
     try:
         from PIL import Image, ImageDraw
     except Exception:
+        LAST_ERROR = "PIL 不可用"
+        return None
+
+    try:
+        f_brand = _font(30)
+        f_tag = _font(24)
+        f_num = _font(32)
+        f_title = _font(58 if len(title) <= 30 else 50)
+        f_foot = _font(24)
+    except NoCJKFont as e:
+        LAST_ERROR = str(e)
+        print(f"   ⚠️ 数据卡跳过（不出版方框图）：{e}")
+        return None
+    except Exception as e:
+        LAST_ERROR = f"{type(e).__name__}: {str(e)[:80]}"
         return None
 
     nums = _key_numbers(title)
-    img = Image.new("RGB", (W, H), (18, 24, 32))
+    column = str(topic.get("column") or "").strip()
+    source = str(topic.get("source") or "数据来自公开赛事信息").strip()
+
+    # 背景：深海军蓝渐变 + 极淡的球场纹理（放右下角，绝不压标题）
+    img = _gradient((W, H), (12, 17, 25), (27, 36, 50))
     draw = ImageDraw.Draw(img)
+    line_color = (30, 39, 54)
+    draw.ellipse([W - 330, -60, W + 210, 480], outline=line_color, width=3)
+    draw.line([(W - 520, H), (W + 40, -20)], fill=line_color, width=3)
 
-    # 顶部品牌条
-    draw.rectangle([0, 0, W, 8], fill=(214, 48, 49))
-    brand_font = _font(34)
-    draw.text((MARGIN, 56), "球评人老六", font=brand_font, fill=(255, 255, 255))
+    # 顶部品牌条 + 头部细分隔线
+    draw.rectangle([0, 0, W, 10], fill=(214, 48, 49))
+    draw.text((MARGIN, 44), "球评人老六", font=f_brand, fill=(255, 255, 255))
+    if column:                                   # 右上角栏目胶囊
+        tw = draw.textlength(column, font=f_tag)
+        x0 = W - MARGIN - tw - 34
+        draw.rounded_rectangle([x0, 40, W - MARGIN, 82], radius=21,
+                               outline=(90, 102, 122), width=2)
+        draw.text((x0 + 17, 52), column, font=f_tag, fill=(200, 208, 220))
+    draw.line([(MARGIN, 118), (W - MARGIN, 118)], fill=(52, 63, 82), width=1)
 
-    # 关键数字（最多 3 个，横向排）
+    # 标题（最多 3 行）：左红竖条 + 大字号，是整张卡的主体
+    lines = _wrap(draw, title, f_title, W - 2 * MARGIN - 28, 3)
+    line_h = int(f_title.size * 1.44)
+    block_h = line_h * len(lines)
+    y_title = 168 + max(0, (250 - block_h) // 2)
+    draw.rectangle([MARGIN - 22, y_title + 8, MARGIN - 12, y_title + block_h - 20],
+                   fill=(214, 48, 49))
+    y = y_title
+    for ln in lines:
+        draw.text((MARGIN, y), ln, font=f_title, fill=(242, 244, 248))
+        y += line_h
+
+    # 关键数字做「数据标签」横排（不放大到抢标题的位置，避免和标题里同样的字重复抢眼）
     if nums:
-        num_font = _font(150)
         x = MARGIN
+        y_chip = H - 196
         for n in nums:
-            draw.text((x, 120), n, font=num_font, fill=(255, 196, 61))
-            x += draw.textlength(n, font=num_font) + 48
+            tw = draw.textlength(n, font=f_num)
+            draw.rounded_rectangle([x, y_chip, x + tw + 36, y_chip + 52],
+                                   radius=26, fill=(46, 55, 72),
+                                   outline=(255, 196, 61), width=2)
+            draw.text((x + 18, y_chip + 8), n, font=f_num, fill=(255, 196, 61))
+            x += tw + 36 + 18
             if x > W - MARGIN:
                 break
 
-    # 标题（最多 3 行）
-    title_font = _font(56 if len(title) <= 26 else 48)
-    lines = _wrap(draw, title, title_font, W - 2 * MARGIN, 3)
-    y = 340
-    for ln in lines:
-        draw.text((MARGIN, y), ln, font=title_font, fill=(240, 240, 240))
-        y += int(title_font.size * 1.35)
-
-    # 底部来源标注
-    foot_font = _font(26)
-    draw.text((MARGIN, H - 68), "数据来自公开赛事信息 · 观点仅供参考",
-              font=foot_font, fill=(150, 156, 165))
+    # 底部：细分隔线 + 来源标注
+    draw.line([(MARGIN, H - 108), (W - MARGIN, H - 108)], fill=(60, 72, 92), width=1)
+    draw.text((MARGIN, H - 84), source, font=f_foot, fill=(150, 158, 172))
+    draw.text((W - MARGIN - 96, H - 84), "老六说球", font=f_foot, fill=(120, 128, 142))
 
     out = Path(out_dir) if out_dir else CARD_DIR
     out.mkdir(parents=True, exist_ok=True)
@@ -165,11 +309,17 @@ def render(topic: dict, out_dir: Path | str | None = None,
     dest = out / name
     if dest.exists():
         return str(dest)
-    tmp = Path(tempfile.mkdtemp()) / name
+    # 临时文件放在目标目录旁边：/tmp 在部分环境是 10MB tmpfs，写不进大图
+    tmp = dest.with_name(dest.name + ".tmp")
     try:
         img.save(tmp, format="JPEG", quality=90)
         tmp.replace(dest)
-    except Exception:
+    except Exception as e:
+        LAST_ERROR = f"保存失败: {type(e).__name__}: {str(e)[:80]}"
+        try:
+            tmp.unlink(missing_ok=True)
+        except Exception:
+            pass
         return None
     return str(dest)
 
@@ -179,6 +329,9 @@ def selftest() -> list[tuple[str, bool]]:
     title = "1平2负只拿0.33分，中超这根独苗还能撑到2028吗？"
     cases.append(("数字抽取只取已有文本", _key_numbers(title)[:2] == ["1平2负", "0.33分"]))
     cases.append(("无数字时返回空列表", _key_numbers("这场球看得人心里堵得慌") == []))
+
+    ok_font, font_detail = font_status()
+    cases.append((f"有可画汉字的中文字体（{font_detail[-40:]}）", ok_font))
 
     with tempfile.TemporaryDirectory() as d:
         p = render({"title": title}, out_dir=d)
@@ -203,10 +356,15 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="封面兜底数据卡（原创图，不引版权素材）")
     ap.add_argument("--title", help="按标题生成一张卡（写到 output/_cards/）")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--fontstatus", action="store_true", help="打印中文字体可用性")
     args = ap.parse_args()
+    if args.fontstatus:
+        ok, detail = font_status()
+        print(("✅ " if ok else "❌ ") + detail)
+        return 0 if ok else 1
     if args.title:
         p = render({"title": args.title})
-        print(p or "（生成失败）")
+        print(p or f"（生成失败：{LAST_ERROR}）")
         return 0 if p else 1
     bad = 0
     for name, ok in selftest():

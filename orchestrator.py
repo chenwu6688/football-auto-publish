@@ -2221,7 +2221,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
             # 即使实体识别 100% 正确也是 0 图，而 0 图 ⇒ 头条主动点「无封面」⇒ 聚合 CTR
             # 0.52%（有封面 2.07%）。数据卡是原创信息图（标题 + 标题里已有的数字 + 来源标注），
             # 不引版权素材，也不碰计划 2.2 禁用的「随机图库图文不符」红线。
-            _card = cover_card.render({"title": art.get("title", "")},
+            _card = cover_card.render({"title": art.get("title", ""),
+                                       "column": art.get("column_name") or art.get("content_type", "")},
                                       out_dir=images_dir,
                                       filename=f"{prefix}-{1:03d}.jpg")
             if _card:
@@ -2235,7 +2236,9 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 degrade.note("封面兜底", "图源全断，改用标题数据卡",
                              action="已配图发布；数据卡只兜底观感，不替代真实图")
             else:
-                degrade.note("封面兜底", "数据卡生成失败（字体/PIL 不可用）",
+                # 2026-11-05：数据卡生成失败必须带上**真实原因**。此前的「字体/PIL 不可用」
+                # 是一句猜测——实际是 CI 没有中文字体、卡片画出一排方框还当成成功。
+                degrade.note("封面兜底", f"数据卡生成失败：{cover_card.LAST_ERROR or '未知原因'}",
                              action="照旧不配图发布，该篇计入无封面台账")
 
         content = art.get("content", "")
@@ -5575,7 +5578,29 @@ def main():
             try:
                 import reservoir
                 reservoir.expire()
-                _picked = reservoir.fill_gap(_supply_gap)
+                # 2026-11-05：蓄水池条目是 10 月存量，标题没经过后来才生效的
+                # 疑问收尾限额/三要素闸门。noon 批次转正的两篇（「…还能找回吗？」
+                # 「…谁才是你眼中的最强？」）当天就把 verify_publish_gate 刷成红灯，
+                # 而它们已经发出去了、退不回来。准入判定必须在**标记 used 之前**做：
+                # 不过就留池标记 rejected（不占配额、不重复重试），本批缺口如实少发。
+                _gate_recent = recent_titles_for_gate(date_str or "")
+                _rejected = []
+
+                def _reservoir_accept(item):
+                    _a = item.get("article") or {}
+                    _t = (_a.get("title") or "").strip()
+                    _ct = _a.get("content_type") or item.get("content_type") or ""
+                    _sc, _pass, _why = score_title_plan(
+                        {"title": _t, "content_type": _ct}, _t, _ct,
+                        recent_titles=_gate_recent)
+                    if not _pass:
+                        _rejected.append(f"{_t[:24]}（{_sc}分）：{'；'.join(_why)[:60]}")
+                    return _pass, "；".join(_why) or f"标题 {_sc} 分未达及格线"
+
+                _picked = reservoir.fill_gap(_supply_gap, accept=_reservoir_accept)
+                if _rejected:
+                    degrade.note("蓄水池准入", f"{len(_rejected)} 条标题不过闸门，未转正",
+                                 action=f"留池标记 rejected 不占配额；本批少发 {len(_rejected)} 篇")
                 for _it in _picked:
                     _art = _it.get("article") or {}
                     if not _art:
@@ -5595,7 +5620,17 @@ def main():
                     _art["_batch_time"] = batch_cfg["time"]
                     _art["_column_name"] = _art.get("_column_name") or _it.get("section", "")
                     articles.append((len(articles), _art))
-                    images_map[len(articles) - 1] = []
+                    # 2026-11-05：这里原来是 `images_map[...] = []`——蓄水池稿一律不配图，
+                    # 于是软性稿（人物故事/榜单）100% 落到封面数据卡。noon 批次 3 篇里 2 篇
+                    # 是这么来的，而数据卡那会儿在 CI 上还画不出汉字（一排方框）。
+                    # 现在照样走 _img_topic + search_images：有实体才配图（C罗/巴蒂这类
+                    # 能命中维基/Commons），无实体仍是 0 张 → 由数据卡兜底，口径不变。
+                    _r_img_topic = _img_topic({
+                        "title": _art.get("title", ""),
+                        "keywords_cn": list(_art.get("keywords_cn") or [])[:4],
+                        "keywords": list(_art.get("keywords") or ["football"])[:5],
+                    }, _art, match_data=match_data)
+                    images_map[len(articles) - 1] = search_images(_r_img_topic, count=3)
                     topics.append({"title": _art.get("title", ""),
                                    "content_type": _art.get("content_type", "人物故事"),
                                    "_column_name": _art["_column_name"],

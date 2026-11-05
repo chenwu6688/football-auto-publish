@@ -176,5 +176,45 @@ class TestVerifyPublishGate(unittest.TestCase):
         self.assertIsNone(r["ok"])
 
 
+class TestStockedBeforeGate(unittest.TestCase):
+    """蓄水池旧标题的「存量留证」口径（2026-11-05 两篇转过正）。
+
+    判据必须是「标题什么时候入库的」，否则 10 月存的空问标题在 11 月转正后，
+    会把一条只对新生效的规则记到生效日之后的硬违规里，红满 14 天。
+    """
+
+    def setUp(self):
+        self.vg = _load("verify_publish_gate", "scripts/verify_publish_gate.py")
+        self._tmp = tempfile.TemporaryDirectory()
+        self._orig = self.vg.PROJECT_ROOT
+        self.vg.PROJECT_ROOT = Path(self._tmp.name)
+        (self.vg.PROJECT_ROOT / "data" / "reservoir").mkdir(parents=True)
+
+    def tearDown(self):
+        self.vg.PROJECT_ROOT = self._orig
+        self._tmp.cleanup()
+
+    def _write(self, items):
+        import json
+        (self.vg.PROJECT_ROOT / "data" / "reservoir" / "items.json").write_text(
+            json.dumps({"items": items}, ensure_ascii=False), encoding="utf-8")
+
+    def test_old_stock_title_is_legacy(self):
+        self._write([{"title": "马拉多纳为何封神？", "stocked_at": "2026-10-11T00:02:18",
+                      "status": "used"}])
+        self.assertIn("马拉多纳为何封神？", self.vg._stocked_before_gate())
+
+    def test_new_stock_title_is_not_legacy(self):
+        self._write([{"title": "第94分钟绝杀，皇马3-1拿下德比",
+                      "stocked_at": f"{self.vg.GATE_SINCE}T08:00:00", "status": "stocked"}])
+        self.assertEqual(self.vg._stocked_before_gate(), set())
+
+    def test_missing_or_broken_ledger_is_empty_not_crash(self):
+        self.assertEqual(self.vg._stocked_before_gate(), set())
+        (self.vg.PROJECT_ROOT / "data" / "reservoir" / "items.json").write_text(
+            "{not json", encoding="utf-8")
+        self.assertEqual(self.vg._stocked_before_gate(), set())
+
+
 if __name__ == "__main__":
     unittest.main()

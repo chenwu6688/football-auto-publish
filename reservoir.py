@@ -119,17 +119,23 @@ def available(today: datetime | None = None) -> list[dict]:
     return out
 
 
-def fill_gap(n: int, today: datetime | None = None) -> list[dict]:
+def fill_gap(n: int, today: datetime | None = None, accept=None) -> list[dict]:
     """供给不足时从池中取 n 条补位（先进先出），标记 used，返回条目列表。
 
     禁发类型（BANNED_TYPES）不参与补位，且**不标记 used** —— 留在池里由 expire
     自然回收，避免「悄悄消耗库存却从不产出」这种看不见的漏斗。
+
+    accept: 可选的准入判定 `accept(item) -> (bool, reason)`，**在标记 used 之前**调用。
+    2026-11-05 加这条是因为蓄水池条目是 10 月存进来的，标题不过后来才生效的
+    「疑问收尾限额 / 三要素」闸门，转正后直接把违规标题发出去（当天两篇）。
+    判定不过的条目记 `status="rejected"` + reason，既不会每批重复重试，也不占用配额。
     """
     if n <= 0:
         return []
     today = today or _now()
     data = _load()
     picked = []
+    changed = False
     for it in data.get("items", []):
         if len(picked) >= n:
             break
@@ -142,10 +148,23 @@ def fill_gap(n: int, today: datetime | None = None) -> list[dict]:
                 continue
         except Exception:
             pass
+        if accept is not None:
+            try:
+                ok, reason = accept(it)
+            except Exception as e:           # 闸门自己炸了不能当通过
+                ok, reason = False, f"准入判定异常: {type(e).__name__}"
+            if not ok:
+                it["status"] = "rejected"
+                it["rejected_at"] = today.isoformat(timespec="seconds")
+                it["reject_reason"] = str(reason)[:200]
+                changed = True                # 拒绝也必须落盘，否则下次又被取到
+                print(f"   ⛔ 蓄水池条目准入未过（{str(reason)[:40]}）："
+                      f"{(it.get('title') or '')[:30]}")
+                continue
         it["status"] = "used"
         it["used_at"] = today.isoformat(timespec="seconds")
         picked.append(it)
-    if picked:
+    if picked or changed:
         _save(data)
     return picked
 

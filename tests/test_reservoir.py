@@ -49,6 +49,45 @@ class TestReservoir(unittest.TestCase):
         self.assertEqual(s["available"], 1)
         self.assertEqual(s["by_status"].get("stocked"), 1)
 
+    def test_accept_gate_rejects_before_marking_used(self):
+        """2026-11-05：蓄水池旧条目标题不过闸门 → 留池标 rejected，绝不发出去。"""
+        reservoir.stock({"title": "老将还能踢几年？", "content": "x" * 300,
+                         "content_type": "人物故事"}, now=self.now)
+        reservoir.stock({"title": "皇马3-1巴萨，第94分钟绝杀", "content": "x" * 300,
+                         "content_type": "热点球评"}, now=self.now)
+
+        def accept(item):
+            bad = item["article"]["title"].endswith("？")
+            return (not bad), "标题以疑问收尾"
+
+        picked = reservoir.fill_gap(2, today=self.now, accept=accept)
+        self.assertEqual([p["title"] for p in picked], ["皇马3-1巴萨，第94分钟绝杀"])
+        items = reservoir._load()["items"]
+        rejected = [i for i in items if i.get("status") == "rejected"]
+        self.assertEqual(len(rejected), 1)
+        self.assertEqual(rejected[0]["reject_reason"], "标题以疑问收尾")
+        self.assertFalse(rejected[0].get("used_at"))
+        # 被拒的条目不占配额、也不会被下一批重复重试
+        self.assertEqual(reservoir.available(self.now), [])
+
+    def test_accept_gate_exception_is_not_a_pass(self):
+        reservoir.stock({"title": "x", "content": "x" * 300}, now=self.now)
+
+        def boom(item):
+            raise RuntimeError("闸门炸了")
+
+        self.assertEqual(reservoir.fill_gap(1, today=self.now, accept=boom), [])
+        self.assertEqual(reservoir._load()["items"][0]["status"], "rejected")
+
+    def test_accept_gate_fills_remaining_slots_from_later_items(self):
+        """拒了第一条要继续往后取，不能因为一条不合格就少补一篇。"""
+        reservoir.stock({"title": "坏标题？", "content": "x" * 300}, now=self.now)
+        reservoir.stock({"title": "好标题", "content": "x" * 300}, now=self.now)
+        picked = reservoir.fill_gap(2, today=self.now,
+                                    accept=lambda it: (not it["article"]["title"].endswith("？"),
+                                                       "疑问收尾"))
+        self.assertEqual([p["title"] for p in picked], ["好标题"])
+
 
 if __name__ == "__main__":
     unittest.main()

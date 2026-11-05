@@ -46,6 +46,7 @@ import argparse
 import ast
 import json
 import sys
+import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -350,6 +351,35 @@ def check_fallback_wired():
     else:
         detail.append(f"✅ 数据卡尺寸 {cover_card.W}×{cover_card.H}"
                       f"（≥{MIN_WIDTH}×{MIN_HEIGHT}）")
+
+    # 2026-11-05 方框事故：CI 没有中文字体 → Pillow 位图字体把汉字全画成 .notdef 方框，
+    # 而 render() 返回路径、台账记 1 张图、发布成功。用户看到的就是「封面一堆方块」。
+    # 两条口径：① 无字体必须返回 None（硬项，任何环境都能验）；② 本机字体可用性只做告知。
+    saved = cover_card._FONT_PATH_CACHE
+    try:
+        cover_card._FONT_PATH_CACHE = ""
+        with tempfile.TemporaryDirectory() as _d:
+            got = cover_card.render({"title": "中超保级形势：1平2负只拿0.33分"},
+                                    out_dir=_d, filename="article-1-img-001.jpg")
+            left = list(Path(_d).glob("*.jpg"))
+        if got is not None or left:
+            ok = False
+            detail.append("❌ 没有中文字体时仍然出图 —— 会发布「一排方框」的封面"
+                          "（2026-11-05 事故原样复现）")
+        else:
+            detail.append("✅ 负向：无中文字体时不出方框图（返回 None 并留痕）")
+    finally:
+        cover_card._FONT_PATH_CACHE = saved
+
+    font_ok, font_detail = cover_card.font_status()
+    if font_ok:
+        detail.append(f"✅ 本机可画中文封面：{font_detail}")
+    else:
+        # 不是硬项：缺字体时卡片会跳过（有 degrade 留痕），不会污染线上内容。
+        # 但不能算「通过」——按项目口径标成未判定。
+        ok = None if ok else False
+        detail.append(f"⏸ 未判定：{font_detail}；本机无法验证中文卡片观感")
+
     if "封面兜底" not in degrade.DEGRADE_POLICY:
         ok = False
         detail.append("❌ degrade 策略表缺「封面兜底」—— 出问题时没有留痕口径")
