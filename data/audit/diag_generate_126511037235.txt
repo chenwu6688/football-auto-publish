@@ -1,0 +1,36 @@
+2026-11-04T10:04:06.0160776Z 已记录失败原因：失败步骤: 生成文章（详见运行日志）
+2026-11-04T10:04:06.0480737Z ##[group]Run python3 scripts/notify_failure.py
+2026-11-04T10:04:06.0481769Z [36;1mpython3 scripts/notify_failure.py[0m
+2026-11-04T10:04:06.0525782Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:04:06.0526317Z env:
+2026-11-04T10:04:06.0526705Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:04:06.0527352Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:04:06.0528184Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:04:06.0529014Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:04:06.0529797Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:04:06.0530554Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:04:06.0531592Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:04:06.0532475Z   WXPUSHER_APPTOKEN: ***
+2026-11-04T10:04:06.0533033Z   WXPUSHER_UID: ***
+2026-11-04T10:04:06.0533444Z   WB_BATCH: evening
+2026-11-04T10:04:06.0533884Z   WB_TODAY: 2026-11-04
+2026-11-04T10:04:06.0534362Z   WB_REPO: chenwu6688/football-auto-publish
+2026-11-04T10:04:06.0534916Z   WB_RUN_ID: 41811329994
+2026-11-04T10:04:06.0535362Z ##[endgroup]
+2026-11-04T10:04:08.1358293Z 告警已发送: HTTP 200 {"code":1000,"msg":"处理成功","data":[{"spt":null,"uid":"***","topicId":null,"messageContentId"
+2026-11-04T10:04:08.1990462Z Post job cleanup.
+2026-11-04T10:04:08.2851870Z [command]/usr/bin/git version
+2026-11-04T10:04:08.2897388Z git version 2.56.0
+2026-11-04T10:04:08.2938596Z Temporarily overriding HOME='/home/runner/work/_temp/67068795-a90e-478e-8ec3-513af67698c9' before making global git config changes
+2026-11-04T10:04:08.2940919Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T10:04:08.2945027Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/football-auto-publish/football-auto-publish
+2026-11-04T10:04:08.2986757Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T10:04:08.3024401Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T10:04:08.3340697Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T10:04:08.3383379Z http.https://github.com/.extraheader
+2026-11-04T10:04:08.3394404Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T10:04:08.3433441Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T10:04:08.3805482Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T10:04:08.3847855Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T10:04:08.4283017Z Cleaning up orphan processes
+2026-11-04T10:04:08.4658147Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
