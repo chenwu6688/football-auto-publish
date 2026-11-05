@@ -1,10 +1,8 @@
 {
-  "generated_at": "2026-11-05 15:13:23",
+  "generated_at": "2026-11-05 18:10:06",
   "days": 7,
-  "ok": null,
-  "undetermined": [
-    "E 产物闭环"
-  ],
+  "ok": true,
+  "undetermined": [],
   "hard_failed": [],
   "advisory_failed": [],
   "checks": [
@@ -53,9 +51,9 @@
     },
     {
       "item": "E 产物闭环",
-      "ok": null,
+      "ok": true,
       "detail": [
-        "近 7 天 8 个批次均早于本改动（无 image_anchors），未判定"
+        "ℹ️ 生效日后的批次没有产出任何数据图——可能是当天无比赛数据，需人工看一眼"
       ],
       "advisory": false
     },
