@@ -1,7 +1,7 @@
 {
   "date": "2026-11-05",
-  "generated_at": "2026-11-05T11:29:01.112665",
-  "total_articles": 5,
+  "generated_at": "2026-11-05T11:44:39.349408",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -378,17 +378,241 @@
         "degraded": []
       },
       "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 1,
+      "title": "科莫9比1血洗朗斯，这场欧冠惨案到底谁该脸红",
+      "path": "/home/runner/work/_temp/output/2026-11-05/article-1-科莫9比1血洗朗-3d185a.md",
+      "slug": "科莫9比1血洗朗-3d185a",
+      "tags": [
+        "Champions League",
+        "Como",
+        "Lens",
+        "9-1",
+        "Douvikas"
+      ],
+      "keywords": [
+        "Champions League",
+        "Como",
+        "Lens",
+        "9-1",
+        "Douvikas"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:goals",
+          "anchor": {
+            "kind": "goals",
+            "entities": [
+              "朗斯",
+              "科莫"
+            ],
+            "numbers": [
+              "1",
+              "9"
+            ],
+            "source": "直播吧战报进球事件",
+            "probe": "朗斯1-9科莫"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "1-9，朗斯欧冠主场被打成筛子，科莫这波操作谁看懂了",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 71,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "疑问句式(头部占比 0%~20%，不宜作为主力)",
+          "缺具体对阵/球队/人物",
+          "R11数据:标题 22 字落在 21-30 回测最优区间"
+        ]
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（22 < 47）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "科莫",
+          "朗斯",
+          "欧冠"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 71,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "疑问句式(头部占比 0%~20%，不宜作为主力)"
+        ]
+      },
+      "content_stats": {
+        "chars": 1133,
+        "han_len": 783,
+        "paragraphs": 10,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 3,
+      "title": "利兹联近5轮仅1胜，热刺带着3分优势来敲门",
+      "path": "/home/runner/work/_temp/output/2026-11-05/article-3-利兹联近5轮仅1-d4da62.md",
+      "slug": "利兹联近5轮仅1-d4da62",
+      "tags": [
+        "Leeds United",
+        "Tottenham",
+        "Bayern Munich",
+        "Arsenal",
+        "Bayer Leverkusen",
+        "AC Milan"
+      ],
+      "keywords": [
+        "Leeds United",
+        "Tottenham",
+        "Bayern Munich",
+        "Arsenal",
+        "Bayer Leverkusen",
+        "AC Milan"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-05/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-05/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-05/images/article-3-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-3-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": true,
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "利兹联",
+          "热刺"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 92,
+        "pass": true,
+        "reasons": [
+          "过程锚点：N轮不胜/连败",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1236,
+        "han_len": 830,
+        "paragraphs": 13,
+        "headings": 8,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "1-9！朗斯主场被打成筛子，科莫这场球到底谁该脸红",
-      "angle": "欧冠单场1-9是本赛季最离谱比分，不写战术板，写人的崩盘——朗斯后防线从第20分钟就开始互相埋怨，这种溃败比输球更伤士气。",
+      "title": "1-9，朗斯欧冠主场被打成筛子，科莫这波操作谁看懂了",
+      "angle": "朗斯主场1-9惨案是今日最刺眼的数据，重点不在嘲讽弱旅，而在拆解科莫为何能打出这种极端比分——一支非豪门球队在欧冠客场灌9球，这背后是对手崩盘还是新势力崛起，给个明确判断。",
       "keywords": [
-        "Lens",
-        "Como",
-        "Champions League",
-        "1-9"
+        "lens",
+        "como",
+        "champions league",
+        "nine goals"
       ],
       "keywords_cn": [
         "朗斯",
@@ -397,55 +621,55 @@
         "惨案"
       ],
       "content_type": "热点球评",
-      "score": 88,
+      "score": 92,
       "controversy_level": "high",
       "target_emotion": "震惊",
       "resonance_angle": "无",
       "series_id": "无",
-      "why_pick": "1-9极端比分自带画面，人盯人写崩盘",
+      "why_pick": "1-9极端比分自带冲击力，非豪门客场血洗更反常",
       "_category": "战报比分",
-      "_column_id": "laoliu-hot-take",
-      "_column_name": "老六辣评",
-      "_column_icon": "🔥",
-      "_writing_style": "脱口秀吐槽体",
-      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
         400,
         600
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
-      "_topic_domain": "足球热点辣评",
-      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
       "_data_source_hint": "gzh_only",
       "_batch_name": "晚间",
       "_batch_time": "18:00",
       "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
       "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
-      "_rank_id": "topic-1"
+      "_rank_id": "topic-2"
     },
     {
-      "title": "462场老队长郑铮躺上手术台，泰山这代人的青春也在缝针",
-      "angle": "郑铮为泰山出战462次，如今手术。不写伤情通报，写老球迷的账本——从2008年看他踢球到如今，这批人一个个退场，看台上一代人也在退场。",
+      "title": "郑铮为泰山出战462场后躺上手术台，老队长的账该怎么算",
+      "angle": "郑铮为泰山出战462次后完成手术，从老球迷视角聊这种一人一城的老队长价值——不是数据能衡量的，是更衣室和城市记忆的锚点，带出对当下球员流动频繁的感慨。",
       "keywords": [
-        "Zheng Zheng",
-        "Shandong Taishan",
+        "zheng zheng",
+        "shandong taishan",
         "surgery",
-        "veteran"
+        "loyalty"
       ],
       "keywords_cn": [
         "郑铮",
         "山东泰山",
         "手术",
-        "老队长"
+        "忠诚"
       ],
       "content_type": "八卦趣事",
-      "score": 86,
+      "score": 82,
       "controversy_level": "low",
-      "target_emotion": "怀旧",
+      "target_emotion": "感动",
       "resonance_angle": "老球迷身份认同",
       "series_id": "old-fan-night",
-      "why_pick": "462场数字+老队长手术，情怀拉满",
+      "why_pick": "462场一人一城，戳中老球迷对忠诚的怀念",
       "_category": "中国足球",
       "_column_id": "world-cup-daily",
       "_column_name": "世界杯日报",
@@ -468,7 +692,7 @@
       "_rank_id": "topic-0"
     },
     {
-      "title": "勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯",
+      "title": "利兹联近5轮仅1胜，热刺带着3分优势来敲门",
       "content_type": "热点球评",
       "_batch_name": "晚间",
       "_is_prediction": true
@@ -481,15 +705,15 @@
     "articles_below": 0
   },
   "supply_layers": {
-    "total": 0,
+    "total": 2,
     "counts": {
       "一级·确定性": 0,
-      "二级·突发": 0,
+      "二级·突发": 2,
       "三级·软性": 0
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 0.0,
+      "二级·突发": 100.0,
       "三级·软性": 0.0
     },
     "targets": {
@@ -499,7 +723,7 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": -50.0,
+      "二级·突发": 50.0,
       "三级·软性": -20.0
     },
     "unclassified": 0,
@@ -515,32 +739,14 @@
   "degrade_events": [
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（24 < 47）",
+      "原因": "事实点数少于最强源文（22 < 47）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
-      "环节": "标题评分",
-      "原因": "改写异常: AttributeError: 'int' object has no attribute 'get'",
-      "处置": "按上一版配比直接生成，不阻塞发布",
-      "数量": 1
-    },
-    {
-      "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（23 < 47）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
-      "数量": 1
-    },
-    {
-      "环节": "标题评分",
-      "原因": "改写异常: AttributeError: 'int' object has no attribute 'get'",
-      "处置": "按上一版配比直接生成，不阻塞发布",
-      "数量": 1
-    },
-    {
-      "环节": "软性补位跳过",
-      "原因": "今日软性已用满 2 篇（P0-2 单日上限）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
       "数量": 1
     },
     {
@@ -548,6 +754,16 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-11-05-2-5a0d74",
+      "index": 2,
+      "title": "郑铮462场忠诚 vs 山东泰山手术台，老队长这账怎么算",
+      "reasons": [
+        "伤病(命中：手术)"
+      ]
     }
   ],
   "type": "match_analysis",
@@ -574,30 +790,37 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "1-9！朗斯主场被打成筛子，科莫这场球到底谁该脸红"
+        "title": "1-9，朗斯欧冠主场被打成筛子，科莫这波操作谁看懂了"
       },
       {
         "slot": "extra",
         "type": "八卦趣事",
-        "title": "462场老队长郑铮躺上手术台，泰山这代人的青春也在缝针"
+        "title": "郑铮为泰山出战462场后躺上手术台，老队长的账该怎么算"
       }
     ],
     "degraded": [
       "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
-    "skipped": [],
+    "skipped": [
+      {
+        "type": "八卦趣事",
+        "title": "吴曦说每次咬牙都算数，这话听着怎么这么像我们这代球迷"
+      }
+    ],
     "day_counts": {
       "战术榜单": 2,
       "人物故事": 1,
-      "排行榜": 1
+      "排行榜": 1,
+      "热点球评": 1
     },
     "selected": 2,
     "requested": 2
   },
   "batches_completed": [
+    "evening",
     "morning",
     "noon"
   ],
   "last_batch": "evening",
-  "last_updated": "2026-11-05 19:29:01"
+  "last_updated": "2026-11-05 19:44:39"
 }
