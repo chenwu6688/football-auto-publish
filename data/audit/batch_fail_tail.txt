@@ -1,6 +1,375 @@
-### KEY=生成文章 FILE=
+### KEY=生成文章 FILE=/tmp/logs/publish/18_生成文章.txt
+===== /tmp/logs/publish/18_生成文章.txt =====
+﻿2026-11-05T11:26:18.2687910Z ##[group]Run python orchestrator.py "2026-11-05" --batch="evening"
+2026-11-05T11:26:18.2688306Z [36;1mpython orchestrator.py "2026-11-05" --batch="evening"[0m
+2026-11-05T11:26:18.2706713Z shell: /usr/bin/bash -e {0}
+2026-11-05T11:26:18.2706926Z env:
+2026-11-05T11:26:18.2707102Z   PYTHONUNBUFFERED: 1
+2026-11-05T11:26:18.2707344Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:26:18.2707868Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T11:26:18.2708215Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:26:18.2708540Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:26:18.2708835Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:26:18.2709122Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T11:26:18.2709535Z   HY3_API_KEY: ***
+2026-11-05T11:26:18.2709762Z   DASHSCOPE_API_KEY: ***
+2026-11-05T11:26:18.2710026Z   UNSPLASH_ACCESS_KEY: ***
+2026-11-05T11:26:18.2710295Z   FOOTBALL_DATA_KEY: ***
+2026-11-05T11:26:18.2710507Z   TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+2026-11-05T11:26:18.2710752Z   OUTPUT_DIR: /home/runner/work/_temp/output
+2026-11-05T11:26:18.2711072Z   WXPUSHER_APPTOKEN: ***
+2026-11-05T11:26:18.2711296Z   WXPUSHER_UID: ***
+2026-11-05T11:26:18.2711486Z ##[endgroup]
+2026-11-05T11:26:18.3852322Z 11:26:18 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/_temp/output/logs/orchestrator_2026-11-05.log
+2026-11-05T11:26:18.4170123Z    📊 效果反馈调权: {'热点球评': '1.0→1.3', '转会资讯': '1.0→0.8', '排行榜': '1.0→0.8', '八卦趣事': '1.0→0.8', '战术解析': '1.0→0.8'}
+2026-11-05T11:26:18.4170643Z    📅 赛季节奏: 常规赛季 (月份11, 权重: {'热点球评': 1.3, '转会资讯': 0.8, '排行榜': 0.8, '八卦趣事': 0.8, '战术解析': 0.8})
+2026-11-05T11:26:18.4173576Z 足球自媒体内容自动化 - 2026-11-05 (batch=evening, 栏目=世界杯日报, 老六辣评, 晚间·18:00, 单批上限=2篇 · 常态 2 篇（周内加发已用满 2/2）)
+2026-11-05T11:26:18.4173894Z 
+2026-11-05T11:26:18.4174066Z 11:26:18 [INFO ] 开始执行 — 日期:2026-11-05 批次:evening
+2026-11-05T11:26:18.4185876Z    历史去重: 近7天 40 篇, 覆盖球队 11 支, 球员 3 人, 比赛事件 2 场
+2026-11-05T11:26:18.4187875Z    跨批次去重: 今日已有 4 篇, 覆盖品类: 人物故事, 榜单, 战术榜单
+2026-11-05T11:26:18.4189304Z    跨天去重: 昨日的 3 篇覆盖 14 个关键词，将过滤今日同类选题
+2026-11-05T11:26:18.4189600Z [1/5] 采集真实比赛数据 (2026-11-05)...
+2026-11-05T11:27:31.6773164Z    📄 直播吧战报: 18/58 场有详细战报
+2026-11-05T11:27:33.4342948Z    📰 直播吧足球新闻: 15 篇
+2026-11-05T11:27:33.4343239Z    📰 直播吧新闻: 15 篇
+2026-11-05T11:27:33.4343457Z    ✅ 直播吧: 58 场比赛, 含战报
+2026-11-05T11:27:34.0266052Z    📰 懂球帝文章: 15 篇
+2026-11-05T11:27:46.0733433Z    ✅ 懂球帝文章: 15 篇, 15 篇有正文
+2026-11-05T11:27:46.0733907Z    ✅ 懂球帝: 15 篇文章
+2026-11-05T11:27:46.0734314Z [数据] 采集转会新闻 (2026-11-05)...
+2026-11-05T11:27:47.3574702Z    📰 直播吧足球新闻: 30 篇
+2026-11-05T11:27:47.6414412Z    📰 懂球帝文章: 30 篇
+2026-11-05T11:27:47.6414800Z    🔍 转会新闻: 1 篇
+2026-11-05T11:27:47.6415215Z       - 北青：足协完成女足新帅候选人集中面试工作，结果有望中旬公布
+2026-11-05T11:27:47.6446409Z [数据] 采集转会新闻 (2026-11-05)...
+2026-11-05T11:27:49.0264284Z    📰 直播吧足球新闻: 30 篇
+2026-11-05T11:27:49.3086405Z    📰 懂球帝文章: 30 篇
+2026-11-05T11:27:49.3086850Z    🔍 转会新闻: 1 篇
+2026-11-05T11:27:49.3087344Z       - 北青：足协完成女足新帅候选人集中面试工作，结果有望中旬公布
+2026-11-05T11:27:49.3126866Z    🗂️ 事实卡入库: 共 26 张（新增 26 / 更新 1，可信度 {'已确认': 18, '单源': 8}，生命周期 {'进行中': 26}）
+2026-11-05T11:27:49.3127291Z 
+2026-11-05T11:27:49.3127561Z [2/5] LLM 话题筛选 (TokenHub 多模型轮换, target=2篇)...
+2026-11-05T11:27:49.3203267Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:27:49.3204088Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:27:49.3204908Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315919 tokens）
+2026-11-05T11:27:49.3205954Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T11:27:49.3206521Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T11:27:54.2549191Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T11:27:54.2571622Z    筛选出 2 个话题:
+2026-11-05T11:27:54.2572052Z    1. [热点球评] 1-9！朗斯主场被打成筛子，科莫这场球到底谁该脸红
+2026-11-05T11:27:54.2572963Z    2. [八卦趣事] 462场老队长郑铮躺上手术台，泰山这代人的青春也在缝针
+2026-11-05T11:27:54.2573323Z    ✅ 素材充足性检查: 全部 2 个话题素材充足
+2026-11-05T11:27:54.2590402Z    📊 标题钩子分布: 锚点 0/2 (0%) | 疑问 0/2 (0%) | 冲突 0/2 (0%) | 数据 2/2 (100%)
+2026-11-05T11:27:54.2591046Z    ⚠️ 过程锚点偏低（0% < 40%）——标题缺「过程反常」，建议写第几分钟/连进几球/谁被换下（头部覆盖 7.2%~35.7%，我方长期 2.6%）
+2026-11-05T11:27:54.2591540Z    ⚠️ 冲突钩子偏低（0% < 30%）——缺乏戏剧张力，建议增加反差/爆冷/绝杀类标题
+2026-11-05T11:27:54.2591919Z    📊 选题类别分布: 中国足球 1/2、战报比分 1/2
+2026-11-05T11:27:54.2592280Z    ✅ 选题类别分布达标（战报比分 50% ≤ 50%，未分类 0% ≤ 80%）
+2026-11-05T11:27:54.2605220Z    📊 R11 标题规则采用: 悬念词 0/2 (0%) | 21-30字 2/2 (100%)
+2026-11-05T11:27:54.2605895Z    ⚠️ 悬念词采用率偏低（0% < 20%）——R11 回测悬念词 CTR +87%，evaluate() 只加分不强制，建议强化 prompts/topic_selector.txt 的标题要求
+2026-11-05T11:27:54.2606387Z    📊 内容类型分布: 八卦趣事 1/2, 热点球评 1/2
+2026-11-05T11:27:54.2606748Z    📊 共鸣角度覆盖: 1/2 (50%) 带真实共鸣角度
+2026-11-05T11:27:54.2607171Z    ⚠️ 共鸣角度覆盖偏低（50% < 60%）——建议选题优先挑能用『国足情结/老球迷身份/世界杯经典/名宿沉浮』切入的事件
+2026-11-05T11:27:54.2607522Z    📊 系列连载分布: 1/2 篇归属系列（老球迷夜话×1）
+2026-11-05T11:27:54.2608047Z    📰 栏目分配: 世界杯日报, 老六辣评 (晚间·18:00)
+2026-11-05T11:27:54.2743701Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:27:54.2744462Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:27:54.2745137Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315872 tokens）
+2026-11-05T11:27:54.2745661Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:27:54.2746108Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:27:55.9437153Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:27:55.9440501Z    🎯 择优（llm 模式）：1 条进入排名；L1 预筛：2 → 1 条（剔除 1）；L3 模型打分完成（deepseek/deepseek-flash）
+2026-11-05T11:27:55.9442992Z    🎯 批次类型结构：main·热点球评 + extra·八卦趣事（选 2/2）
+2026-11-05T11:27:55.9443274Z       ⚠️ data 槽无可用候选（不凑数，本批少写 1 篇）
+2026-11-05T11:27:55.9459764Z    🚧 标题句式闸门：近 14 天已用满 ['主帅压力体']（阈值 2 篇）
+2026-11-05T11:27:55.9463647Z    🗓️ 确定性供给本批让位：今日已用满每日预算 2 篇（计划 12.1 一级·确定性 ~30%）
+2026-11-05T11:27:55.9505010Z    📈 动态条数：本批主稿生成 2 篇（剩余槽位 2）
+2026-11-05T11:27:55.9508016Z 
+2026-11-05T11:27:55.9508365Z --- 第1/2篇 [热点球评] ---
+2026-11-05T11:27:55.9509915Z 
+2026-11-05T11:27:55.9510078Z --- 第2/2篇 [八卦趣事] ---
+2026-11-05T11:27:55.9595961Z    🖼️ 封面绑定：未找到与正文绑定的配图，本篇不配随机图
+2026-11-05T11:27:56.8329292Z 
+2026-11-05T11:27:56.8329904Z [3.2] [改写-八卦趣事] 462场老队长郑铮躺上手术台，泰山这代人的青春也在缝针...
+2026-11-05T11:27:56.8331880Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:27:56.8332424Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:27:56.8332939Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315615 tokens）
+2026-11-05T11:27:56.8333288Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:27:56.8333567Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:27:59.7409262Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:27:59.7440350Z    🧩 抽取器：7 条结构化事实（生成器对原文不可见）
+2026-11-05T11:27:59.7443413Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:27:59.7444085Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:27:59.7444815Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315547 tokens）
+2026-11-05T11:27:59.7445385Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T11:27:59.7445791Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T11:28:00.9346229Z 
+2026-11-05T11:28:00.9346932Z [3.1] [改写-热点球评] 1-9！朗斯主场被打成筛子，科莫这场球到底谁该脸红...
+2026-11-05T11:28:00.9348503Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:00.9349069Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:00.9349644Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315547 tokens）
+2026-11-05T11:28:00.9350064Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T11:28:00.9350445Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T11:28:05.6918818Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T11:28:05.7150078Z    🧩 抽取器：39 条结构化事实（生成器对原文不可见）
+2026-11-05T11:28:05.7151007Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:05.7151577Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:05.7152207Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315083 tokens）
+2026-11-05T11:28:05.7152998Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:28:05.7153369Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:28:09.7834687Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T11:28:09.7835314Z    改写完成: 37岁郑铮462场后进手术室，泰山这笔账到底怎么算, 857字
+2026-11-05T11:28:09.8017263Z Traceback (most recent call last):
+2026-11-05T11:28:09.8024834Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 2015, in _rewrite_with_retry
+2026-11-05T11:28:09.8025683Z     _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+2026-11-05T11:28:09.8025978Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:09.8026468Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 3756, in repick_title
+2026-11-05T11:28:09.8026864Z     brief = title_brief.brief_text(topic)
+2026-11-05T11:28:09.8027092Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:09.8027477Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 158, in brief_text
+2026-11-05T11:28:09.8028123Z     c = collect(topic, facts)
+2026-11-05T11:28:09.8028337Z         ^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:09.8028746Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 81, in collect
+2026-11-05T11:28:09.8029260Z     hg, ag = _num(sc.get("home")), _num(sc.get("away"))
+2026-11-05T11:28:09.8029541Z                   ^^^^^^
+2026-11-05T11:28:09.8029808Z AttributeError: 'int' object has no attribute 'get'
+2026-11-05T11:28:09.8029981Z 
+2026-11-05T11:28:09.8030325Z [3.2] [改写-八卦趣事] 462场老队长郑铮躺上手术台，泰山这代人的青春也在缝针...
+2026-11-05T11:28:09.8030737Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:09.8031231Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:09.8031782Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 315083 tokens）
+2026-11-05T11:28:09.8032175Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:28:09.8032553Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:28:12.0059335Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:28:12.0091387Z    🧩 抽取器：7 条结构化事实（生成器对原文不可见）
+2026-11-05T11:28:12.0094212Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:12.0094707Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:12.0095330Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 314525 tokens）
+2026-11-05T11:28:12.0095672Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:28:12.0095945Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:28:14.3125361Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:28:14.3125893Z    改写完成: 杜维卡斯3球打崩朗斯，科莫9-1这比分谁信？, 846字
+2026-11-05T11:28:14.3128346Z    ⚠️ 具体时间 第91分钟 未在多渠道源文中核到，放宽校验（不拦截）
+2026-11-05T11:28:14.3208624Z    🧯 降级[反洗稿记分]：事实点数少于最强源文（24 < 47） → 不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）
+2026-11-05T11:28:14.3209985Z Traceback (most recent call last):
+2026-11-05T11:28:14.3213610Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 2015, in _rewrite_with_retry
+2026-11-05T11:28:14.3214271Z     _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+2026-11-05T11:28:14.3214644Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:14.3215231Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 3756, in repick_title
+2026-11-05T11:28:14.3215650Z     brief = title_brief.brief_text(topic)
+2026-11-05T11:28:14.3215877Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:14.3216254Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 158, in brief_text
+2026-11-05T11:28:14.3216634Z     c = collect(topic, facts)
+2026-11-05T11:28:14.3216834Z         ^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:14.3217399Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 81, in collect
+2026-11-05T11:28:14.3218004Z     hg, ag = _num(sc.get("home")), _num(sc.get("away"))
+2026-11-05T11:28:14.3218300Z                   ^^^^^^
+2026-11-05T11:28:14.3218559Z AttributeError: 'int' object has no attribute 'get'
+2026-11-05T11:28:14.3218754Z 
+2026-11-05T11:28:14.3219028Z [3.1] [改写-热点球评] 1-9！朗斯主场被打成筛子，科莫这场球到底谁该脸红...
+2026-11-05T11:28:14.3219654Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:14.3220162Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:14.3220719Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 313811 tokens）
+2026-11-05T11:28:14.3227997Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T11:28:14.3228381Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T11:28:19.9090278Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:28:19.9090973Z    改写完成: 37岁郑铮462场后躺上手术台，泰山这笔账怎么算, 695字
+2026-11-05T11:28:19.9101685Z Traceback (most recent call last):
+2026-11-05T11:28:19.9104698Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 2015, in _rewrite_with_retry
+2026-11-05T11:28:19.9105224Z     _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+2026-11-05T11:28:19.9105512Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:19.9105962Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 3756, in repick_title
+2026-11-05T11:28:19.9106346Z     brief = title_brief.brief_text(topic)
+2026-11-05T11:28:19.9106564Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:19.9106937Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 158, in brief_text
+2026-11-05T11:28:19.9107308Z     c = collect(topic, facts)
+2026-11-05T11:28:19.9107831Z         ^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:19.9108421Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 81, in collect
+2026-11-05T11:28:19.9108939Z     hg, ag = _num(sc.get("home")), _num(sc.get("away"))
+2026-11-05T11:28:19.9109235Z                   ^^^^^^
+2026-11-05T11:28:19.9109507Z AttributeError: 'int' object has no attribute 'get'
+2026-11-05T11:28:19.9109745Z 
+2026-11-05T11:28:19.9110072Z [3.2] [改写-八卦趣事] 462场老队长郑铮躺上手术台，泰山这代人的青春也在缝针...
+2026-11-05T11:28:19.9117032Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:19.9117579Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:19.9118191Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 309897 tokens）
+2026-11-05T11:28:19.9118673Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T11:28:19.9119036Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T11:28:21.2859083Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T11:28:21.3072309Z    🧩 抽取器：32 条结构化事实（生成器对原文不可见）
+2026-11-05T11:28:21.3073172Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:21.3073674Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:21.3074223Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 312143 tokens）
+2026-11-05T11:28:21.3074569Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T11:28:21.3075060Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T11:28:23.0396782Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T11:28:23.0427954Z    🧩 抽取器：7 条结构化事实（生成器对原文不可见）
+2026-11-05T11:28:23.0430516Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:23.0431087Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:23.0431688Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 309365 tokens）
+2026-11-05T11:28:23.0432182Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T11:28:23.0432528Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T11:28:32.0078093Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T11:28:32.0078533Z    改写完成: 科莫9-1血洗朗斯，杜维卡斯帽子戏法谁能想到, 885字
+2026-11-05T11:28:32.0092972Z    🔁 事实矛盾(attempt 2/3)：卡斯 实际 1 球，正文称 3
+2026-11-05T11:28:32.0093169Z 
+2026-11-05T11:28:32.0093442Z [3.1] [改写-热点球评] 1-9！朗斯主场被打成筛子，科莫这场球到底谁该脸红...
+2026-11-05T11:28:32.0093945Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:32.0094445Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:32.0094955Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 308636 tokens）
+2026-11-05T11:28:32.0095291Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:28:32.0095578Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:28:32.3897546Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T11:28:32.3898199Z    改写完成: 37岁郑铮462场后躺上手术台，泰山这笔账算得清吗, 587字
+2026-11-05T11:28:32.3905612Z Traceback (most recent call last):
+2026-11-05T11:28:32.3906899Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 2015, in _rewrite_with_retry
+2026-11-05T11:28:32.3907384Z     _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+2026-11-05T11:28:32.3907808Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:32.3908379Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 3756, in repick_title
+2026-11-05T11:28:32.3908802Z     brief = title_brief.brief_text(topic)
+2026-11-05T11:28:32.3909025Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:32.3909418Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 158, in brief_text
+2026-11-05T11:28:32.3909796Z     c = collect(topic, facts)
+2026-11-05T11:28:32.3910004Z         ^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:32.3910556Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 81, in collect
+2026-11-05T11:28:32.3910954Z     hg, ag = _num(sc.get("home")), _num(sc.get("away"))
+2026-11-05T11:28:32.3911190Z                   ^^^^^^
+2026-11-05T11:28:32.3911417Z AttributeError: 'int' object has no attribute 'get'
+2026-11-05T11:28:32.3912734Z    🧯 降级[标题评分]：改写异常: AttributeError: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+2026-11-05T11:28:35.8186306Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:28:35.8375522Z    🧩 抽取器：28 条结构化事实（生成器对原文不可见）
+2026-11-05T11:28:35.8376928Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:35.8377502Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:35.8378193Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 307312 tokens）
+2026-11-05T11:28:35.8378607Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T11:28:35.8378987Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T11:28:44.7173187Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T11:28:44.7173800Z    改写完成: 科莫9-1血洗朗斯，杜维卡斯开场7分钟就定调, 718字
+2026-11-05T11:28:44.7177121Z    ⚠️ 具体时间 第91分钟 未在多渠道源文中核到，放宽校验（不拦截）
+2026-11-05T11:28:44.7194043Z    🧯 降级[反洗稿记分]：事实点数少于最强源文（23 < 47） → 不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）
+2026-11-05T11:28:44.7223313Z Traceback (most recent call last):
+2026-11-05T11:28:44.7224177Z    🧯 降级[标题评分]：改写异常: AttributeError: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+2026-11-05T11:28:44.7227405Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 2015, in _rewrite_with_retry
+2026-11-05T11:28:44.7228254Z     _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+2026-11-05T11:28:44.7228672Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:44.7229422Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 3756, in repick_title
+2026-11-05T11:28:44.7230037Z     brief = title_brief.brief_text(topic)
+2026-11-05T11:28:44.7230353Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:44.7230929Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 158, in brief_text
+2026-11-05T11:28:44.7231478Z     c = collect(topic, facts)
+2026-11-05T11:28:44.7231757Z         ^^^^^^^^^^^^^^^^^^^^^
+2026-11-05T11:28:44.7232229Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_brief.py", line 81, in collect
+2026-11-05T11:28:44.7232773Z     hg, ag = _num(sc.get("home")), _num(sc.get("away"))
+2026-11-05T11:28:44.7233073Z                   ^^^^^^
+2026-11-05T11:28:44.7233370Z AttributeError: 'int' object has no attribute 'get'
+2026-11-05T11:28:44.7233995Z    ❌ 第1篇失败: 改写异常: 'int' object has no attribute 'get'
+2026-11-05T11:28:44.7243036Z    ❌ 第2篇失败: 改写异常: 'int' object has no attribute 'get'
+2026-11-05T11:28:44.7243531Z    🗄️ 蓄水池补位跳过：今日软性已用满 2 篇（P0-2 单日上限）；本批缺口 2 篇不补
+2026-11-05T11:28:44.7243874Z    🧯 降级[软性补位跳过]：今日软性已用满 2 篇（P0-2 单日上限） → 本批篇数不足，按实际成稿发布（不拿软性顶替）
+2026-11-05T11:28:44.7244052Z 
+2026-11-05T11:28:44.7244182Z [预测] 晚间批次：采集明日赛程，生成赛前预测...
+2026-11-05T11:28:47.6791977Z    📅 未来赛程: 40 场未开始的比赛
+2026-11-05T11:28:47.6792593Z       [UEFA Conference League] 特拉布宗 vs 弗赖堡 (2026-11-06 01:45)
+2026-11-05T11:28:47.6793035Z       [UEFA Conference League] 亚特兰大 vs 阿拉木图凯拉特 (2026-11-06 01:45)
+2026-11-05T11:28:47.6793420Z       [UEFA Europa League] 米兰 vs 费伦茨瓦罗斯 (2026-11-06 01:45)
+2026-11-05T11:28:47.6793744Z       [UEFA Europa League] 安德莱赫特 vs 萨尔茨堡红牛 (2026-11-06 01:45)
+2026-11-05T11:28:47.6794056Z       [UEFA Europa League] 水晶宫 vs 霍芬海姆 (2026-11-06 01:45)
+2026-11-05T11:28:47.6794364Z       [UEFA Europa League] 索菲亚列夫斯基 vs 乔治罗尼亚 (2026-11-06 01:45)
+2026-11-05T11:28:47.6794683Z       [UEFA Europa League] 利勒斯特罗姆 vs 比尔森胜利 (2026-11-06 01:45)
+2026-11-05T11:28:47.6794983Z       [UEFA Europa League] 奈梅亨 vs 奥莫尼亚 (2026-11-06 01:45)
+2026-11-05T11:28:47.6795608Z       [UEFA Europa League] 皇家社会 vs 里昂 (2026-11-06 01:45)
+2026-11-05T11:28:47.6795921Z       [UEFA Europa League] 布拉格斯巴达 vs 伯恩茅斯 (2026-11-06 01:45)
+2026-11-05T11:28:47.6796237Z       [UEFA Conference League] 摩纳哥 vs 北西兰 (2026-11-06 04:00)
+2026-11-05T11:28:47.6796545Z       [UEFA Conference League] 赫塔费 vs 布莱顿 (2026-11-06 04:00)
+2026-11-05T11:28:47.6796840Z       [UEFA Europa League] 阿尔克马尔 vs 尤文图斯 (2026-11-06 04:00)
+2026-11-05T11:28:47.6797226Z       [UEFA Europa League] 勒沃库森 vs 马赛 (2026-11-06 04:00)
+2026-11-05T11:28:47.6797520Z       [UEFA Europa League] 本菲卡 vs 波兹南莱赫 (2026-11-06 04:00)
+2026-11-05T11:28:47.6798102Z       [UEFA Europa League] 塞尔塔 vs 圣吉罗斯 (2026-11-06 04:00)
+2026-11-05T11:28:47.6798405Z       [UEFA Europa League] 凯尔特人 vs 贝西克塔斯 (2026-11-06 04:00)
+2026-11-05T11:28:47.6798706Z       [UEFA Europa League] 贝尔谢巴夏普尔 vs 克里特 (2026-11-06 04:00)
+2026-11-05T11:28:47.6799042Z       [UEFA Europa League] 格拉茨风暴 vs 采列 (2026-11-06 04:00)
+2026-11-05T11:28:47.6799439Z       [UEFA Europa League] 桑德兰 vs 萨格勒布迪纳摩 (2026-11-06 04:00)
+2026-11-05T11:28:47.6799838Z       [UEFA Europa League] 杜连斯 vs 亚拉腊-亚美尼亚 (2026-11-06 04:00)
+2026-11-05T11:28:47.6800125Z       [] 哈森姆 vs 利雅得胜利 (2026-11-06 22:55)
+2026-11-05T11:28:47.6800386Z       [] 吉达联合 vs 新未来城体育 (2026-11-07 01:30)
+2026-11-05T11:28:47.6800646Z       [Bundesliga] 汉堡 vs 门兴 (2026-11-07 03:30)
+2026-11-05T11:28:47.6800911Z       [Ligue 1] 图卢兹 vs 斯特拉斯堡 (2026-11-07 03:45)
+2026-11-05T11:28:47.6801229Z       [Serie A] 威尼斯 vs 乌迪内斯 (2026-11-07 03:45)
+2026-11-05T11:28:47.6801583Z       [Primera Division] 塞维利亚 vs 阿拉维斯 (2026-11-07 04:00)
+2026-11-05T11:28:47.6801898Z       [Premier League] 埃弗顿 vs 考文垂 (2026-11-07 04:00)
+2026-11-05T11:28:47.6802270Z       [Premier League] 利兹联 vs 热刺 (2026-11-07 20:30)
+2026-11-05T11:28:47.6802624Z       [Primera Division] 马拉加 vs 桑坦德竞技 (2026-11-07 21:00)
+2026-11-05T11:28:47.6802896Z       [Serie A] 卡利亚里 vs 弗洛西诺内 (2026-11-07 22:00)
+2026-11-05T11:28:47.6803149Z       [Serie A] 都灵 vs 莱切 (2026-11-07 22:00)
+2026-11-05T11:28:47.6803410Z       [] 达曼协作 vs 利雅得新月 (2026-11-07 22:30)
+2026-11-05T11:28:47.6803666Z       [Bundesliga] 多特蒙德 vs 埃尔沃斯贝格 (2026-11-07 22:30)
+2026-11-05T11:28:47.6803935Z       [Bundesliga] 莱比锡 vs 奥格斯堡 (2026-11-07 22:30)
+2026-11-05T11:28:47.6804204Z       [Bundesliga] 美因茨 vs 拜仁慕尼黑 (2026-11-07 22:30)
+2026-11-05T11:28:47.6804470Z       [Bundesliga] 帕德博恩 vs 法兰克福 (2026-11-07 22:30)
+2026-11-05T11:28:47.6804734Z       [Premier League] 阿森纳 vs 赫尔城 (2026-11-07 23:00)
+2026-11-05T11:28:47.6805020Z       [Premier League] 富勒姆 vs 纽卡斯尔联 (2026-11-07 23:00)
+2026-11-05T11:28:47.6805301Z       [Primera Division] 西班牙人 vs 拉科鲁尼亚 (2026-11-07 23:15)
+2026-11-05T11:28:47.6805568Z    ✅ 赛前预测素材: 40 场未来比赛 (2026-11-06)
+2026-11-05T11:28:47.6805714Z 
+2026-11-05T11:28:47.6805818Z [预测] 生成赛前预测文章 (40 场)...
+2026-11-05T11:28:47.6806170Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T11:28:47.6806657Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T11:28:47.6807204Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 307082 tokens）
+2026-11-05T11:28:47.6807551Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T11:28:47.6808000Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T11:28:54.7896424Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T11:28:54.7932625Z    ✅ 预测文章生成成功: 勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯 (726字)
+2026-11-05T11:28:57.1718785Z    ✅ 信息增量 OK: 「勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯」检出 13 个信息点
+2026-11-05T11:28:57.1719868Z    🎯 赛前预测已追加: 勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯
+2026-11-05T11:28:57.1720208Z    ⚡ 检测到 14 个重大事件，前3个:
+2026-11-05T11:28:57.1720560Z    1. [进球大战][urg=90] UEFA Champions League: 朗斯 1-9 科莫 (共10球)
+2026-11-05T11:28:57.1720992Z    2. [进球大战][urg=90] UEFA Champions League: 比利亚雷亚尔 0-6 巴黎圣日耳曼 (共6球)
+2026-11-05T11:28:57.1721420Z    3. [惨案][urg=85] UEFA Champions League: 朗斯 1-9 科莫 (8球差距)
+2026-11-05T11:28:57.1728252Z 
+2026-11-05T11:28:57.1748651Z [4/5] 保存文章...
+2026-11-05T11:29:01.1063022Z    🎣 互动钩子: [预测式] 明天最看好哪场？评论区下注，赛后回来打我脸！
+2026-11-05T11:29:01.1087998Z    🎣 互动引导兜底注入：缺 关注引导 → 已达标
+2026-11-05T11:29:01.1088360Z    🧯 降级[互动引导兜底]：缺 关注引导 → 保存侧模板兜底注入
+2026-11-05T11:29:01.1125444Z    🧯 本次降级事件 6 条（详见 metadata.degrade_events）
+2026-11-05T11:29:01.1136606Z    保存至: /home/runner/work/_temp/output/2026-11-05
+2026-11-05T11:29:01.1152590Z    批次状态已更新: evening
+2026-11-05T11:29:01.1152795Z 
+2026-11-05T11:29:01.1152927Z 完成! (162s) | 成功 1/3 篇
+2026-11-05T11:29:01.1153677Z 11:29:01 [INFO ] 执行完成 — 1/3篇成功, 耗时162s
+2026-11-05T11:29:01.1155702Z 
+2026-11-05T11:29:01.1156158Z ============================================================
+2026-11-05T11:29:01.1156499Z   今日摘要: 2026-11-05
+2026-11-05T11:29:01.1156690Z   批次: evening
+2026-11-05T11:29:01.1156875Z   文章数: 1
+2026-11-05T11:29:01.1157121Z     [热点球评] 勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯
+2026-11-05T11:29:01.1157343Z ============================================================
+2026-11-05T11:29:01.1157634Z    输出: /home/runner/work/_temp/output/2026-11-05
+2026-11-05T11:29:01.1158072Z    - [热点球评] 勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯 (3张图)
 
-### KEY=发布到头条号 FILE=
+### KEY=发布到头条号 FILE=/tmp/logs/publish/30_发布到头条号.txt
+===== /tmp/logs/publish/30_发布到头条号.txt =====
+﻿2026-11-05T11:29:06.2131557Z ##[group]Run python publisher.py "2026-11-05" --headless --batch="evening"
+2026-11-05T11:29:06.2132091Z [36;1mpython publisher.py "2026-11-05" --headless --batch="evening"[0m
+2026-11-05T11:29:06.2155888Z shell: /usr/bin/bash -e {0}
+2026-11-05T11:29:06.2156221Z env:
+2026-11-05T11:29:06.2156509Z   PYTHONUNBUFFERED: 1
+2026-11-05T11:29:06.2156922Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:29:06.2157411Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T11:29:06.2158183Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:29:06.2158619Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:29:06.2159084Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T11:29:06.2159532Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T11:29:06.2160187Z   HY3_API_KEY: ***
+2026-11-05T11:29:06.2160540Z   DASHSCOPE_API_KEY: ***
+2026-11-05T11:29:06.2160948Z   UNSPLASH_ACCESS_KEY: ***
+2026-11-05T11:29:06.2161398Z   FOOTBALL_DATA_KEY: ***
+2026-11-05T11:29:06.2161748Z   TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+2026-11-05T11:29:06.2162140Z   OUTPUT_DIR: /home/runner/work/_temp/output
+2026-11-05T11:29:06.2162519Z ##[endgroup]
+2026-11-05T11:29:06.3386683Z 在 /home/runner/work/_temp/output/2026-11-05 中找到 1 个 article-*.md 文件: ['article-1-勒沃库森近5轮4-145b5c.md']
+2026-11-05T11:29:06.3387404Z   🔮 跳过预测稿（不发布到头条）: 勒沃库森近5轮4胜遇马赛，米兰欧联主场碰费伦茨瓦罗斯
+2026-11-05T11:29:06.3388126Z ❌ 没有找到 evening 批次的文章 (目录为空)，中止发布
+2026-11-05T11:29:06.3646355Z ##[error]Process completed with exit code 1.
 
 ===== 全量日志中的 Traceback / AttributeError 片段 =====
 /tmp/logs/publish/30_发布到头条号.txt:22:2026-11-05T11:29:06.3646355Z ##[error]Process completed with exit code 1.
@@ -31,3 +400,21 @@
 /tmp/logs/0_publish.txt:1601:2026-11-05T11:29:06.3646364Z ##[error]Process completed with exit code 1.
 
 ===== 生成文章步骤里 int/topic 相关行 =====
+/tmp/logs/publish/18_生成文章.txt:133:2026-11-05T11:28:09.8029808Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/publish/18_生成文章.txt:165:2026-11-05T11:28:14.3218559Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/publish/18_生成文章.txt:188:2026-11-05T11:28:19.9109507Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/publish/18_生成文章.txt:235:2026-11-05T11:28:32.3911417Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/publish/18_生成文章.txt:236:2026-11-05T11:28:32.3912734Z    🧯 降级[标题评分]：改写异常: AttributeError: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+/tmp/logs/publish/18_生成文章.txt:249:2026-11-05T11:28:44.7224177Z    🧯 降级[标题评分]：改写异常: AttributeError: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+/tmp/logs/publish/18_生成文章.txt:262:2026-11-05T11:28:44.7233370Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/publish/18_生成文章.txt:263:2026-11-05T11:28:44.7233995Z    ❌ 第1篇失败: 改写异常: 'int' object has no attribute 'get'
+/tmp/logs/publish/18_生成文章.txt:264:2026-11-05T11:28:44.7243036Z    ❌ 第2篇失败: 改写异常: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1089:2026-11-05T11:28:09.8029810Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1121:2026-11-05T11:28:14.3218561Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1144:2026-11-05T11:28:19.9109518Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1191:2026-11-05T11:28:32.3911419Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1192:2026-11-05T11:28:32.3912765Z    🧯 降级[标题评分]：改写异常: AttributeError: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+/tmp/logs/0_publish.txt:1205:2026-11-05T11:28:44.7224190Z    🧯 降级[标题评分]：改写异常: AttributeError: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+/tmp/logs/0_publish.txt:1218:2026-11-05T11:28:44.7233373Z AttributeError: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1219:2026-11-05T11:28:44.7233998Z    ❌ 第1篇失败: 改写异常: 'int' object has no attribute 'get'
+/tmp/logs/0_publish.txt:1220:2026-11-05T11:28:44.7243058Z    ❌ 第2篇失败: 改写异常: 'int' object has no attribute 'get'
