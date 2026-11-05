@@ -1,25 +1,45 @@
 {
   "version": 2,
   "date": "2026-11-05",
-  "generated_at": "2026-11-05 04:09:39",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-05 11:46:06",
+  "batch_filter": "evening+noon",
   "batches": [
+    "evening",
     "noon"
   ],
   "counts": {
-    "total": 3,
-    "published": 3,
+    "total": 5,
+    "published": 4,
     "failed": 0,
-    "skipped_prediction": 0,
+    "skipped_prediction": 1,
     "published_without_id": 0,
     "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 3,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
+    {
+      "status": "skipped_prediction",
+      "title": "利兹联近5轮仅1胜，热刺带着3分优势来敲门",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "",
+      "reason": "预测稿不发布到头条（R13 决策④）",
+      "batch": "evening"
+    },
+    {
+      "title": "科莫9比1血洗朗斯，这场欧冠惨案到底谁该脸红",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7704652077519225384",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "瓦伦西亚主帅先动还是姆巴佩先冷，皇马27分这趟客场不好踢",
       "slug": "",
