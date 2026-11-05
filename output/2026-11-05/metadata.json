@@ -1,7 +1,7 @@
 {
   "date": "2026-11-05",
-  "generated_at": "2026-11-05T04:07:24.301353",
-  "total_articles": 3,
+  "generated_at": "2026-11-05T07:13:19.892310",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -208,125 +208,205 @@
         "images": 1,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "拉齐奥28分领跑，那不勒斯这场先变阵的人，得先扛住队长的火气",
+      "path": "/home/runner/work/_temp/output/2026-11-05/article-1-拉齐奥28分领跑-626e71.md",
+      "slug": "拉齐奥28分领跑-626e71",
+      "tags": [
+        "Serie A",
+        "Lazio",
+        "Napoli",
+        "tactics",
+        "captain"
+      ],
+      "keywords": [
+        "Serie A",
+        "Lazio",
+        "Napoli",
+        "tactics",
+        "captain"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-05/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "那不勒斯",
+          "拉齐奥"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1321,
+        "han_len": 958,
+        "paragraphs": 14,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 11,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "interaction_bait_source": "template_fallback"
     }
   ],
   "topics": [
     {
-      "title": "利物浦主场2-3被费内巴切翻盘，补时那球到底谁漏了人",
-      "angle": "利物浦领先到被逆转，问题不在锋线而在最后十分钟的防线站位，老球迷看得血压上来：这支队伍领先后的心态比战术更该复盘。",
+      "title": "朗斯主场1-9被科莫血洗，法布雷加斯赛后一句话比比分还扎心",
+      "angle": "1-9这种比分放在欧冠赛场几乎是都市传说，法布雷加斯赛后主动提4-0赢曼联的旧账，把一场屠杀讲成了教练的性格切片——赢球不吹、输球不躲，这人有点东西。",
       "keywords": [
-        "Liverpool",
-        "Fenerbahce",
+        "Lens",
+        "Como",
+        "Fabregas",
         "Champions League",
-        "comeback"
+        "9-1"
       ],
       "keywords_cn": [
-        "利物浦",
-        "费内巴切",
+        "朗斯",
+        "科莫",
+        "法布雷加斯",
         "欧冠",
-        "逆转"
+        "惨案"
       ],
-      "content_type": "热点球评",
+      "content_type": "人物故事",
       "score": 93,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "老球迷身份认同",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "豪门主场被逆转，补时丢球画面感强",
+      "why_pick": "1-9极端比分加小法自嘲，冲突与人物弧光齐备",
       "_category": "战报比分",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "人物故事",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-1"
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1",
+      "_degraded": true
     },
     {
-      "title": "索博今夏刚续约周薪32万全队第2，开季10场只进3球这账怎么算",
-      "angle": "高薪续约后表现低迷，不是简单骂球员，而是拆解球队给他换位置后角色变化，合同与产出不匹配才是真问题。",
+      "title": "中国女足奥预赛只排第3档，8队抢2.5席这道算术题不好做",
+      "angle": "8队抢2.5个席位，中国女足排第3档意味着抽签就可能撞上日澳朝。这不是唱衰，是把形势摆明白——档位背后是这几年成绩的账单，得认。",
       "keywords": [
-        "Szoboszlai",
-        "contract",
-        "wages",
-        "form"
+        "China women's football",
+        "Olympic qualifier",
+        "AFC",
+        "draw pot"
       ],
       "keywords_cn": [
-        "索博斯洛伊",
-        "续约",
-        "周薪",
-        "低迷"
+        "中国女足",
+        "奥预赛",
+        "亚足联",
+        "抽签档位"
       ],
-      "content_type": "转会资讯",
-      "score": 85,
+      "content_type": "热点球评",
+      "score": 84,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "薪资与产出落差，自带对比数据",
-      "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
+      "target_emotion": "怀旧",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "女足档位触老球迷情怀，数字对比清晰",
+      "_category": "未分类",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
       "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "瓦伦西亚主帅先动还是姆巴佩先冷，皇马27分这趟客场不好踢",
+      "title": "拉齐奥28分领跑，那不勒斯这场先变阵的人，得先扛住队长的火气",
       "content_type": "战术榜单",
       "_is_fixture": true
-    },
-    {
-      "title": "当年那个追风少年如今发福谢顶，你的青春还能找回吗？",
-      "content_type": "人物故事",
-      "_column_name": "人物故事",
-      "_from_reservoir": true
-    },
-    {
-      "title": "老六心中的历史射手榜：巴蒂C罗领跑，谁才是你眼中的最强？",
-      "content_type": "榜单",
-      "_column_name": "战术榜单",
-      "_from_reservoir": true
     }
   ],
   "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
   "supply_layers": {
-    "total": 3,
+    "total": 1,
     "counts": {
       "一级·确定性": 1,
       "二级·突发": 0,
-      "三级·软性": 2
+      "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 33.3,
+      "一级·确定性": 100.0,
       "二级·突发": 0.0,
-      "三级·软性": 66.7
+      "三级·软性": 0.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -334,14 +414,14 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 3.3,
+      "一级·确定性": 70.0,
       "二级·突发": -50.0,
-      "三级·软性": 46.7
+      "三级·软性": -20.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 1,
-      "other": 1,
+      "data_driven": 0,
+      "other": 0,
       "data_types": [
         "数据对比",
         "排行榜"
@@ -351,7 +431,7 @@
   "degrade_events": [
     {
       "环节": "战报标题含比分",
-      "原因": "「半场0-1到2-3，莱比锡对曼城这口气断」",
+      "原因": "「莱比锡半场0-1到2-3，曼城3次换人改」",
       "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
       "数量": 1
     },
@@ -368,39 +448,39 @@
       "数量": 1
     },
     {
+      "环节": "一致性校验",
+      "原因": "事实验证连续不过: 缺少客队名: 血洗",
+      "处置": "降级为低风险板块（人物故事）后重生成一次",
+      "数量": 1
+    },
+    {
+      "环节": "一致性校验",
+      "原因": "降级后仍不过: 缺少客队名: 血洗",
+      "处置": "丢弃该选题，交由候选池补位",
+      "数量": 1
+    },
+    {
+      "环节": "软性补位跳过",
+      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
+      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
-      "数量": 1
-    },
-    {
-      "环节": "标题三要素",
-      "原因": "缺可用数字/专名，拼不出兜底标题",
-      "处置": "保留原题发布，metadata 记 title_elements.count",
-      "数量": 1
-    },
-    {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
-      "数量": 1
-    },
-    {
-      "环节": "标题三要素",
-      "原因": "缺可用数字/专名，拼不出兜底标题",
-      "处置": "保留原题发布，metadata 记 title_elements.count",
-      "数量": 1
-    },
-    {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "morning",
     "max_articles": 3,
     "uplifted": true,
     "reason": "thursday_boost",
@@ -408,8 +488,8 @@
     "normal_max": 2,
     "uplift_max": 3,
     "weekly_limit": 2,
-    "weekly_used": 1,
-    "detail": "加发 3 篇（原因 thursday_boost，周内 1/2）",
+    "weekly_used": 2,
+    "detail": "加发 3 篇（原因 thursday_boost，周内 2/2）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
@@ -423,26 +503,31 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "利物浦主场2-3被费内巴切翻盘，补时那球到底谁漏了人"
+        "title": "朗斯主场1-9被科莫血洗，法布雷加斯赛后一句话比比分还扎"
       },
       {
-        "slot": "extra",
-        "type": "转会资讯",
-        "title": "索博今夏刚续约周薪32万全队第2，开季10场只进3球这账"
+        "slot": "data",
+        "type": "热点球评",
+        "title": "中国女足奥预赛只排第3档，8队抢2.5席这道算术题不好做"
       }
     ],
     "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）",
+      "data 槽用次优类型补位",
       "main 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
     "skipped": [],
-    "day_counts": {},
+    "day_counts": {
+      "战术榜单": 1,
+      "人物故事": 1,
+      "排行榜": 1
+    },
     "selected": 2,
     "requested": 3
   },
   "batches_completed": [
+    "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-05 12:07:24"
+  "last_batch": "morning",
+  "last_updated": "2026-11-05 15:13:19"
 }
