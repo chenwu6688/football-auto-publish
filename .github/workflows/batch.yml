@@ -35,10 +35,17 @@ on:
   workflow_dispatch:
     inputs:
       batch:
-        description: '批次 (morning/noon/evening，留空自动判断)'
+        description: '批次 (auto=按当前时间判断；补发某批请明确选 morning/noon/evening)'
         required: false
         type: choice
+        # ⚠️ 必须显式给 default：choice 类型若不给 default，GitHub 会把「第一个选项」
+        #    预选上。2026-11-05 19:07 手动补发 evening 时，操作者没动下拉框，
+        #    实际提交的是 morning → 幂等保护看到「morning 今日已完成」→ 整批跳过，
+        #    而 job 仍报 success（41s、无产物），从界面上完全看不出没干活。
+        #    auto 放在第一位 = 盲点「Run workflow」也只会跑当前该跑的批次。
+        default: auto
         options:
+          - auto
           - morning
           - noon
           - evening
@@ -165,7 +172,7 @@ jobs:
             esac
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
             echo "运行: $TODAY $BATCH 批次 (schedule trigger, UTC=$UTC_HOUR, CST=$CST_HOUR)"
-          elif [ -n "${{ inputs.batch }}" ]; then
+          elif [ -n "${{ inputs.batch }}" ] && [ "${{ inputs.batch }}" != "auto" ]; then
             BATCH="${{ inputs.batch }}"
             echo "batch=$BATCH" >> $GITHUB_OUTPUT
             echo "运行: $TODAY $BATCH 批次 (手动指定)"
@@ -182,8 +189,8 @@ jobs:
             echo "运行: $TODAY $BATCH 批次 (auto-detected, CST=$HOUR:00)"
           fi
 
-          # 时区校验 — 仅对 auto-detect（无手动指定批次）执行
-          if [ "${{ github.event_name }}" != "schedule" ] && [ -z "${{ inputs.batch }}" ]; then
+          # 时区校验 — 仅对 auto-detect（无手动指定批次 / auto）执行
+          if [ "${{ github.event_name }}" != "schedule" ] && { [ -z "${{ inputs.batch }}" ] || [ "${{ inputs.batch }}" = "auto" ]; }; then
             HOUR=$(TZ=Asia/Shanghai date +%H)
             valid=true
             case "$BATCH" in
@@ -271,6 +278,23 @@ jobs:
           COMPLETED=$(gh api "$META_API" --jq '.content | @base64d | fromjson | .batches_completed | join(",")' 2>/dev/null) || true
           if echo "$COMPLETED" | grep -q "$BATCH"; then
             echo "⏭️  批次 ${BATCH} 今日已完成，跳过"
+            # 「跳过」不能长得像「成功」。2026-11-05 19:07 补发 evening 时操作者
+            # 未改下拉框（默认 morning），本批被幂等跳过，但 run 页面只有绿勾 +
+            # 「Success 41s」，人工无法判断到底发没发。故落 Job Summary + 告警注释。
+            echo "::warning::批次 ${BATCH} 今日已完成（batches_completed=${COMPLETED}），本次未做任何事。如需补发其他批次，请在 Run workflow 时明确选择 morning/noon/evening"
+            {
+              echo "## ⏭️ 本批未执行（幂等保护跳过）"
+              echo ""
+              echo "| 项 | 值 |"
+              echo "|---|---|"
+              echo "| 目标批次 | \`${BATCH}\` |"
+              echo "| 日期 | \`${TODAY}\` |"
+              echo "| 已完成批次 | \`${COMPLETED}\` |"
+              echo "| 本次动作 | **无**（未生成、未发布） |"
+              echo ""
+              echo "> 绿色勾只代表「按幂等规则跳过」，不代表今天这篇发出来了。"
+              echo "> 若要补发，重跑时把 batch 明确选成目标批次（默认值是 auto）。"
+            } >> $GITHUB_STEP_SUMMARY
             echo "skip=true" >> $GITHUB_OUTPUT
             exit 0
           fi
