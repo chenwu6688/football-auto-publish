@@ -1,37 +1,47 @@
 {
-  "date": "2026-11-04",
-  "generated_at": "2026-11-04 04:07:07",
+  "version": 2,
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05 04:09:39",
   "batch_filter": "noon",
   "counts": {
-    "total": 2,
-    "published": 1,
-    "failed": 1,
+    "total": 3,
+    "published": 3,
+    "failed": 0,
     "skipped_prediction": 0,
     "published_without_id": 0,
-    "published_without_cover": 1
+    "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 1,
+    "bound": 3,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "曼联半场两球落后还能翻盘，换人后罗马彻底崩了",
+      "title": "瓦伦西亚主帅先动还是姆巴佩先冷，皇马27分这趟客场不好踢",
       "slug": "",
       "batch_name": "午间",
-      "platform_id": "",
-      "reason": "发布超时: 无API响应",
-      "images": 2,
-      "status": "failed"
+      "platform_id": "7704534235729773082",
+      "reason": "",
+      "images": 1,
+      "status": "published"
     },
     {
-      "title": "大罗VS C罗巅峰数据对决，谁才是真正的锋线之王？",
+      "title": "当年那个追风少年如今发福谢顶，你的青春还能找回吗？",
       "slug": "",
       "batch_name": "午间",
-      "platform_id": "7704162883977888290",
+      "platform_id": "7704534440403419658",
       "reason": "",
-      "images": 0,
+      "images": 1,
+      "status": "published"
+    },
+    {
+      "title": "老六心中的历史射手榜：巴蒂C罗领跑，谁才是你眼中的最强？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704534606535524874",
+      "reason": "",
+      "images": 1,
       "status": "published"
     }
   ],

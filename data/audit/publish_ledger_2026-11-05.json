@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05 04:09:39",
+  "batch_filter": "noon",
+  "batches": [
+    "noon"
+  ],
+  "counts": {
+    "total": 3,
+    "published": 3,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 3,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "瓦伦西亚主帅先动还是姆巴佩先冷，皇马27分这趟客场不好踢",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704534235729773082",
+      "reason": "",
+      "images": 1,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "当年那个追风少年如今发福谢顶，你的青春还能找回吗？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704534440403419658",
+      "reason": "",
+      "images": 1,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "老六心中的历史射手榜：巴蒂C罗领跑，谁才是你眼中的最强？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704534606535524874",
+      "reason": "",
+      "images": 1,
+      "status": "published",
+      "batch": "noon"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。"
+}
