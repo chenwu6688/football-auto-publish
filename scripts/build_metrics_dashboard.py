@@ -28,6 +28,7 @@ from zoneinfo import ZoneInfo
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))   # 以便 import compliance_guard 等同级模块
+import prediction_gate  # noqa: E402  预测稿分级口径（唯一）
 import growth_import  # noqa: E402  # 转粉通道（R11 建议5）：读 data/growth/fans_daily.json
 OUTPUT_DIR = PROJECT_ROOT / "output"
 DATA_DIR = PROJECT_ROOT / "data"
@@ -242,8 +243,8 @@ def collect(days: int, *, now=None, since=None, until=None) -> dict:
         # 一律剔除；历史数据无 is_prediction 标时按 topics 级 _is_prediction 标题对拍兜底
         pred_titles = {t.get("title") for t in meta.get("topics", []) or []
                        if t.get("_is_prediction")}
-        arts = [a for a in arts_all
-                if not a.get("is_prediction") and a.get("title") not in pred_titles]
+        # 体裁分级后「预测稿」不再一律不发：口径唯一在 prediction_gate.counts_as_content
+        arts = [a for a in arts_all if prediction_gate.counts_as_content(a, pred_titles)]
         pred_skipped += len(arts_all) - len(arts)
         days_with_output += 1
         total_articles += len(arts)

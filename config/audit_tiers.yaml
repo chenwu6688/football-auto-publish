@@ -119,6 +119,19 @@ items:
       出不满 3 张即报红——这是「硬条件」能不能兑现的唯一实证。
     negative: "喂一个「生效日后但只有 1 张图」的批次必须报红，同一批 3 张的必须达标（--selftest）"
 
+  publish_states:
+    tiers: [code-change]
+    # 2026-11-05 夜间立。当晚 0 篇的三种原因（生成崩/预测稿被跳过/上游没产出）
+    # 共用一个 exit 1，批次还被标成「已完成」→ 补发被幂等跳过 → 当批永久丢失。
+    # 这条验收管的是**契约**而不是数据：退出码语义、库函数不得自行终止进程、
+    # 工作流按退出码分流、重拟链不得裸调评分器、预测稿口径只准一处。
+    kind: advisory
+    why: |
+      它只判定「代码接没接对」，判定结果在改代码时才会变，所以进 code-change。
+      FAIL 不阻断发布：这类问题一旦阻断，等于让验收器的 bug 决定今天有没有稿子发。
+      真正的止损在运行时：publisher 的三态退出码 + 工作流分流 + 台账 no_publishable。
+    negative: "把 EXIT_NOTHING_SKIPPED 改成 1（两态同码）后 A 项必须报红；脚本内置该负向自检"
+
   image_relevance:
     tiers: [pre-publish]
     kind: hard

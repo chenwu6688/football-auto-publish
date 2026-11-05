@@ -30,6 +30,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import prediction_gate  # noqa: E402  预测稿分级口径（唯一）
 import growth_import as gi  # noqa: E402
 
 AUDIT_DIR = PROJECT_ROOT / "data" / "audit"
@@ -80,7 +81,7 @@ def coverage(days: int, today: str) -> dict:
             continue
         pred = {t.get("title") for t in meta.get("topics", []) or [] if t.get("_is_prediction")}
         for a in (meta.get("articles") or []):
-            if a.get("is_prediction") or a.get("title") in pred:
+            if not prediction_gate.counts_as_content(a, pred):
                 continue
             total += 1
             perf = a.get("performance") or {}

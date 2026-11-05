@@ -70,6 +70,16 @@ class FileWriter:
         # 此前仅靠「预测稿无 batch_name + 批次过滤」间接排除，过滤 0 命中的降级路径会漏发。
         is_prediction = bool(article_data.get("is_prediction")
                              or article_data.get("_is_prediction"))
+        # 预测稿的「依据」必须跟稿子一起落盘：publisher 只凭这两个字段决定发不发
+        # （判据唯一口径 prediction_gate）。只写条数不写明细等于自报家门，
+        # 所以两个都写；非预测稿写 0/空，避免 reader 误读。
+        _pb = article_data.get("_prediction_basis") or article_data.get("prediction_basis") or []
+        if isinstance(_pb, (list, tuple)):
+            _pb_items = [str(x).strip() for x in _pb if str(x).strip()]
+        else:
+            _pb_items = [x.strip() for x in str(_pb).split("、") if x.strip()]
+        _pb_n = len(_pb_items) if is_prediction else 0
+        _pb_str = "、".join(_pb_items) if is_prediction else ""
 
         md_content = f"""---
 title: "{title}"
@@ -83,6 +93,8 @@ batch_time: {batch_time}
 sources_used: [{sources_str}]
 originality_note: "{originality_note}"
 is_prediction: {"true" if is_prediction else "false"}
+prediction_basis: {_pb_n}
+prediction_basis_items: {_pb_str}
 ---
 
 # {title}

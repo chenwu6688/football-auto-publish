@@ -581,7 +581,48 @@ jobs:
           TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
           OUTPUT_DIR: ${{ runner.temp }}/output
         run: |
+          # 三态退出码（publisher.py 顶部 EXIT_*）：
+          #   0 = 至少一篇发出去了
+          #   2 = 本批有稿但全被规则跳过（预测稿判 opinion_only 等）→ 重跑没意义，标批次完成
+          #   3 = 本批一篇成稿都没有（上游空转）→ 不标完成，留给 30/50 分兜底 cron 重跑
+          #   1 = 真失败（登录失效/熔断/浏览器异常/全部发布失败）
+          # 以前三种终态共用一个 exit 1：批次被判失败、却又被写成「已完成」，
+          # 补发被幂等跳过 → 当批永久丢失（2026-11-05 晚间实证）。
+          set +e
           python publisher.py "${{ steps.params.outputs.today }}" --headless --batch="${{ steps.params.outputs.batch }}"
+          RC=$?
+          set -e
+          echo "publish_rc=$RC" >> "$GITHUB_OUTPUT"
+          case "$RC" in
+            0)
+              echo "publish_state=published" >> "$GITHUB_OUTPUT"
+              ;;
+            2)
+              echo "publish_state=nothing_skipped" >> "$GITHUB_OUTPUT"
+              echo "::warning::本批有稿但全部被规则跳过（预测稿判「依据不足/断言/押比分」），本批发布 0 篇；详见 data/audit/publish_ledger_*_*.json 的 no_publishable"
+              {
+                echo "### ⚠️ 本批发布 0 篇（有稿，但全被规则跳过）"
+                echo ""
+                echo "重跑不会有不同结果，本批按「无事可做」收尾并标记完成。"
+                echo "原因见发布台账 \`no_publishable\` 字段（tier + 具体理由）。"
+              } >> "$GITHUB_STEP_SUMMARY"
+              ;;
+            3)
+              echo "publish_state=nothing_empty" >> "$GITHUB_OUTPUT"
+              echo "::error::本批一篇成稿都没有（上游空转），本批不标记完成，等兜底 cron 重跑"
+              {
+                echo "### ❌ 本批 0 篇成稿（上游没产出）"
+                echo ""
+                echo "已**不**标记批次完成，30/50 分兜底 cron 会重跑本批。"
+                echo "若连续两次如此，先查「生成文章」步骤的漏斗台账。"
+              } >> "$GITHUB_STEP_SUMMARY"
+              exit 1
+              ;;
+            *)
+              echo "publish_state=failed" >> "$GITHUB_OUTPUT"
+              exit "$RC"
+              ;;
+          esac
 
       - name: 发布结果验收（发布成功率 · 只告警不阻断）
         # 稿子已经发出去了，这里阻断没有意义；存在的目的是把「发失败了」变成可见的告警。

@@ -2022,8 +2022,10 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
             # 而丢弃换来的不是质量，是当天少一篇。
             _ct = topic.get("content_type", "热点球评")
             _recent = recent_titles_for_gate(date_str or "")
-            _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct,
-                                                          date_str or "", recent_titles=_recent)
+            # 走安全入口：评分器崩了只记「未判定」，不让它把整篇稿子带走
+            _sc, _sc_pass, _sc_reasons, _sc_judged = _safe_title_score(
+                topic, art.get("title", ""), _ct, date_str or "",
+                recent_titles=_recent, stage="首次评分")
             if not _sc_pass:
                 # 重拟是「增量」环节：它崩了只能保留原标题，**绝不能连带丢掉整篇**。
                 # 2026-11-05 晚间 title_brief 的 score 字段撞车（选题排序分 int 被当成
@@ -2041,15 +2043,17 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                     _new_title = ""
                 if _new_title:
                     art["title"] = _new_title
-                    _sc, _sc_pass, _sc_reasons = score_title_plan(
-                        topic, _new_title, _ct, date_str or "", recent_titles=_recent)
-            art["_title_score"] = {"score": _sc, "ok": _sc_pass, "reasons": _sc_reasons}
+                    _sc, _sc_pass, _sc_reasons, _sc_judged = _safe_title_score(
+                        topic, _new_title, _ct, date_str or "",
+                        recent_titles=_recent, stage="重拟后复评")
+            art["_title_score"] = {"score": _sc, "ok": _sc_pass, "reasons": _sc_reasons,
+                                   "judged": _sc_judged}
             if not _sc_pass:
                 # 三要素兜底仍保留：它只用事实卡已有数字/队名机械拼接，不新增事实，
                 # 且只影响「增量」，所以是兜底而不是放水。
-                if not title_elements.check(art.get("title", ""))["ok"]:
-                    _fb = [c for c in title_brief.candidates(topic)
-                           if title_elements.check(c)["ok"]]
+                _el_ok, _el_judged = _safe_elements_ok(art.get("title", ""))
+                if not _el_ok:
+                    _fb = _safe_title_candidates(topic)
                     if _fb:
                         art["title"] = _fb[0]
                         art["_title_fallback"] = "elements"
@@ -2637,8 +2641,13 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 "column_id": art.get("_column_id", ""),
                 "column_name": art.get("_column_name", ""),
                 "batch_name": art.get("_batch_name", ""),
-                # 晚间赛前预测稿：不发布到头条，看板/配额验收按此标剔除（R13 决策④）
+                # 晚间赛前预测稿：按**依据**分级决定发不发（唯一口径 prediction_gate）。
+                # 只写 is_prediction 不够了：有据前瞻（basis≥2 项）是要发布的，
+                # 看板/配额如果继续按体裁一律剔除，就会少算一篇发布量。
                 "is_prediction": bool(art.get("_is_prediction")),
+                "prediction_basis": (len(art.get("_prediction_basis") or [])
+                                     if art.get("_is_prediction") else 0),
+                "prediction_basis_items": list(art.get("_prediction_basis") or []),
                 # 隔夜战报（P0-1）：跨批 match_id 去重的唯一依据，也是
                 # 14 天后定向观测「这条通道值不值得留」的标记。
                 # 必须落进 metadata —— 只在文章对象上留着下划线标记，
@@ -2937,10 +2946,13 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         # 计划合规·标题评分（及格线 60；传闻级断言式标题直接 0 分，计划 4.1）
         # recent_titles 必须传：不传就等于这条路径不判疑问收尾限额（14 天 ≤2 篇），
         # 而紧急球评是会发布的——漏传就是限额在它身上完全失效。
-        sc, sc_pass, sc_reasons = score_title_plan(
+        # fact_tier 必须显式传：传闻级断言式标题要靠它判 0 分（计划 4.1）
+        sc, sc_pass, sc_reasons, sc_judged = _safe_title_score(
             {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评",
-            fact_tier=_fw_tier, recent_titles=recent_titles_for_gate(""))
-        article["_title_score"] = {"score": sc, "ok": sc_pass, "reasons": sc_reasons}
+            fact_tier=_fw_tier, recent_titles=recent_titles_for_gate(""),
+            stage="紧急球评评分")
+        article["_title_score"] = {"score": sc, "ok": sc_pass, "reasons": sc_reasons,
+                                   "judged": sc_judged}
         article["_consistency"] = {"ok": cons_ok, "issues": list(cons_issues)}
         # v2：标题分只记分（丢弃只会让当天少一条突发）；「卡外比分/卡外实体」
         # 属矛盾类判据，仍阻断——那是「臆造」，不是「没按预期写法写」。
@@ -3750,6 +3762,95 @@ def score_title_plan(topic, title, content_type, batch_mode=None, *, fact_tier=N
     return score, passed, reasons
 
 
+def _unjudged(exc, stage):
+    """统一的「未判定」留痕：打印栈 + degrade.note，返回 None。
+
+    单独抽出来是因为它被 6 处调用：日志格式不一致的时候，事后 grep 会漏。
+    """
+    import traceback as _tb
+    _tb.print_exc()
+    _why = f"{type(exc).__name__}: {str(exc)[:80]}"
+    print(f"   ⚠️ {stage}异常 → 记未判定，不拦稿：{_why}")
+    try:
+        degrade.note(f"{stage}未判定", _why[:60], action="该项按未判定处理（不阻断）")
+    except Exception:
+        pass
+    return None
+
+
+def _safe_title_score(topic, title, content_type, batch_mode=None, *, recent_titles=None,
+                      stage="", **kw):
+    """标题评分的**唯一安全入口**：评分器崩了 = 这一项没判定，不等于稿子不合格。
+
+    ## 为什么要包一层（2026-11-05 晚间的教训）
+
+    那天 `title_brief` 的 `score` 字段撞车（选题排序分 int 被当成比分 dict），
+    异常从 `repick_title` 里冒出来，一路穿到 `_rewrite_with_retry` 的重试循环外：
+    每篇 3 次重试、3 次全崩、整篇丢弃，本批 3 篇只活下 1 篇预测稿 → 0 篇发布。
+
+    当时只给 `repick_title` 包了 try/except，**评分器和三要素判定本身还是裸的**。
+    这就是"修了一半"：下一次崩在重拟之后的第二次评分（同一段代码里的 6 行之后），
+    失败形态和那天一模一样，但 degrade 名字换了，排查要重新从零开始。
+
+    ## 为什么是「未判定 → 放行」而不是「未判定 → 打回」
+
+    v2 已经把标题评分降级成**只记分**（`gate_v2.blocking("title_score")` 只为 strict
+    回滚保留），它本来就是 advisory 项。advisory 项的异常绝不能升级成 hard 阻断——
+    那等于让"我们自己的代码 bug"决定"这篇稿子要不要发"。
+    未判定 ≠ 通过：`judged=False` 会落进 metadata 的 `_title_score`，
+    所以"今天有几篇没判定出来"是查得到的，不是静默放水。
+
+    Returns:
+        (score:int, passed:bool, reasons:list[str], judged:bool)
+    """
+    try:
+        sc, ok, rs = score_title_plan(topic, title, content_type, batch_mode,
+                                      recent_titles=recent_titles, **kw)
+        return int(sc), bool(ok), list(rs or []), True
+    except Exception as e:
+        import traceback as _tb
+        _tb.print_exc()
+        _why = f"{type(e).__name__}: {str(e)[:80]}"
+        print(f"   ⚠️ 标题评分异常（{stage or '未知环节'}）→ 记未判定，不拦稿：{_why}")
+        try:
+            degrade.note(f"标题评分未判定({stage})" if stage else "标题评分未判定", _why[:60],
+                         action="该项按未判定处理（不阻断），已记入 _title_score")
+        except Exception:
+            pass
+        return 0, True, [f"[未判定] 标题评分异常：{_why}"], False
+
+
+def _safe_elements_ok(title):
+    """三要素判定的安全入口（口径同 `_safe_title_score`：未判定不拦）。
+
+    Returns:
+        (ok:bool, judged:bool)
+    """
+    try:
+        return bool(title_elements.check(title)["ok"]), True
+    except Exception as e:
+        import traceback as _tb
+        _tb.print_exc()
+        _why = f"{type(e).__name__}: {str(e)[:80]}"
+        print(f"   ⚠️ 三要素判定异常 → 记未判定，不拦稿：{_why}")
+        try:
+            degrade.note("三要素未判定", _why[:60],
+                         action="该项按未判定处理（不阻断）")
+        except Exception:
+            pass
+        return True, False
+
+
+def _safe_title_candidates(topic):
+    """三要素兜底候选的安全入口：拿不到候选就退回原标题，绝不因此丢稿。"""
+    try:
+        return [c for c in title_brief.candidates(topic)
+                if title_elements.check(c)["ok"]]
+    except Exception as e:
+        print(f"   ⚠️ 三要素兜底候选生成异常（保留原标题）: {type(e).__name__}: {str(e)[:60]}")
+        return []
+
+
 def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
                  max_try=2, temperature=0.6):
     """**只重写标题**，正文一字不动（P0-1 计划的打回策略）。
@@ -4084,7 +4185,97 @@ def check_information_increment(article, source_texts, *, min_new=_INCREMENT_MIN
 # Prediction Article — 赛前预测
 # ============================================================
 
-def generate_prediction_article(future_matches, date_str=None, recent_prefixes=None):
+_EN2ZH_TEAM = {}
+
+
+def _en2zh_team_map():
+    """football-data 的英文队名 → 中文队名（读 config/entity_map.json，失败返回空表）。
+
+    只做**精确**匹配（name_en 全等，忽略大小写），不做模糊/包含匹配：
+    "Manchester City" 与 "Manchester United" 互相包含，模糊匹配会把对手的事实
+    安到主队头上 —— 那是比没有事实更糟的一种「编造」。
+    """
+    global _EN2ZH_TEAM
+    if _EN2ZH_TEAM:
+        return _EN2ZH_TEAM
+    try:
+        raw = json.loads((PROJECT_ROOT / "config" / "entity_map.json").read_text(encoding="utf-8"))
+        for ent in (raw.get("entities") or {}).values():
+            zh = (ent.get("name_zh") or "").strip()
+            if not zh:
+                continue
+            for key in ("name_en", "fd_tla"):
+                en = (ent.get(key) or "").strip().lower()
+                if en:
+                    _EN2ZH_TEAM.setdefault(en, zh)
+    except Exception as e:
+        print(f"   ⚠️ 队名对照表读取失败（预测稿将无事实依据）: {e}")
+    return _EN2ZH_TEAM
+
+
+def _prediction_basis(match_data, future_matches):
+    """给明日赛程配**可核对事实**（积分排名 / 积分 / 净胜球 / 已赛场次）。
+
+    这是「预测稿能不能发」的前置条件（判据见 prediction_gate）：
+    只拿对阵名单写出来的稿子必然是模型观点，发出去等于拿账号可信度赌运气。
+
+    返回：
+        ({matches_index: {"line": 事实行文本, "facts": [事实串]}}, 事实总数)
+
+    **拿不到就是 0，不补、不猜**。空 basis 会让调用方直接跳过生成（省额度），
+    而不是生成一篇注定不发的稿。
+    """
+    standings = (match_data or {}).get("standings") or {}
+    if not standings or not future_matches:
+        return {}, 0
+    en2zh = _en2zh_team_map()
+    if not en2zh:
+        return {}, 0
+
+    # 中文队名 → (联赛, 行) 索引；只在同一联赛内匹配
+    index = {}
+    for league, table in standings.items():
+        for row in table or []:
+            zh = en2zh.get((row.get("team") or "").strip().lower())
+            if zh:
+                index.setdefault((league, zh), row)
+
+    out = {}
+    total = 0
+    for i, m in enumerate(future_matches):
+        league = (m.get("league") or "").strip()
+        home = (m.get("home_team") or "").strip()
+        away = (m.get("away_team") or "").strip()
+        if not home or not away:
+            continue
+        h = index.get((league, home))
+        a = index.get((league, away))
+        if not h or not a:
+            continue
+        facts = []
+        for zh, row in ((home, h), (away, a)):
+            pos, pts = row.get("position"), row.get("points")
+            gd, played = row.get("goal_diff"), row.get("played")
+            bits = []
+            if isinstance(pos, int) and isinstance(pts, int):
+                bits.append(f"第{pos}名{pts}分")
+            elif isinstance(pts, int):
+                bits.append(f"{pts}分")
+            if isinstance(gd, int):
+                bits.append(f"净胜球{gd:+d}")
+            if isinstance(played, int):
+                bits.append(f"已赛{played}场")
+            if bits:
+                facts.append(f"{zh}{'、'.join(bits)}")
+        if len(facts) >= 2:
+            out[i] = {"line": f"[{league}] {home} vs {away}：" + "；".join(facts),
+                      "facts": facts}
+            total += len(facts)
+    return out, total
+
+
+def generate_prediction_article(future_matches, date_str=None, recent_prefixes=None,
+                               basis=None):
     """根据未来比赛数据生成一篇赛前预测文章。
 
     用 LLM 对每场明日比赛做 2-3 句分析 + 预测结果，
@@ -4097,6 +4288,8 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
         future_matches: list[dict]，由 collect_future_matches 返回
         date_str: 当前日期 YYYY-MM-DD（用于配图搜索）
         recent_prefixes: set[str]，近 7 天已发布标题的前 6 字集合（用于防重）
+        basis: dict，`_prediction_basis()` 的结果（index → {line, facts}）。
+               有它才叫"有据前瞻"（publisher 只放行这种，见 prediction_gate）
 
     Returns:
         dict or None: 文章 dict（含 title, content, content_type 等），
@@ -4118,6 +4311,20 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
     matches_text = "\n".join(match_lines)
     max_matches = min(len(future_matches), 8)
 
+    # 事实层（2026-11-05）：把积分榜事实上桌，没有就不许写数字。
+    # 此前 prompt 只有对阵名单，模型只能写"从近期表现来看"——那篇稿子必然
+    # 判 opinion_only 不发（prediction_gate），等于每天白烧一次调用。
+    basis = basis or {}
+    _basis_lines = [v["line"] for _, v in sorted(basis.items()) if v.get("facts")]
+    _all_facts = [f for _, v in sorted(basis.items()) for f in v.get("facts") or []]
+    if _basis_lines:
+        basis_block = ("\n以下是本场可核对的**事实**（来自积分榜，只能引用这些数字，不得另造）：\n"
+                       + "\n".join(_basis_lines) +
+                       "\n每场分析至少引用 1 个上述数字；上面没有的比赛不要写任何数据，"
+                       "也不要写「近5轮」这类拿不到的说法。\n")
+    else:
+        basis_block = "\n⚠️ 本批没有任何可核对数据：全篇禁止出现任何具体数字/战绩/排名。\n"
+
     # P0-2：把近 7 天已用标题前缀作为禁忌，明确禁止复读
     prefix_hint = ""
     if recent_prefixes:
@@ -4138,7 +4345,7 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
 以下是明天的赛程（{len(future_matches)} 场），请选择最有话题性的 {max_matches} 场进行分析：
 
 {matches_text}
-{prefix_hint}
+{prefix_hint}{basis_block}
 写作要求：
 {_TITLE_ELEMENTS_RULE}
 1. 标题按上面的三要素写：具体对阵/队名（专名）+ 一个可核对数字（近 5 轮战绩、积分差、
@@ -4149,7 +4356,8 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
 4. 文末带互动引导：🔥 评论区下注，明天赛后回来打我脸！
 
 风格：自信、犀利、有数据感但不堆砌。不编造球员具体数据。
-没有确切数据就说"老六觉得""从近期表现来看"。
+只许引用上面给出的事实数字；某项没有就从那句里拿掉，改用判断语气，
+**不要用"从近期表现来看"这类空话替代数据**（那是观点稿，不发）。
 
 输出纯JSON:
 {{"title": "标题(18-30字，全新且非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
@@ -4214,9 +4422,9 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
             # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
             # 预测稿不发布，但标题仍要过闸门：否则它会以「已用过」的身份进
             # template_gate 的句式池与进程内标题表，把真正要发的稿子挤掉。
-            _p_sc, _p_sc_pass, _p_sc_reasons = score_title_plan(
+            _p_sc, _p_sc_pass, _p_sc_reasons, _ = _safe_title_score(
                 {"content_type": "热点球评"}, article.get("title", ""), "热点球评",
-                recent_titles=recent_titles_for_gate(date_str or ""))
+                recent_titles=recent_titles_for_gate(date_str or ""), stage="预测稿评分")
             if not _p_sc_pass:
                 if attempt < 2:
                     _hint = (f"标题未过及格线({_p_sc}分): " + "; ".join(_p_sc_reasons) +
@@ -4233,6 +4441,9 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
             article["content_type"] = "热点球评"
             article["interaction_type"] = article.get("interaction_type", "预测式")
             article["_is_prediction"] = True
+            # 事实条数进成稿：publisher 的 prediction_gate 只认这个字段，
+            # 且条数与明细一起落（自报一个裸数字等于没有依据）。
+            article["_prediction_basis"] = list(_all_facts)
             print(f"   ✅ 预测文章生成成功: {article['title'][:50]} ({len(content)}字)")
             return article
 
@@ -4725,17 +4936,32 @@ def ensure_fixture_title(topic, article, date_str="", *, batch_mode="auto"):
     """
     recent = recent_titles_for_gate(date_str or "")
     title = (article or {}).get("title", "") or ""
-    score, reasons = score_fixture_title(topic, title, batch_mode, recent_titles=recent)
+    # 三条路径（确定性供给/战报/结果稿/多切口）都要经过这里，所以这里的 try/except
+    # 比分枝调用更关键：一个评分函数的 bug 会顺着这条公共路径把当批大部分稿子带走。
+    try:
+        score, reasons = score_fixture_title(topic, title, batch_mode, recent_titles=recent)
+    except Exception as e:
+        _unjudged(e, "战报标题评分")
+        return title, -1, [f"[未判定] 标题评分异常：{type(e).__name__}"]
     if score >= 60:
         return title, score, reasons
-    new = repick_title(topic, article, reasons, date_str or "", recent_titles=recent)
+    try:
+        new = repick_title(topic, article, reasons, date_str or "", recent_titles=recent)
+    except Exception as e:
+        # 重拟崩了只影响「增量」：保住原标题，继续走本地模板兜底
+        _unjudged(e, "战报标题重拟")
+        new = ""
     if not new:
         # 重拟失败（LLM 不可用 / 返回空）时不能直接放行：原题若是疑问收尾超限，
         # 放行就等于限额从未存在。先试本地模板，再退回原题。
         return (_swap_to_template_title(topic, article, title, recent, batch_mode)
                 or (title, score, reasons))
     article["title"] = new
-    score2, reasons2 = score_fixture_title(topic, new, batch_mode, recent_titles=recent)
+    try:
+        score2, reasons2 = score_fixture_title(topic, new, batch_mode, recent_titles=recent)
+    except Exception as e:
+        _unjudged(e, "战报复评")
+        return new, -1, [f"[未判定] 标题复评异常：{type(e).__name__}"]
     if score2 >= 60:
         return new, score2, reasons2
     # 「重试几次不过就兜底放行」是个真实的口子：11-04 那篇
@@ -4866,7 +5092,7 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
             # 评分器及格线（计划 5.1/7.2）：低于 60 分打回重生成，最多两次（attempt 0,1 重试，第 3 次兜底放行）
             title, s_score, s_reasons = ensure_fixture_title(topic, article, date_str,
                                                              batch_mode=batch_mode)
-            if s_score < 60:
+            if s_score != -1 and s_score < 60:   # -1 = 未判定，不当作不合格
                 if attempt < 2:
                     print(f"   ⚠️ 确定性供给标题评分 {s_score} 未过及格线(60) [{','.join(s_reasons)}] (attempt {attempt + 1}/3)，重生成...")
                     continue
@@ -5050,7 +5276,7 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
 
             title, s_score, s_reasons = ensure_fixture_title(topic, article, date_str,
                                                              batch_mode=batch_mode)
-            if s_score < 60:
+            if s_score != -1 and s_score < 60:   # -1 = 未判定，不当作不合格
                 if attempt < 2:
                     print(f"   ⚠️ 战报标题评分 {s_score} 未过及格线(60) [{','.join(s_reasons)}]，重生成...")
                     continue
@@ -5218,7 +5444,7 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
 
             title, s_score, s_reasons = ensure_fixture_title(topic, article, date_str,
                                                              batch_mode=batch_mode)
-            if s_score < 60:
+            if s_score != -1 and s_score < 60:   # -1 = 未判定，不当作不合格
                 if attempt < 2:
                     print(f"   ⚠️ 结果稿标题评分 {s_score} 未过线 [{','.join(s_reasons)}]，重生成...")
                     continue
@@ -5351,7 +5577,7 @@ def generate_node_angle_article(topic, date_str=None, recent_prefixes=None,
             title, s_score, s_reasons = ensure_fixture_title(
                 {**topic, "home_zh": "", "away_zh": ""}, article, date_str,
                 batch_mode=batch_mode)
-            if s_score < 60:
+            if s_score != -1 and s_score < 60:   # -1 = 未判定，不当作不合格
                 if attempt < 2:
                     print(f"   ⚠️ 多切口标题评分 {s_score} 未过线 [{','.join(s_reasons)}]，重生成...")
                     continue
@@ -5862,9 +6088,9 @@ def main():
                     _a = item.get("article") or {}
                     _t = (_a.get("title") or "").strip()
                     _ct = _a.get("content_type") or item.get("content_type") or ""
-                    _sc, _pass, _why = score_title_plan(
+                    _sc, _pass, _why, _ = _safe_title_score(
                         {"title": _t, "content_type": _ct}, _t, _ct,
-                        recent_titles=_gate_recent)
+                        recent_titles=_gate_recent, stage="蓄水池准入")
                     if not _pass:
                         _rejected.append(f"{_t[:24]}（{_sc}分）：{'；'.join(_why)[:60]}")
                     return _pass, "；".join(_why) or f"标题 {_sc} 分未达及格线"
@@ -5920,10 +6146,22 @@ def main():
         if batch_mode == "evening":
             print("\n[预测] 晚间批次：采集明日赛程，生成赛前预测...")
             future_matches = collect_future_matches(date_str, days_ahead=1)
+            # 先算事实依据再决定要不要调 LLM。
+            # 这里以前是「先生成、再被 publisher 丢掉」：每天白烧一次正文调用，
+            # 产出的稿子因为没有任何可核对事实，必然判 opinion_only 不发
+            # （见 prediction_gate）。没有依据就干脆不生成，缺口如实少发。
+            _pbasis, _pbasis_n = _prediction_basis(match_data, future_matches)
+            if future_matches and _pbasis_n < 2:
+                print(f"   ℹ️ 明日 {len(future_matches)} 场赛程里，可核对事实 {_pbasis_n} 项"
+                      f"（需 ≥2）→ 跳过预测稿生成（不烧额度写注定不发的稿）")
+                future_matches = []
+            elif _pbasis:
+                print(f"   📊 预测事实基础：{len(_pbasis)} 场 / {_pbasis_n} 项（积分榜）")
             if future_matches:
                 pred_art = generate_prediction_article(
                     future_matches, date_str=date_str,
-                    recent_prefixes=topic_history.get("title_prefixes"))
+                    recent_prefixes=topic_history.get("title_prefixes"),
+                    basis=_pbasis)
                 if pred_art:
                     p_idx = len(articles) + 1
                     # 为预测文章搜索配图

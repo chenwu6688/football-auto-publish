@@ -18,6 +18,11 @@ from urllib.parse import parse_qs, unquote
 from playwright.sync_api import sync_playwright
 
 PROJECT_ROOT = Path(__file__).parent
+# 被 `python scripts/publisher.py` 或 CI 从别处调用时，脚本目录未必在 sys.path 里
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+import prediction_gate           # noqa: E402  （必须在本目录入 sys.path 之后）
+
 OUTPUT_BASE = Path(os.environ.get("OUTPUT_DIR", PROJECT_ROOT / "output"))
 AUTH_FILE = Path(os.environ.get("TOUTIAO_AUTH_FILE", PROJECT_ROOT / "toutiao_auth.json"))
 AUDIT_DIR = Path(os.environ.get("AUDIT_DIR", PROJECT_ROOT / "data" / "audit"))
@@ -36,6 +41,42 @@ BATCH_NAME_MAP = {
     "noon": "午间",
     "evening": "晚间",
 }
+
+# 退出码约定（2026-11-05 立）。判据：看完退出码就知道**下一步该做什么**。
+#   0  至少一篇发出去了
+#   2  本批有稿，但全被规则跳过（预测稿/禁发类型）——**重跑没有意义**，可标批次完成
+#   3  本批一篇成稿都没有（上游空转）——值得让兜底 cron 重跑一次，不标完成
+#   1  真失败（登录失效/熔断/浏览器异常/全部发布失败）
+EXIT_OK = 0
+EXIT_FAIL = 1
+EXIT_NOTHING_SKIPPED = 2
+EXIT_NOTHING_EMPTY = 3
+
+
+class NoPublishableBatch(Exception):
+    """本批**没有可发布的稿件**——不是「发布失败」，也不该报「成功」。
+
+    2026-11-05 晚间：3 篇成稿里 2 篇被 `score` 字段撞车丢掉，剩下 1 篇是预测稿
+    （按 R13 决策④不发头条）。publisher 直接 `sys.exit(1)`，于是：
+
+      · 上层 job 判 failure，和「浏览器崩了」长得一模一样；
+      · 更糟的是「回写批次状态」把这批写成了已完成 → 人工补发被幂等跳过
+        → 当批永久丢失。
+
+    根子是**三种完全不同的终态被压成了一个 exit 1**。所以这里把「没稿可发」
+    拆成两种，用退出码区分，让上层能分别处理（详见 EXIT_* 常量）。
+    """
+
+    def __init__(self, code, detail, skipped=None):
+        super().__init__(detail)
+        self.code = code                     # "empty" | "all_skipped"
+        self.detail = detail
+        self.skipped = list(skipped or [])
+
+    @property
+    def exit_code(self):
+        return EXIT_NOTHING_SKIPPED if self.code == "all_skipped" else EXIT_NOTHING_EMPTY
+
 
 
 def send_wxpusher(title, content):
@@ -128,6 +169,62 @@ def login_and_save_auth():
         print("\n❌ 保存失败，请重试")
 
 
+def _published_titles(date_str):
+    """当天**已经真发出去**的标题（读发布台账，不看成稿 metadata）。
+
+    为什么不读 `output/<date>/metadata.json` 的 platform_id：那条链在 CI 里断过
+    （runner.temp 里的 metadata 与仓库里提交的那份不是同一份，`.platform_id` 至今全是空），
+    拿它当去重依据等于没有依据。台账是每次发布都落盘并随 chore 提交的，可靠。
+
+    这道保险丝挡的是「降级发布」：批次筛选 0 命中时会退化到发全部文章，
+    不设防就会把早上已经发过的稿在晚上再发一遍（同一标题两个作品 ID）。
+    """
+    titles = set()
+    for p in sorted(AUDIT_DIR.glob(f"publish_ledger_{date_str}_*.json")):
+        if p.stem.endswith("_latest"):
+            continue
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for r in d.get("records") or []:
+            if r.get("status") == "published":
+                t = (r.get("title") or "").strip()
+                if t:
+                    titles.add(t)
+    return titles
+
+
+def _no_publishable(batch_filter, date_dir, md_files, skip_report, batch_names):
+    """构造 NoPublishableBatch，并**判清是哪一种 0 篇**。
+
+    这两种 0 篇的处置完全不同，混在一起就等于把上游故障当成了正常：
+      · all_skipped：本批**有**成稿，但全被规则跳过（预测稿/禁发类型）
+        → 重跑还是同样的结果，标批次完成，只告警；
+      · empty：本批**一篇都没有**（无论目录里是空的，还是只有别批的稿）
+        → 上游空转，让兜底 cron 重跑一次才有意义。
+    """
+    total_md = len(md_files or [])
+    skipped = list(skip_report or [])
+    if batch_names:
+        mine = [s for s in skipped if (s.get("batch_name") or "") in batch_names]
+    else:
+        mine = skipped
+    if mine:
+        # 原因要带出来：只写 tier 名等于「有告警没原因」（10-25 的老毛病）。
+        reasons = "；".join(
+            f"{s.get('title', '')[:12]}（{s.get('prediction_tier') or s.get('status')}："
+            f"{(s.get('reason') or '')[:24]}）" for s in mine[:3])
+        return NoPublishableBatch(
+            "all_skipped",
+            f"{batch_filter or '本批'} 有 {len(mine)} 篇成稿但全部被规则跳过（{reasons}）",
+            mine)
+    return NoPublishableBatch(
+        "empty",
+        f"{batch_filter or '本批'} 一篇成稿都没有（目录 {date_dir.name} 共 {total_md} 个 md，"
+        f"其中属于本批的 0 个）")
+
+
 def load_articles(date_str, batch_filter=None, skip_report=None):
     """Load generated articles from output directory. Optionally filter by batch.
 
@@ -146,8 +243,10 @@ def load_articles(date_str, batch_filter=None, skip_report=None):
         try:
             dt = datetime.strptime(date_str, "%Y-%m-%d")
         except ValueError:
-            print(f"❌ 文章目录不存在: {date_dir}")
-            sys.exit(1)
+            # 日期格式错是**调用方传参错**，不是「没稿可发」：抛出去让进程以 1 退出。
+            # 不用 sys.exit 是为了让「本函数绝不自行终止进程」这条契约成立
+            # （scripts/verify_publish_states 用 AST 钉着，见判据 B）。
+            raise ValueError(f"日期格式非法: {date_str!r}（应为 YYYY-MM-DD）") from None
         from datetime import timedelta
         prev_date = (dt - timedelta(days=1)).strftime("%Y-%m-%d")
         prev_dir = OUTPUT_BASE / prev_date
@@ -155,12 +254,20 @@ def load_articles(date_str, batch_filter=None, skip_report=None):
             print(f"⚠️  今日目录不存在，回退到昨日: {prev_dir}")
             date_dir = prev_dir
         else:
-            print(f"❌ 文章目录不存在: {date_dir} (也尝试了 {prev_dir})")
-            sys.exit(1)
+            # 目录不存在 = 上游一篇都没产出。这不是「发布失败」，而是上游空转，
+            # 值得让兜底 cron 重跑（EXIT_NOTHING_EMPTY）；仍在退出码上与真失败分开。
+            raise NoPublishableBatch("empty", f"文章目录不存在: {date_dir}（也试了 {prev_dir}）")
+
 
     all_md_files = sorted(date_dir.glob("article-*.md"))
     print(f"在 {date_dir} 中找到 {len(all_md_files)} 个 article-*.md 文件: {[f.name for f in all_md_files]}")
     articles = []
+    _pred_publishable = 0          # 本批已放行的「有据前瞻」篇数（配额见 prediction_gate）
+    # 跳过清单**始终**在本地积累：它是「本批为什么 0 篇」的唯一证据。
+    # 不能只在调用方传了 skip_report 时才记账——那样「不传就查不出原因」，
+    # 而这个函数恰恰要靠它区分 all_skipped 与 empty（两种终态处置完全不同）。
+    _skips = skip_report if skip_report is not None else []
+    _published = _published_titles(date_str)
     for md_file in all_md_files:
         content = md_file.read_text(encoding="utf-8")
         # Parse frontmatter
@@ -186,17 +293,50 @@ def load_articles(date_str, batch_filter=None, skip_report=None):
                     title = line[2:].strip()
                     break
 
-        # 晚间赛前预测稿不发布到头条（R13 决策④）：frontmatter is_prediction 显式跳过。
-        # 此前仅靠「预测稿无 batch_name + 批次过滤」间接排除——过滤 0 命中的降级
-        # 路径会把它当普通文章发布，突破单批配额；现在显式拦截，两条路径都拦得住。
-        if str(meta.get("is_prediction", "")).strip().lower() in ("true", "1", "yes"):
-            print(f"  🔮 跳过预测稿（不发布到头条）: {title[:50]}")
-            if skip_report is not None:
-                skip_report.append({"status": "skipped_prediction", "title": title,
-                                    "slug": meta.get("slug") or "",
-                                    "batch_name": meta.get("batch_name", ""),
-                                    "platform_id": "", "reason": "预测稿不发布到头条（R13 决策④）"})
+        # 已发布去重（保险丝）：台账里已 published 的标题一律不再发第二次。
+        if title and title in _published:
+            print(f"  ♻️ 跳过已发布稿（同日台账已有作品）: {title[:40]}")
+            _skips.append({"status": "skipped_already_published", "title": title,
+                           "slug": meta.get("slug") or "",
+                           "batch_name": meta.get("batch_name", ""),
+                           "platform_id": "", "reason": "同日台账已有发布记录，防重复发文"})
             continue
+
+        # 预测稿走分级判定（唯一口径 prediction_gate），不再按体裁一刀切。
+        # R13 决策④ 的原意是「别拿无据断言冒充内容」，实现却写成了「凡是预测稿都不发」：
+        # 2026-11-05 晚间整批 3 篇里唯一活下来的就是预测稿 → 0 篇可发 → 整批判失败。
+        # 现在按**依据**判：有据前瞻（basis≥2 项且无断言、不押比分）照发，观点稿照样不发，
+        # 但跳过的原因会写进台账（tier + reasons），不再是「预测稿」三个字。
+        _pmeta = {"title": title, "is_prediction": meta.get("is_prediction"),
+                  "prediction_basis": meta.get("prediction_basis"),
+                  "prediction_basis_items": meta.get("prediction_basis_items"),
+                  "batch_name": meta.get("batch_name", ""), "slug": meta.get("slug") or ""}
+        if prediction_gate.is_prediction(_pmeta):
+            _verdict = prediction_gate.assess(_pmeta, body)
+            if not _verdict["publish"]:
+                print(f"  🔮 跳过预测稿（{_verdict['tier']}）: {title[:40]}"
+                      f"—— {'；'.join(_verdict['reasons'])[:70]}")
+                _skips.append({"status": "skipped_prediction", "title": title,
+                               "slug": _pmeta["slug"],
+                               "batch_name": _pmeta["batch_name"],
+                               "platform_id": "",
+                               "prediction_tier": _verdict["tier"],
+                               "reason": "；".join(_verdict["reasons"])})
+                continue
+            # 有据前瞻：批内配额 1 篇（预测稿占位就不能再挤掉主稿）
+            if prediction_gate.quota_left(_pred_publishable) <= 0:
+                print(f"  🔮 跳过预测稿（配额已满 {prediction_gate.MAX_PUBLISHABLE_PER_BATCH} 篇）: {title[:40]}")
+                _skips.append({"status": "skipped_prediction", "title": title,
+                               "slug": _pmeta["slug"],
+                               "batch_name": _pmeta["batch_name"],
+                               "platform_id": "",
+                               "prediction_tier": _verdict["tier"],
+                               "reason": f"批内预测稿配额已满（上限 "
+                                         f"{prediction_gate.MAX_PUBLISHABLE_PER_BATCH} 篇）"})
+                continue
+            _pred_publishable += 1
+            meta["_prediction_tier"] = _verdict["tier"]
+            print(f"  ✅ 预测稿放行（{_verdict['tier']}）：{_verdict['reasons'][0][:60]}")
 
         articles.append({
             "title": title,
@@ -220,19 +360,20 @@ def load_articles(date_str, batch_filter=None, skip_report=None):
         if skipped > 0:
             print(f"🔍 批次筛选 '{batch_filter}': {before} → {len(articles)} 篇 (跳过 {skipped} 篇其他批次)")
         if not articles:
-            if before > 0:
-                # 批次过滤 0 命中但有文章：说明 batch_name 缺失（如应急/预测文章未打标签）。
-                # 降级发布全部文章，避免整批失败丢失内容。
-                print(f"⚠️ 批次筛选 '{batch_filter}' 未匹配到文章 (目录共 {before} 篇，batch_name 可能缺失)")
-                print(f"   为不丢失内容，降级发布全部 {before} 篇 (请检查 orchestrator 是否正确写入 batch_name)")
-                articles = all_articles
+            # 只降级「无批次归属」的稿（batch_name 为空的应急/补录稿）：它们**可能**属于本批。
+            # 绝不降级「明确写了别的批次」的稿 —— 那是重复发文：晚上 0 篇时会去发早上的两篇，
+            # 同一标题拿到第二个作品 ID，谁都看不出来（2026-11-05 复核实测这条路径就是这样）。
+            orphan = [a for a in all_articles if not (a.get("batch_name") or "").strip()]
+            if orphan:
+                print(f"⚠️ 批次筛选 '{batch_filter}' 未匹配到文章；有 {len(orphan)} 篇无批次归属，"
+                      f"按本批发布（请检查 orchestrator 是否正确写入 batch_name）")
+                articles = orphan
             else:
-                print(f"❌ 没有找到 {batch_filter} 批次的文章 (目录为空)，中止发布")
-                sys.exit(1)
+                raise _no_publishable(batch_filter, date_dir, all_md_files,
+                                      _skips, batch_names_to_match)
 
     if not articles:
-        print(f"❌ {date_dir} 中没有找到文章")
-        sys.exit(1)
+        raise _no_publishable(None, date_dir, all_md_files, _skips, None)
 
     print(f"加载 {len(articles)} 篇文章:")
     for a in articles:
@@ -1159,6 +1300,7 @@ def _merge_day(date_str: str, current: dict) -> dict:
         rows.append(r)
 
     legacy_batches: list[str] = []
+    no_pub: dict[str, dict] = {}
     for p in _day_batch_files(date_str):
         batch = p.stem[len(f"publish_ledger_{date_str}_"):]
         try:
@@ -1167,6 +1309,10 @@ def _merge_day(date_str: str, current: dict) -> dict:
             continue
         for rec in d.get("records") or []:
             _add(rec, batch)
+        # 「本批 0 篇」的记录要跟着聚合走，否则当天看板只能看到「少了一批」，
+        # 看不出那一批是「有稿全被跳过」还是「上游没产出」。
+        if d.get("no_publishable"):
+            no_pub[batch] = d["no_publishable"]
         legacy_batches.append(batch)
 
     for rec in current.get("records") or []:
@@ -1188,6 +1334,7 @@ def _merge_day(date_str: str, current: dict) -> dict:
     ok = sum(1 for r in rows if r.get("status") == "published")
     fail = sum(1 for r in rows if r.get("status") == "failed")
     skip = sum(1 for r in rows if r.get("status") == "skipped_prediction")
+    dup = sum(1 for r in rows if r.get("status") == "skipped_already_published")
     return {
         "version": 2,
         "date": date_str,
@@ -1196,7 +1343,7 @@ def _merge_day(date_str: str, current: dict) -> dict:
         "batches": sorted(set(legacy_batches)),
         "counts": {
             "total": len(rows), "published": ok, "failed": fail,
-            "skipped_prediction": skip,
+            "skipped_prediction": skip, "skipped_already_published": dup,
             "published_without_id": sum(1 for r in rows if r.get("status") == "published"
                                         and not r.get("platform_id")),
             "published_without_cover": sum(1 for r in rows if r.get("status") == "published"
@@ -1204,6 +1351,7 @@ def _merge_day(date_str: str, current: dict) -> dict:
         },
         "platform_id_binding": current.get("platform_id_binding") or {},
         "records": rows,
+        "no_publishable": no_pub or None,
         "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
                  "这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
                  "本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。"),
@@ -1211,7 +1359,8 @@ def _merge_day(date_str: str, current: dict) -> dict:
 
 
 def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: str | None = None,
-                         binding: dict | None = None) -> Path:
+                         binding: dict | None = None,
+                         no_publishable: dict | None = None) -> Path:
     """落发布结果台账：每篇成稿的归宿（published / failed / skipped_prediction）。
 
     2026-11-01 之前这件事**完全没做**：`publish_all` 只把结果拼成一段人话发
@@ -1228,6 +1377,7 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
     ok = sum(1 for r in records if r.get("status") == "published")
     fail = sum(1 for r in records if r.get("status") == "failed")
     skip = sum(1 for r in records if r.get("status") == "skipped_prediction")
+    dup = sum(1 for r in records if r.get("status") == "skipped_already_published")
     no_pid = sum(1 for r in records if r.get("status") == "published" and not r.get("platform_id"))
     # 无封面发布篇数：头条「封面模式」在 0 图时被主动设成「无封面」，
     # 而这条路径的聚合点击率只有有封面篇的 1/4（2026-11-01 体检）。
@@ -1239,13 +1389,22 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "batch_filter": batch,
         "counts": {"total": len(records), "published": ok, "failed": fail,
-                   "skipped_prediction": skip, "published_without_id": no_pid,
+                   "skipped_prediction": skip, "skipped_already_published": dup,
+                   "published_without_id": no_pid,
                    "published_without_cover": no_cover},
         "platform_id_binding": binding or {},
         "records": records,
         "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
                  "这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"),
     }
+    if no_publishable:
+        # 「本批 0 篇」必须留证：光有退出码，事后没人能回答「为什么没发」。
+        # code=all_skipped 有稿全被规则跳过（设计内）；empty 上游没产出（故障）。
+        payload["counts"]["no_publishable"] = no_publishable.get("code")
+        payload["no_publishable"] = no_publishable
+        payload["note"] += (" no_publishable 记录本批为什么 0 篇："
+                            "all_skipped=有稿但全被规则跳过（重跑无意义），"
+                            "empty=上游一篇都没产出（值得重跑）。")
     (AUDIT_DIR / f"publish_ledger_{date_str}_{batch}.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     # 当天聚合必须在「本批次文件」落盘之后再算，否则会漏掉自己
@@ -1282,11 +1441,11 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
         print(f"   ⛔ {_msg}")
         send_wxpusher("足球自媒体 ⛔ 合规熔断",
                       f"{date_str} 发布已中止：{_cg.get('reason', '')}")
-        sys.exit(1)
+        sys.exit(EXIT_FAIL)
 
     if not AUTH_FILE.exists():
         print("❌ 未找到登录状态，请先运行: python scripts/publisher.py --login")
-        sys.exit(1)
+        sys.exit(EXIT_FAIL)
 
     _skip_records: list[dict] = []
     articles = load_articles(date_str, batch_filter=batch_filter, skip_report=_skip_records)
@@ -1334,7 +1493,7 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
             print("   运行: python scripts/publisher.py --login")
             browser.close()
             send_wxpusher("足球自媒体 ⚠️", f"{date_str} 头条号登录已过期，发布中止")
-            sys.exit(1)
+            sys.exit(EXIT_FAIL)
 
         print(f"✅ 已登录头条号 (URL: {page.url[:80]})")
 
@@ -1436,11 +1595,40 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
     else:
         send_wxpusher("足球自媒体 ❌", f"{date_str} 发布全部失败\n\n{summary}")
 
+    # 全部失败必须体现在退出码上：此前这里一律 return，CI 看到 rc=0 就当发布了，
+    # 于是「2 篇全发失败」在流水线上长得和「2 篇全发成功」一模一样。
+    return EXIT_FAIL if (publish_fail > 0 and publish_ok == 0) else EXIT_OK
+
+
+def _emit_no_publishable(date_str, batch_filter, exc):
+    """「本批 0 篇」的统一收尾：人话日志 + 台账留证 + Actions 注解。
+
+    三件事一件都不能省：日志给当场的人看，台账给一个月后复盘的人看，
+    注解给只瞄一眼 Actions 界面的人看（绿勾/红叉旁边直接写明原因）。
+    """
+    print(f"\n{'='*60}")
+    print(f"⚠️  本批无可发布稿件（{exc.code}）：{exc.detail}")
+    print(f"    退出码 {exc.exit_code}："
+          + ("重跑不会有不同结果，本批按「无事可做」收尾"
+             if exc.code == "all_skipped" else "上游没产出，留给兜底 cron 重跑"))
+    print(f"{'='*60}")
+    try:
+        p = write_publish_ledger(date_str, exc.skipped, batch_filter=batch_filter,
+                                 no_publishable={"code": exc.code, "detail": exc.detail})
+        try:
+            p = p.relative_to(PROJECT_ROOT)
+        except ValueError:
+            pass
+        print(f"  📒 无稿台账已落盘：{p}")
+    except Exception as e:
+        print(f"  ⚠️ 无稿台账写入失败（不影响结论）: {e}")
+    print(f"::warning::本批无可发布稿件（{exc.code}）：{exc.detail}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(__doc__)
-        sys.exit(1)
+        sys.exit(EXIT_FAIL)
 
     if sys.argv[1] == "--login":
         login_and_save_auth()
@@ -1452,4 +1640,9 @@ if __name__ == "__main__":
         for arg in sys.argv:
             if arg.startswith("--batch="):
                 batch_filter = arg.split("=", 1)[1]
-        publish_all(date_str, draft_mode, headless=headless, batch_filter=batch_filter)
+        try:
+            _rc = publish_all(date_str, draft_mode, headless=headless, batch_filter=batch_filter)
+        except NoPublishableBatch as _e:
+            _emit_no_publishable(date_str, batch_filter, _e)
+            sys.exit(_e.exit_code)
+        sys.exit(int(_rc or EXIT_OK))

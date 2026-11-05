@@ -32,6 +32,7 @@ from zoneinfo import ZoneInfo
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import prediction_gate  # noqa: E402  预测稿分级口径（唯一）
 import supply_mix  # noqa: E402
 
 OUTPUT_DIR = PROJECT_ROOT / "output"
@@ -53,8 +54,7 @@ def _load_day(date_str: str) -> list[dict]:
                    if t.get("_is_prediction")}
     return [a for a in (meta.get("articles") or [])
             if isinstance(a, dict)
-            and not a.get("is_prediction")
-            and a.get("title") not in pred_titles]
+            and prediction_gate.counts_as_content(a, pred_titles)]
 
 
 def collect(days: int, *, today: str | None = None) -> dict:

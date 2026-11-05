@@ -33,6 +33,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import prediction_gate  # noqa: E402  预测稿分级口径（唯一）
 import batch_quota as bq  # noqa: E402
 from constants import BATCH_CONFIG  # noqa: E402
 
@@ -203,8 +204,9 @@ def check_actual_batches(days: int) -> dict:
         # 历史数据无该标，回落 topics 级 _is_prediction 按标题对拍（两种口径并存期）
         pred_titles = {t.get("title") for t in meta.get("topics", []) or []
                        if t.get("_is_prediction")}
+        # 口径唯一在 prediction_gate（按依据分级，不再按体裁一刀切）
         arts = [a for a in meta.get("articles", []) or []
-                if not a.get("is_prediction") and a.get("title") not in pred_titles]
+                if prediction_gate.counts_as_content(a, pred_titles)]
         if not arts:
             continue
         days_seen += 1

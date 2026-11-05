@@ -23,7 +23,10 @@ on:
       - 'tests/**'
       - 'config/**'
       - 'prompts/**'
-      - '.github/workflows/unit-tests.yml'
+      # 2026-11-05 补：此前改 batch.yml 完全不触发任何 CI。
+      # 那天「choices 没给 default → 补发跑成空批次还报成功」就是零信号改出来的，
+      # 而 scripts/verify_publish_states.py 恰恰要用 AST/YAML 校验这些文件。
+      - '.github/workflows/**'
   pull_request:
   workflow_dispatch:
 
