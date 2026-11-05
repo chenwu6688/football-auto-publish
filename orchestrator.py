@@ -40,6 +40,7 @@ import source_images
 import wiki_media as _wmedia  # 维基共享署名（CC BY 要求写进正文）
 import content_stats
 import team_names  # 队名清洗（赛果动词剥离）：采集层与校验层共用一份词表
+import gate_v2  # 闸门分级（v2：矛盾才拦、缺失只记分；GATE_MODE=strict 回滚）
 import cover_card
 import data_chart        # 正文事实重绘成图（零版权，且与正文同源）
 import image_relevance   # 配图相关性闸门：图里的队/数字必须在正文出现过
@@ -1943,33 +1944,47 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 last_hint = f"正文仅{len(content)}字，需要至少{min_words}字"
                 continue
 
-            # Fidelity check: verify facts preserved
+            # ── 闸门分级（2026-11-05 v2：「矛盾才拦，缺失只记分」）──────────
+            # 旧实现把下面几道判据串成与门，任一不过就整篇重写，其中「一致性」
+            # 还会写熔断计数。10-12 起 4 次熔断**全是解析误报、零真实违规**
+            # （拜仁全称/大田简称/0比1/血洗），而真正该拦的「比分写反」旧判据
+            # 反而放过（_score_mentioned 允许主客颠倒）。判据与诉求不是同一件事。
+            #
+            # v2 只留两道硬闸门：事实矛盾（真正违反「不臆造」）与合规。
+            # 其余（名字缺失/反洗稿/标题/互动/字数）只记分，写进 _gate 供复盘。
+            # 旧判据照跑、结果落 _gate.legacy：**放松必须有对照数据**，
+            # 「新判据放过了谁、旧判据本来会拦谁」每天可查。
             passed, issues = check_rewrite_fidelity(fixture, art, match_context)
-            if not passed:
-                last_hint = "; ".join(issues)
+            match_passed, match_issues = validate_article_vs_match_data(
+                fixture, art, match_context)
+            _subject = str(topic.get("title") or topic.get("label")
+                           or topic.get("话题") or "未命名选题")[:40]
+            _g = gate_v2.fact_gate(
+                art, fixture, match_context, subject=_subject,
+                legacy=(match_passed and passed, list(match_issues)))
+            gate_v2.attach(art, _g["record"])
+            # 保真度里的「缺少球员/缺少队名」是**存在性**判据：正文用「他」「主队」
+            # 指代是正常写法，不是篡改。只记分——这正是 10-12 / 10-13 两次熔断的形态。
+            art["_fidelity"] = {"ok": passed, "issues": list(issues)}
+            if _g["block"]:
+                last_hint = _g["hint"]
+                _note_consistency_reject(f"[{_subject}] {last_hint}")
                 if attempt < max_retries:
+                    print(f"   🔁 事实矛盾(attempt {attempt+1}/{max_retries+1})：{last_hint[:80]}")
                     continue
-                return {}, f"改写不忠实: {last_hint}"
-
-            # 第二层验证：防止改写文编造比赛数据中不存在的事件
-            match_passed, match_issues = validate_article_vs_match_data(fixture, art, match_context)
-            if not match_passed:
-                last_hint = "; ".join(match_issues)
-                _note_consistency_reject(
-                    f"[{(topic.get('title') or topic.get('label') or topic.get('话题') or '未命名选题')[:40]}] {last_hint}")
-                if attempt < max_retries:
-                    continue
-                # 计划九·一致性校验打回：降级为低风险板块后重生成一次；仍不过则丢弃
                 if not topic.get("_degraded"):
                     _downgrade_topic(topic)
-                    degrade.note("一致性校验", f"事实验证连续不过: {last_hint[:60]}",
+                    # 阶段名仍用「一致性校验」：它是 degrade.py 的统计维度，
+                    # 改名会让历史降级数据断档。性质写在 detail 里。
+                    degrade.note("一致性校验", f"事实矛盾·连续冲突: {last_hint[:60]}",
                                  action=f"降级为低风险板块（{topic.get('content_type')}）后重生成一次")
                     return _rewrite_with_retry(topic, match_context, index, source, 1, date_str)
-                degrade.note("一致性校验", f"降级后仍不过: {last_hint[:60]}",
+                degrade.note("一致性校验", f"事实矛盾·降级后仍冲突: {last_hint[:60]}",
                              action="丢弃该选题，交由候选池补位")
-                return {}, f"事实验证失败: {last_hint}"
+                return {}, f"事实矛盾: {last_hint}"
 
-            # 计划 11.3 / 12.3 反洗稿双保险：相似度闸门 + 信息增量强制
+            # 计划 11.3 / 12.3 反洗稿：v2 只记分。反洗稿管的是「有没有人看」（增量），
+            # 不伤「存量」（信不信）——为它丢整篇是本末倒置。
             _src_texts = extract_source_texts(source)
             if _src_texts:
                 _sim_ok, _sim_issues, _sim_metrics = check_similarity_gate(art, _src_texts)
@@ -1977,56 +1992,51 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 art["_similarity"] = _sim_metrics
                 art["_increment"] = _inc_metrics
                 if not (_sim_ok and _inc_ok):
-                    last_hint = ("；".join(_sim_issues + _inc_issues) +
-                                 "。请用全新表达重写、切勿复述源文句子，并补充源文没有的事实"
-                                 "（数据补充 / 历史对比 / 双源交叉）。")
-                    if attempt < max_retries:
-                        print(f"   🔁 反洗稿检查未过(attempt {attempt+1}/{max_retries+1}): "
-                              f"{'；'.join(_sim_issues + _inc_issues)[:80]}")
-                        continue
-                    return {}, f"反洗稿检查未过: {last_hint}"
+                    _ac_hint = "；".join(_sim_issues + _inc_issues)
+                    art["_anti_copy"] = {"ok": False, "issues": _sim_issues + _inc_issues}
+                    if gate_v2.blocking("anti_copy"):      # strict 回滚口径
+                        last_hint = (_ac_hint + "。请用全新表达重写、切勿复述源文句子，"
+                                     "并补充源文没有的事实（数据补充 / 历史对比 / 双源交叉）。")
+                        if attempt < max_retries:
+                            print(f"   🔁 反洗稿未过(attempt {attempt+1}/{max_retries+1}): {_ac_hint[:80]}")
+                            continue
+                        return {}, f"反洗稿检查未过: {last_hint}"
+                    degrade.note("反洗稿记分", _ac_hint[:60],
+                                 action="不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）")
 
-            # 计划合规·标题评分（及格线 60，未过打回重生成，最多 2 次）
+            # 计划合规·标题评分（及格线 60）：v2 只记分 + 机械兜底，不再因分数丢弃成稿。
+            # 旧逻辑「重拟→仍不过→丢弃」是 11-04 那篇「大罗VS C罗」绕道出口的由来，
+            # 而丢弃换来的不是质量，是当天少一篇。
             _ct = topic.get("content_type", "热点球评")
             _recent = recent_titles_for_gate(date_str or "")
             _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct,
                                                           date_str or "", recent_titles=_recent)
             if not _sc_pass:
-                # P0-1 打回策略：**先只重写标题**（正文已过忠实度/反洗稿/一致性三道闸门，
-                # 重跑整篇既费额度又会重新掷骰子），标题修好了就不动正文
                 _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
                                           recent_titles=_recent)
                 if _new_title:
                     art["title"] = _new_title
                     _sc, _sc_pass, _sc_reasons = score_title_plan(
                         topic, _new_title, _ct, date_str or "", recent_titles=_recent)
-                if not _sc_pass:
+            art["_title_score"] = {"score": _sc, "ok": _sc_pass, "reasons": _sc_reasons}
+            if not _sc_pass:
+                # 三要素兜底仍保留：它只用事实卡已有数字/队名机械拼接，不新增事实，
+                # 且只影响「增量」，所以是兜底而不是放水。
+                if not title_elements.check(art.get("title", ""))["ok"]:
+                    _fb = [c for c in title_brief.candidates(topic)
+                           if title_elements.check(c)["ok"]]
+                    if _fb:
+                        art["title"] = _fb[0]
+                        art["_title_fallback"] = "elements"
+                if gate_v2.blocking("title_score"):        # strict 回滚口径
                     last_hint = (f"标题未达及格线({_sc}分): " + "; ".join(_sc_reasons) +
                                  "。请按公式重拟：具体球队/球员 + 一个可核对数字 + 一处对比/落差，"
                                  "字数18-30，不要以疑问句收尾，不要用「豪门/劲旅」这类代称。")
                     if attempt < max_retries:
                         continue
-                    # 重试用尽后的分流（项目纪律：只影响增量的缺失不丢整篇）。
-                    # 三要素不足是「信息量」问题，用事实字段机械拼一个合规标题保底；
-                    # 其余失败（传闻断言/赛果播报/疑问限额）照旧丢弃，绝不放过硬违规。
-                    _cur = art.get("title", "")
-                    if not title_elements.check(_cur)["ok"]:
-                        _fb = [c for c in title_brief.candidates(topic)
-                               if title_elements.check(c)["ok"]]
-                        if _fb:
-                            art["title"] = _fb[0]
-                            art["_title_fallback"] = "elements"
-                            degrade.note("标题三要素",
-                                         f"重拟失败，标题改用事实字段拼接（{_sc}分）",
-                                         action="保留成稿，不新增事实（候选只含选题已有数字/队名）")
-                        else:
-                            degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
-                                         action="丢弃该选题并由候选池补位")
-                            return {}, f"标题评分未过: {last_hint}"
-                    else:
-                        degrade.note("评分连续不过", f"标题评分未过({_sc}分)",
-                                     action="丢弃该选题并由候选池补位")
-                        return {}, f"标题评分未过: {last_hint}"
+                    return {}, f"标题评分未过: {last_hint}"
+                degrade.note("标题评分记分", f"{_sc}分：{'；'.join(_sc_reasons)[:50]}",
+                             action="不阻断发布，已尝试重拟与三要素兜底（v2 只记分）")
             note_generated_title(art.get("title", ""))
 
 
@@ -2035,7 +2045,8 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
             _ib = check_interaction_bait(art)
             if not _ib["ok"]:
                 last_hint = _bait_retry_hint(_ib)
-                if attempt < max_retries:
+                art["_interaction"] = {"ok": False, "missing": list(_ib["missing"])}
+                if gate_v2.blocking("interaction") and attempt < max_retries:
                     print(f"   🔁 互动引导未达标(attempt {attempt+1}/{max_retries+1})："
                           f"缺 {'、'.join(_ib['missing'])}")
                     continue
@@ -2574,6 +2585,15 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                                 and str(d.get("source", "")).startswith("card:")],
                 # 配图不足的硬记录（正常情况下不该出现；出现即验收报红）
                 "image_shortfall": art.get("_image_shortfall"),
+                # 闸门记录（2026-11-05 v2 闸门分级）：只在矛盾时拦，其余判据的
+                # 分值与旧判据的对照结果全部落盘。没有这一栏，「放松了多少」就
+                # 只能靠回忆——而「有结论没留证据」正是 38% 发布率一月无人发现的原因。
+                "_gate": art.get("_gate"),
+                "_title_score": art.get("_title_score"),
+                "_anti_copy": art.get("_anti_copy"),
+                "_fidelity": art.get("_fidelity"),
+                "_interaction": art.get("_interaction"),
+                "_consistency": art.get("_consistency"),
                 "sources_used": _prov_sources,
                 "source_post": _prov_post,
                 "originality_note": art.get("originality_note", ""),
@@ -2891,7 +2911,11 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
         sc, sc_pass, sc_reasons = score_title_plan(
             {"content_type": "紧急球评"}, article.get("title", ""), "紧急球评",
             fact_tier=_fw_tier, recent_titles=recent_titles_for_gate(""))
-        if not (cons_ok and sc_pass):
+        article["_title_score"] = {"score": sc, "ok": sc_pass, "reasons": sc_reasons}
+        article["_consistency"] = {"ok": cons_ok, "issues": list(cons_issues)}
+        # v2：标题分只记分（丢弃只会让当天少一条突发）；「卡外比分/卡外实体」
+        # 属矛盾类判据，仍阻断——那是「臆造」，不是「没按预期写法写」。
+        if not cons_ok or (not sc_pass and gate_v2.blocking("title_score")):
             if not cons_ok:
                 _note_consistency_reject(
                     f"[{(article.get('title') or title_hint or '紧急球评')[:40]}] "

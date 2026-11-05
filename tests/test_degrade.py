@@ -51,7 +51,10 @@ class TestRewriteDowngrade(unittest.TestCase):
             art, err = o._rewrite_with_retry(topic, {"all_fixtures": [], "fixtures_by_league": {}},
                                              1, src, 0, "2026-10-10")
         self.assertEqual(art, {})
-        self.assertIn("事实验证失败", err)
+        # 2026-11-05 闸门分级 v2：错误文案从「事实验证失败」改为「事实矛盾」。
+        # 「卡外比分」属**矛盾**类（臆造数值），在 v2 下仍是硬闸门、照样丢弃；
+        # 改成只记分的是「缺少队名/球员」那类存在性判据（见 tests/test_gate_v2.py）。
+        self.assertIn("事实矛盾", err)
         # 选题被降级为低风险板块
         self.assertTrue(topic.get("_degraded"))
         self.assertIn(topic.get("content_type"), degrade.LOW_RISK_SECTIONS)
