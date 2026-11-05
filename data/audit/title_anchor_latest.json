@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-04 18:16",
+  "generated_at": "2026-11-05 10:44",
   "window_days": 7,
   "since": "2026-11-02",
-  "ok": false,
-  "status": "fail",
+  "ok": true,
+  "status": "pending",
   "checks": [
     {
       "item": "锚点词表与自检",
@@ -18,9 +18,11 @@
     },
     {
       "item": "事实层可提供锚点",
-      "ok": false,
+      "ok": true,
       "detail": [
-        "❌ orchestrator 导入失败：unterminated string literal (detected at line 281) (title_elements.py, line 281)"
+        "✅ 战报事实卡含进球时间（可支撑「第X分钟」类锚点）",
+        "✅ 进球者姓名全在卡里（锚点可点名，不必编）",
+        "✅ 补时进球按「90+4」标出（补时/读秒锚点有据）"
       ]
     },
     {
@@ -39,7 +41,7 @@
       "ok": null,
       "pending": true,
       "detail": [
-        "⏸ 限额生效日 2026-11-05 尚未到，无生效后样本（未判定，非通过）；限额 2 篇",
+        "⏸ 窗口 2026-11-05 ~ 2026-11-05：生效后无成稿，未判定（非通过）",
         "留证：限额补全前（2026-11-02 起）疑问收尾 3 篇，均出自未接限额的生成路径，不计入判据"
       ]
     },
@@ -54,9 +56,7 @@
       ]
     }
   ],
-  "hard_failed": [
-    "事实层可提供锚点"
-  ],
+  "hard_failed": [],
   "pending": [
     "疑问收尾限额"
   ]

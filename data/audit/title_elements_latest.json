@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-11-05 10:44",
+  "min_elements": 2,
+  "require_proper": true,
+  "ok": true,
+  "checks": [
+    {
+      "item": "口径自检（数字/对比/专名）",
+      "ok": true,
+      "skipped": false,
+      "detail": [
+        "自检 45 项，失败 0 项",
+        "全部通过 ✅"
+      ]
+    },
+    {
+      "item": "尺子判据（真实数据复算）",
+      "ok": true,
+      "skipped": false,
+      "verdict": {
+        "ours_pass_rate": 0.61,
+        "peers_pass_rate": 0.71,
+        "monotonic": true,
+        "peer_top_pass": "8/10",
+        "peer_top_rate": 0.8,
+        "looser_than_peers": true,
+        "within_pressure_band": true
+      },
+      "coverage": {
+        "ours": {
+          "n": 90,
+          "number": 50.0,
+          "contrast": 54.4,
+          "proper": 86.7,
+          "all_three": 26.7,
+          "pass_rate": 61.1,
+          "median_count": 2.0
+        },
+        "peers": {
+          "n": 181,
+          "number": 75.1,
+          "contrast": 29.8,
+          "proper": 92.8,
+          "all_three": 27.1,
+          "pass_rate": 70.7,
+          "median_count": 2
+        }
+      },
+      "detail": [
+        "我方 90 篇：通过 0.61，通过组中位 14 / 被拦组中位 2（单调 ✅）",
+        "头部 181 条：通过 0.71（≥ 我方 ✅），TOP10 通过 8/10（≥70% ✅）",
+        "我方压力带 20%~85%：✅"
+      ]
+    },
+    {
+      "item": "出口接入（两个评分器）",
+      "ok": true,
+      "skipped": false,
+      "detail": [
+        "score_title_plan 缺项标题 → 0 分（应为 0）✅；理由带 [三要素] ✅",
+        "score_title_plan 齐全标题 → 74 分（应 >0）✅",
+        "score_fixture_title 缺项标题 → 0 分（应为 0）✅；理由带 [三要素] ✅"
+      ]
+    },
+    {
+      "item": "供给侧注入标题素材",
+      "ok": true,
+      "skipped": false,
+      "calls": 12,
+      "parts": {
+        "title_block": 4,
+        "brief_text": 3,
+        "rule": 5
+      },
+      "detail": [
+        "注入点 12 处（下限 6）：_title_block 4 / brief_text 3 / 规则引用 5 ✅",
+        "只加出口闸门不加供给侧 → 模型只能靠编数字过闸门，这正是 11-03「改口径先 grep 供给侧」的教训"
+      ]
+    },
+    {
+      "item": "近7天三要素通过率（告警）",
+      "ok": true,
+      "advisory": true,
+      "skipped": false,
+      "coverage": {
+        "n": 32,
+        "number": 53.1,
+        "contrast": 46.9,
+        "proper": 87.5,
+        "all_three": 31.2,
+        "pass_rate": 53.1,
+        "median_count": 2.0
+      },
+      "detail": [
+        "成稿 32 条：数字 53.1% / 对比 46.9% / 专名 87.5% / 三项全过 31.2%",
+        "达下限通过率 53.1%（上不设目标：这是存量+新管线混合值，只看趋势）"
+      ]
+    }
+  ],
+  "hard_failed": []
+}
