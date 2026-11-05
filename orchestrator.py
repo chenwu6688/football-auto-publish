@@ -1963,6 +1963,19 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                 art, fixture, match_context, subject=_subject,
                 legacy=(match_passed and passed, list(match_issues)))
             gate_v2.attach(art, _g["record"])
+            # 计划 7.3：**v2 硬闸门自己必须入台账**。2026-11-05 v2 首日暴露：
+            # 改写路径（Pipeline A）只在被拦时走 _note_consistency_reject，通过时一条不记，
+            # 于是台账里 events=2 全是 warn-only、blocking_checks=0 → 拦截率「未接入」
+            # → verify_publish_gate 的硬项永久红。那不是「没违规」，是**没观测**。
+            # blocking=True 的语义是「这是一道硬校验」（不等于它拦了），passed 表是否通过。
+            try:
+                import consistency_stats as _cs
+                _cs.record(
+                    blocking=True, passed=not _g["block"],
+                    issues=(_g["record"].get("contradictions") or [])[:5],
+                    tier="v2_fact", title=art.get("title", ""), subject=_subject)
+            except Exception:
+                pass        # 埋点不是闸门：炸了只丢观测，绝不阻断生成
             # 保真度里的「缺少球员/缺少队名」是**存在性**判据：正文用「他」「主队」
             # 指代是正常写法，不是篡改。只记分——这正是 10-12 / 10-13 两次熔断的形态。
             art["_fidelity"] = {"ok": passed, "issues": list(issues)}

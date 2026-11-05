@@ -40,3 +40,25 @@ def _offline_news_images(monkeypatch):
     monkeypatch.setitem(news_images._CACHE, "index", None)
     monkeypatch.setitem(news_images._CACHE, "at", 0.0)
     yield
+
+
+@pytest.fixture(autouse=True)
+def _isolate_consistency_ledger(monkeypatch, tmp_path):
+    """默认隔离一致性台账（计划 7.3 观测缺口带来的副作用）。
+
+    2026-11-05 给 v2 硬闸门加了「通过也入账」以后，任何跑到 `_rewrite_with_retry`
+    的用例都会调 `consistency_stats.record()`；不隔离就直接写进真实的
+    `data/consistency_stats.json` —— 实测跑一次全量单测，真实台账里多出 3 条
+    假事件（title 是某条用例的假稿「曼城主场能否啃下铁桶阵？」）。
+
+    台账是证据：混进测试噪音之后，「昨天拦了几次」就再也说不清。所以默认指到
+    tmp_path；需要验台账语义的用例自己 monkeypatch 或直接用 cs.summary()。
+    """
+    try:
+        import consistency_stats
+    except Exception:                     # 模块被删也不该让全部用例崩
+        return
+    monkeypatch.setattr(consistency_stats, "STATS_PATH",
+                        tmp_path / "consistency_stats.json")
+    monkeypatch.setattr(consistency_stats, "LABELS_PATH",
+                        tmp_path / "consistency_labels.json")
