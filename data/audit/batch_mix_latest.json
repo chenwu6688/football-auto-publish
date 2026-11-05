@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05 10:53",
+  "generated_at": "2026-11-05 13:18",
   "since": "2026-11-04",
   "ok": true,
   "pending": [
@@ -55,11 +55,21 @@
       "pending": true,
       "skipped": false,
       "structure": {
-        "total": 0,
+        "total": 3,
+        "counts": {
+          "战术榜单": 1,
+          "人物故事": 1,
+          "排行榜": 1
+        },
+        "main_pct": 0.0,
+        "tactical_pct": 33.3,
+        "data_pct": 33.3,
+        "banned_hits": 0,
         "legacy": 3
       },
       "detail": [
-        "生成侧已接入，但 2026-11-04 起还没有跑过新结构的批次（未判定，不算通过）",
+        "样本 3 篇 < 8，未判定（不算通过）",
+        "当前：热点球评 0.0% / 战术榜单 33.3% / 数据型 33.3%",
         "另有 3 篇是结构改造前生成的批次（metadata 无 batch_mix），按旧排序产出，不计入判定"
       ]
     }
