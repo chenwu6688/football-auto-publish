@@ -2012,8 +2012,20 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
             _sc, _sc_pass, _sc_reasons = score_title_plan(topic, art.get("title", ""), _ct,
                                                           date_str or "", recent_titles=_recent)
             if not _sc_pass:
-                _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
-                                          recent_titles=_recent)
+                # 重拟是「增量」环节：它崩了只能保留原标题，**绝不能连带丢掉整篇**。
+                # 2026-11-05 晚间 title_brief 的 score 字段撞车（选题排序分 int 被当成
+                # 比分 dict）就是从这一行冒出去的：每条稿重试 3 次、3 次全崩，整篇丢弃，
+                # 本批 3 篇只活下 1 篇预测稿（而预测稿又不发头条）→ 0 篇发布。
+                # 越界/类型错属于「我们自己的 bug」，不该由稿子承担代价。
+                try:
+                    _new_title = repick_title(topic, art, _sc_reasons, date_str or "",
+                                              recent_titles=_recent)
+                except Exception as _e:
+                    import traceback as _tb
+                    _tb.print_exc()
+                    degrade.note("标题重拟异常", f"{type(_e).__name__}: {str(_e)[:60]}",
+                                 action="保留原标题继续成稿（只影响增量，不丢整篇）")
+                    _new_title = ""
                 if _new_title:
                     art["title"] = _new_title
                     _sc, _sc_pass, _sc_reasons = score_title_plan(
@@ -4551,7 +4563,10 @@ def _build_recap_fact_card(topic):
     score.fullTime.home/away），下游校验（_extract_scores / _score_mentioned）
     已统一支持「2-1」「2比1」「2：1」等写法，但方向必须与卡一致。
     """
-    sc = topic.get("score") or {}
+    # score 同名字段撞车：选题里是排序分（int），事实卡里才是比分 dict。
+    # 不是 dict 一律当缺失（-1/None 口径一致），绝不用排序分冒充比分。
+    sc = topic.get("score")
+    sc = sc if isinstance(sc, dict) else {}
     hg, ag = sc.get("home"), sc.get("away")
     lines = [
         f"赛事：{topic.get('competition', '')}",
@@ -4892,7 +4907,8 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
     """
     if not topic:
         return None
-    sc = topic.get("score") or {}
+    sc = topic.get("score")
+    sc = sc if isinstance(sc, dict) else {}
     if sc.get("home") is None or sc.get("away") is None:
         print("   ⚠️ 战报选题缺比分，跳过（不用 0 冒充）")
         return None

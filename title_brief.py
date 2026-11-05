@@ -43,6 +43,26 @@ _TEMPLATES = (
 )
 
 
+def _as_dict(v) -> dict:
+    """同名字段撞车兜底：``score`` 在**选题**里是排序分（int 90），
+    在**事实卡**里才是比分 dict ``{home, away}``。
+
+    2026-11-05 晚间就是这么炸的：``title_brief.collect`` 里
+    ``sc = facts.get("score") or {}`` 拿到 int 90 → ``sc.get("home")``
+    → ``AttributeError: 'int' object has no attribute 'get'``。更糟的是它发生在
+    「标题重拟」这个**只影响增量**的小环节，却把整篇稿子丢掉了（两条稿子各重试 3 次，
+    烧了 6 次 LLM 调用，最后 2 篇全丢，本批只剩 1 篇预测稿 → 无可发布内容）。
+
+    不是 dict 就当缺失 —— 绝不猜、绝不把排序分当比分。
+    """
+    return v if isinstance(v, dict) else {}
+
+
+def _as_list(v) -> list:
+    """同上：``goals`` 在选题里可能是「总进球数」（int），不是进球事件列表。"""
+    return list(v) if isinstance(v, (list, tuple)) else []
+
+
 def _num(v) -> int | None:
     """只接受真实数值；None/''/-1 占位符一律当缺失（项目硬纪律：-1 = 缺）。"""
     if isinstance(v, bool) or v is None:
@@ -77,7 +97,7 @@ def collect(topic: dict, facts: dict | None = None) -> dict:
     contrasts: list[str] = []
 
     # 比分（战报/结果稿）
-    sc = facts.get("score") or {}
+    sc = _as_dict(facts.get("score"))
     hg, ag = _num(sc.get("home")), _num(sc.get("away"))
     if hg is None:
         hg, ag = _num(facts.get("home_score")), _num(facts.get("away_score"))
@@ -86,7 +106,7 @@ def collect(topic: dict, facts: dict | None = None) -> dict:
         contrasts.append(f"{hg}-{ag} 的比分对照")
 
     # 积分与排名（赛程前瞻）
-    hs, as_ = facts.get("home_standing") or {}, facts.get("away_standing") or {}
+    hs, as_ = _as_dict(facts.get("home_standing")), _as_dict(facts.get("away_standing"))
     hp, ap = _num(hs.get("points")), _num(as_.get("points"))
     hpos, apos = _num(hs.get("position")), _num(as_.get("position"))
     if hp is not None:
@@ -112,8 +132,9 @@ def collect(topic: dict, facts: dict | None = None) -> dict:
     if ht_h is not None and ht_a is not None:
         numbers.append(f"半场{ht_h}-{ht_a}")
 
-    goals = facts.get("goals") or []
-    scorers = [str(g.get("player_zh") or "").strip() for g in goals if g.get("player_zh")]
+    goals = _as_list(facts.get("goals"))
+    scorers = [str(g.get("player_zh") or "").strip() for g in goals
+               if isinstance(g, dict) and g.get("player_zh")]
     top = facts.get("home_top_scorer") or facts.get("away_top_scorer")
     if isinstance(top, dict) and top.get("player_zh") and _num(top.get("goals")) is not None:
         numbers.append(f"{top['player_zh']}{_num(top['goals'])}球")
@@ -128,7 +149,7 @@ def collect(topic: dict, facts: dict | None = None) -> dict:
     for nm in scorers[:3]:
         if nm and nm not in proper:
             proper.append(nm)
-    for kw in (topic.get("keywords_cn") or [])[:4]:
+    for kw in _as_list(topic.get("keywords_cn"))[:4]:
         kw = str(kw).strip()
         if kw and len(kw) >= 2 and kw not in proper:
             proper.append(kw)

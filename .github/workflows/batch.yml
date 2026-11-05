@@ -571,6 +571,7 @@ jobs:
           fi
 
       - name: 发布到头条号
+        id: publish
         if: steps.params.outputs.skip != 'true' && steps.compliance_recheck.outputs.suspended != 'true'
         env:
           HY3_API_KEY: ${{ secrets.HY3_API_KEY }}
@@ -593,7 +594,13 @@ jobs:
       - name: 回写批次状态（幂等保护）
         # 熔断中止的批次不标记完成：否则解除熔断后手动补发会被幂等保护跳过，
         # 本批文章永远发不出去（2026-10-13 事故恢复路径验证）。
-        if: always() && steps.params.outputs.skip != 'true' && steps.compliance_recheck.outputs.suspended != 'true'
+        #
+        # 2026-11-05 晚间追加：**发布步骤失败时同样不许标记完成**。
+        # 那晚 publisher.py 因「无可发布文章」exit 1，本步骤照样把 evening 写进
+        # batches_completed —— 于是批次显示「已完成」，人工补发会被幂等跳过，
+        # 当批永久丢失（已手工从 metadata 移除 evening 才救回）。
+        # 代价：真正失败的批次会被 30/50 分兜底 cron 重试一次；这比静默丢批好。
+        if: always() && steps.params.outputs.skip != 'true' && steps.compliance_recheck.outputs.suspended != 'true' && steps.publish.outcome == 'success'
         env:
           TODAY: ${{ steps.params.outputs.today }}
           BATCH: ${{ steps.params.outputs.batch }}
