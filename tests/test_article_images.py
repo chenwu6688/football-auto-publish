@@ -92,8 +92,11 @@ class TestFillFloor(unittest.TestCase):
                                   start_index=1, need=3)
             self.assertEqual(len(got), 3, "补不到 3 张 → 下限没达成")
             self.assertEqual(len({g["md5"] for g in got}), 3, "三张必须是不同内容")
-            self.assertEqual({g["source"] for g in got},
-                             {"card:points", "card:numbers", "card:title"})
+            # 版式必须互不重复：同一篇出两张同版式卡 = 读者看到「同一张图两遍」。
+            # 这里不写死具体是哪三种——版式库会扩充（11-05 从 3 种加到 7 种），
+            # 写死清单只会让每次扩充都要改测试，而「互不相同」才是真正要守的契约。
+            self.assertEqual(len({g["source"] for g in got}), 3, "三张必须来自不同版式")
+            self.assertTrue(all(g["source"].startswith("card:") for g in got))
 
     def test_start_index_does_not_overwrite_existing(self):
         with tempfile.TemporaryDirectory() as d:

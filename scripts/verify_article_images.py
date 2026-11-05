@@ -246,6 +246,73 @@ def check_products(days: int) -> dict:
     return {"item": item, "ok": not bad, "detail": detail}
 
 
+def check_variant_variety() -> dict:
+    """极端稿也必须能补到 3 张 —— 直接跑版式库，不看产物。
+
+    为什么这项是硬项：`MIN_ARTICLE_IMAGES` 写成 3 很容易，但**能不能真的出 3 张**
+    取决于正文长什么样。实测存在「正文只有一句话、标题没有数字」的稿子，老版三
+    版式（要点/数字/标题）在它身上只能出 1 张：要点卡要 `## ` 分节、数字卡要数字。
+    这项拿三类最难的稿子跑一遍 `cover_card.fill(need=3)`，出不满 3 张就报红。
+    """
+    import cover_card
+    cases = [
+        ("正文仅一句", {"title": "这支球队的更衣室到底出了什么问题", "column": "中超",
+                        "content": "其实问题不在球场上，而在训练场之外的那些事。"}),
+        ("正文为空", {"title": "当年那个追风少年如今发福谢顶，你的青春还能找回吗？",
+                      "column": "人物", "content": ""}),
+        ("多段无小标题", {"title": "曼城客场碰维拉，切尔西热刺谁先掉链子", "column": "英超",
+                          "content": "曼城这轮要去维拉公园。\n\n维拉主场七轮不败。\n\n热刺那场更像互相拆台。"}),
+    ]
+    ok, detail = True, []
+    with tempfile.TemporaryDirectory() as d:
+        for label, art in cases:
+            got = cover_card.fill(art, out_dir=d, prefix=f"v-{abs(hash(label)) % 9999}",
+                                  start_index=1, need=3)
+            # 视觉唯一性看 (版式, 配色)：极端稿允许两张标题卡换配色，但不允许一模一样
+            uniq = len({(c["source"], c.get("theme")) for c in got})
+            if len(got) < 3 or uniq < 3:
+                ok = False
+                detail.append(f"❌ {label}：{len(got)} 张 / {uniq} 种视觉"
+                              f"（{cover_card.LAST_ERROR or '—'}）")
+            else:
+                detail.append(f"✅ {label}：3 张 / {uniq} 种视觉")
+    return {"item": "极端稿保底（正文只有一句 / 为空 / 多段无小标题，都必须补到 3 张）",
+            "ok": ok, "detail": detail}
+
+
+def check_variant_diversity(days: int) -> dict:
+    """产物里的版式多样性：一篇的 3 张不能是同一个版式换配色。
+
+    `check_variant_variety` 保证「能出 3 张」，这一项保证「出得像 3 张不同的图」。
+    判定口径：一篇里信息图 ≥2 张时，版式种类必须 ≥2。极端稿（正文为空）允许
+    全部退化为标题卡，但那种稿子会在 `below` 之外单独计入 detail，不会静默放过。
+    """
+    item = "版式多样性（同一篇的 3 张不能只是换了个配色）"
+    judged, bad, detail = 0, [], []
+    for day, meta in _batches(days):
+        floor = meta.get("image_floor") or {}
+        since = str(floor.get("since") or "")
+        if not since or day < since:
+            continue
+        for a in meta.get("articles") or []:
+            if not isinstance(a, dict):
+                continue
+            cards = a.get("image_cards") or []
+            if len(cards) < 2:
+                continue
+            variants = sorted({c.get("variant") for c in cards if c.get("variant")})
+            judged += 1
+            if len(variants) < 2:
+                bad.append(f"{day}《{a.get('title', '')[:20]}》"
+                           f"{len(cards)} 张信息图全是「{'/'.join(variants)}」")
+    if not judged:
+        return {"item": item, "ok": None,
+                "detail": ["窗口内没有含 ≥2 张信息图的批次产物 → 未判定"]}
+    detail.append(f"判定 {judged} 篇，版式单调 {len(bad)} 篇")
+    detail.extend(bad[:8])
+    return {"item": item, "ok": not bad, "detail": detail}
+
+
 def check_negative() -> dict:
     """负向自检：把「生效日后 + 只有 1 张图」的批次喂进去，产物判定**必须**报红。
 
@@ -297,9 +364,10 @@ def check_degrade_ledger(days: int) -> dict:
 
 def verify(days: int = 7) -> dict:
     products = check_products(days)
+    diversity = check_variant_diversity(days)
     hard = [check_news_layer_wired(), check_fill_wired(), check_download_gate_tier(),
             check_inject_keeps_all(), check_offline_floor(), check_gate_behaviour(),
-            products]
+            check_variant_variety(), products, diversity]
     soft = [check_degrade_ledger(days)]
     bad = [c["item"] for c in hard if c["ok"] is False]
     # 硬项：False 即未通过。静态/自检项全绿但**产物项未判定**时，结论仍是「未判定」——

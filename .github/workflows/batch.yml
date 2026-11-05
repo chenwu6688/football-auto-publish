@@ -396,14 +396,27 @@ jobs:
           python3 scripts/verify_differentiation.py --quiet \
             || echo "::warning::差异化方向未达 13.5 验收标准，详见 data/audit/differentiation_latest.json"
 
-      - name: 配图下限验收（每篇 ≥ 3 张 · 只告警不阻断）
+      - name: 配图下限验收（每篇 ≥ 3 张 · 硬条件，失败即阻断）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
-          # 硬项：爬取层已接线 + 补齐已接线 + 注入不丢图 + 断网仍能补 3 张 + 闸门分档
-          # 产物项：生效日后每批每篇 images ≥ 3（还没有对齐批次时退出码 2 = 未判定）
-          # 不阻断：图源波动/字体缺失会让某篇补不满，而「没图就不发」比「少一张图」更伤
-          python3 scripts/verify_article_images.py --quiet \
-            || echo "::warning::配图下限未达每篇 3 张，详见 data/audit/article_images_latest.json"
+          # 用户 2026-11-05 把「每篇至少 3 张图」定为**硬条件**，所以这里不能再用
+          # `|| echo "::warning::"` 软化——那会让硬项永远绿，正是元验收要抓的
+          # 「有验收的假象」。
+          #
+          # 为什么现在可以阻断：下限不再依赖外部图源。7 种版式 × 4 套配色的信息图
+          # 全部由本文标题与正文派生，连「正文只有一句话」的稿子都能补满 3 张
+          # （verify 里有三类极端稿的实测）。这时失败只意味着一件事——系统没有能画
+          # 汉字的中文字体（那就是 11-05 封面全方框的同款事故），必须立刻知道。
+          #
+          # rc=1 → 真失败，阻断；rc=2 → 窗口内没有本改动之后的批次，未判定，只告警。
+          rc=0
+          python3 scripts/verify_article_images.py --quiet || rc=$?
+          if [ "$rc" -eq 1 ]; then
+            echo "::error::配图下限未达每篇 3 张，详见 data/audit/article_images_latest.json"
+            exit 1
+          elif [ "$rc" -eq 2 ]; then
+            echo "::warning::配图下限未判定（窗口内没有对齐生效日的批次产物）"
+          fi
 
       - name: 配图相关性验收（数据图 + 闸门 · 硬项，失败即阻断）
         if: steps.params.outputs.skip != 'true' && !cancelled()

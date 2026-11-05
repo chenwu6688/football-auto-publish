@@ -2343,8 +2343,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 downloaded.append({"local_path": _card, "filename": _cpath.name,
                                    "url": "", "md5": _cmd5,
                                    "width": cover_card.W, "height": cover_card.H,
-                                   "description": "原创信息图·数据卡",
-                                   "source": "card:title"})
+                                   "description": "原创信息图·标题卡",
+                                   "source": "card:title", "theme": "navy"})
                 degrade.note("封面兜底", "图源全断，改用标题数据卡",
                              action="已配图发布；数据卡只兜底观感，不替代真实图")
             else:
@@ -2353,22 +2353,29 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 degrade.note("封面兜底", f"数据卡生成失败：{cover_card.LAST_ERROR or '未知原因'}",
                              action="照旧不配图发布，该篇计入无封面台账")
 
-        # —— 每篇至少 3 张（2026-11-05 用户要求）——
+        # —— 每篇至少 3 张（2026-11-05 用户硬条件）——
         # 真实图源（新闻站爬取 / Commons / 图库）能拿几张就拿几张，缺口用**原创信息图**
-        # 补：要点卡（正文小标题 + 首句）、数字卡（标题里最关键的数字）、标题卡。
-        # 三种版式都从这篇稿子自己的内容派生，所以「相关」是结构性的，不是检索碰运气；
-        # 同版式不会重复（skip_variants），避免「3 张配图 = 同一张复制三遍」。
+        # 补。版式库有 7 种（标题/要点/数字/金句/问答/结构/对比）× 4 套配色，全部从
+        # 这篇稿子自己的标题与正文派生——「相关」是结构性的，不靠检索碰运气，也没有
+        # 版权问题。
+        #
+        # 为什么必须排到「换配色」这一档：实测存在正文只有一句话、标题没有数字的稿子，
+        # 内容类版式全都抽不到素材。过去这时只出 1 张标题卡，「每篇 3 张」直接落空；
+        # 现在退到同版式换配色，至少读者看到的是三张不同的图。
         if len(downloaded) < MIN_ARTICLE_IMAGES:
-            _used_variants = tuple(
-                str(d.get("source", "")).split(":", 1)[1]
+            # 已经用过的（版式, 配色）组合，精确到组合而不是整类版式。
+            # 封面兜底那张是 title+navy；如果整类跳过 title，正文只有一句话的稿子
+            # 就只剩金句卡一条路，只能补到 2 张——「每篇 3 张」当场落空。
+            _used_cards = {
+                (str(d.get("source", "")).split(":", 1)[1], d.get("theme") or "navy")
                 for d in downloaded
-                if isinstance(d, dict) and str(d.get("source", "")).startswith("card:"))
+                if isinstance(d, dict) and str(d.get("source", "")).startswith("card:")}
             _cards = cover_card.fill(
                 art, out_dir=images_dir, prefix=prefix,
                 start_index=len(downloaded) + 1,
                 need=MIN_ARTICLE_IMAGES - len(downloaded),
                 used_hashes=all_hashes,
-                skip_variants=_used_variants)
+                used_cards=_used_cards)
             if _cards:
                 # 真实图源的张数要在 extend 之前数，而且要排除信息图自己——
                 # 否则文案会变成「真实图源拿到 1 张」，而那张其实是刚刚的封面兜底卡
@@ -2377,10 +2384,20 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 downloaded.extend(_cards)
                 degrade.note("配图补齐", f"真实图源只拿到 {_real} 张",
                              action=f"用 {len(_cards)} 张原创信息图补到 {len(downloaded)} 张")
-            elif len(downloaded) < MIN_ARTICLE_IMAGES:
+            if len(downloaded) < MIN_ARTICLE_IMAGES:
+                # 这是**硬条件未达成**，不是可以默默接受的降级：
+                # 「少一张图」在过去被 degrade.note 记一笔就过去了，没人会去看台账。
+                # 现在同时写进 article 记录（image_shortfall），验收脚本据此报红。
+                _short = MIN_ARTICLE_IMAGES - len(downloaded)
+                art["_image_shortfall"] = {
+                    "got": len(downloaded), "need": MIN_ARTICLE_IMAGES,
+                    "reason": cover_card.LAST_ERROR or "信息图未产出",
+                }
                 degrade.note("配图不足",
-                             f"仅 {len(downloaded)} 张（目标 {MIN_ARTICLE_IMAGES}）",
+                             f"仅 {len(downloaded)} 张（目标 {MIN_ARTICLE_IMAGES}），差 {_short} 张",
                              action=f"信息图也补不上：{cover_card.LAST_ERROR or '未知原因'}")
+                print(f"   ❌《{art.get('title', '')[:20]}》配图 {len(downloaded)} 张 "
+                      f"< {MIN_ARTICLE_IMAGES}（{cover_card.LAST_ERROR or '未知原因'}）")
 
         content = art.get("content", "")
         # Strip auto-generated markers first to sync with actual downloaded count
@@ -2500,6 +2517,16 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                                    "confidence": (d.get("relevance") or {}).get("confidence", "")}
                                   for d in downloaded
                                   if isinstance(d, dict) and d.get("anchor")],
+                # 每张原创信息图的版式与配色。没有这一栏，事后就无法回答
+                # 「这篇为什么三张都是标题卡」——而版式单调正是用户最直接的观感。
+                "image_cards": [{"file": d.get("filename"),
+                                 "variant": str(d.get("source", "")).split(":", 1)[-1],
+                                 "theme": d.get("theme", "")}
+                                for d in downloaded
+                                if isinstance(d, dict)
+                                and str(d.get("source", "")).startswith("card:")],
+                # 配图不足的硬记录（正常情况下不该出现；出现即验收报红）
+                "image_shortfall": art.get("_image_shortfall"),
                 "sources_used": _prov_sources,
                 "source_post": _prov_post,
                 "originality_note": art.get("originality_note", ""),
@@ -2558,6 +2585,14 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     # 不写这一项，`verify_article_images` 就只能对全部历史产物判 FAIL——那等于把
     # 「改动之前就是这样」当成「改动之后坏了」，没人会看第二次。
     meta["image_floor"] = {"since": IMAGE_FLOOR_SINCE, "min_per_article": MIN_ARTICLE_IMAGES}
+    # 本批未达配图下限的篇数：这是**硬条件**，验收脚本直接看这个数。
+    # 只在生效日之后统计，否则历史批次会把验收永远钉在红灯上。
+    _below = [r.get("title", "")[:24] for r in saved
+              if len(r.get("images") or []) < MIN_ARTICLE_IMAGES]
+    meta["image_floor"]["articles_below"] = len(_below)
+    if _below:
+        meta["image_floor"]["below_titles"] = _below
+        print(f"   ❌ 本批 {len(_below)} 篇配图不足 {MIN_ARTICLE_IMAGES} 张：{_below}")
     # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）。
     # 预测稿不发布到头条，不进配比口径（与看板/配额验收同口径，R13 决策④）。
     _supply = supply_mix.summarize(
