@@ -184,6 +184,29 @@ class TestFillFloor(unittest.TestCase):
             self.assertEqual(len({g["source"] for g in got}), 3,
                              "内容够用时三张应来自三种不同版式")
 
+    def test_two_sentence_body_gets_two_quotes(self):
+        """正文只有两句时，前两张应当是**不同句子的**金句卡。
+
+        11-05 CI 红的那一项。`_extract_quote` 里「导语优先级最低、别的句子用完
+        才退回导语」是一条规则，`fill` 里「spare 剩余句数 <= nth 就跳过」是同一
+        件事的第二份写法，两边必然对不上：第 2 张金句卡永远出不来，旧版退回
+        「标题卡换配色」，张数够了但同一篇最好的两句判断只用上一句。
+        `_FILL_PLAN` 里再给 quote 传 nth 则是第三份，会让第 2 张在两句稿上越界。
+        结论：句子用没用过只由 `avoid` 记，规则只准写一处。
+        """
+        art = {"title": "换人顺序才是这支球队的真正问题", "column": "中超",
+               "content": ("真正的问题不在体能，而在换人顺序。\n"
+                           "但是中场的第一道屏障在下半场就没了。")}
+        with tempfile.TemporaryDirectory() as d:
+            got = cc.fill(art, out_dir=d, prefix="article-1-img",
+                          start_index=1, need=3)
+            quotes = [g for g in got if g["source"] == "card:quote"]
+            self.assertEqual(len(quotes), 2,
+                             f"两句稿应该出两张金句卡，实际 {len(quotes)} 张")
+            self.assertNotEqual(Path(quotes[0]["local_path"]).read_bytes(),
+                                Path(quotes[1]["local_path"]).read_bytes(),
+                                "两张金句卡内容相同 = 只用了一句")
+
     def test_fill_never_exceeds_plan(self):
         with tempfile.TemporaryDirectory() as d:
             got = cc.fill(self.CASES["正文为空"], out_dir=d, prefix="a",

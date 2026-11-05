@@ -252,7 +252,7 @@ def check_variant_variety() -> dict:
     为什么这项是硬项：`MIN_ARTICLE_IMAGES` 写成 3 很容易，但**能不能真的出 3 张**
     取决于正文长什么样。实测存在「正文只有一句话、标题没有数字」的稿子，老版三
     版式（要点/数字/标题）在它身上只能出 1 张：要点卡要 `## ` 分节、数字卡要数字。
-    这项拿三类最难的稿子跑一遍 `cover_card.fill(need=3)`，出不满 3 张就报红。
+    这项拿四类最难的稿子跑一遍 `cover_card.fill(need=3)`，出不满 3 张就报红。
     """
     import cover_card
     cases = [
@@ -262,6 +262,13 @@ def check_variant_variety() -> dict:
                       "column": "人物", "content": ""}),
         ("多段无小标题", {"title": "曼城客场碰维拉，切尔西热刺谁先掉链子", "column": "英超",
                           "content": "曼城这轮要去维拉公园。\n\n维拉主场七轮不败。\n\n热刺那场更像互相拆台。"}),
+        # 11-05 补：正文正好两句、标题没有数字、没有小标题。这是金句卡
+        # `nth=1` 必然拿到空串的那一类稿子（非导语句只有一句，第一张就用光了）。
+        # 之前三类极端稿里没有这一类，所以「金句卡第二张永不出图」这个缺陷
+        # 只被单测抓住、没被这项验收抓住——验收的样本集本身就是漏网的原因。
+        ("正文仅两句", {"title": "换人顺序才是这支球队的真正问题", "column": "中超",
+                        "content": "真正的问题不在体能，而在换人顺序。\n"
+                                   "但是中场的第一道屏障在下半场就没了。"}),
     ]
     ok, detail = True, []
     with tempfile.TemporaryDirectory() as d:
@@ -276,7 +283,7 @@ def check_variant_variety() -> dict:
                               f"（{cover_card.LAST_ERROR or '—'}）")
             else:
                 detail.append(f"✅ {label}：3 张 / {uniq} 种视觉")
-    return {"item": "极端稿保底（正文只有一句 / 为空 / 多段无小标题，都必须补到 3 张）",
+    return {"item": "极端稿保底（正文只有一句 / 为空 / 仅两句 / 多段无小标题，都必须补到 3 张）",
             "ok": ok, "detail": detail}
 
 

@@ -479,32 +479,42 @@ def _sentences(content: str) -> list[str]:
     return out
 
 
-def _extract_quote(content: str, skip: tuple[str, ...] = (),
-                   allow_lead: bool = False) -> str:
+def _extract_quote(content: str, skip: tuple[str, ...] = ()) -> str:
     """金句卡的素材：信息密度最高的一句。
 
     打分只看「像不像一个判断」：有转折/因果词加分，有数字加分，带问号减分
     （问句是标题的活，金句卡要给答案）。已经用过的句子（``skip``）跳过，
     这样同一篇能连出多张不同句子的金句卡——极端稿凑够 3 张靠的就是这一步。
 
-    ``allow_lead``：是否允许选中**正文第一句**（导语）。默认不允许——导语说的是
-    「谁几比几赢了」，那正是数字卡已经画过的东西。只有正文短到只剩导语一句时，
-    调用方才应该传 True，否则正文仅一句的稿子会一张金句卡都出不来。
+    **导语（正文第一句）优先级最低**：只要还有别的句子可用就不选它，因为
+    「谁几比几赢了」正是数字卡已经画过的东西。但**别的句子用完了**（正文只有
+    两句，或前面几张卡已经把非导语句挑光）时退回导语——否则正文两段的稿子
+    第二张金句卡永远出不来，「每篇 3 张」的保底恰好断在这一步。
+
+    这一版（11-05）改的就是这里：上一版把「是否允许导语」做成 ``allow_lead``
+    参数丢给调用方决定，而**全仓没有任何一个调用方传过 True** —— 参数形同虚设，
+    同时让 ``nth=1`` 在两句稿上必然返回空。规则要放在函数自己身上，不能让
+    「谁记得传参」来决定一篇稿子能不能出够 3 张图。
     """
     sents = _sentences(content)
-    lead = sents[0] if sents else ""
-    best, best_score = "", 0
-    for s in sents:
-        if s in skip:
-            continue
-        if not allow_lead and s == lead and len(sents) > 1:
-            continue
-        score = 1 + 2 * len(_RE_SUBSTANCE.findall(s)) + (2 if _RE_NUM_TOKEN.search(s) else 0)
-        if s.endswith(("？", "?")):
-            score -= 1
-        if score > best_score:
-            best, best_score = s, score
-    return best
+    if not sents:
+        return ""
+
+    def _pick(allow_lead: bool) -> str:
+        best, best_score = "", 0
+        for s in sents:
+            if s in skip:
+                continue
+            if not allow_lead and len(sents) > 1 and s == sents[0]:
+                continue
+            score = 1 + 2 * len(_RE_SUBSTANCE.findall(s)) + (2 if _RE_NUM_TOKEN.search(s) else 0)
+            if s.endswith(("？", "?")):
+                score -= 1
+            if score > best_score:
+                best, best_score = s, score
+        return best
+
+    return _pick(False) or _pick(True)
 
 
 def _extract_qa(title: str, content: str) -> tuple[str, str]:
@@ -1093,14 +1103,18 @@ _FILL_PLAN: tuple[tuple[str, str, int], ...] = (
     ("outline", "navy", 0),
     ("qa", "crimson", 0),
     ("compare", "forest", 0),
-    ("quote", "crimson", 1),
-    ("quote", "forest", 2),
+    # 金句卡的三条候选一律 nth=0：「本篇用过哪几句」由 `fill` 的 `avoid` 说，
+    # 这里再传 nth 就成了同一件事记两遍——11-05 实测的后果是第 2 张金句卡
+    # 在两句稿上必然越界（avoid 里已有 1 句，nth=1 又要跳过 1 句，剩 0 句）。
+    # nth 只留给「不维护 avoid、只要第 n 句」的调用方（单测/临时脚本）。
+    ("quote", "crimson", 0),
+    ("quote", "forest", 0),
     ("outline", "paper", 1),
     ("title", "crimson", 0),
     ("title", "paper", 0),
     ("title", "forest", 0),
-    ("quote", "paper", 3),
-    ("quote", "navy", 4),
+    ("quote", "paper", 0),
+    ("quote", "navy", 0),
 )
 
 
@@ -1151,15 +1165,12 @@ def fill(art: dict, *, out_dir, prefix: str, start_index: int, need: int,
             continue
         if (variant, theme_name) in used_cards:
             continue
-        # 金句卡要求「还有没被用过的句子」。要点卡已经把这篇稿子讲得最好的
-        # 三句用掉时，剩下的往往只有导语——那正是数字卡已经说过的比数。
-        # 这时宁可换 outline / 换配色的 title，也不出一张重复内容的金句卡。
-        if variant == "quote":
-            # 还剩几句没被用过的正文句子。导语是否可用由 `_extract_quote` 自己判断
-            # （它知道「全文只有一句」这种例外），这里只负责数够不够。
-            spare = [x for x in _sentences(content) if x not in avoid]
-            if len(spare) <= nth:
-                continue
+        # 金句卡的可用性只由 `_extract_quote` 判断，这里**不许再算一遍**。
+        # 11-05 踩过：这里曾有一份「spare 剩余句数 <= nth 就跳过」的本地判据，
+        # 与 `_extract_quote` 内部「导语优先级最低但可兜底」的规则不一致——
+        # 正文两句的稿子 spare 只剩导语一句，nth=1 被这里拦掉，于是
+        # 「第二张金句卡」永远出不来，而函数那边其实已经能出图了。
+        # 规则写两份，就是必然对不上；抽不到时 render 返回 None，代价只是一次空尝试。
         path = render(topic, out_dir=out_dir,
                       filename=f"{prefix}-{start_index + len(got):03d}.jpg",
                       variant=variant, theme_name=theme_name, nth=nth,
