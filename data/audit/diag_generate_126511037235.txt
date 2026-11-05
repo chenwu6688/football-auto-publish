@@ -1,36 +1,120 @@
-2026-11-04T10:04:06.0160776Z 已记录失败原因：失败步骤: 生成文章（详见运行日志）
-2026-11-04T10:04:06.0480737Z ##[group]Run python3 scripts/notify_failure.py
-2026-11-04T10:04:06.0481769Z [36;1mpython3 scripts/notify_failure.py[0m
-2026-11-04T10:04:06.0525782Z shell: /usr/bin/bash -e {0}
-2026-11-04T10:04:06.0526317Z env:
-2026-11-04T10:04:06.0526705Z   PYTHONUNBUFFERED: 1
-2026-11-04T10:04:06.0527352Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-04T10:04:06.0528184Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-04T10:04:06.0529014Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-04T10:04:06.0529797Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-04T10:04:06.0530554Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-04T10:04:06.0531592Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-04T10:04:06.0532475Z   WXPUSHER_APPTOKEN: ***
-2026-11-04T10:04:06.0533033Z   WXPUSHER_UID: ***
-2026-11-04T10:04:06.0533444Z   WB_BATCH: evening
-2026-11-04T10:04:06.0533884Z   WB_TODAY: 2026-11-04
-2026-11-04T10:04:06.0534362Z   WB_REPO: chenwu6688/football-auto-publish
-2026-11-04T10:04:06.0534916Z   WB_RUN_ID: 41811329994
-2026-11-04T10:04:06.0535362Z ##[endgroup]
-2026-11-04T10:04:08.1358293Z 告警已发送: HTTP 200 {"code":1000,"msg":"处理成功","data":[{"spt":null,"uid":"***","topicId":null,"messageContentId"
-2026-11-04T10:04:08.1990462Z Post job cleanup.
-2026-11-04T10:04:08.2851870Z [command]/usr/bin/git version
-2026-11-04T10:04:08.2897388Z git version 2.56.0
-2026-11-04T10:04:08.2938596Z Temporarily overriding HOME='/home/runner/work/_temp/67068795-a90e-478e-8ec3-513af67698c9' before making global git config changes
-2026-11-04T10:04:08.2940919Z Adding repository directory to the temporary git global config as a safe directory
-2026-11-04T10:04:08.2945027Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/football-auto-publish/football-auto-publish
-2026-11-04T10:04:08.2986757Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-11-04T10:04:08.3024401Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-11-04T10:04:08.3340697Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-11-04T10:04:08.3383379Z http.https://github.com/.extraheader
-2026-11-04T10:04:08.3394404Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
-2026-11-04T10:04:08.3433441Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-11-04T10:04:08.3805482Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-11-04T10:04:08.3847855Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-11-04T10:04:08.4283017Z Cleaning up orphan processes
-2026-11-04T10:04:08.4658147Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-11-04T10:03:32.5950405Z ##[endgroup]
+2026-11-04T10:03:32.7293134Z [一级·确定性] 回收过期 0 条；窗口 7 天内待入库节点 0 个
+2026-11-04T10:03:32.7293925Z [一级·确定性] 窗口内无待入库节点，无需量产
+2026-11-04T10:03:32.7541689Z ##[group]Run python orchestrator.py "2026-11-04" --batch="evening"
+2026-11-04T10:03:32.7542278Z [36;1mpython orchestrator.py "2026-11-04" --batch="evening"[0m
+2026-11-04T10:03:32.7576563Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:32.7577031Z env:
+2026-11-04T10:03:32.7577289Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:32.7577638Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.7578160Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:32.7578867Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.7579303Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.7579734Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.7580173Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:32.7580787Z   HY3_API_KEY: ***
+2026-11-04T10:03:32.7581125Z   DASHSCOPE_API_KEY: ***
+2026-11-04T10:03:32.7581843Z   UNSPLASH_ACCESS_KEY: ***
+2026-11-04T10:03:32.7582192Z   FOOTBALL_DATA_KEY: ***
+2026-11-04T10:03:32.7582489Z   TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+2026-11-04T10:03:32.7582847Z   OUTPUT_DIR: /home/runner/work/_temp/output
+2026-11-04T10:03:32.7583238Z   WXPUSHER_APPTOKEN: ***
+2026-11-04T10:03:32.7583549Z   WXPUSHER_UID: ***
+2026-11-04T10:03:32.7583793Z ##[endgroup]
+2026-11-04T10:03:32.9330963Z 10:03:32 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/_temp/output/logs/orchestrator_2026-11-04.log
+2026-11-04T10:03:32.9509324Z Traceback (most recent call last):
+2026-11-04T10:03:32.9515828Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 37, in <module>
+2026-11-04T10:03:32.9516536Z     import title_elements
+2026-11-04T10:03:32.9517115Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_elements.py", line 281
+2026-11-04T10:03:32.9517841Z     "detail": [f"三要素 {e.count}/3 达标（{'、'.join(
+2026-11-04T10:03:32.9518153Z                ^
+2026-11-04T10:03:32.9518511Z SyntaxError: unterminated string literal (detected at line 281)
+2026-11-04T10:03:32.9727157Z ##[error]Process completed with exit code 1.
+2026-11-04T10:03:32.9851106Z ##[group]Run # 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」
+2026-11-04T10:03:32.9851874Z [36;1m# 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」[0m
+2026-11-04T10:03:32.9852277Z [36;1mpython3 scripts/verify_rumor_wording.py --quiet \[0m
+2026-11-04T10:03:32.9852777Z [36;1m  || echo "::warning::传闻措辞未达 4.1 验收标准，详见 data/audit/rumor_wording_latest.json"[0m
+2026-11-04T10:03:32.9885596Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:32.9885883Z env:
+2026-11-04T10:03:32.9886108Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:32.9886439Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.9886917Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:32.9887377Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.9887790Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.9888201Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:32.9888647Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:32.9889019Z ##[endgroup]
+2026-11-04T10:03:33.1525853Z ##[group]Run # 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入
+2026-11-04T10:03:33.1526296Z [36;1m# 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入[0m
+2026-11-04T10:03:33.1526726Z [36;1mpython3 scripts/verify_content_reference.py --quiet \[0m
+2026-11-04T10:03:33.1527252Z [36;1m  || echo "::warning::内容参照层未达 13.3 验收标准，详见 data/audit/content_reference_latest.json"[0m
+2026-11-04T10:03:33.1556942Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:33.1557227Z env:
+2026-11-04T10:03:33.1557449Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:33.1557799Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.1558287Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:33.1558757Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.1559180Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.1559603Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.1560065Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:33.1560429Z ##[endgroup]
+2026-11-04T10:03:33.2626597Z ##[group]Run # 硬项：六方向结构齐备 + 代码 hook 落地
+2026-11-04T10:03:33.2626982Z [36;1m# 硬项：六方向结构齐备 + 代码 hook 落地[0m
+2026-11-04T10:03:33.2627379Z [36;1mpython3 scripts/verify_differentiation.py --quiet \[0m
+2026-11-04T10:03:33.2628083Z [36;1m  || echo "::warning::差异化方向未达 13.5 验收标准，详见 data/audit/differentiation_latest.json"[0m
+2026-11-04T10:03:33.2657673Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:33.2658084Z env:
+2026-11-04T10:03:33.2658327Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:33.2658676Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.2659170Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:33.2659645Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.2660061Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.2660484Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.2660953Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:33.2661610Z ##[endgroup]
+2026-11-04T10:03:33.3363430Z ##[group]Run # 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发
+2026-11-04T10:03:33.3363885Z [36;1m# 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发[0m
+2026-11-04T10:03:33.3364318Z [36;1mpython3 scripts/verify_publish_gate.py --quiet \[0m
+2026-11-04T10:03:33.3364840Z [36;1m  || echo "::warning::发布闸门未达 7.2/7.3 验收标准，详见 data/audit/publish_gate_latest.json"[0m
+2026-11-04T10:03:33.3396526Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:33.3396824Z env:
+2026-11-04T10:03:33.3397053Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:33.3397393Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.3397868Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:33.3398332Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.3398750Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.3399168Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.3399627Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:33.3399986Z ##[endgroup]
+2026-11-04T10:03:33.4806713Z 10:03:33 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/football-auto-publish/football-auto-publish/output/logs/orchestrator_2026-11-04.log
+2026-11-04T10:03:33.8012036Z ##[group]Run # 硬项：常态 2 篇不超手册上限 + 加发不超手册 + 日合计 6-8 + 三处口径一致 + decide 冒烟
+2026-11-04T10:03:33.8012582Z [36;1m# 硬项：常态 2 篇不超手册上限 + 加发不超手册 + 日合计 6-8 + 三处口径一致 + decide 冒烟[0m
+2026-11-04T10:03:33.8013153Z [36;1mpython3 scripts/verify_batch_quota.py --quiet \[0m
+2026-11-04T10:03:33.8013627Z [36;1m  || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"[0m
+2026-11-04T10:03:33.8044198Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:33.8044493Z env:
+2026-11-04T10:03:33.8044729Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:33.8045088Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8045590Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:33.8046073Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8046503Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8047159Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8047637Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:33.8048002Z ##[endgroup]
+2026-11-04T10:03:33.8912887Z ##[group]Run # 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入
+2026-11-04T10:03:33.8913383Z [36;1m# 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入[0m
+2026-11-04T10:03:33.8913762Z [36;1m# 告警项（不影响退出码）：热点球评占比低于目标 —— 配比是慢变量，按天卡死会逼出凑数稿[0m
+2026-11-04T10:03:33.8914098Z [36;1m# 刻意不加 `|| echo`：禁发类型还在产出就不该放行发布[0m
+2026-11-04T10:03:33.8914492Z [36;1mpython3 scripts/verify_content_mix.py --days 7 --quiet[0m
+2026-11-04T10:03:33.8943934Z shell: /usr/bin/bash -e {0}
+2026-11-04T10:03:33.8944219Z env:
+2026-11-04T10:03:33.8944449Z   PYTHONUNBUFFERED: 1
+2026-11-04T10:03:33.8944791Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8945273Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-11-04T10:03:33.8945738Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8946193Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8946648Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-11-04T10:03:33.8947085Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-11-04T10:03:33.8947445Z ##[endgroup]
+2026-11-04T10:03:33.9509089Z ##[group]Run # 持久化 LLM 额度消耗（供下次按阈值选模型）
+2026-11-04T10:03:33.9509506Z [36;1m# 持久化 LLM 额度消耗（供下次按阈值选模型）[0m

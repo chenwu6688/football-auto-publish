@@ -1,0 +1,1310 @@
+﻿2026-11-05T00:00:54.8895498Z Current runner version: '2.338.2'
+2026-11-05T00:00:54.8934740Z ##[group]Runner Image Provisioner
+2026-11-05T00:00:54.8936647Z Hosted Compute Agent
+2026-11-05T00:00:54.8938034Z Version: 20261028.624
+2026-11-05T00:00:54.8939257Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-05T00:00:54.8940778Z Build Date: 2026-10-28T21:51:42Z
+2026-11-05T00:00:54.8942144Z Worker ID: {4f59a62e-fef8-4f06-846b-4f1415066e32}
+2026-11-05T00:00:54.8943830Z Region: eastus
+2026-11-05T00:00:54.8944957Z Cloud: Azure
+2026-11-05T00:00:54.8946045Z ##[endgroup]
+2026-11-05T00:00:54.8948705Z ##[group]Operating System
+2026-11-05T00:00:54.8950002Z Ubuntu
+2026-11-05T00:00:54.8951053Z 26.04.1
+2026-11-05T00:00:54.8951982Z LTS
+2026-11-05T00:00:54.8953072Z ##[endgroup]
+2026-11-05T00:00:54.8954623Z ##[group]Runner Image
+2026-11-05T00:00:54.8955786Z Image: ubuntu-26.04
+2026-11-05T00:00:54.8957007Z Version: 20261101.186.1
+2026-11-05T00:00:54.8959333Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261101.186/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-05T00:00:54.8962323Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261101.186
+2026-11-05T00:00:54.8964518Z ##[endgroup]
+2026-11-05T00:00:54.8966734Z ##[group]GITHUB_TOKEN Permissions
+2026-11-05T00:00:54.8969882Z Actions: read
+2026-11-05T00:00:54.8971079Z Contents: write
+2026-11-05T00:00:54.8972156Z Metadata: read
+2026-11-05T00:00:54.8973192Z ##[endgroup]
+2026-11-05T00:00:54.8977311Z Secret source: Actions
+2026-11-05T00:00:54.8979118Z Cache mode: write
+2026-11-05T00:00:54.8980712Z Prepare workflow directory
+2026-11-05T00:00:54.9594042Z Prepare all required actions
+2026-11-05T00:00:54.9670136Z Getting action download info
+2026-11-05T00:00:55.1716845Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-05T00:00:55.2742580Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-05T00:00:55.3459376Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-11-05T00:00:55.4220112Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-05T00:00:55.6038158Z Complete job name: publish
+2026-11-05T00:00:55.7145104Z ##[group]Run actions/checkout@v4
+2026-11-05T00:00:55.7146053Z with:
+2026-11-05T00:00:55.7146603Z   repository: chenwu6688/football-auto-publish
+2026-11-05T00:00:55.7150613Z   token: ***
+2026-11-05T00:00:55.7151092Z   ssh-strict: true
+2026-11-05T00:00:55.7151576Z   ssh-user: git
+2026-11-05T00:00:55.7152078Z   persist-credentials: true
+2026-11-05T00:00:55.7152621Z   clean: true
+2026-11-05T00:00:55.7153125Z   sparse-checkout-cone-mode: true
+2026-11-05T00:00:55.7153856Z   fetch-depth: 1
+2026-11-05T00:00:55.7154343Z   fetch-tags: false
+2026-11-05T00:00:55.7154836Z   show-progress: true
+2026-11-05T00:00:55.7155344Z   lfs: false
+2026-11-05T00:00:55.7155813Z   submodules: false
+2026-11-05T00:00:55.7156308Z   set-safe-directory: true
+2026-11-05T00:00:55.7156886Z   allow-unsafe-pr-checkout: false
+2026-11-05T00:00:55.7157691Z env:
+2026-11-05T00:00:55.7158162Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:00:55.7158669Z ##[endgroup]
+2026-11-05T00:00:55.9864770Z Syncing repository: chenwu6688/football-auto-publish
+2026-11-05T00:00:55.9867916Z ##[group]Getting Git version info
+2026-11-05T00:00:55.9869589Z Working directory is '/home/runner/work/football-auto-publish/football-auto-publish'
+2026-11-05T00:00:55.9871917Z [command]/usr/bin/git version
+2026-11-05T00:00:55.9880366Z git version 2.56.0
+2026-11-05T00:00:55.9903055Z ##[endgroup]
+2026-11-05T00:00:55.9920316Z Temporarily overriding HOME='/home/runner/work/_temp/0f4160f5-2f82-461f-81fd-e422b03de391' before making global git config changes
+2026-11-05T00:00:55.9923098Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-05T00:00:55.9926585Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/football-auto-publish/football-auto-publish
+2026-11-05T00:00:55.9995857Z Deleting the contents of '/home/runner/work/football-auto-publish/football-auto-publish'
+2026-11-05T00:00:55.9999798Z ##[group]Initializing the repository
+2026-11-05T00:00:56.0006018Z [command]/usr/bin/git init /home/runner/work/football-auto-publish/football-auto-publish
+2026-11-05T00:00:56.0119994Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-05T00:00:56.0121567Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-05T00:00:56.0122667Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-05T00:00:56.0123765Z hint: call:
+2026-11-05T00:00:56.0124334Z hint:
+2026-11-05T00:00:56.0125007Z hint: 	git config --global init.defaultBranch <name>
+2026-11-05T00:00:56.0125785Z hint:
+2026-11-05T00:00:56.0126504Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-05T00:00:56.0127578Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-05T00:00:56.0128500Z hint:
+2026-11-05T00:00:56.0129049Z hint: 	git branch -m <name>
+2026-11-05T00:00:56.0129669Z hint:
+2026-11-05T00:00:56.0130415Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-05T00:00:56.0143954Z Initialized empty Git repository in /home/runner/work/football-auto-publish/football-auto-publish/.git/
+2026-11-05T00:00:56.0158652Z [command]/usr/bin/git remote add origin https://github.com/chenwu6688/football-auto-publish
+2026-11-05T00:00:56.0215363Z ##[endgroup]
+2026-11-05T00:00:56.0216694Z ##[group]Disabling automatic garbage collection
+2026-11-05T00:00:56.0220214Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-05T00:00:56.0258685Z ##[endgroup]
+2026-11-05T00:00:56.0260068Z ##[group]Setting up auth
+2026-11-05T00:00:56.0267410Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-05T00:00:56.0305621Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-05T00:00:56.0785068Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-05T00:00:56.0827804Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-05T00:00:56.1118171Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-05T00:00:56.1154554Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-05T00:00:56.1446232Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-05T00:00:56.1493272Z ##[endgroup]
+2026-11-05T00:00:56.1494742Z ##[group]Fetching the repository
+2026-11-05T00:00:56.1504814Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ae7d29bf11a2c2b90a6349ea312d2249a58911e0:refs/remotes/origin/main
+2026-11-05T00:00:56.7624332Z From https://github.com/chenwu6688/football-auto-publish
+2026-11-05T00:00:56.7625416Z  * [new ref]         ae7d29bf11a2c2b90a6349ea312d2249a58911e0 -> origin/main
+2026-11-05T00:00:56.7629205Z ##[endgroup]
+2026-11-05T00:00:56.7629953Z ##[group]Determining the checkout info
+2026-11-05T00:00:56.7632098Z ##[endgroup]
+2026-11-05T00:00:56.7638339Z [command]/usr/bin/git sparse-checkout disable
+2026-11-05T00:00:56.7692119Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-05T00:00:56.7729863Z ##[group]Checking out the ref
+2026-11-05T00:00:56.7744164Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-05T00:00:56.8560571Z Switched to a new branch 'main'
+2026-11-05T00:00:56.8565963Z branch 'main' set up to track 'origin/main'.
+2026-11-05T00:00:56.8576191Z ##[endgroup]
+2026-11-05T00:00:56.8622874Z [command]/usr/bin/git log -1 --format=%H
+2026-11-05T00:00:56.8647425Z ae7d29bf11a2c2b90a6349ea312d2249a58911e0
+2026-11-05T00:00:56.8900886Z ##[group]Run # 显式把 GITHUB_TOKEN 注入 remote，确保 git push 走令牌鉴权
+2026-11-05T00:00:56.8901998Z [36;1m# 显式把 GITHUB_TOKEN 注入 remote，确保 git push 走令牌鉴权[0m
+2026-11-05T00:00:56.8906917Z [36;1mgit remote set-url origin "***github.com/chenwu6688/football-auto-publish.git"[0m
+2026-11-05T00:00:56.8907955Z [36;1mgit config user.name "github-actions[bot]"[0m
+2026-11-05T00:00:56.8908901Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
+2026-11-05T00:00:56.8963115Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:00:56.8964154Z env:
+2026-11-05T00:00:56.8964795Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:00:56.8965465Z ##[endgroup]
+2026-11-05T00:00:56.9264883Z ##[group]Run actions/setup-python@v5
+2026-11-05T00:00:56.9265499Z with:
+2026-11-05T00:00:56.9265944Z   python-version: 3.11
+2026-11-05T00:00:56.9266404Z   cache: pip
+2026-11-05T00:00:56.9266825Z   check-latest: false
+2026-11-05T00:00:56.9269957Z   token: ***
+2026-11-05T00:00:56.9270416Z   update-environment: true
+2026-11-05T00:00:56.9270925Z   allow-prereleases: false
+2026-11-05T00:00:56.9271395Z   freethreaded: false
+2026-11-05T00:00:56.9271823Z env:
+2026-11-05T00:00:56.9272228Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:00:56.9272662Z ##[endgroup]
+2026-11-05T00:00:57.0670591Z ##[group]Installed versions
+2026-11-05T00:00:57.0786773Z (node:2491) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-05T00:00:57.0788328Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-05T00:00:57.0789368Z Successfully set up CPython (3.11.18)
+2026-11-05T00:00:57.0790492Z ##[endgroup]
+2026-11-05T00:00:57.2429566Z [command]/opt/hostedtoolcache/Python/3.11.18/x64/bin/pip cache dir
+2026-11-05T00:00:57.5322505Z /home/runner/.cache/pip
+2026-11-05T00:00:57.6311072Z Cache hit for: setup-python-Linux-x64-26.04-Ubuntu-python-3.11.18-pip-54c8e9eb92417c254b49927dbe7fd19d8f73c9a77079afa13aca4c80e30567bd
+2026-11-05T00:00:57.6434323Z (node:2491) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-05T00:00:58.0643813Z Received 58969398 of 58969398 (100.0%), 143.1 MBs/sec
+2026-11-05T00:00:58.0644924Z Cache Size: ~56 MB (58969398 B)
+2026-11-05T00:00:58.0674035Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3f250fb8-3dfa-4f9f-a11b-90621894c280/cache.tzst -P -C /home/runner/work/football-auto-publish/football-auto-publish --use-compress-program unzstd
+2026-11-05T00:00:58.1573524Z Cache restored successfully
+2026-11-05T00:00:58.1602333Z Cache restored from key: setup-python-Linux-x64-26.04-Ubuntu-python-3.11.18-pip-54c8e9eb92417c254b49927dbe7fd19d8f73c9a77079afa13aca4c80e30567bd
+2026-11-05T00:00:58.1881117Z ##[group]Run pip install -r requirements.txt
+2026-11-05T00:00:58.1881600Z [36;1mpip install -r requirements.txt[0m
+2026-11-05T00:00:58.1881968Z [36;1mplaywright install chromium[0m
+2026-11-05T00:00:58.1882313Z [36;1mplaywright install-deps chromium[0m
+2026-11-05T00:00:58.1939298Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:00:58.1939619Z env:
+2026-11-05T00:00:58.1939865Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:00:58.1940230Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:00:58.1940742Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:00:58.1941226Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:00:58.1941662Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:00:58.1942082Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:00:58.1942518Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:00:58.1942886Z ##[endgroup]
+2026-11-05T00:00:58.8901831Z Collecting requests>=2.31 (from -r requirements.txt (line 1))
+2026-11-05T00:00:58.8918852Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-11-05T00:00:59.1974654Z Collecting Pillow>=10.0 (from -r requirements.txt (line 2))
+2026-11-05T00:00:59.1995494Z   Using cached pillow-13.0.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+2026-11-05T00:00:59.2663644Z Collecting pyyaml>=6.0 (from -r requirements.txt (line 3))
+2026-11-05T00:00:59.2681252Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-11-05T00:00:59.3338962Z Collecting playwright<2.0,>=1.40 (from -r requirements.txt (line 4))
+2026-11-05T00:00:59.3357018Z   Using cached playwright-1.64.1-py3-none-manylinux1_x86_64.whl.metadata (3.3 kB)
+2026-11-05T00:00:59.3831992Z Collecting beautifulsoup4>=4.12 (from -r requirements.txt (line 5))
+2026-11-05T00:00:59.3847812Z   Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+2026-11-05T00:00:59.4321727Z Collecting pyee<15,>=13 (from playwright<2.0,>=1.40->-r requirements.txt (line 4))
+2026-11-05T00:00:59.4337318Z   Using cached pyee-13.0.1-py3-none-any.whl.metadata (3.0 kB)
+2026-11-05T00:00:59.5974580Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright<2.0,>=1.40->-r requirements.txt (line 4))
+2026-11-05T00:00:59.5991202Z   Using cached greenlet-3.5.6-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+2026-11-05T00:00:59.6500560Z Collecting typing-extensions (from pyee<15,>=13->playwright<2.0,>=1.40->-r requirements.txt (line 4))
+2026-11-05T00:00:59.6518265Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-11-05T00:00:59.8082646Z Collecting charset_normalizer<4,>=2 (from requests>=2.31->-r requirements.txt (line 1))
+2026-11-05T00:00:59.8099960Z   Using cached charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-11-05T00:00:59.8588605Z Collecting idna<4,>=2.5 (from requests>=2.31->-r requirements.txt (line 1))
+2026-11-05T00:00:59.8604161Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-11-05T00:00:59.9123755Z Collecting urllib3<3,>=1.26 (from requests>=2.31->-r requirements.txt (line 1))
+2026-11-05T00:00:59.9138904Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-11-05T00:00:59.9637950Z Collecting certifi>=2023.5.7 (from requests>=2.31->-r requirements.txt (line 1))
+2026-11-05T00:00:59.9654709Z   Using cached certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+2026-11-05T00:01:00.0170371Z Collecting soupsieve>=1.6.1 (from beautifulsoup4>=4.12->-r requirements.txt (line 5))
+2026-11-05T00:01:00.0887876Z   Downloading soupsieve-4.0.1-py3-none-any.whl.metadata (4.4 kB)
+2026-11-05T00:01:00.0961521Z Using cached playwright-1.64.1-py3-none-manylinux1_x86_64.whl (48.5 MB)
+2026-11-05T00:01:00.1158721Z Using cached greenlet-3.5.6-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (624 kB)
+2026-11-05T00:01:00.1174272Z Using cached pyee-13.0.1-py3-none-any.whl (15 kB)
+2026-11-05T00:01:00.1189017Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+2026-11-05T00:01:00.1204354Z Using cached charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (269 kB)
+2026-11-05T00:01:00.1219426Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-11-05T00:01:00.1236066Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-11-05T00:01:00.1251579Z Using cached pillow-13.0.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+2026-11-05T00:01:00.1292565Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-11-05T00:01:00.1309699Z Using cached beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+2026-11-05T00:01:00.1324173Z Using cached certifi-2026.10.23-py3-none-any.whl (135 kB)
+2026-11-05T00:01:00.1516893Z Downloading soupsieve-4.0.1-py3-none-any.whl (50 kB)
+2026-11-05T00:01:00.1785227Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-05T00:01:00.3005843Z Installing collected packages: urllib3, typing-extensions, soupsieve, pyyaml, Pillow, idna, greenlet, charset_normalizer, certifi, requests, pyee, beautifulsoup4, playwright
+2026-11-05T00:01:01.7620774Z 
+2026-11-05T00:01:01.7634035Z Successfully installed Pillow-13.0.0 beautifulsoup4-4.15.0 certifi-2026.10.23 charset_normalizer-3.5.2 greenlet-3.5.6 idna-3.20 playwright-1.64.1 pyee-13.0.1 pyyaml-6.0.3 requests-2.34.2 soupsieve-4.0.1 typing-extensions-4.16.0 urllib3-2.8.0
+2026-11-05T00:01:01.7642128Z 
+2026-11-05T00:01:01.7642888Z [notice] A new release of pip is available: 26.2.2 -> 26.3
+2026-11-05T00:01:01.7643987Z [notice] To update, run: pip install --upgrade pip
+2026-11-05T00:01:02.1987197Z Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip
+2026-11-05T00:01:02.6209309Z |                                                                                |   0% of 191.1 MiB
+2026-11-05T00:01:03.9473757Z |■■■■■■■■                                                                        |  10% of 191.1 MiB
+2026-11-05T00:01:04.5035609Z |■■■■■■■■■■■■■■■■                                                                |  20% of 191.1 MiB
+2026-11-05T00:01:05.2110532Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.1 MiB
+2026-11-05T00:01:05.6001032Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.1 MiB
+2026-11-05T00:01:06.0516087Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.1 MiB
+2026-11-05T00:01:06.5157604Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.1 MiB
+2026-11-05T00:01:07.0235833Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.1 MiB
+2026-11-05T00:01:07.2475339Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.1 MiB
+2026-11-05T00:01:07.8387615Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.1 MiB
+2026-11-05T00:01:08.7343613Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.1 MiB
+2026-11-05T00:01:11.7951888Z Chrome for Testing 156.0.8078.4 (playwright chromium v1248) downloaded to /home/runner/.cache/ms-playwright/chromium-1248
+2026-11-05T00:01:11.7956046Z Downloading FFmpeg (playwright ffmpeg v1013) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip
+2026-11-05T00:01:12.1541211Z |                                                                                |   0% of 2.2 MiB
+2026-11-05T00:01:12.1577488Z |■■■■■■■■                                                                        |  10% of 2.2 MiB
+2026-11-05T00:01:12.1600395Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.2 MiB
+2026-11-05T00:01:12.1617151Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.2 MiB
+2026-11-05T00:01:12.1633292Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.2 MiB
+2026-11-05T00:01:12.1646900Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.2 MiB
+2026-11-05T00:01:12.1658472Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.2 MiB
+2026-11-05T00:01:12.1674259Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.2 MiB
+2026-11-05T00:01:12.1690527Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.2 MiB
+2026-11-05T00:01:12.1704830Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.2 MiB
+2026-11-05T00:01:12.1713712Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.2 MiB
+2026-11-05T00:01:12.2293657Z FFmpeg (playwright ffmpeg v1013) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1013
+2026-11-05T00:01:12.2296918Z Downloading Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-headless-shell-linux64.zip
+2026-11-05T00:01:12.6341541Z |                                                                                |   0% of 120 MiB
+2026-11-05T00:01:12.7758026Z |■■■■■■■■                                                                        |  10% of 120 MiB
+2026-11-05T00:01:12.8816142Z |■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+2026-11-05T00:01:12.9470284Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+2026-11-05T00:01:13.0224109Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+2026-11-05T00:01:13.0628096Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+2026-11-05T00:01:13.1157380Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+2026-11-05T00:01:13.1884086Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+2026-11-05T00:01:13.2287261Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+2026-11-05T00:01:13.2714383Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+2026-11-05T00:01:13.3357769Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+2026-11-05T00:01:15.4565297Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+2026-11-05T00:01:15.8291534Z Installing dependencies...
+2026-11-05T00:01:15.8359320Z Switching to root user to install dependencies...
+2026-11-05T00:01:15.9115790Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-05T00:01:15.9465502Z Hit:2 http://azure.archive.ubuntu.com/ubuntu resolute InRelease
+2026-11-05T00:01:15.9514710Z Get:3 http://azure.archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+2026-11-05T00:01:15.9525694Z Get:6 https://packages.microsoft.com/ubuntu/26.04/prod resolute InRelease [3964 B]
+2026-11-05T00:01:15.9542182Z Get:4 http://azure.archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+2026-11-05T00:01:15.9571828Z Get:5 http://azure.archive.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+2026-11-05T00:01:15.9809970Z Get:7 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main amd64 Packages [145 kB]
+2026-11-05T00:01:16.0034809Z Get:8 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages [806 kB]
+2026-11-05T00:01:16.0036648Z Get:12 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main arm64 Packages [132 kB]
+2026-11-05T00:01:16.0214879Z Get:9 http://azure.archive.ubuntu.com/ubuntu resolute-updates/main Translation-en [185 kB]
+2026-11-05T00:01:16.0241752Z Get:10 http://azure.archive.ubuntu.com/ubuntu resolute-updates/universe amd64v3 Packages [375 kB]
+2026-11-05T00:01:16.0344720Z Get:11 http://azure.archive.ubuntu.com/ubuntu resolute-updates/universe Translation-en [118 kB]
+2026-11-05T00:01:16.0346222Z Get:13 http://azure.archive.ubuntu.com/ubuntu resolute-security/main amd64v3 Packages [656 kB]
+2026-11-05T00:01:16.0395447Z Get:14 http://azure.archive.ubuntu.com/ubuntu resolute-security/main Translation-en [148 kB]
+2026-11-05T00:01:16.0404315Z Get:15 http://azure.archive.ubuntu.com/ubuntu resolute-security/universe amd64v3 Packages [208 kB]
+2026-11-05T00:01:16.0424470Z Get:16 http://azure.archive.ubuntu.com/ubuntu resolute-security/universe Translation-en [68.7 kB]
+2026-11-05T00:01:16.0445849Z Get:17 http://azure.archive.ubuntu.com/ubuntu resolute-security/restricted amd64v3 Packages [529 kB]
+2026-11-05T00:01:16.0481459Z Get:18 http://azure.archive.ubuntu.com/ubuntu resolute-security/restricted Translation-en [108 kB]
+2026-11-05T00:01:18.1173879Z Fetched 3894 kB in 0s (11.3 MB/s)
+2026-11-05T00:01:18.8229994Z Reading package lists...
+2026-11-05T00:01:18.8521677Z Reading package lists...
+2026-11-05T00:01:19.0756235Z Building dependency tree...
+2026-11-05T00:01:19.0765283Z Reading state information...
+2026-11-05T00:01:19.1253306Z libasound2t64 is already the newest version (1.2.15.3-1ubuntu1.1).
+2026-11-05T00:01:19.1254324Z libasound2t64 set to manually installed.
+2026-11-05T00:01:19.1255106Z libatk-bridge2.0-0t64 is already the newest version (2.60.4-0ubuntu0.1).
+2026-11-05T00:01:19.1255929Z libatk-bridge2.0-0t64 set to manually installed.
+2026-11-05T00:01:19.1256744Z libatk1.0-0t64 is already the newest version (2.60.4-0ubuntu0.1).
+2026-11-05T00:01:19.1257509Z libatk1.0-0t64 set to manually installed.
+2026-11-05T00:01:19.1258277Z libatspi2.0-0t64 is already the newest version (2.60.4-0ubuntu0.1).
+2026-11-05T00:01:19.1259491Z libatspi2.0-0t64 set to manually installed.
+2026-11-05T00:01:19.1260315Z libcairo2 is already the newest version (1.18.4-3).
+2026-11-05T00:01:19.1261017Z libcairo2 set to manually installed.
+2026-11-05T00:01:19.1261726Z libcups2t64 is already the newest version (2.4.16-1ubuntu1.3).
+2026-11-05T00:01:19.1262443Z libcups2t64 set to manually installed.
+2026-11-05T00:01:19.1263122Z libdbus-1-3 is already the newest version (1.16.2-2ubuntu4).
+2026-11-05T00:01:19.1264046Z libdbus-1-3 set to manually installed.
+2026-11-05T00:01:19.1264645Z libdrm2 is already the newest version (2.4.131-1).
+2026-11-05T00:01:19.1265251Z libdrm2 set to manually installed.
+2026-11-05T00:01:19.1265887Z libgbm1 is already the newest version (26.0.8-1ubuntu0.3).
+2026-11-05T00:01:19.1266546Z libgbm1 set to manually installed.
+2026-11-05T00:01:19.1267210Z libglib2.0-0t64 is already the newest version (2.88.0-1ubuntu0.1).
+2026-11-05T00:01:19.1267939Z libglib2.0-0t64 set to manually installed.
+2026-11-05T00:01:19.1268624Z libnspr4 is already the newest version (2:4.38.2-1ubuntu1).
+2026-11-05T00:01:19.1269288Z libnspr4 set to manually installed.
+2026-11-05T00:01:19.1270255Z libnss3 is already the newest version (2:3.120-1ubuntu2.2).
+2026-11-05T00:01:19.1270923Z libnss3 set to manually installed.
+2026-11-05T00:01:19.1271561Z libpango-1.0-0 is already the newest version (1.57.0-1).
+2026-11-05T00:01:19.1272290Z libpango-1.0-0 set to manually installed.
+2026-11-05T00:01:19.1273018Z libx11-6 is already the newest version (2:1.8.13-1ubuntu0.1).
+2026-11-05T00:01:19.1274140Z libx11-6 set to manually installed.
+2026-11-05T00:01:19.1274811Z libxcb1 is already the newest version (1.17.0-2ubuntu1).
+2026-11-05T00:01:19.1275480Z libxcb1 set to manually installed.
+2026-11-05T00:01:19.1276173Z libxcomposite1 is already the newest version (1:0.4.6-1build1).
+2026-11-05T00:01:19.1276916Z libxcomposite1 set to manually installed.
+2026-11-05T00:01:19.1277590Z libxdamage1 is already the newest version (1:1.1.7-1).
+2026-11-05T00:01:19.1278278Z libxdamage1 set to manually installed.
+2026-11-05T00:01:19.1278998Z libxext6 is already the newest version (2:1.3.4-1build3).
+2026-11-05T00:01:19.1279700Z libxext6 set to manually installed.
+2026-11-05T00:01:19.1280375Z libxfixes3 is already the newest version (1:6.0.0-2build2).
+2026-11-05T00:01:19.1281118Z libxfixes3 set to manually installed.
+2026-11-05T00:01:19.1281769Z libxkbcommon0 is already the newest version (1.13.1-1).
+2026-11-05T00:01:19.1282457Z libxkbcommon0 set to manually installed.
+2026-11-05T00:01:19.1283151Z libxrandr2 is already the newest version (2:1.5.4-1build1).
+2026-11-05T00:01:19.1284112Z libxrandr2 set to manually installed.
+2026-11-05T00:01:19.1284780Z xvfb is already the newest version (2:21.1.22-1ubuntu1.3).
+2026-11-05T00:01:19.1285633Z fonts-noto-color-emoji is already the newest version (2.051-1build1).
+2026-11-05T00:01:19.1286584Z libfontconfig1 is already the newest version (2.17.1-3ubuntu1).
+2026-11-05T00:01:19.1287417Z libfontconfig1 set to manually installed.
+2026-11-05T00:01:19.1288208Z libfreetype6 is already the newest version (2.14.2+dfsg-1ubuntu0.2).
+2026-11-05T00:01:19.1288999Z libfreetype6 set to manually installed.
+2026-11-05T00:01:19.1289774Z fonts-liberation is already the newest version (1:2.1.5-3build1).
+2026-11-05T00:01:19.1290619Z fonts-liberation set to manually installed.
+2026-11-05T00:01:19.1959998Z Solving dependencies...
+2026-11-05T00:01:19.3238836Z The following additional packages will be installed:
+2026-11-05T00:01:19.3239449Z   xfonts-encodings xfonts-utils
+2026-11-05T00:01:19.3248866Z Recommended packages:
+2026-11-05T00:01:19.3249262Z   fonts-ipafont-mincho fonts-tlwg-loma
+2026-11-05T00:01:19.3485197Z The following NEW packages will be installed:
+2026-11-05T00:01:19.3486018Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+2026-11-05T00:01:19.3493990Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+2026-11-05T00:01:19.3494731Z   xfonts-utils
+2026-11-05T00:01:19.3737379Z 0 upgraded, 9 newly installed, 0 to remove and 25 not upgraded.
+2026-11-05T00:01:19.3738133Z Need to get 21.9 MB of archives.
+2026-11-05T00:01:19.3738966Z After this operation, 80.2 MB of additional disk space will be used.
+2026-11-05T00:01:19.3739795Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-05T00:01:19.4075468Z Get:2 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 fonts-ipafont-gothic all 00303-23ubuntu1 [3703 kB]
+2026-11-05T00:01:19.4521866Z Get:3 http://azure.archive.ubuntu.com/ubuntu resolute/main amd64v3 fonts-freefont-ttf all 20211204+svn4273-4build1 [5656 kB]
+2026-11-05T00:01:19.4958198Z Get:4 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 fonts-tlwg-loma-otf all 1:0.7.3-1build1 [106 kB]
+2026-11-05T00:01:19.5274915Z Get:5 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 fonts-unifont all 1:16.0.04-1build1 [3169 kB]
+2026-11-05T00:01:19.6090917Z Get:6 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 fonts-wqy-zenhei all 0.9.45-8build1 [7863 kB]
+2026-11-05T00:01:19.6786304Z Get:7 http://azure.archive.ubuntu.com/ubuntu resolute/main amd64v3 xfonts-encodings all 1:1.0.5-0ubuntu3 [576 kB]
+2026-11-05T00:01:19.6962305Z Get:8 http://azure.archive.ubuntu.com/ubuntu resolute/main amd64v3 xfonts-utils amd64 1:7.7+7build1 [97.3 kB]
+2026-11-05T00:01:19.7115840Z Get:9 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 xfonts-cyrillic all 1:1.0.5+nmu1build1 [384 kB]
+2026-11-05T00:01:19.7288752Z Get:10 http://azure.archive.ubuntu.com/ubuntu resolute/universe amd64v3 xfonts-scalable all 1:1.0.3-1.3build1 [304 kB]
+2026-11-05T00:01:20.0572820Z Fetched 21.9 MB in 0s (59.1 MB/s)
+2026-11-05T00:01:20.0858840Z Selecting previously unselected package fonts-ipafont-gothic.
+2026-11-05T00:01:20.1165530Z (Reading database ... 
+2026-11-05T00:01:20.1166069Z (Reading database ... 5%
+2026-11-05T00:01:20.1166541Z (Reading database ... 10%
+2026-11-05T00:01:20.1167037Z (Reading database ... 15%
+2026-11-05T00:01:20.1167475Z (Reading database ... 20%
+2026-11-05T00:01:20.1167946Z (Reading database ... 25%
+2026-11-05T00:01:20.1168374Z (Reading database ... 30%
+2026-11-05T00:01:20.1168815Z (Reading database ... 35%
+2026-11-05T00:01:20.1169266Z (Reading database ... 40%
+2026-11-05T00:01:20.1169862Z (Reading database ... 45%
+2026-11-05T00:01:20.1170319Z (Reading database ... 50%
+2026-11-05T00:01:20.1808747Z (Reading database ... 55%
+2026-11-05T00:01:20.3757950Z (Reading database ... 60%
+2026-11-05T00:01:20.5662730Z (Reading database ... 65%
+2026-11-05T00:01:20.6745088Z (Reading database ... 70%
+2026-11-05T00:01:20.8608077Z (Reading database ... 75%
+2026-11-05T00:01:20.9978629Z (Reading database ... 80%
+2026-11-05T00:01:21.1193744Z (Reading database ... 85%
+2026-11-05T00:01:21.2788986Z (Reading database ... 90%
+2026-11-05T00:01:21.4259742Z (Reading database ... 95%
+2026-11-05T00:01:21.4260279Z (Reading database ... 100%
+2026-11-05T00:01:21.4262896Z (Reading database ... 213197 files and directories currently installed.)
+2026-11-05T00:01:21.4304678Z Preparing to unpack .../0-fonts-ipafont-gothic_00303-23ubuntu1_all.deb ...
+2026-11-05T00:01:21.4406555Z Unpacking fonts-ipafont-gothic (00303-23ubuntu1) ...
+2026-11-05T00:01:21.5103798Z Selecting previously unselected package fonts-freefont-ttf.
+2026-11-05T00:01:21.5243910Z Preparing to unpack .../1-fonts-freefont-ttf_20211204+svn4273-4build1_all.deb ...
+2026-11-05T00:01:21.5255044Z Unpacking fonts-freefont-ttf (20211204+svn4273-4build1) ...
+2026-11-05T00:01:21.6109696Z Selecting previously unselected package fonts-tlwg-loma-otf.
+2026-11-05T00:01:21.6249530Z Preparing to unpack .../2-fonts-tlwg-loma-otf_1%3a0.7.3-1build1_all.deb ...
+2026-11-05T00:01:21.6257765Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1build1) ...
+2026-11-05T00:01:21.6499447Z Selecting previously unselected package fonts-unifont.
+2026-11-05T00:01:21.6638080Z Preparing to unpack .../3-fonts-unifont_1%3a16.0.04-1build1_all.deb ...
+2026-11-05T00:01:21.6646328Z Unpacking fonts-unifont (1:16.0.04-1build1) ...
+2026-11-05T00:01:21.7792816Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-11-05T00:01:21.7931893Z Preparing to unpack .../4-fonts-wqy-zenhei_0.9.45-8build1_all.deb ...
+2026-11-05T00:01:21.8077460Z Unpacking fonts-wqy-zenhei (0.9.45-8build1) ...
+2026-11-05T00:01:21.8960018Z Selecting previously unselected package xfonts-encodings.
+2026-11-05T00:01:21.9102119Z Preparing to unpack .../5-xfonts-encodings_1%3a1.0.5-0ubuntu3_all.deb ...
+2026-11-05T00:01:21.9110774Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu3) ...
+2026-11-05T00:01:21.9420369Z Selecting previously unselected package xfonts-utils.
+2026-11-05T00:01:21.9561182Z Preparing to unpack .../6-xfonts-utils_1%3a7.7+7build1_amd64v3.deb ...
+2026-11-05T00:01:21.9570079Z Unpacking xfonts-utils (1:7.7+7build1) ...
+2026-11-05T00:01:21.9969609Z Selecting previously unselected package xfonts-cyrillic.
+2026-11-05T00:01:22.0109452Z Preparing to unpack .../7-xfonts-cyrillic_1%3a1.0.5+nmu1build1_all.deb ...
+2026-11-05T00:01:22.0123074Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1build1) ...
+2026-11-05T00:01:22.0483914Z Selecting previously unselected package xfonts-scalable.
+2026-11-05T00:01:22.0632422Z Preparing to unpack .../8-xfonts-scalable_1%3a1.0.3-1.3build1_all.deb ...
+2026-11-05T00:01:22.0641628Z Unpacking xfonts-scalable (1:1.0.3-1.3build1) ...
+2026-11-05T00:01:22.1118030Z Setting up fonts-wqy-zenhei (0.9.45-8build1) ...
+2026-11-05T00:01:22.1279799Z Setting up fonts-freefont-ttf (20211204+svn4273-4build1) ...
+2026-11-05T00:01:22.1300070Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1build1) ...
+2026-11-05T00:01:22.1319973Z Setting up xfonts-encodings (1:1.0.5-0ubuntu3) ...
+2026-11-05T00:01:22.1341309Z Setting up fonts-ipafont-gothic (00303-23ubuntu1) ...
+2026-11-05T00:01:22.1407318Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+2026-11-05T00:01:22.1423899Z Setting up fonts-unifont (1:16.0.04-1build1) ...
+2026-11-05T00:01:22.1444881Z Setting up xfonts-utils (1:7.7+7build1) ...
+2026-11-05T00:01:22.1504955Z Setting up xfonts-cyrillic (1:1.0.5+nmu1build1) ...
+2026-11-05T00:01:22.1969594Z Setting up xfonts-scalable (1:1.0.3-1.3build1) ...
+2026-11-05T00:01:22.2447603Z Processing triggers for man-db (2.13.1-1build1) ...
+2026-11-05T00:01:22.2471820Z Not building database; man-db/auto-update is not 'true'.
+2026-11-05T00:01:22.2490995Z Processing triggers for fontconfig (2.17.1-3ubuntu1) ...
+2026-11-05T00:01:22.9811039Z 
+2026-11-05T00:01:22.9811866Z Running kernel seems to be up-to-date.
+2026-11-05T00:01:22.9812406Z 
+2026-11-05T00:01:22.9812567Z Restarting services...
+2026-11-05T00:01:22.9910004Z 
+2026-11-05T00:01:22.9910554Z Service restarts being deferred:
+2026-11-05T00:01:22.9913729Z  systemctl restart hosted-compute-agent.service
+2026-11-05T00:01:22.9914285Z 
+2026-11-05T00:01:22.9914793Z No containers need to be restarted.
+2026-11-05T00:01:22.9915105Z 
+2026-11-05T00:01:22.9915475Z No user sessions are running outdated binaries.
+2026-11-05T00:01:22.9915885Z 
+2026-11-05T00:01:22.9916408Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-05T00:01:24.0283255Z ##[group]Run python3 tests/test_no_dead_references.py
+2026-11-05T00:01:24.0284014Z [36;1mpython3 tests/test_no_dead_references.py[0m
+2026-11-05T00:01:24.0334913Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:24.0335197Z env:
+2026-11-05T00:01:24.0335420Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:24.0335750Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.0336225Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:24.0336707Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.0337143Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.0337575Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.0338004Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:24.0338359Z ##[endgroup]
+2026-11-05T00:01:24.1815435Z 
+2026-11-05T00:01:24.1816344Z ✅ 静态引用检查通过: 所有调用函数都有定义
+2026-11-05T00:01:24.1816631Z 
+2026-11-05T00:01:24.2083975Z ##[group]Run actions/cache@v4
+2026-11-05T00:01:24.2084300Z with:
+2026-11-05T00:01:24.2084550Z   path: data/fixtures
+2026-11-05T00:01:24.2084994Z   key: fixture-library-main
+2026-11-05T00:01:24.2085448Z   restore-keys: fixture-library-
+
+2026-11-05T00:01:24.2085751Z   enableCrossOsArchive: false
+2026-11-05T00:01:24.2086025Z   fail-on-cache-miss: false
+2026-11-05T00:01:24.2086276Z   lookup-only: false
+2026-11-05T00:01:24.2086512Z   save-always: false
+2026-11-05T00:01:24.2086733Z env:
+2026-11-05T00:01:24.2086942Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:24.2087272Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.2087753Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:24.2088426Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.2089055Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.2089474Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.2089924Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:24.2090795Z ##[endgroup]
+2026-11-05T00:01:24.3328055Z (node:2974) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-05T00:01:24.3329383Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-05T00:01:24.4067427Z Cache hit for: fixture-library-main
+2026-11-05T00:01:24.4177124Z (node:2974) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-05T00:01:24.4743176Z Received 12792 of 12792 (100.0%), 0.8 MBs/sec
+2026-11-05T00:01:24.4743939Z Cache Size: ~0 MB (12792 B)
+2026-11-05T00:01:24.4772941Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9c40004a-3ff2-4a3c-a82c-0a3b1f1acd1c/cache.tzst -P -C /home/runner/work/football-auto-publish/football-auto-publish --use-compress-program unzstd
+2026-11-05T00:01:24.4834227Z Cache restored successfully
+2026-11-05T00:01:24.5862019Z Cache restored from key: fixture-library-main
+2026-11-05T00:01:24.5979293Z ##[group]Run mkdir -p /tmp/auth
+2026-11-05T00:01:24.5979816Z [36;1mmkdir -p /tmp/auth[0m
+2026-11-05T00:01:24.6112276Z [36;1mecho "***" | base64 -d | python3 -c "import sys,gzip; sys.stdout.buffer.write(gzip.decompress(sys.stdin.buffer.read()))" > /tmp/auth/toutiao_auth.json[0m
+2026-11-05T00:01:24.6166358Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:24.6166668Z env:
+2026-11-05T00:01:24.6166913Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:24.6167258Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6167755Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:24.6168246Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6168686Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6169112Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6169544Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:24.6169986Z ##[endgroup]
+2026-11-05T00:01:24.6463655Z ##[group]Run # Date
+2026-11-05T00:01:24.6464514Z [36;1m# Date[0m
+2026-11-05T00:01:24.6464770Z [36;1mif [ -z "" ]; then[0m
+2026-11-05T00:01:24.6465101Z [36;1m  TODAY=$(TZ=Asia/Shanghai date +%Y-%m-%d)[0m
+2026-11-05T00:01:24.6465440Z [36;1melse[0m
+2026-11-05T00:01:24.6465669Z [36;1m  TODAY=""[0m
+2026-11-05T00:01:24.6465910Z [36;1mfi[0m
+2026-11-05T00:01:24.6466169Z [36;1mecho "today=$TODAY" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6466492Z [36;1m[0m
+2026-11-05T00:01:24.6466726Z [36;1m# Batch determination[0m
+2026-11-05T00:01:24.6467153Z [36;1m# For schedule events: parse github.event.schedule to get the INTENDED[0m
+2026-11-05T00:01:24.6467706Z [36;1m# batch, not the current execution time. This is critical because GitHub[0m
+2026-11-05T00:01:24.6468283Z [36;1m# cron delays of 5+ hours will cause UTC-hour-window detection to misidentify[0m
+2026-11-05T00:01:24.6468869Z [36;1m# the batch (e.g., morning cron delayed to UTC 4 → detected as noon).[0m
+2026-11-05T00:01:24.6469443Z [36;1m# Falls back to UTC window detection if schedule parsing fails.[0m
+2026-11-05T00:01:24.6469896Z [36;1mif [ "workflow_dispatch" = "schedule" ]; then[0m
+2026-11-05T00:01:24.6470284Z [36;1m  SCHEDULE_HOUR=$(echo "" | awk '{print $2}')[0m
+2026-11-05T00:01:24.6470628Z [36;1m  UTC_HOUR=$(date -u +%H)[0m
+2026-11-05T00:01:24.6470954Z [36;1m  CST_HOUR=$(TZ=Asia/Shanghai date +%H)[0m
+2026-11-05T00:01:24.6471289Z [36;1m  case "$SCHEDULE_HOUR" in[0m
+2026-11-05T00:01:24.6471589Z [36;1m    0|23) BATCH="morning" ;;[0m
+2026-11-05T00:01:24.6471886Z [36;1m    4)    BATCH="noon" ;;[0m
+2026-11-05T00:01:24.6472172Z [36;1m    10)   BATCH="evening" ;;[0m
+2026-11-05T00:01:24.6472445Z [36;1m    *)[0m
+2026-11-05T00:01:24.6472737Z [36;1m      # Fallback: UTC hour window (±2h tolerance)[0m
+2026-11-05T00:01:24.6473180Z [36;1m      if [ "$UTC_HOUR" -ge 0 ] && [ "$UTC_HOUR" -le 2 ]; then BATCH="morning"[0m
+2026-11-05T00:01:24.6474256Z [36;1m      elif [ "$UTC_HOUR" -ge 22 ] && [ "$UTC_HOUR" -le 23 ]; then BATCH="morning"[0m
+2026-11-05T00:01:24.6474781Z [36;1m      elif [ "$UTC_HOUR" -ge 4 ] && [ "$UTC_HOUR" -le 6 ]; then BATCH="noon"[0m
+2026-11-05T00:01:24.6475294Z [36;1m      elif [ "$UTC_HOUR" -ge 9 ] && [ "$UTC_HOUR" -le 12 ]; then BATCH="evening"[0m
+2026-11-05T00:01:24.6475702Z [36;1m      else[0m
+2026-11-05T00:01:24.6476002Z [36;1m        if [ "$CST_HOUR" -lt 10 ]; then BATCH="morning"[0m
+2026-11-05T00:01:24.6476409Z [36;1m        elif [ "$CST_HOUR" -lt 15 ]; then BATCH="noon"[0m
+2026-11-05T00:01:24.6476764Z [36;1m        else BATCH="evening"[0m
+2026-11-05T00:01:24.6477055Z [36;1m        fi[0m
+2026-11-05T00:01:24.6477287Z [36;1m      fi[0m
+2026-11-05T00:01:24.6477514Z [36;1m      ;;[0m
+2026-11-05T00:01:24.6477732Z [36;1m  esac[0m
+2026-11-05T00:01:24.6478006Z [36;1m  echo "batch=$BATCH" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6478480Z [36;1m  echo "运行: $TODAY $BATCH 批次 (schedule trigger, UTC=$UTC_HOUR, CST=$CST_HOUR)"[0m
+2026-11-05T00:01:24.6478948Z [36;1melif [ -n "morning" ]; then[0m
+2026-11-05T00:01:24.6479248Z [36;1m  BATCH="morning"[0m
+2026-11-05T00:01:24.6479554Z [36;1m  echo "batch=$BATCH" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6479902Z [36;1m  echo "运行: $TODAY $BATCH 批次 (手动指定)"[0m
+2026-11-05T00:01:24.6480207Z [36;1melse[0m
+2026-11-05T00:01:24.6480455Z [36;1m  HOUR=$(TZ=Asia/Shanghai date +%H)[0m
+2026-11-05T00:01:24.6480780Z [36;1m  if [ "$HOUR" -lt 10 ]; then[0m
+2026-11-05T00:01:24.6481082Z [36;1m    BATCH="morning"[0m
+2026-11-05T00:01:24.6481359Z [36;1m  elif [ "$HOUR" -lt 15 ]; then[0m
+2026-11-05T00:01:24.6481653Z [36;1m    BATCH="noon"[0m
+2026-11-05T00:01:24.6481898Z [36;1m  else[0m
+2026-11-05T00:01:24.6482130Z [36;1m    BATCH="evening"[0m
+2026-11-05T00:01:24.6482387Z [36;1m  fi[0m
+2026-11-05T00:01:24.6482644Z [36;1m  echo "batch=$BATCH" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6483055Z [36;1m  echo "运行: $TODAY $BATCH 批次 (auto-detected, CST=$HOUR:00)"[0m
+2026-11-05T00:01:24.6483677Z [36;1mfi[0m
+2026-11-05T00:01:24.6484092Z [36;1m[0m
+2026-11-05T00:01:24.6484385Z [36;1m# 时区校验 — 仅对 auto-detect（无手动指定批次）执行[0m
+2026-11-05T00:01:24.6484816Z [36;1mif [ "workflow_dispatch" != "schedule" ] && [ -z "morning" ]; then[0m
+2026-11-05T00:01:24.6485251Z [36;1m  HOUR=$(TZ=Asia/Shanghai date +%H)[0m
+2026-11-05T00:01:24.6485565Z [36;1m  valid=true[0m
+2026-11-05T00:01:24.6485818Z [36;1m  case "$BATCH" in[0m
+2026-11-05T00:01:24.6486077Z [36;1m    morning)[0m
+2026-11-05T00:01:24.6486373Z [36;1m      if [ "$HOUR" -lt 6 ] || [ "$HOUR" -gt 10 ]; then[0m
+2026-11-05T00:01:24.6486798Z [36;1m        echo "❌ 时区错误！morning 批次期望北京时间 06:00-10:00，当前 ${HOUR}:00"[0m
+2026-11-05T00:01:24.6487171Z [36;1m        valid=false[0m
+2026-11-05T00:01:24.6487466Z [36;1m      fi ;;[0m
+2026-11-05T00:01:24.6487749Z [36;1m    noon)[0m
+2026-11-05T00:01:24.6488041Z [36;1m      if [ "$HOUR" -lt 10 ] || [ "$HOUR" -gt 15 ]; then[0m
+2026-11-05T00:01:24.6488456Z [36;1m        echo "❌ 时区错误！noon 批次期望北京时间 10:00-15:00，当前 ${HOUR}:00"[0m
+2026-11-05T00:01:24.6488836Z [36;1m        valid=false[0m
+2026-11-05T00:01:24.6489091Z [36;1m      fi ;;[0m
+2026-11-05T00:01:24.6489329Z [36;1m    evening)[0m
+2026-11-05T00:01:24.6489619Z [36;1m      if [ "$HOUR" -lt 15 ] || [ "$HOUR" -gt 22 ]; then[0m
+2026-11-05T00:01:24.6490058Z [36;1m        echo "❌ 时区错误！evening 批次期望北京时间 15:00-22:00，当前 ${HOUR}:00"[0m
+2026-11-05T00:01:24.6490441Z [36;1m        valid=false[0m
+2026-11-05T00:01:24.6490703Z [36;1m      fi ;;[0m
+2026-11-05T00:01:24.6490932Z [36;1m  esac[0m
+2026-11-05T00:01:24.6491180Z [36;1m  if [ "$valid" = false ]; then[0m
+2026-11-05T00:01:24.6491505Z [36;1m    echo "🔧 如果是手动触发，请指定正确的 batch 参数"[0m
+2026-11-05T00:01:24.6491814Z [36;1m    exit 1[0m
+2026-11-05T00:01:24.6492051Z [36;1m  fi[0m
+2026-11-05T00:01:24.6492279Z [36;1m  echo "✅ 时区校验通过"[0m
+2026-11-05T00:01:24.6492528Z [36;1mfi[0m
+2026-11-05T00:01:24.6492746Z [36;1m[0m
+2026-11-05T00:01:24.6492999Z [36;1m# 发布时段护栏（2026-10-12）：CST 00:00-05:59 为死区，一律不发。[0m
+2026-11-05T00:01:24.6493771Z [36;1m# 依据：869 条真实数据中凌晨发布 122 条、篇均阅读 60.5（全时段最差；[0m
+2026-11-05T00:01:24.6494132Z [36;1m#      最优为晚间 18:00 档，点击率 2.27%）。9-10 月有 41 条凌晨误发，[0m
+2026-11-05T00:01:24.6494524Z [36;1m#      均为 GitHub cron 延迟（主调度 Cloudflare 准点，兜底 cron 会漂移）。[0m
+2026-11-05T00:01:24.6494951Z [36;1m# 仅约束 schedule 事件；workflow_dispatch（人工补发 / CF 主调度）不受限。[0m
+2026-11-05T00:01:24.6495352Z [36;1mif [ "workflow_dispatch" = "schedule" ]; then[0m
+2026-11-05T00:01:24.6495712Z [36;1m  _DZH=$(TZ=Asia/Shanghai date +%H)[0m
+2026-11-05T00:01:24.6496039Z [36;1m  if [ "$_DZH" -lt 6 ]; then[0m
+2026-11-05T00:01:24.6496411Z [36;1m    echo "🌙 CST ${_DZH}:00 属发布死区（00:00-05:59），跳过本批发布（避免在无流量时段浪费内容）"[0m
+2026-11-05T00:01:24.6496919Z [36;1m    echo "::warning::调度延迟至 CST ${_DZH}:00（死区），本批已跳过；请检查主调度（Cloudflare Worker）是否失效"[0m
+2026-11-05T00:01:24.6497398Z [36;1m    echo "dead_zone=true" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6497756Z [36;1m    echo "skip=true" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6498085Z [36;1m    exit 0[0m
+2026-11-05T00:01:24.6498331Z [36;1m  fi[0m
+2026-11-05T00:01:24.6498550Z [36;1mfi[0m
+2026-11-05T00:01:24.6498760Z [36;1m[0m
+2026-11-05T00:01:24.6499044Z [36;1m# 延迟兜底防错位（2026-10-12 夜实证）：schedule 的预期 CST 日期 = 运行日 UTC 日期[0m
+2026-11-05T00:01:24.6499470Z [36;1m# （三班目标 08/12/18 CST 均与 UTC 同日，cron 00/04/10）。一旦实际 CST 日期跨天，[0m
+2026-11-05T00:01:24.6499854Z [36;1m# 说明该兜底 cron 已严重延迟、其目标批次所属日期整体过去——放行只会把内容写到[0m
+2026-11-05T00:01:24.6500235Z [36;1m# 错误日期：实证 2026-10-11 晚间兜底（UTC 10:30）延迟 5.6h，于 10-12 00:14 CST[0m
+2026-11-05T00:01:24.6500619Z [36;1m# 生成并发布「10-12 晚间」4 篇，提前消耗次日晚间配额外还撞上凌晨低效时段。[0m
+2026-11-05T00:01:24.6500969Z [36;1m# 同日延迟放行（兜底救场：今晨 08:01 主调度因合规误报熔断失败，14:15 兜底补回晨读）。[0m
+2026-11-05T00:01:24.6501377Z [36;1m# workflow_dispatch（人工补发 / CF 主调度）不受此限——它按当前 CST 定日期，无错位风险。[0m
+2026-11-05T00:01:24.6501804Z [36;1mif [ "workflow_dispatch" = "schedule" ]; then[0m
+2026-11-05T00:01:24.6502177Z [36;1m  _INTENDED_DATE=$(date -u +%Y-%m-%d)[0m
+2026-11-05T00:01:24.6502570Z [36;1m  _ACTUAL_DATE=$(TZ=Asia/Shanghai date +%Y-%m-%d)[0m
+2026-11-05T00:01:24.6503127Z [36;1m  if [ "$_ACTUAL_DATE" != "$_INTENDED_DATE" ]; then[0m
+2026-11-05T00:01:24.6504016Z [36;1m    echo "⏭️  兜底 cron 跨 CST 日期延迟（预期 ${_INTENDED_DATE} → 实际 ${_ACTUAL_DATE} ${CST_HOUR}:00），跳过本批，避免把 ${BATCH} 批次写到错误日期"[0m
+2026-11-05T00:01:24.6504669Z [36;1m    echo "::warning::兜底 cron 严重延迟已跨 CST 日期，本批跳过；请检查主调度（Cloudflare Worker）是否准点触发"[0m
+2026-11-05T00:01:24.6505132Z [36;1m    echo "skip=true" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6505448Z [36;1m    exit 0[0m
+2026-11-05T00:01:24.6505681Z [36;1m  fi[0m
+2026-11-05T00:01:24.6505894Z [36;1mfi[0m
+2026-11-05T00:01:24.6506107Z [36;1m[0m
+2026-11-05T00:01:24.6506365Z [36;1m# 延迟兜底防错位·三：批次槽位尚未开始就放行 = 提前消耗未来槽位——on-time 主调度[0m
+2026-11-05T00:01:24.6506795Z [36;1m# 随后会被幂等保护跳过，「准点发布」静默退化。实证场景：晚间兜底（cron UTC 10）[0m
+2026-11-05T00:01:24.6507181Z [36;1m# 延迟到次日 CST 06:00-14:59 放行，会写下「当日 evening」，把当日 18:00 峰值档[0m
+2026-11-05T00:01:24.6507565Z [36;1m# 提前大半天消耗掉（与 2026-10-12 夜同源，只是延迟时长跨过了 UTC 零点）。[0m
+2026-11-05T00:01:24.6508104Z [36;1m# 槽位起点与时区校验窗口一致：morning 06 / noon 10 / evening 15。[0m
+2026-11-05T00:01:24.6508454Z [36;1m# 同日延迟（槽内或槽后）放行——兜底救场，如今晨 14:15 补回晨读。[0m
+2026-11-05T00:01:24.6508806Z [36;1mif [ "workflow_dispatch" = "schedule" ]; then[0m
+2026-11-05T00:01:24.6509141Z [36;1m  case "$BATCH" in[0m
+2026-11-05T00:01:24.6509429Z [36;1m    morning) _SLOT_START=6 ;;[0m
+2026-11-05T00:01:24.6509739Z [36;1m    noon)    _SLOT_START=10 ;;[0m
+2026-11-05T00:01:24.6510045Z [36;1m    evening) _SLOT_START=15 ;;[0m
+2026-11-05T00:01:24.6510345Z [36;1m    *)       _SLOT_START=0 ;;[0m
+2026-11-05T00:01:24.6510628Z [36;1m  esac[0m
+2026-11-05T00:01:24.6510906Z [36;1m  if [ "$CST_HOUR" -lt "$_SLOT_START" ]; then[0m
+2026-11-05T00:01:24.6511399Z [36;1m    echo "⏭️  ${BATCH} 批次槽位（CST ${_SLOT_START}:00 起）尚未开始（当前 CST ${CST_HOUR}:00），跳过本批，避免提前消耗未来槽位"[0m
+2026-11-05T00:01:24.6511989Z [36;1m    echo "::warning::兜底 cron 早于批次槽位放行，本批跳过；请检查主调度（Cloudflare Worker）是否准点触发"[0m
+2026-11-05T00:01:24.6512441Z [36;1m    echo "skip=true" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6512767Z [36;1m    exit 0[0m
+2026-11-05T00:01:24.6513000Z [36;1m  fi[0m
+2026-11-05T00:01:24.6513217Z [36;1mfi[0m
+2026-11-05T00:01:24.6513716Z [36;1m[0m
+2026-11-05T00:01:24.6513984Z [36;1m# 幂等保护：通过 GitHub API 读取最新 metadata（比本地文件更可靠）[0m
+2026-11-05T00:01:24.6514319Z [36;1mecho "   检查批次是否已执行..."[0m
+2026-11-05T00:01:24.6514846Z [36;1mMETA_API="repos/chenwu6688/football-auto-publish/contents/output/${TODAY}/metadata.json?ref=main"[0m
+2026-11-05T00:01:24.6515673Z [36;1mCOMPLETED=$(gh api "$META_API" --jq '.content | @base64d | fromjson | .batches_completed | join(",")' 2>/dev/null) || true[0m
+2026-11-05T00:01:24.6516298Z [36;1mif echo "$COMPLETED" | grep -q "$BATCH"; then[0m
+2026-11-05T00:01:24.6516651Z [36;1m  echo "⏭️  批次 ${BATCH} 今日已完成，跳过"[0m
+2026-11-05T00:01:24.6516986Z [36;1m  echo "skip=true" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6517294Z [36;1m  exit 0[0m
+2026-11-05T00:01:24.6517521Z [36;1mfi[0m
+2026-11-05T00:01:24.6517781Z [36;1mecho "skip=false" >> $GITHUB_OUTPUT[0m
+2026-11-05T00:01:24.6518236Z [36;1mecho "   批次 ${BATCH} 尚未执行，继续"[0m
+2026-11-05T00:01:24.6569534Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:24.6569836Z env:
+2026-11-05T00:01:24.6570067Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:24.6570410Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6570888Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:24.6571368Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6571801Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6572218Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:24.6572644Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:24.6575715Z   GH_TOKEN: ***
+2026-11-05T00:01:24.6575974Z ##[endgroup]
+2026-11-05T00:01:24.6829184Z 运行: 2026-11-05 morning 批次 (手动指定)
+2026-11-05T00:01:24.6830125Z    检查批次是否已执行...
+2026-11-05T00:01:25.1179022Z    批次 morning 尚未执行，继续
+2026-11-05T00:01:25.1236718Z ##[group]Run echo "╔══════════════════════════════════════╗"
+2026-11-05T00:01:25.1237219Z [36;1mecho "╔══════════════════════════════════════╗"[0m
+2026-11-05T00:01:25.1237604Z [36;1mecho "║  🕐 时区诊断                         ║"[0m
+2026-11-05T00:01:25.1237959Z [36;1mecho "╠══════════════════════════════════════╣"[0m
+2026-11-05T00:01:25.1238392Z [36;1mprintf "║  %-20s %s ║\n" "UTC:" "$(date -u '+%Y-%m-%d %H:%M:%S')"[0m
+2026-11-05T00:01:25.1238971Z [36;1mprintf "║  %-20s %s ║\n" "CST (Asia/Shanghai):" "$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S')"[0m
+2026-11-05T00:01:25.1239553Z [36;1mprintf "║  %-20s %s ║\n" "GitHub event:" "workflow_dispatch"[0m
+2026-11-05T00:01:25.1240006Z [36;1mprintf "║  %-20s %s ║\n" "Detected batch:" "morning"[0m
+2026-11-05T00:01:25.1240419Z [36;1mprintf "║  %-20s %s ║\n" "Target date:" "2026-11-05"[0m
+2026-11-05T00:01:25.1240794Z [36;1mprintf "║  %-20s %s ║\n" "Skip:" "false"[0m
+2026-11-05T00:01:25.1241252Z [36;1mecho "╚══════════════════════════════════════╝"[0m
+2026-11-05T00:01:25.1292067Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:25.1292383Z env:
+2026-11-05T00:01:25.1292621Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:25.1292968Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1293716Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:25.1294206Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1294638Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1295066Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1295488Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:25.1295853Z ##[endgroup]
+2026-11-05T00:01:25.1452229Z ╔══════════════════════════════════════╗
+2026-11-05T00:01:25.1452806Z ║  🕐 时区诊断                         ║
+2026-11-05T00:01:25.1453178Z ╠══════════════════════════════════════╣
+2026-11-05T00:01:25.1485828Z ║  UTC:                 2026-11-05 00:01:25 ║
+2026-11-05T00:01:25.1524779Z ║  CST (Asia/Shanghai): 2026-11-05 08:01:25 ║
+2026-11-05T00:01:25.1525447Z ║  GitHub event:        workflow_dispatch ║
+2026-11-05T00:01:25.1526055Z ║  Detected batch:      morning ║
+2026-11-05T00:01:25.1526408Z ║  Target date:         2026-11-05 ║
+2026-11-05T00:01:25.1526743Z ║  Skip:                false ║
+2026-11-05T00:01:25.1527284Z ╚══════════════════════════════════════╝
+2026-11-05T00:01:25.1567596Z ##[group]Run # Copy previously pushed metadata from repo to orchestrator's data dir
+2026-11-05T00:01:25.1568253Z [36;1m# Copy previously pushed metadata from repo to orchestrator's data dir[0m
+2026-11-05T00:01:25.1568802Z [36;1m# so get_cross_batch_covered() can see earlier batches' articles[0m
+2026-11-05T00:01:25.1569220Z [36;1mif [ -d "output" ]; then[0m
+2026-11-05T00:01:25.1569561Z [36;1m  mkdir -p "/home/runner/work/_temp/output"[0m
+2026-11-05T00:01:25.1570012Z [36;1m  cp -r output/* "/home/runner/work/_temp/output/" 2>/dev/null || true[0m
+2026-11-05T00:01:25.1570460Z [36;1m  echo "✅ 已同步历史批次元数据到 OUTPUT_DIR"[0m
+2026-11-05T00:01:25.1570767Z [36;1mfi[0m
+2026-11-05T00:01:25.1620546Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:25.1620840Z env:
+2026-11-05T00:01:25.1621071Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:25.1621415Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1621952Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:25.1622432Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1622855Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1623293Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1624094Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:25.1624458Z ##[endgroup]
+2026-11-05T00:01:25.1898692Z ✅ 已同步历史批次元数据到 OUTPUT_DIR
+2026-11-05T00:01:25.1934626Z ##[group]Run python3 compliance_guard.py --status
+2026-11-05T00:01:25.1935254Z [36;1mpython3 compliance_guard.py --status[0m
+2026-11-05T00:01:25.1935734Z [36;1mif ! python3 compliance_guard.py --status --exit-code-if-suspended; then[0m
+2026-11-05T00:01:25.1936201Z [36;1m  # 结构化失败原因落到固定路径，由「失败通知」步骤读走——[0m
+2026-11-05T00:01:25.1936553Z [36;1m  # 手机端只看到「批次发布失败」等于没告警（2026-10-25 连收三次无原因告警）[0m
+2026-11-05T00:01:25.1936994Z [36;1m  python3 scripts/write_failure_reason.py "合规熔断（未解除）" || true[0m
+2026-11-05T00:01:25.1937515Z [36;1m  echo "::error::合规熔断中，自动发布已暂停；请人工定位原因后执行 python3 compliance_guard.py --clear"[0m
+2026-11-05T00:01:25.1937928Z [36;1m  exit 1[0m
+2026-11-05T00:01:25.1938158Z [36;1mfi[0m
+2026-11-05T00:01:25.1986714Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:25.1986997Z env:
+2026-11-05T00:01:25.1987227Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:25.1987562Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1988087Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:25.1988557Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1988992Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1989424Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.1989849Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:25.1990221Z ##[endgroup]
+2026-11-05T00:01:25.2461760Z {
+2026-11-05T00:01:25.2462228Z   "suspended": false,
+2026-11-05T00:01:25.2462675Z   "reason": "",
+2026-11-05T00:01:25.2463094Z   "since": "2026-10-24T18:04:38+08:00",
+2026-11-05T00:01:25.2463803Z   "false_content_count": 0,
+2026-11-05T00:01:25.2464232Z   "total_violations": 3
+2026-11-05T00:01:25.2464623Z }
+2026-11-05T00:01:25.2824576Z {
+2026-11-05T00:01:25.2825056Z   "suspended": false,
+2026-11-05T00:01:25.2825503Z   "reason": "",
+2026-11-05T00:01:25.2825914Z   "since": "2026-10-24T18:04:38+08:00",
+2026-11-05T00:01:25.2826460Z   "false_content_count": 0,
+2026-11-05T00:01:25.2826914Z   "total_violations": 3
+2026-11-05T00:01:25.2827368Z }
+2026-11-05T00:01:25.2911854Z ##[group]Run # 计划 11.4：14 天窗口落库；全部外部调用过 api_budget 台账（≤3 次/日）
+2026-11-05T00:01:25.2912354Z [36;1m# 计划 11.4：14 天窗口落库；全部外部调用过 api_budget 台账（≤3 次/日）[0m
+2026-11-05T00:01:25.2912765Z [36;1mpython scripts/fixture_library.py --days 14 \[0m
+2026-11-05T00:01:25.2913185Z [36;1m  || echo "::warning::赛程选题池刷新失败，沿用已有 topic_pool（如有）"[0m
+2026-11-05T00:01:25.2962301Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:25.2962583Z env:
+2026-11-05T00:01:25.2962827Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:25.2963167Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.2963980Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:25.2964465Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.2964905Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.2965366Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:25.2965857Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:25.2966569Z   FOOTBALL_DATA_KEY: ***
+2026-11-05T00:01:25.2966828Z   JUHE_API_KEY: 
+2026-11-05T00:01:25.2967066Z   API_FOOTBALL_KEY: 
+2026-11-05T00:01:25.2967318Z   API_FOOTBALL_HOST: 
+2026-11-05T00:01:25.2967560Z ##[endgroup]
+2026-11-05T00:01:25.3577099Z 📖 中文实体映射：709 个实体（A=75 B=198 C=436）
+2026-11-05T00:01:25.4361485Z 📅 拉取赛程 2026-11-04 ~ 2026-11-13（6 个赛事）...
+2026-11-05T00:01:26.8656690Z ✅ 57 场（本分钟剩余额度 9）
+2026-11-05T00:01:26.8717253Z 📅 拉取赛程 2026-11-14 ~ 2026-11-18（6 个赛事）...
+2026-11-05T00:01:28.0647435Z ✅ 0 场（本分钟剩余额度 9）
+2026-11-05T00:01:28.0658045Z    （如需强制刷新加 --refresh）
+2026-11-05T00:01:28.0658972Z 🔁 今日补源轮换：juhe · 中超（4 日一轮，其余联赛读最近缓存、不消耗额度）
+2026-11-05T00:01:28.0659739Z ⚠️ 未设置 JUHE_API_KEY，跳过中超赛程（不影响主流程）
+2026-11-05T00:01:28.0706049Z    （其中洲际赛程：0 场，来自 API-Football：当日刷新 0 + 缓存 0）
+2026-11-05T00:01:28.0728168Z    📰 隔夜战报：9 条可写（进行中不计 0、无比分 0、超 30h 0、未映射 0）
+2026-11-05T00:01:28.0728902Z    （其中中超未来赛事：0 场，来自聚合数据 juhe.cn）
+2026-11-05T00:01:28.0804819Z 
+2026-11-05T00:01:28.0805572Z 🗂  选题池已生成 → data/fixtures/topic_pool.json
+2026-11-05T00:01:28.0806460Z    窗口 14/14 天（football-data 实调 2 次，被额度拒绝 0 次）
+2026-11-05T00:01:28.0807332Z    赛程 57 场 → 选题 35 条（未映射打回 0，低认知过滤 14，过期剔除 8）
+2026-11-05T00:01:28.0808358Z    分型：{'强强对话': 1, '强弱反差': 6, '关注度落差': 16, '中游缠斗': 2, '冷门窗口': 10}
+2026-11-05T00:01:28.0809389Z    📰 隔夜战报（已完赛，二级·突发）：9 条
+2026-11-05T00:01:28.0810097Z       [ 88.5] 欧冠  莱比锡 2-3 曼城  发布截止 2026-11-05 20:00
+2026-11-05T00:01:28.0810873Z       [ 87.4] 欧冠  费内巴切 3-2 利物浦  发布截止 2026-11-05 17:45
+2026-11-05T00:01:28.0811672Z       [ 84.5] 欧冠  多特蒙德 2-1 皇家贝蒂斯  发布截止 2026-11-05 20:00
+2026-11-05T00:01:28.0812469Z       [ 83.5] 欧冠  波尔图 4-1 那不勒斯  发布截止 2026-11-05 20:00
+2026-11-05T00:01:28.0813256Z       [ 76.9] 欧冠  AEK雅典 2-3 皇马  发布截止 2026-11-05 17:45
+2026-11-05T00:01:28.0814207Z    按星期：{'一': 9, '日': 16, '六': 10}
+2026-11-05T00:01:28.0814850Z    🧾 接口额度：2/3 次（计划 11.4 上限 3 次/日）
+2026-11-05T00:01:28.0815485Z    ⚠️ 免费层未覆盖：国足（人工赛历兜底）
+2026-11-05T00:01:28.0815790Z 
+2026-11-05T00:01:28.0816032Z    Top 8 选题：
+2026-11-05T00:01:28.0816743Z      [ 80.2] 2026-11-09 04:00 西甲  马德里竞技 vs 巴萨  <强强对话>
+2026-11-05T00:01:28.0817453Z             └ 马德里竞技和巴萨都不敢输，先慌的会是哪位主帅
+2026-11-05T00:01:28.0817928Z      [ 69.7] 2026-11-08 01:30 英超  诺丁汉森林 vs 曼城  <强弱反差>
+2026-11-05T00:01:28.0818390Z             └ 没想到诺丁汉森林主帅这场压力比曼城还大
+2026-11-05T00:01:28.0818834Z      [ 68.8] 2026-11-08 22:00 英超  水晶宫 vs 利物浦  <强弱反差>
+2026-11-05T00:01:28.0819289Z             └ 没想到水晶宫主帅这场压力比利物浦还大
+2026-11-05T00:01:28.0819745Z      [ 68.7] 2026-11-09 00:30 英超  曼联 vs 阿斯顿维拉  <强弱反差>
+2026-11-05T00:01:28.0820160Z             └ 阿斯顿维拉碰上曼联，弱队那位前锋反而更不想输
+2026-11-05T00:01:28.0820515Z      [ 68.6] 2026-11-08 04:00 西甲  瓦伦西亚 vs 皇马  <强弱反差>
+2026-11-05T00:01:28.0820872Z             └ 瓦伦西亚碰上皇马，弱队那位前锋反而更不想输
+2026-11-05T00:01:28.0821224Z      [ 66.9] 2026-11-08 19:30 意甲  那不勒斯 vs 拉齐奥  <强弱反差>
+2026-11-05T00:01:28.0821583Z             └ 那不勒斯以为稳了，拉齐奥队长憋着的到底是什么
+2026-11-05T00:01:28.0821941Z      [ 66.6] 2026-11-09 03:45 意甲  佛罗伦萨 vs 尤文图斯  <强弱反差>
+2026-11-05T00:01:28.0822298Z             └ 尤文图斯以为稳了，佛罗伦萨队长憋着的到底是什么
+2026-11-05T00:01:28.0823631Z      [ 60.1] 2026-11-07 20:30 英超  利兹联 vs 热刺  <冷门窗口>
+2026-11-05T00:01:28.0824092Z             └ 利兹联杀到热刺门口，这回被看轻的是哪位核心
+2026-11-05T00:01:28.1050306Z ##[group]Run # 五类覆盖 / 单日候选≥6 / 前瞻体为 0 为硬项；不达标仅告警，不阻断发布（计划九）
+2026-11-05T00:01:28.1050779Z [36;1m# 五类覆盖 / 单日候选≥6 / 前瞻体为 0 为硬项；不达标仅告警，不阻断发布（计划九）[0m
+2026-11-05T00:01:28.1051181Z [36;1mpython3 scripts/verify_fixture_pool.py --quiet \[0m
+2026-11-05T00:01:28.1051666Z [36;1m  || echo "::warning::赛程选题池未达 7.1 验收标准，详见 data/audit/fixture_pool_latest.json"[0m
+2026-11-05T00:01:28.1100928Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:28.1101210Z env:
+2026-11-05T00:01:28.1101439Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:28.1101778Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1102255Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:28.1102729Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1103192Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1103895Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1104382Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:28.1104748Z ##[endgroup]
+2026-11-05T00:01:28.1847511Z ##[warning]赛程选题池未达 7.1 验收标准，详见 data/audit/fixture_pool_latest.json
+2026-11-05T00:01:28.1912393Z ##[group]Run # 硬项：无超限日 + 14 天窗口落库；不达标仅告警，不阻断发布（计划九）
+2026-11-05T00:01:28.1912819Z [36;1m# 硬项：无超限日 + 14 天窗口落库；不达标仅告警，不阻断发布（计划九）[0m
+2026-11-05T00:01:28.1913241Z [36;1mpython3 scripts/verify_api_budget.py --days 14 --quiet \[0m
+2026-11-05T00:01:28.1914167Z [36;1m  || echo "::warning::接口额度台账未达 11.4 验收标准，详见 data/audit/api_budget_latest.json"[0m
+2026-11-05T00:01:28.1963965Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:28.1964250Z env:
+2026-11-05T00:01:28.1964471Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:28.1964816Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1965299Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:28.1965787Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1966211Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1966627Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.1967090Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:28.1967449Z ##[endgroup]
+2026-11-05T00:01:28.2877619Z ##[group]Run # 供给不足时由蓄水池补位；此处按水位线备货（只补缺口，控制 token 成本）
+2026-11-05T00:01:28.2878050Z [36;1m# 供给不足时由蓄水池补位；此处按水位线备货（只补缺口，控制 token 成本）[0m
+2026-11-05T00:01:28.2878492Z [36;1mpython scripts/refill_reservoir.py --target 8 --max-gen 3 \[0m
+2026-11-05T00:01:28.2878925Z [36;1m  || echo "::warning::蓄水池备货失败，沿用现有库存（非阻断）"[0m
+2026-11-05T00:01:28.2927631Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:28.2927922Z env:
+2026-11-05T00:01:28.2928149Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:28.2928484Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.2929152Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:28.2929616Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.2930053Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.2930484Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.2930953Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:28.2932031Z   HY3_API_KEY: ***
+2026-11-05T00:01:28.2932383Z   DASHSCOPE_API_KEY: ***
+2026-11-05T00:01:28.2932644Z ##[endgroup]
+2026-11-05T00:01:28.4195631Z [蓄水池] 现有可用 8 条，回收过期 0 条，缺口 0 条（水位 8）
+2026-11-05T00:01:28.4196426Z [蓄水池] 已满足水位，无需备货
+2026-11-05T00:01:28.4404109Z ##[group]Run # 节点事件（转会窗截止日/赛季节点/开赛倒计时）提前 7 天量产入库；只补窗口内缺口
+2026-11-05T00:01:28.4404585Z [36;1m# 节点事件（转会窗截止日/赛季节点/开赛倒计时）提前 7 天量产入库；只补窗口内缺口[0m
+2026-11-05T00:01:28.4405043Z [36;1mpython scripts/pregen_deterministic.py --days 7 --max-gen 2 \[0m
+2026-11-05T00:01:28.4405492Z [36;1m  || echo "::warning::一级节点量产失败，沿用现有库存（非阻断）"[0m
+2026-11-05T00:01:28.4455169Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:28.4455459Z env:
+2026-11-05T00:01:28.4455690Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:28.4456019Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.4456511Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:28.4456991Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.4457431Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.4457871Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.4458340Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:28.4458927Z   HY3_API_KEY: ***
+2026-11-05T00:01:28.4459248Z   DASHSCOPE_API_KEY: ***
+2026-11-05T00:01:28.4459509Z ##[endgroup]
+2026-11-05T00:01:28.5837604Z [一级·确定性] 回收过期 0 条；窗口 7 天内待入库节点 0 个
+2026-11-05T00:01:28.5838368Z [一级·确定性] 窗口内无待入库节点，无需量产
+2026-11-05T00:01:28.6049623Z ##[group]Run python orchestrator.py "2026-11-05" --batch="morning"
+2026-11-05T00:01:28.6050199Z [36;1mpython orchestrator.py "2026-11-05" --batch="morning"[0m
+2026-11-05T00:01:28.6099428Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:28.6099708Z env:
+2026-11-05T00:01:28.6099935Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:28.6100274Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.6100754Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:28.6101230Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.6101673Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.6102103Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.6102521Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:28.6103109Z   HY3_API_KEY: ***
+2026-11-05T00:01:28.6103664Z   DASHSCOPE_API_KEY: ***
+2026-11-05T00:01:28.6104091Z   UNSPLASH_ACCESS_KEY: ***
+2026-11-05T00:01:28.6104448Z   FOOTBALL_DATA_KEY: ***
+2026-11-05T00:01:28.6104747Z   TOUTIAO_AUTH_FILE: /tmp/auth/toutiao_auth.json
+2026-11-05T00:01:28.6105099Z   OUTPUT_DIR: /home/runner/work/_temp/output
+2026-11-05T00:01:28.6105485Z   WXPUSHER_APPTOKEN: ***
+2026-11-05T00:01:28.6105784Z   WXPUSHER_UID: ***
+2026-11-05T00:01:28.6106019Z ##[endgroup]
+2026-11-05T00:01:28.8370695Z 00:01:28 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/_temp/output/logs/orchestrator_2026-11-05.log
+2026-11-05T00:01:28.8804340Z Traceback (most recent call last):
+2026-11-05T00:01:28.8813227Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 37, in <module>
+2026-11-05T00:01:28.8814430Z     import title_elements
+2026-11-05T00:01:28.8815372Z   File "/home/runner/work/football-auto-publish/football-auto-publish/title_elements.py", line 281
+2026-11-05T00:01:28.8816575Z     "detail": [f"三要素 {e.count}/3 达标（{'、'.join(
+2026-11-05T00:01:28.8817068Z                ^
+2026-11-05T00:01:28.8817637Z SyntaxError: unterminated string literal (detected at line 281)
+2026-11-05T00:01:28.9044846Z ##[error]Process completed with exit code 1.
+2026-11-05T00:01:28.9085682Z ##[group]Run # 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」
+2026-11-05T00:01:28.9086109Z [36;1m# 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」[0m
+2026-11-05T00:01:28.9086514Z [36;1mpython3 scripts/verify_rumor_wording.py --quiet \[0m
+2026-11-05T00:01:28.9087013Z [36;1m  || echo "::warning::传闻措辞未达 4.1 验收标准，详见 data/audit/rumor_wording_latest.json"[0m
+2026-11-05T00:01:28.9136226Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:28.9136513Z env:
+2026-11-05T00:01:28.9136741Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:28.9137083Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.9137565Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:28.9138031Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.9138468Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.9138916Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:28.9139429Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:28.9139793Z ##[endgroup]
+2026-11-05T00:01:29.0731344Z ##[group]Run # 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入
+2026-11-05T00:01:29.0731758Z [36;1m# 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入[0m
+2026-11-05T00:01:29.0732167Z [36;1mpython3 scripts/verify_content_reference.py --quiet \[0m
+2026-11-05T00:01:29.0732694Z [36;1m  || echo "::warning::内容参照层未达 13.3 验收标准，详见 data/audit/content_reference_latest.json"[0m
+2026-11-05T00:01:29.0781808Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:29.0782097Z env:
+2026-11-05T00:01:29.0782319Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:29.0782660Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.0783136Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:29.0783864Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.0784295Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.0784744Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.0785201Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:29.0785564Z ##[endgroup]
+2026-11-05T00:01:29.1849701Z ##[group]Run # 硬项：六方向结构齐备 + 代码 hook 落地
+2026-11-05T00:01:29.1850321Z [36;1m# 硬项：六方向结构齐备 + 代码 hook 落地[0m
+2026-11-05T00:01:29.1850975Z [36;1mpython3 scripts/verify_differentiation.py --quiet \[0m
+2026-11-05T00:01:29.1851877Z [36;1m  || echo "::warning::差异化方向未达 13.5 验收标准，详见 data/audit/differentiation_latest.json"[0m
+2026-11-05T00:01:29.1923136Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:29.1923822Z env:
+2026-11-05T00:01:29.1924212Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:29.1924812Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.1925715Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:29.1926632Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.1927491Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.1928275Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.1929139Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:29.1929814Z ##[endgroup]
+2026-11-05T00:01:29.2625358Z ##[group]Run # 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发
+2026-11-05T00:01:29.2625781Z [36;1m# 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发[0m
+2026-11-05T00:01:29.2626188Z [36;1mpython3 scripts/verify_publish_gate.py --quiet \[0m
+2026-11-05T00:01:29.2626704Z [36;1m  || echo "::warning::发布闸门未达 7.2/7.3 验收标准，详见 data/audit/publish_gate_latest.json"[0m
+2026-11-05T00:01:29.2675537Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:29.2675824Z env:
+2026-11-05T00:01:29.2676075Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:29.2676411Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.2676906Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:29.2677588Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.2678015Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.2678452Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.2678930Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:29.2679296Z ##[endgroup]
+2026-11-05T00:01:29.4587850Z 00:01:29 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/football-auto-publish/football-auto-publish/output/logs/orchestrator_2026-11-05.log
+2026-11-05T00:01:29.7627394Z ##[group]Run # 硬项：常态 2 篇不超手册上限 + 加发不超手册 + 日合计 6-8 + 三处口径一致 + decide 冒烟
+2026-11-05T00:01:29.7627904Z [36;1m# 硬项：常态 2 篇不超手册上限 + 加发不超手册 + 日合计 6-8 + 三处口径一致 + decide 冒烟[0m
+2026-11-05T00:01:29.7628331Z [36;1mpython3 scripts/verify_batch_quota.py --quiet \[0m
+2026-11-05T00:01:29.7628798Z [36;1m  || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"[0m
+2026-11-05T00:01:29.7678423Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:29.7678738Z env:
+2026-11-05T00:01:29.7678960Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:29.7679299Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.7679778Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:29.7680244Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.7680677Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.7681111Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.7681594Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:29.7681960Z ##[endgroup]
+2026-11-05T00:01:29.8528186Z ##[group]Run # 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入
+2026-11-05T00:01:29.8528687Z [36;1m# 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入[0m
+2026-11-05T00:01:29.8529081Z [36;1m# 告警项（不影响退出码）：热点球评占比低于目标 —— 配比是慢变量，按天卡死会逼出凑数稿[0m
+2026-11-05T00:01:29.8529416Z [36;1m# 刻意不加 `|| echo`：禁发类型还在产出就不该放行发布[0m
+2026-11-05T00:01:29.8529840Z [36;1mpython3 scripts/verify_content_mix.py --days 7 --quiet[0m
+2026-11-05T00:01:29.8580308Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:29.8580591Z env:
+2026-11-05T00:01:29.8580822Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:29.8581163Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.8581644Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:29.8582125Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.8582564Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.8583030Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.8583580Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:29.8583942Z ##[endgroup]
+2026-11-05T00:01:29.9127353Z ##[group]Run # 持久化 LLM 额度消耗（供下次按阈值选模型）
+2026-11-05T00:01:29.9127747Z [36;1m# 持久化 LLM 额度消耗（供下次按阈值选模型）[0m
+2026-11-05T00:01:29.9128046Z [36;1m# + 软性内容蓄水池（计划 12.1：跨日复用，突发日补位）[0m
+2026-11-05T00:01:29.9128603Z [36;1mgit config user.name "github-actions[bot]" || true[0m
+2026-11-05T00:01:29.9129107Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com" || true[0m
+2026-11-05T00:01:29.9129602Z [36;1mgit add -f data/llm_usage.json || true[0m
+2026-11-05T00:01:29.9129950Z [36;1mgit add -f data/reservoir || true[0m
+2026-11-05T00:01:29.9130267Z [36;1m# 一级·确定性节点库存（计划 12.1：提前量产入库，跨日复用）[0m
+2026-11-05T00:01:29.9130590Z [36;1mgit add -f data/deterministic || true[0m
+2026-11-05T00:01:29.9130910Z [36;1m# 合规熔断状态（计划第十章：不实违规即熔断，跨运行持久化）[0m
+2026-11-05T00:01:29.9131256Z [36;1mgit add -f data/compliance_state.json || true[0m
+2026-11-05T00:01:29.9131625Z [36;1m# 加发留痕台账（策略手册第五章：周内加发 ≤ 2 次，跨运行累计）[0m
+2026-11-05T00:01:29.9132025Z [36;1mgit add -f data/uplift_ledger.json || true[0m
+2026-11-05T00:01:29.9132373Z [36;1m# 验收审计报告（计划 4.1/7.1/11.4 等：看板与门槛报告随运行留痕）[0m
+2026-11-05T00:01:29.9132685Z [36;1mgit add -f data/audit || true[0m
+2026-11-05T00:01:29.9133007Z [36;1mif ! git diff --cached --quiet; then[0m
+2026-11-05T00:01:29.9133665Z [36;1m  git commit -m "chore: 回写 LLM 用量与软性蓄水池"[0m
+2026-11-05T00:01:29.9134026Z [36;1m  for attempt in 1 2 3; do[0m
+2026-11-05T00:01:29.9134343Z [36;1m    if git push origin main; then[0m
+2026-11-05T00:01:29.9134663Z [36;1m      echo "✅ 状态已回写（LLM 用量 + 蓄水池）"[0m
+2026-11-05T00:01:29.9134952Z [36;1m      break[0m
+2026-11-05T00:01:29.9135182Z [36;1m    fi[0m
+2026-11-05T00:01:29.9135478Z [36;1m    echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."[0m
+2026-11-05T00:01:29.9135886Z [36;1m    git pull --rebase origin main || true[0m
+2026-11-05T00:01:29.9136218Z [36;1m    sleep $((attempt * 2))[0m
+2026-11-05T00:01:29.9136493Z [36;1m  done[0m
+2026-11-05T00:01:29.9136713Z [36;1melse[0m
+2026-11-05T00:01:29.9136951Z [36;1m  echo "📝 状态无变化，跳过提交"[0m
+2026-11-05T00:01:29.9137213Z [36;1mfi[0m
+2026-11-05T00:01:29.9185790Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:29.9186071Z env:
+2026-11-05T00:01:29.9186293Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:29.9186626Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.9187399Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:29.9188073Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.9188529Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.9188964Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:29.9189426Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:29.9189813Z ##[endgroup]
+2026-11-05T00:01:29.9920457Z [main f9a87cc] chore: 回写 LLM 用量与软性蓄水池
+2026-11-05T00:01:29.9921194Z  16 files changed, 245 insertions(+), 31 deletions(-)
+2026-11-05T00:01:29.9921962Z  create mode 100644 data/audit/api_budget_2026-11-05.md
+2026-11-05T00:01:29.9922846Z  create mode 100644 data/audit/batch_quota_2026-11-05.md
+2026-11-05T00:01:29.9924201Z  create mode 100644 data/audit/content_mix_2026-11-05.md
+2026-11-05T00:01:29.9924986Z  create mode 100644 data/audit/content_reference_2026-11-05.md
+2026-11-05T00:01:29.9925823Z  create mode 100644 data/audit/differentiation_2026-11-05.md
+2026-11-05T00:01:29.9926603Z  create mode 100644 data/audit/fixture_pool_2026-11-05.md
+2026-11-05T00:01:29.9927362Z  create mode 100644 data/audit/publish_gate_2026-11-05.md
+2026-11-05T00:01:29.9928148Z  create mode 100644 data/audit/rumor_wording_2026-11-05.md
+2026-11-05T00:01:31.1015275Z To https://github.com/chenwu6688/football-auto-publish.git
+2026-11-05T00:01:31.1016205Z    ae7d29b..f9a87cc  main -> main
+2026-11-05T00:01:31.1062825Z ✅ 状态已回写（LLM 用量 + 蓄水池）
+2026-11-05T00:01:31.1114473Z ##[group]Run # Push generated article metadata immediately so later batches
+2026-11-05T00:01:31.1115138Z [36;1m# Push generated article metadata immediately so later batches[0m
+2026-11-05T00:01:31.1115658Z [36;1m# (or delayed crons) can see today's already-published topics.[0m
+2026-11-05T00:01:31.1116151Z [36;1mSRC="/home/runner/work/_temp/output/${TODAY}/metadata.json"[0m
+2026-11-05T00:01:31.1116739Z [36;1mif [ ! -f "$SRC" ]; then[0m
+2026-11-05T00:01:31.1117052Z [36;1m  echo "⚠️ metadata.json 不存在，跳过回写"[0m
+2026-11-05T00:01:31.1117369Z [36;1m  exit 0[0m
+2026-11-05T00:01:31.1117593Z [36;1mfi[0m
+2026-11-05T00:01:31.1117862Z [36;1mgit config user.name "github-actions[bot]"[0m
+2026-11-05T00:01:31.1118326Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
+2026-11-05T00:01:31.1118803Z [36;1mDST="output/${TODAY}/metadata.json"[0m
+2026-11-05T00:01:31.1119131Z [36;1mmkdir -p "output/${TODAY}"[0m
+2026-11-05T00:01:31.1119449Z [36;1mpython3 -c "[0m
+2026-11-05T00:01:31.1119695Z [36;1mimport json[0m
+2026-11-05T00:01:31.1119947Z [36;1mfrom pathlib import Path[0m
+2026-11-05T00:01:31.1120232Z [36;1msrc = Path('${SRC}')[0m
+2026-11-05T00:01:31.1120505Z [36;1mdst = Path('${DST}')[0m
+2026-11-05T00:01:31.1120803Z [36;1mnew_meta = json.loads(src.read_text())[0m
+2026-11-05T00:01:31.1121131Z [36;1mif dst.exists():[0m
+2026-11-05T00:01:31.1121429Z [36;1m    old_meta = json.loads(dst.read_text())[0m
+2026-11-05T00:01:31.1121851Z [36;1m    old_batches = set(old_meta.get('batches_completed', []))[0m
+2026-11-05T00:01:31.1122304Z [36;1m    new_batches = set(new_meta.get('batches_completed', []))[0m
+2026-11-05T00:01:31.1122873Z [36;1m    old_articles = {(a.get('title',''), a.get('content_type','')) for a in old_meta.get('articles', [])}[0m
+2026-11-05T00:01:31.1123860Z [36;1m    merged_articles = list(old_meta.get('articles', []))[0m
+2026-11-05T00:01:31.1124288Z [36;1m    for a in new_meta.get('articles', []):[0m
+2026-11-05T00:01:31.1124682Z [36;1m        key = (a.get('title',''), a.get('content_type',''))[0m
+2026-11-05T00:01:31.1125068Z [36;1m        if key not in old_articles:[0m
+2026-11-05T00:01:31.1125407Z [36;1m            merged_articles.append(a)[0m
+2026-11-05T00:01:31.1125740Z [36;1m            old_articles.add(key)[0m
+2026-11-05T00:01:31.1126072Z [36;1m    new_meta['articles'] = merged_articles[0m
+2026-11-05T00:01:31.1126458Z [36;1m    new_meta['total_articles'] = len(merged_articles)[0m
+2026-11-05T00:01:31.1126935Z [36;1m    new_meta['batches_completed'] = sorted(old_batches | new_batches)[0m
+2026-11-05T00:01:31.1127402Z [36;1mdst.parent.mkdir(parents=True, exist_ok=True)[0m
+2026-11-05T00:01:31.1127862Z [36;1mdst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))[0m
+2026-11-05T00:01:31.1128322Z [36;1m" || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }[0m
+2026-11-05T00:01:31.1128733Z [36;1mgit add -f "output/${TODAY}/metadata.json" || true[0m
+2026-11-05T00:01:31.1129121Z [36;1mif git diff --cached --quiet; then[0m
+2026-11-05T00:01:31.1129444Z [36;1m  echo "📝 无变化，跳过提交"[0m
+2026-11-05T00:01:31.1129707Z [36;1m  exit 0[0m
+2026-11-05T00:01:31.1129933Z [36;1mfi[0m
+2026-11-05T00:01:31.1130216Z [36;1mgit commit -m "chore: ${TODAY} ${BATCH} 生成完成元数据回写"[0m
+2026-11-05T00:01:31.1130567Z [36;1mfor attempt in 1 2 3; do[0m
+2026-11-05T00:01:31.1130865Z [36;1m  if git push origin main; then[0m
+2026-11-05T00:01:31.1131169Z [36;1m    echo "✅ 生成结果已回写仓库"[0m
+2026-11-05T00:01:31.1131444Z [36;1m    break[0m
+2026-11-05T00:01:31.1131672Z [36;1m  fi[0m
+2026-11-05T00:01:31.1131957Z [36;1m  echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."[0m
+2026-11-05T00:01:31.1132354Z [36;1m  git pull --rebase origin main || true[0m
+2026-11-05T00:01:31.1132700Z [36;1m  /usr/bin/sleep $((attempt * 2))[0m
+2026-11-05T00:01:31.1133001Z [36;1mdone[0m
+2026-11-05T00:01:31.1187572Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:31.1188040Z env:
+2026-11-05T00:01:31.1188396Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:31.1189343Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1190097Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:31.1190598Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1191036Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1191461Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1192064Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:31.1192427Z   TODAY: 2026-11-05
+2026-11-05T00:01:31.1192659Z   BATCH: morning
+2026-11-05T00:01:31.1192895Z ##[endgroup]
+2026-11-05T00:01:31.1269009Z ⚠️ metadata.json 不存在，跳过回写
+2026-11-05T00:01:31.1315720Z ##[group]Run python3 scripts/verify_publish_success.py --days 7 --quiet \
+2026-11-05T00:01:31.1317280Z [36;1mpython3 scripts/verify_publish_success.py --days 7 --quiet \[0m
+2026-11-05T00:01:31.1317865Z [36;1m  || echo "::warning::发布成功率未达 85% / 出现连续失败 / 失败无原因，详见 data/audit/publish_success_latest.json"[0m
+2026-11-05T00:01:31.1366060Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:31.1366342Z env:
+2026-11-05T00:01:31.1366565Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:31.1366898Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1367384Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:31.1367856Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1368301Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1368729Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1369188Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:31.1369551Z ##[endgroup]
+2026-11-05T00:01:31.1882860Z ##[group]Run SRC="/home/runner/work/_temp/output/${TODAY}/metadata.json"
+2026-11-05T00:01:31.1883737Z [36;1mSRC="/home/runner/work/_temp/output/${TODAY}/metadata.json"[0m
+2026-11-05T00:01:31.1884129Z [36;1m[0m
+2026-11-05T00:01:31.1884361Z [36;1mif [ ! -f "$SRC" ]; then[0m
+2026-11-05T00:01:31.1884678Z [36;1m  echo "⚠️ metadata.json 不存在，跳过回写"[0m
+2026-11-05T00:01:31.1884990Z [36;1m  exit 0[0m
+2026-11-05T00:01:31.1885211Z [36;1mfi[0m
+2026-11-05T00:01:31.1885423Z [36;1m[0m
+2026-11-05T00:01:31.1885685Z [36;1mgit config user.name "github-actions[bot]"[0m
+2026-11-05T00:01:31.1886154Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
+2026-11-05T00:01:31.1886594Z [36;1m[0m
+2026-11-05T00:01:31.1886844Z [36;1mDST="output/${TODAY}/metadata.json"[0m
+2026-11-05T00:01:31.1887181Z [36;1mmkdir -p "output/${TODAY}"[0m
+2026-11-05T00:01:31.1887469Z [36;1m[0m
+2026-11-05T00:01:31.1887722Z [36;1m# 合并 batches_completed，避免覆盖之前批次的状态[0m
+2026-11-05T00:01:31.1888131Z [36;1m# BUGFIX: 从 dst（step 11 已合并后的元数据）读取，而非 src（仅当前批次）[0m
+2026-11-05T00:01:31.1888491Z [36;1m# 否则会覆盖 step 11 合并好的跨批次文章列表[0m
+2026-11-05T00:01:31.1888780Z [36;1mpython3 -c "[0m
+2026-11-05T00:01:31.1889035Z [36;1mimport json[0m
+2026-11-05T00:01:31.1889301Z [36;1mfrom pathlib import Path[0m
+2026-11-05T00:01:31.1889581Z [36;1m[0m
+2026-11-05T00:01:31.1889802Z [36;1msrc = Path('${SRC}')[0m
+2026-11-05T00:01:31.1890078Z [36;1mdst = Path('${DST}')[0m
+2026-11-05T00:01:31.1890331Z [36;1m[0m
+2026-11-05T00:01:31.1890553Z [36;1mif dst.exists():[0m
+2026-11-05T00:01:31.1890846Z [36;1m    # 使用 step 11 已合并的元数据（包含所有批次文章）[0m
+2026-11-05T00:01:31.1891198Z [36;1m    new_meta = json.loads(dst.read_text())[0m
+2026-11-05T00:01:31.1891776Z [36;1m    # 仅从 src 合并当前批次的完成状态[0m
+2026-11-05T00:01:31.1892059Z [36;1m    if src.exists():[0m
+2026-11-05T00:01:31.1892369Z [36;1m        src_meta = json.loads(src.read_text())[0m
+2026-11-05T00:01:31.1892813Z [36;1m        old_batches = set(new_meta.get('batches_completed', []))[0m
+2026-11-05T00:01:31.1893526Z [36;1m        new_batches = set(src_meta.get('batches_completed', []))[0m
+2026-11-05T00:01:31.1894106Z [36;1m        new_meta['batches_completed'] = sorted(old_batches | new_batches)[0m
+2026-11-05T00:01:31.1894510Z [36;1melse:[0m
+2026-11-05T00:01:31.1894790Z [36;1m    # step 11 可能未执行（如 metadata.json 不存在），直接用 src[0m
+2026-11-05T00:01:31.1895166Z [36;1m    new_meta = json.loads(src.read_text())[0m
+2026-11-05T00:01:31.1895473Z [36;1m[0m
+2026-11-05T00:01:31.1895752Z [36;1mdst.parent.mkdir(parents=True, exist_ok=True)[0m
+2026-11-05T00:01:31.1896212Z [36;1mdst.write_text(json.dumps(new_meta, ensure_ascii=False, indent=2))[0m
+2026-11-05T00:01:31.1896731Z [36;1mprint(f'merged batches: {new_meta[\"batches_completed\"]}')[0m
+2026-11-05T00:01:31.1897165Z [36;1m" || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }[0m
+2026-11-05T00:01:31.1897492Z [36;1m[0m
+2026-11-05T00:01:31.1897774Z [36;1mgit add -f "output/${TODAY}/metadata.json" || true[0m
+2026-11-05T00:01:31.1898177Z [36;1m# 发布结果台账（2026-11-01）：成稿数 ≠ 发布数，不落库就永远是黑箱。[0m
+2026-11-05T00:01:31.1898510Z [36;1m# 10 月成稿 242 / 实际发布 93，这个 62% 的漏斗一个月都没人发现。[0m
+2026-11-05T00:01:31.1898903Z [36;1m# 台账三层：批次明细 + 当天聚合 + latest（见 publisher.write_publish_ledger）[0m
+2026-11-05T00:01:31.1899366Z [36;1mgit add -f data/audit/publish_ledger_*.json || true[0m
+2026-11-05T00:01:31.1899716Z [36;1m[0m
+2026-11-05T00:01:31.1899966Z [36;1mif git diff --cached --quiet; then[0m
+2026-11-05T00:01:31.1900275Z [36;1m  echo "📝 无变化，跳过提交"[0m
+2026-11-05T00:01:31.1900538Z [36;1m  exit 0[0m
+2026-11-05T00:01:31.1900764Z [36;1mfi[0m
+2026-11-05T00:01:31.1900977Z [36;1m[0m
+2026-11-05T00:01:31.1901245Z [36;1mgit commit -m "chore: ${TODAY} ${BATCH} 批次完成"[0m
+2026-11-05T00:01:31.1901594Z [36;1m[0m
+2026-11-05T00:01:31.1901810Z [36;1m# 重试推送：处理多批次并发写入时的 push 冲突[0m
+2026-11-05T00:01:31.1902161Z [36;1m# 注意：git pull --rebase 必须带 || true，否则其失败会以 128 顶出整步[0m
+2026-11-05T00:01:31.1902516Z [36;1mfor attempt in 1 2 3; do[0m
+2026-11-05T00:01:31.1903010Z [36;1m  if git push origin main; then[0m
+2026-11-05T00:01:31.1903498Z [36;1m    echo "✅ 批次状态已回写仓库"[0m
+2026-11-05T00:01:31.1903800Z [36;1m    break[0m
+2026-11-05T00:01:31.1904021Z [36;1m  fi[0m
+2026-11-05T00:01:31.1904309Z [36;1m  echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."[0m
+2026-11-05T00:01:31.1904696Z [36;1m  git pull --rebase origin main || true[0m
+2026-11-05T00:01:31.1905045Z [36;1m  /usr/bin/sleep $((attempt * 2))[0m
+2026-11-05T00:01:31.1905344Z [36;1mdone[0m
+2026-11-05T00:01:31.1905617Z [36;1mecho "ℹ️ 若上方出现推送失败：文章已发布成功，仅仓库元数据回写未成功（下次运行可自动补齐）"[0m
+2026-11-05T00:01:31.1958975Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:31.1959268Z env:
+2026-11-05T00:01:31.1959525Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:31.1959863Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1960362Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:31.1960826Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1961277Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1961705Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.1962127Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:31.1962487Z   TODAY: 2026-11-05
+2026-11-05T00:01:31.1962721Z   BATCH: morning
+2026-11-05T00:01:31.1962956Z ##[endgroup]
+2026-11-05T00:01:31.2038995Z ⚠️ metadata.json 不存在，跳过回写
+2026-11-05T00:01:31.2079369Z ##[group]Run python scripts/export_static_data.py "2026-11-05"
+2026-11-05T00:01:31.2079907Z [36;1mpython scripts/export_static_data.py "2026-11-05"[0m
+2026-11-05T00:01:31.2080284Z [36;1m# 提交 static_data/ 到仓库[0m
+2026-11-05T00:01:31.2080824Z [36;1mgit config user.name "github-actions[bot]"[0m
+2026-11-05T00:01:31.2081303Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
+2026-11-05T00:01:31.2081756Z [36;1mgit add -f static_data/ || true[0m
+2026-11-05T00:01:31.2082098Z [36;1mif ! git diff --cached --quiet; then[0m
+2026-11-05T00:01:31.2082495Z [36;1m  git commit -m "chore: 2026-11-05 morning 更新小程序静态数据"[0m
+2026-11-05T00:01:31.2082869Z [36;1m  for attempt in 1 2 3; do[0m
+2026-11-05T00:01:31.2083173Z [36;1m    if git push origin main; then[0m
+2026-11-05T00:01:31.2083910Z [36;1m      echo "✅ 小程序静态数据已推送 (jsDelivr CDN 约 2-5 分钟生效)"[0m
+2026-11-05T00:01:31.2084361Z [36;1m      break[0m
+2026-11-05T00:01:31.2084607Z [36;1m    fi[0m
+2026-11-05T00:01:31.2084915Z [36;1m    echo "⚠️  推送失败 (attempt $attempt/3)"[0m
+2026-11-05T00:01:31.2085276Z [36;1m    git pull --rebase origin main || true[0m
+2026-11-05T00:01:31.2085636Z [36;1m    /usr/bin/sleep $((attempt * 2))[0m
+2026-11-05T00:01:31.2085951Z [36;1m  done[0m
+2026-11-05T00:01:31.2086175Z [36;1melse[0m
+2026-11-05T00:01:31.2086422Z [36;1m  echo "📝 static_data/ 无变化，跳过提交"[0m
+2026-11-05T00:01:31.2086715Z [36;1mfi[0m
+2026-11-05T00:01:31.2135440Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:31.2135724Z env:
+2026-11-05T00:01:31.2135948Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:31.2136282Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.2136747Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:31.2137233Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.2137671Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.2138120Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:31.2138550Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:31.2138941Z   OUTPUT_DIR: /home/runner/work/_temp/output
+2026-11-05T00:01:31.2139252Z ##[endgroup]
+2026-11-05T00:01:31.2489359Z [export] 导出日期: 2026-11-05
+2026-11-05T00:01:31.2489898Z [export] ⚠️  2026-11-05 没有 metadata，创建空数据
+2026-11-05T00:01:31.2493051Z [export] ✅ 已写入 /home/runner/work/football-auto-publish/football-auto-publish/static_data/today.json (0 篇文章)
+2026-11-05T00:01:31.2522615Z [export] ✅ 历史索引已写入 /home/runner/work/football-auto-publish/football-auto-publish/static_data/history.json (146 个日期)
+2026-11-05T00:01:31.2718657Z [main 66b7a84] chore: 2026-11-05 morning 更新小程序静态数据
+2026-11-05T00:01:31.2719397Z  2 files changed, 4 insertions(+), 7 deletions(-)
+2026-11-05T00:01:32.2202271Z To https://github.com/chenwu6688/football-auto-publish.git
+2026-11-05T00:01:32.2202885Z    f9a87cc..66b7a84  main -> main
+2026-11-05T00:01:32.2251006Z ✅ 小程序静态数据已推送 (jsDelivr CDN 约 2-5 分钟生效)
+2026-11-05T00:01:32.2305009Z ##[group]Run actions/upload-artifact@v4
+2026-11-05T00:01:32.2305364Z with:
+2026-11-05T00:01:32.2305618Z   name: articles-morning-2026-11-05
+2026-11-05T00:01:32.2305966Z   path: /home/runner/work/_temp/output/2026-11-05/
+2026-11-05T00:01:32.2306341Z   if-no-files-found: warn
+2026-11-05T00:01:32.2306612Z   compression-level: 6
+2026-11-05T00:01:32.2306863Z   overwrite: false
+2026-11-05T00:01:32.2307115Z   include-hidden-files: false
+2026-11-05T00:01:32.2307389Z env:
+2026-11-05T00:01:32.2307618Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:32.2307950Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.2308426Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:32.2308892Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.2309310Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.2309723Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.2310173Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:32.2310532Z ##[endgroup]
+2026-11-05T00:01:32.4092828Z (node:3082) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-05T00:01:32.4094224Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-05T00:01:32.4112019Z ##[warning]No files were found with the provided path: /home/runner/work/_temp/output/2026-11-05/. No artifacts will be uploaded.
+2026-11-05T00:01:32.4342248Z ##[group]Run echo "=== git remote -v ==="
+2026-11-05T00:01:32.4342865Z [36;1mecho "=== git remote -v ==="[0m
+2026-11-05T00:01:32.4343668Z [36;1mgit remote -v[0m
+2026-11-05T00:01:32.4344105Z [36;1mecho "=== 最近一次提交 ==="[0m
+2026-11-05T00:01:32.4344609Z [36;1mgit log -1 --oneline 2>/dev/null || true[0m
+2026-11-05T00:01:32.4345149Z [36;1mecho "=== 排错提示 ==="[0m
+2026-11-05T00:01:32.4345637Z [36;1mecho "若文章已成功发布到头条号，但本运行仍因 git push 失败而告警："[0m
+2026-11-05T00:01:32.4346236Z [36;1mecho "请检查仓库 Settings → Branches → main 是否开启了"[0m
+2026-11-05T00:01:32.4347010Z [36;1mecho "'Require a pull request before merging'（该保护会禁止 GITHUB_TOKEN 直接推送）。"[0m
+2026-11-05T00:01:32.4347788Z [36;1mecho "如开启，请关闭该保护，或为 GITHUB_TOKEN 添加绕过规则。"[0m
+2026-11-05T00:01:32.4413929Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:32.4414233Z env:
+2026-11-05T00:01:32.4414464Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:32.4414796Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4415344Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:32.4415827Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4416247Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4416691Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4417130Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:32.4417490Z ##[endgroup]
+2026-11-05T00:01:32.4524479Z === git remote -v ===
+2026-11-05T00:01:32.4537650Z origin	***github.com/chenwu6688/football-auto-publish.git (fetch)
+2026-11-05T00:01:32.4543957Z origin	***github.com/chenwu6688/football-auto-publish.git (push)
+2026-11-05T00:01:32.4545188Z === 最近一次提交 ===
+2026-11-05T00:01:32.4561701Z 66b7a84 chore: 2026-11-05 morning 更新小程序静态数据
+2026-11-05T00:01:32.4562727Z === 排错提示 ===
+2026-11-05T00:01:32.4563676Z 若文章已成功发布到头条号，但本运行仍因 git push 失败而告警：
+2026-11-05T00:01:32.4564464Z 请检查仓库 Settings → Branches → main 是否开启了
+2026-11-05T00:01:32.4565627Z 'Require a pull request before merging'（该保护会禁止 GITHUB_TOKEN 直接推送）。
+2026-11-05T00:01:32.4566456Z 如开启，请关闭该保护，或为 GITHUB_TOKEN 添加绕过规则。
+2026-11-05T00:01:32.4613312Z ##[group]Run python3 scripts/write_failure_reason.py --from-run-api
+2026-11-05T00:01:32.4614227Z [36;1mpython3 scripts/write_failure_reason.py --from-run-api[0m
+2026-11-05T00:01:32.4671923Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:32.4672227Z env:
+2026-11-05T00:01:32.4672454Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:32.4672797Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4673284Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:32.4674023Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4674719Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4675171Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.4675608Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:32.4678566Z   GITHUB_TOKEN: ***
+2026-11-05T00:01:32.4678895Z   GITHUB_REPOSITORY: chenwu6688/football-auto-publish
+2026-11-05T00:01:32.4679278Z   GITHUB_RUN_ID: 41938115638
+2026-11-05T00:01:32.4679541Z ##[endgroup]
+2026-11-05T00:01:32.8674856Z 已记录失败原因：失败步骤: 生成文章（详见运行日志）
+2026-11-05T00:01:32.8925525Z ##[group]Run python3 scripts/notify_failure.py
+2026-11-05T00:01:32.8925943Z [36;1mpython3 scripts/notify_failure.py[0m
+2026-11-05T00:01:32.8974839Z shell: /usr/bin/bash -e {0}
+2026-11-05T00:01:32.8975130Z env:
+2026-11-05T00:01:32.8975359Z   PYTHONUNBUFFERED: 1
+2026-11-05T00:01:32.8975693Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.8976172Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-05T00:01:32.8976684Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.8977131Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.8977561Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-05T00:01:32.8978005Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-05T00:01:32.8978584Z   WXPUSHER_APPTOKEN: ***
+2026-11-05T00:01:32.8978907Z   WXPUSHER_UID: ***
+2026-11-05T00:01:32.8979144Z   WB_BATCH: morning
+2026-11-05T00:01:32.8979399Z   WB_TODAY: 2026-11-05
+2026-11-05T00:01:32.8979666Z   WB_REPO: chenwu6688/football-auto-publish
+2026-11-05T00:01:32.8979980Z   WB_RUN_ID: 41938115638
+2026-11-05T00:01:32.8980225Z ##[endgroup]
+2026-11-05T00:01:34.0613580Z 告警已发送: HTTP 200 {"code":1000,"msg":"处理成功","data":[{"spt":null,"uid":"***","topicId":null,"messageContentId"
+2026-11-05T00:01:34.0921500Z Post job cleanup.
+2026-11-05T00:01:34.1838886Z [command]/usr/bin/git version
+2026-11-05T00:01:34.1889282Z git version 2.56.0
+2026-11-05T00:01:34.1930595Z Temporarily overriding HOME='/home/runner/work/_temp/0f2a710d-5ab8-4d38-bb89-2460654dc7ea' before making global git config changes
+2026-11-05T00:01:34.1931979Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-05T00:01:34.1936663Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/football-auto-publish/football-auto-publish
+2026-11-05T00:01:34.1986283Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-05T00:01:34.2045819Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-05T00:01:34.2368328Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-05T00:01:34.2411405Z http.https://github.com/.extraheader
+2026-11-05T00:01:34.2425466Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-05T00:01:34.2470090Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-05T00:01:34.2787293Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-05T00:01:34.2823769Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-05T00:01:34.3305757Z Cleaning up orphan processes
+2026-11-05T00:01:34.3715558Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
