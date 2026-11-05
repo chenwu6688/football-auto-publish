@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05 10:53",
+  "generated_at": "2026-11-05 13:18",
   "ok": true,
   "checks": [
     {
@@ -45,12 +45,11 @@
     },
     {
       "item": "真实采集台账（告警项）",
-      "ok": false,
+      "ok": true,
       "advisory": true,
       "detail": [
-        "生成时间 2026-11-04 12:05｜记录 75 条",
-        "需人工介入：http → challenge",
-        "需人工介入：dongqiudi → challenge"
+        "生成时间 2026-11-05 12:07｜记录 87 条",
+        "无异常来源 ✅"
       ]
     }
   ],
