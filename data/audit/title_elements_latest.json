@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05 15:05",
+  "generated_at": "2026-11-05 16:57",
   "min_elements": 2,
   "require_proper": true,
   "ok": true,
@@ -83,17 +83,17 @@
       "advisory": true,
       "skipped": false,
       "coverage": {
-        "n": 35,
-        "number": 51.4,
-        "contrast": 42.9,
-        "proper": 85.7,
-        "all_three": 28.6,
-        "pass_rate": 51.4,
-        "median_count": 2
+        "n": 36,
+        "number": 52.8,
+        "contrast": 41.7,
+        "proper": 86.1,
+        "all_three": 27.8,
+        "pass_rate": 52.8,
+        "median_count": 2.0
       },
       "detail": [
-        "成稿 35 条：数字 51.4% / 对比 42.9% / 专名 85.7% / 三项全过 28.6%",
-        "达下限通过率 51.4%（上不设目标：这是存量+新管线混合值，只看趋势）"
+        "成稿 36 条：数字 52.8% / 对比 41.7% / 专名 86.1% / 三项全过 27.8%",
+        "达下限通过率 52.8%（上不设目标：这是存量+新管线混合值，只看趋势）"
       ]
     }
   ],
