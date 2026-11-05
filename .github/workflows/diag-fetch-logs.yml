@@ -1,0 +1,70 @@
+name: 诊断-抓取批次失败日志（一次性）
+
+# 2026-11-05：evening(11-04) / morning(11-05) 两次「生成文章」步骤都在 1 秒内失败，
+# 本机用同款依赖与同款命令跑不崩，日志端点匿名 403。用 CI 自带的 token 把失败 job
+# 的日志抓出来、只截取「生成文章」步骤段落提交回仓库，便于本地定位后立即删除本文件。
+on:
+  push:
+    paths:
+      - '.github/workflows/diag-fetch-logs.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 抓失败 job 日志
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          mkdir -p data/audit
+          for JOB in 126951662947 126511037235; do
+            API="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/jobs/${JOB}/logs"
+            curl -sS -D "hdr_${JOB}.txt" -o /dev/null \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" "${API}" || true
+            URL=$(awk 'tolower($1)=="location:" {print $2}' "hdr_${JOB}.txt" | tr -d '\r' | tail -1)
+            echo "job ${JOB} -> ${URL:0:80}"
+            if [ -n "${URL}" ]; then
+              curl -sSL "${URL}" -o "raw_${JOB}.log" || true
+            fi
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          for jid in ("126951662947", "126511037235"):
+              p = Path(f"raw_{jid}.log")
+              if not p.exists():
+                  print(f"no log for {jid}")
+                  continue
+              lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
+              idx = [i for i, ln in enumerate(lines) if "生成文章" in ln]
+              start = idx[0] if idx else 0
+              chunk = lines[start:start + 160]
+              out = Path(f"data/audit/diag_generate_{jid}.txt")
+              out.write_text("\n".join(chunk), encoding="utf-8")
+              print(f"{out}: {len(chunk)} lines (from {start}/{len(lines)})")
+          PY
+
+      - name: 回写诊断片段
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/audit/diag_generate_*.txt || true
+          if git diff --cached --quiet; then
+            echo "无诊断片段"
+            exit 0
+          fi
+          git commit -m "chore(diag): 回写生成步骤失败日志片段"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git pull --rebase origin main || true
+            sleep $((attempt * 2))
+          done
