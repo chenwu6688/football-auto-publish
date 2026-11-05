@@ -167,7 +167,12 @@ def fact_gate(article: dict, fixture: dict, match_context=None, *,
         rec.update({k: res.get(k) for k in
                     ("judged", "contradictions", "suspicious", "missing", "coverage")})
         if res.get("contradictions"):
-            hint = "；".join(str(x) for x in res["contradictions"][:3])
+            # hint 会进 retry_hint 交给模型重写。直接 str(dict) 模型看不懂，
+            # 重试等于白跑一次（实测日志里就是 `{'type': 'score_direction', ...}`）。
+            # 取其中人可读的 detail，拼成一句能照着改的话。
+            hint = "；".join(
+                str(c.get("detail") or c) if isinstance(c, dict) else str(c)
+                for c in res["contradictions"][:3])
 
     if mode() == "strict":
         if rec["legacy_issues"]:

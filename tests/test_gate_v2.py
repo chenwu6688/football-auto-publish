@@ -76,6 +76,10 @@ class TestFactGateV2(unittest.TestCase):
         g = gate_v2.fact_gate(art, FX, None, legacy=(True, []))
         self.assertTrue(g["block"])
         self.assertTrue(g["record"]["contradictions"])
+        # hint 会作为 retry_hint 交给模型重写：必须是能照着改的话，
+        # 不能是 dict 的 repr（模型看不懂，重试等于白跑）
+        self.assertNotIn("{'type'", g["hint"])
+        self.assertIn("利物浦", g["hint"])
 
     def test_empty_fixture_is_unjudged_not_passed(self):
         """空事实卡：不拦，但也绝不能记成「通过」。"""
