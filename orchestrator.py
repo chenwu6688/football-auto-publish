@@ -39,6 +39,7 @@ import title_brief
 import source_images
 import wiki_media as _wmedia  # 维基共享署名（CC BY 要求写进正文）
 import content_stats
+import team_names  # 队名清洗（赛果动词剥离）：采集层与校验层共用一份词表
 import cover_card
 import data_chart        # 正文事实重绘成图（零版权，且与正文同源）
 import image_relevance   # 配图相关性闸门：图里的队/数字必须在正文出现过
@@ -1282,15 +1283,30 @@ def _looks_like_team(name):
 
     含结果/红牌描述词（如 '客胜曼联'、'十人曼城'）的不是纯队名；
     纯拉丁队名（如 'Manchester City FC'，不含中文描述词）也视为有效。
+
+    2026-11-05 起先过 `team_names.clean_team_name`：赛果动词是开放集合，
+    只靠 `_TEAM_DIRTY_TOKENS` 逐个补词必然漏（真实漏网：「科莫血洗」——
+    「血洗」不在脏词表里，被判为合法队名，校验硬要求正文出现「血洗」，
+    同篇打回 5 次触发熔断）。清洗后「科莫血洗」→「科莫」，仍按干净队名校验；
+    「血洗」这种整体就是动词的清洗成空串，调用方据此跳过校验。
     """
     if not isinstance(name, str):
         return False
-    s = name.strip()
+    s = team_names.clean_team_name(name)
     if not (2 <= len(s) <= 30):
         return False
     if any(tok in s for tok in _TEAM_DIRTY_TOKENS):
         return False
     return True
+
+
+def _clean_team(name) -> str:
+    """校验用队名：清洗到最小干净值（救不回来返回空串）。
+
+    与 `_looks_like_team` 的分工：那个回答「是不是队名」，这个回答「用哪个字符串去比」。
+    「科莫血洗」两个答案不同——像队名（清洗后是科莫），但绝不能用原串去要求正文提及。
+    """
+    return team_names.clean_team_name(name)
 
 
 # ------------------------------------------------------------
@@ -1513,8 +1529,12 @@ def _build_match_reference(fixture, match_context):
             siblings.append(f)
     home_cands = [t for t in [ht0] + [s.get("home_team", "") for s in siblings] if _looks_like_team(t)]
     away_cands = [t for t in [at0] + [s.get("away_team", "") for s in siblings] if _looks_like_team(t)]
-    ref["home_team"] = ht0 if _looks_like_team(ht0) else (home_cands[0] if home_cands else "")
-    ref["away_team"] = at0 if _looks_like_team(at0) else (away_cands[0] if away_cands else "")
+    # 返回**清洗后**的队名：「科莫血洗」→「科莫」。不清洗的话下游会拿原串去要求
+    # 正文提及，而正文永远不会把「血洗」当队名写（2026-11-05 熔断直接成因）。
+    ref["home_team"] = _clean_team(ht0) if _looks_like_team(ht0) else (
+        _clean_team(home_cands[0]) if home_cands else "")
+    ref["away_team"] = _clean_team(at0) if _looks_like_team(at0) else (
+        _clean_team(away_cands[0]) if away_cands else "")
     scorers = set()
     all_goals = list(fixture.get("goals", []) or [])
     for s in siblings:
@@ -1660,15 +1680,19 @@ def validate_article_vs_match_data(source_fixture, rewritten_article, match_cont
 
     # 多渠道校准：优先用同场不同源的干净队名，避免单一脏数据（如 '客胜曼联'）误拦截
     ref = _build_match_reference(source_fixture, match_context) if match_context else None
-    ht = (ref or {}).get("home_team") or source_fixture.get("home_team", "")
-    at = (ref or {}).get("away_team") or source_fixture.get("away_team", "")
+    ht_raw = str((ref or {}).get("home_team") or source_fixture.get("home_team") or "")
+    at_raw = str((ref or {}).get("away_team") or source_fixture.get("away_team") or "")
+    # 清洗赛果动词后再校验（2026-11-05：「朗斯1-9被科莫血洗」被切成 away='科莫血洗'，
+    # 判成合法队名 → 硬要求正文出现「血洗」→ 同篇打回 5 次 → 全批熔断）。
+    # 「科莫血洗」救回成「科莫」继续校验；「血洗」这种纯动词清洗成空串才跳过校验。
+    ht, at = _clean_team(ht_raw), _clean_team(at_raw)
     if not _looks_like_team(ht):
-        if ht:
-            print(f"   ⚠️ 主队名 '{ht}' 疑似脏数据，跳过主队名校验")
+        if ht_raw:
+            print(f"   ⚠️ 主队名 '{ht_raw}' 疑似脏数据（清洗后 '{ht}'），跳过主队名校验")
         ht = ""
     if not _looks_like_team(at):
-        if at:
-            print(f"   ⚠️ 客队名 '{at}' 疑似脏数据，跳过客队名校验")
+        if at_raw:
+            print(f"   ⚠️ 客队名 '{at_raw}' 疑似脏数据（清洗后 '{at}'），跳过客队名校验")
         at = ""
     hg = source_fixture.get("home_score")
     ag = source_fixture.get("away_score")
@@ -1797,17 +1821,34 @@ def _downgrade_topic(topic):
 # ── 计划第十章 · 自动熔断钩子 ───────────────────────────────────
 # 同批次一致性校验打回次数是「事实层是否整体失真」的早期信号。
 # 超过阈值即主动熔断（宁停勿错），避免在事实层失真的情况下继续批量产出。
-_CONSISTENCY_REJECTS = {"count": 0, "suspended": False, "evidence": []}
+_CONSISTENCY_REJECTS = {"count": 0, "subjects": [], "suspended": False, "evidence": []}
 _CONSISTENCY_REJECT_LOCK = threading.Lock()
 #: 熔断证据保留条数（供人工复盘是哪几篇触发）
 _CONSISTENCY_EVIDENCE_MAX = 8
+#: 打回提示的固定前缀「[选题标题] …」，用于按选题去重计数
+_RE_REJECT_SUBJECT = re.compile(r"^\[([^\]]{1,60})\]")
 
 
-def _note_consistency_reject(hint: str) -> None:
+def _reject_subject(hint: str, subject: str = "") -> str:
+    """从打回提示里取「哪一篇」。显式传了就用传入值，否则解析 ``[标题]`` 前缀。"""
+    if isinstance(subject, str) and subject.strip():
+        return subject.strip()[:60]
+    m = _RE_REJECT_SUBJECT.match(str(hint or "").strip())
+    return (m.group(1).strip() if m else "")[:60]
+
+
+def _note_consistency_reject(hint: str, subject: str = "") -> None:
     """登记一次一致性打回；超阈值触发合规自动熔断（计划第十章）。
 
     同时累积**打回证据**（选题 + 具体问题）写进熔断 history，避免事后只看到
     最后一条提示、无法定位触发批次（2026-10-12 熔断即缺此证据）。
+
+    **阈值按「篇」计，不按「次」计**（2026-11-05 修正）。原实现把每次重试都记一次，
+    于是「一篇稿子被同一条错规则拦住、重试 3 次 + 降级重生成 1 次 + 补位 1 次」
+    就能把计数堆到阈值，熔断语义从「同批多篇疑似系统性失真」退化成「某一篇卡住了」。
+    11-05 熔断的 5 条证据全是同一标题同一原因，正是这种放大。
+    现在同一选题重复打回只算 1 篇；解析不出选题标识时退回旧的按次数口径
+    （宁可仍然停，也不因为解析失败而静默放宽）。
     """
     try:
         import compliance_guard
@@ -1818,15 +1859,21 @@ def _note_consistency_reject(hint: str) -> None:
             return
         _CONSISTENCY_REJECTS["count"] += 1
         n = _CONSISTENCY_REJECTS["count"]
+        subjects = _CONSISTENCY_REJECTS.setdefault("subjects", [])
+        subj = _reject_subject(hint, subject)
+        if subj and subj not in subjects:
+            subjects.append(subj)
+        articles = len(subjects) or n
         _CONSISTENCY_REJECTS["evidence"].append(str(hint or "")[:120])
         evidence = list(_CONSISTENCY_REJECTS["evidence"][-_CONSISTENCY_EVIDENCE_MAX:])
+    rate = f"{n} 次、涉及 {articles} 篇选题" if articles != n else f"{n} 次"
     if compliance_guard.auto_suspend_if_systemic(
-            n, detail=f"同批次一致性校验打回 {n} 次，疑事实层失真：{hint[:80]}",
+            articles, detail=f"同批次一致性校验打回 {rate}，疑事实层失真：{hint[:80]}",
             evidence="\n".join(f"{i + 1}. {e}" for i, e in enumerate(evidence))):
         _CONSISTENCY_REJECTS["suspended"] = True
         try:
             send_wxpusher("足球自媒体 ⛔ 自动熔断",
-                          f"一致性校验打回 {n} 次，疑似事实层失真，已暂停自动发布")
+                          f"一致性校验打回 {rate}，疑似事实层失真，已暂停自动发布")
         except Exception:
             pass
 

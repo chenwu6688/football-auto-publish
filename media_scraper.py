@@ -45,6 +45,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import scraper_diagnostics as diag
+import team_names  # 队名清洗（剥赛果动词）：与 orchestrator 校验层共用一份词表
 
 
 class ScraperBlockedError(Exception):
@@ -939,6 +940,14 @@ class SportsScraper:
                 if suffix in team:
                     return None  # 不是纯比赛链接
 
+        # 剥掉粘连的赛果动词（2026-11-05 熔断源头）：
+        # 「朗斯主场1-9被科莫血洗」按「比分前=主队／比分后=客队」切成 away='科莫血洗'，
+        # 而切除词表只认「绝杀/逆转/大胜/横扫」，不认「血洗」，动词就留在队名里上传到
+        # 事实层。上游这一步不清洗，下游只能靠「疑似脏数据就跳过校验」兜，等于少校验一场。
+        # 清洗成空 = 整个字符串就是个动词（「血洗」），这一条不该当成比赛收进来。
+        home_team = team_names.clean_team_name(home_team)
+        away_team = team_names.clean_team_name(away_team)
+
         if not home_team or not away_team:
             return None
 
@@ -1024,6 +1033,11 @@ class SportsScraper:
                 home_team = hm.group(1)
             if am:
                 away_team = am.group(1)
+
+        # 剥掉粘连的赛果动词：战报标题「朗斯主场1-9被科莫血洗」会切出 away='科莫血洗'，
+        # 「被科莫血洗」里的「被」不在切除前缀表也无所谓——清洗按结构剥两端动词。
+        home_team = team_names.clean_team_name(home_team)
+        away_team = team_names.clean_team_name(away_team)
 
         # 从正文中提取进球信息
         goals = self._extract_goals_from_text(content, home_team, away_team)

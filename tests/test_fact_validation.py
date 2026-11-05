@@ -37,12 +37,22 @@ class TestTeamNameSanity(unittest.TestCase):
         self.assertTrue(_looks_like_team("Manchester City FC"))
 
     def test_dirty_team_rejected(self):
-        # 含结果/红牌描述词 -> 不是纯队名
+        # 含结果/红牌描述词 -> 不是纯队名。
+        # 2026-11-05 起口径细分：「队名 + 赛果动词」会被清洗救回（逆转巴萨 → 巴萨），
+        # 不再整串丢弃；只有**整体就是动词**（血洗/逆转）才判不是队名。
+        # 见 tests/test_team_result_verbs.py。
         self.assertFalse(_looks_like_team("客胜曼联"))
         self.assertFalse(_looks_like_team("十人曼城"))
-        self.assertFalse(_looks_like_team("逆转巴萨"))
+        self.assertFalse(_looks_like_team("血洗"))
+        self.assertFalse(_looks_like_team("逆转"))
         self.assertFalse(_looks_like_team(""))
         self.assertFalse(_looks_like_team("A"))
+
+    def test_result_verb_glued_name_rescued(self):
+        # 「逆转巴萨」不是脏数据，是「巴萨」前面粘了动词 —— 清洗后仍按巴萨校验
+        import orchestrator as _o
+        self.assertTrue(_looks_like_team("逆转巴萨"))
+        self.assertEqual(_o._clean_team("逆转巴萨"), "巴萨")
 
 
 class TestPlayerNameClean(unittest.TestCase):

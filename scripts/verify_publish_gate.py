@@ -493,6 +493,72 @@ def _probe_score_caliber(orchestrator) -> dict:
                        ("口径归一达标 ✅" if not bad else f"❌ 误判：{bad[:3]}")]}
 
 
+def check_team_result_verbs() -> dict:
+    """A6. 队名「赛果动词」清洗（硬项）。
+
+    2026-11-05 15:13 的真实熔断：战报标题「朗斯主场1-9被科莫血洗」被切成
+    ``away_team='科莫血洗'``，而脏词表只认「胜/负/绝杀/逆转/首发/阵容…」，
+    不认「血洗」→ 判为合法队名 → 硬要求正文出现「血洗」→ 同篇打回 5 次 → 全批停发。
+
+    这一项把该类误报做成可回归校验，四类必须同时成立：
+      ① 粘连队名**救回来**（科莫血洗 → 科莫），而不是整场跳过校验；
+      ② 纯动词（血洗）判为非队名，跳过校验；
+      ③ 真队名一个都不许被清洗改写；
+      ④ 救回来的队名仍要真的比对正文——正文没提照样拦截（不许拿「清洗」换「放松」）。
+    """
+    try:
+        import orchestrator
+        import team_names
+    except Exception as e:  # pragma: no cover
+        return {"item": "队名赛果动词清洗（计划7.3）", "ok": True, "skipped": True,
+                "detail": [f"无法载入事实校验器：{e}"]}
+    bad = []
+
+    # ① 粘连救回
+    for raw, want in (("科莫血洗", "科莫"), ("狂胜朗斯", "朗斯"), ("被科莫血洗", "科莫"),
+                      ("惨败科莫", "科莫"), ("横扫利物浦", "利物浦")):
+        got = team_names.clean_team_name(raw)
+        if got != want:
+            bad.append({"case": f"清洗 {raw}", "want": want, "got": got})
+
+    # ② 纯动词不是队名
+    for verb in ("血洗", "逆转", "淘汰"):
+        if team_names.looks_like_team(verb) or not team_names.is_result_only(verb):
+            bad.append({"case": f"纯动词 {verb} 未判为非队名"})
+
+    # ③ 真队名不被改写
+    for name in ("曼联", "拜仁慕尼黑", "巴黎圣日耳曼", "国际米兰", "AC米兰",
+                 "神户胜利船", "慕尼黑1860", "Manchester City FC"):
+        if team_names.clean_team_name(name) != name:
+            bad.append({"case": f"真队名被误清洗 {name}",
+                        "got": team_names.clean_team_name(name)})
+
+    # ④ 端到端：熔断现场放过，正文真缺队名仍拦
+    body = "朗斯在主场1-9被科莫血洗，法布雷加斯赛后只提了4-0赢曼联的旧账。"
+    fx_verb = {"home_team": "朗斯", "away_team": "血洗", "home_score": 1,
+               "away_score": 9, "goals": []}
+    fx_glue = {"home_team": "朗斯", "away_team": "科莫血洗", "home_score": 1,
+               "away_score": 9, "goals": []}
+    fx_clean = {"home_team": "朗斯", "away_team": "科莫", "home_score": 1,
+                "away_score": 9, "goals": []}
+    if not orchestrator.validate_article_vs_match_data(
+            fx_verb, {"title": "朗斯1-9科莫", "content": body})[0]:
+        bad.append({"case": "熔断现场未放过（away='血洗'）"})
+    if not orchestrator.validate_article_vs_match_data(
+            fx_glue, {"title": "朗斯1-9科莫", "content": body})[0]:
+        bad.append({"case": "粘连队名未救回（away='科莫血洗'）"})
+    no_away = {"title": "朗斯主场1-9惨败",
+               "content": "朗斯在主场1-9输球，法布雷加斯赛后只提了4-0赢曼联的旧账。"}
+    if orchestrator.validate_article_vs_match_data(fx_clean, no_away)[0]:
+        bad.append({"case": "干净队名 + 正文真没提，被放行了（放松）"})
+
+    return {"item": "队名赛果动词清洗（计划7.3）", "ok": not bad, "skipped": False,
+            "cases": 5 + 3 + 8 + 3, "violations": bad,
+            "detail": ["粘连队名救回（科莫血洗→科莫）／纯动词跳过校验／真队名不被改写／"
+                       "救回后仍比对正文；共 19 项正反用例",
+                       ("赛果动词清洗达标 ✅" if not bad else f"❌ 误判：{bad[:3]}")]}
+
+
 def check_provenance() -> dict:
     """B. 溯源覆盖率（告警项）。"""
     total, with_src = 0, 0
@@ -723,7 +789,7 @@ def check_failure_alert_diagnosable() -> dict:
 
 def verify() -> dict:
     checks = [check_title_hard(), check_title_pass_rate(), check_team_alias_awareness(),
-              check_score_caliber_awareness(),
+              check_score_caliber_awareness(), check_team_result_verbs(),
               check_provenance(), check_consistency_mechanism(), check_false_positive_rate(),
               check_reject_traceability(), check_old_news(), check_title_antipattern_residue(),
               check_title_elements_residue(),

@@ -92,6 +92,23 @@ class TestDeterministicUsedToday(unittest.TestCase):
 class TestArticleIndexOffset(unittest.TestCase):
     """确定性文章先占位后，主稿生成必须按 offset 编号（索引/配图不错位）。"""
 
+    def setUp(self):
+        """隔离合规熔断状态：`_generate_articles_from_topics` 里第一件事就是
+        `if _breaker_active(): return`，而 `_breaker_active` 读的是仓库内的
+        `data/compliance_state.json`。2026-11-05 那次真实熔断把 suspended 写成了
+        true，本组用例当场全红——不是代码坏了，是测试读了真实运行期状态。
+        （这正是「测试夹具必须隔离台账」那条纪律的反向形态。）
+        """
+        import compliance_guard as cg
+        self._d = tempfile.TemporaryDirectory()
+        self._prev_state = cg.STATE_PATH
+        cg.STATE_PATH = Path(self._d.name) / "compliance.json"
+
+    def tearDown(self):
+        import compliance_guard as cg
+        cg.STATE_PATH = self._prev_state
+        self._d.cleanup()
+
     def test_offset_shifts_tuple_index_and_images_map(self):
         stats = {"generated": 0, "valid": 0, "failed": 0, "issues": []}
         articles, images_map = [], {}

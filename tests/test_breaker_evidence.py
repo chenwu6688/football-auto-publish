@@ -66,7 +66,7 @@ class TestBreakerEvidence(unittest.TestCase):
         self._prev_state = cg.STATE_PATH
         cg.STATE_PATH = self._p
         self._prev_rejects = dict(o._CONSISTENCY_REJECTS)
-        o._CONSISTENCY_REJECTS.update({"count": 0, "suspended": False, "evidence": []})
+        o._CONSISTENCY_REJECTS.update({"count": 0, "subjects": [], "suspended": False, "evidence": []})
 
     def tearDown(self):
         cg.STATE_PATH = self._prev_state

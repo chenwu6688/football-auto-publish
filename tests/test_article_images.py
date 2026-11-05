@@ -259,7 +259,15 @@ class TestRealBatchFloor(unittest.TestCase):
         if not since or day < since:
             # 生效日之前的批次不参与判定：它们是改造前的产物，判 FAIL 只会制造噪音
             self.skipTest(f"批次 {day} 早于配图下限生效日 {since or '（未标注）'}，未判定")
-        for a in arts:
+        # 只判「走过新版配图路径」的稿子（有 image_cards / image_anchors 台账）。
+        # 2026-11-05 当天就同时存在两种产物：12:21 noon 批是版式库改造前的旧代码
+        # （每篇 1 张），15:13 morning 批才是新代码。拿新标准去判改造前的老产物
+        # 只会制造噪音——那些稿子已经发出去了，判红也修不好。
+        tracked = [a for a in arts
+                   if a.get("image_cards") is not None or a.get("image_anchors") is not None]
+        if not tracked:
+            self.skipTest(f"批次 {day} 全部为改造前产物（无配图台账），未判定")
+        for a in tracked:
             imgs = a.get("images") or a.get("downloaded_images") or []
             self.assertGreaterEqual(
                 len(imgs), int(floor.get("min_per_article") or 3),

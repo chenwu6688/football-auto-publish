@@ -40,6 +40,8 @@ from unittest import mock
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import image_ledger  # noqa: E402  配图台账判据（与 CI 合并脚本共用一份）
+
 AUDIT_DIR = PROJECT_ROOT / "data" / "audit"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 ORCH = PROJECT_ROOT / "orchestrator.py"
@@ -223,7 +225,7 @@ def _batches(days: int) -> list[tuple[str, dict]]:
 def check_products(days: int) -> dict:
     batches = _batches(days)
     item = "真实产物（生效日后每篇 ≥ 3 张配图）"
-    judged, bad, detail = [], [], []
+    judged, bad, detail, legacy = [], [], [], []
     for day, meta in batches:
         floor = meta.get("image_floor") or {}
         since = str(floor.get("since") or "")
@@ -235,9 +237,16 @@ def check_products(days: int) -> dict:
             if not isinstance(a, dict):
                 continue
             n = len(a.get("images") or a.get("downloaded_images") or [])
+            if not image_ledger.has_image_ledger(a):
+                # 无配图台账 = 改造前生成的老产物，不参与判定（未判定 ≠ 通过）
+                legacy.append(f"{day}《{a.get('title', '')[:22]}》{n} 张")
+                continue
             judged.append((day, a.get("title", ""), n))
             if n < want:
                 bad.append(f"{day}《{a.get('title', '')[:22]}》{n} 张")
+    if legacy:
+        detail.append(f"另有 {len(legacy)} 篇为改造前产物（无配图台账），不计入判定："
+                      f"{'、'.join(legacy[:3])}")
     if not judged:
         return {"item": item, "ok": None,
                 "detail": detail + ["窗口内没有对齐生效日的批次产物 → 未判定"]}
