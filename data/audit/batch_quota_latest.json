@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05 15:05",
+  "generated_at": "2026-11-05 15:13",
   "ok": true,
   "checks": [
     {
@@ -83,18 +83,18 @@
       "ok": true,
       "advisory": true,
       "summary": {
-        "total": 7,
-        "this_week": 1,
+        "total": 8,
+        "this_week": 2,
         "weekly_limit": 2,
         "within_limit": true,
         "by_reason": {
-          "thursday_boost": 7
+          "thursday_boost": 8
         },
         "incomplete": []
       },
       "detail": [
-        "累计 7 条加发，本周 1/2",
-        "按原因：{'thursday_boost': 7}",
+        "累计 8 条加发，本周 2/2",
+        "按原因：{'thursday_boost': 8}",
         "留痕字段完整 ✅"
       ]
     },

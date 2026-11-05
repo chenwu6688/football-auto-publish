@@ -40,27 +40,27 @@
     "quota_synced_at": "2026-11-03 10:29:34"
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 353160,
-    "completion_tokens": 95940,
-    "total_tokens": 641417,
+    "prompt_tokens": 365326,
+    "completion_tokens": 102216,
+    "total_tokens": 659859,
     "fail_streak": 0,
     "free_quota_pct": 41.1,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-03 10:29:34"
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 352610,
-    "completion_tokens": 91808,
-    "total_tokens": 642603,
+    "prompt_tokens": 371528,
+    "completion_tokens": 95515,
+    "total_tokens": 665228,
     "fail_streak": 0,
     "free_quota_pct": 42.3,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-03 10:29:34"
   },
   "deepseek-v4-flash-0731": {
-    "prompt_tokens": 324278,
-    "completion_tokens": 105372,
-    "total_tokens": 645010,
+    "prompt_tokens": 339568,
+    "completion_tokens": 109632,
+    "total_tokens": 664560,
     "fail_streak": 0,
     "free_quota_pct": 42.1,
     "free_quota_expires_at": "2027-09-14 09:24:30",
