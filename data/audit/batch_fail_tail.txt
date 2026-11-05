@@ -1,655 +1,177 @@
-===== 0_publish.txt =====
-4Z    🧩 抽取器：34 条结构化事实（生成器对原文不可见）
-2026-11-05T10:08:39.4189633Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:39.4190812Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:39.4191725Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 333984 tokens）
-2026-11-05T10:08:39.4192221Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:08:39.4192614Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:08:40.9144548Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
-2026-11-05T10:08:40.9145165Z    改写完成: 郑铮37岁还要动手术，462场老臣这一刀割在谁心上, 814字
-2026-11-05T10:08:40.9382146Z 
-2026-11-05T10:08:40.9382698Z [3.2] [改写-八卦趣事] 郑铮462次为泰山出战，手术刀下藏着多少山东人的青春...
-2026-11-05T10:08:40.9384512Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:40.9385654Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:40.9386328Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 333984 tokens）
-2026-11-05T10:08:40.9388644Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:08:40.9389125Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:08:43.1578686Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:08:43.1624751Z    🧩 抽取器：7 条结构化事实（生成器对原文不可见）
-2026-11-05T10:08:43.1628609Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:43.1629657Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:43.1630648Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 333453 tokens）
-2026-11-05T10:08:43.1631551Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:08:43.1632204Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:08:47.0774038Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:08:47.0775064Z    改写完成: 杜维卡斯三球，科莫9-1血洗朗斯，这比分老球迷都愣了, 748字
-2026-11-05T10:08:47.0780123Z    ⚠️ 具体时间 第91分钟 未在多渠道源文中核到，放宽校验（不拦截）
-2026-11-05T10:08:47.0877046Z    🔁 事实矛盾(attempt 1/3)：朗斯 失球写作 0，事实卡是 1
-2026-11-05T10:08:47.0877364Z 
-2026-11-05T10:08:47.0877663Z [3.1] [改写-热点球评] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
-2026-11-05T10:08:47.0880007Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:47.0880627Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:47.0881730Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 332745 tokens）
-2026-11-05T10:08:47.0882294Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
-2026-11-05T10:08:47.0882760Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
-2026-11-05T10:08:50.4579121Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:08:50.4579869Z    改写完成: 郑铮37岁躺上手术台，462场老骨头终于扛不住了, 764字
-2026-11-05T10:08:50.4589319Z 
-2026-11-05T10:08:50.4589781Z [3.2] [改写-八卦趣事] 郑铮462次为泰山出战，手术刀下藏着多少山东人的青春...
-2026-11-05T10:08:50.4592383Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:50.4593379Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:50.4594317Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 328771 tokens）
-2026-11-05T10:08:50.4595155Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
-2026-11-05T10:08:50.4595833Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
-2026-11-05T10:08:51.1166201Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
-2026-11-05T10:08:51.1435077Z    🧩 抽取器：28 条结构化事实（生成器对原文不可见）
-2026-11-05T10:08:51.1438232Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:51.1439510Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:51.1440452Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 331191 tokens）
-2026-11-05T10:08:51.1441487Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
-2026-11-05T10:08:51.1441971Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
-2026-11-05T10:08:53.1925855Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
-2026-11-05T10:08:53.1969996Z    🧩 抽取器：7 条结构化事实（生成器对原文不可见）
-2026-11-05T10:08:53.1973475Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:53.1974354Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:53.1975357Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 328240 tokens）
-2026-11-05T10:08:53.1976176Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
-2026-11-05T10:08:53.1976808Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
-2026-11-05T10:08:59.5049301Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
-2026-11-05T10:08:59.5050073Z    改写完成: 科莫9-1朗斯，这比分搁老球迷眼里像哪年那场？, 797字
-2026-11-05T10:08:59.5073541Z    🧯 降级[反洗稿记分]：事实点数少于最强源文（24 < 47） → 不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）
-2026-11-05T10:08:59.5110966Z 
-2026-11-05T10:08:59.5111343Z [3.1] [改写-热点球评] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
-2026-11-05T10:08:59.5113935Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:08:59.5114694Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:08:59.5115579Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 327710 tokens）
-2026-11-05T10:08:59.5116045Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:08:59.5116425Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:09:00.5365546Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
-2026-11-05T10:09:00.5366132Z    改写完成: 37岁郑铮462场后进手术室，泰山这笔账怎么算, 699字
-2026-11-05T10:09:00.5375806Z    🧯 降级[标题评分]：改写异常: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
-2026-11-05T10:09:03.7076701Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:09:03.8924092Z    🧩 抽取器：34 条结构化事实（生成器对原文不可见）
-2026-11-05T10:09:03.8927348Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:09:03.8928379Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:09:03.8929594Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 326861 tokens）
-2026-11-05T10:09:03.8930355Z    🔧 尝试 LLM: deepseek-v4-flash-0731
-2026-11-05T10:09:03.8931208Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
-2026-11-05T10:09:20.5227698Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
-2026-11-05T10:09:20.5228495Z    改写完成: 朗斯主场被科莫灌9球，杜维卡斯帽子戏法太狠了, 993字
-2026-11-05T10:09:20.5246938Z    🧯 降级[一致性校验]：事实矛盾·连续冲突: 科莫 进球写作 1，事实卡是 9；朗斯 失球写作 3，事实卡是 1；朗斯 失球写作 0，事实卡是 1 → 降级为低风险板块（人物故事）后重生成一次
-2026-11-05T10:09:20.5247336Z 
-2026-11-05T10:09:20.5248079Z [3.1] [改写-人物故事] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
-2026-11-05T10:09:20.5250700Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:09:20.5252351Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:09:20.5253437Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 326016 tokens）
-2026-11-05T10:09:20.5254223Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:09:20.5254891Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:09:24.1879750Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:09:24.2152882Z    🧩 抽取器：29 条结构化事实（生成器对原文不可见）
-2026-11-05T10:09:24.2156620Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:09:24.2157308Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:09:24.2158607Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 324959 tokens）
-2026-11-05T10:09:24.2159346Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
-2026-11-05T10:09:24.2159939Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
-2026-11-05T10:09:32.2614989Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
-2026-11-05T10:09:32.2615898Z    改写完成: 科莫9-1血洗朗斯，杜维卡斯传射，这比分老球迷都愣了三秒, 724字
-2026-11-05T10:09:32.2639785Z    🧯 降级[反洗稿记分]：事实点数少于最强源文（20 < 47） → 不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）
-2026-11-05T10:09:32.2989561Z 
-2026-11-05T10:09:32.2990811Z [3.1] [改写-人物故事] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
-2026-11-05T10:09:32.2992484Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:09:32.2993432Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:09:32.2994301Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 324445 tokens）
-2026-11-05T10:09:32.2995084Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:09:32.2995772Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:09:35.5876099Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:09:35.6091593Z    🧩 抽取器：19 条结构化事实（生成器对原文不可见）
-2026-11-05T10:09:35.6095162Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:09:35.6095951Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:09:35.6096800Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 323035 tokens）
-2026-11-05T10:09:35.6097333Z    🔧 尝试 LLM: deepseek/deepseek-flash
-2026-11-05T10:09:35.6097710Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
-2026-11-05T10:09:43.5530219Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
-2026-11-05T10:09:43.5531216Z    改写完成: 科莫9-1血洗朗斯，杜维卡斯帕斯各进一球，这比分老球迷都看愣了, 717字
-2026-11-05T10:09:43.5547306Z    🧯 降级[一致性校验]：事实矛盾·降级后仍冲突: 科莫 1-0 朗斯，事实卡是 朗斯 1-9 科莫 → 丢弃该选题，交由候选池补位
-2026-11-05T10:09:43.5550334Z    ❌ 第1篇失败: 事实矛盾: 科莫 1-0 朗斯，事实卡是 朗斯 1-9 科莫
-2026-11-05T10:09:43.5551655Z    ❌ 第2篇失败: 改写异常: 'int' object has no attribute 'get'
-2026-11-05T10:09:43.5555542Z    🗄️ 蓄水池补位跳过：今日软性已用满 2 篇（P0-2 单日上限）；本批缺口 2 篇不补
-2026-11-05T10:09:43.5556315Z    🧯 降级[软性补位跳过]：今日软性已用满 2 篇（P0-2 单日上限） → 本批篇数不足，按实际成稿发布（不拿软性顶替）
-2026-11-05T10:09:43.5557089Z 
-2026-11-05T10:09:43.5557297Z [预测] 晚间批次：采集明日赛程，生成赛前预测...
-2026-11-05T10:09:46.4813622Z    📅 未来赛程: 40 场未开始的比赛
-2026-11-05T10:09:46.4814428Z       [UEFA Conference League] 特拉布宗 vs 弗赖堡 (2026-11-06 01:45)
-2026-11-05T10:09:46.4815327Z       [UEFA Conference League] 亚特兰大 vs 阿拉木图凯拉特 (2026-11-06 01:45)
-2026-11-05T10:09:46.4816029Z       [UEFA Europa League] 米兰 vs 费伦茨瓦罗斯 (2026-11-06 01:45)
-2026-11-05T10:09:46.4816522Z       [UEFA Europa League] 安德莱赫特 vs 萨尔茨堡红牛 (2026-11-06 01:45)
-2026-11-05T10:09:46.4817000Z       [UEFA Europa League] 水晶宫 vs 霍芬海姆 (2026-11-06 01:45)
-2026-11-05T10:09:46.4817482Z       [UEFA Europa League] 索菲亚列夫斯基 vs 乔治罗尼亚 (2026-11-06 01:45)
-2026-11-05T10:09:46.4817911Z       [UEFA Europa League] 利勒斯特罗姆 vs 比尔森胜利 (2026-11-06 01:45)
-2026-11-05T10:09:46.4818363Z       [UEFA Europa League] 奈梅亨 vs 奥莫尼亚 (2026-11-06 01:45)
-2026-11-05T10:09:46.4818761Z       [UEFA Europa League] 皇家社会 vs 里昂 (2026-11-06 01:45)
-2026-11-05T10:09:46.4819210Z       [UEFA Europa League] 布拉格斯巴达 vs 伯恩茅斯 (2026-11-06 01:45)
-2026-11-05T10:09:46.4819635Z       [UEFA Conference League] 摩纳哥 vs 北西兰 (2026-11-06 04:00)
-2026-11-05T10:09:46.4820055Z       [UEFA Conference League] 赫塔费 vs 布莱顿 (2026-11-06 04:00)
-2026-11-05T10:09:46.4820477Z       [UEFA Europa League] 阿尔克马尔 vs 尤文图斯 (2026-11-06 04:00)
-2026-11-05T10:09:46.4821093Z       [UEFA Europa League] 勒沃库森 vs 马赛 (2026-11-06 04:00)
-2026-11-05T10:09:46.4821561Z       [UEFA Europa League] 本菲卡 vs 波兹南莱赫 (2026-11-06 04:00)
-2026-11-05T10:09:46.4821963Z       [UEFA Europa League] 塞尔塔 vs 圣吉罗斯 (2026-11-06 04:00)
-2026-11-05T10:09:46.4822468Z       [UEFA Europa League] 凯尔特人 vs 贝西克塔斯 (2026-11-06 04:00)
-2026-11-05T10:09:46.4823099Z       [UEFA Europa League] 贝尔谢巴夏普尔 vs 克里特 (2026-11-06 04:00)
-2026-11-05T10:09:46.4823701Z       [UEFA Europa League] 格拉茨风暴 vs 采列 (2026-11-06 04:00)
-2026-11-05T10:09:46.4824331Z       [UEFA Europa League] 桑德兰 vs 萨格勒布迪纳摩 (2026-11-06 04:00)
-2026-11-05T10:09:46.4824993Z       [UEFA Europa League] 杜连斯 vs 亚拉腊-亚美尼亚 (2026-11-06 04:00)
-2026-11-05T10:09:46.4825662Z       [] 哈森姆 vs 利雅得胜利 (2026-11-06 22:55)
-2026-11-05T10:09:46.4826137Z       [] 吉达联合 vs 新未来城体育 (2026-11-07 01:30)
-2026-11-05T10:09:46.4826634Z       [Bundesliga] 汉堡 vs 门兴 (2026-11-07 03:30)
-2026-11-05T10:09:46.4827159Z       [Ligue 1] 图卢兹 vs 斯特拉斯堡 (2026-11-07 03:45)
-2026-11-05T10:09:46.4827514Z       [Serie A] 威尼斯 vs 乌迪内斯 (2026-11-07 03:45)
-2026-11-05T10:09:46.4827901Z       [Primera Division] 塞维利亚 vs 阿拉维斯 (2026-11-07 04:00)
-2026-11-05T10:09:46.4828298Z       [Premier League] 埃弗顿 vs 考文垂 (2026-11-07 04:00)
-2026-11-05T10:09:46.4828689Z       [Premier League] 利兹联 vs 热刺 (2026-11-07 20:30)
-2026-11-05T10:09:46.4829081Z       [Primera Division] 马拉加 vs 桑坦德竞技 (2026-11-07 21:00)
-2026-11-05T10:09:46.4829459Z       [Serie A] 卡利亚里 vs 弗洛西诺内 (2026-11-07 22:00)
-2026-11-05T10:09:46.4830145Z       [Serie A] 都灵 vs 莱切 (2026-11-07 22:00)
-2026-11-05T10:09:46.4830500Z       [] 达曼协作 vs 利雅得新月 (2026-11-07 22:30)
-2026-11-05T10:09:46.4831021Z       [Bundesliga] 多特蒙德 vs 埃尔沃斯贝格 (2026-11-07 22:30)
-2026-11-05T10:09:46.4831440Z       [Bundesliga] 莱比锡 vs 奥格斯堡 (2026-11-07 22:30)
-2026-11-05T10:09:46.4831814Z       [Bundesliga] 美因茨 vs 拜仁慕尼黑 (2026-11-07 22:30)
-2026-11-05T10:09:46.4832185Z       [Bundesliga] 帕德博恩 vs 法兰克福 (2026-11-07 22:30)
-2026-11-05T10:09:46.4832559Z       [Premier League] 阿森纳 vs 赫尔城 (2026-11-07 23:00)
-2026-11-05T10:09:46.4832944Z       [Premier League] 富勒姆 vs 纽卡斯尔联 (2026-11-07 23:00)
-2026-11-05T10:09:46.4833343Z       [Primera Division] 西班牙人 vs 拉科鲁尼亚 (2026-11-07 23:15)
-2026-11-05T10:09:46.4833711Z    ✅ 赛前预测素材: 40 场未来比赛 (2026-11-06)
-2026-11-05T10:09:46.4833905Z 
-2026-11-05T10:09:46.4834054Z [预测] 生成赛前预测文章 (40 场)...
-2026-11-05T10:09:46.4834539Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
-2026-11-05T10:09:46.4835163Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
-2026-11-05T10:09:46.4835763Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 320364 tokens）
-2026-11-05T10:09:46.4836218Z    🔧 尝试 LLM: deepseek-v4-flash-0731
-2026-11-05T10:09:46.4836724Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
-2026-11-05T10:10:04.3512062Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
-2026-11-05T10:10:04.3625938Z    ✅ 预测文章生成成功: 米兰欧联两连胜冲第4，皇家社会里昂伤兵满营谁能笑到最后 (1376字)
-2026-11-05T10:10:04.3626428Z ERROR: name 'topic' is not defined
-2026-11-05T10:10:04.3655073Z 10:10:04 [ERROR] 执行异常: name 'topic' is not defined
-2026-11-05T10:10:04.3655773Z Traceback (most recent call last):
-2026-11-05T10:10:04.3666375Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 5905, in main
-2026-11-05T10:10:04.3667339Z     pred_art, topic, match_data=match_data)
-2026-11-05T10:10:04.3667841Z               ^^^^^
-2026-11-05T10:10:04.3668268Z NameError: name 'topic' is not defined
-2026-11-05T10:10:04.3668799Z Traceback (most recent call last):
-2026-11-05T10:10:04.3669776Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 5905, in main
-2026-11-05T10:10:04.3670641Z     pred_art, topic, match_data=match_data)
-2026-11-05T10:10:04.3671341Z               ^^^^^
-2026-11-05T10:10:04.3671732Z NameError: name 'topic' is not defined
-2026-11-05T10:10:05.4977565Z ##[error]Process completed with exit code 1.
-2026-11-05T10:10:05.5021889Z ##[group]Run # 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」
-2026-11-05T10:10:05.5022290Z [36;1m# 硬项：措辞规则自检 + 分级常量同源 + 成稿标题零「传闻当官宣」[0m
-2026-11-05T10:10:05.5022667Z [36;1mpython3 scripts/verify_rumor_wording.py --quiet \[0m
-2026-11-05T10:10:05.5023144Z [36;1m  || echo "::warning::传闻措辞未达 4.1 验收标准，详见 data/audit/rumor_wording_latest.json"[0m
-2026-11-05T10:10:05.5041924Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:05.5042223Z env:
-2026-11-05T10:10:05.5042453Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:05.5042785Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.5043236Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:05.5043675Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.5044107Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.5044505Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.5044943Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:05.5045288Z ##[endgroup]
-2026-11-05T10:10:05.6430643Z ##[group]Run # 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入
-2026-11-05T10:10:05.6431295Z [36;1m# 硬项：排除项规则自检 + 配置完整性 + ranker/生成提示接入[0m
-2026-11-05T10:10:05.6431697Z [36;1mpython3 scripts/verify_content_reference.py --quiet \[0m
-2026-11-05T10:10:05.6432201Z [36;1m  || echo "::warning::内容参照层未达 13.3 验收标准，详见 data/audit/content_reference_latest.json"[0m
-2026-11-05T10:10:05.6450730Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:05.6451156Z env:
-2026-11-05T10:10:05.6451403Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:05.6451740Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.6452193Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:05.6452804Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.6453204Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.6453608Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.6454067Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:05.6454413Z ##[endgroup]
-2026-11-05T10:10:05.7309304Z ##[group]Run # 硬项：六方向结构齐备 + 代码 hook 落地
-2026-11-05T10:10:05.7309651Z [36;1m# 硬项：六方向结构齐备 + 代码 hook 落地[0m
-2026-11-05T10:10:05.7310032Z [36;1mpython3 scripts/verify_differentiation.py --quiet \[0m
-2026-11-05T10:10:05.7310517Z [36;1m  || echo "::warning::差异化方向未达 13.5 验收标准，详见 data/audit/differentiation_latest.json"[0m
-2026-11-05T10:10:05.7329434Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:05.7329746Z env:
-2026-11-05T10:10:05.7329982Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:05.7330318Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7330765Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:05.7331481Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7331896Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7332303Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7332750Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:05.7333103Z ##[endgroup]
-2026-11-05T10:10:05.7875795Z ##[group]Run # 用户 2026-11-05 把「每篇至少 3 张图」定为**硬条件**，所以这里不能再用
-2026-11-05T10:10:05.7876242Z [36;1m# 用户 2026-11-05 把「每篇至少 3 张图」定为**硬条件**，所以这里不能再用[0m
-2026-11-05T10:10:05.7876603Z [36;1m# `|| echo "::warning::"` 软化——那会让硬项永远绿，正是元验收要抓的[0m
-2026-11-05T10:10:05.7876910Z [36;1m# 「有验收的假象」。[0m
-2026-11-05T10:10:05.7877147Z [36;1m#[0m
-2026-11-05T10:10:05.7877468Z [36;1m# 为什么现在可以阻断：下限不再依赖外部图源。7 种版式 × 4 套配色的信息图[0m
-2026-11-05T10:10:05.7877795Z [36;1m# 全部由本文标题与正文派生，连「正文只有一句话」的稿子都能补满 3 张[0m
-2026-11-05T10:10:05.7878131Z [36;1m# （verify 里有三类极端稿的实测）。这时失败只意味着一件事——系统没有能画[0m
-2026-11-05T10:10:05.7878497Z [36;1m# 汉字的中文字体（那就是 11-05 封面全方框的同款事故），必须立刻知道。[0m
-2026-11-05T10:10:05.7878783Z [36;1m#[0m
-2026-11-05T10:10:05.7879049Z [36;1m# rc=1 → 真失败，阻断；rc=2 → 窗口内没有本改动之后的批次，未判定，只告警。[0m
-2026-11-05T10:10:05.7879354Z [36;1mrc=0[0m
-2026-11-05T10:10:05.7879674Z [36;1mpython3 scripts/verify_article_images.py --quiet || rc=$?[0m
-2026-11-05T10:10:05.7880058Z [36;1mif [ "$rc" -eq 1 ]; then[0m
-2026-11-05T10:10:05.7880802Z [36;1m  echo "::error::配图下限未达每篇 3 张，详见 data/audit/article_images_latest.json"[0m
-2026-11-05T10:10:05.7881457Z [36;1m  exit 1[0m
-2026-11-05T10:10:05.7881719Z [36;1melif [ "$rc" -eq 2 ]; then[0m
-2026-11-05T10:10:05.7882040Z [36;1m  echo "::warning::配图下限未判定（窗口内没有对齐生效日的批次产物）"[0m
-2026-11-05T10:10:05.7882349Z [36;1mfi[0m
-2026-11-05T10:10:05.7899575Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:05.7899876Z env:
-2026-11-05T10:10:05.7900116Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:05.7900440Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7901268Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:05.7901712Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7902107Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7902505Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:05.7902922Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:05.7903266Z ##[endgroup]
-2026-11-05T10:10:06.2961331Z 10:10:06 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/football-auto-publish/football-auto-publish/output/logs/orchestrator_2026-11-05.log
-2026-11-05T10:10:06.6553242Z ##[group]Run # 硬项 A-D（接线/闸门行为/不画假图/无残留图）是确定性判定：红了说明代码
-2026-11-05T10:10:06.6553670Z [36;1m# 硬项 A-D（接线/闸门行为/不画假图/无残留图）是确定性判定：红了说明代码[0m
-2026-11-05T10:10:06.6554009Z [36;1m# 真的坏了，必须阻断——配错图比没图更伤，头条把「配图与内容相关性差」[0m
-2026-11-05T10:10:06.6554348Z [36;1m# 列为扣分项。E（产物闭环）没有可比批次时退出码 2 = 未判定，只告警。[0m
-2026-11-05T10:10:06.6554647Z [36;1m#[0m
-2026-11-05T10:10:06.6554962Z [36;1m# 这里**不能**用 `|| echo "::warning::"` 软化：那会让硬项永远绿，[0m
-2026-11-05T10:10:06.6555290Z [36;1m# 正是元验收要抓的「有验收的假象」。[0m
-2026-11-05T10:10:06.6555546Z [36;1mrc=0[0m
-2026-11-05T10:10:06.6555872Z [36;1mpython3 scripts/verify_image_relevance.py --quiet || rc=$?[0m
-2026-11-05T10:10:06.6556252Z [36;1mif [ "$rc" -eq 1 ]; then[0m
-2026-11-05T10:10:06.6556629Z [36;1m  echo "::error::配图相关性未通过，详见 data/audit/image_relevance_latest.json"[0m
-2026-11-05T10:10:06.6556999Z [36;1m  exit 1[0m
-2026-11-05T10:10:06.6557253Z [36;1melif [ "$rc" -eq 2 ]; then[0m
-2026-11-05T10:10:06.6557622Z [36;1m  echo "::warning::配图相关性未判定（窗口内没有本改动之后的批次产物）"[0m
-2026-11-05T10:10:06.6557926Z [36;1mfi[0m
-2026-11-05T10:10:06.6576780Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:06.6577065Z env:
-2026-11-05T10:10:06.6577303Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:06.6577618Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.6578070Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:06.6578535Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.6578939Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.6579330Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.6579730Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:06.6580541Z ##[endgroup]
-2026-11-05T10:10:06.8001875Z ##[group]Run # 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发
-2026-11-05T10:10:06.8002265Z [36;1m# 硬项：成稿标题零硬违规 + 一致性拦截率可统计 + 连续 14 天无旧闻新发[0m
-2026-11-05T10:10:06.8002651Z [36;1mpython3 scripts/verify_publish_gate.py --quiet \[0m
-2026-11-05T10:10:06.8003111Z [36;1m  || echo "::warning::发布闸门未达 7.2/7.3 验收标准，详见 data/audit/publish_gate_latest.json"[0m
-2026-11-05T10:10:06.8022923Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:06.8023237Z env:
-2026-11-05T10:10:06.8023474Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:06.8023819Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.8024294Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:06.8024733Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.8025143Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.8025545Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:06.8025980Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:06.8026336Z ##[endgroup]
-2026-11-05T10:10:06.9231976Z 10:10:06 [INFO ] 日志系统已初始化，文件输出: /home/runner/work/football-auto-publish/football-auto-publish/output/logs/orchestrator_2026-11-05.log
-2026-11-05T10:10:07.2021275Z    ⚠️ 客队名 '大田市民首发' 疑似脏数据（清洗后 '大田市民首发'），跳过客队名校验
-2026-11-05T10:10:07.2022079Z    ⚠️ 客队名 '大田市民' 未登记别名表，正文以简称出现，放宽校验（不拦截）
-2026-11-05T10:10:07.2065085Z    ⚠️ 客队名 '血洗' 疑似脏数据（清洗后 ''），跳过客队名校验
-2026-11-05T10:10:07.4715844Z ##[warning]发布闸门未达 7.2/7.3 验收标准，详见 data/audit/publish_gate_latest.json
-2026-11-05T10:10:07.4748881Z ##[group]Run # 硬项：常态 2 篇不超手册上限 + 加发不超手册 + 日合计 6-8 + 三处口径一致 + decide 冒烟
-2026-11-05T10:10:07.4749470Z [36;1m# 硬项：常态 2 篇不超手册上限 + 加发不超手册 + 日合计 6-8 + 三处口径一致 + decide 冒烟[0m
-2026-11-05T10:10:07.4749866Z [36;1mpython3 scripts/verify_batch_quota.py --quiet \[0m
-2026-11-05T10:10:07.4750311Z [36;1m  || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"[0m
-2026-11-05T10:10:07.4769161Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:07.4769461Z env:
-2026-11-05T10:10:07.4769693Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:07.4770027Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.4770473Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:07.4771164Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.4771581Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.4771987Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.4772459Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:07.4772818Z ##[endgroup]
-2026-11-05T10:10:07.5436794Z ##[group]Run # 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入
-2026-11-05T10:10:07.5437236Z [36;1m# 硬项（FAIL 即停）：目标表自洽 + 生效日后禁发类型（历史回顾）零产出 + 复核确已接入[0m
-2026-11-05T10:10:07.5437589Z [36;1m# 告警项（不影响退出码）：热点球评占比低于目标 —— 配比是慢变量，按天卡死会逼出凑数稿[0m
-2026-11-05T10:10:07.5437921Z [36;1m# 刻意不加 `|| echo`：禁发类型还在产出就不该放行发布[0m
-2026-11-05T10:10:07.5438299Z [36;1mpython3 scripts/verify_content_mix.py --days 7 --quiet[0m
-2026-11-05T10:10:07.5455820Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:07.5456112Z env:
-2026-11-05T10:10:07.5456346Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:07.5456676Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5457128Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:07.5457575Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5457981Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5458444Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5458961Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:07.5459335Z ##[endgroup]
-2026-11-05T10:10:07.5895648Z ##[group]Run # 持久化 LLM 额度消耗（供下次按阈值选模型）
-2026-11-05T10:10:07.5896005Z [36;1m# 持久化 LLM 额度消耗（供下次按阈值选模型）[0m
-2026-11-05T10:10:07.5896302Z [36;1m# + 软性内容蓄水池（计划 12.1：跨日复用，突发日补位）[0m
-2026-11-05T10:10:07.5896658Z [36;1mgit config user.name "github-actions[bot]" || true[0m
-2026-11-05T10:10:07.5897191Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com" || true[0m
-2026-11-05T10:10:07.5897660Z [36;1mgit add -f data/llm_usage.json || true[0m
-2026-11-05T10:10:07.5897996Z [36;1mgit add -f data/reservoir || true[0m
-2026-11-05T10:10:07.5898313Z [36;1m# 一级·确定性节点库存（计划 12.1：提前量产入库，跨日复用）[0m
-2026-11-05T10:10:07.5898634Z [36;1mgit add -f data/deterministic || true[0m
-2026-11-05T10:10:07.5898948Z [36;1m# 合规熔断状态（计划第十章：不实违规即熔断，跨运行持久化）[0m
-2026-11-05T10:10:07.5899275Z [36;1mgit add -f data/compliance_state.json || true[0m
-2026-11-05T10:10:07.5899775Z [36;1m# 加发留痕台账（策略手册第五章：周内加发 ≤ 2 次，跨运行累计）[0m
-2026-11-05T10:10:07.5900155Z [36;1mgit add -f data/uplift_ledger.json || true[0m
-2026-11-05T10:10:07.5900492Z [36;1m# 验收审计报告（计划 4.1/7.1/11.4 等：看板与门槛报告随运行留痕）[0m
-2026-11-05T10:10:07.5900795Z [36;1mgit add -f data/audit || true[0m
-2026-11-05T10:10:07.5901384Z [36;1mif ! git diff --cached --quiet; then[0m
-2026-11-05T10:10:07.5901735Z [36;1m  git commit -m "chore: 回写 LLM 用量与软性蓄水池"[0m
-2026-11-05T10:10:07.5902061Z [36;1m  for attempt in 1 2 3; do[0m
-2026-11-05T10:10:07.5902366Z [36;1m    if git push origin main; then[0m
-2026-11-05T10:10:07.5902676Z [36;1m      echo "✅ 状态已回写（LLM 用量 + 蓄水池）"[0m
-2026-11-05T10:10:07.5902967Z [36;1m      break[0m
-2026-11-05T10:10:07.5903198Z [36;1m    fi[0m
-2026-11-05T10:10:07.5903497Z [36;1m    echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."[0m
-2026-11-05T10:10:07.5903871Z [36;1m    git pull --rebase origin main || true[0m
-2026-11-05T10:10:07.5904206Z [36;1m    sleep $((attempt * 2))[0m
-2026-11-05T10:10:07.5904475Z [36;1m  done[0m
-2026-11-05T10:10:07.5904702Z [36;1melse[0m
-2026-11-05T10:10:07.5904943Z [36;1m  echo "📝 状态无变化，跳过提交"[0m
-2026-11-05T10:10:07.5905206Z [36;1mfi[0m
-2026-11-05T10:10:07.5921505Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:07.5921805Z env:
-2026-11-05T10:10:07.5922035Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:07.5922366Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5922814Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:07.5923254Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5923657Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5924049Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:07.5924448Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:07.5924780Z ##[endgroup]
-2026-11-05T10:10:07.6660583Z [main 90d4a34] chore: 回写 LLM 用量与软性蓄水池
-2026-11-05T10:10:07.6661305Z  25 files changed, 495 insertions(+), 508 deletions(-)
-2026-11-05T10:10:09.0176770Z To https://github.com/chenwu6688/football-auto-publish.git
-2026-11-05T10:10:09.0177650Z    9ee9668..90d4a34  main -> main
-2026-11-05T10:10:09.0262852Z ✅ 状态已回写（LLM 用量 + 蓄水池）
-2026-11-05T10:10:09.0297994Z ##[group]Run # Push generated article metadata immediately so later batches
-2026-11-05T10:10:09.0298552Z [36;1m# Push generated article metadata immediately so later batches[0m
-2026-11-05T10:10:09.0299021Z [36;1m# (or delayed crons) can see today's already-published topics.[0m
-2026-11-05T10:10:09.0299476Z [36;1mSRC="/home/runner/work/_temp/output/${TODAY}/metadata.json"[0m
-2026-11-05T10:10:09.0299852Z [36;1mif [ ! -f "$SRC" ]; then[0m
-2026-11-05T10:10:09.0300162Z [36;1m  echo "⚠️ metadata.json 不存在，跳过回写"[0m
-2026-11-05T10:10:09.0300458Z [36;1m  exit 0[0m
-2026-11-05T10:10:09.0300683Z [36;1mfi[0m
-2026-11-05T10:10:09.0301148Z [36;1mgit config user.name "github-actions[bot]"[0m
-2026-11-05T10:10:09.0301774Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
-2026-11-05T10:10:09.0302185Z [36;1mDST="output/${TODAY}/metadata.json"[0m
-2026-11-05T10:10:09.0302503Z [36;1mmkdir -p "output/${TODAY}"[0m
-2026-11-05T10:10:09.0302836Z [36;1m# 合并 + 重算配图下限统计都交给脚本：内联两个版本各算一次[0m
-2026-11-05T10:10:09.0303192Z [36;1m# image_floor，导致 articles_below 只反映最后一批（2026-11-05）。[0m
-2026-11-05T10:10:09.0303619Z [36;1mpython3 scripts/merge_metadata.py --src "$SRC" --dst "$DST" \[0m
-2026-11-05T10:10:09.0304044Z [36;1m  || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }[0m
-2026-11-05T10:10:09.0304432Z [36;1mgit add -f "output/${TODAY}/metadata.json" || true[0m
-2026-11-05T10:10:09.0304795Z [36;1mif git diff --cached --quiet; then[0m
-2026-11-05T10:10:09.0305097Z [36;1m  echo "📝 无变化，跳过提交"[0m
-2026-11-05T10:10:09.0305357Z [36;1m  exit 0[0m
-2026-11-05T10:10:09.0305582Z [36;1mfi[0m
-2026-11-05T10:10:09.0305854Z [36;1mgit commit -m "chore: ${TODAY} ${BATCH} 生成完成元数据回写"[0m
-2026-11-05T10:10:09.0306354Z [36;1mfor attempt in 1 2 3; do[0m
-2026-11-05T10:10:09.0306655Z [36;1m  if git push origin main; then[0m
-2026-11-05T10:10:09.0306956Z [36;1m    echo "✅ 生成结果已回写仓库"[0m
-2026-11-05T10:10:09.0307228Z [36;1m    break[0m
-2026-11-05T10:10:09.0307468Z [36;1m  fi[0m
-2026-11-05T10:10:09.0307773Z [36;1m  echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."[0m
-2026-11-05T10:10:09.0308146Z [36;1m  git pull --rebase origin main || true[0m
-2026-11-05T10:10:09.0308480Z [36;1m  /usr/bin/sleep $((attempt * 2))[0m
-2026-11-05T10:10:09.0308776Z [36;1mdone[0m
-2026-11-05T10:10:09.0327918Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:09.0328210Z env:
-2026-11-05T10:10:09.0328448Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:09.0328828Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0329287Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:09.0329734Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0330157Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0330553Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0331089Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:09.0331597Z   TODAY: 2026-11-05
-2026-11-05T10:10:09.0331863Z   BATCH: evening
-2026-11-05T10:10:09.0332213Z ##[endgroup]
-2026-11-05T10:10:09.0693936Z 合并完成：4 篇 / 批次 ['morning', 'noon'] / 配图不足 0 篇
-2026-11-05T10:10:09.0781085Z 📝 无变化，跳过提交
-2026-11-05T10:10:09.0838152Z ##[group]Run python3 scripts/verify_publish_success.py --days 7 --quiet \
-2026-11-05T10:10:09.0838818Z [36;1mpython3 scripts/verify_publish_success.py --days 7 --quiet \[0m
-2026-11-05T10:10:09.0839460Z [36;1m  || echo "::warning::发布成功率未达 85% / 出现连续失败 / 失败无原因，详见 data/audit/publish_success_latest.json"[0m
-2026-11-05T10:10:09.0856988Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:09.0857450Z env:
-2026-11-05T10:10:09.0857806Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:09.0858298Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0858892Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:09.0859469Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0859984Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0860493Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.0861254Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:09.0861736Z ##[endgroup]
-2026-11-05T10:10:09.1287043Z ##[group]Run SRC="/home/runner/work/_temp/output/${TODAY}/metadata.json"
-2026-11-05T10:10:09.1383392Z [36;1mSRC="/home/runner/work/_temp/output/${TODAY}/metadata.json"[0m
-2026-11-05T10:10:09.1384100Z [36;1m[0m
-2026-11-05T10:10:09.1384457Z [36;1mif [ ! -f "$SRC" ]; then[0m
-2026-11-05T10:10:09.1384896Z [36;1m  echo "⚠️ metadata.json 不存在，跳过回写"[0m
-2026-11-05T10:10:09.1385344Z [36;1m  exit 0[0m
-2026-11-05T10:10:09.1385753Z [36;1mfi[0m
-2026-11-05T10:10:09.1386373Z [36;1m[0m
-2026-11-05T10:10:09.1386728Z [36;1mgit config user.name "github-actions[bot]"[0m
-2026-11-05T10:10:09.1387455Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
-2026-11-05T10:10:09.1388045Z [36;1m[0m
-2026-11-05T10:10:09.1388358Z [36;1mDST="output/${TODAY}/metadata.json"[0m
-2026-11-05T10:10:09.1388805Z [36;1mmkdir -p "output/${TODAY}"[0m
-2026-11-05T10:10:09.1389285Z [36;1m[0m
-2026-11-05T10:10:09.1389604Z [36;1m# 合并 batches_completed，避免覆盖之前批次的状态[0m
-2026-11-05T10:10:09.1390151Z [36;1m# BUGFIX: 从 dst（step 11 已合并后的元数据）读取，而非 src（仅当前批次）[0m
-2026-11-05T10:10:09.1390541Z [36;1m# 否则会覆盖 step 11 合并好的跨批次文章列表[0m
-2026-11-05T10:10:09.1390821Z [36;1m# 合并 + 重算配图下限统计都交给脚本：内联两个版本各算一次[0m
-2026-11-05T10:10:09.1391381Z [36;1m# image_floor，导致 articles_below 只反映最后一批（2026-11-05）。[0m
-2026-11-05T10:10:09.1391827Z [36;1mpython3 scripts/merge_metadata.py --src "$SRC" --dst "$DST" \[0m
-2026-11-05T10:10:09.1392258Z [36;1m  || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }[0m
-2026-11-05T10:10:09.1392594Z [36;1m[0m
-2026-11-05T10:10:09.1392880Z [36;1mgit add -f "output/${TODAY}/metadata.json" || true[0m
-2026-11-05T10:10:09.1393247Z [36;1m# 发布结果台账（2026-11-01）：成稿数 ≠ 发布数，不落库就永远是黑箱。[0m
-2026-11-05T10:10:09.1393571Z [36;1m# 10 月成稿 242 / 实际发布 93，这个 62% 的漏斗一个月都没人发现。[0m
-2026-11-05T10:10:09.1393953Z [36;1m# 台账三层：批次明细 + 当天聚合 + latest（见 publisher.write_publish_ledger）[0m
-2026-11-05T10:10:09.1394368Z [36;1mgit add -f data/audit/publish_ledger_*.json || true[0m
-2026-11-05T10:10:09.1394713Z [36;1m[0m
-2026-11-05T10:10:09.1394959Z [36;1mif git diff --cached --quiet; then[0m
-2026-11-05T10:10:09.1395268Z [36;1m  echo "📝 无变化，跳过提交"[0m
-2026-11-05T10:10:09.1395528Z [36;1m  exit 0[0m
-2026-11-05T10:10:09.1395749Z [36;1mfi[0m
-2026-11-05T10:10:09.1395957Z [36;1m[0m
-2026-11-05T10:10:09.1396220Z [36;1mgit commit -m "chore: ${TODAY} ${BATCH} 批次完成"[0m
-2026-11-05T10:10:09.1396528Z [36;1m[0m
-2026-11-05T10:10:09.1396751Z [36;1m# 重试推送：处理多批次并发写入时的 push 冲突[0m
-2026-11-05T10:10:09.1397095Z [36;1m# 注意：git pull --rebase 必须带 || true，否则其失败会以 128 顶出整步[0m
-2026-11-05T10:10:09.1397437Z [36;1mfor attempt in 1 2 3; do[0m
-2026-11-05T10:10:09.1397734Z [36;1m  if git push origin main; then[0m
-2026-11-05T10:10:09.1398030Z [36;1m    echo "✅ 批次状态已回写仓库"[0m
-2026-11-05T10:10:09.1398297Z [36;1m    break[0m
-2026-11-05T10:10:09.1398530Z [36;1m  fi[0m
-2026-11-05T10:10:09.1398815Z [36;1m  echo "⚠️  推送失败 (attempt $attempt/3)，rebase 后重试..."[0m
-2026-11-05T10:10:09.1399197Z [36;1m  git pull --rebase origin main || true[0m
-2026-11-05T10:10:09.1399525Z [36;1m  /usr/bin/sleep $((attempt * 2))[0m
-2026-11-05T10:10:09.1399807Z [36;1mdone[0m
-2026-11-05T10:10:09.1400080Z [36;1mecho "ℹ️ 若上方出现推送失败：文章已发布成功，仅仓库元数据回写未成功（下次运行可自动补齐）"[0m
-2026-11-05T10:10:09.1417116Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:09.1417411Z env:
-2026-11-05T10:10:09.1417649Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:09.1417976Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1418448Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:09.1418885Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1419293Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1419686Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1420088Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:09.1420433Z   TODAY: 2026-11-05
-2026-11-05T10:10:09.1420677Z   BATCH: evening
-2026-11-05T10:10:09.1421159Z ##[endgroup]
-2026-11-05T10:10:09.1759827Z 合并完成：4 篇 / 批次 ['morning', 'noon'] / 配图不足 0 篇
-2026-11-05T10:10:09.1862062Z 📝 无变化，跳过提交
-2026-11-05T10:10:09.1897287Z ##[group]Run python scripts/export_static_data.py "2026-11-05"
-2026-11-05T10:10:09.1897757Z [36;1mpython scripts/export_static_data.py "2026-11-05"[0m
-2026-11-05T10:10:09.1898113Z [36;1m# 提交 static_data/ 到仓库[0m
-2026-11-05T10:10:09.1898425Z [36;1mgit config user.name "github-actions[bot]"[0m
-2026-11-05T10:10:09.1899020Z [36;1mgit config user.email "github-actions[bot]@users.noreply.github.com"[0m
-2026-11-05T10:10:09.1899447Z [36;1mgit add -f static_data/ || true[0m
-2026-11-05T10:10:09.1899772Z [36;1mif ! git diff --cached --quiet; then[0m
-2026-11-05T10:10:09.1900236Z [36;1m  git commit -m "chore: 2026-11-05 evening 更新小程序静态数据"[0m
-2026-11-05T10:10:09.1900590Z [36;1m  for attempt in 1 2 3; do[0m
-2026-11-05T10:10:09.1901081Z [36;1m    if git push origin main; then[0m
-2026-11-05T10:10:09.1901548Z [36;1m      echo "✅ 小程序静态数据已推送 (jsDelivr CDN 约 2-5 分钟生效)"[0m
-2026-11-05T10:10:09.1901874Z [36;1m      break[0m
-2026-11-05T10:10:09.1902111Z [36;1m    fi[0m
-2026-11-05T10:10:09.1902413Z [36;1m    echo "⚠️  推送失败 (attempt $attempt/3)"[0m
-2026-11-05T10:10:09.1902754Z [36;1m    git pull --rebase origin main || true[0m
-2026-11-05T10:10:09.1903077Z [36;1m    /usr/bin/sleep $((attempt * 2))[0m
-2026-11-05T10:10:09.1903372Z [36;1m  done[0m
-2026-11-05T10:10:09.1903597Z [36;1melse[0m
-2026-11-05T10:10:09.1903850Z [36;1m  echo "📝 static_data/ 无变化，跳过提交"[0m
-2026-11-05T10:10:09.1904130Z [36;1mfi[0m
-2026-11-05T10:10:09.1920293Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:09.1920590Z env:
-2026-11-05T10:10:09.1921099Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:09.1921448Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1921902Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:09.1922354Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1922752Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1923171Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:09.1923572Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:09.1923939Z   OUTPUT_DIR: /home/runner/work/_temp/output
-2026-11-05T10:10:09.1924240Z ##[endgroup]
-2026-11-05T10:10:09.2202603Z [export] 导出日期: 2026-11-05
-2026-11-05T10:10:09.6335239Z [export] ✅ 已写入 /home/runner/work/football-auto-publish/football-auto-publish/static_data/today.json (0 篇文章)
-2026-11-05T10:10:09.6358193Z [export] ✅ 历史索引已写入 /home/runner/work/football-auto-publish/football-auto-publish/static_data/history.json (147 个日期)
-2026-11-05T10:10:09.6543191Z [main e5363b9] chore: 2026-11-05 evening 更新小程序静态数据
-2026-11-05T10:10:09.6543859Z  2 files changed, 5 insertions(+), 199 deletions(-)
-2026-11-05T10:10:10.7104767Z To https://github.com/chenwu6688/football-auto-publish.git
-2026-11-05T10:10:10.7105393Z    90d4a34..e5363b9  main -> main
-2026-11-05T10:10:10.7151223Z ✅ 小程序静态数据已推送 (jsDelivr CDN 约 2-5 分钟生效)
-2026-11-05T10:10:10.7200808Z ##[group]Run actions/upload-artifact@v4
-2026-11-05T10:10:10.7201394Z with:
-2026-11-05T10:10:10.7201692Z   name: articles-evening-2026-11-05
-2026-11-05T10:10:10.7202022Z   path: /home/runner/work/_temp/output/2026-11-05/
-2026-11-05T10:10:10.7202345Z   if-no-files-found: warn
-2026-11-05T10:10:10.7202614Z   compression-level: 6
-2026-11-05T10:10:10.7202862Z   overwrite: false
-2026-11-05T10:10:10.7203143Z   include-hidden-files: false
-2026-11-05T10:10:10.7203398Z env:
-2026-11-05T10:10:10.7203619Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:10.7203932Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:10.7204374Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:10.7204808Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:10.7205206Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:10.7205599Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:10.7206030Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:10.7206369Z ##[endgroup]
-2026-11-05T10:10:10.8969072Z (node:3424) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-2026-11-05T10:10:10.8970701Z (Use `node --trace-deprecation ...` to show where the warning was created)
-2026-11-05T10:10:10.9052428Z With the provided path, there will be 1 file uploaded
-2026-11-05T10:10:10.9054279Z Artifact name is valid!
-2026-11-05T10:10:10.9054960Z Root directory input is valid!
-2026-11-05T10:10:11.3045046Z Beginning upload of artifact content to blob storage
-2026-11-05T10:10:11.3240766Z (node:3424) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
-2026-11-05T10:10:11.6161704Z Uploaded bytes 5228
-2026-11-05T10:10:11.6940615Z Finished uploading artifact content to blob storage!
-2026-11-05T10:10:11.6942225Z SHA256 digest of uploaded artifact zip is efae6a43ac0069c03609c5309016f2fc607dd46befefbc0370011353d9b9c6c4
-2026-11-05T10:10:11.6944039Z Finalizing artifact upload
-2026-11-05T10:10:12.1972136Z Artifact articles-evening-2026-11-05.zip successfully finalized. Artifact ID 13406066509
-2026-11-05T10:10:12.1973203Z Artifact articles-evening-2026-11-05 has been successfully uploaded! Final size is 5228 bytes. Artifact ID is 13406066509
-2026-11-05T10:10:12.1974457Z Artifact download URL: https://github.com/chenwu6688/football-auto-publish/actions/runs/42007122553/artifacts/13406066509
-2026-11-05T10:10:12.2081330Z ##[group]Run echo "=== git remote -v ==="
-2026-11-05T10:10:12.2081782Z [36;1mecho "=== git remote -v ==="[0m
-2026-11-05T10:10:12.2082084Z [36;1mgit remote -v[0m
-2026-11-05T10:10:12.2082353Z [36;1mecho "=== 最近一次提交 ==="[0m
-2026-11-05T10:10:12.2082674Z [36;1mgit log -1 --oneline 2>/dev/null || true[0m
-2026-11-05T10:10:12.2083000Z [36;1mecho "=== 排错提示 ==="[0m
-2026-11-05T10:10:12.2083313Z [36;1mecho "若文章已成功发布到头条号，但本运行仍因 git push 失败而告警："[0m
-2026-11-05T10:10:12.2083673Z [36;1mecho "请检查仓库 Settings → Branches → main 是否开启了"[0m
-2026-11-05T10:10:12.2084108Z [36;1mecho "'Require a pull request before merging'（该保护会禁止 GITHUB_TOKEN 直接推送）。"[0m
-2026-11-05T10:10:12.2084546Z [36;1mecho "如开启，请关闭该保护，或为 GITHUB_TOKEN 添加绕过规则。"[0m
-2026-11-05T10:10:12.2103417Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:12.2103732Z env:
-2026-11-05T10:10:12.2103971Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:12.2104303Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2104775Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:12.2105225Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2105625Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2106022Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2106422Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:12.2106771Z ##[endgroup]
-2026-11-05T10:10:12.2145018Z === git remote -v ===
-2026-11-05T10:10:12.2162378Z origin	***github.com/chenwu6688/football-auto-publish.git (fetch)
-2026-11-05T10:10:12.2165326Z origin	***github.com/chenwu6688/football-auto-publish.git (push)
-2026-11-05T10:10:12.2165933Z === 最近一次提交 ===
-2026-11-05T10:10:12.2175983Z e5363b9 chore: 2026-11-05 evening 更新小程序静态数据
-2026-11-05T10:10:12.2177992Z === 排错提示 ===
-2026-11-05T10:10:12.2178483Z 若文章已成功发布到头条号，但本运行仍因 git push 失败而告警：
-2026-11-05T10:10:12.2179009Z 请检查仓库 Settings → Branches → main 是否开启了
-2026-11-05T10:10:12.2180129Z 'Require a pull request before merging'（该保护会禁止 GITHUB_TOKEN 直接推送）。
-2026-11-05T10:10:12.2181055Z 如开启，请关闭该保护，或为 GITHUB_TOKEN 添加绕过规则。
-2026-11-05T10:10:12.2212482Z ##[group]Run python3 scripts/write_failure_reason.py --from-run-api
-2026-11-05T10:10:12.2212983Z [36;1mpython3 scripts/write_failure_reason.py --from-run-api[0m
-2026-11-05T10:10:12.2230108Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:12.2230408Z env:
-2026-11-05T10:10:12.2230664Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:12.2231202Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2231663Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:12.2232115Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2232533Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2232954Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.2233356Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:12.2235842Z   GITHUB_TOKEN: ***
-2026-11-05T10:10:12.2236155Z   GITHUB_REPOSITORY: chenwu6688/football-auto-publish
-2026-11-05T10:10:12.2236532Z   GITHUB_RUN_ID: 42007122553
-2026-11-05T10:10:12.2236811Z ##[endgroup]
-2026-11-05T10:10:12.6163453Z 已记录失败原因：失败步骤: 生成文章（详见运行日志）
-2026-11-05T10:10:12.6383648Z ##[group]Run python3 scripts/notify_failure.py
-2026-11-05T10:10:12.6384268Z [36;1mpython3 scripts/notify_failure.py[0m
-2026-11-05T10:10:12.6411948Z shell: /usr/bin/bash -e {0}
-2026-11-05T10:10:12.6412406Z env:
-2026-11-05T10:10:12.6412760Z   PYTHONUNBUFFERED: 1
-2026-11-05T10:10:12.6413288Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.6414017Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
-2026-11-05T10:10:12.6414699Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.6415361Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.6416000Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
-2026-11-05T10:10:12.6416624Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
-2026-11-05T10:10:12.6417413Z   WXPUSHER_APPTOKEN: ***
-2026-11-05T10:10:12.6417875Z   WXPUSHER_UID: ***
-2026-11-05T10:10:12.6418244Z   WB_BATCH: evening
-2026-11-05T10:10:12.6418644Z   WB_TODAY: 2026-11-05
-2026-11-05T10:10:12.6419062Z   WB_REPO: chenwu6688/football-auto-publish
-2026-11-05T10:10:12.6419528Z   WB_RUN_ID: 42007122553
-2026-11-05T10:10:12.6419896Z ##[endgroup]
-2026-11-05T10:10:13.3213731Z 告警已发送: HTTP 200 {"code":1000,"msg":"处理成功","data":[{"spt":null,"uid":"***","topicId":null,"messageContentId"
-2026-11-05T10:10:13.3498549Z Post job cleanup.
-2026-11-05T10:10:13.4295950Z [command]/usr/bin/git version
-2026-11-05T10:10:13.4333814Z git version 2.56.0
-2026-11-05T10:10:13.4367775Z Temporarily overriding HOME='/home/runner/work/_temp/744e0615-88d6-4dcb-8622-5c602ca89a9a' before making global git config changes
-2026-11-05T10:10:13.4369109Z Adding repository directory to the temporary git global config as a safe directory
-2026-11-05T10:10:13.4371376Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/football-auto-publish/football-auto-publish
-2026-11-05T10:10:13.4407757Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-11-05T10:10:13.4446256Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-11-05T10:10:13.4698999Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-11-05T10:10:13.4713093Z http.https://github.com/.extraheader
-2026-11-05T10:10:13.4723443Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
-2026-11-05T10:10:13.4757504Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-11-05T10:10:13.5003304Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-11-05T10:10:13.5052453Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-11-05T10:10:13.5423242Z Cleaning up orphan processes
-2026-11-05T10:10:13.5713611Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+===== /tmp/logs/publish/18_生成文章.txt 尾部 160 行 =====
+2026-11-05T10:08:47.0775045Z    改写完成: 杜维卡斯三球，科莫9-1血洗朗斯，这比分老球迷都愣了, 748字
+2026-11-05T10:08:47.0780116Z    ⚠️ 具体时间 第91分钟 未在多渠道源文中核到，放宽校验（不拦截）
+2026-11-05T10:08:47.0877037Z    🔁 事实矛盾(attempt 1/3)：朗斯 失球写作 0，事实卡是 1
+2026-11-05T10:08:47.0877356Z 
+2026-11-05T10:08:47.0877659Z [3.1] [改写-热点球评] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
+2026-11-05T10:08:47.0879999Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:08:47.0880624Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:08:47.0881723Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 332745 tokens）
+2026-11-05T10:08:47.0882291Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T10:08:47.0882757Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T10:08:50.4579074Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T10:08:50.4579800Z    改写完成: 郑铮37岁躺上手术台，462场老骨头终于扛不住了, 764字
+2026-11-05T10:08:50.4589309Z 
+2026-11-05T10:08:50.4589774Z [3.2] [改写-八卦趣事] 郑铮462次为泰山出战，手术刀下藏着多少山东人的青春...
+2026-11-05T10:08:50.4592371Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:08:50.4593375Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:08:50.4594308Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 328771 tokens）
+2026-11-05T10:08:50.4595151Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T10:08:50.4595819Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T10:08:51.1166144Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T10:08:51.1435050Z    🧩 抽取器：28 条结构化事实（生成器对原文不可见）
+2026-11-05T10:08:51.1438222Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:08:51.1439018Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:08:51.1440445Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 331191 tokens）
+2026-11-05T10:08:51.1441481Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T10:08:51.1441968Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T10:08:53.1925803Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T10:08:53.1969978Z    🧩 抽取器：7 条结构化事实（生成器对原文不可见）
+2026-11-05T10:08:53.1973466Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:08:53.1974349Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:08:53.1975353Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 328240 tokens）
+2026-11-05T10:08:53.1976170Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T10:08:53.1976805Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T10:08:59.5049087Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T10:08:59.5050065Z    改写完成: 科莫9-1朗斯，这比分搁老球迷眼里像哪年那场？, 797字
+2026-11-05T10:08:59.5073530Z    🧯 降级[反洗稿记分]：事实点数少于最强源文（24 < 47） → 不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）
+2026-11-05T10:08:59.5110939Z 
+2026-11-05T10:08:59.5111337Z [3.1] [改写-热点球评] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
+2026-11-05T10:08:59.5113926Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:08:59.5114686Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:08:59.5115576Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 327710 tokens）
+2026-11-05T10:08:59.5116042Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T10:08:59.5116422Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T10:09:00.5365488Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T10:09:00.5366129Z    改写完成: 37岁郑铮462场后进手术室，泰山这笔账怎么算, 699字
+2026-11-05T10:09:00.5375726Z    🧯 降级[标题评分]：改写异常: 'int' object has no attribute 'get' → 按上一版配比直接生成，不阻塞发布
+2026-11-05T10:09:03.7076646Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T10:09:03.8924036Z    🧩 抽取器：34 条结构化事实（生成器对原文不可见）
+2026-11-05T10:09:03.8927328Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:09:03.8928374Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:09:03.8929585Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 326861 tokens）
+2026-11-05T10:09:03.8930351Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T10:09:03.8931198Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T10:09:20.5227647Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T10:09:20.5228488Z    改写完成: 朗斯主场被科莫灌9球，杜维卡斯帽子戏法太狠了, 993字
+2026-11-05T10:09:20.5246925Z    🧯 降级[一致性校验]：事实矛盾·连续冲突: 科莫 进球写作 1，事实卡是 9；朗斯 失球写作 3，事实卡是 1；朗斯 失球写作 0，事实卡是 1 → 降级为低风险板块（人物故事）后重生成一次
+2026-11-05T10:09:20.5247331Z 
+2026-11-05T10:09:20.5247626Z [3.1] [改写-人物故事] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
+2026-11-05T10:09:20.5250653Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:09:20.5252342Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:09:20.5253431Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 326016 tokens）
+2026-11-05T10:09:20.5254219Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T10:09:20.5254886Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T10:09:24.1879680Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T10:09:24.2152862Z    🧩 抽取器：29 条结构化事实（生成器对原文不可见）
+2026-11-05T10:09:24.2156611Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:09:24.2157301Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:09:24.2158548Z    🧮 候选排序：首位 deepseek/deepseek-v4-flash-vision-exp（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 324959 tokens）
+2026-11-05T10:09:24.2159339Z    🔧 尝试 LLM: deepseek/deepseek-v4-flash-vision-exp
+2026-11-05T10:09:24.2159933Z    🔧 调用 LLM: deepseek/deepseek-v4-flash-vision-exp（兜底模型=None）
+2026-11-05T10:09:32.2614930Z    ✅ LLM(deepseek/deepseek-v4-flash-vision-exp) 返回可用 JSON
+2026-11-05T10:09:32.2615893Z    改写完成: 科莫9-1血洗朗斯，杜维卡斯传射，这比分老球迷都愣了三秒, 724字
+2026-11-05T10:09:32.2639739Z    🧯 降级[反洗稿记分]：事实点数少于最强源文（20 < 47） → 不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）
+2026-11-05T10:09:32.2989514Z 
+2026-11-05T10:09:32.2990780Z [3.1] [改写-人物故事] 朗斯1-9科莫，欧冠史上最大惨案竟由升班马制造...
+2026-11-05T10:09:32.2992464Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:09:32.2993428Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:09:32.2994296Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 324445 tokens）
+2026-11-05T10:09:32.2995078Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T10:09:32.2995697Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T10:09:35.5876052Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T10:09:35.6091568Z    🧩 抽取器：19 条结构化事实（生成器对原文不可见）
+2026-11-05T10:09:35.6095154Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:09:35.6095944Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:09:35.6096797Z    🧮 候选排序：首位 deepseek/deepseek-flash（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 323035 tokens）
+2026-11-05T10:09:35.6097329Z    🔧 尝试 LLM: deepseek/deepseek-flash
+2026-11-05T10:09:35.6097706Z    🔧 调用 LLM: deepseek/deepseek-flash（兜底模型=None）
+2026-11-05T10:09:43.5530166Z    ✅ LLM(deepseek/deepseek-flash) 返回可用 JSON
+2026-11-05T10:09:43.5531207Z    改写完成: 科莫9-1血洗朗斯，杜维卡斯帕斯各进一球，这比分老球迷都看愣了, 717字
+2026-11-05T10:09:43.5547297Z    🧯 降级[一致性校验]：事实矛盾·降级后仍冲突: 科莫 1-0 朗斯，事实卡是 朗斯 1-9 科莫 → 丢弃该选题，交由候选池补位
+2026-11-05T10:09:43.5550310Z    ❌ 第1篇失败: 事实矛盾: 科莫 1-0 朗斯，事实卡是 朗斯 1-9 科莫
+2026-11-05T10:09:43.5551255Z    ❌ 第2篇失败: 改写异常: 'int' object has no attribute 'get'
+2026-11-05T10:09:43.5555498Z    🗄️ 蓄水池补位跳过：今日软性已用满 2 篇（P0-2 单日上限）；本批缺口 2 篇不补
+2026-11-05T10:09:43.5556311Z    🧯 降级[软性补位跳过]：今日软性已用满 2 篇（P0-2 单日上限） → 本批篇数不足，按实际成稿发布（不拿软性顶替）
+2026-11-05T10:09:43.5557084Z 
+2026-11-05T10:09:43.5557293Z [预测] 晚间批次：采集明日赛程，生成赛前预测...
+2026-11-05T10:09:46.4813573Z    📅 未来赛程: 40 场未开始的比赛
+2026-11-05T10:09:46.4814421Z       [UEFA Conference League] 特拉布宗 vs 弗赖堡 (2026-11-06 01:45)
+2026-11-05T10:09:46.4815323Z       [UEFA Conference League] 亚特兰大 vs 阿拉木图凯拉特 (2026-11-06 01:45)
+2026-11-05T10:09:46.4816024Z       [UEFA Europa League] 米兰 vs 费伦茨瓦罗斯 (2026-11-06 01:45)
+2026-11-05T10:09:46.4816517Z       [UEFA Europa League] 安德莱赫特 vs 萨尔茨堡红牛 (2026-11-06 01:45)
+2026-11-05T10:09:46.4816997Z       [UEFA Europa League] 水晶宫 vs 霍芬海姆 (2026-11-06 01:45)
+2026-11-05T10:09:46.4817479Z       [UEFA Europa League] 索菲亚列夫斯基 vs 乔治罗尼亚 (2026-11-06 01:45)
+2026-11-05T10:09:46.4817907Z       [UEFA Europa League] 利勒斯特罗姆 vs 比尔森胜利 (2026-11-06 01:45)
+2026-11-05T10:09:46.4818308Z       [UEFA Europa League] 奈梅亨 vs 奥莫尼亚 (2026-11-06 01:45)
+2026-11-05T10:09:46.4818758Z       [UEFA Europa League] 皇家社会 vs 里昂 (2026-11-06 01:45)
+2026-11-05T10:09:46.4819208Z       [UEFA Europa League] 布拉格斯巴达 vs 伯恩茅斯 (2026-11-06 01:45)
+2026-11-05T10:09:46.4819633Z       [UEFA Conference League] 摩纳哥 vs 北西兰 (2026-11-06 04:00)
+2026-11-05T10:09:46.4820053Z       [UEFA Conference League] 赫塔费 vs 布莱顿 (2026-11-06 04:00)
+2026-11-05T10:09:46.4820474Z       [UEFA Europa League] 阿尔克马尔 vs 尤文图斯 (2026-11-06 04:00)
+2026-11-05T10:09:46.4821085Z       [UEFA Europa League] 勒沃库森 vs 马赛 (2026-11-06 04:00)
+2026-11-05T10:09:46.4821559Z       [UEFA Europa League] 本菲卡 vs 波兹南莱赫 (2026-11-06 04:00)
+2026-11-05T10:09:46.4821960Z       [UEFA Europa League] 塞尔塔 vs 圣吉罗斯 (2026-11-06 04:00)
+2026-11-05T10:09:46.4822462Z       [UEFA Europa League] 凯尔特人 vs 贝西克塔斯 (2026-11-06 04:00)
+2026-11-05T10:09:46.4823095Z       [UEFA Europa League] 贝尔谢巴夏普尔 vs 克里特 (2026-11-06 04:00)
+2026-11-05T10:09:46.4823698Z       [UEFA Europa League] 格拉茨风暴 vs 采列 (2026-11-06 04:00)
+2026-11-05T10:09:46.4824299Z       [UEFA Europa League] 桑德兰 vs 萨格勒布迪纳摩 (2026-11-06 04:00)
+2026-11-05T10:09:46.4824988Z       [UEFA Europa League] 杜连斯 vs 亚拉腊-亚美尼亚 (2026-11-06 04:00)
+2026-11-05T10:09:46.4825655Z       [] 哈森姆 vs 利雅得胜利 (2026-11-06 22:55)
+2026-11-05T10:09:46.4826133Z       [] 吉达联合 vs 新未来城体育 (2026-11-07 01:30)
+2026-11-05T10:09:46.4826627Z       [Bundesliga] 汉堡 vs 门兴 (2026-11-07 03:30)
+2026-11-05T10:09:46.4827155Z       [Ligue 1] 图卢兹 vs 斯特拉斯堡 (2026-11-07 03:45)
+2026-11-05T10:09:46.4827511Z       [Serie A] 威尼斯 vs 乌迪内斯 (2026-11-07 03:45)
+2026-11-05T10:09:46.4827898Z       [Primera Division] 塞维利亚 vs 阿拉维斯 (2026-11-07 04:00)
+2026-11-05T10:09:46.4828295Z       [Premier League] 埃弗顿 vs 考文垂 (2026-11-07 04:00)
+2026-11-05T10:09:46.4828686Z       [Premier League] 利兹联 vs 热刺 (2026-11-07 20:30)
+2026-11-05T10:09:46.4829079Z       [Primera Division] 马拉加 vs 桑坦德竞技 (2026-11-07 21:00)
+2026-11-05T10:09:46.4829456Z       [Serie A] 卡利亚里 vs 弗洛西诺内 (2026-11-07 22:00)
+2026-11-05T10:09:46.4829805Z       [Serie A] 都灵 vs 莱切 (2026-11-07 22:00)
+2026-11-05T10:09:46.4830498Z       [] 达曼协作 vs 利雅得新月 (2026-11-07 22:30)
+2026-11-05T10:09:46.4831007Z       [Bundesliga] 多特蒙德 vs 埃尔沃斯贝格 (2026-11-07 22:30)
+2026-11-05T10:09:46.4831437Z       [Bundesliga] 莱比锡 vs 奥格斯堡 (2026-11-07 22:30)
+2026-11-05T10:09:46.4831812Z       [Bundesliga] 美因茨 vs 拜仁慕尼黑 (2026-11-07 22:30)
+2026-11-05T10:09:46.4832183Z       [Bundesliga] 帕德博恩 vs 法兰克福 (2026-11-07 22:30)
+2026-11-05T10:09:46.4832556Z       [Premier League] 阿森纳 vs 赫尔城 (2026-11-07 23:00)
+2026-11-05T10:09:46.4832942Z       [Premier League] 富勒姆 vs 纽卡斯尔联 (2026-11-07 23:00)
+2026-11-05T10:09:46.4833340Z       [Primera Division] 西班牙人 vs 拉科鲁尼亚 (2026-11-07 23:15)
+2026-11-05T10:09:46.4833707Z    ✅ 赛前预测素材: 40 场未来比赛 (2026-11-06)
+2026-11-05T10:09:46.4833902Z 
+2026-11-05T10:09:46.4834050Z [预测] 生成赛前预测文章 (40 场)...
+2026-11-05T10:09:46.4834535Z    ⏭️ LLM(deepseek-v4-flash-202605) 跳过：已达本地硬上限 800000（已用 802000/1000000，剩余 198000 tokens）
+2026-11-05T10:09:46.4835137Z    ⏭️ LLM(deepseek-v4-pro-0813) 跳过：已达本地硬上限 800000（已用 865000/1000000，剩余 135000 tokens）
+2026-11-05T10:09:46.4835760Z    🧮 候选排序：首位 deepseek-v4-flash-0731（失败次数 0，额度到期 2027-09-14 09:24:30，剩余 320364 tokens）
+2026-11-05T10:09:46.4836215Z    🔧 尝试 LLM: deepseek-v4-flash-0731
+2026-11-05T10:09:46.4836721Z    🔧 调用 LLM: deepseek-v4-flash-0731（兜底模型=None）
+2026-11-05T10:10:04.3512013Z    ✅ LLM(deepseek-v4-flash-0731) 返回可用 JSON
+2026-11-05T10:10:04.3625922Z    ✅ 预测文章生成成功: 米兰欧联两连胜冲第4，皇家社会里昂伤兵满营谁能笑到最后 (1376字)
+2026-11-05T10:10:04.3626424Z ERROR: name 'topic' is not defined
+2026-11-05T10:10:04.3655032Z 10:10:04 [ERROR] 执行异常: name 'topic' is not defined
+2026-11-05T10:10:04.3655768Z Traceback (most recent call last):
+2026-11-05T10:10:04.3666350Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 5905, in main
+2026-11-05T10:10:04.3667334Z     pred_art, topic, match_data=match_data)
+2026-11-05T10:10:04.3667836Z               ^^^^^
+2026-11-05T10:10:04.3668264Z NameError: name 'topic' is not defined
+2026-11-05T10:10:04.3668794Z Traceback (most recent call last):
+2026-11-05T10:10:04.3669700Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 5905, in main
+2026-11-05T10:10:04.3670637Z     pred_art, topic, match_data=match_data)
+2026-11-05T10:10:04.3671335Z               ^^^^^
+2026-11-05T10:10:04.3671728Z NameError: name 'topic' is not defined
+2026-11-05T10:10:05.4977535Z ##[error]Process completed with exit code 1.
+
+===== 栈帧（File "…" 行）=====
+284:2026-11-05T10:10:04.3666350Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 5905, in main
+289:2026-11-05T10:10:04.3669700Z   File "/home/runner/work/football-auto-publish/football-auto-publish/orchestrator.py", line 5905, in main
 
 ===== 全量日志中的 Traceback / Error 片段 =====
-/tmp/logs/publish/18_生成文章.txt:283:2026-11-05T10:10:04.3655768Z Traceback (most recent call last):
-/tmp/logs/publish/18_生成文章.txt:287:2026-11-05T10:10:04.3668264Z NameError: name 'topic' is not defined
-/tmp/logs/publish/18_生成文章.txt:288:2026-11-05T10:10:04.3668794Z Traceback (most recent call last):
-/tmp/logs/publish/18_生成文章.txt:292:2026-11-05T10:10:04.3671728Z NameError: name 'topic' is not defined
-/tmp/logs/publish/18_生成文章.txt:293:2026-11-05T10:10:05.4977535Z ##[error]Process completed with exit code 1.
 /tmp/logs/0_publish.txt:1230:2026-11-05T10:10:04.3655773Z Traceback (most recent call last):
 /tmp/logs/0_publish.txt:1234:2026-11-05T10:10:04.3668268Z NameError: name 'topic' is not defined
 /tmp/logs/0_publish.txt:1235:2026-11-05T10:10:04.3668799Z Traceback (most recent call last):
 /tmp/logs/0_publish.txt:1239:2026-11-05T10:10:04.3671732Z NameError: name 'topic' is not defined
 /tmp/logs/0_publish.txt:1240:2026-11-05T10:10:05.4977565Z ##[error]Process completed with exit code 1.
+/tmp/logs/publish/18_生成文章.txt:283:2026-11-05T10:10:04.3655768Z Traceback (most recent call last):
+/tmp/logs/publish/18_生成文章.txt:287:2026-11-05T10:10:04.3668264Z NameError: name 'topic' is not defined
+/tmp/logs/publish/18_生成文章.txt:288:2026-11-05T10:10:04.3668794Z Traceback (most recent call last):
+/tmp/logs/publish/18_生成文章.txt:292:2026-11-05T10:10:04.3671728Z NameError: name 'topic' is not defined
+/tmp/logs/publish/18_生成文章.txt:293:2026-11-05T10:10:05.4977535Z ##[error]Process completed with exit code 1.
