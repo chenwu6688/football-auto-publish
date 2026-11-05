@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04 18:03",
+  "generated_at": "2026-11-05 08:01",
   "ok": true,
   "checks": [
     {
@@ -89,9 +89,9 @@
       "advisory": true,
       "skipped": false,
       "hits": [],
-      "total": 86,
+      "total": 81,
       "detail": [
-        "近 14 天成稿 86 条，命中赛果播报式 0 条 ✅"
+        "近 14 天成稿 81 条，命中赛果播报式 0 条 ✅"
       ]
     },
     {

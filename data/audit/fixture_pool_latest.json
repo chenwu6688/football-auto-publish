@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-11-04 18:01",
-  "topics": 43,
-  "pool_generated_at": "2026-11-04 18:01",
+  "generated_at": "2026-11-05 08:01",
+  "topics": 35,
+  "pool_generated_at": "2026-11-05 08:01",
   "ok": false,
   "checks": [
     {
       "item": "五类赛程覆盖",
       "ok": false,
       "covered": [
-        "五大联赛",
-        "欧冠"
+        "五大联赛"
       ],
       "missing": [
+        "欧冠",
         "欧联",
         "中超",
         "国足"
       ],
       "detail": [
-        "已覆盖：五大联赛、欧冠",
-        "缺失：欧联、中超、国足"
+        "已覆盖：五大联赛",
+        "缺失：欧冠、欧联、中超、国足"
       ]
     },
     {
       "item": "有赛程日候选≥6",
       "ok": true,
-      "days": 4,
+      "days": 3,
       "thin_days": {},
       "detail": [
-        "共 4 个有赛程日",
+        "共 3 个有赛程日",
         "全部达标"
       ]
     },
@@ -70,10 +70,10 @@
       "advisory": true,
       "ok": true,
       "ratio": 1.0,
-      "hit": 43,
-      "total": 43,
+      "hit": 35,
+      "total": 35,
       "detail": [
-        "含人角色词或悬念词的选题 43/43（100%）",
+        "含人角色词或悬念词的选题 35/35（100%）",
         "（告警项：不足 100% 通常是选题池仍由旧版 ANGLE_RULES 生成，重跑 scripts/fixture_library.py 刷新即可）"
       ]
     }
