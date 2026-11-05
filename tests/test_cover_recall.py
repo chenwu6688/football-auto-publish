@@ -159,12 +159,21 @@ def test_search_images_no_entity_returns_nothing_generic(monkeypatch):
 
 
 def test_search_images_dedupes_urls(monkeypatch):
-    """同一张图被多层取到只保留一次，否则三图模式会塞三张一样的。"""
+    """同一张图被多层取到只保留一次，否则三图模式会塞三张一样的。
+
+    2026-11-05：别再断言「恰好 1 张」。11-04 接入 Commons / 英文图库之后，
+    CI 上这些层网络可达会额外返回**不同**的图，本机维基不通又恰好一张都取不到，
+    于是旧断言本地绿、CI 红（1 failed: assert 3 == 1）。这里要验的是「去重」语义，
+    不是图的总数——总数取决于图源可用性，拿来当判据等于把网络状态写进单测。
+    """
     same = {"url": "https://w/a.jpg", "source": "wikipedia", "alt": "巴黎"}
     monkeypatch.setattr(dc, "search_wikipedia", lambda *a, **k: [dict(same)])
     monkeypatch.setattr(dc, "search_wikipedia_entity", lambda *a, **k: dict(same))
     imgs = dc.search_images({"title": "巴黎圣日耳曼主场取胜", "keywords": []}, count=3)
-    assert len(imgs) == 1
+    urls = [i["url"] for i in imgs]
+    assert urls, "至少得留下那张被多层命中的图，否则这条用例什么都没验"
+    assert urls.count(same["url"]) == 1, "同一 URL 被多层取到必须只留一次"
+    assert len(urls) == len(set(urls)), "所有图层返回的 URL 都不允许重复"
 
 
 # ============================================================
