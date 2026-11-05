@@ -40,6 +40,8 @@ import source_images
 import wiki_media as _wmedia  # 维基共享署名（CC BY 要求写进正文）
 import content_stats
 import cover_card
+import data_chart        # 正文事实重绘成图（零版权，且与正文同源）
+import image_relevance   # 配图相关性闸门：图里的队/数字必须在正文出现过
 import interaction_bait
 import topic_category
 import content_reference
@@ -2228,6 +2230,59 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         prefix = f"article-{idx}-img"
 
         downloaded = []
+
+        # —— 数据图（2026-11-05，优先级最高）——
+        # 用户要求「每篇至少 3 张相关配图」，但两类图源都不够用：爬新闻站有版权
+        # 风险（见 docs/audit/2026-11-05-配图版权与替代方案.md），免费图库在足球
+        # 题材上结构性为空（球员肖像权不在图库手里）。
+        #
+        # 数据图换个思路：把正文**已经写出来**的事实重绘一遍。图里的队、比分、
+        # 积分全部来自正文，相关性由 image_relevance 逐条核验；版权上完全干净，
+        # 因为是自己算、自己画。放在最前面还有两个正向副作用：第一张会被头条
+        # 选作封面，而数据图不怕被投诉；它也不会因为图源断线而消失。
+        #
+        # 被闸门拒掉的图必须**从磁盘删掉**——file_writer 是扫 images 目录得出
+        # image_paths 的，留在盘上就会被当成已配图，台账记 3 张、读者看到 2 张。
+        _chart_dropped: list[dict] = []
+        if not pre_downloaded:
+            try:
+                _cands = data_chart.candidates(art, match_data, out_dir=images_dir,
+                                               prefix=f"{prefix}-src")
+                _kept, _chart_dropped = image_relevance.filter_candidates(_cands, art)
+                for _c in _kept:
+                    if len(downloaded) >= MIN_ARTICLE_IMAGES:
+                        break
+                    _dst = images_dir / f"{prefix}-{len(downloaded) + 1:03d}.jpg"
+                    try:
+                        os.replace(_c["path"], _dst)
+                        _md5 = hashlib.md5(_dst.read_bytes()).hexdigest()
+                    except OSError as _exc:
+                        degrade.note("数据图", f"落盘失败：{_exc}", action="跳过该图")
+                        continue
+                    all_hashes.add(_md5)
+                    downloaded.append({"local_path": str(_dst), "filename": _dst.name,
+                                       "url": "", "md5": _md5,
+                                       "width": _c.get("width", data_chart.W),
+                                       "height": _c.get("height", data_chart.H),
+                                       "description": _c.get("caption") or "数据图",
+                                       "source": f"chart:{_c.get('kind', '')}",
+                                       "anchor": _c.get("anchor"),
+                                       "relevance": _c.get("relevance")})
+            except Exception as _exc:
+                degrade.note("数据图", f"生成异常：{type(_exc).__name__}: {_exc}",
+                             action="跳过数据图，继续用网络图/信息图兜底")
+            finally:
+                for _p in images_dir.glob(f"{prefix}-src-*.jpg"):
+                    try:
+                        _p.unlink()
+                    except OSError:
+                        pass
+        if _chart_dropped:
+            degrade.note("配图相关性",
+                         "；".join(f"{d.get('kind')}：{d.get('reject_reason')}"
+                                  for d in _chart_dropped[:3]),
+                         action="这些图与正文不符，已弃用（宁缺毋滥）")
+
         if i in pre_downloaded:
             # Use pre-downloaded (already cropped) images
             for img_info in pre_downloaded[i]:
@@ -2436,6 +2491,15 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         _rec = {"index": idx, "title": art.get("title", ""), "path": result["article_path"],
                 "slug": result["slug"], "tags": art.get("keywords", []),
                 "keywords": art.get("keywords", []), "images": result["image_paths"],
+                # 每张数据图的「相关性证据」：图里画了谁、哪个数字、置信档。
+                # 存**完整 anchor** 而不是摘要，验收脚本才能拿产物＋正文重跑一遍
+                # 闸门做闭环复验；只存一句人读的 probe 就等于只留了个说法。
+                "image_anchors": [{"file": d.get("filename"),
+                                   "kind": d.get("source", ""),
+                                   "anchor": d.get("anchor"),
+                                   "confidence": (d.get("relevance") or {}).get("confidence", "")}
+                                  for d in downloaded
+                                  if isinstance(d, dict) and d.get("anchor")],
                 "sources_used": _prov_sources,
                 "source_post": _prov_post,
                 "originality_note": art.get("originality_note", ""),

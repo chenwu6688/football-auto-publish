@@ -405,6 +405,24 @@ jobs:
           python3 scripts/verify_article_images.py --quiet \
             || echo "::warning::配图下限未达每篇 3 张，详见 data/audit/article_images_latest.json"
 
+      - name: 配图相关性验收（数据图 + 闸门 · 硬项，失败即阻断）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 硬项 A-D（接线/闸门行为/不画假图/无残留图）是确定性判定：红了说明代码
+          # 真的坏了，必须阻断——配错图比没图更伤，头条把「配图与内容相关性差」
+          # 列为扣分项。E（产物闭环）没有可比批次时退出码 2 = 未判定，只告警。
+          #
+          # 这里**不能**用 `|| echo "::warning::"` 软化：那会让硬项永远绿，
+          # 正是元验收要抓的「有验收的假象」。
+          rc=0
+          python3 scripts/verify_image_relevance.py --quiet || rc=$?
+          if [ "$rc" -eq 1 ]; then
+            echo "::error::配图相关性未通过，详见 data/audit/image_relevance_latest.json"
+            exit 1
+          elif [ "$rc" -eq 2 ]; then
+            echo "::warning::配图相关性未判定（窗口内没有本改动之后的批次产物）"
+          fi
+
       - name: 发布闸门验收（计划 7.2 / 7.3 · 只告警不阻断）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
