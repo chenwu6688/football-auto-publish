@@ -52,9 +52,13 @@ jobs:
       - name: 安装测试依赖
         run: |
           python -m pip install --upgrade pip
-          # playwright 只需可 import（相关用例全部 mock 掉浏览器），
-          # 不装 chromium 二进制，省 1~2 分钟
-          pip install pytest pyyaml requests pillow playwright
+          # 2026-11-05：别再手写包清单。此前这里漏了 beautifulsoup4，
+          # 而 media_scraper.py 顶层就 import bs4 → tests/test_scraper_diagnostics.py
+          # 收集期 ModuleNotFoundError，pytest exit 2，CI 从 11-03 起一直红。
+          # 红灯被当成「已知噪音」，结果 11-04 的 3.12-only f-string 语法错误
+          # 就这么混进了 main。直接吃 requirements.txt，生产装什么单测装什么。
+          # playwright 只需可 import（相关用例全部 mock 掉浏览器），不装 chromium 二进制。
+          pip install -r requirements.txt pytest
 
       - name: 跑全量单测
         # tests/test_video_pipeline.py 排除在外：它 import edge_tts/ffmpeg
@@ -69,3 +73,25 @@ jobs:
         run: |
           echo "::error::单元测试失败。请在本地复跑："
           echo "::error::PYTHONPATH=. python -m pytest tests/ -q --ignore=tests/test_video_pipeline.py"
+
+  # 2026-11-04 事故：title_elements.py 用了 Python 3.12 才允许的 PEP 701 f-string
+  # （表达式内复用引号且跨行）。本机 3.12/3.13 全绿、单测 job 也是 3.12，
+  # 但批次 job 是 3.11 → `import title_elements` 在导入期 SyntaxError，
+  # 「生成文章」步骤 1 秒崩，连漏斗台账都来不及落盘，连挂 evening/morning 两批。
+  # 单靠 ast.parse(feature_version=(3,11)) 抓不住（f-string 分词不受它管），
+  # 唯一可靠办法是用**真的 3.11 解释器**编译全仓。这个 job 不装任何依赖，几秒跑完。
+  py311-compat:
+    name: py3.11 全仓编译（与批次同版本）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 编译所有 .py（硬门禁，不加 || echo）
+        run: |
+          if ! python -m compileall -q .; then
+            echo "::error::存在 Python 3.11 无法编译的 .py。常见成因：3.12 PEP 701 f-string（表达式内复用引号/跨行）。本机 3.12 能过不代表 CI 能过。"
+            exit 1
+          fi
+          echo "✅ 全仓在 Python 3.11 下编译通过"

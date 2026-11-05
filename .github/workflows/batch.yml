@@ -84,6 +84,14 @@ jobs:
 
       - name: 静态分析 — 检查无未定义的函数引用
         run: |
+          # 2026-11-04 事故：本步骤只解析 orchestrator.py / publisher.py 两个文件，
+          # title_elements.py 的 3.12-only f-string 一路绿灯，直到生成步骤 import 才在
+          # 3.11 上 SyntaxError（1 秒崩、告警只说「生成文章失败」）。
+          # 用与生成步骤**同一个 python（3.11）**先编译全仓，把这类问题提前到静态分析阶段。
+          if ! python -m compileall -q .; then
+            echo "::error::本批 Python $(python -V 2>&1) 无法编译全仓，禁止继续生成（多半是 3.12-only 语法）。"
+            exit 1
+          fi
           python3 tests/test_no_dead_references.py
 
       - name: 恢复赛程库缓存（计划 11.4 · 落库缓存 / 业务侧只读库）

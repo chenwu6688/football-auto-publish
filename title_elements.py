@@ -276,11 +276,17 @@ def check(title: str, *, min_elements: int = MIN_ELEMENTS,
     e = extract(t)
     ok = e.count >= int(min_elements) and (e.has_proper or not require_proper)
     if ok:
+        # 别把 '、'.join(...) 塞进 f-string 表达式：那是 Python 3.12 (PEP 701) 才允许的
+        # 「表达式内复用引号 + 跨行」写法，CI 批次跑的是 3.11，导入期直接 SyntaxError
+        # → 生成文章步骤 1 秒崩、连漏斗台账都来不及落盘（2026-11-04 evening 事故）。
+        # 先算好再插值，3.9+ 都能过，输出字符串不变。
+        hit_names = "、".join(
+            [x for x, on in (("数字", e.has_number), ("对比", e.has_contrast),
+                             ("专名", e.has_proper)) if on]
+        ) or "无"
         return {"ok": True, "hit": False, "count": e.count, "missing": e.missing,
                 "elements": e.to_row(), "hint": "",
-                "detail": [f"三要素 {e.count}/3 达标（{'、'.join(
-                    [x for x, on in (('数字', e.has_number), ('对比', e.has_contrast),
-                                     ('专名', e.has_proper)) if on]) or '无'}）"]}
+                "detail": [f"三要素 {e.count}/3 达标（{hit_names}）"]}
 
     lacks = []
     if not e.has_number:
