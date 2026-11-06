@@ -51,68 +51,85 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
+      # 每一步都必须带 if: always()：任一验收失败不许 skip 后面的步骤。
+      # 2026-11-06 实测「标题锚点覆盖率」长期红（33.3% < 40% 目标），
+      # 导致其后 15 个验收步骤全部 skipped —— 红灯之外什么都没验，
+      # 观察期等于瞎眼。失败的步骤自己会把 job 标红，不需要中断来提示。
       - name: 检出代码
+        if: always()
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: 配置 Git 推送凭据
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: 设置 Python
+        if: always()
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: 安装依赖
+        if: always()
         run: |
           python3 -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: 调参纪律与四道防呆（计划 8.1 / 11.5）
+        if: always()
         run: |
           python3 scripts/verify_tuning_discipline.py --quiet \
             || echo "::warning::调参纪律未达 8.1/11.5 验收标准，详见 data/audit/tuning_discipline_latest.json"
 
       - name: 事实层与量表（计划 6.1 / 6.2 / 12.2 / 12.4）
+        if: always()
         run: |
           python3 scripts/verify_fact_layer.py --quiet \
             || echo "::warning::事实层未达 6.1/6.2/12.2/12.4 验收标准，详见 data/audit/fact_layer_latest.json"
 
       - name: 数据源与信源清单（计划 13.2 / 13.4）
+        if: always()
         run: |
           python3 scripts/verify_source_roster.py --quiet \
             || echo "::warning::数据源未达 13.2/13.4 验收标准，详见 data/audit/source_roster_latest.json"
 
       - name: 验收指标与合规熔断（计划第十章）
+        if: always()
         run: |
           python3 scripts/verify_acceptance_metrics.py --quiet \
             || echo "::warning::验收指标未达第十章标准，详见 data/audit/acceptance_metrics_latest.json"
 
       - name: 单批篇数纪律（策略手册第五章 / 计划 12.1）
+        if: always()
         run: |
           python3 scripts/verify_batch_quota.py --quiet \
             || echo "::warning::单批篇数纪律未达手册/计划标准，详见 data/audit/batch_quota_latest.json"
 
       - name: 头条后台数据接入（计划第十章）
+        if: always()
         run: |
           python3 scripts/verify_performance_import.py --quiet \
             || echo "::warning::头条后台数据接入验收未通过（主键唯一性 / 列名映射 / 标题匹配 / 无依赖 xlsx），详见 data/audit/performance_import_latest.json"
 
       - name: 标题反模式闸门（计划 3.3 / 第十章）
+        if: always()
         run: |
           python3 scripts/verify_title_antipattern.py --quiet \
             || echo "::warning::标题反模式闸门验收未通过（赛果播报式硬规则 / 生成侧接入），详见 data/audit/title_antipattern_latest.json"
 
       - name: 标题句式多样性（P0-3：同句式 14 天 ≤2 篇）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化：实测近 14 天 68 篇里「主帅压力体」16 次
           # （26 篇赛程稿中 19 篇同一句式），是「推文全是人物故事」的直接来源。
           python3 scripts/verify_title_templates.py --quiet
 
       - name: 赛季节点日历可信度（事实可追 / 揭晓时刻 / 生成侧接入）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：写金球奖节点时发现日历里的事实没有来源约束，
           # 查证时就撞到把「1996 萨默尔」算成「44 年金球荒」的稿子（实际 30 年）——
@@ -120,6 +137,7 @@ jobs:
           python3 scripts/verify_season_calendar.py --quiet
 
       - name: 揭晓型事件结果稿通道（多源交叉验证 / 时间闸门）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：金球奖开奖后全网都会出消息，不需要人工通报，
           # 但「抓来就写」＝把外媒预测当结论（10-26 10:28 懂球帝就有《【CBS Sports】姆巴佩夺金球》，
@@ -128,6 +146,7 @@ jobs:
           python3 scripts/verify_event_result.py --quiet
 
       - name: 内容类型配比（2026-11-01 月度分析：禁发类型 / 目标表自洽）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：10 月实测（按实际发布 93 篇口径）
           # 历史回顾篇均 0.9 阅读、榜单 0.5，仍在产出；而最能打的热点球评
@@ -136,6 +155,7 @@ jobs:
           python3 scripts/verify_content_mix.py --days 7 --quiet
 
       - name: 标题锚点与疑问收尾限额（2026-11-01 头部对标 P0-1）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：抓了 4 个头条足球头部号 181 条真实作品，
           # 头部锚点覆盖 7.2%~35.7%、疑问句 0%~20.2%；我方锚点 2.6%、疑问句 85.5%，
@@ -145,6 +165,7 @@ jobs:
           python3 scripts/verify_title_anchor.py --days 7 --quiet
 
       - name: 封面覆盖率（2026-11-01 体系体检）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：10 月已发布 143 篇里 53 篇（37%）是
           # 「无封面」发出的——头条在正文 0 图时会主动设成无封面模式，而该路径
@@ -154,6 +175,7 @@ jobs:
           python3 scripts/verify_cover_coverage.py --days 14 --quiet
 
       - name: 标题三要素闸门（2026-11-04 阅读量瓶颈 P0-1）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：88 篇真实稿 + 181 条头部样本回测，
           # 我方「数字/对比/专名」通过组中位阅读 14、被拦组 2，而头部通过率 70.7%
@@ -164,6 +186,7 @@ jobs:
           python3 scripts/verify_title_elements.py --quiet
 
       - name: 每批内容类型结构（2026-11-04 阅读量瓶颈 P1-1）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：content_mix.TARGET_PCT 是月度占比，
           # 一批 2 篇时「今天全发战术榜单」照样月度达标，而 10 月实际就是战术榜单 44%。
@@ -173,6 +196,7 @@ jobs:
           python3 scripts/verify_batch_mix.py --quiet
 
       - name: 发布成功率（2026-11-04 审核机制补缺）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。补的缺口：此前 38 个验收全在审「该不该发」，
           # 没有一个在看「发没发成」。11-04 午间 2 篇里 1 篇发布超时失败（无API响应），
@@ -184,6 +208,7 @@ jobs:
           python3 scripts/verify_publish_success.py --days 7 --quiet
 
       - name: LLM 免费额度账本（2026-11-03 后台截图全量同步）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：TokenHub 无额度查询 API，账本靠人工截图填。
           # 手填有两个静默失败模式：① 本地少记 total_tokens → 运行期以为还有额度，
@@ -194,6 +219,7 @@ jobs:
           python3 scripts/verify_llm_quota.py --quiet
 
       - name: 单事件多切口编排（2026-11-01 头部对标 P0-2）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：金球奖当天我爱英超发了 15 条、我方 1 条——
           # 不是写得少，是一个事件只写一个角度。角度池被清空、非 S 级事件触发、
@@ -201,46 +227,55 @@ jobs:
           python3 scripts/verify_event_cluster.py --quiet
 
       - name: 选题分类与类别优先级（计划 5.1 / R11 内容诊断）
+        if: always()
         run: |
           python3 scripts/verify_topic_category.py --quiet \
             || echo "::warning::选题分类器验收未通过（类别优先级 / 战报比分软上限），详见 data/audit/topic_category_latest.json"
 
       - name: 标题正向规则（计划 3.3 / R11 内容诊断）
+        if: always()
         run: |
           python3 scripts/verify_title_positive.py --quiet \
             || echo "::warning::标题正向规则验收未通过（悬念词/21-30字/赛事名词/情绪词），详见 data/audit/title_positive_latest.json"
 
       - name: 效果闭环（R11 内容诊断 / 计划第十章）
+        if: always()
         run: |
           python3 scripts/verify_effect_loop.py --quiet \
             || echo "::warning::效果闭环验收未通过（单篇点击率派生 / 导出列直读 / 选题类型落盘 / 看板分组 / 导入透传），详见 data/audit/effect_loop_latest.json"
 
       - name: 转粉 + 互动引导闭环（R11 建议5 / 计划 13.5 / 第十章）
+        if: always()
         run: |
           python3 scripts/verify_growth_loop.py --quiet \
             || echo "::warning::转粉/互动引导闭环验收未通过（转粉通道 / 缺列不冒充 0 / 看板口径 / 生成侧打回与兜底注入），详见 data/audit/growth_loop_latest.json"
 
       - name: 绩效回填自动化（R11 建议7）
+        if: always()
         run: |
           python3 scripts/verify_perf_ingest.py --quiet \
             || echo "::warning::绩效回填自动化验收未通过（投递箱识别 / 幂等归档 / 失败不吞 / 滞后监控 / CI 接线），详见 data/audit/perf_ingest_latest.json"
 
       - name: RedFox 热点数据试点（用户 2026-10-13 授权 · 只读试点）
+        if: always()
         run: |
           python3 scripts/verify_redfox_pilot.py --quiet \
             || echo "::warning::RedFox 试点验收未通过（配置/冒烟/台账隔离/信号表接入；CI 无 Key 时实网探测自动跳过），详见 data/audit/redfox_pilot_latest.json"
 
       - name: 发布时段纪律（计划 3.3 / 第十章）
+        if: always()
         run: |
           python3 scripts/verify_publish_schedule.py --quiet \
             || echo "::warning::发布时段纪律验收未通过（主调度/兜底 cron 与死区护栏一致性），详见 data/audit/publish_schedule_latest.json"
 
       - name: 信号饱和度体检（防无效信号规则）
+        if: always()
         run: |
           python3 scripts/verify_signal_saturation.py --quiet \
             || echo "::warning::信号饱和度体检未通过（饱和字段被接回维度加分 / 缺失被 0 冒充），详见 data/audit/signal_saturation_latest.json"
 
       - name: 采集失败分类（真空数据 ≠ 被拦）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：2026-10-26 懂球帝过腾讯 EdgeOne 返 HTTP 567
           # 挑战页，567 不在 403/429/404 分支里 → 重试耗尽 return "" → 备源静默归零，
@@ -250,6 +285,7 @@ jobs:
           python3 scripts/verify_scraper_diagnostics.py --quiet
 
       - name: L3 打分留证（周审计的前提）
+        if: always()
         run: |
           # 硬项，不加 || echo 软化。起因：data/rank_audit 里 2026-10-10 那份「量表校准」
           # 10 条样本全是 来源=rule（冲突度 1.1 / 知名度 1.0 是规则公式恒给 1，不是模型偏好）。
