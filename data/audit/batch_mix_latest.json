@@ -1,8 +1,10 @@
 {
-  "generated_at": "2026-11-06 13:49",
+  "generated_at": "2026-11-06 14:15",
   "since": "2026-11-04",
-  "ok": false,
-  "pending": [],
+  "ok": true,
+  "pending": [
+    "产出结构（生效日起）"
+  ],
   "checks": [
     {
       "item": "结构逻辑自检",
@@ -49,33 +51,17 @@
     },
     {
       "item": "产出结构（生效日起）",
-      "ok": false,
+      "ok": null,
+      "pending": true,
       "skipped": false,
       "structure": {
-        "total": 11,
-        "counts": {
-          "战术榜单": 4,
-          "人物故事": 1,
-          "排行榜": 1,
-          "热点球评": 5
-        },
-        "main_pct": 45.5,
-        "tactical_pct": 36.4,
-        "data_pct": 9.1,
-        "banned_hits": 0,
-        "legacy": 3
+        "total": 0,
+        "legacy": 0
       },
       "detail": [
-        "样本 11 篇（3 天，均为新结构批次）",
-        "热点球评 45.5%（≥35.0%）✅",
-        "战术榜单 36.4%（≤14.0%）❌",
-        "数据型 9.1%（≥38.0%）❌",
-        "禁发类型 0 篇✅",
-        "另有 3 篇是结构改造前生成的批次（metadata 无 batch_mix），按旧排序产出，不计入判定"
+        "生成侧已接入，但 2026-11-07 起还没有跑过修复后的批次（未判定，不算通过）"
       ]
     }
   ],
-  "hard_failed": [
-    "产出结构（生效日起）"
-  ]
+  "hard_failed": []
 }
