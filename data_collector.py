@@ -1710,7 +1710,7 @@ def _zh(name_en):
 
 def collect_fixture_topics(date_str, batch_mode="auto", max_topics=1,
                            lookahead_days=3, topic_history=None,
-                           cross_batch_covered=None):
+                           cross_batch_covered=None, need_type=None):
     """确定性供给：从 data/fixtures/topic_pool.json 读取赛程选题，筛选本批次可发布的。
 
     筛选规则：
@@ -1781,6 +1781,23 @@ def collect_fixture_topics(date_str, batch_mode="auto", max_topics=1,
             continue
 
         candidates.append(t)
+
+    # 结构缺口优先（2026-11-06）：`batch_mix` 已经决定本批该写哪几型，
+    # 确定性供给**只有在能填上那个空槽时才占位**。填不上就返回空，把槽位让给主稿。
+    #
+    # 病根（11-06 漏斗原文 `llm 4 → batch_mix 2 → slot 1 → generated 1`）：
+    # 赛程稿的 5 种角度里有 4 种落「战术榜单」，而目标表只给它 4%；它每批固定
+    # 占掉 1 个槽，data 槽的数据型候选就被静默丢弃 —— 数据对比目标 30% 结构性不可达。
+    # 现在由调用方把「缺哪一型」传进来，填不上就别占坑。
+    if need_type:
+        import content_mix
+        matched = [t for t in candidates
+                   if content_mix.normalize(t.get("suggested_column")) == need_type]
+        if not matched:
+            print(f"   ℹ️ 确定性供给让位：本批需要「{need_type}」，赛程池 "
+                  f"{len(candidates)} 条候选里没有对应角度（不占数据型的槽）")
+            return []
+        candidates = matched
 
     candidates.sort(key=lambda x: -x.get("priority", 0))
     picked = candidates[:max_topics]

@@ -49,6 +49,13 @@ CST = timezone(timedelta(hours=8))
 
 # 结构生效日：此前的产出是旧结构（战术榜单 44%），拿它判新规则等于永远 FAIL
 MIX_SINCE = "2026-11-04"
+# 槽位账生效日（2026-11-06 修）：MIX_SINCE 之后的批次虽然跑了 batch_mix，但那时
+# **确定性供给先占槽、data 槽被静默丢弃**（漏斗 `batch_mix 2 → slot 1 → generated 1`），
+# 实际产出是「1 主 + 0~1 战术榜单」，数据型 9.1%、战术榜单 36.4%。
+# 拿这批去判修复后的期望，只会得到一条永远红、且无法通过调度消除的告警 ——
+# 与「长期红灯本身就是漏洞」是同一件事。所以结构判定从槽位账修复日重新起算，
+# 旧样本仍如实计入 legacy 并打印，不隐藏。
+SLOT_SINCE = "2026-11-07"
 # 样本下限（8 篇 ≈ 4 天 × 2 篇）；不足则未判定
 MIN_SAMPLE = 8
 # 累计样本达此数且从未达标 → FAIL（堵自我豁免）
@@ -153,11 +160,11 @@ def _check_wiring() -> dict:
 
 
 def _check_structure(days: int) -> dict:
-    arts, days_seen, legacy = _collect(days, MIX_SINCE)
-    legacy_note = (f"另有 {legacy} 篇是结构改造前生成的批次（metadata 无 batch_mix），"
-                   f"按旧排序产出，不计入判定" if legacy else "")
+    arts, days_seen, legacy = _collect(days, SLOT_SINCE)
+    legacy_note = (f"另有 {legacy} 篇是槽位账修复前生成的批次（那时 data 槽会被确定性供给顶掉），"
+                   f"不计入判定" if legacy else "")
     if not arts:
-        detail = [f"生成侧已接入，但 {MIX_SINCE} 起还没有跑过新结构的批次（未判定，不算通过）"]
+        detail = [f"生成侧已接入，但 {SLOT_SINCE} 起还没有跑过修复后的批次（未判定，不算通过）"]
         if legacy_note:
             detail.append(legacy_note)
         return {"item": "产出结构（生效日起）",

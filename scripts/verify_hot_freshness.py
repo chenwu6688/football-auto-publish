@@ -220,9 +220,122 @@ def _check_coverage(days: int = 7) -> dict:
     return _ok(f"E 近 {days} 天热点覆盖", True, detail, advisory=True)
 
 
+def _check_sources() -> dict:
+    """F. 热点多源接入（硬项，2026-11-06）。
+
+    用户要求热点池新增懂球帝、百度贴吧，其余源暂不接。四项判据：
+
+      1. 接入层存在且**只通过 PROVIDERS 加源**（否则又会散成 if-else）；
+      2. 懂球帝（media）与贴吧（ugc）处于启用状态；
+      3. 媒体源必须过时效闸门 —— 2026-11-06 实测新浪 RSS 的 pubDate 全是 2018-09，
+         「拉得到数据」不等于「数据是今天的」；
+      4. 贴吧是 UGC，**不得当事实底本**：只有 media 能直接产出候选。
+    """
+    detail = []
+    ok = True
+    p = PROJECT_ROOT / "hot_sources.py"
+    if not p.exists():
+        return _ok("F 热点多源接入", False, ["hot_sources.py 不存在（源接入层缺失）"])
+    src = p.read_text(encoding="utf-8")
+    for fn, why in (("def fetch_dongqiudi(", "懂球帝"), ("def fetch_tieba(", "贴吧"),
+                    ("def apply_freshness(", "时效闸门"),
+                    ("def article_text_of(", "正文派发")):
+        if fn not in src:
+            ok = False
+            detail.append(f"缺 {fn}（{why}）")
+    if "apply_freshness(" not in src or "stale_dropped" not in src:
+        ok = False
+        detail.append("媒体源未过时效闸门，或剔除数未记账 —— 旧闻会直接变成热点稿")
+    else:
+        detail.append("媒体源过时效闸门，剔除数进台账")
+
+    sys.path.insert(0, str(PROJECT_ROOT))
+    try:
+        import hot_sources
+        on = {x["name"]: x for x in hot_sources.PROVIDERS if x.get("enabled")}
+    except Exception as exc:
+        return _ok("F 热点多源接入", False, detail + [f"hot_sources 导入失败：{exc}"])
+
+    for name, kind in (("dongqiudi", "media"), ("tieba", "ugc")):
+        if name not in on:
+            ok = False
+            detail.append(f"{name} 未启用（本轮明确要求接入）")
+        elif on[name].get("kind") != kind:
+            ok = False
+            detail.append(f"{name} 的 kind 应为 {kind}，实为 {on[name].get('kind')}")
+        else:
+            detail.append(f"{name} 已启用（kind={kind}）")
+    extra = sorted(set(on) - {"baidu", "weibo", "dongqiudi", "tieba"})
+    if extra:
+        ok = False
+        detail.append(f"额外启用了未获批的源：{'、'.join(extra)}")
+
+    orch = (PROJECT_ROOT / "orchestrator.py").read_text(encoding="utf-8")
+    if "hot_topics.pick_candidates(" not in orch:
+        ok = False
+        detail.append("orchestrator 未走 pick_candidates —— 三通道未合并，仍可能多源重复出稿")
+    else:
+        detail.append("三通道合并入口在位（榜 → 媒体 → 同题降级）")
+    if "hot_sources.collect()" not in orch:
+        ok = False
+        detail.append("主流程未抓多源（素材池与热点通道各抓一次会看到两份不一致的快照）")
+    else:
+        detail.append("主流程抓一次多源并复用（同一批同一份快照）")
+    return _ok("F 热点多源接入", ok, detail)
+
+
+def _check_slot_accounting() -> dict:
+    """G. 槽位账（硬项，2026-11-06）。
+
+    事故：`batch_mix` 定了 main+data 两槽，确定性供给随后占 1 槽，主稿只剩 1 槽
+    → data 那条被静默丢弃（漏斗 `batch_mix 2 → slot 1 → generated 1`）。
+    修法三条，缺一条就会复发。
+    """
+    detail = []
+    ok = True
+    orch = (PROJECT_ROOT / "orchestrator.py").read_text(encoding="utf-8")
+
+    if "need_type=_need_type" not in orch:
+        ok = False
+        detail.append("确定性供给未收到「本批缺哪一型」—— 填不上也照占槽位")
+    else:
+        detail.append("确定性供给按结构缺口取用（填不上即让位）")
+    if "_select_main_draft(" not in orch:
+        ok = False
+        detail.append("主稿未按「已填类型」过滤 —— 会与确定性供给写同一型")
+    else:
+        detail.append("主稿跳过已填类型（一型一篇）")
+    if "_funnel(\"slot\", min(len(_main_pool), _main_slots)" not in orch:
+        ok = False
+        detail.append("漏斗 slot 层仍记过滤前的候选数 —— 「少写一篇」会被误记成「没候选」")
+    else:
+        detail.append("漏斗 slot 层记过滤后的真实可写数")
+
+    dc = (PROJECT_ROOT / "data_collector.py").read_text(encoding="utf-8")
+    if "def collect_fixture_topics(" not in dc or "need_type" not in dc:
+        ok = False
+        detail.append("collect_fixture_topics 未支持 need_type")
+    else:
+        detail.append("赛程选题支持按缺口选型")
+
+    sys.path.insert(0, str(PROJECT_ROOT))
+    try:
+        import content_mix
+        if content_mix.normalize("数据对照") != "数据对比":
+            ok = False
+            detail.append("「数据对照」未归一为「数据对比」—— 数据型占比永远统计不到，日上限也查不到")
+        else:
+            detail.append("赛程角度「数据对照」与目标「数据对比」已统一口径")
+    except Exception as exc:
+        ok = False
+        detail.append(f"content_mix 导入失败：{exc}")
+    return _ok("G 槽位账与类型口径", ok, detail)
+
+
 def verify() -> dict:
     checks = [_check_module(), _check_ledger(), _check_fixture_dedup(),
-              _check_event_key(), _check_coverage()]
+              _check_event_key(), _check_coverage(),
+              _check_sources(), _check_slot_accounting()]
     hard_failed = [c["item"] for c in checks if c["ok"] is False and not c.get("advisory")]
     return {
         "version": 1,
@@ -286,6 +399,34 @@ def selftest() -> int:
         print("❌ 复位失败：恢复 event_key 后 D 项仍红")
         return 1
     print("✅ 复位正常：恢复后 D 项重新通过")
+
+    # ---- F 负向：把懂球帝关掉 → 必须报红 ----
+    import hot_sources
+    import content_mix
+    _providers = hot_sources.PROVIDERS
+    hot_sources.PROVIDERS = tuple(
+        {**p, "enabled": False} if p["name"] == "dongqiudi" else p for p in _providers)
+    try:
+        repf = _check_sources()
+    finally:
+        hot_sources.PROVIDERS = _providers
+    if repf["ok"]:
+        print("❌ 负向自检失败：关掉懂球帝后 F 项仍然绿 —— 抓不到「源没接上」")
+        return 1
+    print(f"✅ 负向自检通过：关掉懂球帝后 F 项报红（{repf['detail'][-1][:40]}）")
+
+    # ---- G 负向：把「数据对照」的别名去掉 → 必须报红 ----
+    _aliases = dict(content_mix.ALIASES)
+    content_mix.ALIASES.pop("数据对照", None)
+    try:
+        repg = _check_slot_accounting()
+    finally:
+        content_mix.ALIASES.clear()
+        content_mix.ALIASES.update(_aliases)
+    if repg["ok"]:
+        print("❌ 负向自检失败：去掉「数据对照」别名后 G 项仍然绿 —— 类型口径分叉抓不到")
+        return 1
+    print("✅ 负向自检通过：类型口径分叉时 G 项报红")
     return 0
 
 

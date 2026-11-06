@@ -71,8 +71,16 @@ def load_awareness_map():
 
 
 def awareness_of(name):
-    """主体认知度 A/B/C；**未登记返回 awareness_gate.UNREGISTERED**（不等于 C，计划 13.1）。"""
-    return load_awareness_map().get(name, awareness_gate.UNREGISTERED)
+    """主体认知度 A/B/C；**未登记返回 awareness_gate.UNREGISTERED**（不等于 C，计划 13.1）。
+
+    解析顺序由 `awareness_gate.resolve_level` 统一提供（实体表 → 球员译名表）；
+    2026-11-06 之前只查实体表，球员（C罗/梅西/萨拉赫…）全部落成未登记 → L1 直接 block，
+    球员主体的选题在主通道上等于被关掉。
+
+    映射表由本模块的 `_awareness_cache` 提供（可注入、便于测试与热更新），
+    但「查不到怎么办」的口径不在这里写第二遍。
+    """
+    return awareness_gate.resolve_level(name, load_awareness_map())
 
 
 # ------------------------------------------------------------

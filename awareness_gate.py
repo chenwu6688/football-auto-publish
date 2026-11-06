@@ -115,6 +115,58 @@ def can_generate_title(name: str, emap: dict | None = None) -> bool:
     return level_of(name, emap) in ("A", "B")
 
 
+# ------------------------------------------------------------
+# 球员兜底（2026-11-06）
+# ------------------------------------------------------------
+#: 已建译名的球员默认按 B 级处理（关注者认识 → 配认知锚点或改走故事角度）。
+#:
+#: 为什么要有这一层：`entity_map.json` 的 709 个实体里有球队、联赛、机构，
+#: **没有 C罗、梅西、萨拉赫**（实测 `awareness_of('C罗')` 返回 ``"?"``）。
+#: 于是「C罗宣布退出国家队」这类球员主体的选题在 L1 就被判「未登记实体不得
+#: 进入生成环节」——球员类选题对主通道基本关闭，热点通道不得不绕过 ranker
+#: 才把 C 罗写出来。这不是配比问题，是注册表漏了一整类主体。
+#:
+#: 为什么不直接给 A：`player_names.json` 只解决译名，**没有分级依据**；
+#: A 是「泛球迷普遍认识」，逐人断言需要证据。B 不拦截（needs_anchor 仍放行），
+#: 只是要求配认知锚点 —— 保守但不会误杀。
+PLAYER_NAMES_PATH = PROJECT_ROOT / "config" / "player_names.json"
+PLAYER_DEFAULT_LEVEL = "B"
+
+_player_cache: dict | None = None
+
+
+def player_map(path: Path | str | None = None) -> dict:
+    """{球员中文名: B}。坏文件/缺文件 → {}（不瞎猜、不默认放行）。"""
+    global _player_cache
+    if _player_cache is not None and path is None:
+        return _player_cache
+    p = Path(path) if path else PLAYER_NAMES_PATH
+    out: dict = {}
+    try:
+        data = json.loads(Path(p).read_text(encoding="utf-8"))
+        for _en, zh in (data.get("players") or {}).items():
+            zh = str(zh or "").strip()
+            if len(zh) >= 2:
+                out[zh] = PLAYER_DEFAULT_LEVEL
+    except Exception:
+        out = {}
+    if path is None:
+        _player_cache = out
+    return out
+
+
+def resolve_level(name: str, emap: dict | None = None) -> str:
+    """实体认知度：先查实体映射表，查不到再查球员译名表，都没有 → 未登记。
+
+    **唯一的等级解析入口** —— `decide()` / `ranker.awareness_of()` 都走它，
+    别在别处再写一遍「先查 A 再查 B」的链条（同一量两处定义必翻车）。
+    """
+    lvl = level_of(name, emap)
+    if lvl in LEVELS:
+        return lvl
+    return player_map().get(str(name or "").strip(), UNREGISTERED)
+
+
 def classify(value: str) -> str:
     """把任意输入规整成 A/B/C/UNREGISTERED（用于配置项校验，未知即未登记）。"""
     v = str(value or "").strip().upper()
@@ -186,8 +238,8 @@ def decide_level(level: str, section: str = "", *, channel: str = "news",
 
 def decide(name: str, section: str = "", *, channel: str = "news",
            has_anchor: bool = False, emap: dict | None = None) -> dict:
-    """按实体名判定（先查映射表，再走 :func:`decide_level`）。"""
-    return decide_level(level_of(name, emap), section,
+    """按实体名判定（实体表 → 球员译名表 → 未登记）。"""
+    return decide_level(resolve_level(name, emap), section,
                         channel=channel, has_anchor=has_anchor, name=str(name or ""))
 
 

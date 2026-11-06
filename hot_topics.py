@@ -244,30 +244,19 @@ def fetch_board(timeout: int = 8) -> tuple[list[dict], dict]:
     两榜的 rank 重排成 1..n，**丢掉「它原本在第几名」这个信息**，而本模块
     恰恰要用排名判断「这事到底有多热」。同时保留 source，便于事后核对
     「这条是微博榜第 20 还是百度榜第 3」。
-    """
-    diag = {"baidu": 0, "weibo": 0, "errors": []}
-    rows: list[dict] = []
-    try:
-        import signal_sources
-    except Exception as exc:                     # pragma: no cover - 依赖缺失
-        diag["errors"].append(f"signal_sources import 失败: {exc}")
-        return [], diag
 
-    for name, fn in (("baidu", signal_sources.fetch_baidu_hot),
-                     ("weibo", signal_sources.fetch_weibo_hot)):
-        try:
-            items = fn(timeout=timeout) or []
-        except Exception as exc:
-            diag["errors"].append(f"{name}: {exc}")
-            items = []
-        diag[name] = len(items)
-        for it in items:
-            w = str(it.get("word") or "").strip()
-            if not w:
-                continue
-            rows.append({"word": w, "rank": int(it.get("rank") or 0),
-                         "heat": int(it.get("num") or 0), "source": name})
-    return rows, diag
+    2026-11-06 起抓取统一交给 ``hot_sources``（多源 + 时效闸门），本函数只保留
+    签名与 ``diag`` 形状，避免调用方跟着改。**不要再往这里加源**：
+    加源改 ``hot_sources.PROVIDERS``，一处就够。
+    """
+    try:
+        import hot_sources
+    except Exception as exc:                     # pragma: no cover - 依赖缺失
+        return [], {"errors": [f"hot_sources import 失败: {exc}"]}
+    pool = hot_sources.collect(timeout=timeout)
+    diag = dict(pool.get("diag") or {})
+    diag.setdefault("errors", [])
+    return pool.get("board") or [], diag
 
 
 def football_hits(board: list[dict], max_rank: int = DEFAULT_MAX_RANK) -> list[dict]:
@@ -431,3 +420,114 @@ def build_from_news(news: list[dict], *, covered_keys: set[str] | None = None,
         })
     cands.sort(key=lambda x: -int(x.get("heat") or 0))
     return cands[:limit]
+
+
+def build_from_media(media: list[dict], *, covered_keys: set[str] | None = None,
+                     limit: int = 1) -> list[dict]:
+    """媒体头条直接成候选（懂球帝等编辑部稿件）。
+
+    为什么不需要「同题 ≥2 篇」：那一条门槛是给**降级通道**用的 —— 榜单不可达时
+    只能拿「多少人同时在写」当热度。而媒体头条是编辑部选题，**本身就有正文**，
+    标题 + 正文就是事实底本，一条就够改写。11-06 实测「C罗自宣退出葡萄牙国家队」
+    就是懂球帝首条：按降级通道要同题 2 篇才放行，它永远进不来。
+
+    仍然要求：命中登记实体 + 事件族（``event_key`` 非空且不以 ``#`` 结尾）。
+    只要求实体的结果是「某某生日快乐」这类非事件稿占掉热点位。
+    """
+    covered = set(covered_keys or set())
+    out: list[dict] = []
+    for m in media or []:
+        title = str((m or {}).get("word") or "").strip()
+        if not title:
+            continue
+        ents = entities_in(title)
+        if not is_football(title, ents):
+            continue
+        key = event_key(title, ents)
+        if not key or key.endswith("#") or key in covered:
+            continue
+        covered.add(key)
+        out.append({
+            "word": title,
+            "rank": int((m or {}).get("rank") or 0),
+            "heat": int((m or {}).get("heat") or 0),
+            "source": (m or {}).get("source") or "media",
+            "entities": ents,
+            "support": [{"title": title, "url": (m or {}).get("url") or "",
+                         "source": (m or {}).get("source") or "media"}],
+            "event_key": key,
+            "providers": [(m or {}).get("source") or "media"],
+        })
+        if len(out) >= limit:
+            break
+    return out
+
+
+def pick_candidates(board: list[dict], media: list[dict], news: list[dict], *,
+                    covered_keys: set[str] | None = None,
+                    limit: int = 1,
+                    max_rank: int = DEFAULT_MAX_RANK) -> tuple[list[dict], str]:
+    """三条通道合一，返回 (候选, 用了哪条通道)。
+
+    优先级就是「证据强弱」：
+
+      1. ``board``   榜单上有名次 —— 说明**大家真的在谈**（最强热度证据）；
+      2. ``media``   编辑部头条 —— 说明**有事实底本**（最强事实证据）；
+      3. ``news_cluster`` 同题 ≥2 篇 —— 榜单不可达时的降级。
+
+    为什么不是「先 media 后 board」：热点通道的价值是「跟上今天在谈什么」，
+    没有热度的媒体稿交给 LLM 选题走原路即可，不必占这个稀缺槽位。
+    但榜单常被墙（境外 runner），所以 media 必须能独立成候选 —— 否则通道
+    会长期空转，而且看不出来。
+
+    同一条事件在多源出现时**只出一条候选**，``providers`` 记下它上过哪些源：
+    「微博 + 贴吧 + 懂球帝 都在说」本身是最强的热度证据，也方便事后复盘。
+    """
+    # base = 今日已发的事件键（要跳过）；seen = 本次已产出的候选（要合并而不是跳过）。
+    # 两者必须分开：若把「本轮已产出」也塞进 base 传给各通道，媒体稿在合并之前
+    # 就被自己的 board 兄弟挡住了，providers 永远只有一个源。
+    base = set(covered_keys or set())
+    covered = set(base)
+    picked: list[dict] = []
+    by_key: dict[str, dict] = {}
+
+    def _absorb(items: list[dict], channel: str) -> None:
+        for c in items:
+            key = str(c.get("event_key") or "")
+            if not key:
+                continue
+            srcs = list(c.get("providers") or [c.get("source") or ""])
+            if key in by_key:
+                # 同一事件已在池里：合并来源，保留最先（=最强热度）那条的名次
+                prev = by_key[key]
+                prev["providers"] = sorted({*prev.get("providers", []), *srcs})
+                # 支撑报道取并集，正文底本越多越不容易抓不到
+                seen = {str((s or {}).get("url") or "") for s in prev.get("support", [])}
+                for s in c.get("support") or []:
+                    if str((s or {}).get("url") or "") not in seen:
+                        prev.setdefault("support", []).append(s)
+                continue
+            if key in covered:
+                continue
+            rec = dict(c)
+            rec["providers"] = sorted({*srcs})
+            rec["channel"] = channel
+            by_key[key] = rec
+            picked.append(rec)
+            covered.add(key)
+
+    _absorb(build_candidates(board, news, covered_keys=base,
+                             max_rank=max_rank, limit=max(limit * 4, 8)),
+            "board")
+    _absorb(build_from_media(media, covered_keys=base,
+                             limit=max(limit * 4, 8)), "media")
+    if not picked:
+        _absorb(build_from_news(news, covered_keys=base, limit=limit),
+                "news_cluster")
+
+    # 榜单候选已在 build_candidates 里按 rank 排好；媒体候选按 rank 排。
+    # 这里稳定排序：有真实名次（rank>0 且来自 board）的优先，其余保持原序。
+    picked.sort(key=lambda c: (0 if c.get("channel") == "board" else 1,
+                               int(c.get("rank") or 999)))
+    channel = picked[0]["channel"] if picked else "none"
+    return picked[:limit], channel

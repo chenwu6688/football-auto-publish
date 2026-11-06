@@ -345,5 +345,35 @@ class TestVerifyScript(unittest.TestCase):
         self.assertEqual(c["unregistered"], 0)
 
 
+class TestPlayerFallback(unittest.TestCase):
+    """球员译名兜底（2026-11-06）。
+
+    `entity_map.json` 的 709 个实体里没有 C罗、梅西、萨拉赫 —— 球员主体的候选
+    在 L1 被判「未登记实体不得进入生成环节」，主通道对球员类选题等于关闭。
+    这就是「夜里有 C 罗退役、文章里一个字没有」的**真因**：不是没信号，是主体过不了 L1。
+    """
+
+    def test_player_resolves_to_b(self):
+        for name in ("C罗", "梅西", "萨拉赫"):
+            self.assertEqual(ag.resolve_level(name), "B", f"{name} 应走球员兜底（B 级）")
+
+    def test_registered_player_keeps_entity_table_level(self):
+        """实体表里已有的球员（姆巴佩 = A）不能被兜底降级。"""
+        self.assertEqual(ag.resolve_level("姆巴佩"), "A")
+
+    def test_player_not_blocked(self):
+        dec = ag.decide("C罗", "转会动态", channel="news")
+        self.assertTrue(dec["ok"], "B 级是 needs_anchor（放行+要求锚点），不是 block")
+        self.assertEqual(dec["action"], "needs_anchor")
+
+    def test_unknown_is_still_unregistered(self):
+        """兜底只覆盖「登记过的球员译名」，不能变成「谁都放行」。"""
+        self.assertEqual(ag.resolve_level("查无此球员"), ag.UNREGISTERED)
+
+    def test_team_table_still_wins(self):
+        """实体表优先级高于球员表（同名冲突时以实体表为准）。"""
+        self.assertEqual(ag.resolve_level("曼城", {"曼城": "A"}), "A")
+
+
 if __name__ == "__main__":
     unittest.main()

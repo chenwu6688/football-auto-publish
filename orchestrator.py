@@ -29,6 +29,8 @@ import risk_gate
 import degrade
 import supply_mix
 import batch_mix
+import content_mix  # 内容类型归一（唯一口径）：判定「这一型是否已经写过」必须走它
+import dedup      # 选题去重：两道硬判据（同场/同事件）+ 一道告警（关键词重叠）
 import topic_funnel  # 选题漏斗台账（S2 前置度量）：只记录每层剩多少，不判定不阻断
 import rumor_wording
 import title_antipattern
@@ -547,43 +549,6 @@ def _assign_columns_to_topics(topics, batch_mode):
     print(f"   📰 栏目分配: {', '.join(column_names)} ({batch_cfg['name']}·{batch_cfg['time']})")
 
 
-def _check_intra_batch_dedup(topics):
-    """Check that no two topics share core subjects (teams/players/keywords).
-
-    Returns (clean_topics, warnings). If two topics share >40% of their
-    keyword sets, the lower-scored one is flagged as potentially duplicate.
-    """
-    if len(topics) <= 1:
-        return topics, []
-
-    warnings = []
-    for i in range(len(topics)):
-        for j in range(i + 1, len(topics)):
-            ki = set(k.lower() for k in (topics[i].get("keywords", []) or []))
-            kj = set(k.lower() for k in (topics[j].get("keywords", []) or []))
-            if not ki or not kj:
-                continue
-            overlap = ki & kj
-            if len(overlap) == 0:
-                continue
-            overlap_ratio = len(overlap) / min(len(ki), len(kj))
-            if overlap_ratio > 0.4:
-                # Also check Chinese keyword overlap
-                kci = set(k for k in (topics[i].get("keywords_cn", []) or []))
-                kcj = set(k for k in (topics[j].get("keywords_cn", []) or []))
-                cn_overlap = kci & kcj
-                ti = topics[i].get("title", "")[:30]
-                tj = topics[j].get("title", "")[:30]
-                msg = (f"⚠️ 批内重复: #{i+1}「{ti}」与 #{j+1}「{tj}」"
-                       f" 共享关键词 {overlap}{' + CN:' + str(cn_overlap) if cn_overlap else ''}")
-                warnings.append(msg)
-
-    if warnings:
-        for w in warnings:
-            print(f"   {w}")
-    return topics, warnings
-
-
 def select_topics(match_data, topic_history=None, preferred_types=None, season_weights=None, cross_batch_covered=None, season_label="", topic_count=3, yesterday_keywords=None):
     print(f"\n[2/5] LLM 话题筛选 (TokenHub 多模型轮换, target={topic_count}篇)...")
     lines = []
@@ -788,114 +753,22 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
             _t["_category"] = topic_category.classify(_t)
     # 漏斗第 1 层：LLM 原始候选（去重之前的口径 —— 去重吃掉多少要能单独看见）
     _funnel("llm", len(topics))
-    _dd: dict = {}          # 去重各分支的剔除数，供漏斗 detail 归因
-    _n_before = len(topics)
-    topics, dup_warnings = _check_intra_batch_dedup(topics)
-    # Drop topics with >60% keyword overlap (keep higher-scored one)
-    if dup_warnings:
-        to_drop = set()
-        for i in range(len(topics)):
-            for j in range(i + 1, len(topics)):
-                ki = set(k.lower() for k in (topics[i].get("keywords", []) or []))
-                kj = set(k.lower() for k in (topics[j].get("keywords", []) or []))
-                if not ki or not kj:
-                    continue
-                overlap_ratio = len(ki & kj) / min(len(ki), len(kj))
-                if overlap_ratio >= 0.5:
-                    # Drop the lower-scored one
-                    drop = i if topics[i].get("score", 0) < topics[j].get("score", 0) else j
-                    to_drop.add(drop)
-        if to_drop:
-            topics = [t for idx, t in enumerate(topics) if idx not in to_drop]
-            print(f"   🗑️ 自动去重: 移除 {len(to_drop)} 个重复话题，保留 {len(topics)} 个")
-    if len(topics) < _n_before:
-        _dd["批内"] = _n_before - len(topics)
 
-    # Cross-batch keyword overlap check
-    if cross_batch_covered and topics:
-        cross_kw = cross_batch_covered.get("keywords", set())
-        cross_titles = cross_batch_covered.get("titles", set())
-        cross_sigs = cross_batch_covered.get("event_signatures", set())
-        cross_pairs = cross_batch_covered.get("fixture_pairs") or set()
-        filtered = []
-        for t in topics:
-            t_title = t.get("title", "")[:30]
-            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
-            title_overlap = t_title in cross_titles
-            kw_overlap = len(t_kws & cross_kw) / max(len(t_kws), 1) if t_kws else 0
-            # 候选侧的队名要跨语言归一后才能与已发对阵比：
-            # keywords 常是英文、keywords_cn 是中文，两者混在一组里算重叠率会被稀释。
-            t_ents = team_names.teams_in_tokens(
-                list(t.get("keywords") or []) + list(t.get("keywords_cn") or []))
-            same_fixture = len(t_ents) >= 2 and frozenset(t_ents) in cross_pairs
-            if same_fixture:
-                print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(与今日已发同一场比赛)")
-            elif title_overlap or kw_overlap >= 0.4:
-                print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(关键词重叠率 {kw_overlap:.0%})")
-            elif is_event_duplicate(t.get("title", ""), cross_sigs):
-                print(f"   🗑️ 跨批次事件去重: 丢弃「{t_title}」(与今日已发比赛重复)")
-            else:
-                filtered.append(t)
-        if len(filtered) < len(topics):
-            print(f"   跨批次去重: {len(topics)} → {len(filtered)} 个话题")
-            _dd["跨批次"] = len(topics) - len(filtered)
-        topics = filtered
-
-    # Cross-day dedup: hard filter against yesterday's keywords (overlap >= 40% → drop)
-    if yesterday_keywords and topics:
-        filtered = []
-        for t in topics:
-            t_title = t.get("title", "")[:30]
-            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
-            kw_overlap = len(t_kws & yesterday_keywords) / max(len(t_kws), 1) if t_kws else 0
-            if kw_overlap >= 0.4:
-                print(f"   🗑️ 跨天去重: 丢弃「{t_title}」(昨日关键词重叠率 {kw_overlap:.0%})")
-            else:
-                filtered.append(t)
-        if len(filtered) < len(topics):
-            print(f"   跨天去重: {len(topics)} → {len(filtered)} 个话题")
-            _dd["昨日关键词"] = len(topics) - len(filtered)
-        topics = filtered
-
-    # ── P0-1: 语义去重（事件指纹硬去重）──
-    # 同一场比赛（同两队 + 同比分）近 7 天只发一次，与措辞无关，
-    # 彻底拦截「换说法重发」（如「切尔西4-3布莱顿：进球大战」与「…老六直呼过瘾」）。
-    event_sigs = (topic_history or {}).get("event_signatures")
-    if event_sigs and topics:
-        filtered = []
-        for t in topics:
-            t_title = t.get("title", "")
-            if is_event_duplicate(t_title, event_sigs):
-                print(f"   🗑️ 事件指纹去重: 丢弃「{t_title[:30]}」(与近7天已发比赛重复)")
-            else:
-                filtered.append(t)
-        if len(filtered) < len(topics):
-            print(f"   事件指纹去重: {len(topics)} → {len(filtered)} 个话题")
-            _dd["事件指纹"] = len(topics) - len(filtered)
-        topics = filtered
-
-    # ── P0-1: 跨天关键词去重（7 天窗口，>=50% 重叠即丢弃）──
-    # 比仅看昨天更稳：覆盖「跨天同事件换说法」且标题未带比分的情形。
-    hist_kw = (topic_history or {}).get("keywords")
-    if hist_kw and topics:
-        filtered = []
-        for t in topics:
-            t_title = t.get("title", "")[:30]
-            t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
-            if not t_kws:
-                filtered.append(t)
-                continue
-            overlap = len(t_kws & hist_kw) / max(len(t_kws), 1)
-            if overlap >= 0.5:
-                print(f"   🗑️ 跨天去重(7天): 丢弃「{t_title}」(关键词重叠 {overlap:.0%})")
-            else:
-                filtered.append(t)
-        if len(filtered) < len(topics):
-            print(f"   跨天去重(7天): {len(topics)} → {len(filtered)} 个话题")
-            _dd["近7天关键词"] = len(topics) - len(filtered)
-        topics = filtered
-
-    # 漏斗第 2 层：去重之后（detail 拆四个分支，否则「去重吃掉一半」查不出是哪一支）
+    # ============================================================
+    # 去重：两道硬判据 + 一道告警（2026-11-06 收敛，见 dedup.py）
+    # ============================================================
+    # 原来这里串了 5 道（批内 40% / 跨批次 4 判据 / 昨日 40% / 7天指纹 / 7天 50%），
+    # 其中 3 道是「关键词重叠率」—— LLM 自由生成的词，换个说法就绕过、同队不同事
+    # 就误杀。供给本来就窄，错杀的代价比漏放高得多。
+    # 现在硬判据只剩两条，都与措辞无关：**同一场比赛**（对阵键）与**同一件事**
+    # （event_key = 实体 + 事件族）。关键词重叠改为只告警、不删题，并记进漏斗，
+    # 以便日后用数据判断「到底该不该恢复硬拦」。
+    topics, _dd = dedup.apply(
+        topics,
+        dedup.build_context(cross_batch_covered=cross_batch_covered,
+                            topic_history=topic_history,
+                            yesterday_keywords=yesterday_keywords))
+    # 漏斗第 2 层：去重之后（detail 分「同场 / 同事件 / 同标题 / 弱判据告警」）
     _funnel("dedup", len(topics), **_dd)
 
     print(f"   筛选出 {len(topics)} 个话题:")
@@ -3103,7 +2976,49 @@ def _topic_card(t, cid, date_str):
     }
 
 
-def _hot_topic_cards(date_str, match_data, covered, limit=1):
+def _merge_media_into_news(news, media):
+    """把媒体头条（懂球帝）并进新闻池，按标题去重。
+
+    两处都要它：
+      1. 热点候选配对支撑报道时，媒体稿本身就可以是支撑（有正文、有 URL）；
+      2. 主稿预检 ``_find_source_article`` 只在 ``news_articles`` 里找源文章，
+         不并进来就会出现「候选出来了、正文也在手边、却被判无源文章」。
+    正文保持空串（懒加载口径不变），由 ``_attach_hot_source_text`` 按需补。
+    """
+    out = list(news or [])
+    seen = {str((n or {}).get("title") or "") for n in out if isinstance(n, dict)}
+    for m in media or []:
+        title = str((m or {}).get("word") or "").strip()
+        if not title or title in seen:
+            continue
+        seen.add(title)
+        out.append({"title": title, "url": str((m or {}).get("url") or ""),
+                    "source": str((m or {}).get("source") or "media"),
+                    "article_text": "",
+                    "_from_hot_media": True})
+    return out
+
+
+def _select_main_draft(topics, articles, main_slots):
+    """主稿该写哪几条：跳过「已由确定性供给/战报填掉的类型」。
+
+    结构是「一型一篇」（`batch_mix` 定的 main + data）。确定性供给先占位之后，
+    如果主稿还按 `topics[:n]` 取，就会出现两种错：
+
+      - 确定性稿填的是 data 槽，主稿又把同型的候选写一遍 → 两篇同型，缺热点；
+      - 或者反过来，data 槽被确定性稿顶掉后直接消失（11-06 漏斗 `slot 1 → generated 1`）。
+
+    返回 (候选池, 主稿篇数) 而不是直接切片 —— 篇数由池子和槽位**同时**决定，
+    调用方拿到的数字必须和真正会写出去的篇数一致（否则漏斗记 2、实际写 1）。
+    """
+    provided = {content_mix.normalize((a or {}).get("content_type"))
+                for _i, a in (articles or [])}
+    pool = [t for t in (topics or [])
+            if content_mix.normalize((t or {}).get("content_type")) not in provided]
+    return pool, min(len(pool), max(0, int(main_slots)))
+
+
+def _hot_topic_cards(date_str, match_data, covered, limit=1, pool=None):
     """取「今日热点」候选并转成选题卡（零级·热点）。
 
     ## 为什么不在 select_topics 的 prompt 里加一句「优先选热点」
@@ -3127,23 +3042,36 @@ def _hot_topic_cards(date_str, match_data, covered, limit=1):
         print(f"   ⚠️ 热点通道不可用（import 失败，不影响发布）: {e}")
         return []
 
-    news = match_data.get("news_articles") or []
+    news = list(match_data.get("news_articles") or [])
     covered_keys = set((covered or {}).get("hot_event_keys") or set())
 
-    board, diag = [], {"errors": ["not fetched"]}
-    try:
-        board, diag = hot_topics.fetch_board()
-    except Exception as e:
-        diag = {"errors": [f"fetch_board: {e}"]}
+    # 多源抓取（2026-11-06）：榜单（百度/微博/贴吧）+ 媒体头条（懂球帝）。
+    # 抓取与时效闸门都在 hot_sources 里，这里只消费结果 —— 加源改 PROVIDERS 一处。
+    # `pool` 由调用方传入复用（同一批只抓一次）：素材池与热点通道看的是同一份数据，
+    # 各抓一次会出现「LLM 看到的素材」与「热点通道据此配对」不是同一时刻的快照。
+    if pool is None:
+        try:
+            import hot_sources
+            pool = hot_sources.collect()
+        except Exception as e:
+            pool = {"board": [], "media": [],
+                    "diag": {"errors": [f"hot_sources.collect: {e}"]}}
+    board = pool.get("board") or []
+    media = pool.get("media") or []
+    diag = dict(pool.get("diag") or {})
+
+    # 媒体头条并入新闻池：热点候选要靠它配对支撑报道，主稿预检也靠它找源文章。
+    # 不并进去的话，懂球帝本来能当事实底本，却会因为「不在 news_articles 里」
+    # 被判「未找到匹配的源文章」而整篇跳过。
+    news = _merge_media_into_news(news, media)
+    # 必须写回 match_data：_attach_hot_source_text 是按 match_data["news_articles"]
+    # 原地补正文的，不写回就变成「并进了一个临时列表」，媒体稿照样找不到源文章。
+    match_data["news_articles"] = news
+
     hits = hot_topics.football_hits(board) if board else []
 
-    cands = hot_topics.build_candidates(board, news, covered_keys=covered_keys, limit=limit)
-    channel = "board"
-    if not cands:
-        # 榜单不可用（境外 runner 常见）或榜单上没有带报道的足球事件时，
-        # 退到「同题报道聚合」：同一天多篇报道讲同一件事，本身就是热度。
-        cands = hot_topics.build_from_news(news, covered_keys=covered_keys, limit=limit)
-        channel = "news_cluster"
+    cands, channel = hot_topics.pick_candidates(
+        board, media, news, covered_keys=covered_keys, limit=limit)
 
     try:
         hot_topics.write_ledger(date_str, board=board, hits=hits,
@@ -3152,10 +3080,19 @@ def _hot_topic_cards(date_str, match_data, covered, limit=1):
         print(f"   ⚠️ 热点台账写入失败（不影响发布）: {e}")
 
     if not cands:
-        why = ("榜单抓取失败" if diag.get("errors")
-               else ("榜上无足球热点" if not hits else "热点都缺报道支撑/今日已写"))
+        why = ("全部源抓取失败" if not board and not media
+               else ("榜上无足球热点" if not hits and board
+                     else "热点都缺报道支撑/今日已写"))
+        _src_state = "、".join(
+            f"{k}:{v.get('status')}" for k, v in
+            (diag.get("providers") or {}).items() if isinstance(v, dict))
         print(f"   ℹ️ 热点通道本批无候选：{why}"
-              f"（榜 {len(board)} 条 / 足球 {len(hits)} 条）")
+              f"（榜 {len(board)} 条 / 媒体 {len(media)} 条 / 足球 {len(hits)} 条）")
+        if _src_state:
+            print(f"      源状态：{_src_state}")
+        if diag.get("stale_dropped"):
+            print(f"      ⏳ 时效闸门剔除 {diag['stale_dropped']} 条媒体稿"
+                  f"（示例：{(diag.get('stale_samples') or [{}])[0].get('title', '')[:24]}）")
         return []
 
     cards = []
@@ -3174,7 +3111,9 @@ def _hot_topic_cards(date_str, match_data, covered, limit=1):
             "content_type": "热点球评",
             "score": 100,
             "controversy_level": "high",
-            "why_pick": f"热搜第 {c.get('rank')} 位（{c.get('source')}）",
+            "why_pick": (f"榜单第 {c.get('rank')} 位（{c.get('source')}）"
+                         if c.get("channel") == "board"
+                         else f"媒体头条（{c.get('source')}）"),
             # 供给层级用既有的「二级·突发」而不是自造「零级」：supply_mix 只有
             # 三层口径，自造一层会被判 unclassified、把配比验收打成失败。
             # 「是不是热点通道来的」由 _hot_channel 表达，两件事别混在一个字段里。
@@ -3183,13 +3122,15 @@ def _hot_topic_cards(date_str, match_data, covered, limit=1):
             "_hot_rank": c.get("rank"),
             "_hot_source": c.get("source"),
             "_hot_channel": channel,
+            "_hot_providers": list(c.get("providers") or []),
             "_hot_support": [str(s.get("title") or "") for s in (c.get("support") or [])],
             # 完整支撑报道（含 url）：_attach_hot_source_text 要靠它按需抓正文。
             # 只留标题的话抓不了正文，热点稿会在源文章预检里被跳过。
             "_hot_support_raw": [s for s in (c.get("support") or []) if isinstance(s, dict)],
         })
         print(f"   🔥 热点候选：{head}（{c.get('source')} 第 {c.get('rank')} 位，"
-              f"支撑报道 {len(c.get('support') or [])} 篇）")
+              f"来源 {len(c.get('providers') or [])} 个，"
+              f"支撑报道 {len(c.get('support') or [])} 篇，通道 {channel}）")
     return cards
 
 
@@ -3226,20 +3167,22 @@ def _attach_hot_source_text(match_data, cards):
             target = next((n for n in news
                            if isinstance(n, dict) and n.get("title") == title), None)
             try:
-                from media_scraper import SportsScraper
-                text = SportsScraper().scrape_zhibo8_article_content(url)
+                # 按域名派发解析器：直播吧与懂球帝是两套 DOM，调用方不该关心
+                import hot_sources
+                text = hot_sources.article_text_of(url)
             except Exception as e:
                 print(f"   ⚠️ 热点报道正文抓取失败（该热点本批不用）: {e}")
                 text = None
             if not text:
                 continue
             if target is None:
-                target = {"title": title, "url": url, "source": "zhibo8"}
+                target = {"title": title, "url": url,
+                          "source": str(s.get("source") or "media")}
                 news.append(target)
             target["article_text"] = text
             target["_hot_support"] = True
             ready.append(card)
-            print(f"   📄 热点报道正文已补：{title[:32]}（{len(text)} 字）")
+            print(f"   📄 热点报道正文已补：{title[:32]}（{len(text)} 字，{target.get('source')}）")
             break                    # 一条正文够用来改写，别多抓
         else:
             print(f"   ℹ️ 热点「{str(card.get('title') or '')[:20]}」抓不到正文，"
@@ -5971,6 +5914,30 @@ def main():
             send_wxpusher("足球自媒体 ⚠️", f"{date_str} 发文任务中止：{result_msg}")
             return
 
+        # ============================================================
+        # 多源素材（2026-11-06）：懂球帝头条并入素材池 + 热点榜留待零级通道复用
+        # ============================================================
+        # 只抓一次：`select_topics` 的 prompt 与热点通道看的是同一份快照。
+        # 抓两次的风险不是慢，而是「LLM 看到的素材」和「热点通道据此配对」不一致。
+        # 任何异常都不阻断发布 —— 源挂了就退回到只有直播吧 15 条的旧状态。
+        _media_pool = None
+        try:
+            import hot_sources
+            _media_pool = hot_sources.collect()
+            _media_n = len(_media_pool.get("media") or [])
+            if _media_n:
+                match_data["news_articles"] = _merge_media_into_news(
+                    match_data.get("news_articles") or [], _media_pool["media"])
+            _diag = _media_pool.get("diag") or {}
+            print(f"   🌐 热点源：榜 {len(_media_pool.get('board') or [])} 条 / "
+                  f"媒体 {_media_n} 条（时效剔除 {_diag.get('stale_dropped', 0)} 条）")
+            for _k, _v in (_diag.get("providers") or {}).items():
+                if isinstance(_v, dict) and _v.get("status") not in ("ok", "disabled"):
+                    print(f"      ⚠️ 源 {_k}: {_v.get('status')}"
+                          f"{(' — ' + str(_v.get('error'))[:60]) if _v.get('error') else ''}")
+        except Exception as e:
+            print(f"   ⚠️ 多源素材抓取异常（不影响主流程）: {e}")
+
         # Topic selection via LLM (based on match data + column domain guidance)
         # 请求上限为 max_articles，让 LLM 在素材丰富时多选、素材匮乏时少选
         topics = select_topics(match_data, topic_history=topic_history,
@@ -6000,7 +5967,7 @@ def main():
         # 就会被「赛程有比分、信号更足」的常规题目挤到后面 —— 又回到只写赛程。
         try:
             _hot_cards = _hot_topic_cards(date_str, match_data, cross_batch_covered,
-                                          limit=HOT_TOPIC_PER_BATCH)
+                                          limit=HOT_TOPIC_PER_BATCH, pool=_media_pool)
             if _hot_cards:
                 _dup = {str(t.get("title") or "")[:12] for t in topics}
                 _hot_new = [c for c in _hot_cards if str(c.get("title") or "")[:12] not in _dup]
@@ -6140,12 +6107,33 @@ def main():
                     if _deterministic_used_today(date_str) >= DETERMINISTIC_DAILY_BUDGET
                     else "本批槽位需留给主稿与战报，确定性供给让位")
             print(f"   🗓️ 确定性供给本批让位：{_why}")
+        # 「本批结构还缺哪一型」（2026-11-06 修槽位账）
+        #
+        # 病根：`batch_mix` 按 max_articles 定了「main + data」两槽，但确定性供给
+        # 在这之后才生成、先占 1 槽 → 主稿只剩 1 槽，`topics[:1]` 把 data 那条静默丢掉
+        # （11-06 漏斗原文 `batch_mix 2 → slot 1 → generated 1`）。
+        # 现在改成：**确定性供给只填空槽，且必须填得上**；填不上就整体让位，
+        # 把槽位还给主稿。谁填哪个槽由 batch_mix 的规划说了算，不由生成顺序说了算。
+        _need_type = None
+        try:
+            _planned_types = [p.get("type") for p in (_mix_rep.get("picked") or [])]
+            _provided_types = {content_mix.normalize((a or {}).get("content_type"))
+                               for _i, a in articles}
+            # 先补数据型槽：赛程稿本来就是事实对照（近况/积分/主客场），
+            # 让它去顶「热点球评」不现实，顶不上就该让位而不是硬塞。
+            for _t in ([t for t in _planned_types if t in ("数据对比", "排行榜")]
+                       + [t for t in _planned_types if t not in ("数据对比", "排行榜")]):
+                if _t not in _provided_types:
+                    _need_type = _t
+                    break
+        except Exception:
+            _need_type = None
         if FIXTURE_PER_BATCH > 0 and det_cap > 0:
             try:
                 fixture_topics = collect_fixture_topics(
                     date_str, batch_mode=batch_mode, max_topics=det_cap,
                     lookahead_days=5, topic_history=topic_history,
-                    cross_batch_covered=cross_batch_covered)
+                    cross_batch_covered=cross_batch_covered, need_type=_need_type)
                 if not fixture_topics:
                     # 计划九·赛程源不可用：退化为纯新闻流驱动，选题池仅由事实卡装配
                     degrade.note("赛程源", "本批无可用赛程选题（源不可用或无匹配）",
@@ -6269,26 +6257,34 @@ def main():
         # 动态条数：确定性供给已占用配额（P0 修法 A），主稿只填剩余槽位
         # （常态 2 篇；周四或 S 级事件按 batch_quota 加发时上限提高，见本函数开头 quota）
         _main_slots = max(0, max_articles - fixture_added - recap_added)
-        article_count = min(_main_topic_count, _main_slots)
-        if fixture_added:
-            print(f"   🧮 配额分配：单批上限 {max_articles} 篇 = 确定性 {fixture_added} + 主稿槽位 {_main_slots}")
+        # 已由确定性供给/战报/多切口填掉的类型，主稿不再重复写（结构是「一型一篇」）。
+        # 没有这一步，确定性供给填了 data 槽之后，主稿还会把同一型的候选再写一遍，
+        # 结果是「结构看着 2 篇、实际 1 主 1 重复」。
+        _main_pool, article_count = _select_main_draft(topics, articles, _main_slots)
+        if fixture_added or recap_added:
+            print(f"   🧮 配额分配：单批上限 {max_articles} 篇 = 确定性 {fixture_added} "
+                  f"+ 战报 {recap_added} + 主稿槽位 {_main_slots}")
         if _main_slots > 0 and article_count >= _main_slots:
             print(f"   📈 动态条数：本批主稿生成 {article_count} 篇（剩余槽位 {_main_slots}）")
         elif article_count > 0:
-            print(f"   📉 动态条数：本批实际高质量话题 {_main_topic_count} 个，主稿生成 {article_count} 篇（剩余槽位 {_main_slots}）")
+            print(f"   📉 动态条数：本批实际可用话题 {len(_main_pool)} 个，主稿生成 {article_count} 篇（剩余槽位 {_main_slots}）")
+        elif len(topics) > len(_main_pool):
+            print(f"   📉 动态条数：本批候选的型已被确定性供给填满（{len(topics)} → "
+                  f"{len(_main_pool)}），主稿 0 篇")
         else:
             print(f"   ⚠️ 动态条数：LLM 未返回可用话题，本批主稿 0 篇（将走应急/空批次兜底）")
 
         # 漏斗第 6 层：确定性供给/战报/多切口占位后，主稿真正拿到的槽位数。
         # 这一层的损失 = supply_mix 那一套配额吃掉的篇数 —— S2 要判断「三层供给
         # 30/50/20 到底是保障还是挤占」，看的就是这里，而不是去读配额配置。
-        _funnel("slot", min(_mix_n, _main_slots),
-                单批上限=max_articles, 确定性=fixture_added, 战报=recap_added)
+        _funnel("slot", min(len(_main_pool), _main_slots),
+                单批上限=max_articles, 确定性=fixture_added, 战报=recap_added,
+                候选=_main_topic_count, 类型已满=len(topics) - len(_main_pool))
 
         # Generate articles: find source article for each topic, rewrite to 老六 style
         # index_offset：确定性文章已占前 fixture_added 个位置，主稿从其后编号
         _before_main = len(articles)
-        _generate_articles_from_topics(topics, article_count, match_data,
+        _generate_articles_from_topics(_main_pool, article_count, match_data,
                                        images_map, stats, articles, date_str=date_str,
                                        index_offset=len(articles))
         # 漏斗第 7 层：主稿实际成稿数（差额 = 源文章预检跳过 + 生成失败 + 熔断）
