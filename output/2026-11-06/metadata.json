@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T04:04:27.276853",
-  "total_articles": 2,
+  "generated_at": "2026-11-06T04:38:42.414093",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -232,75 +232,302 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "登顶遇上那不勒斯，队长憋的那口气比积分更重",
+      "path": "/home/runner/work/_temp/output/2026-11-06/article-1-登顶遇上那不勒斯-5520c1.md",
+      "slug": "登顶遇上那不勒斯-5520c1",
+      "tags": [
+        "Lazio",
+        "Napoli",
+        "Serie A",
+        "tactics",
+        "captain"
+      ],
+      "keywords": [
+        "Lazio",
+        "Napoli",
+        "Serie A",
+        "tactics",
+        "captain"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "比较级"
+        ],
+        "proper_nouns": [
+          "那不勒斯"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1195,
+        "han_len": 813,
+        "paragraphs": 13,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 10,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "欧冠朗斯主场对科莫，1比9惨败写进队史与耻辱柱",
+      "path": "/home/runner/work/_temp/output/2026-11-06/article-2-欧冠朗斯主场对科-53c793.md",
+      "slug": "欧冠朗斯主场对科-53c793",
+      "tags": [
+        "Champions League",
+        "Como",
+        "Lens",
+        "9-1",
+        "Duvikas"
+      ],
+      "keywords": [
+        "Champions League",
+        "Como",
+        "Lens",
+        "9-1",
+        "Duvikas"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:goals",
+          "anchor": {
+            "kind": "goals",
+            "entities": [
+              "朗斯",
+              "科莫"
+            ],
+            "numbers": [
+              "1",
+              "9"
+            ],
+            "source": "直播吧战报进球事件",
+            "probe": "朗斯1-9科莫"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "1-9！朗斯欧冠主场被打成筛子，科莫这比分写进队史也写进耻辱柱",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 74,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物",
+          "R11数据:标题 23 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（21 < 47）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "科莫",
+          "朗斯",
+          "欧冠"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 74,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物"
+        ]
+      },
+      "content_stats": {
+        "chars": 1175,
+        "han_len": 833,
+        "paragraphs": 12,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "郑龙临时接手降级队海牛，从球员到救火教练只隔一个官宣",
-      "angle": "里斯蒂奇带队降级下课，郑龙临时代理。角度不写海牛降级本身，而写郑龙这个人：当年边路快马，如今在球队最烂的时刻被推上台，这是名宿沉浮的典型样本。",
+      "title": "1-9！朗斯欧冠主场被打成筛子，科莫这比分写进队史也写进耻辱柱",
+      "angle": "朗斯主场1-9惨败科莫，这不是战术问题，是整支球队从第20分钟就散了架。老六直说：这种比分出现在欧冠，主队球员该自己走回更衣室，别坐大巴。",
       "keywords": [
-        "zheng long",
-        "qingdao hainiu",
-        "relegation",
-        "interim coach"
+        "Lens",
+        "Como",
+        "Champions League",
+        "1-9"
       ],
       "keywords_cn": [
-        "郑龙",
-        "青岛海牛",
-        "降级",
-        "代理主帅"
+        "朗斯",
+        "科莫",
+        "欧冠",
+        "惨败"
       ],
       "content_type": "热点球评",
-      "score": 84,
-      "controversy_level": "medium",
-      "target_emotion": "感动",
-      "resonance_angle": "名帅名宿沉浮",
+      "score": 93,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "无",
       "series_id": "无",
-      "why_pick": "球员转型救火教练，人物弧光有阅历感",
-      "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "why_pick": "极端比分自带冲击力，欧冠惨案天然爆款",
+      "_category": "战报比分",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
       "_data_source_hint": "match_preferred",
       "_batch_name": "午间",
       "_batch_time": "12:00",
       "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
       "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-2"
+      "_rank_id": "topic-1"
     },
     {
-      "title": "梅西41岁要回纽维尔老男孩，1月就加盟，这趟回家路你信几分",
-      "angle": "梅西回归母队纽维尔老男孩的传闻，从竞技角度几乎不成立，但从情感角度是每个老球迷的终极浪漫——落叶归根。明确态度：这更像一份情怀合同，别用冠军标准去衡量它。",
+      "title": "大连夺冠就全场免单，梭鱼湾这波餐饮老板比球队还敢赌",
+      "angle": "多家大连餐饮企业放话：英博夺冠全场免单。老六觉得这才是中国足球最缺的东西——城市和球队真绑在一起，比喊一百句口号都实在。",
       "keywords": [
-        "messi",
-        "newell's old boys",
-        "return",
-        "homecoming"
+        "Dalian Yingbo",
+        "CSL title",
+        "Suyuwan",
+        "free meal"
       ],
       "keywords_cn": [
-        "梅西",
-        "纽维尔老男孩",
-        "回归",
-        "落叶归根"
+        "大连英博",
+        "中超夺冠",
+        "梭鱼湾",
+        "免单"
       ],
-      "content_type": "转会资讯",
-      "score": 92,
+      "content_type": "八卦趣事",
+      "score": 88,
       "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "世界杯经典时刻",
-      "series_id": "wc-classics",
-      "why_pick": "梅西回家戳中老球迷情怀，信息增量足",
-      "_category": "转会官宣",
+      "target_emotion": "感动",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "城市与球队的情感绑定，老球迷最有共鸣",
+      "_category": "中国足球",
       "_column_id": "wu-jian-kuai-xun",
       "_column_name": "午间快讯",
       "_column_icon": "⚡",
@@ -322,7 +549,7 @@
       "_rank_id": "topic-0"
     },
     {
-      "title": "压着那不勒斯，队长憋的那口气比榜首还沉",
+      "title": "登顶遇上那不勒斯，队长憋的那口气比积分更重",
       "content_type": "战术榜单",
       "_is_fixture": true
     }
@@ -373,33 +600,21 @@
       "数量": 1
     },
     {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（21 < 47）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
-      "处置": "用 2 张原创信息图补到 3 张",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
       "数量": 1
     },
     {
       "环节": "互动引导兜底",
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
-      "数量": 1
-    },
-    {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
-      "数量": 1
-    },
-    {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
-      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
@@ -417,7 +632,7 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "batch_mix": {
     "slots": [
       "main",
@@ -427,23 +642,18 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "郑龙临时接手降级队海牛，从球员到救火教练只隔一个官宣"
+        "title": "1-9！朗斯欧冠主场被打成筛子，科莫这比分写进队史也写进"
       },
       {
         "slot": "extra",
-        "type": "转会资讯",
-        "title": "梅西41岁要回纽维尔老男孩，1月就加盟，这趟回家路你信几"
+        "type": "八卦趣事",
+        "title": "大连夺冠就全场免单，梭鱼湾这波餐饮老板比球队还敢赌"
       }
     ],
     "degraded": [
       "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
-    "skipped": [
-      {
-        "type": "转会资讯",
-        "title": "皇马锁定JJ，罗马诺都说快了，各豪门被告知他只想去伯纳乌"
-      }
-    ],
+    "skipped": [],
     "day_counts": {
       "战术榜单": 1,
       "热点球评": 1
@@ -451,14 +661,12 @@
     "selected": 2,
     "requested": 2
   },
-  "batches_completed": [
-    "morning"
-  ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-06 12:04:27",
   "batches_generated": [
-    "morning",
     "noon"
   ],
-  "batches_completed_note": "noon 因配图相关性验收误判未发布（2026-11-06），已解除完成标记等待兜底 cron 重跑"
+  "last_batch": "noon",
+  "last_updated": "2026-11-06 12:38:42",
+  "batches_completed": [
+    "morning"
+  ]
 }
