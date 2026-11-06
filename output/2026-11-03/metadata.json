@@ -45,8 +45,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.2475,
-        "impressions": 2537,
+        "retention_rate": 0.398,
+        "impressions": 3074,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -92,12 +92,12 @@
       "recap_match_id": "558541",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 4,
+        "reads": 5,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.31,
-        "impressions": 2412,
+        "impressions": 3303,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -180,9 +180,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.1494,
-        "impressions": 3266,
+        "impressions": 4144,
         "follower_reads": 2,
-        "click_rate": 0.04
+        "click_rate": 0.03
       },
       "platform_id": "7703883919154610697"
     },
@@ -219,14 +219,14 @@
       "supply_layer": "三级·软性",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 12,
+        "reads": 14,
         "comments": 4,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.4,
-        "impressions": 2255,
+        "retention_rate": 0.4545,
+        "impressions": 3179,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7703884220573286962"
     },

@@ -90,7 +90,17 @@
         "images": 3,
         "degraded": []
       },
-      "interaction_bait_source": "template_fallback"
+      "interaction_bait_source": "template_fallback",
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 705,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7704842717516104230"
     },
     {
       "index": 2,
@@ -231,7 +241,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 7,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 676,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7704843009002701350"
     },
     {
       "index": 1,

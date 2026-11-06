@@ -42,14 +42,14 @@
       "recap_match_id": "575381",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 61,
+        "reads": 70,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.1445,
-        "impressions": 2186,
+        "retention_rate": 0.1371,
+        "impressions": 3134,
         "follower_reads": 1,
-        "click_rate": 0.03
+        "click_rate": 0.02
       },
       "platform_id": "7704100634164789779"
     },
@@ -128,8 +128,8 @@
         "comments": 2,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 1437,
+        "retention_rate": 0.25,
+        "impressions": 2365,
         "follower_reads": 0,
         "click_rate": 0.0
       },
