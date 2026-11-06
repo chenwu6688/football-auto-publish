@@ -34,7 +34,12 @@
 
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+ENTITY_MAP_PATH = ROOT / "config" / "entity_map.json"
 
 #: 赛果 / 动作动词。按长度降序排列，保证「大胜」先于「胜」被匹配。
 #: 只收**两字及以上**的复合词：单字「胜/负/平」在真队名里也可能出现
@@ -116,3 +121,172 @@ def looks_like_team(name: str) -> bool:
     """
     s = clean_team_name(name)
     return bool(s) and 2 <= len(s) <= 30
+
+
+# ---------------------------------------------------------------- 跨语言归一
+#
+# 2026-11-06 事故：同一场 Lazio vs Napoli 在晨读与午间各写了一篇
+# （《领跑，那不勒斯这一关…》/《登顶遇上那不勒斯…》），两篇 keywords 重叠 4/5。
+# 去重没拦住，是因为判据两侧语言不同：
+#   * 已发侧 `covered["keywords"]` 是 **英文**（serie a / lazio / napoli）；
+#   * 候选侧 `home_zh/away_zh` 是 **中文**（拉齐奥 / 那不勒斯）。
+# `"napoli" in "那不勒斯"` 恒为 False，去重形同不存在。
+# 另外 `covered["teams"]` 用的是 constants.WIKI_TEAMS —— 只有 15 支队，
+# 那不勒斯/拉齐奥都不在里面，这一路也完全空转。
+#
+# 所以归一的单位不是「字符串」而是「实体」：把中/英/别名/俱乐部简名
+# 全部映射到 entity_map 的规范名（name_zh），比对在实体层面做。
+#
+# ⚠️ 简名（Milan、Madrid）可能是**多支队共享**的：Inter Milan 与 AC Milan
+# 都有 "Milan"。这类多义简名一律**不映射**（宁可漏判一次重复，也不能把
+# 国米的稿算成 AC 米兰的），与 data_chart.normalize_team_zh「唯一才归一」同一哲学。
+
+_CACHE: dict = {"by_form": None, "by_canon": None, "by_token": None}
+
+
+def _load_team_tables() -> tuple[dict[str, str], dict[str, set[str]], dict[str, set[str]]]:
+    """建两张表 + 一张英文单词表：写法→规范名、规范名→全部写法、英文整词→规范名。
+
+    ⚠️ 英文整词表**只在归属唯一时成立**。实测：``AC Milan`` 的 name_en 含单词
+    ``Milan``，而 ``FC Internazionale Milano`` 含 ``Milano``（不是 Milan），
+    所以 ``Milan`` 唯一归属 AC 米兰。这条规则本身没错，但**绝不能拿它去拆
+    "Inter Milan" 这种整串**——那样会把国米认成 AC 米兰（第一版就是这么错的）。
+    整串只在「等于某个 name_en 的前缀/后缀短语」时才算，见 ``canonical_team``。
+    """
+    if _CACHE["by_form"] is not None:
+        return _CACHE["by_form"], _CACHE["by_canon"], _CACHE["by_token"]
+
+    by_form: dict[str, str] = {}
+    by_canon: dict[str, set[str]] = {}
+    word_owners: dict[str, set[str]] = {}
+    en_pairs: list[tuple[str, str]] = []
+    try:
+        ents = json.loads(ENTITY_MAP_PATH.read_text(encoding="utf-8")).get("entities") or {}
+    except Exception:
+        ents = {}
+
+    for item in ents.values() if isinstance(ents, dict) else []:
+        if not isinstance(item, dict) or item.get("category") != "club":
+            continue
+        canon = str(item.get("name_zh") or "").strip()
+        if not canon:
+            continue
+        forms: set[str] = {canon.lower()}
+        for a in (item.get("aliases") or []):
+            if isinstance(a, str) and a.strip() and len(a.strip()) >= 2:
+                forms.add(a.strip().lower())
+        en = str(item.get("name_en") or "").strip()
+        if en:
+            forms.add(en.lower())
+            en_pairs.append((en.lower(), canon))
+            for w in re.findall(r"[A-Za-zÀ-ÿ]{4,}", en):
+                word_owners.setdefault(w.lower(), set()).add(canon)
+
+        by_canon[canon] = forms
+        for f in forms:
+            if len(f) >= 2:
+                by_form.setdefault(f, canon)
+
+    word_unique = {w: next(iter(o)) for w, o in word_owners.items() if len(o) == 1}
+    _CACHE.update({"by_form": by_form, "by_canon": by_canon,
+                   "by_token": word_unique, "en_pairs": en_pairs})
+    return by_form, by_canon, word_unique
+
+
+def canonical_team(name: str) -> str | None:
+    """任意写法（中文/英文全名/别名/唯一英文词）→ 规范中文名；认不准返回 None。
+
+    三级判据，逐级收紧：
+
+    1. **整串命中登记写法** → 直接返回（``那不勒斯`` / ``SSC Napoli`` / ``蓝鹰``）；
+    2. **整串是某个 name_en 的前缀或后缀短语** → 唯一时返回
+       （``Napoli`` ⊂ ``SSC Napoli``、``Real Madrid`` ⊂ ``Real Madrid CF``）；
+    3. **整串等于某个 name_en 里的英文整词** → 该词归属唯一才返回
+       （``Napoli`` / ``Lens`` / ``Internazionale``）。
+
+    绝不拆多词串兜底：``Inter Milan`` 拆开只剩 ``Milan`` 会指向 AC 米兰，
+    而那其实是国米的口语混写。认不准就 None，与 ``normalize_team_zh`` 同一哲学。
+
+    >>> canonical_team("那不勒斯")
+    '那不勒斯'
+    >>> canonical_team("Napoli")
+    '那不勒斯'
+    >>> canonical_team("Inter Milan") is None   # 拆词必串味，不猜
+    True
+    """
+    if not isinstance(name, str):
+        return None
+    q = " ".join(name.strip().lower().split())
+    if not q:
+        return None
+    by_form, _by_canon, by_token = _load_team_tables()
+    if q in by_form:
+        return by_form[q]
+
+    en_pairs = _CACHE.get("en_pairs") or []
+    # 2. 前缀 / 后缀短语（要求按空格切开的整词边界）
+    hits = {canon for en, canon in en_pairs
+            if en.startswith(q + " ") or en.endswith(" " + q)}
+    if len(hits) == 1:
+        return hits.pop()
+    # 3. 单个英文整词
+    if " " not in q and q in by_token:
+        return by_token[q]
+    return None
+
+
+def alias_forms(name: str) -> set[str]:
+    """规范名 → 该队全部登记写法（小写）。用于「已发关键词里有没有这支队」。
+
+    除中文名/别名/英文全名外，还要带上**唯一归属的英文单词**：
+    已发 keywords 里写的是 ``napoli`` 而不是 ``ssc napoli``，只给全名就比对不上
+    （2026-11-06 重复发同一场的直接原因之一）。
+    """
+    canon = canonical_team(name) or (name.strip() if isinstance(name, str) else "")
+    if not canon:
+        return set()
+    _by_form, by_canon, by_token = _load_team_tables()
+    forms = set(by_canon.get(canon) or {canon.lower()})
+    # 反向补英文单词：只在「该单词归属唯一」时补，多义词（milan）不补。
+    forms |= {w for w, owner in by_token.items() if owner == canon}
+    return forms
+
+
+def mentions_team(text: str, team: str) -> bool:
+    """text 里是否提到 team（跨语言、别名感知）。
+
+    只做「任一写法出现」，不做最长匹配消解 —— 需要消解串味时用
+    ``data_chart.entity_hits``（那是唯一实现）；本函数用于去重的粗判，
+    宁可多判一次「提到过」，也不要漏掉「英文写的已发记录」。
+    """
+    low = (text or "").lower()
+    if not low or not isinstance(team, str):
+        return False
+    return any(f and f in low for f in alias_forms(team))
+
+
+def teams_in_tokens(tokens) -> set[str]:
+    """从一组关键词（中英混排）里认出**规范队名**集合。
+
+    「Inter Milan」与「AC Milan」这类共享简名由 ``by_token`` 唯一性规则挡掉，
+    所以本函数认不出它们 —— 这是有意的：宁可少认，不认错。
+    """
+    out: set[str] = set()
+    for t in tokens or []:
+        if not isinstance(t, str) or not t.strip():
+            continue
+        c = canonical_team(t)
+        if c:
+            out.add(c)
+    return out
+
+
+def same_fixture(a, b) -> bool:
+    """两组队名是否指向同一场比赛（无序对比较）。
+
+    >>> same_fixture(("拉齐奥", "那不勒斯"), ("Napoli", "Lazio"))
+    True
+    """
+    ca = {canonical_team(x) or str(x) for x in a if x}
+    cb = {canonical_team(x) or str(x) for x in b if x}
+    return len(ca) >= 2 and len(cb) >= 2 and ca == cb

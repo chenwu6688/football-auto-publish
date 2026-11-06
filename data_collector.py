@@ -21,6 +21,8 @@ import cover_binding as _cb  # 计划 2.2/4.1：封面与正文绑定（禁用�
 import scraper_diagnostics as _diag  # 图源失败必须留痕（2026-11-04：401 静默吞掉过久）
 import wiki_media as _wm  # 维基共享：足球领域唯一免费真人图源（许可+署名由模块内保证）
 import gallery_query as _gq  # 图库是英文标签索引，中文 query 会配出饺子/欧元（2026-11-04）
+import team_names  # 队名跨语言归一（napoli ↔ 那不勒斯）：赛程去重靠它，别各写一份
+import data_chart as _dc  # 「文本里提到了哪支队」的唯一实现（alive_owners，最长匹配消解串味）
 
 
 # ============================================================
@@ -850,9 +852,14 @@ def get_topic_history(current_date, lookback_days=7):
                     history["keywords"].add(kw.lower())
                 for tag in a.get("tags", []):
                     history["keywords"].add(tag.lower())
-                for team in WIKI_TEAMS:
-                    if team in title:
-                        history["teams"].add(team)
+                # 队名：原先只查 constants.WIKI_TEAMS（15 支队），那不勒斯/拉齐奥/
+                # 科莫/朗斯全在表外，"近 7 天写过这两队"这条判据对它们恒为假。
+                # 标题走最长匹配（「米兰」不吃「国际米兰」），关键词走跨语言归一
+                # （keywords 常写英文 Napoli，标题是中文「那不勒斯」）。
+                _ents = set(_dc.alive_owners(title.lower())) if title else set()
+                _ents |= team_names.teams_in_tokens(
+                    list(a.get("keywords") or []) + list(a.get("tags") or []))
+                history["teams"] |= _ents
                 for player in WIKI_PLAYERS:
                     if player in title:
                         history["players"].add(player)
@@ -1735,6 +1742,7 @@ def collect_fixture_topics(date_str, batch_mode="auto", max_topics=1,
     hist_teams = set(topic_history.get("teams", set())) if topic_history else set()
     covered_kw = set(cross_batch_covered.get("keywords", set())) if cross_batch_covered else set()
     covered_titles = set(cross_batch_covered.get("titles", set())) if cross_batch_covered else set()
+    covered_pairs = set(cross_batch_covered.get("fixture_pairs") or set()) if cross_batch_covered else set()
 
     candidates = []
     for t in topics:
@@ -1754,8 +1762,19 @@ def collect_fixture_topics(date_str, batch_mode="auto", max_topics=1,
         # 3. 去重：近 7 天已写过这两队之一 → 跳过（赛程稿主打冲突点，重发两队易撞车）
         if home in hist_teams or away in hist_teams:
             continue
-        # 今日已发同队关键词 → 跳过
-        if any(kw for kw in covered_kw if kw and (kw in home or home in kw or kw in away or away in kw)):
+        # 3a. 今日写过同一场（对阵级）→ 跳过。
+        #     这是唯一与语言、措辞都无关的判据：2026-11-06 晨读写了
+        #     「领跑，那不勒斯这一关」、午间又写「登顶遇上那不勒斯」，
+        #     两篇 keywords 重叠 4/5 却没被拦住，因为已发侧存的是英文
+        #     （lazio / napoli），候选侧是中文（拉齐奥 / 那不勒斯），
+        #     `"napoli" in "那不勒斯"` 恒为 False。
+        canon_pair = frozenset([team_names.canonical_team(home) or home,
+                                team_names.canonical_team(away) or away])
+        if len(canon_pair) == 2 and canon_pair in covered_pairs:
+            continue
+        # 3b. 今日已发同队关键词 → 跳过（跨语言：napoli 也要认出那不勒斯）
+        forms = team_names.alias_forms(home) | team_names.alias_forms(away)
+        if any(kw in forms for kw in covered_kw if kw):
             continue
         # 今日已发同标题（粗略：含两队名）→ 跳过
         if any((home in ti and away in ti) for ti in covered_titles if ti):

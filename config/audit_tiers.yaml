@@ -132,6 +132,20 @@ items:
       真正的止损在运行时：publisher 的三态退出码 + 工作流分流 + 台账 no_publishable。
     negative: "把 EXIT_NOTHING_SKIPPED 改成 1（两态同码）后 A 项必须报红；脚本内置该负向自检"
 
+  hot_freshness:
+    tiers: [code-change]
+    # 2026-11-06 用户反馈立。两条反馈指向同一个洞：选题供给与「今天大家在谈
+    # 什么」完全脱钩 —— 热搜进不了候选（信号只做排序、产生不了新候选），
+    # 同一场比赛换个措辞就重复发（英文关键词比中文队名恒不相等）。
+    # 这条验收管的是**接线**：热点通道在不在、事件键落不落盘、赛程去重按不按对阵。
+    kind: advisory
+    why: |
+      与 publish_states 同类：判定的是「代码接没接对」，只有改代码才会变，
+      所以进 code-change；FAIL 不阻断发布，否则验收器的 bug 会决定今天有没有稿子。
+      运行时真正的止损是 event_key 去重 + 每批上限 HOT_TOPIC_PER_BATCH。
+      它同时带一条告警项 E（近 7 天热点稿篇数），用于发现「通道接上了但一直空转」。
+    negative: "把 event_key 改回「按命中词集合拼接」后 D 项必须报红（C罗退役 ≠ C罗退出国家队）"
+
   image_relevance:
     tiers: [pre-publish]
     kind: hard

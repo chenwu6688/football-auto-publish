@@ -460,6 +460,17 @@ jobs:
             echo "::warning::配图相关性未判定（窗口内没有本改动之后的批次产物）"
           fi
 
+      - name: 热点选题通道验收（2026-11-06 · 只告警不阻断）
+        if: steps.params.outputs.skip != 'true' && !cancelled()
+        run: |
+          # 判的是「接线对不对」而不是「今天有没有热点」，所以只告警：
+          # 验收器自己出 bug 时不该决定今天有没有稿子发。
+          # --selftest 是负向自检：把事件键退回旧写法必须报红，否则这条判据是摆设。
+          python3 scripts/verify_hot_freshness.py --selftest \
+            || echo "::warning::热点通道负向自检失败——D 项已失去检出能力"
+          python3 scripts/verify_hot_freshness.py --quiet \
+            || echo "::warning::热点通道未通过，详见 data/audit/hot_freshness_latest.json"
+
       - name: 发布闸门验收（计划 7.2 / 7.3 · 只告警不阻断）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |

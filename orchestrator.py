@@ -368,7 +368,8 @@ def get_cross_batch_covered(date_str):
     """
     covered = {"content_types": set(), "teams": set(), "players": set(),
                "keywords": set(), "titles": set(), "batch_count": 0,
-               "event_signatures": set(), "title_prefixes": set()}
+               "event_signatures": set(), "title_prefixes": set(),
+               "fixture_pairs": set(), "hot_event_keys": set()}
     meta_path = OUTPUT_DIR / date_str / "metadata.json"
     if not meta_path.exists():
         return covered
@@ -389,9 +390,24 @@ def get_cross_batch_covered(date_str):
                 covered["keywords"].add(kw.lower())
             for tag in a.get("tags", []):
                 covered["keywords"].add(tag.lower())
-            for team in WIKI_TEAMS:
-                if team in title:
-                    covered["teams"].add(team)
+            # 队名两路取并集：标题走中文最长匹配（「米兰」不吃「国际米兰」），
+            # 关键词/标签走跨语言归一（keywords 常是英文 "Napoli"，标题是中文
+            # 「那不勒斯」，只认中文就会漏掉整条已发记录）。
+            #
+            # 这里原先用 constants.WIKI_TEAMS 做 `team in title`——那张表只有 15 支队，
+            # 那不勒斯/拉齐奥/科莫/朗斯都不在里面。2026-11-06 同一场 Lazio vs Napoli
+            # 在晨读与午间各写了一篇，`covered["teams"]` 全程是空的，这是直接原因。
+            ents = set(data_chart.alive_owners(title.lower())) if title else set()
+            ents |= team_names.teams_in_tokens(
+                list(a.get("keywords") or []) + list(a.get("tags") or []))
+            covered["teams"] |= ents
+            # 「今天写过哪几场」：两队同时出现即记为一场对阵，供确定性供给按对阵去重
+            if len(ents) >= 2:
+                covered["fixture_pairs"].add(frozenset(ents))
+            # 热点事件键（零级·热点）：同一件热搜事件当天只写一次，
+            # 否则「C罗退役」会在晨读、午间、晚间各写一遍。
+            if a.get("hot_event_key"):
+                covered["hot_event_keys"].add(str(a["hot_event_key"]))
             for player in WIKI_PLAYERS:
                 if player in title:
                     covered["players"].add(player)
@@ -800,13 +816,21 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
         cross_kw = cross_batch_covered.get("keywords", set())
         cross_titles = cross_batch_covered.get("titles", set())
         cross_sigs = cross_batch_covered.get("event_signatures", set())
+        cross_pairs = cross_batch_covered.get("fixture_pairs") or set()
         filtered = []
         for t in topics:
             t_title = t.get("title", "")[:30]
             t_kws = set(k.lower() for k in (t.get("keywords", []) or []) + (t.get("keywords_cn", []) or []))
             title_overlap = t_title in cross_titles
             kw_overlap = len(t_kws & cross_kw) / max(len(t_kws), 1) if t_kws else 0
-            if title_overlap or kw_overlap >= 0.4:
+            # 候选侧的队名要跨语言归一后才能与已发对阵比：
+            # keywords 常是英文、keywords_cn 是中文，两者混在一组里算重叠率会被稀释。
+            t_ents = team_names.teams_in_tokens(
+                list(t.get("keywords") or []) + list(t.get("keywords_cn") or []))
+            same_fixture = len(t_ents) >= 2 and frozenset(t_ents) in cross_pairs
+            if same_fixture:
+                print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(与今日已发同一场比赛)")
+            elif title_overlap or kw_overlap >= 0.4:
                 print(f"   🗑️ 跨批次去重: 丢弃「{t_title}」(关键词重叠率 {kw_overlap:.0%})")
             elif is_event_duplicate(t.get("title", ""), cross_sigs):
                 print(f"   🗑️ 跨批次事件去重: 丢弃「{t_title}」(与今日已发比赛重复)")
@@ -2412,6 +2436,15 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
             _source_by_url = {img["url"]: img.get("source")
                               for img in (images_map.get(i) or [])
                               if isinstance(img, dict) and img.get("source")}
+            # 溯源（2026-11-06）：这张图是从哪篇报道里抠出来的、按哪个实体搜到的。
+            # 只记 "source=news_body" 说明不了任何问题 —— 用户说「图片还是有问题」时，
+            # 需要的正是「这张来自哪篇报道」「搜的是哪支队」这两个信息，
+            # 否则只能靠肉眼猜（而图在 runner 上，跑完就没了）。
+            _origin_by_url = {img["url"]: {"article_url": img.get("article_url", ""),
+                                           "query": img.get("query", ""),
+                                           "alt": str(img.get("alt") or "")[:60]}
+                              for img in (images_map.get(i) or [])
+                              if isinstance(img, dict) and img.get("url")}
             img_urls = [img["url"] for img in images_map.get(i, [])[:5]]
             for j, url in enumerate(img_urls):
                 if len(downloaded) >= MIN_ARTICLE_IMAGES:
@@ -2434,6 +2467,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                     if _attr_by_url.get(url):
                         result["attribution"] = _attr_by_url[url]
                     result["source"] = _source_by_url.get(url, "")
+                    if _origin_by_url.get(url):
+                        result["origin"] = _origin_by_url[url]
                     downloaded.append(result)
 
         if not downloaded:
@@ -2637,6 +2672,16 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                                 and str(d.get("source", "")).startswith("card:")],
                 # 配图不足的硬记录（正常情况下不该出现；出现即验收报红）
                 "image_shortfall": art.get("_image_shortfall"),
+                # 每张图的来源溯源（2026-11-06 用户反馈「图片还是有问题」时加的）。
+                # 原先只记 source=news_body / card:points，等于只说了「哪一类」，
+                # 说不出「哪一篇报道、按哪个实体搜的」。图在 runner 上、跑完即销毁，
+                # 不落这一栏就再也查不回来了。
+                "image_provenance": [{"file": d.get("filename"),
+                                      "kind": d.get("source", "") or "unknown",
+                                      "url": d.get("url", ""),
+                                      "origin": d.get("origin") or {},
+                                      "width": d.get("width"), "height": d.get("height")}
+                                     for d in downloaded if isinstance(d, dict)],
                 # 闸门记录（2026-11-05 v2 闸门分级）：只在矛盾时拦，其余判据的
                 # 分值与旧判据的对照结果全部落盘。没有这一栏，「放松了多少」就
                 # 只能靠回忆——而「有结论没留证据」正是 38% 发布率一月无人发现的原因。
@@ -2684,6 +2729,13 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 "content_stats": content_stats.summarize(art.get("content") or "")}
         if art.get("_recap_match_id") not in (None, ""):
             _rec["recap_match_id"] = str(art["_recap_match_id"])
+        # 热点来源（2026-11-06）：hot_event_key 是跨批次去重的唯一依据。
+        # 与战报/事件结果同理 —— 只留在文章对象上会随保存层挑字段而丢。
+        if art.get("_hot_event_key"):
+            _rec["hot_event_key"] = str(art["_hot_event_key"])
+            _rec["hot_rank"] = art.get("_hot_rank")
+            _rec["hot_source"] = art.get("_hot_source")
+            _rec["hot_channel"] = art.get("_hot_channel")
         # 标题兜底留痕（P0-1）：elements=评分侧 / gate=结构侧 / save_side=出口侧。
         # 不落这项，复盘时看不出「有多少篇标题是被机器换过的」，也就无法判断
         # 闸门是不是变成了「批量改标题」的流水线。
@@ -3051,6 +3103,93 @@ def _topic_card(t, cid, date_str):
     }
 
 
+def _hot_topic_cards(date_str, match_data, covered, limit=1):
+    """取「今日热点」候选并转成选题卡（零级·热点）。
+
+    ## 为什么不在 select_topics 的 prompt 里加一句「优先选热点」
+
+    2026-11-06 之前，选题完全靠 LLM 从「赛程 + 15 条新闻」里挑。热搜里
+    「C罗退出国家队」排第 21，但 LLM 看到的是「有比分、有开球时间」的赛程，
+    自然不会去写一条只有短语的热搜。**靠提示词约束概率，不如把候选直接摆上去。**
+
+    所以这里做的是「供给侧新增一条通道」：热搜（或同题报道聚合）产出候选，
+    排在最前，占掉本批一个槽位。``limit=1`` 是刻意的 —— 一批两篇里最多给
+    热点一篇，否则整批变成热榜搬运。
+
+    ## 返回 None 的三种情形都要留痕
+
+    抓不到榜 / 榜上无足球 / 有足球但都没报道支撑 —— 三种都不是「今天没热点」，
+    而是「这条通道这次没出东西」，台账里分得清，看板才判得出是坏了还是空着。
+    """
+    try:
+        import hot_topics
+    except Exception as e:
+        print(f"   ⚠️ 热点通道不可用（import 失败，不影响发布）: {e}")
+        return []
+
+    news = match_data.get("news_articles") or []
+    covered_keys = set((covered or {}).get("hot_event_keys") or set())
+
+    board, diag = [], {"errors": ["not fetched"]}
+    try:
+        board, diag = hot_topics.fetch_board()
+    except Exception as e:
+        diag = {"errors": [f"fetch_board: {e}"]}
+    hits = hot_topics.football_hits(board) if board else []
+
+    cands = hot_topics.build_candidates(board, news, covered_keys=covered_keys, limit=limit)
+    channel = "board"
+    if not cands:
+        # 榜单不可用（境外 runner 常见）或榜单上没有带报道的足球事件时，
+        # 退到「同题报道聚合」：同一天多篇报道讲同一件事，本身就是热度。
+        cands = hot_topics.build_from_news(news, covered_keys=covered_keys, limit=limit)
+        channel = "news_cluster"
+
+    try:
+        hot_topics.write_ledger(date_str, board=board, hits=hits,
+                                candidates=cands, diag=diag)
+    except Exception as e:
+        print(f"   ⚠️ 热点台账写入失败（不影响发布）: {e}")
+
+    if not cands:
+        why = ("榜单抓取失败" if diag.get("errors")
+               else ("榜上无足球热点" if not hits else "热点都缺报道支撑/今日已写"))
+        print(f"   ℹ️ 热点通道本批无候选：{why}"
+              f"（榜 {len(board)} 条 / 足球 {len(hits)} 条）")
+        return []
+
+    cards = []
+    for c in cands:
+        word = str(c.get("word") or "").strip()
+        # 热搜词常带尾巴（「C罗退出国家队 甲亢哥痛哭流涕弹钢琴」），
+        # 取第一段当选题名，剩下的当角度素材 —— 尾巴多半是围观反应，不是事本身。
+        head = re.split(r"[\s,，、|｜]+", word)[0] if word else ""
+        if len(head) < 4:
+            head = word
+        cards.append({
+            "title": head,
+            "angle": f"热点事件「{head}」，从球迷情绪与争议点切入",
+            "keywords": [],
+            "keywords_cn": [head] + [e for e in (c.get("entities") or []) if e not in head],
+            "content_type": "热点球评",
+            "score": 100,
+            "controversy_level": "high",
+            "why_pick": f"热搜第 {c.get('rank')} 位（{c.get('source')}）",
+            # 供给层级用既有的「二级·突发」而不是自造「零级」：supply_mix 只有
+            # 三层口径，自造一层会被判 unclassified、把配比验收打成失败。
+            # 「是不是热点通道来的」由 _hot_channel 表达，两件事别混在一个字段里。
+            "_supply_layer": "二级·突发",
+            "_hot_event_key": c.get("event_key") or "",
+            "_hot_rank": c.get("rank"),
+            "_hot_source": c.get("source"),
+            "_hot_channel": channel,
+            "_hot_support": [str(s.get("title") or "") for s in (c.get("support") or [])],
+        })
+        print(f"   🔥 热点候选：{head}（{c.get('source')} 第 {c.get('rank')} 位，"
+              f"支撑报道 {len(c.get('support') or [])} 篇）")
+    return cards
+
+
 def _rank_topics(topics, match_data, date_str, *, use_llm=True):
     """计划 11.2 择优 L1→L2→L3→L4：信号增强 + 模型五维打分重排（非阻断）。
 
@@ -3169,6 +3308,15 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
             stats["issues"].append(f"第{index_offset + i + 1}篇({ct}): {error}")
         else:
             stats["valid"] += 1
+            # 热点来源留痕（2026-11-06）：把 topic 上的热点标记带到文章对象，
+            # 保存层才落得了 `hot_event_key` —— 它是「同一件热搜当天只写一次」
+            # 的唯一依据。只在文章对象上留 `_` 标记就会丢（10-25 预测稿同款事故）。
+            for _k in ("_hot_event_key", "_hot_rank", "_hot_source", "_hot_channel"):
+                _v = selected[i].get(_k)
+                if _v not in (None, "", []):
+                    art[_k] = _v
+            if selected[i].get("_supply_layer"):
+                art["_supply_layer"] = selected[i]["_supply_layer"]
             # P0-3: 信息增量非阻断告警
             warn_if_low_info_increment(art)
             articles_out.append((index_offset + i, art))
@@ -4478,6 +4626,10 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
 # Fixture Article — 确定性供给（赛程冲突点选题）
 # ============================================================
 FIXTURE_PER_BATCH = 1  # 每批最多生成的确定性供给篇数（计划：确定性供给占内容~30%）
+# 零级·热点每批上限。刻意是 1：批内常态只有 2 篇，热点占掉一半就到顶了；
+# 再放宽会让整批变成「热榜搬运」——那是另一个极端（用户要的是紧跟热点，
+# 不是只写热搜）。落点在 ``_hot_topic_cards(limit=)`` 唯一处，别在别处再写一个数。
+HOT_TOPIC_PER_BATCH = 1
 # P0 修法 A 配套（R13）：确定性供给改为**占用批次配额**后，若每批都发 1 篇，
 # 日 6 篇下确定性将占 50%，偏离计划 12.1 的 ~30% 配比。故设每日预算：
 # 日配额 6~8 篇 × 30% ≈ 2 篇/日，先到先得（晨/午优先，晚间预测稿日本身有预测稿）。
@@ -5782,6 +5934,30 @@ def main():
             extra_meta["ranker_mode"] = _rank_res.get("mode", "rule")
         except Exception as e:
             print(f"   ⚠️ 择优排序异常（跳过，不影响发布）: {e}")
+
+        # ============================================================
+        # 零级·热点（2026-11-06 用户反馈「要紧跟热点」）
+        # ============================================================
+        # 位置刻意放在 ranker **之后**：ranker 的职责是「在已有候选里挑更好的」，
+        # 它会按新鲜度/知名度重排整张表。热点是**新增**的候选，一旦交给它重排，
+        # 就会被「赛程有比分、信号更足」的常规题目挤到后面 —— 又回到只写赛程。
+        try:
+            _hot_cards = _hot_topic_cards(date_str, match_data, cross_batch_covered,
+                                          limit=HOT_TOPIC_PER_BATCH)
+            if _hot_cards:
+                _dup = {str(t.get("title") or "")[:12] for t in topics}
+                _hot_new = [c for c in _hot_cards if str(c.get("title") or "")[:12] not in _dup]
+                if _hot_new:
+                    topics = _hot_new + topics
+                    extra_meta["hot_topics"] = [
+                        {"title": c["title"], "rank": c.get("_hot_rank"),
+                         "source": c.get("_hot_source"), "channel": c.get("_hot_channel"),
+                         "event_key": c.get("_hot_event_key")}
+                        for c in _hot_new]
+                    print(f"   🔥 热点已置顶 {len(_hot_new)} 条（占用本批槽位，"
+                          f"上限 {HOT_TOPIC_PER_BATCH} 篇）")
+        except Exception as e:
+            print(f"   ⚠️ 热点通道异常（跳过，不影响发布）: {e}")
 
         # ============================================================
         # 每批内容类型结构（P1-1，2026-11-04 阅读量诊断）
