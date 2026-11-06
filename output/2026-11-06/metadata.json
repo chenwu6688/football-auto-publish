@@ -1,0 +1,454 @@
+{
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T00:04:31.846234",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "领跑，那不勒斯这一关，队长憋的劲该往哪使",
+      "path": "/home/runner/work/_temp/output/2026-11-06/article-1-领跑那不勒斯这一-3feeb1.md",
+      "slug": "领跑那不勒斯这一-3feeb1",
+      "tags": [
+        "Serie A",
+        "Lazio",
+        "Napoli",
+        "league table",
+        "captain mentality"
+      ],
+      "keywords": [
+        "Serie A",
+        "Lazio",
+        "Napoli",
+        "league table",
+        "captain mentality"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [],
+        "proper_nouns": [
+          "那不勒斯"
+        ],
+        "has_number": false,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 1
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字（比分/第几轮/第几",
+          "[三要素] 三要素 1/3 未达下限（需 ≥2 项且含专名）"
+        ]
+      },
+      "content_stats": {
+        "chars": 1272,
+        "han_len": 879,
+        "paragraphs": 12,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 9,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "阿森纳客场2-1拿下斯拉维亚，阿尔特塔这换人差点玩脱",
+      "path": "/home/runner/work/_temp/output/2026-11-06/article-2-阿森纳客场21拿-059526.md",
+      "slug": "阿森纳客场21拿-059526",
+      "tags": [
+        "Arsenal",
+        "Slavia Prague",
+        "Champions League",
+        "Arteta",
+        "Gyokeres"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Slavia Prague",
+        "Champions League",
+        "Arteta",
+        "Gyokeres"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "拉格斯拉维亚",
+              "阿森纳"
+            ],
+            "numbers": [
+              "1",
+              "2"
+            ],
+            "source": "公开赛事比分",
+            "probe": "拉格斯拉维亚1-2阿森纳"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "拉格斯拉维亚 进球写作 2（事实 1），单侧归因疑为历史数据",
+            "无法归因的比分 2-0（事实 1-2）",
+            "无法归因的比分 2-0（事实 1-2）",
+            "无法归因的比分 2-0（事实 1-2）"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "阿尔特塔再吃1张黄牌就停赛，场边那个最激动的人先被罚上看台",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 77,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题 26 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（19 < 60）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "阿尔特塔",
+          "斯拉维亚",
+          "阿森纳"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1114,
+        "han_len": 735,
+        "paragraphs": 19,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    }
+  ],
+  "topics": [
+    {
+      "title": "阿尔特塔再吃1张黄牌就停赛，场边那个最激动的人先被罚上看台",
+      "angle": "晚旗报曝阿尔特塔再吃1张黄牌就将错过下轮联赛，主帅情绪管理成了阿森纳的隐形风险——场边指挥的火气，有时候比场上一次犯规更贵。",
+      "keywords": [
+        "Arteta",
+        "Arsenal",
+        "yellow card",
+        "touchline ban"
+      ],
+      "keywords_cn": [
+        "阿尔特塔",
+        "阿森纳",
+        "黄牌停赛",
+        "场边指挥"
+      ],
+      "content_type": "热点球评",
+      "score": 80,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "主帅停赛风险是少见的人的角度",
+      "_category": "未分类",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-3"
+    },
+    {
+      "title": "多纳鲁马的技术瑕疵被摆上台面，曼城这笔门将账该重新算了",
+      "angle": "邮报点名多纳鲁马根本性技术瑕疵开始显现，曼城不得不重新审视他——门将这个位置最不讲情面，一次出球失误就能推翻整季信任，聊聊顶级门将的容错底线。",
+      "keywords": [
+        "Donnarumma",
+        "Manchester City",
+        "goalkeeper",
+        "technical flaws"
+      ],
+      "keywords_cn": [
+        "多纳鲁马",
+        "曼城",
+        "门将",
+        "技术瑕疵"
+      ],
+      "content_type": "战术解析",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "门将技术瑕疵是稀缺战术切口",
+      "_category": "未分类",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "领跑，那不勒斯这一关，队长憋的劲该往哪使",
+      "content_type": "战术榜单",
+      "_is_fixture": true
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 1,
+      "二级·突发": 1,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 50.0,
+      "二级·突发": 50.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": 20.0,
+      "二级·突发": 0.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "互动引导未达标",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（19 < 60）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "互动引导兜底",
+      "原因": "缺 关注引导",
+      "处置": "保存侧模板兜底注入",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "阿尔特塔再吃1张黄牌就停赛，场边那个最激动的人先被罚上看"
+      },
+      {
+        "slot": "data",
+        "type": "战术榜单",
+        "title": "多纳鲁马的技术瑕疵被摆上台面，曼城这笔门将账该重新算了"
+      }
+    ],
+    "degraded": [
+      "data 槽无 ('数据对比', '排行榜') 候选，用战术榜单补位"
+    ],
+    "skipped": [
+      {
+        "type": "转会资讯",
+        "title": "曼联高层私下认了引援不力，冬窗补后卫前锋这话球迷听过几回"
+      },
+      {
+        "type": "八卦趣事",
+        "title": "6辆警车围堵一名英超后卫，纽卡这位到底带了什么出门"
+      }
+    ],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-06 08:04:31"
+}
