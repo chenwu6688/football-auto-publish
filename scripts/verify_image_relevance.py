@@ -212,7 +212,7 @@ def check_products(days: int = 7) -> dict:
     if not metas:
         return _ok("E 产物闭环", None, [f"近 {days} 天没有批次产物，未判定"])
 
-    checked = failed = 0
+    checked = failed = skipped_missing = 0
     detail, seen_batch = [], False
     for mp in metas:
         try:
@@ -227,11 +227,24 @@ def check_products(days: int = 7) -> dict:
         seen_batch = True
 
         for a in arts:
-            body_path = a.get("path")
+            anchors = a.get("image_anchors") or []
+            if not anchors:
+                continue
             body = ""
+            body_path = str(a.get("path") or "")
+            # 跨批次累计的旧记录：md 文件只在**生成它的那个 runner** 上，
+            # 当天的 metadata 会把前几批的成稿一起带过来（步骤 11 从仓库 cp）。
+            # 文件读不到就必须「未判定」，绝不能拿标题当正文去判「实体不在正文」——
+            # 2026-11-06 noon 批次就是这么被自己的旧记录挡掉的：morning 已发布的
+            # 那篇《阿森纳客场2-1拿下斯拉维亚》anchor 写着「拉格斯拉维亚」，正文
+            # 文件不在本 runner 上，退化成只用标题比对 → 判「实体不在正文」→
+            # 硬项 E 失败 → 发布步骤整段 skipped，当天该批两篇稿一篇没发。
             if body_path and Path(body_path).exists():
                 body = Path(body_path).read_text(encoding="utf-8")
-            for anchor_rec in (a.get("image_anchors") or []):
+            if not body.strip():
+                skipped_missing += len(anchors)
+                continue
+            for anchor_rec in anchors:
                 checked += 1
                 anchor = anchor_rec.get("anchor")
                 r = ir.check(anchor or {}, {"title": a.get("title", ""), "content": body})
@@ -244,7 +257,13 @@ def check_products(days: int = 7) -> dict:
         return _ok("E 产物闭环", None,
                    [f"近 {days} 天 {len(metas)} 个批次均早于本改动（无 image_anchors），未判定"])
 
+    if skipped_missing:
+        detail.append(f"ℹ️ {skipped_missing} 张图因正文文件不在本 runner 上（跨批次累计）未判定")
+
     if checked == 0:
+        if skipped_missing:
+            return _ok("E 产物闭环", None,
+                       ["⚠️ 本批没有可复验的正文文件（记录均为其他批次遗留），未判定"] + detail[:10])
         detail.append("ℹ️ 生效日后的批次没有产出任何数据图——"
                       "可能是当天无比赛数据，需人工看一眼")
         return _ok("E 产物闭环", True, detail)

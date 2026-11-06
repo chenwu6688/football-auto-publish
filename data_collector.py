@@ -235,6 +235,10 @@ def collect_real_matches(date_str):
         except Exception as e:
             print(f"   ⚠️ 时效闸门异常（降级放行）: {e}")
 
+        _n_fix = _normalize_zh_team_names(merged["all_fixtures"])
+        if _n_fix:
+            print(f"   🔤 队名归一：{_n_fix} 处残缺中文名已按实体表修正（原值留 raw_*）")
+
         return merged
 
     # ── 两源都失败 → football-data.org ──
@@ -520,6 +524,39 @@ def _collect_from_dongqiudi(scraper, date_str):
     }
 
 
+_RE_CJK = re.compile(r"[\u4e00-\u9fff]")
+
+
+def _normalize_zh_team_names(fixtures) -> int:
+    """把残缺中文队名归一到实体表里的规范名，返回改动处数。
+
+    2026-11-06 实证：直播吧把「布拉格斯拉维亚」写成「拉格斯拉维亚」，这个名字
+    一路带进选题、标题、正文和配图 anchor。``data_chart.resolve_team`` 认不出，
+    anchor 存下脏名，配图相关性验收复验时「实体不在正文」，硬项失败把整批发布
+    挡掉——当天 0 篇。源头在这里，改源头才是根治。
+
+    只动**含中文**的值：football-data 给的英文名（"SK Slavia Praha"）要参与
+    Wikipedia 比分比对与 standings 匹配，换成中文会打断那条链。
+    归一只在唯一命中时成立，否则保留原值（不猜）。
+    """
+    import data_chart            # 延迟导入：采集不依赖渲染层，且避免顶层循环
+
+    n = 0
+    for f in fixtures or []:
+        if not isinstance(f, dict):
+            continue
+        for key in ("home_team", "away_team"):
+            raw = str(f.get(key) or "").strip()
+            if not raw or not _RE_CJK.search(raw):
+                continue
+            zh = data_chart.normalize_team_zh(raw)
+            if zh and zh != raw:
+                f.setdefault(f"raw_{key}", raw)     # 原值留痕，便于回溯数据源错字
+                f[key] = zh
+                n += 1
+    return n
+
+
 def _collect_from_football_data(date_str):
     """从 football-data.org 采集比赛数据（备用源）。"""
     headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
@@ -680,6 +717,9 @@ def _collect_from_football_data(date_str):
         print(f"   📊 双源验证通过: {high_conf}场")
     if conflicts:
         print(f"   ⚠️ 比分冲突(需人工核查): {conflicts}场")
+    _n_fix = _normalize_zh_team_names(fixture_details)
+    if _n_fix:
+        print(f"   🔤 队名归一：{_n_fix} 处残缺中文名已按实体表修正（原值留 raw_*）")
     return result
 
 

@@ -124,6 +124,42 @@ def resolve_team(query: str) -> dict | None:
     return None
 
 
+def normalize_team_zh(query: str) -> str | None:
+    """队名 → 登记规范名（``name_zh``）。认不准就 None，**绝不猜**。
+
+    为什么需要容错：数据源给的队名会缺字。2026-11-06 直播吧把「布拉格斯拉维亚」
+    写成「拉格斯拉维亚」，``resolve_team`` 查不到就退化成原串，于是
+    ——图上印错字（图本身成了错误信息）
+    ——anchor 存下脏名，配图相关性验收复验不中，硬项失败把整批发布挡掉（当天 0 篇）
+
+    容错只在**唯一命中**时成立：某个登记写法与之互相包含，且长度差有限。
+    命中 2 个以上一律 None——「米兰」既可能指 AC 米兰，也可能被「国际米兰」吞掉，
+    这种时候宁可不归一（该图不出，退回信息图），也不能把对手的图配上来。
+    """
+    item = resolve_team(query)
+    if item:
+        return str(item.get("name_zh") or "").strip() or None
+
+    q = (query or "").strip()
+    if len(q) < 3:            # 2 字短名做包含匹配，串味概率极高
+        return None
+
+    hits: dict[str, str] = {}
+    for it in all_teams():
+        zh = str(it.get("name_zh") or "").strip()
+        if not zh:
+            continue
+        for n in entity_names(it):
+            if len(n) < 3:
+                continue
+            if q in n or n in q:
+                # 长度差过大就不是「同一个名字的残缺版」，而是两个不同的词
+                if abs(len(n) - len(q)) <= max(2, len(q) // 2):
+                    hits[zh] = n
+                break
+    return next(iter(hits)) if len(hits) == 1 else None
+
+
 def entity_names(item: dict) -> set[str]:
     """实体在正文里可能出现的全部写法（小写），用于相关性校验。"""
     names = set()
@@ -142,6 +178,81 @@ def entity_names(item: dict) -> set[str]:
         if zh.endswith(suffix) and len(zh) - len(suffix) >= 2:
             names.add(zh[: -len(suffix)].lower())
     return names
+
+
+_SPAN_CACHE: dict = {"key": None, "alive": set()}
+
+
+def _entity_spans(text_low: str) -> list[tuple[int, int, str, str]]:
+    """正文里**全部已登记球队**的写法命中：(start, end, form, 规范名)。
+
+    为什么不能只看 anchor 自己的实体：正文写「国际米兰」时，AC 米兰的别名
+    「米兰」确实躺在里面。只扫 anchor 的写法，就会把国米的文章配上 AC 米兰的图。
+    """
+    spans: list[tuple[int, int, str, str]] = []
+    for item in all_teams():
+        owner = str(item.get("name_zh") or "").strip()
+        if not owner:
+            continue
+        for f in entity_names(item):
+            if len(f) < 2:
+                continue
+            pos = text_low.find(f)
+            while pos != -1:
+                spans.append((pos, pos + len(f), f, owner))
+                pos = text_low.find(f, pos + 1)
+    return spans
+
+
+def alive_owners(text_low: str) -> set[str]:
+    """正文里"真正被提到"的球队（长写法优先吃掉短写法）。"""
+    if _SPAN_CACHE["key"] == text_low:
+        return _SPAN_CACHE["alive"]
+
+    spans = sorted(_entity_spans(text_low), key=lambda x: (-(x[1] - x[0]), x[0]))
+    covered: list[tuple[int, int, int]] = []      # (start, end, 长度)
+    alive: set[str] = set()
+    for s, t, _f, owner in spans:
+        ln = t - s
+        # 只有**严格更长**的区间能吞掉它；同长同位置（「皇马」与「皇家马德里」
+        # 这种等价写法）都保留。
+        if any(s >= cs and t <= ce and ln < cl for cs, ce, cl in covered):
+            continue
+        covered.append((s, t, ln))
+        alive.add(owner)
+
+    _SPAN_CACHE["key"] = text_low
+    _SPAN_CACHE["alive"] = alive
+    return alive
+
+
+def entity_hits(text: str, entities) -> tuple[bool, list[str]]:
+    """entities 是否全部在 text 里出现（最长匹配消解串味）。
+
+    **这是全项目唯一的相关性判定实现**：绘图侧（``candidates``）与验收侧
+    （``image_relevance.check``）都调它。两边各写一份的后果已经踩过：绘图用裸
+    ``in`` 放行了残缺队名，验收用别名集判它不命中，同一张图一边过一边不过，
+    硬项把整批发布挡掉。
+    """
+    text_low = (text or "").lower()
+    want = [str(e) for e in (entities or []) if str(e).strip()]
+    if not text_low or not want:
+        return False, want
+
+    alive = alive_owners(text_low)
+    missing = []
+    for e in want:
+        # 用 normalize_team_zh 而不是 resolve_team：残缺名（拉格斯拉维亚）也要
+        # 归一到规范名再判，否则它永远"不在正文里"，而正文写的就是这支队。
+        zh = normalize_team_zh(e)
+        if zh:
+            if zh not in alive:
+                missing.append(e)
+        else:
+            # 未登记球队：无法判断串味，退化为字面包含（宁可少配图也不错配）
+            if e.strip().lower() not in text_low:
+                missing.append(e)
+    return (not missing), missing
 
 
 # ---------------------------------------------------------------- 绘图底座
@@ -342,9 +453,8 @@ def chart_goals(fixture: dict, out_dir: Path | str | None = None,
             hs = sum(1 for g in goals if g.get("scorer_team") == "home")
             as_ = sum(1 for g in goals if g.get("scorer_team") == "away")
 
-        item_h, item_a = resolve_team(home), resolve_team(away)
-        zh_h = str((item_h or {}).get("name_zh") or home)
-        zh_a = str((item_a or {}).get("name_zh") or away)
+        zh_h = normalize_team_zh(home) or home
+        zh_a = normalize_team_zh(away) or away
 
         img, draw = _canvas()
         f_brand = _cc._font(30)
@@ -431,9 +541,8 @@ def chart_score(fixture: dict, out_dir: Path | str | None = None,
             globals()["LAST_ERROR"] = "缺队名或比分"
             return None
 
-        item_h, item_a = resolve_team(home), resolve_team(away)
-        zh_h = str((item_h or {}).get("name_zh") or home)
-        zh_a = str((item_a or {}).get("name_zh") or away)
+        zh_h = normalize_team_zh(home) or home
+        zh_a = normalize_team_zh(away) or away
 
         img, draw = _canvas()
         f_brand = _cc._font(30)
@@ -504,18 +613,20 @@ def candidates(art: dict, match_data: dict, out_dir: Path | str | None = None,
                 if isinstance(f, dict):
                     fixtures.append({**f, "league": f.get("league") or league})
 
-    low = text.lower()
     for f in fixtures:
         if not isinstance(f, dict):
             continue
         home, away = str(f.get("home_team") or ""), str(f.get("away_team") or "")
         if not home or not away:
             continue
-        ih, ia = resolve_team(home), resolve_team(away)
-        zh_h = str((ih or {}).get("name_zh") or home)
-        zh_a = str((ia or {}).get("name_zh") or away)
-        # 两队都必须在正文里出现过，否则这场跟文章无关
-        if not all(n in low for n in (zh_h.lower(), zh_a.lower())):
+        zh_h = normalize_team_zh(home) or home
+        zh_a = normalize_team_zh(away) or away
+        # 两队都必须在正文里出现过，否则这场跟文章无关。
+        # 判定走 entity_hits（与验收侧同一实现）——裸 `in` 会让残缺队名
+        # 「拉格斯拉维亚」因为恰好是「布拉格斯拉维亚」的子串而侥幸过关
+        # （2026-11-06 就是这样把错字队名画上了图）。
+        ok_pair, _miss = entity_hits(text, [zh_h, zh_a])
+        if not ok_pair:
             continue
         c = chart_goals(f, out_dir=out_dir, filename=f"{prefix}-goals.jpg")
         if c is None:

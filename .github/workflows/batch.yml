@@ -667,6 +667,13 @@ jobs:
           python3 scripts/merge_metadata.py --src "$SRC" --dst "$DST" \
             || { echo "⚠️ 元数据合并失败，使用新数据"; cp "$SRC" "$DST"; }
 
+          # 「已完成」在这里、且只在这里写（2026-11-06 事故后的唯一写入点）。
+          # 生成侧只写 batches_generated：noon 那批生成 2 篇、配图硬项失败、
+          # 发布整段 skipped，可 completed 早在「生成完成元数据回写」时就进了仓库，
+          # 幂等保护据此判定「本批已完成」，补发与兜底 cron 全部跳过，两篇稿永久丢。
+          python3 scripts/mark_batch_completed.py --date "$TODAY" --batch "$BATCH" \
+            || echo "::warning::标记批次完成失败（稿子已发布，仅状态回写未成功，下次运行会补齐）"
+
           git add -f "output/${TODAY}/metadata.json" || true
           # 发布结果台账（2026-11-01）：成稿数 ≠ 发布数，不落库就永远是黑箱。
           # 10 月成稿 242 / 实际发布 93，这个 62% 的漏斗一个月都没人发现。

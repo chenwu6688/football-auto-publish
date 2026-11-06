@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
   "generated_at": "2026-11-06T04:04:27.276853",
-  "total_articles": 4,
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -232,238 +232,6 @@
         "images": 3,
         "degraded": []
       }
-    },
-    {
-      "index": 1,
-      "title": "压着那不勒斯，队长憋的那口气比榜首还沉",
-      "path": "/home/runner/work/_temp/output/2026-11-06/article-1-压着那不勒斯队长-8f2277.md",
-      "slug": "压着那不勒斯队长-8f2277",
-      "tags": [
-        "Napoli",
-        "Lazio",
-        "Serie A",
-        "tactics",
-        "captain"
-      ],
-      "keywords": [
-        "Napoli",
-        "Lazio",
-        "Serie A",
-        "tactics",
-        "captain"
-      ],
-      "images": [
-        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-001.jpg",
-        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-002.jpg",
-        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-003.jpg"
-      ],
-      "image_anchors": [],
-      "image_cards": [
-        {
-          "file": "article-1-img-001.jpg",
-          "variant": "title",
-          "theme": "navy"
-        },
-        {
-          "file": "article-1-img-002.jpg",
-          "variant": "points",
-          "theme": "navy"
-        },
-        {
-          "file": "article-1-img-003.jpg",
-          "variant": "numbers",
-          "theme": "navy"
-        }
-      ],
-      "image_shortfall": null,
-      "_gate": null,
-      "_title_score": null,
-      "_anti_copy": null,
-      "_fidelity": null,
-      "_interaction": null,
-      "_consistency": null,
-      "sources_used": [
-        "football-data.org/v4 (赛程/积分榜/射手榜)"
-      ],
-      "source_post": "",
-      "originality_note": "",
-      "content_type": "战术榜单",
-      "topic_category": "未分类",
-      "column_id": "tactics-board",
-      "column_name": "战术黑板",
-      "batch_name": "午间",
-      "is_prediction": false,
-      "prediction_basis": 0,
-      "prediction_basis_items": [],
-      "is_recap": false,
-      "supply_layer": "一级·确定性",
-      "title_elements": {
-        "numbers": [],
-        "contrasts": [
-          "落差",
-          "比较级",
-          "序位"
-        ],
-        "proper_nouns": [
-          "那不勒斯"
-        ],
-        "has_number": false,
-        "has_contrast": true,
-        "has_proper": true,
-        "count": 2
-      },
-      "title_gate": {
-        "question_ending": false,
-        "fallback": "",
-        "score": 67,
-        "pass": true,
-        "reasons": [
-          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
-          "缺冲突/反差动作"
-        ]
-      },
-      "content_stats": {
-        "chars": 1373,
-        "han_len": 952,
-        "paragraphs": 16,
-        "headings": 4,
-        "bullets": 0,
-        "quotes": 19,
-        "tags": [],
-        "cta": true,
-        "images": 3,
-        "degraded": []
-      },
-      "interaction_bait_source": "template_fallback"
-    },
-    {
-      "index": 2,
-      "title": "郑龙接过青岛海牛教鞭，里斯蒂奇带着6胜3平20负下课了",
-      "path": "/home/runner/work/_temp/output/2026-11-06/article-2-郑龙接过青岛海牛-bad2c4.md",
-      "slug": "郑龙接过青岛海牛-bad2c4",
-      "tags": [
-        "Qingdao Hainiu",
-        "Zheng Long",
-        "Milance Ristic",
-        "relegation",
-        "CSL"
-      ],
-      "keywords": [
-        "Qingdao Hainiu",
-        "Zheng Long",
-        "Milance Ristic",
-        "relegation",
-        "CSL"
-      ],
-      "images": [
-        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-001.jpg",
-        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-002.jpg",
-        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-003.jpg"
-      ],
-      "image_anchors": [],
-      "image_cards": [
-        {
-          "file": "article-2-img-001.jpg",
-          "variant": "title",
-          "theme": "navy"
-        },
-        {
-          "file": "article-2-img-002.jpg",
-          "variant": "points",
-          "theme": "navy"
-        },
-        {
-          "file": "article-2-img-003.jpg",
-          "variant": "numbers",
-          "theme": "navy"
-        }
-      ],
-      "image_shortfall": null,
-      "_gate": {
-        "fact": {
-          "mode": "v2",
-          "judged": false,
-          "contradictions": [],
-          "suspicious": [],
-          "missing": [
-            "事实卡为空"
-          ],
-          "coverage": 0.0,
-          "legacy_issues": [],
-          "subject": "郑龙临时接手降级队海牛，从球员到救火教练只隔一个官宣",
-          "legacy_conflicts": []
-        }
-      },
-      "_title_score": {
-        "score": 74,
-        "ok": true,
-        "reasons": [
-          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
-          "缺具体对阵/球队/人物",
-          "R11数据:标题 27 字落在 21-30 回测最优区间"
-        ],
-        "judged": true
-      },
-      "_anti_copy": null,
-      "_fidelity": {
-        "ok": true,
-        "issues": []
-      },
-      "_interaction": null,
-      "_consistency": null,
-      "sources_used": [
-        "直播吧 zhibo8.cc"
-      ],
-      "source_post": "",
-      "originality_note": "",
-      "content_type": "热点球评",
-      "topic_category": "转会官宣",
-      "column_id": "wu-jian-kuai-xun",
-      "column_name": "午间快讯",
-      "batch_name": "午间",
-      "is_prediction": false,
-      "prediction_basis": 0,
-      "prediction_basis_items": [],
-      "is_recap": false,
-      "supply_layer": "二级·突发",
-      "title_elements": {
-        "numbers": [
-          "度量",
-          "战绩"
-        ],
-        "contrasts": [
-          "战绩对照"
-        ],
-        "proper_nouns": [
-          "青岛"
-        ],
-        "has_number": true,
-        "has_contrast": true,
-        "has_proper": true,
-        "count": 3
-      },
-      "title_gate": {
-        "question_ending": false,
-        "fallback": "",
-        "score": 74,
-        "pass": true,
-        "reasons": [
-          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
-          "缺具体对阵/球队/人物"
-        ]
-      },
-      "content_stats": {
-        "chars": 853,
-        "han_len": 569,
-        "paragraphs": 10,
-        "headings": 2,
-        "bullets": 0,
-        "quotes": 5,
-        "tags": [],
-        "cta": true,
-        "images": 3,
-        "degraded": []
-      }
     }
   ],
   "topics": [
@@ -684,9 +452,13 @@
     "requested": 2
   },
   "batches_completed": [
+    "morning"
+  ],
+  "last_batch": "noon",
+  "last_updated": "2026-11-06 12:04:27",
+  "batches_generated": [
     "morning",
     "noon"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-06 12:04:27"
+  "batches_completed_note": "noon 因配图相关性验收误判未发布（2026-11-06），已解除完成标记等待兜底 cron 重跑"
 }

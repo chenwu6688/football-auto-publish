@@ -92,7 +92,9 @@ def test_save_batch_state_new():
             meta_path = Path(tmpdir) / date_str / "metadata.json"
             assert meta_path.exists()
             meta = json.loads(meta_path.read_text())
-            assert "morning" in meta["batches_completed"]
+            assert "morning" in meta["batches_generated"]
+            # 生成侧**不得**写 completed：完成是发布成功的判据（2026-11-06 丢批事故）
+            assert meta.get("batches_completed") in (None, [])
             assert meta["last_batch"] == "morning"
     finally:
         orch.OUTPUT_DIR = orig_output
@@ -114,9 +116,10 @@ def test_save_batch_state_append():
 
             meta_path = Path(tmpdir) / date_str / "metadata.json"
             meta = json.loads(meta_path.read_text())
-            assert "morning" in meta["batches_completed"]
-            assert "noon" in meta["batches_completed"]
-            assert len(meta["batches_completed"]) == 2
+            assert "morning" in meta["batches_generated"]
+            assert "noon" in meta["batches_generated"]
+            assert len(meta["batches_generated"]) == 2
+            assert meta.get("batches_completed") in (None, [])
             assert meta["last_batch"] == "noon"
     finally:
         orch.OUTPUT_DIR = orig_output
@@ -135,7 +138,8 @@ def test_save_batch_state_no_duplicate():
             orch.save_batch_state(date_str, "morning", [{"title": "test"}])
             meta_path = Path(tmpdir) / date_str / "metadata.json"
             meta = json.loads(meta_path.read_text())
-            assert meta["batches_completed"] == ["morning"]
+            assert meta["batches_generated"] == ["morning"]
+            assert meta.get("batches_completed") in (None, [])
     finally:
         orch.OUTPUT_DIR = orig_output
     print("  PASS test_save_batch_state_no_duplicate")

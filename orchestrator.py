@@ -395,7 +395,10 @@ def get_cross_batch_covered(date_str):
             for player in WIKI_PLAYERS:
                 if player in title:
                     covered["players"].add(player)
-        covered["batch_count"] = len(meta.get("batches_completed", []))
+        # 「今天跑过几批」要算上**生成过但没发出去**的批次：completed 现在只记
+        # 发布成功的批次（2026-11-06 起），只用它会让配额判断误以为今天只跑了一批。
+        covered["batch_count"] = len(set(meta.get("batches_completed") or [])
+                                      | set(meta.get("batches_generated") or []))
     except Exception:
         pass
     if covered["content_types"]:
@@ -431,7 +434,22 @@ def get_yesterday_keywords(date_str):
 
 
 def save_batch_state(date_str, batch_name, articles_saved):
-    """Update daily metadata with batch completion info for cross-batch dedup."""
+    """记录「本批**已生成**」，刻意**不**写 ``batches_completed``。
+
+    2026-11-06 事故：这里原本写 ``batches_completed``，生成一成功就把批次标成完成。
+    当天 noon 批次因为配图相关性硬项失败，发布步骤被整段跳过，可 metadata 早在
+    步骤 28「生成完成元数据回写」时就把 noon 提交进了仓库（本函数在保存成稿时
+    就已写入）。幂等保护据此认定「noon 今日已完成」：兜底 cron 不重跑、人工补发
+    被跳过——当批两篇稿永久丢失。
+
+    所以「已生成」与「已完成」必须是两个字段：
+    * ``batches_generated`` —— 本函数写，只说明这批跑过、成稿落盘，供审计；
+    * ``batches_completed`` —— 只由发布成功后的 ``scripts/mark_batch_completed.py``
+      写入（batch.yml「回写批次状态」步骤），也是幂等保护的唯一依据。
+
+    代价：生成成功但发布失败的批次，兜底 cron 会重新生成一遍（多烧一次额度）。
+    这比静默丢批好——稿子没发出去，本来就必须重来。
+    """
     meta_path = OUTPUT_DIR / date_str / "metadata.json"
     existing = {}
     if meta_path.exists():
@@ -439,16 +457,17 @@ def save_batch_state(date_str, batch_name, articles_saved):
             existing = json.loads(meta_path.read_text())
         except Exception:
             pass
-    batches = existing.get("batches_completed", [])
-    if batch_name not in batches:
-        batches.append(batch_name)
-    existing["batches_completed"] = batches
+    generated = existing.get("batches_generated") or []
+    if batch_name not in generated:
+        generated.append(batch_name)
+    existing["batches_generated"] = generated
     existing["last_batch"] = batch_name
     existing["last_updated"] = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
     try:
         meta_path.parent.mkdir(parents=True, exist_ok=True)
         meta_path.write_text(json.dumps(existing, ensure_ascii=False, indent=2))
-        print(f"   批次状态已更新: {', '.join(batches)}")
+        print(f"   批次生成记录已更新: generated={', '.join(generated)}"
+              f" / completed={', '.join(existing.get('batches_completed') or []) or '（无）'}")
     except Exception as e:
         print(f"   ⚠️  批次状态保存失败: {e}")
 

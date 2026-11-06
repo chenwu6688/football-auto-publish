@@ -45,88 +45,18 @@ def _article_text(art: dict) -> str:
     return f"{art.get('title') or ''}\n{art.get('content') or ''}"
 
 
-def _spans(text: str, forms: set[str]) -> list[tuple[int, int, str]]:
-    """所有「写法 → 出现位置」区间。"""
-    out = []
-    for f in forms:
-        if len(f) < 2:
-            continue
-        start = text.find(f)
-        while start != -1:
-            out.append((start, start + len(f), f))
-            start = text.find(f, start + 1)
-    return out
-
-
-_GLOBAL_CACHE: dict = {"text": None, "spans": None}
-
-
-def _global_spans(text_low: str) -> list[tuple[int, int, str, str]]:
-    """正文里**全部已登记球队**的写法命中：(start, end, form, 规范名)。
-
-    为什么不能只看 anchor 里的实体：正文写「国际米兰」时，AC米兰的别名「米兰」
-    确实躺在里面。只扫 anchor 自己的写法，就会把国米的文章配上 AC 米兰的图。
-    必须把全词典的命中都摆上来，才能判断某个短写法是不是被更长的队名吞掉了。
-    """
-    if _GLOBAL_CACHE["text"] == text_low:
-        return _GLOBAL_CACHE["spans"]
-
-    spans: list[tuple[int, int, str, str]] = []
-    for item in _dc.all_teams():
-        owner = str(item.get("name_zh") or "").strip()
-        if not owner:
-            continue
-        for f in _dc.entity_names(item):
-            if len(f) < 2:
-                continue
-            pos = text_low.find(f)
-            while pos != -1:
-                spans.append((pos, pos + len(f), f, owner))
-                pos = text_low.find(f, pos + 1)
-    _GLOBAL_CACHE["text"] = text_low
-    _GLOBAL_CACHE["spans"] = spans
-    return spans
-
-
-def _alive_owners(text_low: str) -> set[str]:
-    """正文里"真正被提到"的球队（长写法优先吃掉短写法）。"""
-    spans = sorted(_global_spans(text_low),
-                   key=lambda x: (-(x[1] - x[0]), x[0]))
-    covered: list[tuple[int, int, int]] = []      # (start, end, 长度)
-    alive: set[str] = set()
-    for s, t, _f, owner in spans:
-        ln = t - s
-        # 只有**严格更长**的区间能吞掉它；同长同位置（「皇马」与「皇家马德里」
-        # 这种等价写法）都保留。
-        if any(s >= cs and t <= ce and ln < cl for cs, ce, cl in covered):
-            continue
-        covered.append((s, t, ln))
-        alive.add(owner)
-    return alive
-
-
 def hits_all(text: str, entities: list[str]) -> tuple[bool, list[str]]:
     """entities 是否全部在 text 里出现（最长匹配消解串味）。
 
+    实现已下沉到 ``data_chart.entity_hits``——**绘图侧与验收侧必须是同一个函数**。
+    2026-11-06 实证：绘图侧（``data_chart.candidates``）用裸 ``in`` 判断，放行了
+    数据源给的残缺队名「拉格斯拉维亚」（恰好是「布拉格斯拉维亚」的子串，图上因此
+    印了错字）；验收侧这里用别名集判它「不在正文」，同一张图一边过一边不过，
+    硬项 E 失败把整批发布挡掉，当天 0 篇。两套判据不可能对得上，只能留一套。
+
     返回 (是否全部命中, 未命中的实体)。
     """
-    text_low = (text or "").lower()
-    if not text_low or not entities:
-        return False, list(entities or [])
-
-    alive = _alive_owners(text_low)
-    missing = []
-    for e in entities:
-        item = _dc.resolve_team(e)
-        if item:
-            if str(item.get("name_zh") or "") in alive:
-                continue
-            missing.append(e)
-        else:
-            # 未登记球队：无法判断串味，退化为字面包含（宁可少配图也不错配）
-            if e.lower() not in text_low:
-                missing.append(e)
-    return (not missing), missing
+    return _dc.entity_hits(text, entities)
 
 
 def numbers_hit(text: str, numbers: list[str]) -> tuple[int, list[str]]:
