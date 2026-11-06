@@ -1,6 +1,6 @@
 {
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T04:38:42.414093",
+  "generated_at": "2026-11-06T10:09:07.725737",
   "total_articles": 4,
   "articles": [
     {
@@ -463,95 +463,102 @@
   ],
   "topics": [
     {
-      "title": "1-9！朗斯欧冠主场被打成筛子，科莫这比分写进队史也写进耻辱柱",
-      "angle": "朗斯主场1-9惨败科莫，这不是战术问题，是整支球队从第20分钟就散了架。老六直说：这种比分出现在欧冠，主队球员该自己走回更衣室，别坐大巴。",
+      "title": "英格兰11月名单帕尔默落选，107条评论里骂声比凯恩还多",
+      "angle": "凯恩领衔、贝林兄弟同框是喜事，但帕尔默落选才是真炸点。107条评论说明球迷不买账，我的判断：这是位置竞争不是状态问题，落选反而是好事。",
       "keywords": [
-        "Lens",
-        "Como",
-        "Champions League",
-        "1-9"
+        "england squad",
+        "palmer",
+        "bellingham",
+        "kane"
       ],
       "keywords_cn": [
-        "朗斯",
-        "科莫",
-        "欧冠",
-        "惨败"
+        "英格兰名单",
+        "帕尔默",
+        "贝林厄姆",
+        "凯恩"
       ],
       "content_type": "热点球评",
-      "score": 93,
+      "score": 85,
       "controversy_level": "high",
-      "target_emotion": "震惊",
+      "target_emotion": "愤怒",
       "resonance_angle": "无",
       "series_id": "无",
-      "why_pick": "极端比分自带冲击力，欧冠惨案天然爆款",
-      "_category": "战报比分",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "落选争议+107条评论，天然话题",
+      "_category": "冲突舆情",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
       "_rank_id": "topic-1"
     },
     {
-      "title": "大连夺冠就全场免单，梭鱼湾这波餐饮老板比球队还敢赌",
-      "angle": "多家大连餐饮企业放话：英博夺冠全场免单。老六觉得这才是中国足球最缺的东西——城市和球队真绑在一起，比喊一百句口号都实在。",
+      "title": "日本足协名誉主席要竞选FIFA主席，亚洲足球这次动真格了",
+      "angle": "田岛幸三确认参选，这是亚洲人少有的冲击FIFA最高位。别小看这事，谁坐那把椅子，直接关系到未来世界杯名额和赛程怎么排，中国足球也该盯紧。",
       "keywords": [
-        "Dalian Yingbo",
-        "CSL title",
-        "Suyuwan",
-        "free meal"
+        "tajima",
+        "fifa president",
+        "asia football",
+        "election"
       ],
       "keywords_cn": [
-        "大连英博",
-        "中超夺冠",
-        "梭鱼湾",
-        "免单"
+        "田岛幸三",
+        "国际足联主席",
+        "亚洲足球",
+        "竞选"
       ],
-      "content_type": "八卦趣事",
-      "score": 88,
+      "content_type": "热点球评",
+      "score": 82,
       "controversy_level": "medium",
-      "target_emotion": "感动",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "城市与球队的情感绑定，老球迷最有共鸣",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "亚洲冲击FIFA最高位，格局话题",
       "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+      "_rank_id": "topic-3"
     },
     {
-      "title": "登顶遇上那不勒斯，队长憋的那口气比积分更重",
-      "content_type": "战术榜单",
-      "_is_fixture": true
+      "title": "梅西C罗欧冠淘汰赛数据对比，C罗一纪录让梅西难以追赶",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    },
+    {
+      "title": "罗纳尔多膝盖里那道疤，四次手术后再也没回到外星人时代",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
@@ -560,17 +567,52 @@
     "min_per_article": 3,
     "articles_below": 0
   },
+  "compliance_dropped": [
+    {
+      "index": 1,
+      "title": "梅西C罗欧冠淘汰赛数据对比，C罗一纪录让梅西难以追赶",
+      "blocked_by": [
+        "TT-07",
+        "TT-08"
+      ],
+      "risk_score": 40,
+      "verdicts": [
+        {
+          "id": "TT-07",
+          "name": "诱导交互",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        },
+        {
+          "id": "TT-08",
+          "name": "违规涨粉 / 引导互粉",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        }
+      ]
+    }
+  ],
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 1,
-      "三级·软性": 0
+      "一级·确定性": 0,
+      "二级·突发": 0,
+      "三级·软性": 2
     },
     "ratios": {
-      "一级·确定性": 50.0,
-      "二级·突发": 50.0,
-      "三级·软性": 0.0
+      "一级·确定性": 0.0,
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -578,14 +620,14 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
-      "二级·突发": 0.0,
-      "三级·软性": -20.0
+      "一级·确定性": -30.0,
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 0,
-      "other": 0,
+      "data_driven": 1,
+      "other": 1,
       "data_types": [
         "数据对比",
         "排行榜"
@@ -594,42 +636,88 @@
   },
   "degrade_events": [
     {
-      "环节": "互动引导未达标",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入（不丢弃成稿）",
+      "环节": "反洗稿记分",
+      "原因": "与源文连续重合 14 字（>12，疑似洗稿）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：近 14 天疑问收尾已 41 篇（限额 2 篇），本篇又以疑问收尾；标题不要再以疑问句收尾。把「过程",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：近 14 天疑问收尾已 42 篇（限额 2 篇），本篇又以疑问收尾；标题不要再以疑问句收尾。把「过程",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：近 14 天疑问收尾已 43 篇（限额 2 篇），本篇又以疑问收尾；标题不要再以疑问句收尾。把「过程",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
       "数量": 1
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（21 < 47）",
+      "原因": "事实点数少于最强源文（9 < 46）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（9 < 46）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（10 < 46）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 2 张",
-      "处置": "用 1 张原创信息图补到 3 张",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     },
     {
-      "环节": "互动引导兜底",
-      "原因": "缺 关注引导",
-      "处置": "保存侧模板兜底注入",
+      "环节": "合规审核",
+      "原因": "TT-07(20分)、TT-08(20分)",
+      "处置": "丢弃该篇成稿，不停整批",
       "数量": 1
+    },
+    {
+      "环节": "合规审核",
+      "原因": "本批 2 篇全部被拦，发布集合 0 篇",
+      "处置": "按 compliance_dropped 逐条复核；如需补发走补发 cron",
+      "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-11-06-2-ece84d",
+      "index": 2,
+      "title": "罗纳尔多膝盖里那道疤，四次手术后再也没回到外星人时代",
+      "reasons": [
+        "伤病(命中：手术)"
+      ]
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
@@ -642,30 +730,43 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "1-9！朗斯欧冠主场被打成筛子，科莫这比分写进队史也写进"
+        "title": "英格兰11月名单帕尔默落选，107条评论里骂声比凯恩还多"
       },
       {
-        "slot": "extra",
-        "type": "八卦趣事",
-        "title": "大连夺冠就全场免单，梭鱼湾这波餐饮老板比球队还敢赌"
+        "slot": "data",
+        "type": "热点球评",
+        "title": "日本足协名誉主席要竞选FIFA主席，亚洲足球这次动真格了"
       }
     ],
     "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+      "data 槽用次优类型补位"
     ],
-    "skipped": [],
+    "skipped": [
+      {
+        "type": "转会资讯",
+        "title": "哈曼说凯恩续约3年风险不小，拜仁这笔账到底怎么算"
+      },
+      {
+        "type": "八卦趣事",
+        "title": "肇俊哲儿子肇宸惟进U19国足，18场中甲2球2助够格吗"
+      },
+      {
+        "type": "八卦趣事",
+        "title": "大连若夺冠全场免单，梭鱼湾这波餐饮老板赌的是人心"
+      }
+    ],
     "day_counts": {
-      "战术榜单": 1,
-      "热点球评": 1
+      "战术榜单": 2,
+      "热点球评": 2
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-06 12:41:14",
+  "last_batch": "evening",
+  "last_updated": "2026-11-06 18:09:07",
   "batches_completed": [
     "morning",
     "noon"
