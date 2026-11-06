@@ -23,6 +23,11 @@
   E. 预测稿分级口径唯一（硬项）——publisher 用 prediction_gate，
      看板/配额/配比/绩效四处必须调 `counts_as_content`，不得各写一遍
      `not a.get("is_prediction")`（同一规则写四遍，改一处必漏三处）。
+  F. 「已生成」≠「已完成」（硬项，2026-11-06 新增）——`save_batch_state` 里
+     只要还给 `batches_completed` 赋值就 FAIL；batch.yml 必须调用
+     `mark_batch_completed.py`（completed 的唯一写入点）。
+     11-06 noon：生成 2 篇 → 配图硬项失败 → 发布 skipped，但 completed 早在
+     生成回写时就进了仓库 → 幂等跳过补发与兜底 cron → 两篇稿永久丢。
 
 用法：
   python3 scripts/verify_publish_states.py
@@ -194,9 +199,70 @@ def _check_scope() -> dict:
             "detail": detail}
 
 
+def _check_batch_state_split() -> dict:
+    """「已生成」与「已完成」必须是两件事（2026-11-06 丢批事故）。
+
+    判据用 AST，不用文本匹配：`save_batch_state` 函数体里只要出现对
+    ``["batches_completed"]`` 的**赋值**就算 FAIL。它一旦在生成侧写完成，
+    发布失败的批次也会被标成完成——幂等保护据此跳过补发与兜底 cron，
+    当批稿子永久丢（11-06 noon 两篇实证）。
+
+    另一半判据是接线：``batches_completed`` 既然不在生成侧写了，就必须有人写。
+    缺 `mark_batch_completed.py` 调用 = 幂等永不触发 = 每批重复生成。
+    """
+    detail, ok = [], True
+    try:
+        src = (PROJECT_ROOT / "orchestrator.py").read_text(encoding="utf-8")
+        tree = ast.parse(src)
+    except Exception as exc:
+        return {"item": "批次已完成只由发布成功写", "ok": False, "advisory": False,
+                "detail": [f"❌ orchestrator.py 解析失败：{exc}"]}
+
+    fn = next((n for n in ast.walk(tree)
+               if isinstance(n, ast.FunctionDef) and n.name == "save_batch_state"), None)
+    if fn is None:
+        return {"item": "批次已完成只由发布成功写", "ok": False, "advisory": False,
+                "detail": ["❌ 找不到 save_batch_state（改名了？本判据需同步）"]}
+
+    bad_lines = []
+    for node in ast.walk(fn):
+        targets = []
+        if isinstance(node, ast.Assign):
+            targets = node.targets
+        elif isinstance(node, ast.AnnAssign):
+            targets = [node.target]
+        for t in targets:
+            if isinstance(t, ast.Subscript) and isinstance(t.slice, ast.Constant) \
+                    and t.slice.value == "batches_completed":
+                bad_lines.append(getattr(node, "lineno", "?"))
+    if bad_lines:
+        detail.append(f"❌ save_batch_state 仍在写 batches_completed（行 {bad_lines}）："
+                      "生成成功即标完成 → 发布失败无法补发、兜底 cron 不重跑")
+        ok = False
+    else:
+        detail.append("✅ 生成侧只写 batches_generated，不写 completed")
+
+    wf = PROJECT_ROOT / ".github" / "workflows" / "batch.yml"
+    try:
+        wf_src = wf.read_text(encoding="utf-8")
+    except Exception as exc:
+        detail.append(f"❌ 读不到 batch.yml：{exc}")
+        return {"item": "批次已完成只由发布成功写", "ok": False, "advisory": False,
+                "detail": detail}
+
+    if "mark_batch_completed.py" in wf_src:
+        detail.append("✅ 发布成功步骤调用 mark_batch_completed.py（completed 唯一写入点）")
+    else:
+        detail.append("❌ batch.yml 未调用 mark_batch_completed.py："
+                      "completed 永不增长，幂等失效 → 每批重复生成")
+        ok = False
+
+    return {"item": "批次已完成只由发布成功写", "ok": ok, "advisory": False, "detail": detail}
+
+
 def verify() -> dict:
     checks = [_check_exit_codes(), _check_no_sysexit(), _check_workflow(),
-              _check_safe_wrappers(), _check_scope()]
+              _check_safe_wrappers(), _check_scope(), _check_batch_state_split()]
     hard_failed = [c["item"] for c in checks if c["ok"] is False and not c.get("advisory")]
     return {
         "version": 1,
