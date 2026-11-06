@@ -1,14 +1,15 @@
 {
   "version": 2,
   "date": "2026-11-06",
-  "generated_at": "2026-11-06 00:07:05",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-06 04:41:14",
+  "batch_filter": "morning+noon",
   "batches": [
-    "morning"
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 4,
+    "published": 4,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -40,6 +41,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "登顶遇上那不勒斯，队长憋的那口气比积分更重",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704913376857653811",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "欧冠朗斯主场对科莫，1比9惨败写进队史与耻辱柱",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704913672040170034",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,

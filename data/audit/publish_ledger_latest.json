@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-06",
-  "generated_at": "2026-11-06 00:07:05",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-06 04:41:14",
+  "batch_filter": "noon",
   "counts": {
     "total": 2,
     "published": 2,
@@ -19,19 +19,19 @@
   },
   "records": [
     {
-      "title": "领跑，那不勒斯这一关，队长憋的劲该往哪使",
+      "title": "登顶遇上那不勒斯，队长憋的那口气比积分更重",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7704842717516104230",
+      "batch_name": "午间",
+      "platform_id": "7704913376857653811",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "阿森纳客场2-1拿下斯拉维亚，阿尔特塔这换人差点玩脱",
+      "title": "欧冠朗斯主场对科莫，1比9惨败写进队史与耻辱柱",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7704843009002701350",
+      "batch_name": "午间",
+      "platform_id": "7704913672040170034",
       "reason": "",
       "images": 3,
       "status": "published"

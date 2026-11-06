@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06 04:41:14",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "登顶遇上那不勒斯，队长憋的那口气比积分更重",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704913376857653811",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "欧冠朗斯主场对科莫，1比9惨败写进队史与耻辱柱",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7704913672040170034",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
