@@ -1,0 +1,53 @@
+{
+  "checks": [
+    {
+      "item": "规则表自洽",
+      "ok": true,
+      "detail": [
+        "✅ 14 条规则字段齐备、分值档位一致"
+      ]
+    },
+    {
+      "item": "判据可达",
+      "ok": true,
+      "detail": [
+        "✅ 已实现判据 13 个，规则表引用全部可解析"
+      ]
+    },
+    {
+      "item": "发布前门禁纯净",
+      "ok": true,
+      "detail": [
+        "✅ pre-publish 仅 6 项，全部为 compliance：['compliance', 'content_mix', 'publish_gate', 'rumor_wording', 'content_reference', 'image_relevance']"
+      ]
+    },
+    {
+      "item": "合规项数不反弹",
+      "ok": true,
+      "detail": [
+        "✅ compliance 项 10 个（上限 10）：['compliance', 'content_mix', 'content_reference', 'event_result', 'fact_layer', 'hot_freshness', 'image_relevance', 'publish_gate', 'rumor_wording', 'wiki_media']"
+      ],
+      "counts": {
+        "compliance": 10,
+        "limit": 10
+      }
+    },
+    {
+      "item": "每条规则有人维护",
+      "ok": true,
+      "detail": [
+        "✅ 14 条规则均被 compliance 项引用"
+      ]
+    },
+    {
+      "item": "覆盖缺口可见",
+      "ok": true,
+      "advisory": true,
+      "detail": [
+        "⚠️ 1 条规则有已知覆盖缺口（不阻断，但必须能看见）：TT-04：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖「夸张耸动」与「传闻写成确定信息」两类，"
+      ]
+    }
+  ],
+  "ok": true,
+  "hard_failed": []
+}
