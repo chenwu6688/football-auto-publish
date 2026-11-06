@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -210,6 +211,81 @@ def check_publish_scope_consistent(rules: dict) -> dict:
     }
 
 
+#: 会**逐字进模型提示词**的文本。判定侧判为违规的话术一旦出现在这里，
+#: 模型就会照抄，然后被自己的闸门拦掉 —— 2026-11-06 晚就是这么整批 0 篇的。
+PROMPT_GLOBS = ("prompts/*.txt", "constants.py")
+BAIT_CFG = ROOT / "config" / "interaction_bait.yaml"
+
+
+def _inducement_patterns() -> list[tuple[str, "re.Pattern"]]:
+    """诱导话术黑名单**从 interaction_bait.yaml 读**，不在这里再列一遍。
+
+    同一份词表被判定侧和检查侧各写一份，就是给下一次「只改一处」埋伏笔。
+    """
+    import yaml
+    cfg = yaml.safe_load(BAIT_CFG.read_text(encoding="utf-8")) or {}
+    out = []
+    for group, pats in (cfg.get("诱导话术") or {}).items():
+        for p in pats or []:
+            try:
+                out.append((str(group), re.compile(str(p))))
+            except re.error:
+                continue
+    return out
+
+
+def prompt_texts() -> dict:
+    """收集所有「会进提示词」的文本：按文件路径 → 内容。"""
+    files: list[Path] = []
+    for g in PROMPT_GLOBS:
+        files.extend(sorted(ROOT.glob(g)))
+    return {str(p.relative_to(ROOT)): p.read_text(encoding="utf-8", errors="ignore")
+            for p in files if p.is_file()}
+
+
+def check_prompt_alignment(texts: dict | None = None) -> dict:
+    """H. 提示词方向一致：判定侧判违规的话术，不许出现在喂给模型的文本里。
+
+    **为什么单列这一项**（2026-11-06 晚的真实事故）：白天把「索要关注 / 扣1 /
+    站队」改成 20 分档违规并硬拦，但生成侧提示词仍在**强制要求** ——
+    `prompts/rewrite_article.txt` 写着「必须能被检出关注引导」「点个关注、
+    关注老六」，`constants.py` 的 `interaction_guidance` 教「支持XX的扣1，
+    反对的扣2」。模型照提示词写，写完被自己的闸门判违规，重试两次仍命中，
+    整批 0 篇，晚间发布失败。
+
+    这是「同一规矩写两处、必然只改一处」的**第四方**：规则表 / 判据 / 发布门禁
+    之外，还有生成提示词。前三方都有检查，唯独提示词没有。
+
+    **零容忍，不做「禁止语境」豁免**：提示词里出现的负例（「不要写点关注」）
+    本身就会被模型当模板抄 —— 第一版修复就是把这句话写成负例，扫描器照样
+    报红，反而逼出了更好的写法（只说「不要索取任何东西」，不列具体话术）。
+    """
+    sets = texts if texts is not None else prompt_texts()
+    pats = _inducement_patterns()
+    if not pats:
+        return {"item": "提示词方向一致", "ok": False,
+                "detail": ["interaction_bait.yaml 里没有诱导话术黑名单，这项检查形同虚设"]}
+    if not sets:
+        return {"item": "提示词方向一致", "ok": False,
+                "detail": ["没找到任何提示词文件（prompts/*.txt、constants.py）"]}
+
+    bad: list[str] = []
+    for name, txt in sets.items():
+        for i, line in enumerate(txt.splitlines(), 1):
+            for group, rx in pats:
+                m = rx.search(line)
+                if m:
+                    bad.append(f"{name}:{i} [{group}] 命中 {m.group(0)!r}"
+                               f" → {line.strip()[:60]}")
+                    break
+    ok = not bad
+    return {
+        "item": "提示词方向一致", "ok": ok,
+        "detail": ([f"✅ {len(sets)} 份提示词文本里没有诱导话术（{len(pats)} 条模式）"]
+                   if ok else ["判定侧判它违规，生成侧却在教它这么写："] + bad),
+    }
+
+
 def verify() -> dict:
     rules, tiers = _load()
     checks = [
@@ -220,6 +296,7 @@ def verify() -> dict:
         check_every_rule_owned(rules, tiers),
         check_coverage_gaps(rules),
         check_publish_scope_consistent(rules),
+        check_prompt_alignment(),
     ]
     hard = [c for c in checks if not c.get("advisory")]
     return {
@@ -290,6 +367,16 @@ def selftest() -> list[tuple[str, bool]]:
     bad9["rules"] = [r for r in bad9["rules"] if r.get("id") != "TT-06"]
     cases.append(("原创半边规则被删 → G 项必红",
                   check_publish_scope_consistent(bad9)["ok"] is False))
+
+    # H 项：判定侧判违规的话术不许出现在提示词里（2026-11-06 晚整批 0 篇的直接原因）
+    cases.append(("提示词教模型写「扣1」 → H 项必红",
+                  check_prompt_alignment({"fake.txt": "文末说说，支持XX的扣1。"})["ok"] is False))
+    cases.append(("提示词教模型索要关注 → H 项必红",
+                  check_prompt_alignment({"fake.txt": "点个关注，明天继续。"})["ok"] is False))
+    cases.append(("提示词干净 → H 项必绿",
+                  check_prompt_alignment({"fake.txt": "这球换你当裁判，吹不吹？说说你的判断。"})["ok"] is True))
+    cases.append(("提示词一份都没有 → H 项必红（没文本就没法保证一致）",
+                  check_prompt_alignment({})["ok"] is False))
     return cases
 
 

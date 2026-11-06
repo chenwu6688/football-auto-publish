@@ -275,7 +275,7 @@ BATCH_CONFIG = {
                 "style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
                 "word_count": [300, 500],
                 "interaction_type": "prediction_poll",
-                "interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+                "interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
                 "data_source_hint": "match_preferred",
             },
             {
@@ -284,12 +284,12 @@ BATCH_CONFIG = {
                 "column_name": "话题擂台",
                 "icon": "🥊",
                 "topic_domain": "足球争议话题",
-                "topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+                "topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
                 "writing_style": "烧烤摊辩论体",
-                "style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+                "style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
                 "word_count": [400, 600],
                 "interaction_type": "side_taking_vote",
-                "interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
+                "interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
                 "data_source_hint": "gzh_preferred",
             },
         ],
@@ -313,7 +313,7 @@ BATCH_CONFIG = {
                 "style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
                 "word_count": [300, 500],
                 "interaction_type": "prediction_poll",
-                "interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+                "interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
                 "data_source_hint": "match_preferred",
             },
             {
@@ -327,7 +327,7 @@ BATCH_CONFIG = {
                 "style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
                 "word_count": [400, 600],
                 "interaction_type": "side_taking_vote",
-                "interaction_guidance": "文末说：'觉得我说得对的扣1，觉得我太极端的扣2，我先来：我扣1，因为...'",
+                "interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
                 "data_source_hint": "match_preferred",
             },
         ],
@@ -338,7 +338,7 @@ BATCH_CONFIG = {
         # 常态 2 篇；手册对晚间固定 2 篇，故晚间不加发
         "max_articles": 2,
         "reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
-        "overall_tone": "有观点、有情绪、适合截图转发和评论区站队",
+        "overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
         "slots": [
             # Slots are dynamically selected from EVENING_COLUMN_POOL at runtime.
             # Defaults below act as fallback if dynamic selection fails.
@@ -353,7 +353,7 @@ BATCH_CONFIG = {
                 "style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
                 "word_count": [400, 600],
                 "interaction_type": "prediction_poll",
-                "interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+                "interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
                 "data_source_hint": "gzh_only",
             },
             {
@@ -367,7 +367,7 @@ BATCH_CONFIG = {
                 "style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
                 "word_count": [400, 600],
                 "interaction_type": "side_taking_vote",
-                "interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+                "interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
                 "data_source_hint": "gzh_only",
             },
         ],
@@ -390,7 +390,7 @@ EVENING_COLUMN_POOL = [
         "style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天的主旋律。",
         "word_count": [400, 600],
         "interaction_type": "prediction_poll",
-        "interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区下注，我先来——...'",
+        "interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
         "data_source_hint": "gzh_only",
     },
     {
@@ -404,7 +404,7 @@ EVENING_COLUMN_POOL = [
         "style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
         "word_count": [400, 600],
         "interaction_type": "side_taking_vote",
-        "interaction_guidance": "文末站队：'同意我的扣1，觉得我在瞎说的扣2，评论区见——别光扣数字，带理由来辩。'",
+        "interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
         "data_source_hint": "gzh_only",
     },
     {
@@ -418,7 +418,7 @@ EVENING_COLUMN_POOL = [
         "style_detail": "像在VAR房间里看回放。先描述争议画面（细节到动作、角度、接触点），然后分析规则依据，最后给出判断。可以有立场但必须讲清规则逻辑。结尾问读者：'如果你是裁判，你怎么判？'",
         "word_count": [400, 600],
         "interaction_type": "side_taking_vote",
-        "interaction_guidance": "文末投票：'你觉得这是点球吗？是扣1，不是扣2，我先来——我站[X]，因为...'",
+        "interaction_guidance": "文末抛判断：'你觉得这是点球吗？先说判断再说理由，我先来——…'",
         "data_source_hint": "gzh_only",
     },
     {
@@ -432,7 +432,7 @@ EVENING_COLUMN_POOL = [
         "style_detail": "像球队经理在评估一笔交易。每条转会传闻按'消息来源 → 球员分析 → 球队需求 → 转会可能性 → 影响评估'的结构展开。用'据[来源]''按这个逻辑''如果成了的话'区分消息级别。不确定的就说不知道，不硬装大明白。",
         "word_count": [400, 600],
         "interaction_type": "prediction_poll",
-        "interaction_guidance": "文末预测：'你觉得XX这笔转会能成吗？能扣1，不能扣2，评论区说说你的理由。'",
+        "interaction_guidance": "文末预测：'你觉得XX这笔转会能成吗？评论区说说你的理由。'",
         "data_source_hint": "gzh_only",
     },
     {
@@ -461,7 +461,7 @@ EVENING_COLUMN_POOL = [
         "style_detail": "像足球转会窗的实时流言板。每条转会消息2-4句话：球员名+俱乐部→报价/条件→进展→老六一针见血的点评。快节奏、信息密、适合碎片阅读。",
         "word_count": [400, 600],
         "interaction_type": "voting",
-        "interaction_guidance": "文末投票：'这交易你打几分？1-5分，评论区告诉我，我先来——'",
+        "interaction_guidance": "文末让读者打分：'这交易你打几分？1-5分，评论区告诉我，我先来——'",
         "data_source_hint": "transfer_preferred",
     },
 ]
