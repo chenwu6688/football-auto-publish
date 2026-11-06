@@ -28,7 +28,7 @@ import yaml  # noqa: E402
 RULES_PATH = PROJECT_ROOT / "config" / "toutiao_rules.yaml"
 TIERS_PATH = PROJECT_ROOT / "config" / "audit_tiers.yaml"
 
-VALID_TIERS = {"block", "rewrite", "warn", "n/a"}
+VALID_TIERS = {"block", "rewrite", "warn", "pass", "n/a"}
 VALID_SCOPES = {"compliance", "quality", "growth", "ops", "dev", "meta"}
 
 
@@ -77,12 +77,29 @@ class TestRuleTable(unittest.TestCase):
         self.assertEqual(need.keys() - ids, set(), "以下扣分项没有登记")
 
     def test_not_applicable_is_explicit(self):
-        """不适用的条款要明写 n/a，而不是悄悄不登记。"""
-        na = [r for r in _rules()["rules"] if r["tier"] == "n/a"]
-        self.assertTrue(na, "必须显式登记不适用项（例如首发激励未开通）")
-        for r in na:
-            self.assertTrue(str(r.get("why_keep") or "").strip(),
-                            f"{r['id']} 标了 n/a 却没写为什么")
+        """不适用的条款必须显式登记，而不是悄悄不登记。
+
+        2026-11-06 之前这里断言「至少有一条 n/a」。TT-12 从 n/a 改成 pass 之后，
+        规则表里不再有 n/a —— 这正是「不适用」改由 `out_of_scope` 承载的时机：
+        **同一条信息只写一处**，否则表里写 n/a、注释里再列一遍，迟早只改一处。
+        """
+        for r in _rules()["rules"]:
+            if r["tier"] == "n/a":
+                self.assertTrue(str(r.get("why_keep") or "").strip(),
+                                f"{r['id']} 标了 n/a 却没写为什么")
+        out = _rules().get("out_of_scope") or []
+        self.assertTrue(out, "不适用条款必须集中登记在 out_of_scope")
+        for it in out:
+            self.assertTrue(it.get("scope") and it.get("why"),
+                            f"out_of_scope 条目缺 scope/why：{it}")
+            self.assertTrue(it.get("items"), f"{it.get('scope')} 没列出具体项")
+
+    def test_no_na_dumping_ground(self):
+        """n/a 只能用于「业务形态不产生这类内容」，不能用来关掉麻烦的规则。"""
+        na = [r["id"] for r in _rules()["rules"] if r["tier"] == "n/a"]
+        self.assertEqual(na, [],
+                         "当前 14 条规则都应处于 block/rewrite/warn/pass 之一；"
+                         "真有不适用的，请挪到 out_of_scope 并写清理由")
 
 
 class TestScopeDiscipline(unittest.TestCase):
@@ -172,6 +189,47 @@ class TestInducementIsHardGate(unittest.TestCase):
         for bad in ("下注", "押注", "扣一", "站队", "投票"):
             self.assertNotIn(bad, joined, f"「{bad}」不该再是互动引导的达标模式")
         self.assertFalse(cfg.get("关注引导必需"), "关注引导不该是必须项")
+
+
+class TestFirstPublishScope(unittest.TestCase):
+    """TT-12：单平台是**配置事实**，不是代码常量。"""
+
+    def test_platforms_declared_and_single(self):
+        scope = _rules().get("publish_scope") or {}
+        self.assertEqual(scope.get("platforms"), ["toutiao"],
+                         "目前只发头条一个平台；改多平台必须同步 TT-12 的 tier")
+
+    def test_tt12_is_pass_not_na(self):
+        r = {x["id"]: x for x in _rules()["rules"]}["TT-12"]
+        self.assertEqual(r["tier"], "pass",
+                         "n/a 意味着「这事跟我们无关」，但非首发扣分只是条件未触发")
+
+    def test_originality_half_is_delegated(self):
+        """原创半边刻意不重复绑 plagiarism，避免同一违规被算两遍分。"""
+        r = {x["id"]: x for x in _rules()["rules"]}["TT-12"]
+        self.assertEqual(r.get("depends_on"), ["TT-06"])
+        self.assertNotIn("plagiarism", str(r.get("judge")))
+
+    def test_judge_follows_config_not_memory(self):
+        import verify_compliance as vc
+        item = {"date": "2026-11-06", "dir": PROJECT_ROOT, "art": {"title": "x"},
+                "_body": "正文"}
+        got = {}
+        for plats in (["toutiao"], ["toutiao", "wechat"], [], ["wechat"]):
+            got[tuple(plats)] = vc.j_first_publish(
+                item, {"_publish_scope": {"platforms": plats}})["status"]
+        self.assertEqual(got[("toutiao",)], "pass")
+        # 平台一变，答案必须跟着变 —— 这就是「不写死」的意思
+        self.assertEqual(got[("toutiao", "wechat")], "not_judged")
+        self.assertEqual(got[()], "not_judged")
+        self.assertEqual(got[("wechat",)], "not_judged")
+
+    def test_missing_scope_is_not_pass(self):
+        """配置缺失时不许默认当首发（默认值必须是「未判定」）。"""
+        import verify_compliance as vc
+        r = vc.j_first_publish({"date": "2026-11-06", "dir": PROJECT_ROOT,
+                                "art": {"title": "x"}, "_body": "正文"}, {})
+        self.assertEqual(r["status"], "not_judged")
 
 
 class TestCoverageVerifier(unittest.TestCase):

@@ -83,6 +83,12 @@ def load_rules(path=None) -> dict:
     data = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
     if not isinstance(data.get("rules"), list) or not data["rules"]:
         raise ValueError(f"规则表为空或格式不对：{p}")
+    # 把顶层 `publish_scope` 挂到每条规则上：判据拿得到，又不必自己再读一遍
+    # 规则表。多开一条读取路径就多一个「两处定义」的口子。
+    scope = data.get("publish_scope") or {}
+    for r in data["rules"]:
+        if isinstance(r, dict):
+            r["_publish_scope"] = scope
     return data
 
 
@@ -354,8 +360,29 @@ def j_ai_annotation(item: dict, rule: dict) -> dict:
 
 
 def j_first_publish(item: dict, rule: dict) -> dict:
-    """TT-12 首发：当前流水线未声明首发 → n/a（登记是为了将来打开时不会忘）。"""
-    return _res(NA, "当前未加入首发激励计划，不适用；开通后须改 block 并加 72h 独家检查")
+    """TT-12 首发：判「有没有可能在别的平台先发过」。
+
+    这一条刻意**不写死**「我们只发头条」。那个事实属于配置
+    （``publish_scope.platforms``），不属于代码：写死在代码里，哪天接了
+    公众号分发，判据会继续判 pass —— 就是「规则靠谁记得」的又一次重演，
+    而这次代价是 30 天内最多扣 50 分。
+
+    三态划分：
+      - 只有头条一个平台 → pass（客观满足 72 小时独家）；
+      - 有第二个平台 → 未判定（窗口要人去核，脚本不猜）；
+      - 配置缺失/为空 → 未判定（**不默认当首发**）。
+
+    原创那一半不在本判据里，由 TT-06 抄袭侵权判（见规则表 depends_on）。
+    """
+    scope = rule.get("_publish_scope") or {}
+    plats = [str(x).strip().lower() for x in (scope.get("platforms") or []) if str(x).strip()]
+    if not plats:
+        return _res(UNJ, "publish_scope.platforms 未配置：无法确认是否首发，不默认当首发")
+    if len(plats) > 1:
+        return _res(UNJ, "多平台分发（" + "/".join(plats) + "）：需人工核 72 小时窗口")
+    if plats[0] != "toutiao":
+        return _res(UNJ, f"唯一平台是 {plats[0]}：非头条，本条应改 n/a")
+    return _res(PASS, "单平台（仅头条号）：72 小时内仅在头条发布客观成立")
 
 
 def j_topic_boundary(item: dict, rule: dict) -> dict:
@@ -567,6 +594,15 @@ def selftest() -> list[tuple[str, bool]]:
                   j_inducement({"date": "2026-11-06", "dir": ROOT / "nope",
                                 "art": {"title": "x"}, "_body": None},
                                rules["TT-07"])["status"] == UNJ))
+
+    # TT-12 首发：三种平台配置必须给出三种答案，pass 不能靠写死
+    def _tt12(platforms):
+        return j_first_publish(_it(clean), {"_publish_scope": {"platforms": platforms}})["status"]
+    cases.append(("单平台（仅头条）→ TT-12 判 pass", _tt12(["toutiao"]) == PASS))
+    cases.append(("多平台分发 → TT-12 未判定（不是 pass）",
+                  _tt12(["toutiao", "wechat"]) == UNJ))
+    cases.append(("平台清单为空 → TT-12 未判定（不默认当首发）", _tt12([]) == UNJ))
+    cases.append(("唯一平台不是头条 → TT-12 未判定", _tt12(["wechat"]) == UNJ))
     return cases
 
 

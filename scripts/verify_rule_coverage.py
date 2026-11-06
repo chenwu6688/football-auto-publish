@@ -12,8 +12,12 @@
    生产线抖一下就停发——这正是 2026-11-06 精简掉的那一半复杂度。
    没有反向校验的话，下一次「顺手加一个验收」就会把它加回去。
 
-所以这里做五件事：规则表自洽、判据可达、发布前门禁纯净、合规项数不反弹、
-每条规则都有人维护。外加一条负向自检，证明上面几条真的会红。
+所以这里做七件事：规则表自洽、判据可达、发布前门禁纯净、合规项数不反弹、
+每条规则都有人维护、覆盖缺口可见、**首发条件一致**。外加一条负向自检，
+证明上面几条真的会红（每一条都配了「改坏它」的用例）。
+
+其中「首发条件一致」是唯一一条针对**跨文件一致性**的检查：TT-12 判 `pass`
+的依据一半在规则表、一半在 `publish_scope.platforms`，只改一处就会假绿。
 
 ## 退出码
 
@@ -73,7 +77,7 @@ def check_rules_selfconsistent(rules: dict) -> dict:
         tier = str(r.get("tier") or "")
         if credit >= 10 and tier == "warn":
             bad.append(f"{rid} 标注 {credit} 分档却只 warn（扣分的项不能只告警）")
-        if tier not in ("block", "rewrite", "warn", "n/a"):
+        if tier not in ("block", "rewrite", "warn", "pass", "n/a"):
             bad.append(f"{rid} tier 非法：{tier}")
     ok = not bad
     return {
@@ -164,6 +168,48 @@ def check_coverage_gaps(rules: dict) -> dict:
     }
 
 
+def check_publish_scope_consistent(rules: dict) -> dict:
+    """G. 首发条件一致：`tier: pass` 只在「单平台且是头条」时才成立。
+
+    为什么要单列一项：TT-12 判 pass 的依据不在规则本身，而在
+    `publish_scope.platforms`。**同一个结论由两处共同决定**，那就必须有人
+    盯着它们一起改 —— 否则接了公众号分发之后，规则表还在说「都是首发」，
+    30 天内最多扣 50 分，而且报告上一直显示绿色。
+
+    只盯危险方向（平台变多了还判 pass），不禁止有人把档位调得更严：
+    收紧不会漏扣分，放宽才会。
+    """
+    scope = rules.get("publish_scope") or {}
+    plats = [str(x).strip().lower() for x in (scope.get("platforms") or []) if str(x).strip()]
+    by_id = {r.get("id"): r for r in (rules.get("rules") or [])}
+    tt12 = by_id.get("TT-12") or {}
+    tier = str(tt12.get("tier") or "")
+    bad: list[str] = []
+
+    if not tt12:
+        bad.append("规则表缺 TT-12（首发 + 原创罚则）")
+    if not plats:
+        bad.append("publish_scope.platforms 缺失或为空：无法判定是否首发，TT-12 不能靠默认值")
+    elif len(plats) > 1 and tier in ("pass", "n/a"):
+        bad.append(f"平台已变为 {plats}，TT-12 仍是 {tier}：非首发每篇扣 5 分、30 天上限 50 分，"
+                   f"应改 rewrite/block 并加 72 小时窗口检查")
+
+    # 原创那一半由 depends_on 指过去，被指的那条必须真的还在拦
+    for dep in (tt12.get("depends_on") or []):
+        d = by_id.get(dep)
+        if d is None:
+            bad.append(f"TT-12 depends_on {dep}，但规则表里没有这条（原创半边无人判）")
+        elif str(d.get("tier")) not in ("block", "rewrite"):
+            bad.append(f"TT-12 depends_on {dep}，但该条 tier={d.get('tier')}，拦不住洗稿")
+
+    ok = not bad
+    return {
+        "item": "首发条件一致", "ok": ok,
+        "detail": ([f"✅ 发布范围 {plats}，TT-12={tier}，原创半边由 "
+                    f"{'/'.join(tt12.get('depends_on') or ['—'])} 判"] if ok else bad),
+    }
+
+
 def verify() -> dict:
     rules, tiers = _load()
     checks = [
@@ -173,6 +219,7 @@ def verify() -> dict:
         check_compliance_not_grow(tiers),
         check_every_rule_owned(rules, tiers),
         check_coverage_gaps(rules),
+        check_publish_scope_consistent(rules),
     ]
     hard = [c for c in checks if not c.get("advisory")]
     return {
@@ -220,6 +267,29 @@ def selftest() -> list[tuple[str, bool]]:
         it["scope"] = "quality"
     cases.append(("规则无人引用 → E 项必红",
                   check_every_rule_owned(rules, bad5)["ok"] is False))
+
+    # G 项：TT-12 的 pass 依赖 publish_scope，两处必须一起改
+    bad6 = copy.deepcopy(rules)
+    bad6["publish_scope"]["platforms"] = ["toutiao", "wechat"]
+    cases.append(("多平台分发却仍判 pass → G 项必红",
+                  check_publish_scope_consistent(bad6)["ok"] is False))
+
+    bad7 = copy.deepcopy(rules)
+    bad7["publish_scope"]["platforms"] = []
+    cases.append(("平台清单清空 → G 项必红（不许默认当首发）",
+                  check_publish_scope_consistent(bad7)["ok"] is False))
+
+    bad8 = copy.deepcopy(rules)
+    for r in bad8["rules"]:
+        if r.get("id") == "TT-06":
+            r["tier"] = "n/a"
+    cases.append(("原创半边被降级 → G 项必红",
+                  check_publish_scope_consistent(bad8)["ok"] is False))
+
+    bad9 = copy.deepcopy(rules)
+    bad9["rules"] = [r for r in bad9["rules"] if r.get("id") != "TT-06"]
+    cases.append(("原创半边规则被删 → G 项必红",
+                  check_publish_scope_consistent(bad9)["ok"] is False))
     return cases
 
 
