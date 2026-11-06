@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05 19:44:42",
+  "generated_at": "2026-11-06 08:04:34",
   "days": 7,
   "ok": true,
   "undetermined": [],
@@ -53,7 +53,7 @@
       "item": "E 产物闭环",
       "ok": true,
       "detail": [
-        "ℹ️ 生效日后的批次没有产出任何数据图——可能是当天无比赛数据，需人工看一眼"
+        "✅ 1 张数据图 anchor 全部与正文一致（闭环复验通过）"
       ],
       "advisory": false
     },
