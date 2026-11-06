@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-06 13:47:38",
+  "max_age_hours": 48,
+  "sources": [
+    {
+      "verdict": "ok",
+      "count": 8,
+      "titles": [
+        "五洲C罗自宣退出葡萄牙国家队：葡萄牙永远在我心中",
+        "一人一城的浪漫，本就是职业体育的奢侈品篮球95 评",
+        "大岩刚：三井寺真虽只有16岁，但着眼于未来将他召入日本U21五洲"
+      ],
+      "via": "SportsScraper.scrape_dongqiudi_headlines",
+      "name": "懂球帝",
+      "tier": "P0",
+      "url": "https://www.dongqiudi.com/",
+      "kind": "dongqiudi",
+      "note": "仓库已有 SportsScraper.scrape_dongqiudi_headlines，直接复用",
+      "elapsed_s": 0.6
+    },
+    {
+      "verdict": "ok",
+      "status": 200,
+      "count": 30,
+      "football_like": 3,
+      "titles": [
+        "吧友爆料武大学生搞诈骗",
+        "Zeus说Bin哥用了我的皮肤",
+        "时之笛重制版开分96登顶最佳",
+        "抗吧整活S赛金庸宇宙",
+        "BLG三局零封DK晋级S16四强"
+      ],
+      "error": "",
+      "name": "百度贴吧",
+      "tier": "P0",
+      "url": "https://tieba.baidu.com/hottopic/browse/topicList",
+      "kind": "tieba_hot",
+      "note": "话题榜 JSON（移动 UA + Referer 可过），全站榜需做足球过滤",
+      "elapsed_s": 0.32
+    },
+    {
+      "verdict": "ok",
+      "status": 200,
+      "count": 810,
+      "raw_links": 813,
+      "football_like": 55,
+      "titles": [
+        "足篮神器，即刻拥有！随时随地尽享比赛乐趣！",
+        "温瑞博3比0王楚钦",
+        "库里升至历史得分榜第17位",
+        "郑钦文神仙球获评月最佳",
+        "国乒男单仅剩温瑞博周启豪"
+      ],
+      "error": "",
+      "html_bytes": 598030,
+      "name": "新浪体育",
+      "tier": "P1",
+      "url": "https://sports.sina.com.cn/",
+      "kind": "html_links",
+      "note": "首页/栏目页 HTML 可解析；RSS 已死，禁止走 RSS",
+      "elapsed_s": 0.9
+    },
+    {
+      "verdict": "empty",
+      "status": 200,
+      "count": 0,
+      "raw_links": 0,
+      "football_like": 0,
+      "titles": [],
+      "error": "",
+      "html_bytes": 19049,
+      "name": "腾讯体育",
+      "tier": "P2",
+      "url": "https://new.qq.com/ch/sports/",
+      "kind": "html_links",
+      "note": "2026-11-06 实测仅 19KB 且无内嵌数据（JS 壳），需逆向 API",
+      "elapsed_s": 0.42
+    },
+    {
+      "verdict": "empty",
+      "status": 200,
+      "count": 0,
+      "raw_links": 26,
+      "football_like": 0,
+      "titles": [],
+      "error": "",
+      "html_bytes": 225439,
+      "name": "虎扑",
+      "tier": "P2",
+      "url": "https://bbs.hupu.com/soccer",
+      "kind": "html_links",
+      "note": "2026-11-06 实测 226KB 但全 JS 渲染，需 API",
+      "elapsed_s": 0.36
+    },
+    {
+      "verdict": "empty",
+      "status": 200,
+      "count": 0,
+      "raw_links": 31,
+      "football_like": 0,
+      "titles": [],
+      "error": "",
+      "html_bytes": 527831,
+      "name": "Goal 中国",
+      "tier": "P3",
+      "url": "https://www.goal.com/zh-cn",
+      "kind": "html_links",
+      "note": "有年龄门与博彩广告同页，标题为英文，需合规评估",
+      "elapsed_s": 0.58
+    },
+    {
+      "verdict": "blocked",
+      "status": 403,
+      "count": 0,
+      "raw_links": 0,
+      "football_like": 0,
+      "titles": [],
+      "error": "",
+      "html_bytes": 5796,
+      "name": "球天下",
+      "tier": "P3",
+      "url": "https://www.qiutianxia.com/",
+      "kind": "html_links",
+      "note": "2026-11-06 实测 Cloudflare 挑战页（Just a moment）",
+      "elapsed_s": 2.32
+    },
+    {
+      "verdict": "skipped",
+      "reason": "检索不到正规新闻站；命中的结果均为博彩平台 SEO 页面。在拿到确切新闻域名之前不接入",
+      "name": "k7体育",
+      "tier": "剔除",
+      "url": "",
+      "kind": "unsupported",
+      "note": "检索不到正规新闻站；命中的结果均为博彩平台 SEO 页面。在拿到确切新闻域名之前不接入",
+      "elapsed_s": 0.0
+    }
+  ]
+}
