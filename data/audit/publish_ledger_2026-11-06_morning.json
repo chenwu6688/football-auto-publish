@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06 00:07:05",
+  "batch_filter": "morning",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "领跑，那不勒斯这一关，队长憋的劲该往哪使",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7704842717516104230",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "阿森纳客场2-1拿下斯拉维亚，阿尔特塔这换人差点玩脱",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7704843009002701350",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
