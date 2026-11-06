@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-06 12:04:30",
+  "generated_at": "2026-11-06 12:38:45",
   "days": 7,
-  "ok": false,
-  "undetermined": [],
-  "hard_failed": [
+  "ok": null,
+  "undetermined": [
     "E 产物闭环"
   ],
+  "hard_failed": [],
   "advisory_failed": [],
   "checks": [
     {
@@ -53,10 +53,10 @@
     },
     {
       "item": "E 产物闭环",
-      "ok": false,
+      "ok": null,
       "detail": [
-        "❌ 1/2 张数据图的 anchor 复验不通过",
-        "❌ 《阿森纳客场2-1拿下斯拉维亚，阿尔特》article-2-img-001.jpg：实体不在正文：拉格斯拉维亚"
+        "⚠️ 本批没有可复验的正文文件（记录均为其他批次遗留），未判定",
+        "ℹ️ 2 张图因正文文件不在本 runner 上（跨批次累计）未判定"
       ],
       "advisory": false
     },
