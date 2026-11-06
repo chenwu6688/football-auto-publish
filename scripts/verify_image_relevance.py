@@ -349,6 +349,11 @@ def main() -> int:
     ap.add_argument("--days", type=int, default=7)
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument("--selftest", action="store_true", help="只跑闸门负向自检")
+    ap.add_argument("--fail-on-hard-only", action="store_true",
+                    help="发布前档：只让硬项（接线 / 闸门行为 / 不画假图 / 无残留图）"
+                         "阻断发布。产物相关性红了**不拦整批**——逐篇相关性已由出口"
+                         "合规审核（TT-09）处置，命中只丢该篇。"
+                         "理由：一篇的图不对不该让整批 0 篇（11-06 午间事故）。")
     args = ap.parse_args()
 
     if args.selftest:
@@ -366,6 +371,15 @@ def main() -> int:
         json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
     if not args.quiet:
         print(render_md(rep))
+    if args.fail_on_hard_only:
+        # 硬项红了 = 闸门本身坏了（没接线 / 会画假图 / 残留图），必须停。
+        # 产物相关性红了 = 某一篇的图不对，出口已逐篇处置，不该连锁停整批；
+        # 但**必须 loud**，否则就变成「有验收的假象」。
+        if rep["hard_failed"]:
+            return 1
+        if rep["ok"] is False:
+            print("::warning::配图相关性有未通过项（非硬项），已按逐篇处置，不拦整批")
+        return 0
     if rep["ok"] is None:
         return 2
     return 0 if rep["ok"] else 1

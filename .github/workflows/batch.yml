@@ -432,21 +432,25 @@ jobs:
           python3 scripts/verify_article_images.py --quiet \
             || echo "::warning::配图张数未达每篇 3 张（质量项，不阻断发布），详见 data/audit/article_images_latest.json"
 
-      - name: 配图相关性验收（数据图 + 闸门 · 硬项，失败即阻断）
+      - name: 配图相关性验收（硬项阻断 · 产物相关性只告警）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
-          # 硬项 A-D（接线/闸门行为/不画假图/无残留图）是确定性判定：红了说明代码
-          # 真的坏了，必须阻断——配错图比没图更伤，头条把「配图与内容相关性差」
-          # 列为扣分项。E（产物闭环）没有可比批次时退出码 2 = 未判定，只告警。
-          #
-          # 这里**不能**用 `|| echo "::warning::"` 软化：那会让硬项永远绿，
-          # 正是元验收要抓的「有验收的假象」。
+          # 分两层（2026-11-06 改）：
+          #   硬项 A-D（接线 / 闸门行为 / 不画假图 / 无残留图）→ 红了说明闸门
+          #   本身坏了，必须阻断。
+          #   产物相关性（E）→ **只告警**。逐篇相关性已由出口合规审核（TT-09
+          #   image_relevance）处置，命中只丢该篇；这里再整批拦一次等于「同一
+          #   风险两处判定」，而且会把「某一篇的图不对」放大成「整批 0 篇」——
+          #   11-06 午间 0 篇正是这么发生的。
+          # 用 --fail-on-hard-only 而不是 `|| echo`：硬项照样硬，只放开 E，
+          # 没通过时脚本自己打 ::warning::，不会变成「有验收的假象」。
           rc=0
-          python3 scripts/verify_image_relevance.py --quiet || rc=$?
+          python3 scripts/verify_image_relevance.py --quiet --fail-on-hard-only || rc=$?
           if [ "$rc" -eq 1 ]; then
-            echo "::error::配图相关性未通过，详见 data/audit/image_relevance_latest.json"
+            echo "::error::配图相关性硬项未通过（闸门接线/行为坏了），详见 data/audit/image_relevance_latest.json"
             exit 1
-          elif [ "$rc" -eq 2 ]; then
+          fi
+          if [ "$rc" -eq 2 ]; then
             echo "::warning::配图相关性未判定（窗口内没有本改动之后的批次产物）"
           fi
 
@@ -571,7 +575,7 @@ jobs:
             exit 1
           fi
 
-      - name: 合规审核（头条发文规则 · 命中 block 级违规即停发本批）
+      - name: 合规审核（头条发文规则 · 逐篇剔除，不停整批）
         id: compliance
         if: steps.params.outputs.skip != 'true'
         run: |
@@ -579,20 +583,30 @@ jobs:
           # 逐条判定（14 条规则 / 12 条可用判据），输出命中规则与潜在扣分合计。
           # 放在发布前、生成后：此刻成稿 md 还在本 runner 上，正文类判据才判得动。
           #
-          # 先用 --selftest 证明判据真的在判（16 条负向用例）。
-          # 再跑 --fail-on-block-only：**只有真的命中 block 级违规才停发**。
-          # 「未判定」（正文读不到/证据缺失）不拦发布——11-06 noon 那次 0 篇，
-          # 根因正是把「读不到证据」当成了「不通过」。未判定由每日层裸 rc=2 暴露。
+          # 先用 --selftest 证明判据真的在判。
+          # 再跑 --drop-violations --fail-on-block-only：
+          #   · 命中 block/rewrite 的篇**逐篇移出发布集合**（md 进 output/<date>/dropped/），
+          #     其余照发 —— 处置原则「丢该篇、不停整批」。
+          #     2026-11-06 之前这里是 `exit 1` 停整批：一篇的图不对或一句话涉赌，
+          #     代价是当批 0 篇，而 0 篇又会被下游当成「上游空转」重跑。
+          #   · 「未判定」（正文读不到/证据缺失）不拦发布——11-06 noon 那次 0 篇，
+          #     根因正是把「读不到证据」当成了「不通过」。未判定由每日层裸 rc=2 暴露。
           python3 scripts/verify_compliance.py --selftest \
             || echo "::warning::合规负向自检失败——判据可能已失去检出能力"
           rc=0
-          python3 scripts/verify_compliance.py --days 1 --fail-on-block-only --quiet || rc=$?
-          if [ "$rc" -eq 1 ]; then
-            python3 scripts/write_failure_reason.py "成稿命中头条扣分规则" || true
-            echo "::error::合规审核未通过（命中 block 级违规），详见 data/audit/compliance_latest.json——本批停发，宁停勿错"
+          python3 scripts/verify_compliance.py --days 1 --drop-violations \
+            --fail-on-block-only --quiet || rc=$?
+          if [ "$rc" -eq 3 ]; then
+            python3 scripts/write_failure_reason.py "成稿全部被合规剔除" || true
+            echo "::error::本批成稿被合规审核全部剔除，发布集合 0 篇——这是「全丢」不是「空批」，需按 data/audit/compliance_dropped_*.json 逐条复核规则是否过严"
             exit 1
           fi
-          echo "✅ 合规审核通过（无 block 级违规）"
+          if [ "$rc" -eq 1 ]; then
+            python3 scripts/write_failure_reason.py "成稿命中头条扣分规则（批量级）" || true
+            echo "::error::合规审核未通过，详见 data/audit/compliance_latest.json——本批停发，宁停勿错"
+            exit 1
+          fi
+          echo "✅ 合规审核通过（单篇级违规已逐篇剔除，其余照发）"
 
       - name: 发布到头条号
         id: publish

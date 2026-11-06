@@ -27,10 +27,13 @@
     0  没有 block 级违规
     1  有 block 级违规（不该发）
     2  一条都没判定出来（无产物 / 正文不可读）—— **不等于通过**
+    3  逐篇剔除后一篇不剩（「全丢」，要人查规则；与「上游空转」不是一回事）
 
 用法：
     python3 scripts/verify_compliance.py             # 近 7 天
     python3 scripts/verify_compliance.py --days 1 --quiet
+    python3 scripts/verify_compliance.py --days 1 --drop-violations --fail-on-block-only
+                                                    # 发布前：逐篇剔除，其余照发
     python3 scripts/verify_compliance.py --selftest  # 负向自检
 """
 
@@ -38,6 +41,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from datetime import date, datetime, timedelta
@@ -479,6 +483,163 @@ def _merge(results: list[dict], total: int = 0) -> dict:
     return _res(PASS, _detail([r for r in results if r["status"] == PASS]))
 
 
+#: 出口处置：命中即**丢这一篇**的档位。
+#: 为什么 rewrite 也丢：发布前的 `verify_compliance` 把 block 与 rewrite 一并算进
+#: blocking（都「会被扣分」）。出口若放行 rewrite，发布前那层就会停发**整批**——
+#: 一篇格式问题放大成整批 0 篇（11-06 午间就是这么来的）。逐篇丢永远优于整批停。
+_DROP_TIERS = ("block", "rewrite")
+
+
+def audit_article(art: dict, date_str: str, rules: dict | None = None,
+                  body: str | None = None) -> dict:
+    """出口**单篇**合规审核（2026-11-06 立，唯一逐篇处置点）。
+
+    为什么要有这一层：合规闸门原先只装在 ``_rewrite_with_retry`` 一条通道上，
+    其余 6 个 ``generate_*``（一级确定性供给 4 个 + 紧急球评 + 前瞻）一个都没有，
+    于是「一半稿件从生成到发布，合规判定为零」，全压到发布前那一层——而那一层
+    命中就是**停发整批**。收口在出口而不是逐个生成函数，是因为出口是所有通道的
+    唯一汇聚点（同 ``save_articles_local`` 里三要素兜底先例）。
+
+    判据**不重写**：一律调本模块的 ``j_*``，与发布前、每日层是同一份实现，
+    规则清单也从 ``config/toutiao_rules.yaml`` 读，不在代码里再列一遍。
+
+    返回结构（会被原样落到 metadata 的 ``_compliance``，成功也要写——
+    「成功就不写字段」正是 11-06 认定审核空转的根因）：
+
+        {"drop": bool, "blocked_by": [规则id], "risk_score": int,
+         "judged": 判定出的条目数, "total": 应判条目数, "verdicts": [...]}
+    """
+    rules = rules or load_rules()
+    # dir 指向当天的输出目录：正文由调用方直接给（body），不给才回去找文件。
+    item = {"date": str(date_str), "dir": ROOT / "output" / str(date_str), "art": art}
+    if body is not None:
+        item["_body"] = body
+
+    verdicts: list[dict] = []
+    blocked: list[dict] = []
+    for rule in rules["rules"]:
+        tier = str(rule.get("tier") or "warn")
+        if tier == "n/a":
+            continue
+        results: list[dict] = []
+        for name in _judge_names(rule):
+            fn = _SINGLE.get(name)
+            if fn:
+                results.append(fn(item, rule))
+            elif name in _BATCH:
+                # 批量级判据要 ≥5 篇可比样本，出口只有一篇。**登记为未判定**，
+                # 不静默跳过——跳过就等于「出口说没问题」，而它根本没看。
+                results.append(_res(UNJ, "批量级判据（需 ≥5 篇可比样本），出口单篇不判；"
+                                         "由发布前 verify_compliance 与每日层负责"))
+            else:
+                results.append(_res(UNJ, f"规则绑定的判据 `{name}` 不存在（规则表写错了）"))
+        merged = _merge(results, 1)
+        # `_merge` 是给「N 篇」用的，单篇会得到「1/1 篇命中：…」这种前缀。
+        # 出口的结论是「这一篇命中」，不是「1 篇命中 1 篇」——去掉前缀再落盘，
+        # 否则 metadata 里每篇都挂一句废话。
+        detail = merged["detail"]
+        for _p in ("1/1 篇命中：", "1/1 篇未判定："):
+            if detail.startswith(_p):
+                detail = detail[len(_p):]
+                break
+        row = {"id": rule["id"], "name": rule["name"], "tier": tier,
+               "credit": int(rule.get("credit") or 0),
+               "status": merged["status"], "detail": detail,
+               "hits": (merged.get("hits") or [])[:5]}
+        verdicts.append(row)
+        if merged["status"] == FAIL and tier in _DROP_TIERS:
+            blocked.append(row)
+
+    return {
+        "drop": bool(blocked),
+        "blocked_by": [b["id"] for b in blocked],
+        "risk_score": sum(b["credit"] for b in blocked),
+        "judged": len([v for v in verdicts if v["status"] in (PASS, FAIL)]),
+        "total": len(verdicts),
+        "verdicts": verdicts,
+    }
+
+
+def drop_violations(date_str: str, rules: dict | None = None) -> dict:
+    """发布前**逐篇剔除**：命中 block/rewrite 的成稿移出发布集合（不停整批）。
+
+    为什么需要它（2026-11-06）：``verify_compliance`` 原本只会说「本批有违规」，
+    而 workflow 拿到这句话只能停发整批 —— 一篇的图不对 / 一句话涉赌，代价是
+    当批 0 篇（11-06 午间实证）。出口审核（``audit_article``）已经在生成侧
+    逐篇丢过一次，这一层是给两类漏网情形兜底：
+      · 出口审核抛异常被放行（`_compliance.error` 有值）；
+      · 成稿不是经 ``save_articles_local`` 出去的。
+
+    剔除方式：``output/<date>/article-*.md`` 移进 ``output/<date>/dropped/``。
+    发布侧（``publisher.py``）是 glob 顶层 ``article-*.md``，移进子目录即自然
+    移出发布集合，不必改发布器；metadata 里的记录**保留**并加
+    ``dropped_by_compliance``，否则事后又变成「这篇为什么没发」的黑箱。
+
+    幂等：重复调用只是再移一次已空集合，不会二次破坏。
+    """
+    rules = rules or load_rules()
+    date_dir = ROOT / "output" / str(date_str)
+    meta_path = date_dir / "metadata.json"
+    if not meta_path.exists():
+        return {"date": str(date_str), "dropped": [], "kept": 0,
+                "note": "无 metadata.json（本批未产出）"}
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return {"date": str(date_str), "dropped": [], "kept": 0,
+                "note": f"metadata 不可读：{type(exc).__name__}: {exc}"}
+
+    arts = [a for a in (meta.get("articles") or []) if isinstance(a, dict)]
+    dropped_dir = date_dir / "dropped"
+    dropped: list[dict] = []
+    for art in arts:
+        if art.get("dropped_by_compliance"):
+            # 已经剔过的不再判第二次：md 已被移走，重判只会拿不到正文、
+            # 把原来那条「为什么被剔」的证据覆盖成「正文不可读」——
+            # 幂等操作不许毁掉第一次的结论。
+            continue
+        item = {"date": str(date_str), "dir": date_dir, "art": art}
+        body = body_of(item)
+        res = audit_article(art, date_str, rules=rules, body=body)
+        art["_compliance"] = res
+        if not res["drop"]:
+            continue
+        moved = ""
+        p = str(art.get("path") or "")
+        cand = date_dir / Path(p).name if p else None
+        if cand and cand.is_file():
+            try:
+                dropped_dir.mkdir(parents=True, exist_ok=True)
+                os.replace(cand, dropped_dir / cand.name)
+                moved = str(dropped_dir / cand.name)
+            except OSError as exc:
+                moved = f"（移出失败：{type(exc).__name__}: {exc}）"
+        art["dropped_by_compliance"] = {
+            "blocked_by": res["blocked_by"], "risk_score": res["risk_score"],
+            "moved_to": moved,
+            "verdicts": [v for v in res["verdicts"] if v["id"] in res["blocked_by"]],
+        }
+        dropped.append({"title": art.get("title", ""),
+                        "blocked_by": res["blocked_by"],
+                        "risk_score": res["risk_score"], "moved_to": moved})
+
+    if dropped:
+        meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2),
+                             encoding="utf-8")
+    out = {"date": str(date_str), "generated_at": datetime.now().isoformat(timespec="seconds"),
+           "dropped": dropped,
+           # kept 要按**残留标记**算，不能按「这轮剔了几篇」算：重复调用时本轮
+           # 剔 0 篇，但发布集合里确实少了一篇，报 kept=2 就是在骗下游。
+           "kept": len([a for a in arts if not a.get("dropped_by_compliance")]),
+           "total": len(arts)}
+    try:
+        (AUDIT_DIR / f"compliance_dropped_{date_str}.json").write_text(
+            json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    return out
+
+
 def verify(days: int = 7, rules: dict | None = None) -> dict:
     rules = rules or load_rules()
     items = iter_items(days)
@@ -642,6 +803,10 @@ def main() -> int:
                     help="只有命中 block 级违规才返回 1；「未判定」不拦。"
                          "发布前用这个档（否则正文读不到就会像 11-06 noon 那样整批 0 篇），"
                          "每日层不要用——那时「未判定」必须暴露。")
+    ap.add_argument("--drop-violations", action="store_true",
+                    help="发布前逐篇剔除：命中 block/rewrite 的成稿移出发布集合"
+                         "（md 移进 output/<date>/dropped/），只留真正合规的篇。"
+                         "处置原则「丢该篇、不停整批」——一篇的问题不该让整批 0 篇。")
     args = ap.parse_args()
 
     if args.selftest:
@@ -651,6 +816,25 @@ def main() -> int:
             bad += 0 if ok else 1
         print(f"\n负向自检：{'全部通过 ✅' if not bad else f'{bad} 项未通过 ❌'}")
         return 1 if bad else 0
+
+    _all_dropped = False
+    if args.drop_violations:
+        # 先逐篇剔除，再对**剩下的**判一次。这样「有违规」不再等于「整批停发」：
+        # 命中 block/rewrite 的篇被移出发布集合，其余照发。
+        d = drop_violations(date.today().isoformat())
+        if d.get("dropped"):
+            print(f"⛔ 逐篇剔除 {len(d['dropped'])} 篇（不停整批）：")
+            for x in d["dropped"]:
+                print(f"   - {x['title'][:28]} ← {'、'.join(x['blocked_by'])}"
+                      f"（{x['risk_score']} 分）")
+        elif d.get("note"):
+            print(f"ⓘ 逐篇剔除跳过：{d['note']}")
+        # 「全丢」必须与「本来就没稿」分开报：两者下游都是 0 篇，但一个是
+        # 规则问题要人来查，一个是上游空转要重跑。混在一起就没人查得清。
+        _all_dropped = bool(d.get("total")) and d.get("kept") == 0
+        if _all_dropped:
+            print(f"❌ 本批 {d['total']} 篇全部被合规剔除，发布集合 0 篇"
+                  f"（这是「全丢」，不是「正常空批」）")
 
     report = verify(args.days)
     try:
@@ -666,6 +850,11 @@ def main() -> int:
 
     if report["blocking"]:
         return 1
+    if _all_dropped:
+        # 3 = 全批被剔除。刻意不复用 1（那是「批量级违规，该停」）也不复用 2
+        # （那是「未判定」）：三种终态对应三种处置，合并就等于又回到
+        # 「以前三种终态共用一个 exit 1」导致批次永久丢失的老路上。
+        return 3
     if args.fail_on_block_only:
         # 发布前档：只有真的违规才停发。「未判定」不拦——但也不当通过，
         # 报告里已经写明「不能视为合规通过」，每日层裸 rc=2 会把它抓出来。

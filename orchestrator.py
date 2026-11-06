@@ -47,6 +47,16 @@ import cover_card
 import data_chart        # 正文事实重绘成图（零版权，且与正文同源）
 import image_relevance   # 配图相关性闸门：图里的队/数字必须在正文出现过
 import interaction_bait
+# 合规审核唯一入口（2026-11-06）：出口那道闸门的判据必须与发布前、每日层
+# **完全同一份实现**，否则又是「两处判定只改一处」。规则清单也从它的
+# config/toutiao_rules.yaml 读，本文件不再列一遍合规条款。
+# 把项目根塞进 sys.path 再按包名导入：`scripts/` 没有 `__init__.py`（命名空间包），
+# 只有在根目录可导入时才拿得到。不做 try/except 兜底——导不进来就该当场炸，
+# 否则「出口审核悄悄没装上」正是今天要消灭的那类沉默失效。
+_PROJ_ROOT = Path(__file__).resolve().parent
+if str(_PROJ_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJ_ROOT))
+from scripts import verify_compliance as compliance_gate  # noqa: E402
 import topic_category
 import content_reference
 import template_gate
@@ -2214,6 +2224,7 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
     saved = []
     pending_review = []
+    compliance_dropped = []
     all_hashes = set()
     pre_downloaded = pre_downloaded_images or {}
 
@@ -2536,6 +2547,58 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 degrade.note("互动引导未达标", f"缺 {'、'.join(_ib['missing'])}",
                              action="模板兜底未生效，放行并留痕（不阻塞发布）")
 
+        # ————————————————————————————————————————————
+        # 出口统一合规审核（P0-1，2026-11-06）
+        # ————————————————————————————————————————————
+        # 起因：合规闸门原先只装在 `_rewrite_with_retry` 一条通道上。AST 扫过
+        # 全部 `generate_*`，其余 6 条（一级确定性供给 4 个 + 紧急球评 + 前瞻）
+        # 一个闸门都没有 ——「一半稿件从生成到发布，合规判定为零」，全压到发布前
+        # 的 batch.yml 那一步；而那一层命中就是**停发整批**。
+        #
+        # 为什么收口在这里而不是逐个生成函数：出口是所有通道的唯一汇聚点，上面
+        # 三要素兜底就是这么解的（注释写着「口子就留在这里」）。6 个生成函数逐个
+        # 挂 = 6 处要记得改，而今天已经漏了 5 处 ——「规矩只写在一处，新通道不
+        # 知道它存在」，与「同一规矩写两处只改一处」同源。
+        #
+        # 判据不重写：一律调 compliance_gate 的 j_*，规则清单也从规则表读。
+        # 处置分档：block/rewrite → **丢这一篇**（不是停整批）；warn → 保留并留证。
+        # 「少发一篇」可以补发，「停一整批」就是 0 篇 —— 两者代价差一个数量级。
+        # 审核本身炸了**不阻断发布**（与埋点同一纪律），但必须 loud + 留痕。
+        try:
+            _cmpl = compliance_gate.audit_article(art, date_str,
+                                                  body=art.get("content") or "")
+        except Exception as _exc:
+            _cmpl = {"drop": False, "blocked_by": [], "risk_score": 0,
+                     "judged": 0, "total": 0, "verdicts": [],
+                     "error": f"{type(_exc).__name__}: {_exc}"}
+            print(f"   ⚠️ 出口合规审核异常（不阻断发布）：{_cmpl['error']}")
+            degrade.note("合规审核", f"出口审核异常：{_cmpl['error']}",
+                         action="放行并留痕；发布前那一层仍会审")
+        if _cmpl["drop"]:
+            _blk = [v for v in _cmpl["verdicts"] if v["id"] in _cmpl["blocked_by"]]
+            _by = "、".join(f"{v['id']}({v['credit']}分)" for v in _blk)
+            print(f"   ⛔ 合规拦截，丢该篇（其余篇照常发布）：{_by}"
+                  f" → {art.get('title', '')[:26]}")
+            for _v in _blk:
+                print(f"      {_v['id']} {_v['name']}：{_v['detail'][:78]}")
+            degrade.note("合规审核", _by, action="丢弃该篇成稿，不停整批")
+            compliance_dropped.append({"index": idx, "title": art.get("title", ""),
+                                       "blocked_by": _cmpl["blocked_by"],
+                                       "risk_score": _cmpl["risk_score"],
+                                       "verdicts": _blk})
+            # 已落盘的图一并删掉：file_writer 是扫 images 目录得出 image_paths 的，
+            # 孤儿图会被后续统计当成「这篇有图」，台账与读者看到的又对不上。
+            for _p in images_dir.glob(f"{prefix}*.jpg"):
+                try:
+                    _p.unlink()
+                except OSError:
+                    pass
+            continue
+        # 证据落盘契约：**成功也要写**。原先生成侧用「成功就不写字段」表示 ok，
+        # 审核侧把「没有」读成「证据不足」——同一个「缺失」在两边含义相反，
+        # 正是 11-06 认定「审核空转」的根因。
+        art["_compliance"] = _cmpl
+
         # Save article
         art_data = {**art, "downloaded_images": downloaded,
                      "tags": art.get("keywords", []), "category": "足球",
@@ -2587,6 +2650,11 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 "_fidelity": art.get("_fidelity"),
                 "_interaction": art.get("_interaction"),
                 "_consistency": art.get("_consistency"),
+                # 出口合规审核留证（P0-1）：逐条规则的判定结果。成功也会写，
+                # 判不了写 status=not_judged（不是省略）。没有这一栏，复盘时
+                # 无法回答「这篇到底审过没有」——而「有结论没留证据」是本项目
+                # 38% 发布率一个月无人发现的原因。
+                "_compliance": art.get("_compliance"),
                 "sources_used": _prov_sources,
                 "source_post": _prov_post,
                 "originality_note": art.get("originality_note", ""),
@@ -2665,6 +2733,19 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     if _below:
         meta["image_floor"]["below_titles"] = _below
         print(f"   ❌ 本批 {len(_below)} 篇配图不足 {MIN_ARTICLE_IMAGES} 张：{_below}")
+    # 出口合规拦截记录（P0-1，2026-11-06）：丢了几篇、为什么丢，必须落盘。
+    # 只在 print 里说一句「已拦截」，等于事后无法回答「这篇为什么没发」。
+    if compliance_dropped:
+        meta["compliance_dropped"] = compliance_dropped
+        print(f"   ⛔ 合规拦截 {len(compliance_dropped)} 篇（其余照常发布，不停整批）："
+              f"{[d['title'][:18] for d in compliance_dropped]}")
+    # 「全丢」必须显式报出来：它和「本来就没选题」在结果上都是 0 篇，
+    # 但处置完全相反（一个要补发/查规则，一个是正常空批）。
+    if articles and not saved:
+        print("   ❌ 本批成稿被合规审核全部拦下，发布集合为 0 篇"
+              "（这是「全丢」，不是「正常空批」→ 需补发）")
+        degrade.note("合规审核", f"本批 {len(articles)} 篇全部被拦，发布集合 0 篇",
+                     action="按 compliance_dropped 逐条复核；如需补发走补发 cron")
     # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）。
     # 预测稿不发布到头条，不进配比口径（与看板/配额验收同口径，R13 决策④）。
     _supply = supply_mix.summarize(
