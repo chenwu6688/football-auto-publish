@@ -793,6 +793,130 @@ def render(report: dict) -> str:
     return "\n".join(lines)
 
 
+def _reason_of(detail: str) -> str:
+    """把「未判定」的原因归成可数的桶——**只用于展示分组，不参与任何判定**。
+
+    不按规则 id 硬编码映射：那等于把规则清单在本文件里再列一遍，规则表一改就
+    对不上（2026-11-06 已经因为这个交付过两次事故）。按 detail 里的特征词归类，
+    归不进去的落 other 并把原话打出来，宁可显示「other」也不猜。
+    """
+    d = str(detail or "")
+    if "批量级判据" in d:
+        return "batch"          # 需 ≥5 篇样本，出口单篇本来就不判
+    if "正文" in d and ("不可读" in d or "读不到" in d or "找不到" in d):
+        return "no_body"        # 环境问题：正文留在生成它的 runner 上
+    if any(k in d for k in ("无 _gate", "无 publish_by", "无相似度", "无…证据",
+                            "证据不足", "未记录", "元数据")):
+        return "field_missing"  # 代码问题：CI 里照样未判定，必须修
+    return "other"
+
+
+def evidence_report(date_str: str | None = None, days: int = 1) -> dict:
+    """批次后核对：**证据到底落没落**、没落的是哪一类。
+
+    为什么单独做这个视图：``verify()`` 回答的是「有没有违规」，而批次刚跑完时
+    真正该问的是「这次到底判了几条」。两者混在一起会得出「无 block 级违规」
+    这种看着绿、其实什么都没判的结论（2026-11-06 的 rc=0 假绿就是这么来的）。
+
+    不设 PASS/FAIL：这是诊断视图，不是闸门。硬要给它一个通过线，就等于又
+    发明了一套阈值。
+    """
+    d = date_str or date.today().isoformat()
+    day_dir = ROOT / "output" / str(d)
+    meta_path = day_dir / "metadata.json"
+    out: dict = {"date": str(d), "articles": 0, "has_meta": meta_path.is_file(),
+                 "per_article": [], "no_compliance_field": [],
+                 "undecided": {}, "reasons": {}, "dropped": []}
+    if not out["has_meta"]:
+        return out
+
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        out["error"] = f"{type(exc).__name__}: {exc}"
+        return out
+
+    arts = meta.get("articles") or []
+    out["articles"] = len(arts)
+    for a in arts:
+        c = a.get("_compliance")
+        title = str(a.get("title") or "")[:30]
+        if not isinstance(c, dict):
+            # 老产物 / 出口审核没跑到这一篇。**不算通过**，也不算未判定——
+            # 它连「判过」这个事实都没有，混进分母会把两次改动的效果搅在一起。
+            out["no_compliance_field"].append(title)
+            continue
+        out["per_article"].append({"title": title, "judged": c.get("judged"),
+                                   "total": c.get("total"), "drop": c.get("drop"),
+                                   "error": c.get("error")})
+        for v in c.get("verdicts") or []:
+            if v.get("status") != UNJ:
+                continue
+            rid = v.get("id") or "?"
+            out["undecided"].setdefault(rid, []).append(title)
+            bucket = _reason_of(v.get("detail"))
+            out["reasons"].setdefault(bucket, {}).setdefault(rid, v.get("detail", ""))
+
+    for x in meta.get("compliance_dropped") or []:
+        out["dropped"].append({"title": str(x.get("title") or "")[:30],
+                               "blocked_by": x.get("blocked_by") or []})
+    return out
+
+
+def render_evidence(rep: dict) -> str:
+    d = rep["date"]
+    if not rep["has_meta"]:
+        return f"本批证据核对（{d}）：⚠️ 没有 output/{d}/metadata.json（批次没产出或还没跑）"
+    if rep.get("error"):
+        return f"本批证据核对（{d}）：❌ metadata 读不了：{rep['error']}"
+
+    lines = [f"本批证据核对（{d} · {rep['articles']} 篇成稿）", ""]
+    rows = rep["per_article"]
+    if rows:
+        lines.append("  逐篇判定数（judged/total）：")
+        for r in rows:
+            flag = "⛔" if r["drop"] else ("⚠️" if r["error"] else "  ")
+            err = f"  异常：{r['error']}" if r["error"] else ""
+            lines.append(f"   {flag} {r['judged']}/{r['total']}  {r['title']}{err}")
+    if rep["no_compliance_field"]:
+        lines.append(f"  ⚠️ {len(rep['no_compliance_field'])} 篇没有 _compliance 字段"
+                     f"（出口审核没跑到，多半是旧产物或已剔稿）："
+                     f"{'、'.join(rep['no_compliance_field'])}")
+    if rep["dropped"]:
+        lines.append("")
+        lines.append(f"  被合规剔除 {len(rep['dropped'])} 篇（不进发布集合）：")
+        for x in rep["dropped"]:
+            lines.append(f"   ⛔ {x['title']} ← {'、'.join(x['blocked_by'])}")
+
+    lines.append("")
+    if not rows:
+        # 「没有未判定项」和「一条都没判」在刚才那个写法里是同一句话 —— 4 篇
+        # 全缺 _compliance 时会打印「✅ 每条规则都真的判过了」。**那正是本项目
+        # 反复栽的「拿缺失当通过」**，这里必须把两种情形分开。
+        lines.append("  ❌ 0 篇有判定记录：这一批等于**没审过**，不能视为通过")
+        lines.append("     说明出口审核没跑到这些篇上（旧产物 / 改动前的批次 / 审核异常）")
+        return "\n".join(lines)
+    if not rep["undecided"]:
+        lines.append(f"  ✅ {len(rows)} 篇均有判定记录，且没有未判定项："
+                     f"这一批每条规则都真的判过了")
+        return "\n".join(lines)
+
+    label = {"field_missing": "证据缺失（代码问题 · CI 里照样未判定，必须修）",
+             "no_body": "正文不可读（环境问题 · 跨 runner，CI 里应显著减少）",
+             "batch": "批量级（需 ≥5 篇样本，出口单篇按设计不判）",
+             "other": "未归类（看下面的原话，别猜）"}
+    lines.append(f"  未判定 {len(rep['undecided'])} 条规则：")
+    for bucket in ("field_missing", "no_body", "batch", "other"):
+        got = rep["reasons"].get(bucket) or {}
+        if not got:
+            continue
+        lines.append(f"    · {label[bucket]}")
+        for rid, detail in got.items():
+            n = len(rep["undecided"].get(rid) or [])
+            lines.append(f"        {rid} {n} 篇：{str(detail)[:88]}")
+    return "\n".join(lines)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="合规审核唯一入口（对齐头条号发文规则）")
     ap.add_argument("--days", type=int, default=7)
@@ -807,7 +931,22 @@ def main() -> int:
                     help="发布前逐篇剔除：命中 block/rewrite 的成稿移出发布集合"
                          "（md 移进 output/<date>/dropped/），只留真正合规的篇。"
                          "处置原则「丢该篇、不停整批」——一篇的问题不该让整批 0 篇。")
+    ap.add_argument("--evidence", action="store_true",
+                    help="批次后核对：逐篇 judged/total + 未判定原因分类。"
+                         "回答「这次到底判了几条」，不回答「有没有违规」。"
+                         "不写 compliance_latest.json（这是诊断视图，不是闸门）。")
+    ap.add_argument("--date", help="配合 --evidence 用，默认今天")
     args = ap.parse_args()
+
+    if args.evidence:
+        erep = evidence_report(args.date, args.days)
+        print(render_evidence(erep))
+        # 「没有产物」和「有产物但一篇都没判过」都是未判定（rc=2），与项目
+        # 「未判定 ≠ 通过」契约一致。有判定记录 → 0：这是诊断视图，给它设通过线
+        # 等于又发明一套阈值。
+        if not erep["has_meta"] or erep.get("error"):
+            return 2
+        return 0 if erep["per_article"] else 2
 
     if args.selftest:
         bad = 0

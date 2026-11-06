@@ -311,5 +311,104 @@ class TestWorkflowDisposal(unittest.TestCase):
         self.assertNotIn("verify_compliance.py --days 1 --quiet || true", wf)
 
 
+class TestEvidenceView(unittest.TestCase):
+    """批次后核对视图：回答「这次到底判了几条」。
+
+    它唯一存在的意义是别再出 11-06 那种「14 条判了 1 条，报告写 ✅ 无违规」。
+    所以本类的第一条用例就是负向的：**一篇都没判过时，绝不许说判过了**。
+    """
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self._o_root = vc.ROOT
+        vc.ROOT = self.tmp
+        self.day = "2026-11-06"
+        self.dir = self.tmp / "output" / self.day
+        self.dir.mkdir(parents=True)
+
+    def tearDown(self):
+        vc.ROOT = self._o_root
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def _write(self, articles, dropped=None):
+        meta = {"articles": articles}
+        if dropped is not None:
+            meta["compliance_dropped"] = dropped
+        (self.dir / "metadata.json").write_text(
+            json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+
+    def test_zero_judged_is_not_pass(self):
+        """4 篇全缺 _compliance → 必须报「没审过」，不许报「都判过了」。
+
+        这是本项目最高频的事故形态：**拿缺失当通过**。修 evidence 视图第一版时
+        我自己又犯了一次（`undecided` 为空 → 打 ✅），所以这条用例必须留着。
+        """
+        self._write([{"title": f"第{i}篇"} for i in range(4)])
+        rep = vc.evidence_report(self.day)
+        text = vc.render_evidence(rep)
+        self.assertEqual(rep["per_article"], [], "无字段的篇不该被算成「判了但没判定」")
+        self.assertIn("0 篇有判定记录", text)
+        self.assertNotIn("都真的判过了", text, "一篇都没判却说判过了 —— 拿缺失当通过")
+
+    def test_missing_compliance_is_not_counted_as_judged(self):
+        """「没跑过审核」和「跑了但全未判定」是两件事，分母不能混。"""
+        self._write([{"title": "旧产物"}, {"title": "新稿"}])
+        rep1 = vc.evidence_report(self.day)
+        self.assertEqual(len(rep1["no_compliance_field"]), 2)
+        self.assertEqual(len(rep1["per_article"]), 0)
+        self.assertEqual(len(rep1["undecided"]), 0,
+                         "无字段的篇不该产生「未判定」条目 —— 那会让原因统计全是空的")
+
+    def test_per_article_counts_are_printed(self):
+        cmpl = vc.audit_article(dict(CLEAN), self.day, body=CLEAN_BODY)
+        self._write([{"title": "有证据那篇", "_compliance": cmpl}])
+        text = vc.render_evidence(vc.evidence_report(self.day))
+        self.assertIn(f"{cmpl['judged']}/{cmpl['total']}", text)
+        self.assertIn("有证据那篇", text)
+
+    def test_reasons_are_bucketed(self):
+        """未判定要按「代码问题 / 环境问题 / 设计如此」分开，否则修错地方。"""
+        self.assertEqual(vc._reason_of("metadata 无 _gate.fact（这篇没经过 v2 闸门）"),
+                         "field_missing")
+        self.assertEqual(vc._reason_of("批量级判据（需 ≥5 篇可比样本），出口单篇不判"),
+                         "batch")
+        self.assertEqual(vc._reason_of("正文不可读：找不到 md"), "no_body")
+        self.assertEqual(vc._reason_of("某个没见过的原因"), "other",
+                         "归不进去就落 other 并打原话，不许猜")
+
+        self._write([{"title": "x", "_compliance": {
+            "judged": 1, "total": 2, "drop": False, "error": None,
+            "verdicts": [
+                {"id": "TT-02", "status": "not_judged",
+                 "detail": "metadata 无 _gate.fact", "tier": "block", "credit": 20},
+                {"id": "TT-14", "status": "not_judged",
+                 "detail": "批量级判据（需 ≥5 篇可比样本）", "tier": "warn", "credit": 0},
+            ]}}])
+        rep = vc.evidence_report(self.day)
+        self.assertIn("TT-02", rep["reasons"]["field_missing"])
+        self.assertIn("TT-14", rep["reasons"]["batch"])
+
+    def test_dropped_articles_are_listed_separately(self):
+        """被剔的篇不进 judge 统计（它没有 _compliance），但要单独显示。"""
+        self._write([{"title": "留下的"}],
+                    dropped=[{"title": "被剔的", "blocked_by": ["TT-07"]}])
+        rep = vc.evidence_report(self.day)
+        self.assertEqual(rep["dropped"][0]["blocked_by"], ["TT-07"])
+        self.assertIn("被剔的", vc.render_evidence(rep))
+
+    def test_no_metadata_is_not_crash(self):
+        rep = vc.evidence_report("1999-01-01")
+        self.assertFalse(rep["has_meta"])
+        self.assertIn("没有", vc.render_evidence(rep))
+
+    def test_evidence_mode_writes_no_artifact(self):
+        """诊断视图不许污染验收产物，否则 compliance_latest.json 的语义会漂。"""
+        self._write([{"title": "x"}])
+        before = set(self.tmp.rglob("*"))
+        vc.evidence_report(self.day)
+        self.assertEqual(before, set(self.tmp.rglob("*")),
+                         "evidence 视图写了文件 —— 它不是闸门，不该留产物")
+
+
 if __name__ == "__main__":
     unittest.main()
