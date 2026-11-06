@@ -80,6 +80,21 @@ jobs:
           # 硬项：生效日后成稿标题零硬违规（GATE_SINCE=2026-11-05）
           python3 scripts/verify_publish_gate.py --quiet
 
+      - name: 合规审核（头条扣分风险 · 唯一合规入口）
+        run: |
+          # 2026-11-06 立。硬项，**不加 `--fail-on-block-only`**：
+          # 发布前那一档为了不误停发，把「未判定」放行了；每日这一档必须把它暴露出来
+          # ——rc=2 意味着过半 block 级规则没真正判过，不能算「合规通过」。
+          # 这正是 11-06 noon 0 篇事故的镜像：那次是「读不到证据」被当成「不通过」，
+          # 这里防的是反面——「读不到证据」被当成「通过」。
+          python3 scripts/verify_compliance.py --days 1 --quiet
+
+      - name: 规则覆盖校验
+        run: |
+          # 硬项：规则表里的判据必须真有实现；发布前门禁只许 compliance；
+          # compliance 项数不得反弹（审核复杂度天花板）
+          python3 scripts/verify_rule_coverage.py --quiet
+
       - name: 效果闭环
         run: |
           # 硬项：阅读/点击率趋势可统计；改了 40 多天规则，这里是唯一能证明「改对了」的地方

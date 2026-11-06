@@ -309,13 +309,25 @@ class TestWiring(unittest.TestCase):
         self.assertIn("kind: hard", block,
                       "用户定的是硬条件，登记成 advisory 就等于只是建议")
 
-    def test_workflow_does_not_soften_the_gate(self):
+    def test_image_count_is_quality_not_gate(self):
+        """2026-11-06：配图**张数**降为质量项，只有**相关性**能阻断发布。
+
+        依据：平台规则里没有「每篇几张图」，与之相关的扣分项是
+        「图文不符/相关性差 10 分」，由 verify_image_relevance 判。
+        拿张数阻断发布，本质是让图源抖动决定今天有没有稿子发——11-05 的
+        真实事故就是「图源抖动 → 整批 0 篇」，与扣分毫无关系。
+        所以断言反过来了：张数那一步**必须**软化，相关性那一步**必须**不软化。
+        """
         wf = (ROOT / ".github" / "workflows" / "batch.yml").read_text(encoding="utf-8")
-        idx = wf.index("verify_article_images.py")
-        window = wf[max(0, idx - 900):idx + 500]
-        self.assertNotIn('verify_article_images.py --quiet \\\n            || echo', window,
-                         "用 `|| echo` 软化硬门禁，FAIL 了照样发布")
-        self.assertIn("rc=$?", window, "硬门禁必须按退出码三态处理（1 阻断 / 2 未判定）")
+
+        i_cnt = wf.index("verify_article_images.py")
+        self.assertIn("|| echo", wf[i_cnt:i_cnt + 400],
+                      "配图张数是质量项，必须只告警（否则图源抖动会停发整批）")
+
+        i_rel = wf.index("verify_image_relevance.py")
+        window = wf[i_rel - 900:i_rel + 500]
+        self.assertIn("rc=$?", window, "相关性是合规项，必须按退出码三态处理（1 阻断）")
+        self.assertIn("exit 1", window, "命中图文不符必须真的停发")
 
 
 class TestVerifyScript(unittest.TestCase):

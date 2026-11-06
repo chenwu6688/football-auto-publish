@@ -1815,14 +1815,23 @@ def _breaker_active() -> bool:
 def check_interaction_bait(art: dict) -> dict:
     """互动引导生成后校验（R11 2026-10-13 建议5 / 计划 13.5 评论区运营）。
 
-    在提示词里「粉丝沉淀钩子·必须满足」已存在，但此前**没有生成后校验**，写了等于没写。
-    本闸门把「关注引导 + 互动引导」变成可打回的门禁项：
-      - 生成侧（_rewrite_with_retry / generate_fixture_article）：未过 → 打回重写（最多 2 次）；
-      - 保存侧（save_articles_local）：仍缺 → 模板兜底注入并复核，**绝不因此丢弃整篇成稿**。
-    配置不可用 → 放行（degraded），不阻塞发布（计划九）。
+    **2026-11-06 起语义变了**：不再要求「关注引导」（索要关注＝诱导交互 20 分，
+    是扣分项不是达标项），只要求「给读者留下可回复的入口」。缺了也只记分 + 兜底注入。
+    合规方向的那一半拆到 :func:`check_inducement`。
     """
     return interaction_bait.check((art or {}).get("content", ""),
                                   bait_field=(art or {}).get("interaction_bait", ""))
+
+
+def check_inducement(art: dict) -> dict:
+    """诱导话术硬校验（2026-11-06 新增，对应信用分扣分表）。
+
+    命中即打回重写：诱导交互 20 ｜ 违规涨粉 20 ｜ 引导互粉 20 ｜ 宣扬赌博 70。
+    这是**唯一一条从增长指标翻转为合规红线**的闸门：旧口径反过来强制写「关注我」，
+    等于批量生产扣分话术（11-06 实测有稿 `interaction_bait_source=template_fallback`）。
+    配置不可用 → 放行（degraded），不阻塞发布。
+    """
+    return interaction_bait.check_inducement((art or {}).get("content", ""))
 
 
 def _bait_retry_hint(res: dict) -> str:
@@ -1985,8 +1994,22 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
             note_generated_title(art.get("title", ""))
 
 
-            # 互动引导硬校验（R11 建议5 / 计划 13.5）：缺关注/互动引导 → 打回重写；
-            # 最后一轮仍缺则放行，交由保存侧模板兜底注入（不丢整篇成稿）
+            # 诱导话术硬校验（2026-11-06 新增）：命中即打回，**不放行**。
+            # 对应信用分 20 分档三条（诱导交互/违规涨粉/引导互粉）与 70 分档（宣扬赌博）。
+            # 与下面的「互动引导」方向相反：那个查「缺不缺讨论入口」（质量），
+            # 这个查「有没有索要关注/博彩话术」（合规）。两者不能合成一道。
+            _ind = check_inducement(art)
+            if not _ind["ok"]:
+                last_hint = _ind["hint"]
+                art["_inducement"] = {"ok": False, "hits": _ind["hits"]}
+                if attempt < max_retries:
+                    print(f"   🚫 诱导话术(attempt {attempt+1}/{max_retries+1})："
+                          f"{_ind['detail'][0][:80]}")
+                    continue
+                return {}, f"诱导话术未过: {_ind['detail'][0]}"
+
+            # 互动引导（质量项）：给读者留一个可回复的入口；缺了只记分，不丢整篇。
+            # 2026-11-06 起不再要求「关注引导」（索要关注属诱导交互，已由上一道拦）。
             _ib = check_interaction_bait(art)
             if not _ib["ok"]:
                 last_hint = _bait_retry_hint(_ib)

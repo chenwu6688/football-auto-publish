@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
-"""互动引导闸门 —— 「关注引导 + 互动引导」硬校验（R11 内容诊断 2026-10-13 建议5）。
+"""互动引导闸门 —— 「互动引导」判定 + 「诱导话术」拦截（2026-11-06 合规修正）。
 
 背景（R11 头条真实数据，2026-10-13）：
   「粉丝阅读占比中位 0%（成熟号 20-40%），互动率仅健康号 1/3，账号只吃推荐流量」。
-  这是唯一能打破「低推荐 → 低点击 → 更低推荐」死循环的抓手，但此前只写在提示词里
-  （prompts/rewrite_article.txt「粉丝沉淀钩子·必须满足」），**没有任何生成后校验**。
+  此前只写在提示词里，没有任何生成后校验。
 
-本模块唯一职责：判定一篇成稿是否具备「关注引导」与「互动引导」，供生成侧打回重写、
-供保存侧兜底注入后复核。
+**2026-11-06 修正（方向反了）**：
+  旧实现在上面这条增长诉求上加了「必须有关注引导」，不达标就打回重写，
+  最后由保存侧模板注入「关注老六，这波后续我替你盯着」。而《信用分机制》明列
+  「诱导交互 20 分／违规涨粉 20 分／引导互粉 20 分」——也就是说，
+  这套闸门在**为了让稿子涨粉，批量生产平台扣分的话术**。
+  现在：`关注引导必需: false`（索要关注不再是达标项），并新增 `check_inducement()`
+  把索要关注/扣1/站队/投票/回关互粉/博彩术语判成违规。
+
+本模块两个职责（都在配置 `config/interaction_bait.yaml` 里）：
+  1. ``check()``           —— 「是否提出了可讨论的问题」（质量项，缺了只记分）；
+  2. ``check_inducement()`` —— 「是否出现诱导/博彩话术」（**合规项，命中即打回**）。
 
 纪律（与全仓一致）：
-  - 判据与话术模板来自 config/interaction_bait.yaml；
   - 匹配**必须带引导语境**，避免「值得关注」这类事实性用词被误判成钩子；
   - 配置不可用 → **放行并置 degraded**，绝不因读不到配置而阻塞发布（计划九）；
-  - 「缺互动引导」只打回重写/兜底注入，**绝不因此丢弃整篇成稿**（正文事实才是主体）；
-  - 本模块只判定与兜底，不改事实、不介入选题。
+  - 判定与兜底不改事实、不介入选题。
 
 命令行：
   python3 interaction_bait.py --selftest
@@ -33,17 +39,27 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 CONFIG_PATH = PROJECT_ROOT / "config" / "interaction_bait.yaml"
 
 # 兜底仅用于「配置存在但字段缺失」；配置整体不可用则放行（见 check）。
+# 2026-11-06：`关注引导必需` 默认 false —— 索要关注是扣分项，不是达标项。
 _FALLBACK = {
     "版本": "fallback",
+    "关注引导必需": False,
     "关注引导": [r"(点|加|戳|求|记得|别忘|顺手|不妨)[^。！？!?\n]{0,6}(关注|追更|订阅|收藏)",
              r"(关注|追更|订阅)[^。！？!?\n]{0,10}(不迷路|后续|老六|我)", r"不迷路"],
-    "互动引导": [r"评论区", r"留言", r"(说说|聊聊|告诉|发表|亮出)[^。！？!?\n]{0,4}(你的|你|看法|想法|选择)",
-             r"(你|您|大家|各位)(觉得|怎么看|认为|选|站)", r"(抠|扣)1", r"(站队|来辩|不服来|投票)"],
+    "互动引导": [r"评论区", r"留言",
+             r"(说说|聊聊|告诉|发表|亮出)[^。！？!?\n]{0,4}(你的|你|看法|想法|选择)",
+             r"(你|您|大家|各位)(觉得|怎么看|认为|选|站)", r"换你(当|来|做|上)"],
+    "诱导话术": {
+        "索要关注": [r"(点|加|戳|求|记得|别忘|顺手|不妨)[^。！？!?\n]{0,6}关注",
+                 r"关注[^。！？!?\n]{0,6}(不迷路|我|老六|我们|本号)", r"不迷路"],
+        "互关互粉": [r"(回关|互关|互粉|关注我我就|你关我我关你)"],
+        "诱导互动": [r"(抠|扣)1|扣一|扣个1", r"(站队|来辩|不服来|投个票|投票|打个1)"],
+        "博彩": [r"(赌球|博彩|下注|押注|庄家|盘口|让球盘|滚球|买球|外围盘|赔率盘)"],
+    },
     "判罚": {"分数": 0, "动作": "打回重写",
-             "提示": "成稿必须同时具备「关注引导」与「互动引导」。"},
+             "提示": "正文不要索要关注，也不要用「扣1」「站队」「下注」这类话术。"},
     "兜底模板": {
-        "关注": ["关注老六，这波后续我替你盯着。"],
-        "互动": {"": "你怎么看？评论区聊聊。"},
+        "关注": ["（已停用：索要关注属诱导交互，2026-11-06 起不再自动注入）"],
+        "互动": {"": "你怎么看？"},
     },
 }
 
@@ -126,8 +142,12 @@ def check(content: str, *, bait_field: str = "", cfg: dict | None = None) -> dic
     if not comment and bait_field and len(bait_field) >= 6:
         comment = ["field:interaction_bait"]
 
+    # 2026-11-06：关注引导默认**不再是必须项**（索要关注＝诱导交互 20 分）。
+    # 配置里 `关注引导必需: true` 可回滚到旧口径，代码不用动。
+    follow_required = bool(cfg.get("关注引导必需", False))
+
     missing = []
-    if not follow:
+    if follow_required and not follow:
         missing.append("关注引导")
     if not comment:
         missing.append("互动引导")
@@ -135,12 +155,60 @@ def check(content: str, *, bait_field: str = "", cfg: dict | None = None) -> dic
     ok = not missing
     return {
         "ok": ok, "degraded": False, "missing": missing,
+        "follow_required": follow_required,
         "hits": {"follow": follow, "comment": comment},
         "hint": "" if ok else str(penalty.get("提示") or _FALLBACK["判罚"]["提示"]),
         "penalty_score": int(penalty.get("分数") or 0),
-        "detail": ([f"关注引导 {len(follow)} 处、互动引导 {len(comment)} 处，达标 ✅"] if ok
-                   else [f"缺 {'、'.join(missing)}（成稿未完成粉丝沉淀/评论区运营）",
-                         f"关注引导命中 {len(follow)} 处、互动引导命中 {len(comment)} 处"]),
+        "detail": ([f"互动引导 {len(comment)} 处，达标 ✅"
+                    + (f"；关注引导 {len(follow)} 处" if follow else "")]
+                   if ok else
+                   [f"缺 {'、'.join(missing)}（成稿未给读者留下可回复的入口）",
+                    f"互动引导命中 {len(comment)} 处"]),
+    }
+
+
+def check_inducement(content: str, *, cfg: dict | None = None) -> dict:
+    """判定正文是否出现「诱导交互 / 违规涨粉 / 引导互粉 / 博彩」话术（合规项）。
+
+    这是 2026-11-06 新增的判据，对应信用分扣分表的三条 20 分档与一条 70 分档：
+      诱导交互 20 ｜ 违规涨粉 20 ｜ 引导互粉 20 ｜ 宣扬赌博（违反法律法规 70）
+
+    返回 dict：
+      ok        True = 干净；False = 命中诱导话术（**必须打回重写**）
+      degraded  True = 配置不可用，放行（不阻塞）
+      hits      [{"group": "索要关注", "pattern": "..."}]
+      hint      打回时回灌给 LLM 的指引
+    """
+    content = (content or "").strip()
+    raw = cfg if cfg is not None else load_config()
+    if raw is None:
+        if cfg is None:
+            return {"ok": True, "degraded": True, "hits": [], "hint": "",
+                    "detail": ["配置不可用，本闸门放行"]}
+        raw = {}
+    groups = raw.get("诱导话术") or _FALLBACK["诱导话术"]
+
+    hits: list[dict] = []
+    for name, pats in (groups or {}).items():
+        for pat in _compile(pats or []):
+            if pat.search(content):
+                hits.append({"group": str(name), "pattern": pat.pattern})
+
+    if not content:
+        # 空正文不在这里判（那是 TT-10 格式低质的事），避免两个判据都报空
+        return {"ok": True, "degraded": False, "hits": [], "hint": "",
+                "detail": ["正文为空，不判诱导话术"]}
+
+    if not hits:
+        return {"ok": True, "degraded": False, "hits": [], "hint": "",
+                "detail": ["未命中诱导话术 ✅"]}
+
+    penalty = raw.get("判罚") or _FALLBACK["判罚"]
+    return {
+        "ok": False, "degraded": False, "hits": hits,
+        "hint": str(penalty.get("提示") or _FALLBACK["判罚"]["提示"]),
+        "detail": [f"命中诱导话术 {len(hits)} 处：" +
+                   "、".join(sorted({h["group"] for h in hits}))],
     }
 
 
@@ -196,37 +264,55 @@ def inject(art: dict, *, cfg: dict | None = None) -> dict:
 
 
 def selftest() -> list[tuple[str, bool]]:
-    """冒烟自检：正例必过、缺任一类必拦、事实性用词不误判、降级必放行。"""
+    """冒烟自检：正例必过、缺互动必拦、事实性用词不误判、降级必放行、诱导必拦。"""
     cases: list[tuple[str, bool]] = []
 
-    full = ("这球换你当裁判，吹不吹？评论区告诉我。\n---\n关注老六，这转会窗的瓜我替你盯着。")
-    cases.append(("正例：关注+互动都有 → 达标", check(full)["ok"] is True))
+    full = "这球换你当裁判，吹不吹？评论区告诉我。"
+    cases.append(("正例：提出可讨论的问题 → 达标", check(full)["ok"] is True))
 
-    cases.append(("缺关注引导 → 不达标",
-                  check("这球太离谱了。你怎么看？评论区聊聊。")["ok"] is False))
-    cases.append(("缺互动引导 → 不达标",
-                  check("这场球老六全程没缓过来。点个关注，后续我替你盯着。")["ok"] is False))
-    cases.append(("两类都缺 → 不达标",
-                  check("这是一篇干巴巴的赛报，没有引导。")["ok"] is False))
+    cases.append(("只索要关注、没抛问题 → 不达标",
+                  check("点个关注，明天赛后第一时间来复盘。")["ok"] is False))
+    cases.append(("两类都缺 → 不达标", check("这是一篇干巴巴的赛报，没有引导。")["ok"] is False))
+
+    # 2026-11-06：关注引导不再是必须项（索要关注本身是扣分项）
+    r = check("点个关注，后续我替你盯着。你怎么看？")
+    cases.append(("关注引导非必需：有关注也照样达标", r["ok"] is True))
+    cases.append(("关注引导非必需：没关注也达标",
+                  r["follow_required"] is False
+                  and check("你怎么看？")["ok"] is True))
 
     # 事实性用词不得误判成钩子（「值得关注」不是引导）
     r = check("这笔引援值得关注，事态还在发酵。")
-    cases.append(("「值得关注」不算关注引导", r["ok"] is False and "关注引导" in r["missing"]))
+    cases.append(("「值得关注」不算关注引导", r["ok"] is False and "互动引导" in r["missing"]))
 
     # interaction_bait 字段可补足互动引导证据
     cases.append(("字段 interaction_bait 补足互动引导",
-                  check("点个关注，后续我替你盯着。",
+                  check("就这样。",
                         bait_field="你觉得谁会先换帅？")["ok"] is True))
 
-    # 兜底注入后可达标
+    # 兜底注入后可达标；且**不再注入关注话术**
     art = {"content": "一篇没有任何引导的正文。", "interaction_type": "站队式"}
     out = inject(art)
     cases.append(("兜底注入后达标",
                   out["changed"] is True and check(art["content"])["ok"] is True))
+    cases.append(("兜底不再注入「关注」话术",
+                  "关注" not in art["content"].split("正文。", 1)[-1]))
     cases.append(("已有引导时不重复注入",
                   inject({"content": full, "interaction_type": "站队式"})["changed"] is False))
-    cases.append(("首页已达标不注入（关注在正文）",
-                  inject({"content": "点个关注不迷路。\n评论区见。"})["changed"] is False))
+
+    # ── 诱导话术黑名单（2026-11-06 新增，对应扣分表 20 分档 / 70 分档）──
+    for bad, name in (
+        ("关注老六，这波后续我替你盯着。", "索要关注"),
+        ("关注我，我必回关。", "互关互粉"),
+        ("同意的扣1。", "诱导互动"),
+        ("这单我押注主队。", "博彩"),
+        ("打开盘口看看水位。", "博彩"),
+    ):
+        d = check_inducement(bad)
+        cases.append((f"诱导话术「{name}」必拦", d["ok"] is False))
+    cases.append(("干净正文不误报诱导", check_inducement(full)["ok"] is True))
+    cases.append(("事实性用词不误报诱导",
+                  check_inducement("这笔引援值得关注，事态还在发酵。")["ok"] is True))
 
     # 降级：配置不可用必须放行，绝不阻塞
     _orig = globals()["load_config"]

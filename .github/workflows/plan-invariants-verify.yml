@@ -294,6 +294,23 @@ jobs:
           # 现在：跨批串号、同题不命中缓存、留证被覆盖、周审计不读台账、缺维检不出，一律硬拦。
           python3 scripts/verify_rank_audit_persistence.py --quiet
 
+      - name: 规则覆盖（规则表 ↔ 判据 ↔ 发布门禁 · 2026-11-06）
+        if: always()
+        run: |
+          # 硬项，不加 || echo 软化。它防两种「不会自己报错」的失效：
+          # ① 规则表里的判据名拼错 → verify_compliance 静默判「未判定」，报告看起来像没违规；
+          # ② pre-publish 被慢慢塞回 quality/ops 项 → 生产线抖动就停发，与扣分无关。
+          # 同时用「compliance 项数 ≤ 上限」给审核复杂度设一个可量化的天花板。
+          python3 scripts/verify_rule_coverage.py --quiet
+
+      - name: 合规审核负向自检（16 条判据必须真的在判）
+        if: always()
+        run: |
+          # 硬项。每条 block 级规则都必须能被打红；打不红说明它是恒真的摆设，
+          # 比没有这条规则更糟（它会让人以为「合规审过了」）。
+          # 这里只跑 --selftest（合成样本，不读产物），所以任何机器上都可判定。
+          python3 scripts/verify_compliance.py --selftest
+
       - name: 回写验收报告
         if: always()
         run: |

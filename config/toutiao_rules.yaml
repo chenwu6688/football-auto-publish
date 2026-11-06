@@ -1,0 +1,343 @@
+# 头条号发文规则表（唯一权威 · 2026-11-06 立）
+#
+# ## 为什么要有这份表
+#
+# 2026-11-06 的盘点结论：审核体系有 47 个验收脚本、约 402 个判项、CI 接入率 100%，
+# 但**没有一个地方能回答「我们会不会被扣分」**。判项里混着四种完全不同的东西：
+#   ① 平台扣分风险（会被罚分 / 限流 / 禁言）
+#   ② 平台质量偏好（影响推荐量，不扣分）
+#   ③ 内部增长指标（点击率、涨粉、配比）
+#   ④ 纯工程健康（接线、额度、调度、台账）
+# 四者共用同一套「硬项 / 告警项」语义，于是「审核很复杂」成了错觉：
+# 真正与扣分有关的只有十几条，剩下 90% 与扣分无关。
+#
+# 这份表把 ① 单独抽出来，作为**审核逻辑的唯一依据**：
+#   - 每条规则必须写明 信用分 / 原文条款 / 我方判据 / 拦截档；
+#   - `scripts/verify_rule_coverage.py` 反向校验：≥10 分的规则必须有序号对应判据，
+#     且发布前门禁里不得出现 `scope != compliance` 的项；
+#   - 判据只引用现有模块（`interaction_bait` / `image_relevance` / `title_gate` …），
+#     不在这里重写判定逻辑 —— 否则就是「同一量两处定义」的老毛病。
+#
+# ## 口径来源（2026-11-06 抓取原文）
+#   - 今日头条社区规范        https://baike.toutiao.com/detail/236/238/0
+#   - 信用分机制与扣分细则    https://baike.toutiao.com/detail/236/470/0
+#   - 虚假内容三级梯度公告    https://m.toutiao.com/article/7627071491720380934
+#   - 信用分权益与扣分优化公告 https://m.toutiao.com/article/7620416746134045211
+#   - 首发激励计划            https://baike.toutiao.com/detail/242/566/0
+#
+# ## 未登记的条款（明确不适用，不是漏了）
+#   医疗风险 / 风险投资 / K12 教育 / 司法解读 / 地图不规范 / 抽奖不规范 /
+#   商品卡与电商 / 独家视频违约 / 视频同步抖音 / 饭圈打榜 —— 足球图文稿不产生
+#   这些内容形态。若将来出现（如带商品卡、发视频），必须回来补登记，
+#   `verify_rule_coverage.py` 的 `not_applicable` 段会提醒这件事。
+
+version: 1
+updated: "2026-11-06"
+
+# 拦截档语义（唯一一套，不再另行发明）：
+#   block     命中即不发布（打回重写；重写仍不过则丢该篇，不丢整批）
+#   rewrite   命中先打回重写 1 次，仍不过转 block
+#   warn      只记录，不阻断（用于账号级、非单篇扣分的项）
+#   n/a       当前业务形态不适用
+tiers:
+  block: 命中即拦，不发这一篇
+  rewrite: 先打回重写一次，仍不过转 block
+  warn: 只记录不阻断
+
+# 分值与拦截档的默认对应：≥20 分是重罚（扣一次就没了一半权益），必须拦；
+# 10 分档也扣，但允许「重写 1 次仍不过则记录并交人工」，避免验收器抖动吃掉整批。
+severity_policy:
+  block_at_or_above: 20
+  rewrite_at_or_above: 10
+  record_only_below: 10
+
+rules:
+
+  - id: TT-01
+    name: 违反法律法规和相关政策
+    credit: 70
+    tier: block
+    clause: |
+      侵害他人名誉权、隐私权、知识产权；宣扬赌博；教唆违法；危害未成年人。
+      足球稿的实际触发面：赌球/博彩话术、对球员教练的人身攻击、
+      未经许可使用他人图片（著作权）。
+    checker: compliance_guard + interaction_bait.inducement
+    judge: compliance_and_gambling
+    why_keep: |
+      70 分档，扣一次直接掉出分成门槛。判据分两截：人工熔断状态
+      （compliance_guard.is_suspended）+ 正文博彩话术（下注/庄家/盘口/让球盘）。
+      博彩词必须在正文层面查，标题查不到——而「下注/押注」原先还写在
+      interaction_bait 的**达标模式**里，等于在奖励博彩话术，已删除。
+
+  - id: TT-02
+    name: 发布谣言或不实内容
+    credit: 70
+    tier: block
+    clause: |
+      明显谣言或虚假；疑似谣言（无可信来源、断章取义）；信息有误（与事实不一致）。
+    checker: gate_v2.fact_conflict + rumor_wording
+    judge: fact_conflict + rumor_tier
+    why_keep: |
+      这是全仓唯一「硬拦」的两道生成侧闸门之一（gate_v2.HARD_GATES）。
+      分两截：① 事实矛盾（比分方向写反、进球数与事件不符、编造对阵）——
+      来自 fact_assert，读 metadata 的 `_gate.fact.contradictions`；
+      ② 传闻当官宣（标题用断言语气写未证实消息）——来自 rumor_wording。
+      两者缺一不可：前者管「数据错」，后者管「把猜测说成事实」。
+
+  - id: TT-03
+    name: 旧闻新发 / 旧闻翻炒 / 发布已过时效内容
+    credit: 70
+    tier: block
+    clause: |
+      信用分把时效问题分三档：严重旧闻新发 70、旧闻翻炒 20、发布已过时效内容 10。
+      含「时间不明」（隐去时间让人误以为是新近发生）与「时间词过时」
+      （写「今天」而实际不是今天）。
+    checker: utils.filter_fresh_news + hot_sources 时效闸门 + 成稿时间词
+    judge: freshness
+    why_keep: |
+      这是本账号历史上最容易犯的错（曾把 2018 年的新浪 RSS 当成新闻源）。
+      判据三道：① 素材侧 pubDate 必须 ≤36h（hot_sources 已强制）；
+      ② 成稿正文的绝对时间词不得与发布日冲突；③ 确定性供给的 publish_by 必须晚于当前。
+      素材侧的判据在生成前，成稿侧的判据在生成后 —— 两处都要查，
+      因为「素材是新的」不等于「稿子写的是新的」。
+
+  - id: TT-04
+    name: 标题党（严重 70 / 一般 20 / 轻微 10）
+    credit: 70
+    tier: block
+    clause: |
+      标题夸张（耸人听闻、范围无依据夸大、断言「根治」类）
+      标题将传闻或不实消息描述为确定信息
+      标题与内容原意有偏差（歧义、无中生有、滥用名称）
+      标题不规范（错别字、语病、滥用标点）
+    checker: title_gate + title_antipattern + rumor_wording(标题档)
+    judge: title_gate
+    coverage_gap: |
+      「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。
+      当前只覆盖「夸张耸动」与「传闻写成确定信息」两类，缺口由
+      verify_rule_coverage.py 报出，不假装判过。
+    why_keep: |
+      「标题把传闻描述为确定信息」这一条同时命中 TT-02 与 TT-04，是双罚点。
+      判据只用 title_gate 的**硬违规**部分（score_title_plan 的零分项），
+      不用「及格线 60 分」——及格线是提点击率的质量分（见 QT-01），
+      不达标不等于违规。红线与质量分必须分开，这是本次精简的核心一条。
+
+  - id: TT-05
+    name: 内容中关键信息与事实不符
+    credit: 20
+    tier: block
+    clause: |
+      正文与事实不一致：比分、进球数、对阵、球员归属写错。
+    checker: validate_article_vs_match_data + fact_assert
+    judge: fact_conflict
+    why_keep: |
+      与 TT-02 共用 `_gate.fact` 一份数据，不另立判据 —— 同一条事实
+      不能有两套判定（11-04 规则相斥事故的教训）。分开登记是因为
+      **平台分开扣分**：谣言是 70 分档（主观编造），关键信息不符是 20 分档
+      （客观写错）。同一份证据、两种罚则，靠 `contradictions` 的语义区分。
+
+  - id: TT-06
+    name: 抄袭侵权（洗稿 / 搬运 / 整合汇编）
+    credit: 20
+    tier: rewrite
+    clause: |
+      未经授权使用他人享有著作权的内容，包括以洗稿、复制拼凑等方式重新整合，
+      在表达上与在先作品存在实质性相同或近似；
+      以及「内容为罗列常识、拼接要点等整合汇编」（首发计划对「非原创」的定义）。
+    checker: orchestrator.check_similarity_gate + check_information_increment
+    judge: plagiarism
+    why_keep: |
+      **本次唯一被上调的判据**。2026-11-05 把反洗稿从硬拦降为「只记分」，
+      理由写的是「只影响增量（有没有人看），不伤存量（信不信）」——
+      这个理由在平台规则面前不成立：洗稿对应的是「抄袭侵权」，
+      属于社区规范「平台不允许」，且首发计划明列「非原创非首发每篇扣 5 分」。
+      它不是质量分，是合规项。
+      调整方式：轻度相似仍只记分（避免误杀改写稿），
+      **重度（连续重合 >200 字 或 5-gram 重合率 >50%）必须拦**。
+      阈值取在告警线之上，不会因为「正常改写」触发。
+
+  - id: TT-07
+    name: 诱导交互
+    credit: 20
+    tier: block
+    clause: |
+      以利益或奖励诱导用户点赞、评论、转发、关注（「扣1」「站队」「投票」
+      「不转不是中国人」类）。平台未处罚「抛出可讨论的问题」本身。
+    checker: interaction_bait.inducement（2026-11-06 新增）
+    judge: inducement
+    why_keep: |
+      **原体系里方向相反的一条**：interaction_bait 要求每篇必须含「关注引导 +
+      互动引导」，不达标打回重写、最后由保存侧模板注入（实测 11-06 有稿
+      `interaction_bait_source=template_fallback`）。也就是说，
+      **为了让稿子涨粉，系统在主动注入平台明列扣分的话术**。
+      修正后：① 「抛出问题」保留（平台不罚，且确实有助互动）；
+      ② 「索要关注 / 扣1 / 站队 / 投票 / 下注」判违规并拦；
+      ③ 不再要求必须有「关注引导」，也不再兜底注入关注话术。
+
+  - id: TT-08
+    name: 违规涨粉 / 引导互粉
+    credit: 20
+    tier: block
+    clause: |
+      以承诺回关、回粉为前提引导关注；用非正常手段涨粉。
+    checker: interaction_bait.inducement
+    judge: inducement
+    why_keep: |
+      与 TT-07 共用判据（都是「索要关注/互关」话术），分开登记是因为
+      罚则不同、且「回关/互粉」是明确的话术特征（`关注我我就关注你`）。
+      这一条也解释了为什么「关注引导」不能作为达标要求：
+      它是扣分项，不是加分项。
+
+  - id: TT-09
+    name: 图文不符 / 相关性差
+    credit: 10
+    tier: block
+    clause: |
+      封面或配图与内容主体完全不相关；图文明显不相关、带不良图片蹭流量。
+    checker: image_relevance + data_chart.entity_hits
+    judge: image_relevance
+    why_keep: |
+      全仓唯一做到「绘图侧与验收侧共用同一个实体判定」的地方
+      （`data_chart.entity_hits`），也是 11-05 事故的直接教训：
+      图上印了正文没提的球队（「拉格斯拉维亚」）比没图更伤。
+      判据：每张数据图的 anchor 实体必须全部在正文出现，且数字必须命中正文。
+      注意本条**不管图片数量**——「每篇 ≥3 张」是用户偏好（QT-02），不是平台要求。
+
+  - id: TT-10
+    name: 格式低质
+    credit: 10
+    tier: rewrite
+    clause: |
+      排版混乱（无段落、无标点）；语意不明（病句、错别字多、乱码符号）；
+      逻辑混乱（内容拼凑或重复，前后无衔接）。
+    checker: 正文结构判据（2026-11-06 新增）
+    judge: structure
+    why_keep: |
+      **原体系完全缺失的一条**。47 个验收脚本里没有一个看「正文本身能不能读」：
+      `content_stats` 记了 paragraphs / headings，但从没有判过阈值。
+      实测 11-06 有一篇 `paragraphs=12` 正常，但历史上存在「一句话成稿」
+      （配图版式自检里专门有「正文仅一句」这个极端样本，说明它真实发生过）。
+      判据只查三件确定性的事：段落数、乱码/控制字符、相邻重复段。
+
+  - id: TT-11
+    name: 失实表述（含 AI 生成未标识）
+    credit: 10
+    tier: block
+    clause: |
+      涉及细节夸大或主观臆测；把未经证实的小道消息当定论；
+      **使用 AI 生成的内容但未向用户明示**；配图与正文描述不完全匹配。
+    checker: append_ai_annotation + image anchor 数字命中
+    judge: ai_annotation
+    why_keep: |
+      平台 2025 治理白皮书明确：低质 AIGC 是全年治理重点，账号级处置
+      （流量打压、禁言、封号），且「AI 生成未标识」明列在失实表述 10 分档里。
+      我们全流程是 AI 改写，不标识就是稳定违规。判据：每篇正文必须含
+      平台可识别的 AI 标注句（由 `append_ai_annotation` 统一生成，不许各写一套）。
+
+  - id: TT-12
+    name: 违规声明头条首发
+    credit: 5
+    tier: n/a
+    clause: |
+      单篇声明首发须原创且 72 小时内仅在头条发布；非原创非首发每篇扣 5 分，
+      30 天内上限 50 分。
+    checker: 无（当前未加入首发激励计划）
+    judge: first_publish
+    why_keep: |
+      当前流水线**没有**声明首发（不勾选「头条首发」），所以本条 n/a。
+      保留登记是防将来打开：一旦开通，就必须加「72 小时内不向其他平台分发」
+      的检查，而那是流水线外的人工动作，靠这条提醒。
+      若将来接了其他平台分发（公众号/百家号），本条必须从 n/a 改为 block。
+
+  - id: TT-13
+    name: 无资质发布专业领域内容
+    credit: 70
+    tier: block
+    clause: |
+      未取得互联网新闻信息服务许可，不得发布时政类新闻信息（政治/经济/军事/外交）；
+      财经、健康、司法、教育需专业资质。
+    checker: 题材边界判据
+    judge: topic_boundary
+    why_keep: |
+      足球稿的天然风险是「蹭时政」：写球员涉政言论、写足协与体育总局政策、
+      写俱乐部背后的资本运作。这些一旦展开就是无资质发布时政/财经内容。
+      判据是**负面词表**（时政/政策/资本运作/股价），命中即拦并交人工，
+      而不是靠提示词说「不要写」——写进提示词的东西没有校验就等于没写。
+
+  - id: TT-14
+    name: 低质 AIGC（账号级处置）
+    credit: 0
+    tier: warn
+    clause: |
+      平台按「账号」处置而非按单篇扣分：聚类发文监控 + 用户负评 → 流量打压、
+      禁言、封号。特征是模板化、机械拼接、行文瑕疵。
+    checker: 模板化程度 + 相邻篇重复度
+    judge: low_quality_aigc
+    why_keep: |
+      这是**唯一一条没有分值但风险最高的**：单篇不扣分，账号会被限流甚至禁言。
+      判据只做一件事：统计窗口内成稿的「结尾话术重复率」与「相邻篇句子重合度」。
+      之所以只 warn：它的阈值没有平台公开标准，拿单一数字硬拦会误杀正常稿；
+      但必须被看见——所以进每日体检，不进发布门禁。
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 明确「不属于合规审核」的东西（本次精简的依据）
+#
+# 下面五类判据原本和上面 14 条混在同一套「硬项/告警项」语义里，
+# 是「审核很复杂」的主要来源。它们的共同点是：**做了也不会少扣一分，
+# 不做也不会多扣一分**。因此移出发布门禁，各自归位（详见 audit_tiers.yaml 的 scope）。
+# ─────────────────────────────────────────────────────────────────────────────
+out_of_scope:
+
+  - scope: quality
+    what: 平台「不鼓励」但无单篇扣分，只影响推荐量的项
+    items:
+      - 标题三要素覆盖率 / 及格线 60 分（title_elements / title_gate 的评分部分）
+      - 标题正负向加减分（title_positive）
+      - 标题句式多样性（title_templates，同句式 14 天 ≤2 篇）
+      - 标题锚点覆盖率（title_anchor，长期 33.3% < 40%）
+      - 每篇 ≥3 张配图（article_images，用户 11-05 指令）
+      - 封面覆盖率（cover_coverage）
+      - 正文事实卡五维量表 / 认知度分级（fact_layer / awareness_gate）
+    why: |
+      这些是「做得更好」的规则，平台不会因此扣分。它们曾经被当成硬门禁，
+      代价很直接：article_images 从 advisory 升为 hard 之后，
+      任何一次图源抖动都能让整批不发；title_anchor 长期红 33.3% vs 40%，
+      因为一条永远达不到的阈值，验收器本身失去了信号价值。
+      保留为「质量分」，记录趋势，不阻断。
+
+  - scope: ops
+    what: 生产线自身的健康度（发出去没有、什么时候发、篇数、台账）
+    items:
+      - publish_success / publish_states / publish_schedule / check_slot
+      - batch_quota / supply_mix / batch_mix / content_mix
+      - llm_quota / api_budget / scraper_diagnostics
+    why: |
+      这些决定「今天有没有稿子发」，不决定「发出去会不会被扣分」。
+      把它们和合规项混在 `pre-publish` 里，会造成一个具体后果：
+      **生产线抖一下（额度/调度/网络）就停发，而停发与合规毫无关系**。
+      归入 ops 后仍然每天告警，只是不再阻断发布。
+      注意 batch_quota 的反面——「批量发布重复低质内容」确实是平台
+      流量作弊条款，但它由 TT-14 覆盖（重复度判据），不是由篇数覆盖。
+
+  - scope: growth
+    what: 增长指标（点击率、涨粉、内容类型配比、差异化方向）
+    items:
+      - effect_loop / growth_loop / performance_import / perf_ingest
+      - topic_category / topic_funnel / differentiation / content_mix
+    why: |
+      纯效果度量。它们曾经驱动出一条与合规**方向相反**的规则
+      （interaction_bait 强制索要关注），这是本次最该记住的教训：
+      增长指标一旦变成硬门禁，就会去踩平台的扣分项。
+
+  - scope: dev
+    what: 工程自检（接线、常量自洽、信号排序、元验收）
+    items:
+      - ranker_signals / signal_saturation / rank_audit_persistence / redfox_pilot
+      - source_roster / season_calendar / event_result / event_cluster
+      - hot_freshness / content_reference / rumor_wording 的「接线」部分
+      - audit_health / test_gate / tuning_discipline（元层）
+    why: |
+      「代码接没接对」在改代码时才变，每天重跑是浪费。
+      它们的正确位置是单测与 code-change 触发器，不是发布门禁。
+      唯一例外：rumor_wording 的**成稿判定**属于 TT-02/TT-04，已登记在规则里；
+      这里指的是它的「配置是否被读到」这类接线检查。

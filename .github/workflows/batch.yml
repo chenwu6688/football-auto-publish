@@ -420,27 +420,17 @@ jobs:
           python3 scripts/verify_differentiation.py --quiet \
             || echo "::warning::差异化方向未达 13.5 验收标准，详见 data/audit/differentiation_latest.json"
 
-      - name: 配图下限验收（每篇 ≥ 3 张 · 硬条件，失败即阻断）
+      - name: 配图下限验收（每篇 ≥ 3 张 · 质量项，只告警）
         if: steps.params.outputs.skip != 'true' && !cancelled()
         run: |
-          # 用户 2026-11-05 把「每篇至少 3 张图」定为**硬条件**，所以这里不能再用
-          # `|| echo "::warning::"` 软化——那会让硬项永远绿，正是元验收要抓的
-          # 「有验收的假象」。
-          #
-          # 为什么现在可以阻断：下限不再依赖外部图源。7 种版式 × 4 套配色的信息图
-          # 全部由本文标题与正文派生，连「正文只有一句话」的稿子都能补满 3 张
-          # （verify 里有三类极端稿的实测）。这时失败只意味着一件事——系统没有能画
-          # 汉字的中文字体（那就是 11-05 封面全方框的同款事故），必须立刻知道。
-          #
-          # rc=1 → 真失败，阻断；rc=2 → 窗口内没有本改动之后的批次，未判定，只告警。
-          rc=0
-          python3 scripts/verify_article_images.py --quiet || rc=$?
-          if [ "$rc" -eq 1 ]; then
-            echo "::error::配图下限未达每篇 3 张，详见 data/audit/article_images_latest.json"
-            exit 1
-          elif [ "$rc" -eq 2 ]; then
-            echo "::warning::配图下限未判定（窗口内没有对齐生效日的批次产物）"
-          fi
+          # 2026-11-06 降级为 quality（见 config/audit_tiers.yaml）。
+          # 平台规则里没有「每篇几张图」这一条；与之相关的扣分项是「图文不符/
+          # 相关性差 10 分」，由下一步 image_relevance 判定。张数本身是用户偏好，
+          # 拿它阻断发布，本质上是让配图数量决定今天有没有稿子发——
+          # 而 11-05 的真实教训恰恰是「图源抖动 → 整批 0 篇」，与扣分无关。
+          # 数量仍然每天在 data/audit/article_images_latest.json 留痕。
+          python3 scripts/verify_article_images.py --quiet \
+            || echo "::warning::配图张数未达每篇 3 张（质量项，不阻断发布），详见 data/audit/article_images_latest.json"
 
       - name: 配图相关性验收（数据图 + 闸门 · 硬项，失败即阻断）
         if: steps.params.outputs.skip != 'true' && !cancelled()
@@ -580,6 +570,29 @@ jobs:
             echo "::error::生成阶段已触发合规熔断——本批发布中止（宁停勿错）。请人工定位原因后运行 python3 compliance_guard.py --clear 解除，再手动补发本批次。"
             exit 1
           fi
+
+      - name: 合规审核（头条发文规则 · 命中 block 级违规即停发本批）
+        id: compliance
+        if: steps.params.outputs.skip != 'true'
+        run: |
+          # 2026-11-06 立：这是「会不会被头条扣分」的唯一入口，读 config/toutiao_rules.yaml
+          # 逐条判定（14 条规则 / 12 条可用判据），输出命中规则与潜在扣分合计。
+          # 放在发布前、生成后：此刻成稿 md 还在本 runner 上，正文类判据才判得动。
+          #
+          # 先用 --selftest 证明判据真的在判（16 条负向用例）。
+          # 再跑 --fail-on-block-only：**只有真的命中 block 级违规才停发**。
+          # 「未判定」（正文读不到/证据缺失）不拦发布——11-06 noon 那次 0 篇，
+          # 根因正是把「读不到证据」当成了「不通过」。未判定由每日层裸 rc=2 暴露。
+          python3 scripts/verify_compliance.py --selftest \
+            || echo "::warning::合规负向自检失败——判据可能已失去检出能力"
+          rc=0
+          python3 scripts/verify_compliance.py --days 1 --fail-on-block-only --quiet || rc=$?
+          if [ "$rc" -eq 1 ]; then
+            python3 scripts/write_failure_reason.py "成稿命中头条扣分规则" || true
+            echo "::error::合规审核未通过（命中 block 级违规），详见 data/audit/compliance_latest.json——本批停发，宁停勿错"
+            exit 1
+          fi
+          echo "✅ 合规审核通过（无 block 级违规）"
 
       - name: 发布到头条号
         id: publish

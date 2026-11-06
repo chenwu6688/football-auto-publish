@@ -103,12 +103,19 @@ def check_orchestrator_wiring() -> dict:
                 "detail": [f"❌ 无法载入 orchestrator：{e}"]}
     problems = []
     # 1) 判定同源：包装函数必须走 interaction_bait.check
+    # 2026-11-06：达标口径变了——只要求「互动引导」（抛出可讨论的问题），
+    # 「关注引导」不再是必需项（索要关注＝诱导交互 20 分，见 toutiao_rules TT-07）。
     art = {"content": "干巴巴的赛报，没有引导。", "interaction_bait": ""}
     r = orchestrator.check_interaction_bait(art)
-    if r["ok"] or "关注引导" not in r.get("missing", []):
+    if r["ok"] or "互动引导" not in r.get("missing", []):
         problems.append("check_interaction_bait 未走同一判定（正例未被拦）")
     if not orchestrator.check_interaction_bait({"content": _FULL})["ok"]:
         problems.append("check_interaction_bait 对达标稿误判")
+    if r.get("follow_required") is not False:
+        problems.append("关注引导又变成必须项了（那是诱导交互，扣 20 分）")
+    # 1b) 诱导话术必须是独立硬闸门（2026-11-06 新增），且与上面那道方向相反
+    if not orchestrator.check_inducement({"content": "关注老六，后续我替你盯着。"}).get("ok") is False:
+        problems.append("check_inducement 未拦住索要关注话术")
     # 2) 两条生成链路都必须有打回接线 + 保存侧必须有兜底注入接线
     src = (PROJECT_ROOT / "orchestrator.py").read_text(encoding="utf-8")
     need = {
@@ -116,17 +123,22 @@ def check_orchestrator_wiring() -> dict:
         "生成侧打回（确定性供给）": "确定性供给互动引导未达标",
         "保存侧兜底注入": "interaction_bait.inject(",
         "打回 hint": "_bait_retry_hint(",
+        "诱导话术硬闸门": "check_inducement(art)",
     }
     for label, marker in need.items():
         if marker not in src:
             problems.append(f"缺 {label} 接线（未见 `{marker}`）")
-    # 3) 兜底注入必须真的把 interaction_bait 字段写进正文（此前被静默跳过）
+    # 3) 兜底注入：字段已提供互动证据时不该重复注入；独立正文才注入互动引导
     art2 = {"content": "正文主体。", "interaction_bait": "你觉得这波谁最亏？",
             "interaction_type": "共鸣式"}
     out = ib.inject(art2)
-    if not out["changed"] or not ib.check(art2["content"],
-                                          bait_field=art2["interaction_bait"])["ok"]:
-        problems.append("保存侧兜底注入未把 interaction_bait 落到正文并达标")
+    if out["changed"] or not ib.check(art2["content"],
+                                      bait_field=art2["interaction_bait"])["ok"]:
+        problems.append("字段已提供互动证据时仍重复注入（或复核不达标）")
+    art3 = {"content": "正文主体。", "interaction_type": "站队式"}
+    out3 = ib.inject(art3)
+    if not out3["changed"] or "关注" in art3["content"]:
+        problems.append("兜底注入异常（应只补互动引导，绝不注入关注话术）")
     return {"item": "生成侧接入（打回 + 保存侧兜底）", "ok": not problems, "advisory": False,
             "detail": ([f"❌ {'；'.join(problems)}"] if problems
                        else ["check_interaction_bait 判定同源 ✅",
