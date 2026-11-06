@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06 15:40",
+  "generated_at": "2026-11-06 18:15",
   "snapshot_at": "2026-11-03 10:29:34",
   "models": 20,
   "rotation": 19,
@@ -10,9 +10,9 @@
       "ok": true,
       "detail": [
         "✅ 19 个在用模型：total 不低于后台推算值、剩余%与到期时间一致；1 个停用模型已标 disabled",
-        "  · deepseek/deepseek-flash: 账本 734,310 > 快照推算 577,000（校准后又消耗了 157,310，正常）",
-        "  · deepseek-v4-flash-0731: 账本 728,767 > 快照推算 579,000（校准后又消耗了 149,767，正常）",
-        "  · deepseek/deepseek-v4-flash-vision-exp: 账本 729,037 > 快照推算 589,000（校准后又消耗了 140,037，正常）"
+        "  · deepseek/deepseek-flash: 账本 738,960 > 快照推算 577,000（校准后又消耗了 161,960，正常）",
+        "  · deepseek-v4-flash-0731: 账本 743,584 > 快照推算 579,000（校准后又消耗了 164,584，正常）",
+        "  · deepseek/deepseek-v4-flash-vision-exp: 账本 740,152 > 快照推算 589,000（校准后又消耗了 151,152，正常）"
       ]
     },
     {
