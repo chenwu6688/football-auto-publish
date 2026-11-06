@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T00:04:31.846234",
-  "total_articles": 2,
+  "generated_at": "2026-11-06T04:04:27.276853",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -232,97 +232,329 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "压着那不勒斯，队长憋的那口气比榜首还沉",
+      "path": "/home/runner/work/_temp/output/2026-11-06/article-1-压着那不勒斯队长-8f2277.md",
+      "slug": "压着那不勒斯队长-8f2277",
+      "tags": [
+        "Napoli",
+        "Lazio",
+        "Serie A",
+        "tactics",
+        "captain"
+      ],
+      "keywords": [
+        "Napoli",
+        "Lazio",
+        "Serie A",
+        "tactics",
+        "captain"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "未分类",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "落差",
+          "比较级",
+          "序位"
+        ],
+        "proper_nouns": [
+          "那不勒斯"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 67,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1373,
+        "han_len": 952,
+        "paragraphs": 16,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 19,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "interaction_bait_source": "template_fallback"
+    },
+    {
+      "index": 2,
+      "title": "郑龙接过青岛海牛教鞭，里斯蒂奇带着6胜3平20负下课了",
+      "path": "/home/runner/work/_temp/output/2026-11-06/article-2-郑龙接过青岛海牛-bad2c4.md",
+      "slug": "郑龙接过青岛海牛-bad2c4",
+      "tags": [
+        "Qingdao Hainiu",
+        "Zheng Long",
+        "Milance Ristic",
+        "relegation",
+        "CSL"
+      ],
+      "keywords": [
+        "Qingdao Hainiu",
+        "Zheng Long",
+        "Milance Ristic",
+        "relegation",
+        "CSL"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-06/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "郑龙临时接手降级队海牛，从球员到救火教练只隔一个官宣",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 74,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物",
+          "R11数据:标题 27 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "转会官宣",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量",
+          "战绩"
+        ],
+        "contrasts": [
+          "战绩对照"
+        ],
+        "proper_nouns": [
+          "青岛"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 74,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物"
+        ]
+      },
+      "content_stats": {
+        "chars": 853,
+        "han_len": 569,
+        "paragraphs": 10,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "阿尔特塔再吃1张黄牌就停赛，场边那个最激动的人先被罚上看台",
-      "angle": "晚旗报曝阿尔特塔再吃1张黄牌就将错过下轮联赛，主帅情绪管理成了阿森纳的隐形风险——场边指挥的火气，有时候比场上一次犯规更贵。",
+      "title": "郑龙临时接手降级队海牛，从球员到救火教练只隔一个官宣",
+      "angle": "里斯蒂奇带队降级下课，郑龙临时代理。角度不写海牛降级本身，而写郑龙这个人：当年边路快马，如今在球队最烂的时刻被推上台，这是名宿沉浮的典型样本。",
       "keywords": [
-        "Arteta",
-        "Arsenal",
-        "yellow card",
-        "touchline ban"
+        "zheng long",
+        "qingdao hainiu",
+        "relegation",
+        "interim coach"
       ],
       "keywords_cn": [
-        "阿尔特塔",
-        "阿森纳",
-        "黄牌停赛",
-        "场边指挥"
+        "郑龙",
+        "青岛海牛",
+        "降级",
+        "代理主帅"
       ],
       "content_type": "热点球评",
-      "score": 80,
+      "score": 84,
       "controversy_level": "medium",
-      "target_emotion": "好奇",
+      "target_emotion": "感动",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "主帅停赛风险是少见的人的角度",
-      "_category": "未分类",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六站队（亮明态度+核心论据）→ 邀请读者站队。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末明确说'评论区站队——支持XX的扣1，反对的扣2，我先来：我站[1/2]，因为...'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的站队并说明理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-3"
-    },
-    {
-      "title": "多纳鲁马的技术瑕疵被摆上台面，曼城这笔门将账该重新算了",
-      "angle": "邮报点名多纳鲁马根本性技术瑕疵开始显现，曼城不得不重新审视他——门将这个位置最不讲情面，一次出球失误就能推翻整季信任，聊聊顶级门将的容错底线。",
-      "keywords": [
-        "Donnarumma",
-        "Manchester City",
-        "goalkeeper",
-        "technical flaws"
-      ],
-      "keywords_cn": [
-        "多纳鲁马",
-        "曼城",
-        "门将",
-        "技术瑕疵"
-      ],
-      "content_type": "战术解析",
-      "score": 82,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "门将技术瑕疵是稀缺战术切口",
-      "_category": "未分类",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "球员转型救火教练，人物弧光有阅历感",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末放一个关于文中某条消息的预测性投票（比如'你觉得XX这笔转会能成吗？'），选项A/B，自己先给判断。",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-2"
     },
     {
-      "title": "领跑，那不勒斯这一关，队长憋的劲该往哪使",
+      "title": "梅西41岁要回纽维尔老男孩，1月就加盟，这趟回家路你信几分",
+      "angle": "梅西回归母队纽维尔老男孩的传闻，从竞技角度几乎不成立，但从情感角度是每个老球迷的终极浪漫——落叶归根。明确态度：这更像一份情怀合同，别用冠军标准去衡量它。",
+      "keywords": [
+        "messi",
+        "newell's old boys",
+        "return",
+        "homecoming"
+      ],
+      "keywords_cn": [
+        "梅西",
+        "纽维尔老男孩",
+        "回归",
+        "落叶归根"
+      ],
+      "content_type": "转会资讯",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "世界杯经典时刻",
+      "series_id": "wc-classics",
+      "why_pick": "梅西回家戳中老球迷情怀，信息增量足",
+      "_category": "转会官宣",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末放一个投票：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "压着那不勒斯，队长憋的那口气比榜首还沉",
       "content_type": "战术榜单",
       "_is_fixture": true
     }
@@ -373,21 +605,15 @@
       "数量": 1
     },
     {
-      "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（19 < 60）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
-      "数量": 1
-    },
-    {
-      "环节": "标题三要素",
-      "原因": "缺可用数字/专名，拼不出兜底标题",
-      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 2 张",
-      "处置": "用 1 张原创信息图补到 3 张",
+      "原因": "真实图源只拿到 0 张",
+      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     },
     {
@@ -395,11 +621,23 @@
       "原因": "缺 关注引导",
       "处置": "保存侧模板兜底注入",
       "数量": 1
+    },
+    {
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 0 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -411,7 +649,7 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batch_mix": {
     "slots": [
       "main",
@@ -421,34 +659,34 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "阿尔特塔再吃1张黄牌就停赛，场边那个最激动的人先被罚上看"
+        "title": "郑龙临时接手降级队海牛，从球员到救火教练只隔一个官宣"
       },
       {
-        "slot": "data",
-        "type": "战术榜单",
-        "title": "多纳鲁马的技术瑕疵被摆上台面，曼城这笔门将账该重新算了"
+        "slot": "extra",
+        "type": "转会资讯",
+        "title": "梅西41岁要回纽维尔老男孩，1月就加盟，这趟回家路你信几"
       }
     ],
     "degraded": [
-      "data 槽无 ('数据对比', '排行榜') 候选，用战术榜单补位"
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
     "skipped": [
       {
         "type": "转会资讯",
-        "title": "曼联高层私下认了引援不力，冬窗补后卫前锋这话球迷听过几回"
-      },
-      {
-        "type": "八卦趣事",
-        "title": "6辆警车围堵一名英超后卫，纽卡这位到底带了什么出门"
+        "title": "皇马锁定JJ，罗马诺都说快了，各豪门被告知他只想去伯纳乌"
       }
     ],
-    "day_counts": {},
+    "day_counts": {
+      "战术榜单": 1,
+      "热点球评": 1
+    },
     "selected": 2,
     "requested": 2
   },
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-06 08:04:31"
+  "last_batch": "noon",
+  "last_updated": "2026-11-06 12:04:27"
 }
