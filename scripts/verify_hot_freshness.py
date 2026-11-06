@@ -102,6 +102,13 @@ def _check_module() -> dict:
         detail.append("热点插在 ranker 之前 —— 会被按「信号强度」重排回队尾，等于没接")
     else:
         detail.append("插入点在 ranker 之后（不会被重排掉）")
+    # 正文补抓：news_articles 懒加载（正文为空），而 _find_source_article 要求 ≥100 字。
+    # 不补正文 → 热点稿被源文章预检跳过 → 白占一个 slot，产量反而不如不加热点。
+    if "_attach_hot_source_text(" not in orch:
+        ok = False
+        detail.append("未补热点报道正文 —— news_articles 懒加载，热点稿会被预检跳过并白占槽位")
+    else:
+        detail.append("热点报道正文按需补抓（抓不到则丢弃，不占槽位）")
     return _ok("A 热点通道在位", ok, detail)
 
 

@@ -219,3 +219,59 @@ def test_write_ledger_does_not_raise_on_bad_path(tmp_path):
 if __name__ == "__main__":
     import subprocess
     raise SystemExit(subprocess.call([sys.executable, "-m", "pytest", __file__, "-q"]))
+
+
+# ---------------------------------------------------------------- 正文补抓（接线）
+
+def _card(url="https://news.zhibo8.com/zuqiu/a.htm", title="C罗宣布退出葡萄牙国家队"):
+    return {"title": "C罗退出国家队", "_hot_support_raw": [{"title": title, "url": url}]}
+
+
+def test_attach_source_text_failure_returns_empty(monkeypatch):
+    """抓不到正文 → 不返回 card。
+
+    这是关键的一步：news_articles 是懒加载（正文为空串），而
+    `_find_source_article` 要求正文 ≥100 字。若抓不到正文还把热点塞进
+    topics，它会占掉 batch_mix 已分配好的槽位、再被预检跳过 ——
+    结果比不加热点还少一篇。
+    """
+    import media_scraper
+    import orchestrator
+
+    monkeypatch.setattr(media_scraper.SportsScraper, "scrape_zhibo8_article_content",
+                        lambda self, url: None)
+    md = {"news_articles": []}
+    assert orchestrator._attach_hot_source_text(md, [_card()]) == []
+    assert md["news_articles"] == []          # 没有凭空插入半条记录
+
+
+def test_attach_source_text_success_writes_back(monkeypatch):
+    """抓得到正文 → 写回 news_articles，并返回可用 card。"""
+    import media_scraper
+    import orchestrator
+
+    body = "C罗在新闻发布会上宣布退出葡萄牙国家队，结束二十年国脚生涯。" * 3
+    monkeypatch.setattr(media_scraper.SportsScraper, "scrape_zhibo8_article_content",
+                        lambda self, url: body)
+    md = {"news_articles": [{"title": "C罗宣布退出葡萄牙国家队", "url": "x",
+                             "article_text": ""}]}
+    ready = orchestrator._attach_hot_source_text(md, [_card()])
+    assert len(ready) == 1
+    # 已在 news_articles 里 → 补正文而不是重复插入
+    assert len(md["news_articles"]) == 1
+    assert md["news_articles"][0]["article_text"] == body
+
+
+def test_attach_source_text_inserts_when_absent(monkeypatch):
+    """源文章不在 news_articles 里 → 插一条带正文的记录（供 _find_source_article 用）。"""
+    import media_scraper
+    import orchestrator
+
+    body = "C罗宣布退出国家队，葡萄牙足协发文致谢。" * 5
+    monkeypatch.setattr(media_scraper.SportsScraper, "scrape_zhibo8_article_content",
+                        lambda self, url: body)
+    md = {"news_articles": []}
+    ready = orchestrator._attach_hot_source_text(md, [_card()])
+    assert len(ready) == 1
+    assert md["news_articles"][0]["article_text"] == body
+    assert md["news_articles"][0]["_hot_support"] is True

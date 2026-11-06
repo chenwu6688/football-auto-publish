@@ -3184,10 +3184,67 @@ def _hot_topic_cards(date_str, match_data, covered, limit=1):
             "_hot_source": c.get("source"),
             "_hot_channel": channel,
             "_hot_support": [str(s.get("title") or "") for s in (c.get("support") or [])],
+            # 完整支撑报道（含 url）：_attach_hot_source_text 要靠它按需抓正文。
+            # 只留标题的话抓不了正文，热点稿会在源文章预检里被跳过。
+            "_hot_support_raw": [s for s in (c.get("support") or []) if isinstance(s, dict)],
         })
         print(f"   🔥 热点候选：{head}（{c.get('source')} 第 {c.get('rank')} 位，"
               f"支撑报道 {len(c.get('support') or [])} 篇）")
     return cards
+
+
+def _attach_hot_source_text(match_data, cards):
+    """给热点候选的支撑报道补正文（原地写回 ``match_data["news_articles"]``）。
+
+    ## 为什么必须补
+
+    ``news_articles`` 是**懒加载**的：``scrape_football_news`` 只返回标题/URL，
+    ``article_text`` 是空串。而 ``_find_source_article`` 对新闻条目的要求是
+    ``len(article_text) >= 100``。
+
+    于是不补正文时，热点稿会在 ``_has_source_for_topic`` 预检里被判
+    「未找到匹配的源文章」直接跳过 —— **不仅少一篇，还白占一个槽位**
+    （batch_mix 已经按 2 篇分配好了）。这比不加热点更糟，所以必须在这里补齐。
+
+    只抓第一篇支撑报道：抓多篇既慢又没必要，热点稿只需要一个事实底本。
+
+    返回**补成功的 card 列表**（不是计数）：抓不到正文的热点不能塞进 topics ——
+    那会让它占掉一个槽位再被预检跳过，结果比不加热点还少一篇。
+    """
+    news = match_data.get("news_articles")
+    if not isinstance(news, list):
+        return []
+    ready = []
+    for card in cards:
+        support = card.get("_hot_support_raw") or []
+        for s in support:
+            url = str(s.get("url") or "")
+            title = str(s.get("title") or "")
+            if not url or not title:
+                continue
+            # 已经在 news_articles 里（LLM 选题时就见过）→ 直接补正文，不重复插入
+            target = next((n for n in news
+                           if isinstance(n, dict) and n.get("title") == title), None)
+            try:
+                from media_scraper import SportsScraper
+                text = SportsScraper().scrape_zhibo8_article_content(url)
+            except Exception as e:
+                print(f"   ⚠️ 热点报道正文抓取失败（该热点本批不用）: {e}")
+                text = None
+            if not text:
+                continue
+            if target is None:
+                target = {"title": title, "url": url, "source": "zhibo8"}
+                news.append(target)
+            target["article_text"] = text
+            target["_hot_support"] = True
+            ready.append(card)
+            print(f"   📄 热点报道正文已补：{title[:32]}（{len(text)} 字）")
+            break                    # 一条正文够用来改写，别多抓
+        else:
+            print(f"   ℹ️ 热点「{str(card.get('title') or '')[:20]}」抓不到正文，"
+                  f"本批不用（不占槽位，不编）")
+    return ready
 
 
 def _rank_topics(topics, match_data, date_str, *, use_llm=True):
@@ -5948,14 +6005,21 @@ def main():
                 _dup = {str(t.get("title") or "")[:12] for t in topics}
                 _hot_new = [c for c in _hot_cards if str(c.get("title") or "")[:12] not in _dup]
                 if _hot_new:
-                    topics = _hot_new + topics
-                    extra_meta["hot_topics"] = [
-                        {"title": c["title"], "rank": c.get("_hot_rank"),
-                         "source": c.get("_hot_source"), "channel": c.get("_hot_channel"),
-                         "event_key": c.get("_hot_event_key")}
-                        for c in _hot_new]
-                    print(f"   🔥 热点已置顶 {len(_hot_new)} 条（占用本批槽位，"
-                          f"上限 {HOT_TOPIC_PER_BATCH} 篇）")
+                    # 补正文必须**在生成之前**：news_articles 懒加载，正文为空时
+                    # 热点稿会被源文章预检跳过，白占一个槽位（详见函数注释）。
+                    # 抓不到正文的热点直接丢弃 —— 宁可不写热点，也不能少一篇。
+                    _hot_ready = _attach_hot_source_text(match_data, _hot_new)
+                    if _hot_ready:
+                        topics = _hot_ready + topics
+                        extra_meta["hot_topics"] = [
+                            {"title": c["title"], "rank": c.get("_hot_rank"),
+                             "source": c.get("_hot_source"), "channel": c.get("_hot_channel"),
+                             "event_key": c.get("_hot_event_key")}
+                            for c in _hot_ready]
+                        print(f"   🔥 热点已置顶 {len(_hot_ready)} 条（占用本批槽位，"
+                              f"上限 {HOT_TOPIC_PER_BATCH} 篇）")
+                    else:
+                        print("   ℹ️ 热点候选抓不到正文，本批不加热点（不占槽位）")
         except Exception as e:
             print(f"   ⚠️ 热点通道异常（跳过，不影响发布）: {e}")
 
