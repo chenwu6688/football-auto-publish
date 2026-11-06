@@ -213,7 +213,10 @@ def check_publish_scope_consistent(rules: dict) -> dict:
 
 #: 会**逐字进模型提示词**的文本。判定侧判为违规的话术一旦出现在这里，
 #: 模型就会照抄，然后被自己的闸门拦掉 —— 2026-11-06 晚就是这么整批 0 篇的。
-PROMPT_GLOBS = ("prompts/*.txt", "constants.py")
+PROMPT_TXT_GLOBS = ("prompts/*.txt",)
+#: 代码里的内联提示词（f-string / 普通字符串常量）。**只取字符串字面量**，
+#: 不扫注释 —— 判定逻辑的注释里到处是「关注引导」这类词，扫全文会全是误报。
+PROMPT_PY_FILES = ("constants.py", "orchestrator.py")
 BAIT_CFG = ROOT / "config" / "interaction_bait.yaml"
 
 
@@ -234,27 +237,74 @@ def _inducement_patterns() -> list[tuple[str, "re.Pattern"]]:
     return out
 
 
+def _py_literals(path: Path) -> list[tuple[int, str]]:
+    """取 .py 里**会进模型**的字符串字面量（(行号, 内容)）。
+
+    两处排除，都是踩过的：
+    - **注释**：天然不在 AST 里；
+    - **docstring**：它是给维护者看的说明，不会进提示词。但它是字符串常量，
+      不排除就会把「旧口径反过来强制写『关注我』，等于批量生产扣分话术」
+      这类**讲事故的文档**判成违规（本项目已多次栽在「判据短串误报」上）。
+    """
+    import ast
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8", errors="ignore"))
+    except SyntaxError:
+        return []
+    docs: set[int] = set()
+    for node in ast.walk(tree):
+        if not isinstance(node, (ast.Module, ast.FunctionDef,
+                                 ast.AsyncFunctionDef, ast.ClassDef)):
+            continue
+        body = getattr(node, "body", None) or []
+        if not body:
+            continue
+        first = body[0]
+        if (isinstance(first, ast.Expr)
+                and isinstance(first.value, ast.Constant)
+                and isinstance(first.value.value, str)):
+            docs.add(id(first.value))
+    out: list[tuple[int, str]] = []
+    for node in ast.walk(tree):
+        if (isinstance(node, ast.Constant) and isinstance(node.value, str)
+                and id(node) not in docs):
+            out.append((int(getattr(node, "lineno", 0) or 0), node.value))
+    return out
+
+
 def prompt_texts() -> dict:
-    """收集所有「会进提示词」的文本：按文件路径 → 内容。"""
-    files: list[Path] = []
-    for g in PROMPT_GLOBS:
-        files.extend(sorted(ROOT.glob(g)))
-    return {str(p.relative_to(ROOT)): p.read_text(encoding="utf-8", errors="ignore")
-            for p in files if p.is_file()}
+    """收集所有「会进提示词」的文本：{来源: [(行号, 文本), …]}。
+
+    `.txt` 按行切，`.py` 只取字符串字面量。**两类都要扫**：
+    2026-11-06 晚除了 prompts/ 里的硬指标，`constants.py` 的
+    interaction_guidance 也在教「支持XX的扣1」，`orchestrator.py:3610`
+    还内联着「关注老六不迷路」的示例 —— 只扫 prompts/ 会漏掉其中两类。
+    """
+    units: dict[str, list[tuple[int, str]]] = {}
+    for g in PROMPT_TXT_GLOBS:
+        for p in sorted(ROOT.glob(g)):
+            if p.is_file():
+                txt = p.read_text(encoding="utf-8", errors="ignore")
+                units[str(p.relative_to(ROOT))] = list(enumerate(txt.splitlines(), 1))
+    for name in PROMPT_PY_FILES:
+        p = ROOT / name
+        if p.is_file():
+            units[name] = _py_literals(p)
+    return units
 
 
 def check_prompt_alignment(texts: dict | None = None) -> dict:
     """H. 提示词方向一致：判定侧判违规的话术，不许出现在喂给模型的文本里。
 
     **为什么单列这一项**（2026-11-06 晚的真实事故）：白天把「索要关注 / 扣1 /
-    站队」改成 20 分档违规并硬拦，但生成侧提示词仍在**强制要求** ——
-    `prompts/rewrite_article.txt` 写着「必须能被检出关注引导」「点个关注、
-    关注老六」，`constants.py` 的 `interaction_guidance` 教「支持XX的扣1，
-    反对的扣2」。模型照提示词写，写完被自己的闸门判违规，重试两次仍命中，
-    整批 0 篇，晚间发布失败。
+    站队」改成 20 分档违规并硬拦，但生成侧仍在**强制要求** ——
+    `prompts/rewrite_article.txt` 写着「必须能被检出关注引导」，
+    `constants.py` 的 `interaction_guidance` 教「支持XX的扣1，反对的扣2」，
+    `orchestrator.py` 的系列提示还内联着「关注老六不迷路」。模型照写，
+    写完被自己的闸门判违规，重试两次仍命中，整批 0 篇、晚间发布失败。
 
     这是「同一规矩写两处、必然只改一处」的**第四方**：规则表 / 判据 / 发布门禁
-    之外，还有生成提示词。前三方都有检查，唯独提示词没有。
+    之外还有生成提示词。前三方都有检查，唯独提示词没有。
 
     **零容忍，不做「禁止语境」豁免**：提示词里出现的负例（「不要写点关注」）
     本身就会被模型当模板抄 —— 第一版修复就是把这句话写成负例，扫描器照样
@@ -267,21 +317,24 @@ def check_prompt_alignment(texts: dict | None = None) -> dict:
                 "detail": ["interaction_bait.yaml 里没有诱导话术黑名单，这项检查形同虚设"]}
     if not sets:
         return {"item": "提示词方向一致", "ok": False,
-                "detail": ["没找到任何提示词文件（prompts/*.txt、constants.py）"]}
+                "detail": ["没找到任何提示词（prompts/*.txt、constants.py、orchestrator.py）"]}
 
     bad: list[str] = []
-    for name, txt in sets.items():
-        for i, line in enumerate(txt.splitlines(), 1):
+    for name, unit in sets.items():
+        # selftest 直接传字符串；真实扫描传 [(行号, 文本), …]
+        pairs = list(enumerate(str(unit).splitlines(), 1)) if isinstance(unit, str) else unit
+        for lineno, chunk in pairs:
             for group, rx in pats:
-                m = rx.search(line)
+                m = rx.search(chunk)
                 if m:
-                    bad.append(f"{name}:{i} [{group}] 命中 {m.group(0)!r}"
-                               f" → {line.strip()[:60]}")
+                    bad.append(f"{name}:{lineno} [{group}] 命中 {m.group(0)!r}"
+                               f" → {chunk.strip()[:60]}")
                     break
     ok = not bad
     return {
         "item": "提示词方向一致", "ok": ok,
-        "detail": ([f"✅ {len(sets)} 份提示词文本里没有诱导话术（{len(pats)} 条模式）"]
+        "detail": ([f"✅ {len(sets)} 个来源、{sum(len(v) for v in sets.values())} 段文本里"
+                    f"没有诱导话术（{len(pats)} 条模式）"]
                    if ok else ["判定侧判它违规，生成侧却在教它这么写："] + bad),
     }
 

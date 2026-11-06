@@ -384,6 +384,30 @@ jobs:
           python scripts/pregen_deterministic.py --days 7 --max-gen 2 \
             || echo "::warning::一级节点量产失败，沿用现有库存（非阻断）"
 
+      - name: 提示词合规自检（生成前 · 配置错了就别烧 token）
+        # 2026-11-06 晚事故：判定侧把「索要关注 / 扣1 / 站队」改成 20 分档违规，
+        # 但生成提示词仍在**强制要求**。模型照提示词写，写完被自己的闸门拦掉，
+        # 烧 388 秒生成 4 篇、篇篇被丢，最终整批 0 篇、发布失败。
+        #
+        # 这里**允许停整批**，与「命中丢该篇、绝不停整批」不冲突：那条规矩针对
+        # 「某一篇稿子有问题」，而提示词违规是**上游配置错了**——照这个提示词
+        # 生成下去每一篇都会被拦，停批只损失几秒，不停批要烧两分钟还发不出稿。
+        #
+        # H 项「提示词方向一致」：黑名单从 config/interaction_bait.yaml 读，
+        # 扫 prompts/*.txt 与 constants.py，命中即红。
+        if: steps.params.outputs.skip != 'true'
+        run: |
+          python3 scripts/verify_rule_coverage.py --selftest >/dev/null \
+            || echo "::warning::规则覆盖负向自检失败——检查项可能已失去检出能力"
+          rc=0
+          python3 scripts/verify_rule_coverage.py --quiet || rc=$?
+          if [ "$rc" -ne 0 ]; then
+            python3 scripts/write_failure_reason.py "规则/提示词一致性检查未通过" || true
+            echo "::error::规则与提示词一致性检查未通过（常见原因：提示词在教模型写平台判违规的话术），详见 data/audit/rule_coverage_latest.json"
+            exit 1
+          fi
+          echo "✅ 规则表 / 判据 / 发布门禁 / 生成提示词 四方一致"
+
       - name: 生成文章
         id: generate
         if: steps.params.outputs.skip != 'true'

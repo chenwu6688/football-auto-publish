@@ -244,5 +244,61 @@ class TestCoverageVerifier(unittest.TestCase):
         self.assertEqual(bad, [], f"覆盖校验负向自检未通过：{bad}")
 
 
+class TestPromptAlignment(unittest.TestCase):
+    """H 项：判定侧判违规的话术，不许出现在喂给模型的文本里。
+
+    2026-11-06 晚整批 0 篇的直接原因就是这一项缺失：判定侧白天改成 20 分档违规，
+    提示词仍在强制要求，模型照写、写完被自己的闸门拦掉。前三方（规则表 / 判据 /
+    发布门禁）都有检查，唯独生成提示词没有 —— 这是「同一规矩写两处」的第四方。
+    """
+
+    def test_real_prompts_are_clean(self):
+        import verify_rule_coverage as vrc
+        rep = vrc.check_prompt_alignment()
+        self.assertTrue(rep["ok"], "提示词里还有诱导话术：\n" + "\n".join(rep["detail"]))
+
+    def test_prompts_are_actually_found(self):
+        """扫不到文件就报绿，是这类检查最典型的假绿。"""
+        import verify_rule_coverage as vrc
+        texts = vrc.prompt_texts()
+        self.assertGreaterEqual(len(texts), 2, f"提示词文件没扫到：{list(texts)}")
+        self.assertTrue(any("rewrite_article" in k for k in texts), texts.keys())
+
+    def test_catches_inducement(self):
+        import verify_rule_coverage as vrc
+        for bad in ("支持XX的扣1，反对的扣2", "点个关注，明天继续",
+                    "评论区下注，我先来"):
+            rep = vrc.check_prompt_alignment({"x.txt": bad})
+            self.assertFalse(rep["ok"], f"没抓到：{bad}")
+
+    def test_no_exemption_for_negative_examples(self):
+        """「不要写点关注」这种负例照样报红。
+
+        不做豁免是刻意的：写进提示词的负例本身会被模型当模板抄。
+        第一版修复就是这么写的，扫描器报红反而逼出了更好的说法。
+        """
+        import verify_rule_coverage as vrc
+        rep = vrc.check_prompt_alignment({"x.txt": "不要写「点个关注」这类话术"})
+        self.assertFalse(rep["ok"], "负例被豁免了 —— 那等于默许提示词里留可抄的样例")
+
+    def test_blacklist_comes_from_config(self):
+        """黑名单只能有一处：从 interaction_bait.yaml 读，不在检查侧再列一遍。"""
+        import inspect
+        import verify_rule_coverage as vrc
+        src = inspect.getsource(vrc._inducement_patterns)
+        self.assertIn("interaction_bait.yaml", src)
+        self.assertNotIn("扣1", src, "检查侧又硬编码了一份词表")
+
+    def test_batch_runs_it_before_generating(self):
+        """必须在**生成前**跑，否则只是事后确认「已经烧掉两分钟」。"""
+        wf = (Path(__file__).resolve().parent.parent
+              / ".github" / "workflows" / "batch.yml").read_text(encoding="utf-8")
+        idx_check = wf.find("提示词合规自检")
+        idx_gen = wf.find("name: 生成文章")
+        self.assertGreater(idx_check, 0, "batch.yml 没有提示词自检步骤")
+        self.assertGreater(idx_gen, 0)
+        self.assertLess(idx_check, idx_gen, "提示词自检被放到了生成之后，等于没拦")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

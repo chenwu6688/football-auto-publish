@@ -2936,7 +2936,7 @@ def generate_emergency_article(event, match_data, index, temperature=0.8):
 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
 输出JSON:
-{{"title": "标题(15-25字，有冲击力)", "backup_title": "备选标题", "content": "Markdown正文(300-500字，含≥2个##小标题，文末配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/预测式/共鸣式/挑战式/调侃式", "interaction_bait": "互动问题", "content_type": "紧急球评", "event_type": "{event_type}", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
+{{"title": "标题(15-25字，有冲击力)", "backup_title": "备选标题", "content": "Markdown正文(300-500字，含≥2个##小标题，文末配图)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "判断式/预测式/共鸣式/反驳式/调侃式", "interaction_bait": "互动问题", "content_type": "紧急球评", "event_type": "{event_type}", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
 只输出JSON。"""
 
     # 事实卡：事件实际比分 + 事件涉及球队（用于一致性校验）
@@ -3606,8 +3606,8 @@ def _build_series_hint(topic):
     theme = s.get("theme", "")
     return (
         f"\n\n## 本篇系列归属提示（来自选题）\n"
-        f"本篇归属系列：《{name}》（主题：{theme}）。改写时可在文末自然加追更引导"
-        f"（如『这个系列我会持续更，关注老六不迷路』）；若确系承接前文，可加『上集我们聊了…』，"
+        f"本篇归属系列：《{name}》（主题：{theme}）。改写时可在文末自然交代"
+        f"『这个系列会接着往下写』（**不要索取关注/追更/订阅**）；若确系承接前文，可加『上集我们聊了…』，"
         f"但必须确保与已发内容事实一致，不编造未发生的『上一集』。"
     )
 
@@ -4550,7 +4550,7 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
     """根据未来比赛数据生成一篇赛前预测文章。
 
     用 LLM 对每场明日比赛做 2-3 句分析 + 预测结果，
-    文末带互动引导："评论区下注，明天赛后回来打我脸！"
+    文末带互动引导："评论区说说你的判断，明天赛后回来打我脸！"
 
     ⚠️ P0-2 改造：赛前预测**禁止**使用固定栏目前缀（如"老六精准预测："），
     并要求标题每日各不相同、不与近 7 天已发标题同前缀，破除模板化复读。
@@ -4624,14 +4624,14 @@ def generate_prediction_article(future_matches, date_str=None, recent_prefixes=N
    （旧示例「曼城主场能否啃下铁桶阵？」这类空问正是要淘汰的写法）
 2. 为每场选中的比赛写 2-3 句话分析，给出明确预测结果（XX胜/平局/谁赢面大）
 3. 语气要自信但不狂妄，像老球迷在群里吹水
-4. 文末带互动引导：🔥 评论区下注，明天赛后回来打我脸！
+4. 文末带互动引导：🔥 评论区说说你的判断，明天赛后回来打我脸！
 
 风格：自信、犀利、有数据感但不堆砌。不编造球员具体数据。
 只许引用上面给出的事实数字；某项没有就从那句里拿掉，改用判断语气，
 **不要用"从近期表现来看"这类空话替代数据**（那是观点稿，不发）。
 
 输出纯JSON:
-{{"title": "标题(18-30字，全新且非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？评论区下注！'", "content_type": "热点球评", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
+{{"title": "标题(18-30字，全新且非模板化)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "预测式", "interaction_bait": "互动问题，如'明天最看好哪场？说说你的判断'", "content_type": "热点球评", "ai_perspective": "基于上述事实的一句独立判断（老六视角，≤40字，犀利有态度不骑墙）"}}
 只输出JSON。"""
 
     messages = [
@@ -5329,7 +5329,7 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
    「⚠️ 本文由 AI 生成，数据来源：football-data.org / 聚合数据，赛程与数据以官方为准；文中观点为基于公开数据的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(26-30字，具体人名/对阵+过程锚点+数字或感叹，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，具体人名/对阵+过程锚点+数字或感叹，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "判断式/预测式/反驳式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -5485,7 +5485,7 @@ def generate_recap_article(topic, date_str=None, recent_prefixes=None, batch_mod
    「⚠️ 本文由 AI 生成，数据来源：football-data.org，赛果与数据以官方为准；文中观点为基于公开数据的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(26-30字，赛果反差+具体的人+过程锚点，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，赛果反差+具体的人+过程锚点，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字，结尾含老六视角与AI生成标注)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "判断式/预测式/反驳式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -5659,7 +5659,7 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
    禁止「XX加冕」「官宣：」这类通报式前缀，禁止「谁该拿」「你看好谁」这类赛前句式
    （结果已经出了，再问就是装傻）。
 2. 获奖者姓名严格照抄事实卡「已揭晓结果」，一个字都不能改、不能加译名。
-3. **得票数、排名次序、第二名是谁、各洲记者投票分布，事实卡没有，一律不得写。**
+3. **得票数、排名次序、第二名是谁、各洲记者的票数分布，事实卡没有，一律不得写。**
    这是结果稿最容易翻车的地方——最常见的编造就是"以 XXX 分之差险胜"。
 4. 可以用「背景数据」里的数字（进球数、冠军数、决赛比分等），但必须原样引用，
    不得四舍五入、不得顺手加一个荣誉。背景数据之外的数字一律不写。
@@ -5673,7 +5673,7 @@ def generate_event_result_article(topic, verdict, date_str=None, recent_prefixes
    (c) 显式标注：「⚠️ 本文由 AI 生成，开奖结果经多源交叉核实，数据以官方公布为准；文中观点为基于公开信息的独立分析，仅供参考。」
 
 输出纯JSON:
-{{"title": "标题(26-30字，人切入，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，人切入，禁止以疑问句收尾)", "content": "Markdown正文(含##小标题，600-900字)", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "golden_lines": ["金句1", "金句2"], "interaction_type": "判断式/预测式/反驳式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
@@ -5819,7 +5819,7 @@ def generate_node_angle_article(topic, date_str=None, recent_prefixes=None,
 6. 文末另须标注：「⚠️ 本文由 AI 生成，事实来源：见文中所引公开报道；观点仅供参考。」
 {prefix_hint}
 输出纯JSON:
-{{"title": "标题(26-30字，过程锚点+具体的人，禁止疑问句收尾)", "content": "Markdown正文", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "interaction_type": "站队式/投票式/挑战式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
+{{"title": "标题(26-30字，过程锚点+具体的人，禁止疑问句收尾)", "content": "Markdown正文", "summary": "50字摘要", "keywords": ["英文关键词"], "keywords_cn": ["中文关键词"], "interaction_type": "判断式/预测式/反驳式/共鸣式", "interaction_bait": "互动问题", "content_type": "{content_type}"}}
 只输出JSON。"""
 
     messages = [
