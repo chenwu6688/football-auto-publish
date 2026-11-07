@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07 10:09:58",
+  "batch_filter": "evening",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "尤文冬窗盯上巴洛贡，25岁前锋上季19球本季只进1球",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7705369202730844672",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "穆里尼奥西甲三队不败，瓦伦西亚6战4胜2平还没赢过他",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7705369483124146723",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
