@@ -1,7 +1,7 @@
 {
   "date": "2026-11-07",
-  "generated_at": "2026-11-07T04:04:29.278702",
-  "total_articles": 2,
+  "generated_at": "2026-11-07T10:07:22.182735",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -560,92 +560,664 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "尤文冬窗盯上巴洛贡，25岁前锋上季19球本季只进1球",
+      "path": "/home/runner/work/_temp/output/2026-11-07/article-1-尤文冬窗盯上巴洛-8a439a.md",
+      "slug": "尤文冬窗盯上巴洛-8a439a",
+      "tags": [
+        "Juventus",
+        "Balogun",
+        "Monaco",
+        "Spalletti",
+        "winter transfer"
+      ],
+      "keywords": [
+        "Juventus",
+        "Balogun",
+        "Monaco",
+        "Spalletti",
+        "winter transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_190111/5c37fe0c51920.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aeed4a8b2834native.htm",
+            "query": "尤文",
+            "alt": "普兰德利：对尤文的比赛非常重要，佛罗伦萨有能力成为比赛的主角"
+          },
+          "width": 1200,
+          "height": 798
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260908/6a9fbf03976b3_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aeecd03b858enative.htm",
+            "query": "尤文",
+            "alt": "米体：对阵佛罗伦萨，尤文可能派出战阿尔克马尔时类似的攻击线"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250216/67b0e8a2ca273.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aeecb7f775a4native.htm",
+            "query": "尤文",
+            "alt": "都体：尤文冬窗似乎仍需补强锋线，瑟洛特和巴洛贡最受关注"
+          },
+          "width": 750,
+          "height": 505
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "意媒：尤文关注转会市场提升锋线火力",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 77,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题 26 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（11 < 21）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（11 < 21）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "尤文"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1104,
+        "han_len": 757,
+        "paragraphs": 15,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "尤文图斯|摩纳哥#transfer",
+      "hot_rank": 13,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 2,
+      "title": "穆里尼奥西甲三队不败，瓦伦西亚6战4胜2平还没赢过他",
+      "path": "/home/runner/work/_temp/output/2026-11-07/article-2-穆里尼奥西甲三队-a35206.md",
+      "slug": "穆里尼奥西甲三队-a35206",
+      "tags": [
+        "Mourinho",
+        "Valencia",
+        "La Liga",
+        "unbeaten record",
+        "Real Madrid"
+      ],
+      "keywords": [
+        "Mourinho",
+        "Valencia",
+        "La Liga",
+        "unbeaten record",
+        "Real Madrid"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-07/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "wikimedia",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Valencia_CF_Liga.PNG/1280px-Valencia_CF_Liga.PNG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "origin": {
+            "article_url": "",
+            "query": "Valencia CF",
+            "alt": "Trayectoria del VCF en Liga."
+          },
+          "width": 1200,
+          "height": 679
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "wikimedia",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Valencia_CF_-_FC_Barcelona_-_Afici%C3%B3n-_Autocar_del_Valencia_-_3_sept_2013_%2801%29.JPG/1280px-Valencia_CF_-_FC_Barcelona_-_Afici%C3%B3n-_Autocar_del_Valencia_-_3_sept_2013_%2801%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "origin": {
+            "article_url": "",
+            "query": "Valencia CF",
+            "alt": "Autocar del Valencia CF el 3 sept 2013, horas antes del part"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "wikimedia",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Valencia_cf_km0_alpha.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "origin": {
+            "article_url": "",
+            "query": "Valencia CF",
+            "alt": "Emplazamiento del Bar Torino, donde se fundó el Valencia Clu"
+          },
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "穆里尼奥6次西甲碰瓦伦西亚4胜2平没输过，这老头还是那副德性",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 71,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "与板块[排行榜]关键词不匹配",
+          "R11数据:标题 26 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 1%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "懂球帝 dongqiudi.com"
+      ],
+      "source_post": "4胜2平，穆帅带队6次西甲对阵瓦伦西亚保持不败西甲五洲",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "topic_category": "未分类",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "度量",
+          "战绩"
+        ],
+        "contrasts": [
+          "战绩对照"
+        ],
+        "proper_nouns": [
+          "穆里尼奥",
+          "瓦伦西亚",
+          "西甲"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 71,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1276,
+        "han_len": 838,
+        "paragraphs": 16,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 10,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "C罗宣布从葡萄牙国家队退役",
-      "angle": "热点事件「C罗宣布从葡萄牙国家队退役」，从球迷情绪与争议点切入",
+      "title": "意媒：尤文关注转会市场提升锋线火力",
+      "angle": "热点事件「意媒：尤文关注转会市场提升锋线火力」，从球迷情绪与争议点切入",
       "keywords": [],
       "keywords_cn": [
-        "C罗宣布从葡萄牙国家队退役"
+        "意媒：尤文关注转会市场提升锋线火力",
+        "摩纳哥",
+        "尤文图斯"
       ],
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
-      "why_pick": "榜单第 24 位（tieba）",
+      "why_pick": "媒体头条（dongqiudi）",
       "_supply_layer": "二级·突发",
-      "_hot_event_key": "C罗#retire",
-      "_hot_rank": 24,
-      "_hot_source": "tieba",
-      "_hot_channel": "board",
+      "_hot_event_key": "尤文图斯|摩纳哥#transfer",
+      "_hot_rank": 13,
+      "_hot_source": "dongqiudi",
+      "_hot_channel": "media",
       "_hot_providers": [
-        "tieba"
+        "dongqiudi"
       ],
       "_hot_support": [
-        "【talkSPORT】曼联最佳阵C罗替补"
+        "意媒：尤文关注转会市场提升锋线火力，有意摩纳哥前锋巴洛贡意甲法甲8 评"
       ],
       "_hot_support_raw": [
         {
-          "title": "【talkSPORT】曼联最佳阵C罗替补",
-          "url": "https://www.dongqiudi.com/articles/6619647.html",
-          "source": "dongqiudi",
-          "article_text": "全部评论\n暂无评论\n电脑端不支持评论，请\n下载手机客户端 →",
-          "_from_hot_media": true,
-          "_hot_support": true
+          "title": "意媒：尤文关注转会市场提升锋线火力，有意摩纳哥前锋巴洛贡意甲法甲8 评",
+          "url": "https://www.dongqiudi.com/articles/6621030.html",
+          "source": "dongqiudi"
         }
       ]
     },
     {
-      "title": "缺席312天、肾脏积液后蒋圣龙重返国足，邵佳一这份名单敢动刀",
-      "angle": "蒋圣龙因肾脏积液缺席312天，如今时隔1年4个月回归；同时韦世豪因联赛停赛被放弃、吴曦主动请战打动邵佳一。这份名单最大的看点是邵佳一敢用状态不用名气——老球迷该为这种务实鼓一次掌。",
+      "title": "穆里尼奥6次西甲碰瓦伦西亚4胜2平没输过，这老头还是那副德性",
+      "angle": "穆帅带队西甲对瓦伦西亚6场4胜2平保持不败。数据冷冰冰，但穆里尼奥这种'专治某队'的执念，恰恰是老球迷最爱看的——名帅的沉浮里，藏着他不肯认输的倔。",
       "keywords": [
-        "jiang shenglong",
-        "china national team",
-        "shao jiayi",
-        "wu xi",
-        "wei shihao"
+        "mourinho",
+        "valencia",
+        "la liga",
+        "unbeaten record"
       ],
       "keywords_cn": [
-        "蒋圣龙",
-        "国足名单",
-        "邵佳一",
-        "吴曦",
-        "韦世豪"
+        "穆里尼奥",
+        "瓦伦西亚",
+        "西甲",
+        "不败纪录"
       ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "感动",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "312天伤病回归+弃用韦世豪，人情与铁腕并存",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "content_type": "排行榜",
+      "score": 86,
+      "controversy_level": "low",
+      "target_emotion": "怀旧",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "old-fan-night",
+      "why_pick": "穆帅不败纪录+名帅沉浮，戳老球迷阅历感",
+      "_category": "未分类",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
+      "_column_icon": "🔥",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "C罗欧冠140球压梅西11球，40岁还在刷，这差距到底追不追得上",
-      "content_type": "榜单",
-      "_column_name": "战术榜单",
-      "_from_reservoir": true
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-1"
     }
   ],
   "data_sources": {},
@@ -654,41 +1226,6 @@
     "min_per_article": 3,
     "articles_below": 0
   },
-  "compliance_dropped": [
-    {
-      "index": 2,
-      "title": "C罗欧冠140球压梅西11球，40岁还在刷，这差距到底追不追得上",
-      "blocked_by": [
-        "TT-07",
-        "TT-08"
-      ],
-      "risk_score": 40,
-      "verdicts": [
-        {
-          "id": "TT-07",
-          "name": "诱导交互",
-          "tier": "block",
-          "credit": 20,
-          "status": "fail",
-          "detail": "命中诱导话术：索要关注",
-          "hits": [
-            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
-          ]
-        },
-        {
-          "id": "TT-08",
-          "name": "违规涨粉 / 引导互粉",
-          "tier": "block",
-          "credit": 20,
-          "status": "fail",
-          "detail": "命中诱导话术：索要关注",
-          "hits": [
-            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
-          ]
-        }
-      ]
-    }
-  ],
   "supply_layers": {
     "total": 2,
     "counts": {
@@ -723,18 +1260,6 @@
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「半场0-0后考文垂崩盘，埃弗顿3-1的胜」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
-      "数量": 1
-    },
-    {
-      "环节": "隔夜战报",
-      "原因": "埃弗顿 vs 考文垂 生成失败",
-      "处置": "本批不补战报，不拿软性内容顶替",
-      "数量": 1
-    },
-    {
       "环节": "赛程源",
       "原因": "本批无可用赛程选题（源不可用或无匹配）",
       "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
@@ -742,57 +1267,33 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "与源文连续重合 15 字（>12，疑似洗稿）；事实点数少于最强源文（18 < 115）",
+      "原因": "事实点数少于最强源文（11 < 21）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
-      "数量": 1
-    },
-    {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
-      "数量": 1
-    },
-    {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
-      "处置": "用 2 张原创信息图补到 3 张",
-      "数量": 1
-    },
-    {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 2 张",
-      "处置": "用 1 张原创信息图补到 3 张",
-      "数量": 1
-    },
-    {
-      "环节": "合规审核",
-      "原因": "TT-07(20分)、TT-08(20分)",
-      "处置": "丢弃该篇成稿，不停整批",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "hot_topics": [
     {
-      "title": "C罗宣布从葡萄牙国家队退役",
-      "rank": 24,
-      "source": "tieba",
-      "channel": "board",
-      "event_key": "C罗#retire"
+      "title": "意媒：尤文关注转会市场提升锋线火力",
+      "rank": 13,
+      "source": "dongqiudi",
+      "channel": "media",
+      "event_key": "尤文图斯|摩纳哥#transfer"
     }
   ],
   "batch_mix": {
@@ -804,38 +1305,33 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "C罗宣布从葡萄牙国家队退役"
+        "title": "意媒：尤文关注转会市场提升锋线火力"
       },
       {
         "slot": "data",
-        "type": "热点球评",
-        "title": "缺席312天、肾脏积液后蒋圣龙重返国足，邵佳一这份名单敢"
+        "type": "排行榜",
+        "title": "穆里尼奥6次西甲碰瓦伦西亚4胜2平没输过，这老头还是那副"
       }
     ],
-    "degraded": [
-      "data 槽用次优类型补位"
-    ],
+    "degraded": [],
     "skipped": [
       {
-        "type": "热点球评",
-        "title": "对马来西亚46年不败、从没输过巴林，三连败的国足靠老账本"
-      },
-      {
-        "type": "八卦趣事",
-        "title": "国少3-0赢海港U20，70分钟竟主动罚下中卫制造逆境"
+        "type": "转会资讯",
+        "title": "拜仁掏8000万欧抢莱比锡边锋努萨，这价码是不是被市场惯"
       }
     ],
     "day_counts": {
-      "战术榜单": 1
+      "战术榜单": 1,
+      "热点球评": 1
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-07 12:05:55",
+  "last_batch": "evening",
+  "last_updated": "2026-11-07 18:07:22",
   "batches_completed": [
     "morning",
     "noon"
