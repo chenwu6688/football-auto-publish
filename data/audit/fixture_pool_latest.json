@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-06 18:02",
-  "topics": 35,
-  "pool_generated_at": "2026-11-06 18:02",
+  "generated_at": "2026-11-07 08:01",
+  "topics": 32,
+  "pool_generated_at": "2026-11-07 08:01",
   "ok": false,
   "checks": [
     {
@@ -70,10 +70,10 @@
       "advisory": true,
       "ok": true,
       "ratio": 1.0,
-      "hit": 35,
-      "total": 35,
+      "hit": 32,
+      "total": 32,
       "detail": [
-        "含人角色词或悬念词的选题 35/35（100%）",
+        "含人角色词或悬念词的选题 32/32（100%）",
         "（告警项：不足 100% 通常是选题池仍由旧版 ANGLE_RULES 生成，重跑 scripts/fixture_library.py 刷新即可）"
       ]
     }
