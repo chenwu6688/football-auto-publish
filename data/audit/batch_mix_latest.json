@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06 18:20",
+  "generated_at": "2026-11-07 13:50",
   "since": "2026-11-04",
   "ok": true,
   "pending": [
@@ -55,11 +55,20 @@
       "pending": true,
       "skipped": false,
       "structure": {
-        "total": 0,
+        "total": 2,
+        "counts": {
+          "战术榜单": 1,
+          "热点球评": 1
+        },
+        "main_pct": 50.0,
+        "tactical_pct": 50.0,
+        "data_pct": 0.0,
+        "banned_hits": 0,
         "legacy": 0
       },
       "detail": [
-        "生成侧已接入，但 2026-11-07 起还没有跑过修复后的批次（未判定，不算通过）"
+        "样本 2 篇 < 8，未判定（不算通过）",
+        "当前：热点球评 50.0% / 战术榜单 50.0% / 数据型 0.0%"
       ]
     }
   ],
