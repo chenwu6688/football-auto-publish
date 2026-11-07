@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-07",
-  "generated_at": "2026-11-07 08:03:43",
+  "generated_at": "2026-11-07 12:03:30",
   "board_total": 132,
   "diag": {
     "providers": {
@@ -10,14 +10,14 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 3.8
+        "elapsed_s": 3.11
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.96
+        "elapsed_s": 0.95
       },
       "dongqiudi": {
         "status": "ok",
@@ -31,7 +31,7 @@
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 3.34
+        "elapsed_s": 1.7
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,29 +70,9 @@
   },
   "football_hits": [
     {
-      "word": "波尔津吉斯宣布退役",
-      "rank": 8,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "125台公交车退役电池卖了300万元",
-      "rank": 17,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
       "word": "转会期要炸JDG天价抢康康",
-      "rank": 18,
-      "heat": 227305,
+      "rank": 22,
+      "heat": 52848,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369329&amp;topic_name=%E8%BD%AC%E4%BC%9A%E6%9C%9F%E8%A6%81%E7%82%B8JDG%E5%A4%A9%E4%BB%B7%E6%8A%A2%E5%BA%B7%E5%BA%B7",
@@ -101,8 +81,8 @@
     },
     {
       "word": "C罗宣布从葡萄牙国家队退役",
-      "rank": 20,
-      "heat": 215622,
+      "rank": 24,
+      "heat": 45262,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369241&amp;topic_name=C%E7%BD%97%E5%AE%A3%E5%B8%83%E4%BB%8E%E8%91%A1%E8%90%84%E7%89%99%E5%9B%BD%E5%AE%B6%E9%98%9F%E9%80%80%E5%BD%B9",
@@ -113,40 +93,53 @@
     },
     {
       "word": "网传Fayde将担任CN瓦AG主教练",
-      "rank": 25,
-      "heat": 94848,
+      "rank": 29,
+      "heat": 20274,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369259&amp;topic_name=%E7%BD%91%E4%BC%A0Fayde%E5%B0%86%E6%8B%85%E4%BB%BBCN%E7%93%A6AG%E4%B8%BB%E6%95%99%E7%BB%83",
       "published_at": "",
       "entities": []
+    },
+    {
+      "word": "国足官宣26人大名单",
+      "rank": 32,
+      "heat": 207086,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "C罗帽子戏法绝平西班牙",
+      "rank": 43,
+      "heat": 151827,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": [
+        "C罗"
+      ]
     }
   ],
   "candidates": [
     {
       "word": "C罗宣布从葡萄牙国家队退役",
-      "rank": 20,
-      "heat": 215622,
+      "rank": 24,
+      "heat": 45262,
       "source": "tieba",
       "entities": [
         "C罗"
       ],
       "support": [
         {
-          "source": "zhibo8",
-          "title": "葡媒：C罗已经回到葡萄牙里斯本，现身板式网球中心",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aee513c5ffecnative.htm",
+          "title": "【talkSPORT】曼联最佳阵C罗替补",
+          "url": "https://www.dongqiudi.com/articles/6619647.html",
+          "source": "dongqiudi",
           "article_text": "",
-          "_age_hours": 8.1,
-          "_freshness": "fresh"
-        },
-        {
-          "source": "zhibo8",
-          "title": "记录报：葡萄牙足协改变总部大厅布置致敬C罗",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aee4fb775491native.htm",
-          "article_text": "",
-          "_age_hours": 8.1,
-          "_freshness": "fresh"
+          "_from_hot_media": true
         }
       ],
       "event_key": "C罗#retire",
