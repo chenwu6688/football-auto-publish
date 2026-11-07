@@ -1,7 +1,7 @@
 {
   "date": "2026-11-07",
-  "generated_at": "2026-11-07T00:04:20.261811",
-  "total_articles": 1,
+  "generated_at": "2026-11-07T04:04:29.278702",
+  "total_articles": 2,
   "articles": [
     {
       "index": 1,
@@ -267,6 +267,299 @@
         "degraded": []
       },
       "recap_match_id": "565852"
+    },
+    {
+      "index": 1,
+      "title": "国足11月先碰马来西亚再战巴林，邵佳一这份26人名单有点意思",
+      "path": "/home/runner/work/_temp/output/2026-11-07/article-1-国足11月先碰马-60871d.md",
+      "slug": "国足11月先碰马-60871d",
+      "tags": [
+        "Chinese national football team",
+        "Shao Jiayi",
+        "Wu Xi",
+        "training squad",
+        "friendly matches"
+      ],
+      "keywords": [
+        "Chinese national football team",
+        "Shao Jiayi",
+        "Wu Xi",
+        "training squad",
+        "friendly matches"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "缺席312天、肾脏积液后蒋圣龙重返国足，邵佳一这份名单敢动刀",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 65,
+        "ok": true,
+        "reasons": [
+          "标题偏长(31字>30)",
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "与源文连续重合 15 字（>12，疑似洗稿）",
+          "事实点数少于最强源文（18 < 115）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（15 字 / 4%），只记分：与源文连续重合 15 字（>12，疑似洗稿）；事实点数少于最强源文（18 < 115）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "25 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "懂球帝 dongqiudi.com"
+      ],
+      "source_post": "英超中超中甲国足11月大名单：吴曦领衔，李昊、布尼亚明、王钰栋、林良铭入选",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "中国足球",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "国足"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1129,
+        "han_len": 760,
+        "paragraphs": 14,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
@@ -280,89 +573,79 @@
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
-      "why_pick": "榜单第 20 位（tieba）",
+      "why_pick": "榜单第 24 位（tieba）",
       "_supply_layer": "二级·突发",
       "_hot_event_key": "C罗#retire",
-      "_hot_rank": 20,
+      "_hot_rank": 24,
       "_hot_source": "tieba",
       "_hot_channel": "board",
       "_hot_providers": [
         "tieba"
       ],
       "_hot_support": [
-        "葡媒：C罗已经回到葡萄牙里斯本，现身板式网球中心",
-        "记录报：葡萄牙足协改变总部大厅布置致敬C罗"
+        "【talkSPORT】曼联最佳阵C罗替补"
       ],
       "_hot_support_raw": [
         {
-          "source": "zhibo8",
-          "title": "葡媒：C罗已经回到葡萄牙里斯本，现身板式网球中心",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aee513c5ffecnative.htm",
-          "article_text": "直播吧11月7日讯 据葡萄牙媒体SIC Notícias报道，C罗已经回到里斯本，本周五现身板式网球中心。\n媒体指出，C罗已回到葡萄牙两天，他是与儿子迷你罗一起回来的，后者入选了葡萄牙U17青年队的名单。\n本周五C罗现身里斯本一家板式网球中心，他整个上午都在那里度过，媒体拍摄到了他离开的画面。",
-          "_age_hours": 8.1,
-          "_freshness": "fresh",
+          "title": "【talkSPORT】曼联最佳阵C罗替补",
+          "url": "https://www.dongqiudi.com/articles/6619647.html",
+          "source": "dongqiudi",
+          "article_text": "全部评论\n暂无评论\n电脑端不支持评论，请\n下载手机客户端 →",
+          "_from_hot_media": true,
           "_hot_support": true
-        },
-        {
-          "source": "zhibo8",
-          "title": "记录报：葡萄牙足协改变总部大厅布置致敬C罗",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aee4fb775491native.htm",
-          "article_text": "",
-          "_age_hours": 8.1,
-          "_freshness": "fresh"
         }
       ]
     },
     {
-      "title": "弗林蓬被推荐给利雅得新月，利物浦这笔买卖到底谁亏了",
-      "angle": "弗林蓬对离开利物浦持开放态度并被推荐给沙特，这不是单纯的转会流言，而是边后卫这个位置在英超被消耗到极致的缩影——速度型边卫在英超的保质期，比很多人想的短。",
+      "title": "缺席312天、肾脏积液后蒋圣龙重返国足，邵佳一这份名单敢动刀",
+      "angle": "蒋圣龙因肾脏积液缺席312天，如今时隔1年4个月回归；同时韦世豪因联赛停赛被放弃、吴曦主动请战打动邵佳一。这份名单最大的看点是邵佳一敢用状态不用名气——老球迷该为这种务实鼓一次掌。",
       "keywords": [
-        "frimpong",
-        "liverpool",
-        "al-hilal",
-        "saudi-league",
-        "transfer"
+        "jiang shenglong",
+        "china national team",
+        "shao jiayi",
+        "wu xi",
+        "wei shihao"
       ],
       "keywords_cn": [
-        "弗林蓬",
-        "利物浦",
-        "利雅得新月",
-        "沙特联赛",
-        "转会"
+        "蒋圣龙",
+        "国足名单",
+        "邵佳一",
+        "吴曦",
+        "韦世豪"
       ],
-      "content_type": "转会资讯",
-      "score": 84,
+      "content_type": "热点球评",
+      "score": 92,
       "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "无",
-      "series_id": "无",
-      "why_pick": "当打之年边卫流向沙特，位置消耗论有增量",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "target_emotion": "感动",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "312天伤病回归+弃用韦世豪，人情与铁腕并存",
+      "_category": "中国足球",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "汉堡半场1-1后改踢法，3-1逆转门兴，换人立竿见影",
-      "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "title": "C罗欧冠140球压梅西11球，40岁还在刷，这差距到底追不追得上",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
@@ -371,17 +654,52 @@
     "min_per_article": 3,
     "articles_below": 0
   },
+  "compliance_dropped": [
+    {
+      "index": 2,
+      "title": "C罗欧冠140球压梅西11球，40岁还在刷，这差距到底追不追得上",
+      "blocked_by": [
+        "TT-07",
+        "TT-08"
+      ],
+      "risk_score": 40,
+      "verdicts": [
+        {
+          "id": "TT-07",
+          "name": "诱导交互",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        },
+        {
+          "id": "TT-08",
+          "name": "违规涨粉 / 引导互粉",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        }
+      ]
+    }
+  ],
   "supply_layers": {
-    "total": 1,
+    "total": 2,
     "counts": {
       "一级·确定性": 0,
       "二级·突发": 1,
-      "三级·软性": 0
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -390,12 +708,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 0,
+      "data_driven": 1,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -406,26 +724,56 @@
   "degrade_events": [
     {
       "环节": "战报标题含比分",
-      "原因": "「汉堡半场1-1后改踢法，3-1逆转门兴，」",
+      "原因": "「半场0-0后考文垂崩盘，埃弗顿3-1的胜」",
       "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
       "数量": 1
     },
     {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "环节": "隔夜战报",
+      "原因": "埃弗顿 vs 考文垂 生成失败",
+      "处置": "本批不补战报，不拿软性内容顶替",
+      "数量": 1
+    },
+    {
+      "环节": "赛程源",
+      "原因": "本批无可用赛程选题（源不可用或无匹配）",
+      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "与源文连续重合 15 字（>12，疑似洗稿）；事实点数少于最强源文（18 < 115）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 1 张",
+      "原因": "真实图源只拿到 0 张",
       "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "合规审核",
+      "原因": "TT-07(20分)、TT-08(20分)",
+      "处置": "丢弃该篇成稿，不停整批",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -441,7 +789,7 @@
   "hot_topics": [
     {
       "title": "C罗宣布从葡萄牙国家队退役",
-      "rank": 20,
+      "rank": 24,
       "source": "tieba",
       "channel": "board",
       "event_key": "C罗#retire"
@@ -459,24 +807,35 @@
         "title": "C罗宣布从葡萄牙国家队退役"
       },
       {
-        "slot": "extra",
-        "type": "转会资讯",
-        "title": "弗林蓬被推荐给利雅得新月，利物浦这笔买卖到底谁亏了"
+        "slot": "data",
+        "type": "热点球评",
+        "title": "缺席312天、肾脏积液后蒋圣龙重返国足，邵佳一这份名单敢"
       }
     ],
     "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+      "data 槽用次优类型补位"
     ],
-    "skipped": [],
-    "day_counts": {},
+    "skipped": [
+      {
+        "type": "热点球评",
+        "title": "对马来西亚46年不败、从没输过巴林，三连败的国足靠老账本"
+      },
+      {
+        "type": "八卦趣事",
+        "title": "国少3-0赢海港U20，70分钟竟主动罚下中卫制造逆境"
+      }
+    ],
+    "day_counts": {
+      "战术榜单": 1
+    },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "morning"
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-07 08:05:45",
+  "last_batch": "noon",
+  "last_updated": "2026-11-07 12:04:29",
   "batches_completed": [
     "morning"
   ]
