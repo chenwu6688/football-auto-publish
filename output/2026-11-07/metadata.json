@@ -266,7 +266,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "565852"
+      "recap_match_id": "565852",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 590,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7705213750432891443"
     },
     {
       "index": 1,
@@ -559,7 +569,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 60,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1272,
+        "follower_reads": 0,
+        "click_rate": 0.05
+      },
+      "platform_id": "7705275687720747561"
     },
     {
       "index": 1,
@@ -851,7 +871,17 @@
       "hot_event_key": "尤文图斯|摩纳哥#transfer",
       "hot_rank": 13,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 46,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 447,
+        "follower_reads": 0,
+        "click_rate": 0.1
+      },
+      "platform_id": "7705369202730844672"
     },
     {
       "index": 2,

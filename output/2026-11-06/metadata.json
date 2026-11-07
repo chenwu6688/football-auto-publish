@@ -92,13 +92,14 @@
       },
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 5,
+        "reads": 6,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 705,
+        "retention_rate": 0.0,
+        "impressions": 1524,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7704842717516104230"
     },
@@ -247,9 +248,10 @@
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 676,
+        "retention_rate": 0.1271,
+        "impressions": 1493,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7704843009002701350"
     },
