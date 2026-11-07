@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07 04:05:55",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 1,
+    "published": 1,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 1,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "国足11月先碰马来西亚再战巴林，邵佳一这份26人名单有点意思",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7705275687720747561",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
