@@ -1,0 +1,480 @@
+{
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T00:04:20.261811",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "汉堡半场1-1后改踢法，3-1逆转门兴，换人立竿见影",
+      "path": "/home/runner/work/_temp/output/2026-11-07/article-1-汉堡半场11后改-ea78de.md",
+      "slug": "汉堡半场11后改-ea78de",
+      "tags": [
+        "Hamburg",
+        "Borussia Monchengladbach",
+        "Bundesliga",
+        "match report",
+        "tactical adjustment"
+      ],
+      "keywords": [
+        "Hamburg",
+        "Borussia Monchengladbach",
+        "Bundesliga",
+        "match report",
+        "tactical adjustment"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-07/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "wikimedia",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Karikatur_Hamburger_SV_2018.png/1280px-Karikatur_Hamburger_SV_2018.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "origin": {
+            "article_url": "",
+            "query": "Hamburger SV",
+            "alt": "Cartoon depicting the poor performance of the football team "
+          },
+          "width": 1200,
+          "height": 756
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "19 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照",
+          "落差"
+        ],
+        "proper_nouns": [
+          "汉堡",
+          "门兴"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 89,
+        "pass": true,
+        "reasons": [
+          "过程锚点：追平/逆转",
+          "缺具体对阵/球队/人物"
+        ]
+      },
+      "content_stats": {
+        "chars": 995,
+        "han_len": 635,
+        "paragraphs": 9,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 8,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "recap_match_id": "565852"
+    }
+  ],
+  "topics": [
+    {
+      "title": "C罗宣布从葡萄牙国家队退役",
+      "angle": "热点事件「C罗宣布从葡萄牙国家队退役」，从球迷情绪与争议点切入",
+      "keywords": [],
+      "keywords_cn": [
+        "C罗宣布从葡萄牙国家队退役"
+      ],
+      "content_type": "热点球评",
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "榜单第 20 位（tieba）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "C罗#retire",
+      "_hot_rank": 20,
+      "_hot_source": "tieba",
+      "_hot_channel": "board",
+      "_hot_providers": [
+        "tieba"
+      ],
+      "_hot_support": [
+        "葡媒：C罗已经回到葡萄牙里斯本，现身板式网球中心",
+        "记录报：葡萄牙足协改变总部大厅布置致敬C罗"
+      ],
+      "_hot_support_raw": [
+        {
+          "source": "zhibo8",
+          "title": "葡媒：C罗已经回到葡萄牙里斯本，现身板式网球中心",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aee513c5ffecnative.htm",
+          "article_text": "直播吧11月7日讯 据葡萄牙媒体SIC Notícias报道，C罗已经回到里斯本，本周五现身板式网球中心。\n媒体指出，C罗已回到葡萄牙两天，他是与儿子迷你罗一起回来的，后者入选了葡萄牙U17青年队的名单。\n本周五C罗现身里斯本一家板式网球中心，他整个上午都在那里度过，媒体拍摄到了他离开的画面。",
+          "_age_hours": 8.1,
+          "_freshness": "fresh",
+          "_hot_support": true
+        },
+        {
+          "source": "zhibo8",
+          "title": "记录报：葡萄牙足协改变总部大厅布置致敬C罗",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-07/6aee4fb775491native.htm",
+          "article_text": "",
+          "_age_hours": 8.1,
+          "_freshness": "fresh"
+        }
+      ]
+    },
+    {
+      "title": "弗林蓬被推荐给利雅得新月，利物浦这笔买卖到底谁亏了",
+      "angle": "弗林蓬对离开利物浦持开放态度并被推荐给沙特，这不是单纯的转会流言，而是边后卫这个位置在英超被消耗到极致的缩影——速度型边卫在英超的保质期，比很多人想的短。",
+      "keywords": [
+        "frimpong",
+        "liverpool",
+        "al-hilal",
+        "saudi-league",
+        "transfer"
+      ],
+      "keywords_cn": [
+        "弗林蓬",
+        "利物浦",
+        "利雅得新月",
+        "沙特联赛",
+        "转会"
+      ],
+      "content_type": "转会资讯",
+      "score": 84,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "当打之年边卫流向沙特，位置消耗论有增量",
+      "_category": "转会官宣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "汉堡半场1-1后改踢法，3-1逆转门兴，换人立竿见影",
+      "content_type": "战术榜单",
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 1,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 1,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "战报标题含比分",
+      "原因": "「汉堡半场1-1后改踢法，3-1逆转门兴，」",
+      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "数量": 1
+    },
+    {
+      "环节": "软性补位跳过",
+      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
+      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "hot_topics": [
+    {
+      "title": "C罗宣布从葡萄牙国家队退役",
+      "rank": 20,
+      "source": "tieba",
+      "channel": "board",
+      "event_key": "C罗#retire"
+    }
+  ],
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "C罗宣布从葡萄牙国家队退役"
+      },
+      {
+        "slot": "extra",
+        "type": "转会资讯",
+        "title": "弗林蓬被推荐给利雅得新月，利物浦这笔买卖到底谁亏了"
+      }
+    ],
+    "degraded": [
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-07 08:04:20"
+}
