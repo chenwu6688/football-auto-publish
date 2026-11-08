@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08 08:04:37",
+  "board_total": 130,
+  "diag": {
+    "providers": {
+      "baidu": {
+        "status": "ok",
+        "count": 50,
+        "kind": "board",
+        "tier": "P0",
+        "elapsed_s": 1.39
+      },
+      "weibo": {
+        "status": "ok",
+        "count": 50,
+        "kind": "board",
+        "tier": "P0",
+        "elapsed_s": 0.85
+      },
+      "dongqiudi": {
+        "status": "ok",
+        "count": 30,
+        "kind": "media",
+        "tier": "P0",
+        "elapsed_s": 0.42
+      },
+      "tieba": {
+        "status": "ok",
+        "count": 30,
+        "kind": "ugc",
+        "tier": "P0",
+        "elapsed_s": 1.44
+      },
+      "sina_sports": {
+        "status": "disabled",
+        "count": 0,
+        "note": "首页可解析；RSS pubDate 全为 2018-09（死档），接入前必须先修时效"
+      },
+      "tencent_sports": {
+        "status": "disabled",
+        "count": 0,
+        "note": "纯 JS 壳，需 API"
+      },
+      "hupu": {
+        "status": "disabled",
+        "count": 0,
+        "note": "全 JS 渲染，朴素抓取 0 条"
+      },
+      "goal_cn": {
+        "status": "disabled",
+        "count": 0,
+        "note": "年龄门 + 博彩广告同页，需合规评审"
+      },
+      "qiutianxia": {
+        "status": "disabled",
+        "count": 0,
+        "note": "Cloudflare 挑战页"
+      },
+      "k7": {
+        "status": "disabled",
+        "count": 0,
+        "note": "查不到正规新闻站，命中结果均为博彩平台 SEO（用户未提供域名前不接）"
+      }
+    },
+    "errors": [],
+    "stale_dropped": 0,
+    "unknown_time": 8
+  },
+  "football_hits": [
+    {
+      "word": "中超将迎大结局！6大悬念待解",
+      "rank": 21,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "转会期要炸JDG天价抢康康",
+      "rank": 30,
+      "heat": 31329,
+      "source": "tieba",
+      "kind": "ugc",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369329&amp;topic_name=%E8%BD%AC%E4%BC%9A%E6%9C%9F%E8%A6%81%E7%82%B8JDG%E5%A4%A9%E4%BB%B7%E6%8A%A2%E5%BA%B7%E5%BA%B7",
+      "published_at": "",
+      "entities": []
+    }
+  ],
+  "candidates": [
+    {
+      "word": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
+      "rank": 3,
+      "heat": 0,
+      "source": "dongqiudi",
+      "entities": [
+        "美因茨",
+        "诺伊尔",
+        "基米希",
+        "拜仁",
+        "凯恩"
+      ],
+      "support": [
+        {
+          "title": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
+          "url": "https://www.dongqiudi.com/articles/6623259.html",
+          "source": "dongqiudi"
+        }
+      ],
+      "event_key": "凯恩|基米希|拜仁|美因茨|诺伊尔#injury",
+      "providers": [
+        "dongqiudi"
+      ],
+      "channel": "media"
+    }
+  ],
+  "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
+}
