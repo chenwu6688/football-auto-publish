@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-08",
-  "generated_at": "2026-11-08 08:04:37",
-  "board_total": 130,
+  "generated_at": "2026-11-08 12:02:54",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.39
+        "elapsed_s": 2.07
       },
       "weibo": {
         "status": "ok",
-        "count": 50,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.85
+        "elapsed_s": 0.69
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.42
+        "elapsed_s": 0.47
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.44
+        "elapsed_s": 1.34
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,52 +70,18 @@
   },
   "football_hits": [
     {
-      "word": "中超将迎大结局！6大悬念待解",
-      "rank": 21,
-      "heat": 0,
-      "source": "baidu",
+      "word": "超市给姆巴佩代言饮料贴红牌清库存",
+      "rank": 25,
+      "heat": 250836,
+      "source": "weibo",
       "kind": "board",
       "url": "",
       "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "转会期要炸JDG天价抢康康",
-      "rank": 30,
-      "heat": 31329,
-      "source": "tieba",
-      "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369329&amp;topic_name=%E8%BD%AC%E4%BC%9A%E6%9C%9F%E8%A6%81%E7%82%B8JDG%E5%A4%A9%E4%BB%B7%E6%8A%A2%E5%BA%B7%E5%BA%B7",
-      "published_at": "",
-      "entities": []
-    }
-  ],
-  "candidates": [
-    {
-      "word": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
-      "rank": 3,
-      "heat": 0,
-      "source": "dongqiudi",
       "entities": [
-        "美因茨",
-        "诺伊尔",
-        "基米希",
-        "拜仁",
-        "凯恩"
-      ],
-      "support": [
-        {
-          "title": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
-          "url": "https://www.dongqiudi.com/articles/6623259.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "凯恩|基米希|拜仁|美因茨|诺伊尔#injury",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
+        "姆巴佩"
+      ]
     }
   ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
