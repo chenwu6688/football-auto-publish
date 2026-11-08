@@ -1,0 +1,486 @@
+{
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08T00:05:40.791848",
+  "total_articles": 1,
+  "articles": [
+    {
+      "index": 1,
+      "title": "半场0-2的瓦伦西亚，被皇马用同一套逼抢拆了90分钟",
+      "path": "/home/runner/work/_temp/output/2026-11-08/article-1-半场02的瓦伦西-2ce147.md",
+      "slug": "半场02的瓦伦西-2ce147",
+      "tags": [
+        "Valencia",
+        "Real Madrid",
+        "La Liga",
+        "high press",
+        "post-match"
+      ],
+      "keywords": [
+        "Valencia",
+        "Real Madrid",
+        "La Liga",
+        "high press",
+        "post-match"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-08/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "皇马",
+              "瓦伦西亚"
+            ],
+            "numbers": [
+              "3",
+              "0"
+            ],
+            "source": "公开赛事比分",
+            "probe": "皇马3-0瓦伦西亚"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261029/6ae33f30ac6ec_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-08/6aefadde6f032native.htm",
+            "query": "皇马",
+            "alt": "阿斯报：拉蒙冬窗不会离开科莫，皇马手握回购权不急于做决定"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/news/day_261108/202611080753221275.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-08/6aefb77cc7768native.htm",
+            "query": "皇马",
+            "alt": "0-3负皇马！瓦伦主帅：今天局面大致在意料之中，对手配得上胜利"
+          },
+          "width": 750,
+          "height": 933
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "19 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "度量"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "瓦伦西亚",
+          "皇马"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "标题以比分开场（「0-2」在起首 2 字内）",
+          "全文无具体人物名"
+        ]
+      },
+      "content_stats": {
+        "chars": 1015,
+        "han_len": 700,
+        "paragraphs": 8,
+        "headings": 5,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "recap_match_id": "564741"
+    }
+  ],
+  "topics": [
+    {
+      "title": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
+      "angle": "热点事件「剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评」，从球迷情绪与争议点切入",
+      "keywords": [],
+      "keywords_cn": [
+        "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评"
+      ],
+      "content_type": "热点球评",
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "媒体头条（dongqiudi）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "凯恩|基米希|拜仁|美因茨|诺伊尔#injury",
+      "_hot_rank": 3,
+      "_hot_source": "dongqiudi",
+      "_hot_channel": "media",
+      "_hot_providers": [
+        "dongqiudi"
+      ],
+      "_hot_support": [
+        "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评"
+      ],
+      "_hot_support_raw": [
+        {
+          "title": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
+          "url": "https://www.dongqiudi.com/articles/6623259.html",
+          "source": "dongqiudi"
+        }
+      ]
+    },
+    {
+      "title": "曼城7连胜后3连败，瓜迪奥拉这次连借口都没找",
+      "angle": "曼城主场1-3被森林翻盘，德拉普梅开二度弑旧主，格瓦迪奥尔送礼。开季7连胜到3连败，这不是状态波动，是老阵容的油箱见底了。上赛季利物浦5连胜后4连败就是前车之鉴，英超没有永远的王。",
+      "keywords": [
+        "Manchester City",
+        "Nottingham Forest",
+        "Pep Guardiola",
+        "Delap"
+      ],
+      "keywords_cn": [
+        "曼城",
+        "诺丁汉森林",
+        "瓜迪奥拉",
+        "德拉普"
+      ],
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "7连胜到3连败的落差+旧将弑主，戏剧性拉满",
+      "_category": "未分类",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "半场0-2的瓦伦西亚，被皇马用同一套逼抢拆了90分钟",
+      "content_type": "战术榜单",
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "战报标题含比分",
+      "原因": "「半场0-2的瓦伦西亚，被皇马用同一套逼抢」",
+      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（15 < 64）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-11-08-2-29d64a",
+      "index": 2,
+      "title": "拜仁2-1美因茨，诺伊尔伤退这三分拿得真悬",
+      "reasons": [
+        "伤病(命中：伤退)"
+      ]
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "hot_topics": [
+    {
+      "title": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米希世界波德甲2494 评",
+      "rank": 3,
+      "source": "dongqiudi",
+      "channel": "media",
+      "event_key": "凯恩|基米希|拜仁|美因茨|诺伊尔#injury"
+    }
+  ],
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "剑南春｜拜仁2-1美因茨，凯恩助攻双响，诺伊尔伤退，基米"
+      },
+      {
+        "slot": "data",
+        "type": "热点球评",
+        "title": "曼城7连胜后3连败，瓜迪奥拉这次连借口都没找"
+      }
+    ],
+    "degraded": [
+      "data 槽用次优类型补位"
+    ],
+    "skipped": [
+      {
+        "type": "八卦趣事",
+        "title": "C罗从国家队退役，达尼洛说伤感，波登斯说感激，这代人的青"
+      }
+    ],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-08 08:05:40"
+}
