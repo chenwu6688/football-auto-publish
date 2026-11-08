@@ -278,7 +278,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "564741"
+      "recap_match_id": "564741",
+      "performance": {
+        "reads": 8,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 658,
+        "follower_reads": 1,
+        "click_rate": 0.01
+      },
+      "platform_id": "7705585187479896616"
     },
     {
       "index": 1,
@@ -1156,7 +1166,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 71,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1062,
+        "follower_reads": 0,
+        "click_rate": 0.07
+      },
+      "platform_id": "7705740058532053544"
     },
     {
       "index": 2,
@@ -1465,7 +1485,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 14,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 327,
+        "follower_reads": 0,
+        "click_rate": 0.04
+      },
+      "platform_id": "7705740306641256975"
     }
   ],
   "topics": [

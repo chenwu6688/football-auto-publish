@@ -77,12 +77,12 @@
       },
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 844,
+        "reads": 845,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.1932,
-        "impressions": 8926,
+        "retention_rate": 0.1938,
+        "impressions": 9857,
         "follower_reads": 1,
         "click_rate": 0.09
       },
@@ -158,7 +158,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.9,
-        "impressions": 2081,
+        "impressions": 2996,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -235,8 +235,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.3075,
-        "impressions": 2357,
+        "retention_rate": 0.2838,
+        "impressions": 3287,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -551,7 +551,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.5,
-        "impressions": 2010,
+        "impressions": 2954,
         "follower_reads": 0,
         "click_rate": 0.0
       },

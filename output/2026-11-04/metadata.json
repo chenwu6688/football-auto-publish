@@ -42,12 +42,12 @@
       "recap_match_id": "575381",
       "interaction_bait_source": "template_fallback",
       "performance": {
-        "reads": 74,
+        "reads": 75,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.1349,
-        "impressions": 4011,
+        "retention_rate": 0.1276,
+        "impressions": 4658,
         "follower_reads": 1,
         "click_rate": 0.02
       },
@@ -129,7 +129,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.25,
-        "impressions": 3179,
+        "impressions": 4028,
         "follower_reads": 0,
         "click_rate": 0.0
       },

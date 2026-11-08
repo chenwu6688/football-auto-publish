@@ -268,13 +268,14 @@
       },
       "recap_match_id": "565852",
       "performance": {
-        "reads": 3,
+        "reads": 4,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 590,
+        "retention_rate": 0.1214,
+        "impressions": 1566,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7705213750432891443"
     },
@@ -571,13 +572,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 60,
+        "reads": 68,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 1272,
+        "retention_rate": 0.3713,
+        "impressions": 2376,
         "follower_reads": 0,
-        "click_rate": 0.05
+        "click_rate": 0.03
       },
       "platform_id": "7705275687720747561"
     },
@@ -873,13 +875,14 @@
       "hot_source": "dongqiudi",
       "hot_channel": "media",
       "performance": {
-        "reads": 46,
+        "reads": 126,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 447,
+        "retention_rate": 0.2623,
+        "impressions": 2140,
         "follower_reads": 0,
-        "click_rate": 0.1
+        "click_rate": 0.06
       },
       "platform_id": "7705369202730844672"
     },
