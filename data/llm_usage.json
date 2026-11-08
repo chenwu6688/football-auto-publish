@@ -4,10 +4,10 @@
     "prompt_tokens": 447,
     "completion_tokens": 591,
     "total_tokens": 133000,
-    "fail_streak": 7,
+    "fail_streak": 8,
     "free_quota_pct": 86.7,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "last_fail_at": "2026-11-07T18:02:48+08:00",
+    "last_fail_at": "2026-11-08T18:03:52+08:00",
     "quota_synced_at": "2026-11-03 10:29:34"
   },
   "deepseek-v4-flash-202605": {
@@ -40,18 +40,18 @@
     "quota_synced_at": "2026-11-03 10:29:34"
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
-    "prompt_tokens": 459792,
-    "completion_tokens": 127381,
-    "total_tokens": 779490,
+    "prompt_tokens": 464524,
+    "completion_tokens": 128233,
+    "total_tokens": 785074,
     "fail_streak": 0,
     "free_quota_pct": 41.1,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-03 10:29:34"
   },
   "deepseek/deepseek-flash": {
-    "prompt_tokens": 458857,
-    "completion_tokens": 121148,
-    "total_tokens": 778190,
+    "prompt_tokens": 466915,
+    "completion_tokens": 122008,
+    "total_tokens": 787108,
     "fail_streak": 0,
     "free_quota_pct": 42.3,
     "free_quota_expires_at": "2027-09-14 09:24:30",
@@ -68,14 +68,14 @@
     "note": "后台标「模型待下线」：额度还能用，但随时可能停服，只作末位备援"
   },
   "kimi-k2.8-preview": {
-    "prompt_tokens": 6481,
-    "completion_tokens": 5734,
-    "total_tokens": 527000,
-    "fail_streak": 6,
+    "prompt_tokens": 7229,
+    "completion_tokens": 8474,
+    "total_tokens": 530488,
+    "fail_streak": 1,
     "free_quota_pct": 47.3,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-03 10:29:34",
-    "last_fail_at": "2026-11-07T18:03:49+08:00"
+    "last_fail_at": "2026-11-08T18:06:15+08:00"
   },
   "hy4-preview": {
     "prompt_tokens": 0,
