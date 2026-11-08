@@ -1,7 +1,7 @@
 {
   "date": "2026-11-08",
-  "generated_at": "2026-11-08T04:03:50.710629",
-  "total_articles": 3,
+  "generated_at": "2026-11-08T10:06:27.883720",
+  "total_articles": 5,
   "articles": [
     {
       "index": 1,
@@ -863,90 +863,697 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "成都蓉城领跑29轮却丢冠，中超这出戏老球迷太熟了",
+      "path": "/home/runner/work/_temp/output/2026-11-08/article-1-成都蓉城领跑29-ed0493.md",
+      "slug": "成都蓉城领跑29-ed0493",
+      "tags": [
+        "Chengdu Rongcheng",
+        "CSL",
+        "title race",
+        "fans",
+        "29 rounds"
+      ],
+      "keywords": [
+        "Chengdu Rongcheng",
+        "CSL",
+        "title race",
+        "fans",
+        "29 rounds"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-08/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-08/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-08/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "从第1轮领先到第29轮，蓉城这1分到底是怎么丢的",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 91,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题 24 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（7 < 9）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（7 < 9）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "23 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "中国足球",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "成都蓉城",
+          "中超"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 91,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题 24 字落在 21-30 回测最优区间"
+        ]
+      },
+      "content_stats": {
+        "chars": 1132,
+        "han_len": 799,
+        "paragraphs": 12,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 9,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "马莱莱随大连英博逆转夺冠，成都蓉城领先18分丢冠",
+      "path": "/home/runner/work/_temp/output/2026-11-08/article-2-马莱莱随大连英博-db18f1.md",
+      "slug": "马莱莱随大连英博-db18f1",
+      "tags": [
+        "Dalian Yingbo",
+        "Chengdu Rongcheng",
+        "CSL",
+        "title race",
+        "comeback"
+      ],
+      "keywords": [
+        "Dalian Yingbo",
+        "Chengdu Rongcheng",
+        "CSL",
+        "title race",
+        "comeback"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-08/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-08/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-08/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "英博",
+              "领先"
+            ],
+            "numbers": [
+              "1",
+              "0"
+            ],
+            "source": "公开赛事比分",
+            "probe": "英博1-0领先"
+          },
+          "confidence": "medium"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "马莱莱18场8球拿中超，大满贯背后这数据有点意思",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 100,
+        "ok": true,
+        "reasons": [
+          "过程锚点：追平/逆转、积分/分差",
+          "与板块[排行榜]关键词不匹配",
+          "R11数据:标题 24 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（15 < 36）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（15 < 36）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "懂球帝 dongqiudi.com"
+      ],
+      "source_post": "so what？英博10负大幅刷新中超冠军负场纪录，但逆转载入史册中超18 评",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "topic_category": "战报比分",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [
+          "落差"
+        ],
+        "proper_nouns": [
+          "成都蓉城",
+          "大连"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "过程锚点：追平/逆转、积分/分差",
+          "与板块[排行榜]关键词不匹配"
+        ]
+      },
+      "content_stats": {
+        "chars": 974,
+        "han_len": 643,
+        "paragraphs": 15,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "等了32年，成都球迷今天把冠军奖杯堵在门口",
-      "angle": "蓉城冲西部首个顶级联赛冠军，32年等待与当年成足解散的伤痛对照——四川足球这次输不起，也不该再等。立场：冠军点摆在主场第七次，心态才是最大对手。",
+      "title": "从第1轮领先到第29轮，蓉城这1分到底是怎么丢的",
+      "angle": "领跑整整29轮，末轮掉链子，成都球迷冲官博骂'足球史笑话'。这不是运气问题，是争冠球队在最后一公里暴露的心理短板，比技战术更致命。",
       "keywords": [
-        "Chengdu Rongcheng",
-        "CSL title race",
-        "Sichuan football"
+        "chengdu rongcheng",
+        "csl collapse",
+        "title race",
+        "fan backlash"
       ],
       "keywords_cn": [
         "成都蓉城",
-        "中超冠军",
-        "四川足球"
+        "中超丢冠",
+        "领跑29轮",
+        "球迷愤怒"
       ],
       "content_type": "热点球评",
       "score": 93,
       "controversy_level": "high",
-      "target_emotion": "怀旧",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "guozu-chronicle",
-      "why_pick": "32年等待对照成足解散旧伤，情怀与悬念拉满",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "韦世豪8月喊的那句带回成都，今天成了最扎心的赌注",
-      "angle": "从8月底的豪言到停赛后球迷一句'不赢不要回来了'，讲球员承诺与球迷情绪的对撞，韦世豪这场的心理压力比战术更值得写。",
-      "keywords": [
-        "Wei Shihao",
-        "Chengdu Rongcheng",
-        "CSL final day"
-      ],
-      "keywords_cn": [
-        "韦世豪",
-        "成都蓉城",
-        "中超收官"
-      ],
-      "content_type": "八卦趣事",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "愤怒",
       "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "球员豪言与球迷反噬，人物弧光强，讨论度高",
+      "why_pick": "领跑29轮末轮丢冠，反差极致且球迷情绪炸",
       "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-2"
+    },
+    {
+      "title": "马莱莱18场8球拿中超，大满贯背后这数据有点意思",
+      "angle": "18场8球，随申花拿足协杯+超级杯，再到英博拿中超，中国足坛大满贯。数据不算炸裂，但每一步都踩在冠军球队上，这种'福将'属性比进球数更值钱。",
+      "keywords": [
+        "malailai",
+        "csl champion",
+        "grand slam",
+        "shenhua"
+      ],
+      "keywords_cn": [
+        "马莱莱",
+        "中超冠军",
+        "大满贯",
+        "申花"
+      ],
+      "content_type": "排行榜",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "resonance_angle": "无",
+      "series_id": "无",
+      "why_pick": "18场8球大满贯，数据反差有话题",
+      "_category": "中国足球",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-1"
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-3"
     }
   ],
   "data_sources": {},
@@ -959,13 +1566,13 @@
     "total": 2,
     "counts": {
       "一级·确定性": 0,
-      "二级·突发": 2,
-      "三级·软性": 0
+      "二级·突发": 1,
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -974,12 +1581,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 0,
+      "data_driven": 1,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -989,18 +1596,6 @@
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「诺丁汉森林半场2-0曼城，3-1的比分是」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
-      "数量": 1
-    },
-    {
-      "环节": "隔夜战报",
-      "原因": "诺丁汉森林 vs 曼城 生成失败",
-      "处置": "本批不补战报，不拿软性内容顶替",
-      "数量": 1
-    },
-    {
       "环节": "赛程源",
       "原因": "本批无可用赛程选题（源不可用或无匹配）",
       "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
@@ -1008,13 +1603,13 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "与源文连续重合 18 字（>12，疑似洗稿）",
+      "原因": "事实点数少于最强源文（15 < 36）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（23 < 95）",
+      "原因": "事实点数少于最强源文（7 < 9）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
@@ -1029,20 +1624,26 @@
       "原因": "真实图源只拿到 0 张",
       "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
@@ -1055,29 +1656,38 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "等了32年，成都球迷今天把冠军奖杯堵在门口"
+        "title": "从第1轮领先到第29轮，蓉城这1分到底是怎么丢的"
       },
       {
-        "slot": "extra",
-        "type": "八卦趣事",
-        "title": "韦世豪8月喊的那句带回成都，今天成了最扎心的赌注"
+        "slot": "data",
+        "type": "排行榜",
+        "title": "马莱莱18场8球拿中超，大满贯背后这数据有点意思"
       }
     ],
-    "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    "degraded": [],
+    "skipped": [
+      {
+        "type": "八卦趣事",
+        "title": "停赛四轮加丢冠，韦世豪刷屏的那句'把冠军带回成都'"
+      },
+      {
+        "type": "热点球评",
+        "title": "最多差18分却末轮两度登顶，大连英博这冠军谁想得到"
+      }
     ],
-    "skipped": [],
     "day_counts": {
-      "战术榜单": 1
+      "战术榜单": 1,
+      "热点球评": 1,
+      "八卦趣事": 1
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-08 12:06:23",
+  "last_batch": "evening",
+  "last_updated": "2026-11-08 18:06:27",
   "batches_completed": [
     "morning",
     "noon"
