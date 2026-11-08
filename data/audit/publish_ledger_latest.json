@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-08",
-  "generated_at": "2026-11-08 04:06:23",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-08 10:09:04",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -19,19 +19,19 @@
   },
   "records": [
     {
-      "title": "成都蓉城只差1分就能登顶，中超冠军却从手边溜走",
+      "title": "成都蓉城领跑29轮却丢冠，中超这出戏老球迷太熟了",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7705646601057944098",
+      "batch_name": "晚间",
+      "platform_id": "7705740058532053544",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "大连曾落后18分还能逆转夺冠，成都蓉城这次敢不敢把冠军点攥住",
+      "title": "马莱莱随大连英博逆转夺冠，成都蓉城领先18分丢冠",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7705646877747806760",
+      "batch_name": "晚间",
+      "platform_id": "7705740306641256975",
       "reason": "",
       "images": 3,
       "status": "published"

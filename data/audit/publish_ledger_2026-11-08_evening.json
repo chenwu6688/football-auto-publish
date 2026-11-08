@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08 10:09:04",
+  "batch_filter": "evening",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "成都蓉城领跑29轮却丢冠，中超这出戏老球迷太熟了",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7705740058532053544",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "马莱莱随大连英博逆转夺冠，成都蓉城领先18分丢冠",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7705740306641256975",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}

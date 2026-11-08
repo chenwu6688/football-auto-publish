@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-08",
-  "generated_at": "2026-11-08 04:06:23",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-08 10:09:04",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 3,
-    "published": 3,
+    "total": 5,
+    "published": 5,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -22,6 +23,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "成都蓉城领跑29轮却丢冠，中超这出戏老球迷太熟了",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7705740058532053544",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "马莱莱随大连英博逆转夺冠，成都蓉城领先18分丢冠",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7705740306641256975",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "半场0-2的瓦伦西亚，被皇马用同一套逼抢拆了90分钟",
       "slug": "",
