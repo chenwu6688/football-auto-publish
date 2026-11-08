@@ -1,14 +1,15 @@
 {
   "version": 2,
   "date": "2026-11-08",
-  "generated_at": "2026-11-08 00:07:06",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-08 04:06:23",
+  "batch_filter": "morning+noon",
   "batches": [
-    "morning"
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 1,
-    "published": 1,
+    "total": 3,
+    "published": 3,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -16,7 +17,7 @@
     "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 1,
+    "bound": 2,
     "unmatched": [],
     "missing_meta": false
   },
@@ -30,6 +31,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "成都蓉城只差1分就能登顶，中超冠军却从手边溜走",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7705646601057944098",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "大连曾落后18分还能逆转夺冠，成都蓉城这次敢不敢把冠军点攥住",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7705646877747806760",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,

@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-08",
+  "generated_at": "2026-11-08 04:06:23",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "成都蓉城只差1分就能登顶，中超冠军却从手边溜走",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7705646601057944098",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "大连曾落后18分还能逆转夺冠，成都蓉城这次敢不敢把冠军点攥住",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7705646877747806760",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
