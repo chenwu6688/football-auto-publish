@@ -25,6 +25,7 @@ from pathlib import Path
 import yaml
 
 import awareness_gate
+import content_mix
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 CALENDAR_PATH = PROJECT_ROOT / "config" / "season_calendar.yaml"
@@ -178,6 +179,9 @@ def build_node_topics(today: date | None = None, horizon_days: int | None = DEFA
             "angle_type": n.get("type", "赛季节点"),
             "conflict": conflict,
             "suggested_column": column,
+            # 内容类型轴（≠「板块」）：batch_mix 分槽与 content_mix 配比只认这个字段。
+            # 缺了它，节点稿在槽位分配里恒为「未分类」，data 槽永远轮不到它。
+            "content_type": content_mix.type_of({"content_type": column}),
             "板块": board,
             "awareness": aw,
             "awareness_decision": dec["action"],
@@ -266,6 +270,9 @@ def result_topics(now: datetime | None = None, calendar: dict | None = None,
             "facts": [str(f).strip() for f in (n.get("facts") or []) if str(f).strip()],
             "conflict": f"{label}结果已出，为什么是他",
             "suggested_column": column,
+            # 内容类型轴（≠「板块」）：batch_mix 分槽与 content_mix 配比只认这个字段。
+            # 缺了它，节点稿在槽位分配里恒为「未分类」，data 槽永远轮不到它。
+            "content_type": content_mix.type_of({"content_type": column}),
             "板块": board,
             "awareness": aw,
             "awareness_decision": dec["action"],
@@ -305,7 +312,13 @@ def stock(article: dict, topic: dict, *, now: datetime | None = None) -> str:
         "awareness": topic.get("awareness", ""),
         "awareness_decision": topic.get("awareness_decision", ""),
         "title_allowed": topic.get("title_allowed"),
-        "content_type": article.get("content_type", "") or topic.get("node_type", ""),
+        # content_type 必须落**登记过的内容类型**。此前回退到 ``node_type``
+        # （取值如「赛季节点」）——那是节点分类，不是内容类型，落进库存后既不进
+        # 配比统计、也查不到 DAILY_CAP（等于没有单日上限）。（2026-11-09 修）
+        "content_type": content_mix.type_of(
+            {"content_type": article.get("content_type") or topic.get("content_type"),
+             "suggested_column": topic.get("suggested_column")},
+            default="战术榜单"),
         "title": article.get("title", ""),
         "content": article.get("content", ""),
         "summary": article.get("summary", ""),

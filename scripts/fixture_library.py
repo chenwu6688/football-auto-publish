@@ -29,6 +29,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 import api_budget  # noqa: E402  （计划 11.4 每日接口额度台账）
+import content_mix  # noqa: E402  （内容类型归一：唯一口径，见 content_mix.normalize）
 
 CST = timezone(timedelta(hours=8))
 
@@ -406,6 +407,11 @@ def build_topic_pool(matches: list[dict], emap: dict,
             # 人视角叙事要求（R11「写人 > 写事」）：供生成侧提示词据此把角度落在人的处境上
             "angle_hint": narrative,
             "suggested_column": column,
+            # 内容类型轴 —— 与下面的「板块」**不是同一个轴**，绝不能互相替代
+            # （2026-11-09 修：此前赛程 topic 只有「板块」没有 content_type，
+            #  batch_mix._norm 取到 None → 归一成「未分类」→ data 槽永远没有候选，
+            #  赛程稿只能走「次优类型补位」；BC 型（数据对照）也被吞成战术榜单）。
+            "content_type": content_mix.type_of({"content_type": column}),
             # 计划 6.2 固定四板块：转会动态／人物故事／中国足球／战术榜单。
             # 赛程类选题映射：中超→中国足球；人物角度(suggested_column=人物故事)→人物故事；其余战术/数据角度→战术榜单。
             "板块": ("中国足球" if comp_name == "中超" else
@@ -639,6 +645,10 @@ def build_recap_topics(matches: list[dict], emap: dict, now: datetime | None = N
             # 而战报的实质是「结果 + 为什么」的战术复盘，不是人物故事——
             # 归人物故事正是要修的病（近 14 天人物故事占 45.6%）。
             "suggested_column": "战术榜单",
+            # content_type 与 suggested_column 保持一致（战报＝结果+为什么的复盘）。
+            # 补这个字段不是为了改归类，是为了让 batch_mix 能分槽：缺它就会被判
+            # 「未分类」，data 槽的候选池恒空（见 orchestrator._fixture_content_type）。
+            "content_type": content_mix.type_of({"content_type": "战术榜单"}),
             "板块": "中国足球" if comp_name == "中超" else "战术榜单",
             "priority": priority,
             "publish_by": (fin + timedelta(hours=RECAP_PUBLISH_WINDOW_HOURS)).strftime("%Y-%m-%d %H:%M"),

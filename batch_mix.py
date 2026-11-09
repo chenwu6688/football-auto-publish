@@ -69,7 +69,12 @@ DAILY_CAP = {"数据对比": 3, "排行榜": 2, "战术榜单": 2,
 
 
 def _norm(topic: dict) -> str:
-    return content_mix.normalize((topic or {}).get("content_type"))
+    """这一条候选属于哪一型。**只做委托**，判定在 content_mix.type_of。
+
+    default 用「未分类」而不是「战术榜单」：分槽侧要能看见「这条没定型」，
+    把它悄悄算进战术榜单会让上限失效、也让未登记类型永远浮现不出来。
+    """
+    return content_mix.type_of(topic)
 
 
 def plan_slots(count: int) -> tuple[str, ...]:

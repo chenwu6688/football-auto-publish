@@ -4812,8 +4812,27 @@ def _soft_used_today(date_str) -> int:
 
 
 def _fixture_content_type(topic):
-    """赛程分型 → 板块 content_type（计划 6.2 固定四板块：转会动态／人物故事／中国足球／战术榜单）。"""
-    return topic.get("板块", "战术榜单")
+    """赛程／节点选题 → **内容类型**（content_mix 口径）。
+
+    2026-11-09 修：此前实现是 ``return topic.get("板块", "战术榜单")`` —— 读的是
+    **板块**（头条栏目：转会动态／人物故事／中国足球／战术榜单），而 batch_mix 分槽、
+    content_mix 配比、verify_batch_mix 结构验收统计的都是 **content_type**
+    （热点球评／数据对比／排行榜／战术榜单…）。两个轴不是一回事，混用有三层后果：
+
+      1. BC 型（suggested_column=数据对照）被记成战术榜单 → 战术榜单超上限、数据型恒缺；
+      2. 中超赛程稿记成「中国足球」—— TARGET_PCT 里没有这一型，是**未登记类型**，
+         既不进 data 槽、也不受 DAILY_CAP 约束；
+      3. 更根本的是**选题侧**：``batch_mix._norm`` 读 ``topic["content_type"]``，而赛程
+         topic 本来没有这个字段 → 全部判「未分类」→ data 槽永远没有候选，只能走
+         「次优类型补位」。这一层已在 fixture_library / deterministic_supply 补字段修掉，
+         本函数是第二道（存量 topic 与外部注入的 topic 仍要能正确落型）。
+
+    取值顺序见 ``content_mix.type_of``（content_type → suggested_column，归一后必须
+    落在 TARGET_PCT 里）。兜底用「战术榜单」而不是「未分类」：落进 metadata 与提示词的
+    类型必须是登记过的。**绝不把「板块」当兜底返回值** —— 那是另一个轴的词表
+    （转会动态／人物故事／中国足球／战术榜单），返回出去就是未登记类型，正是本次要修的病。
+    """
+    return content_mix.type_of(topic, default="战术榜单")
 
 
 def _recap_sent_today(date_str) -> set:
@@ -5336,7 +5355,8 @@ def generate_fixture_article(topic, facts, date_str=None, recent_prefixes=None, 
    严禁『XX前瞻』『赛前分析』等模板化标题（赛事前瞻已停发，计划 7.1 验收：前瞻体占比为零）。
 2. 所有数据只能来自上方事实卡；卡里没有的（具体比分、转会、伤病、历史交锋、合同金额）一律不写，宁可不提也不编造。
 3. 语气像老球迷喝酒聊天，有明确立场和情绪，不套模板。
-4. 依板块落栏：{content_type}（计划 6.2 板块：转会动态／人物故事／中国足球／战术榜单）。
+4. 内容类型：{content_type}（选题已定型，正文写法要贴合这一型，**不许改类型**）；
+   发布板块：{topic.get('板块', '')}。类型与板块是两个轴，不要混用。
 5. 文末必须包含两类固定内容：
    (a) 互动钩子，引评论区讨论；
    (b) 一段「老六视角」——基于上述事实卡给出的独立判断（只做判断、不编造任何卡外数据），

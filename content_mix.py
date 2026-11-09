@@ -91,6 +91,10 @@ ALIASES = {
     "榜单": "排行榜",
     "紧急球评": "热点球评",
     "数据对照": "数据对比",
+    # 「转会动态」是计划 6.2 的**板块**名（`deterministic_supply.NODE_COLUMNS`），
+    # 这一型在配比表里叫「转会资讯」。不并进来，节点稿的「冬季转会窗关闭」会被记成
+    # 未登记类型 —— 既不进配比统计、也不受 DAILY_CAP 约束。（2026-11-09）
+    "转会动态": "转会资讯",
 }
 
 # 单类型占比容差（百分点）。超出仅告警：配比是慢变量，按天卡死会逼出凑数稿。
@@ -105,6 +109,35 @@ def normalize(content_type: str | None) -> str:
     if not ct:
         return "未分类"
     return ALIASES.get(ct, ct)
+
+
+def type_of(obj: dict | None, *, default: str = "未分类") -> str:
+    """从 topic／成稿里取**内容类型**（content_mix 口径）—— 全仓唯一入口。
+
+    两个字段要分先后读：
+
+    * ``content_type`` —— 成稿与已定型选题的字段；
+    * ``suggested_column`` —— 赛程／节点选题的「建议栏目」字段，取值里含 ``数据对照``
+      这类别名，``normalize`` 会把它并进 ``数据对比``。
+
+    为什么必须回退读 suggested_column（2026-11-09 修）：赛程 topic 很长一段时间
+    只写 ``suggested_column`` 与 ``板块``，**没有 content_type**。后果是三层：
+
+      1. ``batch_mix._norm`` 取到 None → 归一成「未分类」→ data 槽的候选池恒为空，
+         赛程稿只能走「次优类型补位」；
+      2. 生成侧退而读「板块」（那是头条栏目词表，另一个轴）→ BC 型被记成战术榜单、
+         中超稿被记成「中国足球」（TARGET_PCT 里没有，属未登记类型）；
+      3. 结构验收因此永远看到「战术榜单超上限 + 数据型不足」，而真正的原因不是
+         写的人不写数据稿，是**数据稿在分槽阶段就被改判成别的类型**。
+
+    ``default`` 交给调用方决定：分槽侧用「未分类」（未登记类型要能被统计暴露出来），
+    生成侧用「战术榜单」（落 metadata 的类型必须是登记过的，绝不能写未登记类型）。
+    """
+    for key in ("content_type", "suggested_column"):
+        ct = normalize((obj or {}).get(key) or "")
+        if ct in TARGET_PCT:
+            return ct
+    return default
 
 
 def is_banned(content_type: str | None) -> bool:
