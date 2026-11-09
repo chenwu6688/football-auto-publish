@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-09",
-  "generated_at": "2026-11-09 00:08:26",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-09 04:09:21",
+  "batch_filter": "noon",
   "counts": {
     "total": 2,
     "published": 2,
@@ -19,19 +19,19 @@
   },
   "records": [
     {
-      "title": "半场1-1后巴萨换人破局，马竞1-2主场饮恨",
+      "title": "曼联4-4阿斯顿维拉，半场2-2后谁先松手",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7705956330044949043",
+      "batch_name": "午间",
+      "platform_id": "7706018447402631715",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "从两连败到3-1，利物浦靠伊萨克第88分钟这一脚喘过气",
+      "title": "曼联4-4维拉，多古补时救主还是遮羞？",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7705956613571478066",
+      "batch_name": "午间",
+      "platform_id": "7706018750818714152",
       "reason": "",
       "images": 3,
       "status": "published"

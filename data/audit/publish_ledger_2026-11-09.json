@@ -1,14 +1,15 @@
 {
   "version": 2,
   "date": "2026-11-09",
-  "generated_at": "2026-11-09 00:08:26",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-09 04:09:21",
+  "batch_filter": "morning+noon",
   "batches": [
-    "morning"
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 4,
+    "published": 4,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -40,6 +41,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "曼联4-4阿斯顿维拉，半场2-2后谁先松手",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7706018447402631715",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "曼联4-4维拉，多古补时救主还是遮羞？",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7706018750818714152",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,

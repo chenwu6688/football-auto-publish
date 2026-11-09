@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T00:05:54.526258",
-  "total_articles": 2,
+  "generated_at": "2026-11-09T04:06:49.079461",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -577,107 +577,640 @@
       "hot_rank": 0,
       "hot_source": "news_cluster",
       "hot_channel": "news_cluster"
+    },
+    {
+      "index": 1,
+      "title": "曼联4-4阿斯顿维拉，半场2-2后谁先松手",
+      "path": "/home/runner/work/_temp/output/2026-11-09/article-1-曼联44阿斯顿维-713367.md",
+      "slug": "曼联44阿斯顿维-713367",
+      "tags": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "4-4 draw"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "4-4 draw"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "曼联",
+              "阿斯顿维拉"
+            ],
+            "numbers": [
+              "4",
+              "4"
+            ],
+            "source": "公开赛事比分",
+            "probe": "曼联4-4阿斯顿维拉"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261108/6af098c55ca76_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-08/6af0978840e31native.htm",
+            "query": "阿斯顿维拉、曼联",
+            "alt": "6轮不胜→8连胜！伯恩茅斯3-0米兰+曼联+维拉，8场轰21球仅丢2球"
+          },
+          "width": 1200,
+          "height": 812
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "阿斯顿维拉",
+          "曼联"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1217,
+        "han_len": 870,
+        "paragraphs": 11,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "recap_match_id": "560639"
+    },
+    {
+      "index": 2,
+      "title": "曼联4-4维拉，多古补时救主还是遮羞？",
+      "path": "/home/runner/work/_temp/output/2026-11-09/article-2-曼联44维拉多古-b4056d.md",
+      "slug": "曼联44维拉多古-b4056d",
+      "tags": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "Dorgu",
+        "Van Persie"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "Dorgu",
+        "Van Persie"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "曼联",
+              "阿斯顿维拉"
+            ],
+            "numbers": [
+              "4",
+              "4"
+            ],
+            "source": "公开赛事比分",
+            "probe": "曼联4-4阿斯顿维拉"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261108/6af098c55ca76_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-08/6af0978840e31native.htm",
+            "query": "维拉、曼联",
+            "alt": "6轮不胜→8连胜！伯恩茅斯3-0米兰+曼联+维拉，8场轰21球仅丢2球"
+          },
+          "width": 720,
+          "height": 488
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261025/6ade24fb65aff_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af13aecc57ednative.htm",
+            "query": "曼联",
+            "alt": "ESPN：利物浦进攻线展现闪光点，战曼联将是他们爆发的完美契机"
+          },
+          "width": 1200,
+          "height": 799
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "无法归因的比分 2-0（事实 4-4）",
+            "曼联 失球写作 1（事实 4），单侧归因疑为历史数据",
+            "曼联 进球写作 1（事实 4），单侧归因疑为历史数据",
+            "无法归因的比分 1-4（事实 4-4）",
+            "无法归因的比分 2-4（事实 4-4）",
+            "无法归因的比分 3-4（事实 4-4）"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "曼联4-4维拉8轮不胜，多古替补绝平却难掩降级区尴尬",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "近 14 天疑问收尾已 31 篇（限额 2 篇），本篇又以疑问收尾",
+          "标题不要再以疑问句收尾。把「过程」写进标题——第几分钟、连进几球、谁被换下、谁第几次上场；过程本身才是让人点开的理由，「他到底图个啥？」不是。"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（23 < 72）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（23 < 72）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "维拉",
+          "曼联"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": true,
+        "fallback": "",
+        "score": 64,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "疑问句式(头部占比 0%~20%，不宜作为主力)"
+        ]
+      },
+      "content_stats": {
+        "chars": 835,
+        "han_len": 500,
+        "paragraphs": 11,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "法媒：水晶宫将解雇主帅萨热",
-      "angle": "热点事件「法媒：水晶宫将解雇主帅萨热」，从球迷情绪与争议点切入",
-      "keywords": [],
-      "keywords_cn": [
-        "法媒：水晶宫将解雇主帅萨热"
-      ],
-      "content_type": "热点球评",
-      "score": 100,
-      "controversy_level": "high",
-      "why_pick": "媒体头条（news_cluster）",
-      "_supply_layer": "二级·突发",
-      "_hot_event_key": "水晶宫#coach",
-      "_hot_rank": 0,
-      "_hot_source": "news_cluster",
-      "_hot_channel": "news_cluster",
-      "_hot_providers": [
-        "news_cluster"
-      ],
-      "_hot_support": [
-        "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选",
-        "BBC：水晶宫考虑解雇现任主帅萨热，弗兰克和戴奇是热门替代人选",
-        "TA：水晶宫即将解雇萨热，执教仅16场将成英超本季下课首人"
-      ],
-      "_hot_support_raw": [
-        {
-          "source": "zhibo8",
-          "title": "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af106ff32caenative.htm",
-          "article_text": "直播吧11月9日讯 据法国媒体Footmercato报道，水晶宫将解雇主帅萨热，弗兰克、维托尔·佩雷拉、兰帕德、肖恩·戴奇是潜在新帅候选。\n媒体指出，水晶宫将在未来几小时内解雇主帅萨热，俱乐部已经做出决定，不敌利物浦的比赛成为压垮骆驼的最后一根稻草。\n水晶宫管理层已经在寻找替代者，弗兰克、维托尔·佩雷拉、兰帕德、肖恩·戴奇是潜在人选。",
-          "_age_hours": 8.0,
-          "_freshness": "fresh",
-          "_hot_support": true
-        },
-        {
-          "source": "zhibo8",
-          "title": "BBC：水晶宫考虑解雇现任主帅萨热，弗兰克和戴奇是热门替代人选",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af10703e40afnative.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        },
-        {
-          "title": "TA：水晶宫即将解雇萨热，执教仅16场将成英超本季下课首人",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0e38cf1ec8native.htm",
-          "article_text": "",
-          "source": "zhibo8",
-          "_content_type_hint": "转会资讯",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        }
-      ]
-    },
-    {
-      "title": "曼联4-4绝平维拉却8轮不胜，卡里克12轮只拿这点分",
-      "angle": "曼联单场两度让二追二看着热血，可8轮不胜深陷降级区才是真相。卡里克带队12轮的积分比索尔斯克亚下课那年还惨，血性救不了积分榜，情怀也救不了帅位。",
+      "title": "曼联4-4维拉8轮不胜，多古替补绝平却难掩降级区尴尬",
+      "angle": "从曼联8轮不胜深陷降级区的荒诞现实切入，多古替补绝平+传射的戏剧性救主与球队整体崩盘形成巨大反差，点出红魔已从争冠沦为保级笑话的残酷。",
       "keywords": [
         "Manchester United",
-        "Carrick",
-        "Premier League",
+        "Aston Villa",
+        "Dorgu",
         "relegation zone"
       ],
       "keywords_cn": [
         "曼联",
-        "卡里克",
-        "英超",
+        "阿斯顿维拉",
+        "多古",
         "降级区"
       ],
       "content_type": "热点球评",
       "score": 96,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
+      "target_emotion": "震惊",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "豪门沉沦+主帅生死，老球迷最爱看",
+      "why_pick": "曼联8轮不胜+降级区是顶级流量炸弹，多古绝平戏剧性拉满",
       "_category": "战报比分",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
-        400,
-        600
+        300,
+        500
       ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-1"
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
     },
     {
-      "title": "半场1-1后巴萨换人破局，马竞1-2主场饮恨",
+      "title": "曼联4-4阿斯顿维拉，半场2-2后谁先松手",
       "content_type": "战术榜单",
       "_supply_layer": "二级·突发",
       "_is_recap": true
@@ -724,20 +1257,32 @@
   "degrade_events": [
     {
       "环节": "战报标题含比分",
-      "原因": "「半场1-1后巴萨换人破局，马竞1-2主场」",
+      "原因": "「曼联4-4阿斯顿维拉，半场2-2后谁先松」",
       "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
       "数量": 1
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（21 < 55）",
+      "原因": "事实点数少于最强源文（23 < 72）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：近 14 天疑问收尾已 31 篇（限额 2 篇），本篇又以疑问收尾；标题不要再以疑问句收尾。把「过程",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -750,15 +1295,6 @@
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
-  "hot_topics": [
-    {
-      "title": "法媒：水晶宫将解雇主帅萨热",
-      "rank": 0,
-      "source": "news_cluster",
-      "channel": "news_cluster",
-      "event_key": "水晶宫#coach"
-    }
-  ],
   "batch_mix": {
     "slots": [
       "main",
@@ -768,33 +1304,27 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "法媒：水晶宫将解雇主帅萨热"
-      },
-      {
-        "slot": "data",
-        "type": "热点球评",
-        "title": "曼联4-4绝平维拉却8轮不胜，卡里克12轮只拿这点分"
+        "title": "曼联4-4维拉8轮不胜，多古替补绝平却难掩降级区尴尬"
       }
     ],
     "degraded": [
-      "data 槽用次优类型补位"
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
-    "skipped": [
-      {
-        "type": "八卦趣事",
-        "title": "执教仅16场就要下课，水晶宫为何比曼联还先动刀"
-      }
-    ],
-    "day_counts": {},
-    "selected": 2,
+    "skipped": [],
+    "day_counts": {
+      "战术榜单": 1,
+      "热点球评": 1
+    },
+    "selected": 1,
     "requested": 2
   },
   "batches_generated": [
-    "morning"
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-09 08:08:26",
+  "last_batch": "noon",
+  "last_updated": "2026-11-09 12:09:21",
   "batches_completed": [
-    "morning"
+    "morning",
+    "noon"
   ]
 }
