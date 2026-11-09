@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09 00:08:26",
+  "batch_filter": "morning",
+  "batches": [
+    "morning"
+  ],
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "半场1-1后巴萨换人破局，马竞1-2主场饮恨",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7705956330044949043",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "morning"
+    },
+    {
+      "title": "从两连败到3-1，利物浦靠伊萨克第88分钟这一脚喘过气",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7705956613571478066",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "morning"
+    }
+  ],
+  "no_publishable": null,
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。"
+}
