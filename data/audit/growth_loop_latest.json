@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06 18:20",
+  "generated_at": "2026-11-09 11:57",
   "ok": true,
   "checks": [
     {
@@ -35,7 +35,7 @@
       "ok": true,
       "advisory": false,
       "detail": [
-        "data/growth/fans_daily.json：52 个日期",
+        "data/growth/fans_daily.json：55 个日期",
         "解析 / 相邻日差分 / 跨度守卫 / 缺失不猜 / 合并写不覆盖真实值 全部通过 ✅"
       ]
     },
