@@ -1,26 +1,25 @@
 {
-  "generated_at": "2026-11-06 18:20",
-  "snapshot_at": "2026-11-03 10:29:34",
+  "generated_at": "2026-11-09 11:56",
+  "snapshot_at": "2026-11-09 11:45:57",
   "models": 20,
-  "rotation": 19,
+  "rotation": 18,
   "ok": true,
   "checks": [
     {
       "item": "账本与快照一致",
       "ok": true,
       "detail": [
-        "✅ 19 个在用模型：total 不低于后台推算值、剩余%与到期时间一致；1 个停用模型已标 disabled",
-        "  · deepseek/deepseek-flash: 账本 738,960 > 快照推算 577,000（校准后又消耗了 161,960，正常）",
-        "  · deepseek-v4-flash-0731: 账本 743,584 > 快照推算 579,000（校准后又消耗了 164,584，正常）",
-        "  · deepseek/deepseek-v4-flash-vision-exp: 账本 740,152 > 快照推算 589,000（校准后又消耗了 151,152，正常）"
+        "✅ 18 个在用模型：total 不低于后台推算值、剩余%与到期时间一致；2 个停用模型已标 disabled"
       ]
     },
     {
       "item": "轮换列表合法",
       "ok": true,
       "detail": [
-        "✅ 轮换列表 19 个模型全部有免费额度且未停止",
+        "✅ 轮换列表 18 个模型全部有免费额度且未停止",
         "  ⚠️ deepseek-v4-flash-202605: 剩 19.8% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
+        "  ⚠️ deepseek/deepseek-flash: 剩 15.8% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
+        "  ⚠️ deepseek/deepseek-v4-flash-vision-exp: 剩 14.8% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
         "  ⚠️ deepseek-v4-pro-0813: 剩 13.5% 已过停用线，运行期会自动跳过（额度重置后自动复活）"
       ]
     },
@@ -28,9 +27,9 @@
       "item": "可用池容量",
       "ok": true,
       "detail": [
-        "✅ 可用 17 个 / 停用或到线 3 个（下限 4）",
-        "可用额度合计约 11,887,000 tokens（单模型 1,000,000）",
-        "  不可用：deepseek-v4-pro-0813（剩 13.5%）、hy3（剩 0.0%）、deepseek-v4-flash-202605（剩 19.8%）"
+        "✅ 可用 14 个 / 停用或到线 6 个（下限 4）",
+        "可用额度合计约 12,344,000 tokens（单模型 1,000,000，按各模型实际额度累加）",
+        "  不可用：hy3（剩 0.0%）、deepseek/deepseek-flash（剩 15.8%）、deepseek/deepseek-v4-flash-vision-exp（剩 14.8%）、deepseek-v4-pro-0813（剩 13.5%）、deepseek-v4-flash-202605（剩 19.8%）、deepseek-v4-pro（剩 0.0%）"
       ]
     },
     {
@@ -45,7 +44,7 @@
       "item": "负向验证",
       "ok": true,
       "detail": [
-        "✅ 篡改 minimax-m3.1-flash（100.0% → 99.0%）后一致性检查正确报错"
+        "✅ 篡改 hy4-preview（33.5% → 32.5%）后一致性检查正确报错"
       ]
     }
   ],

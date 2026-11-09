@@ -302,3 +302,17 @@ class TestPromptAlignment(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+    def test_freshness_compares_publish_by_to_article_date_only(self):
+        """时效判据只比「publish_by vs 成稿日」，不读今天 —— 判据本身不随时间漂移。
+
+        2026-11-09 踩过：自检样本里 publish_by 写死 11-07，而 item["date"] 取今天，
+        一过零点就变成「已过期」，红灯长得跟真回归一模一样。判据没错，样本错。
+        """
+        rule = self.rules["TT-03"]
+        base = {"date": "2026-11-07", "dir": PROJECT_ROOT, "_body": None}
+        same_day = dict(base, art={"publish_by": "2026-11-07T09:00:00"})
+        self.assertEqual(self.vc.j_freshness(same_day, rule)["status"], self.vc.PASS)
+        stale = dict(base, art={"publish_by": "2026-11-06T09:00:00"})
+        self.assertEqual(self.vc.j_freshness(stale, rule)["status"], self.vc.FAIL)
+        self.assertEqual(self.vc.j_freshness(dict(base, art={}), rule)["status"], self.vc.UNJ)

@@ -229,9 +229,42 @@ def _model_used_tokens(model, usage):
     return usage.get(model, {}).get("total_tokens", 0)
 
 
+def _effective_quota(model, usage, quota=LLM_FREE_QUOTA_TOKENS, hard_cap=LLM_HARD_CAP_TOKENS):
+    """单模型额度可覆盖全局（hy4 后台是 1000 万，其余 100 万）。返回 (额度, 硬上限)。
+
+    为什么必须跟模型走（2026-11-09 同步 hy4 时暴露）：
+      ① 按全局 100 万折算「已用」→ 少记 10 倍，正是「本地以为还有额度、后台已扣钱」那条事故；
+      ② 硬上限 80 万是绝对值 → 对 1000 万的模型只有 8%，其余 92% 免费额度永远用不上，且不报错。
+    硬上限按同比例放大后，"已用 80%"这个语义在所有模型上一致。
+    账本里没有 free_quota_total_tokens 的模型（老账本 / 手工记录）一律回落全局值。
+    """
+    raw = (usage.get(model, {}) or {}).get("free_quota_total_tokens")
+    try:
+        model_quota = float(raw) if raw else 0.0
+    except (TypeError, ValueError):
+        model_quota = 0.0
+    if model_quota <= 0 or not quota or model_quota == float(quota):
+        return quota, hard_cap
+    scale = model_quota / float(quota)
+    return model_quota, (hard_cap * scale if hard_cap else hard_cap)
+
+
 def _remaining_tokens(model, usage, quota=LLM_FREE_QUOTA_TOKENS):
     """Return free tokens remaining for a model (never negative)."""
-    return max(0, quota - _model_used_tokens(model, usage))
+    q, _cap = _effective_quota(model, usage, quota)
+    return max(0, q - _model_used_tokens(model, usage))
+
+
+def _remaining_ratio(model, usage, quota=LLM_FREE_QUOTA_TOKENS):
+    """剩余额度占**本模型额度**的比例（0~1）。
+
+    排序要用比例不用绝对值：额度不同的模型放一起比绝对剩余，1000 万额度的
+    模型会永远排在只有 100 万的前面，把「先用快到期额度」的规则彻底压掉。
+    """
+    q, _cap = _effective_quota(model, usage, quota)
+    if not q:
+        return 0.0
+    return _remaining_tokens(model, usage, quota) / float(q)
 
 
 def _fail_streak(model, usage, *, ttl_hours=None, now=None):
@@ -315,9 +348,11 @@ def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM
     if usage.get(model, {}).get("disabled"):
         return False
     used = _model_used_tokens(model, usage)
-    if used >= quota * threshold:
+    # 额度与硬上限都可能是「本模型专属」的（见 _effective_quota）
+    q, cap = _effective_quota(model, usage, quota, hard_cap)
+    if used >= q * threshold:
         return False
-    if hard_cap and used >= hard_cap:
+    if cap and used >= cap:
         return False
     return True
 
@@ -398,10 +433,13 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             continue
         if not _is_model_available(model, usage, quota, threshold, hard_cap):
             used = _model_used_tokens(model, usage)
+            q_model, cap_model = _effective_quota(model, usage, quota, hard_cap)
             remaining = _remaining_tokens(model, usage, quota)
-            cap_hit = hard_cap and used >= hard_cap
-            why = f"已达本地硬上限 {hard_cap}" if cap_hit else f"免费额度剩余 <=10% ({(1-threshold)*100:.0f}%)"
-            print(f"   ⏭️ LLM({model}) 跳过：{why}（已用 {used}/{quota}，剩余 {remaining} tokens）")
+            cap_hit = cap_model and used >= cap_model
+            why = (f"已达本地硬上限 {int(cap_model):,}" if cap_hit
+                   else f"免费额度剩余 <=10% ({(1-threshold)*100:.0f}%)")
+            print(f"   ⏭️ LLM({model}) 跳过：{why}（已用 {used:,}/{int(q_model):,}，"
+                  f"剩余 {remaining:,} tokens）")
             exhausted.append(model)
             continue
         available.append((url, key, model))
@@ -418,17 +456,17 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             available.sort(key=lambda c: (
                 _fail_streak(c[2], usage),
                 _quota_expiry_ts(c[2], usage),
-                -_remaining_tokens(c[2], usage, quota),
+                -_remaining_ratio(c[2], usage, quota),
             ))
         else:
             available.sort(key=lambda c: (
                 _fail_streak(c[2], usage),
-                -_remaining_tokens(c[2], usage, quota),
+                -_remaining_ratio(c[2], usage, quota),
             ))
         top = available[0][2]
         _exp = usage.get(top, {}).get("free_quota_expires_at") or "未记录"
         print(f"   🧮 候选排序：首位 {top}（失败次数 {_fail_streak(top, usage)}，"
-              f"额度到期 {_exp}，剩余 {_remaining_tokens(top, usage, quota)} tokens）")
+              f"额度到期 {_exp}，剩余 {_remaining_ratio(top, usage, quota):.0%}）")
 
     if not available:
         reasons = []

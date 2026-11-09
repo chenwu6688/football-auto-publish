@@ -581,8 +581,60 @@ def test_rotation_list_matches_ledger_models():
 
 
 def test_rotation_list_excludes_non_free_models():
-    """后台免费体验列表里没有的模型不得进轮换（用它们＝按量计费，最贵的一类错）。"""
+    """后台免费体验列表里没有的模型不得进轮换（用它们＝按量计费，最贵的一类错）。
+
+    判据必须从快照派生，**不能写死模型名**：2026-11-09 后台把 glm-5.2、kimi-k2.7-code、
+    deepseek-v4-pro-202606 放了进来（原来这条测试把它们写成「无免费额度」），
+    硬编码名单当场就变成了假警报 —— 而真正的红线（hy3 / deepseek-v4-pro 剩 0%）
+    反而是靠 remaining_pct 才判得准。
+    """
+    snap = json.loads((ROOT / "data" / "llm_quota_snapshot.json").read_text(encoding="utf-8"))
     models = [m for _u, _k, m in LLM_JSON_CANDIDATES]
-    for bad in ("glm-5.2", "kimi-k2.7-code-highspeed", "deepseek-v4-pro-202606",
-                "hy3", "deepseek-v4-pro"):
-        assert bad not in models, f"{bad} 无免费额度/已停止，不应出现在轮换列表"
+    for m in models:
+        meta = snap["models"].get(m)
+        assert meta is not None, f"{m} 不在后台快照里（按量计费风险）"
+        assert float(meta.get("remaining_pct") or 0) > 0, f"{m} 剩余 0%，不该在轮换里"
+        assert meta.get("enabled") is not False, f"{m} 计费开关未开通，不该在轮换里"
+    # 明令排除的两个：后台仍显示「已上线」，但 0% + 未开通
+    for bad in ("hy3", "deepseek-v4-pro"):
+        assert bad not in models, f"{bad} 无免费额度/未开通，不应出现在轮换列表"
+
+
+# ============================================================
+# 9. 单模型额度 ≠ 全局额度（hy4 = 1000 万）
+# ============================================================
+
+def test_big_quota_model_is_not_cut_by_global_hard_cap():
+    """1000 万额度的模型不能被 80 万这个绝对硬上限砍到 8%。
+
+    2026-11-09 后台给 hy4 单独开了 1000 万额度。硬上限是按「已用 80%」设计的保险丝，
+    绝对值不随额度放大，就等于给 hy4 加了个「用 8% 就闭嘴」的天花板 —— 不报错，
+    只是 92% 的免费额度永远用不上。
+    """
+    usage = {"hy4": {"total_tokens": 1_000_000, "free_quota_total_tokens": 10_000_000}}
+    assert utils._effective_quota("hy4", usage) == (10_000_000, 8_000_000)
+    assert utils._is_model_available("hy4", usage) is True
+    assert utils._remaining_tokens("hy4", usage) == 9_000_000
+    usage["hy4"]["total_tokens"] = 8_100_000          # 已用 81%（> 80% 硬上限，< 90% 阈值）
+    assert utils._is_model_available("hy4", usage) is False
+
+
+def test_old_ledger_without_quota_field_falls_back_to_global():
+    """老账本没有 free_quota_total_tokens，必须回落到全局值，不能当成「额度 0」。"""
+    usage = {"glm-5.3": {"total_tokens": 61_000}}
+    assert utils._effective_quota("glm-5.3", usage) == (1_000_000, 800_000)
+    assert utils._remaining_tokens("glm-5.3", usage) == 939_000
+
+
+def test_sorting_compares_ratio_not_absolute_tokens():
+    """排序比的是「剩余比例」，不是绝对 token 数。
+
+    比绝对值的话，1000 万额度的 hy4（剩 500 万）会永远压过只剩 80 万的 100 万额度模型，
+    「先用快到期额度」的规则就被彻底架空了。
+    """
+    usage = {
+        "big": {"total_tokens": 5_000_000, "free_quota_total_tokens": 10_000_000},
+        "small": {"total_tokens": 200_000},
+    }
+    assert utils._remaining_tokens("big", usage) > utils._remaining_tokens("small", usage)
+    assert utils._remaining_ratio("big", usage) < utils._remaining_ratio("small", usage)

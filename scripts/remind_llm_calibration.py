@@ -59,6 +59,11 @@ def build_report():
         if m not in models:
             models.append(m)
 
+    # 后台快照里已查不到的模型（sync 打的 stale_since）：它们不在轮换里、也不该再
+    # 出现在「该校准哪几个」的清单里 —— 否则每天催用户去核对 7 个已经不存在的模型。
+    stale = [m for m in models if usage.get(m, {}).get("stale_since")]
+    models = [m for m in models if m not in stale]
+
     # 实际停用线：threshold(90%) 与硬上限(80 万=80%) 取更严者 → 真实是 80%
     stop = min(threshold_pct, (LLM_HARD_CAP_TOKENS / quota) if quota else 1.0)
 
@@ -66,9 +71,11 @@ def build_report():
     for m in models:
         rec = usage.get(m, {})
         used = rec.get("total_tokens", 0)
-        remaining = max(0, quota - used)
+        # 额度可能是本模型专属的（hy4 = 1000 万），按全局 100 万算会把剩余写错 10 倍
+        q_model = float(rec.get("free_quota_total_tokens") or quota)
+        remaining = max(0, int(q_model) - used)
         pct = rec.get("free_quota_pct")     # 后台剩余%，缺失=不知道，别拿 100 冒充
-        rows.append((m, used, remaining, rec.get("disabled", False), pct))
+        rows.append((m, used, remaining, rec.get("disabled", False), pct, q_model))
 
     # 后台剩余低的排前面（「谁快用完」比「谁用得多」更该看），未知剩余的靠后
     rows.sort(key=lambda r: (r[4] if r[4] is not None else 999, -r[1], r[0]))
@@ -98,17 +105,18 @@ def build_report():
 
     if consumed:
         lines.append("【本地已消耗模型】（按后台剩余升序）")
-        for m, used, remaining, disabled, pct in consumed:
+        for m, used, remaining, disabled, pct, q_model in consumed:
             if disabled:
                 flag = " 🚫已停用"
             elif pct is not None and pct <= (1 - stop) * 100:
                 flag = " ⚠️已过停用线，运行期跳过"
             else:
                 flag = ""
-            bar = _bar(used / quota if quota else 0)
+            ratio = used / q_model if q_model else 0
+            bar = _bar(ratio)
             shown = f"后台剩 {pct}%" if pct is not None else "后台剩 missing"
             lines.append(f"· {m}")
-            lines.append(f"   已用 {used:,} / {quota:,}（{used / quota:.1%}） {shown}"
+            lines.append(f"   已用 {used:,} / {int(q_model):,}（{ratio:.1%}） {shown}"
                          f" 剩 {remaining:,}{flag}")
             lines.append(f"   {bar}")
     else:
@@ -119,11 +127,15 @@ def build_report():
     if stopped:
         lines.append(f"【已停用】{len(stopped)} 个："
                      + "、".join(f"{r[0]}（后台剩 {r[4]}%）" for r in stopped))
+    if stale:
+        lines.append(f"【后台快照已查不到】{len(stale)} 个：{'、'.join(stale)}")
+        lines.append("   已不在轮换里，不再参与调度；确认下架后可从 data/llm_usage.json 移除")
     lines.append("")
 
     # 提醒重点
-    warn = [r for r in consumed if not r[3] and r[1] >= quota * stop]
-    nearcap = [r for r in consumed if not r[3] and r[1] >= LLM_HARD_CAP_TOKENS]
+    warn = [r for r in consumed if not r[3] and r[1] >= r[5] * stop]
+    nearcap = [r for r in consumed
+               if not r[3] and r[1] >= LLM_HARD_CAP_TOKENS * (r[5] / quota if quota else 1.0)]
     lines.append("【本周待办】")
     lines.append("1. 打开 TokenHub 后台「模型信息」页，核对上表各模型剩余额度")
     lines.append("2. 有偏差：把后台数值填进 data/llm_quota_snapshot.json（captured_at 一并改），"

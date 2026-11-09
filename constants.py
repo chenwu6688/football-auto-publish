@@ -98,18 +98,32 @@ INTERCONTINENTAL_COMPETITIONS = ("亚冠", "欧联", "欧协联", "中超")
 # 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
 _HY3_ROTATION_MODELS = os.environ.get(
     "HY3_ROTATION_MODELS",
-    # ── 2027-08-11 到期（最早，先用；同组剩余多的在前）──
-    "kimi-k3,deepseek-v4-flash-202605,"
+    # 2026-11-09 按后台截图（data/llm_quota_snapshot.json captured_at 2026-11-09 11:45:57）
+    # 全量重建：到期近→远，同到期日剩余多的在前。
+    # 只收「后台有免费额度且计费开关已开通」的；**后台列表里已无此模型的一律移除**
+    # （查不到额度 = 按量计费，实测不报错、直接扣钱）。
+    # ── 2027-08-11 到期（最早，先用）──
+    "minimax-m3,kimi-k2.7-code,kimi-k3,glm-5.2,kimi-k2.7-code-highspeed,"
+    "deepseek-v4-pro-202606,deepseek-v4-flash-202605,"
     # ── 2027-08-27 到期 ──
     "glm-5.3-flash,"
     # ── 2027-09-14 到期 ──
-    "glm-5.3,deepseek/deepseek-v4-flash-vision-exp,deepseek/deepseek-flash,"
-    "deepseek-v4-flash-0731,kimi-k2.8-preview,hy4-preview,deepseek-v4-pro-0813,"
+    "glm-5.3,hy4-preview,deepseek/deepseek-flash,"
+    "deepseek/deepseek-v4-flash-vision-exp,deepseek-v4-pro-0813,"
     # ── 2027-09-27 到期 ──
-    "glm-5.3-flashx,step-5-preview,mimo-v2.6-flash,mimo-v2.6-pro,deepseek-v4.1-flash,"
+    "glm-5.3-flashx,"
     # ── 2027-10-26 到期（一年后，满额储备，正式额度耗尽时才顶上）──
-    "kimi-k3.1-pro,kimi-k3.1-pro-highspeed,minimax-m3.1-flash,deepseek-v4.1-flash-1017"
+    "kimi-k3.1-pro,kimi-k3.1-pro-highspeed,minimax-m3.1-flash,"
+    # ── 2027-11-09 到期（最晚，且额度是别人的 10 倍：1000 万）──
+    "hy4"
 ).split(",")
+# 明确排除（不是忘了，是刻意）：hy3（剩 0% + 计费开关未开通）、
+# deepseek-v4-pro（剩 0% + 未开通）。这两个在后台仍显示「已上线」，
+# 但没有任何免费额度，进了轮换就是纯按量扣钱 —— 见 verify_llm_quota 的 B 项硬判据。
+# 2026-11-09 移除的旧模型（后台已查不到，可能下架/改名）：
+#   deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-flash-0731、
+#   mimo-v2.6-flash、mimo-v2.6-pro、step-5-preview、kimi-k2.8-preview。
+# 账本里若仍有它们的记录，sync 会给它们打 stale_since，不自动删 —— 留证据等人工确认。
 HY3_ROTATION_MODELS = [m.strip() for m in _HY3_ROTATION_MODELS if m.strip()]
 
 # JSON 调用候选：按上面质量/费用顺序，顺序尝试、额度低于 5% 自动切下一个。

@@ -15,7 +15,8 @@ TokenHub **没有额度查询 API**，后台「模型信息」页是唯一真值
 
 硬项（FAIL → 退出码 1）
 ----------------------
-  A. 账本不低于快照：`total_tokens >= round(quota × (100-剩余%))`，
+  A. 账本不低于快照：`total_tokens >= round(本模型额度 × (100-剩余%))`
+     （本模型额度 = 条目里的 quota_total_tokens，缺省用全局值；hy4 是 1000 万），
      `free_quota_pct` / `free_quota_expires_at` 与快照完全相同；
      停用模型不写 total（写 100 万会把 hy3 顶到用量排行第一）。
      **方向性**：快照是时点值，之后 CI 还会继续消耗，账本只会变大 ——
@@ -123,7 +124,10 @@ def check_ledger_matches_snapshot(snapshot=None, usage=None):
                 bad.append(f"{name}: 停用模型不应写 total_tokens"
                            f"（现值 {rec.get('total_tokens'):,}，会污染用量排行）")
             continue
-        expect = int(round(q * (100.0 - float(pct)) / 100.0))
+        # 额度可能按模型不同（hy4 = 1000 万，其余 100 万）。用全局值折算等于把
+        # 「后台已用 5%」算成 5 万，而真实是 50 万 —— 少记 10 倍，A 项还判绿。
+        qm = float(meta.get("quota_total_tokens") or q)
+        expect = int(round(qm * (100.0 - float(pct)) / 100.0))
         got = int(rec.get("total_tokens") or 0)
         # 只判「不能少于后台推算值」。快照是 **10:29 的时点值**，之后 CI 还会继续
         # 消耗，账本必然越跑越大 —— 要求严格相等会让每次批次结束后这条硬项都红，
@@ -132,7 +136,7 @@ def check_ledger_matches_snapshot(snapshot=None, usage=None):
         if got < expect:
             bad.append(f"{name}: total_tokens {got:,} < 后台推算 {expect:,}"
                        f"（剩余 {pct}%）—— 本地少记，会按量计费")
-        elif got > expect + int(q * 0.005):      # 超过 0.5% 才提，避免 round 误差刷屏
+        elif got > expect + int(qm * 0.005):     # 超过 0.5% 才提，避免 round 误差刷屏
             detail_extra.append(f"{name}: 账本 {got:,} > 快照推算 {expect:,}"
                                 f"（校准后又消耗了 {got - expect:,}，正常）")
         if float(rec.get("free_quota_pct", -1)) != float(pct):
@@ -195,12 +199,14 @@ def check_usable_pool(snapshot=None):
         else:
             usable.append((name, pct, meta.get("expires_at") or ""))
 
-    total_tokens = sum(int(LLM_FREE_QUOTA_TOKENS * p / 100.0) for _n, p, _e in usable)
+    total_tokens = sum(int(meta.get("quota_total_tokens") or LLM_FREE_QUOTA_TOKENS) * p / 100.0
+                       for _n, p, _e in usable)
     ok = len(usable) >= MIN_USABLE
     detail = [
         f"{'✅' if ok else '❌'} 可用 {len(usable)} 个 / 停用或到线 {len(out)} 个"
         f"（下限 {MIN_USABLE}）",
-        f"可用额度合计约 {total_tokens:,} tokens（单模型 {LLM_FREE_QUOTA_TOKENS:,}）",
+        f"可用额度合计约 {int(total_tokens):,} tokens（单模型 {LLM_FREE_QUOTA_TOKENS:,}，"
+        f"按各模型实际额度累加）",
     ]
     if out:
         detail.append(f"  不可用：{'、'.join(out)}")
@@ -236,9 +242,12 @@ def check_negative(snapshot=None):
         return {"item": "负向验证", "ok": True, "advisory": True,
                 "detail": ["⚠️ 无快照或账本，跳过"]}
 
-    # 注意 _is_stopped 返回 (bool, reason)，直接 `not tuple` 恒为 False
-    # —— 会静默跳过整个负向验证，让人误以为「检查通过了」。
-    name = next((n for n, m in snapshot["models"].items() if not _is_stopped(m)[0]), None)
+    # 优先挑一个「剩余既不是 0 也不是 100」的在用模型：对 100% 的模型改 1 个点，
+    # expect 会变成 1~10 万而账本必然是 0，虽然也会报错，但验的是「空账本」不是「真比对」。
+    live = [(n, m) for n, m in snapshot["models"].items() if not _is_stopped(m)[0]]
+    pick = next(((n, m) for n, m in live
+                 if 5 <= float(m.get("remaining_pct") or 0) <= 95), None)
+    name = (pick or (live[0] if live else (None, None)))[0]
     if not name:
         return {"item": "负向验证", "ok": True, "advisory": True,
                 "detail": ["⚠️ 快照里没有在用模型，跳过"]}
@@ -274,12 +283,13 @@ def verify():
 
 
 def render_md(rep):
-    L = ["# LLM 免费额度账本验收（2026-11-03 全量同步）", "",
+    L = [f"# LLM 免费额度账本验收（快照 {(rep.get('snapshot_at') or 'missing')[:10]}）", "",
          f"- 生成时间：{rep['generated_at']}｜后台快照：{rep.get('snapshot_at') or 'missing'}"
          f"｜模型 {rep['models']} 个｜轮换 {rep['rotation']} 个",
          f"- 验收结论：**{'通过 ✅' if rep['ok'] else '未通过 ❌'}**",
-         "- 口径：`total_tokens = 1,000,000 × (100-剩余%)`，以后台截图为准；"
-         "实际停用线 = min(threshold 90%, 硬上限 80%) = **80%**",
+         "- 口径：`total_tokens = 本模型额度 × (100-剩余%)`，额度缺省 1,000,000、"
+         "条目里可覆盖（hy4 = 10,000,000），以后台截图为准；"
+         "实际停用线 = min(threshold 90%, 硬上限 80%) = **80%**，硬上限随模型额度同比放大",
          ""]
     if rep.get("hard_failed"):
         L += [f"> 未通过硬项：{'、'.join(rep['hard_failed'])}", ""]

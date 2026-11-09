@@ -18,9 +18,12 @@ TokenHub **没有额度查询 API**（/v1/user/balance、/v1/dashboard/billing/*
 
 同步口径（严格按后台，不用本地推测）
 ------------------------------------
-    total_tokens        = quota_total × (100 - remaining_pct) / 100   # 后台「已用」
+    total_tokens        = 本模型额度 × (100 - remaining_pct) / 100   # 后台「已用」
+    本模型额度          = 条目里的 quota_total_tokens，缺失才回落到全局 quota_total_tokens
+                          （2026-11-09 起 hy4 是 1000 万，其余 100 万；按全局折算会少记 10 倍）
     free_quota_pct      = remaining_pct                              # 原样落账
     free_quota_expires_at = expires_at                               # 原样落账
+    free_quota_total_tokens = 本模型额度                             # 落账供运行期判硬上限
     quota_synced_at     = 快照 captured_at                           # 本次校准时间
 保留不动：prompt_tokens / completion_tokens（本地记账子集）/ disabled / fail_streak。
 **注意** prompt+completion 不等于 total（历史上后台校准重置过总量），这不是 bug：
@@ -115,7 +118,11 @@ def sync(snapshot: dict, usage: dict, *, quota: int,
             errors.append(f"{name}: 快照缺 remaining_pct（不许用 0 或猜一个顶上）")
             continue
         pct = float(pct)
-        target_total = int(round(q * (100.0 - pct) / 100.0))
+        # 单模型额度可能不是全局值：hy4 后台给的是 1000 万，别人 100 万。
+        # 一律按全局 100 万折算会**少记 10 倍**（本地以为还剩 95 万、后台只剩 500 万），
+        # 这正是「本地少记 → 按量扣钱」那条事故的原样复现，所以额度要跟模型走。
+        q_model = float(meta.get("quota_total_tokens") or q)
+        target_total = int(round(q_model * (100.0 - pct) / 100.0))
         rec = new.setdefault(name, {})
         old_total = _used_tokens(rec)
         old_pct = rec.get("free_quota_pct")
@@ -131,6 +138,9 @@ def sync(snapshot: dict, usage: dict, *, quota: int,
         rec.setdefault("prompt_tokens", 0)
         rec.setdefault("completion_tokens", 0)
         rec["free_quota_pct"] = pct
+        # 额度也落账：运行期 utils._effective_quota 靠它判断「这个模型是不是 10 倍额度」，
+        # 否则 80 万硬上限会把 1000 万的模型砍到 8%（额度白放），且排序按错的分母算。
+        rec["free_quota_total_tokens"] = int(q_model)
         if meta.get("expires_at"):
             rec["free_quota_expires_at"] = meta["expires_at"]
         rec["quota_synced_at"] = captured
@@ -200,7 +210,13 @@ def render(changes, warns, errors, *, quota: int, usage: dict, snapshot: dict) -
     lines = [f"后台快照时间: {snapshot.get('captured_at')}  模型数: {len(snapshot.get('models') or {})}",
              f"单模型免费额度: {quota:,} tokens  "
              f"实际停用线: 已用 ≥{stop_ratio:.0%}"
-             f"（threshold {LLM_USAGE_THRESHOLD:.0%} 与硬上限 {LLM_HARD_CAP_TOKENS:,} 取更严者）", ""]
+             f"（threshold {LLM_USAGE_THRESHOLD:.0%} 与硬上限 {LLM_HARD_CAP_TOKENS:,} 取更严者）"]
+    outliers = [(n, m["quota_total_tokens"]) for n, m in (snapshot.get("models") or {}).items()
+                if m.get("quota_total_tokens") and int(m["quota_total_tokens"]) != int(quota)]
+    if outliers:
+        lines.append("  额度例外：" + "、".join(f"{n} = {int(v):,}" for n, v in outliers)
+                     + "（按各自额度折算，硬上限同比放大）")
+    lines.append("")
     lines.append("【本次变更】" if changes else "【本次变更】无（账本已与后台一致）")
     lines += [f"  · {c}" for c in changes]
 

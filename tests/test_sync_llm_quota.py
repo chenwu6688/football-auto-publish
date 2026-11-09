@@ -402,3 +402,33 @@ def test_verify_stop_line_is_80pct():
     """报表/告警/验收三处必须用同一个实际停用线，否则「报表说能用、运行期已跳过」。"""
     assert vq._stop_line() == pytest.approx(0.80)
     assert sq._skip_line(QUOTA) == pytest.approx(0.80)
+
+
+# ============================================================
+# 9. 单模型额度 ≠ 全局额度（hy4 = 1000 万，其余 100 万）
+# ============================================================
+
+def test_per_model_quota_overrides_global():
+    """条目里的 quota_total_tokens 必须压过全局值。
+
+    若按全局 100 万折算：hy4 后台剩 95%（= 已用 50 万）会被算成「已用 5 万」，
+    本地少记 10 倍，正是「以为还有额度、后台已扣钱」那条事故的原样复现。
+    """
+    snap = {"captured_at": "2026-11-09 11:45:57", "quota_total_tokens": QUOTA,
+            "models": {"hy4": {"quota_total_tokens": 10_000_000, "remaining_pct": 95.0,
+                               "expires_at": "2027-11-09 11:41:10",
+                               "status": "已上线", "enabled": True}}}
+    new, _, _, errors = sq.sync(snap, {}, quota=QUOTA, rotation=[])
+    assert not errors
+    assert new["hy4"]["total_tokens"] == 500_000          # 1000 万 × 5%
+    assert new["hy4"]["free_quota_total_tokens"] == 10_000_000
+
+
+def test_sync_always_writes_quota_so_shrink_does_not_lag():
+    """额度回落（10M → 1M）时必须覆盖旧值，否则运行期还按 10 倍额度算。"""
+    snap = {"captured_at": "x", "quota_total_tokens": QUOTA,
+            "models": {"hy4": {"remaining_pct": 100.0, "expires_at": "2027-11-09 11:41:10",
+                               "status": "已上线", "enabled": True}}}
+    usage = {"hy4": {"total_tokens": 0, "free_quota_total_tokens": 10_000_000}}
+    new, _, _, _ = sq.sync(snap, usage, quota=QUOTA, rotation=[])
+    assert new["hy4"]["free_quota_total_tokens"] == QUOTA

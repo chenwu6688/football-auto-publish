@@ -1,152 +1,195 @@
 {
   "_note": "TokenHub 后台「模型信息」快照 = 免费额度的唯一真值。本文件只记录后台看到的东西，不改本地记账；同步进 data/llm_usage.json 一律走 scripts/sync_llm_quota.py。为什么单独存快照：以前每次校准都是手改 llm_usage.json，改完既没留证据也无法复查「这次到底改了什么、依据哪张截图」——11-01 体检刚吃过「有结论没留证据」的亏。重新校准只需用新快照覆盖本文件，再跑一次脚本。",
-  "captured_at": "2026-11-03 10:29:34",
+  "_source_20261109": "用户 2026-11-09 三张后台截图（上/中/下三段，共 20 行，无重叠）。hy4 单模型额度 1000 万，其余 100 万，故在条目里写 quota_total_tokens 覆盖全局值。",
+  "_probe_20261109": "同日本机实测新增模型是否真能返回干净 JSON（utils.call_llm_json，max_tokens=4096）：minimax-m3、kimi-k2.7-code、kimi-k2.7-code-highspeed、deepseek-v4-pro-202606、hy4、glm-5.2 六个全部通过。glm-5.2 在 max_tokens=200 时返回空（推理吃满预算），600 及 4096 正常 —— 生产默认 4096，不影响。额度表里有额度的模型不等于能用，这一步是补这个缺口。",
+  "captured_at": "2026-11-09 11:45:57",
   "captured_by": "user_screenshot",
   "provider": "tokenhub.tencentmaas.com",
   "quota_total_tokens": 1000000,
   "models": {
-    "minimax-m3.1-flash": {
+    "hy4": {
+      "quota_total_tokens": 10000000,
       "remaining_pct": 100.0,
-      "expires_at": "2027-10-26 09:32:41",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "deepseek-v4.1-flash-1017": {
-      "remaining_pct": 100.0,
-      "expires_at": "2027-10-26 09:32:41",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "kimi-k3.1-pro": {
-      "remaining_pct": 100.0,
-      "expires_at": "2027-10-26 09:32:41",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "kimi-k3.1-pro-highspeed": {
-      "remaining_pct": 100.0,
-      "expires_at": "2027-10-26 09:32:41",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "glm-5.3-flashx": {
-      "remaining_pct": 97.2,
-      "expires_at": "2027-09-27 10:07:07",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "mimo-v2.6-flash": {
-      "remaining_pct": 60.7,
-      "expires_at": "2027-09-27 10:07:07",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "deepseek-v4.1-flash": {
-      "remaining_pct": 28.5,
-      "expires_at": "2027-09-27 10:07:07",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "mimo-v2.6-pro": {
-      "ui_name": "mimo-v2.5-pro",
-      "remaining_pct": 59.1,
-      "expires_at": "2027-09-27 10:07:07",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "step-5-preview": {
-      "remaining_pct": 58.1,
-      "expires_at": "2027-09-27 10:07:07",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "hy4-preview": {
-      "remaining_pct": 35.9,
-      "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "glm-5.3": {
-      "remaining_pct": 95.3,
-      "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "deepseek/deepseek-flash": {
-      "remaining_pct": 42.3,
-      "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "kimi-k2.8-preview": {
-      "remaining_pct": 47.3,
-      "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "deepseek-v4-flash-0731": {
-      "remaining_pct": 42.1,
-      "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中(模型待下线)",
+      "expires_at": "2027-11-09 11:41:10",
+      "status": "已上线",
       "claimed": true,
       "enabled": true,
-      "note": "后台标「模型待下线」：额度还能用，但随时可能停服，只作末位备援"
+      "tpm": 10000000,
+      "rpm": 300,
+      "note": "后台额度是其它模型的 10 倍（1000 万 vs 100 万）；按到期时间排在最后，其它额度耗尽才轮得到它"
     },
-    "deepseek/deepseek-v4-flash-vision-exp": {
-      "remaining_pct": 41.1,
+    "hy4-preview": {
+      "remaining_pct": 33.5,
       "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中",
+      "status": "已上线",
       "claimed": true,
-      "enabled": true
-    },
-    "deepseek-v4-pro-0813": {
-      "remaining_pct": 13.5,
-      "expires_at": "2027-09-14 09:24:30",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
-    },
-    "glm-5.3-flash": {
-      "remaining_pct": 94.4,
-      "expires_at": "2027-08-27 13:40:03",
-      "status": "运行中",
-      "claimed": true,
-      "enabled": true
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
     },
     "hy3": {
       "remaining_pct": 0.0,
       "expires_at": "2027-08-11 11:04:10",
-      "status": "已停止",
+      "status": "已上线",
       "claimed": true,
       "enabled": false,
-      "note": "已停止 + 剩余 0% + 未启用：绝不允许进入轮换列表"
+      "tpm": 1000000,
+      "rpm": 60,
+      "note": "模型本身仍「已上线」，但剩余 0% 且按量计费开关未开通 —— 用它就是纯按量扣钱，绝不允许进入轮换列表"
+    },
+    "kimi-k3.1-pro": {
+      "remaining_pct": 100.0,
+      "expires_at": "2027-10-26 09:32:41",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "glm-5.3-flashx": {
+      "remaining_pct": 97.2,
+      "expires_at": "2027-09-27 10:07:07",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "glm-5.3-flash": {
+      "remaining_pct": 90.7,
+      "expires_at": "2027-08-27 13:40:03",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "glm-5.3": {
+      "remaining_pct": 93.9,
+      "expires_at": "2027-09-14 09:24:30",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "deepseek/deepseek-flash": {
+      "remaining_pct": 15.8,
+      "expires_at": "2027-09-14 09:24:30",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "deepseek/deepseek-v4-flash-vision-exp": {
+      "remaining_pct": 14.8,
+      "expires_at": "2027-09-14 09:24:30",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "deepseek-v4-pro-0813": {
+      "remaining_pct": 13.5,
+      "expires_at": "2027-09-14 09:24:30",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "kimi-k3.1-pro-highspeed": {
+      "remaining_pct": 100.0,
+      "expires_at": "2027-10-26 09:32:41",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
     },
     "kimi-k3": {
-      "remaining_pct": 86.7,
+      "remaining_pct": 84.7,
       "expires_at": "2027-08-11 11:04:10",
-      "status": "运行中",
+      "status": "已上线",
       "claimed": true,
-      "enabled": true
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "glm-5.2": {
+      "remaining_pct": 83.8,
+      "expires_at": "2027-08-11 11:04:10",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "minimax-m3.1-flash": {
+      "remaining_pct": 100.0,
+      "expires_at": "2027-10-26 09:32:41",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "minimax-m3": {
+      "remaining_pct": 100.0,
+      "expires_at": "2027-08-11 11:04:10",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "deepseek-v4-pro-202606": {
+      "remaining_pct": 70.8,
+      "expires_at": "2027-08-11 11:04:10",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
     },
     "deepseek-v4-flash-202605": {
       "remaining_pct": 19.8,
       "expires_at": "2027-08-11 11:04:10",
-      "status": "运行中(原厂直供)",
+      "status": "已上线",
       "claimed": true,
-      "enabled": true
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "deepseek-v4-pro": {
+      "remaining_pct": 0.0,
+      "expires_at": "2027-08-11 11:04:10",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": false,
+      "tpm": 1000000,
+      "rpm": 60,
+      "note": "剩余 0% + 按量计费未开通：与 hy3 同性质，禁止进入轮换列表"
+    },
+    "kimi-k2.7-code-highspeed": {
+      "remaining_pct": 79.8,
+      "expires_at": "2027-08-11 11:04:10",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
+    },
+    "kimi-k2.7-code": {
+      "remaining_pct": 100.0,
+      "expires_at": "2027-08-11 11:04:10",
+      "status": "已上线",
+      "claimed": true,
+      "enabled": true,
+      "tpm": 1000000,
+      "rpm": 60
     }
   }
 }

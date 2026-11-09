@@ -701,7 +701,11 @@ def selftest() -> list[tuple[str, bool]]:
              "第四段收尾。你怎么看？\n\n> 本文由 AI 生成\n")
 
     def _it(body, **art):
-        base = {"title": "正常的标题，讲那不勒斯的中场", "publish_by": "2026-11-07T00:00:00",
+        # 时效样本必须相对「今天」生成。写死 2026-11-07 的样本在 11-09 当天就自己变红
+        # （j_freshness：publish_by 早于成稿日 = 内容已过期），红的是**样本**不是代码，
+        # 却长的跟真回归一模一样 —— 「凡按现在几点决定该判什么，都要先怀疑」。
+        today_iso = date.today().isoformat()
+        base = {"title": "正常的标题，讲那不勒斯的中场", "publish_by": f"{today_iso}T23:59:00",
                 "_gate": {"fact": {"judged": True, "contradictions": []}},
                 "ai_generated": True, "_similarity": {"max_run": 30, "gram_ratio": 0.12}}
         base.update(art)
