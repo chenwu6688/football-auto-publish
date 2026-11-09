@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T04:06:49.079461",
-  "total_articles": 4,
+  "generated_at": "2026-11-09T10:03:46.736771",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -1163,57 +1163,667 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "克勒舍接手AC米兰，冬窗转会这盘棋竟然这么下",
+      "path": "/home/runner/work/_temp/output/2026-11-09/article-1-克勒舍接手AC米-0d8ade.md",
+      "slug": "克勒舍接手AC米-0d8ade",
+      "tags": [
+        "AC Milan",
+        "Krosche",
+        "Serie A",
+        "winter transfer"
+      ],
+      "keywords": [
+        "AC Milan",
+        "Krosche",
+        "Serie A",
+        "winter transfer"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/news/day_261101/202611010547499030.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af19424f3ba7native.htm",
+            "query": "米兰",
+            "alt": "意媒：克勒舍即将上任米兰，他已经在关注冬窗的潜在引援目标"
+          },
+          "width": 1088,
+          "height": 1440
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/news/day_261109/202611091708566194.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af18d4e0f679native.htm",
+            "query": "米兰",
+            "alt": "卡迪纳莱：米兰展现出了斗志、决心及求胜欲望，希望保持这个势头"
+          },
+          "width": 750,
+          "height": 420
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260913/6aa595338c428_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af18d7e9c0fbnative.htm",
+            "query": "米兰",
+            "alt": "意媒：主帅阿莫林为米兰全队放假一周，球员们将在下周一归队训练"
+          },
+          "width": 720,
+          "height": 480
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "意媒：克勒舍将上任米兰",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 89,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「竟然」，回测点击率 +87%",
+          "R11数据:标题 22 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 0%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "转会官宣",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "AC米兰"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 89,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1019,
+        "han_len": 706,
+        "paragraphs": 16,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "AC米兰#coach",
+      "hot_rank": 14,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 2,
+      "title": "大连梭鱼湾场均破6万，中超上座第一原来不是北京成都",
+      "path": "/home/runner/work/_temp/output/2026-11-09/article-2-大连梭鱼湾场均破-17d4ed.md",
+      "slug": "大连梭鱼湾场均破-17d4ed",
+      "tags": [
+        "CSL",
+        "attendance",
+        "Dalian Yingbo",
+        "Suoyu Bay",
+        "2026 season"
+      ],
+      "keywords": [
+        "CSL",
+        "attendance",
+        "Dalian Yingbo",
+        "Suoyu Bay",
+        "2026 season"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "中超上座710万人次创新高，大连梭鱼湾场均破6万领跑",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 83,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "与板块[排行榜]关键词不匹配",
+          "R11数据:标题含悬念词「原来」，回测点击率 +87%",
+          "R11数据:标题 25 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（44 < 98）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 4%），只记分：事实点数少于最强源文（44 < 98）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "排行榜",
+      "topic_category": "中国足球",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "度量",
+          "中文序数"
+        ],
+        "contrasts": [
+          "反差",
+          "序位"
+        ],
+        "proper_nouns": [
+          "中超",
+          "北京",
+          "大连",
+          "成都"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 83,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1119,
+        "han_len": 643,
+        "paragraphs": 15,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "曼联4-4维拉8轮不胜，多古替补绝平却难掩降级区尴尬",
-      "angle": "从曼联8轮不胜深陷降级区的荒诞现实切入，多古替补绝平+传射的戏剧性救主与球队整体崩盘形成巨大反差，点出红魔已从争冠沦为保级笑话的残酷。",
-      "keywords": [
-        "Manchester United",
-        "Aston Villa",
-        "Dorgu",
-        "relegation zone"
-      ],
+      "title": "意媒：克勒舍将上任米兰",
+      "angle": "热点事件「意媒：克勒舍将上任米兰」，从球迷情绪与争议点切入",
+      "keywords": [],
       "keywords_cn": [
-        "曼联",
-        "阿斯顿维拉",
-        "多古",
-        "降级区"
+        "意媒：克勒舍将上任米兰",
+        "AC米兰"
       ],
       "content_type": "热点球评",
-      "score": 96,
+      "score": 100,
       "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "曼联8轮不胜+降级区是顶级流量炸弹，多古绝平戏剧性拉满",
-      "_category": "战报比分",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
+      "why_pick": "媒体头条（dongqiudi）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "AC米兰#coach",
+      "_hot_rank": 14,
+      "_hot_source": "dongqiudi",
+      "_hot_channel": "media",
+      "_hot_providers": [
+        "dongqiudi"
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
+      "_hot_support": [
+        "意媒：克勒舍将上任米兰，已在关注冬窗引援目标德甲"
+      ],
+      "_hot_support_raw": [
+        {
+          "title": "意媒：克勒舍将上任米兰，已在关注冬窗引援目标德甲",
+          "url": "https://www.dongqiudi.com/articles/6633234.html",
+          "source": "dongqiudi"
+        }
+      ]
     },
     {
-      "title": "曼联4-4阿斯顿维拉，半场2-2后谁先松手",
-      "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "title": "中超上座710万人次创新高，大连梭鱼湾场均破6万领跑",
+      "angle": "2026中超上座数据出炉，710万人次刷新历史，大连梭鱼湾场均破6万成现象级主场。数据背后是中超回暖的信号，老球迷等这一刻太久了。",
+      "keywords": [
+        "Chinese Super League attendance",
+        "Dalian Suoyuwan",
+        "record"
+      ],
+      "keywords_cn": [
+        "中超上座",
+        "大连梭鱼湾",
+        "场均破6万"
+      ],
+      "content_type": "排行榜",
+      "score": 86,
+      "controversy_level": "low",
+      "target_emotion": "骄傲",
+      "resonance_angle": "国足情结",
+      "series_id": "无",
+      "why_pick": "上座创新高，中超回暖戳国足情结",
+      "_category": "中国足球",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-2"
     }
   ],
   "data_sources": {},
@@ -1226,13 +1836,13 @@
     "total": 2,
     "counts": {
       "一级·确定性": 0,
-      "二级·突发": 2,
-      "三级·软性": 0
+      "二级·突发": 1,
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -1241,12 +1851,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 0,
+      "data_driven": 1,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -1256,45 +1866,54 @@
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「曼联4-4阿斯顿维拉，半场2-2后谁先松」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "环节": "赛程源",
+      "原因": "本批无可用赛程选题（源不可用或无匹配）",
+      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
       "数量": 1
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（23 < 72）",
+      "原因": "事实点数少于最强源文（44 < 98）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
-      "环节": "标题评分记分",
-      "原因": "0分：近 14 天疑问收尾已 31 篇（限额 2 篇），本篇又以疑问收尾；标题不要再以疑问句收尾。把「过程",
-      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 2 张",
-      "处置": "用 1 张原创信息图补到 3 张",
+      "原因": "真实图源只拿到 0 张",
+      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "llm",
+  "hot_topics": [
+    {
+      "title": "意媒：克勒舍将上任米兰",
+      "rank": 14,
+      "source": "dongqiudi",
+      "channel": "media",
+      "event_key": "AC米兰#coach"
+    }
+  ],
   "batch_mix": {
     "slots": [
       "main",
@@ -1304,25 +1923,41 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "曼联4-4维拉8轮不胜，多古替补绝平却难掩降级区尴尬"
+        "title": "意媒：克勒舍将上任米兰"
+      },
+      {
+        "slot": "data",
+        "type": "排行榜",
+        "title": "中超上座710万人次创新高，大连梭鱼湾场均破6万领跑"
       }
     ],
-    "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    "degraded": [],
+    "skipped": [
+      {
+        "type": "转会资讯",
+        "title": "皇马单季投入7.07亿创纪录，营收14亿背后藏着什么账"
+      },
+      {
+        "type": "八卦趣事",
+        "title": "浙江官宣阿洛伊西离任，兄弟俩同一天跌进教练低谷"
+      },
+      {
+        "type": "热点球评",
+        "title": "英超升班马伊普斯维奇1-2不敌伯恩茅斯，保级路越走越窄"
+      }
     ],
-    "skipped": [],
     "day_counts": {
-      "战术榜单": 1,
-      "热点球评": 1
+      "战术榜单": 2,
+      "热点球评": 2
     },
-    "selected": 1,
+    "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-09 12:09:21",
+  "last_batch": "evening",
+  "last_updated": "2026-11-09 18:03:46",
   "batches_completed": [
     "morning",
     "noon"
