@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-09",
-  "generated_at": "2026-11-09 08:03:12",
-  "board_total": 132,
+  "generated_at": "2026-11-09 12:04:52",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,14 +10,14 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 3.4
+        "elapsed_s": 2.95
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.88
+        "elapsed_s": 0.84
       },
       "dongqiudi": {
         "status": "ok",
@@ -28,10 +28,10 @@
       },
       "tieba": {
         "status": "ok",
-        "count": 30,
+        "count": 29,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 3.27
+        "elapsed_s": 2.66
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,14 +65,20 @@
       }
     },
     "errors": [],
-    "stale_dropped": 0,
-    "unknown_time": 8
+    "stale_dropped": 1,
+    "unknown_time": 8,
+    "stale_samples": [
+      {
+        "title": "剑南春｜利物浦3-1水晶宫，维尔茨传射，麦卡利斯特、伊萨克建功英超6504 评",
+        "age_h": 36.1
+      }
+    ]
   },
   "football_hits": [
     {
       "word": "大连英博逆袭夺中超冠军",
-      "rank": 9,
-      "heat": 654280,
+      "rank": 12,
+      "heat": 462631,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369511&amp;topic_name=%E5%A4%A7%E8%BF%9E%E8%8B%B1%E5%8D%9A%E9%80%86%E8%A2%AD%E5%A4%BA%E4%B8%AD%E8%B6%85%E5%86%A0%E5%86%9B",
@@ -80,100 +86,18 @@
       "entities": []
     },
     {
-      "word": "大连主帅被浇啤酒闪躲时摔倒",
-      "rank": 36,
+      "word": "WTT法兰克福站：张本智和夺冠",
+      "rank": 50,
       "heat": 0,
       "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "蓉城主帅：我非常失望非常绝望",
-      "rank": 37,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "大连18分大逆转载入史册",
-      "rank": 39,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "武磊梅开二度",
-      "rank": 47,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "曼联 降级区",
-      "rank": 52,
-      "heat": 72738,
-      "source": "weibo",
       "kind": "board",
       "url": "",
       "published_at": "",
       "entities": [
-        "曼联"
+        "法兰克福"
       ]
     }
   ],
-  "candidates": [
-    {
-      "word": "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选",
-      "rank": 0,
-      "heat": 3,
-      "source": "news_cluster",
-      "entities": [
-        "水晶宫"
-      ],
-      "support": [
-        {
-          "source": "zhibo8",
-          "title": "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af106ff32caenative.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        },
-        {
-          "source": "zhibo8",
-          "title": "BBC：水晶宫考虑解雇现任主帅萨热，弗兰克和戴奇是热门替代人选",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af10703e40afnative.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        },
-        {
-          "title": "TA：水晶宫即将解雇萨热，执教仅16场将成英超本季下课首人",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0e38cf1ec8native.htm",
-          "article_text": "",
-          "source": "zhibo8",
-          "_content_type_hint": "转会资讯",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        }
-      ],
-      "event_key": "水晶宫#coach",
-      "providers": [
-        "news_cluster"
-      ],
-      "channel": "news_cluster"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
