@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-09",
-  "generated_at": "2026-11-09 12:04:52",
-  "board_total": 131,
+  "generated_at": "2026-11-09 18:03:04",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 2.95
+        "elapsed_s": 1.39
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.84
+        "elapsed_s": 0.71
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.32
+        "elapsed_s": 0.43
       },
       "tieba": {
         "status": "ok",
-        "count": 29,
+        "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 2.66
+        "elapsed_s": 3.3
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,39 +65,43 @@
       }
     },
     "errors": [],
-    "stale_dropped": 1,
-    "unknown_time": 8,
-    "stale_samples": [
-      {
-        "title": "剑南春｜利物浦3-1水晶宫，维尔茨传射，麦卡利斯特、伊萨克建功英超6504 评",
-        "age_h": 36.1
-      }
-    ]
+    "stale_dropped": 0,
+    "unknown_time": 8
   },
   "football_hits": [
     {
       "word": "大连英博逆袭夺中超冠军",
-      "rank": 12,
-      "heat": 462631,
+      "rank": 17,
+      "heat": 383908,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369511&amp;topic_name=%E5%A4%A7%E8%BF%9E%E8%8B%B1%E5%8D%9A%E9%80%86%E8%A2%AD%E5%A4%BA%E4%B8%AD%E8%B6%85%E5%86%A0%E5%86%9B",
       "published_at": "",
       "entities": []
-    },
-    {
-      "word": "WTT法兰克福站：张本智和夺冠",
-      "rank": 50,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": [
-        "法兰克福"
-      ]
     }
   ],
-  "candidates": [],
+  "candidates": [
+    {
+      "word": "意媒：克勒舍将上任米兰，已在关注冬窗引援目标德甲",
+      "rank": 14,
+      "heat": 0,
+      "source": "dongqiudi",
+      "entities": [
+        "AC米兰"
+      ],
+      "support": [
+        {
+          "title": "意媒：克勒舍将上任米兰，已在关注冬窗引援目标德甲",
+          "url": "https://www.dongqiudi.com/articles/6633234.html",
+          "source": "dongqiudi"
+        }
+      ],
+      "event_key": "AC米兰#coach",
+      "providers": [
+        "dongqiudi"
+      ],
+      "channel": "media"
+    }
+  ],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
