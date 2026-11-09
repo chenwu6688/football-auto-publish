@@ -122,13 +122,28 @@ rules:
       含「时间不明」（隐去时间让人误以为是新近发生）与「时间词过时」
       （写「今天」而实际不是今天）。
     checker: utils.filter_fresh_news + hot_sources 时效闸门 + 成稿时间词
-    judge: freshness
+    judge: freshness + time_word
+    coverage_gap: |
+      素材侧没有「这条素材发于何时」的落库字段：`_hot_support_raw` 全库只有 4 条、
+      `published_at` 一条都没有，`source_age_hours` 全仓无写入点。所以
+      「素材是旧的、正文却写成新的」这一类旧闻搬运**判不了**，只能靠生成前的
+      36h 闸门拦，而成稿侧看不到证据。要真覆盖，得让采集层把素材发布时间
+      落到选题上（`hot_sources._row` 已有 published_at 参数，采集端未填）。
     why_keep: |
       这是本账号历史上最容易犯的错（曾把 2018 年的新浪 RSS 当成新闻源）。
-      判据三道：① 素材侧 pubDate 必须 ≤36h（hot_sources 已强制）；
-      ② 成稿正文的绝对时间词不得与发布日冲突；③ 确定性供给的 publish_by 必须晚于当前。
-      素材侧的判据在生成前，成稿侧的判据在生成后 —— 两处都要查，
-      因为「素材是新的」不等于「稿子写的是新的」。
+      判据三条、分两截（生成前 / 生成后）：
+      ① 素材侧 pubDate ≤36h 闸门（hot_sources + utils.filter_fresh_news，生成前）；
+      ② 成稿侧 `freshness`：有 publish_by 就判窗口、有 source_age_hours 就判 36h，
+         两者都没有 → 未判定（不许拿「篇数正常」当通过）；
+      ③ 成稿侧 `time_word`：正文「今天（X月Y日）」自锚与成稿日不符、
+         或出现多处于成稿日之后的未来日期 → 判红。
+      为什么必须两截：素材侧管「料新不新」，成稿侧管「稿子写的是不是新的」。
+      「素材是新的」不等于「稿子写的是新的」（同一条素材可以写成旧闻语气）。
+      **接线现状（2026-11-09）**：②的 publish_by 此前从未落到成稿（`_supply_layer`
+      走的是同一批白名单拷贝，独漏了它），等于这一截长期空转；同日已把
+      `publish_by` 从确定性供给的选题复制到成稿。`source_age_hours` 仍无写入点。
+      ③ 是本次补的：此前 `why_keep` 声称有、代码里没有，而
+      `verify_rule_coverage` 的 B 项只验 judge 函数存在，查不出这种缺口。
 
   - id: TT-04
     name: 标题党（严重 70 / 一般 20 / 轻微 10）

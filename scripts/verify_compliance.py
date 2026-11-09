@@ -53,6 +53,10 @@ sys.path.insert(0, str(ROOT))
 RULES_PATH = ROOT / "config" / "toutiao_rules.yaml"
 AUDIT_DIR = ROOT / "data" / "audit"
 OUT_PATH = AUDIT_DIR / "compliance_latest.json"
+#: 落盘回放模式的产物。**刻意不共用 OUT_PATH**：batch.yml 每批写
+#: ``compliance_latest.json``（本批判定），daily-result 每天写这一份（昨日复核）。
+#: 共用的话后跑的覆盖先跑的，latest 的含义每天都在变，两份报告谁也解释不了自己。
+LEDGER_OUT_PATH = AUDIT_DIR / "compliance_ledger_latest.json"
 
 #: 规则表生效日。之前的批次跑的是旧口径（关注引导必填、反洗稿只记分），
 #: 拿它们判新规则只会得到一条永远红的线。旧样本仍会计入 `legacy` 打印。
@@ -96,12 +100,23 @@ def load_rules(path=None) -> dict:
     return data
 
 
-def iter_items(days: int, since: str = SINCE) -> list[dict]:
-    """读近 N 天的成稿记录（只读 metadata，正文按需懒加载）。"""
+def iter_items(days: int, since: str = SINCE, offset: int = 0) -> list[dict]:
+    """读近 N 天的成稿记录（只读 metadata，正文按需懒加载）。
+
+    ``offset``：窗口**起点**相对今天往前推几天。0 = 从今天起算（默认，本机/批次内用），
+    1 = 从昨天起算（**每日门禁用**）。
+
+    为什么每日层必须 offset=1：``daily-result.yml`` 的 cron 是 00:10 UTC（08:10 CST），
+    而早批实测在 00:05 UTC（08:05 CST）才写完 metadata —— 两者只差 **5 分钟**。
+    早批一延迟（GitHub 排队、主调度 Cloudflare 抖动、兜底 cron 漂移），08:10 时
+    当天 ``output/<date>/metadata.json`` 根本还不存在，``articles=0`` 直接判 rc=2。
+    那不是「合规不通过」，是**看错了日期**。workflow 自己叫「看昨天真的发生了什么」，
+    代码却看今天 —— 名实不符，且把一个 5 分钟窗口变成了红灯源。
+    """
     out: list[dict] = []
     today = date.today()
     for i in range(max(1, days)):
-        ds = (today - timedelta(days=i)).isoformat()
+        ds = (today - timedelta(days=i + max(0, offset))).isoformat()
         if ds < since:
             continue
         p = ROOT / "output" / ds / "metadata.json"
@@ -227,6 +242,85 @@ def j_freshness(item: dict, rule: dict) -> dict:
             return _res(FAIL, f"素材时效 {age}h 超过 36h 闸门")
         return _res(PASS, f"素材时效 {age}h")
     return _res(UNJ, "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖")
+
+
+#: 完整年月日（2026年11月9日 / 2026-11-09 / 2026/11/9）。只认 20xx 年，避免把
+#: 比分（1-9）和「第 3 轮」这类数字串当成日期。
+_FULL_DATE_RE = re.compile(r"(20\d{2})\s*[年\-/.]\s*(\d{1,2})\s*[月\-/.]\s*(\d{1,2})")
+#: 「今天（11月3日）」这种**自己给出锚点**的写法：锚点与成稿日不符就是硬矛盾，
+#: 也是平台「时间词过时」最典型的形态。距离限 8 字，避免跨句误配。
+_TODAY_ANCHOR_RE = re.compile(r"(今天|今日)[^。！？\n]{0,8}?[（(]\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日\s*[)）]")
+
+
+def j_time_word(item: dict, rule: dict) -> dict:
+    """TT-03 第二截：**成稿正文里的绝对日期不得与成稿日矛盾**。
+
+    为什么单独一截而不是并进 ``j_freshness``：前者查的是「素材/发布窗口」，
+    后者查的是「成稿自己写的日期」。规则表原本承诺了这一截却一直没有实现，
+    ``verify_rule_coverage`` 的 B 项只验 judge 函数是否存在，验不到这种缺口
+    → 假绿。现在把它补成真判据。
+
+    只判**能证伪的**两类，不做语义猜测：
+
+    1. 正文写出完整年月日且**晚于成稿日** → 未来日期，必是编造或旧稿改期；
+    2. 正文用「今天（X月Y日）」自锚，而锚点**不是成稿日** → 时间词与发布日矛盾。
+
+    刻意不判「正文提到过去日期」——回顾、历史对比、赛季数据都要提过去，
+    那是最容易被误伤成片的方向，也是「审得严但审错对象」。
+
+    读不到正文 → 未判定（11-06 的规矩：拿标题冒充正文会把整批发布挡掉）。
+    """
+    body = body_of(item)
+    if body is None:
+        return _res(UNJ, "正文不可读，时间词未判定（不拿标题冒充）")
+
+    d = _as_date(item.get("date"))
+    if d is None:
+        return _res(UNJ, f"成稿日不可解析（{item.get('date')!r}）")
+
+    for m in _TODAY_ANCHOR_RE.finditer(body):
+        mm, dd = int(m.group(2)), int(m.group(3))
+        if (mm, dd) != (d.month, d.day):
+            return _res(FAIL,
+                        f"正文写「{m.group(1)}（{mm}月{dd}日）」而成稿日是 "
+                        f"{d.month}月{d.day}日（时间词过时）",
+                        [m.group(0)])
+
+    future = []
+    for m in _FULL_DATE_RE.finditer(body):
+        try:
+            fd = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError:
+            continue
+        if fd > d + timedelta(days=1):
+            future.append(m.group(0))
+    if future:
+        if len(future) >= 2:
+            return _res(FAIL, f"正文出现 {len(future)} 处未来日期，晚于成稿日 {d.isoformat()}",
+                        future[:5])
+        # 单处未来日期可能是「下一场 2026年12月1日开打」这类正常赛程前瞻，
+        # 只记告警不判红 —— 宁可漏判一次，也不要把赛程前瞻全打成旧闻新发。
+        return _res(PASS, f"仅 1 处未来日期（{future[0]}），按赛程前瞻放行")
+
+    return _res(PASS, "正文无与成稿日矛盾的绝对日期")
+
+
+def _as_date(v) -> date | None:
+    """``2026-11-09`` / ``2026-11-09 12:00`` / datetime → date；认不出返回 None。"""
+    if isinstance(v, datetime):
+        return v.date()
+    if isinstance(v, date):
+        return v
+    s = str(v or "").strip()
+    if not s:
+        return None
+    try:
+        return datetime.fromisoformat(s.replace("Z", "")).date()
+    except Exception:
+        try:
+            return datetime.strptime(s[:10], "%Y-%m-%d").date()
+        except Exception:
+            return None
 
 
 def j_title_gate(item: dict, rule: dict) -> dict:
@@ -434,6 +528,7 @@ _SINGLE = {
     "fact_conflict": j_fact_conflict,
     "rumor_tier": j_rumor_tier,
     "freshness": j_freshness,
+    "time_word": j_time_word,
     "title_gate": j_title_gate,
     "plagiarism": j_plagiarism,
     "inducement": j_inducement,
@@ -481,6 +576,63 @@ def _merge(results: list[dict], total: int = 0) -> dict:
     if all(r["status"] == NA for r in results):
         return _res(NA, results[0]["detail"])
     return _res(PASS, _detail([r for r in results if r["status"] == PASS]))
+
+
+def _combine_same_article(rs: list[dict]) -> dict:
+    """**同一篇**的多截判据合并（不带计数）：任一 FAIL → FAIL；否则任一未判定 → 未判定。
+
+    为什么必须先把「同一篇」合掉再计数：一条规则可以挂多个判据
+    （如 TT-03 = `freshness + time_word`）。若把各判据的结果直接摊平丢给 `_merge`，
+    分子变成「判据命中次数」、分母仍是「篇数」，就会印出
+    「**4/2 篇**未判定」这种自相矛盾的数字（2026-11-09 修）。
+    计数口径只能是「篇」，不能是「判据次」。
+    """
+    if not rs:
+        return _res(UNJ, "无判据结果")
+    for status in (FAIL, UNJ):
+        sub = [r for r in rs if r["status"] == status]
+        if sub:
+            return _res(status,
+                        "；".join(dict.fromkeys(r["detail"] for r in sub)),
+                        [h for r in sub for h in r["hits"]])
+    if all(r["status"] == NA for r in rs):
+        return _res(NA, rs[0]["detail"])
+    return _res(PASS, "；".join(dict.fromkeys(r["detail"] for r in rs)))
+
+
+def recorded_verdict(item: dict, rule_id: str) -> dict | None:
+    """取出口审核（``audit_article``）当时落进 metadata 的结论；没有则 None。
+
+    为什么需要这条通道（2026-11-09 深夜定）：``daily-result.yml`` 的合规步骤
+    自 11-06 加入起**从未绿过**（恒 rc=2）。根因不是判据坏了，而是它去现判——
+    而成稿 ``.md`` 故意不入库（``output/**/*.md`` 在 .gitignore 里），每日 job
+    全新 checkout 后正文根本不存在，于是每条规则都是「正文不可读」。
+
+    「读不到证据判未判定」这条纪律本身没错，错的是**找错了证据**：出口审核
+    在生成 job 里已经拿正文逐篇判过一次，结论落在 ``metadata.articles[*]._compliance``
+    —— 而 ``metadata.json`` 是 ``git add -f`` 入库的。同一批稿子、同一份判据
+    实现，结论早就在仓库里，每天却重新判一遍并把结论覆盖成「不可读」。
+
+    本函数只做**搬运**，不重写任何判据：返回的是 ``audit_article`` 当时的
+    ``verdicts[*]``，逐字保留它的 status 与 detail。规则表后来新增的规则在
+    旧篇里查不到 → 返回 None → 该篇对该规则判未判定（诚实：它确实没被这条
+    规则判过）。
+    """
+    c = (item.get("art") or {}).get("_compliance")
+    if not isinstance(c, dict):
+        return None
+    for v in (c.get("verdicts") or []):
+        if not isinstance(v, dict):
+            continue
+        if str(v.get("id") or "") != str(rule_id):
+            continue
+        status = str(v.get("status") or "").strip()
+        if status not in (PASS, FAIL, UNJ, NA):
+            # 落了不认识的 status 比没落更糟：静默当通过就等于没判。
+            return _res(UNJ, f"出口审核落盘 status 非法（{status or '空'}），不视为通过")
+        detail = str(v.get("detail") or "").strip() or "出口审核已判定"
+        return _res(status, f"出口审核：{detail}", v.get("hits"))
+    return None
 
 
 #: 出口处置：命中即**丢这一篇**的档位。
@@ -640,14 +792,44 @@ def drop_violations(date_str: str, rules: dict | None = None) -> dict:
     return out
 
 
-def verify(days: int = 7, rules: dict | None = None) -> dict:
+def verify(days: int = 7, rules: dict | None = None, from_ledger: bool = False,
+           offset: int = 0) -> dict:
+    """按规则表判定近 N 天成稿。
+
+    ``from_ledger=True`` 时**不重判**，只回放出口审核落进 metadata 的结论
+    （见 ``recorded_verdict``）。两个模式回答的是两个不同问题：
+
+        from_ledger=False  「按今天的规则，这批稿子现在判出来是什么」
+                           —— 要求正文在手，本机/生成 job 内可用。
+        from_ledger=True   「出口审核当时判了什么」
+                           —— 只要 metadata 入库就能跑，是**每日层唯一可用**
+                           的形态；它的 rc=2 意味着「落盘结论覆盖不足」，
+                           不是「源码坏了」。
+
+    ``offset`` 见 ``iter_items``：每日层必须 ``offset=1``（看昨天），否则会与
+    早批抢那 5 分钟窗口。
+
+    两种模式的退出码含义相同（0/1/2），所以 daily 层换模式不需要改判据逻辑。
+    """
     rules = rules or load_rules()
-    items = iter_items(days)
+    items = iter_items(days, offset=offset)
+    # 覆盖到哪几天、每天几篇：报告必须自己说清楚「我看了什么」。
+    # 只有总数的话，「2 篇」到底是昨天的 2 篇还是跨两天各 1 篇，读的人无从判断。
+    _per_day: dict[str, int] = {}
+    for it in items:
+        _per_day[it["date"]] = _per_day.get(it["date"], 0) + 1
     report: dict = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
         "window_days": days,
+        "window_offset": offset,
         "since": SINCE,
         "articles": len(items),
+        "dates": dict(sorted(_per_day.items())),
+        # 落盘覆盖：有几篇带 _compliance。每日层据此解释 rc=2 的来源——
+        # 「一篇都没带」和「带了一半」是两种完全不同的故障。
+        "ledger_articles": len([i for i in items
+                                if isinstance((i.get("art") or {}).get("_compliance"), dict)]),
+        "source": "ledger" if from_ledger else "live",
         "rules": [],
         "blocking": [],
         "risk_score": 0,
@@ -664,16 +846,32 @@ def verify(days: int = 7, rules: dict | None = None) -> dict:
             })
             continue
 
-        results = []
-        for name in names:
+        # 逐篇聚合，再跨篇计数：一条规则挂多个判据时，计数口径必须仍是「篇」。
+        per_article: list[list[dict]] = [[] for _ in items]
+        batch_results: list[dict] = []
+        # 落盘回放只对「全部判据都是单篇级」的规则生效：
+        # 混了批量判据的规则（现在没有，但规则表随时可能加）若一半走落盘一半现判，
+        # 现判那半在无正文的机器上恒 UNJ，_merge 会把整条规则拖成永 UNJ —— 又造一个
+        # 「长期红灯」。宁可对这类规则照旧现判（诚实报不可读），也不静默混淆来源。
+        _replay = from_ledger and bool(names) and all(n in _SINGLE for n in names)
+        if _replay:
+            for _i, _it in enumerate(items):
+                rec = recorded_verdict(_it, rule["id"])
+                per_article[_i].append(
+                    rec if rec is not None else
+                    _res(UNJ, "该篇 metadata 无本规则的出口审核结论"
+                              "（批次早于出口审核上线，或该篇未经出口逐篇审核）"))
+        for name in ([] if _replay else names):
             fn = _SINGLE.get(name)
             if fn:
-                results.extend(fn(it, rule) for it in items)
+                for _i, _it in enumerate(items):
+                    per_article[_i].append(fn(_it, rule))
             elif name in _BATCH:
-                results.append(_BATCH[name](items, rule))
+                batch_results.append(_BATCH[name](items, rule))
             else:
-                results.append(_res(UNJ, f"规则绑定的判据 `{name}` 不存在（规则表写错了）"))
+                batch_results.append(_res(UNJ, f"规则绑定的判据 `{name}` 不存在（规则表写错了）"))
 
+        results = [_combine_same_article(_rs) for _rs in per_article if _rs] + batch_results
         merged = _merge(results, len(items)) if items else _res(UNJ, "窗口内无成稿记录")
         failed = [r for r in results if r["status"] == FAIL]
         entry = {
@@ -717,6 +915,27 @@ def selftest() -> list[tuple[str, bool]]:
     cases.append(("干净样本：结构不误报", j_structure(ok, rules["TT-10"])["status"] == PASS))
     cases.append(("干净样本：AI 标识已具备", j_ai_annotation(ok, rules["TT-11"])["status"] == PASS))
     cases.append(("干净样本：时效有效", j_freshness(ok, rules["TT-03"])["status"] == PASS))
+    cases.append(("干净样本：时间词不误报", j_time_word(ok, rules["TT-03"])["status"] == PASS))
+
+    # 时效的**成稿侧**必须能被打红，否则「补了判据」只是换了个说法。
+    # 两个样本的日期都相对 today 现算，绝不写死（写死＝过零点自己变红）。
+    _wrong = date.today() - timedelta(days=3)
+    cases.append(("「今天（X月Y日）」与成稿日矛盾 → TT-03 必红",
+                  j_time_word(_it(clean + f"\n\n今天（{_wrong.month}月{_wrong.day}日）"
+                                 "那场球，中场完全被压住了。"),
+                              rules["TT-03"])["status"] == FAIL))
+    _fut = date.today() + timedelta(days=20)
+    cases.append(("正文两处未来日期 → TT-03 必红",
+                  j_time_word(_it(clean + f"\n\n{_fut.year}年{_fut.month}月{_fut.day}日"
+                                 f"还有一轮，{_fut.year}年{_fut.month}月{_fut.day}日"
+                                 "再说一次。"),
+                              rules["TT-03"])["status"] == FAIL))
+    # 提到过去日期是回顾/历史对比的常态，绝不能判红 —— 这是最容易误伤的方向
+    _past = date.today() - timedelta(days=200)
+    cases.append(("正文提过去日期 → 不误判为旧闻新发",
+                  j_time_word(_it(clean + f"\n\n{_past.year}年{_past.month}月{_past.day}日"
+                                 "那场决赛，他替补登场。"),
+                              rules["TT-03"])["status"] == PASS))
 
     bad = _it(clean + "\n\n点个关注，后续我替你盯着。")
     cases.append(("索要关注 → TT-07 必红", j_inducement(bad, rules["TT-07"])["status"] == FAIL))
@@ -772,7 +991,21 @@ def selftest() -> list[tuple[str, bool]]:
 
 
 def render(report: dict) -> str:
-    lines = [f"合规审核（近 {report['window_days']} 天 · {report['articles']} 篇 · 规则表 {report['since']} 起）", ""]
+    src = ("出口审核落盘结论回放" if report.get("source") == "ledger" else "现判（需正文在手）")
+    _off = int(report.get("window_offset") or 0)
+    _win = f"近 {report['window_days']} 天" + (f"（自 T-{_off}）" if _off else "")
+    lines = [f"合规审核（{_win} · {report['articles']} 篇 · "
+             f"规则表 {report['since']} 起 · {src}）", ""]
+    # 覆盖到哪几天、每天几篇：不写这句，「2 篇」到底是昨天的还是跨天各 1 篇没人分得清。
+    _dates = report.get("dates") or {}
+    if _dates:
+        lines.append("  覆盖：" + "、".join(f"{d}×{n}" for d, n in _dates.items()))
+    else:
+        lines.append("  覆盖：无（窗口内没有 output/<date>/metadata.json）")
+    if report.get("source") == "ledger":
+        lines.append(f"  落盘覆盖：{report.get('ledger_articles', 0)}/{report['articles']} 篇"
+                     f"带出口审核结论")
+    lines.append("")
     icon = {PASS: "✅", FAIL: "❌", UNJ: "⚠️", NA: "—"}
     for r in report["rules"]:
         lines.append(f"  {icon.get(r['status'], '?')} {r['id']} {r['name']}"
@@ -793,7 +1026,10 @@ def render(report: dict) -> str:
             lines.append("   ⚠️ 未判定不等于通过：" + "、".join(r["id"] for r in unj))
         if len(judged) * 2 < len(block_rules):
             lines.append("   ⚠️ 过半 block 级规则未判定，本次**不能**视为合规通过（rc=2）。"
-                         "常见原因：正文留在了生成它的 runner 上。")
+                         + ("落盘覆盖不足：查 output/<date>/metadata.json 的 "
+                            "articles[*]._compliance 是不是没写（批次早于出口审核上线？）"
+                            if report.get("source") == "ledger"
+                            else "常见原因：正文留在了生成它的 runner 上。"))
     return "\n".join(lines)
 
 
@@ -921,6 +1157,31 @@ def render_evidence(rep: dict) -> str:
     return "\n".join(lines)
 
 
+def exit_code(report: dict, all_dropped: bool = False,
+              fail_on_block_only: bool = False) -> int:
+    """报告 → 退出码。抽成函数是为了让「终态判定」本身可被单测盯住。
+
+    三种终态刻意不复用同一个码（11-06 立，见文件头）：
+        1 = 有 block 级违规，该停/该人查
+        2 = 未判定（判过的 block 规则不过半）—— **不等于通过**
+        3 = 逐篇剔除后一篇不剩（全丢）
+    """
+    if report.get("blocking"):
+        return 1
+    if all_dropped:
+        return 3
+    if fail_on_block_only:
+        # 发布前档：只有真的违规才停发。「未判定」不拦——但也不当通过，
+        # 报告里已经写明「不能视为合规通过」，每日层裸 rc=2 会把它抓出来。
+        return 0
+    # 未判定 ≠ 通过：block 级规则过半都没真正判过，不能报绿。
+    block_rules = [r for r in report["rules"] if r["tier"] in ("block", "rewrite")]
+    judged = [r for r in block_rules if r["status"] in (PASS, FAIL)]
+    if report["articles"] == 0 or len(judged) * 2 < len(block_rules):
+        return 2
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="合规审核唯一入口（对齐头条号发文规则）")
     ap.add_argument("--days", type=int, default=7)
@@ -940,7 +1201,22 @@ def main() -> int:
                          "回答「这次到底判了几条」，不回答「有没有违规」。"
                          "不写 compliance_latest.json（这是诊断视图，不是闸门）。")
     ap.add_argument("--date", help="配合 --evidence 用，默认今天")
+    ap.add_argument("--from-ledger", action="store_true",
+                    help="不重判，回放出口审核落进 metadata 的结论。"
+                         "每日层（daily-result.yml）必须用这个：成稿 .md 不入库，"
+                         "每日 job 全新 checkout 读不到正文，现判只会恒得 rc=2。"
+                         "rc=2 在此模式下的含义是「落盘结论覆盖不足」，不是源码坏了。")
+    ap.add_argument("--offset", type=int, default=0,
+                    help="窗口起点相对今天往前推几天（默认 0=含今天）。"
+                         "每日层用 1：daily 08:10 CST 跑，早批 08:05 才写完 metadata，"
+                         "两者差 5 分钟 —— 看今天等于把「早批有没有准点」当成合规结论。")
     args = ap.parse_args()
+
+    if args.from_ledger and args.drop_violations:
+        # 逐篇剔除要移动文件、要拿正文判一遍，与「只回放」是两件事。
+        print("::error::--from-ledger 与 --drop-violations 不能同时用"
+              "（前者只回放结论，后者要现判并移动成稿）", file=sys.stderr)
+        return 2
 
     if args.evidence:
         erep = evidence_report(args.date, args.days)
@@ -979,10 +1255,11 @@ def main() -> int:
             print(f"❌ 本批 {d['total']} 篇全部被合规剔除，发布集合 0 篇"
                   f"（这是「全丢」，不是「正常空批」）")
 
-    report = verify(args.days)
+    report = verify(args.days, from_ledger=args.from_ledger, offset=args.offset)
+    out_path = LEDGER_OUT_PATH if args.from_ledger else OUT_PATH
     try:
-        OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-        OUT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     except Exception:
         pass
 
@@ -991,24 +1268,8 @@ def main() -> int:
     elif not args.quiet:
         print(render(report))
 
-    if report["blocking"]:
-        return 1
-    if _all_dropped:
-        # 3 = 全批被剔除。刻意不复用 1（那是「批量级违规，该停」）也不复用 2
-        # （那是「未判定」）：三种终态对应三种处置，合并就等于又回到
-        # 「以前三种终态共用一个 exit 1」导致批次永久丢失的老路上。
-        return 3
-    if args.fail_on_block_only:
-        # 发布前档：只有真的违规才停发。「未判定」不拦——但也不当通过，
-        # 报告里已经写明「不能视为合规通过」，每日层裸 rc=2 会把它抓出来。
-        return 0
-    # 未判定 ≠ 通过：block 级规则过半都没真正判过，不能报绿。
-    # 本机常见（正文在 runner 的 _temp 上，跨批次读不到），CI 里应显著更低。
-    block_rules = [r for r in report["rules"] if r["tier"] in ("block", "rewrite")]
-    judged = [r for r in block_rules if r["status"] in (PASS, FAIL)]
-    if report["articles"] == 0 or len(judged) * 2 < len(block_rules):
-        return 2
-    return 0
+    return exit_code(report, all_dropped=_all_dropped,
+                     fail_on_block_only=args.fail_on_block_only)
 
 
 if __name__ == "__main__":

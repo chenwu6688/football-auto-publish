@@ -305,10 +305,28 @@ class TestWorkflowDisposal(unittest.TestCase):
                          "又退回「一刀切全硬」了")
 
     def test_daily_layer_keeps_strict(self):
-        """每日层不许软化：未判定必须暴露。"""
+        """每日层不许软化：未判定必须暴露。
+
+        2026-11-09 口径变更：命令从 `--days 1` 改成
+        `--days 2 --offset 1 --from-ledger`（看昨天 + 回放落盘结论）。
+        本用例守的从来不是那个数字，而是「严格性」两件事：
+        **不许加 `--fail-on-block-only`**（那是发布前那一档才有的宽容）、
+        **不许 `|| true` 吞掉非零码**。
+
+        「窗口是不是昨天」「是不是回放」由 `test_compliance_ledger_replay`
+        的两个类分别负责 —— 一个用例只守一件事，改口径时才不会互相拖红。
+        """
         wf = (ROOT / ".github" / "workflows" / "daily-result.yml").read_text(encoding="utf-8")
-        self.assertIn("scripts/verify_compliance.py --days 1", wf)
-        self.assertNotIn("verify_compliance.py --days 1 --quiet || true", wf)
+        # 只看命令行：注释里明写「不加 --fail-on-block-only」，那是给人看的说明，
+        # 不是违规证据（同「判据短串误报」那条教训）。
+        argv = [ln for ln in wf.splitlines()
+                if "verify_compliance.py" in ln and not ln.lstrip().startswith("#")]
+        self.assertTrue(argv, "daily-result.yml 里找不到合规调用")
+        for ln in argv:
+            self.assertNotIn("--fail-on-block-only", ln,
+                             "每日层放行了「未判定」——只有发布前那一档能这么干")
+            self.assertNotIn("|| true", ln,
+                             "非零退出码被吞了：这正是「长期红灯即漏洞」的起点")
 
 
 class TestEvidenceView(unittest.TestCase):

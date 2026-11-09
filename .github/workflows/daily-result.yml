@@ -82,12 +82,30 @@ jobs:
 
       - name: 合规审核（头条扣分风险 · 唯一合规入口）
         run: |
-          # 2026-11-06 立。硬项，**不加 `--fail-on-block-only`**：
-          # 发布前那一档为了不误停发，把「未判定」放行了；每日这一档必须把它暴露出来
-          # ——rc=2 意味着过半 block 级规则没真正判过，不能算「合规通过」。
+          # 2026-11-06 立；2026-11-09 改两处：--from-ledger + --offset 1。
+          #
+          # ① 为什么换成回放（--from-ledger）：成稿 .md 故意不入库
+          #    （output/**/*.md 在 .gitignore），每日 job 全新 checkout 后正文
+          #    根本不存在 → 每条规则都判「正文不可读」，这一步自加入起**从未绿过**。
+          #    改的证据不是「降标准」，而是**换对证据**：出口审核（audit_article）
+          #    在生成 job 里已经拿正文逐篇判过，结论落在 metadata.articles[*]._compliance
+          #    —— 而 metadata.json 是 `git add -f` 入库的。
+          #
+          # ② 为什么看昨天（--offset 1）：本 job 的 cron 是 00:10 UTC（08:10 CST），
+          #    而早批实测 00:05 UTC（08:05 CST）才写完当天 metadata —— 两者差 5 分钟。
+          #    早批一延迟（GitHub 排队 / 主调度 Cloudflare 抖动 / 兜底 cron 漂移），
+          #    08:10 时当天 metadata 还不存在，articles=0 直接判 rc=2。
+          #    那不是「合规不通过」，是**看错了日期**：本 job 的名字就是
+          #    「看昨天真的发生了什么」，代码却一直看今天。
+          #    取 --days 2 --offset 1（昨天+前天）而不是只取昨天，是为了与其它
+          #    窗口式门禁（发布成功率 7 天、封面 14 天）一致：单日窗口会把
+          #    「昨天恰好空批」变成假红，而「0 篇」本来就由发布成功率那项负责报。
+          #
+          # 仍然**不加 `--fail-on-block-only`**：rc=2 在此模式下表示「落盘结论覆盖
+          # 不足」（篇数不够 / 批次早于出口审核上线），必须暴露，不能当通过。
           # 这正是 11-06 noon 0 篇事故的镜像：那次是「读不到证据」被当成「不通过」，
           # 这里防的是反面——「读不到证据」被当成「通过」。
-          python3 scripts/verify_compliance.py --days 1 --quiet
+          python3 scripts/verify_compliance.py --days 2 --offset 1 --from-ledger --quiet
 
       - name: 规则覆盖校验
         run: |
@@ -147,6 +165,7 @@ jobs:
               ("batch_mix", "每批结构"),
               ("content_mix", "内容配比"),
               ("publish_gate", "发布闸门"),
+              ("compliance_ledger", "合规复核（落盘）"),
               ("effect_loop", "效果闭环"),
               ("llm_quota", "LLM 额度"),
           ]

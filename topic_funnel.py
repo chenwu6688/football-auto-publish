@@ -256,6 +256,13 @@ def summarize(days: int = 7) -> dict:
             gain[k] = gain.get(k, 0) + _as_int(v)
     total_loss = sum(loss.values())
     top = max(loss.items(), key=lambda kv: kv[1])[0] if loss else None
+    # 落盘数：2026-11-09 起才记（final 层 detail.落盘）。老记录没有这个键，
+    # 覆盖不全时**如实报覆盖批数**，不拿「有记录的这几批」冒充全量。
+    saved_vals = []
+    for r in recs:
+        d = ((r.get("stages") or {}).get("final") or {}).get("detail") or {}
+        if d.get("落盘") is not None:
+            saved_vals.append(_as_int(d["落盘"]))
     return {
         "days": int(days),
         "records": len(recs),
@@ -263,6 +270,8 @@ def summarize(days: int = 7) -> dict:
         "requested": requested,
         "articles": got,
         "fill_rate": (got / requested) if requested else None,
+        "saved": sum(saved_vals) if saved_vals else None,
+        "saved_batches": len(saved_vals),
         "loss": loss,
         "gain": gain,
         "total_loss": total_loss,
@@ -291,6 +300,13 @@ def report(days: int = 7) -> str:
         gap = s["requested"] - s["articles"]
         lines.append(f"  配额请求 {s['requested']} 篇 → 成稿 {s['articles']} 篇"
                      f"（缺 {gap} 篇，达成率 {s['fill_rate']:.0%}）")
+    if s.get("saved") is not None:
+        cov = f"覆盖 {s['saved_batches']}/{s['records']} 批"
+        if s["saved_batches"] == s["records"] and s["articles"] is not None:
+            lines.append(f"  其中落盘 {s['saved']} 篇（出口合规逐篇丢 "
+                         f"{s['articles'] - s['saved']} 篇；{cov}）")
+        else:
+            lines.append(f"  其中落盘 {s['saved']} 篇（{cov}，其余批未记落盘数，不做差）")
     # 逐层：批均剩余（只统计记录过的批）
     recs = load(days)
     for key in _KEYS:

@@ -32,6 +32,7 @@ import batch_mix
 import content_mix  # 内容类型归一（唯一口径）：判定「这一型是否已经写过」必须走它
 import dedup      # 选题去重：两道硬判据（同场/同事件）+ 一道告警（关键词重叠）
 import topic_funnel  # 选题漏斗台账（S2 前置度量）：只记录每层剩多少，不判定不阻断
+import failure_taxonomy  # 主稿失败原因归类：漏斗 generated 层的「为什么」
 import rumor_wording
 import title_antipattern
 import title_positive
@@ -791,10 +792,31 @@ def select_topics(match_data, topic_history=None, preferred_types=None, season_w
     # 漏斗第 3 层：素材充分性（事实层）
     _funnel("material", len(topics), 剔除=max(0, _n_mat - len(topics)))
 
+    # 禁发类型前移（2026-11-09）：`content_mix.is_banned` 是「禁发」的唯一判据入口。
+    # 此前只有出口闸门拦（save_articles_local → content_mix 项），一条历史回顾要跑完
+    # dedup → material → batch_mix → 生成（花配额、花 token、花配图）才在出口被丢。
+    # 出口那道**必须保留**：它防的是新通道绕过本层（11-06「闸门收口在出口」）。
+    # 这不是新增规矩，是把已有的规矩提前一层执行。
+    _keep, _banned = [], []
+    for _t in topics:
+        # 非法元素照旧交下游（prioritize 会过滤），这里不许因为一个脏元素整批崩
+        if not isinstance(_t, dict):
+            _keep.append(_t)
+            continue
+        _ct = _t.get("content_type")
+        if content_mix.is_banned(_ct):
+            _banned.append((_t.get("title", ""), _ct))
+        else:
+            _keep.append(_t)
+    topics = _keep
+    for _bt, _bct in _banned:
+        print(f"   🚫 禁发类型: 丢弃「{_bt[:40]}」— content_type={_bct}（目标占比 0）")
+
     # R11 结论落地：有效选题（转会官宣/冲突舆情/中国足球）优先，战报比分减产
     topics, _cat_dropped = topic_category.prioritize(topics)
-    # 漏斗第 4 层：topic_category 的单批软上限（只删战报比分，其他类别不在这一层丢）
-    _funnel("category", len(topics), 战报比分软上限=len(_cat_dropped or []))
+    # 漏斗第 4 层：类别层过滤（禁发类型 + topic_category 的战报比分软上限）
+    _funnel("category", len(topics), 禁发=len(_banned),
+            战报比分软上限=len(_cat_dropped or []))
 
     # ── P1-4 / P1-6 / 维度4 / 维度2: 非阻断监控（标题钩子 / 类型平衡 / 共鸣角度 / 系列连载）──
     warn_title_hook_distribution(topics)
@@ -840,21 +862,27 @@ def _check_topic_material_sufficiency(topics, match_data):
             finished_matches[(m.get("home_team", "").lower(), m.get("away_team", "").lower())] = m
             finished_matches[(away, home)] = m  # reverse lookup
 
-    # Collect all known team names (CN + EN) from constants
-    from constants import WIKI_TEAMS
-    all_known_teams = set()
-    for team in WIKI_TEAMS:
-        all_known_teams.add(team.lower())
-        # Also add common English names
-        eng_names = {
-            "阿森纳": "arsenal", "曼城": "manchester city", "利物浦": "liverpool",
-            "曼联": "manchester united", "切尔西": "chelsea", "热刺": "tottenham",
-            "巴萨": "barcelona", "皇马": "real madrid", "马竞": "atletico madrid",
-            "拜仁": "bayern munich", "多特": "borussia dortmund", "国米": "inter milan",
-            "AC米兰": "ac milan", "尤文": "juventus", "巴黎": "psg",
-        }
-        if team in eng_names:
-            all_known_teams.add(eng_names[team])
+    # 素材充分性的判据换口径（2026-11-09）。
+    #
+    # 旧判据问的是「这支球队在不在 WIKI_TEAMS 这 15 支里」，而不是「这篇稿要不要
+    # 具体比赛数据」。后果是**表内球队被过度丢弃**：只要今天没有它已完赛的比赛，
+    # 连「拜仁的中场结构该怎么改」这种根本不需要比赛数据的分析稿也一并丢掉，
+    # 而表外球队（那不勒斯/勒沃库森）走的是「无已知球队」分支，判断反而正确。
+    # 也就是说：错的是「拿球队白名单当素材判据」这件事本身，不是词表太短。
+    # （补词表只会把同一个错误施加到更多球队上。）
+    #
+    # 所以判据收敛成两条，且不再持有任何球队白名单：
+    #   ① 今天有这支队的已完赛数据 → 放行；
+    #   ② 否则只要选题要素里要比赛细节（进球/点球/控球…）就丢，转会/八卦豁免。
+    # 「是不是提到了球队」仍需要一张词典，但改用 data_chart.alive_owners —— 它扫
+    # 全局 entity_map 并做最长匹配消解，与配图相关性共用同一实现（不许各写一套）。
+    from data_chart import alive_owners
+
+    non_match_types = ("转会资讯", "八卦趣事")
+    match_detail_kw = ("点球", "绝杀", "帽子戏法", "进球", "射门", "控球", "红牌", "黄牌")
+    #: 已完赛球队的规范名：成稿侧的实体识别走同一套归一，才能和 alive_owners 对上。
+    from team_names import canonical_team
+    finished_canon = {(canonical_team(t) or t) for t in finished_teams if t}
 
     filtered = []
     dropped = []
@@ -863,37 +891,22 @@ def _check_topic_material_sufficiency(topics, match_data):
         angle = t.get("angle", "")
         text = (title + " " + angle).lower()
 
-        # Check: does this topic reference teams we have finished data for?
-        has_finished_team = any(team in text for team in finished_teams)
-        has_known_team = any(team in text for team in all_known_teams)
+        has_finished_team = (bool(alive_owners(text) & finished_canon)
+                             # 未登记球队（不在 entity_map）退回字面包含，
+                             # 但只认长度 ≥2 的整串，避免单词串味放大成误放行。
+                             or any(len(team) >= 2 and team in text
+                                    for team in finished_teams))
+        needs_match_facts = any(kw in text for kw in match_detail_kw)
+        ct = t.get("content_type", "")
 
         if has_finished_team:
-            # Good — this topic has finished match data to support it
             filtered.append(t)
-        elif has_known_team:
-            # Has a known team but no finished match data for it
-            # This is risky — the LLM will have to hallucinate match details
-            # Check if the topic is about transfer/gossip (no match data needed)
-            non_match_types = ["转会资讯", "八卦趣事"]
-            ct = t.get("content_type", "")
-            if ct in non_match_types:
-                # OK — transfer/gossip doesn't need match data
-                filtered.append(t)
-            else:
-                # Match analysis topic without match data → drop
-                dropped.append(t)
-                print(f"   🗑️ 素材不足: 丢弃「{title[:40]}」— 素材中无该球队已结束比赛数据")
+        elif needs_match_facts and ct not in non_match_types:
+            dropped.append(t)
+            print(f"   🗑️ 素材不足: 丢弃「{title[:40]}」— 正文要素要比赛细节，"
+                  f"素材中无对应的已结束比赛数据")
         else:
-            # No known teams referenced — could be a general topic
-            # Check if it mentions specific match details (scores, goalscorers, etc.)
-            has_match_details = any(kw in text for kw in ["点球", "绝杀", "帽子戏法", "进球", "射门", "控球", "红牌", "黄牌"])
-            if has_match_details:
-                # Topic mentions match details but no teams in data → likely hallucination
-                dropped.append(t)
-                print(f"   🗑️ 素材不足: 丢弃「{title[:40]}」— 提及比赛细节但无对应数据")
-            else:
-                # General topic without match details — can keep
-                filtered.append(t)
+            filtered.append(t)
 
     if dropped:
         print(f"   📉 素材充足性检查: {len(topics)} → {len(filtered)} 个话题 (丢弃 {len(dropped)} 个)")
@@ -3410,12 +3423,16 @@ def _generate_articles_from_topics(topics, count, match_data, images_map, stats,
             print(f"   ❌ 第{index_offset + i + 1}篇失败: {error}")
             stats["failed"] += 1
             stats["issues"].append(f"第{index_offset + i + 1}篇({ct}): {error}")
+            # 原始 error 串单独留一份：`issues` 里加了「第N篇(类型): 」前缀，
+            # 拿去做原因归类会被前缀带偏。漏斗 detail 用这份（2026-11-09）。
+            stats.setdefault("failure_errors", []).append(error)
         else:
             stats["valid"] += 1
             # 热点来源留痕（2026-11-06）：把 topic 上的热点标记带到文章对象，
             # 保存层才落得了 `hot_event_key` —— 它是「同一件热搜当天只写一次」
             # 的唯一依据。只在文章对象上留 `_` 标记就会丢（10-25 预测稿同款事故）。
-            for _k in ("_hot_event_key", "_hot_rank", "_hot_source", "_hot_channel"):
+            for _k in ("_hot_event_key", "_hot_rank", "_hot_source", "_hot_channel",
+                       "publish_by"):
                 _v = selected[i].get(_k)
                 if _v not in (None, "", []):
                     art[_k] = _v
@@ -6306,6 +6323,10 @@ def main():
                         "content_type": na.get("content_type", ""),
                         "_column_name": na.get("section", ""),
                         "_title_score": na.get("_title_score"),
+                        # 时效闸门（TT-03）：节点/赛程类供给自带「必须在此刻前发布」的
+                        # 窗口，但此前只在选题上，拷贝到成稿的白名单漏了它 →
+                        # j_freshness 两道判据全空，TT-03 在真实数据上恒为「未判定」。
+                        "publish_by": na.get("publish_by", ""),
                         "_is_fixture": True,
                         "_supply_layer": "一级·确定性·节点",
                     }
@@ -6388,12 +6409,19 @@ def main():
         # Generate articles: find source article for each topic, rewrite to 老六 style
         # index_offset：确定性文章已占前 fixture_added 个位置，主稿从其后编号
         _before_main = len(articles)
+        # 本批失败原因的起点（stats 在同一进程里可能跨批累计，按触点切片）
+        _err_mark = len(stats.get("failure_errors") or [])
         _generate_articles_from_topics(_main_pool, article_count, match_data,
                                        images_map, stats, articles, date_str=date_str,
                                        index_offset=len(articles))
         # 漏斗第 7 层：主稿实际成稿数（差额 = 源文章预检跳过 + 生成失败 + 熔断）
+        # 2026-11-09 补 `失败原因`：原来只记「失败几篇」，11-05 那 8 次失败想查成因时
+        # 发现原因只在 stdout（Actions 日志拿不到、CI 结论还是 success）——有原因没证据。
+        # 归类口径集中在 failure_taxonomy，别在这里写 if-else。
+        _batch_errors = (stats.get("failure_errors") or [])[_err_mark:]
         _funnel("generated", max(0, len(articles) - _before_main),
-                主稿请求=article_count, 失败=stats.get("failed", 0))
+                主稿请求=article_count, 失败=stats.get("failed", 0),
+                失败原因=failure_taxonomy.count(_batch_errors))
 
         # 加发留痕（策略手册第五章 / 计划 12.1）：只有真正加发才记账，
         # 供验收核查「周内加发 ≤ 2 次、原因可回溯」。失败仅告警，不阻塞发布。
@@ -6609,15 +6637,16 @@ def main():
         # ============================================================
         # Save all articles
         # ============================================================
-        # 漏斗第 8 层：本批成稿（**不含预测稿**——它不发布，进了口径就会把
-        # 「成稿数」虚高，与「成稿数 ≠ 发布数」那条老账重复踩一遍）。
+        # 内存成稿（**不含预测稿**——它不发布，进了口径就会把「成稿数」虚高）。
+        # 但这只是落盘**前**的篇数：出口合规还会逐篇丢（11-06 实测丢 1 篇），
+        # 所以 `final` 层改到 save 之后记，把「内存 / 落盘 / 剔除」三个数一起留痕。
         _final_arts = len([1 for _, _a in articles if not (_a or {}).get("_is_prediction")])
-        _funnel("final", _final_arts, 蓄水池等补位=len(articles) - _final_arts)
-        # 落盘（成功与 0 篇都落）：0 篇的批次恰恰是最该看的那条记录。
-        topic_funnel.flush(status="empty" if not _final_arts else "ok")
-        if topic_funnel.LAST.get("ok") is False:
-            print(f"   ⚠️ 漏斗台账落盘失败（不影响发布）: {topic_funnel.LAST.get('reason')}")
         if not articles:
+            # 0 篇也要落一条记录 —— 它恰恰是最该看的那条
+            _funnel("final", 0, 蓄水池等补位=0)
+            topic_funnel.flush(status="empty")
+            if topic_funnel.LAST.get("ok") is False:
+                print(f"   ⚠️ 漏斗台账落盘失败（不影响发布）: {topic_funnel.LAST.get('reason')}")
             result_msg = "未能生成任何文章（所有话题改写失败）"
             print(f"ERROR: {result_msg}")
             # 保存空批次元数据 — 避免同批次其他 cron 触发点重复重试
@@ -6637,6 +6666,17 @@ def main():
                   f"已按「{batch_cfg.get('name', '')}」补齐（否则发布器会静默跳过）")
         result = save_articles_local(date_str, articles_sorted, images_map, topics, match_data,
                                      extra=extra_meta)
+
+        # 漏斗第 8 层：本批成稿。`落盘` 才是真能进发布的篇数，`落盘剔除` 是出口合规
+        # 逐篇丢掉的（11-06 实测 1 篇）。两者分开记——只记内存篇数会让「成稿数」
+        # 像 11-07/11-08 那样各虚高 1 篇，又是「成稿数 ≠ 发布数」的老账。
+        _saved_n = len(result.get("articles") or [])
+        _funnel("final", _final_arts, 蓄水池等补位=len(articles) - _final_arts,
+                落盘=_saved_n, 落盘剔除=max(0, _final_arts - _saved_n))
+        # 落盘（成功与 0 篇都落）：0 篇的批次恰恰是最该看的那条记录。
+        topic_funnel.flush(status="empty" if not _final_arts else "ok")
+        if topic_funnel.LAST.get("ok") is False:
+            print(f"   ⚠️ 漏斗台账落盘失败（不影响发布）: {topic_funnel.LAST.get('reason')}")
 
         # Save batch state for cross-batch dedup
         save_batch_state(date_str, batch_mode if batch_mode != "auto" else "full", result.get("articles", []))

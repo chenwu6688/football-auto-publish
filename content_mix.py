@@ -107,6 +107,20 @@ def normalize(content_type: str | None) -> str:
     return ALIASES.get(ct, ct)
 
 
+def is_banned(content_type: str | None) -> bool:
+    """这一型是否**禁发**（``TARGET_PCT == 0``）。**先归一后判**。
+
+    为什么不直接拿 ZERO_TARGET 做集合比对：ZERO_TARGET 里有 ``榜单`` 与
+    ``战术解析`` 两个**别名**键，它们在产出侧永远命中不了（``normalize`` 先把
+    它们并进 排行榜/战术榜单）。直接比集合等于放行「历史回顾」以外的判断全靠
+    运气 —— 归一之后再查 TARGET_PCT，才和「禁发」这个语义对齐。
+
+    这是「禁发」的**唯一判据入口**：选题侧前移过滤与出口闸门都调它，
+    不许各写一份（11-06「同一规矩写两处只改一处」）。
+    """
+    return TARGET_PCT.get(normalize(content_type)) == 0
+
+
 def check(articles: list[dict]) -> dict:
     """统计一批（通常为一天）成稿的 content_type 分布，对照目标算偏差。
 

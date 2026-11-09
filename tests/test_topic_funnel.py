@@ -160,6 +160,50 @@ class TestSummarize(_TempLedger):
         self.assertTrue(tf.LAST["reason"])
 
 
+class TestSavedAccounting(_TempLedger):
+    """final 层的「内存 / 落盘」两个口径（2026-11-09）。
+
+    `final` 记的是落盘**前**的内存篇数，出口合规还会逐篇丢。只报内存篇数会让
+    成稿数虚高（11-07/11-08 各虚高 1 篇，11-06 虚高 1 篇被合规拦下），
+    所以落盘数单独记、单独报，不覆盖 `articles`（否则相邻层损失算不通）。
+    """
+
+    def test_记了落盘就单独汇总(self):
+        self.record(stages=[("llm", 3), ("final", 2, {"落盘": 1, "落盘剔除": 1})])
+        s = tf.summarize(7)
+        self.assertEqual(s["articles"], 2)          # 内存口径不变，损失仍算得通
+        self.assertEqual(s["saved"], 1)
+        self.assertEqual(s["saved_batches"], 1)
+
+    def test_老记录没有落盘不冒充零(self):
+        # 记 0 会被读成「一篇都没落盘」，实际是「那批根本没记这个数」
+        self.record(stages=[("llm", 2), ("final", 2)])
+        s = tf.summarize(7)
+        self.assertIsNone(s["saved"])
+        self.assertEqual(s["saved_batches"], 0)
+        self.assertNotIn("落盘", tf.report(7))
+
+    def test_全覆盖时报告给剔除数(self):
+        self.record(stages=[("llm", 2), ("final", 2, {"落盘": 2, "落盘剔除": 0})])
+        out = tf.report(7)
+        self.assertIn("落盘 2 篇", out)
+        self.assertIn("逐篇丢 0 篇", out)
+
+    def test_部分覆盖不做差(self):
+        self.record(stages=[("llm", 2), ("final", 2, {"落盘": 1, "落盘剔除": 1})])
+        self.record(date="2026-11-05", stages=[("llm", 2), ("final", 2)])
+        out = tf.report(7)
+        self.assertIn("覆盖 1/2 批", out)
+        self.assertIn("不做差", out)
+
+    def test_落盘为0也算记了(self):
+        # 0 是有效值（整批被合规丢光），不能被 None 判定吞掉
+        self.record(stages=[("llm", 2), ("final", 2, {"落盘": 0, "落盘剔除": 2})])
+        s = tf.summarize(7)
+        self.assertEqual(s["saved"], 0)
+        self.assertEqual(s["saved_batches"], 1)
+
+
 class TestIsolation(unittest.TestCase):
     def test_ledger_under_audit(self):
         self.assertIn(PROJECT_ROOT / "data" / "audit", Path(tf.LEDGER_PATH).parents)

@@ -39,6 +39,21 @@ OUTPUT_DIR = PROJECT_ROOT / "output"
 AUDIT_DIR = PROJECT_ROOT / "data" / "audit"
 CST = timezone(timedelta(hours=8))
 
+# ── 时效闸门的「比例型盲区」上限（2026-11-09 立）──────────────────────────
+#: 台账 ``unknown`` = 发布时间无法判定、被闸门**保守放行**的素材。它是闸门
+#: 唯一看不见的部分：源站改版把时间弄丢，unknown 会从 28% 涨到 100%，而
+#: 「已知超时仍保留」始终为空 → E 项永远绿。所以给比例设上限。
+#:
+#: 50% 这个数不是新发明的：全仓对「未判定」的一贯口径就是「过半即不能算通过」
+#: （``verify_compliance`` 的 rc=2 判据即 ``len(judged) * 2 < len(block_rules)``）。
+#: 同一量两处定义不同阈值，就是 11-04「规则相斥」事故的起手式。
+MAX_UNKNOWN_RATIO = 0.50
+#: 告警线。实测近 5 天为 27~28%（189/678），留 7 个点余量，日常不吵；
+#: 一旦越过就说明源站时间字段在退化，趁还没到 50% 提前看见。
+WARN_UNKNOWN_RATIO = 0.35
+#: 比例要有意义，分母不能太小。样本不足只报数、不下结论（未判定 ≠ 通过）。
+MIN_UNKNOWN_SAMPLE = 100
+
 
 def _iter_articles():
     for p in sorted(glob.glob(str(OUTPUT_DIR / "**" / "metadata.json"), recursive=True)):
@@ -622,19 +637,63 @@ def check_reject_traceability() -> dict:
 
 
 def check_old_news() -> dict:
-    """E. 连续 14 天无旧闻新发（硬项，无台账跳过）。"""
+    """E. 连续 14 天无旧闻新发（硬项，无台账跳过）。
+
+    2026-11-09 补「比例型盲区」：原实现只查 ``over_limit``（已知时效超上限
+    仍被保留），而这恰好是闸门**唯一看得见**的部分。真正的盲区是 ``unknown``
+    ——发布时间读不出来的素材被**保守放行**，既不计数也不报警。实测近 5 天
+    678 条里 189 条（28%）时间无法判定，全部来自「热点媒体」；有时间的 489
+    条里拦掉 51 条（10.4%），说明闸门本身有效。
+
+    风险形态很具体：**源站改版把时间字段弄丢，unknown 会从 28% 一路涨到 100%，
+    而 `over_limit` 仍为空、E 项仍绿** —— 闸门彻底失效却无人知晓。所以这里给
+    unknown 比例设上限，而不是继续只报数字。
+    """
     s = fl.summary(14)
     if s["runs"] == 0:
+        # 字段结构必须与其它分支一致：靠「键不存在」表达状态，下游只能猜。
         return {"item": "连续14天无旧闻新发", "ok": True, "skipped": True,
+                "unknown_ratio": None, "violation_records": [],
                 "detail": ["时效闸门台账暂无记录，本项跳过"]}
     v = fl.violations(14)
-    return {"item": "连续14天无旧闻新发", "ok": not v, "skipped": False, **s,
-            "violation_records": v[:5],
-            "detail": [f"近 14 天闸门运行 {s['runs']} 次，覆盖 {s['days_covered']}/14 天；"
-                       f"剔除超时效 {s['dropped']} 条，未知 {s['unknown']} 条",
-                       (f"台账尚未满 14 天（累计 {s['days_covered']} 天，持续累积中）"
-                        if s["days_covered"] < 14 else "已覆盖 14 天"),
-                       ("无「已知时效>上限仍保留」✅" if not v else f"❌ {len(v)} 条超限保留")]}
+    checked = int(s.get("checked") or 0)
+    unknown = int(s.get("unknown") or 0)
+    ratio = (unknown / checked) if checked else None
+
+    detail = [f"近 14 天闸门运行 {s['runs']} 次，覆盖 {s['days_covered']}/14 天；"
+              f"剔除超时效 {s['dropped']} 条，未知 {unknown} 条"
+              + (f"（占已检查 {checked} 条的 {ratio:.1%}）" if ratio is not None else ""),
+              (f"台账尚未满 14 天（累计 {s['days_covered']} 天，持续累积中）"
+               if s["days_covered"] < 14 else "已覆盖 14 天"),
+              ("无「已知时效>上限仍保留」✅" if not v else f"❌ {len(v)} 条超限保留")]
+    base = {"item": "连续14天无旧闻新发", "skipped": False, **s,
+            "unknown_ratio": round(ratio, 4) if ratio is not None else None,
+            "violation_records": v[:5]}
+
+    # 已知违规优先级最高：它已经是铁证，不必等比例样本够不够。
+    if v:
+        return {**base, "ok": False, "detail": detail}
+
+    if ratio is None or checked < MIN_UNKNOWN_SAMPLE:
+        # 样本不足**不下结论**。给个 0 会让「一次都没检查」看起来像满分——
+        # 这正是全仓反复踩的那条：缺失不能用 0 冒充。
+        detail.append(f"⏸ 已检查样本 {checked} 条不足 {MIN_UNKNOWN_SAMPLE} 条，"
+                      f"时间未知比例未判定（不等于通过）")
+        return {**base, "ok": None, "detail": detail}
+
+    if ratio > MAX_UNKNOWN_RATIO:
+        detail.append(f"❌ 时间未知占 {ratio:.1%}，超过上限 {MAX_UNKNOWN_RATIO:.0%}："
+                      f"过半素材的时效闸门没真正生效（源站时间字段可能已失效）")
+        return {**base, "ok": False, "detail": detail}
+
+    if ratio > WARN_UNKNOWN_RATIO:
+        detail.append(f"⚠️ 时间未知占 {ratio:.1%}，高于告警线 {WARN_UNKNOWN_RATIO:.0%}"
+                      f"（上限 {MAX_UNKNOWN_RATIO:.0%}）：源站时间字段可能在退化，"
+                      f"仍算通过，但要盯")
+        return {**base, "ok": True, "detail": detail}
+
+    detail.append(f"时间未知占 {ratio:.1%}，在告警线 {WARN_UNKNOWN_RATIO:.0%} 内 ✅")
+    return {**base, "ok": True, "detail": detail}
 
 
 def check_breaker_blocks_current_batch() -> dict:
