@@ -280,11 +280,12 @@
       },
       "recap_match_id": "564741",
       "performance": {
-        "reads": 8,
+        "reads": 9,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 658,
+        "retention_rate": 0.444,
+        "impressions": 1693,
         "follower_reads": 1,
         "click_rate": 0.01
       },
@@ -1168,13 +1169,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 71,
+        "reads": 78,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 1062,
+        "retention_rate": 0.4448,
+        "impressions": 3181,
         "follower_reads": 0,
-        "click_rate": 0.07
+        "click_rate": 0.02
       },
       "platform_id": "7705740058532053544"
     },
@@ -1487,13 +1489,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 14,
+        "reads": 19,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 327,
+        "retention_rate": 0.4925,
+        "impressions": 1402,
         "follower_reads": 0,
-        "click_rate": 0.04
+        "click_rate": 0.01
       },
       "platform_id": "7705740306641256975"
     }

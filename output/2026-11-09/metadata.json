@@ -262,7 +262,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "564746"
+      "recap_match_id": "564746",
+      "performance": {
+        "reads": 6,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 666,
+        "follower_reads": 1,
+        "click_rate": 0.01
+      },
+      "platform_id": "7705956330044949043"
     },
     {
       "index": 2,
@@ -576,7 +586,17 @@
       "hot_event_key": "水晶宫#coach",
       "hot_rank": 0,
       "hot_source": "news_cluster",
-      "hot_channel": "news_cluster"
+      "hot_channel": "news_cluster",
+      "performance": {
+        "reads": 7,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 647,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7705956613571478066"
     },
     {
       "index": 1,
@@ -1162,7 +1182,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 473,
+        "follower_reads": 2,
+        "click_rate": 0.01
+      },
+      "platform_id": "7706018750818714152"
     },
     {
       "index": 1,
@@ -1448,7 +1478,17 @@
       "hot_event_key": "AC米兰#coach",
       "hot_rank": 14,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 41,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 409,
+        "follower_reads": 0,
+        "click_rate": 0.1
+      },
+      "platform_id": "7706110452064961067"
     },
     {
       "index": 2,
@@ -1749,7 +1789,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 6,
+        "comments": 2,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 373,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7706110754671739411"
     }
   ],
   "topics": [
