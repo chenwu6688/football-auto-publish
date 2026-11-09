@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09 17:01",
+  "generated_at": "2026-11-09 21:07",
   "window_days": 7,
   "ok": true,
   "checks": [
@@ -7,11 +7,11 @@
       "item": "发布成功率（近 7 天）",
       "ok": true,
       "pending": false,
-      "published": 24,
+      "published": 26,
       "failed": 1,
-      "rate": 96.0,
+      "rate": 96.3,
       "detail": [
-        "✅ 近 7 天：成功 24 / 尝试 25 篇，成功率 96.0%（下限 85%）",
+        "✅ 近 7 天：成功 26 / 尝试 27 篇，成功率 96.3%（下限 85%）",
         "台账覆盖 7 天，缺 0 天",
         "失败原因 TOP：发布超时: 无API响应×1"
       ]
@@ -46,9 +46,9 @@
       "ok": true,
       "advisory": true,
       "no_cover": 2,
-      "published": 24,
+      "published": 26,
       "detail": [
-        "已发布 24 篇，其中零配图 2 篇（8.3%）",
+        "已发布 26 篇，其中零配图 2 篇（7.7%）",
         "判定权在 verify_cover_coverage（上限 5%）；本项只报数不回滚"
       ]
     }
