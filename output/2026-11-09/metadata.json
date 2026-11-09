@@ -1,0 +1,797 @@
+{
+  "date": "2026-11-09",
+  "generated_at": "2026-11-09T00:05:54.526258",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "半场1-1后巴萨换人破局，马竞1-2主场饮恨",
+      "path": "/home/runner/work/_temp/output/2026-11-09/article-1-半场11后巴萨换-eb306f.md",
+      "slug": "半场11后巴萨换-eb306f",
+      "tags": [
+        "Atletico Madrid",
+        "Barcelona",
+        "La Liga",
+        "substitution",
+        "match report"
+      ],
+      "keywords": [
+        "Atletico Madrid",
+        "Barcelona",
+        "La Liga",
+        "substitution",
+        "match report"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261109/6af0f2fac6a35_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0f263b1f69native.htm",
+            "query": "马竞、巴萨",
+            "alt": "现身价1.1亿欧！23岁费尔明双响助巴萨逆转马竞，近2年身价翻一倍"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261031/6ae6069374876_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0f743bb1dcnative.htm",
+            "query": "马竞、巴萨",
+            "alt": "马竞在新主场遭遇25场失利，其中8场是输给巴萨"
+          },
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261109/202611090602339794_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0f078724d9native.htm",
+            "query": "马竞、巴萨",
+            "alt": "西甲积分榜：巴萨联赛12轮11胜3分优势领跑，马竞被反超跌至第三"
+          },
+          "width": 720,
+          "height": 2026
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "19 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "巴萨",
+          "马竞"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "标题以比分开场（「1-1」在起首 2 字内）",
+          "全文无具体人物名"
+        ]
+      },
+      "content_stats": {
+        "chars": 939,
+        "han_len": 640,
+        "paragraphs": 9,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 3,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "recap_match_id": "564746"
+    },
+    {
+      "index": 2,
+      "title": "从两连败到3-1，利物浦靠伊萨克第88分钟这一脚喘过气",
+      "path": "/home/runner/work/_temp/output/2026-11-09/article-2-从两连败到31利-6f1cda.md",
+      "slug": "从两连败到31利-6f1cda",
+      "tags": [
+        "Liverpool",
+        "Crystal Palace",
+        "Isak",
+        "Premier League",
+        "Mac Allister"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Crystal Palace",
+        "Isak",
+        "Premier League",
+        "Mac Allister"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-09/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "利物浦",
+              "水晶宫"
+            ],
+            "numbers": [
+              "3",
+              "1"
+            ],
+            "source": "公开赛事比分",
+            "probe": "利物浦3-1水晶宫"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261109/6af0e41e38468_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af106ff32caenative.htm",
+            "query": "水晶宫",
+            "alt": "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选"
+          },
+          "width": 720,
+          "height": 486
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260118/696c00b8cb5fc.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af10703e40afnative.htm",
+            "query": "水晶宫",
+            "alt": "BBC：水晶宫考虑解雇现任主帅萨热，弗兰克和戴奇是热门替代人选"
+          },
+          "width": 1200,
+          "height": 800
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "利物浦 失球写作 0（事实 3），单侧归因疑为历史数据",
+            "利物浦 失球写作 0（事实 3），单侧归因疑为历史数据"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "法媒：水晶宫将解雇主帅萨热",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 91,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题 26 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（21 < 55）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（21 < 55）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "序次",
+          "度量",
+          "中文数字"
+        ],
+        "contrasts": [
+          "比分对照",
+          "跨度"
+        ],
+        "proper_nouns": [
+          "伊萨克",
+          "利物浦"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 92,
+        "pass": true,
+        "reasons": [
+          "过程锚点：第N分钟",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1110,
+        "han_len": 755,
+        "paragraphs": 14,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "水晶宫#coach",
+      "hot_rank": 0,
+      "hot_source": "news_cluster",
+      "hot_channel": "news_cluster"
+    }
+  ],
+  "topics": [
+    {
+      "title": "法媒：水晶宫将解雇主帅萨热",
+      "angle": "热点事件「法媒：水晶宫将解雇主帅萨热」，从球迷情绪与争议点切入",
+      "keywords": [],
+      "keywords_cn": [
+        "法媒：水晶宫将解雇主帅萨热"
+      ],
+      "content_type": "热点球评",
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "媒体头条（news_cluster）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "水晶宫#coach",
+      "_hot_rank": 0,
+      "_hot_source": "news_cluster",
+      "_hot_channel": "news_cluster",
+      "_hot_providers": [
+        "news_cluster"
+      ],
+      "_hot_support": [
+        "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选",
+        "BBC：水晶宫考虑解雇现任主帅萨热，弗兰克和戴奇是热门替代人选",
+        "TA：水晶宫即将解雇萨热，执教仅16场将成英超本季下课首人"
+      ],
+      "_hot_support_raw": [
+        {
+          "source": "zhibo8",
+          "title": "法媒：水晶宫将解雇主帅萨热，弗兰克、兰帕德、戴奇是新帅候选",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af106ff32caenative.htm",
+          "article_text": "直播吧11月9日讯 据法国媒体Footmercato报道，水晶宫将解雇主帅萨热，弗兰克、维托尔·佩雷拉、兰帕德、肖恩·戴奇是潜在新帅候选。\n媒体指出，水晶宫将在未来几小时内解雇主帅萨热，俱乐部已经做出决定，不敌利物浦的比赛成为压垮骆驼的最后一根稻草。\n水晶宫管理层已经在寻找替代者，弗兰克、维托尔·佩雷拉、兰帕德、肖恩·戴奇是潜在人选。",
+          "_age_hours": 8.0,
+          "_freshness": "fresh",
+          "_hot_support": true
+        },
+        {
+          "source": "zhibo8",
+          "title": "BBC：水晶宫考虑解雇现任主帅萨热，弗兰克和戴奇是热门替代人选",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af10703e40afnative.htm",
+          "article_text": "",
+          "_age_hours": 8.0,
+          "_freshness": "fresh"
+        },
+        {
+          "title": "TA：水晶宫即将解雇萨热，执教仅16场将成英超本季下课首人",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0e38cf1ec8native.htm",
+          "article_text": "",
+          "source": "zhibo8",
+          "_content_type_hint": "转会资讯",
+          "_age_hours": 8.0,
+          "_freshness": "fresh"
+        }
+      ]
+    },
+    {
+      "title": "曼联4-4绝平维拉却8轮不胜，卡里克12轮只拿这点分",
+      "angle": "曼联单场两度让二追二看着热血，可8轮不胜深陷降级区才是真相。卡里克带队12轮的积分比索尔斯克亚下课那年还惨，血性救不了积分榜，情怀也救不了帅位。",
+      "keywords": [
+        "Manchester United",
+        "Carrick",
+        "Premier League",
+        "relegation zone"
+      ],
+      "keywords_cn": [
+        "曼联",
+        "卡里克",
+        "英超",
+        "降级区"
+      ],
+      "content_type": "热点球评",
+      "score": 96,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "豪门沉沦+主帅生死，老球迷最爱看",
+      "_category": "战报比分",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "半场1-1后巴萨换人破局，马竞1-2主场饮恨",
+      "content_type": "战术榜单",
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "战报标题含比分",
+      "原因": "「半场1-1后巴萨换人破局，马竞1-2主场」",
+      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（21 < 55）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "hot_topics": [
+    {
+      "title": "法媒：水晶宫将解雇主帅萨热",
+      "rank": 0,
+      "source": "news_cluster",
+      "channel": "news_cluster",
+      "event_key": "水晶宫#coach"
+    }
+  ],
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "法媒：水晶宫将解雇主帅萨热"
+      },
+      {
+        "slot": "data",
+        "type": "热点球评",
+        "title": "曼联4-4绝平维拉却8轮不胜，卡里克12轮只拿这点分"
+      }
+    ],
+    "degraded": [
+      "data 槽用次优类型补位"
+    ],
+    "skipped": [
+      {
+        "type": "八卦趣事",
+        "title": "执教仅16场就要下课，水晶宫为何比曼联还先动刀"
+      }
+    ],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-09 08:05:54"
+}
