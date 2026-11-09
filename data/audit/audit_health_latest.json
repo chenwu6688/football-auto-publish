@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-11-09 20:56",
+  "version": 3,
+  "updated": "2026-11-06",
+  "ok": true,
+  "checks": [
+    {
+      "item": "清单完整性",
+      "ok": true,
+      "detail": [
+        "✅ 脚本 49 个 / 登记 49 项"
+      ],
+      "counts": {
+        "scripts": 49,
+        "declared": 49
+      }
+    },
+    {
+      "item": "负向用例债务",
+      "ok": true,
+      "detail": [
+        "✅ 有负向用例 19/49 项，无负向 30 项（上限 30）",
+        "· 仍无负向用例（可平静偿还，不阻断）：acceptance_metrics、api_budget、awareness_gate、batch_quota、check_slot、content_mix、content_reference、differentiation、effect_loop、fact_layer…"
+      ],
+      "value": 30,
+      "limit": 30,
+      "covered": 19
+    },
+    {
+      "item": "硬项接线与阻断有效性",
+      "ok": true,
+      "detail": [
+        "✅ 硬项 15 个，未被调用 0 个，发布前被软化 0 个",
+        "· 判定方式：只认 `python3 scripts/verify_xxx.py` 真实调用行，不做全文关键字匹配（注释里写一句会误报）"
+      ],
+      "not_called": [],
+      "softened": []
+    },
+    {
+      "item": "每日层最小集",
+      "ok": true,
+      "detail": [
+        "✅ 最小集 7 项，缺登记 0 / 不在 daily 层 0",
+        "· 最小集口径：发布成功率 / 无封面率 / 每批结构 / 内容配比 / 标题硬违规 / 效果闭环"
+      ],
+      "required": [
+        "compliance",
+        "publish_success",
+        "cover_coverage",
+        "batch_mix",
+        "content_mix",
+        "publish_gate",
+        "effect_loop"
+      ],
+      "missing": [],
+      "not_daily": []
+    },
+    {
+      "item": "元层负向自检",
+      "ok": true,
+      "detail": [
+        "✅ 把 baseline 调低 1（30→29）后，债务检查确实变 FAIL（实际债务 30 项 > 上限 29）",
+        "· 这条是元层的负向用例：它不会红，说明整个元验收也是恒真的"
+      ]
+    },
+    {
+      "item": "产物落盘",
+      "ok": true,
+      "advisory": true,
+      "detail": [
+        "✅ 49/49 项把结论落到 data/audit"
+      ],
+      "missing": []
+    }
+  ],
+  "hard_failed": [],
+  "pending": []
+}

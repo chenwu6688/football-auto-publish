@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-11-09 20:56:53",
+  "ok": true,
+  "checks": [
+    {
+      "item": "白名单配置自检",
+      "ok": true,
+      "detail": [
+        "登记 10 个实体：巴萨、阿森纳、拜仁、皇马、曼城、利物浦、曼联、多特蒙德、AC米兰、国际米兰",
+        "✅ 全部能对上 entity_map 的 club",
+        "✅ query 全英文",
+        "✅ accept 全非空"
+      ]
+    },
+    {
+      "item": "声明实测张数 ≥2",
+      "ok": true,
+      "detail": [
+        "✅ 10 项都声明了实测张数且 ≥2"
+      ]
+    },
+    {
+      "item": "运行时解析",
+      "ok": true,
+      "detail": [
+        "✅ 球员不查图库",
+        "✅ 未登记球队不查图库",
+        "✅ 无实体不查图库",
+        "✅ 别名 皇家马德里→皇马",
+        "✅ 混合实体取球队",
+        "✅ 球员优先于球队时不误判",
+        "✅ 10 项都能 resolve 出自己"
+      ]
+    },
+    {
+      "item": "接线：图库调用必须带 accept",
+      "ok": true,
+      "detail": [
+        "1 处 _gallery_* 调用",
+        "✅ 1/1 都带 accept 校验",
+        "✅ 没有把 build_bound_query 的中文结果喂给英文图库"
+      ]
+    },
+    {
+      "item": "alt 重音折叠与负向校验",
+      "ok": true,
+      "detail": [
+        "✅ Bernabéu → bernabeu",
+        "✅ 命中带重音的 alt",
+        "✅ 负向：别家球场不通过",
+        "✅ 负向：空 alt 不通过",
+        "✅ 负向：空 accept 不通过"
+      ]
+    },
+    {
+      "item": "联网实测白名单命中",
+      "ok": null,
+      "skipped": true,
+      "detail": [
+        "⏸ 未配置 PEXELS_KEY——本项未判定（不等于通过）"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "pending": [
+    "联网实测白名单命中"
+  ]
+}

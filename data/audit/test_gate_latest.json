@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-11-09 20:56",
+  "ok": true,
+  "checks": [
+    {
+      "item": "单测门禁存在",
+      "ok": true,
+      "detail": [
+        "✅ workflow 执行 pytest",
+        "✅ pytest 目标为 tests/"
+      ]
+    },
+    {
+      "item": "触发覆盖",
+      "ok": true,
+      "detail": [
+        "✅ 触发覆盖: push=True pull_request=True",
+        "✅ 支持 workflow_dispatch 手动复跑",
+        "✅ push 的 paths 过滤包含 '**.py'"
+      ]
+    },
+    {
+      "item": "门禁不被软化",
+      "ok": true,
+      "detail": [
+        "✅ 未见 || true / continue-on-error / --deselect 等软化手段"
+      ]
+    },
+    {
+      "item": "门禁有超时",
+      "ok": true,
+      "detail": [
+        "✅ timeout-minutes=15"
+      ]
+    },
+    {
+      "item": "排除项有交代",
+      "ok": true,
+      "detail": [
+        "ℹ️ 排除了 tests/test_video_pipeline.py",
+        "✅ 已写明排除原因（edge_tts/ffmpeg 依赖）"
+      ]
+    },
+    {
+      "item": "本地复跑命令",
+      "ok": true,
+      "advisory": true,
+      "detail": [
+        "ℹ️ PYTHONPATH=. python -m pytest tests/ -q --ignore=tests/test_video_pipeline.py"
+      ]
+    }
+  ],
+  "hard_failed": []
+}

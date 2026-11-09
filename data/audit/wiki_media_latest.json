@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-11-09 12:56:53",
+  "ok": true,
+  "checks": [
+    {
+      "item": "模块自检（许可/署名/消歧/解析）",
+      "ok": true,
+      "detail": [
+        "33/33 项通过"
+      ]
+    },
+    {
+      "item": "许可与署名 fail-closed",
+      "ok": true,
+      "detail": [
+        "负向用例 8 条（含无作者）",
+        "许可白名单：CC0 / Public domain / CC BY / CC BY-SA"
+      ]
+    },
+    {
+      "item": "接线（调用 + 熔断 + 死链路摘除）",
+      "ok": true,
+      "detail": [
+        "✅ search_images 已接 Commons 层",
+        "✅ 走 _wiki_available() 熔断",
+        "✅ 已摘除：Pixabay（元数据只有 tags，accept 校验必挂）",
+        "✅ 已摘除：DuckDuckGo（代理挡 + 零许可校验）",
+        "✅ cover_binding 白名单已含 wikimedia"
+      ]
+    },
+    {
+      "item": "署名落正文（CC BY 硬要求）",
+      "ok": true,
+      "detail": [
+        "✅ append_credit 能把作者与许可写进正文",
+        "✅ 幂等：重复调用不会叠加",
+        "✅ orchestrator 把 attribution 透传到下载结果并写正文"
+      ]
+    },
+    {
+      "item": "熔断语义（连不上 vs 真没图）",
+      "ok": true,
+      "detail": [
+        "✅ 超时 → network=True（可熔断）",
+        "✅ 取空 → network=False（不熔断）"
+      ]
+    },
+    {
+      "item": "联网实测（Commons API）",
+      "ok": true,
+      "skipped": false,
+      "detail": [
+        "取回 2 张，全部带 attribution：True",
+        "· Kylian Sanmi Mbappé Lottin (French pronu / CC BY 4.0",
+        "· Kylian Mbappé / CC BY 2.0"
+      ]
+    }
+  ],
+  "hard_failed": [],
+  "pending": []
+}
