@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-10",
-  "generated_at": "2026-11-10 12:12:23",
-  "board_total": 132,
+  "generated_at": "2026-11-10 18:02:44",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.95
+        "elapsed_s": 2.37
       },
       "weibo": {
         "status": "ok",
-        "count": 52,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.94
+        "elapsed_s": 0.92
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.28
+        "elapsed_s": 0.31
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 6.64
+        "elapsed_s": 2.76
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,55 +65,66 @@
       }
     },
     "errors": [],
-    "stale_dropped": 1,
+    "stale_dropped": 4,
     "unknown_time": 8,
     "stale_samples": [
       {
         "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 45.9
+        "age_h": 51.8
+      },
+      {
+        "title": "【CBS Sports】皇马3-0胜瓦伦",
+        "age_h": 56.0
+      },
+      {
+        "title": "【talkSPORT】图赫尔弃帕尔默惹议",
+        "age_h": 59.3
+      },
+      {
+        "title": "【西甲 瓦伦西亚VS皇马】穆里尼奥采访",
+        "age_h": 60.0
       }
     ]
   },
   "football_hits": [
     {
-      "word": "大连英博逆袭夺中超冠军",
-      "rank": 21,
-      "heat": 85960,
+      "word": "宙斯拒绝续约两豪门争抢",
+      "rank": 10,
+      "heat": 524118,
       "source": "tieba",
       "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369511&amp;topic_name=%E5%A4%A7%E8%BF%9E%E8%8B%B1%E5%8D%9A%E9%80%86%E8%A2%AD%E5%A4%BA%E4%B8%AD%E8%B6%85%E5%86%A0%E5%86%9B",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369578&amp;topic_name=%E5%AE%99%E6%96%AF%E6%8B%92%E7%BB%9D%E7%BB%AD%E7%BA%A6%E4%B8%A4%E8%B1%AA%E9%97%A8%E4%BA%89%E6%8A%A2",
       "published_at": "",
       "entities": []
     },
     {
-      "word": "王楚钦孙颖莎参赛混团世界杯",
-      "rank": 31,
-      "heat": 225273,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
+      "word": "大连英博逆袭夺中超冠军",
+      "rank": 24,
+      "heat": 36820,
+      "source": "tieba",
+      "kind": "ugc",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369511&amp;topic_name=%E5%A4%A7%E8%BF%9E%E8%8B%B1%E5%8D%9A%E9%80%86%E8%A2%AD%E5%A4%BA%E4%B8%AD%E8%B6%85%E5%86%A0%E5%86%9B",
       "published_at": "",
       "entities": []
     }
   ],
   "candidates": [
     {
-      "word": "阿利松亲承愿留利物浦：续约谈判进行中英超1 评",
-      "rank": 5,
+      "word": "巴贝尔：我能理解赫内斯的言论，穆西亚拉有巨星合同但总受伤德甲",
+      "rank": 6,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "阿利松",
-        "利物浦"
+        "穆西亚拉"
       ],
       "support": [
         {
-          "title": "阿利松亲承愿留利物浦：续约谈判进行中英超1 评",
-          "url": "https://www.dongqiudi.com/articles/6636374.html",
+          "title": "巴贝尔：我能理解赫内斯的言论，穆西亚拉有巨星合同但总受伤德甲",
+          "url": "https://www.dongqiudi.com/articles/6637348.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "利物浦|阿利松#contract",
+      "event_key": "穆西亚拉#injury",
       "providers": [
         "dongqiudi"
       ],
