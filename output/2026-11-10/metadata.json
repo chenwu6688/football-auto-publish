@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "generated_at": "2026-11-10T04:12:58.453179",
+  "generated_at": "2026-11-10T10:03:41.070452",
   "total_articles": 4,
   "articles": [
     {
@@ -1233,74 +1233,75 @@
   ],
   "topics": [
     {
-      "title": "阿利松亲承愿留利物浦：续约谈判进行中英超1",
-      "angle": "热点事件「阿利松亲承愿留利物浦：续约谈判进行中英超1」，从球迷情绪与争议点切入",
+      "title": "巴贝尔：我能理解赫内斯的言论",
+      "angle": "热点事件「巴贝尔：我能理解赫内斯的言论」，从球迷情绪与争议点切入",
       "keywords": [],
       "keywords_cn": [
-        "阿利松亲承愿留利物浦：续约谈判进行中英超1"
+        "巴贝尔：我能理解赫内斯的言论",
+        "穆西亚拉"
       ],
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
       "why_pick": "媒体头条（dongqiudi）",
       "_supply_layer": "二级·突发",
-      "_hot_event_key": "利物浦|阿利松#contract",
-      "_hot_rank": 5,
+      "_hot_event_key": "穆西亚拉#injury",
+      "_hot_rank": 6,
       "_hot_source": "dongqiudi",
       "_hot_channel": "media",
       "_hot_providers": [
         "dongqiudi"
       ],
       "_hot_support": [
-        "阿利松亲承愿留利物浦：续约谈判进行中英超1 评"
+        "巴贝尔：我能理解赫内斯的言论，穆西亚拉有巨星合同但总受伤德甲"
       ],
       "_hot_support_raw": [
         {
-          "title": "阿利松亲承愿留利物浦：续约谈判进行中英超1 评",
-          "url": "https://www.dongqiudi.com/articles/6636374.html",
+          "title": "巴贝尔：我能理解赫内斯的言论，穆西亚拉有巨星合同但总受伤德甲",
+          "url": "https://www.dongqiudi.com/articles/6637348.html",
           "source": "dongqiudi"
         }
       ]
     },
     {
-      "title": "37岁吴曦重返国足，没想到老将的价值竟然被这样重新定义",
-      "angle": "从吴曦重返国足切入，反驳'救世主'论调——老将的价值不在扛着球队走，而在用经验稳住中场节奏。结合他本赛季在后腰位置的表现，给那些'唯年龄论'的球迷泼盆冷水。",
+      "title": "成都蓉城29轮领跑却末轮丢冠，韦世豪3场追罚成压垮骆驼的最后一根稻草",
+      "angle": "从中超排名走势图切入，复盘蓉城如何从29轮领跑者变成丢冠者，重点落在韦世豪追加停赛3场对争冠冲刺的致命影响，韩媒称他被视为罪魁祸首，结合成都球迷的痛，带出国足情结与联赛残酷性。",
       "keywords": [
-        "Wu Xi",
-        "China national team",
-        "veteran midfielder"
+        "Chengdu Rongcheng",
+        "Wei Shihao",
+        "CSL title race"
       ],
       "keywords_cn": [
-        "吴曦",
-        "国足",
-        "老将后腰"
+        "成都蓉城",
+        "韦世豪",
+        "中超争冠"
       ],
       "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "愤怒",
       "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "吴曦重返国足引发'老将价值'争论，戳中国足球迷集体记忆与当下焦虑",
-      "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "series_id": "无",
+      "why_pick": "29轮领跑末轮丢冠的戏剧性拉满，韦世豪追罚争议自带话题，韩媒补刀增加冲突感",
+      "_category": "冲突舆情",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
       "_rank_id": "topic-1"
     }
   ],
@@ -1351,45 +1352,59 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（21 < 55）",
+      "原因": "与源文连续重合 14 字（>12，疑似洗稿）；事实点数少于最强源文（25 < 30）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "环节": "合规审核",
+      "原因": "本批 2 篇全部被拦，发布集合 0 篇",
+      "处置": "按 compliance_dropped 逐条复核；如需补发走补发 cron",
       "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-11-10-1-06558d",
+      "index": 1,
+      "title": "巴贝尔谈赫内斯言论 vs 穆西亚拉续约卡点",
+      "reasons": [
+        "伤病(命中：伤停)",
+        "合同金额(命中：年薪、合同、续约；含金额量词)"
+      ]
     },
     {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
-      "处置": "用 2 张原创信息图补到 3 张",
-      "数量": 1
+      "id": "2026-11-10-2-38ad83",
+      "index": 2,
+      "title": "韦世豪停赛六场，成都蓉城争冠路竟然先折在处罚单上",
+      "reasons": [
+        "伤病(命中：赛季报销)",
+        "争议指控(命中：处罚、罚款)"
+      ]
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "hot_topics": [
     {
-      "title": "阿利松亲承愿留利物浦：续约谈判进行中英超1",
-      "rank": 5,
+      "title": "巴贝尔：我能理解赫内斯的言论",
+      "rank": 6,
       "source": "dongqiudi",
       "channel": "media",
-      "event_key": "利物浦|阿利松#contract"
+      "event_key": "穆西亚拉#injury"
     }
   ],
   "batch_mix": {
@@ -1401,12 +1416,12 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "阿利松亲承愿留利物浦：续约谈判进行中英超1"
+        "title": "巴贝尔：我能理解赫内斯的言论"
       },
       {
         "slot": "data",
         "type": "热点球评",
-        "title": "37岁吴曦重返国足，没想到老将的价值竟然被这样重新定义"
+        "title": "成都蓉城29轮领跑却末轮丢冠，韦世豪3场追罚成压垮骆驼的"
       }
     ],
     "degraded": [
@@ -1415,21 +1430,21 @@
     "skipped": [
       {
         "type": "八卦趣事",
-        "title": "韦世豪又惹事了，新华社点名批评，这次挑衅的代价竟然比想象"
+        "title": "中甲2028赛季扩军到18队，中乙升3.5队，中国足球金"
       }
     ],
     "day_counts": {
-      "热点球评": 1,
+      "热点球评": 3,
       "八卦趣事": 1
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-10 12:15:32",
+  "last_batch": "evening",
+  "last_updated": "2026-11-10 18:03:41",
   "batches_completed": [
     "morning",
     "noon"
