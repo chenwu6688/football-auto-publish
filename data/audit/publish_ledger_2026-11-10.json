@@ -1,14 +1,15 @@
 {
   "version": 2,
   "date": "2026-11-10",
-  "generated_at": "2026-11-10 00:05:48",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-10 04:15:32",
+  "batch_filter": "morning+noon",
   "batches": [
-    "morning"
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 4,
+    "published": 4,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -40,6 +41,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "阿利松5次扑救兜底，利物浦3-1水晶宫终结连败",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7706391126508306944",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "吴曦重返国足，30场9球5助攻的老将后腰还能撑多久",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7706391410157519360",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,
