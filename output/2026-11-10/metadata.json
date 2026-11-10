@@ -317,7 +317,17 @@
       "hot_event_key": "利物浦|曼联#coach",
       "hot_rank": 2,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 562,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7706326742411035179"
     },
     {
       "index": 2,
@@ -627,7 +637,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 576,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7706327043218194986"
     },
     {
       "index": 1,
@@ -941,7 +961,17 @@
       "hot_event_key": "利物浦|阿利松#contract",
       "hot_rank": 5,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 7,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 501,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7706391126508306944"
     },
     {
       "index": 2,

@@ -285,9 +285,9 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.444,
-        "impressions": 1693,
+        "impressions": 2505,
         "follower_reads": 1,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7705585187479896616"
     },
@@ -1169,12 +1169,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 78,
+        "reads": 79,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.4448,
-        "impressions": 3181,
+        "retention_rate": 0.4771,
+        "impressions": 4046,
         "follower_reads": 0,
         "click_rate": 0.02
       },
@@ -1494,7 +1494,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.4925,
-        "impressions": 1402,
+        "impressions": 2247,
         "follower_reads": 0,
         "click_rate": 0.01
       },
