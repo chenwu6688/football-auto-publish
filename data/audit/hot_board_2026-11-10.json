@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-10",
-  "generated_at": "2026-11-10 08:02:43",
-  "board_total": 131,
+  "generated_at": "2026-11-10 12:12:23",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.6
+        "elapsed_s": 1.95
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.86
+        "elapsed_s": 0.94
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.31
+        "elapsed_s": 0.28
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 2.67
+        "elapsed_s": 6.64
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,40 +70,50 @@
     "stale_samples": [
       {
         "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 41.8
+        "age_h": 45.9
       }
     ]
   },
   "football_hits": [
     {
       "word": "大连英博逆袭夺中超冠军",
-      "rank": 19,
-      "heat": 210516,
+      "rank": 21,
+      "heat": 85960,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369511&amp;topic_name=%E5%A4%A7%E8%BF%9E%E8%8B%B1%E5%8D%9A%E9%80%86%E8%A2%AD%E5%A4%BA%E4%B8%AD%E8%B6%85%E5%86%A0%E5%86%9B",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "王楚钦孙颖莎参赛混团世界杯",
+      "rank": 31,
+      "heat": 225273,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
       "published_at": "",
       "entities": []
     }
   ],
   "candidates": [
     {
-      "word": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266 评",
-      "rank": 2,
+      "word": "阿利松亲承愿留利物浦：续约谈判进行中英超1 评",
+      "rank": 5,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "利物浦",
-        "曼联"
+        "阿利松",
+        "利物浦"
       ],
       "support": [
         {
-          "title": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266 评",
-          "url": "https://www.dongqiudi.com/articles/6635675.html",
+          "title": "阿利松亲承愿留利物浦：续约谈判进行中英超1 评",
+          "url": "https://www.dongqiudi.com/articles/6636374.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "利物浦|曼联#coach",
+      "event_key": "利物浦|阿利松#contract",
       "providers": [
         "dongqiudi"
       ],
