@@ -1,0 +1,820 @@
+{
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T00:03:17.323746",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "曼联4-4维拉竟然还排第18，卡里克离下课只差一场",
+      "path": "/home/runner/work/_temp/output/2026-11-10/article-1-曼联44维拉竟然-7e4fb1.md",
+      "slug": "曼联44维拉竟然-7e4fb1",
+      "tags": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "Carrick",
+        "4-4 draw"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "Carrick",
+        "4-4 draw"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-10/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-10/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-10/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "曼联",
+              "阿斯顿维拉"
+            ],
+            "numbers": [
+              "4",
+              "4"
+            ],
+            "source": "公开赛事比分",
+            "probe": "曼联4-4阿斯顿维拉"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260911/6aa3129425e3d.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-10/6af2426432e44native.htm",
+            "query": "利物浦、曼联",
+            "alt": "DO：曼联计划解雇卡里克 据悉在踢红军前换帅 波切蒂诺是热门候选"
+          },
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261109/6af0f1752bbd8_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af18529c1db7native.htm",
+            "query": "利物浦、曼联",
+            "alt": "回来就要踢利物浦！TA：曼联整个就是烂摊子，保级战已经不是玩笑"
+          },
+          "width": 1200,
+          "height": 799
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "阿斯顿维拉 进球写作 1（事实 4），单侧归因疑为历史数据",
+            "无法归因的比分 2-0（事实 4-4）",
+            "另有比分 阿斯顿维拉 4-2 曼联，事实卡是 曼联 4-4 阿斯顿维拉（本场比分已正确写出，疑为历史交锋）"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 100,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题含悬念词「竟然」，回测点击率 +87%",
+          "R11数据:标题 25 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（24 < 72）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（24 < 72）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "24 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "序次",
+          "中文数字"
+        ],
+        "contrasts": [
+          "比分对照",
+          "落差",
+          "反差"
+        ],
+        "proper_nouns": [
+          "曼联",
+          "维拉"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题含悬念词「竟然」，回测点击率 +87%"
+        ]
+      },
+      "content_stats": {
+        "chars": 1161,
+        "han_len": 780,
+        "paragraphs": 13,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 8,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "利物浦|曼联#coach",
+      "hot_rank": 2,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 2,
+      "title": "曼联4-4维拉竟然8轮不胜，范佩西看台脸色比比分还难看",
+      "path": "/home/runner/work/_temp/output/2026-11-10/article-2-曼联44维拉竟然-837de0.md",
+      "slug": "曼联44维拉竟然-837de0",
+      "tags": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "Van Persie",
+        "Hernandez",
+        "4-4 draw"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Aston Villa",
+        "Premier League",
+        "Van Persie",
+        "Hernandez",
+        "4-4 draw"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-10/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-10/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-10/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "曼联",
+              "阿斯顿维拉"
+            ],
+            "numbers": [
+              "4",
+              "4"
+            ],
+            "source": "公开赛事比分",
+            "probe": "曼联4-4阿斯顿维拉"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250526/6833bd8b806d3.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af0f4cba3dfbnative.htm",
+            "query": "利物浦",
+            "alt": "英媒：利物浦和巴萨均有意科尔维尔，切尔西希望和球员完成续约"
+          },
+          "width": 750,
+          "height": 500
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261109/6af0f1752bbd8_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-09/6af18529c1db7native.htm",
+            "query": "利物浦",
+            "alt": "回来就要踢利物浦！TA：曼联整个就是烂摊子，保级战已经不是玩笑"
+          },
+          "width": 720,
+          "height": 480
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "范戴克突然退出荷兰队，利物浦这轮争冠的隐患藏不住了",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 100,
+        "ok": true,
+        "reasons": [
+          "过程锚点：N轮不胜/连败",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「竟然」，回测点击率 +87%",
+          "R11数据:标题 27 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（21 < 72）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（21 < 72）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "战报比分",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "度量"
+        ],
+        "contrasts": [
+          "比分对照",
+          "比较级",
+          "反差"
+        ],
+        "proper_nouns": [
+          "曼联",
+          "维拉"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "过程锚点：N轮不胜/连败",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1179,
+        "han_len": 799,
+        "paragraphs": 15,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    }
+  ],
+  "topics": [
+    {
+      "title": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266",
+      "angle": "热点事件「DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266」，从球迷情绪与争议点切入",
+      "keywords": [],
+      "keywords_cn": [
+        "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266"
+      ],
+      "content_type": "热点球评",
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "媒体头条（dongqiudi）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "利物浦|曼联#coach",
+      "_hot_rank": 2,
+      "_hot_source": "dongqiudi",
+      "_hot_channel": "media",
+      "_hot_providers": [
+        "dongqiudi"
+      ],
+      "_hot_support": [
+        "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266 评"
+      ],
+      "_hot_support_raw": [
+        {
+          "title": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266 评",
+          "url": "https://www.dongqiudi.com/articles/6635675.html",
+          "source": "dongqiudi"
+        }
+      ]
+    },
+    {
+      "title": "范戴克突然退出荷兰队，利物浦这轮争冠的隐患藏不住了",
+      "angle": "晚旗报消息范戴克退出荷兰队集训，能否赶上客战曼联存疑。从一个老将的身体信号切入，讲利物浦后防核心缺位对争冠格局的影响，带出范戴克这些年从铁人到需要精打细算上场的转变。",
+      "keywords": [
+        "Van Dijk",
+        "Liverpool",
+        "Netherlands",
+        "injury"
+      ],
+      "keywords_cn": [
+        "范戴克",
+        "利物浦",
+        "荷兰队",
+        "伤病"
+      ],
+      "content_type": "八卦趣事",
+      "score": 82,
+      "controversy_level": "low",
+      "target_emotion": "好奇",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "无",
+      "why_pick": "范戴克退队牵动利物浦争冠，老将身体管理是球迷关心话题",
+      "_category": "未分类",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "赛程源",
+      "原因": "本批无可用赛程选题（源不可用或无匹配）",
+      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（21 < 72）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（24 < 72）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "hot_topics": [
+    {
+      "title": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266",
+      "rank": 2,
+      "source": "dongqiudi",
+      "channel": "media",
+      "event_key": "利物浦|曼联#coach"
+    }
+  ],
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "DO：曼联预计会在客战利物浦之前解雇卡里克英超五洲266"
+      },
+      {
+        "slot": "extra",
+        "type": "八卦趣事",
+        "title": "范戴克突然退出荷兰队，利物浦这轮争冠的隐患藏不住了"
+      }
+    ],
+    "degraded": [
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-10 08:03:17"
+}
