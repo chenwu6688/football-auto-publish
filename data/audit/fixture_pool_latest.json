@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-09 19:10",
-  "topics": 24,
-  "pool_generated_at": "2026-11-09 19:10",
+  "generated_at": "2026-11-10 08:00",
+  "topics": 34,
+  "pool_generated_at": "2026-11-10 08:00",
   "ok": false,
   "checks": [
     {
@@ -24,10 +24,10 @@
     {
       "item": "有赛程日候选≥6",
       "ok": true,
-      "days": 2,
+      "days": 3,
       "thin_days": {},
       "detail": [
-        "共 2 个有赛程日",
+        "共 3 个有赛程日",
         "全部达标"
       ]
     },
@@ -70,10 +70,10 @@
       "advisory": true,
       "ok": true,
       "ratio": 1.0,
-      "hit": 24,
-      "total": 24,
+      "hit": 34,
+      "total": 34,
       "detail": [
-        "含人角色词或悬念词的选题 24/24（100%）",
+        "含人角色词或悬念词的选题 34/34（100%）",
         "（告警项：不足 100% 通常是选题池仍由旧版 ANGLE_RULES 生成，重跑 scripts/fixture_library.py 刷新即可）"
       ]
     }
