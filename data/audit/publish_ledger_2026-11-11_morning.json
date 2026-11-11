@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11 11:08:03",
+  "batch_filter": "morning",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "波切蒂诺领跑曼联帅位，卡里克这周就得走人",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7706744807930020371",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "波切蒂诺接手曼联，穆里尼奥当年花的1亿英镑学费白交了",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7706745112957403667",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}

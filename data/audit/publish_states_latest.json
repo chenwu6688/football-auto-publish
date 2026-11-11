@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-11 11:09:40",
+  "ok": true,
+  "hard_failed": [],
+  "hard_pending": [],
+  "checks": [
+    {
+      "item": "退出码四态互异（含负向自检）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "✅ 四态互异：{'ok': 0, 'fail': 1, 'nothing_skipped': 2, 'nothing_empty': 3}",
+        "✅ 负向自检：把 EXIT_NOTHING_SKIPPED 设成 1 后本判据会报红"
+      ]
+    },
+    {
+      "item": "load_articles 不得 sys.exit（改用 raise）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "✅ 无 sys.exit；没稿可发走 NoPublishableBatch（带 code + 台账）"
+      ]
+    },
+    {
+      "item": "batch.yml 处理 rc=2/3",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "✅ 按退出码分流",
+        "✅ 处理 rc=2（标完成 + warning）",
+        "✅ 处理 rc=3（exit 1 → 不标批次完成）",
+        "✅ rc=3 分支引用了 0 篇原因归类（publish_zero_reason）",
+        "✅ 回写批次状态绑定 publish.outcome"
+      ]
+    },
+    {
+      "item": "重拟链不得裸调评分器",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "✅ 4 个入口均走 _safe_title_score / _safe_elements_ok"
+      ]
+    },
+    {
+      "item": "预测稿口径唯一（4 处）",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "✅ 4 处口径一致（按依据分级，不按体裁）"
+      ]
+    },
+    {
+      "item": "批次已完成只由发布成功写",
+      "ok": true,
+      "advisory": false,
+      "detail": [
+        "✅ 生成侧只写 batches_generated，不写 completed",
+        "✅ 发布成功步骤调用 mark_batch_completed.py（completed 唯一写入点）"
+      ]
+    }
+  ]
+}

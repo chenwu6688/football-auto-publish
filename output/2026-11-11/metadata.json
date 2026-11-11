@@ -1,62 +1,646 @@
 {
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T00:03:53.871647",
-  "total_articles": 0,
-  "articles": [],
+  "generated_at": "2026-11-11T11:03:00.796967",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "波切蒂诺领跑曼联帅位，卡里克这周就得走人",
+      "path": "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/article-1-波切蒂诺领跑曼联-1ef668.md",
+      "slug": "波切蒂诺领跑曼联-1ef668",
+      "tags": [
+        "Pochettino",
+        "Manchester United",
+        "Carrick",
+        "Premier League",
+        "manager"
+      ],
+      "keywords": [
+        "Pochettino",
+        "Manchester United",
+        "Carrick",
+        "Premier League",
+        "manager"
+      ],
+      "images": [
+        "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/images/article-1-img-001.jpg",
+        "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/images/article-1-img-002.jpg",
+        "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261110/6af2da8a045a8_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af3b202a891bnative.htm",
+            "query": "波切蒂诺、曼联",
+            "alt": "跟队：签波切蒂诺要与时间赛跑，曼联对阵利物浦时可能用临时主帅"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250106/677ae64367d44.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af39c44140a5native.htm",
+            "query": "波切蒂诺、曼联",
+            "alt": "队里有主帅克星！曼联球迷调侃波切蒂诺：上任后赶紧卖掉德里赫特"
+          },
+          "width": 750,
+          "height": 499
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "pexels",
+          "url": "https://images.pexels.com/photos/16902034/pexels-photo-16902034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "origin": {
+            "article_url": "",
+            "query": "Manchester United FC",
+            "alt": "Stunning aerial shot of Old Trafford stadium in Manchester, "
+          },
+          "width": 1200,
+          "height": 900
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字（比分/第几轮/第几分钟/积分/人数/年龄）；一处对比或落差（1平2负、22分压着对手、甩开一倍、从X到Y）。只能用事实卡里已有的数字，不得编造。",
+          "[三要素] 三要素 1/3 未达下限（需 ≥2 项且含专名）",
+          "[三要素] 缺：数字、对比"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（10 < 14）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 1%），只记分：事实点数少于最强源文（10 < 14）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "28 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [],
+        "proper_nouns": [
+          "波切蒂诺",
+          "曼联"
+        ],
+        "has_number": false,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 1
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字（比分/第几轮/第几",
+          "[三要素] 三要素 1/3 未达下限（需 ≥2 项且含专名）"
+        ]
+      },
+      "content_stats": {
+        "chars": 1041,
+        "han_len": 721,
+        "paragraphs": 18,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "曼联#coach",
+      "hot_rank": 1,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media",
+      "platform_id": "7706744807930020371",
+      "platform_id_source": "publish_response"
+    },
+    {
+      "index": 2,
+      "title": "波切蒂诺接手曼联，穆里尼奥当年花的1亿英镑学费白交了",
+      "path": "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/article-2-波切蒂诺接手曼联-e430f0.md",
+      "slug": "波切蒂诺接手曼联-e430f0",
+      "tags": [
+        "Pochettino",
+        "Manchester United",
+        "Carrick",
+        "Mourinho",
+        "Premier League"
+      ],
+      "keywords": [
+        "Pochettino",
+        "Manchester United",
+        "Carrick",
+        "Mourinho",
+        "Premier League"
+      ],
+      "images": [
+        "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/images/article-2-img-001.jpg",
+        "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/images/article-2-img-002.jpg",
+        "/home/chenwu/WorkBuddy/2026-10-09-15-21-09/football-auto-publish/output/2026-11-11/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261031/6ae5e6603d3a4.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af3d0c528ea3native.htm",
+            "query": "曼联",
+            "alt": "现居降级区！BBC：拉爵仍支持CEO和总监，高层相信曼联能进前五"
+          },
+          "width": 1200,
+          "height": 760
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260707/6a4c59e8dde3d_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af3cdbf6b9a5native.htm",
+            "query": "曼联",
+            "alt": "泰晤士：波帅渴望执教曼联，曼联若请他需支付750万镑赔偿金"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260630/6a430ef120796_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af3d1976b0c2native.htm",
+            "query": "曼联",
+            "alt": "曼联为什么不请安帅？记者：放着巴西主帅不当，来接手英超第18？"
+          },
+          "width": 1200,
+          "height": 799
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "曼联当年解雇穆里尼奥，古利特说太仓促且毫无理由",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 77,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题 26 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（11 < 14）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 1%），只记分：事实点数少于最强源文（11 < 14）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "穆里尼奥",
+          "波切蒂诺",
+          "曼联"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ]
+      },
+      "content_stats": {
+        "chars": 1085,
+        "han_len": 790,
+        "paragraphs": 11,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "platform_id": "7706745112957403667",
+      "platform_id_source": "publish_response"
+    }
+  ],
   "topics": [
     {
-      "title": "帕托：非常尊重给了我一切的米兰",
-      "angle": "热点事件「帕托：非常尊重给了我一切的米兰」，从球迷情绪与争议点切入",
+      "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺",
+      "angle": "热点事件「英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺」，从球迷情绪与争议点切入",
       "keywords": [],
       "keywords_cn": [
-        "帕托：非常尊重给了我一切的米兰",
-        "AC米兰"
+        "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺"
       ],
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
       "why_pick": "媒体头条（dongqiudi）",
       "_supply_layer": "二级·突发",
-      "_hot_event_key": "AC米兰#injury",
-      "_hot_rank": 2,
+      "_hot_event_key": "曼联#coach",
+      "_hot_rank": 1,
       "_hot_source": "dongqiudi",
       "_hot_channel": "media",
       "_hot_providers": [
         "dongqiudi"
       ],
       "_hot_support": [
-        "帕托：非常尊重给了我一切的米兰，受伤那段时间本该处理更好意甲西甲"
+        "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔"
       ],
       "_hot_support_raw": [
         {
-          "title": "帕托：非常尊重给了我一切的米兰，受伤那段时间本该处理更好意甲西甲",
-          "url": "https://www.dongqiudi.com/articles/6640219.html",
+          "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔",
+          "url": "https://www.dongqiudi.com/articles/6640552.html",
           "source": "dongqiudi"
         }
       ]
     },
     {
-      "title": "孔蒂请超级经纪人扎哈维出面，曼联帅位这次真要变天？",
-      "angle": "曼联预计今天决定是否解雇卡里克，孔蒂已通过扎哈维主动谈判，帅位暗流比比赛更刺激。",
+      "title": "曼联当年解雇穆里尼奥，古利特说太仓促且毫无理由",
+      "angle": "古利特直接开炮：曼联解雇穆里尼奥毫无理由。结合现在波切蒂诺领跑帅位，曼联的选帅逻辑到底是什么？从穆帅下课到如今帅位争夺，曼联管理层这些年到底在找什么？",
       "keywords": [
-        "Conte",
-        "Man United",
-        "Carrick",
-        "Zahavi"
+        "Mourinho",
+        "Manchester United",
+        "Gullit"
       ],
       "keywords_cn": [
-        "孔蒂",
+        "穆里尼奥",
         "曼联",
-        "卡里克",
-        "扎哈维"
+        "古利特",
+        "波切蒂诺"
       ],
-      "content_type": "转会资讯",
+      "content_type": "热点球评",
       "score": 92,
       "controversy_level": "high",
-      "target_emotion": "好奇",
+      "target_emotion": "震惊",
       "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "曼联帅位24小时倒计时，孔蒂抢跑谈判，卡里克命悬一线",
+      "why_pick": "名宿炮轰管理层，曼联帅位争夺战争议拉满",
       "_category": "转会官宣",
       "_column_id": "chen-du-kuai-xun",
       "_column_name": "晨读快讯",
@@ -126,33 +710,27 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（12 < 17）",
+      "原因": "事实点数少于最强源文（11 < 14）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
-      "环节": "合规审核",
-      "原因": "本批 2 篇全部被拦，发布集合 0 篇",
-      "处置": "按 compliance_dropped 逐条复核；如需补发走补发 cron",
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（10 < 14）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
-    }
-  ],
-  "pending_review": [
-    {
-      "id": "2026-11-11-1-83ef80",
-      "index": 1,
-      "title": "帕托致敬AC米兰：给了自己一切的红黑军团却无人回应",
-      "reasons": [
-        "伤病(命中：伤停)"
-      ]
     },
     {
-      "id": "2026-11-11-2-1f271d",
-      "index": 2,
-      "title": "曼联4比4战平背后，孔蒂和卡里克谁更该脸红",
-      "reasons": [
-        "合同金额(命中：合同；含金额量词)"
-      ]
+      "环节": "标题评分记分",
+      "原因": "0分：[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "数量": 1
     }
   ],
   "type": "match_analysis",
@@ -172,11 +750,11 @@
   "ranker_mode": "rule",
   "hot_topics": [
     {
-      "title": "帕托：非常尊重给了我一切的米兰",
-      "rank": 2,
+      "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺",
+      "rank": 1,
       "source": "dongqiudi",
       "channel": "media",
-      "event_key": "AC米兰#injury"
+      "event_key": "曼联#coach"
     }
   ],
   "batch_mix": {
@@ -188,21 +766,25 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "帕托：非常尊重给了我一切的米兰"
+        "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺"
       },
       {
-        "slot": "extra",
-        "type": "转会资讯",
-        "title": "孔蒂请超级经纪人扎哈维出面，曼联帅位这次真要变天？"
+        "slot": "data",
+        "type": "热点球评",
+        "title": "曼联当年解雇穆里尼奥，古利特说太仓促且毫无理由"
       }
     ],
     "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+      "data 槽用次优类型补位"
     ],
     "skipped": [
       {
+        "type": "热点球评",
+        "title": "克雷桑20球9助落选中超最佳阵，泰山球迷炸了"
+      },
+      {
         "type": "八卦趣事",
-        "title": "库卢爆料伊布私下帮他找医生，傲慢人设背后竟藏着这一面"
+        "title": "38岁谭龙拿中甲金球奖，年龄真就只是个数字？"
       }
     ],
     "day_counts": {},
@@ -213,5 +795,8 @@
     "morning"
   ],
   "last_batch": "morning",
-  "last_updated": "2026-11-11 08:03:53"
+  "last_updated": "2026-11-11 11:08:13",
+  "batches_completed": [
+    "morning"
+  ]
 }

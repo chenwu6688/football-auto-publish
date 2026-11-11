@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-11",
-  "generated_at": "2026-11-11 08:03:30",
-  "board_total": 130,
+  "generated_at": "2026-11-11 11:02:05",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.42
+        "elapsed_s": 0.23
       },
       "weibo": {
         "status": "ok",
-        "count": 50,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.89
+        "elapsed_s": 0.17
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.33
+        "elapsed_s": 0.18
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.27
+        "elapsed_s": 0.25
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,90 +65,60 @@
       }
     },
     "errors": [],
-    "stale_dropped": 5,
+    "stale_dropped": 9,
     "unknown_time": 8,
     "stale_samples": [
       {
         "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 65.8
+        "age_h": 68.8
       },
       {
         "title": "太幽默了！女球迷当面坦白支持巴萨，弗洛伦蒂诺：叫警察来",
-        "age_h": 42.9
+        "age_h": 45.9
       },
       {
         "title": "【CBS Sports】皇马3-0胜瓦伦",
-        "age_h": 70.0
+        "age_h": 73.0
       },
       {
         "title": "【talkSPORT】图赫尔弃帕尔默惹议",
-        "age_h": 73.3
+        "age_h": 76.3
       },
       {
         "title": "【西甲 瓦伦西亚VS皇马】穆里尼奥采访",
-        "age_h": 74.0
+        "age_h": 77.0
       }
     ]
   },
   "football_hits": [
     {
       "word": "宙斯拒绝续约两豪门争抢",
-      "rank": 15,
-      "heat": 290864,
+      "rank": 19,
+      "heat": 89316,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369578&amp;topic_name=%E5%AE%99%E6%96%AF%E6%8B%92%E7%BB%9D%E7%BB%AD%E7%BA%A6%E4%B8%A4%E8%B1%AA%E9%97%A8%E4%BA%89%E6%8A%A2",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "中足联：中超本土球员年薪上限500万元",
-      "rank": 25,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "大连英博逆袭夺中超冠军",
-      "rank": 29,
-      "heat": 42664,
-      "source": "tieba",
-      "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369511&amp;topic_name=%E5%A4%A7%E8%BF%9E%E8%8B%B1%E5%8D%9A%E9%80%86%E8%A2%AD%E5%A4%BA%E4%B8%AD%E8%B6%85%E5%86%A0%E5%86%9B",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "侯英超说王楚钦知道要做什么",
-      "rank": 47,
-      "heat": 84985,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
       "published_at": "",
       "entities": []
     }
   ],
   "candidates": [
     {
-      "word": "帕托：非常尊重给了我一切的米兰，受伤那段时间本该处理更好意甲西甲",
-      "rank": 2,
+      "word": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔",
+      "rank": 1,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "AC米兰"
+        "曼联"
       ],
       "support": [
         {
-          "title": "帕托：非常尊重给了我一切的米兰，受伤那段时间本该处理更好意甲西甲",
-          "url": "https://www.dongqiudi.com/articles/6640219.html",
+          "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔",
+          "url": "https://www.dongqiudi.com/articles/6640552.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "AC米兰#injury",
+      "event_key": "曼联#coach",
       "providers": [
         "dongqiudi"
       ],
