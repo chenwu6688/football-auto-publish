@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10 15:07",
+  "generated_at": "2026-11-11 10:45",
   "window_days": 7,
   "ok": true,
   "checks": [
@@ -7,48 +7,48 @@
       "item": "发布成功率（近 7 天）",
       "ok": true,
       "pending": false,
-      "published": 28,
-      "failed": 1,
-      "rate": 96.6,
+      "published": 27,
+      "failed": 0,
+      "rate": 100.0,
       "detail": [
-        "✅ 近 7 天：成功 28 / 尝试 29 篇，成功率 96.6%（下限 85%）",
-        "台账覆盖 7 天，缺 0 天",
-        "失败原因 TOP：发布超时: 无API响应×1"
+        "✅ 近 7 天：成功 27 / 尝试 27 篇，成功率 100.0%（下限 85%）",
+        "台账覆盖 6 天，缺 1 天（2026-11-11）"
       ]
     },
     {
       "item": "连续发布失败（≥2 篇）",
       "ok": true,
       "pending": false,
-      "max_consecutive": 1,
+      "max_consecutive": 0,
       "detail": [
-        "✅ 最长连续失败 1 篇（连续 2 篇才判失败），发生在 2026-11-04 附近"
+        "✅ 最长连续失败 0 篇（连续 2 篇才判失败）"
       ]
     },
     {
       "item": "失败原因可诊断",
       "ok": true,
-      "pending": false,
+      "skipped": true,
       "detail": [
-        "✅ 失败 1 篇，带原因 1 篇"
+        "近 7 天无失败，无需诊断（跳过）"
       ]
     },
     {
       "item": "发布台账覆盖",
-      "ok": true,
+      "ok": false,
       "advisory": true,
       "detail": [
-        "近 7 天有台账 7 天"
+        "近 7 天有台账 6 天，缺 1 天（2026-11-11）",
+        "缺台账的两种可能：① 该日没跑批次；② 跑了但发布前就中断；③ 台账未提交。三者处置不同，需看当日 Actions 结论"
       ]
     },
     {
       "item": "无封面发布数",
       "ok": true,
       "advisory": true,
-      "no_cover": 1,
-      "published": 28,
+      "no_cover": 0,
+      "published": 27,
       "detail": [
-        "已发布 28 篇，其中零配图 1 篇（3.6%）",
+        "已发布 27 篇，其中零配图 0 篇（0.0%）",
         "判定权在 verify_cover_coverage（上限 5%）；本项只报数不回滚"
       ]
     }
