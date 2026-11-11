@@ -71,20 +71,31 @@ jobs:
           if ! sudo apt-get install -y -qq fonts-noto-cjk; then
             echo "::warning::fonts-noto-cjk 安装失败：数据卡渲染色例会因缺字体而失败"
           fi
+          # ffmpeg：tests/test_video_pipeline.py 里有真跑 ffmpeg 合成 mp4 的端到端用例
+          # （edit_with_broll / compose / 字幕烧录）。2026-11-11 起该文件纳入全量，
+          # 镜像若缺 ffmpeg，这些用例会以 CalledProcessError 失败。
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            if ! sudo apt-get install -y -qq ffmpeg; then
+              echo "::error::ffmpeg 缺失且安装失败：video_pipeline 端到端用例无法运行"
+              exit 1
+            fi
+          fi
+          ffmpeg -version | head -1
 
       - name: 跑全量单测
-        # tests/test_video_pipeline.py 排除在外：它 import edge_tts/ffmpeg
-        # 链路，属本地未装的重型可选依赖。若要纳入，需在 CI 装 edge-tts
-        # 与 ffmpeg（目前 video_pipeline 不在发布主链路，暂不纳入）。
+        # 2026-11-11：取消 --ignore=tests/test_video_pipeline.py。此前排除它的理由
+        # 是「缺 edge_tts/ffmpeg 的可选重依赖」，代价是这个文件里的 5 个用例
+        # 一个版本都没跑过，而它们当时已经坏了（硬编码 libopenh264）。
+        # 「不在主链路」不等于「可以坏着」—— 坏着没人知道，才是真正的风险。
+        # 依赖：edge-tts 已进 requirements.txt；ffmpeg 由上一步保证。
         run: |
-          python -m pytest tests/ -q -p no:cacheprovider \
-            --ignore=tests/test_video_pipeline.py
+          python -m pytest tests/ -q -p no:cacheprovider
 
       - name: 失败摘要（便于在 Actions 页面直接看清）
         if: failure()
         run: |
           echo "::error::单元测试失败。请在本地复跑："
-          echo "::error::PYTHONPATH=. python -m pytest tests/ -q --ignore=tests/test_video_pipeline.py"
+          echo "::error::PYTHONPATH=. python -m pytest tests/ -q"
 
   # 2026-11-04 事故：title_elements.py 用了 Python 3.12 才允许的 PEP 701 f-string
   # （表达式内复用引号且跨行）。本机 3.12/3.13 全绿、单测 job 也是 3.12，

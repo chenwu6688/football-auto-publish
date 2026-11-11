@@ -18,7 +18,10 @@
 这里不越俎代庖，免得把「某层没接上」这种真问题一起盖掉。
 """
 
+import os
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 import pytest
@@ -26,6 +29,57 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:            # 让用例能直接 import 顶层模块
     sys.path.insert(0, str(ROOT))
+
+
+# ---------------------------------------------------------------- 临时目录空间兜底
+# 2026-11-11：本机 /tmp 是 10MB tmpfs，跑全量时 video_pipeline 那批要生成
+# 1080x1920 的 mp4，几秒就把 /tmp 撑到 100%，于是 22 个用例报
+# `OSError: [Errno 28] No space left on device`，日志文件本身也被清掉、
+# pytest 退出码变成 120 —— 表象全是「ffmpeg 合成失败」，真因是磁盘。
+#
+# 磁盘容量是环境属性，不该让「同一份代码换个容器就红一片」。所以这里只在
+# **系统临时目录空间确实不够**时把 TMPDIR 指到别处，并打印一行说明（不静默）。
+# CI runner 的 /tmp 动辄几十 G，这条分支不会触发，行为与之前完全一致。
+_MIN_TEMP_FREE_MB = 512
+
+
+def _free_mb(path) -> float:
+    try:
+        return shutil.disk_usage(str(path)).free / (1024 * 1024)
+    except OSError:
+        return -1.0
+
+
+def _pick_temp_root(min_free_mb=_MIN_TEMP_FREE_MB, current=None, candidates=None):
+    """系统临时目录太小就返回一个够用的替代目录，否则返回 None。
+
+    抽成纯函数（不碰 os.environ / tempfile.tempdir）是为了能单测：
+    见 tests/test_temp_space_guard.py。
+    """
+    cur = Path(current or tempfile.gettempdir())
+    free = _free_mb(cur)
+    if free < 0 or free >= min_free_mb:      # 读不到大小就当够用，别乱改
+        return None
+    for cand in (candidates if candidates is not None else
+                 (Path.home() / ".workbuddy" / "tmp" / "pytest",
+                  Path.home() / ".pytest-tmp")):
+        cand = Path(cand)
+        try:
+            cand.mkdir(parents=True, exist_ok=True)
+        except OSError:
+            continue
+        if _free_mb(cand) >= min_free_mb:
+            return str(cand)
+    return None
+
+
+_redirected_tmp = _pick_temp_root()
+if _redirected_tmp:
+    _before = tempfile.gettempdir()
+    os.environ["TMPDIR"] = _redirected_tmp
+    tempfile.tempdir = None                  # 清缓存，让 gettempdir() 重新解析
+    print(f"[conftest] 系统临时目录 {_before} 可用空间不足 "
+          f"{_MIN_TEMP_FREE_MB}MB，已改用 {_redirected_tmp} 存放 pytest 临时文件")
 
 
 @pytest.fixture(autouse=True)

@@ -6,6 +6,7 @@ ffmpeg 合成端到端（肖像 Ken-Burns + 无肖像渐变兜底）、管线编
 """
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -274,6 +275,43 @@ def _make_clip(path, size="320x320", dur=2):
     )
 
 
+def _venc_args():
+    """视频编码器参数 —— 跟随生产侧探测结果，绝不在夹具里写死编码器名。
+
+    2026-11-11 修复：本文件有 5 个用例原先硬编码 ``-c:v libopenh264``，在本机
+    ffmpeg（配置里只有 ``--enable-libx264``、没有 ``libopenh264``）上直接
+    rc=8，被当成「测试失败」。但**编码器可用性是环境属性，不是被测行为**：
+    换了这台 ffmpeg 就红的断言，测的是镜像而不是代码。生产侧
+    ``compose.select_video_encoder()`` 本来就按优先级探测（libx264 → libopenh264
+    → h264_v4l2m2m → mpeg4），夹具直接复用它的结论即可。
+
+    回归守卫见 ``test_fixtures_do_not_hardcode_encoder``。
+    """
+    return ["-c:v", compose.select_video_encoder()]
+
+
+def _make_anchor(path, dur=5, fps=30, color="red", size="1080x1920", audio=True):
+    """造「主讲人锚层」：纯色竖屏视频 + 正弦音轨（edit_with_broll 的输入）。"""
+    cmd = ["ffmpeg", "-y", "-f", "lavfi",
+           "-i", f"color=c={color}:s={size}:r={fps}:d={dur}"]
+    if audio:
+        cmd += ["-f", "lavfi", "-i", f"sine=frequency=440:duration={dur}"]
+    cmd += [*_venc_args(), "-pix_fmt", "yuv420p"]
+    if audio:
+        cmd += ["-c:a", "aac"]
+    return subprocess.run(cmd + [str(path)], capture_output=True, check=True)
+
+
+def _make_broll(path, color="blue", size="1920x1080", dur=3, fps=30):
+    """造横屏素材片段（无音轨），用来填 edit_with_broll 的素材池。"""
+    return subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi",
+         "-i", f"color=c={color}:s={size}:r={fps}:d={dur}",
+         *_venc_args(), "-pix_fmt", "yuv420p", str(path)],
+        capture_output=True, check=True,
+    )
+
+
 def test_compose_with_talking_head_video(tmp_path):
     wav = tmp_path / "a.wav"; srt = tmp_path / "a.srt"; th = tmp_path / "th.mp4"
     mp4 = tmp_path / "v.mp4"
@@ -472,15 +510,10 @@ def test_edit_with_broll_real(tmp_path):
     """真实 ffmpeg 端到端：主讲人 + 素材交替 + xfade，输出竖屏且时长正确。"""
     from video_pipeline import edit
     anchor = tmp_path / "anchor.mp4"
-    subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
-                    "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
-                    "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
-                   capture_output=True, check=True)
+    _make_anchor(anchor, dur=5)
     blue = tmp_path / "blue.mp4"; green = tmp_path / "green.mp4"
-    for c in (blue, green):
-        subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", f"color=c=blue:s=1920x1080:r=30:d=3",
-                        "-c:v", "libopenh264", "-pix_fmt", "yuv420p", str(c)],
-                       capture_output=True, check=True)
+    _make_broll(blue, color="blue", dur=3)
+    _make_broll(green, color="green", dur=3)
     pool = [{"path": str(blue), "is_image": False, "duration": 3.0},
             {"path": str(green), "is_image": False, "duration": 3.0}]
     segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(6)]
@@ -505,16 +538,10 @@ def test_edit_with_broll_mixed_framerate(tmp_path):
     from video_pipeline import edit
     # 锚层：color 30fps（时间基 1/15360 量级）+ 正弦音轨
     anchor = tmp_path / "anchor.mp4"
-    subprocess.run(
-        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
-         "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
-         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
-        capture_output=True, check=True)
+    _make_anchor(anchor, dur=5, fps=30)
     # 实拍素材：25fps（Pexels 真实片段典型帧率），横屏到竖屏会被 scale+pad
     real = tmp_path / "real25.mp4"
-    subprocess.run(["ffmpeg", "-y", "-r", "25", "-f", "lavfi", "-i", "color=c=blue:s=1920x1080:r=25:d=3",
-                    "-c:v", "libopenh264", "-pix_fmt", "yuv420p", str(real)],
-                   capture_output=True, check=True)
+    _make_broll(real, color="blue", dur=3, fps=25)
     pool = [{"path": str(real), "is_image": False, "duration": 3.0},
             {"path": str(real), "is_image": False, "duration": 3.0}]
     segs = [{"start": i, "end": i + 1, "text": f"s{i}"} for i in range(6)]
@@ -700,11 +727,7 @@ def test_edit_with_broll_intro_forces_first_segments(tmp_path):
     """intro_broll：前 N 段强制用球队标识图（覆盖开场真人），且能在空素材池时出片。"""
     from video_pipeline import edit
     anchor = tmp_path / "anchor.mp4"
-    subprocess.run(
-        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
-         "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
-         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
-        capture_output=True, check=True)
+    _make_anchor(anchor, dur=5)
     from PIL import Image
     c1 = tmp_path / "c1.png"; c2 = tmp_path / "c2.png"
     Image.new("RGB", (600, 600), (240, 240, 240)).save(str(c1))
@@ -725,11 +748,7 @@ def test_edit_with_broll_intro_map_places_exact_segments(tmp_path):
     """intro_map：队标精确落到指定段（讲哪支队就显示哪支队标），空素材池也能出片。"""
     from video_pipeline import edit
     anchor = tmp_path / "anchor.mp4"
-    subprocess.run(
-        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=5",
-         "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
-         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
-        capture_output=True, check=True)
+    _make_anchor(anchor, dur=5)
     from PIL import Image
     c1 = tmp_path / "c1.png"; c2 = tmp_path / "c2.png"
     Image.new("RGB", (600, 600), (240, 240, 240)).save(str(c1))
@@ -906,15 +925,9 @@ def test_edit_with_broll_keeps_full_duration(tmp_path):
     """回归：edit_with_broll 成片时长 = 各段之和 - 转场重叠（不被 -shortest 截短）。"""
     from video_pipeline import edit
     anchor = tmp_path / "anchor.mp4"
-    subprocess.run(
-        ["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=red:s=1080x1920:r=30:d=6",
-         "-f", "lavfi", "-i", "sine=frequency=440:duration=6",
-         "-c:v", "libopenh264", "-c:a", "aac", "-pix_fmt", "yuv420p", str(anchor)],
-        capture_output=True, check=True)
+    _make_anchor(anchor, dur=6)
     clip = tmp_path / "c.mp4"
-    subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=blue:s=1920x1080:r=30:d=4",
-                    "-c:v", "libopenh264", "-pix_fmt", "yuv420p", str(clip)],
-                   capture_output=True, check=True)
+    _make_broll(clip, color="blue", dur=4)
     pool = [{"path": str(clip), "is_image": False, "duration": 4.0}]
     segs = [{"start": i * 2, "end": i * 2 + 2, "text": f"s{i}"} for i in range(3)]  # 6s
     out = tmp_path / "e.mp4"
@@ -1957,3 +1970,45 @@ def test_pipeline_dialogue_volcano_engine_selects_volcano(tmp_path, monkeypatch)
     assert meta["dialogue_used"] is True
     assert meta["tts_engine"] == "volcano-dialogue"
     assert set(meta["dialogue_speakers"]) == {"A", "B"}
+
+
+# ---------------------------------------------------------------- 编码器可用性回归
+# 2026-11-11：5 个 edit_with_broll 用例一直是「从没跑过」的状态 —— 本文件被 CI
+# 以 --ignore 排除、本机又因缺 edge_tts 收集失败，于是硬编码 libopenh264 的问题
+# 藏了整整一个版本。纳入全量后立刻红了 5 条。下面两条守住这个坑：
+def test_select_video_encoder_is_actually_installed():
+    """生产侧选出的编码器必须真的存在于当前 ffmpeg 里。
+
+    这是 ``compose.select_video_encoder()`` 的契约：它按
+    libx264 → libopenh264 → h264_v4l2m2m → mpeg4 探测，宣称「总能返回可用的」。
+    若哪天优先级表里塞进一个本镜像没有的编码器又没兜底，这里会先红，
+    而不是等到合成 mp4 时才炸。
+    """
+    enc = compose.select_video_encoder()
+    assert enc, "select_video_encoder() 不允许返回空"
+    proc = subprocess.run(["ffmpeg", "-hide_banner", "-encoders"],
+                          capture_output=True, text=True)
+    assert proc.returncode == 0, f"ffmpeg -encoders 失败：{proc.stderr[-300:]}"
+    assert enc in proc.stdout, (
+        f"选出的编码器 {enc!r} 不在 ffmpeg 编码器表里 —— 说明探测逻辑与 "
+        f"实际可用集脱节，合成时会 rc≠0")
+
+
+def test_fixtures_do_not_hardcode_encoder():
+    """夹具不许写死 ``-c:v <名字>``：编码器可用性是环境属性，不是被测行为。
+
+    回归对象：2026-11-11 之前本文件有 8 处把编码器名直接跟在 ``-c:v`` 之后
+    （值全是 libopenh264），在没编该编码器的 ffmpeg 上 5 个用例直接 rc=8。
+    这类断言测的是镜像，换个环境就红，且红得毫无信息量。夹具统一走
+    ``_venc_args()``（复用生产探测）。
+    """
+    src = Path(__file__).read_text(encoding="utf-8")
+    literals = re.findall(r'["\']-c:v["\']\s*,\s*["\']([^"\']+)["\']', src)
+    assert literals == [], (
+        f"夹具里写死了视频编码器 {literals}，应改用 _venc_args() / "
+        f"compose.select_video_encoder()")
+
+
+def test_venc_args_matches_production_selector():
+    """``_venc_args()`` 与生产选择器同源，不得各写一套。"""
+    assert _venc_args() == ["-c:v", compose.select_video_encoder()]

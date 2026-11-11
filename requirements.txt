@@ -3,3 +3,8 @@ Pillow>=10.0
 pyyaml>=6.0
 playwright>=1.40,<2.0
 beautifulsoup4>=4.12
+# video_pipeline 的 TTS 引擎（edge-tts）。2026-11-11：tests/test_video_pipeline.py
+# 此前在 CI 里被 --ignore、在本机又因缺它而收集失败，导致 5 个硬编码
+# libopenh264 的用例整整一个版本没跑过。单测要吃 requirements.txt，
+# 所以依赖必须在这里，而不是只在某人的本地环境里。
+edge-tts>=7.0
