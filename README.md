@@ -288,7 +288,6 @@ football-auto-publish/
 ├── data_collector.py        # 比赛/转会/热点数据采集 + 一级·确定性赛程选题
 ├── media_scraper.py         # 媒体素材抓取
 ├── image_service.py         # 配图服务
-├── match_scheduler.py       # 赛程调度
 ├── extractor.py             # 物理隔离：源文 → 结构化事实（生成器看不到原文）
 ├── fact_card.py             # 事实卡编译/持久化/生命周期（三级可信度）
 ├── rumor_wording.py         # 传闻分级措辞 + 传闻标题硬校验（禁肯定语气）
