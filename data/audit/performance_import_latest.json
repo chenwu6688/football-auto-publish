@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11 11:59",
+  "generated_at": "2026-11-11 13:37",
   "ok": true,
   "checks": [
     {
@@ -8,10 +8,10 @@
       "advisory": false,
       "days": 153,
       "dup_slug": [],
-      "dup_index_count": 484,
+      "dup_index_count": 486,
       "detail": [
         "扫描 153 天：slug 全部唯一 ✅",
-        "同期 index 重复 484 处（正是本次把主键从 index 换成 slug 的原因）"
+        "同期 index 重复 486 处（正是本次把主键从 index 换成 slug 的原因）"
       ]
     },
     {
