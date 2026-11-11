@@ -1,0 +1,157 @@
+{
+  "generated_at": "2026-11-11T05:59:29",
+  "window_days": 2,
+  "window_offset": 1,
+  "since": "2026-11-06",
+  "articles": 10,
+  "dates": {
+    "2026-11-09": 6,
+    "2026-11-10": 4
+  },
+  "ledger_articles": 10,
+  "source": "ledger",
+  "rules": [
+    {
+      "id": "TT-01",
+      "name": "违反法律法规和相关政策",
+      "credit": 70,
+      "tier": "block",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：无博彩话术、合规未熔断",
+      "hits": []
+    },
+    {
+      "id": "TT-02",
+      "name": "发布谣言或不实内容",
+      "credit": 70,
+      "tier": "block",
+      "status": "not_judged",
+      "violations": 0,
+      "detail": "5/10 篇未判定：出口审核：闸门判 judged=False（空事实卡，未判定 ≠ 通过）；出口审核：metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+      "hits": []
+    },
+    {
+      "id": "TT-03",
+      "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+      "credit": 70,
+      "tier": "block",
+      "status": "not_judged",
+      "violations": 0,
+      "detail": "10/10 篇未判定：出口审核：无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+      "hits": []
+    },
+    {
+      "id": "TT-04",
+      "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+      "credit": 70,
+      "tier": "block",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+      "hits": []
+    },
+    {
+      "id": "TT-05",
+      "name": "内容中关键信息与事实不符",
+      "credit": 20,
+      "tier": "block",
+      "status": "not_judged",
+      "violations": 0,
+      "detail": "5/10 篇未判定：出口审核：闸门判 judged=False（空事实卡，未判定 ≠ 通过）；出口审核：metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+      "hits": []
+    },
+    {
+      "id": "TT-06",
+      "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+      "credit": 20,
+      "tier": "rewrite",
+      "status": "not_judged",
+      "violations": 0,
+      "detail": "2/10 篇未判定：出口审核：无相似度/信息增量记录（未走改写路径或未记分）",
+      "hits": []
+    },
+    {
+      "id": "TT-07",
+      "name": "诱导交互",
+      "credit": 20,
+      "tier": "block",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：无诱导话术",
+      "hits": []
+    },
+    {
+      "id": "TT-08",
+      "name": "违规涨粉 / 引导互粉",
+      "credit": 20,
+      "tier": "block",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：无诱导话术",
+      "hits": []
+    },
+    {
+      "id": "TT-09",
+      "name": "图文不符 / 相关性差",
+      "credit": 10,
+      "tier": "block",
+      "status": "n/a",
+      "violations": 0,
+      "detail": "出口审核：本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+      "hits": []
+    },
+    {
+      "id": "TT-10",
+      "name": "格式低质",
+      "credit": 10,
+      "tier": "rewrite",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：24 段，无乱码与重复段；出口审核：26 段，无乱码与重复段；出口审核：27 段，无乱码与重复段…",
+      "hits": []
+    },
+    {
+      "id": "TT-11",
+      "name": "失实表述（含 AI 生成未标识）",
+      "credit": 10,
+      "tier": "block",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：正文含 AI 标识",
+      "hits": []
+    },
+    {
+      "id": "TT-12",
+      "name": "违规声明头条首发",
+      "credit": 5,
+      "tier": "pass",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+      "hits": []
+    },
+    {
+      "id": "TT-13",
+      "name": "无资质发布专业领域内容",
+      "credit": 70,
+      "tier": "block",
+      "status": "pass",
+      "violations": 0,
+      "detail": "出口审核：无时政类表述",
+      "hits": []
+    },
+    {
+      "id": "TT-14",
+      "name": "低质 AIGC（账号级处置）",
+      "credit": 0,
+      "tier": "warn",
+      "status": "not_judged",
+      "violations": 0,
+      "detail": "1/10 篇未判定：正文可读样本仅 0 篇（<5），样本不足",
+      "hits": []
+    }
+  ],
+  "blocking": [],
+  "risk_score": 0
+}
