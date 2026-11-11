@@ -10,7 +10,17 @@ from typing import Optional
 
 
 class FileWriter:
-    def __init__(self, base_dir: str = "/home/chenwu/每日自媒体文案"):
+    def __init__(self, base_dir: Optional[str] = None):
+        """``base_dir`` 缺省走 ``constants.OUTPUT_DIR``（与 orchestrator 同一口径）。
+
+        2026-11-11 前默认值是 ``"/home/chenwu/每日自媒体文案"`` —— 一台开发机的
+        绝对路径。生产侧恰好每次都显式传 ``OUTPUT_DIR``，所以从没暴露；但只要有人
+        写 ``FileWriter()``，CI 上就会往一个不存在且不可写的目录里写（或静默建在
+        仓库外）。**默认值本身必须可移植**，不能靠「调用方都记得传参」兜。
+        """
+        if base_dir is None:
+            from constants import OUTPUT_DIR          # 延迟导入：避免环依赖
+            base_dir = str(OUTPUT_DIR)
         self.base_dir = Path(base_dir)
 
     def _slugify(self, title: str) -> str:

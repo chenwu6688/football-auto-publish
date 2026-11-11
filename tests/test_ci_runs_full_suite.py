@@ -57,3 +57,27 @@ def test_video_pipeline_dependency_is_declared():
         "requirements.txt 缺 edge-tts：tests/test_video_pipeline.py 导入 "
         "video_pipeline.tts 时会 ModuleNotFoundError，pytest 收集期 exit 2，"
         "整个 job 一个用例都跑不了。")
+
+
+def test_every_test_file_actually_contains_tests():
+    """`tests/test_*.py` 里必须至少有一个 `def test_*`。
+
+    2026-11-11 发现 `tests/test_all_categories.py` 其实是个要 API Key 的手工演示
+    脚本：pytest 从它里面收集到 **0 个用例**，但它一直计入「测试文件数」，让人以为
+    四品类生成有自动化覆盖。**空壳测试文件比没有测试更坏**——它给的是虚假的安全感。
+
+    这条判据用 AST 扫真实函数定义（注释/字符串里的 `def test_` 不算）。
+    需要手工才能跑的东西放 `scripts/`，不要放 `tests/`。
+    """
+    import ast
+    offenders = []
+    for f in sorted((ROOT / "tests").glob("test_*.py")):
+        tree = ast.parse(f.read_text(encoding="utf-8"))
+        n = sum(1 for node in ast.walk(tree)
+                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+                and node.name.startswith("test"))
+        if n == 0:
+            offenders.append(f.name)
+    assert offenders == [], (
+        f"这些文件在 tests/ 下但收集不到任何用例：{offenders}。"
+        f"手工脚本请移到 scripts/，否则它只会制造「有覆盖」的错觉。")

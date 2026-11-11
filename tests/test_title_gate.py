@@ -383,3 +383,29 @@ def test_title_gate_row_records_quota():
     assert row["quota"]["limit"] == title_gate.MAX_QUESTION_PER_WINDOW
     # 同一批内累计：传什么历史由 recent_titles_for_gate 决定，这里只验证字段口径
     assert title_gate.check("这场德比谁先崩？", hist)["ok"] is False
+
+
+# ============================================================
+# cfg 依赖注入（2026-11-11）：`check(..., cfg=...)` 曾被接收但从不生效
+# ============================================================
+#
+# 修复前的 `check()` 签名里有 `cfg` 参数，函数体却一律 `load_config()`：
+# 调用方以为改了限额，实际用的还是 yaml 里的值，而且**没有任何报错**。
+# 与「注释里写了兜底但代码没求值」属同一类错误——接口承诺了就得生效。
+
+def test_check_honors_explicit_cfg():
+    """显式传 cfg 时必须用它，而不是去读文件。"""
+    cfg = {"规则名": "注入规则", "限额": 5, "提示": "注入提示"}
+    r = title_gate.check("这场德比到底谁先崩？", ["甲？", "乙？"], cfg=cfg)
+    assert r["quota"]["limit"] == 5, "cfg 里的限额没生效"
+    assert r["rule"] == "注入规则"
+    assert r["degraded"] is False
+
+
+def test_check_cfg_limit_changes_verdict():
+    """同一个历史，cfg 限额 2 与 5 必须给出不同判定——参数不是摆设。"""
+    hist = ["甲？", "乙？", "丙？"]                 # 3 篇疑问收尾
+    tight = {"规则名": "紧", "限额": 2, "提示": "x"}
+    loose = {"规则名": "松", "限额": 5, "提示": "x"}
+    assert title_gate.check("这场德比到底谁先崩？", hist, cfg=tight)["ok"] is False
+    assert title_gate.check("这场德比到底谁先崩？", hist, cfg=loose)["ok"] is True

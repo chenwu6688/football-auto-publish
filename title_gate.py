@@ -170,6 +170,13 @@ def check(title: str, titles=None, *, cfg: dict | None = None) -> dict:
     title   待判标题
     titles  近 WINDOW_DAYS 天已发标题（含本批已生成的），用来算限额。
             传 None 表示「不判限额」（只看格式），用于单条冒烟。
+    cfg     显式传入的规则配置（依赖注入）。传 None 才去读
+            `config/title_antipattern.yaml`。
+
+            **2026-11-11 前这个参数被接收但从未使用**：函数体一律 `load_config()`，
+            于是「传 cfg 想改限额」的调用方（包括想绕开文件系统写单测的人）拿到的是
+            文件里的值，且没有任何报错。这类「接口承诺了但不生效」和「注释里写了兜底
+            但代码没有」是同一类错误。
 
     返回 dict：
       ok        True = 放行
@@ -184,8 +191,11 @@ def check(title: str, titles=None, *, cfg: dict | None = None) -> dict:
         return {"ok": True, "hit": False, "degraded": False, "rule": None,
                 "reason": "", "hint": "", "detail": ["标题为空，不判定"], "quota": None}
 
-    raw = load_config()
-    degraded = raw is None
+    if cfg is not None:
+        raw, degraded = cfg, False
+    else:
+        raw = load_config()
+        degraded = raw is None
     cfg = raw or _FALLBACK
     rule = cfg.get("规则名") or _FALLBACK["规则名"]
     lim = int(cfg.get("限额", MAX_QUESTION_PER_WINDOW) or MAX_QUESTION_PER_WINDOW)

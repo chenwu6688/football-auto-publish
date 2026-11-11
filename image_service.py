@@ -116,9 +116,22 @@ class ImageService:
         return hashlib.md5(image_data).hexdigest()
 
     def _compute_phash(self, image: Image.Image) -> str:
-        """简单的感知哈希，用于去重"""
+        """计算 32×32 灰度均值感知哈希，**只记录不比较**。
+
+        实际去重用的是 MD5（见 `_download_one` 的 `existing_hashes`），本函数算出的
+        `phash` 只跟着结果一起返回，**当前没有任何调用方拿它做相似度判断**。
+        所以别把它当「跨分辨率去重」在用：同一张图换个尺寸/压缩率，MD5 不同，
+        仍会被当成两张。要真做感知去重，得另起一处按汉明距离比较（属功能变更，
+        不在本函数的职责内，故此处只把口径写实）。
+
+        `tobytes()` 而不是 `getdata()`：单通道灰度图的字节序与 getdata 的像素序
+        完全一致（同一个 32×32 缓冲区，1024 字节），但 getdata **在 Pillow 13 已
+        弃用、Pillow 14（2027-10-15）直接移除**。requirements 里写的是
+        `Pillow>=10.0`（无上限），CI 装到 14 那天这里会抛 AttributeError ——
+        去重一挂，整条配图链路跟着挂。`tobytes()` 是稳定 API，且快得多。
+        """
         img = image.resize((32, 32), Image.LANCZOS).convert("L")
-        pixels = list(img.getdata())
+        pixels = list(img.tobytes())
         avg = sum(pixels) / len(pixels)
         bits = "".join("1" if p > avg else "0" for p in pixels)
         return hex(int(bits, 2))[2:]
@@ -229,86 +242,18 @@ class ImageService:
         except Exception:
             return None
 
-    def download_and_crop_image(self, url: str, target_dir: Path, prefix: str, index: int,
-                                 crop_bottom_ratio: float = 0.10) -> Optional[dict]:
-        """Download an image and crop the bottom portion to remove watermarks.
-
-        Hupu images have a watermark at the bottom ~8-12%. This crops the
-        bottom portion then saves as JPEG. Returns same dict as download_image.
-        """
-        try:
-            resp = self.session.get(url, timeout=15, stream=True)
-            resp.raise_for_status()
-
-            content_length = int(resp.headers.get("content-length", 0))
-            if content_length > self.max_size or (0 < content_length < self.min_size):
-                return None
-
-            chunks = []
-            total = 0
-            for chunk in resp.iter_content(chunk_size=8192):
-                total += len(chunk)
-                if total > self.max_size:
-                    return None
-                chunks.append(chunk)
-
-            image_data = b"".join(chunks)
-            if len(image_data) < self.min_size:
-                return None
-
-            md5_hash = self._compute_hash(image_data)
-
-            try:
-                img = Image.open(io.BytesIO(image_data))
-                img.verify()
-                img = Image.open(io.BytesIO(image_data))
-            except (UnidentifiedImageError, Exception):
-                return None
-
-            width, height = img.size
-            if width < self.min_width or height < self.min_height:
-                return None
-
-            # Convert to RGB if needed
-            if img.mode in ("RGBA", "P", "LA"):
-                img = img.convert("RGB")
-
-            # Crop bottom portion to remove Hupu watermark
-            crop_px = max(int(height * crop_bottom_ratio), 25)
-            crop_bottom = height - crop_px
-            if crop_bottom > 0:
-                img = img.crop((0, 0, width, crop_bottom))
-
-            # Resize if too wide
-            new_width, new_height = img.size
-            if new_width > 1200:
-                ratio = 1200 / new_width
-                img = img.resize((1200, int(new_height * ratio)), Image.LANCZOS)
-
-            filename = f"{prefix}-{index:03d}.jpg"
-            filepath = target_dir / filename
-            img.save(filepath, "JPEG", quality=85)
-
-            phash = self._compute_phash(img)
-
-            return {
-                "local_path": str(filepath),
-                "filename": filename,
-                "url": url,
-                "md5": md5_hash,
-                "phash": phash,
-                "width": img.width,
-                "height": img.height,
-                "source": "hupu",
-                "description": "",
-            }
-
-        except Exception:
-            return None
-
     def download_article_images(self, query: str, article_index: int,
-                                date_str: str, base_dir: str = "/home/chenwu/每日自媒体文案") -> list:
-        """为一篇文章下载并保存图片的完整流程"""
+                                date_str: str, base_dir: Optional[str] = None) -> list:
+        """为一篇文章下载并保存图片的完整流程。
+
+        ``base_dir`` 缺省走 ``constants.OUTPUT_DIR``（环境变量 ``OUTPUT_DIR`` 优先），
+        与 orchestrator / logger 同一口径。2026-11-11 前这里写死了
+        ``"/home/chenwu/每日自媒体文案"``：换台机器（或 CI）调用就会在不存在的目录里
+        建图，且失败被 ``except Exception`` 吞掉，表现为「今天怎么一张图都没有」。
+        """
+        if base_dir is None:
+            from constants import OUTPUT_DIR          # 延迟导入：避免环依赖
+            base_dir = str(OUTPUT_DIR)
         images_dir = Path(base_dir) / date_str / "images"
         images_dir.mkdir(parents=True, exist_ok=True)
 

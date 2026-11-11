@@ -38,3 +38,7 @@ scripts/local_env.sh
 # RedFox 试点运行时状态（额度台账 + 缓存；预热信号表 data/signals/redfox_signals.json 同 external_signals 入库）
 data/redfox_budget.json
 data/redfox_cache.json
+
+# 覆盖率数据库（本地跑 coverage 产生，二进制，不入库）
+.coverage
+.coverage.*

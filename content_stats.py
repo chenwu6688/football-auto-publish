@@ -13,6 +13,8 @@
 
 ## 口径
 
+- 统计前先剥掉 YAML front matter（成稿 `.md` 的 `title:` / `tags:` 头部不算正文，
+  否则段落数与字数都会虚高——2026-11-11 实测虚高 65%）；
 - `han_len`：汉字数（不含标点/英文/数字）——压字数看这个，不看字符数；
 - `paragraphs`：正文段落数（空行分隔、排除标题行/图片行/分隔线）；
 - `headings`：`## 小标题` 数；
@@ -55,10 +57,35 @@ _RE_TAG_ONLY = re.compile(r"^(?:#[^#\s]{1,20}#?\s*)+$")
 _RE_IMAGE_LINE = re.compile(r"^\s*!\[[^\]]*\]\([^)]*\)\s*$")
 _SKIP_LINE = (_RE_HEADING, _RE_DIVIDER, _RE_BLOCKQUOTE, _RE_TAG_ONLY, _RE_IMAGE_LINE)
 
+# YAML front matter：成稿 .md 的真实形态（title/date/category/tags/keywords/…）。
+# 2026-11-11 实测：不剥它，`--file output/<date>/article-N.md` 会把它当正文算——
+# 段落数 33 vs 实际 20（虚高 65%），汉字数多 23。而「字数/段数」正是用来验证
+# 「压字数到 300-500」的指标，虚高一倍这项就没法用了。
+_RE_FRONT_MATTER = re.compile(r"\A---[ \t]*\r?\n.*?\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
+
+
+def strip_front_matter(text: str) -> str:
+    """剥掉文件开头的 YAML front matter。找不到闭合 `---` 就原样返回（不误伤正文）。
+
+    额外判一条：块内必须至少有一行 `key:` 形式。否则「正文以分隔线开头、后文又有
+    另一条分隔线」的普通 Markdown 会被误当成 front matter 整段吃掉。
+    """
+    text = text or ""
+    m = _RE_FRONT_MATTER.match(text)
+    if not m:
+        return text
+    if not re.search(r"^[A-Za-z_][\w-]*:", m.group(0), re.M):
+        return text
+    return text[m.end():]
+
 
 def summarize(content: str) -> dict:
-    """统计正文摘要指标。空正文返回全 0 + degraded 说明（不抛）。"""
-    text = content or ""
+    """统计正文摘要指标。空正文返回全 0 + degraded 说明（不抛）。
+
+    若传入的是带 YAML front matter 的成稿文件全文，先剥掉头部再统计——
+    否则 `title:` / `tags:` 这些行会被算成正文段落。
+    """
+    text = strip_front_matter(content)
     out = {"chars": len(text), "han_len": 0, "paragraphs": 0, "headings": 0,
            "bullets": 0, "quotes": 0, "tags": [], "cta": False, "images": 0,
            "degraded": []}

@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""
-足球自媒体系统 — 4品类完整功能测试
-Usage:
-  # 设置API key后运行
-  export HY3_API_KEY="sk-xxx"
-  python tests/test_all_categories.py
+"""四品类 prompt 手工演示脚本（**不是测试**，需要 HY3_API_KEY 才会真调模型）。
 
-  # 或指定模型
-  HY3_MODEL="hy3" python tests/test_all_categories.py
+2026-11-11 从 `tests/test_all_categories.py` 移到这里：它里面没有一个
+`def test_*`，pytest 收集到的用例数是 **0**，却一直计入「测试文件」的数量，
+让人以为四品类生成有自动化覆盖。真正跑在 CI 里的四品类断言在
+`tests/test_content_mix.py` / `tests/test_prompts.py`。
+
+保留这个脚本是因为它能手动跑一次真实模型、肉眼看四品类产出的差别；但它**不能**
+充当回归网（不稳定、要 Key、要花钱），所以不再放在 tests/ 下。
+
+Usage:
+  export HY3_API_KEY="sk-xxx"
+  python scripts/manual_four_category_demo.py
 """
 
 import os, sys, json, re, time
@@ -313,7 +317,7 @@ def main():
     dry_run = not bool(api_key)
     if dry_run:
         print("\n⚠️  HY3_API_KEY 未设置，将跳过 LLM 调用（仅验证 prompt 和评分逻辑）")
-        print("   设置方式: export HY3_API_KEY='sk-xxx' && python tests/test_all_categories.py")
+        print("   设置方式: export HY3_API_KEY='sk-xxx' && python scripts/manual_four_category_demo.py")
     else:
         model = os.environ.get("HY3_MODEL", "hy3")
         print(f"\n✅ 使用模型: {model}")
