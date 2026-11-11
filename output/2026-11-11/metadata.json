@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T00:03:53.871647",
+  "total_articles": 0,
+  "articles": [],
+  "topics": [
+    {
+      "title": "帕托：非常尊重给了我一切的米兰",
+      "angle": "热点事件「帕托：非常尊重给了我一切的米兰」，从球迷情绪与争议点切入",
+      "keywords": [],
+      "keywords_cn": [
+        "帕托：非常尊重给了我一切的米兰",
+        "AC米兰"
+      ],
+      "content_type": "热点球评",
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "媒体头条（dongqiudi）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "AC米兰#injury",
+      "_hot_rank": 2,
+      "_hot_source": "dongqiudi",
+      "_hot_channel": "media",
+      "_hot_providers": [
+        "dongqiudi"
+      ],
+      "_hot_support": [
+        "帕托：非常尊重给了我一切的米兰，受伤那段时间本该处理更好意甲西甲"
+      ],
+      "_hot_support_raw": [
+        {
+          "title": "帕托：非常尊重给了我一切的米兰，受伤那段时间本该处理更好意甲西甲",
+          "url": "https://www.dongqiudi.com/articles/6640219.html",
+          "source": "dongqiudi"
+        }
+      ]
+    },
+    {
+      "title": "孔蒂请超级经纪人扎哈维出面，曼联帅位这次真要变天？",
+      "angle": "曼联预计今天决定是否解雇卡里克，孔蒂已通过扎哈维主动谈判，帅位暗流比比赛更刺激。",
+      "keywords": [
+        "Conte",
+        "Man United",
+        "Carrick",
+        "Zahavi"
+      ],
+      "keywords_cn": [
+        "孔蒂",
+        "曼联",
+        "卡里克",
+        "扎哈维"
+      ],
+      "content_type": "转会资讯",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "曼联帅位24小时倒计时，孔蒂抢跑谈判，卡里克命悬一线",
+      "_category": "转会官宣",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "赛程源",
+      "原因": "本批无可用赛程选题（源不可用或无匹配）",
+      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（12 < 17）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "合规审核",
+      "原因": "本批 2 篇全部被拦，发布集合 0 篇",
+      "处置": "按 compliance_dropped 逐条复核；如需补发走补发 cron",
+      "数量": 1
+    }
+  ],
+  "pending_review": [
+    {
+      "id": "2026-11-11-1-83ef80",
+      "index": 1,
+      "title": "帕托致敬AC米兰：给了自己一切的红黑军团却无人回应",
+      "reasons": [
+        "伤病(命中：伤停)"
+      ]
+    },
+    {
+      "id": "2026-11-11-2-1f271d",
+      "index": 2,
+      "title": "曼联4比4战平背后，孔蒂和卡里克谁更该脸红",
+      "reasons": [
+        "合同金额(命中：合同；含金额量词)"
+      ]
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "hot_topics": [
+    {
+      "title": "帕托：非常尊重给了我一切的米兰",
+      "rank": 2,
+      "source": "dongqiudi",
+      "channel": "media",
+      "event_key": "AC米兰#injury"
+    }
+  ],
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "帕托：非常尊重给了我一切的米兰"
+      },
+      {
+        "slot": "extra",
+        "type": "转会资讯",
+        "title": "孔蒂请超级经纪人扎哈维出面，曼联帅位这次真要变天？"
+      }
+    ],
+    "degraded": [
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [
+      {
+        "type": "八卦趣事",
+        "title": "库卢爆料伊布私下帮他找医生，傲慢人设背后竟藏着这一面"
+      }
+    ],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-11 08:03:53"
+}
