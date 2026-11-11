@@ -19,7 +19,7 @@ EXPECTED_CHECKSUMS = {
 }
 
 REQUIRED_SECTIONS = {
-    "topic_selector.txt": ["五大内容品类", "评分体系", "标题公式", "输出格式", "动态调配"],
+    "topic_selector.txt": ["内容品类", "评分体系", "标题公式", "输出格式", "动态调配"],
     "rewrite_article.txt": ["输出格式", "ai_perspective"],
 }
 

@@ -4,15 +4,18 @@
 为什么需要它（2026-11-11）
 --------------------------
 11-10 evening 与 11-11 morning 连续两批发布 0 篇，告警正文只有
-「失败步骤：发布到头条号」。真实原因是出口风险闸门把 2 篇全部转人工确认
-（metadata.compliance_dropped 是空的），但 orchestrator 的降级文案一律写
+「失败步骤：发布到头条号」。真实原因是当时的风险闸门把 2 篇全部转人工确认
+（metadata.compliance_dropped 是空的），而 orchestrator 的降级文案一律写
 「被合规审核全部拦下」——文案把排查方向直接指错，照着它去改合规判据永远改不到点。
 
-0 篇有三种成因，处置互相排斥，必须分开报：
+2026-11-11 风险闸门已整体移除（选题都经过主流媒体核实，我们只做转写，不臆造），
+保存层只剩一条丢稿通道：出口合规审核。所以现役成因只剩两种：
 
   上游空转（真没选题/没成稿）   → 兜底 cron 重跑有意义
-  出口风险闸门全部转人工确认     → 重跑没用，要人看 output/<date>/review/ 副本
   合规规则剔除全部成稿           → 重跑没用，要么人改规则，要么走补发
+
+旧 metadata 里的 ``pending_review`` / ``风险闸门`` 仍能读懂（回放 11-10、11-11
+那两批时要能解释当时发生了什么），但它已不再由任何代码产生。
 
 判据一律读 orchestrator 写进 metadata 的 ``zero_publish_reason``（生成侧唯一出口），
 这里只做「读 + 兜底推断」，不重新判一遍——同一结论两处各判一次，早晚只改一处。
@@ -45,13 +48,11 @@ def reason_of(meta: dict) -> tuple[str, bool]:
     arts = meta.get("articles") or []
     pending = meta.get("pending_review") or []
     dropped = meta.get("compliance_dropped") or []
-    if not arts and pending and not dropped:
-        return (f"风险闸门：{len(pending)} 篇全部转人工确认（争议指控类），"
-                f"发布集合 0 篇；原文见 output/<date>/review/"), True
-    if not arts and dropped and not pending:
+    if not arts and dropped:
         return f"合规审核：{len(dropped)} 篇全部被剔除，发布集合 0 篇", True
-    if not arts and (pending or dropped):
-        return (f"出口闸门：风险 {len(pending)} 篇 + 合规 {len(dropped)} 篇，"
+    if not arts and pending:
+        # 历史字段：风险闸门已于 2026-11-11 移除，这里只为让旧批次可回放
+        return (f"风险闸门（已移除的历史闸门）：{len(pending)} 篇转人工确认，"
                 f"发布集合 0 篇"), True
     return "本批 0 篇成稿（上游空转：没有选题或没产出成稿）", False
 

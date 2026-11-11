@@ -319,3 +319,67 @@ def test_selector_prompt_no_longer_demands_60pct_question():
     text = (root / "prompts" / "topic_selector.txt").read_text(encoding="utf-8")
     assert "疑问/悬念类（含「？」" not in text
     assert "过程锚点" in text
+
+
+# ============================================================
+# 出口复核（2026-11-11）：所有生成通道唯一汇聚点也要判 title_gate
+# ============================================================
+#
+# 11-09「曼联4-4维拉，多古补时救主还是遮羞？」漏出去的路径：
+# 生成侧 4 处 check 都是「按通道」接的，这条通道没传 recent_titles；
+# 而 save_articles_local（所有通道唯一汇聚点）此前根本没有 title_gate 判定，
+# metadata 里的 title_gate.pass 还是「不传 recent_titles」的裸分（64 分 pass）。
+# 同一份数据在验收侧判违规、在记录侧判通过 —— 比没有记录更坏。
+
+def _load_verify_title_anchor():
+    import importlib.util
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "verify_title_anchor", root / "scripts" / "verify_title_anchor.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def test_export_gate_since_is_single_source():
+    """出口复核生效日只能有一处定义：两个验收脚本都从 title_gate 取。
+
+    同一生效日写两处，早晚只改一处 —— 10-24 已经用一次熔断换过这个教训。
+    """
+    from pathlib import Path
+    assert title_gate.EXPORT_GATE_SINCE == "2026-11-11"
+    vta = _load_verify_title_anchor()
+    assert vta.QUESTION_CAP_SINCE == title_gate.EXPORT_GATE_SINCE
+    gate_src = (Path(__file__).resolve().parent.parent
+                / "scripts" / "verify_publish_gate.py").read_text(encoding="utf-8")
+    assert "title_gate.EXPORT_GATE_SINCE" in gate_src
+    assert '"2026-11-11"' not in gate_src, "把生效日又写死了一遍"
+
+
+def test_export_gate_wired_detects_real_call(tmp_path):
+    """AST 检查必须认「函数体里真的调用」，注释里写一句不算。"""
+    from pathlib import Path
+    vta = _load_verify_title_anchor()
+    real = Path(__file__).resolve().parent.parent / "orchestrator.py"
+    assert vta._export_gate_wired(real) is True
+
+    fake = tmp_path / "o.py"
+    fake.write_text(
+        "def save_articles_local(a):\n"
+        "    # title_gate.check(art, recent)  <-- 只写在注释里\n"
+        "    return a\n", encoding="utf-8")
+    assert vta._export_gate_wired(fake) is False, "注释里提一句就让判据变绿，那是假绿"
+
+
+def test_title_gate_row_records_quota():
+    """metadata 里的 title_gate 必须带 quota，否则看不出「是超限还是压根没判」。"""
+    import orchestrator
+    hist = ["他到底图个啥？", "这场谁更慌呢"]
+    row = orchestrator._title_gate_row(
+        {"title": "曼联4-4维拉，多古补时救主还是遮羞？", "content_type": "热点球评"}, "")
+    # 不依赖真实历史：只要求字段存在且结构可读（历史为空时 used=0）
+    assert "quota" in row and set(row["quota"]) == {"limit", "used", "exhausted"}
+    assert row["quota"]["limit"] == title_gate.MAX_QUESTION_PER_WINDOW
+    # 同一批内累计：传什么历史由 recent_titles_for_gate 决定，这里只验证字段口径
+    assert title_gate.check("这场德比谁先崩？", hist)["ok"] is False

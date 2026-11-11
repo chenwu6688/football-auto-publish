@@ -300,3 +300,44 @@ class TestRefillPoolGuard(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+# ============================================================
+# 选题供给侧必须真的产出「数据对比」（2026-11-11）
+# ============================================================
+#
+# 背景：结构验收长期红在「数据型 14.3%（≥38%）+ 战术榜单 19%（≤14%）」，
+# 而根因不在验收侧——`prompts/topic_selector.txt` 的内容品类里**根本没有**
+# 「数据对比」，只有「战术解析」（配比目标 0）。于是每批都写
+# `degraded: ["data 槽用次优类型补位"]`，data 槽候选池恒空。
+# 加媒体源、调阈值对这一型都无效：没有这类选题，就没有这类稿。
+
+def _selector_prompt() -> str:
+    return (PROJECT_ROOT / "prompts" / "topic_selector.txt").read_text(encoding="utf-8")
+
+
+def test_selector_prompt_declares_data_compare_category():
+    text = _selector_prompt()
+    assert "数据对比" in text, "选题提示词没有「数据对比」品类——data 槽候选池会永远为空"
+    assert "每批必须含 1 篇" in text or "每批至少 1 条" in text, \
+        "只列品类不要求篇数，模型照样一篇都不写"
+    # 数字必须来自素材，不许自己算/编（与三要素同一条纪律）
+    assert "不许自己算或编" in text
+
+
+def test_selector_prompt_bans_tactics_analysis_category():
+    """「战术解析」配比目标是 0，不能再作为可选品类出现在提示词里。
+
+    否则模型会继续产出这一类 → 生成侧按板块落成「战术榜单」→ 冲高上限。
+    """
+    text = _selector_prompt()
+    assert "禁止「战术解析」" in text
+    assert '"content_type": "热点球评/转会资讯/排行榜/八卦趣事/战术解析"' not in text
+
+
+def test_content_type_enum_excludes_zero_target():
+    """提示词允许模型选的类型，必须都在 TARGET_PCT 里且目标 > 0。"""
+    text = _selector_prompt()
+    for ct in ("热点球评", "数据对比", "排行榜", "转会资讯", "八卦趣事"):
+        assert ct in text
+        assert content_mix.TARGET_PCT.get(ct, 0) > 0, f"{ct} 目标为 0，不该出现在可选清单"

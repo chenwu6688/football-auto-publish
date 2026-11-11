@@ -201,7 +201,7 @@ class TestVerifyScript(unittest.TestCase):
 
 
 class TestMetadataPassthrough(unittest.TestCase):
-    """save_metadata 需透传 supply_layers / degrade_events / pending_review 等字段。"""
+    """save_metadata 需透传 supply_layers / degrade_events / compliance_dropped 等字段。"""
 
     def test_extra_keys_persisted(self):
         import file_writer
@@ -214,13 +214,13 @@ class TestMetadataPassthrough(unittest.TestCase):
                 "data_sources": {},
                 "supply_layers": sm.summarize([{"content_type": "热点球评"}]),
                 "degrade_events": [{"环节": "赛程源"}],
-                "pending_review": [{"id": "x"}],
+                "compliance_dropped": [{"index": 1, "title": "t"}],
             }
             path = fw.save_metadata("2026-10-12", meta)
             got = json.loads(Path(path).read_text(encoding="utf-8"))
         self.assertIn("supply_layers", got)
         self.assertIn("degrade_events", got)
-        self.assertIn("pending_review", got)
+        self.assertIn("compliance_dropped", got)
         self.assertEqual(got["date"], "2026-10-12")
         self.assertEqual(got["total_articles"], 1)
 

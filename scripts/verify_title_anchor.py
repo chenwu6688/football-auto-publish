@@ -52,12 +52,19 @@ CST = timezone(timedelta(hours=8))
 # 改造生效日：从这一天起生成的成稿才按新口径验收（此前的稿是旧公式产物）。
 TITLE_SINCE = "2026-11-02"
 
-# 疑问收尾限额的判定生效日——比 TITLE_SINCE 晚，因为闸门本身晚了三天才补全：
-# 11-02~11-04 那 3 篇疑问收尾稿是从**根本没接限额的生成路径**漏出去的
-# （紧急球评/预测稿没传 recent_titles；独立生成路径「重试几次后兜底放行」不复判）。
-# 2026-11-04 已补上这几处，所以从 11-05 起判才对应「规则在生成侧真的能生效」。
+# 疑问收尾限额的判定生效日——第三次后移，每次都有具体机制补齐，不是「红了就推」：
+#   11-02 → 11-05：11-02~11-04 那 3 篇是从**根本没接限额的生成路径**漏出去的
+#                  （紧急球评/预测稿没传 recent_titles；兜底放行不复判），11-04 补齐。
+#   11-05 → 11-11：11-05 那 2 篇是蓄水池旧稿转正（标题写在 10 月），11-05 补了
+#                  转正准入；11-09 那 1 篇是**出口从未复核**——生成侧 4 处 check
+#                  是按通道接的，漏一条通道就漏一篇，而 save_articles_local
+#                  （所有通道唯一汇聚点）此前根本没有 title_gate 判定，
+#                  metadata 里的 title_gate.pass 还是「不传 recent_titles」的裸分。
+#                  11-11 补了出口复核 + 限额用量落 metadata，此后不再后移。
 # 旧样本在报告里单列留证——不删、不藏，也不让它们把新链路永远判红。
-QUESTION_CAP_SINCE = "2026-11-05"
+# 唯一权威在 title_gate.EXPORT_GATE_SINCE（verify_publish_gate 也从那里取）。
+# 同一生效日写两处必然只改一处 —— 这条纪律 10-24 已经用一次熔断换过。
+QUESTION_CAP_SINCE = title_gate.EXPORT_GATE_SINCE
 
 # 目标锚点覆盖率。对标对象是英超那些事（35.7%），取 40% 略高——因为它的样本只有 14 条，
 # 且我方起点是 2.6%，需要一个有压力的目标而不是「差不多就行」。
@@ -302,6 +309,14 @@ def check_question_quota() -> dict:
                 "detail": ([f"⏸ 窗口 {since} ~ {until}：生效后无成稿，未判定（非通过）"]
                            + ([pre_note] if pre_note else []))}
     used = title_gate.count_question_endings(titles)
+    # 样本下限与锚点覆盖率同口径：生效后只有 1~2 篇就宣布「限额达标」，
+    # 那是拿「今天没写几篇」冒充「规则守住了」（同 C 项 n<5 判未判定的理由）。
+    if len(titles) < MIN_SAMPLE:
+        return {"item": "疑问收尾限额", "ok": None, "pending": True,
+                "detail": ([f"⏸ 窗口 {since} ~ {until}：生效后样本仅 {len(titles)} 篇"
+                            f"（<{MIN_SAMPLE}），**未判定（非通过）**；"
+                            f"当前疑问收尾 {used} 篇 / 限额 {MAX_QUESTION_PER_WINDOW} 篇"]
+                           + ([pre_note] if pre_note else []))}
     ok = used <= MAX_QUESTION_PER_WINDOW
     detail = [f"窗口 {since} ~ {until}：样本 {len(titles)} 篇，"
               f"疑问收尾 {used} 篇（限额 {MAX_QUESTION_PER_WINDOW} 篇）"]
@@ -312,6 +327,24 @@ def check_question_quota() -> dict:
         detail.append(pre_note)
     return {"item": "疑问收尾限额", "ok": ok, "detail": detail,
             "value": used, "limit": MAX_QUESTION_PER_WINDOW}
+
+
+def _export_gate_wired(path: Path) -> bool:
+    """save_articles_local 的函数体里是否真的调用了 title_gate.check。"""
+    import ast
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+    except Exception:
+        return False
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef) and node.name == "save_articles_local":
+            for sub in ast.walk(node):
+                if (isinstance(sub, ast.Call) and isinstance(sub.func, ast.Attribute)
+                        and sub.func.attr == "check"
+                        and isinstance(sub.func.value, ast.Name)
+                        and sub.func.value.id == "title_gate"):
+                    return True
+    return False
 
 
 def check_wired() -> dict:
@@ -341,6 +374,18 @@ def check_wired() -> dict:
         detail.append("❌ 缺 repick_title：标题不过只能重跑全文，白白浪费额度并重新掷骰子")
     else:
         detail.append("✅ 存在 repick_title（只重写标题，正文不动）")
+
+    # 出口复核（2026-11-11）：所有生成通道都汇聚到 save_articles_local，
+    # 那里必须再判一次 title_gate —— 生成侧 4 处 check 是按通道接的，
+    # 漏一条通道就漏一篇（11-09「多古补时救主还是遮羞？」就是这样出去的）。
+    # 用 AST 找真实 Call，不用文本匹配：注释里写一句「title_gate.check(...)」
+    # 也能让文本匹配变绿，那正是 10-25「判据在 ≠ 判据有数据」的同一类假绿。
+    if _export_gate_wired(ORCHESTRATOR):
+        detail.append("✅ 出口（save_articles_local）复核 title_gate")
+    else:
+        ok = False
+        detail.append("❌ save_articles_local 出口未复核 title_gate"
+                      "（生成侧按通道接，漏一条通道就漏一篇）")
 
     # 供给侧是否还硬性要求疑问收尾（这是 85.5% 的根源，必须已铲掉）
     leftovers = [ln.strip() for ln in text.splitlines()

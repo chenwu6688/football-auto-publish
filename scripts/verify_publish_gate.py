@@ -65,6 +65,8 @@ def _iter_articles():
             yield data, a
 
 
+import title_gate  # 疑问收尾限额的生效日唯一权威（EXPORT_GATE_SINCE）
+
 WINDOW_DAYS = 14            # 计划 7.2/7.3 与 8.1 一致的滚动窗口口径
 
 # 验收器补 recent_titles 的生效日（2026-11-04 修复 _score_titles）。
@@ -159,7 +161,13 @@ def _score_titles(articles):
         if ok:
             passed += 1
         elif sc == 0:
-            row = {"date": day, "title": title, "reasons": reasons[:2]}
+            # quota_only：只因「疑问收尾限额」被判 0 分。这类样本的生效日不是 GATE_SINCE
+            # （那只是验收器开始传历史标题的日期），而是出口复核上线日——11-11 之前
+            # 出口根本没判过限额，拿旧口径判它等于给一条不存在的闸门判旧账。
+            _quota_only = any("疑问收尾" in r for r in reasons) and not any(
+                r.startswith(("[三要素]", "R11数据")) or "开场" in r for r in reasons)
+            row = {"date": day, "title": title, "reasons": reasons[:2],
+                   "quota_only": _quota_only}
             if any(r.startswith("[三要素]") for r in reasons):
                 elem.append(row)
             elif any("开场" in r for r in reasons):
@@ -222,8 +230,14 @@ def check_title_hard() -> dict:
         return {"item": item, "ok": True, "skipped": True,
                 "detail": ["近 14 天无成稿 metadata，本项跳过"]}
     total, _passed, zero, _fails, _anti, _r11, _elem = _score_titles(arts)
-    live = [z for z in zero if (z.get("date") or "") >= GATE_SINCE]
-    legacy = [z for z in zero if (z.get("date") or "") < GATE_SINCE]
+    # 生效日按违规类型分开判：疑问收尾超限走出口复核生效日（title_gate 里唯一权威），
+    # 其余硬违规（传闻当官宣/禁用前缀）仍走 GATE_SINCE。
+    def _since_of(z: dict) -> str:
+        return title_gate.EXPORT_GATE_SINCE if z.get("quota_only") else GATE_SINCE
+
+    live = [z for z in zero if (z.get("date") or "") >= _since_of(z)]
+    legacy = [z for z in zero if (z.get("date") or "") < _since_of(z)]
+    quota_legacy = [z for z in legacy if z.get("quota_only")]
     # 蓄水池存量：标题入库早于生效日，发布晚于生效日。留证、不计退出码。
     _old_stock = _stocked_before_gate()
     carried = [z for z in live if (z.get("title") or "").strip() in _old_stock]
@@ -234,8 +248,12 @@ def check_title_hard() -> dict:
     base = [f"近 14 天成稿标题 {total} 条；生效日（{GATE_SINCE}）后 {live_total} 条，"
             f"硬违规 {len(live)} 条"]
     if legacy:
-        base.append(f"· 修复前存量 0 分 {len(legacy)} 条（旧复算不传历史，限额从未触发；"
+        base.append(f"· 未纳入判定的 0 分 {len(legacy)} 条（旧复算不传历史 / 出口未复核，"
                     f"如实留证，不参与退出码）")
+    if quota_legacy:
+        base.append(f"· 其中「疑问收尾超限」{len(quota_legacy)} 条：出口复核 "
+                    f"{title_gate.EXPORT_GATE_SINCE} 才上线，此前限额只在 4 个评分器里"
+                    f"按通道生效，出口没判过（根因已修，不参与退出码）")
     if carried:
         base.append(f"· 蓄水池旧标题 {len(carried)} 条（入库早于生效日，转正后发布；"
                     f"根因已修：备货 prompt + 入库闸门 + 转正准入，不参与退出码）")

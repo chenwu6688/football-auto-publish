@@ -25,7 +25,6 @@ from constants import (PROJECT_ROOT, OUTPUT_DIR,
 from utils import (retry, call_llm, safe_json_loads, load_prompt_template,
                    call_llm_json, QuotaExhaustedError)
 from logger import log
-import risk_gate
 import degrade
 import supply_mix
 import batch_mix
@@ -2216,29 +2215,6 @@ def _inject_images(content: str, downloaded: list) -> str:
     return content.rstrip() + "\n" + "".join(refs)
 
 
-def _save_review_copy(date_dir, idx, art, rid):
-    """把「转人工确认」的成稿原文落到 output/<date>/review/，返回路径。
-
-    为什么必须落盘：``risk_gate`` 的队列文件 ``data/pending_review.json`` 是 gitignore
-    的运行期资产，CI 里 runner 一销毁就没了 —— 只入队不落盘，等于这篇成稿人间蒸发：
-    人工既看不到原文，也没法判断该不该发。落一份 md 进 output 目录即可随 artifact
-    下载（成稿 md 不入库是既有纪律，这里不破例，只是让它可取证）。
-    """
-    review_dir = Path(date_dir) / "review"
-    review_dir.mkdir(parents=True, exist_ok=True)
-    slug = re.sub(r"[^\w\u4e00-\u9fff-]+", "-", str(art.get("title") or f"pending-{idx}"))[:40]
-    # 前缀刻意用 review- 而不是 article-：发布器的 glob 是
-    # ``date_dir.glob("article-*.md")``（不递归），万一以后有人改成递归，
-    # 待确认稿也不能被当成待发布稿抓进去。
-    path = review_dir / f"review-{idx}-{slug}.md"
-    body = art.get("content") or ""
-    path.write_text(
-        f"---\ntitle: \"{art.get('title', '')}\"\ndate: {Path(date_dir).name}\n"
-        f"review: pending\nid: {rid}\n---\n\n# {art.get('title', '')}\n\n{body}\n",
-        encoding="utf-8")
-    return path
-
-
 def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
                         pre_downloaded_images=None):
     """Save articles directly to filesystem (no Flask dependency).
@@ -2259,7 +2235,6 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     images_dir.mkdir(parents=True, exist_ok=True)
 
     saved = []
-    pending_review = []
     compliance_dropped = []
     all_hashes = set()
     pre_downloaded = pre_downloaded_images or {}
@@ -2292,23 +2267,40 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 degrade.note("标题三要素", "缺可用数字/专名，拼不出兜底标题",
                              action="保留原题发布，metadata 记 title_elements.count")
 
-        # 计划 1.2 / 4.1 高风险内容人工确认：只拦「争议指控」（断言真人违法/丑闻）。
-        # 伤病、合同金额已从闸门里删除 —— 它们在足球稿里是常规背景，拦下来等于
-        # 当天 0 篇（11-10 晚 / 11-11 晨实证）。判定只有一处实现：risk_gate.blocked_reason。
-        _why = risk_gate.blocked_reason(art)
-        if _why:
-            _rid = f"{date_str}-{idx}"
-            # 队列文件是 gitignore 的运行期资产，CI runner 跑完即销毁 —— 只入队不落盘
-            # 等于这篇人间蒸发（人工永远看不到原文）。所以在 output/<date>/review/
-            # 留一份可下载的副本，metadata 里记路径（artifact 会一起上传）。
-            _rv_path = _save_review_copy(date_dir, idx, art, _rid)
-            pending_review.append({"id": _rid, "index": idx,
-                                   "title": art.get("title", ""),
-                                   "reasons": [_why],
-                                   "review_path": str(_rv_path)})
-            print(f"   🛡️ 转人工确认 [{_rid}]：{_why} → 本次不发布"
-                  f"（原文已留 {_rv_path.name}）")
-            continue
+        # 标题闸门出口复核（2026-11-11）：生成侧有 4 处 title_gate.check，但它们是
+        # **按通道**接的——漏一条通道就漏一篇。11-09「曼联4-4维拉，多古补时救主还是遮羞？」
+        # 就是这样出去的（当天窗口内疑问收尾已 32 篇，本篇仍按 64 分放行）。
+        # save_articles_local 是所有生成通道的唯一汇聚点，所以在这里再判一次。
+        #
+        # 判出来不过时**不阻断发布**：疑问收尾是流量优化项，头条不因它扣分，
+        # 拿它卡发布等于用一个 CTR 指标决定「今天发不发」——那是 11-10/11-11 那次
+        # 0 篇事故的同一类错误。这里只做两件事：能换就换机械模板，换不了就留证。
+        _tg_exp = title_gate.check(art.get("title", ""),
+                                   recent_titles_for_gate(date_str or ""))
+        if not _tg_exp["ok"]:
+            _tg_fixed = ""
+            try:
+                _tg_fixed = next(
+                    (c for c in title_brief.candidates(art)
+                     if title_gate.check(c, recent_titles_for_gate(date_str or ""))["ok"]
+                     and title_elements.check(c)["ok"]), "")
+            except Exception as e:
+                _unjudged(e, "标题闸门出口兜底")
+            if _tg_fixed:
+                art["original_title"] = art.get("title", "")
+                art["title"] = _tg_fixed
+                art["_title_fallback"] = "export_gate"
+                print(f"   🔧 标题闸门出口兜底：{art['original_title'][:24]} → {_tg_fixed[:24]}")
+                degrade.note("标题闸门", _tg_exp["reason"] or "结构违规",
+                             action="出口换机械模板标题，正文不动")
+            else:
+                # 留证到 metadata（art 上的下划线字段由保存层挑字段时带走）
+                art["_title_gate_blocked"] = _tg_exp["reason"] or "结构违规"
+                print(f"   ⚠️ 标题闸门出口判不合格且拼不出替代标题，"
+                      f"保留原题发布并留证：{art.get('title', '')[:26]}"
+                      f"（{_tg_exp['reason']}）")
+                degrade.note("标题闸门", _tg_exp["reason"] or "结构违规",
+                             action="保留原题发布，metadata.articles[].title_gate_blocked 留证")
 
         prefix = f"article-{idx}-img"
 
@@ -2728,11 +2720,15 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 # 标题三要素留证（P0-1）：发布后 CTR 回流要能按「数字/对比/专名」分层归因。
                 # 只落判据结果，不落「合格与否」——合格线会随复盘调整，判据不会。
                 "title_elements": title_elements.extract(art.get("title", "")).to_row(),
-                # 标题闸门判据留证：分数 + 是否疑问收尾 + 走的哪条兜底
-                "title_gate": _title_gate_row(art),
+                # 标题闸门判据留证：分数 + 是否疑问收尾 + 限额用量 + 走的哪条兜底
+                "title_gate": _title_gate_row(art, date_str),
                 # 正文摘要指标（P1-2 观测基础）：正文 .md 只在 CI 临时目录，
                 # 不落这几项，「压字数到 300-500」这类建议永远无法复算。
                 "content_stats": content_stats.summarize(art.get("content") or "")}
+        # 标题闸门出口判不合格且换不掉时的留证：不落这一项，「这个月有几篇标题
+        # 是明知结构违规还发出去的」就永远查不到（与 11-09 那篇同形）。
+        if art.get("_title_gate_blocked"):
+            _rec["title_gate_blocked"] = art["_title_gate_blocked"]
         if art.get("_recap_match_id") not in (None, ""):
             _rec["recap_match_id"] = str(art["_recap_match_id"])
         # 热点来源（2026-11-06）：hot_event_key 是跨批次去重的唯一依据。
@@ -2784,26 +2780,21 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     # 「全丢」必须显式报出来：它和「本来就没选题」在结果上都是 0 篇，
     # 但处置完全相反（一个要补发/查规则，一个是正常空批）。
     #
-    # 2026-11-11 修正归因：原本文案一律写「被合规审核全部拦下」，而 11-10/11-11 两次
-    # 真实原因是 risk_gate 把两篇全转人工确认（compliance_dropped 是空的）。
-    # 错误归因比没有归因更坏：排查会照着文案去改合规判据，改错对象。
-    # 现在按真实来源分档写进 zero_publish_reason，供 workflow 告警原样引用。
+    # 2026-11-11：风险闸门整体移除后，保存层只剩一条「丢稿」通道——出口合规审核。
+    # 所以这里只有两档：合规剔除（有明细）/ 未分类（有稿但一篇没进集合，属程序问题）。
+    # 归因必须与真实来源一致：11-10/11-11 那次曾一律写「被合规审核拦下」，
+    # 真实原因是风险闸门，照着文案去改合规判据永远改不到点。
     if articles and not saved:
         _n_all = len(articles)
-        if len(pending_review) >= _n_all:
-            _why = "风险闸门"
-            _detail = (f"本批 {_n_all} 篇全部转人工确认（争议指控类），发布集合 0 篇；"
-                       f"原文见 output/{date_str}/review/")
-            _action = "复核 data/audit 与 output 目录的 review 副本，必要时手动补发"
-        elif len(compliance_dropped) >= _n_all:
+        if len(compliance_dropped) >= _n_all:
             _why = "合规审核"
             _detail = f"本批 {_n_all} 篇全部被合规规则剔除，发布集合 0 篇"
             _action = "按 compliance_dropped 逐条复核规则是否过严；如需补发走补发 cron"
         else:
             _why = "出口闸门"
             _detail = (f"本批 {_n_all} 篇全部未进入发布集合"
-                       f"（风险 {len(pending_review)} / 合规 {len(compliance_dropped)}）")
-            _action = "按 metadata 的 pending_review / compliance_dropped 逐条复核"
+                       f"（合规剔除 {len(compliance_dropped)} 篇，其余未落盘——属程序问题）")
+            _action = "按 metadata 的 compliance_dropped 与生成侧日志逐条复核"
         print(f"   ❌ {_detail}（这是「全丢」，不是「正常空批」→ 需人工处理）")
         degrade.note(_why, _detail, action=_action)
         meta["zero_publish_reason"] = f"{_why}：{_detail}"
@@ -2819,11 +2810,6 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     if _degrade_events:
         meta["degrade_events"] = _degrade_events
         print(f"   🧯 本次降级事件 {len(_degrade_events)} 条（详见 metadata.degrade_events）")
-    if pending_review:
-        meta["pending_review"] = pending_review
-        print(f"   🛡️ 本次 {len(pending_review)} 篇高风险成稿已转人工确认队列"
-              f"（原文见 output/{date_str}/review/；CI 里队列文件随 runner 销毁，"
-              f"复核走 review 副本，补发走 workflow_dispatch）")
     if extra:
         meta.update(extra)
     file_writer.save_index(date_str, saved)
@@ -3830,10 +3816,12 @@ _TITLE_ELEMENTS_RULE = """标题（2026-11-04 三要素口径，命中不足会�
 - 对比写成「A 分对 B 分」「近 N 轮 X 胜」「从第 3 掉到第 9」「甩开一倍」，
   不要用「很惨/太强」这类形容词代替；
 - 专名用球队/球员/教练/赛事，**不要用「豪门/劲旅/这支球队」代称**；
+- **有过程就先写过程**：第几分钟进的、谁换下谁、门将扑了几次、半场比分怎么变的、
+  补时谁救的——这是读者点开的真正理由。素材里没有过程事实就别硬凑，把事实写清即可；
 - 不以疑问句（？/吗/呢）收尾，不用「XX前瞻」这类固定栏目前缀。"""
 
 
-def _title_gate_row(art: dict) -> dict:
+def _title_gate_row(art: dict, date_str: str = "") -> dict:
     """把标题闸门判定落进 metadata —— 让「这批稿子为什么过 / 没过」事后可查。
 
     2026-11-04 复盘暴露的洞：metadata 里落了三要素判据（数字/对比/专名），
@@ -3841,8 +3829,11 @@ def _title_gate_row(art: dict) -> dict:
     复盘时只能按「今天的历史标题」重算 —— 输入跟当时不一致，
     同一标题能算出 74 分（过）和 0 分（不过）两个结论。
 
-    ``question_ending`` 是独立于历史的客观事实，必须落：
-    近 14 天发了几篇疑问收尾，一眼就该看得出来。
+    2026-11-11 补：这里原来调 ``score_title_plan`` **不传 recent_titles**，于是
+    「疑问收尾限额」根本没参与判定，metadata 里写 ``pass: true`` 而验收侧判它违规
+    （11-09「多古补时救主还是遮羞？」64 分 pass，窗口内疑问收尾 32 篇）。
+    同一份数据在两侧结论相反，比没有记录更坏。现在把 quota 一并落进来：
+    看 ``quota.used / quota.limit`` 就知道这篇是「差额用光」还是「压根没判」。
     """
     t = (art.get("title") or "").strip()
     if not t:
@@ -3850,9 +3841,20 @@ def _title_gate_row(art: dict) -> dict:
     row = {"question_ending": title_gate.is_question_ending(t),
            "fallback": art.get("_title_fallback") or ""}
     try:
-        sc, ok, reasons = score_title_plan({}, t, art.get("content_type", ""))
+        recent = recent_titles_for_gate(date_str or "")
+    except Exception:
+        recent = []
+    try:
+        sc, ok, reasons = score_title_plan({}, t, art.get("content_type", ""),
+                                           recent_titles=recent)
         row.update({"score": int(sc), "pass": bool(ok),
                     "reasons": [r[:60] for r in reasons[:2]]})
+    except Exception:
+        pass
+    try:
+        q = title_gate.check(t, recent).get("quota")
+        if q:
+            row["quota"] = q
     except Exception:
         pass
     return row

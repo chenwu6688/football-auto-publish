@@ -72,6 +72,16 @@ CST = timezone(timedelta(hours=8))
 WINDOW_DAYS = 14
 MAX_QUESTION_PER_WINDOW = 2
 
+# 出口复核生效日（2026-11-11）：save_articles_local 第一次真的判 title_gate。
+#
+# 为什么这个日期要单独定、而不是用 TITLE_SINCE：在此之前限额只在 4 个评分器里
+# 「按通道」生效，出口（所有通道唯一汇聚点）根本没判过 —— 11-09「曼联4-4维拉，
+# 多古补时救主还是遮羞？」就是从缺这条复核的通道漏出去的，而 metadata 里
+# title_gate.pass 还是「不传 recent_titles」的裸分，事后完全看不出漏了。
+# 两个验收脚本（verify_title_anchor 的 D 项、verify_publish_gate 的 A1）
+# 都从这里取，避免「同一生效日在两处各写一遍」——那必然只改一处。
+EXPORT_GATE_SINCE = "2026-11-11"
+
 # 兜底：配置里没写时用这两个值（与 config/title_antipattern.yaml 的「规则三」同源）
 _FALLBACK = {
     "规则名": "无过程锚点空问式",
