@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-09 21:07",
+  "generated_at": "2026-11-11 10:45",
   "ok": true,
   "checks": [
     {
       "item": "主键唯一性（slug 每天唯一；index 会重复故不可作键）",
       "ok": true,
       "advisory": false,
-      "days": 151,
+      "days": 153,
       "dup_slug": [],
-      "dup_index_count": 482,
+      "dup_index_count": 484,
       "detail": [
-        "扫描 151 天：slug 全部唯一 ✅",
-        "同期 index 重复 482 处（正是本次把主键从 index 换成 slug 的原因）"
+        "扫描 153 天：slug 全部唯一 ✅",
+        "同期 index 重复 484 处（正是本次把主键从 index 换成 slug 的原因）"
       ]
     },
     {

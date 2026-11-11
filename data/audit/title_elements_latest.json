@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09 21:07",
+  "generated_at": "2026-11-11 10:45",
   "min_elements": 2,
   "require_proper": true,
   "ok": true,
@@ -18,7 +18,7 @@
       "ok": true,
       "skipped": false,
       "verdict": {
-        "ours_pass_rate": 0.63,
+        "ours_pass_rate": 0.65,
         "peers_pass_rate": 0.71,
         "monotonic": true,
         "peer_top_pass": "8/10",
@@ -28,12 +28,12 @@
       },
       "coverage": {
         "ours": {
-          "n": 102,
-          "number": 52.9,
-          "contrast": 53.9,
-          "proper": 87.3,
-          "all_three": 29.4,
-          "pass_rate": 62.7,
+          "n": 110,
+          "number": 55.5,
+          "contrast": 57.3,
+          "proper": 88.2,
+          "all_three": 33.6,
+          "pass_rate": 65.5,
           "median_count": 2.0
         },
         "peers": {
@@ -47,7 +47,7 @@
         }
       },
       "detail": [
-        "我方 102 篇：通过 0.63，通过组中位 14.5 / 被拦组中位 2.5（单调 ✅）",
+        "我方 110 篇：通过 0.65，通过组中位 14.0 / 被拦组中位 2.5（单调 ✅）",
         "头部 181 条：通过 0.71（≥ 我方 ✅），TOP10 通过 8/10（≥70% ✅）",
         "我方压力带 20%~85%：✅"
       ]
@@ -83,17 +83,17 @@
       "advisory": true,
       "skipped": false,
       "coverage": {
-        "n": 35,
-        "number": 71.4,
-        "contrast": 62.9,
-        "proper": 97.1,
-        "all_three": 51.4,
-        "pass_rate": 82.9,
-        "median_count": 3
+        "n": 30,
+        "number": 83.3,
+        "contrast": 66.7,
+        "proper": 96.7,
+        "all_three": 60.0,
+        "pass_rate": 90.0,
+        "median_count": 3.0
       },
       "detail": [
-        "成稿 35 条：数字 71.4% / 对比 62.9% / 专名 97.1% / 三项全过 51.4%",
-        "达下限通过率 82.9%（上不设目标：这是存量+新管线混合值，只看趋势）"
+        "成稿 30 条：数字 83.3% / 对比 66.7% / 专名 96.7% / 三项全过 60.0%",
+        "达下限通过率 90.0%（上不设目标：这是存量+新管线混合值，只看趋势）"
       ]
     }
   ],
