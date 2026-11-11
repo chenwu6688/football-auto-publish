@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-11",
-  "generated_at": "2026-11-11 11:02:05",
-  "board_total": 131,
+  "generated_at": "2026-11-11 12:02:51",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.23
+        "elapsed_s": 1.36
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.17
+        "elapsed_s": 0.86
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.18
+        "elapsed_s": 0.29
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 0.25
+        "elapsed_s": 2.57
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,28 +65,28 @@
       }
     },
     "errors": [],
-    "stale_dropped": 9,
+    "stale_dropped": 5,
     "unknown_time": 8,
     "stale_samples": [
       {
         "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 68.8
+        "age_h": 69.8
       },
       {
         "title": "太幽默了！女球迷当面坦白支持巴萨，弗洛伦蒂诺：叫警察来",
-        "age_h": 45.9
+        "age_h": 46.9
       },
       {
         "title": "【CBS Sports】皇马3-0胜瓦伦",
-        "age_h": 73.0
+        "age_h": 74.0
       },
       {
         "title": "【talkSPORT】图赫尔弃帕尔默惹议",
-        "age_h": 76.3
+        "age_h": 77.3
       },
       {
         "title": "【西甲 瓦伦西亚VS皇马】穆里尼奥采访",
-        "age_h": 77.0
+        "age_h": 78.0
       }
     ]
   },
@@ -104,21 +104,22 @@
   ],
   "candidates": [
     {
-      "word": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔",
-      "rank": 1,
+      "word": "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评",
+      "rank": 10,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "曼联"
+        "拉菲尼亚",
+        "巴萨"
       ],
       "support": [
         {
-          "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔",
-          "url": "https://www.dongqiudi.com/articles/6640552.html",
+          "title": "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评",
+          "url": "https://www.dongqiudi.com/articles/6640631.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "曼联#coach",
+      "event_key": "巴萨|拉菲尼亚#injury",
       "providers": [
         "dongqiudi"
       ],

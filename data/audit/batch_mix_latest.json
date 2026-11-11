@@ -1,8 +1,10 @@
 {
-  "generated_at": "2026-11-11 11:11",
+  "generated_at": "2026-11-11 11:59",
   "since": "2026-11-04",
-  "ok": false,
-  "pending": [],
+  "ok": true,
+  "pending": [
+    "产出结构（生效日起）"
+  ],
   "checks": [
     {
       "item": "结构逻辑自检",
@@ -49,32 +51,25 @@
     },
     {
       "item": "产出结构（生效日起）",
-      "ok": false,
+      "ok": null,
+      "pending": true,
       "skipped": false,
       "structure": {
-        "total": 21,
+        "total": 2,
         "counts": {
-          "战术榜单": 4,
-          "热点球评": 12,
-          "排行榜": 3,
-          "八卦趣事": 2
+          "热点球评": 2
         },
-        "main_pct": 57.1,
-        "tactical_pct": 19.0,
-        "data_pct": 14.3,
+        "main_pct": 100.0,
+        "tactical_pct": 0.0,
+        "data_pct": 0.0,
         "banned_hits": 0,
         "legacy": 0
       },
       "detail": [
-        "样本 21 篇（5 天，均为新结构批次）",
-        "热点球评 57.1%（≥35.0%）✅",
-        "战术榜单 19.0%（≤14.0%）❌",
-        "数据型 14.3%（≥38.0%）❌",
-        "禁发类型 0 篇✅"
+        "样本 2 篇 < 8，未判定（不算通过）",
+        "当前：热点球评 100.0% / 战术榜单 0.0% / 数据型 0.0%"
       ]
     }
   ],
-  "hard_failed": [
-    "产出结构（生效日起）"
-  ]
+  "hard_failed": []
 }

@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11 04:05:58",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "拉菲尼亚不顾巴萨反对提前手术，巴西队长袖标竟成最大变数",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7706759737852953142",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "罗凯11球领跑中甲金靴，上赛季他首发才2次",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7706760028154069540",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
