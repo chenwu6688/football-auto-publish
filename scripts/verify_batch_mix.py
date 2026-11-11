@@ -138,6 +138,31 @@ def _structure(arts: list[dict]) -> dict:
             "banned_hits": counts.get("历史回顾", 0)}
 
 
+def _meets_target(s: dict) -> bool:
+    """结构是否达标。**唯一判据**：窗口判定与累计硬线共用，不许各写一套。
+
+    （历史教训：同一个「战术榜单该占多少」曾在配比表与验收器里各写一个数，
+    两把尺子相差 15pp，按哪把都能说合格。）
+    """
+    return (s["main_pct"] >= TARGET_MAIN_MIN
+            and s["tactical_pct"] <= TARGET_TACTICAL_MAX
+            and s["data_pct"] >= TARGET_DATA_MIN
+            and s["banned_hits"] == 0)
+
+
+def _cumulative_structure() -> dict:
+    """生效日至今的全量结构，**不受 ``--days`` 窗口限制**。
+
+    用途只有一个：堵「窗口永远样本不足 → 永久豁免」。窗口判定是给「刚上线、
+    还没攒够篇数」用的临时豁免；它必须有一条出口，否则把 ``--days 1`` 写进
+    workflow 就能让这条检查永远 ⏸。
+    """
+    span = ((datetime.now(CST).date()
+             - datetime.strptime(SLOT_SINCE, "%Y-%m-%d").date()).days + 1)
+    arts, _, _ = _collect(max(span, 1), SLOT_SINCE)
+    return _structure(arts)
+
+
 def _check_selftest() -> dict:
     bad = [n for n, ok in batch_mix.selftest() if not ok]
     return {"item": "结构逻辑自检", "ok": not bad, "detail": [
@@ -177,15 +202,28 @@ def _check_structure(days: int) -> dict:
     s = _structure(arts)
     s["legacy"] = legacy
     if s["total"] < MIN_SAMPLE:
+        # 累计硬线必须在「未判定」之前判：否则把 --days 调小就能让这条检查
+        # 永远 ⏸（样本不足是豁免，不是通过，豁免必须有期限）。
+        cum = _cumulative_structure()
+        if cum["total"] >= CUM_MIN_SAMPLE and not _meets_target(cum):
+            return {"item": "产出结构（生效日起）", "ok": False, "skipped": False,
+                    "structure": s, "cumulative": cum,
+                    "detail": [f"❌ {SLOT_SINCE} 起累计 {cum['total']} 篇，结构仍未达标 —— "
+                               f"样本已足够，是真没达标，不能再以「窗口样本不足」搁置",
+                               f"   累计：热点球评 {cum['main_pct']}%（≥{TARGET_MAIN_MIN}%）/"
+                               f"战术榜单 {cum['tactical_pct']}%（≤{TARGET_TACTICAL_MAX}%）/"
+                               f"数据型 {cum['data_pct']}%（≥{TARGET_DATA_MIN}%）/"
+                               f"禁发类型 {cum['banned_hits']} 篇",
+                               f"   窗口 {days} 天：样本 {s['total']} 篇 < {MIN_SAMPLE}"]}
         detail = [f"样本 {s['total']} 篇 < {MIN_SAMPLE}，未判定（不算通过）",
                   f"当前：热点球评 {s['main_pct']}% / 战术榜单 {s['tactical_pct']}% / "
-                  f"数据型 {s['data_pct']}%"]
+                  f"数据型 {s['data_pct']}%",
+                  f"累计已 {cum['total']}/{CUM_MIN_SAMPLE} 篇（累计达标线，达线仍不达标即判 FAIL）"]
         if legacy_note:
             detail.append(legacy_note)
         return {"item": "产出结构（生效日起）", "ok": None, "pending": True,
-                "skipped": False, "structure": s, "detail": detail}
-    ok = (s["main_pct"] >= TARGET_MAIN_MIN and s["tactical_pct"] <= TARGET_TACTICAL_MAX
-          and s["data_pct"] >= TARGET_DATA_MIN and s["banned_hits"] == 0)
+                "skipped": False, "structure": s, "cumulative": cum, "detail": detail}
+    ok = _meets_target(s)
     detail = [f"样本 {s['total']} 篇（{len(days_seen)} 天，均为新结构批次）",
               f"热点球评 {s['main_pct']}%（≥{TARGET_MAIN_MIN}%）"
               f"{'✅' if s['main_pct'] >= TARGET_MAIN_MIN else '❌'}",
