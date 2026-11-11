@@ -8,15 +8,28 @@ P1-1 的目标不是「配比好看」，而是**把配额压到有阅读的类�
 
 近 10 日实际结构却是战术榜单 44%（27/61）、热点球评 18%——正好反过来。
 
-验收分两层：
+验收分三层：
 
   A. 结构逻辑（硬项）—— batch_mix.selftest 全过（含「只有低效类型时不凑数」
      「日上限生效」「同类型内保留 ranker 顺序」）
   B. 已接入生成侧（硬项）—— orchestrator 里真的调用 batch_mix.assign（AST 查 Call）
-  C. 实际产出结构（硬项，三态）—— 生效日 `MIX_SINCE` 之后近 7 天：
-       热点球评 ≥35%｜战术榜单 ≤25%｜数据型（数据对比+排行榜）≥20%｜历史回顾 = 0
-     样本 <8 篇 → `ok=None`「未判定」（既不算通过也不算失败），报告 ⏸ + CI warning；
-     累计 ≥20 篇且从未达标 → FAIL，堵「永远样本不足」的自我豁免。
+  C. 每批 data 槽命中（硬项，逐批）—— 生效时刻 `SLOT_SINCE_AT` 之后每个成功批次，
+     `data/audit/topic_funnel.jsonl` 里 `batch_mix.detail.降级` 必须为 0。
+     样本单位是**批**（一天 3 批），一出现降级立刻 FAIL 并指名「哪天哪批」，
+     不攒样本、不设合成阈值。
+  D. 实际分布（观测项，**不参与判定**）—— 生效日后近 N 天的热点/数据型/战术榜单
+     占比，与配比目标并排打印，供人看趋势。
+  E. 禁发类型（硬项，绝对判据）—— 生效日后出现 `reservoir.BANNED_TYPES`
+     （历史回顾）即 FAIL，与样本量无关。
+
+为什么 C 取代了原来的「8 篇 + 数据型 ≥38%」：
+  ① 38% 是「数据对比 30 + 排行榜 18 − 容差 10」的**合成口径**，红了定位不到
+     是哪一类缺；
+  ② 样本 8 篇时 ±1 篇就是 ±12.5pp，比 10pp 容差还大 —— 这个阈值撑不住这个
+     样本量，红绿都由单篇翻转决定；
+  ③ 同一事实在成因侧有更早、更准的记录：`batch_mix.degraded` 逐批写明
+     「data 槽用次优类型补位」。11-11 的 4 篇里数据型只占 25%，追下去正是
+     晨读那批 `降级: 1`，而不是「阈值定高了」。
 
 所有口径用 content_mix.normalize 归一（战术解析→战术榜单、榜单→排行榜、紧急球评→热点球评），
 避免「榜单 / 排行榜」「战术解析 / 战术榜单」被拆成两类互相合格（10-24 比分口径事故的同款风险）。
@@ -59,11 +72,25 @@ MIX_SINCE = "2026-11-04"
 #                  2026-11-11 已在选题提示词里补上「数据对比」品类并硬性要求每批 1 篇，
 #                  这是本条指标第一次具备可达性。此后不再后移。
 # 旧样本仍如实计入 legacy 并打印，不隐藏。
-SLOT_SINCE = "2026-11-11"
-# 样本下限（8 篇 ≈ 4 天 × 2 篇）；不足则未判定
-MIN_SAMPLE = 8
-# 累计样本达此数且从未达标 → FAIL（堵自我豁免）
-CUM_MIN_SAMPLE = 20
+#
+# 生效口径**精确到批次时刻**（不是「按天一刀切」）：提示词修复于 11-11 11:58 合入，
+# 当天 11:01 的晨读批不可能带上新品类（漏斗里就是 `降级: 1`）。按天切会把它算进
+# 新判据 → 这条检查从上线第一天起永久红；按天切还会顺手把 12:01 那批（已带新品类、
+# 降级 0）也一起排掉。所以用漏斗的 `at` 时间戳比，一处权威派生日期。
+SLOT_SINCE_AT = "2026-11-11T11:58:00+08:00"
+# 逐批判据的样本下限：晨/午/晚各一批，跑满一天即可下结论（单位是「批」不是「篇」）。
+MIN_BATCHES = 3
+# 逐批明细的唯一权威：漏斗台账里每批一条，含 batch_mix.detail.降级。
+FUNNEL_PATH = AUDIT_DIR / "topic_funnel.jsonl"
+
+
+def _since_dt() -> datetime:
+    """生效时刻。唯一权威是 ``SLOT_SINCE_AT``，日期口径从它派生，不许另写一个。"""
+    return datetime.fromisoformat(SLOT_SINCE_AT)
+
+
+def _since_date() -> str:
+    return _since_dt().strftime("%Y-%m-%d")
 
 # 结构与实测支撑的目标
 #
@@ -72,10 +99,10 @@ CUM_MIN_SAMPLE = 20
 #   同一个「战术榜单该占多少」，配比表说 10%、结构验收说上限 25% —— 两把尺子相差 15pp，
 #   按哪把都能说合格。派生之后，改目标即改验收，改一处必须改另一处（否则本文件红）。
 _TOL = content_mix.TOL_PCT
-TARGET_MAIN_MIN = round(content_mix.TARGET_PCT["热点球评"] - _TOL, 1)
+# 只保留**槽位设计自洽**这一个用途（模拟口径下战术榜单只该做补位）。
+# 「热点球评 ≥x%」「数据型 ≥y%」两条合成线已删除：它们是实测分布的判据，
+# 样本 8 篇撑不起 10pp 容差，且 38% 是两类之和、红了定位不到缺哪类。
 TARGET_TACTICAL_MAX = round(content_mix.TARGET_PCT["战术榜单"] + _TOL, 1)
-TARGET_DATA_MIN = round(content_mix.TARGET_PCT["数据对比"]
-                        + content_mix.TARGET_PCT["排行榜"] - _TOL, 1)
 
 # 模拟用的池子规模（每类型给多少条候选）。够大即可，只关心稳态份额。
 _SIM_PER_TYPE = 30
@@ -138,29 +165,85 @@ def _structure(arts: list[dict]) -> dict:
             "banned_hits": counts.get("历史回顾", 0)}
 
 
-def _meets_target(s: dict) -> bool:
-    """结构是否达标。**唯一判据**：窗口判定与累计硬线共用，不许各写一套。
+def _span_days() -> int:
+    """生效日到今天的天数（含首尾）。观测与禁发判据都用它取全量。"""
+    return max((datetime.now(CST).date() - _since_dt().date()).days + 1, 1)
 
-    （历史教训：同一个「战术榜单该占多少」曾在配比表与验收器里各写一个数，
-    两把尺子相差 15pp，按哪把都能说合格。）
+
+def _funnel_batches() -> list[dict]:
+    """生效时刻之后每个成功批次的 batch_mix 明细（逐批，唯一权威）。
+
+    两条过滤都是「有证据才算」，不是「没证据就算好」：
+      · 时间按 `at` 精确比（生效时刻，不是当天 0 点）；
+      · 只认**带「降级」子项**的记录 —— 该子项晚于 `降级` 字段上线才有，老记录没有，
+        缺失按「无证据」跳过，**绝不按 0 补**（11-06「拿缺失当事实」的同一个错）。
     """
-    return (s["main_pct"] >= TARGET_MAIN_MIN
-            and s["tactical_pct"] <= TARGET_TACTICAL_MAX
-            and s["data_pct"] >= TARGET_DATA_MIN
-            and s["banned_hits"] == 0)
+    if not FUNNEL_PATH.exists():
+        return []
+    since = _since_dt()
+    out = []
+    for line in FUNNEL_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            r = json.loads(line)
+        except Exception:
+            continue
+        if r.get("status") != "ok":
+            continue
+        try:
+            at = datetime.fromisoformat(r.get("at") or "")
+        except ValueError:
+            continue                      # 没时间戳 = 无证据，不猜
+        if at < since:
+            continue
+        bm = (r.get("stages") or {}).get("batch_mix")
+        if not isinstance(bm, dict):
+            continue
+        det = bm.get("detail") or {}
+        if "降级" not in det:
+            continue
+        out.append({"date": r.get("date"), "batch": r.get("batch"),
+                    "requested": det.get("请求"), "degraded": int(det.get("降级") or 0)})
+    return out
 
 
-def _cumulative_structure() -> dict:
-    """生效日至今的全量结构，**不受 ``--days`` 窗口限制**。
+def _check_slot_fill() -> dict:
+    """C. 每批的 data 槽必须真填上（逐批判，不攒样本、不用合成阈值）。"""
+    bs = _funnel_batches()
+    if not bs:
+        return {"item": "每批 data 槽命中", "ok": None, "pending": True,
+                "detail": [f"⏸ {_since_dt()} 起没有带「降级」明细的批次"
+                           f"（台账缺失 = 未判定，不是通过）"]}
+    bad = [b for b in bs if b["degraded"] > 0]
+    if bad:
+        return {"item": "每批 data 槽命中", "ok": False, "bad_batches": bad,
+                "detail": [f"❌ {len(bad)}/{len(bs)} 批的 data 槽被次优类型补位 —— "
+                           f"这一批「数据对比 / 排行榜」的候选池是空的",
+                           *[f"   {b['date']} {b['batch']}：请求 {b['requested']} 篇，"
+                             f"降级 {b['degraded']} 篇" for b in bad[-5:]],
+                           "   处置：查该批的「数据对比」选题供给与 material 剔除，"
+                           "**不要**改阈值或后移生效日"]}
+    if len(bs) < MIN_BATCHES:
+        return {"item": "每批 data 槽命中", "ok": None, "pending": True,
+                "detail": [f"⏸ 生效日后仅 {len(bs)} 批（<{MIN_BATCHES}），"
+                           f"暂无降级但样本不足（未判定，非通过）"]}
+    return {"item": "每批 data 槽命中", "ok": True,
+            "detail": [f"{len(bs)} 批全部填上 data 槽（降级 0）✅"]}
 
-    用途只有一个：堵「窗口永远样本不足 → 永久豁免」。窗口判定是给「刚上线、
-    还没攒够篇数」用的临时豁免；它必须有一条出口，否则把 ``--days 1`` 写进
-    workflow 就能让这条检查永远 ⏸。
-    """
-    span = ((datetime.now(CST).date()
-             - datetime.strptime(SLOT_SINCE, "%Y-%m-%d").date()).days + 1)
-    arts, _, _ = _collect(max(span, 1), SLOT_SINCE)
-    return _structure(arts)
+
+def _check_banned() -> dict:
+    """E. 禁发类型绝对判据：出现一篇即 FAIL，与样本量无关。"""
+    arts, days_seen, _ = _collect(_span_days(), _since_date())
+    banned = set(reservoir.BANNED_TYPES)
+    hits = [a for a in arts if a["content_type"] in banned]
+    if hits:
+        return {"item": "禁发类型", "ok": False,
+                "detail": [f"❌ 生效日后 {len(hits)} 篇禁发类型（{sorted(banned)}）",
+                           *[f"   {a['date']}｜{a['title'][:30]}" for a in hits[:5]]]}
+    return {"item": "禁发类型", "ok": True,
+            "detail": [f"生效日后 {len(arts)} 篇（{len(days_seen)} 天），"
+                       f"无 {sorted(banned)} ✅"]}
 
 
 def _check_selftest() -> dict:
@@ -189,52 +272,35 @@ def _check_wiring() -> dict:
 
 
 def _check_structure(days: int) -> dict:
-    arts, days_seen, legacy = _collect(days, SLOT_SINCE)
+    """D. 实际分布（**观测项，不参与判定**）。
+
+    样本 8 篇时 ±1 篇即 ±12.5pp，比 10pp 容差还大：这个阈值撑不住这个样本量，
+    红绿都由单篇翻转决定，红了也定位不到缺哪一类（38% 是「数据对比 + 排行榜」
+    的合计数）。所以这里只把实际占比与目标并排打印，硬判据交给成因侧的
+    `_check_slot_fill`（每批降级）与 `_check_banned`（禁发类型）。
+    """
+    arts, days_seen, legacy = _collect(days, _since_date())
     legacy_note = (f"另有 {legacy} 篇是槽位账修复前生成的批次（那时 data 槽会被确定性供给顶掉），"
-                   f"不计入判定" if legacy else "")
+                   f"不计入统计" if legacy else "")
     if not arts:
-        detail = [f"生成侧已接入，但 {SLOT_SINCE} 起还没有跑过修复后的批次（未判定，不算通过）"]
+        detail = [f"生成侧已接入，但 {_since_date()} 起还没有跑过修复后的批次",
+                  "（观测项：无数据时只留空，不判通过）"]
         if legacy_note:
             detail.append(legacy_note)
-        return {"item": "产出结构（生效日起）",
-                "ok": None, "pending": True, "skipped": False,
+        return {"item": "实际分布（观测）", "ok": None, "advisory": True,
                 "structure": {"total": 0, "legacy": legacy}, "detail": detail}
     s = _structure(arts)
     s["legacy"] = legacy
-    if s["total"] < MIN_SAMPLE:
-        # 累计硬线必须在「未判定」之前判：否则把 --days 调小就能让这条检查
-        # 永远 ⏸（样本不足是豁免，不是通过，豁免必须有期限）。
-        cum = _cumulative_structure()
-        if cum["total"] >= CUM_MIN_SAMPLE and not _meets_target(cum):
-            return {"item": "产出结构（生效日起）", "ok": False, "skipped": False,
-                    "structure": s, "cumulative": cum,
-                    "detail": [f"❌ {SLOT_SINCE} 起累计 {cum['total']} 篇，结构仍未达标 —— "
-                               f"样本已足够，是真没达标，不能再以「窗口样本不足」搁置",
-                               f"   累计：热点球评 {cum['main_pct']}%（≥{TARGET_MAIN_MIN}%）/"
-                               f"战术榜单 {cum['tactical_pct']}%（≤{TARGET_TACTICAL_MAX}%）/"
-                               f"数据型 {cum['data_pct']}%（≥{TARGET_DATA_MIN}%）/"
-                               f"禁发类型 {cum['banned_hits']} 篇",
-                               f"   窗口 {days} 天：样本 {s['total']} 篇 < {MIN_SAMPLE}"]}
-        detail = [f"样本 {s['total']} 篇 < {MIN_SAMPLE}，未判定（不算通过）",
-                  f"当前：热点球评 {s['main_pct']}% / 战术榜单 {s['tactical_pct']}% / "
-                  f"数据型 {s['data_pct']}%",
-                  f"累计已 {cum['total']}/{CUM_MIN_SAMPLE} 篇（累计达标线，达线仍不达标即判 FAIL）"]
-        if legacy_note:
-            detail.append(legacy_note)
-        return {"item": "产出结构（生效日起）", "ok": None, "pending": True,
-                "skipped": False, "structure": s, "cumulative": cum, "detail": detail}
-    ok = _meets_target(s)
     detail = [f"样本 {s['total']} 篇（{len(days_seen)} 天，均为新结构批次）",
-              f"热点球评 {s['main_pct']}%（≥{TARGET_MAIN_MIN}%）"
-              f"{'✅' if s['main_pct'] >= TARGET_MAIN_MIN else '❌'}",
-              f"战术榜单 {s['tactical_pct']}%（≤{TARGET_TACTICAL_MAX}%）"
-              f"{'✅' if s['tactical_pct'] <= TARGET_TACTICAL_MAX else '❌'}",
-              f"数据型 {s['data_pct']}%（≥{TARGET_DATA_MIN}%）"
-              f"{'✅' if s['data_pct'] >= TARGET_DATA_MIN else '❌'}",
-              f"禁发类型 {s['banned_hits']} 篇{'✅' if s['banned_hits'] == 0 else '❌'}"]
+              f"热点球评 {s['main_pct']}%（目标 {content_mix.TARGET_PCT['热点球评']}%）",
+              f"战术榜单 {s['tactical_pct']}%（目标 {content_mix.TARGET_PCT['战术榜单']}%）",
+              f"数据型（数据对比+排行榜）{s['data_pct']}%"
+              f"（目标 {content_mix.TARGET_PCT['数据对比'] + content_mix.TARGET_PCT['排行榜']}%）",
+              "偏差只供看趋势，不作判定：本项按天取（含当天生效前的批次），"
+              "样本 <10 篇时单篇即翻转两位数百分点"]
     if legacy_note:
         detail.append(legacy_note)
-    return {"item": "产出结构（生效日起）", "ok": ok, "skipped": False,
+    return {"item": "实际分布（观测）", "ok": None, "advisory": True,
             "structure": s, "detail": detail}
 
 
@@ -320,7 +386,8 @@ def _check_structure_matches_target() -> dict:
 
 def verify(days: int = 7) -> dict:
     checks = [_check_selftest(), _check_wiring(), _check_config_consistency(),
-              _check_structure_matches_target(), _check_structure(days)]
+              _check_structure_matches_target(), _check_slot_fill(),
+              _check_banned(), _check_structure(days)]
     hard = [c for c in checks if not c.get("advisory")]
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "since": MIX_SINCE, "ok": all(c["ok"] is not False for c in hard),
@@ -337,7 +404,9 @@ def render_md(rep: dict) -> str:
     if rep.get("hard_failed"):
         L += [f"> 未通过硬项：{'、'.join(rep['hard_failed'])}", ""]
     for c in rep["checks"]:
-        status = ("⏸" if c.get("ok") is None else ("✅" if c["ok"] else "❌"))
+        # 观测项用 ℹ️：它既不参与判定，也不该被读成 ⏸（未判定）
+        status = ("ℹ️" if c.get("advisory")
+                  else ("⏸" if c.get("ok") is None else ("✅" if c["ok"] else "❌")))
         L.append(f"## {c['item']}：{status}")
         for d in c.get("detail", []):
             L.append(f"- {d}")

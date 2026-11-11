@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
-"""结构验收的「未判定」必须有出口（2026-11-11）。
+"""结构验收：判据从「攒 8 篇看 38%」改成「逐批降级 + 禁发类型」（2026-11-11）。
 
-要钉死的缺陷：``verify_batch_mix.py`` 的模块文档与常量注释都写着
-「累计 ≥20 篇且从未达标 → FAIL，堵『永远样本不足』的自我豁免」，
-但 ``CUM_MIN_SAMPLE`` **在代码里从未被引用过** —— 承诺的出口只是注释。
-只要把 ``--days`` 调小（或一直只跑单日窗口），这条检查就能永远 ⏸，
-而 ⏸ 在报告里是绿色的（rc=0，只打 ::warning::）。
+原来的 C 项（实际产出结构，硬项）有两个毛病：
+① 38% 是「数据对比 30 + 排行榜 18 − 容差 10」的**合成口径**，红了定位不到缺哪类；
+② 样本 8 篇时 ±1 篇 = ±12.5pp，比 10pp 容差还大 —— 红绿由单篇翻转决定。
 
-本文件守住三条：
-1. ``CUM_MIN_SAMPLE`` 真的出现在 ``_check_structure`` 的代码里（AST 查 Name 载入，
-   注释与文档字符串写一百遍也不算）；
-2. 窗口样本不足、但累计样本够且不达标 → 必须判 FAIL，不能继续 ⏸；
-3. 累计样本够且达标 → 保持 ⏸（豁免到期前不许误伤正在达标的批次）。
+现在的分工：
+  · 硬项（成因侧）：每个成功批次的 `batch_mix.detail.降级` 必须为 0；禁发类型绝对为 0。
+  · 观测项：实际占比与目标并排打印，**不参与判定、不进 pending**。
+
+本文件守住 7 条：逐批降级能红且指得出批次、台账缺失按「无证据」不算 0、
+样本按批计、生效时刻精确到批次（修复前的批不算）、禁发类型绝对判据、
+观测项确实不进判定、观测项没有样本下限。
 """
 
 from __future__ import annotations
 
-import ast
 import importlib.util
 import json
 import sys
@@ -39,94 +38,123 @@ def _load_verifier():
     return mod
 
 
+def _funnel_row(day: str, batch: str, degraded: int | None, *,
+                requested: int = 2, at: str | None = None) -> dict:
+    """一条成功的批次记录；degraded=None 表示老记录（没有「降级」子项）。"""
+    det = {"请求": requested, "未选": 1}
+    if degraded is not None:
+        det["降级"] = degraded
+    return {"date": day, "batch": batch, "status": "ok",
+            "at": at or f"{day}T12:00:00+08:00",
+            "stages": {"batch_mix": {"n": requested, "detail": det}}}
+
+
 def _write_day(root: Path, day: str, types) -> None:
-    """造一天产出：带 batch_mix 字段 = 走过新结构的批次。"""
     d = root / day
     d.mkdir(parents=True, exist_ok=True)
-    meta = {
-        "batch_mix": {"degraded": []},
-        "articles": [{"title": f"{day}-{i}", "content_type": t}
-                     for i, t in enumerate(types)],
-    }
+    meta = {"batch_mix": {"degraded": []},
+            "articles": [{"title": f"{day}-{i}", "content_type": t}
+                         for i, t in enumerate(types)]}
     (d / "metadata.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
 
 
-class TestCumulativeBackstop(unittest.TestCase):
+class _Base(unittest.TestCase):
     def setUp(self):
         self.vm = _load_verifier()
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
         self.vm.OUTPUT_DIR = self.root
+        self.vm.FUNNEL_PATH = self.root / "funnel.jsonl"
         self.today = datetime.now(CST).date()
-        self.tsday = self.today.strftime("%Y-%m-%d")
-        # 生效日推到 30 天前：累计窗口能覆盖到「历史那天」
-        self.vm.SLOT_SINCE = (self.today - timedelta(days=30)).strftime("%Y-%m-%d")
-        self.histday = (self.today - timedelta(days=5)).strftime("%Y-%m-%d")
+        self.since_day = (self.today - timedelta(days=10)).strftime("%Y-%m-%d")
+        self.vm.SLOT_SINCE_AT = f"{self.since_day}T00:00:00+08:00"
+        self.day = self.today.strftime("%Y-%m-%d")
 
     def tearDown(self):
         self.tmp.cleanup()
 
-    def test_cum_min_sample_is_really_used_in_code(self):
-        """``CUM_MIN_SAMPLE`` 必须在 ``_check_structure`` 里被**求值**，不只是写在注释里。
+    def _write_funnel(self, rows):
+        self.vm.FUNNEL_PATH.write_text(
+            "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
+            encoding="utf-8")
 
-        用 AST 查 Name 载入节点：注释与 docstring 不进 AST，写再多也不满足；
-        而 ``CUM_MIN_SAMPLE = 20`` 这条赋值是 Store 而非 Load，同样不算。
-        """
-        tree = ast.parse(SCRIPT.read_text(encoding="utf-8"))
-        fn = next((n for n in ast.walk(tree)
-                   if isinstance(n, ast.FunctionDef) and n.name == "_check_structure"), None)
-        self.assertIsNotNone(fn, "找不到 _check_structure —— 验收脚本结构变了，本用例需同步")
-        loads = {n.id for n in ast.walk(fn)
-                 if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load)}
-        self.assertIn(
-            "CUM_MIN_SAMPLE", loads,
-            "CUM_MIN_SAMPLE 只在注释/文档里被提到，代码里没有任何一处引用 —— "
-            "「累计 ≥20 篇且从未达标 → FAIL」这条出口等于不存在，"
-            "而窗口样本不足时的 ⏸ 会永远绿着")
 
-    def test_thin_window_but_bad_cumulative_fails(self):
-        """窗口 1 天样本不足，累计已 30 篇且全是战术榜单 → 判 FAIL，不再 ⏸。"""
-        _write_day(self.root, self.histday, ["战术榜单"] * 24)
-        _write_day(self.root, self.tsday, ["战术榜单"] * 6)
-        r = self.vm._check_structure(1)
-        self.assertIs(r["ok"], False,
-                      f"累计 30 篇仍不达标却判 {r['ok']!r} —— 未判定变成了永久豁免：{r['detail']}")
-        self.assertFalse(r.get("pending"), "判 FAIL 时不应再带 pending 标记")
-        self.assertEqual(r["cumulative"]["total"], 30)
-
-    def test_thin_window_but_good_cumulative_stays_pending(self):
-        """累计够且达标 → 保持 ⏸（豁免到期前不许把正在达标的批次判红）。"""
-        _write_day(self.root, self.histday, ["热点球评"] * 14 + ["数据对比"] * 10)
-        _write_day(self.root, self.tsday, ["热点球评"] * 4 + ["数据对比"] * 2)
-        r = self.vm._check_structure(1)
-        self.assertIsNone(r["ok"], f"累计已达标却被判 {r['ok']!r}：{r['detail']}")
-        self.assertTrue(r.get("pending"))
-        self.assertEqual(r["cumulative"]["total"], 30)
-
-    def test_pending_detail_reports_cumulative_progress(self):
-        """未判定时要把「累计已几篇 / 达标线几篇」写进报告，否则读者无从判断还要等多久。"""
-        _write_day(self.root, self.tsday, ["战术榜单"] * 4)
-        r = self.vm._check_structure(1)
-        self.assertIsNone(r["ok"])
+class TestSlotFill(_Base):
+    def test_degraded_batch_fails_and_names_the_batch(self):
+        """任一批降级 > 0 → 立刻 FAIL，且报告里能读出「哪天哪批」。"""
+        self._write_funnel([_funnel_row(self.day, "晨读", 0),
+                            _funnel_row(self.day, "午间", 1)])
+        r = self.vm._check_slot_fill()
+        self.assertIs(r["ok"], False, f"降级 1 篇却没红：{r}")
         joined = " ".join(r["detail"])
-        self.assertIn("累计已", joined)
-        self.assertIn(str(self.vm.CUM_MIN_SAMPLE), joined)
+        self.assertIn("午间", joined, "报告必须指名是哪一批，否则无法定位供给")
+        self.assertIn("不要", joined, "处置文案要明确禁止调阈值/后移生效日")
+
+    def test_all_zero_after_min_batches_passes(self):
+        """够 3 批且全无降级 → 通过（不攒 8 篇）。"""
+        self._write_funnel([_funnel_row(self.day, b, 0) for b in ("晨读", "午间", "晚间")])
+        r = self.vm._check_slot_fill()
+        self.assertIs(r["ok"], True, f"3 批全 0 降级应通过：{r}")
+
+    def test_too_few_batches_is_pending(self):
+        """只有 1 批且没降级 → 未判定（0 篇降级不能证明什么）。"""
+        self._write_funnel([_funnel_row(self.day, "晨读", 0)])
+        r = self.vm._check_slot_fill()
+        self.assertIsNone(r["ok"])
+        self.assertTrue(r.get("pending"))
+
+    def test_legacy_rows_without_detail_are_not_counted_as_zero(self):
+        """老记录没有「降级」子项 → 跳过，绝不按 0 补。"""
+        self._write_funnel([_funnel_row(self.day, "晨读", None)])
+        r = self.vm._check_slot_fill()
+        self.assertIsNone(r["ok"], "把「没记降级」当成「没降级」= 拿缺失当事实")
+        self.assertTrue(r.get("pending"))
+
+    def test_missing_funnel_is_pending_not_pass(self):
+        r = self.vm._check_slot_fill()
+        self.assertIsNone(r["ok"])
+        self.assertTrue(r.get("pending"))
+
+    def test_batch_before_since_moment_is_excluded(self):
+        """生效时刻之前的批次不算 —— 它跑在提示词补齐之前，必然降级。
+
+        按「天」一刀切会把它算进来：这条检查从上线第一天起永久红，
+        同时还会把修复后（12:01，降级 0）那批一起排掉。
+        """
+        self.vm.SLOT_SINCE_AT = f"{self.day}T11:58:00+08:00"
+        self._write_funnel([
+            _funnel_row(self.day, "晨读", 1, at=f"{self.day}T11:01:00+08:00"),  # 修复前
+            _funnel_row(self.day, "午间", 0, at=f"{self.day}T12:01:00+08:00"),
+            _funnel_row(self.day, "晚间", 0, at=f"{self.day}T18:01:00+08:00"),
+            _funnel_row(self.day, "加发", 0, at=f"{self.day}T20:01:00+08:00"),
+        ])
+        r = self.vm._check_slot_fill()
+        self.assertIs(r["ok"], True, f"修复前那批被算进新判据了：{r}")
 
 
-class TestSinglePredicate(unittest.TestCase):
-    def test_structure_predicate_is_not_duplicated(self):
-        """达标判据只能有一处定义：窗口判定与累计硬线必须都调 ``_meets_target``。"""
-        tree = ast.parse(SCRIPT.read_text(encoding="utf-8"))
-        fn = next(n for n in ast.walk(tree)
-                  if isinstance(n, ast.FunctionDef) and n.name == "_check_structure")
-        calls = [n for n in ast.walk(fn)
-                 if isinstance(n, ast.Call)
-                 and getattr(n.func, "id", None) == "_meets_target"]
-        self.assertGreaterEqual(
-            len(calls), 2,
-            "窗口判定与累计硬线各用了一次达标判据，却只调了 "
-            f"{len(calls)} 次 _meets_target —— 两处各写一套阈值，"
-            "改一处忘另一处时报告会自相矛盾")
+class TestBannedAndAdvisory(_Base):
+    def test_banned_type_fails_without_sample_floor(self):
+        """禁发类型是绝对判据：1 篇就够红，与样本量无关。"""
+        _write_day(self.root, self.day, ["热点球评", "历史回顾"])
+        r = self.vm._check_banned()
+        self.assertIs(r["ok"], False, f"出现禁发类型却没红：{r}")
+
+    def test_distribution_is_advisory_and_never_pending(self):
+        """分布项必须 advisory，且不出现在 verify() 的 pending 里。"""
+        _write_day(self.root, self.day, ["热点球评"] * 3 + ["数据对比"])
+        c = self.vm._check_structure(7)
+        self.assertTrue(c.get("advisory"), "分布是观测项，不该参与判定")
+        self.assertIsNone(c["ok"])
+        rep = self.vm.verify(7)
+        self.assertNotIn("实际分布（观测）", rep["pending"],
+                         "观测项进了 pending 就又是「攒样本」那套噪音")
+
+    def test_distribution_reports_numbers_even_when_thin(self):
+        """样本只有 4 篇也照常打印占比（观测项没有样本下限）。"""
+        _write_day(self.root, self.day, ["热点球评"] * 3 + ["数据对比"])
+        c = self.vm._check_structure(7)
+        joined = " ".join(c["detail"])
+        self.assertIn("25.0%", joined, f"数据型 1/4 应报 25.0%：{joined}")
 
 
 if __name__ == "__main__":
