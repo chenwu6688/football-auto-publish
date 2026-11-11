@@ -2216,6 +2216,29 @@ def _inject_images(content: str, downloaded: list) -> str:
     return content.rstrip() + "\n" + "".join(refs)
 
 
+def _save_review_copy(date_dir, idx, art, rid):
+    """把「转人工确认」的成稿原文落到 output/<date>/review/，返回路径。
+
+    为什么必须落盘：``risk_gate`` 的队列文件 ``data/pending_review.json`` 是 gitignore
+    的运行期资产，CI 里 runner 一销毁就没了 —— 只入队不落盘，等于这篇成稿人间蒸发：
+    人工既看不到原文，也没法判断该不该发。落一份 md 进 output 目录即可随 artifact
+    下载（成稿 md 不入库是既有纪律，这里不破例，只是让它可取证）。
+    """
+    review_dir = Path(date_dir) / "review"
+    review_dir.mkdir(parents=True, exist_ok=True)
+    slug = re.sub(r"[^\w\u4e00-\u9fff-]+", "-", str(art.get("title") or f"pending-{idx}"))[:40]
+    # 前缀刻意用 review- 而不是 article-：发布器的 glob 是
+    # ``date_dir.glob("article-*.md")``（不递归），万一以后有人改成递归，
+    # 待确认稿也不能被当成待发布稿抓进去。
+    path = review_dir / f"review-{idx}-{slug}.md"
+    body = art.get("content") or ""
+    path.write_text(
+        f"---\ntitle: \"{art.get('title', '')}\"\ndate: {Path(date_dir).name}\n"
+        f"review: pending\nid: {rid}\n---\n\n# {art.get('title', '')}\n\n{body}\n",
+        encoding="utf-8")
+    return path
+
+
 def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
                         pre_downloaded_images=None):
     """Save articles directly to filesystem (no Flask dependency).
@@ -2271,15 +2294,35 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
 
         # 计划 1.2 / 4.1 高风险内容人工确认：涉及伤病/合同金额/争议指控的成稿
         # 转入人工确认队列（data/pending_review.json），确认前不进入发布集合。
+        #
+        # 2026-11-11 修正：只拦「争议指控」一档（risk_gate.BLOCKING_CATEGORIES）。
+        # 原先把伤病/合同金额也一并拦掉，而这两类在足球稿里是常规背景（伤停名单、
+        # 续约年限、纪律处罚）→ 11-10 evening 与 11-11 morning 连续两批 4/4 篇全部
+        # 被转人工、发布集合 0 篇、告警只写「发布失败」。真正的红线是「编造/失实」，
+        # 不是「提到伤病」。伤病/合同金额现在只留证（metadata.risk_flags）照常发布。
         _risk = risk_gate.assess(art)
-        if _risk.get("high_risk"):
+        if _risk.get("blocking"):
             _rid = risk_gate.enqueue(art, date_str, idx, _risk)
+            # 队列文件是 gitignore 的运行期资产，CI runner 跑完即销毁 —— 只入队不落盘
+            # 等于这篇人间蒸发（人工永远看不到原文）。所以在 output/<date>/review/
+            # 留一份可下载的副本，metadata 里记路径（artifact 会一起上传）。
+            _rv_path = _save_review_copy(date_dir, idx, art, _rid)
             pending_review.append({"id": _rid, "index": idx,
                                    "title": art.get("title", ""),
-                                   "reasons": _risk.get("reasons", [])})
+                                   "reasons": _risk.get("reasons", []),
+                                   "review_path": str(_rv_path)})
             print(f"   🛡️ 高风险内容转人工确认队列 [{_rid}]："
-                  f"{'；'.join(_risk.get('reasons', []))} → 本次不发布")
+                  f"{'；'.join(_risk.get('reasons', []))} → 本次不发布"
+                  f"（原文已留 {_rv_path.name}）")
             continue
+        if _risk.get("high_risk"):
+            # 只留证不拦：笔记进 _risk_flags，跟着 metadata 落盘，复盘能查「哪些篇
+            # 提了伤病/金额、平台侧有没有因此扣分」，而不是靠拦下来一刀切。
+            art["_risk_flags"] = list(_risk.get("reasons") or [])
+            degrade.note("风险闸门",
+                         "；".join(_risk.get("reasons") or []),
+                         action="仅留证，照常发布（伤病/合同金额是足球稿常规背景）")
+            print(f"   📝 风险留证（不拦发布）：{'；'.join(_risk.get('reasons', []))}")
 
         prefix = f"article-{idx}-img"
 
@@ -2731,6 +2774,10 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         # 互动引导兜底留痕（R11 建议5）：仅当命中模板兜底时才落盘，便于事后统计覆盖率
         if art.get("interaction_bait_source"):
             _rec["interaction_bait_source"] = art["interaction_bait_source"]
+        # 风险闸门留证（2026-11-11）：命中伤病/合同金额但不拦发布的篇，把命中词落盘。
+        # 不落这一项，「闸门放宽了多少、平台侧有没有因此扣分」就永远无法回归验证。
+        if art.get("_risk_flags"):
+            _rec["risk_flags"] = list(art["_risk_flags"])
         saved.append(_rec)
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
@@ -2754,11 +2801,30 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
               f"{[d['title'][:18] for d in compliance_dropped]}")
     # 「全丢」必须显式报出来：它和「本来就没选题」在结果上都是 0 篇，
     # 但处置完全相反（一个要补发/查规则，一个是正常空批）。
+    #
+    # 2026-11-11 修正归因：原本文案一律写「被合规审核全部拦下」，而 11-10/11-11 两次
+    # 真实原因是 risk_gate 把两篇全转人工确认（compliance_dropped 是空的）。
+    # 错误归因比没有归因更坏：排查会照着文案去改合规判据，改错对象。
+    # 现在按真实来源分档写进 zero_publish_reason，供 workflow 告警原样引用。
     if articles and not saved:
-        print("   ❌ 本批成稿被合规审核全部拦下，发布集合为 0 篇"
-              "（这是「全丢」，不是「正常空批」→ 需补发）")
-        degrade.note("合规审核", f"本批 {len(articles)} 篇全部被拦，发布集合 0 篇",
-                     action="按 compliance_dropped 逐条复核；如需补发走补发 cron")
+        _n_all = len(articles)
+        if len(pending_review) >= _n_all:
+            _why = "风险闸门"
+            _detail = (f"本批 {_n_all} 篇全部转人工确认（争议指控类），发布集合 0 篇；"
+                       f"原文见 output/{date_str}/review/")
+            _action = "复核 data/audit 与 output 目录的 review 副本，必要时手动补发"
+        elif len(compliance_dropped) >= _n_all:
+            _why = "合规审核"
+            _detail = f"本批 {_n_all} 篇全部被合规规则剔除，发布集合 0 篇"
+            _action = "按 compliance_dropped 逐条复核规则是否过严；如需补发走补发 cron"
+        else:
+            _why = "出口闸门"
+            _detail = (f"本批 {_n_all} 篇全部未进入发布集合"
+                       f"（风险 {len(pending_review)} / 合规 {len(compliance_dropped)}）")
+            _action = "按 metadata 的 pending_review / compliance_dropped 逐条复核"
+        print(f"   ❌ {_detail}（这是「全丢」，不是「正常空批」→ 需人工处理）")
+        degrade.note(_why, _detail, action=_action)
+        meta["zero_publish_reason"] = f"{_why}：{_detail}"
     # 计划 12.1：记录本批三层供给构成（供 scripts/verify_supply_mix.py 汇总验收）。
     # 预测稿不发布到头条，不进配比口径（与看板/配额验收同口径，R13 决策④）。
     _supply = supply_mix.summarize(
@@ -2774,7 +2840,8 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
     if pending_review:
         meta["pending_review"] = pending_review
         print(f"   🛡️ 本次 {len(pending_review)} 篇高风险成稿已转人工确认队列"
-              f"（risk_gate.py --list 查看 / --approve <id> 确认）")
+              f"（原文见 output/{date_str}/review/；CI 里队列文件随 runner 销毁，"
+              f"复核走 review 副本，补发走 workflow_dispatch）")
     if extra:
         meta.update(extra)
     file_writer.save_index(date_str, saved)

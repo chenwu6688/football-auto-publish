@@ -45,14 +45,29 @@ RISK_CATEGORIES = {
 # 合同金额类需同时出现金额/年限量词，避免「合同年」一类误判
 _MONEY_RE = re.compile(r"(\d+(?:\.\d+)?\s*(?:万|亿|欧|元|美元|镑|年|w|W|€|\$))")
 
+# 分级（2026-11-11）：只有「争议指控」直接拦发布，其余只留证。
+#
+# 为什么必须分（11-10 evening / 11-11 morning 连续两批 4/4 篇全被拦，发布 0 篇）：
+#   伤病、合同金额在足球稿里是**常规背景**——赛前伤停名单、续约年限、纪律处罚，
+#   一篇正常的球评几乎不可能不提到。拿「出现关键词」当「造谣风险」的代理指标，
+#   在这个题材上命中率接近 100%，结果是「每天 0 篇」，而平台真正扣分的是
+#   **编造/失实**，不是「提及」。
+#   争议指控（起诉/禁赛/性侵/假球/禁药/税务…）不一样：一句话说错就是 70 分档的
+#   造谣，仍走人工确认。
+BLOCKING_CATEGORIES = {"争议指控"}
+
 
 def assess(article: dict) -> dict:
-    """判定一篇成稿是否属高风险，返回 {high_risk, categories, reasons}。
+    """判定一篇成稿是否属高风险，返回 {high_risk, blocking, severity, categories, reasons}。
 
+    - ``high_risk``：命中任一类（留证用，不必然拦发布）
+    - ``blocking``：命中争议指控 → 必须转人工确认（唯一会挡住发布的一档）
+    - ``severity``：``block`` / ``warn`` / ``''``
     只为「涉及伤病 / 合同金额 / 争议指控」的题材设闸；普通赛事、人物故事等不拦。
     """
     if not isinstance(article, dict):
-        return {"high_risk": False, "categories": [], "reasons": []}
+        return {"high_risk": False, "blocking": False, "severity": "",
+                "categories": [], "reasons": []}
     title = article.get("title", "") or ""
     content = article.get("content", "") or ""
     blob = f"{title}\n{content}"
@@ -69,7 +84,11 @@ def assess(article: dict) -> dict:
             cats.append(cat)
             reasons.append(f"{cat}(命中：{'、'.join(hits[:3])})")
 
-    return {"high_risk": bool(cats), "categories": cats, "reasons": reasons}
+    blocking = any(c in BLOCKING_CATEGORIES for c in cats)
+    return {"high_risk": bool(cats), "blocking": blocking,
+            "severity": ("block" if blocking else ("warn" if cats else "")),
+            "categories": cats, "reasons": reasons}
+
 
 
 # ─── 队列读写 ─────────────────────────────────────────────
@@ -130,8 +149,12 @@ def resolve(item_id: str, approve: bool) -> dict | None:
 
 
 def is_blocked(article: dict, *, queue_only: bool = True) -> bool:
-    """发布前自检：该成稿是否仍处于待确认（未批准）状态。"""
-    return bool(assess(article).get("high_risk")) if queue_only else False
+    """发布前自检：该成稿是否属于**必须人工确认**的一档（争议指控）。
+
+    注意用 ``blocking`` 而不是 ``high_risk``：伤病/合同金额只留证不拦，
+    否则足球稿会 100% 命中、永远发不出去（2026-11-10 实证）。
+    """
+    return bool(assess(article).get("blocking")) if queue_only else False
 
 
 def materialize(date_str: str, *, output_dir: Path | None = None) -> list[dict]:

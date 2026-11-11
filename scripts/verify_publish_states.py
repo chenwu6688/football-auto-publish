@@ -140,11 +140,22 @@ def _check_workflow() -> dict:
         detail.append("❌ 未处理 rc=2（有稿全被跳过 → 标完成 + 告警）")
     else:
         detail.append("✅ 处理 rc=2（标完成 + warning）")
-    if not re.search(r"\b3\)[\s\S]{0,600}?exit 1", run):
+    # 原来用「`3)` 之后 600 字内必须出现 exit 1」判的，这是个脆判据：11-11 给 rc=3
+    # 分支加了「0 篇原因归类」（上游空转 / 风险闸门 / 合规）之后，exit 1 被推到 600 字
+    # 之外，行为没变而验收变红 —— 判的不是「有没有 exit 1」，是「离得多远」。
+    # 改成切出 3) 到 `;;` 之间的分支体，在体内找 exit 1，与文案长度无关。
+    _m3 = re.search(r"\b3\)([\s\S]*?);;", run)
+    if not (_m3 and re.search(r"\bexit\s+1\b", _m3.group(1))):
         ok = False
         detail.append("❌ 未处理 rc=3（上游空转 → 退出非零，让兜底 cron 重跑）")
     else:
         detail.append("✅ 处理 rc=3（exit 1 → 不标批次完成）")
+        # 0 篇有三种成因（上游空转 / 风险闸门全转人工 / 合规全剔除），处置互相排斥：
+        # 告警里只说「上游空转」会把排查方向带偏（11-10/11-11 实证）。
+        if "publish_zero_reason" in _m3.group(1):
+            detail.append("✅ rc=3 分支引用了 0 篇原因归类（publish_zero_reason）")
+        else:
+            detail.append("⚠️ rc=3 分支没引用 publish_zero_reason：0 篇只会报「上游空转」")
     comp = next((s for s in steps if "回写批次状态" in (s.get("name") or "")), None)
     if comp and "publish.outcome" not in (comp.get("if") or ""):
         ok = False

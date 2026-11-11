@@ -13,6 +13,11 @@
 import ast
 import sys
 import tempfile
+from datetime import date as _date
+# 台账日期一律跟「今天」走：summarize(7) 的窗口是 today-6，写死 2026-11-04
+# 的样本在 11-11 就整体掉出窗口，7 条断言集体变红（同 11-09 那次同类坑）。
+TODAY = _date.today().isoformat()
+
 import unittest
 from pathlib import Path
 
@@ -40,7 +45,7 @@ class _TempLedger(unittest.TestCase):
         tf._CUR = None
         self._td.cleanup()
 
-    def record(self, date="2026-11-04", batch="晨读", max_articles=2, stages=()):
+    def record(self, date=TODAY, batch="晨读", max_articles=2, stages=()):
         tf.begin(date, batch=batch, max_articles=max_articles)
         for item in stages:
             key, n = item[0], item[1]
@@ -82,7 +87,7 @@ class TestRecord(_TempLedger):
         self.assertEqual(rec["stages"]["dedup"]["detail"], {"跨天": 2})
 
     def test_status_recorded(self):
-        tf.begin("2026-11-04")
+        tf.begin(TODAY)
         tf.stage("llm", 1)
         tf.flush(status="aborted")
         self.assertEqual(tf.load()[-1]["status"], "aborted")
@@ -100,17 +105,17 @@ class TestRecord(_TempLedger):
 
 class TestGuard(_TempLedger):
     def test_unknown_stage_raises(self):
-        tf.begin("2026-11-04")
+        tf.begin(TODAY)
         with self.assertRaises(ValueError):
             tf.stage("dedupn", 1)
 
     def test_negative_raises(self):
-        tf.begin("2026-11-04")
+        tf.begin(TODAY)
         with self.assertRaises(ValueError):
             tf.stage("llm", -1)
 
     def test_non_int_raises(self):
-        tf.begin("2026-11-04")
+        tf.begin(TODAY)
         with self.assertRaises(ValueError):
             tf.stage("llm", "三")
 
@@ -144,7 +149,7 @@ class TestSummarize(_TempLedger):
         self.assertIn("最大损失层", tf.report(7))
 
     def test_bad_line_skipped(self):
-        tf.LEDGER_PATH.write_text('{"date":"2026-11-04","stages":{},"loss":{}}\n坏行\n',
+        tf.LEDGER_PATH.write_text('{"date":"%s","stages":{},"loss":{}}\n坏行\n' % TODAY,
                                   encoding="utf-8")
         self.assertEqual(len(tf.load()), 1)
 
@@ -153,9 +158,9 @@ class TestSummarize(_TempLedger):
         blocker = Path(self._td.name) / "blocked"
         blocker.write_text("我是文件不是目录", encoding="utf-8")
         tf.LEDGER_PATH = blocker / "funnel.jsonl"      # 父路径是文件 → 必然写不进去
-        tf.begin("2026-11-04")
+        tf.begin(TODAY)
         tf.stage("llm", 1)
-        self.assertEqual(tf.flush(), "2026-11-04")     # 不抛
+        self.assertEqual(tf.flush(), TODAY)     # 不抛
         self.assertIs(tf.LAST["ok"], False)
         self.assertTrue(tf.LAST["reason"])
 

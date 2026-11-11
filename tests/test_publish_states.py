@@ -157,3 +157,62 @@ class TestNoPublishableLedger:
         # 当天聚合也要带上，否则看板只能看到「少了一批」，看不出为什么
         day = json.loads((audit / "publish_ledger_2026-11-05.json").read_text(encoding="utf-8"))
         assert day["no_publishable"]["evening"]["code"] == "all_skipped"
+
+# ============================================================
+# 验收判据自身不许「按距离判」：rc=3 分支的 exit 1 摆在多后面都算数
+# ============================================================
+
+def _vps():
+    import importlib.util
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "verify_publish_states", root / "scripts" / "verify_publish_states.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def _wf(branch3):
+    return {"jobs": {"publish": {"steps": [
+        {"id": "publish", "run": 'case "$RC" in\n0) echo ok ;;\n2) echo skip ;;\n'
+                                 + branch3 + '\n;;\nesac\n'},
+        {"name": "回写批次状态", "if": "always() && steps.publish.outcome == 'success'"},
+    ]}}}
+
+
+def _run_check(tmp_path, monkeypatch, branch3):
+    import yaml
+    wf = tmp_path / ".github" / "workflows"
+    wf.mkdir(parents=True)
+    (wf / "batch.yml").write_text(yaml.safe_dump(_wf(branch3), allow_unicode=True),
+                                  encoding="utf-8")
+    vps = _vps()
+    monkeypatch.setattr(vps, "PROJECT_ROOT", tmp_path)
+    return vps._check_workflow()
+
+
+def test_rc3_detection_ignores_branch_length(tmp_path, monkeypatch):
+    """exit 1 写在 600 字之后也必须判通过。
+
+    2026-11-11：给 rc=3 分支加「0 篇原因归类」后 exit 1 被推到 600 字之外，
+    流水线行为完全没变，验收却变红 —— 原判据判的是文案长度，不是有没有 exit 1。
+    """
+    rep = _run_check(tmp_path, monkeypatch, "3)\n" + ("echo 说明\n" * 200) + "exit 1")
+    assert rep["ok"] is True, rep["detail"]
+    assert any("rc=3" in d for d in rep["detail"])
+
+
+def test_rc3_without_exit1_is_red(tmp_path, monkeypatch):
+    """没有 exit 1 的分支必须报红（防止判据恒真）。"""
+    rep = _run_check(tmp_path, monkeypatch, "3)\necho 空批")
+    assert rep["ok"] is False
+    assert any("未处理 rc=3" in d for d in rep["detail"])
+
+
+def test_rc3_branch_citing_zero_reason_is_noted(tmp_path, monkeypatch):
+    """rc=3 分支引用 publish_zero_reason 时，报告要能看出来（不做硬项，只留痕）。"""
+    rep = _run_check(tmp_path, monkeypatch,
+                     "3)\npython3 scripts/publish_zero_reason.py x\nexit 1")
+    assert rep["ok"] is True
+    assert any("publish_zero_reason" in d for d in rep["detail"])

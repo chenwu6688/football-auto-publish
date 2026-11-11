@@ -671,12 +671,24 @@ jobs:
               ;;
             3)
               echo "publish_state=nothing_empty" >> "$GITHUB_OUTPUT"
-              echo "::error::本批一篇成稿都没有（上游空转），本批不标记完成，等兜底 cron 重跑"
+              # 0 篇有三种成因（上游空转 / 风险闸门全转人工 / 合规全剔除），处置互相
+              # 排斥：前一种等兜底 cron 重跑，后两种重跑没用。原因由 orchestrator 写进
+              # metadata.zero_publish_reason，这里原样引用，不再笼统打「上游空转」——
+              # 11-10 evening / 11-11 morning 就是被这句笼统文案盖住了真实原因。
+              _META="${{ runner.temp }}/output/${{ steps.params.outputs.today }}/metadata.json"
+              _WHY=$(python3 scripts/publish_zero_reason.py "$_META" 2>/dev/null \
+                     || echo "本批 0 篇成稿（上游空转：没有选题或没产出成稿）")
+              echo "::error::本批发布 0 篇 —— ${_WHY}"
               {
-                echo "### ❌ 本批 0 篇成稿（上游没产出）"
+                echo "### ❌ 本批发布 0 篇"
                 echo ""
-                echo "已**不**标记批次完成，30/50 分兜底 cron 会重跑本批。"
-                echo "若连续两次如此，先查「生成文章」步骤的漏斗台账。"
+                echo "**原因**：${_WHY}"
+                echo ""
+                echo "本批**不**标记完成（避免人工补发被幂等跳过）。"
+                echo ""
+                echo "处置：若原因是「上游空转」→ 30/50 分兜底 cron 会重跑；"
+                echo "若是「风险闸门/合规」→ 重跑没有意义，按原因去复核 "
+                echo "\`output/<date>/review/\` 或 \`compliance_dropped\` 后再手动补发。"
               } >> "$GITHUB_STEP_SUMMARY"
               exit 1
               ;;

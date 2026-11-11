@@ -33,6 +33,30 @@ class TestRiskGate(unittest.TestCase):
         r = risk_gate.assess({"title": "曼城主场能否啃下铁桶阵？",
                               "content": "双方上半场互交白卷，下半场易边再战。"})
         self.assertFalse(r["high_risk"])
+        self.assertFalse(r["blocking"])
+
+    # ── 分级（2026-11-11）：只有争议指控挡发布 ──────────────────────
+    def test_injury_and_money_are_warn_not_blocking(self):
+        """伤病/合同金额只留证、不拦发布。
+
+        11-10 evening 与 11-11 morning 连续两批 4/4 篇全被拦（伤停/赛季报销/
+        续约年薪/处罚），发布集合 0 篇、告警只写「发布失败」。足球稿不可能不提
+        伤停与续约年限，命中即拦 = 永远 0 篇。
+        """
+        for art in ({"title": "哈兰德伤停三周", "content": "膝伤缺阵。"},
+                    {"title": "1.5亿欧续约", "content": "年薪涨到2000万欧。"}):
+            r = risk_gate.assess(art)
+            self.assertTrue(r["high_risk"], "留证需要 high_risk")
+            self.assertFalse(r["blocking"], "伤病/合同金额不该挡发布")
+            self.assertEqual(r["severity"], "warn")
+            self.assertFalse(risk_gate.is_blocked(art))
+
+    def test_allegation_is_blocking(self):
+        art = {"title": "某球员被指控假球，已立案调查", "content": "俱乐部配合调查。"}
+        r = risk_gate.assess(art)
+        self.assertTrue(r["blocking"])
+        self.assertEqual(r["severity"], "block")
+        self.assertTrue(risk_gate.is_blocked(art))
 
     def test_queue_roundtrip_and_materialize(self):
         tmp = Path(tempfile.mkdtemp())

@@ -349,9 +349,13 @@ def selftest() -> list[tuple[str, bool]]:
     try:
         with tempfile.TemporaryDirectory() as td:
             LEDGER_PATH = Path(td) / "funnel.jsonl"
+            # 自检日期必须取「今天」，不能写死：原来写 2026-11-04 + summarize(7)，
+            # 一到 11-11（窗口下界 11-05）这几条就全部被过滤掉，4 条断言集体变红，
+            # 红得跟真回归一模一样。这是同一类「写死日期 = 定时炸弹」（11-09 已踩过一次）。
+            _d = _now().strftime("%Y-%m-%d")
 
             # 1) 正常一批：8 → 6 → 6 → 5 → 2 → 2 → 2 → 2
-            begin("2026-11-04", batch="晨读", max_articles=2, quota="常态 2 篇")
+            begin(_d, batch="晨读", max_articles=2, quota="常态 2 篇")
             stage("llm", 8)
             stage("dedup", 6, detail={"跨天": 2})
             stage("material", 6)
@@ -368,7 +372,7 @@ def selftest() -> list[tuple[str, bool]]:
             cases.append(("成稿数取自 final", r.get("articles") == 2))
 
             # 2) 缺层不许当 0：只记 llm 与 final
-            begin("2026-11-04", batch="午间", max_articles=2)
+            begin(_d, batch="午间", max_articles=2)
             stage("llm", 3)
             stage("final", 1)
             flush()
@@ -377,7 +381,7 @@ def selftest() -> list[tuple[str, bool]]:
             cases.append(("缺层跳过、不按 0 算损失", last.get("loss") == {"final": 2}))
 
             # 3) 补位使数字变大 → 记 gain，不记负损失
-            begin("2026-11-04", batch="晚间", max_articles=2)
+            begin(_d, batch="晚间", max_articles=2)
             stage("generated", 1)
             stage("final", 2)
             flush()
@@ -389,7 +393,7 @@ def selftest() -> list[tuple[str, bool]]:
             cases.append(("无打开批次时 stage 返回 False", stage("llm", 1) is False))
 
             # 5) 层级名拼错必须报错（静默忽略=假接线温床）
-            begin("2026-11-04")
+            begin(_d)
             try:
                 stage("dedupn", 1)
                 cases.append(("拼错层级名必须抛错", False))
@@ -429,7 +433,7 @@ def selftest() -> list[tuple[str, bool]]:
             cases.append(("重复 flush 不重复写", flush() is None and len(load()) == before))
 
             # 10) 台账文件损坏不抛（只跳过坏行）
-            LEDGER_PATH.write_text('{"date":"2026-11-04","stages":{},"loss":{}}\n坏行\n',
+            LEDGER_PATH.write_text('{"date":"%s","stages":{},"loss":{}}\n坏行\n' % _d,
                                    encoding="utf-8")
             cases.append(("坏行跳过不抛", len(load()) == 1))
     finally:
