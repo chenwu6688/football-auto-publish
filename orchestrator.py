@@ -2292,37 +2292,23 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 degrade.note("标题三要素", "缺可用数字/专名，拼不出兜底标题",
                              action="保留原题发布，metadata 记 title_elements.count")
 
-        # 计划 1.2 / 4.1 高风险内容人工确认：涉及伤病/合同金额/争议指控的成稿
-        # 转入人工确认队列（data/pending_review.json），确认前不进入发布集合。
-        #
-        # 2026-11-11 修正：只拦「争议指控」一档（risk_gate.BLOCKING_CATEGORIES）。
-        # 原先把伤病/合同金额也一并拦掉，而这两类在足球稿里是常规背景（伤停名单、
-        # 续约年限、纪律处罚）→ 11-10 evening 与 11-11 morning 连续两批 4/4 篇全部
-        # 被转人工、发布集合 0 篇、告警只写「发布失败」。真正的红线是「编造/失实」，
-        # 不是「提到伤病」。伤病/合同金额现在只留证（metadata.risk_flags）照常发布。
-        _risk = risk_gate.assess(art)
-        if _risk.get("blocking"):
-            _rid = risk_gate.enqueue(art, date_str, idx, _risk)
+        # 计划 1.2 / 4.1 高风险内容人工确认：只拦「争议指控」（断言真人违法/丑闻）。
+        # 伤病、合同金额已从闸门里删除 —— 它们在足球稿里是常规背景，拦下来等于
+        # 当天 0 篇（11-10 晚 / 11-11 晨实证）。判定只有一处实现：risk_gate.blocked_reason。
+        _why = risk_gate.blocked_reason(art)
+        if _why:
+            _rid = f"{date_str}-{idx}"
             # 队列文件是 gitignore 的运行期资产，CI runner 跑完即销毁 —— 只入队不落盘
             # 等于这篇人间蒸发（人工永远看不到原文）。所以在 output/<date>/review/
             # 留一份可下载的副本，metadata 里记路径（artifact 会一起上传）。
             _rv_path = _save_review_copy(date_dir, idx, art, _rid)
             pending_review.append({"id": _rid, "index": idx,
                                    "title": art.get("title", ""),
-                                   "reasons": _risk.get("reasons", []),
+                                   "reasons": [_why],
                                    "review_path": str(_rv_path)})
-            print(f"   🛡️ 高风险内容转人工确认队列 [{_rid}]："
-                  f"{'；'.join(_risk.get('reasons', []))} → 本次不发布"
+            print(f"   🛡️ 转人工确认 [{_rid}]：{_why} → 本次不发布"
                   f"（原文已留 {_rv_path.name}）")
             continue
-        if _risk.get("high_risk"):
-            # 只留证不拦：笔记进 _risk_flags，跟着 metadata 落盘，复盘能查「哪些篇
-            # 提了伤病/金额、平台侧有没有因此扣分」，而不是靠拦下来一刀切。
-            art["_risk_flags"] = list(_risk.get("reasons") or [])
-            degrade.note("风险闸门",
-                         "；".join(_risk.get("reasons") or []),
-                         action="仅留证，照常发布（伤病/合同金额是足球稿常规背景）")
-            print(f"   📝 风险留证（不拦发布）：{'；'.join(_risk.get('reasons', []))}")
 
         prefix = f"article-{idx}-img"
 
@@ -2774,10 +2760,6 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         # 互动引导兜底留痕（R11 建议5）：仅当命中模板兜底时才落盘，便于事后统计覆盖率
         if art.get("interaction_bait_source"):
             _rec["interaction_bait_source"] = art["interaction_bait_source"]
-        # 风险闸门留证（2026-11-11）：命中伤病/合同金额但不拦发布的篇，把命中词落盘。
-        # 不落这一项，「闸门放宽了多少、平台侧有没有因此扣分」就永远无法回归验证。
-        if art.get("_risk_flags"):
-            _rec["risk_flags"] = list(art["_risk_flags"])
         saved.append(_rec)
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
