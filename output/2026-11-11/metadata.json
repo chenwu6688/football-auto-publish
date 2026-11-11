@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T11:03:00.796967",
-  "total_articles": 2,
+  "generated_at": "2026-11-11T04:03:25.023055",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -587,80 +587,679 @@
       },
       "platform_id": "7706745112957403667",
       "platform_id_source": "publish_response"
+    },
+    {
+      "index": 1,
+      "title": "拉菲尼亚不顾巴萨反对提前手术，巴西队长袖标竟成最大变数",
+      "path": "/home/runner/work/_temp/output/2026-11-11/article-1-拉菲尼亚不顾巴萨-1ab9f8.md",
+      "slug": "拉菲尼亚不顾巴萨-1ab9f8",
+      "tags": [
+        "Raphinha",
+        "surgery",
+        "Brazil",
+        "Barcelona",
+        "Ancelotti",
+        "captain"
+      ],
+      "keywords": [
+        "Raphinha",
+        "surgery",
+        "Brazil",
+        "Barcelona",
+        "Ancelotti",
+        "captain"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-11/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-11/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-11/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260929/6abba237e3c19_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af3d8884cc1bnative.htm",
+            "query": "拉菲尼亚、巴萨",
+            "alt": "巴媒：巴西队赞赏拉菲尼亚不顾巴萨反对提前接受耳部手术的决定"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260824/6a8b693989adf_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-11/6af385d82446enative.htm",
+            "query": "拉菲尼亚、巴萨",
+            "alt": "巴媒：巴萨和巴西队达成一致，后者将谨慎管理拉菲尼亚出场时间"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261014/6acf64f96a529_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-10/6af30b71da7a3native.htm",
+            "query": "巴萨",
+            "alt": "每体列AI为巴萨推荐中卫：雷斯、贝拉尔多、哈托、利马等人在列"
+          },
+          "width": 720,
+          "height": 480
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "拉菲尼亚不顾巴萨反对提前做耳部手术",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 77,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题 27 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（16 < 20）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（16 < 20）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "30 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "拉菲尼亚",
+          "巴萨"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 22,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1224,
+        "han_len": 878,
+        "paragraphs": 19,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "巴萨|拉菲尼亚#injury",
+      "hot_rank": 10,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 2,
+      "title": "罗凯11球领跑中甲金靴，上赛季他首发才2次",
+      "path": "/home/runner/work/_temp/output/2026-11-11/article-2-罗凯11球领跑中-fc8983.md",
+      "slug": "罗凯11球领跑中-fc8983",
+      "tags": [
+        "Luo Kai",
+        "China League One",
+        "top scorer",
+        "Guangdong Chenxing",
+        "2026 season"
+      ],
+      "keywords": [
+        "Luo Kai",
+        "China League One",
+        "top scorer",
+        "Guangdong Chenxing",
+        "2026 season"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-11/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-11/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-11/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "38岁谭龙拿中甲金球金靴，年龄原来真不是个事",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 60,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物",
+          "缺冲突/反差动作",
+          "R11数据:标题 21 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（14 < 42）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（14 < 42）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "28 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "懂球帝 dongqiudi.com"
+      ],
+      "source_post": "2026年度球员专访｜广东晨星创尔特罗凯中超中甲",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "中国足球",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "中甲"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 60,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 22,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1068,
+        "han_len": 719,
+        "paragraphs": 17,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺",
-      "angle": "热点事件「英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺」，从球迷情绪与争议点切入",
+      "title": "拉菲尼亚不顾巴萨反对提前做耳部手术",
+      "angle": "热点事件「拉菲尼亚不顾巴萨反对提前做耳部手术」，从球迷情绪与争议点切入",
       "keywords": [],
       "keywords_cn": [
-        "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺"
+        "拉菲尼亚不顾巴萨反对提前做耳部手术"
       ],
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
       "why_pick": "媒体头条（dongqiudi）",
       "_supply_layer": "二级·突发",
-      "_hot_event_key": "曼联#coach",
-      "_hot_rank": 1,
+      "_hot_event_key": "巴萨|拉菲尼亚#injury",
+      "_hot_rank": 10,
       "_hot_source": "dongqiudi",
       "_hot_channel": "media",
       "_hot_providers": [
         "dongqiudi"
       ],
       "_hot_support": [
-        "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔"
+        "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评"
       ],
       "_hot_support_raw": [
         {
-          "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺，他渴望执教红魔",
-          "url": "https://www.dongqiudi.com/articles/6640552.html",
+          "title": "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评",
+          "url": "https://www.dongqiudi.com/articles/6640631.html",
           "source": "dongqiudi"
         }
       ]
     },
     {
-      "title": "曼联当年解雇穆里尼奥，古利特说太仓促且毫无理由",
-      "angle": "古利特直接开炮：曼联解雇穆里尼奥毫无理由。结合现在波切蒂诺领跑帅位，曼联的选帅逻辑到底是什么？从穆帅下课到如今帅位争夺，曼联管理层这些年到底在找什么？",
+      "title": "38岁谭龙拿中甲金球金靴，年龄原来真不是个事",
+      "angle": "用38岁谭龙包揽中甲本土金球和金靴的数据，对比年轻球员的成长焦虑，带出老将余热与职业态度的讨论，态度明确：年龄只是数字。",
       "keywords": [
-        "Mourinho",
-        "Manchester United",
-        "Gullit"
+        "Tan Long",
+        "China League One",
+        "golden boot"
       ],
       "keywords_cn": [
-        "穆里尼奥",
-        "曼联",
-        "古利特",
-        "波切蒂诺"
+        "谭龙",
+        "中甲",
+        "金球",
+        "金靴",
+        "38岁"
       ],
-      "content_type": "热点球评",
-      "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "无",
-      "why_pick": "名宿炮轰管理层，曼联帅位争夺战争议拉满",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "content_type": "数据对比",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "感动",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "38岁老将双料奖项自带反差，数据可核对，能戳中老球迷对坚持与热爱的共鸣。",
+      "_category": "中国足球",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-0"
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
     }
   ],
   "data_sources": {},
@@ -673,13 +1272,13 @@
     "total": 2,
     "counts": {
       "一级·确定性": 0,
-      "二级·突发": 2,
-      "三级·软性": 0
+      "二级·突发": 1,
+      "三级·软性": 1
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 100.0,
-      "三级·软性": 0.0
+      "二级·突发": 50.0,
+      "三级·软性": 50.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -688,12 +1287,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 50.0,
-      "三级·软性": -20.0
+      "二级·突发": 0.0,
+      "三级·软性": 30.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 0,
+      "data_driven": 1,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -710,32 +1309,32 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（11 < 14）",
+      "原因": "事实点数少于最强源文（14 < 42）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（10 < 14）",
+      "原因": "事实点数少于最强源文（16 < 20）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
-      "环节": "标题评分记分",
-      "原因": "0分：[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字",
-      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     },
     {
-      "环节": "标题三要素",
-      "原因": "缺可用数字/专名，拼不出兜底标题",
-      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 0 张",
+      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -747,14 +1346,14 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "hot_topics": [
     {
-      "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺",
-      "rank": 1,
+      "title": "拉菲尼亚不顾巴萨反对提前做耳部手术",
+      "rank": 10,
       "source": "dongqiudi",
       "channel": "media",
-      "event_key": "曼联#coach"
+      "event_key": "巴萨|拉菲尼亚#injury"
     }
   ],
   "batch_mix": {
@@ -766,36 +1365,32 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "英超五洲泰晤士报：波切蒂诺领跑曼联帅位争夺"
+        "title": "拉菲尼亚不顾巴萨反对提前做耳部手术"
       },
       {
         "slot": "data",
-        "type": "热点球评",
-        "title": "曼联当年解雇穆里尼奥，古利特说太仓促且毫无理由"
+        "type": "数据对比",
+        "title": "38岁谭龙拿中甲金球金靴，年龄原来真不是个事"
       }
     ],
-    "degraded": [
-      "data 槽用次优类型补位"
-    ],
+    "degraded": [],
     "skipped": [
       {
         "type": "热点球评",
-        "title": "克雷桑20球9助落选中超最佳阵，泰山球迷炸了"
-      },
-      {
-        "type": "八卦趣事",
-        "title": "38岁谭龙拿中甲金球奖，年龄真就只是个数字？"
+        "title": "领先18分丢冠，成都蓉城竟然把颁奖台都备好了"
       }
     ],
-    "day_counts": {},
+    "day_counts": {
+      "热点球评": 2
+    },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "morning"
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-11 11:08:13",
+  "last_batch": "noon",
+  "last_updated": "2026-11-11 12:03:25",
   "batches_completed": [
     "morning"
   ]
