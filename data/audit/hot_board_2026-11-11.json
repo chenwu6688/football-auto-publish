@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-11",
-  "generated_at": "2026-11-11 12:02:51",
+  "generated_at": "2026-11-11 18:05:46",
   "board_total": 132,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.36
+        "elapsed_s": 1.59
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.86
+        "elapsed_s": 0.94
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.29
+        "elapsed_s": 0.18
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 2.57
+        "elapsed_s": 1.59
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,36 +65,20 @@
       }
     },
     "errors": [],
-    "stale_dropped": 5,
+    "stale_dropped": 1,
     "unknown_time": 8,
     "stale_samples": [
       {
         "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 69.8
-      },
-      {
-        "title": "太幽默了！女球迷当面坦白支持巴萨，弗洛伦蒂诺：叫警察来",
-        "age_h": 46.9
-      },
-      {
-        "title": "【CBS Sports】皇马3-0胜瓦伦",
-        "age_h": 74.0
-      },
-      {
-        "title": "【talkSPORT】图赫尔弃帕尔默惹议",
-        "age_h": 77.3
-      },
-      {
-        "title": "【西甲 瓦伦西亚VS皇马】穆里尼奥采访",
-        "age_h": 78.0
+        "age_h": 75.8
       }
     ]
   },
   "football_hits": [
     {
       "word": "宙斯拒绝续约两豪门争抢",
-      "rank": 19,
-      "heat": 89316,
+      "rank": 22,
+      "heat": 74367,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369578&amp;topic_name=%E5%AE%99%E6%96%AF%E6%8B%92%E7%BB%9D%E7%BB%AD%E7%BA%A6%E4%B8%A4%E8%B1%AA%E9%97%A8%E4%BA%89%E6%8A%A2",
@@ -102,29 +86,6 @@
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评",
-      "rank": 10,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "拉菲尼亚",
-        "巴萨"
-      ],
-      "support": [
-        {
-          "title": "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评",
-          "url": "https://www.dongqiudi.com/articles/6640631.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "巴萨|拉菲尼亚#injury",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }

@@ -1,6 +1,6 @@
 {
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T04:03:25.023055",
+  "generated_at": "2026-11-11T10:18:03.876754",
   "total_articles": 4,
   "articles": [
     {
@@ -1189,77 +1189,16 @@
   ],
   "topics": [
     {
-      "title": "拉菲尼亚不顾巴萨反对提前做耳部手术",
-      "angle": "热点事件「拉菲尼亚不顾巴萨反对提前做耳部手术」，从球迷情绪与争议点切入",
-      "keywords": [],
-      "keywords_cn": [
-        "拉菲尼亚不顾巴萨反对提前做耳部手术"
-      ],
-      "content_type": "热点球评",
-      "score": 100,
-      "controversy_level": "high",
-      "why_pick": "媒体头条（dongqiudi）",
-      "_supply_layer": "二级·突发",
-      "_hot_event_key": "巴萨|拉菲尼亚#injury",
-      "_hot_rank": 10,
-      "_hot_source": "dongqiudi",
-      "_hot_channel": "media",
-      "_hot_providers": [
-        "dongqiudi"
-      ],
-      "_hot_support": [
-        "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评"
-      ],
-      "_hot_support_raw": [
-        {
-          "title": "拉菲尼亚不顾巴萨反对提前做耳部手术，巴西足协官员给予肯定西甲五洲10 评",
-          "url": "https://www.dongqiudi.com/articles/6640631.html",
-          "source": "dongqiudi"
-        }
-      ]
+      "title": "梅西C罗生涯造进球都超1100球，但一个靠传球一个靠射门制造差距",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     },
     {
-      "title": "38岁谭龙拿中甲金球金靴，年龄原来真不是个事",
-      "angle": "用38岁谭龙包揽中甲本土金球和金靴的数据，对比年轻球员的成长焦虑，带出老将余热与职业态度的讨论，态度明确：年龄只是数字。",
-      "keywords": [
-        "Tan Long",
-        "China League One",
-        "golden boot"
-      ],
-      "keywords_cn": [
-        "谭龙",
-        "中甲",
-        "金球",
-        "金靴",
-        "38岁"
-      ],
-      "content_type": "数据对比",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "感动",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "38岁老将双料奖项自带反差，数据可核对，能戳中老球迷对坚持与热爱的共鸣。",
-      "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-1"
+      "title": "C罗欧冠140球领跑，梅西差11球，这榜单老球迷怎么看",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
@@ -1268,17 +1207,86 @@
     "min_per_article": 3,
     "articles_below": 0
   },
+  "compliance_dropped": [
+    {
+      "index": 1,
+      "title": "梅西C罗生涯造进球都超1100球，但一个靠传球一个靠射门制造差距",
+      "blocked_by": [
+        "TT-07",
+        "TT-08"
+      ],
+      "risk_score": 40,
+      "verdicts": [
+        {
+          "id": "TT-07",
+          "name": "诱导交互",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        },
+        {
+          "id": "TT-08",
+          "name": "违规涨粉 / 引导互粉",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "C罗欧冠140球领跑，梅西差11球，这榜单老球迷怎么看",
+      "blocked_by": [
+        "TT-07",
+        "TT-08"
+      ],
+      "risk_score": 40,
+      "verdicts": [
+        {
+          "id": "TT-07",
+          "name": "诱导交互",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        },
+        {
+          "id": "TT-08",
+          "name": "违规涨粉 / 引导互粉",
+          "tier": "block",
+          "credit": 20,
+          "status": "fail",
+          "detail": "命中诱导话术：索要关注",
+          "hits": [
+            "关注[^。！？!?\\n]{0,6}(不迷路|我|老六|我们|本号)"
+          ]
+        }
+      ]
+    }
+  ],
+  "zero_publish_reason": "合规审核：本批 2 篇全部被合规规则剔除，发布集合 0 篇",
   "supply_layers": {
     "total": 2,
     "counts": {
       "一级·确定性": 0,
-      "二级·突发": 1,
-      "三级·软性": 1
+      "二级·突发": 0,
+      "三级·软性": 2
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 50.0,
-      "三级·软性": 50.0
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -1287,12 +1295,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 0.0,
-      "三级·软性": 30.0
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 1,
+      "data_driven": 2,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -1308,15 +1316,21 @@
       "数量": 1
     },
     {
-      "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（14 < 42）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     },
     {
-      "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（16 < 20）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 0 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "合规审核",
+      "原因": "TT-07(20分)、TT-08(20分)",
+      "处置": "丢弃该篇成稿，不停整批",
       "数量": 1
     },
     {
@@ -1330,67 +1344,63 @@
       "原因": "真实图源只拿到 0 张",
       "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
+    },
+    {
+      "环节": "合规审核",
+      "原因": "TT-07(20分)、TT-08(20分)",
+      "处置": "丢弃该篇成稿，不停整批",
+      "数量": 1
+    },
+    {
+      "环节": "合规审核",
+      "原因": "本批 2 篇全部被合规规则剔除，发布集合 0 篇",
+      "处置": "按 compliance_dropped 逐条复核规则是否过严；如需补发走补发 cron",
+      "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
-  "hot_topics": [
-    {
-      "title": "拉菲尼亚不顾巴萨反对提前做耳部手术",
-      "rank": 10,
-      "source": "dongqiudi",
-      "channel": "media",
-      "event_key": "巴萨|拉菲尼亚#injury"
-    }
-  ],
+  "ranker_mode": "rule",
   "batch_mix": {
     "slots": [
       "main",
       "data"
     ],
-    "picked": [
-      {
-        "slot": "main",
-        "type": "热点球评",
-        "title": "拉菲尼亚不顾巴萨反对提前做耳部手术"
-      },
-      {
-        "slot": "data",
-        "type": "数据对比",
-        "title": "38岁谭龙拿中甲金球金靴，年龄原来真不是个事"
-      }
+    "picked": [],
+    "degraded": [
+      "main 槽无可用候选（不凑数，本批少写 1 篇）",
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
-    "degraded": [],
     "skipped": [
       {
-        "type": "热点球评",
-        "title": "领先18分丢冠，成都蓉城竟然把颁奖台都备好了"
+        "type": "转会资讯",
+        "title": "中日德兰接触王钰栋达到90%，18岁留洋北欧真是好选择吗"
       }
     ],
     "day_counts": {
-      "热点球评": 2
+      "热点球评": 3,
+      "数据对比": 1
     },
-    "selected": 2,
+    "selected": 0,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-11 12:05:58",
+  "last_batch": "evening",
+  "last_updated": "2026-11-11 18:18:03",
   "batches_completed": [
     "morning",
     "noon"
