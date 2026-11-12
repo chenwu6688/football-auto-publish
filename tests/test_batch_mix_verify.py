@@ -39,11 +39,19 @@ def _load_verifier():
 
 
 def _funnel_row(day: str, batch: str, degraded: int | None, *,
-                requested: int = 2, at: str | None = None) -> dict:
-    """一条成功的批次记录；degraded=None 表示老记录（没有「降级」子项）。"""
+                requested: int = 2, at: str | None = None,
+                slots: list | None = None) -> dict:
+    """一条成功的批次记录。
+
+    degraded=None      → 老记录（连「降级」子项都没有）
+    slots=None         → 只有降级总数，**没有** `降级明细`（11-12 之前的形态）
+    slots=["data 槽…"] → 有明细，能判「哪个槽降级」
+    """
     det = {"请求": requested, "未选": 1}
     if degraded is not None:
         det["降级"] = degraded
+    if slots is not None:
+        det["降级明细"] = slots
     return {"date": day, "batch": batch, "status": "ok",
             "at": at or f"{day}T12:00:00+08:00",
             "stages": {"batch_mix": {"n": requested, "detail": det}}}
@@ -80,30 +88,59 @@ class _Base(unittest.TestCase):
 
 
 class TestSlotFill(_Base):
-    def test_degraded_batch_fails_and_names_the_batch(self):
-        """任一批降级 > 0 → 立刻 FAIL，且报告里能读出「哪天哪批」。"""
-        self._write_funnel([_funnel_row(self.day, "晨读", 0),
-                            _funnel_row(self.day, "午间", 1)])
+    def test_data_slot_degraded_fails_and_names_the_batch(self):
+        """data 槽降级 → 立刻 FAIL，且报告里能读出「哪天哪批」。"""
+        self._write_funnel([
+            _funnel_row(self.day, "晨读", 0, slots=[]),
+            _funnel_row(self.day, "午间", 1, slots=["data 槽用次优类型补位"]),
+        ])
         r = self.vm._check_slot_fill()
-        self.assertIs(r["ok"], False, f"降级 1 篇却没红：{r}")
+        self.assertIs(r["ok"], False, f"data 槽降级却没红：{r}")
         joined = " ".join(r["detail"])
         self.assertIn("午间", joined, "报告必须指名是哪一批，否则无法定位供给")
         self.assertIn("不要", joined, "处置文案要明确禁止调阈值/后移生效日")
 
-    def test_all_zero_after_min_batches_passes(self):
-        """够 3 批且全无降级 → 通过（不攒 8 篇）。"""
-        self._write_funnel([_funnel_row(self.day, b, 0) for b in ("晨读", "午间", "晚间")])
+    def test_main_slot_degraded_is_not_a_failure(self):
+        """main 槽降级是热点型候选波动（DAILY_CAP 先撞闸），只观测不判红。
+
+        11-12 晨读实测：请求 3 / 降级 2，两条都出自 main 槽 —— 旧判据
+        「降级 > 0 即红」把它算成「data 槽塌了」，判据定位的事实是错的。
+        """
+        self._write_funnel([
+            _funnel_row(self.day, b, 2, requested=3,
+                        slots=["main 槽用次优类型补位", "main 槽用次优类型补位"])
+            for b in ("晨读", "午间", "晚间")])
         r = self.vm._check_slot_fill()
-        self.assertIs(r["ok"], True, f"3 批全 0 降级应通过：{r}")
+        self.assertIs(r["ok"], True, f"main 槽降级被误判成 data 槽塌了：{r}")
+        self.assertIn("main 槽", " ".join(r["detail"]), "要点出 main 槽降级留在观测里")
+
+    def test_all_clean_after_min_batches_passes(self):
+        """够 3 批且 data 槽都没降级 → 通过（不攒 8 篇）。"""
+        self._write_funnel([_funnel_row(self.day, b, 0, slots=[])
+                            for b in ("晨读", "午间", "晚间")])
+        r = self.vm._check_slot_fill()
+        self.assertIs(r["ok"], True, f"3 批 data 槽全绿应通过：{r}")
 
     def test_too_few_batches_is_pending(self):
-        """只有 1 批且没降级 → 未判定（0 篇降级不能证明什么）。"""
-        self._write_funnel([_funnel_row(self.day, "晨读", 0)])
+        """只有 1 批且没降级 → 未判定（1 批不能证明什么）。"""
+        self._write_funnel([_funnel_row(self.day, "晨读", 0, slots=[])])
         r = self.vm._check_slot_fill()
         self.assertIsNone(r["ok"])
         self.assertTrue(r.get("pending"))
 
-    def test_legacy_rows_without_detail_are_not_counted_as_zero(self):
+    def test_rows_without_slot_detail_are_not_counted_as_zero(self):
+        """只有降级总数、没有 `降级明细` → 未判定，绝不按「0 降级」补。
+
+        分不清哪个槽降级时给出「通过」，就是在用一个总数冒充槽位证据
+        （11-12 之前正是这么判的）。
+        """
+        self._write_funnel([_funnel_row(self.day, b, 0)
+                            for b in ("晨读", "午间", "晚间")])
+        r = self.vm._check_slot_fill()
+        self.assertIsNone(r["ok"], "把「没有槽位明细」当成「data 槽没降级」")
+        self.assertTrue(r.get("pending"))
+
+    def test_legacy_rows_without_any_detail_are_skipped(self):
         """老记录没有「降级」子项 → 跳过，绝不按 0 补。"""
         self._write_funnel([_funnel_row(self.day, "晨读", None)])
         r = self.vm._check_slot_fill()
@@ -119,14 +156,15 @@ class TestSlotFill(_Base):
         """生效时刻之前的批次不算 —— 它跑在提示词补齐之前，必然降级。
 
         按「天」一刀切会把它算进来：这条检查从上线第一天起永久红，
-        同时还会把修复后（12:01，降级 0）那批一起排掉。
+        同时还会把修复后（12:01，data 槽已填）那批一起排掉。
         """
         self.vm.SLOT_SINCE_AT = f"{self.day}T11:58:00+08:00"
         self._write_funnel([
-            _funnel_row(self.day, "晨读", 1, at=f"{self.day}T11:01:00+08:00"),  # 修复前
-            _funnel_row(self.day, "午间", 0, at=f"{self.day}T12:01:00+08:00"),
-            _funnel_row(self.day, "晚间", 0, at=f"{self.day}T18:01:00+08:00"),
-            _funnel_row(self.day, "加发", 0, at=f"{self.day}T20:01:00+08:00"),
+            _funnel_row(self.day, "晨读", 1, slots=["data 槽用次优类型补位"],
+                        at=f"{self.day}T11:01:00+08:00"),   # 修复前
+            _funnel_row(self.day, "午间", 0, slots=[], at=f"{self.day}T12:01:00+08:00"),
+            _funnel_row(self.day, "晚间", 0, slots=[], at=f"{self.day}T18:01:00+08:00"),
+            _funnel_row(self.day, "加发", 0, slots=[], at=f"{self.day}T20:01:00+08:00"),
         ])
         r = self.vm._check_slot_fill()
         self.assertIs(r["ok"], True, f"修复前那批被算进新判据了：{r}")

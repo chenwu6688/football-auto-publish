@@ -6251,9 +6251,14 @@ def main():
                 topics, article_count, day_counts=batch_mix.day_type_counts(_day_arts))
             extra_meta["batch_mix"] = _mix_rep
             # 漏斗第 5 层：batch_mix（结构槽位只留这么多条，其余进 skipped）
+            # 2026-11-12：补 `降级明细`（哪一槽降级、为什么）。只记总数时，
+            # 「data 槽没填上」与「main 槽没候选」在台账里长得一模一样，
+            # 验收只能拿「降级 > 0」一刀切 —— 而 main 槽降级是热点供给的正常波动，
+            # 于是判据要么永远红、要么被调松到没有意义（11-12 晨读实证）。
             _funnel("batch_mix", _mix_rep.get("selected", len(topics)),
                     请求=_mix_rep.get("requested", article_count),
                     降级=len(_mix_rep.get("degraded") or []),
+                    降级明细=[str(x)[:40] for x in (_mix_rep.get("degraded") or [])],
                     未选=len(_mix_rep.get("skipped") or []))
             _mix_n = len(topics)          # 供 slot 层按「结构后剩余」算损失
             print("   🎯 批次类型结构：" + " + ".join(

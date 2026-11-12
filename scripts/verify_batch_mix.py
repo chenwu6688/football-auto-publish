@@ -14,9 +14,13 @@ P1-1 的目标不是「配比好看」，而是**把配额压到有阅读的类�
      「日上限生效」「同类型内保留 ranker 顺序」）
   B. 已接入生成侧（硬项）—— orchestrator 里真的调用 batch_mix.assign（AST 查 Call）
   C. 每批 data 槽命中（硬项，逐批）—— 生效时刻 `SLOT_SINCE_AT` 之后每个成功批次，
-     `data/audit/topic_funnel.jsonl` 里 `batch_mix.detail.降级` 必须为 0。
-     样本单位是**批**（一天 3 批），一出现降级立刻 FAIL 并指名「哪天哪批」，
-     不攒样本、不设合成阈值。
+     `data/audit/topic_funnel.jsonl` 里 `batch_mix.detail.降级明细` **不得出现
+     `data 槽…`**。样本单位是**批**（一天 3 批），一出现 data 槽降级立刻 FAIL
+     并指名「哪天哪批」，不攒样本、不设合成阈值。
+     **main 槽降级不判红**：热点型候选本来就有波动，且 DAILY_CAP 会在加发批次上
+     先撞闸（11-12 晨读：请求 3 / 降级 2，两条都出自 main 槽）。把 main 槽也算进
+     本节，判据就永远红，处置只能变成「调松阈值」。
+     只有总数、没有 `降级明细` 的老批次 = **未判定**（分不清哪个槽，不按 0 补）。
   D. 实际分布（观测项，**不参与判定**）—— 生效日后近 N 天的热点/数据型/战术榜单
      占比，与配比目标并排打印，供人看趋势。
   E. 禁发类型（硬项，绝对判据）—— 生效日后出现 `reservoir.BANNED_TYPES`
@@ -30,6 +34,8 @@ P1-1 的目标不是「配比好看」，而是**把配额压到有阅读的类�
   ③ 同一事实在成因侧有更早、更准的记录：`batch_mix.degraded` 逐批写明
      「data 槽用次优类型补位」。11-11 的 4 篇里数据型只占 25%，追下去正是
      晨读那批 `降级: 1`，而不是「阈值定高了」。
+  ④ 11-12 又踩了一次：只记「降级总数」时，main 槽降级与 data 槽降级在台账里
+     长得一样，判据只能一刀切 —— 所以先补 `降级明细` 埋点，再按槽判。
 
 所有口径用 content_mix.normalize 归一（战术解析→战术榜单、榜单→排行榜、紧急球评→热点球评），
 避免「榜单 / 排行榜」「战术解析 / 战术榜单」被拆成两类互相合格（10-24 比分口径事故的同款风险）。
@@ -203,33 +209,65 @@ def _funnel_batches() -> list[dict]:
         det = bm.get("detail") or {}
         if "降级" not in det:
             continue
+        # `降级明细` 是 2026-11-12 才有的：只有它才能说出「哪个槽降级」。
+        # 老记录只有总数 —— 分不清 data 槽与 main 槽，按「无证据」跳过，
+        # **绝不按 0 补**（拿缺失当事实，11-06 同一个错）。
+        has_detail = "降级明细" in det
         out.append({"date": r.get("date"), "batch": r.get("batch"),
-                    "requested": det.get("请求"), "degraded": int(det.get("降级") or 0)})
+                    "requested": det.get("请求"), "degraded": int(det.get("降级") or 0),
+                    "has_detail": has_detail,
+                    "slot_detail": [str(x) for x in (det.get("降级明细") or [])]})
     return out
 
 
+def _data_slot_degraded(b: dict) -> bool:
+    """这一批的 **data 槽**是否被降级（换型 / 空槽）。
+
+    只看 `data 槽…` 开头的明细：main 槽降级是热点供给的正常波动，且
+    DAILY_CAP 会在加发批次上先撞闸 —— 把它也算进本节，判据就永远是红的。
+    """
+    return any(str(x).startswith("data") for x in (b.get("slot_detail") or []))
+
+
 def _check_slot_fill() -> dict:
-    """C. 每批的 data 槽必须真填上（逐批判，不攒样本、不用合成阈值）。"""
+    """C. 每批的 data 槽必须真填上（逐批判，不攒样本、不用合成阈值）。
+
+    判据只认 data 槽：明细里出现 `data 槽…` 即 FAIL。
+    main 槽降级（热点型候选不足）是供给波动，记在报告里但不判红。
+    **没有 `降级明细` 的老批次一律未判定** —— 只有总数时无法区分哪个槽降级，
+    拿它当证据等于用总数猜原因（11-12 之前就是这么判的，结果 11-12 晨读
+    main 槽降级被当成「data 槽塌了」）。
+    """
     bs = _funnel_batches()
     if not bs:
         return {"item": "每批 data 槽命中", "ok": None, "pending": True,
                 "detail": [f"⏸ {_since_dt()} 起没有带「降级」明细的批次"
                            f"（台账缺失 = 未判定，不是通过）"]}
-    bad = [b for b in bs if b["degraded"] > 0]
+    evidenced = [b for b in bs if b["has_detail"]]
+    bad = [b for b in evidenced if _data_slot_degraded(b)]
     if bad:
         return {"item": "每批 data 槽命中", "ok": False, "bad_batches": bad,
-                "detail": [f"❌ {len(bad)}/{len(bs)} 批的 data 槽被次优类型补位 —— "
+                "detail": [f"❌ {len(bad)}/{len(evidenced)} 批的 data 槽被次优类型补位 —— "
                            f"这一批「数据对比 / 排行榜」的候选池是空的",
                            *[f"   {b['date']} {b['batch']}：请求 {b['requested']} 篇，"
-                             f"降级 {b['degraded']} 篇" for b in bad[-5:]],
+                             f"降级 {b['degraded']} 篇，明细：{'；'.join(b['slot_detail'])[:80]}"
+                             for b in bad[-5:]],
                            "   处置：查该批的「数据对比」选题供给与 material 剔除，"
                            "**不要**改阈值或后移生效日"]}
-    if len(bs) < MIN_BATCHES:
+    if not evidenced:
         return {"item": "每批 data 槽命中", "ok": None, "pending": True,
-                "detail": [f"⏸ 生效日后仅 {len(bs)} 批（<{MIN_BATCHES}），"
-                           f"暂无降级但样本不足（未判定，非通过）"]}
+                "detail": [f"⏸ 生效日后 {len(bs)} 批都只有降级总数、没有「降级明细」"
+                           f"（分不清哪个槽降级 = 未判定，不是通过）"]}
+    if len(evidenced) < MIN_BATCHES:
+        return {"item": "每批 data 槽命中", "ok": None, "pending": True,
+                "detail": [f"⏸ 生效日后仅 {len(evidenced)} 批带明细（<{MIN_BATCHES}），"
+                           f"暂无 data 槽降级但样本不足（未判定，非通过）"]}
+    mains = sum(1 for b in evidenced if any(str(x).startswith("main")
+                                            for x in (b.get("slot_detail") or [])))
     return {"item": "每批 data 槽命中", "ok": True,
-            "detail": [f"{len(bs)} 批全部填上 data 槽（降级 0）✅"]}
+            "detail": [f"{len(evidenced)} 批 data 槽全部填上 ✅"
+                       + (f"（其中 {mains} 批 main 槽降级：热点型候选波动，仅观测）"
+                          if mains else "")]}
 
 
 def _check_banned() -> dict:
