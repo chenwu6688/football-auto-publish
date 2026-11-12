@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-11-11T05:59:29",
+  "generated_at": "2026-11-12T07:01:52",
   "window_days": 2,
   "window_offset": 1,
   "since": "2026-11-06",
-  "articles": 10,
+  "articles": 8,
   "dates": {
-    "2026-11-09": 6,
-    "2026-11-10": 4
+    "2026-11-10": 4,
+    "2026-11-11": 4
   },
-  "ledger_articles": 10,
+  "ledger_articles": 8,
   "source": "ledger",
   "rules": [
     {
@@ -28,7 +28,7 @@
       "tier": "block",
       "status": "not_judged",
       "violations": 0,
-      "detail": "5/10 篇未判定：出口审核：闸门判 judged=False（空事实卡，未判定 ≠ 通过）；出口审核：metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+      "detail": "5/8 篇未判定：出口审核：闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
       "hits": []
     },
     {
@@ -38,7 +38,7 @@
       "tier": "block",
       "status": "not_judged",
       "violations": 0,
-      "detail": "10/10 篇未判定：出口审核：无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+      "detail": "8/8 篇未判定：出口审核：无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
       "hits": []
     },
     {
@@ -58,7 +58,7 @@
       "tier": "block",
       "status": "not_judged",
       "violations": 0,
-      "detail": "5/10 篇未判定：出口审核：闸门判 judged=False（空事实卡，未判定 ≠ 通过）；出口审核：metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+      "detail": "5/8 篇未判定：出口审核：闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
       "hits": []
     },
     {
@@ -66,9 +66,9 @@
       "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
       "credit": 20,
       "tier": "rewrite",
-      "status": "not_judged",
+      "status": "pass",
       "violations": 0,
-      "detail": "2/10 篇未判定：出口审核：无相似度/信息增量记录（未走改写路径或未记分）",
+      "detail": "出口审核：轻度相似（0 字 / 1%），只记分：事实点数少于最强源文（10 < 14）；出口审核：轻度相似（0 字 / 1%），只记分：事实点数少于最强源文（11 < 14）；出口审核：轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（16 < 20）…",
       "hits": []
     },
     {
@@ -108,7 +108,7 @@
       "tier": "rewrite",
       "status": "pass",
       "violations": 0,
-      "detail": "出口审核：24 段，无乱码与重复段；出口审核：26 段，无乱码与重复段；出口审核：27 段，无乱码与重复段…",
+      "detail": "出口审核：28 段，无乱码与重复段；出口审核：21 段，无乱码与重复段；出口审核：30 段，无乱码与重复段…",
       "hits": []
     },
     {
@@ -148,7 +148,7 @@
       "tier": "warn",
       "status": "not_judged",
       "violations": 0,
-      "detail": "1/10 篇未判定：正文可读样本仅 0 篇（<5），样本不足",
+      "detail": "1/8 篇未判定：正文可读样本仅 0 篇（<5），样本不足",
       "hits": []
     }
   ],
