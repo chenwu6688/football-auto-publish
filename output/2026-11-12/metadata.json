@@ -1,7 +1,7 @@
 {
   "date": "2026-11-12",
-  "generated_at": "2026-11-12T04:04:17.158713",
-  "total_articles": 6,
+  "generated_at": "2026-11-12T10:05:22.547332",
+  "total_articles": 7,
   "articles": [
     {
       "index": 1,
@@ -1779,121 +1779,378 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "卡里克下课了，曼联这波操作连罗马诺都没想到",
+      "path": "/home/runner/work/_temp/output/2026-11-12/article-1-卡里克下课了曼联-3ceb8f.md",
+      "slug": "卡里克下课了曼联-3ceb8f",
+      "tags": [
+        "Manchester United",
+        "Michael Carrick",
+        "sacked",
+        "Fabrizio Romano",
+        "Premier League"
+      ],
+      "keywords": [
+        "Manchester United",
+        "Michael Carrick",
+        "sacked",
+        "Fabrizio Romano",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-12/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-12/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-12/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261112/202611121735116871_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-12/6af5880c89646native.htm",
+            "query": "罗马、曼联",
+            "alt": "转正仅5个月！罗马诺：曼联已经解雇主帅卡里克"
+          },
+          "width": 1200,
+          "height": 1623
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261110/6af2bc947b806_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-12/6af5623dcf035native.htm",
+            "query": "罗马",
+            "alt": "布加勒斯特星老板：和斯坦丘聊过，他如果回罗马尼亚会打电话"
+          },
+          "width": 720,
+          "height": 480
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260613/6a2cc37468e47.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-12/6af58514457c2native.htm",
+            "query": "曼联",
+            "alt": "吃得消吗？曼晚：波帅对球员体能要求极高，此前曼联跑动数据糟糕"
+          },
+          "width": 1200,
+          "height": 744
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "英超罗马诺：曼联立即解雇主帅卡里克",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 77,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题 21 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（6 < 65）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（6 < 65）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "24 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "转会官宣",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "罗马",
+          "曼联"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 17,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1088,
+        "han_len": 791,
+        "paragraphs": 14,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "曼联|罗马#coach",
+      "hot_rank": 1,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
     }
   ],
   "topics": [
     {
-      "title": "RMC：欧国联对阵克罗地亚前",
-      "angle": "热点事件「RMC：欧国联对阵克罗地亚前」，从球迷情绪与争议点切入",
+      "title": "英超罗马诺：曼联立即解雇主帅卡里克",
+      "angle": "热点事件「英超罗马诺：曼联立即解雇主帅卡里克」，从球迷情绪与争议点切入",
       "keywords": [],
       "keywords_cn": [
-        "RMC：欧国联对阵克罗地亚前",
-        "凯恩"
+        "英超罗马诺：曼联立即解雇主帅卡里克"
       ],
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
       "why_pick": "媒体头条（dongqiudi）",
       "_supply_layer": "二级·突发",
-      "_hot_event_key": "凯恩#award",
-      "_hot_rank": 10,
+      "_hot_event_key": "曼联|罗马#coach",
+      "_hot_rank": 1,
       "_hot_source": "dongqiudi",
       "_hot_channel": "media",
       "_hot_providers": [
         "dongqiudi"
       ],
       "_hot_support": [
-        "RMC：欧国联对阵克罗地亚前，凯恩将在温布利球场展示金球奖英超2 评"
+        "英超罗马诺：曼联立即解雇主帅卡里克"
       ],
       "_hot_support_raw": [
         {
-          "title": "RMC：欧国联对阵克罗地亚前，凯恩将在温布利球场展示金球奖英超2 评",
-          "url": "https://www.dongqiudi.com/articles/6645320.html",
+          "title": "英超罗马诺：曼联立即解雇主帅卡里克",
+          "url": "https://www.dongqiudi.com/articles/6646020.html",
           "source": "dongqiudi"
         }
       ]
     },
     {
-      "title": "10球7助攻，纳萨里奥这份数据在中超外援里居然排不进前三",
-      "angle": "用纳萨里奥的10球7助攻作为引子，横向对比中超历史外援的巅峰数据，带出中超外援质量变迁的讨论——老球迷记忆里的那些外援，数据放今天什么水平？",
+      "title": "没想到中国女足选帅竟只剩5人面试，常卫魏凭什么领跑",
+      "angle": "从女足选帅面试人数不足5人切入，点出中国女足帅位已从香饽饽变成烫手山芋。常卫魏带武汉女足拿过亚冠，但国家队和俱乐部是两码事，这份冷清背后是女足关注度和投入的尴尬现实。",
       "keywords": [
-        "Nassario",
-        "Chinese Super League",
-        "foreign players"
+        "China women's football",
+        "Chang Weiwei",
+        "coach selection"
       ],
       "keywords_cn": [
-        "纳萨里奥",
-        "中超",
-        "外援"
+        "中国女足",
+        "常卫魏",
+        "选帅",
+        "武汉女足"
       ],
-      "content_type": "数据对比",
-      "score": 82,
+      "content_type": "热点球评",
+      "score": 88,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "国足情结",
       "series_id": "无",
-      "why_pick": "用具体数据做横向对比，戳中老球迷对中超外援黄金年代的集体记忆",
+      "why_pick": "女足选帅冷清现状戳中国足球体制痛点，常卫魏领跑有话题性",
       "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
       "_rank_id": "topic-1"
-    },
-    {
-      "title": "波切蒂诺等了曼联8年，没想到穆里尼奥下课那会儿他就该来",
-      "angle": "从波切蒂诺与曼联的8年纠葛切入，揭示曼联选帅的反复与犹豫，对比热刺时期的波帅和如今的曼联，老球迷看了会心一笑——曼联这些年到底在等什么？",
-      "keywords": [
-        "Pochettino",
-        "Manchester United",
-        "Mourinho"
-      ],
-      "keywords_cn": [
-        "波切蒂诺",
-        "曼联",
-        "穆里尼奥"
-      ],
-      "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "名帅名宿沉浮",
-      "series_id": "old-fan-night",
-      "why_pick": "曼联选帅反复是老球迷最熟悉的痛，波切蒂诺8年等待有戏剧张力",
-      "_category": "转会官宣",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
     }
   ],
   "data_sources": {},
@@ -1902,17 +2159,41 @@
     "min_per_article": 3,
     "articles_below": 0
   },
+  "compliance_dropped": [
+    {
+      "index": 2,
+      "title": "女足奥预赛2027年4月开打，中国女足排第5却要拼附加赛",
+      "blocked_by": [
+        "TT-03"
+      ],
+      "risk_score": 70,
+      "verdicts": [
+        {
+          "id": "TT-03",
+          "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+          "tier": "block",
+          "credit": 70,
+          "status": "fail",
+          "detail": "正文出现 2 处未来日期，晚于成稿日 2026-11-12",
+          "hits": [
+            "2027年4月19",
+            "2028年2月28"
+          ]
+        }
+      ]
+    }
+  ],
   "supply_layers": {
-    "total": 3,
+    "total": 2,
     "counts": {
       "一级·确定性": 0,
       "二级·突发": 2,
-      "三级·软性": 1
+      "三级·软性": 0
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 66.7,
-      "三级·软性": 33.3
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -1921,12 +2202,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 16.7,
-      "三级·软性": 13.3
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 1,
+      "data_driven": 0,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -1943,7 +2224,7 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "与源文连续重合 15 字（>12，疑似洗稿）；事实点数少于最强源文（8 < 39）",
+      "原因": "事实点数少于最强源文（6 < 65）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
@@ -1960,84 +2241,75 @@
       "数量": 1
     },
     {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
-      "数量": 1
-    },
-    {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
-      "处置": "用 2 张原创信息图补到 3 张",
+      "环节": "合规审核",
+      "原因": "TT-03(70分)",
+      "处置": "丢弃该篇成稿，不停整批",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
-    "max_articles": 3,
-    "uplifted": true,
-    "reason": "thursday_boost",
+    "batch": "evening",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
     "requested_reason": "thursday_boost",
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "加发 3 篇（原因 thursday_boost，周内 2/2）",
+    "detail": "常态 2 篇（周内加发已用满 2/2）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "hot_topics": [
     {
-      "title": "RMC：欧国联对阵克罗地亚前",
-      "rank": 10,
+      "title": "英超罗马诺：曼联立即解雇主帅卡里克",
+      "rank": 1,
       "source": "dongqiudi",
       "channel": "media",
-      "event_key": "凯恩#award"
+      "event_key": "曼联|罗马#coach"
     }
   ],
   "batch_mix": {
     "slots": [
       "main",
-      "data",
-      "main"
+      "data"
     ],
     "picked": [
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "RMC：欧国联对阵克罗地亚前"
+        "title": "英超罗马诺：曼联立即解雇主帅卡里克"
       },
       {
         "slot": "data",
-        "type": "数据对比",
-        "title": "10球7助攻，纳萨里奥这份数据在中超外援里居然排不进前三"
-      },
-      {
-        "slot": "main",
         "type": "热点球评",
-        "title": "波切蒂诺等了曼联8年，没想到穆里尼奥下课那会儿他就该来"
+        "title": "没想到中国女足选帅竟只剩5人面试，常卫魏凭什么领跑"
       }
     ],
-    "degraded": [],
+    "degraded": [
+      "data 槽用次优类型补位"
+    ],
     "skipped": [
       {
-        "type": "八卦趣事",
-        "title": "罗慕洛走时蓉城球迷送行，阿洛伊西却独自拎行李登机，反差太"
+        "type": "转会资讯",
+        "title": "韩国17岁前锋金志浩加盟萨尔茨堡，曾对中国国少梅开二度"
       }
     ],
     "day_counts": {
-      "热点球评": 2,
-      "转会资讯": 1
+      "热点球评": 4,
+      "转会资讯": 1,
+      "数据对比": 1
     },
-    "selected": 3,
-    "requested": 3
+    "selected": 2,
+    "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-12 12:08:01",
+  "last_batch": "evening",
+  "last_updated": "2026-11-12 18:05:22",
   "batches_completed": [
     "morning",
     "noon"
