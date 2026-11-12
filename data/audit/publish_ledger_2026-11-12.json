@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-12",
-  "generated_at": "2026-11-12 04:08:01",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-12 10:06:45",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 6,
-    "published": 6,
+    "total": 7,
+    "published": 7,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -17,11 +18,21 @@
     "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 3,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "卡里克下课了，曼联这波操作连罗马诺都没想到",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7707224085788508682",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "巴萨伤停名单竟能凑一套首发，弗里克开局就遭大考",
       "slug": "",
