@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11 16:09",
+  "generated_at": "2026-11-12 11:34",
   "ok": true,
   "checks": [
     {
@@ -63,9 +63,9 @@
       "ok": true,
       "advisory": true,
       "skipped": true,
-      "account_days": 13,
+      "account_days": 12,
       "detail": [
-        "本地无成稿正文（CI 环境），本项跳过；涨粉通道近 14 天有 13 天数据"
+        "本地无成稿正文（CI 环境），本项跳过；涨粉通道近 14 天有 12 天数据"
       ]
     }
   ],

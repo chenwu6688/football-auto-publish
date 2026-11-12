@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11 16:09",
+  "generated_at": "2026-11-12 11:34",
   "window_days": 7,
   "ok": true,
   "checks": [
@@ -7,11 +7,11 @@
       "item": "发布成功率（近 7 天）",
       "ok": true,
       "pending": false,
-      "published": 31,
+      "published": 30,
       "failed": 0,
       "rate": 100.0,
       "detail": [
-        "✅ 近 7 天：成功 31 / 尝试 31 篇，成功率 100.0%（下限 85%）",
+        "✅ 近 7 天：成功 30 / 尝试 30 篇，成功率 100.0%（下限 85%）",
         "台账覆盖 7 天，缺 0 天"
       ]
     },
@@ -45,9 +45,9 @@
       "ok": true,
       "advisory": true,
       "no_cover": 0,
-      "published": 31,
+      "published": 30,
       "detail": [
-        "已发布 31 篇，其中零配图 0 篇（0.0%）",
+        "已发布 30 篇，其中零配图 0 篇（0.0%）",
         "判定权在 verify_cover_coverage（上限 5%）；本项只报数不回滚"
       ]
     }
