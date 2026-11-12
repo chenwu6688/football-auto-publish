@@ -641,6 +641,38 @@ def recorded_verdict(item: dict, rule_id: str) -> dict | None:
 #: 一篇格式问题放大成整批 0 篇（11-06 午间就是这么来的）。逐篇丢永远优于整批停。
 _DROP_TIERS = ("block", "rewrite")
 
+#: 允许「删句修复」的判据名（规则表里的 `judge` 字段），只有话术类 20 分档在列。
+#: 2026-11-12 立：一句结尾的「…关注…」让**整批 0 篇**，代价与「扣 20 分」完全不对称；
+#: 正确处置是删掉那一句再发，而不是把整篇稿子扔掉。反过来，事实类判据
+#: （不实信息/侵权/赌博 70 分档）**删句等于抹掉错误证据**，必须整篇丢。
+_REPAIRABLE_JUDGES = ("inducement",)
+_REPAIRABLE_MAX_CREDIT = 20
+
+
+def repairable_by_sentence(blocked_ids, rules: dict | None = None) -> bool:
+    """这些命中能否靠「删掉违规那一句」修好（而不是丢整篇）。
+
+    判据从**规则表**读（`judge` + `credit`），不在调用侧另列一份 ID 白名单：
+    规则重编号时白名单会静默失效，而这里跟着规则表一起动。
+    """
+    ids = [str(i) for i in (blocked_ids or []) if str(i).strip()]
+    if not ids:
+        return False
+    rules = rules or load_rules()
+    by_id = {r.get("id"): r for r in (rules.get("rules") or []) if isinstance(r, dict)}
+    for rid in ids:
+        r = by_id.get(rid)
+        if not isinstance(r, dict):
+            return False
+        if str(r.get("judge") or "") not in _REPAIRABLE_JUDGES:
+            return False
+        try:
+            if int(r.get("credit") or 0) > _REPAIRABLE_MAX_CREDIT:
+                return False
+        except (TypeError, ValueError):
+            return False
+    return True
+
 
 def audit_article(art: dict, date_str: str, rules: dict | None = None,
                   body: str | None = None) -> dict:

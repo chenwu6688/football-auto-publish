@@ -64,9 +64,13 @@ _TMPL = """你是头条号足球博主"球评人老六"，受众是 41 岁以上
 - 不要编造可核查的具体比分/转会金额等硬事实；用公认的历史数据与常识
 - 禁用词：震惊、吓尿、看傻了、众所周知、值得一提的是、从某种意义上说、不得不说
 
-**粉丝沉淀钩子（生成后会校验，缺了直接打回）**：
-- 正文里必须有一句自然的「关注」引导，融在收尾段落里，例如「关注老六，这类老故事我还存着一柜子」
-- 必须有一个读者能直接回答的问题（评论区/你怎么看/你站哪边）
+**收尾钩子（生成后会校验，缺了直接打回）**：
+- 必须有一个读者能直接回答的问题（评论区/你怎么看/你站哪边），问题要贴着正文那件事，不要空问
+- 结尾只把问题问好：**不要向读者索要任何东西**——不讨要账号动作，不用数字表态换互动，
+  也不要给任何「下次还来」的承诺
+  （2026-11-12：这里原本强制要求一句账号引导并给了示例，模型原句照抄，
+   出口合规按 TT-07/TT-08 各判 20 分，11-11 晚间 2 篇全部丢弃、发布 0 篇。
+   蓄水池是 30% 稿源，提示词里教什么，成稿里就有什么。）
 - **禁止**写「👇 评论区见分晓」「各位老铁」这类套话，也不要加分隔线堆在文末——要像人说话
 
 只输出纯 JSON：
@@ -138,14 +142,23 @@ def _make_one(angle: dict, index: int) -> dict:
         bait = interaction_bait.check(obj.get("content", ""),
                                       bait_field=obj.get("interaction_bait", ""))
         bait_ok = bool(bait.get("ok") or bait.get("degraded"))
+        # 2026-11-12：原先这里只判「有没有引导」，不判「引导是不是违规话术」。
+        # 结果蓄水池存进 22 条带诱导话术的稿子（其中 8 条 status=stocked 可发），
+        # 11-11 晚间正是它们被出口合规整批剔除。入库前必须自己先判一次。
+        induce = interaction_bait.check_inducement(obj.get("content", ""))
+        induce_ok = bool(induce.get("ok") or induce.get("degraded"))
         title_ok, title_hint = _title_gate(obj, angle["content_type"])
-        if bait_ok and title_ok:
+        if bait_ok and title_ok and induce_ok:
             break
         hints = []
         if not bait_ok:
             hints.append("缺 " + "、".join(bait.get("missing") or []) + "："
                          + str(bait.get("hint") or "")
                          + "。请把引导自然融进收尾段落，不要堆套话。")
+        if not induce_ok:
+            _grp = "、".join(sorted({str(h.get("group", "")) for h in (induce.get("hits") or [])}))
+            hints.append(f"命中诱导话术（{_grp}）：把那句话整段删掉重写，"
+                         "结尾只把问题问好，不向读者索要任何东西。")
         if not title_ok:
             hints.append(title_hint)
         last_hint = "；".join(hints)
@@ -198,6 +211,10 @@ def main() -> int:
                   f"{art['title'][:30]}（{art.get('_title_score', '-')} 分）")
             continue
         rid = reservoir.stock(art, section=angle["section"], date_str=datetime.now().strftime("%Y-%m-%d"))
+        if not rid:
+            # stock() 入库前会自判诱导话术，命中返回 ""（未入库）
+            print(f"   ⛔ 诱导话术未过闸门，不入库（{angle['content_type']}）：{art['title'][:30]}")
+            continue
         stocked += 1
         print(f"   ✅ 已入库 [{rid}] {art['content_type']} · {art['title'][:36]}"
               f"（标题分 {art.get('_title_score','-')}）")

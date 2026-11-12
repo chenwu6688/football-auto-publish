@@ -63,7 +63,24 @@ def _save(data: dict) -> None:
 
 def stock(article: dict, *, section: str = "", date_str: str = "",
           ttl_days: int = DEFAULT_TTL_DAYS, now: datetime | None = None) -> str:
-    """把一篇软性成稿备货入库，返回条目 id（status=stocked）。"""
+    """把一篇软性成稿备货入库，返回条目 id（status=stocked）。
+
+    2026-11-12：**入库前自检诱导话术**。蓄水池是 30% 稿源，一旦入池的稿子带
+    「诱导交互 / 违规涨粉」话术，出口合规会整篇剔除（11-11 晚间 2 篇全丢、
+    发布 0 篇，根因就是池子里 22 条带话术的稿子）。判定只用
+    ``interaction_bait.check_inducement`` 这一个口径；命中不入库、返回 ""，
+    由调用方决定重试还是跳过——**不要在这里替调用方编造 id**。
+    """
+    try:
+        import interaction_bait
+        _res = interaction_bait.check_inducement(article.get("content", "") or "")
+    except Exception as exc:                       # 判定不可用不阻断（与交互闸门同口径）
+        _res = {"ok": True, "degraded": True,
+                "detail": [f"诱导话术判定不可用（{type(exc).__name__}），放行"]}
+    if not (_res.get("ok") or _res.get("degraded")):
+        groups = "、".join(sorted({str(h.get("group", "")) for h in (_res.get("hits") or [])}))
+        print(f"   ⛔ 拒收带诱导话术的备货（{groups}）：{(article.get('title') or '')[:24]}")
+        return ""
     now = now or _now()
     data = _load()
     rid = f"rsv-{now.strftime('%Y%m%d')}-{uuid.uuid4().hex[:6]}"

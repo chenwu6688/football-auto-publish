@@ -2215,6 +2215,45 @@ def _inject_images(content: str, downloaded: list) -> str:
     return content.rstrip() + "\n" + "".join(refs)
 
 
+def _try_sentence_repair(art, date_str, cmpl):
+    """命中「话术类 20 分档」时删句重判；能救就返回通过的结果，救不了原样返回。
+
+    为什么值得单独一层（2026-11-11 晚间）：一句结尾的「…关注…」让本批 2 篇全部
+    被丢掉、发布集合 0 篇、`batches_completed` 不写 evening，第二天心跳报
+    「缺失批次」。扣 20 分和交 0 篇不是同一个量级的账 —— 删掉那一句照发才对。
+
+    边界靠 `compliance_gate.repairable_by_sentence` 卡（判据从规则表读：
+    只有 `judge=inducement` 且 `credit<=20` 才修；不实/侵权/赌博 70 分档一律不修，
+    那些删句等于抹掉错误证据）。删完**必须重判**，仍不干净就返回原结果。
+    """
+    if not isinstance(cmpl, dict) or not cmpl.get("drop"):
+        return cmpl
+    try:
+        if not compliance_gate.repairable_by_sentence(cmpl.get("blocked_by")):
+            return cmpl
+        fixed, cut = interaction_bait.strip_inducement(art.get("content") or "")
+        if not cut:
+            return cmpl
+        recheck = compliance_gate.audit_article(art, date_str, body=fixed)
+    except Exception as exc:                       # 修复链自己炸了 → 按原判丢弃
+        print(f"   ⚠️ 删句修复异常（按原判丢弃）：{type(exc).__name__}: {exc}")
+        return cmpl
+    if recheck.get("drop"):
+        print(f"   ⚠️ 删句后仍命中 {recheck.get('blocked_by')}，按原判丢弃")
+        return cmpl
+    art["content"] = fixed
+    # 删了哪几句要留证：不落这一项，「这篇收尾为什么变短了」永远查不到
+    art["_compliance_sentence_removed"] = {
+        "removed": [s[:80] for s in cut],
+        "blocked_by": list(cmpl.get("blocked_by") or []),
+    }
+    print(f"   ✂️ 合规删句后放行（删 {len(cut)} 句，其余照发）："
+          f"{art.get('title', '')[:26]}")
+    degrade.note("合规删句", "；".join(s[:40] for s in cut[:2]),
+                 action="删掉违规话术句后照发（20 分档不值得交 0 篇）")
+    return recheck
+
+
 def save_articles_local(date_str, articles, images_map, topics, match_data, extra=None,
                         pre_downloaded_images=None):
     """Save articles directly to filesystem (no Flask dependency).
@@ -2608,6 +2647,13 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
             print(f"   ⚠️ 出口合规审核异常（不阻断发布）：{_cmpl['error']}")
             degrade.note("合规审核", f"出口审核异常：{_cmpl['error']}",
                          action="放行并留痕；发布前那一层仍会审")
+        # 2026-11-12：命中「话术类 20 分档」时，先做**句级修复**再决定丢不丢。
+        # 11-11 晚间实证：两篇稿子结尾各带一句「…关注…」（来自当时还在强制要求
+        # 账号引导的蓄水池提示词），TT-07/TT-08 各判 20 分 → 整篇丢 → 0 篇 →
+        # 批次未完成 → 心跳告警。**扣 20 分与交 0 篇代价差一个数量级**，
+        # 所以这一档的正确处置是「删掉那一句再发」。事实类判据（不实/侵权/赌博，
+        # 70 分档）不在此列：删句等于抹掉错误证据，必须整篇丢。
+        _cmpl = _try_sentence_repair(art, date_str, _cmpl)
         if _cmpl["drop"]:
             _blk = [v for v in _cmpl["verdicts"] if v["id"] in _cmpl["blocked_by"]]
             _by = "、".join(f"{v['id']}({v['credit']}分)" for v in _blk)
@@ -2689,6 +2735,11 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
                 # 无法回答「这篇到底审过没有」——而「有结论没留证据」是本项目
                 # 38% 发布率一个月无人发现的原因。
                 "_compliance": art.get("_compliance"),
+                # 删句修复留证（2026-11-12）：删了哪几句、因为哪条规则。
+                # 不落这一项，「这篇为什么读起来收尾变短了」永远查不到。
+                # 只在真删过时写（成功也不写空字段会让「没修」与「修了0句」混为一谈）。
+                **({"compliance_sentence_removed": art["_compliance_sentence_removed"]}
+                   if art.get("_compliance_sentence_removed") else {}),
                 "sources_used": _prov_sources,
                 "source_post": _prov_post,
                 "originality_note": art.get("originality_note", ""),
@@ -6546,6 +6597,16 @@ def main():
                     _a = item.get("article") or {}
                     _t = (_a.get("title") or "").strip()
                     _ct = _a.get("content_type") or item.get("content_type") or ""
+                    # 2026-11-12：取用前再判一次诱导话术。入池与转正之间可能隔好几天，
+                    # 期间提示词/规则都可能变；判定不过就标 rejected，**不占本批配额**。
+                    # 11-11 晚间正是两条带「…关注…」的备货转正后被出口合规整篇丢，
+                    # 一批 2 篇全没、发布集合 0 篇。
+                    _ind = interaction_bait.check_inducement(_a.get("content") or "")
+                    if not (_ind.get("ok") or _ind.get("degraded")):
+                        _grp = "、".join(sorted({str(h.get("group", ""))
+                                                for h in (_ind.get("hits") or [])}))
+                        _rejected.append(f"{_t[:24]}（诱导话术：{_grp}）")
+                        return False, f"含诱导话术（{_grp}）"
                     _sc, _pass, _why, _ = _safe_title_score(
                         {"title": _t, "content_type": _ct}, _t, _ct,
                         recent_titles=_gate_recent, stage="蓄水池准入")
@@ -6555,7 +6616,8 @@ def main():
 
                 _picked = reservoir.fill_gap(_supply_gap, accept=_reservoir_accept)
                 if _rejected:
-                    degrade.note("蓄水池准入", f"{len(_rejected)} 条标题不过闸门，未转正",
+                    degrade.note("蓄水池准入",
+                                 f"{len(_rejected)} 条未过准入（标题结构 / 诱导话术），未转正",
                                  action=f"留池标记 rejected 不占配额；本批少发 {len(_rejected)} 篇")
                 for _it in _picked:
                     _art = _it.get("article") or {}

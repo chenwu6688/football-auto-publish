@@ -415,8 +415,54 @@ def scan_all_dates():
 
 # ─── 导出 ─────────────────────────────────────────────────
 
+BATCH_ORDER = ("morning", "noon", "evening")
+
+
+def _merge_same_day(prev: dict, data: dict) -> dict:
+    """把本次导出与**同一天**的旧 today.json 合并，返回合并结果。
+
+    为什么需要（2026-11-11 晚间实证）：CI 每次都是全新 checkout，成稿 md 不入库，
+    所以 `scan_articles` 只能看到**本次运行**产出的 md。11-11 晚间那批 0 篇（合规
+    全丢）时，导出把 today.json 从 148 行覆盖成 7 行 —— 晨间/午间已发的 4 篇当场
+    从小程序里消失；`batches_completed` 也被写成 `[]`（明明早上、中午都发完了）。
+
+    规则（都是「不能被一次空批次破坏」的那类）：
+    - 日期不同 → 直接覆盖（新的一天）；
+    - 同一 `batch_key` 本次有文章 → 用新的（更完整的一次扫描）；
+      本次该批次为空/缺失 → 保留旧的（已发出去的不能因为这次没产出就抹掉）；
+    - `batches_completed` 取并集，不取本次。
+    """
+    if str(prev.get("date")) != str(data.get("date")):
+        return data
+    prev_b = {b.get("batch_key"): b for b in (prev.get("batches") or []) if isinstance(b, dict)}
+    new_b = {b.get("batch_key"): b for b in (data.get("batches") or []) if isinstance(b, dict)}
+    merged = dict(prev_b)
+    for k, b in new_b.items():
+        if (b.get("articles") or []) or k not in merged:
+            merged[k] = b
+    keys = [k for k in BATCH_ORDER if k in merged] + [k for k in merged if k not in BATCH_ORDER]
+    data["batches"] = [merged[k] for k in keys]
+
+    seen, arts = set(), []
+    for a in list(data.get("articles") or []) + list(prev.get("articles") or []):
+        if not isinstance(a, dict):
+            continue
+        aid = a.get("id") or a.get("title")
+        if aid in seen:
+            continue
+        seen.add(aid)
+        arts.append(a)
+    data["articles"] = arts
+
+    done = list(data.get("batches_completed") or []) + list(prev.get("batches_completed") or [])
+    data["batches_completed"] = [k for k in BATCH_ORDER if k in set(done)] + \
+                                [k for k in dict.fromkeys(done) if k not in BATCH_ORDER]
+    data["merged_from_previous"] = True
+    return data
+
+
 def export_today(date_str=None):
-    """导出今日数据到 static_data/today.json"""
+    """导出今日数据到 static_data/today.json（同日合并，不覆盖已发批次）"""
     if date_str is None:
         date_str = date.today().isoformat()
 
@@ -440,8 +486,16 @@ def export_today(date_str=None):
 
     STATIC_DIR.mkdir(parents=True, exist_ok=True)
     path = STATIC_DIR / "today.json"
+    if path.exists():
+        try:
+            prev = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            prev = None
+        if isinstance(prev, dict):
+            data = _merge_same_day(prev, data)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2))
-    print(f"[export] ✅ 已写入 {path} ({len(data['articles'])} 篇文章)")
+    print(f"[export] ✅ 已写入 {path} ({len(data['articles'])} 篇文章，"
+          f"{len(data['batches'])} 个批次)")
     return True
 
 

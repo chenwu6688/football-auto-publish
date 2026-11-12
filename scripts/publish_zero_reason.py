@@ -36,20 +36,38 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 
+def _dropped_brief(meta: dict, *, max_items: int = 2) -> str:
+    """把「哪几篇、命中哪条规则」压成一句，供告警正文使用。
+
+    2026-11-11 晚间：手机收到的只有「2 篇全部被合规规则剔除」，规则 ID 与篇名
+    全在 runner 上的 metadata 里，人得先登 GitHub 翻 artifact 才知道该改什么。
+    合规剔除是可取证的判定，取证成本不该高于「看一眼手机」。
+    """
+    dropped = [d for d in (meta.get("compliance_dropped") or []) if isinstance(d, dict)]
+    if not dropped:
+        return ""
+    rules = sorted({str(r) for d in dropped for r in (d.get("blocked_by") or [])})
+    titles = [(d.get("title") or "")[:16] for d in dropped[:max_items]]
+    rule_txt = "/".join(rules) if rules else "未标注规则"
+    title_txt = "、".join(t for t in titles if t)
+    return f"（{rule_txt}：{title_txt}）" if title_txt else f"（{rule_txt}）"
+
+
 def reason_of(meta: dict) -> tuple[str, bool]:
     """返回 (一句话原因, 是否来自明确记录)。"""
     if not isinstance(meta, dict):
         return "本批 0 篇成稿（metadata 不可读，按上游空转处理）", False
     explicit = str(meta.get("zero_publish_reason") or "").strip()
     if explicit:
-        return explicit, True
+        return explicit + _dropped_brief(meta), True
 
     # 兜底推断：只在有证据时才归因，绝不给「没记录」编一个成因
     arts = meta.get("articles") or []
     pending = meta.get("pending_review") or []
     dropped = meta.get("compliance_dropped") or []
     if not arts and dropped:
-        return f"合规审核：{len(dropped)} 篇全部被剔除，发布集合 0 篇", True
+        return (f"合规审核：{len(dropped)} 篇全部被剔除，发布集合 0 篇"
+                + _dropped_brief(meta)), True
     if not arts and pending:
         # 历史字段：风险闸门已于 2026-11-11 移除，这里只为让旧批次可回放
         return (f"风险闸门（已移除的历史闸门）：{len(pending)} 篇转人工确认，"

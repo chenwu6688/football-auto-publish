@@ -216,7 +216,14 @@ def check_publish_scope_consistent(rules: dict) -> dict:
 PROMPT_TXT_GLOBS = ("prompts/*.txt",)
 #: 代码里的内联提示词（f-string / 普通字符串常量）。**只取字符串字面量**，
 #: 不扫注释 —— 判定逻辑的注释里到处是「关注引导」这类词，扫全文会全是误报。
-PROMPT_PY_FILES = ("constants.py", "orchestrator.py")
+PROMPT_PY_FILES = ("constants.py", "orchestrator.py", "scripts/refill_reservoir.py")
+#: 渲染后整块进提示词的配置文件。2026-11-12 补：``config/brand_manual.yaml``
+#: 的 hook_strategy 里躺着两条「账号沉淀」示例与一条「数字表态」示例，
+#: ``_render_brand_manual`` 把值原样渲染进改写 prompt，模型照抄 → 出口合规
+#: TT-07/TT-08 各判 20 分 → 11-11 晚间 2 篇全丢、发布 0 篇。
+#: 只扫 prompts/ + constants.py + orchestrator.py 的清单漏了这份配置，
+#: 而它恰好是「示例即模板」的那类文件。**只扫值，不扫注释**（注释不进 prompt）。
+PROMPT_YAML_VALUES = ("config/brand_manual.yaml",)
 BAIT_CFG = ROOT / "config" / "interaction_bait.yaml"
 
 
@@ -272,13 +279,43 @@ def _py_literals(path: Path) -> list[tuple[int, str]]:
     return out
 
 
+def _yaml_values(path: Path) -> list[tuple[int, str]]:
+    """取 yaml 里**会被渲染进提示词**的字符串值（(序号, 内容)）。
+
+    只取值不取注释：``_render_brand_manual`` 遍历的是解析后的 dict，注释永远
+    到不了模型；反过来，如果把注释也算进来，这份文件里「解释事故」的说明
+    就会把检查自己刷红 —— 与 AST 那条「注释不算证据」是同一个道理。
+    """
+    import yaml
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return []
+    out: list[tuple[int, str]] = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            for v in node.values():
+                walk(v)
+        elif isinstance(node, list):
+            for v in node:
+                walk(v)
+        elif node is not None:
+            out.append((len(out) + 1, str(node)))
+
+    walk(data)
+    return out
+
+
 def prompt_texts() -> dict:
     """收集所有「会进提示词」的文本：{来源: [(行号, 文本), …]}。
 
-    `.txt` 按行切，`.py` 只取字符串字面量。**两类都要扫**：
-    2026-11-06 晚除了 prompts/ 里的硬指标，`constants.py` 的
+    `.txt` 按行切，`.py` 只取字符串字面量，`.yaml` 只取渲染后进 prompt 的值。
+    **三类都要扫**：2026-11-06 晚除了 prompts/ 里的硬指标，`constants.py` 的
     interaction_guidance 也在教「支持XX的扣1」，`orchestrator.py:3610`
     还内联着「关注老六不迷路」的示例 —— 只扫 prompts/ 会漏掉其中两类。
+    2026-11-12 再补两类：`config/brand_manual.yaml`（示例即模板）与
+    `scripts/refill_reservoir.py`（蓄水池生产提示词，30% 稿源的源头）。
     """
     units: dict[str, list[tuple[int, str]]] = {}
     for g in PROMPT_TXT_GLOBS:
@@ -290,6 +327,10 @@ def prompt_texts() -> dict:
         p = ROOT / name
         if p.is_file():
             units[name] = _py_literals(p)
+    for name in PROMPT_YAML_VALUES:
+        p = ROOT / name
+        if p.is_file():
+            units[name] = _yaml_values(p)
     return units
 
 

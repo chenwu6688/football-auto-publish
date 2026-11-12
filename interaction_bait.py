@@ -212,6 +212,46 @@ def check_inducement(content: str, *, cfg: dict | None = None) -> dict:
     }
 
 
+#: 句级切分：中文句末标点后切，**换行也算边界**。保留标点在句内。
+#: 换行必须切：文末常有「> 本文由 AI 生成」紧贴一句话术，只按句号切会把两行
+#: 粘成一段一起删掉，删完丢了 AI 标识 → TT-11（失实表述）反而命中，
+#: 于是「删句修复」永远救不回这篇（11-12 单测里当场撞到）。
+_SENT_SPLIT = re.compile(r"(?<=[。！？!?；;\n])")
+
+
+def strip_inducement(content: str, *, cfg: dict | None = None) -> tuple[str, list[str]]:
+    """删掉含诱导话术的句子，返回 ``(新正文, 被删句子列表)``。
+
+    为什么需要（2026-11-12）：一句结尾的「…关注…」被 TT-07/TT-08 判 20 分档，
+    出口处置直接丢整篇 —— 两篇全丢、整批 0 篇、批次未完成、心跳告警。扣 20 分
+    与交 0 篇代价差一个数量级，正确处置是**删掉那一句再发**。
+
+    边界（都很容易被改坏，改前先想清楚）：
+      · 只删句，不补任何新话术 —— 补模板句就是重犯「末端贴膏药」；
+      · **博彩组不删**：那是 70 分档违法违规，删句等于抹掉错误证据，必须整篇丢
+        （调用方用 `repairable_by_sentence` 卡这一层，这里再兜一层）；
+      · 不碰 frontmatter / 图片行：切句只按中文句末标点，图片行不含这些标点。
+    """
+    raw = cfg if cfg is not None else load_config()
+    groups = (raw or _FALLBACK).get("诱导话术") or _FALLBACK["诱导话术"]
+    groups = {k: v for k, v in (groups or {}).items() if k != "博彩"}
+    pats = [p for ps in groups.values() for p in _compile(ps or [])]
+    if not content or not pats:
+        return content, []
+
+    kept, removed = [], []
+    for seg in _SENT_SPLIT.split(content):
+        if any(p.search(seg) for p in pats):
+            removed.append(seg.strip())
+            continue
+        kept.append(seg)
+    if not removed:
+        return content, []
+    new = "".join(kept)
+    new = re.sub(r"\n{3,}", "\n\n", new).strip()
+    return new, removed
+
+
 def fallback_texts(interaction_type: str = "", *, cfg: dict | None = None) -> tuple[str, str]:
     """按 interaction_type 取兜底话术 (关注引导, 互动引导)；缺配置用最小集。"""
     cfg = cfg if cfg is not None else (load_config() or _FALLBACK)

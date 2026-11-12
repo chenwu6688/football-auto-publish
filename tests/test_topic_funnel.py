@@ -13,7 +13,7 @@
 import ast
 import sys
 import tempfile
-from datetime import date as _date
+from datetime import date as _date, timedelta
 # 台账日期一律跟「今天」走：summarize(7) 的窗口是 today-6，写死 2026-11-04
 # 的样本在 11-11 就整体掉出窗口，7 条断言集体变红（同 11-09 那次同类坑）。
 TODAY = _date.today().isoformat()
@@ -196,7 +196,10 @@ class TestSavedAccounting(_TempLedger):
 
     def test_部分覆盖不做差(self):
         self.record(stages=[("llm", 2), ("final", 2, {"落盘": 1, "落盘剔除": 1})])
-        self.record(date="2026-11-05", stages=[("llm", 2), ("final", 2)])
+        # 第二批必须留在 7 天窗口内。原来写死 2026-11-05，到 11-12 正好掉出窗口，
+        # 「覆盖 1/2 批」变成「1/1 批」——本文件顶部写过的同一个坑，11-12 又踩一次。
+        self.record(date=(_date.today() - timedelta(days=1)).isoformat(),
+                    stages=[("llm", 2), ("final", 2)])
         out = tf.report(7)
         self.assertIn("覆盖 1/2 批", out)
         self.assertIn("不做差", out)

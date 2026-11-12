@@ -54,13 +54,23 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: 安装依赖
-        run: |
-          pip install -r requirements.txt
-          playwright install chromium
-          playwright install-deps chromium
+      # 2026-11-11：原先是「安装依赖」一个步骤塞三条命令，失败时通知只能猜。
+      # 拆成三步各自带 id，失败通知才能说清是「pip 装不上」还是「Chromium
+      # 下不来」还是「apt 源抖动」——这三类的处置完全不同。
+      - name: 安装 Python 依赖
+        id: deps
+        run: pip install -r requirements.txt
+
+      - name: 安装 Chromium
+        id: browser
+        run: playwright install chromium
+
+      - name: 安装 Chromium 系统依赖
+        id: browser_deps
+        run: playwright install-deps chromium
 
       - name: 写入头条号登录态（与 publisher 共用同一 secret）
+        id: auth
         run: |
           mkdir -p /tmp/auth
           echo "${{ secrets.TOUTIAO_AUTH_GZ }}" | base64 -d | python3 -c "import sys,gzip; sys.stdout.buffer.write(gzip.decompress(sys.stdin.buffer.read()))" > /tmp/auth/toutiao_auth.json
@@ -115,9 +125,26 @@ jobs:
           # 10-22 教训：旧文案只写「登录过期/页面改版/推送失败之一」，
           # 实际原因（perf 页表格未渲染）藏在脚本输出里，手机上根本看不到，
           # 只能翻 Actions 日志。现在从脚本落的状态文件里取真实原因。
+          #
+          # 11-11 教训：那次真实失败步骤是「安装依赖」，脚本压根没跑，状态文件
+          # 自然不存在，于是文案写成「脚本未产出状态文件（可能在启动阶段就崩了）」
+          # ——把人往登录态/改版方向带。**先读步骤结论，再读状态文件**：
+          # 步骤没跑起来，就不许把原因写成「脚本崩了」。
           REASON=""
+          if [ -z "$REASON" ] && [ "${{ steps.deps.outcome }}" = "failure" ]; then
+            REASON="Python 依赖安装失败（pip install -r requirements.txt），脚本未运行"
+          fi
+          if [ -z "$REASON" ] && [ "${{ steps.browser.outcome }}" = "failure" ]; then
+            REASON="Chromium 下载失败（playwright install chromium），脚本未运行"
+          fi
+          if [ -z "$REASON" ] && [ "${{ steps.browser_deps.outcome }}" = "failure" ]; then
+            REASON="Chromium 系统依赖安装失败（playwright install-deps，多为 apt 源抖动，重跑通常即好）"
+          fi
+          if [ -z "$REASON" ] && [ "${{ steps.auth.outcome }}" = "failure" ]; then
+            REASON="登录态解压失败（检查 TOUTIAO_AUTH_GZ secret 是否仍有效）"
+          fi
           STATUS_FILE="${RUNNER_TEMP}/collector-diag/collector-status.json"
-          if [ -f "$STATUS_FILE" ]; then
+          if [ -z "$REASON" ] && [ -f "$STATUS_FILE" ]; then
             REASON=$(python3 - "$STATUS_FILE" <<'PY'
           import json, sys
           d = json.load(open(sys.argv[1], encoding="utf-8"))
@@ -127,7 +154,7 @@ jobs:
             )
           fi
           if [ -z "$REASON" ]; then
-            REASON="脚本未产出状态文件（可能在启动阶段就崩了，如依赖/登录态解压）"
+            REASON="回收脚本已运行但未落状态文件（看该步骤日志；不是安装/登录态问题）"
           fi
           MSG=$(printf '⚠️ 头条导出自动回收运行失败\n原因: %s\n今天请手动导出投递 data/inbox/ 兜底\n查看: https://github.com/%s/actions/runs/%s' \
             "$REASON" "${{ github.repository }}" "${{ github.run_id }}")

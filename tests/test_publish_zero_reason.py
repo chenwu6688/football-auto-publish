@@ -86,3 +86,30 @@ def test_main_writes_reason_file(tmp_path, monkeypatch):
     rc = pz.main(["publish_zero_reason.py", str(meta_path)])
     assert rc == 0
     assert (tmp_path / "wb_fail_reason.txt").read_text(encoding="utf-8").startswith("合规审核")
+
+
+def test_dropped_brief_surfaces_rule_ids_and_titles():
+    """合规全丢时，告警正文必须带「命中哪条规则 + 哪几篇」。
+
+    11-11 晚间手机上只看到「本批 2 篇全部被合规规则剔除」，规则 ID 与篇名
+    全在 runner 的 metadata 里，人得先登 GitHub 翻 artifact 才知道该改什么。
+    合规剔除是可取证判定，取证成本不该高于看一眼手机。
+    """
+    text, explicit = pz.reason_of(_meta(
+        zero_publish_reason="合规审核：本批 2 篇全部被合规规则剔除，发布集合 0 篇",
+        compliance_dropped=[
+            {"title": "梅西C罗生涯造进球都超1100球，但一个靠传球一个靠射门制造差距",
+             "blocked_by": ["TT-07", "TT-08"]},
+            {"title": "C罗欧冠140球领跑，梅西差11球，这榜单老球迷怎么看",
+             "blocked_by": ["TT-07", "TT-08"]},
+        ]))
+    assert explicit is True
+    assert "TT-07" in text and "TT-08" in text
+    assert "梅西C罗" in text
+
+
+def test_dropped_brief_absent_when_no_drop_detail():
+    """没有剔除明细就不要编：宁可不写，也不许补一个假规则号。"""
+    text, _ = pz.reason_of(_meta(
+        zero_publish_reason="合规审核：本批 2 篇全部被合规规则剔除，发布集合 0 篇"))
+    assert "TT-" not in text
