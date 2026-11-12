@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-12",
-  "generated_at": "2026-11-12 12:03:45",
+  "generated_at": "2026-11-12 18:03:30",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 3.72
+        "elapsed_s": 1.6
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.89
+        "elapsed_s": 1.0
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.33
+        "elapsed_s": 0.18
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 2.33
+        "elapsed_s": 1.73
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,12 +65,28 @@
       }
     },
     "errors": [],
-    "stale_dropped": 1,
+    "stale_dropped": 5,
     "unknown_time": 8,
     "stale_samples": [
       {
-        "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 93.8
+        "title": "太幽默了！女球迷当面坦白支持巴萨，弗洛伦蒂诺：叫警察来",
+        "age_h": 76.9
+      },
+      {
+        "title": "【意甲 佛罗伦萨2-2尤文】斯帕莱蒂采访",
+        "age_h": 72.2
+      },
+      {
+        "title": "国米vs科莫：懂得变通就是好同志",
+        "age_h": 76.4
+      },
+      {
+        "title": "集锦丨热那亚1-2AC米兰丨西塞与普利西奇在马拉西建功",
+        "age_h": 78.9
+      },
+      {
+        "title": "【CBS Sports】科莫对国米前瞻",
+        "age_h": 109.1
       }
     ]
   },
@@ -88,21 +104,22 @@
   ],
   "candidates": [
     {
-      "word": "RMC：欧国联对阵克罗地亚前，凯恩将在温布利球场展示金球奖英超2 评",
-      "rank": 10,
+      "word": "英超罗马诺：曼联立即解雇主帅卡里克",
+      "rank": 1,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "凯恩"
+        "罗马",
+        "曼联"
       ],
       "support": [
         {
-          "title": "RMC：欧国联对阵克罗地亚前，凯恩将在温布利球场展示金球奖英超2 评",
-          "url": "https://www.dongqiudi.com/articles/6645320.html",
+          "title": "英超罗马诺：曼联立即解雇主帅卡里克",
+          "url": "https://www.dongqiudi.com/articles/6646020.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "凯恩#award",
+      "event_key": "曼联|罗马#coach",
       "providers": [
         "dongqiudi"
       ],

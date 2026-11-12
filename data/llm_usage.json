@@ -231,20 +231,20 @@
     "last_fail_at": "2026-11-11T18:05:22+08:00"
   },
   "minimax-m3": {
-    "total_tokens": 0,
-    "prompt_tokens": 0,
-    "completion_tokens": 0,
+    "total_tokens": 4899,
+    "prompt_tokens": 3365,
+    "completion_tokens": 1534,
     "free_quota_pct": 100.0,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-09 11:45:57",
-    "fail_streak": 3,
-    "last_fail_at": "2026-11-11T18:03:28+08:00"
+    "fail_streak": 1,
+    "last_fail_at": "2026-11-12T18:04:54+08:00"
   },
   "deepseek-v4-pro-202606": {
-    "total_tokens": 494003,
-    "prompt_tokens": 169369,
-    "completion_tokens": 32634,
+    "total_tokens": 513031,
+    "prompt_tokens": 184268,
+    "completion_tokens": 36763,
     "free_quota_pct": 70.8,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",

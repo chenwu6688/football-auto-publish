@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12 15:01",
-  "ok": true,
+  "generated_at": "2026-11-12 18:05",
+  "ok": null,
   "checks": [
     {
       "item": "成稿标题零硬违规（生效日起）",
@@ -91,9 +91,17 @@
     {
       "item": "一致性校验拦截率可统计",
       "ok": true,
-      "skipped": true,
+      "skipped": false,
+      "events": 2,
+      "blocking_checks": 2,
+      "rejects": 0,
+      "warn_only": 0,
+      "reject_rate": 0.0,
+      "reject_rate_display": "0.0%",
+      "has_records": true,
       "detail": [
-        "consistency_stats 台账暂无运行记录，机制就绪，本项跳过"
+        "硬校验 2 次，打回 0 次，拦截率 0.0%；warn-only 0 次",
+        "拦截率可统计 ✅"
       ]
     },
     {
@@ -117,12 +125,41 @@
     },
     {
       "item": "连续14天无旧闻新发",
-      "ok": true,
-      "skipped": true,
-      "unknown_ratio": null,
+      "skipped": false,
+      "days": 14,
+      "runs": 6,
+      "days_covered": 1,
+      "dates": [
+        "2026-11-12"
+      ],
+      "checked": 78,
+      "dropped": 5,
+      "unknown": 8,
+      "over_limit_runs": 0,
+      "over_limit": [],
+      "missing_days": [
+        "2026-11-11",
+        "2026-11-10",
+        "2026-11-09",
+        "2026-11-08",
+        "2026-11-07",
+        "2026-11-06",
+        "2026-11-05",
+        "2026-11-04",
+        "2026-11-03",
+        "2026-11-02",
+        "2026-11-01",
+        "2026-10-31",
+        "2026-10-30"
+      ],
+      "unknown_ratio": 0.1026,
       "violation_records": [],
+      "ok": null,
       "detail": [
-        "时效闸门台账暂无记录，本项跳过"
+        "近 14 天闸门运行 6 次，覆盖 1/14 天；剔除超时效 5 条，未知 8 条（占已检查 78 条的 10.3%）",
+        "台账尚未满 14 天（累计 1 天，持续累积中）",
+        "无「已知时效>上限仍保留」✅",
+        "⏸ 已检查样本 78 条不足 100 条，时间未知比例未判定（不等于通过）"
       ]
     },
     {
@@ -188,5 +225,7 @@
     }
   ],
   "hard_failed": [],
-  "hard_pending": []
+  "hard_pending": [
+    "连续14天无旧闻新发"
+  ]
 }
