@@ -302,7 +302,17 @@
       "hot_event_key": "巴萨#coach",
       "hot_rank": 3,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 26,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1086,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7707069071858172456"
     },
     {
       "index": 2,
@@ -596,7 +606,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 21,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 776,
+        "follower_reads": 0,
+        "click_rate": 0.03
+      },
+      "platform_id": "7707069354935845391"
     },
     {
       "index": 3,
@@ -894,7 +914,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 22,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 828,
+        "follower_reads": 1,
+        "click_rate": 0.03
+      },
+      "platform_id": "7707069554014405160"
     },
     {
       "index": 1,
@@ -1190,7 +1220,17 @@
       "hot_event_key": "凯恩#award",
       "hot_rank": 10,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 455,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7707131051919622696"
     },
     {
       "index": 2,
@@ -1488,7 +1528,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 504,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7707131316088717864"
     },
     {
       "index": 3,
@@ -1778,7 +1828,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 512,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7707131626630693376"
     },
     {
       "index": 1,
@@ -2076,7 +2136,17 @@
       "hot_event_key": "曼联|罗马#coach",
       "hot_rank": 1,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 210,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7707224085788508682"
     }
   ],
   "topics": [

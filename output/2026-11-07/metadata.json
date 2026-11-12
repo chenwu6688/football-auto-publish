@@ -272,8 +272,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.1062,
-        "impressions": 3066,
+        "retention_rate": 0.0944,
+        "impressions": 3540,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -576,8 +576,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.3788,
-        "impressions": 4127,
+        "retention_rate": 0.4027,
+        "impressions": 4613,
         "follower_reads": 0,
         "click_rate": 0.02
       },
@@ -875,14 +875,14 @@
       "hot_source": "dongqiudi",
       "hot_channel": "media",
       "performance": {
-        "reads": 146,
+        "reads": 149,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.2849,
-        "impressions": 4077,
+        "retention_rate": 0.2885,
+        "impressions": 4606,
         "follower_reads": 0,
-        "click_rate": 0.04
+        "click_rate": 0.03
       },
       "platform_id": "7705369202730844672"
     },

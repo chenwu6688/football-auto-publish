@@ -323,7 +323,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 562,
+        "retention_rate": 0.0,
+        "impressions": 2100,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -643,9 +644,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 576,
+        "retention_rate": 0.0,
+        "impressions": 2120,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7706327043218194986"
     },
@@ -964,12 +966,13 @@
       "hot_channel": "media",
       "performance": {
         "reads": 7,
-        "comments": 1,
+        "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 501,
+        "retention_rate": 0.205,
+        "impressions": 2058,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7706391126508306944"
     },
