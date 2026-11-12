@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-12",
-  "generated_at": "2026-11-12 08:03:10",
+  "generated_at": "2026-11-12 12:03:45",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,7 +10,7 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 4.77
+        "elapsed_s": 3.72
       },
       "weibo": {
         "status": "ok",
@@ -24,14 +24,14 @@
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.32
+        "elapsed_s": 0.33
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.54
+        "elapsed_s": 2.33
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,15 +70,15 @@
     "stale_samples": [
       {
         "title": "西甲榜首之战！马德里竞技vs巴塞罗那！",
-        "age_h": 89.8
+        "age_h": 93.8
       }
     ]
   },
   "football_hits": [
     {
       "word": "宙斯拒绝续约两豪门争抢",
-      "rank": 26,
-      "heat": 25005,
+      "rank": 30,
+      "heat": 6685,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369578&amp;topic_name=%E5%AE%99%E6%96%AF%E6%8B%92%E7%BB%9D%E7%BB%AD%E7%BA%A6%E4%B8%A4%E8%B1%AA%E9%97%A8%E4%BA%89%E6%8A%A2",
@@ -88,21 +88,21 @@
   ],
   "candidates": [
     {
-      "word": "每体：弗里克执教后，巴萨仅库巴西、马丁从未伤停西甲1 评",
-      "rank": 3,
+      "word": "RMC：欧国联对阵克罗地亚前，凯恩将在温布利球场展示金球奖英超2 评",
+      "rank": 10,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "巴萨"
+        "凯恩"
       ],
       "support": [
         {
-          "title": "每体：弗里克执教后，巴萨仅库巴西、马丁从未伤停西甲1 评",
-          "url": "https://www.dongqiudi.com/articles/6644839.html",
+          "title": "RMC：欧国联对阵克罗地亚前，凯恩将在温布利球场展示金球奖英超2 评",
+          "url": "https://www.dongqiudi.com/articles/6645320.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "巴萨#coach",
+      "event_key": "凯恩#award",
       "providers": [
         "dongqiudi"
       ],
