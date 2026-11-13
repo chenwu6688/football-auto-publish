@@ -294,7 +294,17 @@
       "hot_event_key": "曼联#coach",
       "hot_rank": 0,
       "hot_source": "news_cluster",
-      "hot_channel": "news_cluster"
+      "hot_channel": "news_cluster",
+      "performance": {
+        "reads": 4,
+        "comments": 2,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 744,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7707440799453037065"
     },
     {
       "index": 2,
@@ -611,7 +621,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 832,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7707441075539034674"
     },
     {
       "index": 1,
@@ -1142,7 +1162,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 72,
+        "comments": 8,
+        "likes": 2,
+        "shares": 0,
+        "impressions": 1224,
+        "follower_reads": 0,
+        "click_rate": 0.06
+      },
+      "platform_id": "7707501987415261731"
     },
     {
       "index": 1,
@@ -1432,7 +1462,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 68,
+        "comments": 2,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 910,
+        "follower_reads": 0,
+        "click_rate": 0.07
+      },
+      "platform_id": "7707594896743432740"
     },
     {
       "index": 2,
@@ -1730,7 +1770,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 184,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7707595216936583721"
     }
   ],
   "topics": [
