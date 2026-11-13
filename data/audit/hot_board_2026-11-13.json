@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-13",
-  "generated_at": "2026-11-13 12:02:25",
-  "board_total": 131,
+  "generated_at": "2026-11-13 18:03:45",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.44
+        "elapsed_s": 1.75
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.74
+        "elapsed_s": 1.0
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.48
+        "elapsed_s": 0.18
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.29
+        "elapsed_s": 1.61
       },
       "sina_sports": {
         "status": "disabled",
@@ -68,18 +68,7 @@
     "stale_dropped": 0,
     "unknown_time": 8
   },
-  "football_hits": [
-    {
-      "word": "曝许飞厉娜解约雪藏原因",
-      "rank": 21,
-      "heat": 343534,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    }
-  ],
+  "football_hits": [],
   "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
