@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-13",
-  "generated_at": "2026-11-13 04:05:13",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-13 10:06:51",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 4,
+    "total": 6,
+    "published": 6,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -22,6 +23,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "沙明在清水心跳完成注册，J联赛排名第15的保级队要押宝中国球员",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7707594896743432740",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "国足连战马来西亚巴林，足协这倡议书比比赛还细",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7707595216936583721",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "波切蒂诺3次错过曼联，这次卡里克被解雇他来了",
       "slug": "",
