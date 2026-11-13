@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "date": "2026-11-12",
-  "generated_at": "2026-11-12 10:06:45",
-  "batch_filter": "evening",
+  "date": "2026-11-13",
+  "generated_at": "2026-11-13 00:08:57",
+  "batch_filter": "morning",
   "counts": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -13,16 +13,25 @@
     "published_without_cover": 0
   },
   "platform_id_binding": {
-    "bound": 1,
+    "bound": 2,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "卡里克下课了，曼联这波操作连罗马诺都没想到",
+      "title": "波切蒂诺3次错过曼联，这次卡里克被解雇他来了",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7707224085788508682",
+      "batch_name": "晨读",
+      "platform_id": "7707440799453037065",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "意大利3比1法国，齐达内首败竟栽在埃斯波西托手里",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7707441075539034674",
       "reason": "",
       "images": 3,
       "status": "published"
