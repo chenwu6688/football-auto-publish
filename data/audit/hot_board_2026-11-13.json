@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-13",
-  "generated_at": "2026-11-13 08:05:55",
+  "generated_at": "2026-11-13 12:02:25",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.39
+        "elapsed_s": 1.44
       },
       "weibo": {
         "status": "ok",
-        "count": 52,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.01
+        "elapsed_s": 0.74
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.85
+        "elapsed_s": 0.48
       },
       "tieba": {
         "status": "ok",
-        "count": 29,
+        "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.55
+        "elapsed_s": 1.29
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,77 +65,21 @@
       }
     },
     "errors": [],
-    "stale_dropped": 5,
-    "unknown_time": 8,
-    "stale_samples": [
-      {
-        "title": "梅西登顶西甲历史射手榜！巴萨5比1轻取塞维利亚！",
-        "age_h": 39.8
-      },
-      {
-        "title": "太幽默了！女球迷当面坦白支持巴萨，弗洛伦蒂诺：叫警察来",
-        "age_h": 91.0
-      },
-      {
-        "title": "【意甲 佛罗伦萨2-2尤文】斯帕莱蒂采访",
-        "age_h": 86.2
-      },
-      {
-        "title": "国米vs科莫：懂得变通就是好同志",
-        "age_h": 90.4
-      },
-      {
-        "title": "集锦丨热那亚1-2AC米兰丨西塞与普利西奇在马拉西建功",
-        "age_h": 92.9
-      }
-    ]
+    "stale_dropped": 0,
+    "unknown_time": 8
   },
   "football_hits": [
     {
-      "word": "退役特级飞行员称中国空军发展太快",
-      "rank": 29,
-      "heat": 0,
-      "source": "baidu",
+      "word": "曝许飞厉娜解约雪藏原因",
+      "rank": 21,
+      "heat": 343534,
+      "source": "weibo",
       "kind": "board",
       "url": "",
       "published_at": "",
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "会是正确人选吗？波切蒂诺曾3次错过曼联，如今终于将执教红魔",
-      "rank": 0,
-      "heat": 2,
-      "source": "news_cluster",
-      "entities": [
-        "曼联"
-      ],
-      "support": [
-        {
-          "source": "zhibo8",
-          "title": "会是正确人选吗？波切蒂诺曾3次错过曼联，如今终于将执教红魔",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-13/6af5ed3742386native.htm",
-          "article_text": "",
-          "_age_hours": 8.1,
-          "_freshness": "fresh"
-        },
-        {
-          "title": "拉门斯：很遗憾曼联战绩不佳导致卡帅下课，在比利时阵中感觉很好",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-13/6af6272b9a910native.htm",
-          "article_text": "",
-          "source": "zhibo8",
-          "_content_type_hint": "转会资讯",
-          "_age_hours": 8.1,
-          "_freshness": "fresh"
-        }
-      ],
-      "event_key": "曼联#coach",
-      "providers": [
-        "news_cluster"
-      ],
-      "channel": "news_cluster"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
