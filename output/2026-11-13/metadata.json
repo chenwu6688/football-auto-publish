@@ -1,7 +1,7 @@
 {
   "date": "2026-11-13",
-  "generated_at": "2026-11-13T00:06:25.034298",
-  "total_articles": 2,
+  "generated_at": "2026-11-13T04:02:37.476374",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -612,95 +612,551 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "梅西C罗身后那个阿根廷人，连续17年助攻上双，历史总榜第二",
+      "path": "/home/runner/work/_temp/output/2026-11-13/article-1-梅西C罗身后那个-99cc36.md",
+      "slug": "梅西C罗身后那个-99cc36",
+      "tags": [
+        "all-time assist leader",
+        "Di Maria",
+        "Messi C Ronaldo",
+        "transfer value",
+        "football history"
+      ],
+      "keywords": [
+        "all-time assist leader",
+        "Di Maria",
+        "Messi C Ronaldo",
+        "transfer value",
+        "football history"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-13/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-13/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-13/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261110/202611101548125643.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-10/6af2cb9257f82native.htm",
+            "query": "梅西、C罗",
+            "alt": "INS单条赞助帖收入榜：C罗1160万美元居首，梅西第2，乔治娜第9"
+          },
+          "width": 1200,
+          "height": 3034
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261110/202611100855357112_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-10/6af267e1c9eecnative.htm",
+            "query": "梅西、C罗",
+            "alt": "扩大纪录！39岁梅西18次入选FIFPRO年度最佳阵，41岁C罗15次排第2"
+          },
+          "width": 1200,
+          "height": 1599
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 77,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "22 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "榜单",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "度量",
+          "中文序数"
+        ],
+        "contrasts": [
+          "序位"
+        ],
+        "proper_nouns": [
+          "梅西",
+          "C罗"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 14,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1385,
+        "han_len": 1018,
+        "paragraphs": 11,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "马拉多纳86年连过5人打进世纪进球，梅西生涯进球破800仍难复制",
+      "path": "/home/runner/work/_temp/output/2026-11-13/article-2-马拉多纳86年连-eef50a.md",
+      "slug": "马拉多纳86年连-eef50a",
+      "tags": [
+        "Maradona",
+        "Messi",
+        "1986 World Cup",
+        "goal comparison",
+        "football legends"
+      ],
+      "keywords": [
+        "Maradona",
+        "Messi",
+        "1986 World Cup",
+        "goal comparison",
+        "football legends"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-13/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-13/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-13/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 63,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "马拉多纳",
+          "梅西"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 63,
+        "pass": true,
+        "reasons": [
+          "标题偏长(32字>30)",
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 14,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1154,
+        "han_len": 816,
+        "paragraphs": 10,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "会是正确人选吗？波切蒂诺曾3次错过曼联",
-      "angle": "热点事件「会是正确人选吗？波切蒂诺曾3次错过曼联」，从球迷情绪与争议点切入",
-      "keywords": [],
-      "keywords_cn": [
-        "会是正确人选吗？波切蒂诺曾3次错过曼联"
-      ],
-      "content_type": "热点球评",
-      "score": 100,
-      "controversy_level": "high",
-      "why_pick": "媒体头条（news_cluster）",
-      "_supply_layer": "二级·突发",
-      "_hot_event_key": "曼联#coach",
-      "_hot_rank": 0,
-      "_hot_source": "news_cluster",
-      "_hot_channel": "news_cluster",
-      "_hot_providers": [
-        "news_cluster"
-      ],
-      "_hot_support": [
-        "会是正确人选吗？波切蒂诺曾3次错过曼联，如今终于将执教红魔",
-        "拉门斯：很遗憾曼联战绩不佳导致卡帅下课，在比利时阵中感觉很好"
-      ],
-      "_hot_support_raw": [
-        {
-          "source": "zhibo8",
-          "title": "会是正确人选吗？波切蒂诺曾3次错过曼联，如今终于将执教红魔",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-13/6af5ed3742386native.htm",
-          "article_text": "直播吧11月13日讯 曼联正式解雇卡里克，罗马诺以HWG确认，波切蒂诺将出任曼联新帅。事实上，这已经不是曼联第一次考虑邀请波切蒂诺执教，双方曾三次接近合作，却最终因为不同原因擦肩而过。\n第一次\n首先是2016年，波切蒂诺在梅菲尔区与弗格森爵士共进了一顿非常公开的午餐，但曼联最终选择了穆里尼奥。\n第二次\n2018年12月，穆里尼奥因战绩不佳、球队内部关系紧张等问题被曼联解雇。当时执教热刺的波切蒂诺成为红魔最受关注的长期主帅人选，曼联高层将他视为接替穆里尼奥的理想选择。\n不过，波切蒂诺当时仍与热刺有长期合同，列维也不愿意在赛季中途放走球队主帅。曼联因此选择先聘请索尔斯克亚担任临时主帅，计划在赛季结束后再确定正式人选。\n原本，曼联认为索尔斯克亚只是过渡人选，波切蒂诺仍是夏天的重要目标。但索尔斯克亚上任后迅速带队取得连胜，并在欧冠1/8决赛次回合客场3-1逆转巴黎圣日耳曼，最终成功转正。波切蒂诺再次与曼联帅位擦肩而过。\n第三次\n2024年春天，滕哈赫的曼联帅位再次受到威胁，俱乐部重新与波切蒂诺进行了接触。随后，曼联在足总杯决赛击败曼城，管理层改变此前的换帅倾向，决定继续留用滕哈赫，并与其续约。\n同年10月，滕哈赫最终还是因战绩不佳下课，曼联迅速转向葡萄牙体育主帅阿莫林。但此时波切蒂诺已经在9月接手美国国家队，第三次与曼联帅位失之交臂。",
-          "_age_hours": 8.1,
-          "_freshness": "fresh",
-          "_hot_support": true
-        },
-        {
-          "title": "拉门斯：很遗憾曼联战绩不佳导致卡帅下课，在比利时阵中感觉很好",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-13/6af6272b9a910native.htm",
-          "article_text": "",
-          "source": "zhibo8",
-          "_content_type_hint": "转会资讯",
-          "_age_hours": 8.1,
-          "_freshness": "fresh"
-        }
-      ]
+      "title": "梅西C罗身后那个阿根廷人，连续17年助攻上双，历史总榜第二",
+      "content_type": "榜单",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     },
     {
-      "title": "意大利3-1逆转法国竟然已经9次了，其他国家最多才2次",
-      "angle": "意大利主场3-1逆转法国，1962年以来首次主场赢法国。这个数据背后是意大利足球刻在骨子里的韧性——齐达内都过不去的坎，德尚也过不去。",
-      "keywords": [
-        "Italy",
-        "France",
-        "comeback",
-        "Zidane"
-      ],
-      "keywords_cn": [
-        "意大利",
-        "法国",
-        "逆转",
-        "齐达内"
-      ],
+      "title": "马拉多纳86年连过5人打进世纪进球，梅西生涯进球破800仍难复制",
       "content_type": "数据对比",
-      "score": 88,
-      "controversy_level": "medium",
-      "target_emotion": "震惊",
-      "resonance_angle": "世界杯经典时刻",
-      "series_id": "无",
-      "why_pick": "9次逆转法国这个数据太震撼，齐祖和德尚两代法国人都栽在意大利脚下，老球迷DNA动了",
-      "_category": "战报比分",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-1"
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
     }
   ],
   "data_sources": {},
@@ -713,13 +1169,13 @@
     "total": 2,
     "counts": {
       "一级·确定性": 0,
-      "二级·突发": 1,
-      "三级·软性": 1
+      "二级·突发": 0,
+      "三级·软性": 2
     },
     "ratios": {
       "一级·确定性": 0.0,
-      "二级·突发": 50.0,
-      "三级·软性": 50.0
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -728,12 +1184,12 @@
     },
     "deviations": {
       "一级·确定性": -30.0,
-      "二级·突发": 0.0,
-      "三级·软性": 30.0
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 1,
+      "data_driven": 2,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -749,21 +1205,27 @@
       "数量": 1
     },
     {
-      "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（11 < 48）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 1 张",
+      "原因": "真实图源只拿到 0 张",
       "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -775,49 +1237,39 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
-  "hot_topics": [
-    {
-      "title": "会是正确人选吗？波切蒂诺曾3次错过曼联",
-      "rank": 0,
-      "source": "news_cluster",
-      "channel": "news_cluster",
-      "event_key": "曼联#coach"
-    }
-  ],
+  "ranker_mode": "llm",
   "batch_mix": {
     "slots": [
       "main",
       "data"
     ],
-    "picked": [
-      {
-        "slot": "main",
-        "type": "热点球评",
-        "title": "会是正确人选吗？波切蒂诺曾3次错过曼联"
-      },
-      {
-        "slot": "data",
-        "type": "数据对比",
-        "title": "意大利3-1逆转法国竟然已经9次了，其他国家最多才2次"
-      }
+    "picked": [],
+    "degraded": [
+      "main 槽无可用候选（不凑数，本批少写 1 篇）",
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
-    "degraded": [],
     "skipped": [
       {
-        "type": "热点球评",
-        "title": "波切蒂诺执教曼联竟然要花1000万刀解约金，卡里克连个正"
+        "type": "八卦趣事",
+        "title": "蓉城丢冠颁奖拱门被卖废品站，球迷说这是人祸"
+      },
+      {
+        "type": "转会资讯",
+        "title": "归化开价1000万首付500万，中国足球这笔账到底怎么算"
       }
     ],
-    "day_counts": {},
-    "selected": 2,
+    "day_counts": {
+      "热点球评": 1,
+      "数据对比": 1
+    },
+    "selected": 0,
     "requested": 2
   },
   "batches_generated": [
-    "morning"
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-13 08:08:57",
+  "last_batch": "noon",
+  "last_updated": "2026-11-13 12:02:37",
   "batches_completed": [
     "morning"
   ]
