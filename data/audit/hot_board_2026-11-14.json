@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-14",
-  "generated_at": "2026-11-14 08:03:04",
-  "board_total": 130,
+  "generated_at": "2026-11-14 12:03:07",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.22
+        "elapsed_s": 1.29
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.72
+        "elapsed_s": 0.73
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.47
+        "elapsed_s": 0.46
       },
       "tieba": {
         "status": "ok",
-        "count": 29,
+        "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.19
+        "elapsed_s": 2.06
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,8 +71,8 @@
   "football_hits": [
     {
       "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 3,
-      "heat": 1786036,
+      "rank": 4,
+      "heat": 1360746,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
@@ -80,38 +80,26 @@
       "entities": []
     },
     {
-      "word": "黄仁勋旧访谈称CEO也可能被解雇",
-      "rank": 49,
-      "heat": 116690,
-      "source": "weibo",
+      "word": "国足今晚对阵马来西亚",
+      "rank": 8,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "金秀贤被判赔偿11.6亿韩元违约金",
+      "rank": 11,
+      "heat": 0,
+      "source": "baidu",
       "kind": "board",
       "url": "",
       "published_at": "",
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "马卡：巴萨希望在1月转会窗补强后防线，但资金不足西甲",
-      "rank": 6,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "巴萨"
-      ],
-      "support": [
-        {
-          "title": "马卡：巴萨希望在1月转会窗补强后防线，但资金不足西甲",
-          "url": "https://www.dongqiudi.com/articles/6651650.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "巴萨#transfer",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
