@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-14",
-  "generated_at": "2026-11-14 04:06:06",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-14 10:05:35",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 4,
+    "total": 6,
+    "published": 6,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -22,6 +23,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "谢文能蒋光太同时退出，国足这手棋没想到先乱了自己",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7707965656960205322",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "多布雷拒续约：从快速队到云南玉昆，罗马尼亚国脚为何狮子大开口",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7707965934102708746",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "德科和弗里克都盯着后防线，巴萨1月却掏不出钱",
       "slug": "",
