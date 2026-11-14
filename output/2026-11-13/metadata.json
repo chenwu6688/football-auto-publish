@@ -296,13 +296,14 @@
       "hot_source": "news_cluster",
       "hot_channel": "news_cluster",
       "performance": {
-        "reads": 4,
+        "reads": 6,
         "comments": 2,
         "likes": 1,
         "shares": 0,
-        "impressions": 744,
+        "retention_rate": 0.9367,
+        "impressions": 1687,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7707440799453037065"
     },
@@ -623,13 +624,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 5,
+        "reads": 6,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 832,
+        "retention_rate": 0.1933,
+        "impressions": 1773,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7707441075539034674"
     },
@@ -1164,13 +1166,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 72,
-        "comments": 8,
-        "likes": 2,
+        "reads": 335,
+        "comments": 56,
+        "likes": 6,
         "shares": 0,
-        "impressions": 1224,
-        "follower_reads": 0,
-        "click_rate": 0.06
+        "retention_rate": 0.2942,
+        "impressions": 4991,
+        "follower_reads": 1,
+        "click_rate": 0.07
       },
       "platform_id": "7707501987415261731"
     },
@@ -1464,13 +1467,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 68,
-        "comments": 2,
-        "likes": 1,
+        "reads": 198,
+        "comments": 3,
+        "likes": 3,
         "shares": 0,
-        "impressions": 910,
+        "retention_rate": 0.3541,
+        "impressions": 3656,
         "follower_reads": 0,
-        "click_rate": 0.07
+        "click_rate": 0.05
       },
       "platform_id": "7707594896743432740"
     },
@@ -1772,13 +1776,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 1,
+        "reads": 3,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 184,
-        "follower_reads": 0,
-        "click_rate": 0.01
+        "retention_rate": 0.0,
+        "impressions": 1168,
+        "follower_reads": 1,
+        "click_rate": 0.0
       },
       "platform_id": "7707595216936583721"
     }

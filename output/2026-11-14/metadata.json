@@ -295,7 +295,17 @@
       "hot_event_key": "巴萨#transfer",
       "hot_rank": 6,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 34,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1004,
+        "follower_reads": 0,
+        "click_rate": 0.03
+      },
+      "platform_id": "7707811431797899785"
     },
     {
       "index": 2,
@@ -613,7 +623,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 678,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7707811824653074971"
     },
     {
       "index": 1,
@@ -909,7 +929,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 409,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7707872994781102633"
     },
     {
       "index": 2,
@@ -1208,7 +1238,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 411,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7707873298981405247"
     },
     {
       "index": 1,
@@ -1501,7 +1541,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 79,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 847,
+        "follower_reads": 0,
+        "click_rate": 0.09
+      },
+      "platform_id": "7707965656960205322"
     },
     {
       "index": 2,
@@ -1789,7 +1839,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 422,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 2670,
+        "follower_reads": 0,
+        "click_rate": 0.16
+      },
+      "platform_id": "7707965934102708746"
     }
   ],
   "topics": [
