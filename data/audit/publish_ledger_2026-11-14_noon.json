@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-14",
+  "generated_at": "2026-11-14 04:06:06",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "国足踢马来西亚46年不败，今晚这一场老球迷心里没底",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7707872994781102633",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "海登海姆二十年没换帅，施密特从保险公司干到德甲",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7707873298981405247",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
