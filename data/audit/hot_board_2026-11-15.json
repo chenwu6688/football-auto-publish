@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-15",
-  "generated_at": "2026-11-15 12:02:18",
-  "board_total": 130,
+  "generated_at": "2026-11-15 18:04:08",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.52
+        "elapsed_s": 4.68
       },
       "weibo": {
         "status": "ok",
-        "count": 50,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.87
+        "elapsed_s": 0.96
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.33
+        "elapsed_s": 0.12
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.42
+        "elapsed_s": 3.56
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,7 +71,7 @@
   "football_hits": [
     {
       "word": "S16总决赛：中国战队BLG逆转夺冠",
-      "rank": 2,
+      "rank": 16,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -81,11 +81,41 @@
     },
     {
       "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 14,
-      "heat": 184042,
+      "rank": 19,
+      "heat": 107160,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "印尼14岁球员与门将相撞后离世",
+      "rank": 27,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "樊振东德甲获MVP但WTT积分为0",
+      "rank": 31,
+      "heat": 164141,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "蔡文静为妈妈甘愿赔违约金",
+      "rank": 51,
+      "heat": 118043,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
       "published_at": "",
       "entities": []
     }
