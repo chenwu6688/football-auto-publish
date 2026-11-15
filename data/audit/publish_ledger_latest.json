@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "date": "2026-11-14",
-  "generated_at": "2026-11-14 10:05:35",
-  "batch_filter": "evening",
+  "date": "2026-11-15",
+  "generated_at": "2026-11-15 00:08:53",
+  "batch_filter": "morning",
   "counts": {
     "total": 2,
     "published": 2,
@@ -19,19 +19,19 @@
   },
   "records": [
     {
-      "title": "谢文能蒋光太同时退出，国足这手棋没想到先乱了自己",
+      "title": "葡萄牙1-4丹麦，C罗退役后B费带队竟输成这样",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7707965656960205322",
+      "batch_name": "晨读",
+      "platform_id": "7708182941104472595",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "多布雷拒续约：从快速队到云南玉昆，罗马尼亚国脚为何狮子大开口",
+      "title": "荷兰7-0希腊，赖因德斯帽子戏法竟不是最大惊喜",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7707965934102708746",
+      "batch_name": "晨读",
+      "platform_id": "7708183196810215979",
       "reason": "",
       "images": 3,
       "status": "published"
