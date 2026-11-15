@@ -1,0 +1,878 @@
+{
+  "date": "2026-11-15",
+  "generated_at": "2026-11-15T00:06:18.848725",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "葡萄牙1-4丹麦，C罗退役后B费带队竟输成这样",
+      "path": "/home/runner/work/_temp/output/2026-11-15/article-1-葡萄牙14丹麦C-b6cfb0.md",
+      "slug": "葡萄牙14丹麦C-b6cfb0",
+      "tags": [
+        "Portugal",
+        "Denmark",
+        "Ronaldo",
+        "Bruno Fernandes",
+        "Bernardo Silva",
+        "Nations League"
+      ],
+      "keywords": [
+        "Portugal",
+        "Denmark",
+        "Ronaldo",
+        "Bruno Fernandes",
+        "Bernardo Silva",
+        "Nations League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "葡萄牙体育",
+              "丹麦"
+            ],
+            "numbers": [
+              "1",
+              "4"
+            ],
+            "source": "公开赛事比分",
+            "probe": "葡萄牙体育1-4丹麦"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "未写出比分 1-4"
+          ],
+          "coverage": 0.67,
+          "legacy_issues": [],
+          "subject": "葡萄牙1-4丹麦，C罗不在场竟然输得比2003年还惨",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 77,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题 23 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 0.67）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 0.67）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 0%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "23 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "hua-ti-lei-tai",
+      "column_name": "话题擂台",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照",
+          "反差"
+        ],
+        "proper_nouns": [
+          "B费",
+          "C罗"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 6,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 929,
+        "han_len": 605,
+        "paragraphs": 13,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "荷兰7-0希腊，赖因德斯帽子戏法竟不是最大惊喜",
+      "path": "/home/runner/work/_temp/output/2026-11-15/article-2-荷兰70希腊赖因-425042.md",
+      "slug": "荷兰70希腊赖因-425042",
+      "tags": [
+        "Netherlands",
+        "Greece",
+        "Reijnders",
+        "hat-trick",
+        "World Cup qualifier"
+      ],
+      "keywords": [
+        "Netherlands",
+        "Greece",
+        "Reijnders",
+        "hat-trick",
+        "World Cup qualifier"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-15/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:goals",
+          "anchor": {
+            "kind": "goals",
+            "entities": [
+              "荷兰",
+              "希腊"
+            ],
+            "numbers": [
+              "7",
+              "0"
+            ],
+            "source": "直播吧战报进球事件",
+            "probe": "荷兰7-0希腊"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:goals",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "荷兰 失球写作 0（事实 7），单侧归因疑为历史数据",
+            "荷兰 失球写作 0（事实 7），单侧归因疑为历史数据",
+            "希腊 进球写作 7（事实 0），单侧归因疑为历史数据"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "荷兰 7-0 希腊，7球对攻大战",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "标题以比分开场（「7-0」在起首 2 字内）",
+          "全文无具体人物名",
+          "无悬念/评价/叙事钩子",
+          "标题不要以比分/赛果开场。请把「谁」提到最前面，用「人物 + 冲突/反差 + 悬念」替换比分播报；比分留给正文，标题只承担勾人点进来的职责。"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（14 < 47）"
+        ]
+      },
+      "_fidelity": {
+        "ok": false,
+        "issues": [
+          "缺少球员: 钟内"
+        ]
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（14 < 47）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "23 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "紧急球评",
+      "topic_category": "战报比分",
+      "column_id": "breaking",
+      "column_name": "突发直击",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照",
+          "反差"
+        ],
+        "proper_nouns": [],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": false,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "标题以比分开场（「7-0」在起首 2 字内）",
+          "全文无具体人物名"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 6,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 922,
+        "han_len": 602,
+        "paragraphs": 13,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
+    }
+  ],
+  "topics": [
+    {
+      "title": "C罗退役后葡萄牙首战惨败",
+      "angle": "热点事件「C罗退役后葡萄牙首战惨败」，从球迷情绪与争议点切入",
+      "keywords": [],
+      "keywords_cn": [
+        "C罗退役后葡萄牙首战惨败"
+      ],
+      "content_type": "热点球评",
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "榜单第 48 位（weibo）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "C罗#retire",
+      "_hot_rank": 48,
+      "_hot_source": "weibo",
+      "_hot_channel": "board",
+      "_hot_providers": [
+        "weibo"
+      ],
+      "_hot_support": [
+        "早报：谁会想念C罗？葡萄牙主场1-4惨败",
+        "如果他在会不同吗？C罗9次对阵丹麦4球2助，战绩5胜1平3负",
+        "惨败！葡萄牙遭遇2003年之后无C罗情况下最大比分失利"
+      ],
+      "_hot_support_raw": [
+        {
+          "source": "zhibo8",
+          "title": "早报：谁会想念C罗？葡萄牙主场1-4惨败",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8a778e28c4native.htm",
+          "article_text": "【战报新闻】\n后C罗时代开门黑！葡萄牙1-4惨败丹麦止4连胜 霍伊伦双响B席破门\n永远的7号！第7分钟，葡萄牙主场球迷鼓掌+屏幕展示C罗经典庆祝\n开门黑！C罗从国家队退役后，葡萄牙首战主场1-4惨败丹麦\n终结3连败进球荒！国足2-0马来西亚 王钰栋张玉宁破门 判罚引争议\n【热点新闻】\n是否想念C罗？热苏斯：他已经不在国家队了，为什么会想念？\n热苏斯：我们始终无法阻止丹麦的进攻 C罗受到致敬是他应得的\n后C罗时代首战1-4惨败！葡萄牙遭遇队史正赛主场最大比分失利\n致敬C罗！官方：葡萄牙队7号球衣更换数字样式，原版设计永久封存\n邵佳一：过程和结果我都很满意 马来西亚20个人没来还有如此实力\n维尼修斯将复出！马卡：穆帅面临难题，迪奥曼德踢左路比右路要好\n六台：德容背部不适已离开荷兰队返回巴萨，将缺战与德国的比赛\n罗马诺：米兰冬窗肯定会引援 巴萨为巴尔德要价5000万到6000万\n对阵日本染红！巴西总监：拉菲尼亚将留在国家队，和我们在一起\n博涅克：瓜帅那种无聊的倒脚毁了足球；梅西或老马？我肯定选老马\n罗马里奥痛批安帅：在巴西队没展现任何真本事，收拾东西滚蛋吧\n冬窗重磅转会？罗马诺：德布劳内可能离开那不勒斯，他在这不开心\n转型传教士！西媒：阿尔维斯痴迷传教疏远妻女 与妻子分居+正离婚",
+          "_age_hours": 8.0,
+          "_freshness": "fresh",
+          "_hot_support": true
+        },
+        {
+          "source": "zhibo8",
+          "title": "如果他在会不同吗？C罗9次对阵丹麦4球2助，战绩5胜1平3负",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8e3bf29683native.htm",
+          "article_text": "",
+          "_age_hours": 8.0,
+          "_freshness": "fresh"
+        },
+        {
+          "source": "zhibo8",
+          "title": "惨败！葡萄牙遭遇2003年之后无C罗情况下最大比分失利",
+          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8d8e1b00f6native.htm",
+          "article_text": "",
+          "_age_hours": 8.0,
+          "_freshness": "fresh"
+        }
+      ]
+    },
+    {
+      "title": "葡萄牙1-4丹麦，C罗不在场竟然输得比2003年还惨",
+      "angle": "从C罗缺阵切入，用2003年至今的最大比分失利做对比，讨论这支葡萄牙对C罗的依赖到底有多深，以及热苏斯首败暴露的问题。",
+      "keywords": [
+        "Portugal",
+        "Denmark",
+        "Ronaldo",
+        "Nations League"
+      ],
+      "keywords_cn": [
+        "葡萄牙",
+        "丹麦",
+        "C罗",
+        "欧国联"
+      ],
+      "content_type": "热点球评",
+      "score": 92,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "世界杯经典时刻",
+      "series_id": "无",
+      "why_pick": "惨败+C罗缺阵+23年最惨，争议和情绪都拉满",
+      "_category": "战报比分",
+      "_column_id": "hua-ti-lei-tai",
+      "_column_name": "话题擂台",
+      "_column_icon": "🥊",
+      "_writing_style": "烧烤摊辩论体",
+      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
+      "_topic_domain": "足球争议话题",
+      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
+      "_data_source_hint": "gzh_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "荷兰 7-0 希腊，7球对攻大战",
+      "content_type": "紧急球评-进球大战"
+    }
+  ],
+  "data_sources": {},
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "赛程源",
+      "原因": "本批无可用赛程选题（源不可用或无匹配）",
+      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
+      "数量": 1
+    },
+    {
+      "环节": "软性补位跳过",
+      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
+      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（14 < 47）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：标题以比分开场（「7-0」在起首 2 字内）；全文无具体人物名；无悬念/评价/叙事钩子；标题不要以比",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "hot_topics": [
+    {
+      "title": "C罗退役后葡萄牙首战惨败",
+      "rank": 48,
+      "source": "weibo",
+      "channel": "board",
+      "event_key": "C罗#retire"
+    }
+  ],
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "C罗退役后葡萄牙首战惨败"
+      },
+      {
+        "slot": "data",
+        "type": "热点球评",
+        "title": "葡萄牙1-4丹麦，C罗不在场竟然输得比2003年还惨"
+      }
+    ],
+    "degraded": [
+      "data 槽用次优类型补位"
+    ],
+    "skipped": [
+      {
+        "type": "转会资讯",
+        "title": "瓜迪奥拉下周跟美国足协谈执教，曼城财务违规案还没完"
+      }
+    ],
+    "day_counts": {},
+    "selected": 2,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-15 08:06:18"
+}
