@@ -1,14 +1,15 @@
 {
   "version": 2,
   "date": "2026-11-15",
-  "generated_at": "2026-11-15 00:08:53",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-15 04:05:17",
+  "batch_filter": "morning+noon",
   "batches": [
-    "morning"
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 4,
+    "published": 4,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -40,6 +41,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "国足2比0马来西亚，王钰栋第10分钟破门终结三连败",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7708243890155651624",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "于根伟带津门虎保级，申花国安这波操作没想到",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7708244188168667648",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,
