@@ -1,7 +1,7 @@
 {
   "date": "2026-11-15",
-  "generated_at": "2026-11-15T00:06:18.848725",
-  "total_articles": 2,
+  "generated_at": "2026-11-15T04:02:43.083130",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -631,107 +631,706 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "国足2比0马来西亚，王钰栋第10分钟破门终结三连败",
+      "path": "/home/runner/work/_temp/output/2026-11-15/article-1-国足2比0马来西-8f0895.md",
+      "slug": "国足2比0马来西-8f0895",
+      "tags": [
+        "China national football team",
+        "Malaysia",
+        "Wang Yudong",
+        "Zhang Yuning",
+        "World Cup qualifier"
+      ],
+      "keywords": [
+        "China national football team",
+        "Malaysia",
+        "Wang Yudong",
+        "Zhang Yuning",
+        "World Cup qualifier"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-15/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "国足",
+              "马来西亚"
+            ],
+            "numbers": [
+              "2",
+              "0"
+            ],
+            "source": "公开赛事比分",
+            "probe": "国足2-0马来西亚"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "国足2-0马来西亚，21岁杨希被闷球，47岁周挺冲上去那一刻我懂了",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 92,
+        "ok": true,
+        "reasons": [
+          "过程锚点：第N分钟",
+          "缺冲突/反差动作",
+          "R11数据:标题 25 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（19 < 57）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 2%），只记分：事实点数少于最强源文（19 < 57）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "24 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "re-dian-su-ping",
+      "column_name": "热点速评",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "序次",
+          "度量",
+          "中文数字"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "国足"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 92,
+        "pass": true,
+        "reasons": [
+          "过程锚点：第N分钟",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 6,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1054,
+        "han_len": 701,
+        "paragraphs": 13,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "于根伟带津门虎保级，申花国安这波操作没想到",
+      "path": "/home/runner/work/_temp/output/2026-11-15/article-2-于根伟带津门虎保-fd6208.md",
+      "slug": "于根伟带津门虎保-fd6208",
+      "tags": [
+        "Shanghai Shenhua",
+        "Beijing Guoan",
+        "Dalian",
+        "Chinese Super League",
+        "foreign signings"
+      ],
+      "keywords": [
+        "Shanghai Shenhua",
+        "Beijing Guoan",
+        "Dalian",
+        "Chinese Super League",
+        "foreign signings"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-15/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-15/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "于根伟自曝6月有队挖他，听到罚分消息很震惊，津门虎保级后到底松没松",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字（比分/第几轮/第几分钟/积分/人数/年龄）；一处对比或落差（1平2负、22分压着对手、甩开一倍、从X到Y）。只能用事实卡里已有的数字，不得编造。",
+          "[三要素] 三要素 1/3 未达下限（需 ≥2 项且含专名）",
+          "[三要素] 缺：数字、对比"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（8 < 23）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（8 < 23）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "25 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "懂球帝 dongqiudi.com"
+      ],
+      "source_post": "媒体人：申花在找外援中卫，报价不足遭法国俱乐部拒绝中超30 评",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "中国足球",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "申花",
+          "国安"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "score": 89,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 6,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 927,
+        "han_len": 645,
+        "paragraphs": 15,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "C罗退役后葡萄牙首战惨败",
-      "angle": "热点事件「C罗退役后葡萄牙首战惨败」，从球迷情绪与争议点切入",
-      "keywords": [],
-      "keywords_cn": [
-        "C罗退役后葡萄牙首战惨败"
-      ],
-      "content_type": "热点球评",
-      "score": 100,
-      "controversy_level": "high",
-      "why_pick": "榜单第 48 位（weibo）",
-      "_supply_layer": "二级·突发",
-      "_hot_event_key": "C罗#retire",
-      "_hot_rank": 48,
-      "_hot_source": "weibo",
-      "_hot_channel": "board",
-      "_hot_providers": [
-        "weibo"
-      ],
-      "_hot_support": [
-        "早报：谁会想念C罗？葡萄牙主场1-4惨败",
-        "如果他在会不同吗？C罗9次对阵丹麦4球2助，战绩5胜1平3负",
-        "惨败！葡萄牙遭遇2003年之后无C罗情况下最大比分失利"
-      ],
-      "_hot_support_raw": [
-        {
-          "source": "zhibo8",
-          "title": "早报：谁会想念C罗？葡萄牙主场1-4惨败",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8a778e28c4native.htm",
-          "article_text": "【战报新闻】\n后C罗时代开门黑！葡萄牙1-4惨败丹麦止4连胜 霍伊伦双响B席破门\n永远的7号！第7分钟，葡萄牙主场球迷鼓掌+屏幕展示C罗经典庆祝\n开门黑！C罗从国家队退役后，葡萄牙首战主场1-4惨败丹麦\n终结3连败进球荒！国足2-0马来西亚 王钰栋张玉宁破门 判罚引争议\n【热点新闻】\n是否想念C罗？热苏斯：他已经不在国家队了，为什么会想念？\n热苏斯：我们始终无法阻止丹麦的进攻 C罗受到致敬是他应得的\n后C罗时代首战1-4惨败！葡萄牙遭遇队史正赛主场最大比分失利\n致敬C罗！官方：葡萄牙队7号球衣更换数字样式，原版设计永久封存\n邵佳一：过程和结果我都很满意 马来西亚20个人没来还有如此实力\n维尼修斯将复出！马卡：穆帅面临难题，迪奥曼德踢左路比右路要好\n六台：德容背部不适已离开荷兰队返回巴萨，将缺战与德国的比赛\n罗马诺：米兰冬窗肯定会引援 巴萨为巴尔德要价5000万到6000万\n对阵日本染红！巴西总监：拉菲尼亚将留在国家队，和我们在一起\n博涅克：瓜帅那种无聊的倒脚毁了足球；梅西或老马？我肯定选老马\n罗马里奥痛批安帅：在巴西队没展现任何真本事，收拾东西滚蛋吧\n冬窗重磅转会？罗马诺：德布劳内可能离开那不勒斯，他在这不开心\n转型传教士！西媒：阿尔维斯痴迷传教疏远妻女 与妻子分居+正离婚",
-          "_age_hours": 8.0,
-          "_freshness": "fresh",
-          "_hot_support": true
-        },
-        {
-          "source": "zhibo8",
-          "title": "如果他在会不同吗？C罗9次对阵丹麦4球2助，战绩5胜1平3负",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8e3bf29683native.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        },
-        {
-          "source": "zhibo8",
-          "title": "惨败！葡萄牙遭遇2003年之后无C罗情况下最大比分失利",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8d8e1b00f6native.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        }
-      ]
-    },
-    {
-      "title": "葡萄牙1-4丹麦，C罗不在场竟然输得比2003年还惨",
-      "angle": "从C罗缺阵切入，用2003年至今的最大比分失利做对比，讨论这支葡萄牙对C罗的依赖到底有多深，以及热苏斯首败暴露的问题。",
+      "title": "国足2-0马来西亚，21岁杨希被闷球，47岁周挺冲上去那一刻我懂了",
+      "angle": "从杨希被侵犯后周挺挺身而出的瞬间切入，讲国足新老交替中的血性和传承。不吹杨希天赋，只讲他在右路的拼抢态度和球队氛围。",
       "keywords": [
-        "Portugal",
-        "Denmark",
-        "Ronaldo",
-        "Nations League"
+        "China national team",
+        "Yang Xi",
+        "Zhou Ting",
+        "Malaysia"
       ],
       "keywords_cn": [
-        "葡萄牙",
-        "丹麦",
-        "C罗",
-        "欧国联"
+        "国足",
+        "杨希",
+        "周挺",
+        "马来西亚"
       ],
       "content_type": "热点球评",
       "score": 92,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "世界杯经典时刻",
-      "series_id": "无",
-      "why_pick": "惨败+C罗缺阵+23年最惨，争议和情绪都拉满",
+      "controversy_level": "medium",
+      "target_emotion": "骄傲",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "国足赢球但津媒批进攻单调，杨希被闷球周挺出头有画面有情绪，戳老球迷对国足又爱又恨的点",
       "_category": "战报比分",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-1"
     },
     {
-      "title": "荷兰 7-0 希腊，7球对攻大战",
-      "content_type": "紧急球评-进球大战"
+      "title": "于根伟自曝6月有队挖他，听到罚分消息很震惊，津门虎保级后到底松没松",
+      "angle": "从于根伟亲口说出的两个信息点切入：6月有球队邀约没动摇、听到罚分很震惊。结合大连英博夺冠和津门虎提前保级后的放松，写中超教练的真实处境。",
+      "keywords": [
+        "Yu Genwei",
+        "Tianjin Jinmen Tiger",
+        "Chinese Super League",
+        "relegation"
+      ],
+      "keywords_cn": [
+        "于根伟",
+        "津门虎",
+        "中超",
+        "保级"
+      ],
+      "content_type": "八卦趣事",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "于根伟主动爆料两个敏感点，有内幕感，津门虎保级后放松和罚分传闻都是球迷关心的真问题",
+      "_category": "冲突舆情",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-0"
     }
   ],
   "data_sources": {},
@@ -780,21 +1379,21 @@
       "数量": 1
     },
     {
-      "环节": "软性补位跳过",
-      "原因": "晨读批禁用软性补位（P0-2：晨读吃隔夜赛果+硬新闻）",
-      "处置": "本批篇数不足，按实际成稿发布（不拿软性顶替）",
-      "数量": 1
-    },
-    {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（14 < 47）",
+      "原因": "事实点数少于最强源文（8 < 23）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
       "环节": "标题评分记分",
-      "原因": "0分：标题以比分开场（「7-0」在起首 2 字内）；全文无具体人物名；无悬念/评价/叙事钩子；标题不要以比",
+      "原因": "0分：[三要素] 标题信息量不足（三要素只命中 1/3，下限 2 项且须含专名）。缺：一个可核对的具体数字",
       "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（19 < 57）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
@@ -810,15 +1409,21 @@
       "数量": 1
     },
     {
+      "环节": "封面兜底",
+      "原因": "图源全断，改用标题数据卡",
+      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "数量": 1
+    },
+    {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 1 张",
+      "原因": "真实图源只拿到 0 张",
       "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -831,15 +1436,6 @@
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
-  "hot_topics": [
-    {
-      "title": "C罗退役后葡萄牙首战惨败",
-      "rank": 48,
-      "source": "weibo",
-      "channel": "board",
-      "event_key": "C罗#retire"
-    }
-  ],
   "batch_mix": {
     "slots": [
       "main",
@@ -849,32 +1445,29 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "C罗退役后葡萄牙首战惨败"
+        "title": "国足2-0马来西亚，21岁杨希被闷球，47岁周挺冲上去那"
       },
       {
-        "slot": "data",
-        "type": "热点球评",
-        "title": "葡萄牙1-4丹麦，C罗不在场竟然输得比2003年还惨"
+        "slot": "extra",
+        "type": "八卦趣事",
+        "title": "于根伟自曝6月有队挖他，听到罚分消息很震惊，津门虎保级后"
       }
     ],
     "degraded": [
-      "data 槽用次优类型补位"
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
     ],
-    "skipped": [
-      {
-        "type": "转会资讯",
-        "title": "瓜迪奥拉下周跟美国足协谈执教，曼城财务违规案还没完"
-      }
-    ],
-    "day_counts": {},
+    "skipped": [],
+    "day_counts": {
+      "热点球评": 2
+    },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "morning"
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-15 08:08:53",
+  "last_batch": "noon",
+  "last_updated": "2026-11-15 12:02:43",
   "batches_completed": [
     "morning"
   ]
