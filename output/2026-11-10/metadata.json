@@ -324,7 +324,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2583,
+        "impressions": 2645,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -640,12 +640,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 5,
+        "reads": 8,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.495,
-        "impressions": 2606,
+        "impressions": 2673,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -970,7 +970,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.205,
-        "impressions": 2602,
+        "impressions": 2668,
         "follower_reads": 0,
         "click_rate": 0.0
       },
