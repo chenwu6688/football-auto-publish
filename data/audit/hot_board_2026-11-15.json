@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-15",
-  "generated_at": "2026-11-15 08:02:46",
+  "generated_at": "2026-11-15 12:02:18",
   "board_total": 130,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 3.64
+        "elapsed_s": 1.52
       },
       "weibo": {
         "status": "ok",
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.81
+        "elapsed_s": 0.87
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.38
+        "elapsed_s": 0.33
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.46
+        "elapsed_s": 1.42
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,89 +70,26 @@
   },
   "football_hits": [
     {
+      "word": "S16总决赛：中国战队BLG逆转夺冠",
+      "rank": 2,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
       "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 7,
-      "heat": 1195296,
+      "rank": 14,
+      "heat": 184042,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
       "published_at": "",
       "entities": []
-    },
-    {
-      "word": "国足胜马来西亚赛场响起《歌唱祖国》",
-      "rank": 29,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "终结三连败！国足2比0战胜马来西亚",
-      "rank": 46,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "C罗退役后葡萄牙首战惨败",
-      "rank": 48,
-      "heat": 80104,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": [
-        "C罗"
-      ]
     }
   ],
-  "candidates": [
-    {
-      "word": "C罗退役后葡萄牙首战惨败",
-      "rank": 48,
-      "heat": 80104,
-      "source": "weibo",
-      "entities": [
-        "C罗"
-      ],
-      "support": [
-        {
-          "source": "zhibo8",
-          "title": "早报：谁会想念C罗？葡萄牙主场1-4惨败",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8a778e28c4native.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        },
-        {
-          "source": "zhibo8",
-          "title": "如果他在会不同吗？C罗9次对阵丹麦4球2助，战绩5胜1平3负",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8e3bf29683native.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        },
-        {
-          "source": "zhibo8",
-          "title": "惨败！葡萄牙遭遇2003年之后无C罗情况下最大比分失利",
-          "url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af8d8e1b00f6native.htm",
-          "article_text": "",
-          "_age_hours": 8.0,
-          "_freshness": "fresh"
-        }
-      ],
-      "event_key": "C罗#retire",
-      "providers": [
-        "weibo"
-      ],
-      "channel": "board"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }

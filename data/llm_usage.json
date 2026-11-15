@@ -242,9 +242,9 @@
     "last_fail_at": "2026-11-15T08:04:23+08:00"
   },
   "deepseek-v4-pro-202606": {
-    "total_tokens": 633535,
-    "prompt_tokens": 286527,
-    "completion_tokens": 55008,
+    "total_tokens": 651342,
+    "prompt_tokens": 301759,
+    "completion_tokens": 57583,
     "free_quota_pct": 70.8,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
