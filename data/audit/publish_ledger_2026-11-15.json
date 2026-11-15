@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-15",
-  "generated_at": "2026-11-15 04:05:17",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-15 10:07:13",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 4,
+    "total": 6,
+    "published": 6,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -22,6 +23,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "前20分钟进2球，国足这套年轻阵容有点意思",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7708337150508466715",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "里克尔梅36岁退役前最后一年，只踢了8场球却让博卡全队等他",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7708337414846136841",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "葡萄牙1-4丹麦，C罗退役后B费带队竟输成这样",
       "slug": "",

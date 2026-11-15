@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-15",
-  "generated_at": "2026-11-15 04:05:17",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-15 10:07:13",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -19,19 +19,19 @@
   },
   "records": [
     {
-      "title": "国足2比0马来西亚，王钰栋第10分钟破门终结三连败",
+      "title": "前20分钟进2球，国足这套年轻阵容有点意思",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7708243890155651624",
+      "batch_name": "晚间",
+      "platform_id": "7708337150508466715",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "于根伟带津门虎保级，申花国安这波操作没想到",
+      "title": "里克尔梅36岁退役前最后一年，只踢了8场球却让博卡全队等他",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7708244188168667648",
+      "batch_name": "晚间",
+      "platform_id": "7708337414846136841",
       "reason": "",
       "images": 3,
       "status": "published"
