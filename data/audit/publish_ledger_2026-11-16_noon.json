@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "date": "2026-11-16",
+  "generated_at": "2026-11-16 04:06:47",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "日本3比2逆转巴西排第6，亚洲足球原来已经走这么远",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7708615348672643599",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "C罗梅西霸榜十年，姆巴佩一次单刀不进让老球迷想起了大罗",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7708615637580464675",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
