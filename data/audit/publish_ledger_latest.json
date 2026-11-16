@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "date": "2026-11-15",
-  "generated_at": "2026-11-15 10:07:13",
-  "batch_filter": "evening",
+  "date": "2026-11-16",
+  "generated_at": "2026-11-16 00:07:49",
+  "batch_filter": "morning",
   "counts": {
     "total": 2,
     "published": 2,
@@ -19,19 +19,19 @@
   },
   "records": [
     {
-      "title": "前20分钟进2球，国足这套年轻阵容有点意思",
+      "title": "毕尔巴鄂竞技vs西班牙人：聚光灯打一边，老将闷声攒劲",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7708337150508466715",
+      "batch_name": "晨读",
+      "platform_id": "7708553740432851496",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "里克尔梅36岁退役前最后一年，只踢了8场球却让博卡全队等他",
+      "title": "英格兰客场3比2掀翻西班牙，43场不败被凯恩终结",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7708337414846136841",
+      "batch_name": "晨读",
+      "platform_id": "7708554062338032128",
       "reason": "",
       "images": 3,
       "status": "published"
