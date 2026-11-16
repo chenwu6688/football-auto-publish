@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12 11:43",
+  "generated_at": "2026-11-16 20:47",
   "min_elements": 2,
   "require_proper": true,
   "ok": true,
@@ -18,7 +18,7 @@
       "ok": true,
       "skipped": false,
       "verdict": {
-        "ours_pass_rate": 0.65,
+        "ours_pass_rate": 0.7,
         "peers_pass_rate": 0.71,
         "monotonic": true,
         "peer_top_pass": "8/10",
@@ -28,12 +28,12 @@
       },
       "coverage": {
         "ours": {
-          "n": 110,
-          "number": 55.5,
-          "contrast": 57.3,
-          "proper": 88.2,
-          "all_three": 33.6,
-          "pass_rate": 65.5,
+          "n": 138,
+          "number": 58.0,
+          "contrast": 58.0,
+          "proper": 88.4,
+          "all_three": 31.9,
+          "pass_rate": 69.6,
           "median_count": 2.0
         },
         "peers": {
@@ -47,7 +47,7 @@
         }
       },
       "detail": [
-        "我方 110 篇：通过 0.65，通过组中位 14.0 / 被拦组中位 2.5（单调 ✅）",
+        "我方 138 篇：通过 0.7，通过组中位 10.5 / 被拦组中位 3.5（单调 ✅）",
         "头部 181 条：通过 0.71（≥ 我方 ✅），TOP10 通过 8/10（≥70% ✅）",
         "我方压力带 20%~85%：✅"
       ]
@@ -66,14 +66,14 @@
       "item": "供给侧注入标题素材",
       "ok": true,
       "skipped": false,
-      "calls": 12,
+      "calls": 13,
       "parts": {
         "title_block": 4,
-        "brief_text": 3,
+        "brief_text": 4,
         "rule": 5
       },
       "detail": [
-        "注入点 12 处（下限 6）：_title_block 4 / brief_text 3 / 规则引用 5 ✅",
+        "注入点 13 处（下限 6）：_title_block 4 / brief_text 4 / 规则引用 5 ✅",
         "只加出口闸门不加供给侧 → 模型只能靠编数字过闸门，这正是 11-03「改口径先 grep 供给侧」的教训"
       ]
     },
@@ -83,17 +83,17 @@
       "advisory": true,
       "skipped": false,
       "coverage": {
-        "n": 30,
-        "number": 80.0,
-        "contrast": 73.3,
-        "proper": 100.0,
-        "all_three": 60.0,
-        "pass_rate": 93.3,
-        "median_count": 3.0
+        "n": 39,
+        "number": 71.8,
+        "contrast": 66.7,
+        "proper": 89.7,
+        "all_three": 33.3,
+        "pass_rate": 87.2,
+        "median_count": 2
       },
       "detail": [
-        "成稿 30 条：数字 80.0% / 对比 73.3% / 专名 100.0% / 三项全过 60.0%",
-        "达下限通过率 93.3%（上不设目标：这是存量+新管线混合值，只看趋势）"
+        "成稿 39 条：数字 71.8% / 对比 66.7% / 专名 89.7% / 三项全过 33.3%",
+        "达下限通过率 87.2%（上不设目标：这是存量+新管线混合值，只看趋势）"
       ]
     }
   ],
