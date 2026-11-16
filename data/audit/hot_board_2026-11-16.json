@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-16",
-  "generated_at": "2026-11-16 08:04:10",
-  "board_total": 131,
+  "generated_at": "2026-11-16 12:03:22",
+  "board_total": 129,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,11 +10,11 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.73
+        "elapsed_s": 1.63
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
         "elapsed_s": 0.99
@@ -24,14 +24,14 @@
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.21
+        "elapsed_s": 0.18
       },
       "tieba": {
         "status": "ok",
-        "count": 30,
+        "count": 27,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.8
+        "elapsed_s": 1.63
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,11 +71,21 @@
   "football_hits": [
     {
       "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 22,
-      "heat": 25164,
+      "rank": 20,
+      "heat": 50600,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "方博曾说打败獒龙蟒胖才能打世界杯",
+      "rank": 45,
+      "heat": 188565,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
       "published_at": "",
       "entities": []
     }

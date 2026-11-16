@@ -220,14 +220,14 @@
     "note": "后台额度是其它模型的 10 倍（1000 万 vs 100 万）；按到期时间排在最后，其它额度耗尽才轮得到它"
   },
   "glm-5.2": {
-    "total_tokens": 164014,
-    "prompt_tokens": 1198,
-    "completion_tokens": 816,
+    "total_tokens": 180928,
+    "prompt_tokens": 16789,
+    "completion_tokens": 2139,
     "free_quota_pct": 83.8,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-09 11:45:57",
-    "fail_streak": 2,
+    "fail_streak": 0,
     "last_fail_at": "2026-11-15T08:05:21+08:00"
   },
   "minimax-m3": {
