@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-16",
-  "generated_at": "2026-11-16 12:03:22",
-  "board_total": 129,
+  "generated_at": "2026-11-16 18:05:25",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.63
+        "elapsed_s": 2.53
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.99
+        "elapsed_s": 0.89
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.18
+        "elapsed_s": 0.34
       },
       "tieba": {
         "status": "ok",
-        "count": 27,
+        "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.63
+        "elapsed_s": 3.01
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,8 +71,8 @@
   "football_hits": [
     {
       "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 20,
-      "heat": 50600,
+      "rank": 24,
+      "heat": 22610,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
@@ -80,9 +80,29 @@
       "entities": []
     },
     {
-      "word": "方博曾说打败獒龙蟒胖才能打世界杯",
-      "rank": 45,
-      "heat": 188565,
+      "word": "日本女孩坠楼后直播持续约44分钟",
+      "rank": 25,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "刘耀文在声生不息当队长",
+      "rank": 43,
+      "heat": 236665,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "曝BLACKPINK解约YG",
+      "rank": 47,
+      "heat": 212374,
       "source": "weibo",
       "kind": "board",
       "url": "",
