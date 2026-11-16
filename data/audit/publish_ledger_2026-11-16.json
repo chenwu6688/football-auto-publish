@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-16",
-  "generated_at": "2026-11-16 04:06:47",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-16 10:08:42",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 4,
+    "total": 6,
+    "published": 6,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -22,6 +23,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "37岁吴曦回归国足，老将vs新中场，中场还得靠他",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7708708642861728282",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "斯托伊科维奇执教山东泰山，进攻狂人碰中超铁桶阵竟这样搭",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7708708926535090697",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "毕尔巴鄂竞技vs西班牙人：聚光灯打一边，老将闷声攒劲",
       "slug": "",
