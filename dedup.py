@@ -31,6 +31,14 @@
 从来不看这个键**：它只看关键词和赛果指纹。于是同一条「C罗退役」，热点通道
 上午写过，午间主稿换一套关键词又写了一遍 —— 关键词重叠率算出来只有 20%，
 两道 40% / 50% 的阈值都过了。
+
+## 补位层也必须过同一道判据（2026-11-16）
+
+`apply` 只在候选表上去重。候选被丢掉之后，`deterministic_supply.fill_gap` /
+`reservoir.fill_gap` 会**重新从库存取货**，它们原本不知道本批写过什么 ——
+11-10 晨读漏斗 `llm 2 → dedup 1（同场丢1）→ batch_mix 2`，补回来的还是同一场。
+所以补位侧统一走 :func:`exclusion_ctx` + :func:`judge`：上下文由这一个函数整理，
+判据仍然是同一个 `judge`，不在补位侧另写第二套。
 """
 
 from __future__ import annotations
@@ -108,6 +116,91 @@ def build_context(*, cross_batch_covered=None, topic_history=None,
         "kw_hist": {str(k).lower() for k in (hist.get("keywords") or set()) if k},
         "titles_today": day_titles,
     }
+
+
+def exclusion_ctx(date_str: str | None = None, extra_titles=None,
+                  lookback_days: int = 7) -> dict:
+    """**补位层用的排除上下文**（2026-11-16，改动点 1）。
+
+    为什么需要这个函数：`select_topics` 里的 `apply` 只能在**候选表**上去重，
+    而 `deterministic_supply.fill_gap` / `reservoir.fill_gap` 是在候选被丢掉之后
+    重新从库存里取货 —— 它们不知道这一批已经写过什么，于是 dedup 丢一条、
+    补位补一条回来（11-10 晨读实测：`llm 2 → dedup 1 → batch_mix 2`，补回来的
+    还是同一场球）。
+
+    这里**只整理上下文，不另行判定**：判据的唯一实现仍是 :func:`judge`。
+    在补位侧另写一套「像不像同一场」的规则，就是 10-24「比分口径三处各写各的」
+    的重演。
+
+    参数
+    ----
+    date_str     批次日期（`YYYY-MM-DD`）。None 时只返回空上下文（不阻塞补位）。
+    extra_titles 本批**已在内存里**的标题（articles / topics）。必须显式传入：
+                 `get_cross_batch_covered` 读的是已落盘的 metadata，而补位发生在
+                 落盘之前 —— 不传就会漏掉「本批自己刚写的那几篇」。
+    lookback_days 跨天历史窗口，与 `get_topic_history` 默认值一致。
+
+    读不到历史（本机无 output/、import 失败）→ 返回空上下文，补位照常进行，
+    绝不因读不到历史而把库存全判成重复（计划九）。
+    """
+    covered: dict = {}
+    hist: dict = {}
+    if date_str:
+        try:
+            import orchestrator
+            covered = orchestrator.get_cross_batch_covered(str(date_str)) or {}
+        except Exception as e:
+            print(f"   ⚠️ 补位去重上下文：读当日已发失败（{type(e).__name__}），按未写处理")
+            covered = {}
+        try:
+            import data_collector
+            hist = data_collector.get_topic_history(str(date_str),
+                                                   lookback_days=lookback_days) or {}
+        except Exception as e:
+            print(f"   ⚠️ 补位去重上下文：读跨天历史失败（{type(e).__name__}），按未写处理")
+            hist = {}
+
+    if extra_titles:
+        # 合并「本批内存稿」到当日集合。titles 用前 30 字（judge 的口径），
+        # 对阵键从标题现算（_teams 只在 ≥2 队时返回，单队标题不会误锁）。
+        covered = dict(covered)
+        titles = {str(t) for t in (covered.get("titles") or set()) if t}
+        pairs = set(covered.get("fixture_pairs") or set())
+        for raw in extra_titles:
+            title = str(raw or "").strip()
+            if not title:
+                continue
+            titles.add(title[:30])
+            pair = _teams({"title": title})
+            if pair:
+                pairs.add(pair)
+        covered["titles"] = titles
+        covered["fixture_pairs"] = pairs
+
+    return build_context(cross_batch_covered=covered, topic_history=hist)
+
+
+def remember(ctx: dict, title: str) -> dict:
+    """把一条**本批已定稿**的标题累加进上下文（补位侧逐条取货时用）。
+
+    为什么要单独一个函数：补位是一件一件从库存里拿的，第二件必须知道第一件
+    已经被本批占用，否则同一批能补进两条同一场（11-09 一天三篇同一场就是这么来的）。
+    在调用方手写 `ctx["titles_today"].add(...)` 等于把 `judge` 的字段名复制到外面，
+    改字段就得改两处 —— 那是「同一量多处定义」的老毛病。
+    """
+    if not isinstance(ctx, dict):
+        return ctx
+    t = str(title or "").strip()
+    if not t:
+        return ctx
+    ctx.setdefault("titles_today", set()).add(t[:30])
+    pair = _teams({"title": t})
+    if pair:
+        ctx.setdefault("fixture_pairs", set()).add(pair)
+    key = hot_topics.event_key(t)
+    if key and not key.endswith("#"):
+        ctx.setdefault("event_keys", set()).add(key)
+    return ctx
 
 
 def judge(topic, ctx: dict) -> tuple[str, str]:
@@ -207,6 +300,17 @@ def selftest() -> list[tuple[str, bool]]:
     cases.append(("同队不同事不删（仅告警）", v3 == "ok" and bool(st)))
     # 无实体标题不参与事件判重（否则一天只能发一篇无实体稿）
     cases.append(("无实体标题不进事件键集合", event_keys_of({"某队宣布换帅"}) == set()))
+
+    # 补位侧上下文（改动点 1）：date_str=None 时只吃 extra_titles，不读文件系统，
+    # 但判据必须与 apply 完全一致 —— 否则「补位把 dedup 丢掉的题补回来」会复发。
+    _ctx_fill = exclusion_ctx(None, extra_titles=["曼联4-4维拉，多古补时救主还是遮羞"])
+    v_fill, r_fill = judge(T("曼联4-4维拉，多古补时救主还是遮羞", ["曼联", "维拉"]), _ctx_fill)
+    # 这条同时命中对阵键与标题，先命中哪一条由 judge 的顺序决定 —— 断言「被判重」
+    # 而不是断言某条具体判据，否则改判据顺序就会让自检假红。
+    cases.append(("补位上下文：本批已写标题被判重",
+                  v_fill == "drop" and r_fill in ("fixture", "title", "event")))
+    cases.append(("补位上下文：无关标题不被误杀",
+                  judge(T("国米2-1逆转米兰，劳塔罗双响", ["国米", "米兰"]), _ctx_fill)[0] == "ok"))
     return cases
 
 

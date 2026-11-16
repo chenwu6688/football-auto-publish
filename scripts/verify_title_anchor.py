@@ -400,9 +400,112 @@ def check_wired() -> dict:
     return {"item": "已接入生成侧", "ok": ok, "detail": detail}
 
 
+def _fixture_supply_by_day() -> dict:
+    """{日期: 赛程供给篇数}（确定性供给 + 战报），来自 topic_funnel 的 slot 层。
+
+    为什么需要它：锚点是「场上发生了什么」，**没有比赛就没有过程可写**。
+    2026-11-10~11-15 连续 6 天锚点 0%，同期 slot 层「确定性/战报」全为 0 ——
+    那是国际比赛日没有俱乐部赛程，不是标题写坏了。逐日告警必须带上这一列，
+    否则每个国际比赛日都会报一次假警，然后所有人都学会忽略它。
+    """
+    out: dict = {}
+    path = PROJECT_ROOT / "data" / "audit" / "topic_funnel.jsonl"
+    if not path.exists():
+        return out
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except Exception:
+                continue
+            day = str(rec.get("date") or "")
+            if not day:
+                continue
+            sl = ((rec.get("stages") or {}).get("slot") or {}).get("detail") or {}
+            n = 0
+            for k in ("确定性", "战报"):
+                try:
+                    n += int(sl.get(k) or 0)
+                except (TypeError, ValueError):
+                    pass
+            out[day] = out.get(day, 0) + n
+    except Exception:
+        return out
+    return out
+
+
+def check_anchor_trend(days: int = 7) -> dict:
+    """E. 逐日锚点覆盖（**告警项**）：防「累计值还行、其实连续几天归零」。
+
+    2026-11-02~11-15 的教训：累计 30.7%、看起来「离 40% 不远」，
+    但拆到逐日是 11-10 起连续 6 天 0%。累计口径把这个断崖完全掩盖了。
+
+    刻意不是硬项：锚点覆盖率是流量优化项（平台不因此扣分），且**受赛程供给
+    支配**——国际比赛日没有比赛，过程锚点天然写不出来。做成硬项等于每个国家队
+    比赛窗口都把 CI 刷红，红几次之后就没人看了。
+
+    告警条件：**有赛程供给**（slot 层确定性/战报 ≥1）的日期里，连续 2 天覆盖率 <20%。
+    没有赛程的日子照常列出来，但标「无赛程」并且不计入连续计数。
+    """
+    since = TITLE_SINCE
+    try:
+        floor = (datetime.now(CST) - timedelta(days=days)).strftime("%Y-%m-%d")
+    except Exception:
+        floor = since
+    floor = max(floor, since)
+    supply = _fixture_supply_by_day()
+    per_day: list[tuple[str, int, int]] = []
+    if OUTPUT_DIR.exists():
+        for d in sorted(p for p in OUTPUT_DIR.iterdir() if p.is_dir()):
+            if not (floor <= d.name <= datetime.now(CST).strftime("%Y-%m-%d")):
+                continue
+            f = d / "metadata.json"
+            if not f.exists():
+                continue
+            try:
+                meta = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            titles = [str(a.get("title") or "") for a in (meta.get("articles") or [])
+                      if isinstance(a, dict) and not a.get("is_prediction")
+                      and str(a.get("title") or "").strip()]
+            if not titles:
+                continue
+            cov = title_gate.coverage(titles)
+            per_day.append((d.name, cov["anchors"] or 0, cov["n"]))
+    if not per_day:
+        return {"item": "逐日锚点覆盖（告警）", "ok": None, "advisory": True,
+                "detail": [f"窗口 {floor} 起无成稿 → 未判定（不写 0）"]}
+
+    rows, streak, flagged = [], 0, []
+    for day, anchors, n in per_day:
+        pct = 100.0 * anchors / n if n else 0.0
+        had_match = supply.get(day, 0) > 0
+        flag = ""
+        if had_match:
+            streak = streak + 1 if pct < 20.0 else 0
+            if streak >= 2:
+                flag = " ⚠️ 连续低覆盖"
+                flagged.append(day)
+        else:
+            streak = 0
+        rows.append(f"{day} {anchors}/{n} = {pct:.0f}%"
+                    f"（赛程供给 {supply.get(day, 0)}）" + (" 无赛程" if not had_match else "") + flag)
+    detail = ["逐日（覆盖面 / 赛程供给篇数）："] + [f"- {r}" for r in rows]
+    if flagged:
+        detail.append(f"⚠️ 有赛程却连续 2 天覆盖率 <20%：{flagged} —— 这是标题问题，不是没比赛")
+    else:
+        detail.append("未出现「有赛程且连续 2 天 <20%」的组合 ✅")
+    return {"item": "逐日锚点覆盖（告警）", "ok": not flagged, "advisory": True,
+            "flagged_days": flagged, "detail": detail}
+
+
 def verify(days: int = 7) -> dict:
     checks = [check_wordlist(), check_fact_layer(), check_anchor_coverage(days),
-              check_question_quota(), check_wired()]
+              check_question_quota(), check_wired(), check_anchor_trend(min(days, 7))]
     # 三态：ok is False → 失败；ok is None → 未判定（非通过）；ok is True → 通过。
     # 旧实现用 advisory 把「未判定」整个排除，结果样本不足被当成通过——
     # 于是 4 篇判通过、5 篇判失败（同一份真相，方向随样本量翻转）。
@@ -455,6 +558,9 @@ def main() -> int:
     if rep.get("pending"):
         # 未判定 ≠ 通过：在 CI 日志里显式留痕，避免「绿色=已验收」的误读。
         print(f"::warning::标题锚点验收有未判定硬项（样本不足，非通过）：{'、'.join(rep['pending'])}")
+    for _c in rep.get("checks") or []:
+        for _d in (_c.get("flagged_days") or []):
+            print(f"::warning::锚点逐日告警：{_d} 有赛程但覆盖率 <20%（连续 2 天以上）")
     return 0 if rep["ok"] else 1
 
 

@@ -57,7 +57,9 @@ meta:
   # 2026-11-04 夜：新增 topic_funnel（S2 前置度量）同样自带负向（内置「改坏源码必须
   # 报红」的负向检查）→ 43 项/13 项有负向，债务仍 30，基线不动。
   # 记账提醒：项数会涨，债务不许涨。**不要为了「项数好看」把没有负向的东西登记进来。**
-  baseline_negative_debt: 30
+  # 2026-11-16：publish_success 补了真负向（未知 status / 成稿<记录 / 未判定不算通过），
+  # 债务 30 → 29，基线同步下调（基线必须等于当前实际债务，否则元层负向自检会失效）。
+  baseline_negative_debt: 29
   debt_must_not_grow: true
   # 每日层的最小集合：可以加项，不许悄悄删项（否则「每日结果门禁」会被慢慢掏空）
   required_daily:
@@ -230,8 +232,21 @@ items:
     tiers: [daily]
     kind: hard
     scope: ops
-    why: 38 个验收全在审「该不该发」，没有一个看「发出去没有」；11-04 一天失败 1/2 零告警
-    negative: null
+    why: |
+      38 个验收全在审「该不该发」，没有一个看「发出去没有」；11-04 一天失败 1/2 零告警。
+
+      2026-11-16 补两项（改动点 6）：分母此前只有 published + failed，于是
+      ① 合规剔除的稿子、② 成稿了却连台账都没进的稿子，都不在分母里，
+      成功率被结构性高估（11-02~11-15 实测：尝试口径 98.4%、成稿口径 82.4%，
+      缺口 8 篇全部发生在 11-05 之前，11-06 起为 0）。
+      F 项「成稿口径成功率」只报数不判定：它与 A 项回答的是两个问题
+      （「尝试过的发成没有」vs「成稿里多少篇真发出去了」），合成一个数
+      要么冤枉发布器、要么把取证缺口藏起来。
+      G 项「台账恒等式」判硬，但它判的是**结构**不是阈值：
+      records 分区（counts.total == 记录数 == 各 status 之和）与成稿覆盖
+      （drafts ≥ total）。破了说明有 status 没人计数、或日级聚合重复合并，
+      两种都不可能靠调阈值修好。口径实现只在 ledger_funnel.py，本项只调用。
+    negative: "未知 status 写进 records → I1 必红；成稿 < 台账记录 → I2 必红；老台账无 drafts 字段 → 必须「未判定」而非通过（tests/test_ledger_funnel.py）"
   cover_coverage:
     tiers: [daily]
     kind: hard
@@ -478,3 +493,35 @@ items:
     negative: "把 orchestrator 里任一层 `_funnel(\"<key>\")` 改名/换变量后，
       check_wiring 必须报红（verify 内置负向：check_negative 会真的改源码再验一次，
       两条负向都过才算通过）"
+  dedup_spread:
+    tiers: [code-change, daily]
+    kind: advisory
+    scope: quality
+    rule_ids: [TT-03]
+    why: |
+      选题去重散布（2026-11-16 改动点 1）。此前去重只有一层：候选表层的
+      `dedup.apply`。补位层（`deterministic_supply.fill_gap` / `reservoir.fill_gap`）
+      有自己的取货逻辑，**不过这道判据** —— 同一场比赛换一行赛程就能再补一篇，
+      实测「曼联 ×11 篇 / 14 天」。
+      本项用四把尺子量同一件事：A 当天同场 / B 跨天同场 / C 同事件 / D 单主体集中，
+      外加 E「判据真的接到补位侧了吗」（AST 查调用点关键字）。
+      **判 advisory 而不是 hard**：它量的是历史窗口里已经发出去的重复，
+      不是本批能不能发。真正的阻断在 `dedup.judge` 两道硬判据（对阵键 / event_key），
+      那两条在生成侧，红了就是重复稿根本没进发布集合。
+    negative: "临时 store 里塞 3 条同场候选，`fill_gap` 必须一条都补不进来且拒绝计数=3（内置 negative_selftest）"
+
+  topic_mix:
+    tiers: [code-change, daily]
+    kind: advisory
+    scope: growth
+    why: |
+      选题类型配比守卫（2026-11-16 改动点 3）。`mix_guard` 是**软闸门**：
+      命中超配只写 `metadata.mix_overshoot` 留证，**不改一个字的发布决定**。
+      理由写在 11-11 的账上：那天拿一个 CTR 指标卡发布，整批 0 篇。
+      配比是流量优化项，平台不因此扣分。
+      本项硬项只判两件确定性的事：① 逐批 data 槽不得降级（读 topic_funnel
+      明细，不拿总数冒充原因）；② 结论里的「超配/未超配」与台账重算一致。
+      占比是否达标是观测项，不判红。
+      分母只取日期级 `publish_ledger_<date>.json`（metadata 是覆盖写，
+      拿它当分母会系统性高估），`_morning/_noon/_evening` 混进来会让 total 虚高约 1.9 倍。
+    negative: "20 篇全是战报 → 必须报战报超配；20 篇全是官宣 → 战报不得超配；配置缺失 → 未判定（内置 negative_selftest，三条全过才算通过）"

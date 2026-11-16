@@ -108,9 +108,15 @@ class TestPublishLedger(unittest.TestCase):
         self.tmp = Path(tempfile.mkdtemp())
         self._orig = publisher.AUDIT_DIR
         publisher.AUDIT_DIR = self.tmp / "audit"
+        # 2026-11-16 改动点 6：台账会读当天 metadata 算成稿侧计数。
+        # 不把 OUTPUT_BASE 指到临时目录，测试就会去读仓库里真实的 output/ —— 
+        # 断言会随真实数据变化而漂，而且违反「落台账路径先指 tempfile」的纪律。
+        self._orig_out = publisher.OUTPUT_BASE
+        publisher.OUTPUT_BASE = self.tmp / "output"
 
     def tearDown(self):
         publisher.AUDIT_DIR = self._orig
+        publisher.OUTPUT_BASE = self._orig_out
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def _recs(self):

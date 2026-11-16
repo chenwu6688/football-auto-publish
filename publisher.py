@@ -22,6 +22,7 @@ PROJECT_ROOT = Path(__file__).parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 import prediction_gate           # noqa: E402  （必须在本目录入 sys.path 之后）
+import ledger_funnel             # noqa: E402  （成稿→发布漏斗口径的唯一实现，改动点 6）
 
 OUTPUT_BASE = Path(os.environ.get("OUTPUT_DIR", PROJECT_ROOT / "output"))
 AUTH_FILE = Path(os.environ.get("TOUTIAO_AUTH_FILE", PROJECT_ROOT / "toutiao_auth.json"))
@@ -1335,27 +1336,47 @@ def _merge_day(date_str: str, current: dict) -> dict:
     fail = sum(1 for r in rows if r.get("status") == "failed")
     skip = sum(1 for r in rows if r.get("status") == "skipped_prediction")
     dup = sum(1 for r in rows if r.get("status") == "skipped_already_published")
+    # 成稿侧（2026-11-16 改动点 6）：只有「当天聚合」这一层能算
+    # `lost_upstream` —— metadata 是当天累计，这里的 records 也是当天累计，两把尺子才同口径。
+    # 单批次文件里绝不能用本批 records 去减当天 drafts，那会得到一个巨大的假缺口。
+    _snap = ledger_funnel.draft_snapshot(date_str, OUTPUT_BASE)
+    counts = {
+        "total": len(rows), "published": ok, "failed": fail,
+        "skipped_prediction": skip, "skipped_already_published": dup,
+        "published_without_id": sum(1 for r in rows if r.get("status") == "published"
+                                    and not r.get("platform_id")),
+        "published_without_cover": sum(1 for r in rows if r.get("status") == "published"
+                                       and not (r.get("images") or 0)),
+        # 读不到就 None，不写 0：「metadata 没这份文件」与「真 0 篇」不同。
+        "drafts": _snap.get("drafts"),
+        "dropped_compliance": _snap.get("dropped_compliance"),
+        "lost_upstream": None,
+        "published_with_title_gate_issue": _snap.get("title_gate_blocked_published"),
+    }
+    _ident = ledger_funnel.identity(counts, len(rows), _snap.get("drafts"))
+    counts["lost_upstream"] = _ident["lost_upstream"]
     return {
         "version": 2,
         "date": date_str,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "batch_filter": "+".join(sorted(set(legacy_batches))) or "all",
         "batches": sorted(set(legacy_batches)),
-        "counts": {
-            "total": len(rows), "published": ok, "failed": fail,
-            "skipped_prediction": skip, "skipped_already_published": dup,
-            "published_without_id": sum(1 for r in rows if r.get("status") == "published"
-                                        and not r.get("platform_id")),
-            "published_without_cover": sum(1 for r in rows if r.get("status") == "published"
-                                           and not (r.get("images") or 0)),
-        },
+        "counts": counts,
+        "identity": dict(_ident, scope="day_cumulative",
+                         available=bool(_snap.get("available")),
+                         reason=_snap.get("reason") or ""),
         "platform_id_binding": current.get("platform_id_binding") or {},
         "records": rows,
         "no_publishable": no_pub or None,
         "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
                  "这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
-                 "本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。"),
+                 "本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。"
+                 "counts.drafts 是当天落盘成稿数（metadata 累计口径），"
+                 "counts.lost_upstream = drafts - total，即「成稿在、台账没记录」的篇数；"
+                 "dropped_compliance 是合规剔除（成了稿但没发），"
+                 "published_with_title_gate_issue 是**已发布**带标题瑕疵的篇数，不是丢稿。"),
     }
+
 
 
 def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: str | None = None,
@@ -1371,6 +1392,14 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
       ① ``publish_ledger_{date}_{batch}.json`` —— 本批次，不覆盖兄弟批次
       ② ``publish_ledger_{date}.json``         —— 当天聚合（version=2）
       ③ ``publish_ledger_latest.json``         —— 本次批次，兼容既有读取方
+
+    2026-11-16（改动点 6）：计数从「只有尝试数」补到「成稿侧」。
+    此前分母只有 published/failed/skipped_* —— 合规剔除的稿子、以及成稿了却
+    连台账都没进的稿子都不在里面，成功率被结构性高估（11-02~11-15 实测
+    旧口径 98.4% vs 成稿口径 82.4%）。现在 ``counts`` 增加 ``drafts`` /
+    ``dropped_compliance`` / ``lost_upstream`` / ``published_with_title_gate_issue``，
+    并附 ``identity``（记录分区恒等式 + 成稿覆盖判据）。口径实现只在
+    ``ledger_funnel``，本函数只做装配。
     """
     AUDIT_DIR.mkdir(parents=True, exist_ok=True)
     batch = (batch_filter or "all").strip() or "all"
@@ -1383,15 +1412,29 @@ def write_publish_ledger(date_str: str, records: list[dict], *, batch_filter: st
     # 而这条路径的聚合点击率只有有封面篇的 1/4（2026-11-01 体检）。
     no_cover = sum(1 for r in records
                    if r.get("status") == "published" and not (r.get("images") or 0))
+    # 成稿侧快照（2026-11-16 改动点 6）。metadata 是**当天累计**，本文件是**本批次**，
+    # 两者不同口径 —— 所以这里只把快照原样带上（标 scope=day_cumulative 留证），
+    # `lost_upstream` 在本层一律 None，只在日级聚合里算。混用会得出一个假缺口。
+    _snap = ledger_funnel.draft_snapshot(date_str, OUTPUT_BASE)
+    counts = {"total": len(records), "published": ok, "failed": fail,
+              "skipped_prediction": skip, "skipped_already_published": dup,
+              "published_without_id": no_pid,
+              "published_without_cover": no_cover,
+              "drafts": _snap.get("drafts"),
+              "dropped_compliance": _snap.get("dropped_compliance"),
+              "lost_upstream": None,
+              "published_with_title_gate_issue": _snap.get("title_gate_blocked_published")}
+    # 只校验记录分区恒等式（不传 drafts → cover_ok 判 None/未判定）
+    _ident = ledger_funnel.identity(counts, len(records))
     payload = {
         "version": 2,
         "date": date_str,
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "batch_filter": batch,
-        "counts": {"total": len(records), "published": ok, "failed": fail,
-                   "skipped_prediction": skip, "skipped_already_published": dup,
-                   "published_without_id": no_pid,
-                   "published_without_cover": no_cover},
+        "counts": counts,
+        "identity": dict(_ident, scope="batch", available=bool(_snap.get("available")),
+                         reason=_snap.get("reason") or ""),
+        "draft_snapshot": _snap,
         "platform_id_binding": binding or {},
         "records": records,
         "note": ("成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，"
@@ -1573,6 +1616,20 @@ def publish_all(date_str, draft_mode=False, headless=False, batch_filter=None):
         except ValueError:      # 审计目录被指到仓库外（测试/冒烟）→ 记绝对路径，别误报失败
             _shown = _ledger_path
         print(f"  📒 发布台账已落盘：{_shown}")
+        # 恒等式写不进去＝口径不可信，必须当场看得见（台账不是闸门，不阻断发布）
+        try:
+            _day = json.loads(_ledger_path.read_text(encoding="utf-8"))
+            _id = _day.get("identity") or {}
+            print("  🧮 " + ledger_funnel.describe(
+                {"n_records": _id.get("n_records", 0),
+                 "known_status": _id.get("known_status", 0),
+                 "unaccounted_status": _id.get("unaccounted_status", 0),
+                 "lost_upstream": _id.get("lost_upstream")}))
+            if _id.get("records_identity_ok") is False:
+                print(f"  ⚠️ 台账恒等式不成立：{_id.get('unaccounted_status')} 条记录状态未计数"
+                      "（多半是新增了 status 却没在 ledger_funnel.STATUS_KEYS 登记）")
+        except Exception as _e:
+            print(f"  ⚠️ 台账漏斗读数失败（不影响已发布结果）: {_e}")
     except Exception as e:
         # 台账写失败不得影响发布结论，但必须可见——否则又会变成「悄悄丢掉」
         print(f"  ⚠️ 发布台账写入失败（不影响已发布结果）: {e}")

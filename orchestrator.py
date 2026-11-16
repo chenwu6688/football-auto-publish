@@ -1993,6 +1993,15 @@ def _rewrite_with_retry(topic, match_context, index, source, max_retries, date_s
                     _sc, _sc_pass, _sc_reasons, _sc_judged = _safe_title_score(
                         topic, _new_title, _ct, date_str or "",
                         recent_titles=_recent, stage="重拟后复评")
+            # 锚点重拟（2026-11-16 改动点 4）：**只在标题已经过关时**做。
+            # 标题没过关的走上面那条重拟路径（它按分数缺口重写，优先级更高）；
+            # 这里治的是「标题够分但读者不知道场上发生了啥」——11-10 起锚点归零的
+            # 直接形态。素材里没有过程就跳过，绝不为了覆盖率编时间点。
+            if _sc_pass:
+                _at = repick_for_anchor(topic, art, date_str or "", recent_titles=_recent)
+                if _at:
+                    art["title"] = _at
+                    art["_anchor_repick"] = True
             art["_title_score"] = {"score": _sc, "ok": _sc_pass, "reasons": _sc_reasons,
                                    "judged": _sc_judged}
             if not _sc_pass:
@@ -2810,6 +2819,25 @@ def save_articles_local(date_str, articles, images_map, topics, match_data, extr
         saved.append(_rec)
 
     meta = {"total_articles": len(saved), "articles": saved, "topics": topics, "data_sources": {}}
+    # 选题类型配比守卫（2026-11-16 改动点 3，**软闸门**）。
+    # 只做一件事：把「本批让窗口配比超到哪」写进 metadata 留证，**不改变发布决定**。
+    # 配比是流量优化项，平台不因此扣分；11-11 晚间就是拿一个 CTR 指标卡发布，
+    # 结果整批 0 篇。超配时可换题就换（选题侧），换不了照发并留证。
+    try:
+        import mix_guard
+        _mix = mix_guard.check([a for a in saved if not a.get("is_prediction")], date_str)
+        meta["mix_guard"] = {"window": _mix.get("window"), "n": _mix.get("n"),
+                             "batch_n": _mix.get("batch_n"), "ok": _mix.get("ok"),
+                             "table": _mix.get("table")}
+        if _mix.get("overshoot"):
+            meta["mix_overshoot"] = _mix["overshoot"]
+            print("   📐 配比超配留证：" + "、".join(
+                f"{o['type']} {o['actual']:.1f}%（目标 {o['target']:.0f}%）"
+                for o in _mix["overshoot"]))
+        elif _mix.get("ok") is None:
+            print(f"   ℹ️ 配比未判定（{_mix.get('reason', '')}），不阻断发布")
+    except Exception as _e:      # 守卫炸了不影响发布，但必须看得见
+        _unjudged(_e, "选题类型配比守卫")
     # 配图下限的生效日（2026-11-05）：验收脚本据此区分「老批次不达标」与「新批次退化」。
     # 不写这一项，`verify_article_images` 就只能对全部历史产物判 FAIL——那等于把
     # 「改动之前就是这样」当成「改动之后坏了」，没人会看第二次。
@@ -3891,6 +3919,14 @@ def _title_gate_row(art: dict, date_str: str = "") -> dict:
         return {}
     row = {"question_ending": title_gate.is_question_ending(t),
            "fallback": art.get("_title_fallback") or ""}
+    # 锚点分项（改动点 4 第 3 步）：只落「总覆盖率」看不出「哪一类锚点在掉」。
+    # 判不了写 None 而不是 [] —— 「没有锚点」和「没判」是两件事。
+    try:
+        row["anchor_kinds"] = list(title_gate.anchor_kinds(t))
+    except Exception:
+        row["anchor_kinds"] = None
+    # 锚点重拟留痕：True=机器换过一次带过程锚点的标题；False=试过/没试过（都不改正文）
+    row["anchor_repick"] = bool(art.get("_anchor_repick"))
     try:
         recent = recent_titles_for_gate(date_str or "")
     except Exception:
@@ -4241,6 +4277,50 @@ def _safe_title_candidates(topic):
         return []
 
 
+def _anchor_material(topic) -> bool:
+    """素材里有没有可写成**过程锚点**的东西（第几分钟 / 换人 / 红牌 / 补时…）。
+
+    判据复用 `title_gate.has_anchor` 扫 `title_brief.brief_text` —— **不另写一套词表**
+    （锚点口径的唯一来源是 `title_features.PROCESS_ANCHOR_PATTERNS`，10-24 比分口径
+    三处各写各的已经熔断过一次）。
+
+    只用来决定「值不值得再花一次标题调用」，**不用来决定发不发**。
+    """
+    try:
+        return bool(title_gate.has_anchor(title_brief.brief_text(topic) or ""))
+    except Exception as e:
+        _unjudged(e, "锚点素材探测")
+        return False
+
+
+def repick_for_anchor(topic, article, date_str="", *, recent_titles=None):
+    """标题没有过程锚点、但素材里确有过程 → 只重写一次标题。
+
+    返回新标题，或 ""（保留原题）。**只接受真的带锚点的结果**：换了但还是没锚点，
+    等于多花一次调用没解决问题，不如保留原题并如实在 metadata 记 anchor_repick=False。
+
+    为什么必须设「素材里确有过程」这道门：没有比赛数据的稿子（帅位/转会/人物）
+    强行要求过程锚点，模型只能编「第几分钟」——标题编造比正文编造更危险，
+    因为它不带上下文。宁可锚点覆盖率低，不许造假。
+    """
+    old = (article or {}).get("title") or ""
+    if not old or title_gate.has_anchor(old):
+        return ""
+    if not _anchor_material(topic):
+        return ""
+    try:
+        new = repick_title(topic, article,
+                           ["标题缺过程锚点：素材里有可写的过程（时间/换人/连进几球），标题没写出来"],
+                           date_str, recent_titles=recent_titles)
+    except Exception as e:
+        _unjudged(e, "锚点重拟")
+        return ""
+    if new and new != old and title_gate.has_anchor(new):
+        print(f"   🎯 锚点重拟：{old[:24]} → {new[:24]}")
+        return new
+    return ""
+
+
 def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
                  max_try=2, temperature=0.6):
     """**只重写标题**，正文一字不动（P0-1 计划的打回策略）。
@@ -4290,6 +4370,8 @@ def repick_title(topic, article, reasons, date_str="", *, recent_titles=None,
 5. **不要以疑问句（？/吗/呢）收尾**；要设问就放中段。
 6. 不得以比分或「大胜/血洗/绝杀/爆冷」这类赛果词开场（会命中硬规则被打回）。
 7. 不得用固定栏目前缀（「老六前瞻：」「赛前分析：」）。
+8. 素材里若有**过程**（第几分钟 / 连进几球 / 谁被换下 / 哪张牌 / 几比几追平），
+   标题要写进去——过程是点开的理由。素材里没有过程就**不要硬凑**，不许编时间点。
 
 只输出 JSON：{{"title": "..."}}"""
 
@@ -5357,6 +5439,18 @@ def ensure_fixture_title(topic, article, date_str="", *, batch_mode="auto"):
         _unjudged(e, "战报标题评分")
         return title, -1, [f"[未判定] 标题评分异常：{type(e).__name__}"]
     if score >= 60:
+        # 锚点重拟（2026-11-16 改动点 4）：分数够了但没写过程、而素材里有过程 →
+        # 只重写一次标题；拿不到带锚点的结果就保留原题（不丢稿、不编数字）。
+        _at = repick_for_anchor(topic, article, date_str or "", recent_titles=recent)
+        if _at:
+            article["title"] = _at
+            article["_anchor_repick"] = True
+            try:
+                _s2, _r2 = score_fixture_title(topic, _at, batch_mode, recent_titles=recent)
+                return _at, _s2, _r2
+            except Exception as e:
+                _unjudged(e, "锚点重拟复评")
+                return _at, score, reasons
         return title, score, reasons
     try:
         new = repick_title(topic, article, reasons, date_str or "", recent_titles=recent)
@@ -6344,6 +6438,9 @@ def main():
         # 真实、时效、有冲突点的内容。
         _main_topic_count = len(topics)
         fixture_added = 0
+        # 补位去重拒绝计数（改动点 1，2026-11-16）：补位层也会挡掉重复候选，
+        # 挡了多少必须可见——否则下次又变成「闸门到底有没有接线」的黑箱。
+        _fill_reject = {"补位拒绝重复": 0}
         det_cap = min(FIXTURE_PER_BATCH,
                       max(0, DETERMINISTIC_DAILY_BUDGET - _deterministic_used_today(date_str)),
                       # 为「主稿」保留至少 1 个槽位：战报占位后（晨读批 1 战报 + 1 主稿）
@@ -6437,7 +6534,16 @@ def main():
             try:
                 import deterministic_supply
                 slots = max(0, det_cap - fixture_added)
-                node_arts = deterministic_supply.fill_gap(slots, date_str=date_str)
+                # 改动点 1（2026-11-16）：补位必须过与选题层**同一道**去重判据。
+                # 此前 fill_gap 不看「本批写过什么」，dedup 丢掉的同场候选会被
+                # 库存补回来（11-10 晨读实证）。extra_titles 必须显式传：补位发生在
+                # 落盘之前，get_cross_batch_covered 读不到本批内存里的稿子。
+                _fill_ctx = dedup.exclusion_ctx(
+                    date_str,
+                    extra_titles=[a.get("title") for _, a in articles]
+                                  + [t.get("title") for t in topics])
+                node_arts = deterministic_supply.fill_gap(
+                    slots, date_str=date_str, exclude=_fill_ctx, stats=_fill_reject)
                 for na in node_arts:
                     if not na.get("title") or len(na.get("content", "")) < 200:
                         continue
@@ -6597,6 +6703,13 @@ def main():
                 # 不过就留池标记 rejected（不占配额、不重复重试），本批缺口如实少发。
                 _gate_recent = recent_titles_for_gate(date_str or "")
                 _rejected = []
+                # 改动点 1（2026-11-16）：蓄水池补位同样要过 dedup 判据。
+                # accept 钩子 11-05 就有，但只判合规/标题 —— 重复不判，
+                # 于是「主稿缺口 1 篇」会被一条已写过的软性稿补上。
+                _fill_ctx = dedup.exclusion_ctx(
+                    date_str,
+                    extra_titles=[a.get("title") for _, a in articles]
+                                  + [t.get("title") for t in topics])
 
                 def _reservoir_accept(item):
                     _a = item.get("article") or {}
@@ -6617,12 +6730,25 @@ def main():
                         recent_titles=_gate_recent, stage="蓄水池准入")
                     if not _pass:
                         _rejected.append(f"{_t[:24]}（{_sc}分）：{'；'.join(_why)[:60]}")
-                    return _pass, "；".join(_why) or f"标题 {_sc} 分未达及格线"
+                        return _pass, "；".join(_why) or f"标题 {_sc} 分未达及格线"
+                    # 改动点 1：重复判定放在最后一道 —— 前面几道拒了就不必再算，
+                    # 而且它要判的是「这篇如果发出去，会不会和本批/近 7 天撞」。
+                    _dv, _dr = dedup.judge({"title": _t,
+                                            "keywords": list(_a.get("keywords") or []),
+                                            "keywords_cn": list(_a.get("keywords_cn") or [])},
+                                            _fill_ctx)
+                    if _dv != "ok":
+                        _rejected.append(f"{_t[:24]}（补位重复：{_dr}）")
+                        _fill_reject["补位拒绝重复"] += 1
+                        return False, f"补位重复（{_dr}）"
+                    # 通过即占位：同一次 fill_gap 里的下一条要能看见这一条
+                    dedup.remember(_fill_ctx, _t)
+                    return True, ""
 
                 _picked = reservoir.fill_gap(_supply_gap, accept=_reservoir_accept)
                 if _rejected:
                     degrade.note("蓄水池准入",
-                                 f"{len(_rejected)} 条未过准入（标题结构 / 诱导话术），未转正",
+                                 f"{len(_rejected)} 条未过准入（标题结构 / 诱导话术 / 重复），未转正",
                                  action=f"留池标记 rejected 不占配额；本批少发 {len(_rejected)} 篇")
                 for _it in _picked:
                     _art = _it.get("article") or {}
@@ -6781,7 +6907,8 @@ def main():
         _final_arts = len([1 for _, _a in articles if not (_a or {}).get("_is_prediction")])
         if not articles:
             # 0 篇也要落一条记录 —— 它恰恰是最该看的那条
-            _funnel("final", 0, 蓄水池等补位=0)
+            _funnel("final", 0, 蓄水池等补位=0,
+                    补位拒绝重复=_fill_reject["补位拒绝重复"])
             topic_funnel.flush(status="empty")
             if topic_funnel.LAST.get("ok") is False:
                 print(f"   ⚠️ 漏斗台账落盘失败（不影响发布）: {topic_funnel.LAST.get('reason')}")
@@ -6810,7 +6937,11 @@ def main():
         # 像 11-07/11-08 那样各虚高 1 篇，又是「成稿数 ≠ 发布数」的老账。
         _saved_n = len(result.get("articles") or [])
         _funnel("final", _final_arts, 蓄水池等补位=len(articles) - _final_arts,
-                落盘=_saved_n, 落盘剔除=max(0, _final_arts - _saved_n))
+                落盘=_saved_n, 落盘剔除=max(0, _final_arts - _saved_n),
+                # 改动点 1：补位层挡掉的重复候选（确定性 + 蓄水池合计）。
+                # 恒为 0 有两义：「本批没重复」或「闸门没接线」——复盘时先查代码接线，
+                # 别把 0 直接读成「没问题」。
+                补位拒绝重复=_fill_reject["补位拒绝重复"])
         # 落盘（成功与 0 篇都落）：0 篇的批次恰恰是最该看的那条记录。
         topic_funnel.flush(status="empty" if not _final_arts else "ok")
         if topic_funnel.LAST.get("ok") is False:

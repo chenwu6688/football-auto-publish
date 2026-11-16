@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09 20:56",
+  "generated_at": "2026-11-16 20:46",
   "version": 3,
   "updated": "2026-11-06",
   "ok": true,
@@ -8,23 +8,23 @@
       "item": "清单完整性",
       "ok": true,
       "detail": [
-        "✅ 脚本 49 个 / 登记 49 项"
+        "✅ 脚本 51 个 / 登记 51 项"
       ],
       "counts": {
-        "scripts": 49,
-        "declared": 49
+        "scripts": 51,
+        "declared": 51
       }
     },
     {
       "item": "负向用例债务",
       "ok": true,
       "detail": [
-        "✅ 有负向用例 19/49 项，无负向 30 项（上限 30）",
+        "✅ 有负向用例 22/51 项，无负向 29 项（上限 29）",
         "· 仍无负向用例（可平静偿还，不阻断）：acceptance_metrics、api_budget、awareness_gate、batch_quota、check_slot、content_mix、content_reference、differentiation、effect_loop、fact_layer…"
       ],
-      "value": 30,
-      "limit": 30,
-      "covered": 19
+      "value": 29,
+      "limit": 29,
+      "covered": 22
     },
     {
       "item": "硬项接线与阻断有效性",
@@ -59,7 +59,7 @@
       "item": "元层负向自检",
       "ok": true,
       "detail": [
-        "✅ 把 baseline 调低 1（30→29）后，债务检查确实变 FAIL（实际债务 30 项 > 上限 29）",
+        "✅ 把 baseline 调低 1（29→28）后，债务检查确实变 FAIL（实际债务 29 项 > 上限 28）",
         "· 这条是元层的负向用例：它不会红，说明整个元验收也是恒真的"
       ]
     },
@@ -68,7 +68,7 @@
       "ok": true,
       "advisory": true,
       "detail": [
-        "✅ 49/49 项把结论落到 data/audit"
+        "✅ 51/51 项把结论落到 data/audit"
       ],
       "missing": []
     }

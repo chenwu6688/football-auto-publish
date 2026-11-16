@@ -46,6 +46,10 @@ CST = timezone(timedelta(hours=8))
 
 FIVE = (tc.CAT_TRANSFER, tc.CAT_CONFLICT, tc.CAT_CHINA, tc.CAT_UNKNOWN, tc.CAT_SCORELINE)
 
+# 未分类占比目标（告警项）：来自 docs/audit/2026-11-16-改进方案.md 改动点 2。
+# 基线 45%（11-02~11-15 已落盘口径）→ 目标 ≤20%。
+UNCLASSIFIED_TARGET = 0.20
+
 # 回归语料：内嵌带期望标签的选题（topic dict 或标题均可）。
 # 覆盖：五类各 ≥2 + 形态优先反例（比分+中国足球词→战报比分）+ content_type 路径 + 未分类。
 REGRESSION_CASES = [
@@ -68,6 +72,21 @@ REGRESSION_CASES = [
     # 未分类：无任何命中词
     ({"title": "今晚的月亮真圆，适合静静看球"}, tc.CAT_UNKNOWN),
     ({"title": "梅西与C罗的商业版图之争，谁更会做生意"}, tc.CAT_UNKNOWN),
+    # ── 2026-11-16 补形态（窗口 29 篇未分类逐条人判后的高频漏判）──
+    # 帅位/人事：此前只有「新帅/换帅/下课」能命中，导致「帅位/接手/解雇」全落未分类。
+    ({"title": "波切蒂诺领跑曼联帅位，卡里克这周就得走人"}, tc.CAT_TRANSFER),
+    ({"title": "波切蒂诺接手曼联，穆里尼奥当年花的1亿英镑学费白交了"}, tc.CAT_TRANSFER),
+    ({"title": "波切蒂诺3次错过曼联，这次卡里克被解雇他来了"}, tc.CAT_TRANSFER),
+    ({"title": "尤文冬窗盯上巴洛贡，25岁前锋上季19球本季只进1球"}, tc.CAT_TRANSFER),
+    # 赛果写法：崩盘/哑火/封喉 是同一条语义的另一种写法，不是新语义。
+    ({"title": "半场零封后崩盘，纽卡换人失误葬送好局"}, tc.CAT_SCORELINE),
+    ({"title": "利物浦主场哑火吞零蛋，阿森纳这次把悬念提前掐灭"}, tc.CAT_SCORELINE),
+    ({"title": "曼联4-4维拉，半场2-2后彻底崩盘"}, tc.CAT_SCORELINE),
+    ({"title": "拉菲尼亚不顾巴萨反对提前手术，袖标恐生变"}, tc.CAT_CONFLICT),
+    ({"title": "沙明在清水心跳完成注册，保级队要押宝中国球员"}, tc.CAT_CHINA),
+    # 反向：战术观察/人物纪录在五类轴里**没有家**，不许硬塞（硬塞等于按错标签砍稿）
+    ({"title": "费耶诺德主帅场边站满90分钟，国米还没换人他先动了三次"}, tc.CAT_UNKNOWN),
+    ({"title": "凯恩126次出场超越希尔顿，33岁才摸到金球奖"}, tc.CAT_UNKNOWN),
 ]
 
 
@@ -221,14 +240,66 @@ def check_recent_output(days: int = 14) -> dict:
             "total": n, "counts": counts, "detail": detail}
 
 
+def check_unclassified_target(days: int = 14) -> dict:
+    """未分类占比 vs 改进方案目标（**告警项，不是硬项**）。
+
+    目标 ≤20% 来自 `docs/audit/2026-11-16-改进方案.md` 改动点 2；基线 45%（11-02~11-15
+    已落盘 topic_category 口径）。
+
+    为什么是告警项而不是硬项：未分类占比是**结构指标**，平台不因此扣分。项目纪律是
+    「只有平台真扣分才配当发布阻断项」——把它做成硬项，等于用一个调参指标决定 CI 红绿，
+    与 11-11 晚间「一句 20 分档话术把整批打成 0 篇」是同一类错误。
+
+    另一个必须写清的事实：剩下的未分类是**五类轴装不下的形态**（战术观察 / 里程碑纪录 /
+    人物 / 数据对比），不是分类器失灵。硬塞进战报比分会直接推高战报占比（该形态 CTR
+    0.49%），把配比闸门的输入搞脏。扩轴（新增「人物纪录」类）需要同步改 ratio_config /
+    ratio_tuner / 看板，属独立评审，本轮不做。
+    """
+    floor = (datetime.now(CST) - timedelta(days=days)).strftime("%Y-%m-%d")
+    counts: dict = {}
+    n = 0
+    for p in sorted(glob.glob(str(OUTPUT_DIR / "**" / "metadata.json"), recursive=True)):
+        d = Path(p).parent.name
+        if d < floor:
+            continue
+        try:
+            meta = json.loads(Path(p).read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for a in (meta.get("articles") or []):
+            if not isinstance(a, dict) or a.get("is_prediction"):
+                continue
+            title = str(a.get("title") or "").strip()
+            if not title:
+                continue
+            c = tc.classify({"title": title, "content_type": a.get("content_type") or ""})
+            counts[c] = counts.get(c, 0) + 1
+            n += 1
+    if not n:
+        return {"item": "未分类占比 vs 目标 ≤20%", "ok": None, "advisory": True,
+                "detail": [f"近 {days} 天无成稿，未判定（不写 0）"]}
+    ratio = counts.get(tc.CAT_UNKNOWN, 0) / n
+    detail = [f"窗口 {days} 天 {n} 篇：" +
+              "、".join(f"{k} {v}（{v / n:.0%}）" for k, v in
+                        sorted(counts.items(), key=lambda x: -x[1])),
+              f"目标 ≤{UNCLASSIFIED_TARGET:.0%}，实测 {ratio:.1%}"
+              f"（差额 {(ratio - UNCLASSIFIED_TARGET) * 100:+.1f}pt）"]
+    if ratio > UNCLASSIFIED_TARGET:
+        detail.append("未达标 → 剩余未分类主要是「战术观察 / 里程碑纪录 / 人物 / 数据对比」，"
+                      "五类轴装不下；扩轴需同步改 ratio_config/ratio_tuner/看板，单独立项")
+    return {"item": "未分类占比 vs 目标 ≤20%", "ok": ratio <= UNCLASSIFIED_TARGET,
+            "advisory": True, "total": n, "counts": counts, "detail": detail}
+
+
 def verify(days: int = 14) -> dict:
     hard = [check_config(), check_selftest(), check_regression(), check_orchestrator(days)]
-    soft = [check_recent_output(days)]
+    soft = [check_recent_output(days), check_unclassified_target(days)]
     checks = hard + soft
     return {"generated_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M"),
             "ok": all(c["ok"] for c in hard), "checks": checks,
             "hard_failed": [c["item"] for c in hard if not c["ok"]],
-            "advisory_failed": [c["item"] for c in soft if not c["ok"]]}
+            "advisory_failed": [c["item"] for c in soft if c["ok"] is False],
+            "undetermined": [c["item"] for c in checks if c["ok"] is None]}
 
 
 def render_md(rep: dict) -> str:
@@ -239,10 +310,13 @@ def render_md(rep: dict) -> str:
         L += [f"> 未通过硬项：{'、'.join(rep['hard_failed'])}", ""]
     for c in rep["checks"]:
         tag = "告警项" if c.get("advisory") else ("硬项（跳过）" if c.get("skipped") else "硬项")
-        L.append(f"## {c['item']}（{tag}）：{'✅' if c['ok'] else '❌'}")
+        mark = {True: "✅", False: "❌", None: "⏸"}[c["ok"]]
+        L.append(f"## {c['item']}（{tag}）：{mark}")
         for d in c.get("detail", []):
             L.append(f"- {d}")
         L.append("")
+    if rep.get("undetermined"):
+        L += [f"> 未判定（样本不足，不等于通过）：{'、'.join(rep['undetermined'])}", ""]
     if rep.get("advisory_failed"):
         L += [f"> 告警项待关注：{'、'.join(rep['advisory_failed'])}", ""]
     return "\n".join(L)

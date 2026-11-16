@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-11-16 20:42:20",
+  "window": [
+    "2026-11-03",
+    "2026-11-16"
+  ],
+  "days": 14,
+  "n_articles": 54,
+  "table": {
+    "来源缺失(改造前)": {
+      "n": 10,
+      "impressions": 49210,
+      "reads": 1097,
+      "ctr": 2.23,
+      "median_ctr": 0.16,
+      "median_reads": 6.5,
+      "size_known": 0,
+      "size_ok": 0,
+      "size_ok_pct": null
+    },
+    "无封面": {
+      "n": 2,
+      "impressions": 9156,
+      "reads": 27,
+      "ctr": 0.29,
+      "median_ctr": 0.29,
+      "median_reads": 13.5,
+      "size_known": 0,
+      "size_ok": 0,
+      "size_ok_pct": null
+    },
+    "维基/共享(wiki)": {
+      "n": 2,
+      "impressions": 3755,
+      "reads": 5,
+      "ctr": 0.13,
+      "median_ctr": 0.07,
+      "median_reads": 2.5,
+      "size_known": 2,
+      "size_ok": 2,
+      "size_ok_pct": 100.0
+    },
+    "信息卡(card:*)": {
+      "n": 14,
+      "impressions": 49224,
+      "reads": 2225,
+      "ctr": 4.52,
+      "median_ctr": 1.02,
+      "median_reads": 15.0,
+      "size_known": 14,
+      "size_ok": 14,
+      "size_ok_pct": 100.0
+    },
+    "新闻图(news_body)": {
+      "n": 14,
+      "impressions": 55257,
+      "reads": 2859,
+      "ctr": 5.17,
+      "median_ctr": 1.12,
+      "median_reads": 27.5,
+      "size_known": 14,
+      "size_ok": 14,
+      "size_ok_pct": 100.0
+    },
+    "数据图(chart:*)": {
+      "n": 12,
+      "impressions": 26498,
+      "reads": 76,
+      "ctr": 0.29,
+      "median_ctr": 0.26,
+      "median_reads": 6.0,
+      "size_known": 12,
+      "size_ok": 12,
+      "size_ok_pct": 100.0
+    }
+  },
+  "verdict": "observe",
+  "note": "样本不足（信息卡 14 / 新闻图 14，各需 ≥15）→ 不给结论；数据图 12 篇 CTR 0.29%（单独观测）",
+  "unknown_kind": 10
+}

@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-11-16 20:42:07",
+  "days": 14,
+  "since": "2026-11-16",
+  "checks": [
+    {
+      "item": "A 战报比分占比 ≤15%",
+      "ok": null,
+      "detail": [
+        "生效日后仅 6 篇 < 20 → 样本不足，未判定（不等于通过）"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "B 转会官宣占比 ≥20%",
+      "ok": null,
+      "detail": [
+        "同上：样本 6 篇不足"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "生效日前基线（留证，不判红）",
+      "ok": null,
+      "detail": [
+        "62 篇：战报比分 20（32%）、未分类 16（26%）、中国足球 13（21%）、转会官宣 11（18%）、冲突舆情 2（3%）",
+        "战报 32.3% vs 目标 10%；转会 17.7% vs 目标 30%"
+      ],
+      "advisory": true
+    },
+    {
+      "item": "C 接线（AST）",
+      "ok": true,
+      "detail": [
+        "✅ save_articles_local 内调用 mix_guard.check",
+        "✅ 出口写 metadata.mix_overshoot"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "D 负向自检",
+      "ok": true,
+      "detail": [
+        "✅ 20 篇战报 → 报超配",
+        "✅ 20 篇官宣 → 战报不进超配（指标会动）",
+        "✅ 配置读不到 → 未判定（不是通过）"
+      ],
+      "advisory": false
+    }
+  ],
+  "hard_failed": [],
+  "undetermined": [
+    "A 战报比分占比 ≤15%",
+    "B 转会官宣占比 ≥20%"
+  ],
+  "ok": true
+}

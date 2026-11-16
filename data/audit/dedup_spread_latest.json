@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-11-16 20:42:07",
+  "window": [
+    "2026-11-03",
+    "2026-11-16"
+  ],
+  "since": "2026-11-16",
+  "days": 14,
+  "checks": [
+    {
+      "item": "A 当天同场重复（≤1）",
+      "ok": true,
+      "detail": [
+        "违规 0 篇 / 样本 6 篇"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "B 跨天同场重复（窗口内 ≤1）",
+      "ok": true,
+      "detail": [
+        "违规 0 篇"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "C 同事件重复（≤2/7 天）",
+      "ok": true,
+      "detail": [
+        "违规 0 篇；最大事件簇 山东泰山#coach × 1"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "D 单主体集中（≤4 篇）",
+      "ok": true,
+      "detail": [
+        "违规 0 篇；最大主体簇 西班牙人 × 1"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "旧链路留证（不计判据，告警项）",
+      "ok": null,
+      "detail": [
+        "生效日前 65 篇：A 2 / B 4 / C 0 / D 7；最大主体簇 曼联 × 11",
+        "旧样本只留证，不用它判红——但也绝不从基线里删掉"
+      ],
+      "advisory": true
+    },
+    {
+      "item": "E 接线（AST）",
+      "ok": true,
+      "detail": [
+        "✅ 第 6545 行 fill_gap 关键字：['date_str', 'exclude', 'stats']",
+        "✅ 第 6748 行 fill_gap 关键字：['accept']",
+        "✅ _reservoir_accept 含 dedup.judge"
+      ],
+      "advisory": false
+    },
+    {
+      "item": "F 负向自检",
+      "ok": true,
+      "detail": [
+        "✅ dedup.apply 3 条同场只留 1 条（实留 1；同场计数 2）",
+        "✅ fill_gap 排除同场：取到 0 条，拒绝计数 3"
+      ],
+      "advisory": false
+    }
+  ],
+  "hard_failed": [],
+  "undetermined": [],
+  "ok": true
+}

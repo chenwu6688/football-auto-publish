@@ -366,8 +366,44 @@ def available(date_str: str | None = None, now: datetime | None = None) -> list[
     return out
 
 
-def fill_gap(n: int, date_str: str | None = None, now: datetime | None = None) -> list[dict]:
-    """供给不足时从库存取 n 条补位（先进先出），标记 used，返回条目列表。"""
+def _allow(item: dict, exclude) -> tuple[bool, str]:
+    """补位准入判定（改动点 1）。返回 (是否放行, 原因)。
+
+    `exclude` 两种形态都收：
+      - callable(item) -> (bool, reason)  —— 与 `reservoir.fill_gap(accept=)` 同签名；
+      - dict（`dedup.exclusion_ctx()` 的返回值）—— 内部走 `dedup.judge`，
+        **判据不在这里重写**。
+
+    判定异常时返回 False（不放行）。理由与 `reservoir.fill_gap` 一致：闸门自己炸了
+    不能当通过，否则「判据崩了」会表现为「重复稿照发」，而且没人能看见。
+    """
+    if exclude is None:
+        return True, ""
+    try:
+        if callable(exclude):
+            ok, reason = exclude(item)
+            return bool(ok), str(reason)
+        import dedup
+        topic = {"title": item.get("title") or "",
+                 "keywords": list(item.get("keywords") or []),
+                 "keywords_cn": list(item.get("keywords_cn") or [])}
+        verdict, reason = dedup.judge(topic, exclude)
+        return verdict == "ok", reason
+    except Exception as e:
+        return False, f"补位排除判定异常: {type(e).__name__}"
+
+
+def fill_gap(n: int, date_str: str | None = None, now: datetime | None = None,
+             exclude=None, stats: dict | None = None) -> list[dict]:
+    """供给不足时从库存取 n 条补位（先进先出），标记 used，返回条目列表。
+
+    exclude（2026-11-16，改动点 1）：补位准入。命中的条目不标记 used —— 留在库里
+    由 `publish_by` 自然过期，与 `reservoir.fill_gap` 对禁发类型的处理一致
+    （**不悄悄消耗库存**）。允许返回不足额：宁可少发一篇，也不补一条重复的。
+
+    stats（可选出参）：写入 `补位拒绝重复` 计数，供漏斗台账留痕。不用模块级计数器，
+    因为「谁在读谁在写」看不见 —— 事后无法判断闸门到底有没有接线。
+    """
     if n <= 0:
         return []
     today = _as_date(date_str) or _now(now).date()
@@ -381,9 +417,20 @@ def fill_gap(n: int, date_str: str | None = None, now: datetime | None = None) -
         pf, pb = _as_date(it.get("publish_from")), _as_date(it.get("publish_by"))
         if (pf and today < pf) or (pb and today > pb):
             continue
+        ok, why = _allow(it, exclude)
+        if not ok:
+            if stats is not None:
+                stats["补位拒绝重复"] = stats.get("补位拒绝重复", 0) + 1
+            print(f"   ⛔ 确定性补位拒绝（{str(why)[:24]}）：{str(it.get('title') or '')[:30]}")
+            continue
         it["status"] = "used"
         it["used_at"] = _now(now).isoformat(timespec="seconds")
         picked.append(it)
+        if isinstance(exclude, dict):
+            # 一次 fill_gap 里可能连取 2 条：第 2 条必须知道第 1 条已被本批占用，
+            # 否则同一批能补进两条同一场（11-09 一天三篇同一场的成因）。
+            import dedup as _dedup
+            _dedup.remember(exclude, it.get("title") or "")
     if picked:
         _save_store(data)
     return picked

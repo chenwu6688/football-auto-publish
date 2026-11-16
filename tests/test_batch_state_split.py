@@ -21,6 +21,7 @@ import json
 import subprocess
 import sys
 import tempfile
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -89,6 +90,16 @@ def test_unmark_allows_republish():
     print("   PASS test_unmark_allows_republish")
 
 
+def _yesterday() -> str:
+    """窗口类断言一律相对今天算。
+
+    写死 `2026-11-06` 在 11-13 之后掉出 `days=7` 窗口，`check_products` 会判
+    「无批次产物 → 未判定」—— 那条断言恰好期望 None，于是**测试假绿**还测不到
+    被测分支；`test_present_body_is_judged` 期望 True 则直接变红（11-16 实测）。
+    """
+    return (datetime.now(timezone(timedelta(hours=8))) - timedelta(days=1)).strftime("%Y-%m-%d")
+
+
 def test_missing_body_is_undetermined_not_failed():
     """正文文件不在本 runner（跨批次累计的旧记录）→ 未判定，不是失败。
 
@@ -99,7 +110,7 @@ def test_missing_body_is_undetermined_not_failed():
     orig = mod.OUTPUT_DIR
     try:
         with tempfile.TemporaryDirectory() as td:
-            day = Path(td) / "2026-11-06"
+            day = Path(td) / _yesterday()
             day.mkdir(parents=True)
             (day / "metadata.json").write_text(json.dumps({
                 "articles": [{
@@ -126,7 +137,7 @@ def test_present_body_is_judged():
     orig = mod.OUTPUT_DIR
     try:
         with tempfile.TemporaryDirectory() as td:
-            day = Path(td) / "2026-11-06"
+            day = Path(td) / _yesterday()
             day.mkdir(parents=True)
             body = day / "a.md"
             body.write_text("阿森纳客场2-1拿下斯拉维亚，阿尔特塔换人差点玩脱。", encoding="utf-8")
