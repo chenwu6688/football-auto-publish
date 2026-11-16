@@ -301,8 +301,8 @@
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.1903,
-        "impressions": 2005,
+        "retention_rate": 0.2226,
+        "impressions": 2452,
         "follower_reads": 1,
         "click_rate": 0.02
       },
@@ -631,7 +631,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1636,
+        "impressions": 2049,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -933,12 +933,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 7,
+        "reads": 8,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 1513,
+        "retention_rate": 0.4878,
+        "impressions": 1914,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1248,7 +1248,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1471,
+        "impressions": 2203,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1547,14 +1547,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 1308,
+        "reads": 1355,
         "comments": 0,
         "likes": 6,
         "shares": 0,
-        "retention_rate": 0.192,
-        "impressions": 9962,
+        "retention_rate": 0.1371,
+        "impressions": 12144,
         "follower_reads": 0,
-        "click_rate": 0.13
+        "click_rate": 0.11
       },
       "platform_id": "7707965656960205322"
     },
@@ -1846,14 +1846,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 581,
+        "reads": 601,
         "comments": 0,
         "likes": 2,
         "shares": 0,
-        "retention_rate": 0.1908,
-        "impressions": 5461,
+        "retention_rate": 0.1921,
+        "impressions": 6591,
         "follower_reads": 0,
-        "click_rate": 0.11
+        "click_rate": 0.09
       },
       "platform_id": "7707965934102708746"
     }
