@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12 15:01",
+  "generated_at": "2026-11-16 20:58",
   "ok": true,
   "checks": [
     {
@@ -35,7 +35,7 @@
       "ok": true,
       "advisory": false,
       "detail": [
-        "data/growth/fans_daily.json：57 个日期",
+        "data/growth/fans_daily.json：62 个日期",
         "解析 / 相邻日差分 / 跨度守卫 / 缺失不猜 / 合并写不覆盖真实值 全部通过 ✅"
       ]
     },
@@ -63,9 +63,9 @@
       "ok": true,
       "advisory": true,
       "skipped": true,
-      "account_days": 12,
+      "account_days": 13,
       "detail": [
-        "本地无成稿正文（CI 环境），本项跳过；涨粉通道近 14 天有 12 天数据"
+        "本地无成稿正文（CI 环境），本项跳过；涨粉通道近 14 天有 13 天数据"
       ]
     }
   ],
