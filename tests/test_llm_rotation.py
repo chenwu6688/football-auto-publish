@@ -459,6 +459,90 @@ def test_deepseek_still_gets_thinking_disabled(monkeypatch):
             f"{m} 应带 thinking disabled（防 reasoning 吃 token）"
 
 
+def test_hy4_models_get_thinking_disabled(monkeypatch):
+    """hy4 / hy4-flash 也必须关 thinking（2026-11-17 实测，生产规模任务直接翻车）。
+
+    不关时的实测（max_tokens=1200 + 长素材）：
+      hy4       → finish_reason=length, content=0B（空内容，整篇失败）
+      hy4-flash → finish_reason=length, content=0~46B（不可解析）
+      两者都白烧 1649 tokens 才失败，还要背一次 fail_streak。
+    关掉后：finish=stop、content≈180~230B、可解析、usage 582~621（**省 63%**）。
+
+    为什么必须放在单测里：hy4 系是 1000 万额度的储备位，一旦不可用就只剩
+    100 万额度的小池子；而它「失败」的表现是「返回空内容」，很容易被误判成
+    「模型不稳定」而不是「少了这个参数」。
+    """
+    calls = []
+    class FakeResp:
+        status_code = 200
+        text = ""
+        def raise_for_status(self):
+            pass
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'},
+                                 "finish_reason": "stop"}], "usage": {}}
+
+    def fake_post(url, json=None, headers=None, timeout=None):
+        calls.append(dict(json or {}))
+        return FakeResp()
+
+    monkeypatch.setattr(utils.requests, "post", fake_post)
+    for m in ["hy4", "hy4-flash"]:
+        calls.clear()
+        out = utils.call_llm("https://x/v1", "k", m, [{"role": "user", "content": "hi"}])
+        assert out == '{"ok": true}'
+        assert calls[0].get("thinking") == {"type": "disabled"}, \
+            f"{m} 应带 thinking disabled（否则 reasoning 吃满 max_tokens，content 为空）"
+
+
+def test_truncated_empty_content_is_reported_as_length_not_failure(monkeypatch, capsys):
+    """finish_reason=length + content 为空 → 必须打出「被截断」告警，不能只当空响应。
+
+    这一条的痛点是**归因**：call_llm_json 只看到空内容就把 fail_streak +1，
+    运维看到的是「这个模型最近老失败」，而真实原因是 max_tokens 不够。
+    两者处置完全不同：模型不稳 → 换掉；被截断 → 调大 max_tokens / 关 thinking。
+    """
+    class FakeResp:
+        status_code = 200
+        text = ""
+        def raise_for_status(self):
+            pass
+        def json(self):
+            return {"choices": [{"message": {"content": "",
+                                             "reasoning_content": "x" * 1800},
+                                 "finish_reason": "length"}],
+                    "usage": {"total_tokens": 1649}}
+
+    monkeypatch.setattr(utils.requests, "post",
+                        lambda *a, **k: FakeResp())
+    with mock.patch("builtins.print") as mp:
+        out = utils.call_llm("https://x/v1", "k", "hy4",
+                             [{"role": "user", "content": "hi"}], max_tokens=1200)
+    assert out == ""
+    printed = " ".join(" ".join(map(str, c.args)) for c in mp.call_args_list)
+    assert "被 max_tokens=1200 截断" in printed, f"未报告截断原因：{printed}"
+    assert "不是模型故障" in printed, f"未明确排除模型故障：{printed}"
+    assert "1649" in printed, f"未带上已烧掉的 token（取证需要）：{printed}"
+
+
+def test_normal_empty_response_does_not_claim_truncation(monkeypatch):
+    """负向：正常结束（finish_reason=stop）但内容为空时，不许误报「被截断」。"""
+    class FakeResp:
+        status_code = 200
+        text = ""
+        def raise_for_status(self):
+            pass
+        def json(self):
+            return {"choices": [{"message": {"content": ""},
+                                 "finish_reason": "stop"}], "usage": {}}
+
+    monkeypatch.setattr(utils.requests, "post", lambda *a, **k: FakeResp())
+    with mock.patch("builtins.print") as mp:
+        utils.call_llm("https://x/v1", "k", "hy4", [{"role": "user", "content": "hi"}])
+    printed = " ".join(" ".join(map(str, c.args)) for c in mp.call_args_list)
+    assert "被" not in printed and "截断" not in printed, f"stop 场景误报截断：{printed}"
+
+
 def test_kimi_temperature_pinned_to_one(monkeypatch):
     """配套保护：kimi 系列 temperature 固定 1.0 的适配不能丢。"""
     calls = []

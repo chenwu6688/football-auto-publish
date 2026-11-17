@@ -99,9 +99,19 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
         #   把推理过程回显进 content（如 "The user is asking me to output only JSON..."），
         #   JSON 解析必失败 → call_llm_json 判「无法解析」沉底 fail_streak，满额模型白白闲置。
         #   实测 minimal/temperature-only 参数集均返回干净 JSON（glm-5.3/5.3-flash/5.3-flashx/5.2）。
+        #
+        # - **hy4 / hy4-flash 也是推理模型，同样必须关 thinking**（2026-11-17 实测）：
+        #   不关时 reasoning 会吃满 max_tokens。短任务侥幸能出（reasoning 400~500B，
+        #   总量 465），**生产规模任务直接翻车**：max_tokens=1200 + 长素材时
+        #   hy4      → finish_reason=length, content=0B（⚠️空内容，整篇失败）
+        #   hy4-flash→ finish_reason=length, content=46B（不可解析）
+        #   两者都白烧 1656 tokens 才失败，还要沉底 fail_streak 罚一轮。
+        #   传 {"type":"disabled"} 后：finish=stop、content≈190B、可解析、usage 593
+        #   —— **省 64% tokens 且结果更稳**。这是「钱花了还失败」的典型形态：
+        #   不关 thinking 不只是慢，是直接让 1000 万额度的储备模型变成不可用。
         if m.startswith("kimi-"):
             body["temperature"] = 1.0
-        elif m.startswith(("deepseek", "qwen3")):
+        elif m.startswith(("deepseek", "qwen3", "hy4")):
             body["thinking"] = {"type": "disabled"}
         return body
 
@@ -124,7 +134,19 @@ def call_llm(url, api_key, model, messages, temperature=0.7, max_tokens=4096, ti
         if usage_ref is not None:
             usage_ref["model"] = m
             usage_ref["usage"] = data.get("usage", {})
-        return data["choices"][0]["message"]["content"]
+        choice = data["choices"][0]
+        _content = choice["message"]["content"]
+        # finish_reason=length 且 content 为空 = 被推理/截断吃满，**不是模型坏了**。
+        # 必须显式打出来：否则 call_llm_json 只看到「返回空内容」，把账记在 fail_streak 上，
+        # 运维看到的是「模型不稳」，真实原因是 max_tokens 不够（2026-11-17 hy4 实测：
+        # 不关 thinking 时 1200 tokens 全烧在 reasoning 上，content=0B）。
+        # 不计入 usage 之外的成本，但**必须留下可取证的一句话**。
+        if not (_content or "").strip() and choice.get("finish_reason") == "length":
+            _rs = (choice["message"].get("reasoning_content") or "")
+            print(f"   ✂️ LLM({m}) 被 max_tokens={max_tokens} 截断：content 为空、"
+                  f"reasoning {len(_rs)} 字符吃满配额。这不是模型故障，"
+                  f"调大 max_tokens 或关 thinking（已用 token={(data.get('usage') or {}).get('total_tokens')}）")
+        return _content
 
     try:
         print(f"   🔧 调用 LLM: {model}（兜底模型={fallback_model}）")

@@ -3,7 +3,7 @@
   "_source_20261117": "用户 2026-11-17 三张后台截图（上/中/下三段，共 20 行，无重叠）。新增 hy4-flash（TPM 1000 万 / RPM 300，额度 1000 万，到期 2027-11-17，比 hy4 更晚）；hy4 剩余回落为 100% 且到期日仍 2027-11-09（额度未消耗）。状态变化：deepseek/deepseek-v4-flash-vision-exp、hy4-preview、deepseek-v4-flash-202605 三个转为「待下线」。",
   "_source_20261109": "用户 2026-11-09 三张后台截图（上/中/下三段，共 20 行，无重叠）。hy4 单模型额度 1000 万，其余 100 万，故在条目里写 quota_total_tokens 覆盖全局值。",
   "_probe_20261109": "同日本机实测新增模型是否真能返回干净 JSON（utils.call_llm_json，max_tokens=4096）：minimax-m3、kimi-k2.7-code、kimi-k2.7-code-highspeed、deepseek-v4-pro-202606、hy4、glm-5.2 六个全部通过。glm-5.2 在 max_tokens=200 时返回空（推理吃满预算），600 及 4096 正常 —— 生产默认 4096，不影响。额度表里有额度的模型不等于能用，这一步是补这个缺口。",
-  "_probe_20261117": "hy4-flash 探活未完成（本机 HY3_API_KEY 为空 → call_llm_json 直接报「没有可用的 LLM 候选」，连 HTTP 都没发出）。这与 2026-11-09 那六个「实测通过」的模型不是同一状态：那六个是真跑通了。hy4-flash 目前只确认「后台有 1000 万额度、计费开关已开、模型已上线」，**接口能不能用未知**。CI 有 key，但要等下一批生成自然调用到它（它排最后）才会产生证据；在那之前，它只是额度储备位，不当主用模型。",
+  "_probe_20261117": "hy4-flash 探活**已完成**（2026-11-17 10:52，本机配 HY3_API_KEY 后实跑）。① /v1/models HTTP 200，返回 133 个模型，轮换列表 18 个**全部在列**；hy4-flash status=online / ctx=1,024,000 / max_output=64,000。② 端到端走 call_llm_json + 真实发布任务提示词（长素材 + 150 字报道）：hy4-flash 与 hy4 均返回字段完整的 JSON（title/body 齐全）。③ **同时发现并修掉一个真缺陷**：hy4 系同为推理模型，不传 thinking 时 reasoning 会吃满 max_tokens —— max_tokens=1200 + 长素材下 hy4 content=0B、hy4-flash content=0~46B，finish_reason=length，白烧 1649 tokens 才失败，且被 call_llm_json 记成「返回空内容」→ 沉底 fail_streak，看起来像「模型不稳」而不是「少了参数」。utils._build_body 已把 hy4 加入 thinking-disabled 分支：修后 finish=stop、content≈180~230B、usage 582~621（**比不关时省 63% tokens**）。单测 test_hy4_models_get_thinking_disabled 钉住，负向自检（移除分支）已验证转红。",
   "captured_at": "2026-11-17 10:25:20",
   "captured_by": "user_screenshot",
   "provider": "tokenhub.tencentmaas.com",
