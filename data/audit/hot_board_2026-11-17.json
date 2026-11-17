@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-17",
-  "generated_at": "2026-11-17 08:03:43",
+  "generated_at": "2026-11-17 12:04:05",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 2.14
+        "elapsed_s": 1.21
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.79
+        "elapsed_s": 0.86
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 1.03
+        "elapsed_s": 0.5
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.27
+        "elapsed_s": 1.31
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,9 +70,19 @@
   },
   "football_hits": [
     {
+      "word": "超4500亿“国家队”资金扫货A股",
+      "rank": 25,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
       "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 26,
-      "heat": 25030,
+      "rank": 30,
+      "heat": 7635,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
@@ -80,7 +90,7 @@
       "entities": []
     },
     {
-      "word": "法国足协主席将参选国际足联主席",
+      "word": "OpenAI CEO：我也被解雇过",
       "rank": 48,
       "heat": 0,
       "source": "baidu",
@@ -92,22 +102,23 @@
   ],
   "candidates": [
     {
-      "word": "ESPN：赖斯已口头同意与阿森纳续约，新合同将大幅加薪英超",
-      "rank": 12,
+      "word": "阿斯：瓦伦西亚有意多夫比克，罗马愿终止其租借意甲西甲2 评",
+      "rank": 8,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "阿森纳",
-        "赖斯"
+        "瓦伦西亚",
+        "多夫比克",
+        "罗马"
       ],
       "support": [
         {
-          "title": "ESPN：赖斯已口头同意与阿森纳续约，新合同将大幅加薪英超",
-          "url": "https://www.dongqiudi.com/articles/6661042.html",
+          "title": "阿斯：瓦伦西亚有意多夫比克，罗马愿终止其租借意甲西甲2 评",
+          "url": "https://www.dongqiudi.com/articles/6661376.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "赖斯|阿森纳#contract",
+      "event_key": "多夫比克|瓦伦西亚|罗马#transfer",
       "providers": [
         "dongqiudi"
       ],

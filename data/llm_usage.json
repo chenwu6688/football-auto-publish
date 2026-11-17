@@ -26,10 +26,10 @@
     "prompt_tokens": 2575,
     "completion_tokens": 3165,
     "total_tokens": 93000,
-    "fail_streak": 3,
+    "fail_streak": 4,
     "free_quota_pct": 90.7,
     "free_quota_expires_at": "2027-08-27 13:40:03",
-    "last_fail_at": "2026-11-09T08:04:13+08:00",
+    "last_fail_at": "2026-11-17T12:05:59+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -37,10 +37,10 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 61000,
-    "fail_streak": 12,
+    "fail_streak": 13,
     "free_quota_pct": 93.9,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "last_fail_at": "2026-11-09T08:05:31+08:00",
+    "last_fail_at": "2026-11-17T12:06:59+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -88,10 +88,10 @@
     "stale_since": "2026-11-17 10:25:20"
   },
   "hy4-preview": {
-    "prompt_tokens": 0,
-    "completion_tokens": 0,
-    "total_tokens": 665000,
-    "fail_streak": 4,
+    "prompt_tokens": 7620,
+    "completion_tokens": 1885,
+    "total_tokens": 674505,
+    "fail_streak": 0,
     "free_quota_pct": 33.5,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-17 10:25:20",
@@ -224,15 +224,15 @@
     "fail_streak": 0
   },
   "glm-5.2": {
-    "total_tokens": 243000,
-    "prompt_tokens": 33027,
-    "completion_tokens": 5528,
+    "total_tokens": 252041,
+    "prompt_tokens": 41405,
+    "completion_tokens": 6191,
     "free_quota_pct": 75.7,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "fail_streak": 0,
-    "last_fail_at": "2026-11-15T08:05:21+08:00"
+    "fail_streak": 1,
+    "last_fail_at": "2026-11-17T12:04:35+08:00"
   },
   "minimax-m3": {
     "total_tokens": 83000,
@@ -242,8 +242,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "fail_streak": 4,
-    "last_fail_at": "2026-11-16T08:04:46+08:00"
+    "fail_streak": 5,
+    "last_fail_at": "2026-11-17T12:03:40+08:00"
   },
   "deepseek-v4-pro-202606": {
     "total_tokens": 834000,
@@ -275,8 +275,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "fail_streak": 2,
-    "last_fail_at": "2026-11-15T08:06:05+08:00"
+    "fail_streak": 3,
+    "last_fail_at": "2026-11-17T12:04:59+08:00"
   },
   "kimi-k2.7-code": {
     "total_tokens": 0,
