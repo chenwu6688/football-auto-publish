@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-17",
-  "generated_at": "2026-11-17 04:10:49",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-17 10:07:10",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "巴列卡诺主帅憋着赢，瓦伦西亚却在西甲被盯着看",
+      "title": "没想到迈尼昂周日被换下伤停，AC米兰门将位置竟要靠托里亚尼",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7708987513179882024",
+      "batch_name": "晚间",
+      "platform_id": "7709079318047097379",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "没想到罗马愿终止租借，瓦伦西亚竟问询多夫比克",
+      "title": "没想到德国5-0荷兰，维尔茨两球格鲁达两助定榜首",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7708987788674204200",
+      "batch_name": "晚间",
+      "platform_id": "7709079622293520896",
       "reason": "",
       "images": 3,
       "status": "published"
