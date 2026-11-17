@@ -3,12 +3,12 @@
   "kimi-k3": {
     "prompt_tokens": 447,
     "completion_tokens": 591,
-    "total_tokens": 153000,
+    "total_tokens": 202000,
     "fail_streak": 15,
-    "free_quota_pct": 84.7,
+    "free_quota_pct": 79.8,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "last_fail_at": "2026-11-16T18:05:10+08:00",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "deepseek-v4-flash-202605": {
@@ -18,8 +18,9 @@
     "fail_streak": 0,
     "free_quota_pct": 19.8,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
-    "free_quota_total_tokens": 1000000
+    "quota_synced_at": "2026-11-17 10:25:20",
+    "free_quota_total_tokens": 1000000,
+    "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
   },
   "glm-5.3-flash": {
     "prompt_tokens": 2575,
@@ -29,7 +30,7 @@
     "free_quota_pct": 90.7,
     "free_quota_expires_at": "2027-08-27 13:40:03",
     "last_fail_at": "2026-11-09T08:04:13+08:00",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "glm-5.3": {
@@ -40,7 +41,7 @@
     "free_quota_pct": 93.9,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "last_fail_at": "2026-11-09T08:05:31+08:00",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "deepseek/deepseek-v4-flash-vision-exp": {
@@ -50,8 +51,9 @@
     "fail_streak": 0,
     "free_quota_pct": 14.8,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "quota_synced_at": "2026-11-09 11:45:57",
-    "free_quota_total_tokens": 1000000
+    "quota_synced_at": "2026-11-17 10:25:20",
+    "free_quota_total_tokens": 1000000,
+    "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
   },
   "deepseek/deepseek-flash": {
     "prompt_tokens": 469966,
@@ -60,7 +62,7 @@
     "fail_streak": 0,
     "free_quota_pct": 15.8,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "deepseek-v4-flash-0731": {
@@ -72,7 +74,7 @@
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-03 10:29:34",
     "note": "后台标「模型待下线」：额度还能用，但随时可能停服，只作末位备援",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "kimi-k2.8-preview": {
     "prompt_tokens": 7229,
@@ -83,7 +85,7 @@
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-03 10:29:34",
     "last_fail_at": "2026-11-08T18:06:15+08:00",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "hy4-preview": {
     "prompt_tokens": 0,
@@ -92,9 +94,10 @@
     "fail_streak": 4,
     "free_quota_pct": 33.5,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "last_fail_at": "2026-11-09T08:03:05+08:00",
-    "free_quota_total_tokens": 1000000
+    "free_quota_total_tokens": 1000000,
+    "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
   },
   "deepseek-v4-pro-0813": {
     "prompt_tokens": 521233,
@@ -103,7 +106,7 @@
     "fail_streak": 0,
     "free_quota_pct": 13.5,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "glm-5.3-flashx": {
@@ -113,7 +116,7 @@
     "fail_streak": 0,
     "free_quota_pct": 97.2,
     "free_quota_expires_at": "2027-09-27 10:07:07",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "step-5-preview": {
@@ -124,7 +127,7 @@
     "free_quota_pct": 58.1,
     "free_quota_expires_at": "2027-09-27 10:07:07",
     "quota_synced_at": "2026-11-03 10:29:34",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "mimo-v2.6-flash": {
     "prompt_tokens": 49609,
@@ -134,7 +137,7 @@
     "free_quota_pct": 60.7,
     "free_quota_expires_at": "2027-09-27 10:07:07",
     "quota_synced_at": "2026-11-03 10:29:34",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "mimo-v2.6-pro": {
     "prompt_tokens": 41536,
@@ -145,7 +148,7 @@
     "free_quota_expires_at": "2027-09-27 10:07:07",
     "quota_synced_at": "2026-11-03 10:29:34",
     "ui_name": "mimo-v2.5-pro",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "deepseek-v4.1-flash": {
     "prompt_tokens": 425263,
@@ -155,7 +158,7 @@
     "free_quota_pct": 28.5,
     "free_quota_expires_at": "2027-09-27 10:07:07",
     "quota_synced_at": "2026-11-03 10:29:34",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "kimi-k3.1-pro": {
     "prompt_tokens": 0,
@@ -164,7 +167,7 @@
     "fail_streak": 0,
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "kimi-k3.1-pro-highspeed": {
@@ -174,7 +177,7 @@
     "fail_streak": 0,
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "minimax-m3.1-flash": {
@@ -184,7 +187,7 @@
     "fail_streak": 0,
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
   "deepseek-v4.1-flash-1017": {
@@ -195,7 +198,7 @@
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-03 10:29:34",
-    "stale_since": "2026-11-09 11:45:57"
+    "stale_since": "2026-11-17 10:25:20"
   },
   "hy3": {
     "total_tokens": 0,
@@ -203,7 +206,7 @@
     "completion_tokens": 0,
     "free_quota_pct": 0.0,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "disabled": true,
     "disabled_reason": "后台未启用（启用 Token 计费开关为关）",
     "note": "模型本身仍「已上线」，但剩余 0% 且按量计费开关未开通 —— 用它就是纯按量扣钱，绝不允许进入轮换列表",
@@ -216,39 +219,39 @@
     "free_quota_pct": 100.0,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-09 11:41:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "note": "后台额度是其它模型的 10 倍（1000 万 vs 100 万）；按到期时间排在最后，其它额度耗尽才轮得到它"
   },
   "glm-5.2": {
-    "total_tokens": 200555,
+    "total_tokens": 243000,
     "prompt_tokens": 33027,
     "completion_tokens": 5528,
-    "free_quota_pct": 83.8,
+    "free_quota_pct": 75.7,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "fail_streak": 0,
     "last_fail_at": "2026-11-15T08:05:21+08:00"
   },
   "minimax-m3": {
-    "total_tokens": 4899,
+    "total_tokens": 83000,
     "prompt_tokens": 3365,
     "completion_tokens": 1534,
-    "free_quota_pct": 100.0,
+    "free_quota_pct": 91.7,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "fail_streak": 4,
     "last_fail_at": "2026-11-16T08:04:46+08:00"
   },
   "deepseek-v4-pro-202606": {
-    "total_tokens": 690224,
+    "total_tokens": 834000,
     "prompt_tokens": 334669,
     "completion_tokens": 63555,
-    "free_quota_pct": 70.8,
+    "free_quota_pct": 16.6,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "fail_streak": 0
   },
   "deepseek-v4-pro": {
@@ -258,19 +261,19 @@
     "free_quota_pct": 0.0,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "disabled": true,
     "disabled_reason": "后台未启用（启用 Token 计费开关为关）",
     "note": "剩余 0% + 按量计费未开通：与 hy3 同性质，禁止进入轮换列表"
   },
   "kimi-k2.7-code-highspeed": {
-    "total_tokens": 212434,
+    "total_tokens": 262000,
     "prompt_tokens": 5692,
     "completion_tokens": 4742,
-    "free_quota_pct": 79.8,
+    "free_quota_pct": 73.8,
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "quota_synced_at": "2026-11-09 11:45:57",
+    "quota_synced_at": "2026-11-17 10:25:20",
     "fail_streak": 2,
     "last_fail_at": "2026-11-15T08:06:05+08:00"
   },
@@ -283,6 +286,16 @@
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-09 11:45:57",
     "fail_streak": 7,
-    "last_fail_at": "2026-11-16T08:04:04+08:00"
+    "last_fail_at": "2026-11-16T08:04:04+08:00",
+    "stale_since": "2026-11-17 10:25:20"
+  },
+  "hy4-flash": {
+    "total_tokens": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "free_quota_pct": 100.0,
+    "free_quota_total_tokens": 10000000,
+    "free_quota_expires_at": "2027-11-17 10:17:01",
+    "quota_synced_at": "2026-11-17 10:25:20"
   }
 }

@@ -98,12 +98,17 @@ INTERCONTINENTAL_COMPETITIONS = ("亚冠", "欧联", "欧协联", "中超")
 # 模型名可通过环境变量 HY3_ROTATION_MODELS 覆盖（逗号分隔）。
 _HY3_ROTATION_MODELS = os.environ.get(
     "HY3_ROTATION_MODELS",
-    # 2026-11-09 按后台截图（data/llm_quota_snapshot.json captured_at 2026-11-09 11:45:57）
-    # 全量重建：到期近→远，同到期日剩余多的在前。
+    # 2026-11-17 按后台截图（data/llm_quota_snapshot.json captured_at 2026-11-17 10:25:20）
+    # 重排：到期近→远，同到期日剩余多的在前。
     # 只收「后台有免费额度且计费开关已开通」的；**后台列表里已无此模型的一律移除**
     # （查不到额度 = 按量计费，实测不报错、直接扣钱）。
+    # 2026-11-17 移除 kimi-k2.7-code：后台列表里已经没有它了（上一版还写着「剩 100%」，
+    # 但那是 11-09 的快照 —— 后台下架后本地不会自己知道，只有对账才暴露）。
     # ── 2027-08-11 到期（最早，先用）──
-    "minimax-m3,kimi-k2.7-code,kimi-k3,glm-5.2,kimi-k2.7-code-highspeed,"
+    # 其中 minimax-m3 / kimi-k3 / glm-5.2 / kimi-k2.7-code-highspeed /
+    # deepseek-v4-pro-202606 / deepseek-v4-flash-202605 六项 11-17 实测已过 80% 停用线，
+    # 运行期会自动跳过；仍留在列表里，后台额度重置后自动复活，不必每次改代码。
+    "minimax-m3,kimi-k3,glm-5.2,kimi-k2.7-code-highspeed,"
     "deepseek-v4-pro-202606,deepseek-v4-flash-202605,"
     # ── 2027-08-27 到期 ──
     "glm-5.3-flash,"
@@ -114,12 +119,20 @@ _HY3_ROTATION_MODELS = os.environ.get(
     "glm-5.3-flashx,"
     # ── 2027-10-26 到期（一年后，满额储备，正式额度耗尽时才顶上）──
     "kimi-k3.1-pro,kimi-k3.1-pro-highspeed,minimax-m3.1-flash,"
-    # ── 2027-11-09 到期（最晚，且额度是别人的 10 倍：1000 万）──
-    "hy4"
+    # ── 2027-11-09 到期（hy4，额度是别人的 10 倍：1000 万）──
+    "hy4,"
+    # ── 2027-11-17 到期（hy4-flash，最晚 + 同样 1000 万额度；2026-11-17 后台新出现）──
+    # 同为 TPM 1000 万 / RPM 300，属「额度最多、到期最远」的储备位。
+    "hy4-flash"
 ).split(",")
 # 明确排除（不是忘了，是刻意）：hy3（剩 0% + 计费开关未开通）、
 # deepseek-v4-pro（剩 0% + 未开通）。这两个在后台仍显示「已上线」，
 # 但没有任何免费额度，进了轮换就是纯按量扣钱 —— 见 verify_llm_quota 的 B 项硬判据。
+# 2026-11-17 起「待下线」三个（vision-exp / hy4-preview / deepseek-v4-flash-202605）
+# 仍在列表里：后台只是提前预告下线，额度没变、计费开关仍开，用它们不扣钱；
+# 真下线后 sync 会因「快照里没有了」直接报硬校验失败，逼着改列表。
+# 2026-11-17 移除：kimi-k2.7-code（后台列表已查不到）。账本里保留记录并打 stale_since，
+# 不自动删 —— 删掉就再也查不出「它是哪天消失的」。
 # 2026-11-09 移除的旧模型（后台已查不到，可能下架/改名）：
 #   deepseek-v4.1-flash、deepseek-v4.1-flash-1017、deepseek-v4-flash-0731、
 #   mimo-v2.6-flash、mimo-v2.6-pro、step-5-preview、kimi-k2.8-preview。

@@ -197,10 +197,15 @@ def check_usable_pool(snapshot=None):
         if stopped or pct <= (1 - stop) * 100:
             out.append(f"{name}（剩 {pct}%）")
         else:
-            usable.append((name, pct, meta.get("expires_at") or ""))
+            # 额度要跟着模型走：hy4 / hy4-flash 是 1000 万，其余 100 万。
+            # 2026-11-17 修：此处原来写 `meta.get(...)` 的 **`meta` 是上一个循环的
+            # 残留变量**，`usable` 里根本没存 meta，于是每项都拿到「最后一个模型」
+            # 的额度再乘自己的 pct —— 印出来的合计 1136 万，实际 2936 万（差 2.6 倍）。
+            # 这就是「数值看起来合理所以没人查」的典型：它既没报错也不离谱。
+            q = int(meta.get("quota_total_tokens") or LLM_FREE_QUOTA_TOKENS)
+            usable.append((name, pct, meta.get("expires_at") or "", q))
 
-    total_tokens = sum(int(meta.get("quota_total_tokens") or LLM_FREE_QUOTA_TOKENS) * p / 100.0
-                       for _n, p, _e in usable)
+    total_tokens = sum(q * p / 100.0 for _n, p, _e, q in usable)
     ok = len(usable) >= MIN_USABLE
     detail = [
         f"{'✅' if ok else '❌'} 可用 {len(usable)} 个 / 停用或到线 {len(out)} 个"

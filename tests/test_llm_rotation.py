@@ -638,3 +638,34 @@ def test_sorting_compares_ratio_not_absolute_tokens():
     }
     assert utils._remaining_tokens("big", usage) > utils._remaining_tokens("small", usage)
     assert utils._remaining_ratio("big", usage) < utils._remaining_ratio("small", usage)
+
+
+# ============================================================
+# 10. 可用池容量合计要按「各模型自己的额度」算
+# ============================================================
+
+def test_usable_pool_sum_uses_each_model_quota():
+    """验收脚本印的「可用额度合计」必须按每个模型自己的额度加，不能全用同一个额度。
+
+    2026-11-17 实机发现：`check_usable_pool` 里 `usable.append((name, pct, exp))`
+    没带 meta，求和时却写 `meta.get("quota_total_tokens")` —— `meta` 是**上一个
+    循环的残留变量**，于是每项都按「最后一个模型」的额度折算。印出来 1,136 万，
+    实际 2,936 万，差 2.6 倍。它不报错、也不离谱，正是「看起来合理所以没人查」
+    那一类。这条测试用两个额度差 10 倍的模型把它钉住。
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "verify_llm_quota", ROOT / "scripts" / "verify_llm_quota.py")
+    vq = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(vq)
+
+    snap = {"models": {
+        "big": {"remaining_pct": 100.0, "quota_total_tokens": 10_000_000,
+                "expires_at": "2027-11-17 10:17:01", "enabled": True, "status": "已上线"},
+        "small": {"remaining_pct": 100.0,
+                  "expires_at": "2027-08-11 11:04:10", "enabled": True, "status": "已上线"},
+    }}
+    r = vq.check_usable_pool(snap)
+    txt = " ".join(r["detail"])
+    assert "11,000,000" in txt, f"应按 1000 万 + 100 万 = 1100 万，实际：{txt}"
+    assert "1,100,000" not in txt, "差额 10 倍会被读成正常值，正是这个 bug 的形态"
