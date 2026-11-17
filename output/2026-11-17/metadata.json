@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
-  "generated_at": "2026-11-17T04:08:15.003391",
-  "total_articles": 4,
+  "generated_at": "2026-11-17T10:04:33.535463",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -1135,87 +1135,713 @@
       "hot_rank": 8,
       "hot_source": "dongqiudi",
       "hot_channel": "media"
+    },
+    {
+      "index": 1,
+      "title": "没想到迈尼昂周日被换下伤停，AC米兰门将位置竟要靠托里亚尼",
+      "path": "/home/runner/work/_temp/output/2026-11-17/article-1-没想到迈尼昂周日-188162.md",
+      "slug": "没想到迈尼昂周日-188162",
+      "tags": [
+        "Maignan",
+        "AC Milan",
+        "Toriani",
+        "France",
+        "Turkey",
+        "injury"
+      ],
+      "keywords": [
+        "Maignan",
+        "AC Milan",
+        "Toriani",
+        "France",
+        "Turkey",
+        "injury"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-17/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-17/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-17/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "法国",
+              "土耳其"
+            ],
+            "numbers": [
+              "2",
+              "1"
+            ],
+            "source": "公开赛事比分",
+            "probe": "法国2-1土耳其"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260707/6a4c3a9b6eca5_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-17/6afbee4e1f912native.htm",
+            "query": "米兰",
+            "alt": "意媒：巴洛贡希望在冬季离队，经纪人门德斯向尤文和米兰推荐球员"
+          },
+          "width": 720,
+          "height": 480
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261115/202611151740334912.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-15/6af97e042d9a5native.htm",
+            "query": "米兰",
+            "alt": "1年5000万欧！米兰新球衣赞助欧洲第10，皇马1.2亿 曼城&巴萨前3"
+          },
+          "width": 1122,
+          "height": 1402
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "米体记者：迈尼昂受伤将影响米兰",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 100,
+        "ok": true,
+        "reasons": [
+          "过程锚点：退场/离场",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%",
+          "R11数据:标题 29 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 0%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "AC米兰"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [
+          "退场/离场"
+        ],
+        "anchor_repick": false,
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "过程锚点：退场/离场",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 4,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 833,
+        "han_len": 542,
+        "paragraphs": 17,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "AC米兰#injury",
+      "hot_rank": 2,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 2,
+      "title": "没想到德国5-0荷兰，维尔茨两球格鲁达两助定榜首",
+      "path": "/home/runner/work/_temp/output/2026-11-17/article-2-没想到德国50荷-d48306.md",
+      "slug": "没想到德国50荷-d48306",
+      "tags": [
+        "Germany",
+        "Netherlands",
+        "Wirtz",
+        "Gruda",
+        "5-0"
+      ],
+      "keywords": [
+        "Germany",
+        "Netherlands",
+        "Wirtz",
+        "Gruda",
+        "5-0"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-17/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-17/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-17/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "德国",
+              "荷兰"
+            ],
+            "numbers": [
+              "5",
+              "0"
+            ],
+            "source": "公开赛事比分",
+            "probe": "德国5-0荷兰"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "无法归因的比分 1-0（事实 5-0）",
+            "无法归因的比分 2-0（事实 5-0）",
+            "无法归因的比分 3-0（事实 5-0）",
+            "无法归因的比分 4-0（事实 5-0）"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "没想到德国5-0荷兰，克鲁伊夫后代竟在锋线哑火",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事/城市，不要写「这支豪门」）。只能用事实卡里已有的数字，不得编造。",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）",
+          "[三要素] 缺：专名"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（25 < 47）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（25 < 47）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "中文数字"
+        ],
+        "contrasts": [
+          "比分对照",
+          "反差",
+          "序位"
+        ],
+        "proper_nouns": [],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": false,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 4,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1032,
+        "han_len": 679,
+        "paragraphs": 17,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 4,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "阿斯：瓦伦西亚有意多夫比克",
-      "angle": "热点事件「阿斯：瓦伦西亚有意多夫比克」，从球迷情绪与争议点切入",
+      "title": "米体记者：迈尼昂受伤将影响米兰",
+      "angle": "热点事件「米体记者：迈尼昂受伤将影响米兰」，从球迷情绪与争议点切入",
       "keywords": [],
       "keywords_cn": [
-        "阿斯：瓦伦西亚有意多夫比克",
-        "罗马"
+        "米体记者：迈尼昂受伤将影响米兰",
+        "AC米兰"
       ],
       "content_type": "热点球评",
       "score": 100,
       "controversy_level": "high",
       "why_pick": "媒体头条（dongqiudi）",
       "_supply_layer": "二级·突发",
-      "_hot_event_key": "多夫比克|瓦伦西亚|罗马#transfer",
-      "_hot_rank": 8,
+      "_hot_event_key": "AC米兰#injury",
+      "_hot_rank": 2,
       "_hot_source": "dongqiudi",
       "_hot_channel": "media",
       "_hot_providers": [
         "dongqiudi"
       ],
       "_hot_support": [
-        "阿斯：瓦伦西亚有意多夫比克，罗马愿终止其租借意甲西甲2 评"
+        "米体记者：迈尼昂受伤将影响米兰，他是球队不可或缺的球员意甲"
       ],
       "_hot_support_raw": [
         {
-          "title": "阿斯：瓦伦西亚有意多夫比克，罗马愿终止其租借意甲西甲2 评",
-          "url": "https://www.dongqiudi.com/articles/6661376.html",
+          "title": "米体记者：迈尼昂受伤将影响米兰，他是球队不可或缺的球员意甲",
+          "url": "https://www.dongqiudi.com/articles/6662587.html",
           "source": "dongqiudi"
         }
       ]
     },
     {
-      "title": "5-0血洗荷兰，维尔茨居然踢出拜仁核心级数据",
-      "angle": "维尔茨在德国队5-0大胜荷兰的比赛中梅开二度，这表现让人不得不重新审视他在勒沃库森和德国队的战术地位，22岁的他正在兑现天赋。",
+      "title": "没想到德国5-0荷兰，克鲁伊夫后代竟在锋线哑火",
+      "angle": "老六看到德国5球暴打荷兰这场，不是为比分叫好，是想说老牌足球国家的底子还在——荷兰新一代锋线在德国防线前彻底没了当年克鲁伊夫那股灵气，值得聊聊传承断档。",
       "keywords": [
-        "wirtz",
-        "germany",
-        "netherlands",
-        "u21"
+        "Germany",
+        "Netherlands",
+        "Kluivert"
       ],
       "keywords_cn": [
-        "维尔茨",
         "德国",
         "荷兰",
-        "梅开二度"
+        "克鲁伊夫后代"
       ],
-      "content_type": "数据对比",
-      "score": 88,
+      "content_type": "热点球评",
+      "score": 92,
       "controversy_level": "medium",
       "target_emotion": "震惊",
-      "resonance_angle": "老球迷身份认同",
+      "resonance_angle": "名帅名宿沉浮",
       "series_id": "无",
-      "why_pick": "维尔茨踢出炸裂数据引老球迷热议",
+      "why_pick": "用德国大胜写荷兰锋线传承断档有话题",
       "_category": "战报比分",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
       "_word_count_range": [
-        300,
-        500
+        400,
+        600
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-2"
-    },
-    {
-      "title": "巴列卡诺主帅憋着赢，瓦伦西亚却在西甲被盯着看",
-      "content_type": "数据对比",
-      "_is_fixture": true
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-0"
     }
   ],
   "data_sources": {},
@@ -1224,19 +1850,19 @@
       "2026-11-04",
       "2026-11-17"
     ],
-    "n": 69,
+    "n": 71,
     "batch_n": 2,
     "ok": false,
     "table": {
       "转会官宣": {
         "count": 14,
-        "pct": 20.3,
+        "pct": 19.7,
         "target": 30.0,
         "over": false
       },
       "中国足球": {
         "count": 14,
-        "pct": 20.3,
+        "pct": 19.7,
         "target": 25.0,
         "over": false
       },
@@ -1247,14 +1873,14 @@
         "over": false
       },
       "未分类": {
-        "count": 18,
-        "pct": 26.1,
+        "count": 19,
+        "pct": 26.8,
         "target": 15.0,
         "over": true
       },
       "战报比分": {
-        "count": 22,
-        "pct": 31.9,
+        "count": 23,
+        "pct": 32.4,
         "target": 10.0,
         "over": true
       }
@@ -1263,15 +1889,15 @@
   "mix_overshoot": [
     {
       "type": "战报比分",
-      "actual": 31.9,
+      "actual": 32.4,
       "target": 10.0,
-      "delta": 21.9
+      "delta": 22.4
     },
     {
       "type": "未分类",
-      "actual": 26.1,
+      "actual": 26.8,
       "target": 15.0,
-      "delta": 11.1
+      "delta": 11.8
     }
   ],
   "image_floor": {
@@ -1282,13 +1908,13 @@
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 1,
+      "一级·确定性": 0,
+      "二级·突发": 2,
       "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 50.0,
-      "二级·突发": 50.0,
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
       "三级·软性": 0.0
     },
     "targets": {
@@ -1297,8 +1923,8 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 20.0,
-      "二级·突发": 0.0,
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
       "三级·软性": -20.0
     },
     "unclassified": 0,
@@ -1314,8 +1940,20 @@
   "degrade_events": [
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（13 < 14）",
+      "原因": "事实点数少于最强源文（25 < 47）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
       "数量": 1
     },
     {
@@ -1327,26 +1965,26 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "hot_topics": [
     {
-      "title": "阿斯：瓦伦西亚有意多夫比克",
-      "rank": 8,
+      "title": "米体记者：迈尼昂受伤将影响米兰",
+      "rank": 2,
       "source": "dongqiudi",
       "channel": "media",
-      "event_key": "多夫比克|瓦伦西亚|罗马#transfer"
+      "event_key": "AC米兰#injury"
     }
   ],
   "batch_mix": {
@@ -1358,37 +1996,30 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "阿斯：瓦伦西亚有意多夫比克"
+        "title": "米体记者：迈尼昂受伤将影响米兰"
       },
       {
         "slot": "data",
-        "type": "数据对比",
-        "title": "5-0血洗荷兰，维尔茨居然踢出拜仁核心级数据"
-      }
-    ],
-    "degraded": [],
-    "skipped": [
-      {
-        "type": "转会资讯",
-        "title": "0出场却拿顶薪，多夫比克原来早被罗马摆上货架"
-      },
-      {
         "type": "热点球评",
-        "title": "9场不败的国足竟然被巴林喊话：赢你们绝非易事"
+        "title": "没想到德国5-0荷兰，克鲁伊夫后代竟在锋线哑火"
       }
     ],
+    "degraded": [
+      "data 槽用次优类型补位"
+    ],
+    "skipped": [],
     "day_counts": {
-      "数据对比": 1,
-      "热点球评": 1
+      "数据对比": 2,
+      "热点球评": 2
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-17 12:10:49",
+  "last_batch": "evening",
+  "last_updated": "2026-11-17 18:04:33",
   "batches_completed": [
     "morning",
     "noon"
