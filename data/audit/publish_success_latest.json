@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-17 11:06",
+  "generated_at": "2026-11-17 15:47",
   "window_days": 7,
-  "ok": true,
+  "ok": false,
   "checks": [
     {
       "item": "发布成功率（近 7 天）",
       "ok": true,
       "pending": false,
-      "published": 37,
+      "published": 39,
       "failed": 0,
       "rate": 100.0,
       "detail": [
-        "✅ 近 7 天：成功 37 / 尝试 37 篇，成功率 100.0%（下限 85%）",
+        "✅ 近 7 天：成功 39 / 尝试 39 篇，成功率 100.0%（下限 85%）",
         "台账覆盖 7 天，缺 0 天"
       ]
     },
@@ -45,9 +45,9 @@
       "ok": true,
       "advisory": true,
       "no_cover": 0,
-      "published": 37,
+      "published": 39,
       "detail": [
-        "已发布 37 篇，其中零配图 0 篇（0.0%）",
+        "已发布 39 篇，其中零配图 0 篇（0.0%）",
         "判定权在 verify_cover_coverage（上限 5%）；本项只报数不回滚"
       ]
     },
@@ -62,17 +62,21 @@
     },
     {
       "item": "台账恒等式",
-      "ok": true,
+      "ok": false,
       "pending": false,
       "partition_bad": 0,
-      "cover_bad": 0,
+      "cover_bad": 1,
       "cover_judged": 1,
       "detail": [
         "✅ I1 记录分区成立：7 天，counts.total = 记录数 = 已登记 status 之和",
-        "✅ I2 成稿覆盖成立：1 天，drafts ≥ total"
+        "❌ I2 成稿覆盖不成立 1 天：",
+        "   · 2026-11-17：成稿 2 篇 < 台账记录 4 条",
+        "   ⇒ 台账记录多于成稿 = 日级聚合重复合并或混进别天记录"
       ]
     }
   ],
-  "hard_failed": [],
+  "hard_failed": [
+    "台账恒等式"
+  ],
   "hard_pending": []
 }
