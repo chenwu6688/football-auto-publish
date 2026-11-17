@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-17",
-  "generated_at": "2026-11-17 12:04:05",
+  "generated_at": "2026-11-17 18:03:27",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.21
+        "elapsed_s": 2.67
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.86
+        "elapsed_s": 0.94
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.5
+        "elapsed_s": 0.42
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.31
+        "elapsed_s": 2.54
       },
       "sina_sports": {
         "status": "disabled",
@@ -68,57 +68,24 @@
     "stale_dropped": 0,
     "unknown_time": 8
   },
-  "football_hits": [
-    {
-      "word": "超4500亿“国家队”资金扫货A股",
-      "rank": 25,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 30,
-      "heat": 7635,
-      "source": "tieba",
-      "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "OpenAI CEO：我也被解雇过",
-      "rank": 48,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    }
-  ],
+  "football_hits": [],
   "candidates": [
     {
-      "word": "阿斯：瓦伦西亚有意多夫比克，罗马愿终止其租借意甲西甲2 评",
-      "rank": 8,
+      "word": "米体记者：迈尼昂受伤将影响米兰，他是球队不可或缺的球员意甲",
+      "rank": 2,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "瓦伦西亚",
-        "多夫比克",
-        "罗马"
+        "AC米兰"
       ],
       "support": [
         {
-          "title": "阿斯：瓦伦西亚有意多夫比克，罗马愿终止其租借意甲西甲2 评",
-          "url": "https://www.dongqiudi.com/articles/6661376.html",
+          "title": "米体记者：迈尼昂受伤将影响米兰，他是球队不可或缺的球员意甲",
+          "url": "https://www.dongqiudi.com/articles/6662587.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "多夫比克|瓦伦西亚|罗马#transfer",
+      "event_key": "AC米兰#injury",
       "providers": [
         "dongqiudi"
       ],
