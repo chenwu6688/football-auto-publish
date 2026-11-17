@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "date": "2026-11-16",
-  "generated_at": "2026-11-16 10:08:42",
-  "batch_filter": "evening",
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17 00:09:57",
+  "batch_filter": "morning",
   "counts": {
     "total": 2,
     "published": 2,
@@ -10,7 +10,32 @@
     "skipped_prediction": 0,
     "skipped_already_published": 0,
     "published_without_id": 0,
-    "published_without_cover": 0
+    "published_without_cover": 0,
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "lost_upstream": null,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 2,
+    "known_status": 2,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": null,
+    "lost_upstream": null,
+    "scope": "batch",
+    "available": true,
+    "reason": ""
+  },
+  "draft_snapshot": {
+    "available": true,
+    "reason": "",
+    "scope": "day_cumulative",
+    "path": "/home/runner/work/_temp/output/2026-11-17/metadata.json",
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "draft_total": 2,
+    "title_gate_blocked_published": 0
   },
   "platform_id_binding": {
     "bound": 2,
@@ -19,19 +44,19 @@
   },
   "records": [
     {
-      "title": "37岁吴曦回归国足，老将vs新中场，中场还得靠他",
+      "title": "9球哈兰德领跑射手榜，伯恩茅斯门将算盘却比诺丁汉森林精",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7708708642861728282",
+      "batch_name": "晨读",
+      "platform_id": "7708925389120307748",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "斯托伊科维奇执教山东泰山，进攻狂人碰中超铁桶阵竟这样搭",
+      "title": "ESPN：赖斯口头同意续约，阿森纳vs中场流失风险对比",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7708708926535090697",
+      "batch_name": "晨读",
+      "platform_id": "7708925688513937961",
       "reason": "",
       "images": 3,
       "status": "published"
