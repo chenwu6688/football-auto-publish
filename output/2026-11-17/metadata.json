@@ -269,7 +269,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1630,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7708925389120307748"
     },
     {
       "index": 2,
@@ -563,7 +573,17 @@
       "hot_event_key": "赖斯|阿森纳#contract",
       "hot_rank": 12,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 7,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 810,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7708925688513937961"
     },
     {
       "index": 1,
@@ -1448,7 +1468,17 @@
       "hot_event_key": "AC米兰#injury",
       "hot_rank": 2,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 52,
+        "comments": 1,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 911,
+        "follower_reads": 0,
+        "click_rate": 0.06
+      },
+      "platform_id": "7709079318047097379"
     },
     {
       "index": 2,
@@ -1767,7 +1797,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 262,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709079622293520896"
     }
   ],
   "topics": [
