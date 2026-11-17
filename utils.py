@@ -340,12 +340,26 @@ def _is_model_available(model, usage, quota=LLM_FREE_QUOTA_TOKENS, threshold=LLM
                         hard_cap=LLM_HARD_CAP_TOKENS):
     """Return True if the model has free quota remaining and is not disabled.
 
-    Two guards (2026-09-27 免费额度规则):
+    Three guards (2026-09-27 免费额度规则 / 2026-11-17 补第 3 道):
       1) 阈值 threshold：已用 >= quota*threshold（默认 0.90，即剩余 <=10%）→ 不可用。
       2) 硬上限 hard_cap：已用 >= hard_cap（默认 80 万 tokens）→ 不可用。
          作为「本地计数与后台实际不一致」时的保险丝，避免本地少记导致超额扣费。
+      3) **stale（2026-11-17 新增）**：账本有记录、后台快照里查不到该模型 → 不可用。
+         查不到额度有两种可能，两种都**绝不允许继续调用**：
+           ① 已下架/改名 → 调用必 404，白等一轮超时；
+           ② 转成**按量计费** → 不报错、直接扣钱（最危险的一类）。
+         为什么线上从没被它害过：轮换列表 `HY3_ROTATION_MODELS` 是白名单，带
+         `stale_since` 的模型早已不在列表里，候选构造阶段就进不来。本判据是
+         **第二道锁** —— 防的是「有人手工把模型加回列表」或「env 变量
+         `HY3_ROTATION_MODELS` 覆盖了白名单」，那时第一道锁形同不存在。
+         代价：一次 sync 之后所有模型都会带 `stale_since` 直到下次对账，所以
+         只有当**本次 sync 的快照里确实没有它**时才会被打上（见 sync_llm_quota）。
     """
-    if usage.get(model, {}).get("disabled"):
+    rec = usage.get(model, {}) or {}
+    if rec.get("disabled"):
+        return False
+    if rec.get("stale_since"):
+        # 已下架/按量计费：宁可不跑（报 QuotaExhaustedError），也不能悄悄扣钱
         return False
     used = _model_used_tokens(model, usage)
     # 额度与硬上限都可能是「本模型专属」的（见 _effective_quota）
@@ -420,6 +434,7 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
     available = []
     exhausted = []
     disabled = []
+    stale = []      # 后台查不到（下架/转按量计费）—— 与「额度耗尽」分开报，处置不同
     for url, key, model in candidates:
         if not url or not key:
             continue
@@ -436,11 +451,18 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
             q_model, cap_model = _effective_quota(model, usage, quota, hard_cap)
             remaining = _remaining_tokens(model, usage, quota)
             cap_hit = cap_model and used >= cap_model
-            why = (f"已达本地硬上限 {int(cap_model):,}" if cap_hit
-                   else f"免费额度剩余 <=10% ({(1-threshold)*100:.0f}%)")
+            # 优先级：stale 最特殊，必须先判 —— 它不是「额度不够」而是「后台查不到」，
+            # 报成「免费额度剩余 <=10%」会把人引向「等额度重置」这个错误方向。
+            if usage.get(model, {}).get("stale_since"):
+                why = (f"后台快照已查不到（stale_since={usage[model]['stale_since']}），"
+                       f"疑似下架或转按量计费，禁止调用")
+            elif cap_hit:
+                why = f"已达本地硬上限 {int(cap_model):,}"
+            else:
+                why = f"免费额度剩余 <=10% ({(1-threshold)*100:.0f}%)"
             print(f"   ⏭️ LLM({model}) 跳过：{why}（已用 {used:,}/{int(q_model):,}，"
                   f"剩余 {remaining:,} tokens）")
-            exhausted.append(model)
+            (stale if usage.get(model, {}).get("stale_since") else exhausted).append(model)
             continue
         available.append((url, key, model))
 
@@ -472,6 +494,8 @@ def call_llm_json(messages, candidates, *, temperature=0.7, max_tokens=4096, tim
         reasons = []
         if exhausted:
             reasons.append(f"免费额度耗尽（剩余 <{(1-threshold)*100:.0f}%）: {', '.join(exhausted)}")
+        if stale:
+            reasons.append(f"后台查不到额度（疑似下架/转按量计费，已为省钱拒调）: {', '.join(stale)}")
         if disabled:
             reasons.append(f"key 无效/模型被禁用: {', '.join(disabled)}")
         if reasons:

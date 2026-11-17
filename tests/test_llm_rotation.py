@@ -174,6 +174,68 @@ def test_hard_cap_forces_skip(tmp_path):
     assert utils._is_model_available("m", {"m": {"total_tokens": cap - 1}}) is True
 
 
+def test_stale_model_never_called(tmp_path):
+    """2026-11-17：账本有记录但后台快照查不到（stale_since）→ 必须判不可用。
+
+    这是「防按量扣钱」的第二道锁。第一道锁是轮换列表白名单（候选构造阶段就排除），
+    但白名单可以被手工改、也可以被 env `HY3_ROTATION_MODELS` 覆盖 —— 那时第一道
+    锁形同不存在，只有这道还拦得住。
+    """
+    # 额度还剩满（100%），只有 stale 一个理由 → 也必须拒绝
+    rec = {"total_tokens": 0, "stale_since": "2026-11-17 10:25:20"}
+    assert utils._is_model_available("m", {"m": rec}) is False
+    # 去掉 stale → 同一个记录立刻变可用（证明判据真的只看 stale，不是顺带被别的条件拦的）
+    assert utils._is_model_available("m", {"m": {"total_tokens": 0}}) is True
+
+
+def test_stale_reason_is_not_reported_as_quota_exhausted(tmp_path, monkeypatch):
+    """stale 的跳过原因不能印成「免费额度剩余 <=10%」——那是错误方向。
+
+    额度耗尽 → 等重置；后台查不到 → 人类要去看后台。两者处置完全不同。
+    """
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps({
+        "ghost": {"total_tokens": 0, "stale_since": "2026-11-17 10:25:20"},
+        "ok":   {"total_tokens": 0},
+    }), encoding="utf-8")
+    monkeypatch.setattr(utils, "_load_llm_usage", lambda p: json.loads(usage_file.read_text()))
+    monkeypatch.setattr(utils, "call_llm",
+                        lambda *a, **k: json.dumps({"x": 1}))
+
+    out = []
+    with mock.patch("builtins.print", side_effect=lambda *a, **k: out.append(" ".join(map(str, a)))):
+        parsed, used = utils.call_llm_json(
+            [{"role": "user", "content": "hi"}],
+            [("http://u", "k", "ghost"), ("http://u", "k", "ok")],
+            usage_file=usage_file,
+        )
+    assert used == "ok", "stale 模型必须被跳过，实际被调用了"
+    joined = "\n".join(out)
+    assert "后台快照已查不到" in joined, f"跳过原因应指明 stale，实际输出：{joined}"
+    assert "剩余 <=10%" not in joined.split("ok")[0], f"stale 被误报成额度耗尽：{joined}"
+
+
+def test_stale_only_pool_reports_stale_not_quota_exhausted(tmp_path, monkeypatch):
+    """整池都是 stale 时，异常文案必须说「后台查不到」，不能说「免费额度耗尽」。
+
+    两者处置完全不同：额度耗尽 → 等额度重置/换号；后台查不到 → 去后台确认是不是
+    下架了或转成了按量计费。文案错了，人就修错了方向。
+    """
+    usage_file = tmp_path / "usage.json"
+    usage_file.write_text(json.dumps({
+        "ghost": {"total_tokens": 0, "stale_since": "2026-11-17 10:25:20"},
+    }), encoding="utf-8")
+    monkeypatch.setattr(utils, "_load_llm_usage", lambda p: json.loads(usage_file.read_text()))
+
+    with mock.patch("builtins.print"):
+        with pytest.raises(utils.QuotaExhaustedError) as ei:
+            utils.call_llm_json([{"role": "user", "content": "hi"}],
+                                [("http://u", "k", "ghost")], usage_file=usage_file)
+    msg = str(ei.value)
+    assert "后台查不到额度" in msg, f"异常文案应指明 stale，实际：{msg}"
+    assert "免费额度耗尽" not in msg, f"stale 被误报成额度耗尽：{msg}"
+
+
 def test_rotation_prefers_model_with_most_remaining(tmp_path, monkeypatch):
     """方案 II：按剩余额度降序——剩余最多的模型应被优先命中，哪怕它排在候选末尾。"""
     usage_file = tmp_path / "usage.json"
