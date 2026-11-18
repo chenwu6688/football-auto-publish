@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-18",
-  "generated_at": "2026-11-18 08:03:42",
+  "generated_at": "2026-11-18 12:04:41",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.28
+        "elapsed_s": 1.13
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.87
+        "elapsed_s": 1.04
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.45
+        "elapsed_s": 0.37
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.29
+        "elapsed_s": 1.34
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,8 +70,8 @@
   },
   "football_hits": [
     {
-      "word": "国足2比2战平巴林",
-      "rank": 40,
+      "word": "邵佳一回应国足2比2战平巴林",
+      "rank": 45,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -80,8 +80,8 @@
       "entities": []
     },
     {
-      "word": "U19国足2比1韩国夺冠",
-      "rank": 43,
+      "word": "欧国联8强出炉",
+      "rank": 47,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -90,8 +90,8 @@
       "entities": []
     },
     {
-      "word": "邵佳一执教国足5场丢11球引争议",
-      "rank": 49,
+      "word": "库里坦言这份合同打完可能退役",
+      "rank": 48,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -100,28 +100,6 @@
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "【talkSPORT】加布里埃尔确认离队",
-      "rank": 28,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "加布里埃尔"
-      ],
-      "support": [
-        {
-          "title": "【talkSPORT】加布里埃尔确认离队",
-          "url": "https://www.dongqiudi.com/articles/6664373.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "加布里埃尔#transfer",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
