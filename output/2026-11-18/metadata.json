@@ -1,7 +1,7 @@
 {
   "date": "2026-11-18",
-  "generated_at": "2026-11-18T04:06:59.569727",
-  "total_articles": 4,
+  "generated_at": "2026-11-18T10:04:59.839271",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -1188,85 +1188,704 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "原来马塔两夺切尔西最佳却只留135场，38岁挂靴",
+      "path": "/home/runner/work/_temp/output/2026-11-18/article-1-原来马塔两夺切尔-496865.md",
+      "slug": "原来马塔两夺切尔-496865",
+      "tags": [
+        "Juan Mata",
+        "Chelsea",
+        "retirement",
+        "Champions League",
+        "Europa League"
+      ],
+      "keywords": [
+        "Juan Mata",
+        "Chelsea",
+        "retirement",
+        "Champions League",
+        "Europa League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-18/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-18/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-18/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "英超胡安-马塔退役",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 89,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%",
+          "R11数据:标题 25 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（14 < 33）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 2%），只记分：事实点数少于最强源文（14 < 33）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "38 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "切尔西"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题含悬念词「原来」，回测点击率 +87%"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 3,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 1065,
+        "han_len": 692,
+        "paragraphs": 27,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "切尔西#retire",
+      "hot_rank": 1,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 2,
+      "title": "原来德国5-0荷兰这夜，舍汉特中柱马伦空门偏出太离谱",
+      "path": "/home/runner/work/_temp/output/2026-11-18/article-2-原来德国50荷兰-506ea7.md",
+      "slug": "原来德国50荷兰-506ea7",
+      "tags": [
+        "Germany",
+        "Netherlands",
+        "Wirtz",
+        "Gruda",
+        "5-0"
+      ],
+      "keywords": [
+        "Germany",
+        "Netherlands",
+        "Wirtz",
+        "Gruda",
+        "5-0"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-18/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-18/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-18/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "德国",
+              "荷兰"
+            ],
+            "numbers": [
+              "5",
+              "0"
+            ],
+            "source": "公开赛事比分",
+            "probe": "德国5-0荷兰"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "无法归因的比分 1-0（事实 5-0）",
+            "无法归因的比分 2-0（事实 5-0）",
+            "无法归因的比分 3-0（事实 5-0）",
+            "无法归因的比分 4-0（事实 5-0）"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "没想到德国5-0血洗荷兰，小猪一代后竟轮到纳帅徒弟翻车",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事/城市，不要写「这支豪门」）。只能用事实卡里已有的数字，不得编造。",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）",
+          "[三要素] 缺：专名"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（27 < 47）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 0%），只记分：事实点数少于最强源文（27 < 47）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "30 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照",
+          "反差"
+        ],
+        "proper_nouns": [
+          "马伦"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 100,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题含悬念词「原来」，回测点击率 +87%"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 3,
+          "exhausted": true
+        }
+      },
+      "content_stats": {
+        "chars": 878,
+        "han_len": 519,
+        "paragraphs": 20,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "没想到19岁杨铭锐又拿熊猫杯冠军，唉怎么中超夺冠后还赢",
-      "angle": "19岁小将10天前刚随队拿中超冠军，如今熊猫杯又夺冠，一句'怎么又拿冠军'透出少年得意与国字号希望，老球迷看了也得乐呵。",
-      "keywords": [
-        "Yang Mingrui",
-        "Panda Cup"
-      ],
+      "title": "英超胡安-马塔退役",
+      "angle": "热点事件「英超胡安-马塔退役」，从球迷情绪与争议点切入",
+      "keywords": [],
       "keywords_cn": [
-        "杨铭锐",
-        "熊猫杯"
+        "英超胡安-马塔退役",
+        "切尔西"
       ],
       "content_type": "热点球评",
-      "score": 88,
-      "controversy_level": "low",
-      "target_emotion": "骄傲",
-      "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "19岁双冠少年得意，国字号未来可期引骄傲",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
+      "score": 100,
+      "controversy_level": "high",
+      "why_pick": "媒体头条（dongqiudi）",
+      "_supply_layer": "二级·突发",
+      "_hot_event_key": "切尔西#retire",
+      "_hot_rank": 1,
+      "_hot_source": "dongqiudi",
+      "_hot_channel": "media",
+      "_hot_providers": [
+        "dongqiudi"
       ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
+      "_hot_support": [
+        "英超胡安-马塔退役，切尔西社媒致敬：多么了不起的球员！"
+      ],
+      "_hot_support_raw": [
+        {
+          "title": "英超胡安-马塔退役，切尔西社媒致敬：多么了不起的球员！",
+          "url": "https://www.dongqiudi.com/articles/6666034.html",
+          "source": "dongqiudi"
+        }
+      ]
     },
     {
-      "title": "张弛当清华附中主帅李霄鹏任总监，名宿下沉青训反差大",
-      "angle": "前中超名将张弛去中学带队、李霄鹏当总监，从职业赛场到校园青训的身份落差，正是中国足球该补的根基课。",
+      "title": "没想到德国5-0血洗荷兰，小猪一代后竟轮到纳帅徒弟翻车",
+      "angle": "借德国5-0荷兰这场国际比赛复盘，写德国队换代后把荷兰打成筛子，老球迷看的是江湖更迭。",
       "keywords": [
-        "Zhang Chi",
-        "Li Xiaopeng"
+        "Germany",
+        "Netherlands",
+        "5-0"
       ],
       "keywords_cn": [
-        "张弛",
-        "李霄鹏"
+        "德国",
+        "荷兰",
+        "五比零"
       ],
-      "content_type": "八卦趣事",
-      "score": 82,
-      "controversy_level": "low",
-      "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
+      "content_type": "热点球评",
+      "score": 95,
+      "controversy_level": "high",
+      "target_emotion": "震惊",
+      "resonance_angle": "世界杯经典时刻",
       "series_id": "无",
-      "why_pick": "名宿下沉青训反差大，戳中中国足球根基话题",
-      "_category": "中国足球",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "why_pick": "5-0极端比分+过程锚点+德荷专名，当天最炸比赛",
+      "_category": "战报比分",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
       "_rank_id": "topic-1"
     }
   ],
@@ -1276,37 +1895,37 @@
       "2026-11-05",
       "2026-11-18"
     ],
-    "n": 73,
+    "n": 75,
     "batch_n": 2,
     "ok": false,
     "table": {
       "转会官宣": {
         "count": 16,
-        "pct": 21.9,
+        "pct": 21.3,
         "target": 30.0,
         "over": false
       },
       "中国足球": {
         "count": 15,
-        "pct": 20.5,
+        "pct": 20.0,
         "target": 25.0,
         "over": false
       },
       "冲突舆情": {
         "count": 1,
-        "pct": 1.4,
+        "pct": 1.3,
         "target": 20.0,
         "over": false
       },
       "未分类": {
-        "count": 18,
-        "pct": 24.7,
+        "count": 19,
+        "pct": 25.3,
         "target": 15.0,
         "over": true
       },
       "战报比分": {
-        "count": 23,
-        "pct": 31.5,
+        "count": 24,
+        "pct": 32.0,
         "target": 10.0,
         "over": true
       }
@@ -1315,15 +1934,15 @@
   "mix_overshoot": [
     {
       "type": "战报比分",
-      "actual": 31.5,
+      "actual": 32.0,
       "target": 10.0,
-      "delta": 21.5
+      "delta": 22.0
     },
     {
       "type": "未分类",
-      "actual": 24.7,
+      "actual": 25.3,
       "target": 15.0,
-      "delta": 9.7
+      "delta": 10.3
     }
   ],
   "image_floor": {
@@ -1372,8 +1991,20 @@
     },
     {
       "环节": "反洗稿记分",
-      "原因": "事实点数少于最强源文（19 < 62）",
+      "原因": "事实点数少于最强源文（14 < 33）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（27 < 47）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    },
+    {
+      "环节": "标题评分记分",
+      "原因": "0分：[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球",
+      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
       "数量": 1
     },
     {
@@ -1389,33 +2020,42 @@
       "数量": 1
     },
     {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "环节": "标题三要素",
+      "原因": "缺可用数字/专名，拼不出兜底标题",
+      "处置": "保留原题发布，metadata 记 title_elements.count",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
+      "原因": "真实图源只拿到 1 张",
       "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
+  "hot_topics": [
+    {
+      "title": "英超胡安-马塔退役",
+      "rank": 1,
+      "source": "dongqiudi",
+      "channel": "media",
+      "event_key": "切尔西#retire"
+    }
+  ],
   "batch_mix": {
     "slots": [
       "main",
@@ -1425,30 +2065,36 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "没想到19岁杨铭锐又拿熊猫杯冠军，唉怎么中超夺冠后还赢"
+        "title": "英超胡安-马塔退役"
       },
       {
-        "slot": "extra",
-        "type": "八卦趣事",
-        "title": "张弛当清华附中主帅李霄鹏任总监，名宿下沉青训反差大"
+        "slot": "data",
+        "type": "热点球评",
+        "title": "没想到德国5-0血洗荷兰，小猪一代后竟轮到纳帅徒弟翻车"
       }
     ],
     "degraded": [
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+      "data 槽用次优类型补位"
     ],
-    "skipped": [],
+    "skipped": [
+      {
+        "type": "八卦趣事",
+        "title": "没想到胡安-马塔38岁退役，切尔西致敬竟让老球迷眼眶发热"
+      }
+    ],
     "day_counts": {
-      "热点球评": 1,
-      "转会资讯": 1
+      "热点球评": 2,
+      "转会资讯": 1,
+      "八卦趣事": 1
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-18 12:09:35",
+  "last_batch": "evening",
+  "last_updated": "2026-11-18 18:04:59",
   "batches_completed": [
     "morning",
     "noon"
