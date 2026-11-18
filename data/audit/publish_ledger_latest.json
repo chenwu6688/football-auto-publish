@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-18",
-  "generated_at": "2026-11-18 04:09:35",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-18 10:07:34",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "杨铭锐又夺熊猫杯冠军，中超夺冠后 vs 熊猫杯再赢",
+      "title": "原来马塔两夺切尔西最佳却只留135场，38岁挂靴",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7709358270619697707",
+      "batch_name": "晚间",
+      "platform_id": "7709450523329511990",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "没想到张玉宁点射救主，国足2-2巴林竟靠71分钟造点扳平",
+      "title": "原来德国5-0荷兰这夜，舍汉特中柱马伦空门偏出太离谱",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7709358553525436982",
+      "batch_name": "晚间",
+      "platform_id": "7709450823733920297",
       "reason": "",
       "images": 3,
       "status": "published"

@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "date": "2026-11-18",
+  "generated_at": "2026-11-18 10:07:34",
+  "batch_filter": "evening",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0,
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "lost_upstream": null,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 2,
+    "known_status": 2,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": null,
+    "lost_upstream": null,
+    "scope": "batch",
+    "available": true,
+    "reason": ""
+  },
+  "draft_snapshot": {
+    "available": true,
+    "reason": "",
+    "scope": "day_cumulative",
+    "path": "/home/runner/work/_temp/output/2026-11-18/metadata.json",
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "draft_total": 2,
+    "title_gate_blocked_published": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "原来马塔两夺切尔西最佳却只留135场，38岁挂靴",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7709450523329511990",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "原来德国5-0荷兰这夜，舍汉特中柱马伦空门偏出太离谱",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7709450823733920297",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
