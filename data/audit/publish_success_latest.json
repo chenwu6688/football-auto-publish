@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17 15:47",
+  "generated_at": "2026-11-18 15:15",
   "window_days": 7,
   "ok": false,
   "checks": [
@@ -7,11 +7,11 @@
       "item": "发布成功率（近 7 天）",
       "ok": true,
       "pending": false,
-      "published": 39,
+      "published": 41,
       "failed": 0,
       "rate": 100.0,
       "detail": [
-        "✅ 近 7 天：成功 39 / 尝试 39 篇，成功率 100.0%（下限 85%）",
+        "✅ 近 7 天：成功 41 / 尝试 41 篇，成功率 100.0%（下限 85%）",
         "台账覆盖 7 天，缺 0 天"
       ]
     },
@@ -45,9 +45,9 @@
       "ok": true,
       "advisory": true,
       "no_cover": 0,
-      "published": 39,
+      "published": 41,
       "detail": [
-        "已发布 39 篇，其中零配图 0 篇（0.0%）",
+        "已发布 41 篇，其中零配图 0 篇（0.0%）",
         "判定权在 verify_cover_coverage（上限 5%）；本项只报数不回滚"
       ]
     },
@@ -57,7 +57,7 @@
       "advisory": true,
       "pending": true,
       "detail": [
-        "⏸ 成稿 2 篇（<5），未判定（不等于通过）"
+        "⏸ 成稿 4 篇（<5），未判定（不等于通过）"
       ]
     },
     {
@@ -65,12 +65,13 @@
       "ok": false,
       "pending": false,
       "partition_bad": 0,
-      "cover_bad": 1,
-      "cover_judged": 1,
+      "cover_bad": 2,
+      "cover_judged": 2,
       "detail": [
         "✅ I1 记录分区成立：7 天，counts.total = 记录数 = 已登记 status 之和",
-        "❌ I2 成稿覆盖不成立 1 天：",
-        "   · 2026-11-17：成稿 2 篇 < 台账记录 4 条",
+        "❌ I2 成稿覆盖不成立 2 天：",
+        "   · 2026-11-17：成稿 2 篇 < 台账记录 6 条",
+        "   · 2026-11-18：成稿 2 篇 < 台账记录 4 条",
         "   ⇒ 台账记录多于成稿 = 日级聚合重复合并或混进别天记录"
       ]
     }
