@@ -4,10 +4,10 @@
     "prompt_tokens": 447,
     "completion_tokens": 591,
     "total_tokens": 202000,
-    "fail_streak": 15,
+    "fail_streak": 16,
     "free_quota_pct": 79.8,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "last_fail_at": "2026-11-16T18:05:10+08:00",
+    "last_fail_at": "2026-11-18T08:03:25+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -88,9 +88,9 @@
     "stale_since": "2026-11-17 10:25:20"
   },
   "hy4-preview": {
-    "prompt_tokens": 23966,
-    "completion_tokens": 4549,
-    "total_tokens": 693515,
+    "prompt_tokens": 37503,
+    "completion_tokens": 5884,
+    "total_tokens": 708387,
     "fail_streak": 0,
     "free_quota_pct": 33.5,
     "free_quota_expires_at": "2027-09-14 09:24:30",
