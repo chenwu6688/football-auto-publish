@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-18",
-  "generated_at": "2026-11-18 12:04:41",
+  "generated_at": "2026-11-18 18:03:55",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.13
+        "elapsed_s": 1.56
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.04
+        "elapsed_s": 1.07
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.37
+        "elapsed_s": 0.29
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.34
+        "elapsed_s": 1.61
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,41 +65,38 @@
       }
     },
     "errors": [],
-    "stale_dropped": 0,
-    "unknown_time": 8
+    "stale_dropped": 1,
+    "unknown_time": 8,
+    "stale_samples": [
+      {
+        "title": "【Sky Sports】波赫救曼联？",
+        "age_h": 37.2
+      }
+    ]
   },
-  "football_hits": [
+  "football_hits": [],
+  "candidates": [
     {
-      "word": "邵佳一回应国足2比2战平巴林",
-      "rank": 45,
+      "word": "英超胡安-马塔退役，切尔西社媒致敬：多么了不起的球员！",
+      "rank": 1,
       "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "欧国联8强出炉",
-      "rank": 47,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "库里坦言这份合同打完可能退役",
-      "rank": 48,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
+      "source": "dongqiudi",
+      "entities": [
+        "切尔西"
+      ],
+      "support": [
+        {
+          "title": "英超胡安-马塔退役，切尔西社媒致敬：多么了不起的球员！",
+          "url": "https://www.dongqiudi.com/articles/6666034.html",
+          "source": "dongqiudi"
+        }
+      ],
+      "event_key": "切尔西#retire",
+      "providers": [
+        "dongqiudi"
+      ],
+      "channel": "media"
     }
   ],
-  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
