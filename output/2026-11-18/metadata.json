@@ -298,7 +298,17 @@
       "hot_event_key": "加布里埃尔#transfer",
       "hot_rank": 28,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 469,
+        "comments": 0,
+        "likes": 2,
+        "shares": 0,
+        "impressions": 3853,
+        "follower_reads": 5,
+        "click_rate": 0.12
+      },
+      "platform_id": "7709295698168087066"
     },
     {
       "index": 2,
@@ -588,7 +598,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 368,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 5157,
+        "follower_reads": 3,
+        "click_rate": 0.07
+      },
+      "platform_id": "7709296000314163738"
     },
     {
       "index": 1,
@@ -880,7 +900,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 512,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709358270619697707"
     },
     {
       "index": 2,
@@ -1187,7 +1217,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 515,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709358553525436982"
     },
     {
       "index": 1,
@@ -1493,7 +1533,17 @@
       "hot_event_key": "切尔西#retire",
       "hot_rank": 1,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 311,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7709450523329511990"
     },
     {
       "index": 2,
@@ -1812,7 +1862,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 5,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 288,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7709450823733920297"
     }
   ],
   "topics": [
