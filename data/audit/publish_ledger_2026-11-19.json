@@ -1,42 +1,63 @@
 {
   "version": 2,
   "date": "2026-11-19",
-  "generated_at": "2026-11-19 04:12:48",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-19 10:23:07",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 6,
-    "published": 6,
+    "total": 8,
+    "published": 8,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
     "published_without_id": 0,
     "published_without_cover": 0,
-    "drafts": 3,
+    "drafts": 2,
     "dropped_compliance": 0,
-    "lost_upstream": -3,
+    "lost_upstream": -6,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 6,
-    "known_status": 6,
+    "n_records": 8,
+    "known_status": 8,
     "unaccounted_status": 0,
     "records_identity_ok": true,
     "cover_ok": false,
-    "lost_upstream": -3,
+    "lost_upstream": -6,
     "scope": "day_cumulative",
     "available": true,
     "reason": ""
   },
   "platform_id_binding": {
-    "bound": 3,
+    "bound": 2,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "罗伯特·卡洛斯40米重炮后转身，皇马更衣室再无第二人敢罚任意球",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7709825595470922255",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "齐达内06年世界杯决赛第7分钟被罚下，金球奖少了一座",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7709825898622616104",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "英超同一轮里考文垂主帅更想赢，却没人盯着考文垂 vs 水晶宫",
       "slug": "",
