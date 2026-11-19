@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-19",
-  "generated_at": "2026-11-19 12:06:08",
-  "board_total": 132,
+  "generated_at": "2026-11-19 18:20:18",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.8
+        "elapsed_s": 1.33
       },
       "weibo": {
         "status": "ok",
-        "count": 52,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.95
+        "elapsed_s": 0.86
       },
       "dongqiudi": {
-        "status": "ok",
-        "count": 30,
+        "status": "empty",
+        "count": 0,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.09
+        "elapsed_s": 0.32
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.57
+        "elapsed_s": 1.15
       },
       "sina_sports": {
         "status": "disabled",
@@ -66,12 +66,12 @@
     },
     "errors": [],
     "stale_dropped": 0,
-    "unknown_time": 8
+    "unknown_time": 0
   },
   "football_hits": [
     {
-      "word": "芦玉菲：退役后才发现原单位没交社保",
-      "rank": 19,
+      "word": "中美元首会见持续约1小时",
+      "rank": 29,
       "heat": 0,
       "source": "baidu",
       "kind": "board",

@@ -26,10 +26,10 @@
     "prompt_tokens": 2575,
     "completion_tokens": 3165,
     "total_tokens": 93000,
-    "fail_streak": 5,
+    "fail_streak": 6,
     "free_quota_pct": 90.7,
     "free_quota_expires_at": "2027-08-27 13:40:03",
-    "last_fail_at": "2026-11-18T18:02:40+08:00",
+    "last_fail_at": "2026-11-19T18:17:58+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -37,10 +37,10 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 61000,
-    "fail_streak": 14,
+    "fail_streak": 15,
     "free_quota_pct": 93.9,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "last_fail_at": "2026-11-18T18:03:41+08:00",
+    "last_fail_at": "2026-11-19T18:18:58+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -217,9 +217,9 @@
     "free_quota_total_tokens": 1000000
   },
   "hy4": {
-    "total_tokens": 23247,
-    "prompt_tokens": 18613,
-    "completion_tokens": 4634,
+    "total_tokens": 33325,
+    "prompt_tokens": 27004,
+    "completion_tokens": 6321,
     "free_quota_pct": 100.0,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-09 11:41:10",
