@@ -1,7 +1,7 @@
 {
   "date": "2026-11-19",
-  "generated_at": "2026-11-19T04:09:00.681754",
-  "total_articles": 6,
+  "generated_at": "2026-11-19T10:20:32.490545",
+  "total_articles": 8,
   "articles": [
     {
       "index": 1,
@@ -1740,151 +1740,554 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "罗伯特·卡洛斯40米重炮后转身，皇马更衣室再无第二人敢罚任意球",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-1-罗伯特卡洛斯40-d96d21.md",
+      "slug": "罗伯特卡洛斯40-d96d21",
+      "tags": [
+        "Roberto Carlos",
+        "Real Madrid",
+        "free kick",
+        "left back",
+        "World Cup 2002"
+      ],
+      "keywords": [
+        "Roberto Carlos",
+        "Real Madrid",
+        "free kick",
+        "left back",
+        "World Cup 2002"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260915/6aa94ab2b3786_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-19/6afeb96221901native.htm",
+            "query": "皇马",
+            "alt": "阿斯：JJ昨日和家人参观皇马体育城，进一步敲定了加盟细节"
+          },
+          "width": 1200,
+          "height": 856
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261118/202611181432594773_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-19/6afe9d0076322native.htm",
+            "query": "皇马",
+            "alt": "罗马诺：JJ加盟皇马因法律问题迟迟未HWG，曼联非常不满&态度强硬"
+          },
+          "width": 720,
+          "height": 959
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 65,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "20 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "中文数字",
+          "中文序数"
+        ],
+        "contrasts": [
+          "序位"
+        ],
+        "proper_nouns": [
+          "皇马"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 65,
+        "pass": true,
+        "reasons": [
+          "标题偏长(31字>30)",
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1079,
+        "han_len": 775,
+        "paragraphs": 9,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 7,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "齐达内06年世界杯决赛第7分钟被罚下，金球奖少了一座",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-2-齐达内06年世界-782649.md",
+      "slug": "齐达内06年世界-782649",
+      "tags": [
+        "Zidane",
+        "Ronaldo",
+        "red cards",
+        "goals",
+        "World Cup"
+      ],
+      "keywords": [
+        "Zidane",
+        "Ronaldo",
+        "red cards",
+        "goals",
+        "World Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250510/681f22cf7fd38.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-18/6afd63994dd63native.htm",
+            "query": "齐达内",
+            "alt": "大罗选最佳11人：梅罗+自己领衔锋线，中场齐达内、老马、贝利"
+          },
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 75,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "序次",
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "齐达内",
+          "世界杯"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [
+          "第N分钟",
+          "红牌/罚下"
+        ],
+        "anchor_repick": false,
+        "score": 75,
+        "pass": true,
+        "reasons": [
+          "过程锚点：第N分钟、红牌/罚下",
+          "缺具体对阵/球队/人物"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1337,
+        "han_len": 948,
+        "paragraphs": 10,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "范志毅01年郑智13年，2次亚洲最佳竟隔12年",
-      "angle": "中国球员两次拿到亚足联年度最佳男足球员，01年范志毅、13年郑智，这不是冷知识，是一代球迷的记忆断层。老六的态度很明确：怀念不是自我安慰，得问一句后来这12年怎么接上的。",
-      "keywords": [
-        "Fan Zhiyi",
-        "Zheng Zhi",
-        "AFC Player of the Year",
-        "2001",
-        "2013"
-      ],
-      "keywords_cn": [
-        "范志毅",
-        "郑智",
-        "亚足联年度最佳",
-        "国足记忆",
-        "亚洲足球先生"
-      ],
-      "content_type": "数据对比",
-      "score": 92,
-      "controversy_level": "medium",
-      "target_emotion": "怀旧",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "2次获奖年份可核对，国足情怀浓",
-      "_category": "中国足球",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
+      "title": "罗伯特·卡洛斯40米重炮后转身，皇马更衣室再无第二人敢罚任意球",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
     },
     {
-      "title": "西班牙U17最高800万欧，中国U17最高22.5万欧",
-      "angle": "同是U17世界杯舞台，西班牙5人有德转身价，最高800万欧；中国U17最高22.5万欧。别急着骂孩子，老六更想聊的是青训账本：差距摆在这儿，靠喊口号补不上。",
-      "keywords": [
-        "Spain U17",
-        "China U17",
-        "Transfermarkt",
-        "8 million euros",
-        "225000 euros"
-      ],
-      "keywords_cn": [
-        "西班牙U17",
-        "中国U17",
-        "德转身价",
-        "青训差距",
-        "U17世界杯"
-      ],
-      "content_type": "数据对比",
-      "score": 88,
-      "controversy_level": "high",
-      "target_emotion": "震惊",
-      "resonance_angle": "国足情结",
-      "series_id": "无",
-      "why_pick": "800万欧对22.5万欧，落差够硬",
-      "_category": "未分类",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
-      "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-1"
-    },
-    {
-      "title": "没想到武切维奇签C罗以为是玩笑，还差点提梅西",
-      "angle": "武切维奇回忆签C罗时以为是玩笑，还庆幸没说更想签梅西，这段场外轶事够味。老六不往战术上硬掰，就聊老球迷都懂的那种江湖感：大牌真到眼前，第一反应往往不是分析，是不敢信。",
-      "keywords": [
-        "Vucevic",
-        "Cristiano Ronaldo",
-        "Messi",
-        "Al Nassr",
-        "football anecdote"
-      ],
-      "keywords_cn": [
-        "武切维奇",
-        "C罗",
-        "梅西",
-        "签C罗",
-        "足坛轶事"
-      ],
-      "content_type": "八卦趣事",
-      "score": 84,
-      "controversy_level": "medium",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "old-fan-night",
-      "why_pick": "场外反差有细节，适合老球迷夜话",
-      "_category": "未分类",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-2"
-    },
-    {
-      "title": "英超阿斯顿维拉 vs 桑德兰，被盯着的未必最想赢",
-      "content_type": "数据对比",
-      "_is_fixture": true
-    },
-    {
-      "title": "齐达内06世界杯决赛第7分钟勺子点球，两代大师的数据分水岭",
+      "title": "齐达内06年世界杯决赛第7分钟被罚下，金球奖少了一座",
       "content_type": "数据对比",
       "_column_name": "战术榜单",
       "_from_reservoir": true
@@ -1896,19 +2299,19 @@
       "2026-11-06",
       "2026-11-19"
     ],
-    "n": 76,
-    "batch_n": 3,
+    "n": 78,
+    "batch_n": 2,
     "ok": false,
     "table": {
       "转会官宣": {
         "count": 16,
-        "pct": 21.1,
+        "pct": 20.5,
         "target": 30.0,
         "over": false
       },
       "中国足球": {
         "count": 15,
-        "pct": 19.7,
+        "pct": 19.2,
         "target": 25.0,
         "over": false
       },
@@ -1919,14 +2322,14 @@
         "over": false
       },
       "未分类": {
-        "count": 20,
-        "pct": 26.3,
+        "count": 22,
+        "pct": 28.2,
         "target": 15.0,
         "over": true
       },
       "战报比分": {
         "count": 24,
-        "pct": 31.6,
+        "pct": 30.8,
         "target": 10.0,
         "over": true
       }
@@ -1935,15 +2338,15 @@
   "mix_overshoot": [
     {
       "type": "战报比分",
-      "actual": 31.6,
+      "actual": 30.8,
       "target": 10.0,
-      "delta": 21.6
+      "delta": 20.8
     },
     {
       "type": "未分类",
-      "actual": 26.3,
+      "actual": 28.2,
       "target": 15.0,
-      "delta": 11.3
+      "delta": 13.2
     }
   ],
   "image_floor": {
@@ -1952,16 +2355,16 @@
     "articles_below": 0
   },
   "supply_layers": {
-    "total": 3,
+    "total": 2,
     "counts": {
-      "一级·确定性": 1,
-      "二级·突发": 1,
-      "三级·软性": 1
+      "一级·确定性": 0,
+      "二级·突发": 0,
+      "三级·软性": 2
     },
     "ratios": {
-      "一级·确定性": 33.3,
-      "二级·突发": 33.3,
-      "三级·软性": 33.3
+      "一级·确定性": 0.0,
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -1969,14 +2372,14 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": 3.3,
-      "二级·突发": -16.7,
-      "三级·软性": 13.3
+      "一级·确定性": -30.0,
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
     },
     "unclassified": 0,
     "l3_breakdown": {
       "data_driven": 1,
-      "other": 0,
+      "other": 1,
       "data_types": [
         "数据对比",
         "排行榜"
@@ -1984,24 +2387,6 @@
     }
   },
   "degrade_events": [
-    {
-      "环节": "反洗稿记分",
-      "原因": "与源文连续重合 13 字（>12，疑似洗稿）；事实点数少于最强源文（18 < 21）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
-      "数量": 1
-    },
-    {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
-      "数量": 1
-    },
-    {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
-      "处置": "用 2 张原创信息图补到 3 张",
-      "数量": 1
-    },
     {
       "环节": "配图补齐",
       "原因": "真实图源只拿到 2 张",
@@ -2017,59 +2402,52 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
-    "max_articles": 3,
-    "uplifted": true,
-    "reason": "thursday_boost",
+    "batch": "evening",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
     "requested_reason": "thursday_boost",
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "加发 3 篇（原因 thursday_boost，周内 2/2）",
+    "detail": "常态 2 篇（周内加发已用满 2/2）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
   "ranker_mode": "rule",
   "batch_mix": {
     "slots": [
       "main",
-      "data",
-      "main"
+      "data"
     ],
-    "picked": [
+    "picked": [],
+    "degraded": [
+      "main 槽无可用候选（不凑数，本批少写 1 篇）",
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [
       {
-        "slot": "main",
         "type": "数据对比",
-        "title": "范志毅01年郑智13年，2次亚洲最佳竟隔12年"
+        "title": "没想到斯坦丘36万欧签约，竟比200万欧少太多"
       },
       {
-        "slot": "data",
-        "type": "数据对比",
-        "title": "西班牙U17最高800万欧，中国U17最高22.5万欧"
-      },
-      {
-        "slot": "extra",
         "type": "八卦趣事",
-        "title": "没想到武切维奇签C罗以为是玩笑，还差点提梅西"
+        "title": "沙拉维31岁谈申花旧事，罗马欧联决赛竟有人作梗"
       }
     ],
-    "degraded": [
-      "main 槽用次优类型补位",
-      "main 槽无可用候选（不凑数，本批少写 1 篇）"
-    ],
-    "skipped": [],
     "day_counts": {
-      "数据对比": 1,
-      "热点球评": 2
+      "数据对比": 3,
+      "热点球评": 2,
+      "八卦趣事": 1
     },
-    "selected": 3,
-    "requested": 3
+    "selected": 0,
+    "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-19 12:12:48",
+  "last_batch": "evening",
+  "last_updated": "2026-11-19 18:20:32",
   "batches_completed": [
     "morning",
     "noon"
