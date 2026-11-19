@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-19",
-  "generated_at": "2026-11-19 08:03:09",
-  "board_total": 131,
+  "generated_at": "2026-11-19 12:06:08",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 2.98
+        "elapsed_s": 1.8
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.19
+        "elapsed_s": 0.95
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 1.09
+        "elapsed_s": 0.09
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.73
+        "elapsed_s": 1.57
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,18 +70,8 @@
   },
   "football_hits": [
     {
-      "word": "HLE转会",
-      "rank": 17,
-      "heat": 135099,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "新华社谈国足主帅大幅度试错",
-      "rank": 45,
+      "word": "芦玉菲：退役后才发现原单位没交社保",
+      "rank": 19,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -90,28 +80,6 @@
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "恢复速度惊人，图片报：此前右膝受伤的戈森斯在训练中现身德甲",
-      "rank": 7,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "戈森斯"
-      ],
-      "support": [
-        {
-          "title": "恢复速度惊人，图片报：此前右膝受伤的戈森斯在训练中现身德甲",
-          "url": "https://www.dongqiudi.com/articles/6667712.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "戈森斯#injury",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
