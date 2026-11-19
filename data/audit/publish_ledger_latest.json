@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-19",
-  "generated_at": "2026-11-19 00:09:51",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-19 04:12:48",
+  "batch_filter": "noon",
   "counts": {
     "total": 3,
     "published": 3,
@@ -44,28 +44,28 @@
   },
   "records": [
     {
-      "title": "英超同一轮里考文垂主帅更想赢，却没人盯着考文垂 vs 水晶宫",
+      "title": "英超阿斯顿维拉 vs 桑德兰，被盯着的未必最想赢",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7709667278024475190",
+      "batch_name": "午间",
+      "platform_id": "7709729871399764530",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "戈森斯35岁恢复训练，沙尔克04却未公布缺阵时间",
+      "title": "原来C罗和武切维奇在利雅得胜利碰上了",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7709667519317000758",
+      "batch_name": "午间",
+      "platform_id": "7709730194675778086",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "没想到阿根廷7-0哥斯达黎加，帕斯两球马斯坦托诺替补建功",
+      "title": "齐达内06世界杯决赛第7分钟勺子点球，两代大师的数据分水岭",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7709667827984253494",
+      "batch_name": "午间",
+      "platform_id": "7709730486146531890",
       "reason": "",
       "images": 3,
       "status": "published"
