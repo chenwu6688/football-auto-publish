@@ -300,13 +300,14 @@
       "hot_source": "dongqiudi",
       "hot_channel": "media",
       "performance": {
-        "reads": 469,
+        "reads": 478,
         "comments": 0,
         "likes": 2,
         "shares": 0,
-        "impressions": 3853,
+        "retention_rate": 0.3883,
+        "impressions": 4983,
         "follower_reads": 5,
-        "click_rate": 0.12
+        "click_rate": 0.1
       },
       "platform_id": "7709295698168087066"
     },
@@ -600,12 +601,13 @@
         "degraded": []
       },
       "performance": {
-        "reads": 368,
+        "reads": 814,
         "comments": 0,
-        "likes": 0,
+        "likes": 2,
         "shares": 0,
-        "impressions": 5157,
-        "follower_reads": 3,
+        "retention_rate": 0.4631,
+        "impressions": 10915,
+        "follower_reads": 11,
         "click_rate": 0.07
       },
       "platform_id": "7709296000314163738"
@@ -906,7 +908,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 512,
+        "retention_rate": 0.0,
+        "impressions": 1511,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1223,7 +1226,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 515,
+        "retention_rate": 0.0,
+        "impressions": 1442,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1539,9 +1543,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 311,
+        "retention_rate": 0.825,
+        "impressions": 1440,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7709450523329511990"
     },
@@ -1868,9 +1873,10 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 288,
+        "retention_rate": 0.57,
+        "impressions": 1245,
         "follower_reads": 0,
-        "click_rate": 0.02
+        "click_rate": 0.0
       },
       "platform_id": "7709450823733920297"
     }
