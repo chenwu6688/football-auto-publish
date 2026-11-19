@@ -4,10 +4,10 @@
     "prompt_tokens": 447,
     "completion_tokens": 591,
     "total_tokens": 202000,
-    "fail_streak": 16,
+    "fail_streak": 17,
     "free_quota_pct": 79.8,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "last_fail_at": "2026-11-18T08:03:25+08:00",
+    "last_fail_at": "2026-11-19T08:03:42+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -88,14 +88,14 @@
     "stale_since": "2026-11-17 10:25:20"
   },
   "hy4-preview": {
-    "prompt_tokens": 66477,
-    "completion_tokens": 9715,
-    "total_tokens": 741192,
-    "fail_streak": 0,
+    "prompt_tokens": 83797,
+    "completion_tokens": 13088,
+    "total_tokens": 761885,
+    "fail_streak": 1,
     "free_quota_pct": 33.5,
     "free_quota_expires_at": "2027-09-14 09:24:30",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "last_fail_at": "2026-11-09T08:03:05+08:00",
+    "last_fail_at": "2026-11-19T08:05:42+08:00",
     "free_quota_total_tokens": 1000000,
     "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
   },
@@ -113,11 +113,12 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 28000,
-    "fail_streak": 0,
+    "fail_streak": 1,
     "free_quota_pct": 97.2,
     "free_quota_expires_at": "2027-09-27 10:07:07",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "free_quota_total_tokens": 1000000
+    "free_quota_total_tokens": 1000000,
+    "last_fail_at": "2026-11-19T08:05:45+08:00"
   },
   "step-5-preview": {
     "prompt_tokens": 26491,
@@ -164,31 +165,34 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 0,
-    "fail_streak": 0,
+    "fail_streak": 1,
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "free_quota_total_tokens": 1000000
+    "free_quota_total_tokens": 1000000,
+    "last_fail_at": "2026-11-19T08:05:52+08:00"
   },
   "kimi-k3.1-pro-highspeed": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 0,
-    "fail_streak": 0,
+    "fail_streak": 1,
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "free_quota_total_tokens": 1000000
+    "free_quota_total_tokens": 1000000,
+    "last_fail_at": "2026-11-19T08:05:57+08:00"
   },
   "minimax-m3.1-flash": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 0,
-    "fail_streak": 0,
+    "fail_streak": 1,
     "free_quota_pct": 100.0,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "free_quota_total_tokens": 1000000
+    "free_quota_total_tokens": 1000000,
+    "last_fail_at": "2026-11-19T08:06:00+08:00"
   },
   "deepseek-v4.1-flash-1017": {
     "prompt_tokens": 0,
@@ -213,9 +217,9 @@
     "free_quota_total_tokens": 1000000
   },
   "hy4": {
-    "total_tokens": 608,
-    "prompt_tokens": 452,
-    "completion_tokens": 156,
+    "total_tokens": 2068,
+    "prompt_tokens": 1872,
+    "completion_tokens": 196,
     "free_quota_pct": 100.0,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-09 11:41:10",
