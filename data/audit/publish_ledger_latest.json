@@ -1,12 +1,12 @@
 {
   "version": 2,
   "date": "2026-11-20",
-  "generated_at": "2026-11-20 00:07:13",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-20 04:06:51",
+  "batch_filter": "noon",
   "counts": {
     "total": 2,
-    "published": 2,
-    "failed": 0,
+    "published": 1,
+    "failed": 1,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
     "published_without_id": 0,
@@ -38,25 +38,25 @@
     "title_gate_blocked_published": 0
   },
   "platform_id_binding": {
-    "bound": 2,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "英超聚光灯落在布莱顿，赫尔城主帅更想赢这场 A vs B",
+      "title": "没想到22岁尼科-帕斯表态想回皇马 居莱尔22球33助续约到2032年挡路",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7710037974444016168",
-      "reason": "",
+      "batch_name": "午间",
+      "platform_id": "",
+      "reason": "发布超时: 无API响应",
       "images": 3,
-      "status": "published"
+      "status": "failed"
     },
     {
-      "title": "没想到佐藤龙之介刚拿2026荣誉，瓦伦西亚就找租借下家",
+      "title": "没想到U17国足重返世少赛首战就碰西班牙U17",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7710038260172587554",
+      "batch_name": "午间",
+      "platform_id": "7710100034590605833",
       "reason": "",
       "images": 3,
       "status": "published"
