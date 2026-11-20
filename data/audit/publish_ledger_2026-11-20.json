@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-20",
-  "generated_at": "2026-11-20 04:06:51",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-20 10:07:22",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 3,
+    "total": 6,
+    "published": 5,
     "failed": 1,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -17,26 +18,46 @@
     "published_without_cover": 0,
     "drafts": 2,
     "dropped_compliance": 0,
-    "lost_upstream": -2,
+    "lost_upstream": -4,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 4,
-    "known_status": 4,
+    "n_records": 6,
+    "known_status": 6,
     "unaccounted_status": 0,
     "records_identity_ok": true,
     "cover_ok": false,
-    "lost_upstream": -2,
+    "lost_upstream": -4,
     "scope": "day_cumulative",
     "available": true,
     "reason": ""
   },
   "platform_id_binding": {
-    "bound": 1,
+    "bound": 2,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "原来苏比门迪本赛季只踢380分钟，阿森纳却标价8000万起",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7710192636572844553",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "没想到苏比门迪12场380分钟，阿森纳竟标价9000万欧",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7710192949736407602",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "英超聚光灯落在布莱顿，赫尔城主帅更想赢这场 A vs B",
       "slug": "",
