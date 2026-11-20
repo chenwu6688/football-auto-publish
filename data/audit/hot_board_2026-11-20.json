@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-20",
-  "generated_at": "2026-11-20 08:03:39",
-  "board_total": 131,
+  "generated_at": "2026-11-20 12:02:53",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.37
+        "elapsed_s": 1.68
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.9
+        "elapsed_s": 1.18
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.36
+        "elapsed_s": 0.2
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.39
+        "elapsed_s": 1.52
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,33 +70,35 @@
   },
   "football_hits": [
     {
-      "word": "芦玉菲退役后社保被欠七年五个月",
-      "rank": 44,
-      "heat": 106791,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
+      "word": "传Viper1500万高薪续约",
+      "rank": 5,
+      "heat": 814918,
+      "source": "tieba",
+      "kind": "ugc",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369991&amp;topic_name=%E4%BC%A0Viper1500%E4%B8%87%E9%AB%98%E8%96%AA%E7%BB%AD%E7%BA%A6",
       "published_at": "",
       "entities": []
     }
   ],
   "candidates": [
     {
-      "word": "马卡：佐藤龙之介或将冬窗离队，瓦伦西亚计划将其外租西甲1 评",
-      "rank": 13,
+      "word": "劳尔-巴雷拉：皇马续约居莱尔，尼科-帕斯回归不现实足球",
+      "rank": 5,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "瓦伦西亚"
+        "巴雷拉",
+        "居莱尔",
+        "皇马"
       ],
       "support": [
         {
-          "title": "马卡：佐藤龙之介或将冬窗离队，瓦伦西亚计划将其外租西甲1 评",
-          "url": "https://www.dongqiudi.com/articles/6670402.html",
+          "title": "劳尔-巴雷拉：皇马续约居莱尔，尼科-帕斯回归不现实足球",
+          "url": "https://www.dongqiudi.com/articles/6671057.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "瓦伦西亚#transfer",
+      "event_key": "居莱尔|巴雷拉|皇马#contract",
       "providers": [
         "dongqiudi"
       ],
