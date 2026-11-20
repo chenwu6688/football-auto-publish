@@ -302,7 +302,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.2174,
-        "impressions": 2746,
+        "impressions": 2805,
         "follower_reads": 1,
         "click_rate": 0.02
       },
@@ -631,7 +631,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2451,
+        "impressions": 2512,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -938,7 +938,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.4878,
-        "impressions": 2324,
+        "impressions": 2383,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1247,8 +1247,8 @@
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 2803,
+        "retention_rate": 0.33,
+        "impressions": 2865,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1552,7 +1552,7 @@
         "likes": 6,
         "shares": 0,
         "retention_rate": 0.1367,
-        "impressions": 12879,
+        "impressions": 12939,
         "follower_reads": 0,
         "click_rate": 0.11
       },
@@ -1846,12 +1846,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 619,
+        "reads": 625,
         "comments": 0,
         "likes": 2,
         "shares": 0,
         "retention_rate": 0.2125,
-        "impressions": 7447,
+        "impressions": 7560,
         "follower_reads": 0,
         "click_rate": 0.08
       },
