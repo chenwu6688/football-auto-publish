@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "date": "2026-11-19",
-  "generated_at": "2026-11-19 10:23:07",
-  "batch_filter": "evening",
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20 00:07:13",
+  "batch_filter": "morning",
   "counts": {
     "total": 2,
     "published": 2,
@@ -31,7 +31,7 @@
     "available": true,
     "reason": "",
     "scope": "day_cumulative",
-    "path": "/home/runner/work/_temp/output/2026-11-19/metadata.json",
+    "path": "/home/runner/work/_temp/output/2026-11-20/metadata.json",
     "drafts": 2,
     "dropped_compliance": 0,
     "draft_total": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "罗伯特·卡洛斯40米重炮后转身，皇马更衣室再无第二人敢罚任意球",
+      "title": "英超聚光灯落在布莱顿，赫尔城主帅更想赢这场 A vs B",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7709825595470922255",
+      "batch_name": "晨读",
+      "platform_id": "7710037974444016168",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "齐达内06年世界杯决赛第7分钟被罚下，金球奖少了一座",
+      "title": "没想到佐藤龙之介刚拿2026荣誉，瓦伦西亚就找租借下家",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7709825898622616104",
+      "batch_name": "晨读",
+      "platform_id": "7710038260172587554",
       "reason": "",
       "images": 3,
       "status": "published"
