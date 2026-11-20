@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-20",
-  "generated_at": "2026-11-20 12:02:53",
+  "generated_at": "2026-11-20 18:04:00",
   "board_total": 132,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.68
+        "elapsed_s": 1.58
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.18
+        "elapsed_s": 1.03
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.2
+        "elapsed_s": 0.25
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.52
+        "elapsed_s": 1.65
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,14 +65,20 @@
       }
     },
     "errors": [],
-    "stale_dropped": 0,
-    "unknown_time": 8
+    "stale_dropped": 1,
+    "unknown_time": 8,
+    "stale_samples": [
+      {
+        "title": "【中文播报】一月自由球员",
+        "age_h": 39.7
+      }
+    ]
   },
   "football_hits": [
     {
       "word": "传Viper1500万高薪续约",
-      "rank": 5,
-      "heat": 814918,
+      "rank": 8,
+      "heat": 858705,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369991&amp;topic_name=%E4%BC%A0Viper1500%E4%B8%87%E9%AB%98%E8%96%AA%E7%BB%AD%E7%BA%A6",
@@ -82,23 +88,22 @@
   ],
   "candidates": [
     {
-      "word": "劳尔-巴雷拉：皇马续约居莱尔，尼科-帕斯回归不现实足球",
-      "rank": 5,
+      "word": "法媒：阿森纳为苏比门迪标价8000万欧以上，马竞只想租借英超西甲",
+      "rank": 3,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "巴雷拉",
-        "居莱尔",
-        "皇马"
+        "阿森纳",
+        "马德里竞技"
       ],
       "support": [
         {
-          "title": "劳尔-巴雷拉：皇马续约居莱尔，尼科-帕斯回归不现实足球",
-          "url": "https://www.dongqiudi.com/articles/6671057.html",
+          "title": "法媒：阿森纳为苏比门迪标价8000万欧以上，马竞只想租借英超西甲",
+          "url": "https://www.dongqiudi.com/articles/6672104.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "居莱尔|巴雷拉|皇马#contract",
+      "event_key": "阿森纳|马德里竞技#transfer",
       "providers": [
         "dongqiudi"
       ],
