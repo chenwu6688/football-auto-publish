@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-21",
-  "generated_at": "2026-11-21 08:06:02",
+  "generated_at": "2026-11-21 12:03:20",
   "board_total": 130,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.1
+        "elapsed_s": 1.28
       },
       "weibo": {
         "status": "ok",
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.03
+        "elapsed_s": 0.82
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.4
+        "elapsed_s": 0.69
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.35
+        "elapsed_s": 1.26
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,58 +70,8 @@
   },
   "football_hits": [
     {
-      "word": "传Viper1500万高薪续约",
-      "rank": 17,
-      "heat": 90552,
-      "source": "tieba",
-      "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369991&amp;topic_name=%E4%BC%A0Viper1500%E4%B8%87%E9%AB%98%E8%96%AA%E7%BB%AD%E7%BA%A6",
-      "published_at": "",
-      "entities": []
-    },
-    {
       "word": "U17世界杯：国足0比5惨败西班牙",
-      "rank": 21,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17国足0比5西班牙U17",
-      "rank": 26,
-      "heat": 129251,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "中国“免签朋友圈”持续扩容",
-      "rank": 45,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "詹俊谈U17国足0比5西班牙",
-      "rank": 46,
-      "heat": 75313,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "武磊：点球换人是为了有时间调整心态",
-      "rank": 46,
+      "rank": 36,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -132,24 +82,21 @@
   ],
   "candidates": [
     {
-      "word": "剑南春｜拜仁1-1科隆，布朗远射破门，凯恩、奥利塞伤退德甲1667 评",
-      "rank": 2,
+      "word": "亨德森转会切尔西前与球队的对话“全围绕足球”足球",
+      "rank": 4,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "奥利塞",
-        "拜仁",
-        "科隆",
-        "凯恩"
+        "切尔西"
       ],
       "support": [
         {
-          "title": "剑南春｜拜仁1-1科隆，布朗远射破门，凯恩、奥利塞伤退德甲1667 评",
-          "url": "https://www.dongqiudi.com/articles/6674610.html",
+          "title": "亨德森转会切尔西前与球队的对话“全围绕足球”足球",
+          "url": "https://www.dongqiudi.com/articles/6675790.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "凯恩|奥利塞|拜仁|科隆#injury",
+      "event_key": "切尔西#transfer",
       "providers": [
         "dongqiudi"
       ],
