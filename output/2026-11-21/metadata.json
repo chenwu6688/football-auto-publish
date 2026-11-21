@@ -276,7 +276,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "565859"
+      "recap_match_id": "565859",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 851,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710410784479674920"
     },
     {
       "index": 2,
@@ -604,7 +614,17 @@
       "hot_event_key": "凯恩|奥利塞|拜仁|科隆#injury",
       "hot_rank": 2,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 742,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710411238911558159"
     },
     {
       "index": 1,
@@ -1176,7 +1196,17 @@
       "hot_event_key": "切尔西#transfer",
       "hot_rank": 4,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 490,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7710471275398955563"
     },
     {
       "index": 1,
@@ -1445,7 +1475,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 7,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 342,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7710564026627703322"
     },
     {
       "index": 2,
@@ -1752,7 +1792,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 176,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710564357746229786"
     }
   ],
   "topics": [
