@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-21",
-  "generated_at": "2026-11-21 12:03:20",
+  "generated_at": "2026-11-21 18:03:42",
   "board_total": 130,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.28
+        "elapsed_s": 1.72
       },
       "weibo": {
         "status": "ok",
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.82
+        "elapsed_s": 1.19
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.69
+        "elapsed_s": 0.11
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.26
+        "elapsed_s": 4.27
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,8 +70,18 @@
   },
   "football_hits": [
     {
-      "word": "U17世界杯：国足0比5惨败西班牙",
-      "rank": 36,
+      "word": "曝Tarzan向AL提出解约",
+      "rank": 24,
+      "heat": 201831,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "新华社评U17国足世界杯首战0:5收场",
+      "rank": 35,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -80,28 +90,6 @@
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "亨德森转会切尔西前与球队的对话“全围绕足球”足球",
-      "rank": 4,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "切尔西"
-      ],
-      "support": [
-        {
-          "title": "亨德森转会切尔西前与球队的对话“全围绕足球”足球",
-          "url": "https://www.dongqiudi.com/articles/6675790.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "切尔西#transfer",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
