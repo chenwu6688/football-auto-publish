@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-21",
-  "generated_at": "2026-11-21 04:07:32",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-21 10:08:42",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "西甲半场0-0没解决，毕尔巴鄂竞技0-1西班牙人收场",
+      "title": "意甲聚焦拉齐奥 vs 莱切，老将悄悄攒劲不抢镜",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7710470994896568886",
+      "batch_name": "晚间",
+      "platform_id": "7710564026627703322",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "36岁亨德森加盟切尔西，签约2年藏反转",
+      "title": "没想到U17国足0-5西班牙，前40分钟竟守住0失球",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7710471275398955563",
+      "batch_name": "晚间",
+      "platform_id": "7710564357746229786",
       "reason": "",
       "images": 3,
       "status": "published"
