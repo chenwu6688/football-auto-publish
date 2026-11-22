@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-22",
-  "generated_at": "2026-11-22 12:06:40",
-  "board_total": 131,
+  "generated_at": "2026-11-22 18:02:50",
+  "board_total": 130,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 3.32
+        "elapsed_s": 1.39
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.02
+        "elapsed_s": 0.88
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.55
+        "elapsed_s": 0.44
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 3.1
+        "elapsed_s": 1.2
       },
       "sina_sports": {
         "status": "disabled",
@@ -81,8 +81,8 @@
     },
     {
       "word": "曝塔赞主动解约出走JDG",
-      "rank": 10,
-      "heat": 563514,
+      "rank": 11,
+      "heat": 422240,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
@@ -92,21 +92,21 @@
   ],
   "candidates": [
     {
-      "word": "懂球译站 | 波切蒂诺上任内幕：难舍美国，难拒红魔英超意甲",
-      "rank": 2,
+      "word": "拉亚因疑似肩部受伤被换下场，伤情或是肩关节脱位或锁骨骨折",
+      "rank": 26,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "曼联"
+        "拉亚"
       ],
       "support": [
         {
-          "title": "懂球译站 | 波切蒂诺上任内幕：难舍美国，难拒红魔英超意甲",
-          "url": "https://www.dongqiudi.com/articles/6678222.html",
+          "title": "拉亚因疑似肩部受伤被换下场，伤情或是肩关节脱位或锁骨骨折",
+          "url": "https://www.dongqiudi.com/articles/6681275.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "曼联#coach",
+      "event_key": "拉亚#injury",
       "providers": [
         "dongqiudi"
       ],
