@@ -291,7 +291,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "565862"
+      "recap_match_id": "565862",
+      "performance": {
+        "reads": 10,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 921,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7710780282093257225"
     },
     {
       "index": 2,
@@ -608,7 +618,17 @@
       "hot_event_key": "拉亚|纽卡斯尔|阿森纳#injury",
       "hot_rank": 3,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 876,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710780587765727771"
     },
     {
       "index": 1,
@@ -895,7 +915,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "564754"
+      "recap_match_id": "564754",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 487,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710842931384468008"
     },
     {
       "index": 2,
@@ -1200,7 +1230,17 @@
       "hot_event_key": "曼联#coach",
       "hot_rank": 2,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 467,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710843226659521064"
     },
     {
       "index": 1,
@@ -1471,7 +1511,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 19,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 463,
+        "follower_reads": 0,
+        "click_rate": 0.04
+      },
+      "platform_id": "7710934551882678799"
     },
     {
       "index": 2,
@@ -1778,7 +1828,17 @@
       "hot_event_key": "拉亚#injury",
       "hot_rank": 26,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 203,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7710934800726557199"
     }
   ],
   "topics": [
