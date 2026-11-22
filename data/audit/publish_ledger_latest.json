@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-22",
-  "generated_at": "2026-11-22 00:07:51",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-22 04:10:52",
+  "batch_filter": "noon",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "半场0-0没守住，德甲门兴0-1多特蒙德输在选择",
+      "title": "半场0-1压着皇马，西甲终局却被2-1翻回去",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7710780282093257225",
+      "batch_name": "午间",
+      "platform_id": "7710842931384468008",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "拉亚第70分钟被换下，阿森纳2-2纽卡",
+      "title": "懂球译站曼联vs阿斯顿维拉反转",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7710780587765727771",
+      "batch_name": "午间",
+      "platform_id": "7710843226659521064",
       "reason": "",
       "images": 3,
       "status": "published"
