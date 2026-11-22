@@ -1,15 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-22",
-  "generated_at": "2026-11-22 04:10:52",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-22 10:06:22",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 4,
+    "total": 6,
+    "published": 6,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -17,16 +18,16 @@
     "published_without_cover": 0,
     "drafts": 2,
     "dropped_compliance": 0,
-    "lost_upstream": -2,
+    "lost_upstream": -4,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 4,
-    "known_status": 4,
+    "n_records": 6,
+    "known_status": 6,
     "unaccounted_status": 0,
     "records_identity_ok": true,
     "cover_ok": false,
-    "lost_upstream": -2,
+    "lost_upstream": -4,
     "scope": "day_cumulative",
     "available": true,
     "reason": ""
@@ -37,6 +38,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "桑坦德竞技没人关注，皇家社会 vs 桑坦德竞技门将算盘更精",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7710934551882678799",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "拉亚因疑似肩部受伤被换下场，阿森纳没想到",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7710934800726557199",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "半场0-0没守住，德甲门兴0-1多特蒙德输在选择",
       "slug": "",

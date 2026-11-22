@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-22",
-  "generated_at": "2026-11-22 04:10:52",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-22 10:06:22",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "半场0-1压着皇马，西甲终局却被2-1翻回去",
+      "title": "桑坦德竞技没人关注，皇家社会 vs 桑坦德竞技门将算盘更精",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7710842931384468008",
+      "batch_name": "晚间",
+      "platform_id": "7710934551882678799",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "懂球译站曼联vs阿斯顿维拉反转",
+      "title": "拉亚因疑似肩部受伤被换下场，阿森纳没想到",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7710843226659521064",
+      "batch_name": "晚间",
+      "platform_id": "7710934800726557199",
       "reason": "",
       "images": 3,
       "status": "published"
