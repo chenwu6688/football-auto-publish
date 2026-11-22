@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "date": "2026-11-22",
+  "generated_at": "2026-11-22 00:07:51",
+  "batch_filter": "morning",
+  "batches": [
+    "morning"
+  ],
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0,
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "lost_upstream": 0,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 2,
+    "known_status": 2,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": true,
+    "lost_upstream": 0,
+    "scope": "day_cumulative",
+    "available": true,
+    "reason": ""
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "半场0-0没守住，德甲门兴0-1多特蒙德输在选择",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7710780282093257225",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "morning"
+    },
+    {
+      "title": "拉亚第70分钟被换下，阿森纳2-2纽卡",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7710780587765727771",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "morning"
+    }
+  ],
+  "no_publishable": null,
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。本文件是当天各批次聚合，批次明细见 publish_ledger_{date}_<batch>.json。counts.drafts 是当天落盘成稿数（metadata 累计口径），counts.lost_upstream = drafts - total，即「成稿在、台账没记录」的篇数；dropped_compliance 是合规剔除（成了稿但没发），published_with_title_gate_issue 是**已发布**带标题瑕疵的篇数，不是丢稿。"
+}
