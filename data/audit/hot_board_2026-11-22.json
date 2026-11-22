@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-22",
-  "generated_at": "2026-11-22 08:03:10",
-  "board_total": 130,
+  "generated_at": "2026-11-22 12:06:40",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.69
+        "elapsed_s": 3.32
       },
       "weibo": {
         "status": "ok",
-        "count": 50,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.17
+        "elapsed_s": 1.02
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.32
+        "elapsed_s": 0.55
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.89
+        "elapsed_s": 3.1
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,45 +70,43 @@
   },
   "football_hits": [
     {
-      "word": "曝塔赞主动解约出走JDG",
-      "rank": 6,
-      "heat": 913575,
+      "word": "Bin自曝MSI后想退役",
+      "rank": 2,
+      "heat": 1487323,
       "source": "tieba",
       "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
       "published_at": "",
       "entities": []
     },
     {
-      "word": "阿尔卡拉斯晋级总决赛争冠战",
-      "rank": 44,
-      "heat": 77075,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
+      "word": "曝塔赞主动解约出走JDG",
+      "rank": 10,
+      "heat": 563514,
+      "source": "tieba",
+      "kind": "ugc",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
       "published_at": "",
       "entities": []
     }
   ],
   "candidates": [
     {
-      "word": "剑南春丨阿森纳2-2纽卡，埃泽建功，马杜埃凯救主，拉亚伤退英超3321 评",
-      "rank": 3,
+      "word": "懂球译站 | 波切蒂诺上任内幕：难舍美国，难拒红魔英超意甲",
+      "rank": 2,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "阿森纳",
-        "纽卡斯尔",
-        "拉亚"
+        "曼联"
       ],
       "support": [
         {
-          "title": "剑南春丨阿森纳2-2纽卡，埃泽建功，马杜埃凯救主，拉亚伤退英超3321 评",
-          "url": "https://www.dongqiudi.com/articles/6679633.html",
+          "title": "懂球译站 | 波切蒂诺上任内幕：难舍美国，难拒红魔英超意甲",
+          "url": "https://www.dongqiudi.com/articles/6678222.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "拉亚|纽卡斯尔|阿森纳#injury",
+      "event_key": "曼联#coach",
       "providers": [
         "dongqiudi"
       ],
