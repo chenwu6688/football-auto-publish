@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-23",
-  "generated_at": "2026-11-23 12:08:11",
+  "generated_at": "2026-11-23 18:03:03",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.37
+        "elapsed_s": 1.73
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.89
+        "elapsed_s": 1.16
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.42
+        "elapsed_s": 0.05
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.33
+        "elapsed_s": 4.88
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,8 +71,8 @@
   "football_hits": [
     {
       "word": "Bin自曝MSI后想退役",
-      "rank": 7,
-      "heat": 549648,
+      "rank": 9,
+      "heat": 532576,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -81,15 +81,57 @@
     },
     {
       "word": "曝塔赞主动解约出走JDG",
-      "rank": 16,
-      "heat": 150390,
+      "rank": 18,
+      "heat": 186771,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
       "published_at": "",
       "entities": []
+    },
+    {
+      "word": "U17国足vs摩洛哥",
+      "rank": 31,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "足球比赛主教练替补上场完成绝平",
+      "rank": 46,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
     }
   ],
-  "candidates": [],
+  "candidates": [
+    {
+      "word": "比利亚雷亚尔怀念马塞利诺，伊尼戈-佩雷斯执教数据下滑足球",
+      "rank": 11,
+      "heat": 0,
+      "source": "dongqiudi",
+      "entities": [
+        "比利亚雷亚尔"
+      ],
+      "support": [
+        {
+          "title": "比利亚雷亚尔怀念马塞利诺，伊尼戈-佩雷斯执教数据下滑足球",
+          "url": "https://www.dongqiudi.com/articles/6686725.html",
+          "source": "dongqiudi"
+        }
+      ],
+      "event_key": "比利亚雷亚尔#coach",
+      "providers": [
+        "dongqiudi"
+      ],
+      "channel": "media"
+    }
+  ],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
