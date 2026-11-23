@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22 14:34",
+  "generated_at": "2026-11-23 15:24",
   "window_days": 7,
   "ok": false,
   "checks": [
@@ -56,14 +56,14 @@
       "item": "成稿口径成功率（近 7 天，只报数）",
       "ok": true,
       "advisory": true,
-      "draft_rate": 291.7,
-      "drafts": 12,
+      "draft_rate": 292.9,
+      "drafts": 14,
       "dropped_compliance": 0,
-      "lost_upstream": -24,
-      "published": 35,
+      "lost_upstream": -28,
+      "published": 41,
       "detail": [
-        "成稿 12 篇 + 合规剔除 0 篇 − 按设计跳过 0 篇 = 应发 12 篇；实发 35 篇 → **291.7%**",
-        "缺口拆解：成稿在但台账无记录 -24 篇、合规剔除 0 篇（后者是规则挡下的稿子，不是发失败）",
+        "成稿 14 篇 + 合规剔除 0 篇 − 按设计跳过 0 篇 = 应发 14 篇；实发 41 篇 → **292.9%**",
+        "缺口拆解：成稿在但台账无记录 -28 篇、合规剔除 0 篇（后者是规则挡下的稿子，不是发失败）",
         "对照 A 项（尝试口径）只算 published/(published+failed)，两数并列看；把取证缺口读成发失败，会去修发布器——修错了地方"
       ]
     },
@@ -72,11 +72,11 @@
       "ok": false,
       "pending": false,
       "partition_bad": 0,
-      "cover_bad": 6,
-      "cover_judged": 6,
+      "cover_bad": 7,
+      "cover_judged": 7,
       "detail": [
         "✅ I1 记录分区成立：7 天，counts.total = 记录数 = 已登记 status 之和",
-        "❌ I2 成稿覆盖不成立 6 天：",
+        "❌ I2 成稿覆盖不成立 7 天：",
         "   · 2026-11-17：成稿 2 篇 < 台账记录 6 条",
         "   · 2026-11-18：成稿 2 篇 < 台账记录 6 条",
         "   · 2026-11-19：成稿 2 篇 < 台账记录 8 条",
