@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-17 11:06",
+  "generated_at": "2026-11-23 23:01",
   "min_elements": 2,
   "require_proper": true,
-  "ok": true,
+  "ok": false,
   "checks": [
     {
       "item": "口径自检（数字/对比/专名）",
@@ -15,25 +15,25 @@
     },
     {
       "item": "尺子判据（真实数据复算）",
-      "ok": true,
+      "ok": false,
       "skipped": false,
       "verdict": {
-        "ours_pass_rate": 0.7,
+        "ours_pass_rate": 0.75,
         "peers_pass_rate": 0.71,
         "monotonic": true,
         "peer_top_pass": "8/10",
         "peer_top_rate": 0.8,
-        "looser_than_peers": true,
+        "looser_than_peers": false,
         "within_pressure_band": true
       },
       "coverage": {
         "ours": {
-          "n": 144,
-          "number": 58.3,
-          "contrast": 59.0,
-          "proper": 88.2,
-          "all_three": 31.9,
-          "pass_rate": 70.1,
+          "n": 174,
+          "number": 58.0,
+          "contrast": 64.4,
+          "proper": 89.7,
+          "all_three": 33.9,
+          "pass_rate": 74.7,
           "median_count": 2.0
         },
         "peers": {
@@ -47,8 +47,8 @@
         }
       },
       "detail": [
-        "我方 144 篇：通过 0.7，通过组中位 10 / 被拦组中位 3（单调 ✅）",
-        "头部 181 条：通过 0.71（≥ 我方 ✅），TOP10 通过 8/10（≥70% ✅）",
+        "我方 174 篇：通过 0.75，通过组中位 10.0 / 被拦组中位 3.0（单调 ✅）",
+        "头部 181 条：通过 0.71（≥ 我方 ❌），TOP10 通过 8/10（≥70% ✅）",
         "我方压力带 20%~85%：✅"
       ]
     },
@@ -83,19 +83,21 @@
       "advisory": true,
       "skipped": false,
       "coverage": {
-        "n": 37,
-        "number": 67.6,
-        "contrast": 67.6,
-        "proper": 89.2,
-        "all_three": 29.7,
-        "pass_rate": 86.5,
-        "median_count": 2
+        "n": 43,
+        "number": 62.8,
+        "contrast": 93.0,
+        "proper": 95.3,
+        "all_three": 51.2,
+        "pass_rate": 95.3,
+        "median_count": 3
       },
       "detail": [
-        "成稿 37 条：数字 67.6% / 对比 67.6% / 专名 89.2% / 三项全过 29.7%",
-        "达下限通过率 86.5%（上不设目标：这是存量+新管线混合值，只看趋势）"
+        "成稿 43 条：数字 62.8% / 对比 93.0% / 专名 95.3% / 三项全过 51.2%",
+        "达下限通过率 95.3%（上不设目标：这是存量+新管线混合值，只看趋势）"
       ]
     }
   ],
-  "hard_failed": []
+  "hard_failed": [
+    "尺子判据（真实数据复算）"
+  ]
 }
