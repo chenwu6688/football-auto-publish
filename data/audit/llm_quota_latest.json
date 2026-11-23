@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17 10:46",
-  "snapshot_at": "2026-11-17 10:25:20",
+  "generated_at": "2026-11-23 10:29",
+  "snapshot_at": "2026-11-23 10:29:06",
   "models": 20,
   "rotation": 18,
   "ok": true,
@@ -19,6 +19,7 @@
         "✅ 轮换列表 18 个模型全部有免费额度且未停止",
         "  ⚠️ deepseek-v4-pro-202606: 剩 16.6% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
         "  ⚠️ deepseek-v4-flash-202605: 剩 19.8% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
+        "  ⚠️ hy4-preview: 剩 14.9% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
         "  ⚠️ deepseek/deepseek-flash: 剩 15.8% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
         "  ⚠️ deepseek/deepseek-v4-flash-vision-exp: 剩 14.8% 已过停用线，运行期会自动跳过（额度重置后自动复活）",
         "  ⚠️ deepseek-v4-pro-0813: 剩 13.5% 已过停用线，运行期会自动跳过（额度重置后自动复活）"
@@ -28,9 +29,9 @@
       "item": "可用池容量",
       "ok": true,
       "detail": [
-        "✅ 可用 13 个 / 停用或到线 7 个（下限 4）",
-        "可用额度合计约 29,363,000 tokens（单模型 1,000,000，按各模型实际额度累加）",
-        "  不可用：hy3（剩 0.0%）、deepseek/deepseek-flash（剩 15.8%）、deepseek/deepseek-v4-flash-vision-exp（剩 14.8%）、deepseek-v4-pro-0813（剩 13.5%）、deepseek-v4-pro-202606（剩 16.6%）、deepseek-v4-flash-202605（剩 19.8%）、deepseek-v4-pro（剩 0.0%）"
+        "✅ 可用 12 个 / 停用或到线 8 个（下限 4）",
+        "可用额度合计约 26,476,000 tokens（单模型 1,000,000，按各模型实际额度累加）",
+        "  不可用：hy3（剩 0.0%）、deepseek/deepseek-flash（剩 15.8%）、deepseek/deepseek-v4-flash-vision-exp（剩 14.8%）、deepseek-v4-pro-0813（剩 13.5%）、hy4-preview（剩 14.9%）、deepseek-v4-pro-202606（剩 16.6%）、deepseek-v4-flash-202605（剩 19.8%）、deepseek-v4-pro（剩 0.0%）"
       ]
     },
     {
@@ -45,7 +46,7 @@
       "item": "负向验证",
       "ok": true,
       "detail": [
-        "✅ 篡改 glm-5.3-flash（90.7% → 89.7%）后一致性检查正确报错"
+        "✅ 篡改 hy4（76.2% → 75.2%）后一致性检查正确报错"
       ]
     }
   ],

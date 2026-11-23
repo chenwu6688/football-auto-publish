@@ -4,13 +4,13 @@
   "_source_20261109": "用户 2026-11-09 三张后台截图（上/中/下三段，共 20 行，无重叠）。hy4 单模型额度 1000 万，其余 100 万，故在条目里写 quota_total_tokens 覆盖全局值。",
   "_probe_20261109": "同日本机实测新增模型是否真能返回干净 JSON（utils.call_llm_json，max_tokens=4096）：minimax-m3、kimi-k2.7-code、kimi-k2.7-code-highspeed、deepseek-v4-pro-202606、hy4、glm-5.2 六个全部通过。glm-5.2 在 max_tokens=200 时返回空（推理吃满预算），600 及 4096 正常 —— 生产默认 4096，不影响。额度表里有额度的模型不等于能用，这一步是补这个缺口。",
   "_probe_20261117": "hy4-flash 探活**已完成**（2026-11-17 10:52，本机配 HY3_API_KEY 后实跑）。① /v1/models HTTP 200，返回 133 个模型，轮换列表 18 个**全部在列**；hy4-flash status=online / ctx=1,024,000 / max_output=64,000。② 端到端走 call_llm_json + 真实发布任务提示词（长素材 + 150 字报道）：hy4-flash 与 hy4 均返回字段完整的 JSON（title/body 齐全）。③ **同时发现并修掉一个真缺陷**：hy4 系同为推理模型，不传 thinking 时 reasoning 会吃满 max_tokens —— max_tokens=1200 + 长素材下 hy4 content=0B、hy4-flash content=0~46B，finish_reason=length，白烧 1649 tokens 才失败，且被 call_llm_json 记成「返回空内容」→ 沉底 fail_streak，看起来像「模型不稳」而不是「少了参数」。utils._build_body 已把 hy4 加入 thinking-disabled 分支：修后 finish=stop、content≈180~230B、usage 582~621（**比不关时省 63% tokens**）。单测 test_hy4_models_get_thinking_disabled 钉住，负向自检（移除分支）已验证转红。",
-  "captured_at": "2026-11-17 10:25:20",
+  "captured_at": "2026-11-23 10:29:06",
   "captured_by": "user_screenshot",
   "provider": "tokenhub.tencentmaas.com",
   "quota_total_tokens": 1000000,
   "models": {
     "hy4-flash": {
-      "remaining_pct": 100.0,
+      "remaining_pct": 99.3,
       "expires_at": "2027-11-17 10:17:01",
       "status": "已上线",
       "claimed": true,
@@ -20,15 +20,14 @@
       "quota_total_tokens": 10000000
     },
     "hy4": {
-      "remaining_pct": 100.0,
+      "remaining_pct": 76.2,
       "expires_at": "2027-11-09 11:41:10",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 10000000,
       "rpm": 300,
-      "quota_total_tokens": 10000000,
-      "note": "后台额度是其它模型的 10 倍（1000 万 vs 100 万）；按到期时间排在最后，其它额度耗尽才轮得到它"
+      "quota_total_tokens": 10000000
     },
     "hy3": {
       "remaining_pct": 0.0,
@@ -38,43 +37,47 @@
       "enabled": false,
       "tpm": 1000000,
       "rpm": 60,
-      "note": "模型本身仍「已上线」，但剩余 0% 且按量计费开关未开通 —— 用它就是纯按量扣钱，绝不允许进入轮换列表"
+      "quota_total_tokens": 1000000
     },
     "kimi-k3.1-pro": {
-      "remaining_pct": 100.0,
+      "remaining_pct": 99.5,
       "expires_at": "2027-10-26 09:32:41",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "glm-5.3-flashx": {
-      "remaining_pct": 97.2,
+      "remaining_pct": 95.4,
       "expires_at": "2027-09-27 10:07:07",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "glm-5.3-flash": {
-      "remaining_pct": 90.7,
+      "remaining_pct": 87.3,
       "expires_at": "2027-08-27 13:40:03",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "glm-5.3": {
-      "remaining_pct": 93.9,
+      "remaining_pct": 92.2,
       "expires_at": "2027-09-14 09:24:30",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "deepseek/deepseek-flash": {
       "remaining_pct": 15.8,
@@ -83,7 +86,8 @@
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "deepseek/deepseek-v4-flash-vision-exp": {
       "remaining_pct": 14.8,
@@ -93,7 +97,7 @@
       "enabled": true,
       "tpm": 1000000,
       "rpm": 60,
-      "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
+      "quota_total_tokens": 1000000
     },
     "deepseek-v4-pro-0813": {
       "remaining_pct": 13.5,
@@ -102,62 +106,68 @@
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "kimi-k3.1-pro-highspeed": {
-      "remaining_pct": 100.0,
+      "remaining_pct": 98.3,
       "expires_at": "2027-10-26 09:32:41",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "kimi-k3": {
-      "remaining_pct": 79.8,
+      "remaining_pct": 77.4,
       "expires_at": "2027-08-11 11:04:10",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "glm-5.2": {
-      "remaining_pct": 75.7,
+      "remaining_pct": 89.7,
       "expires_at": "2027-08-11 11:04:10",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "minimax-m3.1-flash": {
-      "remaining_pct": 100.0,
+      "remaining_pct": 98.2,
       "expires_at": "2027-10-26 09:32:41",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "minimax-m3": {
-      "remaining_pct": 91.7,
+      "remaining_pct": 85.7,
       "expires_at": "2027-08-11 11:04:10",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "hy4-preview": {
-      "remaining_pct": 33.5,
+      "remaining_pct": 14.9,
       "expires_at": "2027-09-14 09:24:30",
       "status": "待下线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
       "rpm": 60,
-      "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
+      "quota_total_tokens": 1000000
     },
     "deepseek-v4-pro-202606": {
       "remaining_pct": 16.6,
@@ -166,7 +176,8 @@
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     },
     "deepseek-v4-flash-202605": {
       "remaining_pct": 19.8,
@@ -176,7 +187,7 @@
       "enabled": true,
       "tpm": 1000000,
       "rpm": 60,
-      "note": "后台状态「待下线」：仍可调用，但属末位备援，不进轮换列表前排"
+      "quota_total_tokens": 1000000
     },
     "deepseek-v4-pro": {
       "remaining_pct": 0.0,
@@ -186,16 +197,18 @@
       "enabled": false,
       "tpm": 1000000,
       "rpm": 60,
-      "note": "剩余 0% + 按量计费未开通：与 hy3 同性质，禁止进入轮换列表"
+      "quota_total_tokens": 1000000
     },
     "kimi-k2.7-code-highspeed": {
-      "remaining_pct": 73.8,
+      "remaining_pct": 68.9,
       "expires_at": "2027-08-11 11:04:10",
       "status": "已上线",
       "claimed": true,
       "enabled": true,
       "tpm": 1000000,
-      "rpm": 60
+      "rpm": 60,
+      "quota_total_tokens": 1000000
     }
-  }
+  },
+  "_source_20261123": "用户 2026-11-23 三张后台截图（上/中/下三段，共 20 行，minimax-m3.1-flash 在第二段末与第三段首重复，按一行处理）。模型清单与 11-17 完全一致，无新增/消失。额度变化要点：① **glm-5.2 从 75.7% 回升到 89.7%（+14pt）** —— 额度只减不增，说明后台重置/补充过；已放大截图二次确认不是读错。这种「后台比本地多」正好是必须以后台为准、覆盖本地的场景。② 降幅最大 hy4-preview 33.5%→14.9%（-18.6pt），hy4 100%→76.2%（-23.8pt）—— hy4 的 1000 万额度开始被真实消耗（11-17 探活后接入生产），但离 80% 停用线仍远。③ 11-17 就已过线的 **5 个** deepseek 系模型数值**一个没动**（deepseek-flash 15.8% / vision-exp 14.8% / pro-0813 13.5% / pro-202606 16.6% / flash-202605 19.8%），印证运行期停用线确实生效——它们被挡住没被调用，额度没有继续掉。hy4-preview 是**本轮新过线**（33.5%→14.9%），它在 11-17 时还没到线、这 6 天被正常调用消耗。④ hy3 / deepseek-v4-pro 仍 0% + 计费开关未开通，继续 disabled。"
 }
