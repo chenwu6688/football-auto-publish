@@ -1,0 +1,2511 @@
+{
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T10:20:32.490545",
+  "total_articles": 8,
+  "articles": [
+    {
+      "index": 1,
+      "title": "英超同一轮里考文垂主帅更想赢，却没人盯着考文垂 vs 水晶宫",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-1-英超同一轮里考文-acc1f0.md",
+      "slug": "英超同一轮里考文-acc1f0",
+      "tags": [
+        "Coventry",
+        "Crystal Palace",
+        "Premier League"
+      ],
+      "keywords": [
+        "Coventry",
+        "Crystal Palace",
+        "Premier League"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "wikimedia",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Crystal_Palace_FC_-_Victory_Parade_%28geograph_8059128%29.jpg/1280px-Crystal_Palace_FC_-_Victory_Parade_%28geograph_8059128%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "origin": {
+            "article_url": "",
+            "query": "Crystal Palace FC",
+            "alt": "The 2025 FA Cup Final result was: Crystal Palace 1-0 Manches"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "23 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [
+          "中文数字"
+        ],
+        "contrasts": [
+          "明示对比",
+          "反差"
+        ],
+        "proper_nouns": [
+          "水晶宫",
+          "考文垂",
+          "英超"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 91,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题 30 字落在 21-30 回测最优区间"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 990,
+        "han_len": 623,
+        "paragraphs": 12,
+        "headings": 5,
+        "bullets": 0,
+        "quotes": 3,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "戈森斯35岁恢复训练，沙尔克04却未公布缺阵时间",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-2-戈森斯35岁恢复-e3229a.md",
+      "slug": "戈森斯35岁恢复-e3229a",
+      "tags": [
+        "Robin Gosens",
+        "Schalke 04",
+        "Miron Muslic",
+        "training return",
+        "injury"
+      ],
+      "keywords": [
+        "Robin Gosens",
+        "Schalke 04",
+        "Miron Muslic",
+        "training return",
+        "injury"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "恢复速度惊人",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 74,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物",
+          "R11数据:标题 24 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 0%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "31 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "度量"
+        ],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "沙尔克04",
+          "戈森斯"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 74,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺具体对阵/球队/人物"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1066,
+        "han_len": 714,
+        "paragraphs": 20,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 8,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "hot_event_key": "戈森斯#injury",
+      "hot_rank": 7,
+      "hot_source": "dongqiudi",
+      "hot_channel": "media"
+    },
+    {
+      "index": 3,
+      "title": "没想到阿根廷7-0哥斯达黎加，帕斯两球马斯坦托诺替补建功",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-3-没想到阿根廷70-6186b3.md",
+      "slug": "没想到阿根廷70-6186b3",
+      "tags": [
+        "Argentina",
+        "Costa Rica",
+        "Nico Paz",
+        "Julian Alvarez",
+        "Emiliano Martinez"
+      ],
+      "keywords": [
+        "Argentina",
+        "Costa Rica",
+        "Nico Paz",
+        "Julian Alvarez",
+        "Emiliano Martinez"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-3-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-3-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "阿根廷",
+              "哥斯达黎加"
+            ],
+            "numbers": [
+              "7",
+              "0"
+            ],
+            "source": "公开赛事比分",
+            "probe": "阿根廷7-0哥斯达黎加"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-3-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-3-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-3-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-3-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-3-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "哥斯达黎加 进球写作 7（事实 0），单侧归因疑为历史数据",
+            "无法归因的比分 1-0（事实 7-0）",
+            "无法归因的比分 2-0（事实 7-0）",
+            "无法归因的比分 3-0（事实 7-0）",
+            "无法归因的比分 4-0（事实 7-0）",
+            "无法归因的比分 4-0（事实 7-0）",
+            "无法归因的比分 5-0（事实 7-0）",
+            "无法归因的比分 6-0（事实 7-0）"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "没想到大马丁47次零封追平纪录，却说要让球迷重新爱上阿根廷",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事/城市，不要写「这支豪门」）。只能用事实卡里已有的数字，不得编造。",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）",
+          "[三要素] 缺：专名"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（26 < 54）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 3%），只记分：事实点数少于最强源文（26 < 54）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "35 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "中文数字"
+        ],
+        "contrasts": [
+          "比分对照",
+          "反差"
+        ],
+        "proper_nouns": [],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": false,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [
+          "替补建功"
+        ],
+        "anchor_repick": false,
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 999,
+        "han_len": 611,
+        "paragraphs": 24,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 1,
+      "title": "英超阿斯顿维拉 vs 桑德兰，被盯着的未必最想赢",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-1-英超阿斯顿维拉v-cea92f.md",
+      "slug": "英超阿斯顿维拉v-cea92f",
+      "tags": [
+        "Aston Villa",
+        "Sunderland",
+        "Premier League",
+        "Jackson",
+        "data contrast"
+      ],
+      "keywords": [
+        "Aston Villa",
+        "Sunderland",
+        "Premier League",
+        "Jackson",
+        "data contrast"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "明示对比"
+        ],
+        "proper_nouns": [
+          "阿斯顿维拉",
+          "桑德兰",
+          "英超"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1694,
+        "han_len": 1185,
+        "paragraphs": 16,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 8,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      },
+      "performance": {
+        "reads": 366,
+        "comments": 0,
+        "likes": 6,
+        "shares": 0,
+        "retention_rate": 0.2768,
+        "impressions": 7572,
+        "follower_reads": 0,
+        "click_rate": 0.05
+      },
+      "platform_id": "7709729871399764530"
+    },
+    {
+      "index": 2,
+      "title": "原来C罗和武切维奇在利雅得胜利碰上了",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-2-原来C罗和武切维-7d479a.md",
+      "slug": "原来C罗和武切维-7d479a",
+      "tags": [
+        "Goran Vucevic",
+        "Cristiano Ronaldo",
+        "Al Nassr",
+        "Barcelona",
+        "Hajduk",
+        "Bosman ruling",
+        "Saudi football",
+        "2034 World Cup"
+      ],
+      "keywords": [
+        "Goran Vucevic",
+        "Cristiano Ronaldo",
+        "Al Nassr",
+        "Barcelona",
+        "Hajduk",
+        "Bosman ruling",
+        "Saudi football",
+        "2034 World Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261116/202611161808246525.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-16/6afad7ad71e30native.htm",
+            "query": "C罗、梅西",
+            "alt": "告别季…多位国家队队史射手王谢幕：C罗梅西卢卡库内马尔哲科…"
+          },
+          "width": 1122,
+          "height": 1402
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260910/6aa1b00d33462_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-19/6afe6bf15161fnative.htm",
+            "query": "C罗、梅西",
+            "alt": "前利雅得胜利体育总监：我更喜欢梅西，但谁不想球队拥有C罗呢？"
+          },
+          "width": 720,
+          "height": 479
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "没想到武切维奇签C罗以为是玩笑，还差点提梅西",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 73,
+        "ok": true,
+        "reasons": [
+          "标题偏短(16字<18)",
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "与源文连续重合 13 字（>12，疑似洗稿）",
+          "事实点数少于最强源文（18 < 21）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（13 字 / 3%），只记分：与源文连续重合 13 字（>12，疑似洗稿）；事实点数少于最强源文（18 < 21）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "30 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "懂球帝 dongqiudi.com"
+      ],
+      "source_post": "武切维奇：签C罗时我以为是玩笑，幸好没说更想签梅西足球",
+      "originality_note": "",
+      "content_type": "八卦趣事",
+      "topic_category": "未分类",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "反差"
+        ],
+        "proper_nouns": [
+          "利雅得胜利",
+          "C罗"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 79,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1484,
+        "han_len": 1047,
+        "paragraphs": 20,
+        "headings": 2,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "performance": {
+        "reads": 9,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.2412,
+        "impressions": 2554,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709730194675778086"
+    },
+    {
+      "index": 3,
+      "title": "齐达内06世界杯决赛第7分钟勺子点球，两代大师的数据分水岭",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-3-齐达内06世界杯-9c456b.md",
+      "slug": "齐达内06世界杯-9c456b",
+      "tags": [
+        "Zidane",
+        "Pirlo",
+        "2006 World Cup final",
+        "data comparison",
+        "classic football"
+      ],
+      "keywords": [
+        "Zidane",
+        "Pirlo",
+        "2006 World Cup final",
+        "data comparison",
+        "classic football"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-3-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-3-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-3-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-3-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-3-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-3-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250510/681f22cf7fd38.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-18/6afd63994dd63native.htm",
+            "query": "齐达内",
+            "alt": "大罗选最佳11人：梅罗+自己领衔锋线，中场齐达内、老马、贝利"
+          },
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-3-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-3-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 89,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "序次",
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "齐达内",
+          "世界杯"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [
+          "第N分钟"
+        ],
+        "anchor_repick": false,
+        "score": 89,
+        "pass": true,
+        "reasons": [
+          "过程锚点：第N分钟",
+          "缺具体对阵/球队/人物"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1352,
+        "han_len": 970,
+        "paragraphs": 10,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "performance": {
+        "reads": 10,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.0,
+        "impressions": 2574,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709730486146531890"
+    },
+    {
+      "index": 1,
+      "title": "罗伯特·卡洛斯40米重炮后转身，皇马更衣室再无第二人敢罚任意球",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-1-罗伯特卡洛斯40-d96d21.md",
+      "slug": "罗伯特卡洛斯40-d96d21",
+      "tags": [
+        "Roberto Carlos",
+        "Real Madrid",
+        "free kick",
+        "left back",
+        "World Cup 2002"
+      ],
+      "keywords": [
+        "Roberto Carlos",
+        "Real Madrid",
+        "free kick",
+        "left back",
+        "World Cup 2002"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "points",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260915/6aa94ab2b3786_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-19/6afeb96221901native.htm",
+            "query": "皇马",
+            "alt": "阿斯：JJ昨日和家人参观皇马体育城，进一步敲定了加盟细节"
+          },
+          "width": 1200,
+          "height": 856
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261118/202611181432594773_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-19/6afe9d0076322native.htm",
+            "query": "皇马",
+            "alt": "罗马诺：JJ加盟皇马因法律问题迟迟未HWG，曼联非常不满&态度强硬"
+          },
+          "width": 720,
+          "height": 959
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 65,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "20 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "人物故事",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "人物故事",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "中文数字",
+          "中文序数"
+        ],
+        "contrasts": [
+          "序位"
+        ],
+        "proper_nouns": [
+          "皇马"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 65,
+        "pass": true,
+        "reasons": [
+          "标题偏长(31字>30)",
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1079,
+        "han_len": 775,
+        "paragraphs": 9,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 7,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      },
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.34,
+        "impressions": 2504,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709825595470922255"
+    },
+    {
+      "index": 2,
+      "title": "齐达内06年世界杯决赛第7分钟被罚下，金球奖少了一座",
+      "path": "/home/runner/work/_temp/output/2026-11-19/article-2-齐达内06年世界-782649.md",
+      "slug": "齐达内06年世界-782649",
+      "tags": [
+        "Zidane",
+        "Ronaldo",
+        "red cards",
+        "goals",
+        "World Cup"
+      ],
+      "keywords": [
+        "Zidane",
+        "Ronaldo",
+        "red cards",
+        "goals",
+        "World Cup"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-19/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250510/681f22cf7fd38.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-18/6afd63994dd63native.htm",
+            "query": "齐达内",
+            "alt": "大罗选最佳11人：梅罗+自己领衔锋线，中场齐达内、老马、贝利"
+          },
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": 75,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "21 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "战术榜单",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "三级·软性",
+      "title_elements": {
+        "numbers": [
+          "序次",
+          "度量"
+        ],
+        "contrasts": [],
+        "proper_nouns": [
+          "齐达内",
+          "世界杯"
+        ],
+        "has_number": true,
+        "has_contrast": false,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [
+          "第N分钟",
+          "红牌/罚下"
+        ],
+        "anchor_repick": false,
+        "score": 75,
+        "pass": true,
+        "reasons": [
+          "过程锚点：第N分钟、红牌/罚下",
+          "缺具体对阵/球队/人物"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 1,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1337,
+        "han_len": 948,
+        "paragraphs": 10,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 6,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      },
+      "performance": {
+        "reads": 12,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "retention_rate": 0.1414,
+        "impressions": 2587,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7709825898622616104"
+    }
+  ],
+  "topics": [
+    {
+      "title": "罗伯特·卡洛斯40米重炮后转身，皇马更衣室再无第二人敢罚任意球",
+      "content_type": "人物故事",
+      "_column_name": "人物故事",
+      "_from_reservoir": true
+    },
+    {
+      "title": "齐达内06年世界杯决赛第7分钟被罚下，金球奖少了一座",
+      "content_type": "数据对比",
+      "_column_name": "战术榜单",
+      "_from_reservoir": true
+    }
+  ],
+  "data_sources": {},
+  "mix_guard": {
+    "window": [
+      "2026-11-06",
+      "2026-11-19"
+    ],
+    "n": 78,
+    "batch_n": 2,
+    "ok": false,
+    "table": {
+      "转会官宣": {
+        "count": 16,
+        "pct": 20.5,
+        "target": 30.0,
+        "over": false
+      },
+      "中国足球": {
+        "count": 15,
+        "pct": 19.2,
+        "target": 25.0,
+        "over": false
+      },
+      "冲突舆情": {
+        "count": 1,
+        "pct": 1.3,
+        "target": 20.0,
+        "over": false
+      },
+      "未分类": {
+        "count": 22,
+        "pct": 28.2,
+        "target": 15.0,
+        "over": true
+      },
+      "战报比分": {
+        "count": 24,
+        "pct": 30.8,
+        "target": 10.0,
+        "over": true
+      }
+    }
+  },
+  "mix_overshoot": [
+    {
+      "type": "战报比分",
+      "actual": 30.8,
+      "target": 10.0,
+      "delta": 20.8
+    },
+    {
+      "type": "未分类",
+      "actual": 28.2,
+      "target": 15.0,
+      "delta": 13.2
+    }
+  ],
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 0,
+      "三级·软性": 2
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 0.0,
+      "三级·软性": 100.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": -50.0,
+      "三级·软性": 80.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 1,
+      "other": 1,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 2 张",
+      "处置": "用 1 张原创信息图补到 3 张",
+      "数量": 1
+    },
+    {
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "evening",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": "thursday_boost",
+    "normal_max": 2,
+    "uplift_max": 2,
+    "weekly_limit": 2,
+    "weekly_used": 2,
+    "detail": "常态 2 篇（周内加发已用满 2/2）",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "rule",
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [],
+    "degraded": [
+      "main 槽无可用候选（不凑数，本批少写 1 篇）",
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [
+      {
+        "type": "数据对比",
+        "title": "没想到斯坦丘36万欧签约，竟比200万欧少太多"
+      },
+      {
+        "type": "八卦趣事",
+        "title": "沙拉维31岁谈申花旧事，罗马欧联决赛竟有人作梗"
+      }
+    ],
+    "day_counts": {
+      "数据对比": 3,
+      "热点球评": 2,
+      "八卦趣事": 1
+    },
+    "selected": 0,
+    "requested": 2
+  },
+  "batches_generated": [
+    "evening"
+  ],
+  "last_batch": "evening",
+  "last_updated": "2026-11-19 18:23:07",
+  "batches_completed": [
+    "morning",
+    "noon",
+    "evening"
+  ]
+}

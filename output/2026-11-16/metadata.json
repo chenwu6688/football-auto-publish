@@ -268,13 +268,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 5,
+        "reads": 25,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 1008,
+        "retention_rate": 0.229,
+        "impressions": 3316,
         "follower_reads": 0,
-        "click_rate": 0.0
+        "click_rate": 0.01
       },
       "platform_id": "7708553740432851496"
     },
@@ -597,7 +598,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 731,
+        "retention_rate": 0.105,
+        "impressions": 2347,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -914,7 +916,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 520,
+        "retention_rate": 0.0,
+        "impressions": 2640,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1185,13 +1188,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 7,
+        "reads": 12,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 566,
+        "retention_rate": 0.1533,
+        "impressions": 2840,
         "follower_reads": 1,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7708615637580464675"
     },
@@ -1489,13 +1493,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 3,
+        "reads": 5,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 354,
+        "retention_rate": 0.11,
+        "impressions": 2712,
         "follower_reads": 0,
-        "click_rate": 0.01
+        "click_rate": 0.0
       },
       "platform_id": "7708708642861728282"
     },
@@ -1796,11 +1801,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 1,
+        "reads": 10,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 292,
+        "retention_rate": 0.5293,
+        "impressions": 2911,
         "follower_reads": 0,
         "click_rate": 0.0
       },

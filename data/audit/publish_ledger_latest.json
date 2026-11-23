@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "date": "2026-11-17",
-  "generated_at": "2026-11-17 00:09:57",
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23 00:09:20",
   "batch_filter": "morning",
   "counts": {
     "total": 2,
@@ -31,7 +31,7 @@
     "available": true,
     "reason": "",
     "scope": "day_cumulative",
-    "path": "/home/runner/work/_temp/output/2026-11-17/metadata.json",
+    "path": "/home/runner/work/_temp/output/2026-11-23/metadata.json",
     "drafts": 2,
     "dropped_compliance": 0,
     "draft_total": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "9球哈兰德领跑射手榜，伯恩茅斯门将算盘却比诺丁汉森林精",
+      "title": "半场2-0压住曼联，利物浦把英超打成4-0",
       "slug": "",
       "batch_name": "晨读",
-      "platform_id": "7708925389120307748",
+      "platform_id": "7711151777999929890",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "ESPN：赖斯口头同意续约，阿森纳vs中场流失风险对比",
+      "title": "裁判分析员费尔明两场禁赛，巴萨逆转竟留反转",
       "slug": "",
       "batch_name": "晨读",
-      "platform_id": "7708925688513937961",
+      "platform_id": "7711152067858940456",
       "reason": "",
       "images": 3,
       "status": "published"

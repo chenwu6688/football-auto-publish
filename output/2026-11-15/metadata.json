@@ -320,7 +320,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 1.0,
-        "impressions": 1717,
+        "impressions": 2462,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -647,8 +647,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.5,
-        "impressions": 1654,
+        "retention_rate": 0.6,
+        "impressions": 2480,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -973,7 +973,7 @@
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1443,
+        "impressions": 2261,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1277,13 +1277,13 @@
         "degraded": []
       },
       "performance": {
-        "reads": 24,
+        "reads": 25,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.3241,
-        "impressions": 1756,
-        "follower_reads": 0,
+        "retention_rate": 0.2659,
+        "impressions": 2761,
+        "follower_reads": 1,
         "click_rate": 0.01
       },
       "platform_id": "7708244188168667648"
@@ -1589,8 +1589,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 1348,
+        "retention_rate": 0.495,
+        "impressions": 2659,
         "follower_reads": 1,
         "click_rate": 0.0
       },
@@ -1862,12 +1862,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 0,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 1375,
+        "impressions": 2891,
         "follower_reads": 0,
         "click_rate": 0.0
       },

@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19 04:12:48",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 3,
+    "published": 3,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0,
+    "drafts": 3,
+    "dropped_compliance": 0,
+    "lost_upstream": null,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 3,
+    "known_status": 3,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": null,
+    "lost_upstream": null,
+    "scope": "batch",
+    "available": true,
+    "reason": ""
+  },
+  "draft_snapshot": {
+    "available": true,
+    "reason": "",
+    "scope": "day_cumulative",
+    "path": "/home/runner/work/_temp/output/2026-11-19/metadata.json",
+    "drafts": 3,
+    "dropped_compliance": 0,
+    "draft_total": 3,
+    "title_gate_blocked_published": 0
+  },
+  "platform_id_binding": {
+    "bound": 3,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "英超阿斯顿维拉 vs 桑德兰，被盯着的未必最想赢",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7709729871399764530",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "原来C罗和武切维奇在利雅得胜利碰上了",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7709730194675778086",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "齐达内06世界杯决赛第7分钟勺子点球，两代大师的数据分水岭",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7709730486146531890",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}

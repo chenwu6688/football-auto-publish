@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-17",
-  "generated_at": "2026-11-17 08:03:43",
+  "generated_at": "2026-11-17 18:03:27",
   "board_total": 131,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 2.14
+        "elapsed_s": 2.67
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.79
+        "elapsed_s": 0.94
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 1.03
+        "elapsed_s": 0.42
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.27
+        "elapsed_s": 2.54
       },
       "sina_sports": {
         "status": "disabled",
@@ -68,46 +68,24 @@
     "stale_dropped": 0,
     "unknown_time": 8
   },
-  "football_hits": [
-    {
-      "word": "网传Zeus拒HLE续约要回T1",
-      "rank": 26,
-      "heat": 25030,
-      "source": "tieba",
-      "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28369817&amp;topic_name=%E7%BD%91%E4%BC%A0Zeus%E6%8B%92HLE%E7%BB%AD%E7%BA%A6%E8%A6%81%E5%9B%9ET1",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "法国足协主席将参选国际足联主席",
-      "rank": 48,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    }
-  ],
+  "football_hits": [],
   "candidates": [
     {
-      "word": "ESPN：赖斯已口头同意与阿森纳续约，新合同将大幅加薪英超",
-      "rank": 12,
+      "word": "米体记者：迈尼昂受伤将影响米兰，他是球队不可或缺的球员意甲",
+      "rank": 2,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "阿森纳",
-        "赖斯"
+        "AC米兰"
       ],
       "support": [
         {
-          "title": "ESPN：赖斯已口头同意与阿森纳续约，新合同将大幅加薪英超",
-          "url": "https://www.dongqiudi.com/articles/6661042.html",
+          "title": "米体记者：迈尼昂受伤将影响米兰，他是球队不可或缺的球员意甲",
+          "url": "https://www.dongqiudi.com/articles/6662587.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "赖斯|阿森纳#contract",
+      "event_key": "AC米兰#injury",
       "providers": [
         "dongqiudi"
       ],

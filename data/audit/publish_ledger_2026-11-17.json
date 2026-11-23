@@ -1,14 +1,16 @@
 {
   "version": 2,
   "date": "2026-11-17",
-  "generated_at": "2026-11-17 00:09:57",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-17 10:07:10",
+  "batch_filter": "evening+morning+noon",
   "batches": [
-    "morning"
+    "evening",
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 6,
+    "published": 6,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -16,16 +18,16 @@
     "published_without_cover": 0,
     "drafts": 2,
     "dropped_compliance": 0,
-    "lost_upstream": 0,
+    "lost_upstream": -4,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 2,
-    "known_status": 2,
+    "n_records": 6,
+    "known_status": 6,
     "unaccounted_status": 0,
     "records_identity_ok": true,
-    "cover_ok": true,
-    "lost_upstream": 0,
+    "cover_ok": false,
+    "lost_upstream": -4,
     "scope": "day_cumulative",
     "available": true,
     "reason": ""
@@ -36,6 +38,26 @@
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "没想到迈尼昂周日被换下伤停，AC米兰门将位置竟要靠托里亚尼",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7709079318047097379",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
+    {
+      "title": "没想到德国5-0荷兰，维尔茨两球格鲁达两助定榜首",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7709079622293520896",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "9球哈兰德领跑射手榜，伯恩茅斯门将算盘却比诺丁汉森林精",
       "slug": "",
@@ -55,6 +77,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "巴列卡诺主帅憋着赢，瓦伦西亚却在西甲被盯着看",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7708987513179882024",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "没想到罗马愿终止租借，瓦伦西亚竟问询多夫比克",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7708987788674204200",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,

@@ -297,12 +297,12 @@
       "hot_source": "dongqiudi",
       "hot_channel": "media",
       "performance": {
-        "reads": 42,
+        "reads": 43,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.2226,
-        "impressions": 2452,
+        "retention_rate": 0.2174,
+        "impressions": 2805,
         "follower_reads": 1,
         "click_rate": 0.02
       },
@@ -631,7 +631,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.0,
-        "impressions": 2049,
+        "impressions": 2512,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -938,7 +938,7 @@
         "likes": 1,
         "shares": 0,
         "retention_rate": 0.4878,
-        "impressions": 1914,
+        "impressions": 2383,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1243,12 +1243,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 0,
+        "reads": 1,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "retention_rate": 0.0,
-        "impressions": 2203,
+        "retention_rate": 0.33,
+        "impressions": 2865,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1547,12 +1547,12 @@
         "degraded": []
       },
       "performance": {
-        "reads": 1355,
+        "reads": 1365,
         "comments": 0,
         "likes": 6,
         "shares": 0,
-        "retention_rate": 0.1371,
-        "impressions": 12144,
+        "retention_rate": 0.1367,
+        "impressions": 12939,
         "follower_reads": 0,
         "click_rate": 0.11
       },
@@ -1846,14 +1846,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 601,
+        "reads": 625,
         "comments": 0,
         "likes": 2,
         "shares": 0,
-        "retention_rate": 0.1921,
-        "impressions": 6591,
+        "retention_rate": 0.2125,
+        "impressions": 7560,
         "follower_reads": 0,
-        "click_rate": 0.09
+        "click_rate": 0.08
       },
       "platform_id": "7707965934102708746"
     }

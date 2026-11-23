@@ -371,6 +371,78 @@
       "file": "粉丝趋势_2026-10-17-2026-11-15.xlsx",
       "at": "2026-11-17 00:22",
       "status": "ok"
+    },
+    "cb5941a0f50f930059b230f6a140d77c69fb3d801fa11889fd8db0c134845c31": {
+      "kind": "perf",
+      "file": "图文_20261111-20261117_1-38_2026-11-16.xlsx",
+      "at": "2026-11-18 00:27",
+      "status": "ok"
+    },
+    "20b1c3380bf5f58604fd5500a088458338b4bcb9a3b1cdcee41a9250dfd50ddc": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-18-2026-11-16.xlsx",
+      "at": "2026-11-18 00:27",
+      "status": "ok"
+    },
+    "2b9ee8537c6f3d8004fa9d98dd463ac1b33522de3bf95d689e43d1166ec70e02": {
+      "kind": "perf",
+      "file": "图文_20261112-20261118_1-40_2026-11-17.xlsx",
+      "at": "2026-11-18 23:56",
+      "status": "ok"
+    },
+    "777d87167a9852fd6d66c484f3f3cfda04cbeb860478b315d724914805c87820": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-19-2026-11-17.xlsx",
+      "at": "2026-11-18 23:56",
+      "status": "ok"
+    },
+    "1b21b76773f0aa78b2d9f08bdbf924b8bd22ee9ce823d2a195e86327ddaf20f6": {
+      "kind": "perf",
+      "file": "图文_20261113-20261119_1-38_2026-11-18.xlsx",
+      "at": "2026-11-20 00:01",
+      "status": "ok"
+    },
+    "6ec76c9bf5e43dc0487ab573ddfabdf2c2fd392456122445a1c21c96eec776dc": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-20-2026-11-18.xlsx",
+      "at": "2026-11-20 00:01",
+      "status": "ok"
+    },
+    "5ac11bf4b843ceefb6938c2abad95356957da619f7e8bbdc0c466fffff40f6e4": {
+      "kind": "perf",
+      "file": "图文_20261114-20261120_1-37_2026-11-19.xlsx",
+      "at": "2026-11-20 23:44",
+      "status": "ok"
+    },
+    "afb43a34ed6631915d9be6b7a2db5ede3ef6b1eac9696e76b234bcd7f3ae4f13": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-21-2026-11-19.xlsx",
+      "at": "2026-11-20 23:44",
+      "status": "ok"
+    },
+    "2af54957a790f83d117bd329a3a4f66fcc248d0c690dcc6b8adb610de597b27d": {
+      "kind": "perf",
+      "file": "图文_20261115-20261121_1-36_2026-11-20.xlsx",
+      "at": "2026-11-21 22:54",
+      "status": "ok"
+    },
+    "f50c89dd5d27cd3cb0e6fe02448c24aba27d5210706bb02067241f5bf0aafddc": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-22-2026-11-20.xlsx",
+      "at": "2026-11-21 22:54",
+      "status": "ok"
+    },
+    "3e0f0cc4af99fd4a6026edd09f7f3fd3831526613a601953ca5de006e9f78c8d": {
+      "kind": "perf",
+      "file": "图文_20261116-20261122_1-36_2026-11-21.xlsx",
+      "at": "2026-11-22 22:52",
+      "status": "ok"
+    },
+    "cf69484643cb855e666ecfd8ca46aef23cec4462093e4d4473f13b0c964b907b": {
+      "kind": "growth",
+      "file": "粉丝趋势_2026-10-23-2026-11-21.xlsx",
+      "at": "2026-11-22 22:52",
+      "status": "ok"
     }
   },
   "history": [
@@ -867,8 +939,98 @@
           "status": "ok"
         }
       ]
+    },
+    {
+      "at": "2026-11-18 00:27",
+      "files": [
+        {
+          "file": "图文_20261111-20261117_1-38_2026-11-16.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-18-2026-11-16.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-18 23:56",
+      "files": [
+        {
+          "file": "图文_20261112-20261118_1-40_2026-11-17.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-19-2026-11-17.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-20 00:01",
+      "files": [
+        {
+          "file": "图文_20261113-20261119_1-38_2026-11-18.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-20-2026-11-18.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-20 23:44",
+      "files": [
+        {
+          "file": "图文_20261114-20261120_1-37_2026-11-19.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-21-2026-11-19.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-21 22:54",
+      "files": [
+        {
+          "file": "图文_20261115-20261121_1-36_2026-11-20.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-22-2026-11-20.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-22 22:52",
+      "files": [
+        {
+          "file": "图文_20261116-20261122_1-36_2026-11-21.xlsx",
+          "kind": "perf",
+          "status": "ok"
+        },
+        {
+          "file": "粉丝趋势_2026-10-23-2026-11-21.xlsx",
+          "kind": "growth",
+          "status": "ok"
+        }
+      ]
     }
   ],
-  "updated_at": "2026-11-17 00:22",
+  "updated_at": "2026-11-22 22:52",
   "_note": "导出投递箱幂等台账（建议7）：key = 文件 sha256，value = {kind, file, at, status}；history 保留最近 60 次投递。由 scripts/ingest_exports.py 维护。"
 }
