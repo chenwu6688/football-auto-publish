@@ -285,7 +285,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "560645"
+      "recap_match_id": "560645",
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 861,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711151777999929890"
     },
     {
       "index": 2,
@@ -589,7 +599,17 @@
       "hot_event_key": "拉科鲁尼亚|费尔明·洛佩斯|马德里竞技#ban",
       "hot_rank": 9,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 25,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 945,
+        "follower_reads": 0,
+        "click_rate": 0.03
+      },
+      "platform_id": "7711152067858940456"
     },
     {
       "index": 1,
@@ -865,7 +885,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "564749"
+      "recap_match_id": "564749",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 585,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711214372214866466"
     },
     {
       "index": 2,
@@ -1164,7 +1194,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 10,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 746,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7711214667636490752"
     },
     {
       "index": 2,
@@ -1507,7 +1547,17 @@
       "hot_event_key": "比利亚雷亚尔#coach",
       "hot_rank": 11,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 2,
+        "comments": 1,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 418,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711305748793344553"
     }
   ],
   "topics": [

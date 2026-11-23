@@ -293,11 +293,12 @@
       },
       "recap_match_id": "565862",
       "performance": {
-        "reads": 10,
+        "reads": 11,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 921,
+        "retention_rate": 0.058,
+        "impressions": 2117,
         "follower_reads": 0,
         "click_rate": 0.01
       },
@@ -624,7 +625,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 876,
+        "retention_rate": 0.0,
+        "impressions": 2077,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -921,7 +923,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 487,
+        "retention_rate": 0.5,
+        "impressions": 1662,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1236,7 +1239,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 467,
+        "retention_rate": 0.0,
+        "impressions": 1668,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1513,13 +1517,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 19,
+        "reads": 34,
         "comments": 0,
-        "likes": 0,
+        "likes": 1,
         "shares": 0,
-        "impressions": 463,
+        "retention_rate": 0.2732,
+        "impressions": 1967,
         "follower_reads": 0,
-        "click_rate": 0.04
+        "click_rate": 0.02
       },
       "platform_id": "7710934551882678799"
     },
@@ -1830,13 +1835,14 @@
       "hot_source": "dongqiudi",
       "hot_channel": "media",
       "performance": {
-        "reads": 1,
+        "reads": 13,
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 203,
+        "retention_rate": 1.0,
+        "impressions": 1529,
         "follower_reads": 0,
-        "click_rate": 0.0
+        "click_rate": 0.01
       },
       "platform_id": "7710934800726557199"
     }
