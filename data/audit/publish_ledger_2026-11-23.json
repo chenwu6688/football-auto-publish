@@ -1,42 +1,53 @@
 {
   "version": 2,
   "date": "2026-11-23",
-  "generated_at": "2026-11-23 04:12:11",
-  "batch_filter": "morning+noon",
+  "generated_at": "2026-11-23 10:05:37",
+  "batch_filter": "evening+morning+noon",
   "batches": [
+    "evening",
     "morning",
     "noon"
   ],
   "counts": {
-    "total": 4,
-    "published": 4,
+    "total": 5,
+    "published": 5,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
     "published_without_id": 0,
     "published_without_cover": 0,
-    "drafts": 2,
-    "dropped_compliance": 0,
-    "lost_upstream": -2,
+    "drafts": 1,
+    "dropped_compliance": 1,
+    "lost_upstream": -4,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 4,
-    "known_status": 4,
+    "n_records": 5,
+    "known_status": 5,
     "unaccounted_status": 0,
     "records_identity_ok": true,
     "cover_ok": false,
-    "lost_upstream": -2,
+    "lost_upstream": -4,
     "scope": "day_cumulative",
     "available": true,
     "reason": ""
   },
   "platform_id_binding": {
-    "bound": 2,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
+    {
+      "title": "巴萨0-2到3-2，36分领跑竟靠第66分钟反转",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7711305748793344553",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "evening"
+    },
     {
       "title": "半场2-0压住曼联，利物浦把英超打成4-0",
       "slug": "",

@@ -1,24 +1,24 @@
 {
   "version": 2,
   "date": "2026-11-23",
-  "generated_at": "2026-11-23 04:12:11",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-23 10:05:37",
+  "batch_filter": "evening",
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 1,
+    "published": 1,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
     "published_without_id": 0,
     "published_without_cover": 0,
-    "drafts": 2,
-    "dropped_compliance": 0,
+    "drafts": 1,
+    "dropped_compliance": 1,
     "lost_upstream": null,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 2,
-    "known_status": 2,
+    "n_records": 1,
+    "known_status": 1,
     "unaccounted_status": 0,
     "records_identity_ok": true,
     "cover_ok": null,
@@ -32,31 +32,22 @@
     "reason": "",
     "scope": "day_cumulative",
     "path": "/home/runner/work/_temp/output/2026-11-23/metadata.json",
-    "drafts": 2,
-    "dropped_compliance": 0,
+    "drafts": 1,
+    "dropped_compliance": 1,
     "draft_total": 2,
     "title_gate_blocked_published": 0
   },
   "platform_id_binding": {
-    "bound": 2,
+    "bound": 1,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "半场0-2的巴萨，把西甲3-2对照写成了选择题",
+      "title": "巴萨0-2到3-2，36分领跑竟靠第66分钟反转",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7711214372214866466",
-      "reason": "",
-      "images": 3,
-      "status": "published"
-    },
-    {
-      "title": "宋凯把开大脚摆上台面，王钰栋 vs 中国足协成镜子",
-      "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7711214667636490752",
+      "batch_name": "晚间",
+      "platform_id": "7711305748793344553",
       "reason": "",
       "images": 3,
       "status": "published"

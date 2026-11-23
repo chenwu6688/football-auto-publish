@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23 10:05:37",
+  "batch_filter": "evening",
+  "counts": {
+    "total": 1,
+    "published": 1,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0,
+    "drafts": 1,
+    "dropped_compliance": 1,
+    "lost_upstream": null,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 1,
+    "known_status": 1,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": null,
+    "lost_upstream": null,
+    "scope": "batch",
+    "available": true,
+    "reason": ""
+  },
+  "draft_snapshot": {
+    "available": true,
+    "reason": "",
+    "scope": "day_cumulative",
+    "path": "/home/runner/work/_temp/output/2026-11-23/metadata.json",
+    "drafts": 1,
+    "dropped_compliance": 1,
+    "draft_total": 2,
+    "title_gate_blocked_published": 0
+  },
+  "platform_id_binding": {
+    "bound": 1,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "巴萨0-2到3-2，36分领跑竟靠第66分钟反转",
+      "slug": "",
+      "batch_name": "晚间",
+      "platform_id": "7711305748793344553",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
