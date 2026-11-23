@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-23",
-  "generated_at": "2026-11-23 08:04:05",
-  "board_total": 130,
+  "generated_at": "2026-11-23 12:08:11",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.23
+        "elapsed_s": 1.37
       },
       "weibo": {
         "status": "ok",
-        "count": 50,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.87
+        "elapsed_s": 0.89
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.34
+        "elapsed_s": 0.42
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.15
+        "elapsed_s": 1.33
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,8 +71,8 @@
   "football_hits": [
     {
       "word": "Bin自曝MSI后想退役",
-      "rank": 2,
-      "heat": 2107749,
+      "rank": 7,
+      "heat": 549648,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -81,8 +81,8 @@
     },
     {
       "word": "曝塔赞主动解约出走JDG",
-      "rank": 12,
-      "heat": 247513,
+      "rank": 16,
+      "heat": 150390,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
@@ -90,30 +90,6 @@
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "裁判分析员：费尔明将被处以两场禁赛，将缺战拉科和马竞西甲2 评",
-      "rank": 9,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "费尔明·洛佩斯",
-        "拉科鲁尼亚",
-        "马德里竞技"
-      ],
-      "support": [
-        {
-          "title": "裁判分析员：费尔明将被处以两场禁赛，将缺战拉科和马竞西甲2 评",
-          "url": "https://www.dongqiudi.com/articles/6685400.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "拉科鲁尼亚|费尔明·洛佩斯|马德里竞技#ban",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
