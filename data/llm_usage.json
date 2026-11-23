@@ -26,10 +26,10 @@
     "prompt_tokens": 2575,
     "completion_tokens": 3165,
     "total_tokens": 93000,
-    "fail_streak": 8,
+    "fail_streak": 9,
     "free_quota_pct": 90.7,
     "free_quota_expires_at": "2027-08-27 13:40:03",
-    "last_fail_at": "2026-11-22T08:04:40+08:00",
+    "last_fail_at": "2026-11-23T08:05:44+08:00",
     "quota_synced_at": "2026-11-17 10:25:20",
     "free_quota_total_tokens": 1000000
   },
@@ -217,9 +217,9 @@
     "free_quota_total_tokens": 1000000
   },
   "hy4": {
-    "total_tokens": 205747,
-    "prompt_tokens": 159316,
-    "completion_tokens": 46431,
+    "total_tokens": 232268,
+    "prompt_tokens": 179440,
+    "completion_tokens": 52828,
     "free_quota_pct": 100.0,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-09 11:41:10",
@@ -235,8 +235,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "fail_streak": 4,
-    "last_fail_at": "2026-11-21T18:04:33+08:00"
+    "fail_streak": 5,
+    "last_fail_at": "2026-11-23T08:03:43+08:00"
   },
   "minimax-m3": {
     "total_tokens": 83000,
@@ -246,8 +246,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "fail_streak": 9,
-    "last_fail_at": "2026-11-21T18:03:35+08:00"
+    "fail_streak": 10,
+    "last_fail_at": "2026-11-23T08:03:15+08:00"
   },
   "deepseek-v4-pro-202606": {
     "total_tokens": 834000,
@@ -279,8 +279,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-17 10:25:20",
-    "fail_streak": 7,
-    "last_fail_at": "2026-11-21T18:04:57+08:00"
+    "fail_streak": 8,
+    "last_fail_at": "2026-11-23T08:03:57+08:00"
   },
   "kimi-k2.7-code": {
     "total_tokens": 0,
