@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24 04:12:47",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 2,
+    "published": 2,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0,
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "lost_upstream": null,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 2,
+    "known_status": 2,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": null,
+    "lost_upstream": null,
+    "scope": "batch",
+    "available": true,
+    "reason": ""
+  },
+  "draft_snapshot": {
+    "available": true,
+    "reason": "",
+    "scope": "day_cumulative",
+    "path": "/home/runner/work/_temp/output/2026-11-24/metadata.json",
+    "drafts": 2,
+    "dropped_compliance": 0,
+    "draft_total": 2,
+    "title_gate_blocked_published": 0
+  },
+  "platform_id_binding": {
+    "bound": 2,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "意甲半场1-0收成蒙扎3-0，佛罗伦萨没把账算明白",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7711585589338620470",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "北京国安7分排第9，没想到黄善洪还惦记1平1负",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7711585903260516918",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
