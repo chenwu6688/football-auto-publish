@@ -1,24 +1,24 @@
 {
   "version": 2,
-  "date": "2026-11-23",
-  "generated_at": "2026-11-23 10:05:37",
-  "batch_filter": "evening",
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24 00:06:58",
+  "batch_filter": "morning",
   "counts": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
     "published_without_id": 0,
     "published_without_cover": 0,
-    "drafts": 1,
-    "dropped_compliance": 1,
+    "drafts": 2,
+    "dropped_compliance": 0,
     "lost_upstream": null,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 1,
-    "known_status": 1,
+    "n_records": 2,
+    "known_status": 2,
     "unaccounted_status": 0,
     "records_identity_ok": true,
     "cover_ok": null,
@@ -31,23 +31,32 @@
     "available": true,
     "reason": "",
     "scope": "day_cumulative",
-    "path": "/home/runner/work/_temp/output/2026-11-23/metadata.json",
-    "drafts": 1,
-    "dropped_compliance": 1,
+    "path": "/home/runner/work/_temp/output/2026-11-24/metadata.json",
+    "drafts": 2,
+    "dropped_compliance": 0,
     "draft_total": 2,
     "title_gate_blocked_published": 0
   },
   "platform_id_binding": {
-    "bound": 1,
+    "bound": 2,
     "unmatched": [],
     "missing_meta": false
   },
   "records": [
     {
-      "title": "巴萨0-2到3-2，36分领跑竟靠第66分钟反转",
+      "title": "英超半场2-0压住埃弗顿，布伦特福德把4-0做成选择",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7711305748793344553",
+      "batch_name": "晨读",
+      "platform_id": "7711522244438966819",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "没想到布拉格斯巴达周四连斩主帅与总监",
+      "slug": "",
+      "batch_name": "晨读",
+      "platform_id": "7711522530632139279",
       "reason": "",
       "images": 3,
       "status": "published"
