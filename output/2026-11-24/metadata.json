@@ -291,7 +291,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "560649"
+      "recap_match_id": "560649",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 883,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711522244438966819"
     },
     {
       "index": 2,
@@ -592,7 +602,17 @@
       "hot_event_key": "布拉格斯巴达#coach",
       "hot_rank": 7,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 751,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711522530632139279"
     },
     {
       "index": 1,
@@ -869,7 +889,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "558519"
+      "recap_match_id": "558519",
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 755,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7711585589338620470"
     },
     {
       "index": 2,
@@ -1180,7 +1210,17 @@
       "hot_event_key": "北京国安#coach",
       "hot_rank": 11,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 34,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1093,
+        "follower_reads": 0,
+        "click_rate": 0.03
+      },
+      "platform_id": "7711585903260516918"
     },
     {
       "index": 1,
@@ -1500,7 +1540,17 @@
       "hot_event_key": "AC米兰#coach",
       "hot_rank": 11,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 23,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 610,
+        "follower_reads": 0,
+        "click_rate": 0.04
+      },
+      "platform_id": "7711677158364447272"
     },
     {
       "index": 2,
