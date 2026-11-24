@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-24",
-  "generated_at": "2026-11-24 04:12:47",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-24 10:08:04",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "意甲半场1-0收成蒙扎3-0，佛罗伦萨没把账算明白",
+      "title": "没想到蒙特拉聊AC米兰，双前锋要求竟然压了几个月",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7711585589338620470",
+      "batch_name": "晚间",
+      "platform_id": "7711677158364447272",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "北京国安7分排第9，没想到黄善洪还惦记1平1负",
+      "title": "斯坦丘 vs 克卢日大学，40万欧与大连英博落差摆上台面",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7711585903260516918",
+      "batch_name": "晚间",
+      "platform_id": "7711677440900203042",
       "reason": "",
       "images": 3,
       "status": "published"
