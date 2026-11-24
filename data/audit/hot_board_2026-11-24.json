@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-24",
-  "generated_at": "2026-11-24 08:03:00",
-  "board_total": 131,
+  "generated_at": "2026-11-24 12:02:35",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.43
+        "elapsed_s": 1.94
       },
       "weibo": {
         "status": "ok",
-        "count": 51,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.0
+        "elapsed_s": 1.13
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.49
+        "elapsed_s": 0.22
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.44
+        "elapsed_s": 1.64
       },
       "sina_sports": {
         "status": "disabled",
@@ -70,29 +70,9 @@
   },
   "football_hits": [
     {
-      "word": "U17国足被读秒绝平",
-      "rank": 6,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17国足第99分钟被绝平",
-      "rank": 9,
-      "heat": 296681,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
       "word": "Bin自曝MSI后想退役",
-      "rank": 10,
-      "heat": 675927,
+      "rank": 14,
+      "heat": 351339,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -101,8 +81,8 @@
     },
     {
       "word": "曝塔赞主动解约出走JDG",
-      "rank": 19,
-      "heat": 128916,
+      "rank": 23,
+      "heat": 77000,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
@@ -110,10 +90,10 @@
       "entities": []
     },
     {
-      "word": "u17世界杯",
-      "rank": 29,
-      "heat": 152713,
-      "source": "weibo",
+      "word": "国字号男足时隔21年在世界杯取得进球",
+      "rank": 27,
+      "heat": 0,
+      "source": "baidu",
       "kind": "board",
       "url": "",
       "published_at": "",
@@ -122,21 +102,21 @@
   ],
   "candidates": [
     {
-      "word": "荷媒：主帅普里斯克、体育总监罗西基遭布拉格斯巴达解雇英超德甲",
-      "rank": 7,
+      "word": "1平1负，黄善洪执教生涯2次对阵国安尚无胜绩中超五洲2 评",
+      "rank": 11,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "布拉格斯巴达"
+        "北京国安"
       ],
       "support": [
         {
-          "title": "荷媒：主帅普里斯克、体育总监罗西基遭布拉格斯巴达解雇英超德甲",
-          "url": "https://www.dongqiudi.com/articles/6689216.html",
+          "title": "1平1负，黄善洪执教生涯2次对阵国安尚无胜绩中超五洲2 评",
+          "url": "https://www.dongqiudi.com/articles/6689849.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "布拉格斯巴达#coach",
+      "event_key": "北京国安#coach",
       "providers": [
         "dongqiudi"
       ],
