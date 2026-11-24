@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-24",
-  "generated_at": "2026-11-24 12:02:35",
-  "board_total": 132,
+  "generated_at": "2026-11-24 18:04:44",
+  "board_total": 130,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.94
+        "elapsed_s": 1.54
       },
       "weibo": {
         "status": "ok",
-        "count": 52,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.13
+        "elapsed_s": 6.4
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.22
+        "elapsed_s": 0.21
       },
       "tieba": {
         "status": "ok",
-        "count": 30,
+        "count": 29,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.64
+        "elapsed_s": 1.38
       },
       "sina_sports": {
         "status": "disabled",
@@ -66,13 +66,13 @@
     },
     "errors": [],
     "stale_dropped": 0,
-    "unknown_time": 8
+    "unknown_time": 7
   },
   "football_hits": [
     {
       "word": "Bin自曝MSI后想退役",
-      "rank": 14,
-      "heat": 351339,
+      "rank": 15,
+      "heat": 180112,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -81,42 +81,32 @@
     },
     {
       "word": "曝塔赞主动解约出走JDG",
-      "rank": 23,
-      "heat": 77000,
+      "rank": 24,
+      "heat": 43827,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "国字号男足时隔21年在世界杯取得进球",
-      "rank": 27,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
       "published_at": "",
       "entities": []
     }
   ],
   "candidates": [
     {
-      "word": "1平1负，黄善洪执教生涯2次对阵国安尚无胜绩中超五洲2 评",
+      "word": "蒙特拉：执教米兰是一段美妙的经历；贝卢斯科尼喜欢聊足球意甲",
       "rank": 11,
       "heat": 0,
       "source": "dongqiudi",
       "entities": [
-        "北京国安"
+        "AC米兰"
       ],
       "support": [
         {
-          "title": "1平1负，黄善洪执教生涯2次对阵国安尚无胜绩中超五洲2 评",
-          "url": "https://www.dongqiudi.com/articles/6689849.html",
+          "title": "蒙特拉：执教米兰是一段美妙的经历；贝卢斯科尼喜欢聊足球意甲",
+          "url": "https://www.dongqiudi.com/articles/6690825.html",
           "source": "dongqiudi"
         }
       ],
-      "event_key": "北京国安#coach",
+      "event_key": "AC米兰#coach",
       "providers": [
         "dongqiudi"
       ],
