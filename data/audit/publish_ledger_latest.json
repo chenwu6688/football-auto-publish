@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-25",
-  "generated_at": "2026-11-25 04:08:06",
-  "batch_filter": "noon",
+  "generated_at": "2026-11-25 10:12:36",
+  "batch_filter": "evening",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "亚马尔缺席巴萨vs巴库，锋线重搭竟藏反转",
+      "title": "西甲皇家贝蒂斯 vs 巴列卡诺，聚光灯照不到老将的狠劲",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7711955482176438803",
+      "batch_name": "晚间",
+      "platform_id": "7712049402780647955",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "约罗直红禁赛撤销 vs 中超判错不改，英超反差扎心",
+      "title": "没想到卡内达24天就离开武里南联，1-3输上海海港成拐点",
       "slug": "",
-      "batch_name": "午间",
-      "platform_id": "7711955773525443091",
+      "batch_name": "晚间",
+      "platform_id": "7712049705701605930",
       "reason": "",
       "images": 3,
       "status": "published"
