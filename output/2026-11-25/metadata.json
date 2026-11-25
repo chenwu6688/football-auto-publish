@@ -612,7 +612,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 842,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711893766025544202"
     },
     {
       "index": 1,
@@ -916,7 +926,17 @@
       "hot_event_key": "亚马尔|巴库|巴萨#ban",
       "hot_rank": 10,
       "hot_source": "dongqiudi",
-      "hot_channel": "media"
+      "hot_channel": "media",
+      "performance": {
+        "reads": 17,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 771,
+        "follower_reads": 0,
+        "click_rate": 0.02
+      },
+      "platform_id": "7711955482176438803"
     },
     {
       "index": 2,
@@ -1211,7 +1231,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 585,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7711955773525443091"
     },
     {
       "index": 1,
@@ -1480,7 +1510,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1444,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712049402780647955"
     },
     {
       "index": 2,
@@ -1801,7 +1841,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 28,
+        "comments": 0,
+        "likes": 1,
+        "shares": 0,
+        "impressions": 663,
+        "follower_reads": 0,
+        "click_rate": 0.04
+      },
+      "platform_id": "7712049705701605930"
     }
   ],
   "topics": [
