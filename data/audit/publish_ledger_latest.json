@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "date": "2026-11-24",
-  "generated_at": "2026-11-24 10:08:04",
-  "batch_filter": "evening",
+  "date": "2026-11-25",
+  "generated_at": "2026-11-25 00:07:30",
+  "batch_filter": "morning",
   "counts": {
     "total": 2,
     "published": 2,
@@ -31,7 +31,7 @@
     "available": true,
     "reason": "",
     "scope": "day_cumulative",
-    "path": "/home/runner/work/_temp/output/2026-11-24/metadata.json",
+    "path": "/home/runner/work/_temp/output/2026-11-25/metadata.json",
     "drafts": 2,
     "dropped_compliance": 0,
     "draft_total": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "没想到蒙特拉聊AC米兰，双前锋要求竟然压了几个月",
+      "title": "欧冠半场1-0没守住，阿森纳1-1多特蒙德把选择写明白",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7711677158364447272",
+      "batch_name": "晨读",
+      "platform_id": "7711893469249241638",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "斯坦丘 vs 克卢日大学，40万欧与大连英博落差摆上台面",
+      "title": "哈兰德19分钟未获点球，曼城2-2那不勒斯",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7711677440900203042",
+      "batch_name": "晨读",
+      "platform_id": "7711893766025544202",
       "reason": "",
       "images": 3,
       "status": "published"
