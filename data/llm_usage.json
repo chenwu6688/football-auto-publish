@@ -217,9 +217,9 @@
     "free_quota_total_tokens": 1000000
   },
   "hy4": {
-    "total_tokens": 2526176,
-    "prompt_tokens": 114778,
-    "completion_tokens": 32006,
+    "total_tokens": 2555202,
+    "prompt_tokens": 136186,
+    "completion_tokens": 39624,
     "free_quota_pct": 76.2,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-09 11:41:10",
@@ -235,8 +235,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-23 10:29:06",
-    "fail_streak": 2,
-    "last_fail_at": "2026-11-24T12:03:50+08:00"
+    "fail_streak": 3,
+    "last_fail_at": "2026-11-25T12:04:59+08:00"
   },
   "minimax-m3": {
     "total_tokens": 143000,

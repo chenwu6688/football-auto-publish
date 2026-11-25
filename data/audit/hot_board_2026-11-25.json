@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-25",
-  "generated_at": "2026-11-25 08:03:13",
-  "board_total": 132,
+  "generated_at": "2026-11-25 12:02:33",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 3.39
+        "elapsed_s": 2.07
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.02
+        "elapsed_s": 0.83
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.35
+        "elapsed_s": 0.5
       },
       "tieba": {
         "status": "ok",
-        "count": 30,
+        "count": 29,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.54
+        "elapsed_s": 1.22
       },
       "sina_sports": {
         "status": "disabled",
@@ -71,8 +71,8 @@
   "football_hits": [
     {
       "word": "Bin自曝MSI后想退役",
-      "rank": 18,
-      "heat": 251017,
+      "rank": 19,
+      "heat": 83919,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -81,48 +81,39 @@
     },
     {
       "word": "曝塔赞主动解约出走JDG",
-      "rank": 27,
-      "heat": 61668,
+      "rank": 29,
+      "heat": 16742,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
       "published_at": "",
       "entities": []
-    },
-    {
-      "word": "皇马5比1逆转埃因霍温",
-      "rank": 31,
-      "heat": 148580,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": [
-        "埃因霍温",
-        "皇马"
-      ]
-    },
-    {
-      "word": "塞内加尔抗议成功！改判获非洲杯冠军",
-      "rank": 45,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "日本遭U17世界杯2连败 出线告急",
-      "rank": 48,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
     }
   ],
-  "candidates": [],
+  "candidates": [
+    {
+      "word": "彩经前瞻：巴塞罗那前锋亚马尔缺席，沙巴巴库中卫停赛五洲",
+      "rank": 10,
+      "heat": 0,
+      "source": "dongqiudi",
+      "entities": [
+        "巴萨",
+        "亚马尔",
+        "巴库"
+      ],
+      "support": [
+        {
+          "title": "彩经前瞻：巴塞罗那前锋亚马尔缺席，沙巴巴库中卫停赛五洲",
+          "url": "https://www.dongqiudi.com/articles/6693856.html",
+          "source": "dongqiudi"
+        }
+      ],
+      "event_key": "亚马尔|巴库|巴萨#ban",
+      "providers": [
+        "dongqiudi"
+      ],
+      "channel": "media"
+    }
+  ],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
