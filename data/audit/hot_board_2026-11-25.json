@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-25",
-  "generated_at": "2026-11-25 12:02:33",
-  "board_total": 131,
+  "generated_at": "2026-11-25 18:06:13",
+  "board_total": 130,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 2.07
+        "elapsed_s": 1.54
       },
       "weibo": {
         "status": "ok",
-        "count": 52,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.83
+        "elapsed_s": 1.12
       },
       "dongqiudi": {
         "status": "ok",
         "count": 30,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.5
+        "elapsed_s": 0.2
       },
       "tieba": {
         "status": "ok",
         "count": 29,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.22
+        "elapsed_s": 2.28
       },
       "sina_sports": {
         "status": "disabled",
@@ -72,7 +72,7 @@
     {
       "word": "Bin自曝MSI后想退役",
       "rank": 19,
-      "heat": 83919,
+      "heat": 76308,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -82,7 +82,7 @@
     {
       "word": "曝塔赞主动解约出走JDG",
       "rank": 29,
-      "heat": 16742,
+      "heat": 13638,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
@@ -90,30 +90,6 @@
       "entities": []
     }
   ],
-  "candidates": [
-    {
-      "word": "彩经前瞻：巴塞罗那前锋亚马尔缺席，沙巴巴库中卫停赛五洲",
-      "rank": 10,
-      "heat": 0,
-      "source": "dongqiudi",
-      "entities": [
-        "巴萨",
-        "亚马尔",
-        "巴库"
-      ],
-      "support": [
-        {
-          "title": "彩经前瞻：巴塞罗那前锋亚马尔缺席，沙巴巴库中卫停赛五洲",
-          "url": "https://www.dongqiudi.com/articles/6693856.html",
-          "source": "dongqiudi"
-        }
-      ],
-      "event_key": "亚马尔|巴库|巴萨#ban",
-      "providers": [
-        "dongqiudi"
-      ],
-      "channel": "media"
-    }
-  ],
+  "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
