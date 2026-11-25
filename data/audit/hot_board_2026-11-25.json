@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "date": "2026-11-25",
+  "generated_at": "2026-11-25 08:03:13",
+  "board_total": 132,
+  "diag": {
+    "providers": {
+      "baidu": {
+        "status": "ok",
+        "count": 50,
+        "kind": "board",
+        "tier": "P0",
+        "elapsed_s": 3.39
+      },
+      "weibo": {
+        "status": "ok",
+        "count": 52,
+        "kind": "board",
+        "tier": "P0",
+        "elapsed_s": 1.02
+      },
+      "dongqiudi": {
+        "status": "ok",
+        "count": 30,
+        "kind": "media",
+        "tier": "P0",
+        "elapsed_s": 0.35
+      },
+      "tieba": {
+        "status": "ok",
+        "count": 30,
+        "kind": "ugc",
+        "tier": "P0",
+        "elapsed_s": 1.54
+      },
+      "sina_sports": {
+        "status": "disabled",
+        "count": 0,
+        "note": "首页可解析；RSS pubDate 全为 2018-09（死档），接入前必须先修时效"
+      },
+      "tencent_sports": {
+        "status": "disabled",
+        "count": 0,
+        "note": "纯 JS 壳，需 API"
+      },
+      "hupu": {
+        "status": "disabled",
+        "count": 0,
+        "note": "全 JS 渲染，朴素抓取 0 条"
+      },
+      "goal_cn": {
+        "status": "disabled",
+        "count": 0,
+        "note": "年龄门 + 博彩广告同页，需合规评审"
+      },
+      "qiutianxia": {
+        "status": "disabled",
+        "count": 0,
+        "note": "Cloudflare 挑战页"
+      },
+      "k7": {
+        "status": "disabled",
+        "count": 0,
+        "note": "查不到正规新闻站，命中结果均为博彩平台 SEO（用户未提供域名前不接）"
+      }
+    },
+    "errors": [],
+    "stale_dropped": 0,
+    "unknown_time": 8
+  },
+  "football_hits": [
+    {
+      "word": "Bin自曝MSI后想退役",
+      "rank": 18,
+      "heat": 251017,
+      "source": "tieba",
+      "kind": "ugc",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "曝塔赞主动解约出走JDG",
+      "rank": 27,
+      "heat": 61668,
+      "source": "tieba",
+      "kind": "ugc",
+      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370095&amp;topic_name=%E6%9B%9D%E5%A1%94%E8%B5%9E%E4%B8%BB%E5%8A%A8%E8%A7%A3%E7%BA%A6%E5%87%BA%E8%B5%B0JDG",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "皇马5比1逆转埃因霍温",
+      "rank": 31,
+      "heat": 148580,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": [
+        "埃因霍温",
+        "皇马"
+      ]
+    },
+    {
+      "word": "塞内加尔抗议成功！改判获非洲杯冠军",
+      "rank": 45,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "日本遭U17世界杯2连败 出线告急",
+      "rank": 48,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    }
+  ],
+  "candidates": [],
+  "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
+}
