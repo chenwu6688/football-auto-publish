@@ -1,0 +1,818 @@
+{
+  "date": "2026-11-25",
+  "generated_at": "2026-11-25T00:04:55.559947",
+  "total_articles": 2,
+  "articles": [
+    {
+      "index": 1,
+      "title": "欧冠半场1-0没守住，阿森纳1-1多特蒙德把选择写明白",
+      "path": "/home/runner/work/_temp/output/2026-11-25/article-1-欧冠半场10没守-ac656b.md",
+      "slug": "欧冠半场10没守-ac656b",
+      "tags": [
+        "Arsenal",
+        "Borussia Dortmund",
+        "Champions League",
+        "1-1",
+        "half-time 1-0",
+        "match review",
+        "tactical analysis"
+      ],
+      "keywords": [
+        "Arsenal",
+        "Borussia Dortmund",
+        "Champions League",
+        "1-1",
+        "half-time 1-0",
+        "match review",
+        "tactical analysis"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-25/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "阿森纳",
+              "多特蒙德"
+            ],
+            "numbers": [
+              "1",
+              "1"
+            ],
+            "source": "公开赛事比分",
+            "probe": "阿森纳1-1多特蒙德"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/news/day_261125/202611250755088891.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-25/6b0620e784edbnative.htm",
+            "query": "多特蒙德、阿森纳",
+            "alt": "助攻约克雷斯破门，欧冠官方：马杜埃凯当选枪手1-1多特全场最佳"
+          },
+          "width": 1200,
+          "height": 793
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261125/202611250440287830.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-25/6b05eb6e3d19bnative.htm",
+            "query": "多特蒙德、阿森纳",
+            "alt": "半场-阿森纳暂1-0多特 约克雷斯世界波马杜埃凯助攻多特0射正"
+          },
+          "width": 900,
+          "height": 600
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "24 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛果)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "战术榜单",
+      "topic_category": "战报比分",
+      "column_id": "tactics-board",
+      "column_name": "战术黑板",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": true,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "多特蒙德",
+          "阿森纳",
+          "欧冠"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "标题以比分开场（「1-0」在起首 4 字内）",
+          "全文无具体人物名"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1926,
+        "han_len": 1391,
+        "paragraphs": 13,
+        "headings": 5,
+        "bullets": 0,
+        "quotes": 13,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      },
+      "recap_match_id": "575399"
+    },
+    {
+      "index": 2,
+      "title": "哈兰德19分钟未获点球，曼城2-2那不勒斯",
+      "path": "/home/runner/work/_temp/output/2026-11-25/article-2-哈兰德19分钟未-3c57d4.md",
+      "slug": "哈兰德19分钟未-3c57d4",
+      "tags": [
+        "Manchester City",
+        "Napoli",
+        "UEFA Champions League",
+        "Kevin De Bruyne",
+        "Rayan Cherki",
+        "Erling Haaland",
+        "2-2"
+      ],
+      "keywords": [
+        "Manchester City",
+        "Napoli",
+        "UEFA Champions League",
+        "Kevin De Bruyne",
+        "Rayan Cherki",
+        "Erling Haaland",
+        "2-2"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-25/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "曼城",
+              "那不勒斯"
+            ],
+            "numbers": [
+              "2",
+              "2"
+            ],
+            "source": "公开赛事比分",
+            "probe": "曼城2-2那不勒斯"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/news/day_261125/202611250756082153.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-25/6b0623deda21enative.htm",
+            "query": "那不勒斯、谢尔基",
+            "alt": "官方：谢尔基当选曼城2-2那不勒斯全场最佳"
+          },
+          "width": 750,
+          "height": 422
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_261109/6af1ba814d55a_1280.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-25/6b061ffb0e60fnative.htm",
+            "query": "哈兰德",
+            "alt": "哈兰德：表现不够好但要保持积极态度，对阵阿森纳将是最艰难比赛"
+          },
+          "width": 1200,
+          "height": 800
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [
+            "那不勒斯 进球写作 4（事实 2），单侧归因疑为历史数据",
+            "曼城 进球写作 0（事实 2），单侧归因疑为历史数据",
+            "曼城 进球写作 1（事实 2），单侧归因疑为历史数据",
+            "曼城 进球写作 1（事实 2），单侧归因疑为历史数据"
+          ],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "没想到谢尔基救主2-2那不勒斯却压过哈兰德",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 89,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%",
+          "R11数据:标题 22 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "事实点数少于最强源文（33 < 65）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（0 字 / 5%），只记分：事实点数少于最强源文（33 < 65）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "chen-du-kuai-xun",
+      "column_name": "晨读快讯",
+      "batch_name": "晨读",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "度量"
+        ],
+        "contrasts": [
+          "比分对照"
+        ],
+        "proper_nouns": [
+          "那不勒斯",
+          "哈兰德",
+          "曼城"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 91,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "R11数据:标题 21 字落在 21-30 回测最优区间"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1253,
+        "han_len": 831,
+        "paragraphs": 15,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    }
+  ],
+  "topics": [
+    {
+      "title": "没想到谢尔基救主2-2那不勒斯却压过哈兰德",
+      "angle": "曼城两度扳平，最该聊的不是比分，而是谢尔基拿下全场最佳后，瓜帅前场权力怎么重新分蛋糕。老球迷都懂，能在僵局里把球捅进网的人，饭桌上有话语权。",
+      "keywords": [
+        "Manchester City",
+        "Napoli",
+        "Rayan Cherki",
+        "Erling Haaland",
+        "Champions League"
+      ],
+      "keywords_cn": [
+        "曼城",
+        "那不勒斯",
+        "谢尔基",
+        "哈兰德",
+        "欧冠全场最佳"
+      ],
+      "content_type": "热点球评",
+      "score": 95,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "欧冠豪门战+全场最佳争议足",
+      "_category": "战报比分",
+      "_column_id": "chen-du-kuai-xun",
+      "_column_name": "晨读快讯",
+      "_column_icon": "📰",
+      "_writing_style": "群聊播报体",
+      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_word_count_range": [
+        300,
+        500
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_topic_domain": "足球快讯",
+      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "晨读",
+      "_batch_time": "08:00",
+      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
+      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "欧冠半场1-0没守住，阿森纳1-1多特蒙德把选择写明白",
+      "content_type": "战术榜单",
+      "_supply_layer": "二级·突发",
+      "_is_recap": true
+    }
+  ],
+  "data_sources": {},
+  "mix_guard": {
+    "window": [
+      "2026-11-12",
+      "2026-11-25"
+    ],
+    "n": 82,
+    "batch_n": 2,
+    "ok": false,
+    "table": {
+      "转会官宣": {
+        "count": 15,
+        "pct": 18.3,
+        "target": 30.0,
+        "over": false
+      },
+      "中国足球": {
+        "count": 12,
+        "pct": 14.6,
+        "target": 25.0,
+        "over": false
+      },
+      "冲突舆情": {
+        "count": 0,
+        "pct": 0.0,
+        "target": 20.0,
+        "over": false
+      },
+      "未分类": {
+        "count": 29,
+        "pct": 35.4,
+        "target": 15.0,
+        "over": true
+      },
+      "战报比分": {
+        "count": 26,
+        "pct": 31.7,
+        "target": 10.0,
+        "over": true
+      }
+    }
+  },
+  "mix_overshoot": [
+    {
+      "type": "战报比分",
+      "actual": 31.7,
+      "target": 10.0,
+      "delta": 21.7
+    },
+    {
+      "type": "未分类",
+      "actual": 35.4,
+      "target": 15.0,
+      "delta": 20.4
+    }
+  ],
+  "image_floor": {
+    "since": "2026-11-05",
+    "min_per_article": 3,
+    "articles_below": 0
+  },
+  "supply_layers": {
+    "total": 2,
+    "counts": {
+      "一级·确定性": 0,
+      "二级·突发": 2,
+      "三级·软性": 0
+    },
+    "ratios": {
+      "一级·确定性": 0.0,
+      "二级·突发": 100.0,
+      "三级·软性": 0.0
+    },
+    "targets": {
+      "一级·确定性": 30.0,
+      "二级·突发": 50.0,
+      "三级·软性": 20.0
+    },
+    "deviations": {
+      "一级·确定性": -30.0,
+      "二级·突发": 50.0,
+      "三级·软性": -20.0
+    },
+    "unclassified": 0,
+    "l3_breakdown": {
+      "data_driven": 0,
+      "other": 0,
+      "data_types": [
+        "数据对比",
+        "排行榜"
+      ]
+    }
+  },
+  "degrade_events": [
+    {
+      "环节": "战报标题含比分",
+      "原因": "「欧冠半场1-0没守住，阿森纳1-1多特蒙」",
+      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
+      "数量": 1
+    },
+    {
+      "环节": "反洗稿记分",
+      "原因": "事实点数少于最强源文（33 < 65）",
+      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "数量": 1
+    }
+  ],
+  "type": "match_analysis",
+  "quota": {
+    "batch": "morning",
+    "max_articles": 2,
+    "uplifted": false,
+    "reason": null,
+    "requested_reason": null,
+    "normal_max": 2,
+    "uplift_max": 3,
+    "weekly_limit": 2,
+    "weekly_used": 0,
+    "detail": "常态 2 篇",
+    "source": "策略手册 第五章 / 完善计划 12.1"
+  },
+  "ranker_mode": "llm",
+  "batch_mix": {
+    "slots": [
+      "main",
+      "data"
+    ],
+    "picked": [
+      {
+        "slot": "main",
+        "type": "热点球评",
+        "title": "没想到谢尔基救主2-2那不勒斯却压过哈兰德"
+      }
+    ],
+    "degraded": [
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
+    "skipped": [],
+    "day_counts": {},
+    "selected": 1,
+    "requested": 2
+  },
+  "batches_generated": [
+    "morning"
+  ],
+  "last_batch": "morning",
+  "last_updated": "2026-11-25 08:04:55"
+}
