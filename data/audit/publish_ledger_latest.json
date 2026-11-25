@@ -1,8 +1,8 @@
 {
   "version": 2,
   "date": "2026-11-25",
-  "generated_at": "2026-11-25 00:07:30",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-25 04:08:06",
+  "batch_filter": "noon",
   "counts": {
     "total": 2,
     "published": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "欧冠半场1-0没守住，阿森纳1-1多特蒙德把选择写明白",
+      "title": "亚马尔缺席巴萨vs巴库，锋线重搭竟藏反转",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7711893469249241638",
+      "batch_name": "午间",
+      "platform_id": "7711955482176438803",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "哈兰德19分钟未获点球，曼城2-2那不勒斯",
+      "title": "约罗直红禁赛撤销 vs 中超判错不改，英超反差扎心",
       "slug": "",
-      "batch_name": "晨读",
-      "platform_id": "7711893766025544202",
+      "batch_name": "午间",
+      "platform_id": "7711955773525443091",
       "reason": "",
       "images": 3,
       "status": "published"

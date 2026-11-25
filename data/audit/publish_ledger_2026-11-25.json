@@ -1,14 +1,15 @@
 {
   "version": 2,
   "date": "2026-11-25",
-  "generated_at": "2026-11-25 00:07:30",
-  "batch_filter": "morning",
+  "generated_at": "2026-11-25 04:08:06",
+  "batch_filter": "morning+noon",
   "batches": [
-    "morning"
+    "morning",
+    "noon"
   ],
   "counts": {
-    "total": 2,
-    "published": 2,
+    "total": 4,
+    "published": 4,
     "failed": 0,
     "skipped_prediction": 0,
     "skipped_already_published": 0,
@@ -16,16 +17,16 @@
     "published_without_cover": 0,
     "drafts": 2,
     "dropped_compliance": 0,
-    "lost_upstream": 0,
+    "lost_upstream": -2,
     "published_with_title_gate_issue": 0
   },
   "identity": {
-    "n_records": 2,
-    "known_status": 2,
+    "n_records": 4,
+    "known_status": 4,
     "unaccounted_status": 0,
     "records_identity_ok": true,
-    "cover_ok": true,
-    "lost_upstream": 0,
+    "cover_ok": false,
+    "lost_upstream": -2,
     "scope": "day_cumulative",
     "available": true,
     "reason": ""
@@ -55,6 +56,26 @@
       "images": 3,
       "status": "published",
       "batch": "morning"
+    },
+    {
+      "title": "亚马尔缺席巴萨vs巴库，锋线重搭竟藏反转",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7711955482176438803",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
+    },
+    {
+      "title": "约罗直红禁赛撤销 vs 中超判错不改，英超反差扎心",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7711955773525443091",
+      "reason": "",
+      "images": 3,
+      "status": "published",
+      "batch": "noon"
     }
   ],
   "no_publishable": null,
