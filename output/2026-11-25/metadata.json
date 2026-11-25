@@ -1,7 +1,7 @@
 {
   "date": "2026-11-25",
-  "generated_at": "2026-11-25T04:05:30.123691",
-  "total_articles": 4,
+  "generated_at": "2026-11-25T10:10:02.060731",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -1212,85 +1212,693 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "西甲皇家贝蒂斯 vs 巴列卡诺，聚光灯照不到老将的狠劲",
+      "path": "/home/runner/work/_temp/output/2026-11-25/article-1-西甲皇家贝蒂斯v-48607b.md",
+      "slug": "西甲皇家贝蒂斯v-48607b",
+      "tags": [
+        "La Liga",
+        "Real Betis",
+        "Rayo Vallecano",
+        "data contrast",
+        "veterans"
+      ],
+      "keywords": [
+        "La Liga",
+        "Real Betis",
+        "Rayo Vallecano",
+        "data contrast",
+        "veterans"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-25/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "wikimedia",
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Monumento_a_la_Afici%C3%B3n_del_Real_Betis_Balompi%C3%A9_01.jpg/1280px-Monumento_a_la_Afici%C3%B3n_del_Real_Betis_Balompi%C3%A9_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "origin": {
+            "article_url": "",
+            "query": "Real Betis Balompié",
+            "alt": "Monumento a la Afición del Real Betis Balompié. Estadio Beni"
+          },
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "24 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "明示对比"
+        ],
+        "proper_nouns": [
+          "皇家贝蒂斯",
+          "巴列卡诺",
+          "西甲"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 69,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1675,
+        "han_len": 1151,
+        "paragraphs": 14,
+        "headings": 4,
+        "bullets": 0,
+        "quotes": 9,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "没想到卡内达24天就离开武里南联，1-3输上海海港成拐点",
+      "path": "/home/runner/work/_temp/output/2026-11-25/article-2-没想到卡内达24-bff0f5.md",
+      "slug": "没想到卡内达24-bff0f5",
+      "tags": [
+        "Buriram United",
+        "Shanghai Port",
+        "Carles Cufi",
+        "AFC Champions League",
+        "Thai League",
+        "Zhejiang FC",
+        "manager sacked"
+      ],
+      "keywords": [
+        "Buriram United",
+        "Shanghai Port",
+        "Carles Cufi",
+        "AFC Champions League",
+        "Thai League",
+        "Zhejiang FC",
+        "manager sacked"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-25/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-25/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "anchor": {
+            "kind": "score",
+            "entities": [
+              "外援先发",
+              "海港"
+            ],
+            "numbers": [
+              "1",
+              "3"
+            ],
+            "source": "公开赛事比分",
+            "probe": "外援先发1-3海港"
+          },
+          "confidence": "high"
+        }
+      ],
+      "image_cards": [
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "chart:score",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": true,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [],
+          "coverage": 1.0,
+          "legacy_issues": [],
+          "subject": "卡内达上任24天就下课，11外援先发却1-3输海港",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 89,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%",
+          "R11数据:标题 28 字落在 21-30 回测最优区间"
+        ],
+        "judged": true
+      },
+      "_anti_copy": {
+        "ok": false,
+        "issues": [
+          "与源文连续重合 16 字（>12，疑似洗稿）"
+        ]
+      },
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 11,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无事实矛盾（覆盖率 1.0）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "轻度相似（16 字 / 2%），只记分：与源文连续重合 16 字（>12，疑似洗稿）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "23 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "战报比分",
+      "column_id": "laoliu-hot-take",
+      "column_name": "老六辣评",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "比分",
+          "度量"
+        ],
+        "contrasts": [
+          "比分对照",
+          "反差"
+        ],
+        "proper_nouns": [
+          "武里南联",
+          "上海海港"
+        ],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 3
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 89,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 931,
+        "han_len": 583,
+        "paragraphs": 12,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "彩经前瞻：巴塞罗那前锋亚马尔缺席",
-      "angle": "热点事件「彩经前瞻：巴塞罗那前锋亚马尔缺席」，从球迷情绪与争议点切入",
-      "keywords": [],
-      "keywords_cn": [
-        "彩经前瞻：巴塞罗那前锋亚马尔缺席",
-        "巴萨",
-        "巴库"
-      ],
-      "content_type": "热点球评",
-      "score": 100,
-      "controversy_level": "high",
-      "why_pick": "媒体头条（dongqiudi）",
-      "_supply_layer": "二级·突发",
-      "_hot_event_key": "亚马尔|巴库|巴萨#ban",
-      "_hot_rank": 10,
-      "_hot_source": "dongqiudi",
-      "_hot_channel": "media",
-      "_hot_providers": [
-        "dongqiudi"
-      ],
-      "_hot_support": [
-        "彩经前瞻：巴塞罗那前锋亚马尔缺席，沙巴巴库中卫停赛五洲"
-      ],
-      "_hot_support_raw": [
-        {
-          "title": "彩经前瞻：巴塞罗那前锋亚马尔缺席，沙巴巴库中卫停赛五洲",
-          "url": "https://www.dongqiudi.com/articles/6693856.html",
-          "source": "dongqiudi"
-        }
-      ]
-    },
-    {
-      "title": "约罗直红被撤销，中超判错却不改这反差扎心",
-      "angle": "从约罗直红禁赛撤销切入，明确把矛头指向判罚纠错机制：规则不该看联赛脸色，错了就该改。老球迷看的是公平，不是谁嗓门大。",
+      "title": "卡内达上任24天就下课，11外援先发却1-3输海港",
+      "angle": "从武里南联官方下课切入，别把锅全甩给主帅：24天、11外援先发、1-3海港，这组事实足够说明俱乐部耐心有多薄。老球迷都懂，换帅像换灯泡，线路没修好，灯再亮也白搭。",
       "keywords": [
-        "Leny Yoro",
-        "red card rescinded",
-        "Chinese Super League",
-        "Premier League",
-        "VAR"
+        "Buriram United",
+        "Jose Manuel Caneda",
+        "Shanghai Port",
+        "11 foreign players",
+        "24 days"
       ],
       "keywords_cn": [
-        "约罗",
-        "直红禁赛撤销",
-        "中超",
-        "英超",
-        "判罚纠错"
+        "武里南联",
+        "卡内达",
+        "上海海港",
+        "11外援先发",
+        "上任24天下课"
       ],
       "content_type": "热点球评",
-      "score": 92,
+      "score": 93,
       "controversy_level": "high",
-      "target_emotion": "愤怒",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "判罚纠错反差大，老球迷最有话说",
-      "_category": "冲突舆情",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "target_emotion": "震惊",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "24天与1-3反差足，下课有争议",
+      "_category": "战报比分",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
       "_rank_id": "topic-1"
+    },
+    {
+      "title": "没想到6.9万会员投票，马竞竟换回旧队徽",
+      "angle": "从马竞近6.9万会员投票换回旧队徽切入，立场很明确：队徽不是设计稿，是老球迷认门的招牌。俱乐部肯把选择权交给会员，比喊一百句传统更实在。",
+      "keywords": [
+        "Atletico Madrid",
+        "club crest",
+        "69000 members",
+        "vote",
+        "old badge"
+      ],
+      "keywords_cn": [
+        "马德里竞技",
+        "旧队徽",
+        "6.9万会员",
+        "会员投票",
+        "俱乐部传统"
+      ],
+      "content_type": "数据对比",
+      "score": 88,
+      "controversy_level": "medium",
+      "target_emotion": "怀旧",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "6.9万票与旧徽回归，情怀浓",
+      "_category": "未分类",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "西甲皇家贝蒂斯 vs 巴列卡诺，聚光灯照不到老将的狠劲",
+      "content_type": "数据对比",
+      "_is_fixture": true
     }
   ],
   "data_sources": {},
@@ -1299,19 +1907,19 @@
       "2026-11-12",
       "2026-11-25"
     ],
-    "n": 84,
+    "n": 86,
     "batch_n": 2,
     "ok": false,
     "table": {
       "转会官宣": {
         "count": 15,
-        "pct": 17.9,
+        "pct": 17.4,
         "target": 30.0,
         "over": false
       },
       "中国足球": {
         "count": 12,
-        "pct": 14.3,
+        "pct": 14.0,
         "target": 25.0,
         "over": false
       },
@@ -1322,14 +1930,14 @@
         "over": false
       },
       "未分类": {
-        "count": 30,
-        "pct": 35.7,
+        "count": 31,
+        "pct": 36.0,
         "target": 15.0,
         "over": true
       },
       "战报比分": {
-        "count": 26,
-        "pct": 31.0,
+        "count": 27,
+        "pct": 31.4,
         "target": 10.0,
         "over": true
       }
@@ -1338,15 +1946,15 @@
   "mix_overshoot": [
     {
       "type": "战报比分",
-      "actual": 31.0,
+      "actual": 31.4,
       "target": 10.0,
-      "delta": 21.0
+      "delta": 21.4
     },
     {
       "type": "未分类",
-      "actual": 35.7,
+      "actual": 36.0,
       "target": 15.0,
-      "delta": 20.7
+      "delta": 21.0
     }
   ],
   "image_floor": {
@@ -1357,13 +1965,13 @@
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 0,
-      "二级·突发": 2,
+      "一级·确定性": 1,
+      "二级·突发": 1,
       "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 0.0,
-      "二级·突发": 100.0,
+      "一级·确定性": 50.0,
+      "二级·突发": 50.0,
       "三级·软性": 0.0
     },
     "targets": {
@@ -1372,8 +1980,8 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
-      "二级·突发": 50.0,
+      "一级·确定性": 20.0,
+      "二级·突发": 0.0,
       "三级·软性": -20.0
     },
     "unclassified": 0,
@@ -1388,66 +1996,39 @@
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「欧冠半场0-1之后，皇马把5-1的比分对」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
-      "数量": 1
-    },
-    {
-      "环节": "隔夜战报",
-      "原因": "皇马 vs 埃因霍温 生成失败",
-      "处置": "本批不补战报，不拿软性内容顶替",
-      "数量": 1
-    },
-    {
-      "环节": "赛程源",
-      "原因": "本批无可用赛程选题（源不可用或无匹配）",
-      "处置": "退化为纯新闻流驱动，选题池仅由事实卡装配",
-      "数量": 1
-    },
-    {
       "环节": "反洗稿记分",
-      "原因": "与源文连续重合 22 字（>12，疑似洗稿）；事实点数少于最强源文（20 < 23）",
+      "原因": "与源文连续重合 16 字（>12，疑似洗稿）",
       "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
       "数量": 1
     },
     {
-      "环节": "封面兜底",
-      "原因": "图源全断，改用标题数据卡",
-      "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
+      "环节": "配图补齐",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 0 张",
+      "原因": "真实图源只拿到 1 张",
       "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     }
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 0,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
-  "hot_topics": [
-    {
-      "title": "彩经前瞻：巴塞罗那前锋亚马尔缺席",
-      "rank": 10,
-      "source": "dongqiudi",
-      "channel": "media",
-      "event_key": "亚马尔|巴库|巴萨#ban"
-    }
-  ],
+  "ranker_mode": "llm",
   "batch_mix": {
     "slots": [
       "main",
@@ -1457,35 +2038,28 @@
       {
         "slot": "main",
         "type": "热点球评",
-        "title": "彩经前瞻：巴塞罗那前锋亚马尔缺席"
+        "title": "卡内达上任24天就下课，11外援先发却1-3输海港"
       },
       {
         "slot": "data",
-        "type": "热点球评",
-        "title": "约罗直红被撤销，中超判错却不改这反差扎心"
+        "type": "数据对比",
+        "title": "没想到6.9万会员投票，马竞竟换回旧队徽"
       }
     ],
-    "degraded": [
-      "data 槽用次优类型补位"
-    ],
-    "skipped": [
-      {
-        "type": "转会资讯",
-        "title": "马德鲁加8场没谈续约，新报价竟想加盟豪门"
-      }
-    ],
+    "degraded": [],
+    "skipped": [],
     "day_counts": {
       "战术榜单": 1,
-      "热点球评": 1
+      "热点球评": 3
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-25 12:08:06",
+  "last_batch": "evening",
+  "last_updated": "2026-11-25 18:10:02",
   "batches_completed": [
     "morning",
     "noon"
