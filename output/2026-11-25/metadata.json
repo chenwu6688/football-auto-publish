@@ -618,7 +618,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 842,
+        "retention_rate": 0.91,
+        "impressions": 1802,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -928,13 +929,14 @@
       "hot_source": "dongqiudi",
       "hot_channel": "media",
       "performance": {
-        "reads": 17,
+        "reads": 18,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 771,
+        "retention_rate": 0.25,
+        "impressions": 1787,
         "follower_reads": 0,
-        "click_rate": 0.02
+        "click_rate": 0.01
       },
       "platform_id": "7711955482176438803"
     },
@@ -1237,7 +1239,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 585,
+        "retention_rate": 0.0,
+        "impressions": 1537,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1516,7 +1519,8 @@
         "comments": 0,
         "likes": 0,
         "shares": 0,
-        "impressions": 1444,
+        "retention_rate": 0.0,
+        "impressions": 2484,
         "follower_reads": 0,
         "click_rate": 0.0
       },
@@ -1843,13 +1847,14 @@
         "degraded": []
       },
       "performance": {
-        "reads": 28,
+        "reads": 53,
         "comments": 0,
         "likes": 1,
         "shares": 0,
-        "impressions": 663,
+        "retention_rate": 0.2819,
+        "impressions": 1947,
         "follower_reads": 0,
-        "click_rate": 0.04
+        "click_rate": 0.03
       },
       "platform_id": "7712049705701605930"
     }

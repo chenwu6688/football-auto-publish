@@ -275,7 +275,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "575410"
+      "recap_match_id": "575410",
+      "performance": {
+        "reads": 2,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 708,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712264375268065801"
     },
     {
       "index": 2,
@@ -556,7 +566,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 39,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1297,
+        "follower_reads": 0,
+        "click_rate": 0.03
+      },
+      "platform_id": "7712264674829468211"
     },
     {
       "index": 3,
@@ -878,7 +898,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 2,
+        "shares": 0,
+        "impressions": 1005,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712264950122643977"
     },
     {
       "index": 1,
@@ -1147,7 +1177,17 @@
         "images": 3,
         "degraded": []
       },
-      "recap_match_id": "575411"
+      "recap_match_id": "575411",
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 500,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712326251138023972"
     },
     {
       "index": 2,
@@ -1426,7 +1466,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 840,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712326540205376041"
     },
     {
       "index": 3,
@@ -1734,7 +1784,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 7,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 567,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7712326844388852287"
     }
   ],
   "topics": [
