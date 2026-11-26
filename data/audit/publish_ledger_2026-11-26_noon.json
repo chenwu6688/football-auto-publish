@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "date": "2026-11-26",
+  "generated_at": "2026-11-26 04:08:01",
+  "batch_filter": "noon",
+  "counts": {
+    "total": 3,
+    "published": 3,
+    "failed": 0,
+    "skipped_prediction": 0,
+    "skipped_already_published": 0,
+    "published_without_id": 0,
+    "published_without_cover": 0,
+    "drafts": 3,
+    "dropped_compliance": 0,
+    "lost_upstream": null,
+    "published_with_title_gate_issue": 0
+  },
+  "identity": {
+    "n_records": 3,
+    "known_status": 3,
+    "unaccounted_status": 0,
+    "records_identity_ok": true,
+    "cover_ok": null,
+    "lost_upstream": null,
+    "scope": "batch",
+    "available": true,
+    "reason": ""
+  },
+  "draft_snapshot": {
+    "available": true,
+    "reason": "",
+    "scope": "day_cumulative",
+    "path": "/home/runner/work/_temp/output/2026-11-26/metadata.json",
+    "drafts": 3,
+    "dropped_compliance": 0,
+    "draft_total": 3,
+    "title_gate_blocked_published": 0
+  },
+  "platform_id_binding": {
+    "bound": 3,
+    "unmatched": [],
+    "missing_meta": false
+  },
+  "records": [
+    {
+      "title": "半场1-0到2-2，曼联在欧冠被葡萄牙体育拖进泥潭",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7712326251138023972",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "法甲聚光灯照朗斯，昂热老将把劲藏到00:15",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7712326540205376041",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    },
+    {
+      "title": "U17国足对阵斐济U17，21年未赢到了该翻篇的时候",
+      "slug": "",
+      "batch_name": "午间",
+      "platform_id": "7712326844388852287",
+      "reason": "",
+      "images": 3,
+      "status": "published"
+    }
+  ],
+  "note": "成稿数 ≠ 发布数。published_without_id > 0 说明平台没返回作品 ID，这些篇只能等后台导出按标题回填，跨 7 天窗口就永久缺失。"
+}
