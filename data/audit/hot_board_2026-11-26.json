@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-26",
-  "generated_at": "2026-11-26 08:02:51",
-  "board_total": 132,
+  "generated_at": "2026-11-26 12:02:39",
+  "board_total": 131,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.4
+        "elapsed_s": 1.68
       },
       "weibo": {
         "status": "ok",
-        "count": 52,
+        "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.87
+        "elapsed_s": 1.19
       },
       "dongqiudi": {
-        "status": "ok",
-        "count": 30,
+        "status": "empty",
+        "count": 0,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.44
+        "elapsed_s": 0.43
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.14
+        "elapsed_s": 1.54
       },
       "sina_sports": {
         "status": "disabled",
@@ -66,16 +66,26 @@
     },
     "errors": [],
     "stale_dropped": 0,
-    "unknown_time": 8
+    "unknown_time": 0
   },
   "football_hits": [
     {
       "word": "Bin自曝MSI后想退役",
-      "rank": 21,
-      "heat": 78390,
+      "rank": 24,
+      "heat": 26544,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "下课都不让说方言 还何谈留住乡愁",
+      "rank": 28,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
       "published_at": "",
       "entities": []
     }

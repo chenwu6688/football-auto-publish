@@ -296,9 +296,9 @@
     "stale_since": "2026-11-23 10:29:06"
   },
   "hy4-flash": {
-    "total_tokens": 109382,
-    "prompt_tokens": 30793,
-    "completion_tokens": 9166,
+    "total_tokens": 139107,
+    "prompt_tokens": 53320,
+    "completion_tokens": 16364,
     "free_quota_pct": 99.3,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-17 10:17:01",
