@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-27",
-  "generated_at": "2026-11-27 12:03:35",
+  "generated_at": "2026-11-27 18:03:32",
   "board_total": 132,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.29
+        "elapsed_s": 2.76
       },
       "weibo": {
         "status": "ok",
         "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.84
+        "elapsed_s": 1.39
       },
       "dongqiudi": {
-        "status": "ok",
-        "count": 30,
+        "status": "empty",
+        "count": 0,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.4
+        "elapsed_s": 0.24
       },
       "tieba": {
         "status": "ok",
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.78
+        "elapsed_s": 1.54
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,19 +65,13 @@
       }
     },
     "errors": [],
-    "stale_dropped": 1,
-    "unknown_time": 8,
-    "stale_samples": [
-      {
-        "title": "对阵哥斯达黎加发挥出色，尼科-帕斯应立即接过10号球衣",
-        "age_h": 45.4
-      }
-    ]
+    "stale_dropped": 0,
+    "unknown_time": 0
   },
   "football_hits": [
     {
-      "word": "中国男篮不会打不了世界杯吧",
-      "rank": 20,
+      "word": "国常会通稿首提“国家队”",
+      "rank": 13,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -86,40 +80,10 @@
       "entities": []
     },
     {
-      "word": "韩媒称中国足球大反转",
-      "rank": 22,
-      "heat": 248450,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "Bin自曝MSI后想退役",
-      "rank": 29,
-      "heat": 11892,
-      "source": "tieba",
-      "kind": "ugc",
-      "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17国足创造历史",
-      "rank": 43,
+      "word": "高层信号明确！“国家队”稳市更有力",
+      "rank": 39,
       "heat": 0,
       "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "外媒称赞国足出了中国伊布",
-      "rank": 52,
-      "heat": 134098,
-      "source": "weibo",
       "kind": "board",
       "url": "",
       "published_at": "",
