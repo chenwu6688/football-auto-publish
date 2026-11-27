@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-27",
-  "generated_at": "2026-11-27 08:08:22",
-  "board_total": 130,
+  "generated_at": "2026-11-27 12:03:35",
+  "board_total": 132,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,14 +10,14 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 4.35
+        "elapsed_s": 1.29
       },
       "weibo": {
         "status": "ok",
-        "count": 50,
+        "count": 52,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 0.95
+        "elapsed_s": 0.84
       },
       "dongqiudi": {
         "status": "ok",
@@ -31,7 +31,7 @@
         "count": 30,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.58
+        "elapsed_s": 1.78
       },
       "sina_sports": {
         "status": "disabled",
@@ -65,13 +65,19 @@
       }
     },
     "errors": [],
-    "stale_dropped": 0,
-    "unknown_time": 8
+    "stale_dropped": 1,
+    "unknown_time": 8,
+    "stale_samples": [
+      {
+        "title": "对阵哥斯达黎加发挥出色，尼科-帕斯应立即接过10号球衣",
+        "age_h": 45.4
+      }
+    ]
   },
   "football_hits": [
     {
-      "word": "国字号男足时隔21年世界杯出线",
-      "rank": 2,
+      "word": "中国男篮不会打不了世界杯吧",
+      "rank": 20,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -80,29 +86,9 @@
       "entities": []
     },
     {
-      "word": "U17国足8比0斐济",
-      "rank": 5,
-      "heat": 390209,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17国足8-0斐济",
-      "rank": 8,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "董路谈U17国足8比0斐济",
-      "rank": 10,
-      "heat": 226114,
+      "word": "韩媒称中国足球大反转",
+      "rank": 22,
+      "heat": 248450,
       "source": "weibo",
       "kind": "board",
       "url": "",
@@ -111,8 +97,8 @@
     },
     {
       "word": "Bin自曝MSI后想退役",
-      "rank": 26,
-      "heat": 22360,
+      "rank": 29,
+      "heat": 11892,
       "source": "tieba",
       "kind": "ugc",
       "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28370110&amp;topic_name=Bin%E8%87%AA%E6%9B%9DMSI%E5%90%8E%E6%83%B3%E9%80%80%E5%BD%B9",
@@ -121,7 +107,7 @@
     },
     {
       "word": "U17国足创造历史",
-      "rank": 26,
+      "rank": 43,
       "heat": 0,
       "source": "baidu",
       "kind": "board",
@@ -130,39 +116,9 @@
       "entities": []
     },
     {
-      "word": "U17国少晋级世界杯淘汰赛",
-      "rank": 30,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "温瑞博姜依依世青赛冠军",
-      "rank": 37,
-      "heat": 129011,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "JackeyLove回应转会传闻",
-      "rank": 41,
-      "heat": 111072,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "贺炜谈U17国足8比0斐济",
-      "rank": 44,
-      "heat": 110301,
+      "word": "外媒称赞国足出了中国伊布",
+      "rank": 52,
+      "heat": 134098,
       "source": "weibo",
       "kind": "board",
       "url": "",
