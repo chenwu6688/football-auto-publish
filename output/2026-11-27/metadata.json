@@ -330,7 +330,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 4,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1003,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712636708497031723"
     },
     {
       "index": 2,
@@ -638,7 +648,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 1,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 756,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712637007092056619"
     },
     {
       "index": 1,
@@ -910,7 +930,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 3,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 776,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712697295166341641"
     },
     {
       "index": 2,
@@ -1178,7 +1208,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 6,
+        "comments": 1,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 599,
+        "follower_reads": 0,
+        "click_rate": 0.01
+      },
+      "platform_id": "7712697551937454602"
     },
     {
       "index": 1,
@@ -1477,7 +1517,17 @@
         "cta": true,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 211,
+        "comments": 17,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 1799,
+        "follower_reads": 1,
+        "click_rate": 0.12
+      },
+      "platform_id": "7712790078942233114"
     },
     {
       "index": 2,
@@ -1747,7 +1797,17 @@
         "cta": false,
         "images": 3,
         "degraded": []
-      }
+      },
+      "performance": {
+        "reads": 0,
+        "comments": 0,
+        "likes": 0,
+        "shares": 0,
+        "impressions": 292,
+        "follower_reads": 0,
+        "click_rate": 0.0
+      },
+      "platform_id": "7712790389098431014"
     }
   ],
   "topics": [
