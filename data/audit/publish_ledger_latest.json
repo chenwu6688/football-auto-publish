@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "date": "2026-11-27",
-  "generated_at": "2026-11-27 10:06:46",
-  "batch_filter": "evening",
+  "date": "2026-11-28",
+  "generated_at": "2026-11-28 00:17:10",
+  "batch_filter": "morning",
   "counts": {
     "total": 2,
     "published": 2,
@@ -31,7 +31,7 @@
     "available": true,
     "reason": "",
     "scope": "day_cumulative",
-    "path": "/home/runner/work/_temp/output/2026-11-27/metadata.json",
+    "path": "/home/runner/work/_temp/output/2026-11-28/metadata.json",
     "drafts": 2,
     "dropped_compliance": 0,
     "draft_total": 2,
@@ -44,19 +44,19 @@
   },
   "records": [
     {
-      "title": "没想到李霄鹏成都蓉城合作竟卡在市长热线",
+      "title": "英超诺丁汉森林 vs 切尔西，半场1-0到3-2的比分对照",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7712790078942233114",
+      "batch_name": "晨读",
+      "platform_id": "7713009221528191528",
       "reason": "",
       "images": 3,
       "status": "published"
     },
     {
-      "title": "罗纳尔多98年决赛前抽搐仍首发，齐达内两粒头球拿走金杯",
+      "title": "国少对塞尔维亚U17，5次淘汰赛全败原来卡在这",
       "slug": "",
-      "batch_name": "晚间",
-      "platform_id": "7712790389098431014",
+      "batch_name": "晨读",
+      "platform_id": "7713009514403971624",
       "reason": "",
       "images": 3,
       "status": "published"
