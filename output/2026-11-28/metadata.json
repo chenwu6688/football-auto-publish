@@ -1,7 +1,7 @@
 {
   "date": "2026-11-28",
-  "generated_at": "2026-11-28T00:14:36.857538",
-  "total_articles": 2,
+  "generated_at": "2026-11-28T04:06:05.730620",
+  "total_articles": 4,
   "articles": [
     {
       "index": 1,
@@ -578,96 +578,667 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "英超水晶宫vs赫尔城，被盯着的水晶宫与更想赢的赫尔城主帅",
+      "path": "/home/runner/work/_temp/output/2026-11-28/article-1-英超水晶宫vs赫-8fe05c.md",
+      "slug": "英超水晶宫vs赫-8fe05c",
+      "tags": [
+        "Crystal Palace",
+        "Hull City",
+        "Premier League",
+        "data contrast",
+        "manager pressure"
+      ],
+      "keywords": [
+        "Crystal Palace",
+        "Hull City",
+        "Premier League",
+        "data contrast",
+        "manager pressure"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_260525/6a133356c0754.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-28/6b0a03841e1eanative.htm",
+            "query": "水晶宫",
+            "alt": "后防豆腐渣！本赛季切尔西英超已丢23球，仅次于丢27球的水晶宫"
+          },
+          "width": 1200,
+          "height": 854
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "明示对比"
+        ],
+        "proper_nouns": [
+          "水晶宫",
+          "赫尔城",
+          "英超"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 2031,
+        "han_len": 1486,
+        "paragraphs": 16,
+        "headings": 5,
+        "bullets": 0,
+        "quotes": 9,
+        "tags": [],
+        "cta": false,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "韩国U17 vs 日本U17，淘汰赛抽签竟然碰上",
+      "path": "/home/runner/work/_temp/output/2026-11-28/article-2-韩国U17vs日-ec7c40.md",
+      "slug": "韩国U17vs日-ec7c40",
+      "tags": [
+        "Korea U17",
+        "Japan U17",
+        "Serbia U17",
+        "Colombia U17",
+        "Egypt U17",
+        "East Asian derby",
+        "knockout draw"
+      ],
+      "keywords": [
+        "Korea U17",
+        "Japan U17",
+        "Serbia U17",
+        "Colombia U17",
+        "Egypt U17",
+        "East Asian derby",
+        "knockout draw"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-2-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "没想到韩媒3战全胜却撞上日本U17",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 0,
+        "ok": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事/城市，不要写「这支豪门」）。只能用事实卡里已有的数字，不得编造。",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）",
+          "[三要素] 缺：专名"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 1%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "25 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "热点球评",
+      "topic_category": "未分类",
+      "column_id": "wu-jian-kuai-xun",
+      "column_name": "午间快讯",
+      "batch_name": "午间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [
+          "赛制"
+        ],
+        "contrasts": [
+          "明示对比",
+          "反差"
+        ],
+        "proper_nouns": [],
+        "has_number": true,
+        "has_contrast": true,
+        "has_proper": false,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 0,
+        "pass": false,
+        "reasons": [
+          "[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球队/球员/教练/赛事",
+          "[三要素] 三要素 2/3 未达下限（需 ≥2 项且含专名）"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1209,
+        "han_len": 809,
+        "paragraphs": 14,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 7,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "5次淘汰赛全败，国少这次能反转吗",
-      "angle": "抓住男足国字号此前5次世界大赛淘汰赛全败这个硬数字，不吹不捧，讲清中国球迷那种又怕又守着看的复杂劲儿；国少碰塞尔维亚，压力不在嘴上，在历史账本里。",
+      "title": "没想到韩媒3战全胜却撞上日本U17",
+      "angle": "韩媒原本带着幸灾乐祸的口气看抽签，结果日韩淘汰赛直接碰面。老球迷都懂，亚洲内战最不讲情面，嘴上轻松，脚下一点不轻松。",
       "keywords": [
-        "China U17",
-        "Serbia U17",
-        "U17 World Cup"
+        "Korea U17",
+        "Japan U17",
+        "Asian derby",
+        "knockout draw"
       ],
       "keywords_cn": [
-        "国少",
-        "塞尔维亚U17",
-        "5次淘汰赛全败"
+        "韩国U17",
+        "日本U17",
+        "亚洲内战",
+        "淘汰赛抽签"
       ],
-      "content_type": "数据对比",
-      "score": 96,
+      "content_type": "热点球评",
+      "score": 86,
       "controversy_level": "high",
-      "target_emotion": "怀旧",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "国字号痛点最能共鸣",
-      "_category": "未分类",
-      "_column_id": "hua-ti-lei-tai",
-      "_column_name": "话题擂台",
-      "_column_icon": "🥊",
-      "_writing_style": "烧烤摊辩论体",
-      "_style_detail": "先摆出争议话题（一句话定调）→ 正方观点（2-3个论据）→ 反方观点（2-3个论据）→ 老六亮明态度（核心论据）→ 邀请读者说出自己的判断。语气像烧烤摊上和朋友抬杠，可以激动但不说脏话。必须给双方都有说话的机会，但最后必须有你自己的态度。",
-      "_word_count_range": [
-        400,
-        600
-      ],
-      "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末把判断抛给读者：'你更认哪一边？我先说我的判断和理由——…'",
-      "_topic_domain": "足球争议话题",
-      "_topic_guidance": "一个有争议的足球话题，列出正反两方观点，最后给出老六的判断和理由。话题要能让读者看完后立刻想去评论区表态。适合的话题：'XX该不该下课''XX转会到底值不值''VAR到底该不该废除'等。",
-      "_data_source_hint": "gzh_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
-      "_rank_id": "topic-1"
-    },
-    {
-      "title": "没想到B费续约条款竟不是留队保证",
-      "angle": "从罗马诺说曼联激活B费续约条款只是保护措施切入，别把合同动作当感情戏；老球迷都懂，豪门留人先看算盘，再看人情。",
-      "keywords": [
-        "Bruno Fernandes",
-        "Manchester United",
-        "Fabrizio Romano"
-      ],
-      "keywords_cn": [
-        "B费",
-        "曼联",
-        "续约条款"
-      ],
-      "content_type": "转会资讯",
-      "score": 92,
-      "controversy_level": "medium",
       "target_emotion": "好奇",
-      "resonance_angle": "名帅名宿沉浮",
+      "resonance_angle": "老球迷身份认同",
       "series_id": "无",
-      "why_pick": "续约反转有讨论空间",
-      "_category": "转会官宣",
-      "_column_id": "chen-du-kuai-xun",
-      "_column_name": "晨读快讯",
-      "_column_icon": "📰",
+      "why_pick": "韩媒反差足，日韩内战有聊头",
+      "_category": "未分类",
+      "_column_id": "wu-jian-kuai-xun",
+      "_column_name": "午间快讯",
+      "_column_icon": "⚡",
       "_writing_style": "群聊播报体",
-      "_style_detail": "每条消息3-5句，格式为【事件概述】+一句话老六辣评。短句、快节奏、有信息量但不啰嗦。像一个人肉RSS但有态度。禁止长篇大论，每条独立成块。",
+      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
       "_word_count_range": [
         300,
         500
       ],
       "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末把判断抛给读者：'你觉得XX这笔转会能成吗？'，自己先给判断，再说理由。",
+      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
       "_topic_domain": "足球快讯",
-      "_topic_guidance": "3-5条最新足球短消息加一句话辣评。可以是一条比赛结果+一条转会动态+一条花边/争议新闻。像微信群里的足球老哥早上发的第一条消息。每条独立成块，短句快节奏。",
+      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
       "_data_source_hint": "match_preferred",
-      "_batch_name": "晨读",
-      "_batch_time": "08:00",
-      "_reader_scenario": "通勤/早咖啡，需要快速了解发生了什么",
-      "_overall_tone": "轻快、信息密度高、适合碎片化阅读",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
       "_rank_id": "topic-0"
     },
     {
-      "title": "英超诺丁汉森林 vs 切尔西，半场1-0到3-2的比分对照",
-      "content_type": "战术榜单",
-      "_supply_layer": "二级·突发",
-      "_is_recap": true
+      "title": "原来亚洲9队出战只有卡塔尔越南出局",
+      "angle": "拿9队出战、仅卡塔尔和越南小组出局这组数字做横向对比，重点不是吹谁，而是问一句：同样起步，为什么有的能扛住淘汰赛，有的连门槛都没摸到？",
+      "keywords": [
+        "Asian teams",
+        "Qatar U17",
+        "Vietnam U17",
+        "group stage exit"
+      ],
+      "keywords_cn": [
+        "亚洲9队",
+        "卡塔尔U17",
+        "越南U17",
+        "小组出局"
+      ],
+      "content_type": "数据对比",
+      "score": 82,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "国足情结",
+      "series_id": "guozu-chronicle",
+      "why_pick": "数字对比清楚，接国字号记忆",
+      "_category": "未分类",
+      "_column_id": "re-dian-su-ping",
+      "_column_name": "热点速评",
+      "_column_icon": "🔥",
+      "_writing_style": "赛后快刀体",
+      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "side_taking_vote",
+      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
+      "_topic_domain": "足球热点评论",
+      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
+      "_data_source_hint": "match_preferred",
+      "_batch_name": "午间",
+      "_batch_time": "12:00",
+      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
+      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_rank_id": "topic-1"
+    },
+    {
+      "title": "英超水晶宫vs赫尔城，被盯着的水晶宫与更想赢的赫尔城主帅",
+      "content_type": "数据对比",
+      "_is_fixture": true
     }
   ],
   "data_sources": {},
@@ -676,19 +1247,19 @@
       "2026-11-15",
       "2026-11-28"
     ],
-    "n": 81,
+    "n": 83,
     "batch_n": 2,
     "ok": false,
     "table": {
       "转会官宣": {
         "count": 8,
-        "pct": 9.9,
+        "pct": 9.6,
         "target": 30.0,
         "over": false
       },
       "中国足球": {
         "count": 9,
-        "pct": 11.1,
+        "pct": 10.8,
         "target": 25.0,
         "over": false
       },
@@ -699,14 +1270,14 @@
         "over": false
       },
       "未分类": {
-        "count": 32,
-        "pct": 39.5,
+        "count": 34,
+        "pct": 41.0,
         "target": 15.0,
         "over": true
       },
       "战报比分": {
         "count": 31,
-        "pct": 38.3,
+        "pct": 37.3,
         "target": 10.0,
         "over": true
       }
@@ -715,15 +1286,15 @@
   "mix_overshoot": [
     {
       "type": "战报比分",
-      "actual": 38.3,
+      "actual": 37.3,
       "target": 10.0,
-      "delta": 28.3
+      "delta": 27.3
     },
     {
       "type": "未分类",
-      "actual": 39.5,
+      "actual": 41.0,
       "target": 15.0,
-      "delta": 24.5
+      "delta": 26.0
     }
   ],
   "image_floor": {
@@ -734,14 +1305,14 @@
   "supply_layers": {
     "total": 2,
     "counts": {
-      "一级·确定性": 0,
+      "一级·确定性": 1,
       "二级·突发": 1,
-      "三级·软性": 1
+      "三级·软性": 0
     },
     "ratios": {
-      "一级·确定性": 0.0,
+      "一级·确定性": 50.0,
       "二级·突发": 50.0,
-      "三级·软性": 50.0
+      "三级·软性": 0.0
     },
     "targets": {
       "一级·确定性": 30.0,
@@ -749,13 +1320,13 @@
       "三级·软性": 20.0
     },
     "deviations": {
-      "一级·确定性": -30.0,
+      "一级·确定性": 20.0,
       "二级·突发": 0.0,
-      "三级·软性": 30.0
+      "三级·软性": -20.0
     },
     "unclassified": 0,
     "l3_breakdown": {
-      "data_driven": 1,
+      "data_driven": 0,
       "other": 0,
       "data_types": [
         "数据对比",
@@ -766,14 +1337,14 @@
   "degrade_events": [
     {
       "环节": "战报标题含比分",
-      "原因": "「英超半场1-0，诺丁汉森林把3-2做成答」",
+      "原因": "「德甲半场1-1埋伏笔，不来梅3-3门兴把」",
       "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
       "数量": 1
     },
     {
-      "环节": "反洗稿记分",
-      "原因": "与源文连续重合 19 字（>12，疑似洗稿）",
-      "处置": "不阻断发布，已记入 metadata 的 _anti_copy（v2 只记分）",
+      "环节": "隔夜战报",
+      "原因": "不来梅 vs 门兴 生成失败",
+      "处置": "本批不补战报，不拿软性内容顶替",
       "数量": 1
     },
     {
@@ -784,8 +1355,8 @@
     },
     {
       "环节": "配图补齐",
-      "原因": "真实图源只拿到 2 张",
-      "处置": "用 1 张原创信息图补到 3 张",
+      "原因": "真实图源只拿到 1 张",
+      "处置": "用 2 张原创信息图补到 3 张",
       "数量": 1
     },
     {
@@ -809,7 +1380,7 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "morning",
+    "batch": "noon",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
@@ -821,7 +1392,7 @@
     "detail": "常态 2 篇",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "llm",
+  "ranker_mode": "rule",
   "batch_mix": {
     "slots": [
       "main",
@@ -830,29 +1401,29 @@
     "picked": [
       {
         "slot": "main",
-        "type": "数据对比",
-        "title": "5次淘汰赛全败，国少这次能反转吗"
+        "type": "热点球评",
+        "title": "没想到韩媒3战全胜却撞上日本U17"
       },
       {
-        "slot": "extra",
-        "type": "转会资讯",
-        "title": "没想到B费续约条款竟不是留队保证"
+        "slot": "data",
+        "type": "数据对比",
+        "title": "原来亚洲9队出战只有卡塔尔越南出局"
       }
     ],
-    "degraded": [
-      "main 槽用次优类型补位",
-      "data 槽无可用候选（不凑数，本批少写 1 篇）"
-    ],
+    "degraded": [],
     "skipped": [],
-    "day_counts": {},
+    "day_counts": {
+      "战术榜单": 1,
+      "数据对比": 1
+    },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "morning"
+    "noon"
   ],
-  "last_batch": "morning",
-  "last_updated": "2026-11-28 08:17:10",
+  "last_batch": "noon",
+  "last_updated": "2026-11-28 12:06:05",
   "batches_completed": [
     "morning"
   ]
