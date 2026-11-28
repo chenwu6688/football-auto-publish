@@ -1,8 +1,8 @@
 {
   "version": 1,
   "date": "2026-11-28",
-  "generated_at": "2026-11-28 08:05:23",
-  "board_total": 131,
+  "generated_at": "2026-11-28 12:02:33",
+  "board_total": 130,
   "diag": {
     "providers": {
       "baidu": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.32
+        "elapsed_s": 1.25
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.04
+        "elapsed_s": 1.01
       },
       "dongqiudi": {
         "status": "empty",
         "count": 0,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.34
+        "elapsed_s": 0.43
       },
       "tieba": {
         "status": "ok",
-        "count": 30,
+        "count": 29,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 2.73
+        "elapsed_s": 1.4
       },
       "sina_sports": {
         "status": "disabled",
@@ -68,68 +68,7 @@
     "stale_dropped": 0,
     "unknown_time": 0
   },
-  "football_hits": [
-    {
-      "word": "国常会首提“国家队” 释放什么信号",
-      "rank": 2,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17世界杯亚洲9队出战7队晋级",
-      "rank": 8,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17世界杯亚洲区7队出线",
-      "rank": 10,
-      "heat": 129990,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "国家队抄底力度已超“924”",
-      "rank": 16,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17国足淘汰赛前景",
-      "rank": 39,
-      "heat": 64098,
-      "source": "weibo",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    },
-    {
-      "word": "U17国足历史首次对阵塞尔维亚",
-      "rank": 51,
-      "heat": 0,
-      "source": "baidu",
-      "kind": "board",
-      "url": "",
-      "published_at": "",
-      "entities": []
-    }
-  ],
+  "football_hits": [],
   "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
