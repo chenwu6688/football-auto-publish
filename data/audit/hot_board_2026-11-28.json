@@ -1,7 +1,7 @@
 {
   "version": 1,
   "date": "2026-11-28",
-  "generated_at": "2026-11-28 12:02:33",
+  "generated_at": "2026-11-28 18:02:34",
   "board_total": 130,
   "diag": {
     "providers": {
@@ -10,28 +10,28 @@
         "count": 50,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.25
+        "elapsed_s": 1.6
       },
       "weibo": {
         "status": "ok",
         "count": 51,
         "kind": "board",
         "tier": "P0",
-        "elapsed_s": 1.01
+        "elapsed_s": 1.03
       },
       "dongqiudi": {
         "status": "empty",
         "count": 0,
         "kind": "media",
         "tier": "P0",
-        "elapsed_s": 0.43
+        "elapsed_s": 0.56
       },
       "tieba": {
         "status": "ok",
         "count": 29,
         "kind": "ugc",
         "tier": "P0",
-        "elapsed_s": 1.4
+        "elapsed_s": 1.64
       },
       "sina_sports": {
         "status": "disabled",
@@ -68,7 +68,38 @@
     "stale_dropped": 0,
     "unknown_time": 0
   },
-  "football_hits": [],
+  "football_hits": [
+    {
+      "word": "国乒混团世界杯抽到上上签",
+      "rank": 11,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "央媒评梁靖崑加盟俄超方博去德甲",
+      "rank": 14,
+      "heat": 498390,
+      "source": "weibo",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    },
+    {
+      "word": "央媒评梁靖崑加盟俄超方博去德甲",
+      "rank": 21,
+      "heat": 0,
+      "source": "baidu",
+      "kind": "board",
+      "url": "",
+      "published_at": "",
+      "entities": []
+    }
+  ],
   "candidates": [],
   "note": "热搜词只作选题线索；候选必须带支撑报道才会被产出。football_hits 是榜单的足球切片，用于事后核对「今天到底热了什么」。"
 }
