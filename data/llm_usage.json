@@ -1,13 +1,13 @@
 {
   "_calibration_note": "2026-11-03 按 TokenHub「模型信息」三张截图全量同步（20 个模型）。口径：total_tokens = 1,000,000 × (100-剩余%)，free_quota_pct / free_quota_expires_at 原样落账，quota_synced_at 记快照时间。本次本地账本整体偏少（vision-exp 少记 9.0 万、step-5 少记 8.1 万、deepseek-flash 少记 7.7 万、0731 少记 7.5 万、glm-5.3-flash 少记 3.4 万），已按后台抬高——本地少记 = 会继续往一个其实快用完的模型上打请求，直接触发按量计费。hy3 后台「已停止 + 剩余 0% + 未启用」，标 disabled 且不写 total（写 100 万会污染用量排行）。mimo 系列后台 UI 显示 v2.5-pro，API ID 是 mimo-v2.6-pro，账本用 ui_name 记 UI 名防对账错位。**2026-11-03 起同步一律走 scripts/sync_llm_quota.py 消费 data/llm_quota_snapshot.json，不再手改本文件。**历史（2026-10-26）：剔除后台无免费体验额度的 glm-5.2 / kimi-k2.7-code-highspeed / deepseek-v4-pro-202606（/v1/models 里有 ≠ 有免费额度，实测不报错、直接扣钱）；fail_streak 加 24h 衰减，避免一次性故障被当成永久拉黑。",
   "kimi-k3": {
-    "prompt_tokens": 447,
-    "completion_tokens": 591,
-    "total_tokens": 226000,
-    "fail_streak": 19,
+    "prompt_tokens": 746,
+    "completion_tokens": 1336,
+    "total_tokens": 227044,
+    "fail_streak": 1,
     "free_quota_pct": 77.4,
     "free_quota_expires_at": "2027-08-11 11:04:10",
-    "last_fail_at": "2026-11-27T08:04:40+08:00",
+    "last_fail_at": "2026-11-28T08:06:23+08:00",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000
   },
@@ -26,10 +26,10 @@
     "prompt_tokens": 2575,
     "completion_tokens": 3165,
     "total_tokens": 127000,
-    "fail_streak": 7,
+    "fail_streak": 8,
     "free_quota_pct": 87.3,
     "free_quota_expires_at": "2027-08-27 13:40:03",
-    "last_fail_at": "2026-11-27T08:05:30+08:00",
+    "last_fail_at": "2026-11-28T08:08:27+08:00",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000
   },
@@ -37,10 +37,10 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 78000,
-    "fail_streak": 16,
+    "fail_streak": 17,
     "free_quota_pct": 92.2,
     "free_quota_expires_at": "2027-09-14 09:24:30",
-    "last_fail_at": "2026-11-27T08:06:23+08:00",
+    "last_fail_at": "2026-11-28T08:09:27+08:00",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000
   },
@@ -113,12 +113,12 @@
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 46000,
-    "fail_streak": 4,
+    "fail_streak": 5,
     "free_quota_pct": 95.4,
     "free_quota_expires_at": "2027-09-27 10:07:07",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000,
-    "last_fail_at": "2026-11-27T08:06:34+08:00"
+    "last_fail_at": "2026-11-28T08:09:55+08:00"
   },
   "step-5-preview": {
     "prompt_tokens": 26491,
@@ -165,34 +165,34 @@
     "prompt_tokens": 299,
     "completion_tokens": 750,
     "total_tokens": 6049,
-    "fail_streak": 2,
+    "fail_streak": 3,
     "free_quota_pct": 99.5,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000,
-    "last_fail_at": "2026-11-27T08:07:34+08:00"
+    "last_fail_at": "2026-11-28T08:11:28+08:00"
   },
   "kimi-k3.1-pro-highspeed": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 17000,
-    "fail_streak": 4,
+    "fail_streak": 5,
     "free_quota_pct": 98.3,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000,
-    "last_fail_at": "2026-11-27T08:07:55+08:00"
+    "last_fail_at": "2026-11-28T08:12:28+08:00"
   },
   "minimax-m3.1-flash": {
     "prompt_tokens": 0,
     "completion_tokens": 0,
     "total_tokens": 18000,
-    "fail_streak": 4,
+    "fail_streak": 5,
     "free_quota_pct": 98.2,
     "free_quota_expires_at": "2027-10-26 09:32:41",
     "quota_synced_at": "2026-11-23 10:29:06",
     "free_quota_total_tokens": 1000000,
-    "last_fail_at": "2026-11-27T08:08:10+08:00"
+    "last_fail_at": "2026-11-28T08:13:05+08:00"
   },
   "deepseek-v4.1-flash-1017": {
     "prompt_tokens": 0,
@@ -217,9 +217,9 @@
     "free_quota_total_tokens": 1000000
   },
   "hy4": {
-    "total_tokens": 2617681,
-    "prompt_tokens": 188146,
-    "completion_tokens": 50143,
+    "total_tokens": 2651868,
+    "prompt_tokens": 212280,
+    "completion_tokens": 60196,
     "free_quota_pct": 76.2,
     "free_quota_total_tokens": 10000000,
     "free_quota_expires_at": "2027-11-09 11:41:10",
@@ -236,8 +236,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-23 10:29:06",
-    "fail_streak": 4,
-    "last_fail_at": "2026-11-27T08:03:21+08:00"
+    "fail_streak": 5,
+    "last_fail_at": "2026-11-28T08:04:30+08:00"
   },
   "minimax-m3": {
     "total_tokens": 143000,
@@ -247,8 +247,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-23 10:29:06",
-    "fail_streak": 8,
-    "last_fail_at": "2026-11-27T08:03:40+08:00"
+    "fail_streak": 9,
+    "last_fail_at": "2026-11-28T08:04:55+08:00"
   },
   "deepseek-v4-pro-202606": {
     "total_tokens": 834000,
@@ -280,8 +280,8 @@
     "free_quota_total_tokens": 1000000,
     "free_quota_expires_at": "2027-08-11 11:04:10",
     "quota_synced_at": "2026-11-23 10:29:06",
-    "fail_streak": 3,
-    "last_fail_at": "2026-11-27T08:04:54+08:00"
+    "fail_streak": 4,
+    "last_fail_at": "2026-11-28T08:06:48+08:00"
   },
   "kimi-k2.7-code": {
     "total_tokens": 0,
