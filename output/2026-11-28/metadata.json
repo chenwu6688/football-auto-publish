@@ -1,7 +1,7 @@
 {
   "date": "2026-11-28",
-  "generated_at": "2026-11-28T04:06:05.730620",
-  "total_articles": 4,
+  "generated_at": "2026-11-28T10:03:37.426096",
+  "total_articles": 6,
   "articles": [
     {
       "index": 1,
@@ -1146,97 +1146,662 @@
         "images": 3,
         "degraded": []
       }
+    },
+    {
+      "index": 1,
+      "title": "西甲瓦伦西亚 vs 奥萨苏纳，聚光灯照不到布迪米尔",
+      "path": "/home/runner/work/_temp/output/2026-11-28/article-1-西甲瓦伦西亚vs-ab098f.md",
+      "slug": "西甲瓦伦西亚vs-ab098f",
+      "tags": [
+        "Valencia",
+        "Osasuna",
+        "LaLiga",
+        "Budimir",
+        "data contrast"
+      ],
+      "keywords": [
+        "Valencia",
+        "Osasuna",
+        "LaLiga",
+        "Budimir",
+        "data contrast"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-28/images/article-1-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-1-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-1-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [
+        {
+          "file": "article-1-img-001.jpg",
+          "variant": "title",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "variant": "points",
+          "theme": "navy"
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "variant": "numbers",
+          "theme": "navy"
+        }
+      ],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-1-img-001.jpg",
+          "kind": "card:title",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-002.jpg",
+          "kind": "card:points",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        },
+        {
+          "file": "article-1-img-003.jpg",
+          "kind": "card:numbers",
+          "url": "",
+          "origin": {},
+          "width": 1200,
+          "height": 675
+        }
+      ],
+      "_gate": null,
+      "_title_score": null,
+      "_anti_copy": null,
+      "_fidelity": null,
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 8,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "metadata 无 _gate.fact（这篇没经过 v2 闸门或被清空）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "无相似度/信息增量记录（未走改写路径或未记分）",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "26 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "football-data.org/v4 (赛程/积分榜/射手榜)"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "数据对比",
+      "topic_category": "未分类",
+      "column_id": "fan-life",
+      "column_name": "球迷众生相",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "一级·确定性",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "明示对比"
+        ],
+        "proper_nouns": [
+          "布迪米尔",
+          "瓦伦西亚",
+          "奥萨苏纳",
+          "西甲"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 77,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1763,
+        "han_len": 1264,
+        "paragraphs": 15,
+        "headings": 5,
+        "bullets": 0,
+        "quotes": 10,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
+    },
+    {
+      "index": 2,
+      "title": "原来巴尔德去利物浦，经纪人会面比报价更关键",
+      "path": "/home/runner/work/_temp/output/2026-11-28/article-2-原来巴尔德去利物-994a79.md",
+      "slug": "原来巴尔德去利物-994a79",
+      "tags": [
+        "Liverpool",
+        "Alejandro Balde",
+        "Jorge Mendes",
+        "Barcelona",
+        "loan with buy option",
+        "winter window"
+      ],
+      "keywords": [
+        "Liverpool",
+        "Alejandro Balde",
+        "Jorge Mendes",
+        "Barcelona",
+        "loan with buy option",
+        "winter window"
+      ],
+      "images": [
+        "/home/runner/work/_temp/output/2026-11-28/images/article-2-img-001.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-2-img-002.jpg",
+        "/home/runner/work/_temp/output/2026-11-28/images/article-2-img-003.jpg"
+      ],
+      "image_anchors": [],
+      "image_cards": [],
+      "image_shortfall": null,
+      "image_provenance": [
+        {
+          "file": "article-2-img-001.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_251130/692b43bc53c37.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-28/6b0aa1fed62b9native.htm",
+            "query": "利物浦",
+            "alt": "每体：利物浦有意巴尔德，已和球员经纪人会面商谈租借+买断"
+          },
+          "width": 1200,
+          "height": 799
+        },
+        {
+          "file": "article-2-img-002.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/news/day_261128/202611281325239295.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-28/6b0a655906befnative.htm",
+            "query": "利物浦",
+            "alt": "尼奥尼：从我来到利物浦的第一天起，范戴克就一直在支持和帮助我"
+          },
+          "width": 750,
+          "height": 473
+        },
+        {
+          "file": "article-2-img-003.jpg",
+          "kind": "news_body",
+          "url": "https://tu.duoduocdn.com/uploads/day_250427/680d091e1ea4d.jpg",
+          "origin": {
+            "article_url": "https://news.zhibo8.com/zuqiu/2026-11-28/6b0a3e2113e9bnative.htm",
+            "query": "利物浦",
+            "alt": "莫耶斯：埃弗顿与利物浦之间的差距从未像现在这样大"
+          },
+          "width": 750,
+          "height": 499
+        }
+      ],
+      "_gate": {
+        "fact": {
+          "mode": "v2",
+          "judged": false,
+          "contradictions": [],
+          "suspicious": [],
+          "missing": [
+            "事实卡为空"
+          ],
+          "coverage": 0.0,
+          "legacy_issues": [],
+          "subject": "利物浦追巴尔德，没想到租借+买断摆上台面",
+          "legacy_conflicts": []
+        }
+      },
+      "_title_score": {
+        "score": 73,
+        "ok": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作",
+          "与板块[转会资讯]关键词不匹配",
+          "R11数据:标题含悬念词「没想到」，回测点击率 +87%"
+        ],
+        "judged": true
+      },
+      "_anti_copy": null,
+      "_fidelity": {
+        "ok": true,
+        "issues": []
+      },
+      "_interaction": null,
+      "_consistency": null,
+      "_compliance": {
+        "drop": false,
+        "blocked_by": [],
+        "risk_score": 0,
+        "judged": 9,
+        "total": 14,
+        "verdicts": [
+          {
+            "id": "TT-01",
+            "name": "违反法律法规和相关政策",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无博彩话术、合规未熔断",
+            "hits": []
+          },
+          {
+            "id": "TT-02",
+            "name": "发布谣言或不实内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-03",
+            "name": "旧闻新发 / 旧闻翻炒 / 发布已过时效内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "not_judged",
+            "detail": "无 publish_by / source_age_hours 证据；素材侧由 hot_sources 36h 闸门覆盖",
+            "hits": []
+          },
+          {
+            "id": "TT-04",
+            "name": "标题党（严重 70 / 一般 20 / 轻微 10）",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无耸动词、无传闻断言（未覆盖：「标题与内容原意有偏差」这一子类没有判据（需要标题↔正文语义比对）。 当前只覆盖…）",
+            "hits": []
+          },
+          {
+            "id": "TT-05",
+            "name": "内容中关键信息与事实不符",
+            "tier": "block",
+            "credit": 20,
+            "status": "not_judged",
+            "detail": "闸门判 judged=False（空事实卡，未判定 ≠ 通过）",
+            "hits": []
+          },
+          {
+            "id": "TT-06",
+            "name": "抄袭侵权（洗稿 / 搬运 / 整合汇编）",
+            "tier": "rewrite",
+            "credit": 20,
+            "status": "pass",
+            "detail": "相似度 0 字 / 4%，未达重度线",
+            "hits": []
+          },
+          {
+            "id": "TT-07",
+            "name": "诱导交互",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-08",
+            "name": "违规涨粉 / 引导互粉",
+            "tier": "block",
+            "credit": 20,
+            "status": "pass",
+            "detail": "无诱导话术",
+            "hits": []
+          },
+          {
+            "id": "TT-09",
+            "name": "图文不符 / 相关性差",
+            "tier": "block",
+            "credit": 10,
+            "status": "n/a",
+            "detail": "本篇无数据图锚点（只有信息图/新闻图），本条不适用",
+            "hits": []
+          },
+          {
+            "id": "TT-10",
+            "name": "格式低质",
+            "tier": "rewrite",
+            "credit": 10,
+            "status": "pass",
+            "detail": "27 段，无乱码与重复段",
+            "hits": []
+          },
+          {
+            "id": "TT-11",
+            "name": "失实表述（含 AI 生成未标识）",
+            "tier": "block",
+            "credit": 10,
+            "status": "pass",
+            "detail": "正文含 AI 标识",
+            "hits": []
+          },
+          {
+            "id": "TT-12",
+            "name": "违规声明头条首发",
+            "tier": "pass",
+            "credit": 5,
+            "status": "pass",
+            "detail": "单平台（仅头条号）：72 小时内仅在头条发布客观成立",
+            "hits": []
+          },
+          {
+            "id": "TT-13",
+            "name": "无资质发布专业领域内容",
+            "tier": "block",
+            "credit": 70,
+            "status": "pass",
+            "detail": "无时政类表述",
+            "hits": []
+          },
+          {
+            "id": "TT-14",
+            "name": "低质 AIGC（账号级处置）",
+            "tier": "warn",
+            "credit": 0,
+            "status": "not_judged",
+            "detail": "批量级判据（需 ≥5 篇可比样本），出口单篇不判；由发布前 verify_compliance 与每日层负责",
+            "hits": []
+          }
+        ]
+      },
+      "sources_used": [
+        "直播吧 zhibo8.cc"
+      ],
+      "source_post": "",
+      "originality_note": "",
+      "content_type": "转会资讯",
+      "topic_category": "转会官宣",
+      "column_id": "world-cup-daily",
+      "column_name": "世界杯日报",
+      "batch_name": "晚间",
+      "is_prediction": false,
+      "prediction_basis": 0,
+      "prediction_basis_items": [],
+      "is_recap": false,
+      "supply_layer": "二级·突发",
+      "title_elements": {
+        "numbers": [],
+        "contrasts": [
+          "比较级",
+          "反差"
+        ],
+        "proper_nouns": [
+          "利物浦"
+        ],
+        "has_number": false,
+        "has_contrast": true,
+        "has_proper": true,
+        "count": 2
+      },
+      "title_gate": {
+        "question_ending": false,
+        "fallback": "",
+        "anchor_kinds": [],
+        "anchor_repick": false,
+        "score": 83,
+        "pass": true,
+        "reasons": [
+          "无过程锚点(建议写第几分钟/连进几球/谁被换下)",
+          "缺冲突/反差动作"
+        ],
+        "quota": {
+          "limit": 2,
+          "used": 0,
+          "exhausted": false
+        }
+      },
+      "content_stats": {
+        "chars": 1218,
+        "han_len": 899,
+        "paragraphs": 16,
+        "headings": 3,
+        "bullets": 0,
+        "quotes": 5,
+        "tags": [],
+        "cta": true,
+        "images": 3,
+        "degraded": []
+      }
     }
   ],
   "topics": [
     {
-      "title": "没想到韩媒3战全胜却撞上日本U17",
-      "angle": "韩媒原本带着幸灾乐祸的口气看抽签，结果日韩淘汰赛直接碰面。老球迷都懂，亚洲内战最不讲情面，嘴上轻松，脚下一点不轻松。",
+      "title": "亚冠第5轮最佳阵，菲利克斯赖因德斯领衔安佩姆入围",
+      "angle": "借官方最佳阵做数据对比：菲利克斯、赖因德斯、安佩姆三条线同框，别只盯大牌，亚洲赛场里谁把一轮比赛踢成名片才值钱；观点很明确，榜单不是热闹，是身价和话语权的照妖镜。",
       "keywords": [
-        "Korea U17",
-        "Japan U17",
-        "Asian derby",
-        "knockout draw"
+        "AFC Champions League Elite",
+        "Matchday 5 Best XI",
+        "Joao Felix",
+        "Tijjani Reijnders"
       ],
       "keywords_cn": [
-        "韩国U17",
-        "日本U17",
-        "亚洲内战",
-        "淘汰赛抽签"
-      ],
-      "content_type": "热点球评",
-      "score": 86,
-      "controversy_level": "high",
-      "target_emotion": "好奇",
-      "resonance_angle": "老球迷身份认同",
-      "series_id": "无",
-      "why_pick": "韩媒反差足，日韩内战有聊头",
-      "_category": "未分类",
-      "_column_id": "wu-jian-kuai-xun",
-      "_column_name": "午间快讯",
-      "_column_icon": "⚡",
-      "_writing_style": "群聊播报体",
-      "_style_detail": "3-5条消息，每条3-5句。格式：【事件概述】+ 一句话老六辣评。短句、快节奏、有信息量但不啰嗦。每条独立成块。",
-      "_word_count_range": [
-        300,
-        500
-      ],
-      "_interaction_type": "prediction_poll",
-      "_interaction_guidance": "文末列三个选项让读者挑：'今天上午最劲爆的消息是？A.XX B.XX C.XX，我选A，你呢？'",
-      "_topic_domain": "足球快讯",
-      "_topic_guidance": "上午最新足球消息精选：比赛结果、转会动态、突发事件。用短句快节奏呈现，每条独立成块，每条包含事件概述+一句话老六辣评。像中午在食堂打开手机扫一眼就知道上午发生了什么。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
-      "_rank_id": "topic-0"
-    },
-    {
-      "title": "原来亚洲9队出战只有卡塔尔越南出局",
-      "angle": "拿9队出战、仅卡塔尔和越南小组出局这组数字做横向对比，重点不是吹谁，而是问一句：同样起步，为什么有的能扛住淘汰赛，有的连门槛都没摸到？",
-      "keywords": [
-        "Asian teams",
-        "Qatar U17",
-        "Vietnam U17",
-        "group stage exit"
-      ],
-      "keywords_cn": [
-        "亚洲9队",
-        "卡塔尔U17",
-        "越南U17",
-        "小组出局"
+        "亚冠精英联赛",
+        "第5轮最佳阵",
+        "菲利克斯",
+        "赖因德斯"
       ],
       "content_type": "数据对比",
-      "score": 82,
+      "score": 86,
       "controversy_level": "medium",
       "target_emotion": "好奇",
-      "resonance_angle": "国足情结",
-      "series_id": "guozu-chronicle",
-      "why_pick": "数字对比清楚，接国字号记忆",
+      "resonance_angle": "老球迷身份认同",
+      "series_id": "old-fan-night",
+      "why_pick": "榜单自带可核对名单与轮次",
       "_category": "未分类",
-      "_column_id": "re-dian-su-ping",
-      "_column_name": "热点速评",
+      "_column_id": "laoliu-hot-take",
+      "_column_name": "老六辣评",
       "_column_icon": "🔥",
-      "_writing_style": "赛后快刀体",
-      "_style_detail": "直接砸观点不铺垫 → 2-3个论据支撑 → 亮明立场。像从沙发上跳起来说的第一句话，锋利不留余地。500字以内，短平快。",
+      "_writing_style": "脱口秀吐槽体",
+      "_style_detail": "像足球吐槽大会的单人版。开篇直接开火，用事实当子弹。可以有情绪但不能只有情绪——每句吐槽后面跟一句事实依据。节奏像脱口秀，有铺垫有爆点。结尾让人想截图转发。",
       "_word_count_range": [
         400,
         600
       ],
       "_interaction_type": "side_taking_vote",
-      "_interaction_guidance": "文末说：'我这话是不是太极端了？你先说说你的判断，我先来——…'",
-      "_topic_domain": "足球热点评论",
-      "_topic_guidance": "从上午的比赛/新闻中选一个最值得聊的话题，快速给出观点和点评。不是深度分析，是'看完比赛后和朋友说的第一句话'。可以是一场精彩比赛的快速复盘，也可以是一个转会传闻的犀利点评。",
-      "_data_source_hint": "match_preferred",
-      "_batch_name": "午间",
-      "_batch_time": "12:00",
-      "_reader_scenario": "午休刷手机，需要快速了解上午发生了什么",
-      "_overall_tone": "信息密度高、快节奏、适合午休碎片阅读",
+      "_interaction_guidance": "文末邀请反驳：'同意我的，说说你的理由；觉得我在瞎说的，更要说。评论区见。'",
+      "_topic_domain": "足球热点辣评",
+      "_topic_guidance": "当天最热的一个足球话题，给出老六的犀利观点。可以怼人、可以拆台、可以力排众议。但要基于事实，怼得有道理。适合：某队的迷之操作、某球员的争议表现、某教练的神奇换人、某媒体的双标报道。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
       "_rank_id": "topic-1"
     },
     {
-      "title": "英超水晶宫vs赫尔城，被盯着的水晶宫与更想赢的赫尔城主帅",
+      "title": "利物浦追巴尔德，没想到租借+买断摆上台面",
+      "angle": "从《每体》披露的经纪人会面谈起，别把租借+买断当小修小补，利物浦这是把补强算盘打到了合同结构上；老球迷看转会，最怕只看名字不看账本。",
+      "keywords": [
+        "Liverpool",
+        "Alejandro Balde",
+        "loan with option",
+        "agent meeting"
+      ],
+      "keywords_cn": [
+        "利物浦",
+        "巴尔德",
+        "租借加买断",
+        "经纪人会面"
+      ],
+      "content_type": "转会资讯",
+      "score": 92,
+      "controversy_level": "medium",
+      "target_emotion": "好奇",
+      "resonance_angle": "名帅名宿沉浮",
+      "series_id": "无",
+      "why_pick": "夏窗外仍有豪门补强争议",
+      "_category": "转会官宣",
+      "_column_id": "world-cup-daily",
+      "_column_name": "世界杯日报",
+      "_column_icon": "📰",
+      "_writing_style": "快讯集锦体",
+      "_style_detail": "像在看赛后集锦的文字版。按比赛分块，每块2-3句话+一个记忆点。快节奏有信息量有观点。开头一句话总结今天世界杯的主旋律。非世界杯期间可改为当日俱乐部比赛集锦。",
+      "_word_count_range": [
+        400,
+        600
+      ],
+      "_interaction_type": "prediction_poll",
+      "_interaction_guidance": "文末预测明天比赛：'明天XX对XX，你觉得谁能赢？评论区说说你的判断，我先来——…'",
+      "_topic_domain": "世界杯日报",
+      "_topic_guidance": "当天世界杯比赛的高光时刻、冷门结果、名场面汇总。像赛后集锦的文字版，给下班没看球的读者补课。覆盖当天世界杯关键节点，每场2-3句话抓重点，开头一句话总结今天的'主旋律'。",
+      "_data_source_hint": "gzh_only",
+      "_batch_name": "晚间",
+      "_batch_time": "18:00",
+      "_reader_scenario": "下班通勤/晚饭后刷手机，需要爽感和谈资",
+      "_overall_tone": "有观点、有情绪、适合截图转发和评论区讨论",
+      "_rank_id": "topic-0"
+    },
+    {
+      "title": "西甲瓦伦西亚 vs 奥萨苏纳，聚光灯照不到布迪米尔",
       "content_type": "数据对比",
       "_is_fixture": true
     }
@@ -1247,19 +1812,19 @@
       "2026-11-15",
       "2026-11-28"
     ],
-    "n": 83,
+    "n": 85,
     "batch_n": 2,
     "ok": false,
     "table": {
       "转会官宣": {
-        "count": 8,
-        "pct": 9.6,
+        "count": 9,
+        "pct": 10.6,
         "target": 30.0,
         "over": false
       },
       "中国足球": {
         "count": 9,
-        "pct": 10.8,
+        "pct": 10.6,
         "target": 25.0,
         "over": false
       },
@@ -1270,14 +1835,14 @@
         "over": false
       },
       "未分类": {
-        "count": 34,
-        "pct": 41.0,
+        "count": 35,
+        "pct": 41.2,
         "target": 15.0,
         "over": true
       },
       "战报比分": {
         "count": 31,
-        "pct": 37.3,
+        "pct": 36.5,
         "target": 10.0,
         "over": true
       }
@@ -1286,15 +1851,15 @@
   "mix_overshoot": [
     {
       "type": "战报比分",
-      "actual": 37.3,
+      "actual": 36.5,
       "target": 10.0,
-      "delta": 27.3
+      "delta": 26.5
     },
     {
       "type": "未分类",
-      "actual": 41.0,
+      "actual": 41.2,
       "target": 15.0,
-      "delta": 26.0
+      "delta": 26.2
     }
   ],
   "image_floor": {
@@ -1336,36 +1901,6 @@
   },
   "degrade_events": [
     {
-      "环节": "战报标题含比分",
-      "原因": "「德甲半场1-1埋伏笔，不来梅3-3门兴把」",
-      "处置": "兜底放行，但记入待复盘（R11 口径：比分式标题 CTR 0.49%）",
-      "数量": 1
-    },
-    {
-      "环节": "隔夜战报",
-      "原因": "不来梅 vs 门兴 生成失败",
-      "处置": "本批不补战报，不拿软性内容顶替",
-      "数量": 1
-    },
-    {
-      "环节": "标题评分记分",
-      "原因": "0分：[三要素] 标题信息量不足（三要素只命中 2/3，下限 2 项且须含专名）。缺：一个可检索的专名（球",
-      "处置": "不阻断发布，已尝试重拟与三要素兜底（v2 只记分）",
-      "数量": 1
-    },
-    {
-      "环节": "配图补齐",
-      "原因": "真实图源只拿到 1 张",
-      "处置": "用 2 张原创信息图补到 3 张",
-      "数量": 1
-    },
-    {
-      "环节": "标题三要素",
-      "原因": "缺可用数字/专名，拼不出兜底标题",
-      "处置": "保留原题发布，metadata 记 title_elements.count",
-      "数量": 1
-    },
-    {
       "环节": "封面兜底",
       "原因": "图源全断，改用标题数据卡",
       "处置": "已配图发布；数据卡只兜底观感，不替代真实图",
@@ -1380,19 +1915,19 @@
   ],
   "type": "match_analysis",
   "quota": {
-    "batch": "noon",
+    "batch": "evening",
     "max_articles": 2,
     "uplifted": false,
     "reason": null,
     "requested_reason": null,
     "normal_max": 2,
-    "uplift_max": 3,
+    "uplift_max": 2,
     "weekly_limit": 2,
     "weekly_used": 2,
-    "detail": "常态 2 篇",
+    "detail": "常态 2 篇（该批次不加发）",
     "source": "策略手册 第五章 / 完善计划 12.1"
   },
-  "ranker_mode": "rule",
+  "ranker_mode": "llm",
   "batch_mix": {
     "slots": [
       "main",
@@ -1401,29 +1936,33 @@
     "picked": [
       {
         "slot": "main",
-        "type": "热点球评",
-        "title": "没想到韩媒3战全胜却撞上日本U17"
+        "type": "数据对比",
+        "title": "亚冠第5轮最佳阵，菲利克斯赖因德斯领衔安佩姆入围"
       },
       {
-        "slot": "data",
-        "type": "数据对比",
-        "title": "原来亚洲9队出战只有卡塔尔越南出局"
+        "slot": "extra",
+        "type": "转会资讯",
+        "title": "利物浦追巴尔德，没想到租借+买断摆上台面"
       }
     ],
-    "degraded": [],
+    "degraded": [
+      "main 槽用次优类型补位",
+      "data 槽无可用候选（不凑数，本批少写 1 篇）"
+    ],
     "skipped": [],
     "day_counts": {
       "战术榜单": 1,
-      "数据对比": 1
+      "数据对比": 2,
+      "热点球评": 1
     },
     "selected": 2,
     "requested": 2
   },
   "batches_generated": [
-    "noon"
+    "evening"
   ],
-  "last_batch": "noon",
-  "last_updated": "2026-11-28 12:08:39",
+  "last_batch": "evening",
+  "last_updated": "2026-11-28 18:03:37",
   "batches_completed": [
     "morning",
     "noon"
